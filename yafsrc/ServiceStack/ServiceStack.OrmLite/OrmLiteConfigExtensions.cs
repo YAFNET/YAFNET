@@ -1,13 +1,9 @@
-﻿//
-// ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2013 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="OrmLiteConfigExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 namespace ServiceStack.OrmLite
 {
@@ -21,10 +17,21 @@ namespace ServiceStack.OrmLite
     using ServiceStack.OrmLite.Converters;
     using ServiceStack.Text;
 
+    /// <summary>
+    /// Class OrmLiteConfigExtensions.
+    /// </summary>
     internal static class OrmLiteConfigExtensions
     {
+        /// <summary>
+        /// The type model definition map
+        /// </summary>
         private static Dictionary<Type, ModelDefinition> typeModelDefinitionMap = new ();
 
+        /// <summary>
+        /// Checks for identifier field.
+        /// </summary>
+        /// <param name="objProperties">The object properties.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal static bool CheckForIdField(IEnumerable<PropertyInfo> objProperties)
         {
             // Not using Linq.Where() and manually iterating through objProperties just to avoid dependencies on System.Xml??
@@ -36,11 +43,21 @@ namespace ServiceStack.OrmLite
             return false;
         }
 
+        /// <summary>
+        /// Clears the cache.
+        /// </summary>
         internal static void ClearCache()
         {
             typeModelDefinitionMap = new Dictionary<Type, ModelDefinition>();
         }
 
+        /// <summary>
+        /// Gets the model definition.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <returns>ModelDefinition.</returns>
+        /// <exception cref="System.NotSupportedException">[AutoIncrement] is only valid for integer properties for {modelType.Name}.{propertyInfo.Name} Guid property use [AutoId] instead</exception>
+        /// <exception cref="System.NotSupportedException">[AutoId] is only valid for Guid properties for {modelType.Name}.{propertyInfo.Name} integer property use [AutoIncrement] instead</exception>
         internal static ModelDefinition GetModelDefinition(this Type modelType)
         {
             if (typeModelDefinitionMap.TryGetValue(modelType, out var modelDef))
@@ -275,6 +292,12 @@ namespace ServiceStack.OrmLite
             return modelDef;
         }
 
+        /// <summary>
+        /// Calculates the length of the string.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="decimalAttribute">The decimal attribute.</param>
+        /// <returns>StringLengthAttribute.</returns>
         public static StringLengthAttribute CalculateStringLength(this PropertyInfo propertyInfo, DecimalLengthAttribute decimalAttribute)
         {
             var attr = propertyInfo.FirstAttribute<StringLengthAttribute>();

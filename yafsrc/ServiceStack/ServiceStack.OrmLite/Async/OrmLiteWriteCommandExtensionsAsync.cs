@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="OrmLiteWriteCommandExtensionsAsync.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 #if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
@@ -16,22 +22,60 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
+    /// <summary>
+    /// Class OrmLiteWriteCommandExtensionsAsync.
+    /// </summary>
     internal static class OrmLiteWriteCommandExtensionsAsync
     {
+        /// <summary>
+        /// The log
+        /// </summary>
         internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteWriteCommandExtensionsAsync));
 
+        /// <summary>
+        /// Executes the SQL asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token) =>
             dbCmd.SetParameters(sqlParams).ExecuteSqlAsync(sql, (Action<IDbCommand>)null, token);
 
+        /// <summary>
+        /// Executes the SQL asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
             return dbCmd.SetParameters(sqlParams).ExecuteSqlAsync(sql, commandFilter, token);
         }
 
+        /// <summary>
+        /// Executes the SQL asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, CancellationToken token) =>
             dbCmd.ExecuteSqlAsync(sql, (Action<IDbCommand>)null, token);
 
+        /// <summary>
+        /// Executes the SQL asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
@@ -50,9 +94,26 @@ namespace ServiceStack.OrmLite
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
 
+        /// <summary>
+        /// Executes the SQL asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token) =>
             dbCmd.ExecuteSqlAsync(sql, anonType, null, token);
 
+        /// <summary>
+        /// Executes the SQL asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, object anonType,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
@@ -74,16 +135,43 @@ namespace ServiceStack.OrmLite
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
 
+        /// <summary>
+        /// Updates the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> UpdateAsync<T>(this IDbCommand dbCmd, T obj, CancellationToken token, Action<IDbCommand> commandFilter = null)
         {
             return dbCmd.UpdateInternalAsync<T>(obj, token, commandFilter);
         }
 
+        /// <summary>
+        /// Updates the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> UpdateAsync<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, CancellationToken token, Action<IDbCommand> commandFilter = null)
         {
             return dbCmd.UpdateInternalAsync<T>(obj, token, commandFilter);
         }
 
+        /// <summary>
+        /// Update internal as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         internal static async Task<int> UpdateInternalAsync<T>(this IDbCommand dbCmd, object obj, CancellationToken token, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -100,6 +188,16 @@ namespace ServiceStack.OrmLite
             return await dbCmd.UpdateAndVerifyAsync<T>(commandFilter, hadRowVersion, token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Update and verify as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="hadRowVersion">if set to <c>true</c> [had row version].</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
         internal static async Task<int> UpdateAndVerifyAsync<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, bool hadRowVersion, CancellationToken token)
         {
             commandFilter?.Invoke(dbCmd);
@@ -111,11 +209,30 @@ namespace ServiceStack.OrmLite
             return rowsUpdated;
         }
 
+        /// <summary>
+        /// Updates the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="objs">The objs.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> UpdateAsync<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, CancellationToken token, T[] objs)
         {
             return dbCmd.UpdateAllAsync(objs, commandFilter, token);
         }
 
+        /// <summary>
+        /// Update all as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
         internal static async Task<int> UpdateAllAsync<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -156,6 +273,14 @@ namespace ServiceStack.OrmLite
             return count;
         }
 
+        /// <summary>
+        /// Assert rows updated as an asynchronous operation.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="hadRowVersion">if set to <c>true</c> [had row version].</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
         private static async Task<int> AssertRowsUpdatedAsync(IDbCommand dbCmd, bool hadRowVersion, CancellationToken token)
         {
             var rowsUpdated = await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
@@ -165,11 +290,27 @@ namespace ServiceStack.OrmLite
             return rowsUpdated;
         }
 
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="filter">The filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteAsync<T>(this IDbCommand dbCmd, T filter, CancellationToken token)
         {
             return dbCmd.DeleteAsync<T>((object)filter, token);
         }
 
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteAsync<T>(this IDbCommand dbCmd, object anonType, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -184,6 +325,14 @@ namespace ServiceStack.OrmLite
             return AssertRowsUpdatedAsync(dbCmd, hadRowVersion, token);
         }
 
+        /// <summary>
+        /// Deletes the non defaults asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="filter">The filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteNonDefaultsAsync<T>(this IDbCommand dbCmd, T filter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -197,6 +346,14 @@ namespace ServiceStack.OrmLite
             return AssertRowsUpdatedAsync(dbCmd, hadRowVersion, token);
         }
 
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="objs">The objs.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteAsync<T>(this IDbCommand dbCmd, CancellationToken token, params T[] objs)
         {
             if (objs.Length == 0)
@@ -205,6 +362,14 @@ namespace ServiceStack.OrmLite
             return DeleteAllAsync(dbCmd, objs, fieldValuesFn: null, token: token);
         }
 
+        /// <summary>
+        /// Deletes the non defaults asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="filters">The filters.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteNonDefaultsAsync<T>(this IDbCommand dbCmd, CancellationToken token, params T[] filters)
         {
             if (filters.Length == 0)
@@ -213,6 +378,16 @@ namespace ServiceStack.OrmLite
             return DeleteAllAsync(dbCmd, filters, o => o.AllFieldsMap<T>().NonDefaultsOnly(), token: token);
         }
 
+        /// <summary>
+        /// Delete all as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="fieldValuesFn">The field values function.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         private static async Task<int> DeleteAllAsync<T>(IDbCommand dbCmd, IEnumerable<T> objs, Func<object, Dictionary<string, object>> fieldValuesFn = null,
             Action<IDbCommand> commandFilter = null, CancellationToken token = default)
         {
@@ -250,6 +425,15 @@ namespace ServiceStack.OrmLite
             return count;
         }
 
+        /// <summary>
+        /// Deletes the by identifier asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteByIdAsync<T>(this IDbCommand dbCmd, object id,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
@@ -259,6 +443,17 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteSqlAsync(sql, commandFilter, token);
         }
 
+        /// <summary>
+        /// Delete by identifier as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="rowVersion">The row version.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException">The row was modified or deleted since the last read</exception>
         internal static async Task DeleteByIdAsync<T>(this IDbCommand dbCmd, object id, ulong rowVersion,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
@@ -271,6 +466,15 @@ namespace ServiceStack.OrmLite
                 throw new OptimisticConcurrencyException("The row was modified or deleted since the last read");
         }
 
+        /// <summary>
+        /// Deletes the by ids asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="idValues">The identifier values.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteByIdsAsync<T>(this IDbCommand dbCmd, IEnumerable idValues,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
@@ -283,17 +487,40 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteSqlAsync(sql, commandFilter, token);
         }
 
+        /// <summary>
+        /// Deletes all asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteAllAsync<T>(this IDbCommand dbCmd, CancellationToken token)
         {
             return DeleteAllAsync(dbCmd, typeof(T), token);
         }
 
+        /// <summary>
+        /// Deletes all asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteAllAsync(this IDbCommand dbCmd, Type tableType, CancellationToken token)
         {
             var dialectProvider = dbCmd.GetDialectProvider();
             return dbCmd.ExecuteSqlAsync(dialectProvider.ToDeleteStatement(tableType, null), token);
         }
 
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteAsync<T>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -302,12 +529,31 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteSqlAsync(dbCmd.GetDialectProvider().ToDeleteStatement(typeof(T), sql), token);
         }
 
+        /// <summary>
+        /// Deletes the asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> DeleteAsync(this IDbCommand dbCmd, Type tableType, string sql, object anonType, CancellationToken token)
         {
             if (anonType != null) dbCmd.SetParameters(tableType, anonType, excludeDefaults: false, sql: ref sql);
             return dbCmd.ExecuteSqlAsync(dbCmd.GetDialectProvider().ToDeleteStatement(tableType, sql), token);
         }
 
+        /// <summary>
+        /// Insert as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
         internal static async Task<long> InsertAsync<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter, bool selectIdentity, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -321,6 +567,16 @@ namespace ServiceStack.OrmLite
             return await InsertInternalAsync<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity, token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Insert as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
         internal static async Task<long> InsertAsync<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter, bool selectIdentity, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -352,6 +608,17 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Insert internal as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
         private static async Task<long> InsertInternalAsync<T>(IOrmLiteDialectProvider dialectProvider,
             IDbCommand dbCmd, object obj, Action<IDbCommand> commandFilter, bool selectIdentity, CancellationToken token)
         {
@@ -377,11 +644,28 @@ namespace ServiceStack.OrmLite
             return await dbCmd.ExecNonQueryAsync(token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Inserts the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="objs">The objs.</param>
+        /// <returns>Task.</returns>
         internal static Task InsertAsync<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, CancellationToken token, T[] objs)
         {
             return InsertAllAsync(dbCmd, objs, commandFilter, token);
         }
 
+        /// <summary>
+        /// Insert using defaults as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         internal static async Task InsertUsingDefaultsAsync<T>(this IDbCommand dbCmd, T[] objs, CancellationToken token)
         {
             IDbTransaction dbTrans = null;
@@ -412,9 +696,27 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Insert into select as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="query">The query.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
         internal static async Task<long> InsertIntoSelectAsync<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter, CancellationToken token) =>
             OrmLiteReadCommandExtensions.ToLong(await dbCmd.InsertIntoSelectInternal<T>(query, commandFilter).ExecNonQueryAsync(token: token).ConfigAwait());
 
+        /// <summary>
+        /// Insert all as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         internal static async Task InsertAllAsync<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -445,11 +747,27 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Saves the asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="objs">The objs.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         internal static Task<int> SaveAsync<T>(this IDbCommand dbCmd, CancellationToken token, params T[] objs)
         {
             return SaveAllAsync(dbCmd, objs, token);
         }
 
+        /// <summary>
+        /// Save as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         internal static async Task<bool> SaveAsync<T>(this IDbCommand dbCmd, T obj, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -485,6 +803,14 @@ namespace ServiceStack.OrmLite
             return false;
         }
 
+        /// <summary>
+        /// Save all as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         internal static async Task<int> SaveAllAsync<T>(this IDbCommand dbCmd, IEnumerable<T> objs, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -549,6 +875,14 @@ namespace ServiceStack.OrmLite
             return rowsAdded;
         }
 
+        /// <summary>
+        /// Save all references as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="instance">The instance.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task SaveAllReferencesAsync<T>(this IDbCommand dbCmd, T instance, CancellationToken token)
         {
             var modelDef = ModelDefinition<T>.Definition;
@@ -606,6 +940,16 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Save references as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TRef">The type of the t reference.</typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <param name="instance">The instance.</param>
+        /// <param name="refs">The refs.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task SaveReferencesAsync<T, TRef>(this IDbCommand dbCmd, CancellationToken token, T instance, params TRef[] refs)
         {
             var modelDef = ModelDefinition<T>.Definition;
@@ -640,6 +984,14 @@ namespace ServiceStack.OrmLite
         }
 
         // Procedures
+        /// <summary>
+        /// Executes the procedure asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCommand">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         internal static Task ExecuteProcedureAsync<T>(this IDbCommand dbCommand, T obj, CancellationToken token)
         {
             var dialectProvider = dbCommand.GetDialectProvider();
@@ -648,6 +1000,14 @@ namespace ServiceStack.OrmLite
             return dbCommand.ExecuteSqlAsync(sql, token);
         }
 
+        /// <summary>
+        /// Get row version as an asynchronous operation.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
         internal static async Task<object> GetRowVersionAsync(this IDbCommand dbCmd, ModelDefinition modelDef, object id, CancellationToken token)
         {
             var sql = dbCmd.RowVersionSql(modelDef, id);

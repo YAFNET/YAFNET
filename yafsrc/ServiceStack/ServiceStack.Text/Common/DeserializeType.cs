@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="DeserializeType.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -18,13 +13,30 @@ using System.Runtime.CompilerServices;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeType.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class DeserializeType<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Gets the parse method.
+        /// </summary>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <returns>ParseStringDelegate.</returns>
         internal static ParseStringDelegate GetParseMethod(TypeConfig typeConfig) => v => GetParseStringSpanMethod(typeConfig)(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span method.
+        /// </summary>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <returns>ParseStringSpanDelegate.</returns>
         internal static ParseStringSpanDelegate GetParseStringSpanMethod(TypeConfig typeConfig)
         {
             var type = typeConfig.Type;
@@ -42,12 +54,30 @@ namespace ServiceStack.Text.Common
             return new StringToTypeContext(typeConfig, ctorFn, accessors).DeserializeJsv;
         }
 
+        /// <summary>
+        /// Struct StringToTypeContext
+        /// </summary>
         internal struct StringToTypeContext
         {
+            /// <summary>
+            /// The type configuration
+            /// </summary>
             private readonly TypeConfig typeConfig;
+            /// <summary>
+            /// The ctor function
+            /// </summary>
             private readonly EmptyCtorDelegate ctorFn;
+            /// <summary>
+            /// The accessors
+            /// </summary>
             private readonly KeyValuePair<string, TypeAccessor>[] accessors;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="StringToTypeContext" /> struct.
+            /// </summary>
+            /// <param name="typeConfig">The type configuration.</param>
+            /// <param name="ctorFn">The ctor function.</param>
+            /// <param name="accessors">The accessors.</param>
             public StringToTypeContext(TypeConfig typeConfig, EmptyCtorDelegate ctorFn, KeyValuePair<string, TypeAccessor>[] accessors)
             {
                 this.typeConfig = typeConfig;
@@ -55,11 +85,26 @@ namespace ServiceStack.Text.Common
                 this.accessors = accessors;
             }
 
+            /// <summary>
+            /// Deserializes the json.
+            /// </summary>
+            /// <param name="value">The value.</param>
+            /// <returns>System.Object.</returns>
             internal object DeserializeJson(ReadOnlySpan<char> value) => DeserializeTypeRefJson.StringToType(value, typeConfig, ctorFn, accessors);
 
+            /// <summary>
+            /// Deserializes the JSV.
+            /// </summary>
+            /// <param name="value">The value.</param>
+            /// <returns>System.Object.</returns>
             internal object DeserializeJsv(ReadOnlySpan<char> value) => DeserializeTypeRefJsv.StringToType(value, typeConfig, ctorFn, accessors);
         }
 
+        /// <summary>
+        /// Objects the type of the string to.
+        /// </summary>
+        /// <param name="strType">Type of the string.</param>
+        /// <returns>System.Object.</returns>
         public static object ObjectStringToType(ReadOnlySpan<char> strType)
         {
             var type = ExtractType(strType);
@@ -103,9 +148,19 @@ namespace ServiceStack.Text.Common
             return Serializer.UnescapeString(strType).Value();
         }
 
+        /// <summary>
+        /// Extracts the type.
+        /// </summary>
+        /// <param name="strType">Type of the string.</param>
+        /// <returns>Type.</returns>
         public static Type ExtractType(string strType) => ExtractType(strType.AsSpan());
 
         //TODO: optimize ExtractType
+        /// <summary>
+        /// Extracts the type.
+        /// </summary>
+        /// <param name="strType">Type of the string.</param>
+        /// <returns>Type.</returns>
         public static Type ExtractType(ReadOnlySpan<char> strType)
         {
             if (strType.IsEmpty || strType.Length <= 1) return null;
@@ -140,6 +195,12 @@ namespace ServiceStack.Text.Common
             return null;
         }
 
+        /// <summary>
+        /// Parses the type of the abstract.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseAbstractType<T>(ReadOnlySpan<char> value)
         {
             if (typeof(T).IsAbstract)
@@ -161,6 +222,11 @@ namespace ServiceStack.Text.Common
             return null;
         }
 
+        /// <summary>
+        /// Parses the quoted primitive.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseQuotedPrimitive(string value)
         {
             var config = JsConfig.GetConfig();
@@ -205,8 +271,18 @@ namespace ServiceStack.Text.Common
             return Serializer.UnescapeString(value);
         }
 
+        /// <summary>
+        /// Parses the primitive.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public static object ParsePrimitive(string value) => ParsePrimitive(value.AsSpan());
 
+        /// <summary>
+        /// Parses the primitive.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public static object ParsePrimitive(ReadOnlySpan<char> value)
         {
             var fn = JsConfig.ParsePrimitiveFn;
@@ -223,6 +299,12 @@ namespace ServiceStack.Text.Common
             return value.ParseNumber();
         }
 
+        /// <summary>
+        /// Parses the primitive.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="firstChar">The first character.</param>
+        /// <returns>System.Object.</returns>
         internal static object ParsePrimitive(string value, char firstChar)
         {
             if (typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
@@ -235,8 +317,18 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class TypeAccessorUtils.
+    /// </summary>
     internal static class TypeAccessorUtils
     {
+        /// <summary>
+        /// Gets the specified property name.
+        /// </summary>
+        /// <param name="accessors">The accessors.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="lenient">if set to <c>true</c> [lenient].</param>
+        /// <returns>TypeAccessor.</returns>
         internal static TypeAccessor Get(this KeyValuePair<string, TypeAccessor>[] accessors, ReadOnlySpan<char> propertyName, bool lenient)
         {
             var testValue = FindPropertyAccessor(accessors, propertyName);
@@ -250,6 +342,12 @@ namespace ServiceStack.Text.Common
             return null;
         }
 
+        /// <summary>
+        /// Finds the property accessor.
+        /// </summary>
+        /// <param name="accessors">The accessors.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns>TypeAccessor.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)] //Binary Search
         private static TypeAccessor FindPropertyAccessor(KeyValuePair<string, TypeAccessor>[] accessors, ReadOnlySpan<char> propertyName)
         {
@@ -275,15 +373,39 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class TypeAccessor.
+    /// </summary>
     internal class TypeAccessor
     {
+        /// <summary>
+        /// The get property
+        /// </summary>
         internal ParseStringSpanDelegate GetProperty;
+        /// <summary>
+        /// The set property
+        /// </summary>
         internal SetMemberDelegate SetProperty;
+        /// <summary>
+        /// The property type
+        /// </summary>
         internal Type PropertyType;
 
+        /// <summary>
+        /// Extracts the type.
+        /// </summary>
+        /// <param name="Serializer">The serializer.</param>
+        /// <param name="strType">Type of the string.</param>
+        /// <returns>Type.</returns>
         public static Type ExtractType(ITypeSerializer Serializer, string strType)
             => ExtractType(Serializer, strType.AsSpan());
 
+        /// <summary>
+        /// Extracts the type.
+        /// </summary>
+        /// <param name="Serializer">The serializer.</param>
+        /// <param name="strType">Type of the string.</param>
+        /// <returns>Type.</returns>
         public static Type ExtractType(ITypeSerializer Serializer, ReadOnlySpan<char> strType)
         {
             if (strType.IsEmpty || strType.Length <= 1) return null;
@@ -312,6 +434,13 @@ namespace ServiceStack.Text.Common
             return null;
         }
 
+        /// <summary>
+        /// Creates the specified serializer.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>TypeAccessor.</returns>
         public static TypeAccessor Create(ITypeSerializer serializer, TypeConfig typeConfig, PropertyInfo propertyInfo)
         {
             return new() {
@@ -321,6 +450,12 @@ namespace ServiceStack.Text.Common
             };
         }
 
+        /// <summary>
+        /// Gets the property method.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>ParseStringSpanDelegate.</returns>
         internal static ParseStringSpanDelegate GetPropertyMethod(ITypeSerializer serializer, PropertyInfo propertyInfo)
         {
             var getPropertyFn = serializer.GetParseStringSpanFn(propertyInfo.PropertyType);
@@ -349,6 +484,12 @@ namespace ServiceStack.Text.Common
             return getPropertyFn;
         }
 
+        /// <summary>
+        /// Gets the set property method.
+        /// </summary>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>SetMemberDelegate.</returns>
         private static SetMemberDelegate GetSetPropertyMethod(TypeConfig typeConfig, PropertyInfo propertyInfo)
         {
             if (typeConfig.Type != propertyInfo.DeclaringType)
@@ -380,6 +521,13 @@ namespace ServiceStack.Text.Common
                 : ReflectionOptimizer.Instance.CreateSetter(fieldInfo);
         }
 
+        /// <summary>
+        /// Creates the specified serializer.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <param name="fieldInfo">The field information.</param>
+        /// <returns>TypeAccessor.</returns>
         public static TypeAccessor Create(ITypeSerializer serializer, TypeConfig typeConfig, FieldInfo fieldInfo)
         {
             return new() {
@@ -389,6 +537,12 @@ namespace ServiceStack.Text.Common
             };
         }
 
+        /// <summary>
+        /// Gets the set field method.
+        /// </summary>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <param name="fieldInfo">The field information.</param>
+        /// <returns>SetMemberDelegate.</returns>
         private static SetMemberDelegate GetSetFieldMethod(TypeConfig typeConfig, FieldInfo fieldInfo)
         {
             if (typeConfig.Type != fieldInfo.DeclaringType)
@@ -398,14 +552,34 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class DeserializeTypeExensions.
+    /// </summary>
     public static class DeserializeTypeExensions
     {
+        /// <summary>
+        /// Determines whether [has] [the specified flag].
+        /// </summary>
+        /// <param name="flags">The flags.</param>
+        /// <param name="flag">The flag.</param>
+        /// <returns><c>true</c> if [has] [the specified flag]; otherwise, <c>false</c>.</returns>
         public static bool Has(this ParseAsType flags, ParseAsType flag)
         {
             return (flag & flags) != 0;
         }
 
+        /// <summary>
+        /// Parses the number.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseNumber(this ReadOnlySpan<char> value) => ParseNumber(value, JsConfig.TryParseIntoBestFit);
+        /// <summary>
+        /// Parses the number.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="bestFit">if set to <c>true</c> [best fit].</param>
+        /// <returns>System.Object.</returns>
         public static object ParseNumber(this ReadOnlySpan<char> value, bool bestFit)
         {
             if (value.Length == 1)

@@ -1,17 +1,27 @@
-﻿using System;
-using System.Threading;
+﻿// ***********************************************************************
+// <copyright file="JsConfigScope.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+
+using System;
 using System.Collections.Generic;
-using System.Reflection;
+
+using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
 using ServiceStack.Text.Jsv;
-using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public sealed class JsConfigScope : Config, IDisposable
     {
-        bool disposed;
-        readonly JsConfigScope parent;
+        private bool disposed;
+
+        private readonly JsConfigScope parent;
 
 #if NETSTANDARD        
         private static AsyncLocal<JsConfigScope> head = new AsyncLocal<JsConfigScope>();
@@ -39,6 +49,9 @@ namespace ServiceStack.Text
             head;
 #endif
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Dispose()
         {
             if (!disposed)
@@ -55,19 +68,35 @@ namespace ServiceStack.Text
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public class Config
     {
         private static Config instance;
         internal static Config Instance => instance ??= new Config(Defaults);
         internal static bool HasInit = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotSupportedException"></exception>
         public static Config AssertNotInit() => HasInit
             ? throw new NotSupportedException("JsConfig can't be mutated after JsConfig.Init(). Use BeginScope() or CreateScope() to use custom config after Init().")
             : Instance;
 
-        private static string InitStackTrace = null;
+        private static string InitStackTrace;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Init() => Init(null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <exception cref="NotSupportedException"></exception>
         public static void Init(Config config)
         {
             if (HasInit && Env.StrictMode)
@@ -96,6 +125,9 @@ namespace ServiceStack.Text
             Instance.Populate(Defaults);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Config()
         {
             Populate(Instance);
@@ -103,25 +135,67 @@ namespace ServiceStack.Text
 
         private Config(Config config)
         {
-            if (config != null) //Defaults=null, instance=Defaults
+            if (config != null) // Defaults=null, instance=Defaults
                 Populate(config);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool ConvertObjectTypesIntoStringDictionary { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool TryToParsePrimitiveTypeValues { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool TryToParseNumericType { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool TryParseIntoBestFit { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public ParseAsType ParsePrimitiveFloatingPointTypes { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public ParseAsType ParsePrimitiveIntegerTypes { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool ExcludeDefaultValues { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IncludeNullValues { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IncludeNullValuesInDictionaries { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IncludeDefaultEnums { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool TreatEnumAsInteger { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool ExcludeTypeInfo { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IncludeTypeInfo { get; set; }
 
         private string typeAttr;
+        /// <summary>
+        /// 
+        /// </summary>
         public string TypeAttr
         {
             get => typeAttr;
@@ -133,23 +207,54 @@ namespace ServiceStack.Text
                 typeAttr = value;
             }
         }
-        ReadOnlyMemory<char>? typeAttrSpan = null;
+
+        private ReadOnlyMemory<char>? typeAttrSpan = null;
+        /// <summary>
+        /// 
+        /// </summary>
         public ReadOnlyMemory<char> TypeAttrMemory => typeAttrSpan ??= TypeAttr.AsMemory();
+        /// <summary>
+        /// 
+        /// </summary>
         public string DateTimeFormat { get; set; }
         private string jsonTypeAttrInObject;
         internal string JsonTypeAttrInObject => jsonTypeAttrInObject ??= JsonTypeSerializer.GetTypeAttrInObject(TypeAttr);
         private string jsvTypeAttrInObject;
         internal string JsvTypeAttrInObject => jsvTypeAttrInObject ??= JsvTypeSerializer.GetTypeAttrInObject(TypeAttr);
 
+        /// <summary>
+        /// 
+        /// </summary>
         public Func<Type, string> TypeWriter { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public Func<string, Type> TypeFinder { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public Func<string, object> ParsePrimitiveFn { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public DateHandler DateHandler { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public TimeSpanHandler TimeSpanHandler { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public PropertyConvention PropertyConvention { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public TextCase TextCase { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Obsolete("Use TextCase = TextCase.CamelCase")]
         public bool EmitCamelCaseNames
         {
@@ -157,6 +262,9 @@ namespace ServiceStack.Text
             set => TextCase = value ? TextCase.CamelCase : TextCase;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Obsolete("Use TextCase = TextCase.SnakeCase")]
         public bool EmitLowercaseUnderscoreNames
         {
@@ -164,22 +272,70 @@ namespace ServiceStack.Text
             set => TextCase = value ? TextCase.SnakeCase : TextCase.Default;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public bool ThrowOnError { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool SkipDateTimeConversion { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool AlwaysUseUtc { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool AssumeUtc { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool AppendUtcOffset { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool PreferInterfaces { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool IncludePublicFields { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public int MaxDepth { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public DeserializationErrorDelegate OnDeserializationError { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public EmptyCtorFactoryDelegate ModelFactory { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public string[] ExcludePropertyReferences { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public HashSet<Type> ExcludeTypes { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public HashSet<string> ExcludeTypeNames { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool EscapeUnicode { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         public bool EscapeHtmlChars { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Config Defaults => new(null)
         {
             ConvertObjectTypesIntoStringDictionary = false,
@@ -202,10 +358,10 @@ namespace ServiceStack.Text
             TypeWriter = AssemblyUtils.WriteType,
             TypeFinder = AssemblyUtils.FindType,
             ParsePrimitiveFn = null,
-            DateHandler = Text.DateHandler.TimestampOffset,
-            TimeSpanHandler = Text.TimeSpanHandler.DurationFormat,
+            DateHandler = DateHandler.TimestampOffset,
+            TimeSpanHandler = TimeSpanHandler.DurationFormat,
             TextCase = TextCase.Default,
-            PropertyConvention = Text.PropertyConvention.Strict,
+            PropertyConvention = PropertyConvention.Strict,
             ThrowOnError = Env.StrictMode,
             SkipDateTimeConversion = false,
             AlwaysUseUtc = false,
@@ -222,9 +378,14 @@ namespace ServiceStack.Text
                 typeof(System.IO.Stream),
                 typeof(System.Reflection.MethodBase),
             },
-            ExcludeTypeNames = new HashSet<string> { }
+            ExcludeTypeNames = new HashSet<string>()
         };
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public Config Populate(Config config)
         {
             ConvertObjectTypesIntoStringDictionary = config.ConvertObjectTypesIntoStringDictionary;

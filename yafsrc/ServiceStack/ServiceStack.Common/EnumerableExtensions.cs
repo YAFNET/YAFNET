@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="EnumerableExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +14,16 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class EnumerableUtils.
+    /// </summary>
     public static class EnumerableUtils
     {
+        /// <summary>
+        /// Firsts the or default.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <returns>System.Object.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object FirstOrDefault(IEnumerable items)
         {
@@ -24,6 +38,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Elements at.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>System.Object.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object ElementAt(IEnumerable items, int index)
         {
@@ -36,6 +56,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Skips the specified items.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<object> Skip(IEnumerable items, int count)
         {
@@ -53,6 +79,12 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Splits the on first.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <param name="first">The first.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<object> SplitOnFirst(IEnumerable items, out object first)
         {
@@ -73,6 +105,12 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Takes the specified items.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<object> Take(IEnumerable items, int count)
         {
@@ -92,6 +130,11 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Counts the specified items.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <returns>System.Int32.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Count(IEnumerable items)
         {
@@ -102,6 +145,11 @@ namespace ServiceStack
                 : items.Cast<object>().Count();
         }
 
+        /// <summary>
+        /// Converts to list.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<object> ToList(IEnumerable items)
         {
@@ -115,6 +163,11 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Nulls if empty.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <returns>IEnumerable.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable NullIfEmpty(IEnumerable items)
         {
@@ -126,25 +179,63 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Determines whether the specified items is empty.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <returns><c>true</c> if the specified items is empty; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEmpty(IEnumerable items) => EnumerableUtils.NullIfEmpty(items) == null;
     }
 
+    /// <summary>
+    /// Class EnumerableExtensions.
+    /// </summary>
     public static class EnumerableExtensions
     {
+        /// <summary>
+        /// Determines whether the specified collection is empty.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <returns><c>true</c> if the specified collection is empty; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEmpty<T>(this ICollection<T> collection) => collection == null || collection.Count == 0;
 
+        /// <summary>
+        /// Determines whether the specified collection is empty.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <returns><c>true</c> if the specified collection is empty; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEmpty<T>(this T[] collection) => collection == null || collection.Length == 0;
 
+        /// <summary>
+        /// Converts to hashset.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <returns>HashSet&lt;T&gt;.</returns>
         [Obsolete("Use ToSet() or 'using System.Linq;'")]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HashSet<T> ToHashSet<T>(this IEnumerable<T> items) => new(items);
 
+        /// <summary>
+        /// Converts to set.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <returns>HashSet&lt;T&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HashSet<T> ToSet<T>(this IEnumerable<T> items) => new(items);
 
+        /// <summary>
+        /// Eaches the specified action.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <param name="action">The action.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Each<T>(this IEnumerable<T> values, Action<T> action)
         {
@@ -156,6 +247,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Eaches the specified action.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <param name="action">The action.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Each<T>(this IEnumerable<T> values, Action<int, T> action)
         {
@@ -168,6 +265,13 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Eaches the specified action.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <typeparam name="TValue">The type of the t value.</typeparam>
+        /// <param name="map">The map.</param>
+        /// <param name="action">The action.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Each<TKey, TValue>(this IDictionary<TKey, TValue> map, Action<TKey, TValue> action)
         {
@@ -180,6 +284,14 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Maps the specified converter.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="converter">The converter.</param>
+        /// <returns>List&lt;To&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<To> Map<To, From>(this IEnumerable<From> items, Func<From, To> converter)
         {
@@ -194,6 +306,13 @@ namespace ServiceStack
             return list;
         }
 
+        /// <summary>
+        /// Maps the specified converter.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="converter">The converter.</param>
+        /// <returns>List&lt;To&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<To> Map<To>(this System.Collections.IEnumerable items, Func<object, To> converter)
         {
@@ -208,6 +327,12 @@ namespace ServiceStack
             return list;
         }
 
+        /// <summary>
+        /// Converts to objects.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="items">The items.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static List<object> ToObjects<T>(this IEnumerable<T> items)
         {
@@ -219,6 +344,11 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Firsts the non default or empty.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <returns>System.String.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string FirstNonDefaultOrEmpty(this IEnumerable<string> values)
         {
@@ -229,6 +359,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Firsts the non default.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <returns>T.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T FirstNonDefault<T>(this IEnumerable<T> values)
         {
@@ -239,6 +375,12 @@ namespace ServiceStack
             return default(T);
         }
 
+        /// <summary>
+        /// Equivalents to.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="other">The other.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EquivalentTo(this byte[] bytes, byte[] other)
         {
@@ -255,6 +397,14 @@ namespace ServiceStack
             return compare == 0;
         }
 
+        /// <summary>
+        /// Equivalents to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="array">The array.</param>
+        /// <param name="otherArray">The other array.</param>
+        /// <param name="comparer">The comparer.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool EquivalentTo<T>(this T[] array, T[] otherArray, Func<T, T, bool> comparer = null)
         {
@@ -276,6 +426,14 @@ namespace ServiceStack
             return true;
         }
 
+        /// <summary>
+        /// Equivalents to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="thisList">The this list.</param>
+        /// <param name="otherList">The other list.</param>
+        /// <param name="comparer">The comparer.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool EquivalentTo<T>(this IEnumerable<T> thisList, IEnumerable<T> otherList, Func<T, T, bool> comparer = null)
         {
             if (comparer == null)
@@ -302,6 +460,15 @@ namespace ServiceStack
             return hasNoMoreLeftAsWell;
         }
 
+        /// <summary>
+        /// Equivalents to.
+        /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <param name="comparer">The comparer.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool EquivalentTo<K, V>(this IDictionary<K, V> a, IDictionary<K, V> b, Func<V, V, bool> comparer = null)
         {
             if (comparer == null)
@@ -331,6 +498,13 @@ namespace ServiceStack
             return true;
         }
 
+        /// <summary>
+        /// Batcheses the of.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sequence">The sequence.</param>
+        /// <param name="batchSize">Size of the batch.</param>
+        /// <returns>IEnumerable&lt;T[]&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T[]> BatchesOf<T>(this IEnumerable<T> sequence, int batchSize)
         {
@@ -352,6 +526,14 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Converts to safedictionary.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="expr">The expr.</param>
+        /// <returns>Dictionary&lt;TKey, T&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Dictionary<TKey, T> ToSafeDictionary<T, TKey>(this IEnumerable<T> list, Func<T, TKey> expr)
         {
@@ -366,6 +548,15 @@ namespace ServiceStack
             return map;
         }
 
+        /// <summary>
+        /// Converts to dictionary.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <typeparam name="TValue">The type of the t value.</typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="map">The map.</param>
+        /// <returns>Dictionary&lt;TKey, TValue&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Dictionary<TKey, TValue> ToDictionary<T, TKey, TValue>(this IEnumerable<T> list, Func<T, KeyValuePair<TKey, TValue>> map)
         {
@@ -381,12 +572,29 @@ namespace ServiceStack
         /// <summary>
         /// Return T[0] when enumerable is null, safe to use in enumerations like foreach
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="enumerable">The enumerable.</param>
+        /// <returns>IEnumerable&lt;T&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> Safe<T>(this IEnumerable<T> enumerable) => enumerable ?? TypeConstants<T>.EmptyArray;
 
+        /// <summary>
+        /// Safes the specified enumerable.
+        /// </summary>
+        /// <param name="enumerable">The enumerable.</param>
+        /// <returns>IEnumerable.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable Safe(this IEnumerable enumerable) => enumerable ?? TypeConstants.EmptyObjectArray;
 
+        /// <summary>
+        /// All as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentNullException">source</exception>
+        /// <exception cref="System.ArgumentNullException">predicate</exception>
         public static async Task<bool> AllAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
         {
             if (source == null)
@@ -403,6 +611,15 @@ namespace ServiceStack
         }
 
         // This is for synchronous predicates with an async source.
+        /// <summary>
+        /// All as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentNullException">source</exception>
+        /// <exception cref="System.ArgumentNullException">predicate</exception>
         public static async Task<bool> AllAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
         {
             if (source == null)
@@ -418,6 +635,15 @@ namespace ServiceStack
             return true;
         }
 
+        /// <summary>
+        /// Any as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentNullException">source</exception>
+        /// <exception cref="System.ArgumentNullException">predicate</exception>
         public static async Task<bool> AnyAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
         {
             if (source == null)
@@ -434,6 +660,15 @@ namespace ServiceStack
         }
 
         // This is for synchronous predicates with an async source.
+        /// <summary>
+        /// Any as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentNullException">source</exception>
+        /// <exception cref="System.ArgumentNullException">predicate</exception>
         public static async Task<bool> AnyAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
         {
             if (source == null)

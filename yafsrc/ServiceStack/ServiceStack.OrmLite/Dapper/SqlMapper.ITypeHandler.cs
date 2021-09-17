@@ -1,8 +1,17 @@
+﻿// ***********************************************************************
+// <copyright file="SqlMapper.ITypeHandler.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Data;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    /// <summary>
+    /// Class SqlMapper.
+    /// </summary>
     public static partial class SqlMapper
     {
         /// <summary>
@@ -20,8 +29,8 @@ namespace ServiceStack.OrmLite.Dapper
             /// <summary>
             /// Parse a database value back to a typed value
             /// </summary>
-            /// <param name="value">The value from the database</param>
             /// <param name="destinationType">The type to parse to</param>
+            /// <param name="value">The value from the database</param>
             /// <returns>The typed value</returns>
             object Parse(Type destinationType, object value);
         }

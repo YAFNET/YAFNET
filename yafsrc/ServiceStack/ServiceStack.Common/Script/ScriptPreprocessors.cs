@@ -1,9 +1,25 @@
+﻿// ***********************************************************************
+// <copyright file="ScriptPreprocessors.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
+    /// <summary>
+    /// Class ScriptPreprocessors.
+    /// </summary>
     public static class ScriptPreprocessors
     {
+        /// <summary>
+        /// Transforms the code blocks.
+        /// </summary>
+        /// <param name="script">The script.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated '}}' multi-line block not found</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated '```code' block, line with '```' not found</exception>
         public static string TransformCodeBlocks(string script)
         {
             var hadCodeBlocks = false;
@@ -74,6 +90,11 @@ namespace ServiceStack.Script
             return script;
         }
 
+        /// <summary>
+        /// Transforms the statement body.
+        /// </summary>
+        /// <param name="body">The body.</param>
+        /// <returns>System.String.</returns>
         public static string TransformStatementBody(string body)
         {
             return TransformCodeBlocks("```code\n" + body + "\n```");

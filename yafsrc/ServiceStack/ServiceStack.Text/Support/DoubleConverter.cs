@@ -1,4 +1,10 @@
-﻿namespace ServiceStack.Text.Support
+﻿// ***********************************************************************
+// <copyright file="DoubleConverter.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.Text.Support
 {
     using System;
     using System.Globalization;
@@ -7,18 +13,16 @@
     /// A class to allow the conversion of doubles to string representations of
     /// their exact decimal values. The implementation aims for readability over
     /// efficiency.
-    /// 
     /// Courtesy of @JonSkeet
     /// http://www.yoda.arachsys.com/csharp/DoubleConverter.cs
     /// </summary>
     public class DoubleConverter
     {
         /// <summary>
-        /// Converts the given double to a string representation of its
-        /// exact decimal value.
+        /// Converts to exactstring.
         /// </summary>
-        /// <param name="d">The double to convert.</param>
-        /// <returns>A string representation of the double's exact decimal value.</return>
+        /// <param name="d">The d.</param>
+        /// <returns>System.String.</returns>
         public static string ToExactString(double d)
         {
             if (double.IsPositiveInfinity(d))
@@ -65,7 +69,7 @@
                 exponent++;
             }
 
-            /// Construct a new decimal expansion with the mantissa
+            // Construct a new decimal expansion with the mantissa
             ArbitraryDecimal ad = new(mantissa);
 
             // If the exponent is less than 0, we need to repeatedly
@@ -77,9 +81,9 @@
                     ad.MultiplyBy(5);
                 ad.Shift(-exponent);
             }
-            // Otherwise, we need to repeatedly multiply by 2
             else
             {
+                // Otherwise, we need to repeatedly multiply by 2
                 for (int i = 0; i < exponent; i++)
                     ad.MultiplyBy(2);
             }
@@ -91,20 +95,25 @@
                 return ad.ToString();
         }
 
-        /// <summary>Private class used for manipulating
-        class ArbitraryDecimal
+        /// <summary>
+        /// Class ArbitraryDecimal.
+        /// </summary>
+        private class ArbitraryDecimal
         {
-            /// <summary>Digits in the decimal expansion, one byte per digit
-            byte[] digits;
-            /// <summary> 
+            /// <summary>
+            /// The digits
+            /// </summary>
+            private byte[] digits;
+            /// <summary>
             /// How many digits are *after* the decimal point
             /// </summary>
-            int decimalPoint = 0;
+            private int decimalPoint = 0;
 
-            /// <summary> 
+            /// <summary>
             /// Constructs an arbitrary decimal expansion from the given long.
             /// The long must not be negative.
             /// </summary>
+            /// <param name="x">The x.</param>
             internal ArbitraryDecimal(long x)
             {
                 string tmp = x.ToString(CultureInfo.InvariantCulture);
@@ -118,6 +127,7 @@
             /// Multiplies the current expansion by the given amount, which should
             /// only be 2 or 5.
             /// </summary>
+            /// <param name="amount">The amount.</param>
             internal void MultiplyBy(int amount)
             {
                 byte[] result = new byte[digits.Length + 1];
@@ -144,6 +154,7 @@
             /// decimal place) and a positive value makes the decimal
             /// expansion smaller.
             /// </summary>
+            /// <param name="amount">The amount.</param>
             internal void Shift(int amount)
             {
                 decimalPoint += amount;
@@ -177,6 +188,7 @@
             /// <summary>
             /// Converts the value to a proper decimal string representation.
             /// </summary>
+            /// <returns>String.</returns>
             public override String ToString()
             {
                 char[] digitString = new char[digits.Length];

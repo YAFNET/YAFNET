@@ -1,16 +1,26 @@
+﻿// ***********************************************************************
+// <copyright file="SqlMapper.IDataReader.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Data;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    /// <summary>
+    /// Class SqlMapper.
+    /// </summary>
     public static partial class SqlMapper
     {
         /// <summary>
         /// Parses a data reader to a sequence of data of the supplied type. Used for deserializing a reader without a connection, etc.
         /// </summary>
-        /// <typeparam name="T">The type to parse from the <paramref name="reader"/>.</typeparam>
+        /// <typeparam name="T">The type to parse from the <paramref name="reader" />.</typeparam>
         /// <param name="reader">The data reader to parse results from.</param>
+        /// <returns>IEnumerable&lt;T&gt;.</returns>
         public static IEnumerable<T> Parse<T>(this IDataReader reader)
         {
             if (reader.Read())
@@ -37,7 +47,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// Parses a data reader to a sequence of data of the supplied type (as object). Used for deserializing a reader without a connection, etc.
         /// </summary>
         /// <param name="reader">The data reader to parse results from.</param>
-        /// <param name="type">The type to parse from the <paramref name="reader"/>.</param>
+        /// <param name="type">The type to parse from the <paramref name="reader" />.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public static IEnumerable<object> Parse(this IDataReader reader, Type type)
         {
             if (reader.Read())
@@ -54,6 +65,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// Parses a data reader to a sequence of dynamic. Used for deserializing a reader without a connection, etc.
         /// </summary>
         /// <param name="reader">The data reader to parse results from.</param>
+        /// <returns>IEnumerable&lt;dynamic&gt;.</returns>
         public static IEnumerable<dynamic> Parse(this IDataReader reader)
         {
             if (reader.Read())
@@ -96,43 +108,42 @@ namespace ServiceStack.OrmLite.Dapper
         /// <example>
         /// var result = new List&lt;BaseType&gt;();
         /// using (var reader = connection.ExecuteReader(@"
-        ///   select 'abc' as Name, 1 as Type, 3.0 as Value
-        ///   union all
-        ///   select 'def' as Name, 2 as Type, 4.0 as Value"))
+        /// select 'abc' as Name, 1 as Type, 3.0 as Value
+        /// union all
+        /// select 'def' as Name, 2 as Type, 4.0 as Value"))
         /// {
-        ///     if (reader.Read())
-        ///     {
-        ///         var toFoo = reader.GetRowParser&lt;BaseType&gt;(typeof(Foo));
-        ///         var toBar = reader.GetRowParser&lt;BaseType&gt;(typeof(Bar));
-        ///         var col = reader.GetOrdinal("Type");
-        ///         do
-        ///         {
-        ///             switch (reader.GetInt32(col))
-        ///             {
-        ///                 case 1:
-        ///                     result.Add(toFoo(reader));
-        ///                     break;
-        ///                 case 2:
-        ///                     result.Add(toBar(reader));
-        ///                     break;
-        ///             }
-        ///         } while (reader.Read());
-        ///     }
+        /// if (reader.Read())
+        /// {
+        /// var toFoo = reader.GetRowParser&lt;BaseType&gt;(typeof(Foo));
+        /// var toBar = reader.GetRowParser&lt;BaseType&gt;(typeof(Bar));
+        /// var col = reader.GetOrdinal("Type");
+        /// do
+        /// {
+        /// switch (reader.GetInt32(col))
+        /// {
+        /// case 1:
+        /// result.Add(toFoo(reader));
+        /// break;
+        /// case 2:
+        /// result.Add(toBar(reader));
+        /// break;
         /// }
-        ///  
+        /// } while (reader.Read());
+        /// }
+        /// }
         /// abstract class BaseType
         /// {
-        ///     public abstract int Type { get; }
+        /// public abstract int Type { get; }
         /// }
         /// class Foo : BaseType
         /// {
-        ///     public string Name { get; set; }
-        ///     public override int Type =&gt; 1;
+        /// public string Name { get; set; }
+        /// public override int Type =&gt; 1;
         /// }
         /// class Bar : BaseType
         /// {
-        ///     public float Value { get; set; }
-        ///     public override int Type =&gt; 2;
+        /// public float Value { get; set; }
+        /// public override int Type =&gt; 2;
         /// }
         /// </example>
         public static Func<IDataReader, T> GetRowParser<T>(this IDataReader reader, Type concreteType = null,

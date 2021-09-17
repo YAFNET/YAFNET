@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="DeserializeListWithElements.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -17,16 +12,40 @@ using System.Threading;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeListWithElements.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class DeserializeListWithElements<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         internal static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// The parse delegate cache
+        /// </summary>
         private static Dictionary<Type, ParseListDelegate> ParseDelegateCache
             = new();
 
+        /// <summary>
+        /// Delegate ParseListDelegate
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createListType">Type of the create list.</param>
+        /// <param name="parseFn">The parse function.</param>
+        /// <returns>System.Object.</returns>
         public delegate object ParseListDelegate(ReadOnlySpan<char> value, Type createListType, ParseStringSpanDelegate parseFn);
 
+        /// <summary>
+        /// Gets the list type parse function.
+        /// </summary>
+        /// <param name="createListType">Type of the create list.</param>
+        /// <param name="elementType">Type of the element.</param>
+        /// <param name="parseFn">The parse function.</param>
+        /// <returns>Func&lt;System.String, Type, ParseStringDelegate, System.Object&gt;.</returns>
         public static Func<string, Type, ParseStringDelegate, object> GetListTypeParseFn(
             Type createListType, Type elementType, ParseStringDelegate parseFn)
         {
@@ -34,8 +53,18 @@ namespace ServiceStack.Text.Common
             return (s, t, d) => func(s.AsSpan(), t, v => d(v.ToString()));
         }
 
+        /// <summary>
+        /// The signature
+        /// </summary>
         private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
 
+        /// <summary>
+        /// Gets the list type parse string span function.
+        /// </summary>
+        /// <param name="createListType">Type of the create list.</param>
+        /// <param name="elementType">Type of the element.</param>
+        /// <param name="parseFn">The parse function.</param>
+        /// <returns>ParseListDelegate.</returns>
         public static ParseListDelegate GetListTypeParseStringSpanFn(
             Type createListType, Type elementType, ParseStringSpanDelegate parseFn)
         {
@@ -58,6 +87,11 @@ namespace ServiceStack.Text.Common
             return parseDelegate.Invoke;
         }
 
+        /// <summary>
+        /// Strips the list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
         public static ReadOnlySpan<char> StripList(ReadOnlySpan<char> value)
         {
             if (value.IsNullOrEmpty())
@@ -76,11 +110,21 @@ namespace ServiceStack.Text.Common
             return val;
         }
 
+        /// <summary>
+        /// Parses the string list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> ParseStringList(string value)
         {
             return ParseStringList(value.AsSpan());
         }
 
+        /// <summary>
+        /// Parses the string list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> ParseStringList(ReadOnlySpan<char> value)
         {
             if ((value = StripList(value)).IsNullOrEmpty())
@@ -106,8 +150,18 @@ namespace ServiceStack.Text.Common
             return to;
         }
 
+        /// <summary>
+        /// Parses the int list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>List&lt;System.Int32&gt;.</returns>
         public static List<int> ParseIntList(string value) => ParseIntList(value.AsSpan());
 
+        /// <summary>
+        /// Parses the int list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>List&lt;System.Int32&gt;.</returns>
         public static List<int> ParseIntList(ReadOnlySpan<char> value)
         {
             if ((value = StripList(value)).IsNullOrEmpty())
@@ -127,8 +181,18 @@ namespace ServiceStack.Text.Common
             return to;
         }
 
+        /// <summary>
+        /// Parses the byte list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>List&lt;System.Byte&gt;.</returns>
         public static List<byte> ParseByteList(string value) => ParseByteList(value.AsSpan());
 
+        /// <summary>
+        /// Parses the byte list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>List&lt;System.Byte&gt;.</returns>
         public static List<byte> ParseByteList(ReadOnlySpan<char> value)
         {
             if ((value = StripList(value)).IsNullOrEmpty())
@@ -149,16 +213,38 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class DeserializeListWithElements.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class DeserializeListWithElements<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Parses the generic list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createListType">Type of the create list.</param>
+        /// <param name="parseFn">The parse function.</param>
+        /// <returns>ICollection&lt;T&gt;.</returns>
         public static ICollection<T> ParseGenericList(string value, Type createListType, ParseStringDelegate parseFn)
         {
             return ParseGenericList(value.AsSpan(), createListType, v => parseFn(v.ToString()));
         }
 
+        /// <summary>
+        /// Parses the generic list.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createListType">Type of the create list.</param>
+        /// <param name="parseFn">The parse function.</param>
+        /// <returns>ICollection&lt;T&gt;.</returns>
         public static ICollection<T> ParseGenericList(ReadOnlySpan<char> value, Type createListType, ParseStringSpanDelegate parseFn)
         {
             var isReadOnly = createListType != null && createListType.IsGenericType && createListType.GetGenericTypeDefinition() == typeof(ReadOnlyCollection<>);
@@ -243,22 +329,49 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class DeserializeList.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class DeserializeList<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static readonly ParseStringSpanDelegate CacheFn;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DeserializeList{T, TSerializer}" /> class.
+        /// </summary>
         static DeserializeList()
         {
             CacheFn = GetParseStringSpanFn();
         }
 
+        /// <summary>
+        /// Gets the parse.
+        /// </summary>
+        /// <value>The parse.</value>
         public static ParseStringDelegate Parse => v => CacheFn(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span.
+        /// </summary>
+        /// <value>The parse string span.</value>
         public static ParseStringSpanDelegate ParseStringSpan => CacheFn;
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <returns>ParseStringDelegate.</returns>
         public static ParseStringDelegate GetParseFn() => v => GetParseStringSpanFn()(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <returns>ParseStringSpanDelegate.</returns>
         public static ParseStringSpanDelegate GetParseStringSpanFn()
         {
             var listInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IList<>));
@@ -289,22 +402,49 @@ namespace ServiceStack.Text.Common
 
     }
 
+    /// <summary>
+    /// Class DeserializeEnumerable.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     internal static class DeserializeEnumerable<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static readonly ParseStringSpanDelegate CacheFn;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DeserializeEnumerable{T, TSerializer}" /> class.
+        /// </summary>
         static DeserializeEnumerable()
         {
             CacheFn = GetParseStringSpanFn();
         }
 
+        /// <summary>
+        /// Gets the parse.
+        /// </summary>
+        /// <value>The parse.</value>
         public static ParseStringDelegate Parse => v => CacheFn(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span.
+        /// </summary>
+        /// <value>The parse string span.</value>
         public static ParseStringSpanDelegate ParseStringSpan => CacheFn;
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <returns>ParseStringDelegate.</returns>
         public static ParseStringDelegate GetParseFn() => v => GetParseStringSpanFn()(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <returns>ParseStringSpanDelegate.</returns>
         public static ParseStringSpanDelegate GetParseStringSpanFn()
         {
             var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));

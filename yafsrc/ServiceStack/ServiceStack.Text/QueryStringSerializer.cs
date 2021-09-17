@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="QueryStringSerializer.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -27,20 +22,41 @@ using ServiceStack.Text.Jsv;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class QueryStringSerializer.
+    /// </summary>
     public static class QueryStringSerializer
     {
+        /// <summary>
+        /// Initializes static members of the <see cref="QueryStringSerializer"/> class.
+        /// </summary>
         static QueryStringSerializer()
         {
             JsConfig.InitStatics();
             Instance = new JsWriter<JsvTypeSerializer>();
         }
 
+        /// <summary>
+        /// The instance
+        /// </summary>
         internal static readonly JsWriter<JsvTypeSerializer> Instance;
 
+        /// <summary>
+        /// The write function cache
+        /// </summary>
         private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
 
+        /// <summary>
+        /// Gets or sets the complex type strategy.
+        /// </summary>
+        /// <value>The complex type strategy.</value>
         public static WriteComplexTypeDelegate ComplexTypeStrategy { get; set; }
 
+        /// <summary>
+        /// Gets the write function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         internal static WriteObjectDelegate GetWriteFn(Type type)
         {
             try
@@ -73,6 +89,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Writes the late bound object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteLateBoundObject(TextWriter writer, object value)
         {
             if (value == null) return;
@@ -80,11 +101,22 @@ namespace ServiceStack
             writeFn(writer, value);
         }
 
+        /// <summary>
+        /// Gets the value type to string method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         internal static WriteObjectDelegate GetValueTypeToStringMethod(Type type)
         {
             return Instance.GetValueTypeToStringMethod(type);
         }
 
+        /// <summary>
+        /// Serializes to string.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String.</returns>
         public static string SerializeToString<T>(T value)
         {
             var writer = StringWriterThreadStatic.Allocate();
@@ -92,6 +124,10 @@ namespace ServiceStack
             return StringWriterThreadStatic.ReturnAndFree(writer);
         }
 
+        /// <summary>
+        /// Initializes the aot.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
@@ -105,13 +141,23 @@ namespace ServiceStack
     /// <typeparam name="T"></typeparam>
     public static class QueryStringWriter<T>
     {
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static readonly WriteObjectDelegate CacheFn;
 
+        /// <summary>
+        /// Writes the function.
+        /// </summary>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate WriteFn()
         {
             return CacheFn;
         }
 
+        /// <summary>
+        /// Initializes static members of the <see cref="QueryStringWriter{T}"/> class.
+        /// </summary>
         static QueryStringWriter()
         {
             if (typeof(T) == typeof(object))
@@ -143,13 +189,26 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Writes the object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteObject(TextWriter writer, object value)
         {
             if (writer == null) return;
             CacheFn(writer, value);
         }
 
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsvTypeSerializer.Instance;
+        /// <summary>
+        /// Writes the i dictionary.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oMap">The o map.</param>
         public static void WriteIDictionary(TextWriter writer, object oMap)
         {
             WriteObjectDelegate writeKeyFn = null;
@@ -218,18 +277,44 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Delegate WriteComplexTypeDelegate
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="propertyName">Name of the property.</param>
+    /// <param name="obj">The object.</param>
+    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public delegate bool WriteComplexTypeDelegate(TextWriter writer, string propertyName, object obj);
 
+    /// <summary>
+    /// Class PropertyTypeConfig.
+    /// </summary>
     internal class PropertyTypeConfig
     {
+        /// <summary>
+        /// The type configuration
+        /// </summary>
         public TypeConfig TypeConfig;
+        /// <summary>
+        /// The write function
+        /// </summary>
         public Action<string, TextWriter, object> WriteFn;
     }
 
+    /// <summary>
+    /// Class PropertyTypeConfig.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal class PropertyTypeConfig<T>
     {
+        /// <summary>
+        /// The configuration
+        /// </summary>
         public static PropertyTypeConfig Config;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="PropertyTypeConfig{T}"/> class.
+        /// </summary>
         static PropertyTypeConfig()
         {
             Config = new PropertyTypeConfig
@@ -240,11 +325,24 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class QueryStringStrategy.
+    /// </summary>
     public static class QueryStringStrategy
     {
+        /// <summary>
+        /// The type configuration cache
+        /// </summary>
         static readonly ConcurrentDictionary<Type, PropertyTypeConfig> typeConfigCache =
             new();
 
+        /// <summary>
+        /// Forms the URL encoded.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool FormUrlEncoded(TextWriter writer, string propertyName, object obj)
         {
             if (obj is IDictionary map)

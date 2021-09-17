@@ -1,5 +1,9 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
-//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="JsonReader.Generic.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -9,16 +13,40 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Json
 {
+    /// <summary>
+    /// Class JsonReader.
+    /// </summary>
     public static class JsonReader
     {
+        /// <summary>
+        /// The instance
+        /// </summary>
         public static readonly JsReader<JsonTypeSerializer> Instance = new();
 
+        /// <summary>
+        /// The parse function cache
+        /// </summary>
         private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new();
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringDelegate.</returns>
         internal static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse span function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringSpanDelegate.</returns>
         internal static ParseStringSpanDelegate GetParseSpanFn(Type type) => v => GetParseStringSpanFn(type)(v);
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringSpanDelegate.</returns>
         internal static ParseStringSpanDelegate GetParseStringSpanFn(Type type)
         {
             ParseFnCache.TryGetValue(type, out var parseFactoryFn);
@@ -45,6 +73,10 @@ namespace ServiceStack.Text.Json
             return parseFactoryFn();
         }
 
+        /// <summary>
+        /// Initializes the aot.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
@@ -55,15 +87,28 @@ namespace ServiceStack.Text.Json
         }
     }
 
+    /// <summary>
+    /// Class JsonReader.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal static class JsonReader<T>
     {
+        /// <summary>
+        /// The read function
+        /// </summary>
         private static ParseStringSpanDelegate ReadFn;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="JsonReader{T}" /> class.
+        /// </summary>
         static JsonReader()
         {
             Refresh();
         }
 
+        /// <summary>
+        /// Refreshes this instance.
+        /// </summary>
         public static void Refresh()
         {
             JsConfig.InitStatics();
@@ -74,16 +119,36 @@ namespace ServiceStack.Text.Json
             ReadFn = JsonReader.Instance.GetParseStringSpanFn<T>();
         }
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <returns>ParseStringDelegate.</returns>
         public static ParseStringDelegate GetParseFn() => ReadFn != null
             ? (ParseStringDelegate)(v => ReadFn(v.AsSpan()))
             : Parse;
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <returns>ParseStringSpanDelegate.</returns>
         public static ParseStringSpanDelegate GetParseStringSpanFn() => ReadFn ?? Parse;
 
+        /// <summary>
+        /// Parses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public static object Parse(string value) => value != null
             ? Parse(value.AsSpan())
             : null;
 
+        /// <summary>
+        /// Parses the specified value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException">Can not deserialize interface type: "
+        ///                         + typeof(T).Name</exception>
         public static object Parse(ReadOnlySpan<char> value)
         {
             TypeConfig<T>.Init();

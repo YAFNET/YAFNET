@@ -1,5 +1,9 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
-//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="RestrictAttribute.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -16,6 +20,8 @@ namespace ServiceStack
         /// <summary>
         /// Allow access but hide from metadata to requests from Localhost only
         /// </summary>
+        /// <value><c>true</c> if [visible internal only]; otherwise, <c>false</c>.</value>
+        /// <exception cref="System.Exception">Only true allowed</exception>
         public bool VisibleInternalOnly
         {
             get => CanShowTo(RequestAttributes.InternalNetworkAccess);
@@ -31,6 +37,8 @@ namespace ServiceStack
         /// <summary>
         /// Allow access but hide from metadata to requests from Localhost and Local Intranet only
         /// </summary>
+        /// <value><c>true</c> if [visible localhost only]; otherwise, <c>false</c>.</value>
+        /// <exception cref="System.Exception">Only true allowed</exception>
         public bool VisibleLocalhostOnly
         {
             get => CanShowTo(RequestAttributes.Localhost);
@@ -46,6 +54,8 @@ namespace ServiceStack
         /// <summary>
         /// Restrict access and hide from metadata to requests from Localhost only
         /// </summary>
+        /// <value><c>true</c> if [localhost only]; otherwise, <c>false</c>.</value>
+        /// <exception cref="System.Exception">Only true allowed</exception>
         public bool LocalhostOnly
         {
             get => HasAccessTo(RequestAttributes.Localhost) && CanShowTo(RequestAttributes.Localhost);
@@ -62,6 +72,8 @@ namespace ServiceStack
         /// <summary>
         /// Restrict access and hide from metadata to requests from Localhost and Local Intranet only
         /// </summary>
+        /// <value><c>true</c> if [internal only]; otherwise, <c>false</c>.</value>
+        /// <exception cref="System.Exception">Only true allowed</exception>
         public bool InternalOnly
         {
             get => HasAccessTo(RequestAttributes.InternalNetworkAccess) && CanShowTo(RequestAttributes.InternalNetworkAccess);
@@ -78,6 +90,8 @@ namespace ServiceStack
         /// <summary>
         /// Restrict access and hide from metadata to requests from External only
         /// </summary>
+        /// <value><c>true</c> if [external only]; otherwise, <c>false</c>.</value>
+        /// <exception cref="System.Exception">Only true allowed</exception>
         public bool ExternalOnly
         {
             get => HasAccessTo(RequestAttributes.External) && CanShowTo(RequestAttributes.External);
@@ -129,6 +143,9 @@ namespace ServiceStack
         /// <value>Visibility restrictions</value>
         public RequestAttributes[] VisibleToAny { get; private set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestrictAttribute"/> class.
+        /// </summary>
         public RestrictAttribute()
         {
             this.AccessTo = RequestAttributes.Any;
@@ -138,6 +155,7 @@ namespace ServiceStack
         /// <summary>
         /// Restrict access and metadata visibility to any of the specified access scenarios
         /// </summary>
+        /// <param name="restrictAccessAndVisibilityToScenarios">The restrict access and visibility to scenarios.</param>
         /// <value>The restrict access to scenarios.</value>
         public RestrictAttribute(params RequestAttributes[] restrictAccessAndVisibilityToScenarios)
         {
@@ -148,6 +166,8 @@ namespace ServiceStack
         /// <summary>
         /// Restrict access and metadata visibility to any of the specified access scenarios
         /// </summary>
+        /// <param name="allowedAccessScenarios">The allowed access scenarios.</param>
+        /// <param name="visibleToScenarios">The visible to scenarios.</param>
         /// <value>The restrict access to scenarios.</value>
         public RestrictAttribute(RequestAttributes[] allowedAccessScenarios, RequestAttributes[] visibleToScenarios)
             : this()
@@ -159,8 +179,8 @@ namespace ServiceStack
         /// <summary>
         /// Returns the allowed set of scenarios based on the user-specified restrictions
         /// </summary>
-        /// <param name="restrictToAny"></param>
-        /// <returns></returns>
+        /// <param name="restrictToAny">The restrict to any.</param>
+        /// <returns>RequestAttributes[].</returns>
         private static RequestAttributes[] ToAllowedFlagsSet(RequestAttributes[] restrictToAny)
         {
             if (restrictToAny.Length == 0)
@@ -177,36 +197,54 @@ namespace ServiceStack
             return scenarios.ToArray();
         }
 
+        /// <summary>
+        /// Determines whether this instance [can show to] the specified restrictions.
+        /// </summary>
+        /// <param name="restrictions">The restrictions.</param>
+        /// <returns><c>true</c> if this instance [can show to] the specified restrictions; otherwise, <c>false</c>.</returns>
         public bool CanShowTo(RequestAttributes restrictions)
         {
             return this.VisibleToAny.Any(scenario => (restrictions & scenario) == restrictions);
         }
 
+        /// <summary>
+        /// Determines whether [has access to] [the specified restrictions].
+        /// </summary>
+        /// <param name="restrictions">The restrictions.</param>
+        /// <returns><c>true</c> if [has access to] [the specified restrictions]; otherwise, <c>false</c>.</returns>
         public bool HasAccessTo(RequestAttributes restrictions)
         {
             return this.AccessibleToAny.Any(scenario => (restrictions & scenario) == restrictions);
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance has no access restrictions.
+        /// </summary>
+        /// <value><c>true</c> if this instance has no access restrictions; otherwise, <c>false</c>.</value>
         public bool HasNoAccessRestrictions => this.AccessTo == RequestAttributes.Any;
 
+        /// <summary>
+        /// Gets a value indicating whether this instance has no visibility restrictions.
+        /// </summary>
+        /// <value><c>true</c> if this instance has no visibility restrictions; otherwise, <c>false</c>.</value>
         public bool HasNoVisibilityRestrictions => this.VisibilityTo == RequestAttributes.Any;
     }
 
+    /// <summary>
+    /// Class RestrictExtensions.
+    /// </summary>
     public static class RestrictExtensions
     {
         /// <summary>
         /// Converts from a User intended restriction to a flag with all the allowed attribute flags set, e.g:
-        /// 
         /// If No Network restrictions were specified all Network access types are allowed, e.g:
-        ///     restrict EndpointAttributes.None => ... 111
-        /// 
+        /// restrict EndpointAttributes.None =&gt; ... 111
         /// If a Network restriction was specified, only it will be allowed, e.g:
-        ///     restrict EndpointAttributes.LocalSubnet => ... 010
-        /// 
+        /// restrict EndpointAttributes.LocalSubnet =&gt; ... 010
         /// The returned Enum will have a flag with all the allowed attributes set
         /// </summary>
-        /// <param name="restrictTo"></param>
-        /// <returns></returns>
+        /// <param name="restrictTo">The restrict to.</param>
+        /// <returns>RequestAttributes.</returns>
         public static RequestAttributes ToAllowedFlagsSet(this RequestAttributes restrictTo)
         {
             if (restrictTo == RequestAttributes.Any)
@@ -253,6 +291,12 @@ namespace ServiceStack
             return allowedAttrs;
         }
 
+        /// <summary>
+        /// Determines whether [has any restrictions of] [the specified all restrictions].
+        /// </summary>
+        /// <param name="allRestrictions">All restrictions.</param>
+        /// <param name="restrictions">The restrictions.</param>
+        /// <returns><c>true</c> if [has any restrictions of] [the specified all restrictions]; otherwise, <c>false</c>.</returns>
         public static bool HasAnyRestrictionsOf(RequestAttributes allRestrictions, RequestAttributes restrictions)
         {
             return (allRestrictions & restrictions) != 0;

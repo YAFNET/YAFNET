@@ -1,4 +1,10 @@
-﻿namespace ServiceStack.OrmLite.SqlServer
+﻿// ***********************************************************************
+// <copyright file="SqlServer2014OrmLiteDialectProvider.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.OrmLite.SqlServer
 {
     using System;
     using System.Linq;
@@ -6,10 +12,23 @@
     using ServiceStack.DataAnnotations;
     using ServiceStack.Text;
 
+    /// <summary>
+    /// Class SqlServer2014OrmLiteDialectProvider.
+    /// Implements the <see cref="ServiceStack.OrmLite.SqlServer.SqlServer2012OrmLiteDialectProvider" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.OrmLite.SqlServer.SqlServer2012OrmLiteDialectProvider" />
     public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectProvider
     {
+        /// <summary>
+        /// The instance
+        /// </summary>
         public static new SqlServer2014OrmLiteDialectProvider Instance = new SqlServer2014OrmLiteDialectProvider();
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef)
         {
             // https://msdn.microsoft.com/en-us/library/ms182776.aspx
@@ -41,14 +60,16 @@
             {
                 if (isMemoryTable)
                 {
-                    sql.Append($" NOT NULL PRIMARY KEY NONCLUSTERED");
+                    sql.Append(" NOT NULL PRIMARY KEY NONCLUSTERED");
                 }
                 else
                 {
                     sql.Append(" PRIMARY KEY");
 
                     if (fieldDef.IsNonClustered)
+                    {
                         sql.Append(" NONCLUSTERED");
+                    }
                 }
 
                 if (fieldDef.AutoIncrement)
@@ -94,6 +115,12 @@
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
         {
             // https://msdn.microsoft.com/en-us/library/ms182776.aspx
@@ -185,6 +212,11 @@
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Converts to createtablestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>System.String.</returns>
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
@@ -235,10 +267,15 @@
                 {
                     var attrib = tableType.FirstAttribute<SqlServerMemoryOptimizedAttribute>();
                     sbTableOptions.Append(" WITH (MEMORY_OPTIMIZED = ON");
-                    if (attrib.Durability == SqlServerDurability.SchemaOnly)
-                        sbTableOptions.Append(", DURABILITY = SCHEMA_ONLY");
-                    else if (attrib.Durability == SqlServerDurability.SchemaAndData)
-                        sbTableOptions.Append(", DURABILITY = SCHEMA_AND_DATA");
+                    switch (attrib.Durability)
+                    {
+                        case SqlServerDurability.SchemaOnly:
+                            sbTableOptions.Append(", DURABILITY = SCHEMA_ONLY");
+                            break;
+                        case SqlServerDurability.SchemaAndData:
+                            sbTableOptions.Append(", DURABILITY = SCHEMA_AND_DATA");
+                            break;
+                    }
                     sbTableOptions.Append(")");
                 }
             }

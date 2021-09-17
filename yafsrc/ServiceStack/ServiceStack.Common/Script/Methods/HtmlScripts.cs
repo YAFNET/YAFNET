@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="HtmlScripts.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,28 +16,70 @@ namespace ServiceStack.Script
 {
     // ReSharper disable InconsistentNaming
 
+    /// <summary>
+    /// Class HtmlScripts.
+    /// Implements the <see cref="ServiceStack.Script.ScriptMethods" />
+    /// Implements the <see cref="ServiceStack.Script.IConfigureScriptContext" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.ScriptMethods" />
+    /// <seealso cref="ServiceStack.Script.IConfigureScriptContext" />
     public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     {
 
+        /// <summary>
+        /// The evaluate when skipping filter execution
+        /// </summary>
         public static List<string> EvaluateWhenSkippingFilterExecution = new List<string> {
             nameof(htmlError),
             nameof(htmlErrorMessage),
             nameof(htmlErrorDebug),
         };
 
+        /// <summary>
+        /// Configures the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public void Configure(ScriptContext context)
         {
             EvaluateWhenSkippingFilterExecution.Each(name => context.OnlyEvaluateFiltersWhenSkippingPageFilterExecution.Add(name));
         }
 
+        /// <summary>
+        /// HTMLs the list.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlList(IEnumerable target) => HtmlList(target, new HtmlDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
+        /// <summary>
+        /// HTMLs the list.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlList(IEnumerable target, Dictionary<string, object> options) =>
             HtmlList(target, HtmlDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
 
+        /// <summary>
+        /// HTMLs the dump.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlDump(object target) => HtmlDump(target, new HtmlDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
+        /// <summary>
+        /// HTMLs the dump.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlDump(object target, Dictionary<string, object> options) =>
             HtmlDump(target, HtmlDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
 
+        /// <summary>
+        /// HTMLs the list.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>System.String.</returns>
         public static string HtmlList(IEnumerable items, HtmlDumpOptions options)
         {
             if (options == null)
@@ -143,6 +191,12 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// HTMLs the dump.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>System.String.</returns>
         public static string HtmlDump(object target, HtmlDumpOptions options)
         {
             if (options == null)
@@ -294,6 +348,12 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Gets the scalar HTML.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="defaults">The defaults.</param>
+        /// <returns>System.String.</returns>
         private static string GetScalarHtml(object target, DefaultScripts defaults)
         {
             if (target == null || target.ToString() == string.Empty)
@@ -321,18 +381,57 @@ namespace ServiceStack.Script
             return (target.ToString() ?? "").HtmlEncode();
         }
 
+        /// <summary>
+        /// Determines whether [is complex type] [the specified first].
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <returns><c>true</c> if [is complex type] [the specified first]; otherwise, <c>false</c>.</returns>
         private static bool isComplexType(object first)
         {
             return !(first == null || first is string || first.GetType().IsValueType);
         }
 
+        /// <summary>
+        /// HTMLs the error.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlError(ScriptScopeContext scope) => htmlError(scope, scope.PageResult.LastFilterError);
+        /// <summary>
+        /// HTMLs the error.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="ex">The ex.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlError(ScriptScopeContext scope, Exception ex) => htmlError(scope, ex, null);
+        /// <summary>
+        /// HTMLs the error.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="ex">The ex.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlError(ScriptScopeContext scope, Exception ex, object options) =>
             Context.DebugMode ? htmlErrorDebug(scope, ex, options) : htmlErrorMessage(ex, options);
 
+        /// <summary>
+        /// HTMLs the error message.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlErrorMessage(ScriptScopeContext scope) => htmlErrorMessage(scope.PageResult.LastFilterError);
+        /// <summary>
+        /// HTMLs the error message.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlErrorMessage(Exception ex) => htmlErrorMessage(ex, null);
+        /// <summary>
+        /// HTMLs the error message.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlErrorMessage(Exception ex, object options)
         {
             if (ex == null)
@@ -345,11 +444,29 @@ namespace ServiceStack.Script
             return $"<div class=\"{className}\">{ex.Message}</div>".ToRawString();
         }
 
+        /// <summary>
+        /// HTMLs the error debug.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlErrorDebug(ScriptScopeContext scope) => htmlErrorDebug(scope, scope.PageResult.LastFilterError);
+        /// <summary>
+        /// HTMLs the error debug.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="ex">The ex.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlErrorDebug(ScriptScopeContext scope, object ex) =>
             htmlErrorDebug(scope, ex as Exception ?? scope.PageResult.LastFilterError, ex as Dictionary<string, object>);
 
 
+        /// <summary>
+        /// HTMLs the error debug.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="ex">The ex.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlErrorDebug(ScriptScopeContext scope, Exception ex, object options)
         {
             if (ex == null)
@@ -395,6 +512,11 @@ namespace ServiceStack.Script
             return html.ToRawString();
         }
 
+        /// <summary>
+        /// HTMLs the attrs list.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>System.String.</returns>
         public string htmlAttrsList(Dictionary<string, object> attrs)
         {
             if (attrs == null || attrs.Count == 0)
@@ -434,12 +556,23 @@ namespace ServiceStack.Script
             return sb.ToString();
         }
 
+        /// <summary>
+        /// HTMLs the attrs.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlAttrs(object target)
         {
             var attrs = htmlAttrsList(target as Dictionary<string, object>);
             return (attrs.Length > 0 ? attrs : "").ToRawString();
         }
 
+        /// <summary>
+        /// HTMLs the class list.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public string htmlClassList(object target)
         {
             if (target == null)
@@ -481,12 +614,23 @@ namespace ServiceStack.Script
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// HTMLs the class.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlClass(object target)
         {
             var cls = htmlClassList(target);
             return (cls.Length > 0 ? $" class=\"{cls}\"" : "").ToRawString();
         }
 
+        /// <summary>
+        /// HTMLs the has class.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool htmlHasClass(object target, string name)
         {
             if (target == null)
@@ -510,6 +654,12 @@ namespace ServiceStack.Script
             return false;
         }
 
+        /// <summary>
+        /// HTMLs the add class.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public string htmlAddClass(object target, string name)
         {
             var className = htmlClassList(target) ?? "";
@@ -520,6 +670,12 @@ namespace ServiceStack.Script
             return className + " " + name;
         }
 
+        /// <summary>
+        /// HTMLs the format.
+        /// </summary>
+        /// <param name="htmlWithFormat">The HTML with format.</param>
+        /// <param name="arg">The argument.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlFormat(string htmlWithFormat, string arg)
         {
             if (string.IsNullOrEmpty(arg))
@@ -528,7 +684,18 @@ namespace ServiceStack.Script
             return string.Format(htmlWithFormat, Context.DefaultMethods.htmlEncode(arg)).ToRawString();
         }
 
+        /// <summary>
+        /// HTMLs the link.
+        /// </summary>
+        /// <param name="href">The href.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlLink(string href) => htmlLink(href, new Dictionary<string, object> { ["text"] = href });
+        /// <summary>
+        /// HTMLs the link.
+        /// </summary>
+        /// <param name="href">The href.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlLink(string href, Dictionary<string, object> attrs)
         {
             if (string.IsNullOrEmpty(href))
@@ -537,7 +704,18 @@ namespace ServiceStack.Script
             return htmlA(new Dictionary<string, object>(attrs ?? TypeConstants.EmptyObjectDictionary) { ["href"] = href });
         }
 
+        /// <summary>
+        /// HTMLs the image.
+        /// </summary>
+        /// <param name="src">The source.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlImage(string src) => htmlImage(src, null);
+        /// <summary>
+        /// HTMLs the image.
+        /// </summary>
+        /// <param name="src">The source.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlImage(string src, Dictionary<string, object> attrs)
         {
             if (string.IsNullOrEmpty(src))
@@ -546,11 +724,28 @@ namespace ServiceStack.Script
             return htmlImg(new Dictionary<string, object>(attrs ?? TypeConstants.EmptyObjectDictionary) { ["src"] = src });
         }
 
+        /// <summary>
+        /// HTMLs the hidden inputs.
+        /// </summary>
+        /// <param name="inputValues">The input values.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlHiddenInputs(Dictionary<string, object> inputValues) =>
             ViewUtils.HtmlHiddenInputs(inputValues).ToRawString();
 
+        /// <summary>
+        /// HTMLs the options.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlOptions(object values) => htmlOptions(values, null);
 
+        /// <summary>
+        /// HTMLs the options.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
+        /// <exception cref="NotSupportedException">Could not convert '{values.GetType().Name}' values into List string</exception>
         public IRawString htmlOptions(object values, object options)
         {
             if (values == null)
@@ -588,11 +783,21 @@ namespace ServiceStack.Script
             return StringBuilderCache.ReturnAndFree(sb).ToRawString();
         }
 
+        /// <summary>
+        /// Gets the void elements.
+        /// </summary>
+        /// <value>The void elements.</value>
         public static HashSet<string> VoidElements { get; } = new HashSet<string>
         {
             "area", "base", "br", "col", "embed", "hr", "img", "input", "keygen", "link", "meta", "param", "source", "track", "wbr"
         };
 
+        /// <summary>
+        /// HTMLs the tag.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTag(Dictionary<string, object> attrs, string tag)
         {
             var scopedParams = attrs ?? TypeConstants.EmptyObjectDictionary;
@@ -614,68 +819,361 @@ namespace ServiceStack.Script
                 : $"<{tag}{attrString}>{innerHtml}</{tag}>".ToRawString();
         }
 
+        /// <summary>
+        /// HTMLs the tag.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <param name="tag">The tag.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTag(string innerHtml, Dictionary<string, object> attrs, string tag)
         {
             return htmlTag(new Dictionary<string, object>(attrs ?? TypeConstants.EmptyObjectDictionary) { ["html"] = innerHtml }, tag);
         }
 
+        /// <summary>
+        /// HTMLs the div.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlDiv(Dictionary<string, object> attrs) => htmlTag(attrs, "div");
+        /// <summary>
+        /// HTMLs the div.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlDiv(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "div");
+        /// <summary>
+        /// HTMLs the span.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlSpan(Dictionary<string, object> attrs) => htmlTag(attrs, "span");
+        /// <summary>
+        /// HTMLs the span.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlSpan(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "span");
 
+        /// <summary>
+        /// HTMLs a.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlA(Dictionary<string, object> attrs) => htmlTag(attrs, "a");
+        /// <summary>
+        /// HTMLs a.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlA(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "a");
+        /// <summary>
+        /// HTMLs the img.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlImg(Dictionary<string, object> attrs) => htmlTag(attrs, "img");
+        /// <summary>
+        /// HTMLs the img.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlImg(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "img");
 
+        /// <summary>
+        /// HTMLs the h1.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH1(Dictionary<string, object> attrs) => htmlTag(attrs, "h1");
+        /// <summary>
+        /// HTMLs the h1.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH1(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "h1");
+        /// <summary>
+        /// HTMLs the h2.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH2(Dictionary<string, object> attrs) => htmlTag(attrs, "h2");
+        /// <summary>
+        /// HTMLs the h2.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH2(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "h2");
+        /// <summary>
+        /// HTMLs the h3.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH3(Dictionary<string, object> attrs) => htmlTag(attrs, "h3");
+        /// <summary>
+        /// HTMLs the h3.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH3(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "h3");
+        /// <summary>
+        /// HTMLs the h4.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH4(Dictionary<string, object> attrs) => htmlTag(attrs, "h4");
+        /// <summary>
+        /// HTMLs the h4.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH4(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "h4");
+        /// <summary>
+        /// HTMLs the h5.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH5(Dictionary<string, object> attrs) => htmlTag(attrs, "h5");
+        /// <summary>
+        /// HTMLs the h5.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH5(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "h5");
+        /// <summary>
+        /// HTMLs the h6.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH6(Dictionary<string, object> attrs) => htmlTag(attrs, "h6");
+        /// <summary>
+        /// HTMLs the h6.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlH6(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "h6");
 
+        /// <summary>
+        /// HTMLs the em.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlEm(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "em");
+        /// <summary>
+        /// HTMLs the em.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlEm(string text) => htmlTag(new Dictionary<string, object> { ["text"] = text }, "em");
+        /// <summary>
+        /// HTMLs the b.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlB(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "b");
+        /// <summary>
+        /// HTMLs the b.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlB(string text) => htmlTag(new Dictionary<string, object> { ["text"] = text }, "b");
 
+        /// <summary>
+        /// HTMLs the ul.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlUl(Dictionary<string, object> attrs) => htmlTag(attrs, "ul");
+        /// <summary>
+        /// HTMLs the ul.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlUl(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "ul");
+        /// <summary>
+        /// HTMLs the ol.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlOl(Dictionary<string, object> attrs) => htmlTag(attrs, "ol");
+        /// <summary>
+        /// HTMLs the ol.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlOl(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "ol");
+        /// <summary>
+        /// HTMLs the li.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlLi(Dictionary<string, object> attrs) => htmlTag(attrs, "li");
+        /// <summary>
+        /// HTMLs the li.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlLi(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "li");
 
+        /// <summary>
+        /// HTMLs the table.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTable(Dictionary<string, object> attrs) => htmlTag(attrs, "table");
+        /// <summary>
+        /// HTMLs the table.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTable(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "table");
+        /// <summary>
+        /// HTMLs the tr.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTr(Dictionary<string, object> attrs) => htmlTag(attrs, "tr");
+        /// <summary>
+        /// HTMLs the tr.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTr(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "tr");
+        /// <summary>
+        /// HTMLs the th.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTh(Dictionary<string, object> attrs) => htmlTag(attrs, "th");
+        /// <summary>
+        /// HTMLs the th.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTh(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "th");
+        /// <summary>
+        /// HTMLs the td.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTd(Dictionary<string, object> attrs) => htmlTag(attrs, "td");
+        /// <summary>
+        /// HTMLs the td.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTd(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "td");
 
+        /// <summary>
+        /// HTMLs the form.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlForm(Dictionary<string, object> attrs) => htmlTag(attrs, "form");
+        /// <summary>
+        /// HTMLs the form.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlForm(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "form");
+        /// <summary>
+        /// HTMLs the label.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlLabel(Dictionary<string, object> attrs) => htmlTag(attrs, "label");
+        /// <summary>
+        /// HTMLs the label.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlLabel(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "label");
+        /// <summary>
+        /// HTMLs the input.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlInput(Dictionary<string, object> attrs) => htmlTag(attrs, "input");
+        /// <summary>
+        /// HTMLs the input.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlInput(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "input");
+        /// <summary>
+        /// HTMLs the text area.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTextArea(Dictionary<string, object> attrs) => htmlTag(attrs, "textarea");
+        /// <summary>
+        /// HTMLs the text area.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlTextArea(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "textarea");
+        /// <summary>
+        /// HTMLs the button.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlButton(Dictionary<string, object> attrs) => htmlTag(attrs, "button");
+        /// <summary>
+        /// HTMLs the button.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlButton(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "button");
+        /// <summary>
+        /// HTMLs the select.
+        /// </summary>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlSelect(Dictionary<string, object> attrs) => htmlTag(attrs, "select");
+        /// <summary>
+        /// HTMLs the select.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlSelect(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "select");
+        /// <summary>
+        /// HTMLs the option.
+        /// </summary>
+        /// <param name="innerHtml">The inner HTML.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlOption(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "option");
+        /// <summary>
+        /// HTMLs the option.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>IRawString.</returns>
         public IRawString htmlOption(string text) => htmlTag(new Dictionary<string, object> { ["text"] = text }, "option");
     }
 }

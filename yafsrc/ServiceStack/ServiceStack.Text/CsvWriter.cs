@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="CsvWriter.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,8 +13,16 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// Class CsvDictionaryWriter.
+    /// </summary>
     internal class CsvDictionaryWriter
     {
+        /// <summary>
+        /// Writes the row.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="row">The row.</param>
         public static void WriteRow(TextWriter writer, IEnumerable<string> row)
         {
             if (writer == null) return; //AOT
@@ -23,6 +37,11 @@ namespace ServiceStack.Text
             writer.Write(CsvConfig.RowSeparatorString);
         }
 
+        /// <summary>
+        /// Writes the object row.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="row">The row.</param>
         public static void WriteObjectRow(TextWriter writer, IEnumerable<object> row)
         {
             if (writer == null) return; //AOT
@@ -37,6 +56,11 @@ namespace ServiceStack.Text
             writer.Write(CsvConfig.RowSeparatorString);
         }
 
+        /// <summary>
+        /// Writes the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="records">The records.</param>
         public static void Write(TextWriter writer, IEnumerable<KeyValuePair<string, object>> records)
         {
             if (records == null) return; //AOT
@@ -52,6 +76,11 @@ namespace ServiceStack.Text
             WriteObjectRow(writer, values);
         }
 
+        /// <summary>
+        /// Writes the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="records">The records.</param>
         public static void Write(TextWriter writer, IEnumerable<KeyValuePair<string, string>> records)
         {
             if (records == null) return; //AOT
@@ -67,6 +96,11 @@ namespace ServiceStack.Text
             WriteObjectRow(writer, values);
         }
 
+        /// <summary>
+        /// Writes the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="records">The records.</param>
         public static void Write(TextWriter writer, IEnumerable<IDictionary<string, object>> records)
         {
             if (records == null) return; //AOT
@@ -86,6 +120,11 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Writes the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="records">The records.</param>
         public static void Write(TextWriter writer, IEnumerable<IDictionary<string, string>> records)
         {
             if (records == null) return; //AOT
@@ -119,8 +158,16 @@ namespace ServiceStack.Text
         }
     }
 
+    /// <summary>
+    /// Class CsvWriter.
+    /// </summary>
     public static class CsvWriter
     {
+        /// <summary>
+        /// Determines whether [has any escape chars] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [has any escape chars] [the specified value]; otherwise, <c>false</c>.</returns>
         public static bool HasAnyEscapeChars(string value)
         {
             return !string.IsNullOrEmpty(value)
@@ -129,6 +176,11 @@ namespace ServiceStack.Text
                     || value[0] == JsWriter.MapStartChar);
         }
 
+        /// <summary>
+        /// Writes the item seperator if ran once.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="ranOnce">if set to <c>true</c> [ran once].</param>
         internal static void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
         {
             if (ranOnce)
@@ -138,17 +190,40 @@ namespace ServiceStack.Text
         }
     }
 
+    /// <summary>
+    /// Class CsvWriter.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class CsvWriter<T>
     {
+        /// <summary>
+        /// The delimiter character
+        /// </summary>
         public const char DelimiterChar = ',';
 
+        /// <summary>
+        /// Gets or sets the headers.
+        /// </summary>
+        /// <value>The headers.</value>
         public static List<string> Headers { get; set; }
 
+        /// <summary>
+        /// The property getters
+        /// </summary>
         internal static List<GetMemberDelegate<T>> PropertyGetters;
+        /// <summary>
+        /// The property infos
+        /// </summary>
         internal static List<PropertyInfo> PropertyInfos;
 
+        /// <summary>
+        /// The optimized writer
+        /// </summary>
         private static readonly WriteObjectDelegate OptimizedWriter;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="CsvWriter{T}" /> class.
+        /// </summary>
         static CsvWriter()
         {
             if (typeof(T) == typeof(string))
@@ -160,6 +235,9 @@ namespace ServiceStack.Text
             Reset();
         }
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         internal static void Reset()
         {
             Headers = new List<string>();
@@ -182,6 +260,10 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Configures the custom headers.
+        /// </summary>
+        /// <param name="customHeadersMap">The custom headers map.</param>
         internal static void ConfigureCustomHeaders(Dictionary<string, string> customHeadersMap)
         {
             Reset();
@@ -201,6 +283,12 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Gets the single row.
+        /// </summary>
+        /// <param name="records">The records.</param>
+        /// <param name="recordType">Type of the record.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         private static List<string> GetSingleRow(IEnumerable<T> records, Type recordType)
         {
             var row = new List<string>();
@@ -215,6 +303,11 @@ namespace ServiceStack.Text
             return row;
         }
 
+        /// <summary>
+        /// Gets the rows.
+        /// </summary>
+        /// <param name="records">The records.</param>
+        /// <returns>List&lt;List&lt;System.String&gt;&gt;.</returns>
         public static List<List<string>> GetRows(IEnumerable<T> records)
         {
             var rows = new List<List<string>>();
@@ -245,6 +338,11 @@ namespace ServiceStack.Text
             return rows;
         }
 
+        /// <summary>
+        /// Writes the object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="records">The records.</param>
         public static void WriteObject(TextWriter writer, object records)
         {
             if (writer == null) return; //AOT
@@ -252,6 +350,11 @@ namespace ServiceStack.Text
             Write(writer, (IEnumerable<T>)records);
         }
 
+        /// <summary>
+        /// Writes the object row.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="record">The record.</param>
         public static void WriteObjectRow(TextWriter writer, object record)
         {
             if (writer == null) return; //AOT
@@ -259,6 +362,11 @@ namespace ServiceStack.Text
             WriteRow(writer, (T)record);
         }
 
+        /// <summary>
+        /// Writes the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="records">The records.</param>
         public static void Write(TextWriter writer, IEnumerable<T> records)
         {
             if (writer == null) return; //AOT
@@ -366,6 +474,11 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Writes the row.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="row">The row.</param>
         public static void WriteRow(TextWriter writer, T row)
         {
             if (writer == null) return; //AOT
@@ -384,6 +497,11 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Writes the row.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="row">The row.</param>
         public static void WriteRow(TextWriter writer, IEnumerable<string> row)
         {
             if (writer == null) return; //AOT
@@ -398,6 +516,11 @@ namespace ServiceStack.Text
             writer.Write(CsvConfig.RowSeparatorString);
         }
 
+        /// <summary>
+        /// Writes the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="rows">The rows.</param>
         public static void Write(TextWriter writer, IEnumerable<List<string>> rows)
         {
             if (writer == null) return; //AOT

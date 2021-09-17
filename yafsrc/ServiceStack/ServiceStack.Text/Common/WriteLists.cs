@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="WriteLists.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -20,13 +15,28 @@ using System.Linq;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class WriteListsOfElements.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class WriteListsOfElements<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// The list cache FNS
+        /// </summary>
         static Dictionary<Type, WriteObjectDelegate> ListCacheFns = new();
 
+        /// <summary>
+        /// Gets the list write function.
+        /// </summary>
+        /// <param name="elementType">Type of the element.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetListWriteFn(Type elementType)
         {
             WriteObjectDelegate writeFn;
@@ -50,8 +60,16 @@ namespace ServiceStack.Text.Common
         }
 
 
+        /// <summary>
+        /// The i list cache FNS
+        /// </summary>
         static Dictionary<Type, WriteObjectDelegate> IListCacheFns = new();
 
+        /// <summary>
+        /// Gets the i list write function.
+        /// </summary>
+        /// <param name="elementType">Type of the element.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetIListWriteFn(Type elementType)
         {
             WriteObjectDelegate writeFn;
@@ -74,8 +92,16 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
+        /// <summary>
+        /// The cache FNS
+        /// </summary>
         static Dictionary<Type, WriteObjectDelegate> CacheFns = new();
 
+        /// <summary>
+        /// Gets the generic write array.
+        /// </summary>
+        /// <param name="elementType">Type of the element.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetGenericWriteArray(Type elementType)
         {
             WriteObjectDelegate writeFn;
@@ -98,8 +124,16 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
+        /// <summary>
+        /// The enumerable cache FNS
+        /// </summary>
         static Dictionary<Type, WriteObjectDelegate> EnumerableCacheFns = new();
 
+        /// <summary>
+        /// Gets the generic write enumerable.
+        /// </summary>
+        /// <param name="elementType">Type of the element.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetGenericWriteEnumerable(Type elementType)
         {
             WriteObjectDelegate writeFn;
@@ -122,8 +156,16 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
+        /// <summary>
+        /// The list value type cache FNS
+        /// </summary>
         static Dictionary<Type, WriteObjectDelegate> ListValueTypeCacheFns = new();
 
+        /// <summary>
+        /// Gets the type of the write list value.
+        /// </summary>
+        /// <param name="elementType">Type of the element.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetWriteListValueType(Type elementType)
         {
             WriteObjectDelegate writeFn;
@@ -146,8 +188,16 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
+        /// <summary>
+        /// The i list value type cache FNS
+        /// </summary>
         static Dictionary<Type, WriteObjectDelegate> IListValueTypeCacheFns = new();
 
+        /// <summary>
+        /// Gets the type of the write i list value.
+        /// </summary>
+        /// <param name="elementType">Type of the element.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetWriteIListValueType(Type elementType)
         {
             WriteObjectDelegate writeFn;
@@ -171,6 +221,11 @@ namespace ServiceStack.Text.Common
             return writeFn;
         }
 
+        /// <summary>
+        /// Writes the i enumerable.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oValueCollection">The o value collection.</param>
         public static void WriteIEnumerable(TextWriter writer, object oValueCollection)
         {
             WriteObjectDelegate toStringFn = null;
@@ -209,11 +264,22 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class WriteListsOfElements.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class WriteListsOfElements<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The element write function
+        /// </summary>
         private static readonly WriteObjectDelegate ElementWriteFn;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="WriteListsOfElements{T, TSerializer}" /> class.
+        /// </summary>
         static WriteListsOfElements()
         {
             var fn = JsWriter.GetTypeSerializer<TSerializer>().GetWriteFn<T>();
@@ -233,11 +299,21 @@ namespace ServiceStack.Text.Common
             };
         }
 
+        /// <summary>
+        /// Writes the list.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oList">The o list.</param>
         public static void WriteList(TextWriter writer, object oList)
         {
             WriteGenericIList(writer, (IList<T>)oList);
         }
 
+        /// <summary>
+        /// Writes the generic list.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteGenericList(TextWriter writer, List<T> list)
         {
             writer.Write(JsWriter.ListStartChar);
@@ -253,11 +329,21 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the type of the list value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteListValueType(TextWriter writer, object list)
         {
             WriteGenericListValueType(writer, (List<T>)list);
         }
 
+        /// <summary>
+        /// Writes the type of the generic list value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteGenericListValueType(TextWriter writer, List<T> list)
         {
             if (list == null) return; //AOT
@@ -275,11 +361,21 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the i list.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oList">The o list.</param>
         public static void WriteIList(TextWriter writer, object oList)
         {
             WriteGenericIList(writer, (IList<T>)oList);
         }
 
+        /// <summary>
+        /// Writes the generic i list.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteGenericIList(TextWriter writer, IList<T> list)
         {
             if (list == null) return;
@@ -304,11 +400,21 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the type of the i list value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteIListValueType(TextWriter writer, object list)
         {
             WriteGenericIListValueType(writer, (IList<T>)list);
         }
 
+        /// <summary>
+        /// Writes the type of the generic i list value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteGenericIListValueType(TextWriter writer, IList<T> list)
         {
             if (list == null) return; //AOT
@@ -326,17 +432,32 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the array.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oArrayValue">The o array value.</param>
         public static void WriteArray(TextWriter writer, object oArrayValue)
         {
             if (oArrayValue == null) return;
             WriteGenericArray(writer, (Array)oArrayValue);
         }
 
+        /// <summary>
+        /// Writes the type of the generic array value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oArray">The o array.</param>
         public static void WriteGenericArrayValueType(TextWriter writer, object oArray)
         {
             WriteGenericArrayValueType(writer, (T[])oArray);
         }
 
+        /// <summary>
+        /// Writes the type of the generic array value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="array">The array.</param>
         public static void WriteGenericArrayValueType(TextWriter writer, T[] array)
         {
             if (array == null) return;
@@ -353,6 +474,13 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the generic array multi dimension.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="array">The array.</param>
+        /// <param name="rank">The rank.</param>
+        /// <param name="indices">The indices.</param>
         private static void WriteGenericArrayMultiDimension(TextWriter writer, Array array, int rank, int[] indices)
         {
             var ranOnce = false;
@@ -370,15 +498,30 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the generic array.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="array">The array.</param>
         public static void WriteGenericArray(TextWriter writer, Array array)
         {
             WriteGenericArrayMultiDimension(writer, array, 0, new int[array.Rank]);
         }
+        /// <summary>
+        /// Writes the enumerable.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oEnumerable">The o enumerable.</param>
         public static void WriteEnumerable(TextWriter writer, object oEnumerable)
         {
             WriteGenericEnumerable(writer, (IEnumerable<T>)oEnumerable);
         }
 
+        /// <summary>
+        /// Writes the generic enumerable.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="enumerable">The enumerable.</param>
         public static void WriteGenericEnumerable(TextWriter writer, IEnumerable<T> enumerable)
         {
             if (enumerable == null) return;
@@ -394,6 +537,11 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the type of the generic enumerable value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="enumerable">The enumerable.</param>
         public static void WriteGenericEnumerableValueType(TextWriter writer, IEnumerable<T> enumerable)
         {
             writer.Write(JsWriter.ListStartChar);
@@ -409,13 +557,28 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class WriteLists.
+    /// </summary>
     internal static class WriteLists
     {
+        /// <summary>
+        /// Writes the list string.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteListString(ITypeSerializer serializer, TextWriter writer, object list)
         {
             WriteListString(serializer, writer, (List<string>)list);
         }
 
+        /// <summary>
+        /// Writes the list string.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteListString(ITypeSerializer serializer, TextWriter writer, List<string> list)
         {
             writer.Write(JsWriter.ListStartChar);
@@ -430,11 +593,23 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the i list string.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteIListString(ITypeSerializer serializer, TextWriter writer, object list)
         {
             WriteIListString(serializer, writer, (IList<string>)list);
         }
 
+        /// <summary>
+        /// Writes the i list string.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="list">The list.</param>
         public static void WriteIListString(ITypeSerializer serializer, TextWriter writer, IList<string> list)
         {
             writer.Write(JsWriter.ListStartChar);
@@ -450,12 +625,24 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.ListEndChar);
         }
 
+        /// <summary>
+        /// Writes the bytes.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="byteValue">The byte value.</param>
         public static void WriteBytes(ITypeSerializer serializer, TextWriter writer, object byteValue)
         {
             if (byteValue == null) return;
             serializer.WriteBytes(writer, byteValue);
         }
 
+        /// <summary>
+        /// Writes the string array.
+        /// </summary>
+        /// <param name="serializer">The serializer.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oList">The o list.</param>
         public static void WriteStringArray(ITypeSerializer serializer, TextWriter writer, object oList)
         {
             writer.Write(JsWriter.ListStartChar);
@@ -473,22 +660,45 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class WriteLists.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     internal static class WriteLists<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static readonly WriteObjectDelegate CacheFn;
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Initializes static members of the <see cref="WriteLists{T, TSerializer}" /> class.
+        /// </summary>
         static WriteLists()
         {
             CacheFn = GetWriteFn();
         }
 
+        /// <summary>
+        /// Gets the write.
+        /// </summary>
+        /// <value>The write.</value>
         public static WriteObjectDelegate Write
         {
             get { return CacheFn; }
         }
 
+        /// <summary>
+        /// Gets the write function.
+        /// </summary>
+        /// <returns>WriteObjectDelegate.</returns>
+        /// <exception cref="System.ArgumentException"></exception>
         public static WriteObjectDelegate GetWriteFn()
         {
             var type = typeof(T);

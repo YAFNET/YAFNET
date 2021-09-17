@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="SqlMapper.TypeDeserializerCache.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Data;
 using System.Collections;
@@ -6,17 +12,39 @@ using System.Text;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    /// <summary>
+    /// Class SqlMapper.
+    /// </summary>
     public static partial class SqlMapper
     {
+        /// <summary>
+        /// Class TypeDeserializerCache.
+        /// </summary>
         private class TypeDeserializerCache
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="TypeDeserializerCache"/> class.
+            /// </summary>
+            /// <param name="type">The type.</param>
             private TypeDeserializerCache(Type type)
             {
                 this.type = type;
             }
 
-            private static readonly Hashtable byType = new Hashtable();
+            /// <summary>
+            /// The by type
+            /// </summary>
+            private static readonly Hashtable byType = new();
+
+            /// <summary>
+            /// The type
+            /// </summary>
             private readonly Type type;
+
+            /// <summary>
+            /// Purges the specified type.
+            /// </summary>
+            /// <param name="type">The type.</param>
             internal static void Purge(Type type)
             {
                 lock (byType)
@@ -25,6 +53,9 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
 
+            /// <summary>
+            /// Purges this instance.
+            /// </summary>
             internal static void Purge()
             {
                 lock (byType)
@@ -33,6 +64,15 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
 
+            /// <summary>
+            /// Gets the reader.
+            /// </summary>
+            /// <param name="type">The type.</param>
+            /// <param name="reader">The reader.</param>
+            /// <param name="startBound">The start bound.</param>
+            /// <param name="length">The length.</param>
+            /// <param name="returnNullIfFirstMissing">if set to <c>true</c> [return null if first missing].</param>
+            /// <returns>Func&lt;IDataReader, System.Object&gt;.</returns>
             internal static Func<IDataReader, object> GetReader(Type type, IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
             {
                 var found = (TypeDeserializerCache)byType[type];
@@ -50,17 +90,50 @@ namespace ServiceStack.OrmLite.Dapper
                 return found.GetReader(reader, startBound, length, returnNullIfFirstMissing);
             }
 
-            private readonly Dictionary<DeserializerKey, Func<IDataReader, object>> readers = new Dictionary<DeserializerKey, Func<IDataReader, object>>();
+            /// <summary>
+            /// The readers
+            /// </summary>
+            private readonly Dictionary<DeserializerKey, Func<IDataReader, object>> readers = new();
 
+            /// <summary>
+            /// Struct DeserializerKey
+            /// </summary>
             private struct DeserializerKey : IEquatable<DeserializerKey>
             {
+                /// <summary>
+                /// The start bound
+                /// </summary>
                 private readonly int startBound, length;
+                /// <summary>
+                /// The return null if first missing
+                /// </summary>
                 private readonly bool returnNullIfFirstMissing;
+                /// <summary>
+                /// The reader
+                /// </summary>
                 private readonly IDataReader reader;
+                /// <summary>
+                /// The names
+                /// </summary>
                 private readonly string[] names;
+                /// <summary>
+                /// The types
+                /// </summary>
                 private readonly Type[] types;
+                /// <summary>
+                /// The hash code
+                /// </summary>
                 private readonly int hashCode;
 
+                /// <summary>
+                /// Initializes a new instance of the <see cref="DeserializerKey"/> struct.
+                /// </summary>
+                /// <param name="hashCode">The hash code.</param>
+                /// <param name="startBound">The start bound.</param>
+                /// <param name="length">The length.</param>
+                /// <param name="returnNullIfFirstMissing">if set to <c>true</c> [return null if first missing].</param>
+                /// <param name="reader">The reader.</param>
+                /// <param name="copyDown">if set to <c>true</c> [copy down].</param>
                 public DeserializerKey(int hashCode, int startBound, int length, bool returnNullIfFirstMissing, IDataReader reader, bool copyDown)
                 {
                     this.hashCode = hashCode;
@@ -88,8 +161,16 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                 }
 
+                /// <summary>
+                /// Returns a hash code for this instance.
+                /// </summary>
+                /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
                 public override int GetHashCode() => hashCode;
 
+                /// <summary>
+                /// Returns a <see cref="string" /> that represents this instance.
+                /// </summary>
+                /// <returns>A <see cref="string" /> that represents this instance.</returns>
                 public override string ToString()
                 { // only used in the debugger
                     if (names != null)
@@ -110,11 +191,18 @@ namespace ServiceStack.OrmLite.Dapper
                     return base.ToString();
                 }
 
-                public override bool Equals(object obj)
-                {
-                    return obj is DeserializerKey && Equals((DeserializerKey)obj);
-                }
+                /// <summary>
+                /// Determines whether the specified <see cref="object" /> is equal to this instance.
+                /// </summary>
+                /// <param name="obj">The object to compare with the current instance.</param>
+                /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+                public override bool Equals(object obj) => obj is DeserializerKey key && Equals(key);
 
+                /// <summary>
+                /// Indicates whether the current object is equal to another object of the same type.
+                /// </summary>
+                /// <param name="other">An object to compare with this object.</param>
+                /// <returns><see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
                 public bool Equals(DeserializerKey other)
                 {
                     if (hashCode != other.hashCode
@@ -138,6 +226,14 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
 
+            /// <summary>
+            /// Gets the reader.
+            /// </summary>
+            /// <param name="reader">The reader.</param>
+            /// <param name="startBound">The start bound.</param>
+            /// <param name="length">The length.</param>
+            /// <param name="returnNullIfFirstMissing">if set to <c>true</c> [return null if first missing].</param>
+            /// <returns>Func&lt;IDataReader, System.Object&gt;.</returns>
             private Func<IDataReader, object> GetReader(IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
             {
                 if (length < 0) length = reader.FieldCount - startBound;

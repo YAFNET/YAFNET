@@ -1,4 +1,10 @@
-﻿namespace ServiceStack.Text.Pools
+﻿// ***********************************************************************
+// <copyright file="ObjectPool.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.Text.Pools
 {
     // Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
@@ -23,43 +29,58 @@ using System.Runtime.CompilerServices;
     /// Generic implementation of object pooling pattern with predefined pool size limit. The main
     /// purpose is that limited number of frequently used objects can be kept in the pool for
     /// further recycling.
-    /// 
-    /// Notes: 
+    /// Notes:
     /// 1) it is not the goal to keep all returned objects. Pool is not meant for storage. If there
-    ///    is no space in the pool, extra returned objects will be dropped.
-    /// 
+    /// is no space in the pool, extra returned objects will be dropped.
     /// 2) it is implied that if object was obtained from a pool, the caller will return it back in
-    ///    a relatively short time. Keeping checked out objects for long durations is ok, but 
-    ///    reduces usefulness of pooling. Just new up your own.
-    /// 
-    /// Not returning objects to the pool in not detrimental to the pool's work, but is a bad practice. 
-    /// Rationale: 
-    ///    If there is no intent for reusing the object, do not use pool - just use "new". 
+    /// a relatively short time. Keeping checked out objects for long durations is ok, but
+    /// reduces usefulness of pooling. Just new up your own.
+    /// Not returning objects to the pool in not detrimental to the pool's work, but is a bad practice.
+    /// Rationale:
+    /// If there is no intent for reusing the object, do not use pool - just use "new".
     /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ObjectPool<T> where T : class
     {
 #if !PCL
+        /// <summary>
+        /// Struct Element
+        /// </summary>
         [DebuggerDisplay("{Value,nq}")]
 #endif
         private struct Element
         {
+            /// <summary>
+            /// The value
+            /// </summary>
             internal T Value;
         }
 
-        /// <remarks>
-        /// Not using System.Func{T} because this file is linked into the (debugger) Formatter,
-        /// which does not have that type (since it compiles against .NET 2.0).
-        /// </remarks>
+        /// <summary>
+        /// Delegate Factory
+        /// </summary>
+        /// <returns>T.</returns>
+        /// <remarks>Not using System.Func{T} because this file is linked into the (debugger) Formatter,
+        /// which does not have that type (since it compiles against .NET 2.0).</remarks>
         public delegate T Factory();
 
         // Storage for the pool objects. The first item is stored in a dedicated field because we
         // expect to be able to satisfy most requests from it.
+        /// <summary>
+        /// The first item
+        /// </summary>
         private T _firstItem;
+        /// <summary>
+        /// The items
+        /// </summary>
         private readonly Element[] _items;
 
         // factory is stored for the lifetime of the pool. We will call this only when pool needs to
         // expand. compared to "new T()", Func gives more flexibility to implementers and faster
         // than "new T()".
+        /// <summary>
+        /// The factory
+        /// </summary>
         private readonly Factory _factory;
 
 #if DETECT_LEAKS
@@ -103,10 +124,19 @@ using System.Runtime.CompilerServices;
         }
 #endif
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectPool{T}" /> class.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
         public ObjectPool(Factory factory)
             : this(factory, Environment.ProcessorCount * 2)
         { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ObjectPool{T}" /> class.
+        /// </summary>
+        /// <param name="factory">The factory.</param>
+        /// <param name="size">The size.</param>
         public ObjectPool(Factory factory, int size)
         {
 #if !PCL
@@ -116,6 +146,10 @@ using System.Runtime.CompilerServices;
             _items = new Element[size - 1];
         }
 
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <returns>T.</returns>
         private T CreateInstance()
         {
             var inst = _factory();
@@ -125,11 +159,10 @@ using System.Runtime.CompilerServices;
         /// <summary>
         /// Produces an instance.
         /// </summary>
-        /// <remarks>
-        /// Search strategy is a simple linear probing which is chosen for it cache-friendliness.
-        /// Note that Free will try to store recycled objects close to the start thus statistically 
-        /// reducing how far we will typically search.
-        /// </remarks>
+        /// <returns>T.</returns>
+        /// <remarks>Search strategy is a simple linear probing which is chosen for it cache-friendliness.
+        /// Note that Free will try to store recycled objects close to the start thus statistically
+        /// reducing how far we will typically search.</remarks>
         public T Allocate()
         {
             // PERF: Examine the first element. If that fails, AllocateSlow will look at the remaining elements.
@@ -154,6 +187,10 @@ using System.Runtime.CompilerServices;
             return inst;
         }
 
+        /// <summary>
+        /// Allocates the slow.
+        /// </summary>
+        /// <returns>T.</returns>
         private T AllocateSlow()
         {
             var items = _items;
@@ -179,11 +216,10 @@ using System.Runtime.CompilerServices;
         /// <summary>
         /// Returns objects to the pool.
         /// </summary>
-        /// <remarks>
-        /// Search strategy is a simple linear probing which is chosen for it cache-friendliness.
-        /// Note that Free will try to store recycled objects close to the start thus statistically 
-        /// reducing how far we will typically search in Allocate.
-        /// </remarks>
+        /// <param name="obj">The object.</param>
+        /// <remarks>Search strategy is a simple linear probing which is chosen for it cache-friendliness.
+        /// Note that Free will try to store recycled objects close to the start thus statistically
+        /// reducing how far we will typically search in Allocate.</remarks>
         public void Free(T obj)
         {
             Validate(obj);
@@ -202,6 +238,10 @@ using System.Runtime.CompilerServices;
             }
         }
 
+        /// <summary>
+        /// Frees the slow.
+        /// </summary>
+        /// <param name="obj">The object.</param>
         private void FreeSlow(T obj)
         {
             var items = _items;
@@ -219,13 +259,14 @@ using System.Runtime.CompilerServices;
         }
 
         /// <summary>
-        /// Removes an object from leak tracking.  
-        /// 
-        /// This is called when an object is returned to the pool.  It may also be explicitly 
+        /// Removes an object from leak tracking.
+        /// This is called when an object is returned to the pool.  It may also be explicitly
         /// called if an object allocated from the pool is intentionally not being returned
-        /// to the pool.  This can be of use with pooled arrays if the consumer wants to 
+        /// to the pool.  This can be of use with pooled arrays if the consumer wants to
         /// return a larger array to the pool than was originally allocated.
         /// </summary>
+        /// <param name="old">The old.</param>
+        /// <param name="replacement">The replacement.</param>
         [Conditional("DEBUG")]
         public void ForgetTrackedObject(T old, T replacement = null)
         {
@@ -260,6 +301,10 @@ using System.Runtime.CompilerServices;
 #endif
 
 #if !PCL
+        /// <summary>
+        /// Validates the specified object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
         [Conditional("DEBUG")]
 #endif
         private void Validate(object obj)

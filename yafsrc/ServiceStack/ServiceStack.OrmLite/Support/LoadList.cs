@@ -1,4 +1,10 @@
-﻿namespace ServiceStack.OrmLite.Support
+﻿// ***********************************************************************
+// <copyright file="LoadList.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.OrmLite.Support
 {
     using System;
     using System.Collections;
@@ -10,21 +16,60 @@
 
     using ServiceStack.Text;
 
+    /// <summary>
+    /// Class LoadList.
+    /// </summary>
+    /// <typeparam name="Into">The type of the into.</typeparam>
+    /// <typeparam name="From">The type of from.</typeparam>
     internal abstract class LoadList<Into, From>
     {
+        /// <summary>
+        /// The database command
+        /// </summary>
         protected IDbCommand dbCmd;
+        /// <summary>
+        /// The q
+        /// </summary>
         protected SqlExpression<From> q;
 
+        /// <summary>
+        /// The dialect provider
+        /// </summary>
         protected IOrmLiteDialectProvider dialectProvider;
+        /// <summary>
+        /// The parent results
+        /// </summary>
         protected List<Into> parentResults;
+        /// <summary>
+        /// The model definition
+        /// </summary>
         protected ModelDefinition modelDef;
+        /// <summary>
+        /// The field defs
+        /// </summary>
         protected List<FieldDefinition> fieldDefs;
+        /// <summary>
+        /// The sub SQL
+        /// </summary>
         protected string subSql;
 
+        /// <summary>
+        /// Gets the field defs.
+        /// </summary>
+        /// <value>The field defs.</value>
         public List<FieldDefinition> FieldDefs => fieldDefs;
 
+        /// <summary>
+        /// Gets the parent results.
+        /// </summary>
+        /// <value>The parent results.</value>
         public List<Into> ParentResults => parentResults;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadList{Into, From}"/> class.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="q">The q.</param>
         protected LoadList(IDbCommand dbCmd, SqlExpression<From> q)
         {
             dialectProvider = dbCmd.GetDialectProvider();
@@ -48,6 +93,12 @@
             subSql = dialectProvider.MergeParamsIntoSql(subQSql, subQ.Params);
         }
 
+        /// <summary>
+        /// Gets the reference list SQL.
+        /// </summary>
+        /// <param name="refModelDef">The reference model definition.</param>
+        /// <param name="refField">The reference field.</param>
+        /// <returns>System.String.</returns>
         protected string GetRefListSql(ModelDefinition refModelDef, FieldDefinition refField)
         {
             var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
@@ -61,6 +112,13 @@
             return sqlRef;
         }
 
+        /// <summary>
+        /// Sets the list child results.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="childResults">The child results.</param>
+        /// <param name="refField">The reference field.</param>
         protected void SetListChildResults(FieldDefinition fieldDef, Type refType, IList childResults, FieldDefinition refField)
         {
             var map = new Dictionary<object, List<object>>();
@@ -88,6 +146,13 @@
             }
         }
 
+        /// <summary>
+        /// Gets the reference self SQL.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="refSelf">The reference self.</param>
+        /// <param name="refModelDef">The reference model definition.</param>
+        /// <returns>System.String.</returns>
         protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
         {
             //Load Self Table.RefTableId PK
@@ -108,6 +173,12 @@
             return sqlRef;
         }
 
+        /// <summary>
+        /// Gets the reference field SQL.
+        /// </summary>
+        /// <param name="refModelDef">The reference model definition.</param>
+        /// <param name="refField">The reference field.</param>
+        /// <returns>System.String.</returns>
         protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField)
         {
             var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
@@ -121,6 +192,10 @@
             return sqlRef;
         }
 
+        /// <summary>
+        /// Creates the reference map.
+        /// </summary>
+        /// <returns>Dictionary&lt;System.Object, System.Object&gt;.</returns>
         protected Dictionary<object, object> CreateRefMap()
         {
             return OrmLiteConfig.IsCaseInsensitive
@@ -128,23 +203,44 @@
                 : new Dictionary<object, object>();
         }
 
+        /// <summary>
+        /// Class CaseInsensitiveObjectComparer.
+        /// </summary>
         public class CaseInsensitiveObjectComparer : IEqualityComparer<object>
         {
-            public static CaseInsensitiveObjectComparer Instance = new CaseInsensitiveObjectComparer();
+            /// <summary>
+            /// The instance
+            /// </summary>
+            public static CaseInsensitiveObjectComparer Instance = new();
 
+            /// <summary>
+            /// Determines whether the specified objects are equal.
+            /// </summary>
+            /// <param name="x">The first object of type T to compare.</param>
+            /// <param name="y">The second object of type T to compare.</param>
+            /// <returns><see langword="true" /> if the specified objects are equal; otherwise, <see langword="false" />.</returns>
             public new bool Equals(object x, object y)
             {
-                if (x == null && y == null) return true;
-                if (x == null || y == null) return false;
+                if (x == null && y == null)
+                {
+                    return true;
+                }
 
-                var xStr = x as string;
-                var yStr = y as string;
+                if (x == null || y == null)
+                {
+                    return false;
+                }
 
-                return xStr != null && yStr != null
+                return x is string xStr && y is string yStr
                     ? xStr.Equals(yStr, StringComparison.OrdinalIgnoreCase)
                     : x.Equals(y);
             }
 
+            /// <summary>
+            /// Returns a hash code for this instance.
+            /// </summary>
+            /// <param name="obj">The <see cref="T:System.Object" /> for which a hash code is to be returned.</param>
+            /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
             public int GetHashCode(object obj)
             {
                 var str = obj as string;
@@ -152,6 +248,13 @@
             }
         }
 
+        /// <summary>
+        /// Sets the reference self child results.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refModelDef">The reference model definition.</param>
+        /// <param name="refSelf">The reference self.</param>
+        /// <param name="childResults">The child results.</param>
         protected void SetRefSelfChildResults(FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
         {
             var map = CreateRefMap();
@@ -172,6 +275,12 @@
             }
         }
 
+        /// <summary>
+        /// Sets the reference field child results.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refField">The reference field.</param>
+        /// <param name="childResults">The child results.</param>
         protected void SetRefFieldChildResults(FieldDefinition fieldDef, FieldDefinition refField, IList childResults)
         {
             var map = CreateRefMap();
@@ -193,10 +302,27 @@
         }
     }
 
+    /// <summary>
+    /// Class LoadListSync.
+    /// Implements the <see cref="ServiceStack.OrmLite.Support.LoadList{Into, From}" />
+    /// </summary>
+    /// <typeparam name="Into">The type of the into.</typeparam>
+    /// <typeparam name="From">The type of from.</typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.Support.LoadList{Into, From}" />
     internal class LoadListSync<Into, From> : LoadList<Into, From>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadListSync{Into, From}"/> class.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="q">The q.</param>
         public LoadListSync(IDbCommand dbCmd, SqlExpression<From> q) : base(dbCmd, q) { }
 
+        /// <summary>
+        /// Sets the reference field list.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
         public void SetRefFieldList(FieldDefinition fieldDef, Type refType)
         {
             var refModelDef = refType.GetModelDefinition();
@@ -209,6 +335,11 @@
             SetListChildResults(fieldDef, refType, childResults, refField);
         }
 
+        /// <summary>
+        /// Sets the reference field.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
         public void SetRefField(FieldDefinition fieldDef, Type refType)
         {
             var refModelDef = refType.GetModelDefinition();
@@ -234,10 +365,29 @@
     }
 
 #if ASYNC
+    /// <summary>
+    /// Class LoadListAsync.
+    /// Implements the <see cref="ServiceStack.OrmLite.Support.LoadList{Into, From}" />
+    /// </summary>
+    /// <typeparam name="Into">The type of the into.</typeparam>
+    /// <typeparam name="From">The type of from.</typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.Support.LoadList{Into, From}" />
     internal class LoadListAsync<Into, From> : LoadList<Into, From>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadListAsync{Into, From}"/> class.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="expr">The expr.</param>
         public LoadListAsync(IDbCommand dbCmd, SqlExpression<From> expr) : base(dbCmd, expr) { }
 
+        /// <summary>
+        /// Set reference field list as an asynchronous operation.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task SetRefFieldListAsync(FieldDefinition fieldDef, Type refType, CancellationToken token)
         {
             var refModelDef = refType.GetModelDefinition();
@@ -250,6 +400,13 @@
             SetListChildResults(fieldDef, refType, childResults, refField);
         }
 
+        /// <summary>
+        /// Set reference field as an asynchronous operation.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task SetRefFieldAsync(FieldDefinition fieldDef, Type refType, CancellationToken token)
         {
             var refModelDef = refType.GetModelDefinition();

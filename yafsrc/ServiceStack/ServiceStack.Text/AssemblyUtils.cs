@@ -1,3 +1,10 @@
+﻿// ***********************************************************************
+// <copyright file="AssemblyUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,16 +21,25 @@ namespace ServiceStack.Text
     /// </summary>
     public static class AssemblyUtils
     {
+        /// <summary>
+        /// The file URI
+        /// </summary>
         private const string FileUri = "file:///";
+        /// <summary>
+        /// The URI seperator
+        /// </summary>
         private const char UriSeperator = '/';
 
+        /// <summary>
+        /// The type cache
+        /// </summary>
         private static Dictionary<string, Type> TypeCache = new();
 
         /// <summary>
         /// Find the type from the name supplied
         /// </summary>
         /// <param name="typeName">[typeName] or [typeName, assemblyName]</param>
-        /// <returns></returns>
+        /// <returns>System.Type.</returns>
         public static Type FindType(string typeName)
         {
             if (TypeCache.TryGetValue(typeName, out var type)) return type;
@@ -52,6 +68,8 @@ namespace ServiceStack.Text
         /// <summary>
         /// The top-most interface of the given type, if any.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.Type.</returns>
         public static Type MainInterface<T>()
         {
             var t = typeof(T);
@@ -67,8 +85,8 @@ namespace ServiceStack.Text
         /// <summary>
         /// Find type if it exists
         /// </summary>
-        /// <param name="typeName"></param>
-        /// <param name="assemblyName"></param>
+        /// <param name="typeName">Name of the type.</param>
+        /// <param name="assemblyName">Name of the assembly.</param>
         /// <returns>The type if it exists</returns>
         public static Type FindType(string typeName, string assemblyName)
         {
@@ -81,6 +99,11 @@ namespace ServiceStack.Text
             return PclExport.Instance.FindType(typeName, assemblyName);
         }
 
+        /// <summary>
+        /// Finds the type from loaded assemblies.
+        /// </summary>
+        /// <param name="typeName">Name of the type.</param>
+        /// <returns>System.Type.</returns>
         public static Type FindTypeFromLoadedAssemblies(string typeName)
         {
             var assemblies = PclExport.Instance.GetAllAssemblies();
@@ -95,11 +118,21 @@ namespace ServiceStack.Text
             return null;
         }
 
+        /// <summary>
+        /// Loads the assembly.
+        /// </summary>
+        /// <param name="assemblyPath">The assembly path.</param>
+        /// <returns>System.Reflection.Assembly.</returns>
         public static Assembly LoadAssembly(string assemblyPath)
         {
             return PclExport.Instance.LoadAssembly(assemblyPath);
         }
 
+        /// <summary>
+        /// Gets the assembly bin path.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        /// <returns>string.</returns>
         public static string GetAssemblyBinPath(Assembly assembly)
         {
             var codeBase = PclExport.Instance.GetAssemblyCodeBase(assembly);
@@ -112,12 +145,25 @@ namespace ServiceStack.Text
             return assemblyPath;
         }
 
+        /// <summary>
+        /// The version reg ex
+        /// </summary>
         static readonly Regex versionRegEx = new(", Version=[^\\]]+", PclExport.Instance.RegexOptions);
+        /// <summary>
+        /// Converts to typestring.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>string.</returns>
         public static string ToTypeString(this Type type)
         {
             return versionRegEx.Replace(type.AssemblyQualifiedName, "");
         }
 
+        /// <summary>
+        /// Writes the type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>string.</returns>
         public static string WriteType(Type type)
         {
             return type.ToTypeString();

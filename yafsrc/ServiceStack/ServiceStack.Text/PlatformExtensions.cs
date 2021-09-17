@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="PlatformExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -13,44 +19,112 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class PlatformExtensions.
+    /// </summary>
     public static class PlatformExtensions
     {
+        /// <summary>
+        /// Determines whether the specified type is interface.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type is interface; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsInterface")]
         public static bool IsInterface(this Type type) => type.IsInterface;
 
+        /// <summary>
+        /// Determines whether the specified type is array.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type is array; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsArray")]
         public static bool IsArray(this Type type) => type.IsArray;
 
+        /// <summary>
+        /// Determines whether [is value type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is value type] [the specified type]; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsValueType")]
         public static bool IsValueType(this Type type) => type.IsValueType;
 
+        /// <summary>
+        /// Determines whether the specified type is generic.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type is generic; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsGenericType")]
         public static bool IsGeneric(this Type type) => type.IsGenericType;
 
+        /// <summary>
+        /// Bases the type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type.</returns>
         [Obsolete("Use type.BaseType")]
         public static Type BaseType(this Type type) => type.BaseType;
 
+        /// <summary>
+        /// Reflecteds the type.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <returns>Type.</returns>
         [Obsolete("Use pi.ReflectedType")]
         public static Type ReflectedType(this PropertyInfo pi) => pi.ReflectedType;
 
+        /// <summary>
+        /// Reflecteds the type.
+        /// </summary>
+        /// <param name="fi">The fi.</param>
+        /// <returns>Type.</returns>
         [Obsolete("Use fi.ReflectedType")]
         public static Type ReflectedType(this FieldInfo fi) => fi.ReflectedType;
 
+        /// <summary>
+        /// Generics the type definition.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type.</returns>
         [Obsolete("Use type.GetGenericTypeDefinition()")]
         public static Type GenericTypeDefinition(this Type type) => type.GetGenericTypeDefinition();
 
+        /// <summary>
+        /// Gets the type interfaces.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type[].</returns>
         [Obsolete("Use type.GetInterfaces()")]
         public static Type[] GetTypeInterfaces(this Type type) => type.GetInterfaces();
 
+        /// <summary>
+        /// Gets the type generic arguments.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type[].</returns>
         [Obsolete("Use type.GetGenericArguments()")]
         public static Type[] GetTypeGenericArguments(this Type type) => type.GetGenericArguments();
 
+        /// <summary>
+        /// Gets the empty constructor.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ConstructorInfo.</returns>
         [Obsolete("Use type.GetConstructor(Type.EmptyTypes)")]
         public static ConstructorInfo GetEmptyConstructor(this Type type) => type.GetConstructor(Type.EmptyTypes);
 
+        /// <summary>
+        /// Gets all constructors.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>IEnumerable&lt;ConstructorInfo&gt;.</returns>
         [Obsolete("Use type.GetConstructors()")]
         public static IEnumerable<ConstructorInfo> GetAllConstructors(this Type type) => type.GetConstructors();
 
+        /// <summary>
+        /// Gets the types public properties.
+        /// </summary>
+        /// <param name="subType">Type of the sub.</param>
+        /// <returns>PropertyInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static PropertyInfo[] GetTypesPublicProperties(this Type subType)
         {
@@ -60,6 +134,11 @@ namespace ServiceStack
                 BindingFlags.Instance);
         }
 
+        /// <summary>
+        /// Gets the types properties.
+        /// </summary>
+        /// <param name="subType">Type of the sub.</param>
+        /// <returns>PropertyInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static PropertyInfo[] GetTypesProperties(this Type subType)
         {
@@ -70,9 +149,19 @@ namespace ServiceStack
                 BindingFlags.Instance);
         }
 
+        /// <summary>
+        /// Gets the assembly.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Assembly.</returns>
         [Obsolete("Use type.Assembly")]
         public static Assembly GetAssembly(this Type type) => type.Assembly;
 
+        /// <summary>
+        /// Fieldses the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>FieldInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo[] Fields(this Type type)
         {
@@ -84,6 +173,11 @@ namespace ServiceStack
                 BindingFlags.NonPublic);
         }
 
+        /// <summary>
+        /// Propertieses the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>PropertyInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PropertyInfo[] Properties(this Type type)
         {
@@ -95,57 +189,152 @@ namespace ServiceStack
                 BindingFlags.NonPublic);
         }
 
+        /// <summary>
+        /// Gets all fields.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>FieldInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo[] GetAllFields(this Type type) => type.IsInterface ? TypeConstants.EmptyFieldInfoArray : type.Fields();
 
+        /// <summary>
+        /// Gets the public fields.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>FieldInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo[] GetPublicFields(this Type type) => type.IsInterface
             ? TypeConstants.EmptyFieldInfoArray
             : type.GetFields(BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance).ToArray();
 
+        /// <summary>
+        /// Gets the public members.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>MemberInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MemberInfo[] GetPublicMembers(this Type type) => type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
 
+        /// <summary>
+        /// Gets all public members.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>MemberInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MemberInfo[] GetAllPublicMembers(this Type type) =>
             type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
 
+        /// <summary>
+        /// Gets the static method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <returns>MethodInfo.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MethodInfo GetStaticMethod(this Type type, string methodName) =>
             type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
 
+        /// <summary>
+        /// Gets the instance method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <returns>MethodInfo.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MethodInfo GetInstanceMethod(this Type type, string methodName) =>
             type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
+        /// <summary>
+        /// Methods the specified function.
+        /// </summary>
+        /// <param name="fn">The function.</param>
+        /// <returns>MethodInfo.</returns>
         [Obsolete("Use fn.Method")]
         public static MethodInfo Method(this Delegate fn) => fn.Method;
 
+        /// <summary>
+        /// Determines whether the specified type has attribute.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type has attribute; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttribute<T>(this Type type) => type.AllAttributes().Any(x => x.GetType() == typeof(T));
 
+        /// <summary>
+        /// Determines whether [has attribute of] [the specified type].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [has attribute of] [the specified type]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeOf<T>(this Type type) => type.AllAttributes().Any(x => x is T);
 
+        /// <summary>
+        /// Determines whether the specified pi has attribute.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="pi">The pi.</param>
+        /// <returns><c>true</c> if the specified pi has attribute; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttribute<T>(this PropertyInfo pi) => pi.AllAttributes().Any(x => x.GetType() == typeof(T));
 
+        /// <summary>
+        /// Determines whether [has attribute of] [the specified pi].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="pi">The pi.</param>
+        /// <returns><c>true</c> if [has attribute of] [the specified pi]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeOf<T>(this PropertyInfo pi) => pi.AllAttributesLazy().Any(x => x is T);
 
+        /// <summary>
+        /// Determines whether the specified fi has attribute.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fi">The fi.</param>
+        /// <returns><c>true</c> if the specified fi has attribute; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttribute<T>(this FieldInfo fi) => fi.AllAttributes().Any(x => x.GetType() == typeof(T));
 
+        /// <summary>
+        /// Determines whether [has attribute of] [the specified fi].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fi">The fi.</param>
+        /// <returns><c>true</c> if [has attribute of] [the specified fi]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeOf<T>(this FieldInfo fi) => fi.AllAttributes().Any(x => x is T);
 
+        /// <summary>
+        /// Determines whether the specified mi has attribute.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mi">The mi.</param>
+        /// <returns><c>true</c> if the specified mi has attribute; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttribute<T>(this MethodInfo mi) => mi.AllAttributes().Any(x => x.GetType() == typeof(T));
 
+        /// <summary>
+        /// Determines whether [has attribute of] [the specified mi].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mi">The mi.</param>
+        /// <returns><c>true</c> if [has attribute of] [the specified mi]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeOf<T>(this MethodInfo mi) => mi.AllAttributes().Any(x => x is T);
 
+        /// <summary>
+        /// The has attribute cache
+        /// </summary>
         private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeCache = new();
+        /// <summary>
+        /// Determines whether [has attribute cached] [the specified member information].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns><c>true</c> if [has attribute cached] [the specified member information]; otherwise, <c>false</c>.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static bool HasAttributeCached<T>(this MemberInfo memberInfo)
         {
             var key = new Tuple<MemberInfo, Type>(memberInfo, typeof(T));
@@ -167,7 +356,17 @@ namespace ServiceStack
             return hasAttr;
         }
 
+        /// <summary>
+        /// The has attribute of cache
+        /// </summary>
         private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeOfCache = new();
+        /// <summary>
+        /// Determines whether [has attribute of cached] [the specified member information].
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns><c>true</c> if [has attribute of cached] [the specified member information]; otherwise, <c>false</c>.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static bool HasAttributeOfCached<T>(this MemberInfo memberInfo)
         {
             var key = new Tuple<MemberInfo, Type>(memberInfo, typeof(T));
@@ -189,6 +388,12 @@ namespace ServiceStack
             return hasAttr;
         }
 
+        /// <summary>
+        /// Determines whether [has attribute named] [the specified name].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if [has attribute named] [the specified name]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this Type type, string name)
         {
@@ -196,6 +401,12 @@ namespace ServiceStack
             return type.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
         }
 
+        /// <summary>
+        /// Determines whether [has attribute named] [the specified name].
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if [has attribute named] [the specified name]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this PropertyInfo pi, string name)
         {
@@ -203,6 +414,12 @@ namespace ServiceStack
             return pi.AllAttributesLazy().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
         }
 
+        /// <summary>
+        /// Determines whether [has attribute named] [the specified name].
+        /// </summary>
+        /// <param name="fi">The fi.</param>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if [has attribute named] [the specified name]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this FieldInfo fi, string name)
         {
@@ -210,6 +427,12 @@ namespace ServiceStack
             return fi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
         }
 
+        /// <summary>
+        /// Determines whether [has attribute named] [the specified name].
+        /// </summary>
+        /// <param name="mi">The mi.</param>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if [has attribute named] [the specified name]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool HasAttributeNamed(this MemberInfo mi, string name)
         {
@@ -217,8 +440,16 @@ namespace ServiceStack
             return mi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
         }
 
+        /// <summary>
+        /// The data contract
+        /// </summary>
         const string DataContract = "DataContractAttribute";
 
+        /// <summary>
+        /// Determines whether the specified type is dto.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type is dto; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsDto(this Type type)
         {
@@ -230,27 +461,58 @@ namespace ServiceStack
                 : type.GetCustomAttributes(true).Any(x => x.GetType().Name == DataContract);
         }
 
+        /// <summary>
+        /// Properties the get method.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
+        /// <returns>MethodInfo.</returns>
         [Obsolete("Use pi.GetGetMethod(nonPublic)")]
         public static MethodInfo PropertyGetMethod(this PropertyInfo pi, bool nonPublic = false) => pi.GetGetMethod(nonPublic);
 
+        /// <summary>
+        /// Interfaceses the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type[].</returns>
         [Obsolete("Use type.GetInterfaces()")]
         public static Type[] Interfaces(this Type type) => type.GetInterfaces();
 
+        /// <summary>
+        /// Alls the properties.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>PropertyInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PropertyInfo[] AllProperties(this Type type) =>
             type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
         //Should only register Runtime Attributes on StartUp, So using non-ThreadSafe Dictionary is OK
+        /// <summary>
+        /// The property attributes map
+        /// </summary>
         static Dictionary<string, List<Attribute>> propertyAttributesMap = new();
 
+        /// <summary>
+        /// The type attributes map
+        /// </summary>
         static Dictionary<Type, List<Attribute>> typeAttributesMap = new();
 
+        /// <summary>
+        /// Clears the runtime attributes.
+        /// </summary>
         public static void ClearRuntimeAttributes()
         {
             propertyAttributesMap = new Dictionary<string, List<Attribute>>();
             typeAttributesMap = new Dictionary<Type, List<Attribute>>();
         }
 
+        /// <summary>
+        /// Uniques the key.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentException">Property '{0}' has no DeclaringType".Fmt(pi.Name)</exception>
         internal static string UniqueKey(this PropertyInfo pi)
         {
             if (pi.DeclaringType == null)
@@ -259,6 +521,12 @@ namespace ServiceStack
             return pi.DeclaringType.Namespace + "." + pi.DeclaringType.Name + "." + pi.Name;
         }
 
+        /// <summary>
+        /// Adds the attributes.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>Type.</returns>
         public static Type AddAttributes(this Type type, params Attribute[] attrs)
         {
             if (!typeAttributesMap.TryGetValue(type, out var typeAttrs))
@@ -269,9 +537,12 @@ namespace ServiceStack
         }
 
         /// <summary>
-        /// Add a Property attribute at runtime. 
+        /// Add a Property attribute at runtime.
         /// <para>Not threadsafe, should only add attributes on Startup.</para>
         /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="attrs">The attrs.</param>
+        /// <returns>PropertyInfo.</returns>
         public static PropertyInfo AddAttributes(this PropertyInfo propertyInfo, params Attribute[] attrs)
         {
             var key = propertyInfo.UniqueKey();
@@ -284,9 +555,12 @@ namespace ServiceStack
         }
 
         /// <summary>
-        /// Add a Property attribute at runtime. 
+        /// Add a Property attribute at runtime.
         /// <para>Not threadsafe, should only add attributes on Startup.</para>
         /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="attr">The attribute.</param>
+        /// <returns>PropertyInfo.</returns>
         public static PropertyInfo ReplaceAttribute(this PropertyInfo propertyInfo, Attribute attr)
         {
             var key = propertyInfo.UniqueKey();
@@ -301,6 +575,12 @@ namespace ServiceStack
             return propertyInfo;
         }
 
+        /// <summary>
+        /// Gets the attributes.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>List&lt;TAttr&gt;.</returns>
         public static List<TAttr> GetAttributes<TAttr>(this PropertyInfo propertyInfo)
         {
             return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
@@ -308,6 +588,11 @@ namespace ServiceStack
                 : propertyAttrs.OfType<TAttr>().ToList();
         }
 
+        /// <summary>
+        /// Gets the attributes.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>List&lt;Attribute&gt;.</returns>
         public static List<Attribute> GetAttributes(this PropertyInfo propertyInfo)
         {
             return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
@@ -315,6 +600,12 @@ namespace ServiceStack
                 : propertyAttrs.ToList();
         }
 
+        /// <summary>
+        /// Gets the attributes.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>List&lt;Attribute&gt;.</returns>
         public static List<Attribute> GetAttributes(this PropertyInfo propertyInfo, Type attrType)
         {
             return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
@@ -322,6 +613,11 @@ namespace ServiceStack
                 : propertyAttrs.Where(x => attrType.IsInstanceOf(x.GetType())).ToList();
         }
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>System.Object[].</returns>
         public static object[] AllAttributes(this PropertyInfo propertyInfo)
         {
             var attrs = propertyInfo.GetCustomAttributes(true);
@@ -333,6 +629,11 @@ namespace ServiceStack
             return runtimeAttrs.Cast<object>().ToArray();
         }
 
+        /// <summary>
+        /// Alls the attributes lazy.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public static IEnumerable<object> AllAttributesLazy(this PropertyInfo propertyInfo)
         {
             var attrs = propertyInfo.GetCustomAttributes(true);
@@ -347,6 +648,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>System.Object[].</returns>
         public static object[] AllAttributes(this PropertyInfo propertyInfo, Type attrType)
         {
             var attrs = propertyInfo.GetCustomAttributes(attrType, true);
@@ -358,6 +665,12 @@ namespace ServiceStack
             return runtimeAttrs.Cast<object>().ToArray();
         }
 
+        /// <summary>
+        /// Alls the attributes lazy.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public static IEnumerable<object> AllAttributesLazy(this PropertyInfo propertyInfo, Type attrType)
         {
             foreach (var attr in propertyInfo.GetAttributes(attrType))
@@ -370,18 +683,45 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="paramInfo">The parameter information.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this ParameterInfo paramInfo) => paramInfo.GetCustomAttributes(true);
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="fieldInfo">The field information.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this FieldInfo fieldInfo) => fieldInfo.GetCustomAttributes(true);
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this MemberInfo memberInfo) => memberInfo.GetCustomAttributes(true);
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="paramInfo">The parameter information.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this ParameterInfo paramInfo, Type attrType) => paramInfo.GetCustomAttributes(attrType, true);
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="memberInfo">The member information.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this MemberInfo memberInfo, Type attrType)
         {
@@ -391,12 +731,28 @@ namespace ServiceStack
                 : memberInfo.GetCustomAttributes(attrType, true);
         }
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="fieldInfo">The field information.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this FieldInfo fieldInfo, Type attrType) => fieldInfo.GetCustomAttributes(attrType, true);
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this Type type) => type.GetCustomAttributes(true).Union(type.GetRuntimeAttributes()).ToArray();
 
+        /// <summary>
+        /// Alls the attributes lazy.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<object> AllAttributesLazy(this Type type)
         {
@@ -406,38 +762,97 @@ namespace ServiceStack
                 yield return attr;
         }
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this Type type, Type attrType) =>
             type.GetCustomAttributes(attrType, true).Union(type.GetRuntimeAttributes(attrType)).ToArray();
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        /// <returns>System.Object[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object[] AllAttributes(this Assembly assembly) => assembly.GetCustomAttributes(true).ToArray();
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="pi">The pi.</param>
+        /// <returns>TAttr[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttr[] AllAttributes<TAttr>(this ParameterInfo pi) => pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="mi">The mi.</param>
+        /// <returns>TAttr[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttr[] AllAttributes<TAttr>(this MemberInfo mi) => mi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="fi">The fi.</param>
+        /// <returns>TAttr[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttr[] AllAttributes<TAttr>(this FieldInfo fi) => fi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="pi">The pi.</param>
+        /// <returns>TAttr[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttr[] AllAttributes<TAttr>(this PropertyInfo pi) => pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
 
+        /// <summary>
+        /// Alls the attributes lazy.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="pi">The pi.</param>
+        /// <returns>IEnumerable&lt;TAttr&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TAttr> AllAttributesLazy<TAttr>(this PropertyInfo pi) => pi.AllAttributesLazy(typeof(TAttr)).Cast<TAttr>();
 
+        /// <summary>
+        /// Gets the runtime attributes.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns>IEnumerable&lt;T&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static IEnumerable<T> GetRuntimeAttributes<T>(this Type type) => typeAttributesMap.TryGetValue(type, out var attrs)
             ? attrs.OfType<T>()
             : new List<T>();
 
+        /// <summary>
+        /// Gets the runtime attributes.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="attrType">Type of the attribute.</param>
+        /// <returns>IEnumerable&lt;Attribute&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         static IEnumerable<Attribute> GetRuntimeAttributes(this Type type, Type attrType = null) => typeAttributesMap.TryGetValue(type, out var attrs)
             ? attrs.Where(x => attrType == null || attrType.IsInstanceOf(x.GetType()))
             : new List<Attribute>();
 
+        /// <summary>
+        /// Alls the attributes.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns>TAttr[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttr[] AllAttributes<TAttr>(this Type type)
         {
@@ -447,6 +862,12 @@ namespace ServiceStack
                 .ToArray();
         }
 
+        /// <summary>
+        /// Alls the attributes lazy.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns>IEnumerable&lt;TAttr&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<TAttr> AllAttributesLazy<TAttr>(this Type type)
         {
@@ -460,6 +881,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Firsts the attribute.
+        /// </summary>
+        /// <typeparam name="TAttr">The type of the t attribute.</typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns>TAttr.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttr FirstAttribute<TAttr>(this Type type) where TAttr : class
         {
@@ -468,22 +895,45 @@ namespace ServiceStack
                    ?? type.GetRuntimeAttributes<TAttr>().FirstOrDefault();
         }
 
+        /// <summary>
+        /// Firsts the attribute.
+        /// </summary>
+        /// <typeparam name="TAttribute">The type of the t attribute.</typeparam>
+        /// <param name="memberInfo">The member information.</param>
+        /// <returns>TAttribute.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute FirstAttribute<TAttribute>(this MemberInfo memberInfo)
         {
             return memberInfo.AllAttributes<TAttribute>().FirstOrDefault();
         }
 
+        /// <summary>
+        /// Firsts the attribute.
+        /// </summary>
+        /// <typeparam name="TAttribute">The type of the t attribute.</typeparam>
+        /// <param name="paramInfo">The parameter information.</param>
+        /// <returns>TAttribute.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute FirstAttribute<TAttribute>(this ParameterInfo paramInfo)
         {
             return paramInfo.AllAttributes<TAttribute>().FirstOrDefault();
         }
 
+        /// <summary>
+        /// Firsts the attribute.
+        /// </summary>
+        /// <typeparam name="TAttribute">The type of the t attribute.</typeparam>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>TAttribute.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TAttribute FirstAttribute<TAttribute>(this PropertyInfo propertyInfo) =>
             propertyInfo.AllAttributesLazy<TAttribute>().FirstOrDefault();
 
+        /// <summary>
+        /// Firsts the generic type definition.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Type FirstGenericTypeDefinition(this Type type)
         {
@@ -491,9 +941,21 @@ namespace ServiceStack
             return genericType != null ? genericType.GetGenericTypeDefinition() : null;
         }
 
+        /// <summary>
+        /// Determines whether the specified assembly is dynamic.
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        /// <returns><c>true</c> if the specified assembly is dynamic; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsDynamic(this Assembly assembly) => ReflectionOptimizer.Instance.IsDynamic(assembly);
 
+        /// <summary>
+        /// Gets the static method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <param name="types">The types.</param>
+        /// <returns>MethodInfo.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MethodInfo GetStaticMethod(this Type type, string methodName, Type[] types)
         {
@@ -502,93 +964,242 @@ namespace ServiceStack
                 : type.GetMethod(methodName, BindingFlags.Public | BindingFlags.Static, null, types, null);
         }
 
+        /// <summary>
+        /// Gets the method information.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <param name="types">The types.</param>
+        /// <returns>MethodInfo.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MethodInfo GetMethodInfo(this Type type, string methodName, Type[] types = null) => types == null
             ? type.GetMethod(methodName)
             : type.GetMethod(methodName, types);
 
+        /// <summary>
+        /// Invokes the method.
+        /// </summary>
+        /// <param name="fn">The function.</param>
+        /// <param name="instance">The instance.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>System.Object.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object InvokeMethod(this Delegate fn, object instance, object[] parameters = null) =>
             fn.Method.Invoke(instance, parameters ?? new object[] { });
 
+        /// <summary>
+        /// Gets the public static field.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>FieldInfo.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo GetPublicStaticField(this Type type, string fieldName) =>
             type.GetField(fieldName, BindingFlags.Public | BindingFlags.Static);
 
+        /// <summary>
+        /// Makes the delegate.
+        /// </summary>
+        /// <param name="mi">The mi.</param>
+        /// <param name="delegateType">Type of the delegate.</param>
+        /// <param name="throwOnBindFailure">if set to <c>true</c> [throw on bind failure].</param>
+        /// <returns>Delegate.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Delegate MakeDelegate(this MethodInfo mi, Type delegateType, bool throwOnBindFailure = true) =>
             Delegate.CreateDelegate(delegateType, mi, throwOnBindFailure);
 
+        /// <summary>
+        /// Generics the type arguments.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type[].</returns>
         [Obsolete("Use type.GetGenericArguments()")]
         public static Type[] GenericTypeArguments(this Type type) => type.GetGenericArguments();
 
+        /// <summary>
+        /// Declareds the constructors.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ConstructorInfo[].</returns>
         [Obsolete("Use type.GetConstructors()")]
         public static ConstructorInfo[] DeclaredConstructors(this Type type) => type.GetConstructors();
 
+        /// <summary>
+        /// Assignables from.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="fromType">From type.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [Obsolete("Use type.IsAssignableFrom(fromType)")]
         public static bool AssignableFrom(this Type type, Type fromType) => type.IsAssignableFrom(fromType);
 
+        /// <summary>
+        /// Determines whether [is standard class] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is standard class] [the specified type]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStandardClass(this Type type) => type.IsClass && !type.IsAbstract && !type.IsInterface;
 
+        /// <summary>
+        /// Determines whether the specified type is abstract.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type is abstract; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsAbstract")]
         public static bool IsAbstract(this Type type) => type.IsAbstract;
 
+        /// <summary>
+        /// Gets the property information.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns>PropertyInfo.</returns>
         [Obsolete("Use type.GetProperty(propertyName)")]
         public static PropertyInfo GetPropertyInfo(this Type type, string propertyName) => type.GetProperty(propertyName);
 
+        /// <summary>
+        /// Gets the field information.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>FieldInfo.</returns>
         [Obsolete("Use type.GetField(fieldName)")]
         public static FieldInfo GetFieldInfo(this Type type, string fieldName) => type.GetField(fieldName);
 
+        /// <summary>
+        /// Gets the writable fields.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>FieldInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static FieldInfo[] GetWritableFields(this Type type) =>
             type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField);
 
+        /// <summary>
+        /// Sets the method.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
+        /// <returns>MethodInfo.</returns>
         [Obsolete("Use pi.GetSetMethod(nonPublic)")]
         public static MethodInfo SetMethod(this PropertyInfo pi, bool nonPublic = true) =>
             pi.GetSetMethod(nonPublic);
 
+        /// <summary>
+        /// Gets the method information.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <param name="nonPublic">if set to <c>true</c> [non public].</param>
+        /// <returns>MethodInfo.</returns>
         [Obsolete("Use pi.GetGetMethod(nonPublic)")]
         public static MethodInfo GetMethodInfo(this PropertyInfo pi, bool nonPublic = true) =>
             pi.GetGetMethod(nonPublic);
 
+        /// <summary>
+        /// Instances the type of the of.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="instance">The instance.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [Obsolete("Use type.IsInstanceOfType(instance)")]
         public static bool InstanceOfType(this Type type, object instance) => type.IsInstanceOfType(instance);
 
+        /// <summary>
+        /// Determines whether [is assignable from type] [the specified from type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="fromType">From type.</param>
+        /// <returns><c>true</c> if [is assignable from type] [the specified from type]; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsAssignableFrom(fromType)")]
         public static bool IsAssignableFromType(this Type type, Type fromType) => type.IsAssignableFrom(fromType);
 
+        /// <summary>
+        /// Determines whether the specified type is class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type is class; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsClass")]
         public static bool IsClass(this Type type) => type.IsClass;
 
+        /// <summary>
+        /// Determines whether the specified type is enum.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if the specified type is enum; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsEnum")]
         public static bool IsEnum(this Type type) => type.IsEnum;
 
+        /// <summary>
+        /// Determines whether [is enum flags] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is enum flags] [the specified type]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEnumFlags(this Type type) => type.IsEnum && type.FirstAttribute<FlagsAttribute>() != null;
 
+        /// <summary>
+        /// Determines whether [is underlying enum] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is underlying enum] [the specified type]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsUnderlyingEnum(this Type type) => type.IsEnum || type.UnderlyingSystemType.IsEnum;
 
+        /// <summary>
+        /// Gets the instance methods.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>MethodInfo[].</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MethodInfo[] GetInstanceMethods(this Type type) =>
             type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
 
+        /// <summary>
+        /// Gets the method infos.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>MethodInfo[].</returns>
         [Obsolete("Use type.GetMethods()")]
         public static MethodInfo[] GetMethodInfos(this Type type) => type.GetMethods();
 
+        /// <summary>
+        /// Gets the property infos.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>PropertyInfo[].</returns>
         [Obsolete("Use type.GetProperties()")]
         public static PropertyInfo[] GetPropertyInfos(this Type type) => type.GetProperties();
 
+        /// <summary>
+        /// Determines whether [is generic type definition] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is generic type definition] [the specified type]; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsGenericTypeDefinition")]
         public static bool IsGenericTypeDefinition(this Type type) => type.IsGenericTypeDefinition;
 
+        /// <summary>
+        /// Determines whether [is generic type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is generic type] [the specified type]; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.IsGenericType")]
         public static bool IsGenericType(this Type type) => type.IsGenericType;
 
+        /// <summary>
+        /// Determines whether [contains generic parameters] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [contains generic parameters] [the specified type]; otherwise, <c>false</c>.</returns>
         [Obsolete("Use type.ContainsGenericParameters")]
         public static bool ContainsGenericParameters(this Type type) => type.ContainsGenericParameters;
 
+        /// <summary>
+        /// Gets the name of the declaring type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>System.String.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetDeclaringTypeName(this Type type)
         {
@@ -601,6 +1212,11 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Gets the name of the declaring type.
+        /// </summary>
+        /// <param name="mi">The mi.</param>
+        /// <returns>System.String.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string GetDeclaringTypeName(this MemberInfo mi)
         {
@@ -610,21 +1226,44 @@ namespace ServiceStack
             return mi.ReflectedType.Name;
         }
 
+        /// <summary>
+        /// Creates the delegate.
+        /// </summary>
+        /// <param name="methodInfo">The method information.</param>
+        /// <param name="delegateType">Type of the delegate.</param>
+        /// <returns>Delegate.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Delegate CreateDelegate(this MethodInfo methodInfo, Type delegateType)
         {
             return Delegate.CreateDelegate(delegateType, methodInfo);
         }
 
+        /// <summary>
+        /// Creates the delegate.
+        /// </summary>
+        /// <param name="methodInfo">The method information.</param>
+        /// <param name="delegateType">Type of the delegate.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>Delegate.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Delegate CreateDelegate(this MethodInfo methodInfo, Type delegateType, object target)
         {
             return Delegate.CreateDelegate(delegateType, target, methodInfo);
         }
 
+        /// <summary>
+        /// Elements the type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type.</returns>
         [Obsolete("Use type.GetElementType()")]
         public static Type ElementType(this Type type) => type.GetElementType();
 
+        /// <summary>
+        /// Gets the type of the collection.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type.</returns>
         public static Type GetCollectionType(this Type type)
         {
             return type.GetElementType()
@@ -632,8 +1271,18 @@ namespace ServiceStack
                ?? (type.BaseType != null && type.BaseType != typeof(object) ? type.BaseType.GetCollectionType() : null); //e.g. ArrayOfString : List<string>
         }
 
+        /// <summary>
+        /// The generic type cache
+        /// </summary>
         static Dictionary<string, Type> GenericTypeCache = new();
 
+        /// <summary>
+        /// Gets the type of the cached generic.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="argTypes">The argument types.</param>
+        /// <returns>Type.</returns>
+        /// <exception cref="System.ArgumentException"></exception>
         public static Type GetCachedGenericType(this Type type, params Type[] argTypes)
         {
             if (!type.IsGenericTypeDefinition)
@@ -673,15 +1322,35 @@ namespace ServiceStack
             return genericType;
         }
 
+        /// <summary>
+        /// To object map cache
+        /// </summary>
         private static readonly ConcurrentDictionary<Type, ObjectDictionaryDefinition> toObjectMapCache =
             new();
 
+        /// <summary>
+        /// Class ObjectDictionaryDefinition.
+        /// </summary>
         internal class ObjectDictionaryDefinition
         {
+            /// <summary>
+            /// The type
+            /// </summary>
             public Type Type;
+            /// <summary>
+            /// The fields
+            /// </summary>
             public readonly List<ObjectDictionaryFieldDefinition> Fields = new();
+            /// <summary>
+            /// The fields map
+            /// </summary>
             public readonly Dictionary<string, ObjectDictionaryFieldDefinition> FieldsMap = new();
 
+            /// <summary>
+            /// Adds the specified name.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="fieldDef">The field definition.</param>
             public void Add(string name, ObjectDictionaryFieldDefinition fieldDef)
             {
                 Fields.Add(fieldDef);
@@ -689,17 +1358,43 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Class ObjectDictionaryFieldDefinition.
+        /// </summary>
         internal class ObjectDictionaryFieldDefinition
         {
+            /// <summary>
+            /// The name
+            /// </summary>
             public string Name;
+            /// <summary>
+            /// The type
+            /// </summary>
             public Type Type;
 
+            /// <summary>
+            /// The get value function
+            /// </summary>
             public GetMemberDelegate GetValueFn;
+            /// <summary>
+            /// The set value function
+            /// </summary>
             public SetMemberDelegate SetValueFn;
 
+            /// <summary>
+            /// The convert type
+            /// </summary>
             public Type ConvertType;
+            /// <summary>
+            /// The convert value function
+            /// </summary>
             public GetMemberDelegate ConvertValueFn;
 
+            /// <summary>
+            /// Sets the value.
+            /// </summary>
+            /// <param name="instance">The instance.</param>
+            /// <param name="value">The value.</param>
             public void SetValue(object instance, object value)
             {
                 if (SetValueFn == null)
@@ -740,6 +1435,13 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Converts to dictionary.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <param name="mapper">The mapper.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         private static Dictionary<string, object> ConvertToDictionary<T>(
                             IEnumerable<KeyValuePair<string, T>> collection,
                             Func<string, object, object> mapper = null)
@@ -759,6 +1461,13 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Maps to dictionary.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mapper">The mapper.</param>
+        /// <param name="collection">The collection.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         private static Dictionary<string, object> MapToDictionary<T>(
             this Func<string, object, object> mapper,
             IEnumerable<KeyValuePair<string, T>> collection)
@@ -768,11 +1477,22 @@ namespace ServiceStack
                                     pair => mapper(pair.Key, pair.Value));
         }
 
+        /// <summary>
+        /// Converts to objectdictionary.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         public static Dictionary<string, object> ToObjectDictionary(this object obj)
         {
             return ToObjectDictionary(obj, null);
         }
 
+        /// <summary>
+        /// Converts to objectdictionary.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="mapper">The mapper.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         public static Dictionary<string, object> ToObjectDictionary(
                             this object obj,
                             Func<string, object, object> mapper)
@@ -914,6 +1634,11 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Gets the key value pairs type definition.
+        /// </summary>
+        /// <param name="dictType">Type of the dictionary.</param>
+        /// <returns>Type.</returns>
         public static Type GetKeyValuePairsTypeDef(this Type dictType)
         {
             //matches IDictionary<,>, IReadOnlyDictionary<,>, List<KeyValuePair<string, object>>
@@ -925,11 +1650,31 @@ namespace ServiceStack
             return GetKeyValuePairTypeDef(genericEnumType);
         }
 
+        /// <summary>
+        /// Gets the key value pair type definition.
+        /// </summary>
+        /// <param name="genericEnumType">Type of the generic enum.</param>
+        /// <returns>Type.</returns>
         public static Type GetKeyValuePairTypeDef(this Type genericEnumType) => genericEnumType.GetTypeWithGenericTypeDefinitionOf(typeof(KeyValuePair<,>));
 
+        /// <summary>
+        /// Gets the key value pairs types.
+        /// </summary>
+        /// <param name="dictType">Type of the dictionary.</param>
+        /// <param name="keyType">Type of the key.</param>
+        /// <param name="valueType">Type of the value.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool GetKeyValuePairsTypes(this Type dictType, out Type keyType, out Type valueType) =>
             dictType.GetKeyValuePairsTypes(out keyType, out valueType, out _);
 
+        /// <summary>
+        /// Gets the key value pairs types.
+        /// </summary>
+        /// <param name="dictType">Type of the dictionary.</param>
+        /// <param name="keyType">Type of the key.</param>
+        /// <param name="valueType">Type of the value.</param>
+        /// <param name="kvpType">Type of the KVP.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool GetKeyValuePairsTypes(this Type dictType, out Type keyType, out Type valueType, out Type kvpType)
         {
             //matches IDictionary<,>, IReadOnlyDictionary<,>, List<KeyValuePair<string, object>>
@@ -944,6 +1689,13 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Gets the key value pair types.
+        /// </summary>
+        /// <param name="kvpType">Type of the KVP.</param>
+        /// <param name="keyType">Type of the key.</param>
+        /// <param name="valueType">Type of the value.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool GetKeyValuePairTypes(this Type kvpType, out Type keyType, out Type valueType)
         {
             var genericKvps = kvpType.GetTypeWithGenericTypeDefinitionOf(typeof(KeyValuePair<,>));
@@ -959,6 +1711,12 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Froms the object dictionary.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         public static object FromObjectDictionary(this IEnumerable<KeyValuePair<string, object>> values, Type type)
         {
             if (values == null)
@@ -996,6 +1754,11 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Populates the instance.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="instance">The instance.</param>
         public static void PopulateInstance(this IEnumerable<KeyValuePair<string, object>> values, object instance)
         {
             if (values == null || instance == null)
@@ -1004,6 +1767,12 @@ namespace ServiceStack
             PopulateInstanceInternal(values, instance, instance.GetType());
         }
 
+        /// <summary>
+        /// Populates the instance internal.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="to">To.</param>
+        /// <param name="type">The type.</param>
         private static void PopulateInstanceInternal(IEnumerable<KeyValuePair<string, object>> values, object to, Type type)
         {
             if (!toObjectMapCache.TryGetValue(type, out var def))
@@ -1021,6 +1790,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Populates the instance.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="instance">The instance.</param>
         public static void PopulateInstance(this IEnumerable<KeyValuePair<string, string>> values, object instance)
         {
             if (values == null || instance == null)
@@ -1029,6 +1803,12 @@ namespace ServiceStack
             PopulateInstanceInternal(values, instance, instance.GetType());
         }
 
+        /// <summary>
+        /// Populates the instance internal.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="to">To.</param>
+        /// <param name="type">The type.</param>
         private static void PopulateInstanceInternal(IEnumerable<KeyValuePair<string, string>> values, object to, Type type)
         {
             if (!toObjectMapCache.TryGetValue(type, out var def))
@@ -1045,11 +1825,22 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Froms the object dictionary.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <returns>T.</returns>
         public static T FromObjectDictionary<T>(this IEnumerable<KeyValuePair<string, object>> values)
         {
             return (T)values.FromObjectDictionary(typeof(T));
         }
 
+        /// <summary>
+        /// Creates the object dictionary definition.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ObjectDictionaryDefinition.</returns>
         private static ObjectDictionaryDefinition CreateObjectDictionaryDefinition(Type type)
         {
             var def = new ObjectDictionaryDefinition
@@ -1084,6 +1875,12 @@ namespace ServiceStack
             return def;
         }
 
+        /// <summary>
+        /// Converts to safepartialobjectdictionary.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="instance">The instance.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         public static Dictionary<string, object> ToSafePartialObjectDictionary<T>(this T instance)
         {
             var to = new Dictionary<string, object>();
@@ -1126,6 +1923,12 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Merges the into object dictionary.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <param name="sources">The sources.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         public static Dictionary<string, object> MergeIntoObjectDictionary(this object obj, params object[] sources)
         {
             var to = obj.ToObjectDictionary();
@@ -1137,8 +1940,19 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Converts to stringdictionary.
+        /// </summary>
+        /// <param name="from">From.</param>
+        /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
         public static Dictionary<string, string> ToStringDictionary(this IEnumerable<KeyValuePair<string, object>> from) => ToStringDictionary(from, null);
 
+        /// <summary>
+        /// Converts to stringdictionary.
+        /// </summary>
+        /// <param name="from">From.</param>
+        /// <param name="comparer">The comparer.</param>
+        /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
         public static Dictionary<string, string> ToStringDictionary(this IEnumerable<KeyValuePair<string, object>> from, IEqualityComparer<string> comparer)
         {
             var to = comparer != null

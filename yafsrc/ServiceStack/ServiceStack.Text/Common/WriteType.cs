@@ -1,14 +1,9 @@
-﻿//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="WriteType.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -21,21 +16,49 @@ using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class WriteType.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     internal static class WriteType<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static readonly WriteObjectDelegate CacheFn;
+        /// <summary>
+        /// The property writers
+        /// </summary>
         internal static TypePropertyWriter[] PropertyWriters;
+        /// <summary>
+        /// The write type information
+        /// </summary>
         private static readonly WriteObjectDelegate WriteTypeInfo;
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is included.
+        /// </summary>
+        /// <value><c>true</c> if this instance is included; otherwise, <c>false</c>.</value>
         private static bool IsIncluded =>
             JsConfig<T>.IncludeTypeInfo.GetValueOrDefault(JsConfig.IncludeTypeInfo);
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is excluded.
+        /// </summary>
+        /// <value><c>true</c> if this instance is excluded; otherwise, <c>false</c>.</value>
         private static bool IsExcluded =>
             JsConfig<T>.ExcludeTypeInfo.GetValueOrDefault(JsConfig.ExcludeTypeInfo);
 
+        /// <summary>
+        /// Initializes static members of the <see cref="WriteType{T, TSerializer}" /> class.
+        /// </summary>
         static WriteType()
         {
             if (typeof(T) == typeof(Object))
@@ -62,13 +85,27 @@ namespace ServiceStack.Text.Common
             }
         }
 
+        /// <summary>
+        /// Types the information writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="obj">The object.</param>
         public static void TypeInfoWriter(TextWriter writer, object obj)
         {
             TryWriteTypeInfo(writer, obj);
         }
 
+        /// <summary>
+        /// Shoulds the type of the skip.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool ShouldSkipType() { return IsExcluded && !IsIncluded; }
 
+        /// <summary>
+        /// Tries the type of the write self.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool TryWriteSelfType(TextWriter writer)
         {
             if (ShouldSkipType()) return false;
@@ -81,6 +118,12 @@ namespace ServiceStack.Text.Common
             return true;
         }
 
+        /// <summary>
+        /// Tries the write type information.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool TryWriteTypeInfo(TextWriter writer, object obj)
         {
             if (obj == null || ShouldSkipType()) return false;
@@ -93,13 +136,26 @@ namespace ServiceStack.Text.Common
             return true;
         }
 
+        /// <summary>
+        /// Gets the write.
+        /// </summary>
+        /// <value>The write.</value>
         public static WriteObjectDelegate Write => CacheFn;
 
+        /// <summary>
+        /// Gets the write function.
+        /// </summary>
+        /// <returns>WriteObjectDelegate.</returns>
         private static WriteObjectDelegate GetWriteFn()
         {
             return WriteProperties;
         }
 
+        /// <summary>
+        /// Gets the should serialize method.
+        /// </summary>
+        /// <param name="member">The member.</param>
+        /// <returns>Func&lt;T, System.Boolean&gt;.</returns>
         static Func<T, bool> GetShouldSerializeMethod(MemberInfo member)
         {
             var method = member.DeclaringType.GetInstanceMethod("ShouldSerialize" + member.Name);
@@ -108,6 +164,11 @@ namespace ServiceStack.Text.Common
                 : (Func<T, bool>)method.CreateDelegate(typeof(Func<T, bool>));
         }
 
+        /// <summary>
+        /// Shoulds the serialize.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Func&lt;T, System.String, System.Nullable&lt;System.Boolean&gt;&gt;.</returns>
         static Func<T, string, bool?> ShouldSerialize(Type type)
         {
             var method = type.GetMethodInfo("ShouldSerialize");
@@ -116,6 +177,10 @@ namespace ServiceStack.Text.Common
                 : (Func<T, string, bool?>)method.CreateDelegate(typeof(Func<T, string, bool?>));
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool Init()
         {
             if (!typeof(T).IsClass && !typeof(T).IsInterface && !JsConfig.TreatAsRefType(typeof(T))) return false;
@@ -256,8 +321,16 @@ namespace ServiceStack.Text.Common
             return true;
         }
 
+        /// <summary>
+        /// Struct TypePropertyWriter
+        /// </summary>
         internal struct TypePropertyWriter
         {
+            /// <summary>
+            /// Gets the name of the property.
+            /// </summary>
+            /// <param name="config">The configuration.</param>
+            /// <returns>System.String.</returns>
             internal string GetPropertyName(Config config)
             {
                 switch (config.TextCase)
@@ -271,21 +344,80 @@ namespace ServiceStack.Text.Common
                 }
             }
 
+            /// <summary>
+            /// The property type
+            /// </summary>
             internal readonly Type PropertyType;
+            /// <summary>
+            /// The property name
+            /// </summary>
             internal readonly string propertyName;
+            /// <summary>
+            /// The property order
+            /// </summary>
             internal readonly int propertyOrder;
+            /// <summary>
+            /// The property suppress default configuration
+            /// </summary>
             internal readonly bool propertySuppressDefaultConfig;
+            /// <summary>
+            /// The property suppress default attribute
+            /// </summary>
             internal readonly bool propertySuppressDefaultAttribute;
+            /// <summary>
+            /// The property reference name
+            /// </summary>
             internal readonly string propertyReferenceName;
+            /// <summary>
+            /// The property name CLS friendly
+            /// </summary>
             internal readonly string propertyNameCLSFriendly;
+            /// <summary>
+            /// The property name lowercase underscore
+            /// </summary>
             internal readonly string propertyNameLowercaseUnderscore;
+            /// <summary>
+            /// The getter function
+            /// </summary>
             internal readonly GetMemberDelegate<T> GetterFn;
+            /// <summary>
+            /// The write function
+            /// </summary>
             internal readonly WriteObjectDelegate WriteFn;
+            /// <summary>
+            /// The default value
+            /// </summary>
             internal readonly object DefaultValue;
+            /// <summary>
+            /// The should serialize
+            /// </summary>
             internal readonly Func<T, bool> shouldSerialize;
+            /// <summary>
+            /// The should serialize dynamic
+            /// </summary>
             internal readonly Func<T, string, bool?> shouldSerializeDynamic;
+            /// <summary>
+            /// The is enum
+            /// </summary>
             internal readonly bool isEnum;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="TypePropertyWriter" /> struct.
+            /// </summary>
+            /// <param name="propertyType">Type of the property.</param>
+            /// <param name="propertyName">Name of the property.</param>
+            /// <param name="propertyDeclaredTypeName">Name of the property declared type.</param>
+            /// <param name="propertyNameCLSFriendly">The property name CLS friendly.</param>
+            /// <param name="propertyNameLowercaseUnderscore">The property name lowercase underscore.</param>
+            /// <param name="propertyOrder">The property order.</param>
+            /// <param name="propertySuppressDefaultConfig">if set to <c>true</c> [property suppress default configuration].</param>
+            /// <param name="propertySuppressDefaultAttribute">if set to <c>true</c> [property suppress default attribute].</param>
+            /// <param name="getterFn">The getter function.</param>
+            /// <param name="writeFn">The write function.</param>
+            /// <param name="defaultValue">The default value.</param>
+            /// <param name="shouldSerialize">The should serialize.</param>
+            /// <param name="shouldSerializeDynamic">The should serialize dynamic.</param>
+            /// <param name="isEnum">if set to <c>true</c> [is enum].</param>
             public TypePropertyWriter(Type propertyType, string propertyName, string propertyDeclaredTypeName, string propertyNameCLSFriendly,
                 string propertyNameLowercaseUnderscore, int propertyOrder, bool propertySuppressDefaultConfig, bool propertySuppressDefaultAttribute,
                 GetMemberDelegate<T> getterFn, WriteObjectDelegate writeFn, object defaultValue,
@@ -309,6 +441,12 @@ namespace ServiceStack.Text.Common
                 this.isEnum = isEnum;
             }
 
+            /// <summary>
+            /// Shoulds the write property.
+            /// </summary>
+            /// <param name="propertyValue">The property value.</param>
+            /// <param name="config">The configuration.</param>
+            /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
             public bool ShouldWriteProperty(object propertyValue, Config config)
             {
                 var isDefaultValue = propertyValue == null || Equals(DefaultValue, propertyValue);
@@ -331,11 +469,21 @@ namespace ServiceStack.Text.Common
             }
         }
 
+        /// <summary>
+        /// Writes the type of the object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteObjectType(TextWriter writer, object value)
         {
             writer.Write(JsWriter.EmptyMap);
         }
 
+        /// <summary>
+        /// Writes the empty type.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteEmptyType(TextWriter writer, object value)
         {
             if (WriteTypeInfo != null || JsState.IsWritingDynamic)
@@ -351,6 +499,11 @@ namespace ServiceStack.Text.Common
             writer.Write(JsWriter.EmptyMap);
         }
 
+        /// <summary>
+        /// Writes the abstract properties.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteAbstractProperties(TextWriter writer, object value)
         {
             if (value == null)
@@ -368,6 +521,11 @@ namespace ServiceStack.Text.Common
             WriteLateboundProperties(writer, value, valueType);
         }
 
+        /// <summary>
+        /// Writes the properties.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="instance">The instance.</param>
         public static void WriteProperties(TextWriter writer, object instance)
         {
             if (instance == null)
@@ -463,6 +621,12 @@ namespace ServiceStack.Text.Common
                 writer.Write(JsWriter.QuoteChar);
         }
 
+        /// <summary>
+        /// Writes the latebound properties.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="valueType">Type of the value.</param>
         private static void WriteLateboundProperties(TextWriter writer, object value, Type valueType)
         {
             var writeFn = Serializer.GetWriteFn(valueType);
@@ -471,6 +635,12 @@ namespace ServiceStack.Text.Common
             if (!JsConfig<T>.ExcludeTypeInfo.GetValueOrDefault()) JsState.IsWritingDynamic = false;
         }
 
+        /// <summary>
+        /// Gets the name of the property.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="config">The configuration.</param>
+        /// <returns>System.String.</returns>
         internal static string GetPropertyName(string propertyName, Config config)
         {
             switch (config.TextCase)
@@ -484,8 +654,17 @@ namespace ServiceStack.Text.Common
             }
         }
 
+        /// <summary>
+        /// The array brackets
+        /// </summary>
         private static readonly char[] ArrayBrackets = { '[', ']' };
 
+        /// <summary>
+        /// Writes the complex query string properties.
+        /// </summary>
+        /// <param name="typeName">Name of the type.</param>
+        /// <param name="writer">The writer.</param>
+        /// <param name="instance">The instance.</param>
         public static void WriteComplexQueryStringProperties(string typeName, TextWriter writer, object instance)
         {
             var i = 0;
@@ -569,6 +748,11 @@ namespace ServiceStack.Text.Common
             }
         }
 
+        /// <summary>
+        /// Writes the query string.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="instance">The instance.</param>
         public static void WriteQueryString(TextWriter writer, object instance)
         {
             try

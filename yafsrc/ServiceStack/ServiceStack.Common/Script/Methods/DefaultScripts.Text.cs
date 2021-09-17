@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="DefaultScripts.Text.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,14 +15,41 @@ namespace ServiceStack.Script
 {
     // ReSharper disable InconsistentNaming
 
+    /// <summary>
+    /// Class MarkdownTable.
+    /// </summary>
     public class MarkdownTable
     {
+        /// <summary>
+        /// Gets or sets a value indicating whether [include headers].
+        /// </summary>
+        /// <value><c>true</c> if [include headers]; otherwise, <c>false</c>.</value>
         public bool IncludeHeaders { get; set; } = true;
+        /// <summary>
+        /// Gets or sets a value indicating whether [include row numbers].
+        /// </summary>
+        /// <value><c>true</c> if [include row numbers]; otherwise, <c>false</c>.</value>
         public bool IncludeRowNumbers { get; set; } = true;
+        /// <summary>
+        /// Gets or sets the caption.
+        /// </summary>
+        /// <value>The caption.</value>
         public string Caption { get; set; }
+        /// <summary>
+        /// Gets the headers.
+        /// </summary>
+        /// <value>The headers.</value>
         public List<string> Headers { get; } = new List<string>();
+        /// <summary>
+        /// Gets the rows.
+        /// </summary>
+        /// <value>The rows.</value>
         public List<List<string>> Rows { get; } = new List<List<string>>();
 
+        /// <summary>
+        /// Renders this instance.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public string Render()
         {
             if (Rows.Count == 0)
@@ -111,16 +144,51 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class DefaultScripts.
+    /// Implements the <see cref="ServiceStack.Script.ScriptMethods" />
+    /// Implements the <see cref="ServiceStack.Script.IConfigureScriptContext" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.ScriptMethods" />
+    /// <seealso cref="ServiceStack.Script.IConfigureScriptContext" />
     public partial class DefaultScripts
     {
+        /// <summary>
+        /// Texts the list.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>IRawString.</returns>
         public IRawString textList(IEnumerable target) => TextList(target, new TextDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
+        /// <summary>
+        /// Texts the list.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
         public IRawString textList(IEnumerable target, Dictionary<string, object> options) =>
             TextList(target, TextDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
 
+        /// <summary>
+        /// Texts the dump.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>IRawString.</returns>
         public IRawString textDump(object target) => TextDump(target, new TextDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
+        /// <summary>
+        /// Texts the dump.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IRawString.</returns>
         public IRawString textDump(object target, Dictionary<string, object> options) =>
             TextDump(target, TextDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
 
+        /// <summary>
+        /// Texts the list.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>System.String.</returns>
         public static string TextList(IEnumerable items, TextDumpOptions options)
         {
             if (options == null)
@@ -197,6 +265,12 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Texts the dump.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>System.String.</returns>
         public static string TextDump(object target, TextDumpOptions options)
         {
             if (options == null)
@@ -372,6 +446,11 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Converts the type of the dump.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Object.</returns>
         internal static object ConvertDumpType(object target)
         {
             var targetType = target.GetType();
@@ -443,6 +522,11 @@ namespace ServiceStack.Script
             return target;
         }
 
+        /// <summary>
+        /// Maximums the length of the line.
+        /// </summary>
+        /// <param name="s">The s.</param>
+        /// <returns>System.Int32.</returns>
         private static int MaxLineLength(string s)
         {
             if (string.IsNullOrEmpty(s))
@@ -457,6 +541,12 @@ namespace ServiceStack.Script
             return len;
         }
 
+        /// <summary>
+        /// Gets the scalar text.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="defaults">The defaults.</param>
+        /// <returns>System.String.</returns>
         private static string GetScalarText(object target, DefaultScripts defaults)
         {
             if (target == null || target.ToString() == string.Empty)
@@ -484,6 +574,11 @@ namespace ServiceStack.Script
             return target.ToString() ?? "";
         }
 
+        /// <summary>
+        /// Determines whether [is complex type] [the specified first].
+        /// </summary>
+        /// <param name="first">The first.</param>
+        /// <returns><c>true</c> if [is complex type] [the specified first]; otherwise, <c>false</c>.</returns>
         private static bool isComplexType(object first)
         {
             return !(first == null || first is string || first.GetType().IsValueType);

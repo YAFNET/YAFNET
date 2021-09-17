@@ -1,5 +1,9 @@
-﻿// Copyright (c) ServiceStack, Inc. All Rights Reserved.
-// License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="StringUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -13,25 +17,54 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class TextNode.
+    /// </summary>
     public class TextNode
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TextNode"/> class.
+        /// </summary>
         public TextNode()
         {
             Children = new List<TextNode>();
         }
 
+        /// <summary>
+        /// Gets or sets the text.
+        /// </summary>
+        /// <value>The text.</value>
         public string Text { get; set; }
 
+        /// <summary>
+        /// Gets or sets the children.
+        /// </summary>
+        /// <value>The children.</value>
         public List<TextNode> Children { get; set; }
     }
 
+    /// <summary>
+    /// Class StringUtils.
+    /// </summary>
     public static class StringUtils
     {
+        /// <summary>
+        /// Parses the commands.
+        /// </summary>
+        /// <param name="commandsString">The commands string.</param>
+        /// <returns>List&lt;Command&gt;.</returns>
         public static List<Command> ParseCommands(this string commandsString)
         {
             return commandsString.AsMemory().ParseCommands(',');
         }
 
+        /// <summary>
+        /// Parses the commands.
+        /// </summary>
+        /// <param name="commandsString">The commands string.</param>
+        /// <param name="separator">The separator.</param>
+        /// <returns>List&lt;Command&gt;.</returns>
+        /// <exception cref="System.Exception">Illegal syntax near '{commandsString.SafeSlice(pos - 10, 50)}...'</exception>
         public static List<Command> ParseCommands(this ReadOnlyMemory<char> commandsString,
             char separator = ',')
         {
@@ -168,6 +201,12 @@ namespace ServiceStack
 
         // ( {args} , {args} )
         //   ^
+        /// <summary>
+        /// Parses the arguments.
+        /// </summary>
+        /// <param name="argsString">The arguments string.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         public static ReadOnlyMemory<char> ParseArguments(ReadOnlyMemory<char> argsString, out List<ReadOnlyMemory<char>> args)
         {
             var to = new List<ReadOnlyMemory<char>>();
@@ -284,7 +323,10 @@ namespace ServiceStack
         /// <summary>
         /// Multiple string replacements
         /// </summary>
+        /// <param name="str">The string.</param>
         /// <param name="replaceStringsPairs">Even number of old and new value pairs</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentException">Replacement pairs must be an even number of old and new value pairs - replaceStringsPairs</exception>
         public static string ReplacePairs(string str, string[] replaceStringsPairs)
         {
             if (replaceStringsPairs.Length < 2 || replaceStringsPairs.Length % 2 != 0)
@@ -298,8 +340,11 @@ namespace ServiceStack
         }
 
         /// <summary>
-        /// Replace string contents outside of string quotes 
+        /// Replace string contents outside of string quotes
         /// </summary>
+        /// <param name="str">The string.</param>
+        /// <param name="replaceStringsPairs">The replace strings pairs.</param>
+        /// <returns>System.String.</returns>
         public static string ReplaceOutsideOfQuotes(this string str, params string[] replaceStringsPairs)
         {
             var inDoubleQuotes = false;
@@ -402,6 +447,8 @@ namespace ServiceStack
         /// <summary>
         /// Protect against XSS by cleaning non-standard User Input
         /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>System.String.</returns>
         public static string SafeInput(this string text)
         {
             return string.IsNullOrEmpty(text)
@@ -409,6 +456,9 @@ namespace ServiceStack
                 : SafeInputRegEx.Replace(text, "");
         }
 
+        /// <summary>
+        /// The escaped character map
+        /// </summary>
         public static readonly Dictionary<char, string> EscapedCharMap = new Dictionary<char, string> {
             // {'\'', @"\'"},
             {'\"', "\\\""},
@@ -423,6 +473,11 @@ namespace ServiceStack
             {'\v', @"\v"},
         };
 
+        /// <summary>
+        /// Converts to escapedstring.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>System.String.</returns>
         public static string ToEscapedString(this string input)
         {
             var sb = new StringBuilder(input.Length + 2);
@@ -450,6 +505,11 @@ namespace ServiceStack
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Snakes the case to pascal case.
+        /// </summary>
+        /// <param name="snakeCase">The snake case.</param>
+        /// <returns>System.String.</returns>
         public static string SnakeCaseToPascalCase(string snakeCase)
         {
             if (string.IsNullOrEmpty(snakeCase))
@@ -471,36 +531,73 @@ namespace ServiceStack
                 : safeVarName;
         }
 
+        /// <summary>
+        /// Removes the suffix.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="suffix">The suffix.</param>
+        /// <returns>System.String.</returns>
         public static string RemoveSuffix(string name, string suffix) => name == null ? null :
             name.EndsWith(suffix)
                 ? name.Substring(0, name.Length - suffix.Length)
                 : name;
 
+        /// <summary>
+        /// The strip HTML unicode reg ex
+        /// </summary>
         static readonly Regex StripHtmlUnicodeRegEx =
             new Regex(@"&(#)?([xX])?([^ \f\n\r\t\v;]+);", RegexOptions.Compiled);
 
+        /// <summary>
+        /// The safe input reg ex
+        /// </summary>
         static readonly Regex SafeInputRegEx = new Regex(@"[^\w\s\.,@-\\+\\/]", RegexOptions.Compiled);
 
+        /// <summary>
+        /// HTMLs the encode lite.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <returns>System.String.</returns>
         public static string HtmlEncodeLite(this string html)
         {
             return html.Replace("<", "&lt;").Replace(">", "&gt;");
         }
 
+        /// <summary>
+        /// HTMLs the encode.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <returns>System.String.</returns>
         public static string HtmlEncode(this string html)
         {
             return System.Net.WebUtility.HtmlEncode(html).Replace("′", "&prime;");
         }
 
+        /// <summary>
+        /// HTMLs the decode.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <returns>System.String.</returns>
         public static string HtmlDecode(this string html)
         {
             return System.Net.WebUtility.HtmlDecode(html);
         }
 
+        /// <summary>
+        /// Converts the HTML codes.
+        /// </summary>
+        /// <param name="html">The HTML.</param>
+        /// <returns>System.String.</returns>
         public static string ConvertHtmlCodes(this string html)
         {
             return StripHtmlUnicodeRegEx.Replace(html, ConvertHtmlCodeToCharacter);
         }
 
+        /// <summary>
+        /// Converts the HTML code to character.
+        /// </summary>
+        /// <param name="match">The match.</param>
+        /// <returns>System.String.</returns>
         static string ConvertHtmlCodeToCharacter(Match match)
         {
             // http://www.w3.org/TR/html5/syntax.html#character-references
@@ -536,12 +633,25 @@ namespace ServiceStack
             return Convert.ToString((char)decimalValue, CultureInfo.InvariantCulture);
         }
 
+        /// <summary>
+        /// Converts to char.
+        /// </summary>
+        /// <param name="codePoint">The code point.</param>
+        /// <returns>System.String.</returns>
         public static string ToChar(this int codePoint)
         {
             return Convert.ToString(Convert.ToChar(codePoint), CultureInfo.InvariantCulture);
         }
 
+        /// <summary>
+        /// The field separators
+        /// </summary>
         private static readonly char[] FieldSeparators = { ',', ';' };
+        /// <summary>
+        /// Splits the variable names.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        /// <returns>System.String[].</returns>
         public static string[] SplitVarNames(string fields)
         {
             if (string.IsNullOrEmpty(fields))
@@ -556,6 +666,11 @@ namespace ServiceStack
                 .Select(x => x.Trim()).ToArray();
         }
 
+        /// <summary>
+        /// Splits the generic arguments.
+        /// </summary>
+        /// <param name="argList">The argument list.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> SplitGenericArgs(string argList)
         {
             var to = new List<string>();
@@ -599,7 +714,15 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// The block chars
+        /// </summary>
         static char[] blockChars = new[] { '<', '>' };
+        /// <summary>
+        /// Parses the type into nodes.
+        /// </summary>
+        /// <param name="typeDef">The type definition.</param>
+        /// <returns>TextNode.</returns>
         public static TextNode ParseTypeIntoNodes(this string typeDef)
         {
             if (string.IsNullOrEmpty(typeDef))
@@ -669,6 +792,9 @@ namespace ServiceStack
 
         // http://www.w3.org/TR/html5/entities.json
         // TODO: conditional compilation for NET45 that uses ReadOnlyDictionary
+        /// <summary>
+        /// The HTML character codes
+        /// </summary>
         public static readonly IDictionary<string, string> HtmlCharacterCodes = new SortedDictionary<string, string> {
             {@"&Aacute;", 193.ToChar()},
             {@"&aacute;", 225.ToChar()},

@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="JsMemberExpression.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,14 +12,42 @@ using ServiceStack.Text;
 
 namespace ServiceStack.Script
 {
+    /// <summary>
+    /// Class JsMemberExpression.
+    /// Implements the <see cref="ServiceStack.Script.JsExpression" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.JsExpression" />
     public class JsMemberExpression : JsExpression
     {
+        /// <summary>
+        /// Gets the object.
+        /// </summary>
+        /// <value>The object.</value>
         public JsToken Object { get; }
+        /// <summary>
+        /// Gets the property.
+        /// </summary>
+        /// <value>The property.</value>
         public JsToken Property { get; }
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="JsMemberExpression"/> is computed.
+        /// </summary>
+        /// <value><c>true</c> if computed; otherwise, <c>false</c>.</value>
         public bool Computed { get; } //indexer
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsMemberExpression"/> class.
+        /// </summary>
+        /// <param name="object">The object.</param>
+        /// <param name="property">The property.</param>
         public JsMemberExpression(JsToken @object, JsToken property) : this(@object, property, false) { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsMemberExpression"/> class.
+        /// </summary>
+        /// <param name="object">The object.</param>
+        /// <param name="property">The property.</param>
+        /// <param name="computed">if set to <c>true</c> [computed].</param>
         public JsMemberExpression(JsToken @object, JsToken property, bool computed)
         {
             Object = @object;
@@ -21,6 +55,10 @@ namespace ServiceStack.Script
             Computed = computed;
         }
 
+        /// <summary>
+        /// Converts to rawstring.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string ToRawString()
         {
             var sb = StringBuilderCache.Allocate();
@@ -39,6 +77,10 @@ namespace ServiceStack.Script
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Converts to jsast.
+        /// </summary>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         public override Dictionary<string, object> ToJsAst()
         {
             var to = new Dictionary<string, object>
@@ -51,6 +93,11 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Evaluates the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>System.Object.</returns>
         public override object Evaluate(ScriptScopeContext scope)
         {
             var targetValue = Object.Evaluate(scope);
@@ -60,6 +107,14 @@ namespace ServiceStack.Script
                 : ret;
         }
 
+        /// <summary>
+        /// Properties the value.
+        /// </summary>
+        /// <param name="targetValue">The target value.</param>
+        /// <param name="targetType">Type of the target.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.ArgumentException">'{targetType.Name}' does not have a '{name}' property or field</exception>
         private static object PropValue(object targetValue, Type targetType, string name)
         {
             var memberFn = TypeProperties.Get(targetType).GetPublicGetter(name)
@@ -85,6 +140,14 @@ namespace ServiceStack.Script
             throw new ArgumentException($"'{targetType.Name}' does not have a '{name}' property or field");
         }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="targetValue">The target value.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="ServiceStack.Script.BindingExpressionException">Could not evaluate expression '{expr}' - null</exception>
+        /// <exception cref="System.NotSupportedException">'{targetValue.GetType()}' does not support access by '{Property}'</exception>
         private object GetValue(object targetValue, ScriptScopeContext scope)
         {
             if (targetValue == null || targetValue == JsNull.Value)
@@ -174,6 +237,11 @@ namespace ServiceStack.Script
             throw new NotSupportedException($"'{targetValue.GetType()}' does not support access by '{Property}'");
         }
 
+        /// <summary>
+        /// Equalses the specified other.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected bool Equals(JsMemberExpression other)
         {
             return Equals(Object, other.Object) &&
@@ -181,6 +249,11 @@ namespace ServiceStack.Script
                    Computed == other.Computed;
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -189,6 +262,10 @@ namespace ServiceStack.Script
             return Equals((JsMemberExpression)obj);
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
             unchecked

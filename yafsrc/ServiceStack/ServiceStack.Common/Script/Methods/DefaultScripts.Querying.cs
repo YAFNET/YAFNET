@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="DefaultScripts.Querying.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +15,21 @@ namespace ServiceStack.Script
 {
     // ReSharper disable InconsistentNaming
 
+    /// <summary>
+    /// Class DefaultScripts.
+    /// Implements the <see cref="ServiceStack.Script.ScriptMethods" />
+    /// Implements the <see cref="ServiceStack.Script.IConfigureScriptContext" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.ScriptMethods" />
+    /// <seealso cref="ServiceStack.Script.IConfigureScriptContext" />
     public partial class DefaultScripts
     {
+        /// <summary>
+        /// Steps the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         public List<object> step(IEnumerable target, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(step));
@@ -35,6 +54,12 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Elements at.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>System.Object.</returns>
         public object elementAt(IEnumerable target, int index)
         {
             var items = target.AssertEnumerable(nameof(elementAt));
@@ -49,6 +74,13 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Determines whether [contains] [the specified target].
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="needle">The needle.</param>
+        /// <returns><c>true</c> if [contains] [the specified target]; otherwise, <c>false</c>.</returns>
+        /// <exception cref="System.NotSupportedException">'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType()?.Name}' instead</exception>
         public bool contains(object target, object needle)
         {
             if (isNull(needle))
@@ -72,14 +104,42 @@ namespace ServiceStack.Script
             throw new NotSupportedException($"'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType()?.Name}' instead");
         }
 
+        /// <summary>
+        /// Sequences the equals.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool sequenceEquals(IEnumerable a, IEnumerable b) => a.Cast<object>().SequenceEqual(b.Cast<object>());
 
+        /// <summary>
+        /// Takes the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="original">The original.</param>
+        /// <param name="countOrBinding">The count or binding.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> take(ScriptScopeContext scope, IEnumerable<object> original, object countOrBinding) =>
             original.Take(scope.GetValueOrEvaluateBinding<int>(countOrBinding));
 
+        /// <summary>
+        /// Skips the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="original">The original.</param>
+        /// <param name="countOrBinding">The count or binding.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> skip(ScriptScopeContext scope, IEnumerable<object> original, object countOrBinding) =>
             original.Skip(scope.GetValueOrEvaluateBinding<int>(countOrBinding));
 
+        /// <summary>
+        /// Limits the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="original">The original.</param>
+        /// <param name="skipOrBinding">The skip or binding.</param>
+        /// <param name="takeOrBinding">The take or binding.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> limit(ScriptScopeContext scope, IEnumerable<object> original, object skipOrBinding, object takeOrBinding)
         {
             var skip = scope.GetValueOrEvaluateBinding<int>(skipOrBinding);
@@ -87,8 +147,29 @@ namespace ServiceStack.Script
             return original.Skip(skip).Take(take);
         }
 
+        /// <summary>
+        /// Counts the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Int32.</returns>
         public int count(ScriptScopeContext scope, object target) => target.AssertEnumerable(nameof(count)).Count();
+        /// <summary>
+        /// Counts the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Int32.</returns>
         public int count(ScriptScopeContext scope, object target, object expression) => count(scope, target, expression, null);
+        /// <summary>
+        /// Counts the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>System.Int32.</returns>
         public int count(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(count));
@@ -107,26 +188,120 @@ namespace ServiceStack.Script
             return total;
         }
 
+        /// <summary>
+        /// Sums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Object.</returns>
         public object sum(ScriptScopeContext scope, object target) => sum(scope, target, null, null);
+        /// <summary>
+        /// Sums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Object.</returns>
         public object sum(ScriptScopeContext scope, object target, object expression) => sum(scope, target, expression, null);
+        /// <summary>
+        /// Sums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>System.Object.</returns>
         public object sum(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             applyInternal(nameof(sum), scope, target, expression, scopeOptions, (a, b) => a + b);
 
+        /// <summary>
+        /// Minimums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Object.</returns>
         public object min(ScriptScopeContext scope, object target) => min(scope, target, null, null);
+        /// <summary>
+        /// Minimums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Object.</returns>
         public object min(ScriptScopeContext scope, object target, object expression) => min(scope, target, expression, null);
+        /// <summary>
+        /// Minimums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>System.Object.</returns>
         public object min(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             applyInternal(nameof(min), scope, target, expression, scopeOptions, (a, b) => b < a ? b : a);
 
+        /// <summary>
+        /// Maximums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Object.</returns>
         public object max(ScriptScopeContext scope, object target) => max(scope, target, null, null);
+        /// <summary>
+        /// Maximums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Object.</returns>
         public object max(ScriptScopeContext scope, object target, object expression) => max(scope, target, expression, null);
+        /// <summary>
+        /// Maximums the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>System.Object.</returns>
         public object max(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             applyInternal(nameof(max), scope, target, expression, scopeOptions, (a, b) => b > a ? b : a);
 
+        /// <summary>
+        /// Averages the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Double.</returns>
         public double average(ScriptScopeContext scope, object target) => average(scope, target, null, null);
+        /// <summary>
+        /// Averages the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Double.</returns>
         public double average(ScriptScopeContext scope, object target, object expression) => average(scope, target, expression, null);
+        /// <summary>
+        /// Averages the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>System.Double.</returns>
         public double average(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             applyInternal(nameof(average), scope, target, expression, scopeOptions, (a, b) => a + b).ConvertTo<double>() / target.AssertEnumerable(nameof(average)).Count();
 
+        /// <summary>
+        /// Applies the internal.
+        /// </summary>
+        /// <param name="filterName">Name of the filter.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <param name="fn">The function.</param>
+        /// <returns>System.Object.</returns>
         private object applyInternal(string filterName, ScriptScopeContext scope, object target, object expression, object scopeOptions,
             Func<double, double, double> fn)
         {
@@ -182,7 +357,24 @@ namespace ServiceStack.Script
                 : total.ConvertTo(itemType);
         }
 
+        /// <summary>
+        /// Reduces the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Object.</returns>
         public object reduce(ScriptScopeContext scope, object target, object expression) => reduce(scope, target, expression, null);
+        /// <summary>
+        /// Reduces the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
+        /// <exception cref="System.NotSupportedException"></exception>
         public object reduce(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(reduce));
@@ -229,6 +421,14 @@ namespace ServiceStack.Script
                 : accumulator.ConvertTo(itemType);
         }
 
+        /// <summary>
+        /// Zips the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="original">The original.</param>
+        /// <param name="itemsOrBinding">The items or binding.</param>
+        /// <returns>List&lt;System.Object[]&gt;.</returns>
+        /// <exception cref="System.ArgumentException"></exception>
         public List<object[]> zip(ScriptScopeContext scope, IEnumerable original, object itemsOrBinding)
         {
             var to = new List<object[]>();
@@ -275,7 +475,18 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Flattens the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         public List<object> flatten(object target) => flatten(target, int.MaxValue);
+        /// <summary>
+        /// Flattens the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="depth">The depth.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         public List<object> flatten(object target, int depth)
         {
             var to = new List<object>();
@@ -283,6 +494,12 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Flattens the specified to.
+        /// </summary>
+        /// <param name="to">To.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="depth">The depth.</param>
         private void _flatten(ICollection<object> to, object target, int depth)
         {
             if (target != null)
@@ -304,6 +521,15 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Lets the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="scopeBindings">The scope bindings.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException">'{nameof(let)}' in '{scope.Page.VirtualPath}' expects a string Expression for its value but received '{entry.Value}' instead</exception>
+        /// <exception cref="System.NotSupportedException">'{nameof(let)}' in '{scope.Page.VirtualPath}' requires an IEnumerable but received a '{target.GetType()?.Name}' instead</exception>
         public object let(ScriptScopeContext scope, object target, object scopeBindings) //from filter
         {
             if (target is IEnumerable objs)
@@ -389,8 +615,29 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Firsts the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Object.</returns>
         public object first(ScriptScopeContext scope, object target) => target.AssertEnumerable(nameof(first)).FirstOrDefault();
+        /// <summary>
+        /// Firsts the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Object.</returns>
         public object first(ScriptScopeContext scope, object target, object expression) => first(scope, target, expression, null);
+        /// <summary>
+        /// Firsts the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>System.Object.</returns>
         public object first(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(first));
@@ -408,10 +655,37 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Lasts the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns>System.Object.</returns>
         public object last(ScriptScopeContext scope, object target) => target.AssertEnumerable(nameof(last)).LastOrDefault();
 
+        /// <summary>
+        /// Anies the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool any(ScriptScopeContext scope, object target) => target.AssertEnumerable(nameof(any)).Any();
+        /// <summary>
+        /// Anies the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool any(ScriptScopeContext scope, object target, object expression) => any(scope, target, expression, null);
+        /// <summary>
+        /// Anies the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool any(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(any));
@@ -429,7 +703,22 @@ namespace ServiceStack.Script
             return false;
         }
 
+        /// <summary>
+        /// Alls the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool all(ScriptScopeContext scope, object target, object expression) => all(scope, target, expression, null);
+        /// <summary>
+        /// Alls the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool all(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(all));
@@ -447,7 +736,22 @@ namespace ServiceStack.Script
             return true;
         }
 
+        /// <summary>
+        /// Wheres the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> where(ScriptScopeContext scope, object target, object expression) => where(scope, target, expression, null);
+        /// <summary>
+        /// Wheres the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> where(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(where));
@@ -466,7 +770,22 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Takes the while.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> takeWhile(ScriptScopeContext scope, object target, object expression) => takeWhile(scope, target, expression, null);
+        /// <summary>
+        /// Takes the while.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> takeWhile(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(takeWhile));
@@ -487,7 +806,22 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Skips the while.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> skipWhile(ScriptScopeContext scope, object target, object expression) => skipWhile(scope, target, expression, null);
+        /// <summary>
+        /// Skips the while.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> skipWhile(ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(nameof(skipWhile));
@@ -510,47 +844,215 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> orderBy(ScriptScopeContext scope, object target, object expression) => orderBy(scope, target, expression, null);
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> orderBy(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             orderByInternal(nameof(orderBy), scope, target, expression, scopeOptions);
 
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> orderByDescending(ScriptScopeContext scope, object target, object expression) => orderByDescending(scope, target, expression, null);
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> orderByDescending(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             orderByInternal(nameof(orderByDescending), scope, target, expression, scopeOptions);
 
+        /// <summary>
+        /// Orders the by desc.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> orderByDesc(ScriptScopeContext scope, object target, object expression) => orderByDesc(scope, target, expression, null);
+        /// <summary>
+        /// Orders the by desc.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> orderByDesc(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             orderByInternal(nameof(orderByDescending), scope, target, expression, scopeOptions);
 
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> thenBy(ScriptScopeContext scope, object target, object expression) => thenBy(scope, target, expression, null);
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> thenBy(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             thenByInternal(nameof(thenBy), scope, target, expression, scopeOptions);
 
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> thenByDescending(ScriptScopeContext scope, object target, object expression) => thenByDescending(scope, target, expression, null);
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> thenByDescending(ScriptScopeContext scope, object target, object expression, object scopeOptions) =>
             thenByInternal(nameof(thenByDescending), scope, target, expression, scopeOptions);
 
-        class ComparerWrapper : IComparer<object>
+        /// <summary>
+        /// Class ComparerWrapper.
+        /// Implements the <see cref="object" />
+        /// </summary>
+        /// <seealso cref="object" />
+        private class ComparerWrapper : IComparer<object>
         {
+            /// <summary>
+            /// The comparer
+            /// </summary>
             private readonly IComparer comparer;
-            public ComparerWrapper(IComparer comparer) => this.comparer = comparer;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="ComparerWrapper"/> class.
+            /// </summary>
+            /// <param name="comparer">The comparer.</param>
+            public ComparerWrapper(IComparer comparer)
+            {
+                this.comparer = comparer;
+            }
+
+            /// <summary>
+            /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+            /// </summary>
+            /// <param name="x">The first object to compare.</param>
+            /// <param name="y">The second object to compare.</param>
+            /// <returns>A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" />, as shown in the following table.
+            /// Value
+            /// Meaning
+            /// Less than zero
+            /// <paramref name="x" /> is less than <paramref name="y" />.
+            /// Zero
+            /// <paramref name="x" /> equals <paramref name="y" />.
+            /// Greater than zero
+            /// <paramref name="x" /> is greater than <paramref name="y" />.</returns>
             public int Compare(object x, object y) => comparer.Compare(x, y);
         }
-        class EqualityComparerWrapper : IEqualityComparer<object>
+        /// <summary>
+        /// Class EqualityComparerWrapper.
+        /// Implements the <see cref="object" />
+        /// </summary>
+        /// <seealso cref="object" />
+        private class EqualityComparerWrapper : IEqualityComparer<object>
         {
+            /// <summary>
+            /// The comparer
+            /// </summary>
             private readonly IEqualityComparer comparer;
-            public EqualityComparerWrapper(IEqualityComparer comparer) => this.comparer = comparer;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="EqualityComparerWrapper"/> class.
+            /// </summary>
+            /// <param name="comparer">The comparer.</param>
+            public EqualityComparerWrapper(IEqualityComparer comparer)
+            {
+                this.comparer = comparer;
+            }
+
+            /// <summary>
+            /// Determines whether the specified objects are equal.
+            /// </summary>
+            /// <param name="x">The first object of type T to compare.</param>
+            /// <param name="y">The second object of type T to compare.</param>
+            /// <returns><see langword="true" /> if the specified objects are equal; otherwise, <see langword="false" />.</returns>
             public new bool Equals(object x, object y) => comparer.Equals(x, y);
+            /// <summary>
+            /// Returns a hash code for this instance.
+            /// </summary>
+            /// <param name="obj">The <see cref="T:System.Object" /> for which a hash code is to be returned.</param>
+            /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
             public int GetHashCode(object obj) => comparer.GetHashCode(obj);
         }
-        class EqualityComparerWrapper<T> : IEqualityComparer<object>
+        /// <summary>
+        /// Class EqualityComparerWrapper.
+        /// Implements the <see cref="object" />
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <seealso cref="object" />
+        private class EqualityComparerWrapper<T> : IEqualityComparer<object>
         {
+            /// <summary>
+            /// The comparer
+            /// </summary>
             private readonly IEqualityComparer<T> comparer;
-            public EqualityComparerWrapper(IEqualityComparer<T> comparer) => this.comparer = comparer;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="EqualityComparerWrapper{T}"/> class.
+            /// </summary>
+            /// <param name="comparer">The comparer.</param>
+            public EqualityComparerWrapper(IEqualityComparer<T> comparer)
+            {
+                this.comparer = comparer;
+            }
+
+            /// <summary>
+            /// Determines whether the specified objects are equal.
+            /// </summary>
+            /// <param name="x">The first object of type T to compare.</param>
+            /// <param name="y">The second object of type T to compare.</param>
+            /// <returns><see langword="true" /> if the specified objects are equal; otherwise, <see langword="false" />.</returns>
             public new bool Equals(object x, object y) => comparer.Equals((T)x, (T)y);
+            /// <summary>
+            /// Returns a hash code for this instance.
+            /// </summary>
+            /// <param name="obj">The <see cref="T:System.Object" /> for which a hash code is to be returned.</param>
+            /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
             public int GetHashCode(object obj) => comparer.GetHashCode((T)obj);
         }
 
+        /// <summary>
+        /// Gets the comparer.
+        /// </summary>
+        /// <param name="filterName">Name of the filter.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="scopedParams">The scoped parameters.</param>
+        /// <returns>IComparer&lt;System.Object&gt;.</returns>
+        /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.Page.VirtualPath}' expects a IComparer but received a '{oComparer.GetType()?.Name}' instead</exception>
         private static IComparer<object> GetComparer(string filterName, ScriptScopeContext scope, Dictionary<string, object> scopedParams)
         {
             var comparer = (IComparer<object>)Comparer<object>.Default;
@@ -564,6 +1066,15 @@ namespace ServiceStack.Script
             return comparer;
         }
 
+        /// <summary>
+        /// Orders the by internal.
+        /// </summary>
+        /// <param name="filterName">Name of the filter.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public static IEnumerable<object> orderByInternal(string filterName, ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             var items = target.AssertEnumerable(filterName);
@@ -579,6 +1090,16 @@ namespace ServiceStack.Script
             return sorted;
         }
 
+        /// <summary>
+        /// Thens the by internal.
+        /// </summary>
+        /// <param name="filterName">Name of the filter.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
+        /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.Page.VirtualPath}' requires an IOrderedEnumerable but received a '{target?.GetType()?.Name}' instead</exception>
         public static IEnumerable<object> thenByInternal(string filterName, ScriptScopeContext scope, object target, object expression, object scopeOptions)
         {
             if (target is not IOrderedEnumerable<object> items)
@@ -596,7 +1117,24 @@ namespace ServiceStack.Script
             return sorted;
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="items">The items.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>IEnumerable&lt;IGrouping&lt;System.Object, System.Object&gt;&gt;.</returns>
         public IEnumerable<IGrouping<object, object>> groupBy(ScriptScopeContext scope, IEnumerable<object> items, object expression) => groupBy(scope, items, expression, null);
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="items">The items.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="scopeOptions">The scope options.</param>
+        /// <returns>IEnumerable&lt;IGrouping&lt;System.Object, System.Object&gt;&gt;.</returns>
+        /// <exception cref="System.NotSupportedException">'{nameof(groupBy)}' in '{scope.Page.VirtualPath}' expects a IEqualityComparer but received a '{oComparer.GetType()?.Name}' instead</exception>
+        /// <exception cref="System.NotSupportedException">map expression in '{nameof(groupBy)}' must be a string or arrow expression</exception>
         public IEnumerable<IGrouping<object, object>> groupBy(ScriptScopeContext scope, IEnumerable<object> items, object expression, object scopeOptions)
         {
             if (items == null)
@@ -657,13 +1195,53 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Equivalents to.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="items">The items.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool equivalentTo(IEnumerable<object> target, IEnumerable<object> items) => target.EquivalentTo(items);
+        /// <summary>
+        /// Distincts the specified items.
+        /// </summary>
+        /// <param name="items">The items.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> distinct(IEnumerable<object> items) => items.Distinct();
+        /// <summary>
+        /// Unions the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="items">The items.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> union(IEnumerable<object> target, IEnumerable<object> items) => target.Union(items);
+        /// <summary>
+        /// Intersects the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="items">The items.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> intersect(IEnumerable<object> target, IEnumerable<object> items) => target.Intersect(items);
+        /// <summary>
+        /// Excepts the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="items">The items.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> except(IEnumerable<object> target, IEnumerable<object> items) => target.Except(items);
+        /// <summary>
+        /// Concats the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="items">The items.</param>
+        /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         public IEnumerable<object> concat(IEnumerable<object> target, IEnumerable<object> items) => target.Concat(items);
 
+        /// <summary>
+        /// Concats the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <returns>System.String.</returns>
         public string concat(IEnumerable<string> target)
         {
             var sb = StringBuilderCache.Allocate();
@@ -674,6 +1252,13 @@ namespace ServiceStack.Script
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the specified target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="key">The key.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException">Unknown key '{key}' on '{target.GetType().Name}'</exception>
         public object get(object target, object key)
         {
             if (isNull(target))

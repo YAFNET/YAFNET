@@ -1,19 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using ServiceStack.DataAnnotations;
-using ServiceStack.Text;
+﻿// ***********************************************************************
+// <copyright file="SqlServer2012OrmLiteDialectProvider.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 namespace ServiceStack.OrmLite.SqlServer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using ServiceStack.DataAnnotations;
+    using ServiceStack.Text;
+
+    /// <summary>
+    /// Class SqlServer2012OrmLiteDialectProvider.
+    /// Implements the <see cref="ServiceStack.OrmLite.SqlServer.SqlServerOrmLiteDialectProvider" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.OrmLite.SqlServer.SqlServerOrmLiteDialectProvider" />
     public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvider
     {
+        /// <summary>
+        /// The instance
+        /// </summary>
         public static new SqlServer2012OrmLiteDialectProvider Instance = new SqlServer2012OrmLiteDialectProvider();
 
+        /// <summary>
+        /// Doeses the sequence exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sequenceName">Name of the sequence.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName)
         {
             var sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM sys.sequences WHERE object_id=object_id({0})) THEN 1 ELSE 0 END"
@@ -24,6 +46,13 @@ namespace ServiceStack.OrmLite.SqlServer
             return result == 1;
         }
 
+        /// <summary>
+        /// Does sequence exist as an asynchronous operation.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sequenceName">Name of the sequence.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> DoesSequenceExistAsync(IDbCommand dbCmd, string sequenceName, CancellationToken token = default)
         {
             var sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM sys.sequences WHERE object_id=object_id({0})) THEN 1 ELSE 0 END"
@@ -34,32 +63,62 @@ namespace ServiceStack.OrmLite.SqlServer
             return result == 1;
         }
 
+        /// <summary>
+        /// Gets the automatic increment definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         protected override string GetAutoIncrementDefinition(FieldDefinition fieldDef)
         {
-            if (!string.IsNullOrEmpty(fieldDef.Sequence))
-                return $"DEFAULT NEXT VALUE FOR {Sequence(NamingStrategy.GetSchemaName(GetModel(fieldDef.PropertyInfo?.ReflectedType)), fieldDef.Sequence)}";
-            else
-                return AutoIncrementDefinition;
+            return !string.IsNullOrEmpty(fieldDef.Sequence)
+                ? $"DEFAULT NEXT VALUE FOR {Sequence(NamingStrategy.GetSchemaName(GetModel(fieldDef.PropertyInfo?.ReflectedType)), fieldDef.Sequence)}"
+                : AutoIncrementDefinition;
         }
 
+        /// <summary>
+        /// Shoulds the skip insert.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected override bool ShouldSkipInsert(FieldDefinition fieldDef) =>
             fieldDef.ShouldSkipInsert() && string.IsNullOrEmpty(fieldDef.Sequence);
 
+        /// <summary>
+        /// Supportses the sequences.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected override bool SupportsSequences(FieldDefinition fieldDef) =>
             !string.IsNullOrEmpty(fieldDef.Sequence);
 
+        /// <summary>
+        /// Converts to createsequencestatements.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public override List<string> ToCreateSequenceStatements(Type tableType)
         {
             var modelDef = GetModel(tableType);
             return SequenceList(tableType).Select(seq => $"CREATE SEQUENCE {Sequence(NamingStrategy.GetSchemaName(modelDef), seq)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;").ToList();
         }
 
+        /// <summary>
+        /// Converts to createsequencestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="sequenceName">Name of the sequence.</param>
+        /// <returns>System.String.</returns>
         public override string ToCreateSequenceStatement(Type tableType, string sequenceName)
         {
             var modelDef = GetModel(tableType);
             return $"CREATE SEQUENCE {Sequence(NamingStrategy.GetSchemaName(modelDef), sequenceName)} AS BIGINT START WITH 1 INCREMENT BY 1 NO CACHE;";
         }
 
+        /// <summary>
+        /// Sequences the list.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public override List<string> SequenceList(Type tableType)
         {
             var gens = new List<string>();
@@ -75,6 +134,17 @@ namespace ServiceStack.OrmLite.SqlServer
             return gens;
         }
 
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <param name="queryType">Type of the query.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="selectExpression">The select expression.</param>
+        /// <param name="bodyExpression">The body expression.</param>
+        /// <param name="orderByExpression">The order by expression.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="rows">The rows.</param>
+        /// <returns>System.String.</returns>
         public override string ToSelectStatement(QueryType queryType, ModelDefinition modelDef,
             string selectExpression,
             string bodyExpression,
@@ -91,33 +161,42 @@ namespace ServiceStack.OrmLite.SqlServer
 
             var skip = offset ?? 0;
 
-            if (skip > 0 || rows is > 0)
+            if (skip <= 0 && rows is not > 0)
             {
-                // Use TOP if offset is unspecified
-                if (skip == 0)
-                {
-                    var sql = StringBuilderCache.ReturnAndFree(sb);
-                    return SqlTop(sql, rows.GetValueOrDefault());
-                }
-
-                if (queryType == QueryType.Select || rows == 1)
-                {
-                    // ORDER BY mandatory when using OFFSET/FETCH NEXT
-                    if (orderByExpression.IsEmpty())
-                    {
-                        var orderBy = rows == 1 //Avoid for Single requests
-                            ? "1"
-                            : this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey);
-
-                        sb.Append(" ORDER BY " + orderBy);
-                    }
-                    sb.Append(" ").Append(SqlLimit(offset, rows));
-                }
+                return StringBuilderCache.ReturnAndFree(sb);
             }
+
+            // Use TOP if offset is unspecified
+            if (skip == 0)
+            {
+                var sql = StringBuilderCache.ReturnAndFree(sb);
+                return SqlTop(sql, rows.GetValueOrDefault());
+            }
+
+            if (queryType != QueryType.Select && rows != 1)
+            {
+                return StringBuilderCache.ReturnAndFree(sb);
+            }
+
+            // ORDER BY mandatory when using OFFSET/FETCH NEXT
+            if (orderByExpression.IsEmpty())
+            {
+                var orderBy = rows == 1 //Avoid for Single requests
+                    ? "1"
+                    : this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey);
+
+                sb.Append(" ORDER BY " + orderBy);
+            }
+            sb.Append(" ").Append(SqlLimit(offset, rows));
 
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef)
         {
             // https://msdn.microsoft.com/en-us/library/ms182776.aspx
@@ -171,6 +250,12 @@ namespace ServiceStack.OrmLite.SqlServer
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
         {
             // https://msdn.microsoft.com/en-us/library/ms182776.aspx
@@ -231,6 +316,11 @@ namespace ServiceStack.OrmLite.SqlServer
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Converts to createtablestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>System.String.</returns>
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
@@ -328,6 +418,12 @@ namespace ServiceStack.OrmLite.SqlServer
             return sql;
         }
 
+        /// <summary>
+        /// Appends the field condition.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="cmd">The command.</param>
         public override void AppendFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef, IDbCommand cmd)
         {
             if (isSpatialField(fieldDef))
@@ -351,6 +447,11 @@ namespace ServiceStack.OrmLite.SqlServer
             }
         }
 
+        /// <summary>
+        /// Appends the null field condition.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="fieldDef">The field definition.</param>
         public override void AppendNullFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef)
         {
             if (hasIsNullProperty(fieldDef))
@@ -371,9 +472,19 @@ namespace ServiceStack.OrmLite.SqlServer
             }
         }
 
+        /// <summary>
+        /// Determines whether [is spatial field] [the specified field definition].
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if [is spatial field] [the specified field definition]; otherwise, <c>false</c>.</returns>
         internal bool isSpatialField(FieldDefinition fieldDef) =>
             fieldDef.FieldType.Name == "SqlGeography" || fieldDef.FieldType.Name == "SqlGeometry";
 
+        /// <summary>
+        /// Determines whether [has is null property] [the specified field definition].
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if [has is null property] [the specified field definition]; otherwise, <c>false</c>.</returns>
         internal bool hasIsNullProperty(FieldDefinition fieldDef) =>
             isSpatialField(fieldDef) || fieldDef.FieldType.Name == "SqlHierarchyId";
     }

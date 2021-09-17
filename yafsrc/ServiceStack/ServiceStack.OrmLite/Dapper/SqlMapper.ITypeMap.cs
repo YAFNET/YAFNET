@@ -1,8 +1,17 @@
+﻿// ***********************************************************************
+// <copyright file="SqlMapper.ITypeMap.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Reflection;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    /// <summary>
+    /// Class SqlMapper.
+    /// </summary>
     public static partial class SqlMapper
     {
         /// <summary>
@@ -20,11 +29,10 @@ namespace ServiceStack.OrmLite.Dapper
 
             /// <summary>
             /// Returns a constructor which should *always* be used.
-            /// 
             /// Parameters will be default values, nulls for reference types and zero'd for value types.
-            /// 
             /// Use this class to force object creation away from parameterless constructors you don't control.
             /// </summary>
+            /// <returns>ConstructorInfo.</returns>
             ConstructorInfo FindExplicitConstructor();
 
             /// <summary>

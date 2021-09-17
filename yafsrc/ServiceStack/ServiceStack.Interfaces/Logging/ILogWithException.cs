@@ -1,7 +1,18 @@
-﻿namespace ServiceStack.Logging
+﻿// ***********************************************************************
+// <copyright file="ILogWithException.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.Logging
 {
     using System;
 
+    /// <summary>
+    /// Interface ILogWithException
+    /// Implements the <see cref="ServiceStack.Logging.ILog" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Logging.ILog" />
     public interface ILogWithException : ILog
     {
         /// <summary>
@@ -45,6 +56,9 @@
         void Fatal(Exception exception, string format, params object[] args);
     }
 
+    /// <summary>
+    /// Class ILogWithExceptionExtensions.
+    /// </summary>
     public static class ILogWithExceptionExtensions
     {
         /// <summary>

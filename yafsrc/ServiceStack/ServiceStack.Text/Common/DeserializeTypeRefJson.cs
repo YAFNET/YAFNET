@@ -1,13 +1,33 @@
+﻿// ***********************************************************************
+// <copyright file="DeserializeTypeRefJson.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeTypeRefJson.
+    /// </summary>
     internal static class DeserializeTypeRefJson
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly JsonTypeSerializer Serializer = (JsonTypeSerializer)JsonTypeSerializer.Instance;
 
+        /// <summary>
+        /// Strings to type.
+        /// </summary>
+        /// <param name="strType">Type of the string.</param>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <param name="ctorFn">The ctor function.</param>
+        /// <param name="typeAccessors">The type accessors.</param>
+        /// <returns>System.Object.</returns>
         internal static object StringToType(ReadOnlySpan<char> strType,
             TypeConfig typeConfig,
             EmptyCtorDelegate ctorFn,

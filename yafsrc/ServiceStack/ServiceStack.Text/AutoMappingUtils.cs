@@ -1,5 +1,9 @@
-﻿// Copyright (c) ServiceStack, Inc. All Rights Reserved.
-// License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="AutoMappingUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -14,6 +18,9 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class CustomHttpResult.
+    /// </summary>
     [DataContract(Namespace = "https://schemas.servicestack.net/types")]
     public class CustomHttpResult { }
 
@@ -25,6 +32,9 @@ namespace ServiceStack
         /// <summary>
         /// Register Type to Type AutoMapping converter
         /// </summary>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <param name="converter">The converter.</param>
         public static void RegisterConverter<From, To>(Func<From, To> converter)
         {
             JsConfig.InitStatics();
@@ -34,17 +44,27 @@ namespace ServiceStack
         /// <summary>
         /// Ignore Type to Type Mapping (including collections containing them)
         /// </summary>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <typeparam name="To">The type of to.</typeparam>
         public static void IgnoreMapping<From, To>() => IgnoreMapping(typeof(From), typeof(To));
 
         /// <summary>
         /// Ignore Type to Type Mapping (including collections containing them)
         /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
         public static void IgnoreMapping(Type fromType, Type toType)
         {
             JsConfig.InitStatics();
             AutoMappingUtils.ignoreMappings[Tuple.Create(fromType, toType)] = true;
         }
 
+        /// <summary>
+        /// Registers the populator.
+        /// </summary>
+        /// <typeparam name="Target">The type of the target.</typeparam>
+        /// <typeparam name="Source">The type of the source.</typeparam>
+        /// <param name="populator">The populator.</param>
         public static void RegisterPopulator<Target, Source>(Action<Target, Source> populator)
         {
             JsConfig.InitStatics();
@@ -52,17 +72,32 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class AutoMappingUtils.
+    /// </summary>
     public static class AutoMappingUtils
     {
+        /// <summary>
+        /// The converters
+        /// </summary>
         internal static readonly ConcurrentDictionary<Tuple<Type, Type>, GetMemberDelegate> converters
             = new();
 
+        /// <summary>
+        /// The populators
+        /// </summary>
         internal static readonly ConcurrentDictionary<Tuple<Type, Type>, PopulateMemberDelegate> populators
             = new();
 
+        /// <summary>
+        /// The ignore mappings
+        /// </summary>
         internal static readonly ConcurrentDictionary<Tuple<Type, Type>, bool> ignoreMappings
             = new();
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         public static void Reset()
         {
             converters.Clear();
@@ -71,9 +106,21 @@ namespace ServiceStack
             AssignmentDefinitionCache.Clear();
         }
 
+        /// <summary>
+        /// Shoulds the ignore mapping.
+        /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool ShouldIgnoreMapping(Type fromType, Type toType) =>
             ignoreMappings.ContainsKey(Tuple.Create(fromType, toType));
 
+        /// <summary>
+        /// Gets the converter.
+        /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns>GetMemberDelegate.</returns>
         public static GetMemberDelegate GetConverter(Type fromType, Type toType)
         {
             if (converters.IsEmpty)
@@ -85,6 +132,12 @@ namespace ServiceStack
                 : null;
         }
 
+        /// <summary>
+        /// Gets the populator.
+        /// </summary>
+        /// <param name="targetType">Type of the target.</param>
+        /// <param name="sourceType">Type of the source.</param>
+        /// <returns>PopulateMemberDelegate.</returns>
         public static PopulateMemberDelegate GetPopulator(Type targetType, Type sourceType)
         {
             if (populators.IsEmpty)
@@ -96,12 +149,32 @@ namespace ServiceStack
                 : null;
         }
 
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="from">From.</param>
+        /// <param name="defaultValue">The default value.</param>
+        /// <returns>T.</returns>
         public static T ConvertTo<T>(this object from, T defaultValue) =>
             from == null || @from is string s && s == string.Empty
                 ? defaultValue
                 : from.ConvertTo<T>();
 
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="from">From.</param>
+        /// <returns>T.</returns>
         public static T ConvertTo<T>(this object from) => from.ConvertTo<T>(skipConverters: false);
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="from">From.</param>
+        /// <param name="skipConverters">if set to <c>true</c> [skip converters].</param>
+        /// <returns>T.</returns>
         public static T ConvertTo<T>(this object from, bool skipConverters)
         {
             if (from == null)
@@ -113,6 +186,12 @@ namespace ServiceStack
             return (T)ConvertTo(from, typeof(T), skipConverters);
         }
 
+        /// <summary>
+        /// Creates the copy.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="from">From.</param>
+        /// <returns>T.</returns>
         public static T CreateCopy<T>(this T from)
         {
             if (typeof(T).IsValueType)
@@ -128,13 +207,33 @@ namespace ServiceStack
             return to.PopulateWith(from);
         }
 
+        /// <summary>
+        /// Thens the do.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <param name="to">To.</param>
+        /// <param name="fn">The function.</param>
+        /// <returns>To.</returns>
         public static To ThenDo<To>(this To to, Action<To> fn)
         {
             fn(to);
             return to;
         }
 
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <param name="from">From.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns>System.Object.</returns>
         public static object ConvertTo(this object from, Type toType) => from.ConvertTo(toType, skipConverters: false);
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <param name="from">From.</param>
+        /// <param name="toType">To type.</param>
+        /// <param name="skipConverters">if set to <c>true</c> [skip converters].</param>
+        /// <returns>System.Object.</returns>
         public static object ConvertTo(this object from, Type toType, bool skipConverters)
         {
             if (from == null)
@@ -185,6 +284,12 @@ namespace ServiceStack
             return to.PopulateWith(from);
         }
 
+        /// <summary>
+        /// Gets the implicit cast method.
+        /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns>MethodInfo.</returns>
         public static MethodInfo GetImplicitCastMethod(Type fromType, Type toType)
         {
             foreach (var mi in fromType.GetMethods(BindingFlags.Public | BindingFlags.Static))
@@ -206,6 +311,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Gets the explicit cast method.
+        /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns>MethodInfo.</returns>
         public static MethodInfo GetExplicitCastMethod(Type fromType, Type toType)
         {
             foreach (var mi in toType.GetMethods(BindingFlags.Public | BindingFlags.Static))
@@ -227,6 +338,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Changes the type of the value.
+        /// </summary>
+        /// <param name="from">From.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns>System.Object.</returns>
         public static object ChangeValueType(object from, Type toType)
         {
             var s = from as string;
@@ -320,6 +437,12 @@ namespace ServiceStack
             return TypeSerializer.DeserializeFromString(from.ToJsv(), toType);
         }
 
+        /// <summary>
+        /// Changes to.
+        /// </summary>
+        /// <param name="strValue">The string value.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         public static object ChangeTo(this string strValue, Type type)
         {
             if (type.IsValueType && !type.IsEnum && type.HasInterface(typeof(IConvertible)))
@@ -336,8 +459,16 @@ namespace ServiceStack
             return TypeSerializer.DeserializeFromString(strValue, type);
         }
 
+        /// <summary>
+        /// The type property names map
+        /// </summary>
         private static readonly Dictionary<Type, List<string>> TypePropertyNamesMap = new();
 
+        /// <summary>
+        /// Gets the property names.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> GetPropertyNames(this Type type)
         {
             lock (TypePropertyNamesMap)
@@ -351,11 +482,21 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Gets the assembly path.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>System.String.</returns>
         public static string GetAssemblyPath(this Type source)
         {
             return PclExport.Instance.GetAssemblyPath(source);
         }
 
+        /// <summary>
+        /// Determines whether [is debug build] [the specified assembly].
+        /// </summary>
+        /// <param name="assembly">The assembly.</param>
+        /// <returns><c>true</c> if [is debug build] [the specified assembly]; otherwise, <c>false</c>.</returns>
         public static bool IsDebugBuild(this Assembly assembly)
         {
             return PclExport.Instance.IsDebugBuild(assembly);
@@ -364,8 +505,8 @@ namespace ServiceStack
         /// <summary>
         /// Populate an object with Example data.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Object.</returns>
         public static object PopulateWith(object obj)
         {
             if (obj == null) return null;
@@ -388,9 +529,9 @@ namespace ServiceStack
         /// <summary>
         /// Populates the object with example data.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">The object.</param>
         /// <param name="recursionInfo">Tracks how deeply nested we are</param>
-        /// <returns></returns>
+        /// <returns>System.Object.</returns>
         private static object PopulateObjectInternal(object obj, Dictionary<Type, int> recursionInfo)
         {
             if (obj == null) return null;
@@ -412,8 +553,16 @@ namespace ServiceStack
             return obj;
         }
 
+        /// <summary>
+        /// The default value types
+        /// </summary>
         private static Dictionary<Type, object> DefaultValueTypes = new();
 
+        /// <summary>
+        /// Gets the default value.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         public static object GetDefaultValue(this Type type)
         {
             if (!type.IsValueType)
@@ -436,13 +585,33 @@ namespace ServiceStack
             return defaultValue;
         }
 
+        /// <summary>
+        /// Determines whether [is default value] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [is default value] [the specified value]; otherwise, <c>false</c>.</returns>
         public static bool IsDefaultValue(object value) => IsDefaultValue(value, value?.GetType());
+        /// <summary>
+        /// Determines whether [is default value] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="valueType">Type of the value.</param>
+        /// <returns><c>true</c> if [is default value] [the specified value]; otherwise, <c>false</c>.</returns>
         public static bool IsDefaultValue(object value, Type valueType) => value == null
             || valueType.IsValueType && value.Equals(valueType.GetDefaultValue());
 
+        /// <summary>
+        /// The assignment definition cache
+        /// </summary>
         private static readonly ConcurrentDictionary<string, AssignmentDefinition> AssignmentDefinitionCache
             = new();
 
+        /// <summary>
+        /// Gets the assignment definition.
+        /// </summary>
+        /// <param name="toType">To type.</param>
+        /// <param name="fromType">From type.</param>
+        /// <returns>AssignmentDefinition.</returns>
         internal static AssignmentDefinition GetAssignmentDefinition(Type toType, Type fromType)
         {
             var cacheKey = CreateCacheKey(fromType, toType);
@@ -470,12 +639,24 @@ namespace ServiceStack
             });
         }
 
+        /// <summary>
+        /// Creates the cache key.
+        /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns>System.String.</returns>
         internal static string CreateCacheKey(Type fromType, Type toType)
         {
             var cacheKey = fromType.FullName + ">" + toType.FullName;
             return cacheKey;
         }
 
+        /// <summary>
+        /// Gets the members.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="isReadable">if set to <c>true</c> [is readable].</param>
+        /// <returns>Dictionary&lt;System.String, AssignmentMember&gt;.</returns>
         private static Dictionary<string, AssignmentMember> GetMembers(Type type, bool isReadable)
         {
             var map = new Dictionary<string, AssignmentMember>();
@@ -516,6 +697,14 @@ namespace ServiceStack
             return map;
         }
 
+        /// <summary>
+        /// Populates the with.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
+        /// <returns>To.</returns>
         public static To PopulateWith<To, From>(this To to, From from)
         {
             if (Equals(to, default(To)) || Equals(from, default(From))) return default(To);
@@ -527,6 +716,14 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Populates the with non default values.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
+        /// <returns>To.</returns>
         public static To PopulateWithNonDefaultValues<To, From>(this To to, From from)
         {
             if (Equals(to, default(To)) || Equals(from, default(From))) return default(To);
@@ -538,6 +735,15 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Populates from properties with attribute.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <returns>To.</returns>
         public static To PopulateFromPropertiesWithAttribute<To, From>(this To to, From from,
             Type attributeType)
         {
@@ -550,6 +756,15 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Populates from properties without attribute.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
+        /// <returns>To.</returns>
         public static To PopulateFromPropertiesWithoutAttribute<To, From>(this To to, From from,
             Type attributeType)
         {
@@ -562,6 +777,12 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Sets the property.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="value">The value.</param>
         public static void SetProperty(this PropertyInfo propertyInfo, object obj, object value)
         {
             if (!propertyInfo.CanWrite)
@@ -577,6 +798,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Gets the property.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Object.</returns>
         public static object GetProperty(this PropertyInfo propertyInfo, object obj)
         {
             if (propertyInfo == null || !propertyInfo.CanRead)
@@ -586,6 +813,13 @@ namespace ServiceStack
             return getMethod != null ? getMethod.Invoke(obj, TypeConstants.EmptyObjectArray) : null;
         }
 
+        /// <summary>
+        /// Sets the value.
+        /// </summary>
+        /// <param name="fieldInfo">The field information.</param>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="value">The value.</param>
         public static void SetValue(FieldInfo fieldInfo, PropertyInfo propertyInfo, object obj, object value)
         {
             try
@@ -607,6 +841,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Determines whether [is unsettable value] [the specified field information].
+        /// </summary>
+        /// <param name="fieldInfo">The field information.</param>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns><c>true</c> if [is unsettable value] [the specified field information]; otherwise, <c>false</c>.</returns>
         public static bool IsUnsettableValue(FieldInfo fieldInfo, PropertyInfo propertyInfo)
         {
             // Properties on non-user defined classes should not be set
@@ -621,6 +861,12 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Creates the default values.
+        /// </summary>
+        /// <param name="types">The types.</param>
+        /// <param name="recursionInfo">The recursion information.</param>
+        /// <returns>System.Object[].</returns>
         public static object[] CreateDefaultValues(IEnumerable<Type> types, Dictionary<Type, int> recursionInfo)
         {
             var values = new List<object>();
@@ -631,8 +877,17 @@ namespace ServiceStack
             return values.ToArray();
         }
 
+        /// <summary>
+        /// The maximum recursion level for default values
+        /// </summary>
         private const int MaxRecursionLevelForDefaultValues = 2; // do not nest a single type more than this deep.
 
+        /// <summary>
+        /// Creates the default value.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="recursionInfo">The recursion information.</param>
+        /// <returns>System.Object.</returns>
         public static object CreateDefaultValue(Type type, Dictionary<Type, int> recursionInfo)
         {
             if (type == typeof(string))
@@ -698,6 +953,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Sets the generic collection.
+        /// </summary>
+        /// <param name="realizedListType">Type of the realized list.</param>
+        /// <param name="genericObj">The generic object.</param>
+        /// <param name="recursionInfo">The recursion information.</param>
         public static void SetGenericCollection(Type realizedListType, object genericObj, Dictionary<Type, int> recursionInfo)
         {
             var args = realizedListType.GetGenericArguments();
@@ -717,6 +978,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Populates the array.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="recursionInfo">The recursion information.</param>
+        /// <returns>Array.</returns>
         public static Array PopulateArray(Type type, Dictionary<Type, int> recursionInfo)
         {
             var elementType = type.GetElementType();
@@ -728,6 +995,12 @@ namespace ServiceStack
         }
 
         //TODO: replace with InAssignableFrom
+        /// <summary>
+        /// Determines whether this instance can cast the specified to type.
+        /// </summary>
+        /// <param name="toType">To type.</param>
+        /// <param name="fromType">From type.</param>
+        /// <returns><c>true</c> if this instance can cast the specified to type; otherwise, <c>false</c>.</returns>
         public static bool CanCast(Type toType, Type fromType)
         {
             if (toType.IsInterface)
@@ -751,6 +1024,12 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Gets the property attributes.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fromType">From type.</param>
+        /// <returns>IEnumerable&lt;KeyValuePair&lt;PropertyInfo, T&gt;&gt;.</returns>
         public static IEnumerable<KeyValuePair<PropertyInfo, T>> GetPropertyAttributes<T>(Type fromType)
         {
             var attributeType = typeof(T);
@@ -770,6 +1049,13 @@ namespace ServiceStack
             while ((baseType = baseType.BaseType) != null);
         }
 
+        /// <summary>
+        /// Tries the convert collections.
+        /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
+        /// <param name="fromValue">From value.</param>
+        /// <returns>System.Object.</returns>
         public static object TryConvertCollections(Type fromType, Type toType, object fromValue)
         {
             if (fromValue is IEnumerable values)
@@ -1003,15 +1289,42 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class AssignmentEntry.
+    /// </summary>
     public class AssignmentEntry
     {
+        /// <summary>
+        /// The name
+        /// </summary>
         public string Name;
+        /// <summary>
+        /// From
+        /// </summary>
         public AssignmentMember From;
+        /// <summary>
+        /// To
+        /// </summary>
         public AssignmentMember To;
+        /// <summary>
+        /// The get value function
+        /// </summary>
         public GetMemberDelegate GetValueFn;
+        /// <summary>
+        /// The set value function
+        /// </summary>
         public SetMemberDelegate SetValueFn;
+        /// <summary>
+        /// The convert value function
+        /// </summary>
         public GetMemberDelegate ConvertValueFn;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignmentEntry"/> class.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="from">From.</param>
+        /// <param name="to">To.</param>
         public AssignmentEntry(string name, AssignmentMember @from, AssignmentMember to)
         {
             Name = name;
@@ -1024,31 +1337,65 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class AssignmentMember.
+    /// </summary>
     public class AssignmentMember
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignmentMember"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="propertyInfo">The property information.</param>
         public AssignmentMember(Type type, PropertyInfo propertyInfo)
         {
             Type = type;
             PropertyInfo = propertyInfo;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignmentMember"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="fieldInfo">The field information.</param>
         public AssignmentMember(Type type, FieldInfo fieldInfo)
         {
             Type = type;
             FieldInfo = fieldInfo;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignmentMember"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="methodInfo">The method information.</param>
         public AssignmentMember(Type type, MethodInfo methodInfo)
         {
             Type = type;
             MethodInfo = methodInfo;
         }
 
+        /// <summary>
+        /// The type
+        /// </summary>
         public Type Type;
+        /// <summary>
+        /// The property information
+        /// </summary>
         public PropertyInfo PropertyInfo;
+        /// <summary>
+        /// The field information
+        /// </summary>
         public FieldInfo FieldInfo;
+        /// <summary>
+        /// The method information
+        /// </summary>
         public MethodInfo MethodInfo;
 
+        /// <summary>
+        /// Creates the getter.
+        /// </summary>
+        /// <returns>GetMemberDelegate.</returns>
         public GetMemberDelegate CreateGetter()
         {
             if (PropertyInfo != null)
@@ -1058,6 +1405,10 @@ namespace ServiceStack
             return (GetMemberDelegate)MethodInfo?.CreateDelegate(typeof(GetMemberDelegate));
         }
 
+        /// <summary>
+        /// Creates the setter.
+        /// </summary>
+        /// <returns>SetMemberDelegate.</returns>
         public SetMemberDelegate CreateSetter()
         {
             if (PropertyInfo != null)
@@ -1068,18 +1419,42 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class AssignmentDefinition.
+    /// </summary>
     internal class AssignmentDefinition
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignmentDefinition"/> class.
+        /// </summary>
         public AssignmentDefinition()
         {
             this.AssignmentMemberMap = new Dictionary<string, AssignmentEntry>();
         }
 
+        /// <summary>
+        /// Gets or sets from type.
+        /// </summary>
+        /// <value>From type.</value>
         public Type FromType { get; set; }
+        /// <summary>
+        /// Converts to type.
+        /// </summary>
+        /// <value>To type.</value>
         public Type ToType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the assignment member map.
+        /// </summary>
+        /// <value>The assignment member map.</value>
         public Dictionary<string, AssignmentEntry> AssignmentMemberMap { get; set; }
 
+        /// <summary>
+        /// Adds the match.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="readMember">The read member.</param>
+        /// <param name="writeMember">The write member.</param>
         public void AddMatch(string name, AssignmentMember readMember, AssignmentMember writeMember)
         {
             if (AutoMappingUtils.ShouldIgnoreMapping(readMember.Type, writeMember.Type))
@@ -1113,6 +1488,12 @@ namespace ServiceStack
             this.AssignmentMemberMap[name] = new AssignmentEntry(name, readMember, writeMember);
         }
 
+        /// <summary>
+        /// Populates from properties with attribute.
+        /// </summary>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
         public void PopulateFromPropertiesWithAttribute(object to, object from, Type attributeType)
         {
             var hasAttributePredicate = (Func<PropertyInfo, bool>)
@@ -1120,6 +1501,12 @@ namespace ServiceStack
             Populate(to, from, hasAttributePredicate, null);
         }
 
+        /// <summary>
+        /// Populates from properties without attribute.
+        /// </summary>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
+        /// <param name="attributeType">Type of the attribute.</param>
         public void PopulateFromPropertiesWithoutAttribute(object to, object from, Type attributeType)
         {
             var hasAttributePredicate = (Func<PropertyInfo, bool>)
@@ -1127,6 +1514,11 @@ namespace ServiceStack
             Populate(to, from, hasAttributePredicate, null);
         }
 
+        /// <summary>
+        /// Populates the with non default values.
+        /// </summary>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
         public void PopulateWithNonDefaultValues(object to, object from)
         {
             var nonDefaultPredicate = (Func<object, Type, bool>)((x, t) =>
@@ -1136,11 +1528,23 @@ namespace ServiceStack
             Populate(to, from, null, nonDefaultPredicate);
         }
 
+        /// <summary>
+        /// Populates the specified to.
+        /// </summary>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
         public void Populate(object to, object from)
         {
             Populate(to, from, null, null);
         }
 
+        /// <summary>
+        /// Populates the specified to.
+        /// </summary>
+        /// <param name="to">To.</param>
+        /// <param name="from">From.</param>
+        /// <param name="propertyInfoPredicate">The property information predicate.</param>
+        /// <param name="valuePredicate">The value predicate.</param>
         public void Populate(object to, object from,
             Func<PropertyInfo, bool> propertyInfoPredicate,
             Func<object, Type, bool> valuePredicate)
@@ -1192,18 +1596,65 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Delegate GetMemberDelegate
+    /// </summary>
+    /// <param name="instance">The instance.</param>
+    /// <returns>System.Object.</returns>
     public delegate object GetMemberDelegate(object instance);
+    /// <summary>
+    /// Delegate GetMemberDelegate
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="instance">The instance.</param>
+    /// <returns>System.Object.</returns>
     public delegate object GetMemberDelegate<T>(T instance);
 
+    /// <summary>
+    /// Delegate PopulateMemberDelegate
+    /// </summary>
+    /// <param name="target">The target.</param>
+    /// <param name="source">The source.</param>
     public delegate void PopulateMemberDelegate(object target, object source);
 
+    /// <summary>
+    /// Delegate SetMemberDelegate
+    /// </summary>
+    /// <param name="instance">The instance.</param>
+    /// <param name="value">The value.</param>
     public delegate void SetMemberDelegate(object instance, object value);
+    /// <summary>
+    /// Delegate SetMemberDelegate
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="instance">The instance.</param>
+    /// <param name="value">The value.</param>
     public delegate void SetMemberDelegate<T>(T instance, object value);
+    /// <summary>
+    /// Delegate SetMemberRefDelegate
+    /// </summary>
+    /// <param name="instance">The instance.</param>
+    /// <param name="propertyValue">The property value.</param>
     public delegate void SetMemberRefDelegate(ref object instance, object propertyValue);
+    /// <summary>
+    /// Delegate SetMemberRefDelegate
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="instance">The instance.</param>
+    /// <param name="value">The value.</param>
     public delegate void SetMemberRefDelegate<T>(ref T instance, object value);
 
+    /// <summary>
+    /// Class TypeConverter.
+    /// </summary>
     internal static class TypeConverter
     {
+        /// <summary>
+        /// Creates the type converter.
+        /// </summary>
+        /// <param name="fromType">From type.</param>
+        /// <param name="toType">To type.</param>
+        /// <returns>GetMemberDelegate.</returns>
         public static GetMemberDelegate CreateTypeConverter(Type fromType, Type toType)
         {
             if (fromType == toType)

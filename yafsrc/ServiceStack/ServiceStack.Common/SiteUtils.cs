@@ -1,3 +1,9 @@
+// ***********************************************************************
+// <copyright file="SiteUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -5,19 +11,27 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class SiteUtils.
+    /// </summary>
     public static class SiteUtils
     {
+        /// <summary>
+        /// The URL character checks
+        /// </summary>
         private static char[] UrlCharChecks = { ':', '/', '(' };
 
         /// <summary>
         /// Allow slugs to capture URLs, Examples:
-        /// techstacks.io                  => https://techstacks.io
-        /// http:techstacks.io             => http://techstacks.io
-        /// techstacks.io:1000             => https://techstacks.io:1000
-        /// techstacks.io:1000:site1:site2 => https://techstacks.io:1000/site1/site2
-        /// techstacks.io:site1%7Csite2    => https://techstacks.io/site1|site2
-        /// techstacks.io:1000:site1:site2(a:1,b:"c,d",e:f) => https://techstacks.io:1000/site1/site2(a:1,b:"c,d",e:f)
+        /// techstacks.io                  =&gt; https://techstacks.io
+        /// http:techstacks.io             =&gt; http://techstacks.io
+        /// techstacks.io:1000             =&gt; https://techstacks.io:1000
+        /// techstacks.io:1000:site1:site2 =&gt; https://techstacks.io:1000/site1/site2
+        /// techstacks.io:site1%7Csite2    =&gt; https://techstacks.io/site1|site2
+        /// techstacks.io:1000:site1:site2(a:1,b:"c,d",e:f) =&gt; https://techstacks.io:1000/site1/site2(a:1,b:"c,d",e:f)
         /// </summary>
+        /// <param name="slug">The slug.</param>
+        /// <returns>System.String.</returns>
         public static string UrlFromSlug(string slug)
         {
             var url = slug;
@@ -65,6 +79,11 @@ namespace ServiceStack
             return url;
         }
 
+        /// <summary>
+        /// Uns the slash.
+        /// </summary>
+        /// <param name="urlComponent">The URL component.</param>
+        /// <returns>System.String.</returns>
         private static string UnSlash(string urlComponent)
         {
             // don't replace ':' after '('...)
@@ -79,13 +98,15 @@ namespace ServiceStack
 
         /// <summary>
         /// Convert URL to URL-friendly slugs, Examples:
-        /// https://techstacks.io                  => techstacks.io 
-        /// http://techstacks.io                   => http:techstacks.io 
-        /// https://techstacks.io:1000             => techstacks.io:1000 
-        /// https://techstacks.io:1000/site1/site2 => techstacks.io:1000:site1:site2 
-        /// https://techstacks.io/site1|site2      => techstacks.io:site|site2
-        /// https://techstacks.io:1000/site1/site2(a:1,b:"c,d",e:f) => techstacks.io:1000:site1:site2(a:1,b:"c,d",e:f)
+        /// https://techstacks.io                  =&gt; techstacks.io
+        /// http://techstacks.io                   =&gt; http:techstacks.io
+        /// https://techstacks.io:1000             =&gt; techstacks.io:1000
+        /// https://techstacks.io:1000/site1/site2 =&gt; techstacks.io:1000:site1:site2
+        /// https://techstacks.io/site1|site2      =&gt; techstacks.io:site|site2
+        /// https://techstacks.io:1000/site1/site2(a:1,b:"c,d",e:f) =&gt; techstacks.io:1000:site1:site2(a:1,b:"c,d",e:f)
         /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>System.String.</returns>
         public static string UrlToSlug(string url)
         {
             var slug = url;
@@ -97,6 +118,12 @@ namespace ServiceStack
             return slug;
         }
 
+        /// <summary>
+        /// Converts to urlencoded.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentException">Invalid odd number of arguments, expected [key1,value1,key2,value2,...] - args</exception>
         public static string ToUrlEncoded(List<string> args)
         {
             if (!args.IsEmpty())
@@ -120,6 +147,16 @@ namespace ServiceStack
             return string.Empty;
         }
 
+        /// <summary>
+        /// Get application metadata as an asynchronous operation.
+        /// </summary>
+        /// <param name="baseUrl">The base URL.</param>
+        /// <returns>A Task&lt;AppMetadata&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.Exception">Not a remote ServiceStack Instance</exception>
+        /// <exception cref="System.Exception">Not a remote ServiceStack Instance</exception>
+        /// <exception cref="System.Exception">Not a remote ServiceStack Instance</exception>
+        /// <exception cref="System.Exception">ServiceStack Instance v5.10 or higher required</exception>
+        /// <exception cref="System.Exception">Could not read AppMetadata, try upgrading this App or remote ServiceStack Instance</exception>
         public static async Task<AppMetadata> GetAppMetadataAsync(this string baseUrl)
         {
             string appResponseJson = null;

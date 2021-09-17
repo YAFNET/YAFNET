@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="AbstractVirtualPathProviderBase.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.IO;
 using ServiceStack.IO;
@@ -6,22 +12,55 @@ using ServiceStack.Text;
 
 namespace ServiceStack.VirtualPath
 {
+    /// <summary>
+    /// Class AbstractVirtualPathProviderBase.
+    /// Implements the <see cref="ServiceStack.IO.IVirtualPathProvider" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.IO.IVirtualPathProvider" />
     public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
     {
+        /// <summary>
+        /// Gets the root directory.
+        /// </summary>
+        /// <value>The root directory.</value>
         public abstract IVirtualDirectory RootDirectory { get; }
+        /// <summary>
+        /// Gets the virtual path separator.
+        /// </summary>
+        /// <value>The virtual path separator.</value>
         public abstract string VirtualPathSeparator { get; }
+        /// <summary>
+        /// Gets the real path separator.
+        /// </summary>
+        /// <value>The real path separator.</value>
         public abstract string RealPathSeparator { get; }
 
+        /// <summary>
+        /// Combines the virtual path.
+        /// </summary>
+        /// <param name="basePath">The base path.</param>
+        /// <param name="relativePath">The relative path.</param>
+        /// <returns>System.String.</returns>
         public virtual string CombineVirtualPath(string basePath, string relativePath)
         {
             return string.Concat(basePath, VirtualPathSeparator, relativePath);
         }
 
+        /// <summary>
+        /// Files the exists.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool FileExists(string virtualPath)
         {
             return GetFile(SanitizePath(virtualPath)) != null;
         }
 
+        /// <summary>
+        /// Sanitizes the path.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>System.String.</returns>
         public virtual string SanitizePath(string filePath)
         {
             var sanitizedPath = string.IsNullOrEmpty(filePath)
@@ -31,11 +70,21 @@ namespace ServiceStack.VirtualPath
             return sanitizedPath?.Replace('\\', '/');
         }
 
+        /// <summary>
+        /// Directories the exists.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool DirectoryExists(string virtualPath)
         {
             return GetDirectory(SanitizePath(virtualPath)) != null;
         }
 
+        /// <summary>
+        /// Gets the file.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>IVirtualFile.</returns>
         public virtual IVirtualFile GetFile(string virtualPath)
         {
             var virtualFile = RootDirectory.GetFile(SanitizePath(virtualPath));
@@ -43,17 +92,32 @@ namespace ServiceStack.VirtualPath
             return virtualFile;
         }
 
+        /// <summary>
+        /// Gets the file hash.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetFileHash(string virtualPath)
         {
             var f = GetFile(virtualPath);
             return GetFileHash(f);
         }
 
+        /// <summary>
+        /// Gets the file hash.
+        /// </summary>
+        /// <param name="virtualFile">The virtual file.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetFileHash(IVirtualFile virtualFile)
         {
             return virtualFile == null ? string.Empty : virtualFile.GetFileHash();
         }
 
+        /// <summary>
+        /// Gets the directory.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>IVirtualDirectory.</returns>
         public virtual IVirtualDirectory GetDirectory(string virtualPath)
         {
             if (string.IsNullOrEmpty(virtualPath) || virtualPath == "/")
@@ -62,42 +126,82 @@ namespace ServiceStack.VirtualPath
             return RootDirectory.GetDirectory(SanitizePath(virtualPath));
         }
 
+        /// <summary>
+        /// Gets all matching files.
+        /// </summary>
+        /// <param name="globPattern">The glob pattern.</param>
+        /// <param name="maxDepth">The maximum depth.</param>
+        /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         public virtual IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = int.MaxValue)
         {
             return RootDirectory.GetAllMatchingFiles(globPattern, maxDepth);
         }
 
+        /// <summary>
+        /// Gets all files.
+        /// </summary>
+        /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         public virtual IEnumerable<IVirtualFile> GetAllFiles()
         {
             return RootDirectory.GetAllMatchingFiles("*");
         }
 
+        /// <summary>
+        /// Gets the root files.
+        /// </summary>
+        /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         public virtual IEnumerable<IVirtualFile> GetRootFiles()
         {
             return RootDirectory.Files;
         }
 
+        /// <summary>
+        /// Gets the root directories.
+        /// </summary>
+        /// <returns>IEnumerable&lt;IVirtualDirectory&gt;.</returns>
         public virtual IEnumerable<IVirtualDirectory> GetRootDirectories()
         {
             return RootDirectory.Directories;
         }
 
+        /// <summary>
+        /// Determines whether [is shared file] [the specified virtual file].
+        /// </summary>
+        /// <param name="virtualFile">The virtual file.</param>
+        /// <returns><c>true</c> if [is shared file] [the specified virtual file]; otherwise, <c>false</c>.</returns>
         public virtual bool IsSharedFile(IVirtualFile virtualFile)
         {
             return virtualFile.RealPath != null
                 && virtualFile.RealPath.Contains($"{RealPathSeparator}Shared");
         }
 
+        /// <summary>
+        /// Determines whether [is view file] [the specified virtual file].
+        /// </summary>
+        /// <param name="virtualFile">The virtual file.</param>
+        /// <returns><c>true</c> if [is view file] [the specified virtual file]; otherwise, <c>false</c>.</returns>
         public virtual bool IsViewFile(IVirtualFile virtualFile)
         {
             return virtualFile.RealPath != null
                 && virtualFile.RealPath.Contains($"{RealPathSeparator}Views");
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         protected abstract void Initialize();
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString() => $"[{GetType().Name}: {RootDirectory.RealPath}]";
 
+        /// <summary>
+        /// Writes the files.
+        /// </summary>
+        /// <param name="textFiles">The text files.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual void WriteFiles(Dictionary<string, string> textFiles)
         {
             var vfs = this as IVirtualFiles;
@@ -110,9 +214,20 @@ namespace ServiceStack.VirtualPath
             }
         }
 
+        /// <summary>
+        /// Creates the content not supported exception.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>NotSupportedException.</returns>
         protected NotSupportedException CreateContentNotSupportedException(object value) =>
             new NotSupportedException($"Could not write '{value?.GetType().Name ?? "null"}' value. Only string, byte[], Stream or IVirtualFile content is supported.");
 
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="text">The text.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual void WriteFile(string path, ReadOnlyMemory<char> text)
         {
             if (this is not IVirtualFiles vfs)
@@ -121,6 +236,12 @@ namespace ServiceStack.VirtualPath
             vfs.WriteFile(path, text.ToString());
         }
 
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="bytes">The bytes.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual void WriteFile(string path, ReadOnlyMemory<byte> bytes)
         {
             if (this is not IVirtualFiles vfs)
@@ -129,6 +250,11 @@ namespace ServiceStack.VirtualPath
             vfs.WriteFile(path, ToMemoryStream(bytes));
         }
 
+        /// <summary>
+        /// Converts to memorystream.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns>MemoryStream.</returns>
         private static MemoryStream ToMemoryStream(ReadOnlyMemory<byte> bytes)
         {
             var ms = MemoryProvider.Instance.ToMemoryStream(bytes.Span);
@@ -136,6 +262,12 @@ namespace ServiceStack.VirtualPath
             return ms;
         }
 
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="contents">The contents.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual void WriteFile(string path, object contents)
         {
             if (this is not IVirtualFiles vfs)
@@ -165,6 +297,12 @@ namespace ServiceStack.VirtualPath
                 throw CreateContentNotSupportedException(contents);
         }
 
+        /// <summary>
+        /// Appends the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="text">The text.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual void AppendFile(string path, ReadOnlyMemory<char> text)
         {
             if (this is not IVirtualFiles vfs)
@@ -173,6 +311,12 @@ namespace ServiceStack.VirtualPath
             vfs.AppendFile(path, text.ToString());
         }
 
+        /// <summary>
+        /// Appends the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="bytes">The bytes.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual void AppendFile(string path, ReadOnlyMemory<byte> bytes)
         {
             if (this is not IVirtualFiles vfs)
@@ -181,6 +325,12 @@ namespace ServiceStack.VirtualPath
             vfs.AppendFile(path, ToMemoryStream(bytes));
         }
 
+        /// <summary>
+        /// Appends the file.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="contents">The contents.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual void AppendFile(string path, object contents)
         {
             if (this is not IVirtualFiles vfs)
@@ -210,6 +360,10 @@ namespace ServiceStack.VirtualPath
                 throw CreateContentNotSupportedException(contents);
         }
 
+        /// <summary>
+        /// Writes the files.
+        /// </summary>
+        /// <param name="files">The files.</param>
         public virtual void WriteFiles(Dictionary<string, object> files)
         {
             foreach (var entry in files)

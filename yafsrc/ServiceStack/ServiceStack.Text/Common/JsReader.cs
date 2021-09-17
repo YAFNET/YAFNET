@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="JsReader.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,11 +12,23 @@ using System.Runtime.CompilerServices;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class JsReader.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public class JsReader<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>ParseStringDelegate.</returns>
         public ParseStringDelegate GetParseFn<T>()
         {
             var onDeserializedFn = JsConfig<T>.OnDeserializedFn;
@@ -23,6 +41,11 @@ namespace ServiceStack.Text.Common
             return GetCoreParseFn<T>();
         }
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>ParseStringSpanDelegate.</returns>
         public ParseStringSpanDelegate GetParseStringSpanFn<T>()
         {
             var onDeserializedFn = JsConfig<T>.OnDeserializedFn;
@@ -35,11 +58,21 @@ namespace ServiceStack.Text.Common
             return GetCoreParseStringSpanFn<T>();
         }
 
+        /// <summary>
+        /// Gets the core parse function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>ParseStringDelegate.</returns>
         private ParseStringDelegate GetCoreParseFn<T>()
         {
             return v => GetCoreParseStringSpanFn<T>()(v.AsSpan());
         }
 
+        /// <summary>
+        /// Gets the core parse string span function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>ParseStringSpanDelegate.</returns>
         private ParseStringSpanDelegate GetCoreParseStringSpanFn<T>()
         {
             var type = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
@@ -149,6 +182,10 @@ namespace ServiceStack.Text.Common
             return DeserializeType<TSerializer>.ParseAbstractType<T>;
         }
 
+        /// <summary>
+        /// Initializes the aot.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {

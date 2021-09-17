@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="ScriptLanguage.Template.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections;
 using System.Collections.Concurrent;
@@ -18,12 +24,29 @@ namespace ServiceStack.Script
     /// </summary>
     public sealed class SharpScript : ScriptLanguage
     {
+        /// <summary>
+        /// Prevents a default instance of the <see cref="SharpScript"/> class from being created.
+        /// </summary>
         private SharpScript() { } // force usage of singleton
 
+        /// <summary>
+        /// The language
+        /// </summary>
         public static readonly ScriptLanguage Language = new SharpScript();
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "script";
 
+        /// <summary>
+        /// Parses the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="modifiers">The modifiers.</param>
+        /// <returns>List&lt;PageFragment&gt;.</returns>
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
         {
             return context.ParseScript(body);
@@ -35,18 +58,43 @@ namespace ServiceStack.Script
     /// </summary>
     public sealed class ScriptTemplate : ScriptLanguage
     {
+        /// <summary>
+        /// Prevents a default instance of the <see cref="ScriptTemplate"/> class from being created.
+        /// </summary>
         private ScriptTemplate() { } // force usage of singleton
 
+        /// <summary>
+        /// The language
+        /// </summary>
         public static readonly ScriptLanguage Language = new ScriptTemplate();
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "template";
 
+        /// <summary>
+        /// Parses the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="modifiers">The modifiers.</param>
+        /// <returns>List&lt;PageFragment&gt;.</returns>
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
         {
             var pageFragments = context.ParseTemplate(body);
             return pageFragments;
         }
 
+        /// <summary>
+        /// Write page fragment as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="fragment">The fragment.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="NotSupportedException">{{page}} can only be called once per render, in the Layout page.</exception>
         public override async Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
         {
             if (fragment is PageStringFragment str)
@@ -83,18 +131,27 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class ScriptTemplateUtils.
+    /// </summary>
     public static class ScriptTemplateUtils
     {
         /// <summary>
-        /// Create SharpPage configured to use #Script 
+        /// Create SharpPage configured to use #Script
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <returns>ServiceStack.Script.SharpPage.</returns>
         public static SharpPage SharpScriptPage(this ScriptContext context, string code)
             => context.Pages.OneTimePage(code, context.PageFormats[0].Extension,
                 p => p.ScriptLanguage = SharpScript.Language);
 
         /// <summary>
-        /// Create SharpPage configured to use #Script Templates 
+        /// Create SharpPage configured to use #Script Templates
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <returns>ServiceStack.Script.SharpPage.</returns>
         public static SharpPage TemplateSharpPage(this ScriptContext context, string code)
             => context.Pages.OneTimePage(code, context.PageFormats[0].Extension,
                 p => p.ScriptLanguage = ScriptTemplate.Language);
@@ -102,22 +159,40 @@ namespace ServiceStack.Script
         /// <summary>
         /// Render #Script output to string
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="error">The error.</param>
+        /// <returns>string.</returns>
         public static string RenderScript(this ScriptContext context, string script, out ScriptException error) =>
             context.RenderScript(script, null, out error);
         /// <summary>
-        /// Alias for EvaluateScript 
+        /// Alias for EvaluateScript
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="error">The error.</param>
+        /// <returns>string.</returns>
         public static string EvaluateScript(this ScriptContext context, string script, out ScriptException error) =>
             context.EvaluateScript(script, null, out error);
 
         /// <summary>
         /// Render #Script output to string
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="error">The error.</param>
+        /// <returns>string.</returns>
         public static string RenderScript(this ScriptContext context, string script, Dictionary<string, object> args, out ScriptException error) =>
             context.EvaluateScript(script, args, out error);
         /// <summary>
-        /// Alias for RenderScript 
+        /// Alias for RenderScript
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="error">The error.</param>
+        /// <returns>string.</returns>
         public static string EvaluateScript(this ScriptContext context, string script, Dictionary<string, object> args, out ScriptException error)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
@@ -139,11 +214,19 @@ namespace ServiceStack.Script
         /// <summary>
         /// Render #Script output to string
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>string.</returns>
         public static string RenderScript(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
             context.EvaluateScript(script, args);
         /// <summary>
-        /// Alias for RenderScript 
+        /// Alias for RenderScript
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>string.</returns>
         public static string EvaluateScript(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
@@ -154,11 +237,20 @@ namespace ServiceStack.Script
         /// <summary>
         /// Render #Script output to string asynchronously
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
         public static Task<string> RenderScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
             context.EvaluateScriptAsync(script, args);
+
         /// <summary>
-        /// Alias for RenderScriptAsync 
+        /// Alias for RenderScriptAsync
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task<string> EvaluateScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
@@ -167,14 +259,24 @@ namespace ServiceStack.Script
         }
 
         /// <summary>
-        /// Evaluate #Script and convert returned value to T 
+        /// Evaluate #Script and convert returned value to T
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>T.</returns>
         public static T Evaluate<T>(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
             context.Evaluate(script, args).ConvertTo<T>();
 
         /// <summary>
-        /// Evaluate #Script and return value 
+        /// Evaluate #Script and return value
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>object.</returns>
+        /// <exception cref="PageResult">context.SharpScriptPage(script)</exception>
         public static object Evaluate(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
@@ -189,12 +291,22 @@ namespace ServiceStack.Script
         /// <summary>
         /// Evaluate #Script and convert returned value to T asynchronously
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task<T> EvaluateAsync<T>(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
             (await context.EvaluateAsync(script, args).ConfigAwait()).ConvertTo<T>();
 
         /// <summary>
         /// Evaluate #Script and convert returned value to T asynchronously
         /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="script">The script.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="PageResult">context.SharpScriptPage(script)</exception>
         public static async Task<object> EvaluateAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
         {
             var pageResult = new PageResult(context.SharpScriptPage(script));
@@ -208,17 +320,36 @@ namespace ServiceStack.Script
         }
 
 
+        /// <summary>
+        /// Parses the template.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <returns>System.Collections.Generic.List&lt;ServiceStack.Script.PageFragment&gt;.</returns>
         public static List<PageFragment> ParseTemplate(string text)
         {
             return new ScriptContext().Init().ParseTemplate(text.AsMemory());
         }
 
+        /// <summary>
+        /// The filter sep
+        /// </summary>
         internal const char FilterSep = '|';
+        /// <summary>
+        /// The statements sep
+        /// </summary>
         internal const char StatementsSep = ';';
 
         // {{#name}}  {{else if a=b}}  {{else}}  {{/name}}
         //          ^
         // returns    ^                         ^
+        /// <summary>
+        /// Parses the template body.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="blockName">Name of the block.</param>
+        /// <param name="body">The body.</param>
+        /// <returns>System.ReadOnlyMemory&lt;char&gt;.</returns>
+        /// <exception cref="SyntaxErrorException">$"End block for '{blockName}' not found.</exception>
         public static ReadOnlyMemory<char> ParseTemplateBody(this ReadOnlyMemory<char> literal, ReadOnlyMemory<char> blockName, out ReadOnlyMemory<char> body)
         {
             var inStatements = 0;
@@ -269,6 +400,16 @@ namespace ServiceStack.Script
         //   {{else if a=b}}  {{else}}  {{/name}}
         //  ^
         // returns           ^         ^
+        /// <summary>
+        /// Parses the template else block.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="blockName">Name of the block.</param>
+        /// <param name="elseArgument">The else argument.</param>
+        /// <param name="elseBody">The else body.</param>
+        /// <returns>System.ReadOnlyMemory&lt;char&gt;.</returns>
+        /// <exception cref="SyntaxErrorException">$"End block for 'else' not found.</exception>
+        /// <exception cref="SyntaxErrorException">$"End block for 'else' not found.</exception>
         public static ReadOnlyMemory<char> ParseTemplateElseBlock(this ReadOnlyMemory<char> literal, string blockName,
             out ReadOnlyMemory<char> elseArgument, out ReadOnlyMemory<char> elseBody)
         {
@@ -329,6 +470,12 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Parses the script.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="text">The text.</param>
+        /// <returns>System.Collections.Generic.List&lt;ServiceStack.Script.PageFragment&gt;.</returns>
         public static List<PageFragment> ParseScript(this ScriptContext context, ReadOnlyMemory<char> text)
         {
             var to = new List<PageFragment>();
@@ -406,6 +553,12 @@ namespace ServiceStack.Script
             return to;
         }
 
+        /// <summary>
+        /// Parses the template.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="text">The text.</param>
+        /// <returns>System.Collections.Generic.List&lt;ServiceStack.Script.PageFragment&gt;.</returns>
         public static List<PageFragment> ParseTemplate(this ScriptContext context, ReadOnlyMemory<char> text)
         {
             var to = new List<PageFragment>();
@@ -576,6 +729,15 @@ namespace ServiceStack.Script
 
         // {{#if ...}}
         //    ^
+        /// <summary>
+        /// Parses the template script block.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="blockFragment">The block fragment.</param>
+        /// <returns>System.ReadOnlyMemory&lt;char&gt;.</returns>
+        /// <exception cref="SyntaxErrorException">$"Unterminated '{blockName}' block expression, near '{literal.DebugLiteral()}'</exception>
+        /// <exception cref="SyntaxErrorException">$"Unterminated '{blockName}' block expression, near '{literal.DebugLiteral()}'</exception>
         public static ReadOnlyMemory<char> ParseTemplateScriptBlock(this ReadOnlyMemory<char> literal, ScriptContext context, out PageBlockFragment blockFragment)
         {
             literal = literal.ParseVarName(out var blockNameSpan);
@@ -628,13 +790,30 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Converts to rawstring.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>ServiceStack.IRawString.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IRawString ToRawString(this string value) => value != null
             ? new RawString(value)
             : RawString.Empty;
 
+        /// <summary>
+        /// Gets the binder cache.
+        /// </summary>
+        /// <value>The binder cache.</value>
         public static ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>> BinderCache { get; } = new ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>>();
 
+        /// <summary>
+        /// Gets the member expression.
+        /// </summary>
+        /// <param name="targetType">Type of the target.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Func&lt;ServiceStack.Script.ScriptScopeContext, object, object&gt;.</returns>
+        /// <exception cref="ArgumentNullException">nameof(targetType)</exception>
+        /// <exception cref="ArgumentNullException">nameof(targetType)</exception>
         public static Func<ScriptScopeContext, object, object> GetMemberExpression(Type targetType, ReadOnlyMemory<char> expression)
         {
             if (targetType == null)
@@ -652,6 +831,12 @@ namespace ServiceStack.Script
             return fn;
         }
 
+        /// <summary>
+        /// Compiles the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="expr">The expr.</param>
+        /// <returns>System.Func&lt;ServiceStack.Script.ScriptScopeContext, object, object&gt;.</returns>
         public static Func<ScriptScopeContext, object, object> Compile(Type type, ReadOnlyMemory<char> expr)
         {
             var scope = Expression.Parameter(typeof(ScriptScopeContext), "scope");
@@ -662,6 +847,18 @@ namespace ServiceStack.Script
             return Expression.Lambda<Func<ScriptScopeContext, object, object>>(body, scope, param).Compile();
         }
 
+        /// <summary>
+        /// Creates the binding expression.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="expr">The expr.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="instance">The instance.</param>
+        /// <returns>System.Linq.Expressions.Expression.</returns>
+        /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
+        /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
+        /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
+        /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
         private static Expression CreateBindingExpression(Type type, ReadOnlyMemory<char> expr, ParameterExpression scope, ParameterExpression instance)
         {
             Expression body = Expression.Convert(instance, type);
@@ -799,10 +996,25 @@ namespace ServiceStack.Script
             return body;
         }
 
+        /// <summary>
+        /// The object argument
+        /// </summary>
         private static readonly Type[] ObjectArg = { typeof(object) };
+        /// <summary>
+        /// Creates the convert method.
+        /// </summary>
+        /// <param name="toType">To type.</param>
+        /// <returns>System.Reflection.MethodInfo.</returns>
         public static MethodInfo CreateConvertMethod(Type toType) =>
             typeof(AutoMappingUtils).GetStaticMethod(nameof(AutoMappingUtils.ConvertTo), ObjectArg).MakeGenericMethod(toType);
 
+        /// <summary>
+        /// Compiles the assign.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="expr">The expr.</param>
+        /// <returns>System.Action&lt;ServiceStack.Script.ScriptScopeContext, object, object&gt;.</returns>
+        /// <exception cref="BindingExpressionException">$"Assignment expression for '{expr}' not supported yet, valueToAssign, expr.ToString()</exception>
         public static Action<ScriptScopeContext, object, object> CompileAssign(Type type, ReadOnlyMemory<char> expr)
         {
             var scope = Expression.Parameter(typeof(ScriptScopeContext), "scope");
@@ -859,6 +1071,15 @@ namespace ServiceStack.Script
             return Expression.Lambda<Action<ScriptScopeContext, object, object>>(body, scope, instance, valueToAssign).Compile();
         }
 
+        /// <summary>
+        /// Creates the string index expression.
+        /// </summary>
+        /// <param name="body">The body.</param>
+        /// <param name="binding">The binding.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="valueExpr">The value expr.</param>
+        /// <param name="currType">Type of the curr.</param>
+        /// <returns>System.Linq.Expressions.Expression.</returns>
         private static Expression CreateStringIndexExpression(Expression body, JsToken binding, ParameterExpression scope,
             Expression valueExpr, ref Type currType)
         {
@@ -878,12 +1099,25 @@ namespace ServiceStack.Script
             return body;
         }
 
+        /// <summary>
+        /// Evaluates the binding.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>object.</returns>
         public static object EvaluateBinding(ScriptScopeContext scope, JsToken token)
         {
             var result = token.Evaluate(scope);
             return result;
         }
 
+        /// <summary>
+        /// Evaluates the binding as.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>T.</returns>
         public static T EvaluateBindingAs<T>(ScriptScopeContext scope, JsToken token)
         {
             var result = EvaluateBinding(scope, token);
@@ -891,6 +1125,14 @@ namespace ServiceStack.Script
             return converted;
         }
 
+        /// <summary>
+        /// Asserts the property.
+        /// </summary>
+        /// <param name="currType">Type of the curr.</param>
+        /// <param name="prop">The property.</param>
+        /// <param name="expr">The expr.</param>
+        /// <returns>System.Reflection.PropertyInfo.</returns>
+        /// <exception cref="ArgumentException">$"Property '{prop}' does not exist on Type '{currType.Name}' from binding expression '{expr}'</exception>
         private static PropertyInfo AssertProperty(Type currType, string prop, ReadOnlyMemory<char> expr)
         {
             var pi = currType.GetProperty(prop);
@@ -900,6 +1142,11 @@ namespace ServiceStack.Script
             return pi;
         }
 
+        /// <summary>
+        /// Determines whether [is white space] [the specified c].
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>bool.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsWhiteSpace(this char c) =>
             c == ' ' || c >= '\x0009' && c <= '\x000d' || c == '\x00a0' || c == '\x0085';

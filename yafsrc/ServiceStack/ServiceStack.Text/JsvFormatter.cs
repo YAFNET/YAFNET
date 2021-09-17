@@ -1,15 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//	 Peter Townsend (townsend.pete@gmail.com)
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="JsvFormatter.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -18,8 +12,16 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// Class JsvFormatter.
+    /// </summary>
     public static class JsvFormatter
     {
+        /// <summary>
+        /// Formats the specified serialized text.
+        /// </summary>
+        /// <param name="serializedText">The serialized text.</param>
+        /// <returns>System.String.</returns>
         public static string Format(string serializedText)
         {
             if (string.IsNullOrEmpty(serializedText)) return null;
@@ -90,6 +92,11 @@ namespace ServiceStack.Text
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Appends the tab line.
+        /// </summary>
+        /// <param name="sb">The sb.</param>
+        /// <param name="tabCount">The tab count.</param>
         private static void AppendTabLine(StringBuilder sb, int tabCount)
         {
             sb.AppendLine();

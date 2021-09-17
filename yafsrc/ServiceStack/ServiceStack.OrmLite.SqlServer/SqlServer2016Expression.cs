@@ -1,14 +1,36 @@
+﻿// ***********************************************************************
+// <copyright file="SqlServer2016Expression.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 namespace ServiceStack.OrmLite.SqlServer
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
+    /// <summary>
+    /// Class SqlServer2016Expression.
+    /// Implements the <see cref="ServiceStack.OrmLite.SqlServer.SqlServerExpression{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.SqlServer.SqlServerExpression{T}" />
     public class SqlServer2016Expression<T> : SqlServerExpression<T>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlServer2016Expression{T}"/> class.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
         public SqlServer2016Expression(IOrmLiteDialectProvider dialectProvider)
             : base(dialectProvider) { }
 
+        /// <summary>
+        /// Visits the SQL method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         protected override object VisitSqlMethodCall(MethodCallExpression m)
         {
             List<object> args = this.VisitInSqlExpressionList(m.Arguments);

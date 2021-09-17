@@ -1,34 +1,55 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="DeserializeBuiltin.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeBuiltin.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public static class DeserializeBuiltin<T>
     {
+        /// <summary>
+        /// The cached parse function
+        /// </summary>
         private static readonly ParseStringSpanDelegate CachedParseFn;
+        /// <summary>
+        /// Initializes static members of the <see cref="DeserializeBuiltin{T}" /> class.
+        /// </summary>
         static DeserializeBuiltin()
         {
             CachedParseFn = GetParseStringSpanFn();
         }
 
+        /// <summary>
+        /// Gets the parse.
+        /// </summary>
+        /// <value>The parse.</value>
         public static ParseStringDelegate Parse => v => CachedParseFn(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span.
+        /// </summary>
+        /// <value>The parse string span.</value>
         public static ParseStringSpanDelegate ParseStringSpan => CachedParseFn;
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <returns>ParseStringDelegate.</returns>
         private static ParseStringDelegate GetParseFn() => v => GetParseStringSpanFn()(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <returns>ParseStringSpanDelegate.</returns>
         private static ParseStringSpanDelegate GetParseStringSpanFn()
         {
             var nullableType = Nullable.GetUnderlyingType(typeof(T));

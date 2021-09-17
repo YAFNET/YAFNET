@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="MemoryVirtualFiles.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,30 +14,73 @@ using ServiceStack.VirtualPath;
 
 namespace ServiceStack.IO
 {
+    /// <summary>
+    /// Class MemoryVirtualFiles.
+    /// Implements the <see cref="ServiceStack.VirtualPath.AbstractVirtualPathProviderBase" />
+    /// Implements the <see cref="ServiceStack.IO.IVirtualFiles" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.VirtualPath.AbstractVirtualPathProviderBase" />
+    /// <seealso cref="ServiceStack.IO.IVirtualFiles" />
     public class MemoryVirtualFiles
         : AbstractVirtualPathProviderBase, IVirtualFiles
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemoryVirtualFiles"/> class.
+        /// </summary>
         public MemoryVirtualFiles()
         {
             this.files = new List<InMemoryVirtualFile>();
             this.rootDirectory = new InMemoryVirtualDirectory(this, null);
         }
 
+        /// <summary>
+        /// The dir sep
+        /// </summary>
         public const char DirSep = '/';
 
+        /// <summary>
+        /// The files
+        /// </summary>
         private List<InMemoryVirtualFile> files;
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        /// <value>The files.</value>
         public List<InMemoryVirtualFile> Files => files;
 
+        /// <summary>
+        /// The root directory
+        /// </summary>
         private readonly InMemoryVirtualDirectory rootDirectory;
 
+        /// <summary>
+        /// Gets the root directory.
+        /// </summary>
+        /// <value>The root directory.</value>
         public override IVirtualDirectory RootDirectory => rootDirectory;
 
+        /// <summary>
+        /// Gets the virtual path separator.
+        /// </summary>
+        /// <value>The virtual path separator.</value>
         public override string VirtualPathSeparator => "/";
 
+        /// <summary>
+        /// Gets the real path separator.
+        /// </summary>
+        /// <value>The real path separator.</value>
         public override string RealPathSeparator => "/";
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         protected override void Initialize() { }
 
+        /// <summary>
+        /// Gets the file.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>IVirtualFile.</returns>
         public override IVirtualFile GetFile(string virtualPath)
         {
             if (Files.Count == 0)
@@ -41,8 +90,19 @@ namespace ServiceStack.IO
             return Files.FirstOrDefault(x => x.FilePath == filePath);
         }
 
+        /// <summary>
+        /// Gets the directory.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>IVirtualDirectory.</returns>
         public override IVirtualDirectory GetDirectory(string virtualPath) => GetDirectory(virtualPath, forceDir: false);
 
+        /// <summary>
+        /// Gets the directory.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <param name="forceDir">if set to <c>true</c> [force dir].</param>
+        /// <returns>IVirtualDirectory.</returns>
         public IVirtualDirectory GetDirectory(string virtualPath, bool forceDir)
         {
             var dirPath = SanitizePath(virtualPath);
@@ -55,6 +115,11 @@ namespace ServiceStack.IO
                 : null;
         }
 
+        /// <summary>
+        /// Gets the parent directory.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
+        /// <returns>IVirtualDirectory.</returns>
         public IVirtualDirectory GetParentDirectory(string dirPath)
         {
             if (string.IsNullOrEmpty(dirPath))
@@ -71,16 +136,31 @@ namespace ServiceStack.IO
             return this.rootDirectory;
         }
 
+        /// <summary>
+        /// Directories the exists.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DirectoryExists(string virtualPath)
         {
             return GetDirectory(virtualPath) != null;
         }
 
+        /// <summary>
+        /// Creates the directory.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
+        /// <returns>IVirtualDirectory.</returns>
         private IVirtualDirectory CreateDirectory(string dirPath)
         {
             return new InMemoryVirtualDirectory(this, dirPath, GetParentDirectory(dirPath));
         }
 
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="textContents">The text contents.</param>
         public void WriteFile(string filePath, string textContents)
         {
             filePath = SanitizePath(filePath);
@@ -92,6 +172,11 @@ namespace ServiceStack.IO
             });
         }
 
+        /// <summary>
+        /// Writes the file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="stream">The stream.</param>
         public void WriteFile(string filePath, Stream stream)
         {
             filePath = SanitizePath(filePath);
@@ -103,11 +188,21 @@ namespace ServiceStack.IO
             });
         }
 
+        /// <summary>
+        /// Writes the files.
+        /// </summary>
+        /// <param name="files">The files.</param>
+        /// <param name="toPath">To path.</param>
         public void WriteFiles(IEnumerable<IVirtualFile> files, Func<IVirtualFile, string> toPath = null)
         {
             this.CopyFrom(files, toPath);
         }
 
+        /// <summary>
+        /// Appends the file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="textContents">The text contents.</param>
         public void AppendFile(string filePath, string textContents)
         {
             filePath = SanitizePath(filePath);
@@ -127,6 +222,11 @@ namespace ServiceStack.IO
             });
         }
 
+        /// <summary>
+        /// Appends the file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="stream">The stream.</param>
         public void AppendFile(string filePath, Stream stream)
         {
             filePath = SanitizePath(filePath);
@@ -146,6 +246,10 @@ namespace ServiceStack.IO
             });
         }
 
+        /// <summary>
+        /// Adds the file.
+        /// </summary>
+        /// <param name="file">The file.</param>
         public void AddFile(InMemoryVirtualFile file)
         {
             List<InMemoryVirtualFile> snapshot, newFiles;
@@ -159,8 +263,16 @@ namespace ServiceStack.IO
                 Interlocked.CompareExchange(ref files, newFiles, snapshot), snapshot));
         }
 
+        /// <summary>
+        /// Deletes the file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
         public void DeleteFile(string filePath) => DeleteFiles(new[] { filePath });
 
+        /// <summary>
+        /// Deletes the files.
+        /// </summary>
+        /// <param name="filePaths">The file paths.</param>
         public void DeleteFiles(IEnumerable<string> filePaths)
         {
             var sanitizedFilePaths = filePaths.Select(SanitizePath).ToSet();
@@ -174,12 +286,21 @@ namespace ServiceStack.IO
                 Interlocked.CompareExchange(ref files, newFiles, snapshot), snapshot));
         }
 
+        /// <summary>
+        /// Deletes the folder.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
         public void DeleteFolder(string dirPath)
         {
             var subFiles = Files.Where(x => x.DirPath.StartsWith(dirPath));
             DeleteFiles(subFiles.Map(x => x.VirtualPath));
         }
 
+        /// <summary>
+        /// Gets the immediate directories.
+        /// </summary>
+        /// <param name="fromDirPath">From dir path.</param>
+        /// <returns>IEnumerable&lt;InMemoryVirtualDirectory&gt;.</returns>
         public IEnumerable<InMemoryVirtualDirectory> GetImmediateDirectories(string fromDirPath)
         {
             if (Files.Count == 0)
@@ -195,6 +316,11 @@ namespace ServiceStack.IO
             return dirPaths.Map(x => new InMemoryVirtualDirectory(this, x, GetParentDirectory(x)));
         }
 
+        /// <summary>
+        /// Gets the immediate files.
+        /// </summary>
+        /// <param name="fromDirPath">From dir path.</param>
+        /// <returns>IEnumerable&lt;InMemoryVirtualFile&gt;.</returns>
         public IEnumerable<InMemoryVirtualFile> GetImmediateFiles(string fromDirPath)
         {
             if (Files.Count == 0)
@@ -203,11 +329,20 @@ namespace ServiceStack.IO
             return Files.Where(x => x.DirPath == fromDirPath);
         }
 
+        /// <summary>
+        /// Gets all files.
+        /// </summary>
+        /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         public override IEnumerable<IVirtualFile> GetAllFiles()
         {
             return Files;
         }
 
+        /// <summary>
+        /// Gets the dir path.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <returns>System.String.</returns>
         public string GetDirPath(string filePath)
         {
             if (string.IsNullOrEmpty(filePath))
@@ -219,6 +354,12 @@ namespace ServiceStack.IO
                 : null;
         }
 
+        /// <summary>
+        /// Gets the immediate sub dir path.
+        /// </summary>
+        /// <param name="fromDirPath">From dir path.</param>
+        /// <param name="subDirPath">The sub dir path.</param>
+        /// <returns>System.String.</returns>
         public string GetImmediateSubDirPath(string fromDirPath, string subDirPath)
         {
             if (string.IsNullOrEmpty(subDirPath))
@@ -239,13 +380,30 @@ namespace ServiceStack.IO
                 : null;
         }
 
+        /// <summary>
+        /// Clears this instance.
+        /// </summary>
         public void Clear() => Files.Clear();
     }
 
+    /// <summary>
+    /// Class InMemoryVirtualDirectory.
+    /// Implements the <see cref="ServiceStack.VirtualPath.AbstractVirtualDirectoryBase" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.VirtualPath.AbstractVirtualDirectoryBase" />
     public class InMemoryVirtualDirectory : AbstractVirtualDirectoryBase
     {
+        /// <summary>
+        /// The path provider
+        /// </summary>
         private readonly MemoryVirtualFiles pathProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InMemoryVirtualDirectory"/> class.
+        /// </summary>
+        /// <param name="pathProvider">The path provider.</param>
+        /// <param name="dirPath">The dir path.</param>
+        /// <param name="parentDir">The parent dir.</param>
         public InMemoryVirtualDirectory(MemoryVirtualFiles pathProvider, string dirPath, IVirtualDirectory parentDir = null)
             : base(pathProvider, parentDir)
         {
@@ -253,34 +411,82 @@ namespace ServiceStack.IO
             this.DirPath = dirPath;
         }
 
+        /// <summary>
+        /// Gets or sets the dir last modified.
+        /// </summary>
+        /// <value>The dir last modified.</value>
         public DateTime DirLastModified { get; set; }
+        /// <summary>
+        /// Gets the last modified.
+        /// </summary>
+        /// <value>The last modified.</value>
         public override DateTime LastModified => DirLastModified;
 
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        /// <value>The files.</value>
         public override IEnumerable<IVirtualFile> Files => pathProvider.GetImmediateFiles(DirPath);
 
+        /// <summary>
+        /// Gets the directories.
+        /// </summary>
+        /// <value>The directories.</value>
         public override IEnumerable<IVirtualDirectory> Directories => pathProvider.GetImmediateDirectories(DirPath);
 
+        /// <summary>
+        /// Gets or sets the dir path.
+        /// </summary>
+        /// <value>The dir path.</value>
         public string DirPath { get; set; }
 
+        /// <summary>
+        /// Gets the virtual path.
+        /// </summary>
+        /// <value>The virtual path.</value>
         public override string VirtualPath => DirPath;
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => DirPath?.LastRightPart(MemoryVirtualFiles.DirSep);
 
+        /// <summary>
+        /// Gets the file.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>IVirtualFile.</returns>
         public override IVirtualFile GetFile(string virtualPath)
         {
             return pathProvider.GetFile(DirPath.CombineWith(virtualPath));
         }
 
+        /// <summary>
+        /// Gets the enumerator.
+        /// </summary>
+        /// <returns>IEnumerator&lt;IVirtualNode&gt;.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public override IEnumerator<IVirtualNode> GetEnumerator()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the file from backing directory or default.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>IVirtualFile.</returns>
         protected override IVirtualFile GetFileFromBackingDirectoryOrDefault(string fileName)
         {
             return GetFile(fileName);
         }
 
+        /// <summary>
+        /// Gets the matching files in dir.
+        /// </summary>
+        /// <param name="globPattern">The glob pattern.</param>
+        /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
         {
             if (pathProvider.Files.Count == 0)
@@ -290,6 +496,11 @@ namespace ServiceStack.IO
             return matchingFilesInBackingDir;
         }
 
+        /// <summary>
+        /// Enumerates the files.
+        /// </summary>
+        /// <param name="pattern">The pattern.</param>
+        /// <returns>IEnumerable&lt;InMemoryVirtualFile&gt;.</returns>
         public IEnumerable<InMemoryVirtualFile> EnumerateFiles(string pattern)
         {
             foreach (var file in pathProvider.GetImmediateFiles(DirPath).Where(f => f.Name.Glob(pattern)))
@@ -298,22 +509,41 @@ namespace ServiceStack.IO
             }
         }
 
+        /// <summary>
+        /// Gets the directory from backing directory or default.
+        /// </summary>
+        /// <param name="directoryName">Name of the directory.</param>
+        /// <returns>IVirtualDirectory.</returns>
         protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
         {
             var subDir = DirPath.CombineWith(directoryName);
             return new InMemoryVirtualDirectory(pathProvider, subDir, this);
         }
 
+        /// <summary>
+        /// Adds the file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="contents">The contents.</param>
         public void AddFile(string filePath, string contents)
         {
             pathProvider.WriteFile(DirPath.CombineWith(filePath), contents);
         }
 
+        /// <summary>
+        /// Adds the file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="stream">The stream.</param>
         public void AddFile(string filePath, Stream stream)
         {
             pathProvider.WriteFile(DirPath.CombineWith(filePath), stream);
         }
 
+        /// <summary>
+        /// Determines whether this instance has files.
+        /// </summary>
+        /// <returns><c>true</c> if this instance has files; otherwise, <c>false</c>.</returns>
         public bool HasFiles()
         {
             if (pathProvider.Files.Count == 0)
@@ -326,6 +556,12 @@ namespace ServiceStack.IO
             return ret;
         }
 
+        /// <summary>
+        /// Gets all matching files.
+        /// </summary>
+        /// <param name="globPattern">The glob pattern.</param>
+        /// <param name="maxDepth">The maximum depth.</param>
+        /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         public override IEnumerable<IVirtualFile> GetAllMatchingFiles(string globPattern, int maxDepth = int.MaxValue)
         {
             if (pathProvider.Files.Count == 0)
@@ -345,29 +581,74 @@ namespace ServiceStack.IO
 
     }
 
+    /// <summary>
+    /// Class InMemoryVirtualFile.
+    /// Implements the <see cref="ServiceStack.VirtualPath.AbstractVirtualFileBase" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.VirtualPath.AbstractVirtualFileBase" />
     public class InMemoryVirtualFile : AbstractVirtualFileBase
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InMemoryVirtualFile"/> class.
+        /// </summary>
+        /// <param name="owningProvider">The owning provider.</param>
+        /// <param name="directory">The directory.</param>
         public InMemoryVirtualFile(IVirtualPathProvider owningProvider, IVirtualDirectory directory)
             : base(owningProvider, directory)
         {
             this.FileLastModified = DateTime.MinValue;
         }
 
+        /// <summary>
+        /// Gets the dir path.
+        /// </summary>
+        /// <value>The dir path.</value>
         public string DirPath => base.Directory.VirtualPath;
 
+        /// <summary>
+        /// Gets or sets the file path.
+        /// </summary>
+        /// <value>The file path.</value>
         public string FilePath { get; set; }
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => FilePath.LastRightPart(MemoryVirtualFiles.DirSep);
 
+        /// <summary>
+        /// Gets the virtual path.
+        /// </summary>
+        /// <value>The virtual path.</value>
         public override string VirtualPath => FilePath;
 
+        /// <summary>
+        /// Gets or sets the file last modified.
+        /// </summary>
+        /// <value>The file last modified.</value>
         public DateTime FileLastModified { get; set; }
+        /// <summary>
+        /// Gets the last modified.
+        /// </summary>
+        /// <value>The last modified.</value>
         public override DateTime LastModified => FileLastModified;
 
+        /// <summary>
+        /// Gets the length.
+        /// </summary>
+        /// <value>The length.</value>
         public override long Length => ByteContents?.Length ?? 0;
 
+        /// <summary>
+        /// The text contents
+        /// </summary>
         private string textContents;
+        /// <summary>
+        /// Gets or sets the text contents.
+        /// </summary>
+        /// <value>The text contents.</value>
         public string TextContents
         {
             get => textContents;
@@ -378,8 +659,17 @@ namespace ServiceStack.IO
             }
         }
 
+        /// <summary>
+        /// Gets or sets the byte contents.
+        /// </summary>
+        /// <value>The byte contents.</value>
         public byte[] ByteContents { get; set; }
 
+        /// <summary>
+        /// Sets the contents.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="bytes">The bytes.</param>
         public void SetContents(string text, byte[] bytes)
         {
             if (bytes != null)
@@ -394,6 +684,11 @@ namespace ServiceStack.IO
             }
         }
 
+        /// <summary>
+        /// Opens the read.
+        /// </summary>
+        /// <returns>Stream.</returns>
+        /// <exception cref="System.ArgumentNullException">ByteContents</exception>
         public override Stream OpenRead()
         {
             if (ByteContents == null)
@@ -401,6 +696,10 @@ namespace ServiceStack.IO
             return MemoryStreamFactory.GetStream(ByteContents);
         }
 
+        /// <summary>
+        /// Gets the contents.
+        /// </summary>
+        /// <returns>System.Object.</returns>
         public override object GetContents()
         {
             return TextContents != null
@@ -408,6 +707,9 @@ namespace ServiceStack.IO
                 : ByteContents != null ? new ReadOnlyMemory<byte>(ByteContents) : null;
         }
 
+        /// <summary>
+        /// Refreshes this instance.
+        /// </summary>
         public override void Refresh()
         {
             if (base.VirtualPathProvider.GetFile(VirtualPath) is InMemoryVirtualFile file && !ReferenceEquals(file, this))

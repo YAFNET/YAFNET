@@ -1,12 +1,33 @@
-﻿namespace ServiceStack.OrmLite.Sqlite
+﻿// ***********************************************************************
+// <copyright file="SqliteExpression.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.OrmLite.Sqlite
 {
     using System.Linq.Expressions;
 
+    /// <summary>
+    /// Class SqliteExpression.
+    /// Implements the <see cref="ServiceStack.OrmLite.SqlExpression{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.SqlExpression{T}" />
     public class SqliteExpression<T> : SqlExpression<T>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqliteExpression{T}"/> class.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
         public SqliteExpression(IOrmLiteDialectProvider dialectProvider)
             : base(dialectProvider) {}
 
+        /// <summary>
+        /// Visits the column access method.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
         protected override object VisitColumnAccessMethod(MethodCallExpression m)
         {
             var args = this.VisitExpressionList(m.Arguments);
@@ -31,13 +52,18 @@
             return new PartialSqlString(statement);
         }
 
+        /// <summary>
+        /// Visits the SQL method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
         protected override object VisitSqlMethodCall(MethodCallExpression m)
         {
             var args = this.VisitInSqlExpressionList(m.Arguments);
             object quotedColName = args[0];
             args.RemoveAt(0);
 
-            var statement = "";
+            string statement;
 
             switch (m.Method.Name)
             {
@@ -55,10 +81,7 @@
                 case "Min":
                 case "Max":
                 case "Avg":
-                    statement = string.Format("{0}({1}{2})",
-                        m.Method.Name,
-                        quotedColName,
-                        args.Count == 1 ? $",{args[0]}" : "");
+                    statement = $"{m.Method.Name}({quotedColName}{(args.Count == 1 ? $",{args[0]}" : string.Empty)})";
                     break;
                 case "CountDistinct":
                     statement = $"COUNT(DISTINCT {quotedColName})";
@@ -70,6 +93,11 @@
             return new PartialSqlString(statement);
         }
 
+        /// <summary>
+        /// Converts to lengthpartialstring.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <returns>PartialSqlString.</returns>
         protected override PartialSqlString ToLengthPartialString(object arg)
         {
             return new PartialSqlString($"LENGTH({arg})");

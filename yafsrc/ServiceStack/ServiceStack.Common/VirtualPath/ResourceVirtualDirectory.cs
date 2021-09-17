@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="ResourceVirtualDirectory.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,30 +15,87 @@ using ServiceStack.Text;
 
 namespace ServiceStack.VirtualPath
 {
+    /// <summary>
+    /// Class ResourceVirtualDirectory.
+    /// Implements the <see cref="ServiceStack.VirtualPath.AbstractVirtualDirectoryBase" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.VirtualPath.AbstractVirtualDirectoryBase" />
     public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     {
+        /// <summary>
+        /// Gets or sets the embedded resource treat as files.
+        /// </summary>
+        /// <value>The embedded resource treat as files.</value>
         public static HashSet<string> EmbeddedResourceTreatAsFiles { get; set; } = new HashSet<string>();
 
+        /// <summary>
+        /// The log
+        /// </summary>
         private static ILog Log = LogManager.GetLogger(typeof(ResourceVirtualDirectory));
 
+        /// <summary>
+        /// The backing assembly
+        /// </summary>
         protected Assembly backingAssembly;
+        /// <summary>
+        /// Gets or sets the root namespace.
+        /// </summary>
+        /// <value>The root namespace.</value>
         public string rootNamespace { get; set; }
 
+        /// <summary>
+        /// The sub directories
+        /// </summary>
         protected List<ResourceVirtualDirectory> SubDirectories;
+        /// <summary>
+        /// The sub files
+        /// </summary>
         protected List<ResourceVirtualFile> SubFiles;
 
+        /// <summary>
+        /// Gets the files.
+        /// </summary>
+        /// <value>The files.</value>
         public override IEnumerable<IVirtualFile> Files => SubFiles;
 
+        /// <summary>
+        /// Gets the directories.
+        /// </summary>
+        /// <value>The directories.</value>
         public override IEnumerable<IVirtualDirectory> Directories => SubDirectories;
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => DirectoryName;
 
+        /// <summary>
+        /// Gets or sets the name of the directory.
+        /// </summary>
+        /// <value>The name of the directory.</value>
         public string DirectoryName { get; set; }
 
+        /// <summary>
+        /// Gets the last modified.
+        /// </summary>
+        /// <value>The last modified.</value>
         public override DateTime LastModified { get; }
 
+        /// <summary>
+        /// Gets the backing assembly.
+        /// </summary>
+        /// <value>The backing assembly.</value>
         internal Assembly BackingAssembly => backingAssembly;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResourceVirtualDirectory"/> class.
+        /// </summary>
+        /// <param name="owningProvider">The owning provider.</param>
+        /// <param name="parentDir">The parent dir.</param>
+        /// <param name="backingAsm">The backing asm.</param>
+        /// <param name="lastModified">The last modified.</param>
+        /// <param name="rootNamespace">The root namespace.</param>
         public ResourceVirtualDirectory(IVirtualPathProvider owningProvider,
             IVirtualDirectory parentDir,
             Assembly backingAsm,
@@ -47,6 +110,18 @@ namespace ServiceStack.VirtualPath
             GetResourceNames(backingAsm, rootNamespace))
         { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResourceVirtualDirectory"/> class.
+        /// </summary>
+        /// <param name="owningProvider">The owning provider.</param>
+        /// <param name="parentDir">The parent dir.</param>
+        /// <param name="backingAsm">The backing asm.</param>
+        /// <param name="lastModified">The last modified.</param>
+        /// <param name="rootNamespace">The root namespace.</param>
+        /// <param name="directoryName">Name of the directory.</param>
+        /// <param name="manifestResourceNames">The manifest resource names.</param>
+        /// <exception cref="System.ArgumentNullException">directoryName</exception>
+        /// <exception cref="System.ArgumentNullException">backingAsm</exception>
         public ResourceVirtualDirectory(IVirtualPathProvider owningProvider,
             IVirtualDirectory parentDir,
             Assembly backingAsm,
@@ -67,6 +142,12 @@ namespace ServiceStack.VirtualPath
             InitializeDirectoryStructure(manifestResourceNames);
         }
 
+        /// <summary>
+        /// Gets the resource names.
+        /// </summary>
+        /// <param name="asm">The asm.</param>
+        /// <param name="basePath">The base path.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> GetResourceNames(Assembly asm, string basePath)
         {
             return asm.GetManifestResourceNames()
@@ -74,6 +155,10 @@ namespace ServiceStack.VirtualPath
                 .Map(x => x.Substring(basePath.Length).TrimStart('.'));
         }
 
+        /// <summary>
+        /// Initializes the directory structure.
+        /// </summary>
+        /// <param name="manifestResourceNames">The manifest resource names.</param>
         protected void InitializeDirectoryStructure(List<string> manifestResourceNames)
         {
             SubDirectories = new List<ResourceVirtualDirectory>();
@@ -92,6 +177,11 @@ namespace ServiceStack.VirtualPath
                 .OrderBy(d => d.Name));
         }
 
+        /// <summary>
+        /// Creates the virtual directory.
+        /// </summary>
+        /// <param name="subResources">The sub resources.</param>
+        /// <returns>ResourceVirtualDirectory.</returns>
         protected virtual ResourceVirtualDirectory CreateVirtualDirectory(IGrouping<string, string[]> subResources)
         {
             var remainingResourceNames = subResources.Select(g => g[1]);
@@ -101,6 +191,11 @@ namespace ServiceStack.VirtualPath
             return subDir;
         }
 
+        /// <summary>
+        /// Creates the virtual file.
+        /// </summary>
+        /// <param name="resourceName">Name of the resource.</param>
+        /// <returns>ResourceVirtualFile.</returns>
         protected virtual ResourceVirtualFile CreateVirtualFile(string resourceName)
         {
             try
@@ -129,17 +224,32 @@ namespace ServiceStack.VirtualPath
             }
         }
 
+        /// <summary>
+        /// Consumes the tokens for virtual dir.
+        /// </summary>
+        /// <param name="resourceTokens">The resource tokens.</param>
+        /// <returns>ResourceVirtualDirectory.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         protected virtual ResourceVirtualDirectory ConsumeTokensForVirtualDir(Stack<string> resourceTokens)
         {
             var subDirName = resourceTokens.Pop();
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Returns an enumerator that iterates through the collection.
+        /// </summary>
+        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public override IEnumerator<IVirtualNode> GetEnumerator()
         {
             return Directories.Cast<IVirtualNode>().Union(Files.Cast<IVirtualNode>()).GetEnumerator();
         }
 
+        /// <summary>
+        /// Gets the file from backing directory or default.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <returns>IVirtualFile.</returns>
         protected override IVirtualFile GetFileFromBackingDirectoryOrDefault(string fileName)
         {
             var file = Files.FirstOrDefault(f => f.Name.EqualsIgnoreCase(fileName));
@@ -159,17 +269,31 @@ namespace ServiceStack.VirtualPath
             return null;
         }
 
+        /// <summary>
+        /// Gets the matching files in dir.
+        /// </summary>
+        /// <param name="globPattern">The glob pattern.</param>
+        /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
         {
             return Files.Where(f => f.Name.Glob(globPattern));
         }
 
+        /// <summary>
+        /// Gets the directory from backing directory or default.
+        /// </summary>
+        /// <param name="directoryName">Name of the directory.</param>
+        /// <returns>IVirtualDirectory.</returns>
         protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
         {
             return Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(directoryName)) ??
                 Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase((directoryName ?? "").Replace('-', '_')));
         }
 
+        /// <summary>
+        /// Gets the real path to root.
+        /// </summary>
+        /// <returns>System.String.</returns>
         protected override string GetRealPathToRoot()
         {
             var path = base.GetRealPathToRoot();

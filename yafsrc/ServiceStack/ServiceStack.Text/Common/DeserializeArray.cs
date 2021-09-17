@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="DeserializeArray.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -16,22 +11,48 @@ using System.Threading;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeArrayWithElements.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class DeserializeArrayWithElements<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The parse delegate cache
+        /// </summary>
         private static Dictionary<Type, ParseArrayOfElementsDelegate> ParseDelegateCache
             = new();
 
+        /// <summary>
+        /// Delegate ParseArrayOfElementsDelegate
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="parseFn">The parse function.</param>
+        /// <returns>System.Object.</returns>
         public delegate object ParseArrayOfElementsDelegate(ReadOnlySpan<char> value, ParseStringSpanDelegate parseFn);
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Func&lt;System.String, ParseStringDelegate, System.Object&gt;.</returns>
         public static Func<string, ParseStringDelegate, object> GetParseFn(Type type)
         {
             var func = GetParseStringSpanFn(type);
             return (s, d) => func(s.AsSpan(), v => d(v.ToString()));
         }
 
+        /// <summary>
+        /// The signature
+        /// </summary>
         private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate) };
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseArrayOfElementsDelegate.</returns>
         public static ParseArrayOfElementsDelegate GetParseStringSpanFn(Type type)
         {
             if (ParseDelegateCache.TryGetValue(type, out var parseFn)) return parseFn.Invoke;
@@ -54,18 +75,38 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class DeserializeArrayWithElements.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class DeserializeArrayWithElements<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Parses the generic array.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="elementParseFn">The element parse function.</param>
+        /// <returns>T[].</returns>
         public static T[] ParseGenericArray(string value, ParseStringDelegate elementParseFn) =>
             ParseGenericArray(value.AsSpan(), v => elementParseFn(v.ToString()));
 
+        /// <summary>
+        /// Parses the generic array.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="elementParseFn">The element parse function.</param>
+        /// <returns>T[].</returns>
         public static T[] ParseGenericArray(ReadOnlySpan<char> value, ParseStringSpanDelegate elementParseFn)
         {
             if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
-                return value.IsEmpty ? null : new T[0];
+                return value.IsEmpty ? null : Array.Empty<T>();
 
             if (value[0] == JsWriter.MapStartChar)
             {
@@ -94,7 +135,7 @@ namespace ServiceStack.Text.Common
                     if (Serializer.EatItemSeperatorOrMapEndChar(value, ref i)
                         && i == valueLength)
                     {
-                        // If we ate a separator and we are at the end of the value, 
+                        // If we ate a separator and we are at the end of the value,
                         // it means the last element is empty => add default
                         to.Add(default(T));
                     }
@@ -105,13 +146,30 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class DeserializeArray.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     internal static class DeserializeArray<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The parse delegate cache
+        /// </summary>
         private static Dictionary<Type, ParseStringSpanDelegate> ParseDelegateCache = new();
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringDelegate.</returns>
         public static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringSpanDelegate.</returns>
         public static ParseStringSpanDelegate GetParseStringSpanFn(Type type)
         {
             if (ParseDelegateCache.TryGetValue(type, out var parseFn)) return parseFn;
@@ -136,24 +194,55 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class DeserializeArray.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     internal static class DeserializeArray<T, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static readonly ParseStringSpanDelegate CacheFn;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="DeserializeArray{T, TSerializer}" /> class.
+        /// </summary>
         static DeserializeArray()
         {
             CacheFn = GetParseStringSpanFn();
         }
 
+        /// <summary>
+        /// Gets the parse.
+        /// </summary>
+        /// <value>The parse.</value>
         public static ParseStringDelegate Parse => v => CacheFn(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span.
+        /// </summary>
+        /// <value>The parse string span.</value>
         public static ParseStringSpanDelegate ParseStringSpan => CacheFn;
 
+        /// <summary>
+        /// Gets the parse function.
+        /// </summary>
+        /// <returns>ParseStringDelegate.</returns>
         public static ParseStringDelegate GetParseFn() => v => GetParseStringSpanFn()(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span function.
+        /// </summary>
+        /// <returns>ParseStringSpanDelegate.</returns>
+        /// <exception cref="System.ArgumentException">Type {type.FullName} is not an Array type</exception>
         public static ParseStringSpanDelegate GetParseStringSpanFn()
         {
             var type = typeof(T);
@@ -175,6 +264,11 @@ namespace ServiceStack.Text.Common
             return null;
         }
 
+        /// <summary>
+        /// Parses the string array.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String[].</returns>
         public static string[] ParseStringArray(ReadOnlySpan<char> value)
         {
             if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
@@ -182,10 +276,25 @@ namespace ServiceStack.Text.Common
             return DeserializeListWithElements<TSerializer>.ParseStringList(value).ToArray();
         }
 
+        /// <summary>
+        /// Parses the string array.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String[].</returns>
         public static string[] ParseStringArray(string value) => ParseStringArray(value.AsSpan());
 
+        /// <summary>
+        /// Parses the byte array.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Byte[].</returns>
         public static byte[] ParseByteArray(string value) => ParseByteArray(value.AsSpan());
 
+        /// <summary>
+        /// Parses the byte array.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Byte[].</returns>
         public static byte[] ParseByteArray(ReadOnlySpan<char> value)
         {
             var isArray = value.Length > 1 && value[0] == '[';

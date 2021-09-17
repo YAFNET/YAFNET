@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="TypeExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,24 +14,59 @@ using System.Threading;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Delegate ObjectActivator
+    /// </summary>
+    /// <param name="args">The arguments.</param>
+    /// <returns>System.Object.</returns>
     public delegate object ObjectActivator(params object[] args);
 
+    /// <summary>
+    /// Delegate MethodInvoker
+    /// </summary>
+    /// <param name="instance">The instance.</param>
+    /// <param name="args">The arguments.</param>
+    /// <returns>System.Object.</returns>
     public delegate object MethodInvoker(object instance, params object[] args);
 
+    /// <summary>
+    /// Delegate StaticMethodInvoker
+    /// </summary>
+    /// <param name="args">The arguments.</param>
+    /// <returns>System.Object.</returns>
     public delegate object StaticMethodInvoker(params object[] args);
 
+    /// <summary>
+    /// Delegate ActionInvoker
+    /// </summary>
+    /// <param name="instance">The instance.</param>
+    /// <param name="args">The arguments.</param>
     public delegate void ActionInvoker(object instance, params object[] args);
 
+    /// <summary>
+    /// Delegate StaticActionInvoker
+    /// </summary>
+    /// <param name="args">The arguments.</param>
     public delegate void StaticActionInvoker(params object[] args);
 
     /// <summary>
     /// Delegate to return a different value from an instance (e.g. member accessor)
     /// </summary>
+    /// <param name="instance">The instance.</param>
+    /// <returns>System.Object.</returns>
     public delegate object InstanceMapper(object instance);
 
 
+    /// <summary>
+    /// Class TypeExtensions.
+    /// </summary>
     public static class TypeExtensions
     {
+        /// <summary>
+        /// Gets the referenced types.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type[].</returns>
         public static Type[] GetReferencedTypes(this Type type)
         {
             var refTypes = new HashSet<Type> { type };
@@ -35,6 +76,11 @@ namespace ServiceStack
             return refTypes.ToArray();
         }
 
+        /// <summary>
+        /// Adds the referenced types.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="refTypes">The reference types.</param>
         public static void AddReferencedTypes(Type type, HashSet<Type> refTypes)
         {
             if (type.BaseType != null)
@@ -109,6 +155,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Gets the activator to cache.
+        /// </summary>
+        /// <param name="ctor">The ctor.</param>
+        /// <returns>ObjectActivator.</returns>
         public static ObjectActivator GetActivatorToCache(ConstructorInfo ctor)
         {
             var pi = ctor.GetParameters();
@@ -136,9 +187,17 @@ namespace ServiceStack
             return ctorFn;
         }
 
+        /// <summary>
+        /// The activator cache
+        /// </summary>
         static Dictionary<ConstructorInfo, ObjectActivator> activatorCache =
             new Dictionary<ConstructorInfo, ObjectActivator>();
 
+        /// <summary>
+        /// Gets the activator.
+        /// </summary>
+        /// <param name="ctor">The ctor.</param>
+        /// <returns>ObjectActivator.</returns>
         public static ObjectActivator GetActivator(this ConstructorInfo ctor)
         {
             if (activatorCache.TryGetValue(ctor, out var fn))
@@ -158,6 +217,12 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// Creates the invoker parameter expressions.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="paramArgs">The parameter arguments.</param>
+        /// <returns>Expression[].</returns>
         private static Expression[] CreateInvokerParamExpressions(MethodInfo method, ParameterExpression paramArgs)
         {
             var convertFromMethod = typeof(TypeExtensions).GetStaticMethod(nameof(ConvertFromObject));
@@ -176,6 +241,11 @@ namespace ServiceStack
             return exprArgs;
         }
 
+        /// <summary>
+        /// Uses the correct invoker error message.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>System.String.</returns>
         private static string UseCorrectInvokerErrorMessage(MethodInfo method)
         {
             var invokerName = method.ReturnType == typeof(void)
@@ -190,6 +260,12 @@ namespace ServiceStack
             return $"Use {invokerName} to create a {invokerType} for invoking {methodType}";
         }
 
+        /// <summary>
+        /// Gets the invoker to cache.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>MethodInvoker.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static MethodInvoker GetInvokerToCache(MethodInfo method)
         {
             if (method.IsStatic)
@@ -216,6 +292,12 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// Gets the static invoker to cache.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>StaticMethodInvoker.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static StaticMethodInvoker GetStaticInvokerToCache(MethodInfo method)
         {
             if (!method.IsStatic || method.ReturnType == typeof(void))
@@ -238,6 +320,12 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// Gets the action invoker to cache.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>ActionInvoker.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static ActionInvoker GetActionInvokerToCache(MethodInfo method)
         {
             if (method.IsStatic || method.ReturnType != typeof(void))
@@ -261,6 +349,12 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// Gets the static action invoker to cache.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>StaticActionInvoker.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static StaticActionInvoker GetStaticActionInvokerToCache(MethodInfo method)
         {
             if (!method.IsStatic || method.ReturnType != typeof(void))
@@ -280,11 +374,16 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// The invoker cache
+        /// </summary>
         static Dictionary<MethodInfo, MethodInvoker> invokerCache = new();
 
         /// <summary>
         /// Create the correct Invoker Delegate Type based on the type of Method
         /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>Delegate.</returns>
         public static Delegate GetInvokerDelegate(this MethodInfo method)
         {
             if (!method.IsStatic)
@@ -304,6 +403,8 @@ namespace ServiceStack
         /// <summary>
         /// Create an Invoker for public instance methods
         /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>MethodInvoker.</returns>
         public static MethodInvoker GetInvoker(this MethodInfo method)
         {
             if (invokerCache.TryGetValue(method, out var fn))
@@ -323,11 +424,16 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// The static invoker cache
+        /// </summary>
         static Dictionary<MethodInfo, StaticMethodInvoker> staticInvokerCache = new();
 
         /// <summary>
         /// Create an Invoker for public static methods
         /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>StaticMethodInvoker.</returns>
         public static StaticMethodInvoker GetStaticInvoker(this MethodInfo method)
         {
             if (staticInvokerCache.TryGetValue(method, out var fn))
@@ -347,11 +453,16 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// The action invoker cache
+        /// </summary>
         static Dictionary<MethodInfo, ActionInvoker> actionInvokerCache = new();
 
         /// <summary>
         /// Create an Invoker for public instance void methods
         /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>ActionInvoker.</returns>
         public static ActionInvoker GetActionInvoker(this MethodInfo method)
         {
             if (actionInvokerCache.TryGetValue(method, out var fn))
@@ -371,11 +482,16 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// The static action invoker cache
+        /// </summary>
         static Dictionary<MethodInfo, StaticActionInvoker> staticActionInvokerCache = new();
 
         /// <summary>
         /// Create an Invoker for public static void methods
         /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>StaticActionInvoker.</returns>
         public static StaticActionInvoker GetStaticActionInvoker(this MethodInfo method)
         {
             if (staticActionInvokerCache.TryGetValue(method, out var fn))
@@ -395,6 +511,12 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// Converts from object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>T.</returns>
         public static T ConvertFromObject<T>(object value)
         {
             if (value == null)
@@ -409,6 +531,12 @@ namespace ServiceStack
             return value.ConvertTo<T>();
         }
 
+        /// <summary>
+        /// Converts to object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public static object ConvertToObject<T>(T value)
         {
             return value;
@@ -417,7 +545,7 @@ namespace ServiceStack
         /// <summary>
         /// Check if #nullable enabled reference type is non nullable
         /// </summary>
-        /// <param name="property"></param>
+        /// <param name="property">The property.</param>
         /// <returns>true if #nullable enabled reference type, false if optional, null if value Type or #nullable not enabled</returns>
         public static bool? IsNotNullable(this PropertyInfo property) =>
             IsNotNullable(property.PropertyType, property.DeclaringType, property.CustomAttributes);
@@ -425,6 +553,9 @@ namespace ServiceStack
         /// <summary>
         /// Check if #nullable enabled reference type is non nullable
         /// </summary>
+        /// <param name="memberType">Type of the member.</param>
+        /// <param name="declaringType">Type of the declaring.</param>
+        /// <param name="customAttributes">The custom attributes.</param>
         /// <returns>true if #nullable enabled reference type, false if optional, null if value Type or #nullable not enabled</returns>
         public static bool? IsNotNullable(Type memberType, MemberInfo declaringType, IEnumerable<CustomAttributeData> customAttributes)
         {
@@ -464,6 +595,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Gets the property accessor.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="forProperty">For property.</param>
+        /// <returns>Func&lt;System.Object, System.Object&gt;.</returns>
         public static Func<object, object> GetPropertyAccessor(this Type type, PropertyInfo forProperty)
         {
             var lambda = CreatePropertyAccessorExpression(type, forProperty);
@@ -471,6 +608,12 @@ namespace ServiceStack
             return fn;
         }
 
+        /// <summary>
+        /// Creates the property accessor expression.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="forProperty">For property.</param>
+        /// <returns>LambdaExpression.</returns>
         public static LambdaExpression CreatePropertyAccessorExpression(Type type, PropertyInfo forProperty)
         {
             var paramInstance = Expression.Parameter(typeof(object), "instance");

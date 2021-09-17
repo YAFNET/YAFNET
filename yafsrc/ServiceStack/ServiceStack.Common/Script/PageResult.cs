@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="PageResult.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,73 +18,107 @@ using ServiceStack.Web;
 
 namespace ServiceStack.Script
 {
+    /// <summary>
+    /// Interface IPageResult
+    /// </summary>
     public interface IPageResult { }
 
     // Render a Template Page to the Response OutputStream
+    /// <summary>
+    /// Class PageResult.
+    /// Implements the <see cref="ServiceStack.Script.IPageResult" />
+    /// Implements the <see cref="ServiceStack.Web.IStreamWriterAsync" />
+    /// Implements the <see cref="ServiceStack.Web.IHasOptions" />
+    /// Implements the <see cref="System.IDisposable" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.IPageResult" />
+    /// <seealso cref="ServiceStack.Web.IStreamWriterAsync" />
+    /// <seealso cref="ServiceStack.Web.IHasOptions" />
+    /// <seealso cref="System.IDisposable" />
     public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposable
     {
         /// <summary>
         /// The Page to Render
         /// </summary>
+        /// <value>The page.</value>
         public SharpPage Page { get; }
 
         /// <summary>
         /// The Code Page to Render
         /// </summary>
+        /// <value>The code page.</value>
         public SharpCodePage CodePage { get; }
 
         /// <summary>
         /// Use specified Layout
         /// </summary>
+        /// <value>The layout page.</value>
         public SharpPage LayoutPage { get; set; }
 
         /// <summary>
         /// Use Layout with specified name
         /// </summary>
+        /// <value>The layout.</value>
         public string Layout { get; set; }
 
         /// <summary>
         /// Render without any Layout
         /// </summary>
+        /// <value><c>true</c> if [no layout]; otherwise, <c>false</c>.</value>
         public bool NoLayout { get; set; }
 
         /// <summary>
         /// Extract Model Properties into Scope Args
         /// </summary>
+        /// <value>The model.</value>
         public object Model { get; set; }
 
         /// <summary>
         /// Add additional Args available to all pages
         /// </summary>
+        /// <value>The arguments.</value>
         public Dictionary<string, object> Args { get; set; }
 
         /// <summary>
         /// Add additional script methods available to all pages
         /// </summary>
+        /// <value>The script methods.</value>
         public List<ScriptMethods> ScriptMethods { get; set; }
 
+        /// <summary>
+        /// Gets the template filters.
+        /// </summary>
+        /// <value>The template filters.</value>
         [Obsolete("Use ScriptMethods")] public List<ScriptMethods> TemplateFilters => ScriptMethods;
 
         /// <summary>
         /// Add additional script blocks available to all pages
         /// </summary>
+        /// <value>The script blocks.</value>
         public List<ScriptBlock> ScriptBlocks { get; set; }
 
+        /// <summary>
+        /// Gets the template blocks.
+        /// </summary>
+        /// <value>The template blocks.</value>
         [Obsolete("Use ScriptBlocks")] public List<ScriptBlock> TemplateBlocks => ScriptBlocks;
 
         /// <summary>
         /// Add additional partials available to all pages
         /// </summary>
+        /// <value>The partials.</value>
         public Dictionary<string, SharpPage> Partials { get; set; }
 
         /// <summary>
         /// Return additional HTTP Headers in HTTP Requests
         /// </summary>
+        /// <value>The options.</value>
         public IDictionary<string, string> Options { get; set; }
 
         /// <summary>
         /// Specify the Content-Type of the Response
         /// </summary>
+        /// <value>The type of the content.</value>
         public string ContentType
         {
             get => Options.TryGetValue(HttpHeaders.ContentType, out string contentType) ? contentType : null;
@@ -88,109 +128,145 @@ namespace ServiceStack.Script
         /// <summary>
         /// Transform the Page output using a chain of stream transformers
         /// </summary>
+        /// <value>The page transformers.</value>
         public List<Func<Stream, Task<Stream>>> PageTransformers { get; set; }
 
         /// <summary>
         /// Transform the entire output using a chain of stream transformers
         /// </summary>
+        /// <value>The output transformers.</value>
         public List<Func<Stream, Task<Stream>>> OutputTransformers { get; set; }
 
         /// <summary>
         /// Available transformers that can transform context filter stream outputs
         /// </summary>
+        /// <value>The filter transformers.</value>
         public Dictionary<string, Func<Stream, Task<Stream>>> FilterTransformers { get; set; }
 
         /// <summary>
         /// Don't allow access to specified filters
         /// </summary>
+        /// <value>The exclude filters named.</value>
         public HashSet<string> ExcludeFiltersNamed { get; } = new HashSet<string>();
 
         /// <summary>
         /// The last error thrown by a filter
         /// </summary>
+        /// <value>The last filter error.</value>
         public Exception LastFilterError { get; set; }
 
         /// <summary>
         /// The StackTrace where the Last Error Occured
         /// </summary>
+        /// <value>The last filter stack trace.</value>
         public string[] LastFilterStackTrace { get; set; }
 
         /// <summary>
         /// What argument errors should be binded to
         /// </summary>
+        /// <value>The assign exceptions to.</value>
         public string AssignExceptionsTo { get; set; }
 
         /// <summary>
         /// What argument captured errors should be binded to
         /// </summary>
+        /// <value>The catch exceptions in.</value>
         public string CatchExceptionsIn { get; set; }
 
         /// <summary>
         /// Whether to skip execution of all page filters and just write page string fragments
         /// </summary>
+        /// <value><c>true</c> if [skip filter execution]; otherwise, <c>false</c>.</value>
         public bool SkipFilterExecution { get; set; }
 
         /// <summary>
         /// Overrides Context to specify whether to Ignore or Continue executing filters on error
         /// </summary>
+        /// <value><c>null</c> if [skip executing filters if error] contains no value, <c>true</c> if [skip executing filters if error]; otherwise, <c>false</c>.</value>
         public bool? SkipExecutingFiltersIfError { get; set; }
 
         /// <summary>
         /// Whether to always rethrow Exceptions
         /// </summary>
+        /// <value><c>true</c> if [rethrow exceptions]; otherwise, <c>false</c>.</value>
         public bool RethrowExceptions { get; set; }
 
         /// <summary>
         /// Immediately halt execution of the page
         /// </summary>
+        /// <value><c>true</c> if [halt execution]; otherwise, <c>false</c>.</value>
         public bool HaltExecution { get; set; }
 
         /// <summary>
         /// Whether to disable buffering output and render directly to OutputStream
         /// </summary>
+        /// <value><c>true</c> if [disable buffering]; otherwise, <c>false</c>.</value>
         public bool DisableBuffering { get; set; }
 
         /// <summary>
         /// The Return value of the page (if any)
         /// </summary>
+        /// <value>The return value.</value>
         public ReturnValue ReturnValue { get; set; }
 
         /// <summary>
         /// The Current StackDepth
         /// </summary>
+        /// <value>The stack depth.</value>
         public int StackDepth { get; internal set; }
 
         /// <summary>
         /// The Current StackDepth of rendering partials
         /// </summary>
+        /// <value>The partial stack depth.</value>
         public int PartialStackDepth { get; internal set; }
 
         /// <summary>
         /// Can be used to track number of Evaluations
         /// </summary>
+        /// <value>The evaluations.</value>
         public long Evaluations { get; private set; }
 
         /// <summary>
         /// Can be used to track number of Evaluations
         /// </summary>
+        /// <value><c>true</c> if [page processed]; otherwise, <c>false</c>.</value>
         internal bool PageProcessed { get; set; }
 
+        /// <summary>
+        /// Asserts the next evaluation.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">Exceeded Max Evaluations of {Context.MaxEvaluations}. \nMaxEvaluations can be changed in `ScriptContext.MaxEvaluations`.</exception>
         public void AssertNextEvaluation()
         {
             if (Evaluations++ >= Context.MaxEvaluations)
                 throw new NotSupportedException($"Exceeded Max Evaluations of {Context.MaxEvaluations}. \nMaxEvaluations can be changed in `ScriptContext.MaxEvaluations`.");
         }
 
+        /// <summary>
+        /// Asserts the next partial.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">Exceeded Max Partial StackDepth of {Context.MaxStackDepth}. \nMaxStackDepth can be changed in `ScriptContext.MaxStackDepth`.</exception>
         public void AssertNextPartial()
         {
             if (PartialStackDepth++ >= Context.MaxStackDepth)
                 throw new NotSupportedException($"Exceeded Max Partial StackDepth of {Context.MaxStackDepth}. \nMaxStackDepth can be changed in `ScriptContext.MaxStackDepth`.");
         }
 
+        /// <summary>
+        /// Resets the iterations.
+        /// </summary>
         public void ResetIterations() => Evaluations = 0;
 
+        /// <summary>
+        /// The stack trace
+        /// </summary>
         private readonly Stack<string> stackTrace = new Stack<string>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageResult"/> class.
+        /// </summary>
+        /// <param name="format">The format.</param>
         private PageResult(PageFormat format)
         {
             Args = new Dictionary<string, object>();
@@ -206,11 +282,21 @@ namespace ServiceStack.Script
             };
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageResult"/> class.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <exception cref="System.ArgumentNullException">page</exception>
         public PageResult(SharpPage page) : this(page?.Format)
         {
             Page = page ?? throw new ArgumentNullException(nameof(page));
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageResult"/> class.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <exception cref="System.ArgumentNullException">page</exception>
         public PageResult(SharpCodePage page) : this(page?.Format)
         {
             CodePage = page ?? throw new ArgumentNullException(nameof(page));
@@ -220,6 +306,11 @@ namespace ServiceStack.Script
                 Args[ScriptConstants.Request] = hasRequest;
         }
 
+        /// <summary>
+        /// Assigns the arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>PageResult.</returns>
         public PageResult AssignArgs(Dictionary<string, object> args)
         {
             if (args != null)
@@ -233,6 +324,12 @@ namespace ServiceStack.Script
         }
 
         //entry point
+        /// <summary>
+        /// Write to as an asynchronous operation.
+        /// </summary>
+        /// <param name="responseStream">The response stream.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task WriteToAsync(Stream responseStream, CancellationToken token = default)
         {
             if (OutputTransformers.Count == 0)
@@ -276,6 +373,11 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Writes to asynchronous internal.
+        /// </summary>
+        /// <param name="outputStream">The output stream.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         internal async Task WriteToAsyncInternal(Stream outputStream, CancellationToken token)
         {
             await Init().ConfigAwait();
@@ -351,6 +453,14 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Write fragments as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="fragments">The fragments.</param>
+        /// <param name="callTrace">The call trace.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         internal async Task WriteFragmentsAsync(ScriptScopeContext scope, IEnumerable<PageFragment> fragments, string callTrace, CancellationToken token)
         {
             stackTrace.Push(callTrace);
@@ -366,6 +476,13 @@ namespace ServiceStack.Script
             stackTrace.Pop();
         }
 
+        /// <summary>
+        /// Write page fragment as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="fragment">The fragment.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
         {
             foreach (var scriptLanguage in Context.ScriptLanguagesArray)
@@ -378,6 +495,14 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Writes the statements asynchronous.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="blockStatements">The block statements.</param>
+        /// <param name="callTrace">The call trace.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public Task WriteStatementsAsync(ScriptScopeContext scope, IEnumerable<JsStatement> blockStatements, string callTrace, CancellationToken token)
         {
             try
@@ -392,6 +517,13 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Write statements as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="blockStatements">The block statements.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task WriteStatementsAsync(ScriptScopeContext scope, IEnumerable<JsStatement> blockStatements, CancellationToken token)
         {
             foreach (var statement in blockStatements)
@@ -407,6 +539,11 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Shoulds the skip filter execution.
+        /// </summary>
+        /// <param name="var">The variable.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool ShouldSkipFilterExecution(PageVariableFragment var)
         {
             return HaltExecution || SkipFilterExecution && (var.Binding != null
@@ -415,18 +552,48 @@ namespace ServiceStack.Script
                  !Context.OnlyEvaluateFiltersWhenSkippingPageFilterExecution.Contains(var.InitialExpression.Name));
         }
 
+        /// <summary>
+        /// Shoulds the skip filter execution.
+        /// </summary>
+        /// <param name="fragment">The fragment.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool ShouldSkipFilterExecution(PageFragment fragment) => fragment is not PageStringFragment
             && (fragment is PageVariableFragment var
                 ? ShouldSkipFilterExecution(var)
                 : HaltExecution || SkipFilterExecution);
 
+        /// <summary>
+        /// Shoulds the skip filter execution.
+        /// </summary>
+        /// <param name="statement">The statement.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool ShouldSkipFilterExecution(JsStatement statement) => HaltExecution || SkipFilterExecution;
 
+        /// <summary>
+        /// Gets the context.
+        /// </summary>
+        /// <value>The context.</value>
         public ScriptContext Context => Page?.Context ?? CodePage.Context;
+        /// <summary>
+        /// Gets the format.
+        /// </summary>
+        /// <value>The format.</value>
         public PageFormat Format => Page?.Format ?? CodePage.Format;
+        /// <summary>
+        /// Gets the virtual path.
+        /// </summary>
+        /// <value>The virtual path.</value>
         public string VirtualPath => Page?.VirtualPath ?? CodePage.VirtualPath;
 
+        /// <summary>
+        /// The has initialize
+        /// </summary>
         private bool hasInit;
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
+        /// <returns>PageResult.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public async Task<PageResult> Init()
         {
             if (hasInit)
@@ -487,6 +654,10 @@ namespace ServiceStack.Script
             return this;
         }
 
+        /// <summary>
+        /// Initializes the page arguments.
+        /// </summary>
+        /// <param name="pageArgs">The page arguments.</param>
         private void InitPageArgs(Dictionary<string, object> pageArgs)
         {
             if (pageArgs?.Count > 0)
@@ -496,22 +667,43 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Initializes if new page.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <returns>Task.</returns>
         private Task InitIfNewPage(SharpPage page) => page != Page
             ? (Task)page.Init()
             : TypeConstants.EmptyTask;
 
+        /// <summary>
+        /// Initializes if new page.
+        /// </summary>
+        /// <param name="page">The page.</param>
         private void InitIfNewPage(SharpCodePage page)
         {
             if (page != CodePage)
                 page.Init();
         }
 
+        /// <summary>
+        /// Asserts the initialize.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">PageResult.Init() required for this operation.</exception>
         private void AssertInit()
         {
             if (!hasInit)
                 throw new NotSupportedException("PageResult.Init() required for this operation.");
         }
 
+        /// <summary>
+        /// Writes the page asynchronous.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="codePage">The code page.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public Task WritePageAsync(SharpPage page, SharpCodePage codePage,
             ScriptScopeContext scope, CancellationToken token = default)
         {
@@ -530,6 +722,13 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Write page as an asynchronous operation.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task WritePageAsync(SharpPage page, ScriptScopeContext scope, CancellationToken token = default)
         {
             if (PageTransformers.Count == 0)
@@ -560,6 +759,12 @@ namespace ServiceStack.Script
             stackTrace.Pop();
         }
 
+        /// <summary>
+        /// Writes the page asynchronous internal.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         internal async Task WritePageAsyncInternal(SharpPage page, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
         {
             await page.Init().ConfigAwait(); //reload modified changes if needed
@@ -567,6 +772,13 @@ namespace ServiceStack.Script
             await WriteFragmentsAsync(scope, page.PageFragments, "Page: " + page.VirtualPath, token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Write code page as an asynchronous operation.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task WriteCodePageAsync(SharpCodePage page, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
         {
             if (PageTransformers.Count == 0)
@@ -593,6 +805,13 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Writes the code page asynchronous internal.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         internal Task WriteCodePageAsyncInternal(SharpCodePage page, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
         {
             page.Scope = scope;
@@ -603,6 +822,11 @@ namespace ServiceStack.Script
             return page.WriteAsync(scope);
         }
 
+        /// <summary>
+        /// To the debug string.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>System.String.</returns>
         private string toDebugString(object instance)
         {
             using (JsConfig.With(new Config
@@ -621,6 +845,13 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Write variable as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="var">The variable.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public async Task WriteVarAsync(ScriptScopeContext scope, PageVariableFragment var, CancellationToken token)
         {
             if (var.Binding != null)
@@ -654,6 +885,11 @@ namespace ServiceStack.Script
             stackTrace.Pop();
         }
 
+        /// <summary>
+        /// Gets the filter transformer.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>Func&lt;Stream, Task&lt;Stream&gt;&gt;.</returns>
         private Func<Stream, Task<Stream>> GetFilterTransformer(string name)
         {
             return FilterTransformers.TryGetValue(name, out Func<Stream, Task<Stream>> fn)
@@ -663,6 +899,11 @@ namespace ServiceStack.Script
                     : null;
         }
 
+        /// <summary>
+        /// Gets the page parameters.
+        /// </summary>
+        /// <param name="var">The variable.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         private static Dictionary<string, object> GetPageParams(PageVariableFragment var)
         {
             Dictionary<string, object> scopedParams = null;
@@ -677,8 +918,25 @@ namespace ServiceStack.Script
             return scopedParams;
         }
 
+        /// <summary>
+        /// Creates the page context.
+        /// </summary>
+        /// <param name="var">The variable.</param>
+        /// <param name="outputStream">The output stream.</param>
+        /// <returns>ScriptScopeContext.</returns>
         private ScriptScopeContext CreatePageContext(PageVariableFragment var, Stream outputStream) => new ScriptScopeContext(this, outputStream, GetPageParams(var));
 
+        /// <summary>
+        /// Evaluate as an asynchronous operation.
+        /// </summary>
+        /// <param name="var">The variable.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
+        /// <exception cref="System.NotSupportedException">Could not find FilterTransformer '{var.FilterExpressions[exprIndex].Name}' in page '{Page.VirtualPath}'</exception>
+        /// <exception cref="System.Reflection.TargetInvocationException">Failed to invoke script method '{expr.GetDisplayName()}': {ex.Message}</exception>
+        /// <exception cref="System.Reflection.TargetInvocationException">Failed to invoke script method '{filterName}': {useEx.Message}</exception>
         private async Task<object> EvaluateAsync(PageVariableFragment var, ScriptScopeContext scope, CancellationToken token = default(CancellationToken))
         {
             scope.ScopedParams[nameof(PageVariableFragment)] = var;
@@ -939,6 +1197,9 @@ namespace ServiceStack.Script
             return UnwrapValue(value);
         }
 
+        /// <summary>
+        /// Resets the error.
+        /// </summary>
         private void ResetError()
         {
             SkipFilterExecution = false;
@@ -946,6 +1207,11 @@ namespace ServiceStack.Script
             LastFilterStackTrace = null;
         }
 
+        /// <summary>
+        /// Unwraps the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         private static object UnwrapValue(object value)
         {
             if (value == null || value == JsNull.Value || value == StopExecution.Value)
@@ -954,6 +1220,11 @@ namespace ServiceStack.Script
             return value;
         }
 
+        /// <summary>
+        /// Creates the missing filter error message.
+        /// </summary>
+        /// <param name="filterName">Name of the filter.</param>
+        /// <returns>System.String.</returns>
         internal string CreateMissingFilterErrorMessage(string filterName)
         {
             var registeredMethods = ScriptMethods.Union(Context.ScriptMethods).ToList();
@@ -1016,9 +1287,31 @@ namespace ServiceStack.Script
         }
 
         // Filters with no args can be used in-place of bindings
+        /// <summary>
+        /// Gets the filter as binding.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>MethodInvoker.</returns>
         private MethodInvoker GetFilterAsBinding(string name, out ScriptMethods filter) => GetFilterInvoker(name, 0, out filter);
+        /// <summary>
+        /// Gets the context filter as binding.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>MethodInvoker.</returns>
         private MethodInvoker GetContextFilterAsBinding(string name, out ScriptMethods filter) => GetContextFilterInvoker(name, 1, out filter);
 
+        /// <summary>
+        /// Invokes the filter.
+        /// </summary>
+        /// <param name="invoker">The invoker.</param>
+        /// <param name="filter">The filter.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="binding">The binding.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
+        /// <exception cref="System.Reflection.TargetInvocationException">Failed to invoke script method '{binding}': {ex.Message}</exception>
         internal object InvokeFilter(MethodInvoker invoker, ScriptMethods filter, object[] args, string binding)
         {
             if (invoker == null)
@@ -1042,6 +1335,14 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Parses the js expression.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="literal">The literal.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="System.Exception">Invalid literal: {literal.ToString()} in '{var.OriginalText}'</exception>
         public ReadOnlySpan<char> ParseJsExpression(ScriptScopeContext scope, ReadOnlySpan<char> literal, out JsToken token)
         {
             try
@@ -1060,9 +1361,23 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// The blocks map
+        /// </summary>
         private readonly Dictionary<string, ScriptBlock> blocksMap = new Dictionary<string, ScriptBlock>();
 
+        /// <summary>
+        /// Tries the get block.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>ScriptBlock.</returns>
         public ScriptBlock TryGetBlock(string name) => blocksMap.TryGetValue(name, out var block) ? block : Context.GetBlock(name);
+        /// <summary>
+        /// Gets the block.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>ScriptBlock.</returns>
+        /// <exception cref="System.NotSupportedException">Block in '{VirtualPath}' named '{name}' was not found.</exception>
         public ScriptBlock GetBlock(string name)
         {
             var block = TryGetBlock(name);
@@ -1072,13 +1387,47 @@ namespace ServiceStack.Script
             return block;
         }
 
+        /// <summary>
+        /// Creates the scope.
+        /// </summary>
+        /// <param name="outputStream">The output stream.</param>
+        /// <returns>ScriptScopeContext.</returns>
         public ScriptScopeContext CreateScope(Stream outputStream = null) =>
             new ScriptScopeContext(this, outputStream ?? MemoryStreamFactory.GetStream(), null);
 
+        /// <summary>
+        /// Gets the filter invoker.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="argsCount">The arguments count.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>MethodInvoker.</returns>
         internal MethodInvoker GetFilterInvoker(string name, int argsCount, out ScriptMethods filter) => GetInvoker(name, argsCount, InvokerType.Filter, out filter);
+        /// <summary>
+        /// Gets the context filter invoker.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="argsCount">The arguments count.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>MethodInvoker.</returns>
         internal MethodInvoker GetContextFilterInvoker(string name, int argsCount, out ScriptMethods filter) => GetInvoker(name, argsCount, InvokerType.ContextFilter, out filter);
+        /// <summary>
+        /// Gets the context block invoker.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="argsCount">The arguments count.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>MethodInvoker.</returns>
         internal MethodInvoker GetContextBlockInvoker(string name, int argsCount, out ScriptMethods filter) => GetInvoker(name, argsCount, InvokerType.ContextBlock, out filter);
 
+        /// <summary>
+        /// Gets the invoker.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="argsCount">The arguments count.</param>
+        /// <param name="invokerType">Type of the invoker.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>MethodInvoker.</returns>
         private MethodInvoker GetInvoker(string name, int argsCount, InvokerType invokerType, out ScriptMethods filter)
         {
             if (!Context.ExcludeFiltersNamed.Contains(name) && !ExcludeFiltersNamed.Contains(name))
@@ -1108,6 +1457,12 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Evaluates if token.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns>System.Object.</returns>
         public object EvaluateIfToken(object value, ScriptScopeContext scope)
         {
             if (value is JsToken token)
@@ -1116,6 +1471,15 @@ namespace ServiceStack.Script
             return value;
         }
 
+        /// <summary>
+        /// Tries the get value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="argsOnly">if set to <c>true</c> [arguments only].</param>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.ArgumentNullException">name</exception>
         internal bool TryGetValue(string name, ScriptScopeContext scope, bool argsOnly, out object value)
         {
             if (name == null)
@@ -1148,21 +1512,44 @@ namespace ServiceStack.Script
             return ret;
         }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns>System.Object.</returns>
         internal object GetValue(string name, ScriptScopeContext scope)
         {
             TryGetValue(name, scope, argsOnly: false, out var value);
             return value;
         }
 
+        /// <summary>
+        /// Gets the argument.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns>System.Object.</returns>
         internal object GetArgument(string name, ScriptScopeContext scope)
         {
             TryGetValue(name, scope, argsOnly: true, out var value);
             return value;
         }
 
+        /// <summary>
+        /// Gets the result output.
+        /// </summary>
+        /// <value>The result output.</value>
         public string ResultOutput => resultOutput;
 
+        /// <summary>
+        /// The result output
+        /// </summary>
         private string resultOutput;
+        /// <summary>
+        /// Gets the result.
+        /// </summary>
+        /// <value>The result.</value>
         public string Result
         {
             get
@@ -1184,12 +1571,21 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Executes this instance.
+        /// </summary>
+        /// <returns>PageResult.</returns>
         public PageResult Execute()
         {
             var render = Result;
             return this;
         }
 
+        /// <summary>
+        /// Clones the specified page.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <returns>PageResult.</returns>
         public PageResult Clone(SharpPage page)
         {
             return new PageResult(page)
@@ -1201,17 +1597,40 @@ namespace ServiceStack.Script
             };
         }
 
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
         public void Dispose()
         {
             CodePage?.Dispose();
         }
     }
 
+    /// <summary>
+    /// Class BindingExpressionException.
+    /// Implements the <see cref="System.Exception" />
+    /// </summary>
+    /// <seealso cref="System.Exception" />
     public class BindingExpressionException : Exception
     {
+        /// <summary>
+        /// Gets the expression.
+        /// </summary>
+        /// <value>The expression.</value>
         public string Expression { get; }
+        /// <summary>
+        /// Gets the member.
+        /// </summary>
+        /// <value>The member.</value>
         public string Member { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BindingExpressionException"/> class.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="member">The member.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="inner">The inner.</param>
         public BindingExpressionException(string message, string member, string expression, Exception inner = null)
             : base(message, inner)
         {
@@ -1220,10 +1639,27 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class SyntaxErrorException.
+    /// Implements the <see cref="System.ArgumentException" />
+    /// </summary>
+    /// <seealso cref="System.ArgumentException" />
     public class SyntaxErrorException : ArgumentException
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SyntaxErrorException"/> class.
+        /// </summary>
         public SyntaxErrorException() { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SyntaxErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
         public SyntaxErrorException(string message) : base(message) { }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SyntaxErrorException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception. If the <paramref name="innerException" /> parameter is not a null reference, the current exception is raised in a <see langword="catch" /> block that handles the inner exception.</param>
         public SyntaxErrorException(string message, Exception innerException) : base(message, innerException) { }
     }
 }

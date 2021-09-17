@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="FunctionScriptBlock.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,15 +16,30 @@ namespace ServiceStack.Script
     /// <summary>
     /// Define a reusable function
     /// Usage: {{#function calc(a, b) }}
-    ///           a * b | to => c
-    ///           a + b + c | return
-    ///        {{/function}}
+    /// a * b | to =&gt; c
+    /// a + b + c | return
+    /// {{/function}}
     /// </summary>
     public class FunctionScriptBlock : ScriptBlock
     {
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "function";
+        /// <summary>
+        /// Parse Body using Specified Language. Uses host language if unspecified.
+        /// </summary>
+        /// <value>The body.</value>
         public override ScriptLanguage Body => ScriptCode.Language;
 
+        /// <summary>
+        /// Writes the asynchronous.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="block">The block.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
             // block.Argument key is unique to exact memory fragment, not string equality

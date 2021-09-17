@@ -1,5 +1,9 @@
-﻿//Copyright (c) ServiceStack, Inc. All Rights Reserved.
-//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="StreamExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Buffers.Text;
@@ -15,8 +19,17 @@ using ServiceStack.Text.Pools;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class StreamExtensions.
+    /// </summary>
     public static class StreamExtensions
     {
+        /// <summary>
+        /// Writes to.
+        /// </summary>
+        /// <param name="inStream">The in stream.</param>
+        /// <param name="outStream">The out stream.</param>
+        /// <returns>long.</returns>
         public static long WriteTo(this Stream inStream, Stream outStream)
         {
             if (inStream is MemoryStream memoryStream)
@@ -38,6 +51,12 @@ namespace ServiceStack
             return total;
         }
 
+        /// <summary>
+        /// Reads the lines.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>System.Collections.Generic.IEnumerable&lt;string&gt;.</returns>
+        /// <exception cref="ArgumentNullException">nameof(stream)</exception>
         public static IEnumerable<string> ReadLines(this Stream stream)
         {
             if (stream == null)
@@ -60,12 +79,18 @@ namespace ServiceStack
         /// <summary>
         /// Reads the given stream up to the end, returning the data as a byte array.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>byte[].</returns>
         public static byte[] ReadFully(this Stream input) => ReadFully(input, DefaultBufferSize);
 
         /// <summary>
         /// Reads the given stream up to the end, returning the data as a byte
         /// array, using the given buffer size.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
+        /// <returns>byte[].</returns>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(bufferSize)</exception>
         public static byte[] ReadFully(this Stream input, int bufferSize)
         {
             if (bufferSize < 1)
@@ -88,6 +113,12 @@ namespace ServiceStack
         /// current contents of the buffer is ignored, so the buffer needn't
         /// be cleared beforehand.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <returns>byte[].</returns>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
         public static byte[] ReadFully(this Stream input, byte[] buffer)
         {
             if (buffer == null)
@@ -115,6 +146,9 @@ namespace ServiceStack
         /// <summary>
         /// Reads the given stream up to the end, returning the data as a byte array.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task&lt;byte[]&gt;.</returns>
         public static Task<byte[]> ReadFullyAsync(this Stream input, CancellationToken token = default) =>
             ReadFullyAsync(input, DefaultBufferSize, token);
 
@@ -122,6 +156,11 @@ namespace ServiceStack
         /// Reads the given stream up to the end, returning the data as a byte
         /// array, using the given buffer size.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(bufferSize)</exception>
         public static async Task<byte[]> ReadFullyAsync(this Stream input, int bufferSize, CancellationToken token = default)
         {
             if (bufferSize < 1)
@@ -144,6 +183,13 @@ namespace ServiceStack
         /// current contents of the buffer is ignored, so the buffer needn't
         /// be cleared beforehand.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
         public static async Task<byte[]> ReadFullyAsync(this Stream input, byte[] buffer, CancellationToken token = default)
         {
             if (buffer == null)
@@ -171,12 +217,17 @@ namespace ServiceStack
         /// <summary>
         /// Reads the given stream up to the end, returning the MemoryStream Buffer as ReadOnlyMemory&lt;byte&gt;.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>System.ReadOnlyMemory&lt;byte&gt;.</returns>
         public static ReadOnlyMemory<byte> ReadFullyAsMemory(this Stream input) =>
             ReadFullyAsMemory(input, DefaultBufferSize);
 
         /// <summary>
         /// Reads the given stream up to the end, returning the MemoryStream Buffer as ReadOnlyMemory&lt;byte&gt;.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
+        /// <returns>System.ReadOnlyMemory&lt;byte&gt;.</returns>
         public static ReadOnlyMemory<byte> ReadFullyAsMemory(this Stream input, int bufferSize)
         {
             byte[] buffer = BufferPool.GetBuffer(bufferSize);
@@ -190,6 +241,15 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Reads the fully as memory.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <returns>System.ReadOnlyMemory&lt;byte&gt;.</returns>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
         public static ReadOnlyMemory<byte> ReadFullyAsMemory(this Stream input, byte[] buffer)
         {
             if (buffer == null)
@@ -209,12 +269,19 @@ namespace ServiceStack
         /// <summary>
         /// Reads the given stream up to the end, returning the MemoryStream Buffer as ReadOnlyMemory&lt;byte&gt;.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task&lt;System.ReadOnlyMemory&lt;byte&gt;&gt;.</returns>
         public static Task<ReadOnlyMemory<byte>> ReadFullyAsMemoryAsync(this Stream input, CancellationToken token = default) =>
             ReadFullyAsMemoryAsync(input, DefaultBufferSize, token);
 
         /// <summary>
         /// Reads the given stream up to the end, returning the MemoryStream Buffer as ReadOnlyMemory&lt;byte&gt;.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task<ReadOnlyMemory<byte>> ReadFullyAsMemoryAsync(this Stream input, int bufferSize, CancellationToken token = default)
         {
             byte[] buffer = BufferPool.GetBuffer(bufferSize);
@@ -228,6 +295,16 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Read fully as memory as an asynchronous operation.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
         public static async Task<ReadOnlyMemory<byte>> ReadFullyAsMemoryAsync(this Stream input, byte[] buffer, CancellationToken token = default)
         {
             if (buffer == null)
@@ -248,6 +325,9 @@ namespace ServiceStack
         /// <summary>
         /// Copies all the data from one stream into another.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="output">The output.</param>
+        /// <returns>long.</returns>
         public static long CopyTo(this Stream input, Stream output)
         {
             return CopyTo(input, output, DefaultBufferSize);
@@ -257,6 +337,11 @@ namespace ServiceStack
         /// Copies all the data from one stream into another, using a buffer
         /// of the given size.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="bufferSize">Size of the buffer.</param>
+        /// <returns>long.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(bufferSize)</exception>
         public static long CopyTo(this Stream input, Stream output, int bufferSize)
         {
             if (bufferSize < 1)
@@ -270,6 +355,14 @@ namespace ServiceStack
         /// buffer for transferring data. Note that the current contents of
         /// the buffer is ignored, so the buffer needn't be cleared beforehand.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <returns>long.</returns>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
         public static long CopyTo(this Stream input, Stream output, byte[] buffer)
         {
             if (buffer == null)
@@ -299,6 +392,15 @@ namespace ServiceStack
         /// buffer for transferring data. Note that the current contents of
         /// the buffer is ignored, so the buffer needn't be cleared beforehand.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
         public static async Task<long> CopyToAsync(this Stream input, Stream output, byte[] buffer, CancellationToken token = default)
         {
             if (buffer == null)
@@ -328,6 +430,9 @@ namespace ServiceStack
         /// If the end of the stream is reached before the specified amount
         /// of data is read, an exception is thrown.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="bytesToRead">The bytes to read.</param>
+        /// <returns>byte[].</returns>
         public static byte[] ReadExactly(this Stream input, int bytesToRead)
         {
             return ReadExactly(input, new byte[bytesToRead]);
@@ -336,6 +441,9 @@ namespace ServiceStack
         /// <summary>
         /// Reads into a buffer, filling it completely.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <returns>byte[].</returns>
         public static byte[] ReadExactly(this Stream input, byte[] buffer)
         {
             return ReadExactly(input, buffer, buffer.Length);
@@ -345,6 +453,10 @@ namespace ServiceStack
         /// Reads exactly the given number of bytes from the specified stream,
         /// into the given buffer, starting at position 0 of the array.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="bytesToRead">The bytes to read.</param>
+        /// <returns>byte[].</returns>
         public static byte[] ReadExactly(this Stream input, byte[] buffer, int bytesToRead)
         {
             return ReadExactly(input, buffer, 0, bytesToRead);
@@ -354,6 +466,15 @@ namespace ServiceStack
         /// Reads exactly the given number of bytes from the specified stream,
         /// into the given buffer, starting at position 0 of the array.
         /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="bytesToRead">The bytes to read.</param>
+        /// <returns>byte[].</returns>
+        /// <exception cref="ArgumentNullException">nameof(input)</exception>
+        /// <exception cref="ArgumentNullException">nameof(input)</exception>
+        /// <exception cref="ArgumentNullException">nameof(input)</exception>
+        /// <exception cref="ArgumentNullException">nameof(input)</exception>
         public static byte[] ReadExactly(this Stream input, byte[] buffer, int startIndex, int bytesToRead)
         {
             if (input == null)
@@ -374,6 +495,12 @@ namespace ServiceStack
         /// <summary>
         /// Same as ReadExactly, but without the argument checks.
         /// </summary>
+        /// <param name="fromStream">From stream.</param>
+        /// <param name="intoBuffer">The into buffer.</param>
+        /// <param name="startAtIndex">The start at index.</param>
+        /// <param name="bytesToRead">The bytes to read.</param>
+        /// <returns>byte[].</returns>
+        /// <exception cref="EndOfStreamException">$"End of stream reached with {bytesToRead - index} byte{(bytesToRead - index == 1 ? "s" : "")} left to read.</exception>
         private static byte[] ReadExactlyFast(Stream fromStream, byte[] intoBuffer, int startAtIndex, int bytesToRead)
         {
             var index = 0;
@@ -389,6 +516,11 @@ namespace ServiceStack
             return intoBuffer;
         }
 
+        /// <summary>
+        /// Collapses the whitespace.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <returns>string.</returns>
         public static string CollapseWhitespace(this string str)
         {
             if (str == null)
@@ -412,6 +544,12 @@ namespace ServiceStack
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Combines the specified bytes.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="withBytes">The with bytes.</param>
+        /// <returns>byte[].</returns>
         public static byte[] Combine(this byte[] bytes, params byte[][] withBytes)
         {
             var combinedLength = bytes.Length + withBytes.Sum(b => b.Length);
@@ -429,23 +567,59 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// The asynchronous buffer size
+        /// </summary>
         public static int AsyncBufferSize = 81920; // CopyToAsync() default value
 
+        /// <summary>
+        /// Writes the asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task WriteAsync(this Stream stream, ReadOnlyMemory<byte> value, CancellationToken token = default) =>
             MemoryProvider.Instance.WriteAsync(stream, value, token);
 
+        /// <summary>
+        /// Writes the asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task WriteAsync(this Stream stream, byte[] bytes, CancellationToken token = default) =>
             MemoryProvider.Instance.WriteAsync(stream, bytes, token);
 
+        /// <summary>
+        /// Copies to asynchronous.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task CopyToAsync(this Stream input, Stream output, CancellationToken token = default) => input.CopyToAsync(output, AsyncBufferSize, token);
 
+        /// <summary>
+        /// Writes the asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="text">The text.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Task WriteAsync(this Stream stream, string text, CancellationToken token = default) =>
             MemoryProvider.Instance.WriteAsync(stream, text.AsSpan(), token);
 
+        /// <summary>
+        /// Converts to md5hash.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>string.</returns>
         public static string ToMd5Hash(this Stream stream)
         {
             var hash = System.Security.Cryptography.MD5.Create().ComputeHash(stream);
@@ -460,12 +634,25 @@ namespace ServiceStack
         /// <summary>
         /// Returns bytes in publiclyVisible MemoryStream
         /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns>System.IO.MemoryStream.</returns>
         public static MemoryStream InMemoryStream(this byte[] bytes)
         {
             return new(bytes, 0, bytes.Length, writable: true, publiclyVisible: true);
         }
 
+        /// <summary>
+        /// Reads to end.
+        /// </summary>
+        /// <param name="ms">The ms.</param>
+        /// <returns>string.</returns>
         public static string ReadToEnd(this MemoryStream ms) => ReadToEnd(ms, JsConfig.UTF8Encoding);
+        /// <summary>
+        /// Reads to end.
+        /// </summary>
+        /// <param name="ms">The ms.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>string.</returns>
         public static string ReadToEnd(this MemoryStream ms, Encoding encoding)
         {
             ms.Position = 0;
@@ -491,6 +678,11 @@ namespace ServiceStack
             return reader.ReadToEnd();
         }
 
+        /// <summary>
+        /// Gets the buffer as memory.
+        /// </summary>
+        /// <param name="ms">The ms.</param>
+        /// <returns>System.ReadOnlyMemory&lt;byte&gt;.</returns>
         public static ReadOnlyMemory<byte> GetBufferAsMemory(this MemoryStream ms)
         {
 #if NETSTANDARD || NETCORE2_1
@@ -512,6 +704,11 @@ namespace ServiceStack
             return new ReadOnlyMemory<byte>(ms.ToArray());
         }
 
+        /// <summary>
+        /// Gets the buffer as span.
+        /// </summary>
+        /// <param name="ms">The ms.</param>
+        /// <returns>System.ReadOnlySpan&lt;byte&gt;.</returns>
         public static ReadOnlySpan<byte> GetBufferAsSpan(this MemoryStream ms)
         {
 #if NETSTANDARD || NETCORE2_1
@@ -533,6 +730,11 @@ namespace ServiceStack
             return new ReadOnlySpan<byte>(ms.ToArray());
         }
 
+        /// <summary>
+        /// Gets the buffer as bytes.
+        /// </summary>
+        /// <param name="ms">The ms.</param>
+        /// <returns>byte[].</returns>
         public static byte[] GetBufferAsBytes(this MemoryStream ms)
         {
 #if NETSTANDARD || NETCORE2_1
@@ -554,7 +756,18 @@ namespace ServiceStack
             return ms.ToArray();
         }
 
+        /// <summary>
+        /// Reads to end asynchronous.
+        /// </summary>
+        /// <param name="ms">The ms.</param>
+        /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
         public static Task<string> ReadToEndAsync(this MemoryStream ms) => ReadToEndAsync(ms, JsConfig.UTF8Encoding);
+        /// <summary>
+        /// Reads to end asynchronous.
+        /// </summary>
+        /// <param name="ms">The ms.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
         public static Task<string> ReadToEndAsync(this MemoryStream ms, Encoding encoding)
         {
             ms.Position = 0;
@@ -580,7 +793,18 @@ namespace ServiceStack
             return reader.ReadToEndAsync();
         }
 
+        /// <summary>
+        /// Reads to end.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>string.</returns>
         public static string ReadToEnd(this Stream stream) => ReadToEnd(stream, JsConfig.UTF8Encoding);
+        /// <summary>
+        /// Reads to end.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>string.</returns>
         public static string ReadToEnd(this Stream stream, Encoding encoding)
         {
             if (stream is MemoryStream ms)
@@ -595,7 +819,18 @@ namespace ServiceStack
             return reader.ReadToEnd();
         }
 
+        /// <summary>
+        /// Reads to end asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
         public static Task<string> ReadToEndAsync(this Stream stream) => ReadToEndAsync(stream, JsConfig.UTF8Encoding);
+        /// <summary>
+        /// Reads to end asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
         public static Task<string> ReadToEndAsync(this Stream stream, Encoding encoding)
         {
             if (stream is MemoryStream ms)
@@ -610,9 +845,24 @@ namespace ServiceStack
             return reader.ReadToEndAsync();
         }
 
-        public static Task WriteToAsync(this MemoryStream stream, Stream output, CancellationToken token = default(CancellationToken)) =>
+        /// <summary>
+        /// Writes to asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task.</returns>
+        public static Task WriteToAsync(this MemoryStream stream, Stream output, CancellationToken token = default) =>
             WriteToAsync(stream, output, JsConfig.UTF8Encoding, token);
 
+        /// <summary>
+        /// Write to as an asynchronous operation.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task WriteToAsync(this MemoryStream stream, Stream output, Encoding encoding, CancellationToken token)
         {
 #if NETSTANDARD || NETCORE2_1
@@ -637,10 +887,25 @@ namespace ServiceStack
             await output.WriteAsync(bytes, 0, bytes.Length, token).ConfigAwait();
         }
 
-        public static Task WriteToAsync(this Stream stream, Stream output, CancellationToken token = default(CancellationToken)) =>
+        /// <summary>
+        /// Writes to asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task.</returns>
+        public static Task WriteToAsync(this Stream stream, Stream output, CancellationToken token = default) =>
             WriteToAsync(stream, output, JsConfig.UTF8Encoding, token);
 
 
+        /// <summary>
+        /// Writes to asynchronous.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <param name="output">The output.</param>
+        /// <param name="encoding">The encoding.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>System.Threading.Tasks.Task.</returns>
         public static Task WriteToAsync(this Stream stream, Stream output, Encoding encoding, CancellationToken token)
         {
             if (stream is MemoryStream ms)
@@ -649,6 +914,11 @@ namespace ServiceStack
             return stream.CopyToAsync(output, token);
         }
 
+        /// <summary>
+        /// Copies to new memory stream.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>System.IO.MemoryStream.</returns>
         public static MemoryStream CopyToNewMemoryStream(this Stream stream)
         {
             var ms = MemoryStreamFactory.GetStream();
@@ -657,6 +927,11 @@ namespace ServiceStack
             return ms;
         }
 
+        /// <summary>
+        /// Copy to new memory stream as an asynchronous operation.
+        /// </summary>
+        /// <param name="stream">The stream.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task<MemoryStream> CopyToNewMemoryStreamAsync(this Stream stream)
         {
             var ms = MemoryStreamFactory.GetStream();

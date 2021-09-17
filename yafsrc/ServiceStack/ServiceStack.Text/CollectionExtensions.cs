@@ -1,10 +1,26 @@
+﻿// ***********************************************************************
+// <copyright file="CollectionExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class CollectionExtensions.
+    /// </summary>
     public static class CollectionExtensions
     {
+        /// <summary>
+        /// Creates the and populate.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ofCollectionType">Type of the of collection.</param>
+        /// <param name="withItems">The with items.</param>
+        /// <returns>ICollection&lt;T&gt;.</returns>
         public static ICollection<T> CreateAndPopulate<T>(Type ofCollectionType, T[] withItems)
         {
             if (withItems == null)
@@ -32,6 +48,12 @@ namespace ServiceStack
             return collection;
         }
 
+        /// <summary>
+        /// Converts to array.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection">The collection.</param>
+        /// <returns>T[].</returns>
         public static T[] ToArray<T>(this ICollection<T> collection)
         {
             var to = new T[collection.Count];
@@ -39,6 +61,13 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Converts the specified object collection.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objCollection">The object collection.</param>
+        /// <param name="toCollectionType">Type of to collection.</param>
+        /// <returns>System.Object.</returns>
         public static object Convert<T>(object objCollection, Type toCollectionType)
         {
             var collection = (ICollection<T>)objCollection;

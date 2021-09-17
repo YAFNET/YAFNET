@@ -1,5 +1,9 @@
-﻿//Copyright (c) ServiceStack, Inc. All Rights Reserved.
-//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="Env.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Globalization;
@@ -10,8 +14,15 @@ using System.Threading.Tasks;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// Class Env.
+    /// </summary>
     public static class Env
     {
+        /// <summary>
+        /// Initializes static members of the <see cref="Env"/> class.
+        /// </summary>
+        /// <exception cref="System.ArgumentException">PclExport.Instance needs to be initialized</exception>
         static Env()
         {
             if (PclExport.Instance == null)
@@ -67,14 +78,11 @@ namespace ServiceStack.Text
             SupportsDynamic = true;
 #endif
 
-#if NETCORE2_1
+#if NET5_0_OR_GREATER
             IsNetStandard = false;
             IsNetCore = true;
             IsNetCore21 = true;
             SupportsDynamic = true;
-#endif
-
-#if NETSTANDARD2_0
             IsNetStandard20 = true;
 #endif
 
@@ -113,67 +121,181 @@ namespace ServiceStack.Text
             __releaseDate = new DateTime(2001, 01, 01);
         }
 
+        /// <summary>
+        /// Gets or sets the version string.
+        /// </summary>
+        /// <value>The version string.</value>
         public static string VersionString { get; set; }
 
+        /// <summary>
+        /// The service stack version
+        /// </summary>
         public static decimal ServiceStackVersion = 5.11m;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is linux.
+        /// </summary>
+        /// <value><c>true</c> if this instance is linux; otherwise, <c>false</c>.</value>
         public static bool IsLinux { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is osx.
+        /// </summary>
+        /// <value><c>true</c> if this instance is osx; otherwise, <c>false</c>.</value>
         public static bool IsOSX { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is unix.
+        /// </summary>
+        /// <value><c>true</c> if this instance is unix; otherwise, <c>false</c>.</value>
         public static bool IsUnix { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is windows.
+        /// </summary>
+        /// <value><c>true</c> if this instance is windows; otherwise, <c>false</c>.</value>
         public static bool IsWindows { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is mono.
+        /// </summary>
+        /// <value><c>true</c> if this instance is mono; otherwise, <c>false</c>.</value>
         public static bool IsMono { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is ios.
+        /// </summary>
+        /// <value><c>true</c> if this instance is ios; otherwise, <c>false</c>.</value>
         public static bool IsIOS { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is android.
+        /// </summary>
+        /// <value><c>true</c> if this instance is android; otherwise, <c>false</c>.</value>
         public static bool IsAndroid { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is net native.
+        /// </summary>
+        /// <value><c>true</c> if this instance is net native; otherwise, <c>false</c>.</value>
         public static bool IsNetNative { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is uwp.
+        /// </summary>
+        /// <value><c>true</c> if this instance is uwp; otherwise, <c>false</c>.</value>
         public static bool IsUWP { get; private set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is net standard.
+        /// </summary>
+        /// <value><c>true</c> if this instance is net standard; otherwise, <c>false</c>.</value>
         public static bool IsNetStandard { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is net core21.
+        /// </summary>
+        /// <value><c>true</c> if this instance is net core21; otherwise, <c>false</c>.</value>
         public static bool IsNetCore21 { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is net standard20.
+        /// </summary>
+        /// <value><c>true</c> if this instance is net standard20; otherwise, <c>false</c>.</value>
         public static bool IsNetStandard20 { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is net framework.
+        /// </summary>
+        /// <value><c>true</c> if this instance is net framework; otherwise, <c>false</c>.</value>
         public static bool IsNetFramework { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is net core.
+        /// </summary>
+        /// <value><c>true</c> if this instance is net core; otherwise, <c>false</c>.</value>
         public static bool IsNetCore { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is net core3.
+        /// </summary>
+        /// <value><c>true</c> if this instance is net core3; otherwise, <c>false</c>.</value>
         public static bool IsNetCore3 { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether [supports expressions].
+        /// </summary>
+        /// <value><c>true</c> if [supports expressions]; otherwise, <c>false</c>.</value>
         public static bool SupportsExpressions { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether [supports emit].
+        /// </summary>
+        /// <value><c>true</c> if [supports emit]; otherwise, <c>false</c>.</value>
         public static bool SupportsEmit { get; private set; }
 
+        /// <summary>
+        /// Gets a value indicating whether [supports dynamic].
+        /// </summary>
+        /// <value><c>true</c> if [supports dynamic]; otherwise, <c>false</c>.</value>
         public static bool SupportsDynamic { get; private set; }
 
+        /// <summary>
+        /// The strict mode
+        /// </summary>
         private static bool strictMode;
+        /// <summary>
+        /// Gets or sets a value indicating whether [strict mode].
+        /// </summary>
+        /// <value><c>true</c> if [strict mode]; otherwise, <c>false</c>.</value>
         public static bool StrictMode
         {
             get => strictMode;
             set => Config.Instance.ThrowOnError = strictMode = value;
         }
 
+        /// <summary>
+        /// Gets or sets the server user agent.
+        /// </summary>
+        /// <value>The server user agent.</value>
         public static string ServerUserAgent { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance has multiple platform targets.
+        /// </summary>
+        /// <value><c>true</c> if this instance has multiple platform targets; otherwise, <c>false</c>.</value>
         public static bool HasMultiplePlatformTargets { get; set; }
 
+        /// <summary>
+        /// The release date
+        /// </summary>
         private static readonly DateTime __releaseDate;
+        /// <summary>
+        /// Gets the release date.
+        /// </summary>
+        /// <returns>DateTime.</returns>
         public static DateTime GetReleaseDate()
         {
             return __releaseDate;
         }
 
+        /// <summary>
+        /// Gets the reference assemby path.
+        /// </summary>
+        /// <value>The reference assemby path.</value>
         [Obsolete("Use ReferenceAssemblyPath")]
         public static string ReferenceAssembyPath => ReferenceAssemblyPath;
 
+        /// <summary>
+        /// The reference assembly path
+        /// </summary>
         private static string referenceAssemblyPath;
 
+        /// <summary>
+        /// Gets or sets the reference assembly path.
+        /// </summary>
+        /// <value>The reference assembly path.</value>
+        /// <exception cref="System.IO.FileNotFoundException">Could not infer .NET Reference Assemblies path, e.g '{0}'.\n".Fmt(netFxReferenceBasePath + @"v4.0\") +
+        ///                             "Provide path manually 'Env.ReferenceAssemblyPath'.</exception>
         public static string ReferenceAssemblyPath
         {
             get
@@ -305,17 +427,31 @@ namespace ServiceStack.Text
         private static extern int GetCurrentApplicationUserModelId(ref uint applicationUserModelIdLength, byte[] applicationUserModelId);
 #endif
 
+        /// <summary>
+        /// The continue on captured context
+        /// </summary>
         public const bool ContinueOnCapturedContext = false;
 
+        /// <summary>
+        /// Configurations the await.
+        /// </summary>
+        /// <param name="task">The task.</param>
+        /// <returns>ConfiguredTaskAwaitable.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ConfiguredTaskAwaitable ConfigAwait(this Task task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
 
+        /// <summary>
+        /// Configurations the await.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="task">The task.</param>
+        /// <returns>ConfiguredTaskAwaitable&lt;T&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
 
-#if NETSTANDARD || NETCORE2_1
+#if NETSTANDARD || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);

@@ -1,9 +1,18 @@
+﻿// ***********************************************************************
+// <copyright file="DelegateFactory.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
 namespace ServiceStack.Reflection
 {
+    /// <summary>
+    /// Class DelegateFactory.
+    /// </summary>
     public static class DelegateFactory
     {
         /*
@@ -15,8 +24,19 @@ namespace ServiceStack.Reflection
   
             result.ShouldBeTrue();  
          */
+        /// <summary>
+        /// Delegate LateBoundMethod
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <returns>System.Object.</returns>
         public delegate object LateBoundMethod(object target, object[] arguments);
 
+        /// <summary>
+        /// Creates the specified method.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>LateBoundMethod.</returns>
         public static LateBoundMethod Create(MethodInfo method)
         {
             ParameterExpression instanceParameter = Expression.Parameter(typeof(object), "target");
@@ -35,6 +55,12 @@ namespace ServiceStack.Reflection
             return lambda.Compile();
         }
 
+        /// <summary>
+        /// Creates the parameter expressions.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <param name="argumentsParameter">The arguments parameter.</param>
+        /// <returns>Expression[].</returns>
         private static Expression[] CreateParameterExpressions(MethodInfo method, Expression argumentsParameter)
         {
             return method.GetParameters().Select((parameter, index) =>
@@ -44,8 +70,18 @@ namespace ServiceStack.Reflection
         }
 
 
+        /// <summary>
+        /// Delegate LateBoundVoid
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="arguments">The arguments.</param>
         public delegate void LateBoundVoid(object target, object[] arguments);
 
+        /// <summary>
+        /// Creates the void.
+        /// </summary>
+        /// <param name="method">The method.</param>
+        /// <returns>LateBoundVoid.</returns>
         public static LateBoundVoid CreateVoid(MethodInfo method)
         {
             ParameterExpression instanceParameter = Expression.Parameter(typeof(object), "target");

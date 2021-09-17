@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="JsCallExpression.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -8,20 +14,53 @@ namespace ServiceStack.Script
 {
     using ServiceStack.Extensions;
 
+    /// <summary>
+    /// Class JsCallExpression.
+    /// Implements the <see cref="ServiceStack.Script.JsExpression" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.JsExpression" />
     public class JsCallExpression : JsExpression
     {
+        /// <summary>
+        /// Gets the callee.
+        /// </summary>
+        /// <value>The callee.</value>
         public JsToken Callee { get; }
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        /// <value>The arguments.</value>
         public JsToken[] Arguments { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsCallExpression"/> class.
+        /// </summary>
+        /// <param name="callee">The callee.</param>
+        /// <param name="arguments">The arguments.</param>
         public JsCallExpression(JsToken callee, params JsToken[] arguments)
         {
             Callee = callee;
             Arguments = arguments;
         }
 
+        /// <summary>
+        /// The name string
+        /// </summary>
         private string nameString;
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name => nameString ??= Callee is JsIdentifier identifier ? identifier.Name : null;
 
+        /// <summary>
+        /// Invokes the delegate.
+        /// </summary>
+        /// <param name="fn">The function.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="isMemberExpr">if set to <c>true</c> [is member expr].</param>
+        /// <param name="fnArgValues">The function argument values.</param>
+        /// <returns>System.Object.</returns>
         public static object InvokeDelegate(Delegate fn, object target, bool isMemberExpr, List<object> fnArgValues)
         {
 #if DEBUG
@@ -100,6 +139,13 @@ namespace ServiceStack.Script
 #endif
         }
 
+        /// <summary>
+        /// Evaluates the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.StackOverflowException">Exceeded MaxStackDepth of " + scope.Context.MaxStackDepth</exception>
+        /// <exception cref="System.NotSupportedException"></exception>
         public override object Evaluate(ScriptScopeContext scope)
         {
             string ResolveMethodName(JsToken token)
@@ -249,6 +295,12 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Resolves the delegate.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Object.</returns>
         private object ResolveDelegate(ScriptScopeContext scope, string name)
         {
             if (name == null)
@@ -262,6 +314,12 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Evaluates the argument values.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         public static List<object> EvaluateArgumentValues(ScriptScopeContext scope, JsToken[] args)
         {
             var fnArgValues = new List<object>(args.Length + 2); //max size of args without spread args
@@ -285,8 +343,16 @@ namespace ServiceStack.Script
             return fnArgValues;
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString() => ToRawString();
 
+        /// <summary>
+        /// Converts to rawstring.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string ToRawString()
         {
             var sb = StringBuilderCacheAlt.Allocate();
@@ -300,14 +366,28 @@ namespace ServiceStack.Script
             return $"{Callee.ToRawString()}({StringBuilderCacheAlt.ReturnAndFree(sb)})";
         }
 
+        /// <summary>
+        /// Gets the display name.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public string GetDisplayName() => (Name ?? "").Replace('′', '"');
 
+        /// <summary>
+        /// Equalses the specified other.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected bool Equals(JsCallExpression other)
         {
             return Equals(Callee, other.Callee) &&
                    Arguments.EquivalentTo(other.Arguments);
         }
 
+        /// <summary>
+        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -316,6 +396,10 @@ namespace ServiceStack.Script
             return Equals((JsCallExpression)obj);
         }
 
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -325,6 +409,10 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Converts to jsast.
+        /// </summary>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
         public override Dictionary<string, object> ToJsAst()
         {
             var arguments = new List<object>();

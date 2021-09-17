@@ -1,3 +1,10 @@
+﻿// ***********************************************************************
+// <copyright file="PostgreSQLDialectProvider.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+
 namespace ServiceStack.OrmLite.PostgreSQL
 {
     using System;
@@ -18,14 +25,31 @@ namespace ServiceStack.OrmLite.PostgreSQL
     using ServiceStack.OrmLite.PostgreSQL.Converters;
     using ServiceStack.Text;
 
+    /// <summary>
+    /// Class PostgreSqlDialectProvider.
+    /// </summary>
     public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDialectProvider>
     {
-        public static PostgreSqlDialectProvider Instance = new PostgreSqlDialectProvider();
+        /// <summary>
+        /// The instance
+        /// </summary>
+        public static PostgreSqlDialectProvider Instance = new();
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [use returning for last insert identifier].
+        /// </summary>
+        /// <value><c>true</c> if [use returning for last insert identifier]; otherwise, <c>false</c>.</value>
         public bool UseReturningForLastInsertId { get; set; } = true;
 
+        /// <summary>
+        /// Gets or sets the automatic identifier unique identifier function.
+        /// </summary>
+        /// <value>The automatic identifier unique identifier function.</value>
         public string AutoIdGuidFunction { get; set; } = "uuid_generate_v4()";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostgreSqlDialectProvider" /> class.
+        /// </summary>
         public PostgreSqlDialectProvider()
         {
             base.AutoIncrementDefinition = "";
@@ -82,6 +106,10 @@ namespace ServiceStack.OrmLite.PostgreSQL
             };
         }
 
+        /// <summary>
+        /// Sets a value indicating whether [use hstore].
+        /// </summary>
+        /// <value><c>true</c> if [use hstore]; otherwise, <c>false</c>.</value>
         public bool UseHstore
         {
             set
@@ -99,7 +127,14 @@ namespace ServiceStack.OrmLite.PostgreSQL
             }
         }
 
+        /// <summary>
+        /// The normalize
+        /// </summary>
         private bool normalize;
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="PostgreSqlDialectProvider" /> is normalize.
+        /// </summary>
+        /// <value><c>true</c> if normalize; otherwise, <c>false</c>.</value>
         public bool Normalize
         {
             get => normalize;
@@ -113,7 +148,10 @@ namespace ServiceStack.OrmLite.PostgreSQL
         }
 
         //https://www.postgresql.org/docs/7.3/static/sql-keywords-appendix.html
-        public static HashSet<string> ReservedWords = new HashSet<string>(new[]
+        /// <summary>
+        /// The reserved words
+        /// </summary>
+        public static HashSet<string> ReservedWords = new(new[]
         {
             "ALL",
             "ANALYSE",
@@ -199,6 +237,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
             "WHERE",
         }, StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef)
         {
             if (fieldDef.IsRowVersion)
@@ -263,6 +306,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return definition;
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
         {
 
@@ -336,6 +385,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Converts to createtablestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>System.String.</returns>
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
@@ -404,6 +458,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return sql;
         }
 
+        /// <summary>
+        /// Gets the automatic identifier default value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetAutoIdDefaultValue(FieldDefinition fieldDef)
         {
             return fieldDef.FieldType == typeof(Guid)
@@ -411,6 +470,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
                 : null;
         }
 
+        /// <summary>
+        /// Determines whether [is full select statement] [the specified SQL].
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <returns><c>true</c> if [is full select statement] [the specified SQL]; otherwise, <c>false</c>.</returns>
         public override bool IsFullSelectStatement(string sql)
         {
             sql = sql?.TrimStart();
@@ -421,15 +485,38 @@ namespace ServiceStack.OrmLite.PostgreSQL
                    sql.StartsWith("WITH ", StringComparison.OrdinalIgnoreCase);
         }
 
+        /// <summary>
+        /// Shoulds the skip insert.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected override bool ShouldSkipInsert(FieldDefinition fieldDef) =>
             fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
 
+        /// <summary>
+        /// Shoulds the return on insert.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
-            fieldDef.ReturnOnInsert || (fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef)) || fieldDef.AutoId;
+            fieldDef.ReturnOnInsert || fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && HasInsertReturnValues(modelDef) || fieldDef.AutoId;
 
+        /// <summary>
+        /// Determines whether [has insert return values] [the specified model definition].
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns><c>true</c> if [has insert return values] [the specified model definition]; otherwise, <c>false</c>.</returns>
         public override bool HasInsertReturnValues(ModelDefinition modelDef) =>
-            modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || (x.AutoId && x.FieldType == typeof(Guid)));
+            modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
 
+        /// <summary>
+        /// Prepares the parameterized insert statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <param name="shouldInclude">The should include.</param>
         public override void PrepareParameterizedInsertStatement<T>(IDbCommand cmd, ICollection<string> insertFields = null,
             Func<FieldDefinition,bool> shouldInclude=null)
         {
@@ -449,8 +536,8 @@ namespace ServiceStack.OrmLite.PostgreSQL
                     sbReturningColumns.Append(GetQuotedColumnName(fieldDef.FieldName));
                 }
 
-                if ((ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
-                    && shouldInclude?.Invoke(fieldDef) != true)
+                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId
+                                               && shouldInclude?.Invoke(fieldDef) != true)
                     continue;
 
                 if (sbColumnNames.Length > 0)
@@ -489,18 +576,39 @@ namespace ServiceStack.OrmLite.PostgreSQL
         }
 
         //Convert xmin into an integer so it can be used in comparisons
+        /// <summary>
+        /// The row version field comparer
+        /// </summary>
         public const string RowVersionFieldComparer = "int8in(xidout(xmin))";
 
+        /// <summary>
+        /// Gets the row version select column.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="tablePrefix">The table prefix.</param>
+        /// <returns>SelectItem.</returns>
         public override SelectItem GetRowVersionSelectColumn(FieldDefinition field, string tablePrefix = null)
         {
             return new SelectItemColumn(this, "xmin", field.FieldName, tablePrefix);
         }
 
+        /// <summary>
+        /// Gets the row version column.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="tablePrefix">The table prefix.</param>
+        /// <returns>System.String.</returns>
         public override string GetRowVersionColumn(FieldDefinition field, string tablePrefix = null)
         {
             return RowVersionFieldComparer;
         }
 
+        /// <summary>
+        /// Appends the field condition.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="cmd">The command.</param>
         public override void AppendFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef, IDbCommand cmd)
         {
             var columnName = fieldDef.IsRowVersion
@@ -515,26 +623,52 @@ namespace ServiceStack.OrmLite.PostgreSQL
             AddParameter(cmd, fieldDef);
         }
 
+        /// <summary>
+        /// Quote the string so that it can be used inside an SQL-expression
+        /// Escape quotes inside the string
+        /// </summary>
+        /// <param name="paramValue">The parameter value.</param>
+        /// <returns>System.String.</returns>
         public override string GetQuotedValue(string paramValue)
         {
             return "'" + paramValue.Replace("'", @"''") + "'";
         }
 
+        /// <summary>
+        /// Creates the connection.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IDbConnection.</returns>
         public override IDbConnection CreateConnection(string connectionString, Dictionary<string, string> options)
         {
             return new NpgsqlConnection(connectionString);
         }
 
+        /// <summary>
+        /// SQLs the expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
         public override SqlExpression<T> SqlExpression<T>()
         {
             return new PostgreSqlExpression<T>(this);
         }
 
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <returns>IDbDataParameter.</returns>
         public override IDbDataParameter CreateParam()
         {
             return new NpgsqlParameter();
         }
 
+        /// <summary>
+        /// Converts to tablenamesstatement.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public override string ToTableNamesStatement(string schema)
         {
             var sql = "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'";
@@ -545,6 +679,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return sql + " AND table_schema = {0}".SqlFmt(this, schemaName);
         }
 
+        /// <summary>
+        /// Return table, row count SQL for listing all tables with their row counts
+        /// </summary>
+        /// <param name="live">If true returns live current row counts of each table (slower), otherwise returns cached row counts from RDBMS table stats</param>
+        /// <param name="schema">The table schema if any</param>
+        /// <returns>System.String.</returns>
         public override string ToTableNamesWithRowCountsStatement(bool live, string schema)
         {
             var schemaName = schema != null
@@ -555,6 +695,13 @@ namespace ServiceStack.OrmLite.PostgreSQL
                 : "SELECT relname, reltuples FROM pg_class JOIN pg_catalog.pg_namespace n ON n.oid = pg_class.relnamespace WHERE relkind = 'r' AND nspname = {0}".SqlFmt(this, schemaName);
         }
 
+        /// <summary>
+        /// Doeses the table exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
         {
             var sql = DoesTableExistSql(dbCmd, tableName, schema);
@@ -562,6 +709,14 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return result > 0;
         }
 
+        /// <summary>
+        /// Does table exist as an asynchronous operation.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
         {
             var sql = DoesTableExistSql(dbCmd, tableName, schema);
@@ -569,6 +724,13 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return result > 0;
         }
 
+        /// <summary>
+        /// Doeses the table exist SQL.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         private string DoesTableExistSql(IDbCommand dbCmd, string tableName, string schema)
         {
             var sql = !Normalize || ReservedWords.Contains(tableName)
@@ -598,6 +760,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return sql;
         }
 
+        /// <summary>
+        /// Doeses the schema exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesSchemaExist(IDbCommand dbCmd, string schemaName)
         {
             dbCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = '{GetSchemaName(schemaName).SqlParam()}');";
@@ -605,6 +773,13 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return query as bool? ?? false;
         }
 
+        /// <summary>
+        /// Does schema exist as an asynchronous operation.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> DoesSchemaExistAsync(IDbCommand dbCmd, string schemaName, CancellationToken token = default)
         {
             dbCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = '{GetSchemaName(schemaName).SqlParam()}');";
@@ -612,12 +787,25 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return query as bool? ?? false;
         }
 
+        /// <summary>
+        /// Converts to createschemastatement.
+        /// </summary>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <returns>System.String.</returns>
         public override string ToCreateSchemaStatement(string schemaName)
         {
             var sql = $"CREATE SCHEMA {GetSchemaName(schemaName)}";
             return sql;
         }
 
+        /// <summary>
+        /// Doeses the column exist.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
         {
             var sql = DoesColumnExistSql(columnName, tableName, ref schema);
@@ -625,6 +813,15 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return result > 0;
         }
 
+        /// <summary>
+        /// Does column exist as an asynchronous operation.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null,
             CancellationToken token = default)
         {
@@ -633,6 +830,13 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return result > 0;
         }
 
+        /// <summary>
+        /// Doeses the column exist SQL.
+        /// </summary>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         private string DoesColumnExistSql(string columnName, string tableName, ref string schema)
         {
             var sql = !Normalize || ReservedWords.Contains(tableName)
@@ -657,6 +861,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return sql;
         }
 
+        /// <summary>
+        /// Converts to executeprocedurestatement.
+        /// </summary>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <returns>System.String.</returns>
         public override string ToExecuteProcedureStatement(object objWithProperties)
         {
             var sbColumnValues = StringBuilderCache.Allocate();
@@ -671,15 +880,18 @@ namespace ServiceStack.OrmLite.PostgreSQL
             }
 
             var colValues = StringBuilderCache.ReturnAndFree(sbColumnValues);
-            var sql = string.Format("{0} {1}{2}{3};",
-                GetQuotedTableName(modelDef),
-                colValues.Length > 0 ? "(" : "",
-                colValues,
-                colValues.Length > 0 ? ")" : "");
+            var sql =
+                $"{GetQuotedTableName(modelDef)} {(colValues.Length > 0 ? "(" : "")}{colValues}{(colValues.Length > 0 ? ")" : "")};";
 
             return sql;
         }
 
+        /// <summary>
+        /// Converts to altercolumnstatement.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string ToAlterColumnStatement(Type modelType, FieldDefinition fieldDef)
         {
             var columnDefinition = GetColumnDefinition(fieldDef);
@@ -705,9 +917,19 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return sql;
         }
 
+        /// <summary>
+        /// Shoulds the quote.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool ShouldQuote(string name) => !string.IsNullOrEmpty(name) &&
             (Normalize || ReservedWords.Contains(name) || name.IndexOf(' ') >= 0 || name.IndexOf('.') >= 0);
 
+        /// <summary>
+        /// Gets the name of the quoted.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public override string GetQuotedName(string name)
         {
             return name.IndexOf('.') >= 0
@@ -715,6 +937,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
                 : base.GetQuotedName(name);
         }
 
+        /// <summary>
+        /// Gets the name of the quoted table.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetQuotedTableName(ModelDefinition modelDef)
         {
             if (!modelDef.IsInSchema)
@@ -725,6 +952,13 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return $"{GetQuotedName(NamingStrategy.GetSchemaName(modelDef.Schema))}.{GetQuotedName(NamingStrategy.GetTableName(modelDef.ModelName))}";
         }
 
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
+        /// <returns>System.String.</returns>
         public override string GetTableName(string table, string schema, bool useStrategy)
         {
             if (useStrategy)
@@ -739,6 +973,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
                 : QuoteIfRequired(table);
         }
 
+        /// <summary>
+        /// Gets the last insert identifier SQL suffix.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
         public override string GetLastInsertIdSqlSuffix<T>()
         {
             if (SelectIdentitySql == null)
@@ -756,8 +996,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return "; " + SelectIdentitySql;
         }
 
-        public Dictionary<Type,NpgsqlDbType> TypesMap { get; } = new Dictionary<Type, NpgsqlDbType>
-        {
+        /// <summary>
+        /// Gets the types map.
+        /// </summary>
+        /// <value>The types map.</value>
+        public Dictionary<Type,NpgsqlDbType> TypesMap { get; } = new() {
             [typeof(bool)] = NpgsqlDbType.Boolean,
             [typeof(short)] = NpgsqlDbType.Smallint,
             [typeof(int)] = NpgsqlDbType.Integer,
@@ -794,7 +1037,18 @@ namespace ServiceStack.OrmLite.PostgreSQL
             [typeof(uint[])] = NpgsqlDbType.Oidvector,
         };
 
+        /// <summary>
+        /// Gets the type of the database.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>NpgsqlDbType.</returns>
         public NpgsqlDbType GetDbType<T>() => GetDbType(typeof(T));
+        /// <summary>
+        /// Gets the type of the database.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>NpgsqlDbType.</returns>
+        /// <exception cref="System.NotSupportedException">Type '{type.Name}' not found in 'TypesMap'</exception>
         public NpgsqlDbType GetDbType(Type type)
         {
             if (TypesMap.TryGetValue(type, out var paramType))
@@ -806,7 +1060,10 @@ namespace ServiceStack.OrmLite.PostgreSQL
             throw new NotSupportedException($"Type '{type.Name}' not found in 'TypesMap'");
         }
 
-        public Dictionary<string, NpgsqlDbType> NativeTypes = new Dictionary<string, NpgsqlDbType> {
+        /// <summary>
+        /// The native types
+        /// </summary>
+        public Dictionary<string, NpgsqlDbType> NativeTypes = new() {
             { "json", NpgsqlDbType.Json },
             { "jsonb", NpgsqlDbType.Jsonb },
             { "hstore", NpgsqlDbType.Hstore },
@@ -824,6 +1081,11 @@ namespace ServiceStack.OrmLite.PostgreSQL
             { "boolean[]", NpgsqlDbType.Array | NpgsqlDbType.Boolean },
         };
 
+        /// <summary>
+        /// Sets the parameter.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="p">The p.</param>
         public override void SetParameter(FieldDefinition fieldDef, IDbDataParameter p)
         {
             if (fieldDef.CustomFieldDefinition != null &&
@@ -838,8 +1100,19 @@ namespace ServiceStack.OrmLite.PostgreSQL
             }
         }
 
+        /// <summary>
+        /// Uses the raw value.
+        /// </summary>
+        /// <param name="columnDef">The column definition.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool UseRawValue(string columnDef) => columnDef?.EndsWith("[]") == true;
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Object.</returns>
         protected override object GetValue(FieldDefinition fieldDef, object obj)
         {
             if (fieldDef.CustomFieldDefinition != null && NativeTypes.ContainsKey(fieldDef.CustomFieldDefinition)
@@ -851,6 +1124,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return base.GetValue(fieldDef, obj);
         }
 
+        /// <summary>
+        /// Prepares the stored procedure statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="obj">The object.</param>
         public override void PrepareStoredProcedureStatement<T>(IDbCommand cmd, T obj)
         {
             var tableType = obj.GetType();
@@ -869,6 +1148,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
             SetParameterValues<T>(cmd, obj);
         }
 
+        /// <summary>
+        /// SQLs the conflict.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="conflictResolution">The conflict resolution.</param>
+        /// <returns>System.String.</returns>
         public override string SqlConflict(string sql, string conflictResolution)
         {
             //https://www.postgresql.org/docs/current/static/sql-insert.html
@@ -877,58 +1162,132 @@ namespace ServiceStack.OrmLite.PostgreSQL
                        : conflictResolution);
         }
 
+        /// <summary>
+        /// SQLs the concat.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.String.</returns>
         public override string SqlConcat(IEnumerable<object> args) => string.Join(" || ", args);
 
+        /// <summary>
+        /// SQLs the currency.
+        /// </summary>
+        /// <param name="fieldOrValue">The field or value.</param>
+        /// <param name="currencySymbol">The currency symbol.</param>
+        /// <returns>System.String.</returns>
         public override string SqlCurrency(string fieldOrValue, string currencySymbol) => currencySymbol == "$"
             ? fieldOrValue + "::text::money::text"
             : "replace(" + fieldOrValue + "::text::money::text,'$','" + currencySymbol + "')";
 
+        /// <summary>
+        /// SQLs the cast.
+        /// </summary>
+        /// <param name="fieldOrValue">The field or value.</param>
+        /// <param name="castAs">The cast as.</param>
+        /// <returns>System.String.</returns>
         public override string SqlCast(object fieldOrValue, string castAs) =>
             $"({fieldOrValue})::{castAs}";
 
+        /// <summary>
+        /// Gets the SQL random.
+        /// </summary>
+        /// <value>The SQL random.</value>
         public override string SqlRandom => "RANDOM()";
 
+        /// <summary>
+        /// Unwraps the specified database.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <returns>NpgsqlConnection.</returns>
         protected NpgsqlConnection Unwrap(IDbConnection db)
         {
             return (NpgsqlConnection)db.ToDbConnection();
         }
 
+        /// <summary>
+        /// Unwraps the specified command.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <returns>NpgsqlCommand.</returns>
         protected NpgsqlCommand Unwrap(IDbCommand cmd)
         {
             return (NpgsqlCommand)cmd.ToDbCommand();
         }
 
+        /// <summary>
+        /// Unwraps the specified reader.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>NpgsqlDataReader.</returns>
         protected NpgsqlDataReader Unwrap(IDataReader reader)
         {
             return (NpgsqlDataReader)reader;
         }
 
 #if ASYNC
+        /// <summary>
+        /// Opens the asynchronous.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public override Task OpenAsync(IDbConnection db, CancellationToken token = default)
         {
             return Unwrap(db).OpenAsync(token);
         }
 
+        /// <summary>
+        /// Executes the reader asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDataReader&gt;.</returns>
         public override Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
         }
 
+        /// <summary>
+        /// Executes the non query asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         public override Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return Unwrap(cmd).ExecuteNonQueryAsync(token);
         }
 
+        /// <summary>
+        /// Executes the scalar asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public override Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return Unwrap(cmd).ExecuteScalarAsync(token);
         }
 
+        /// <summary>
+        /// Reads the asynchronous.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public override Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default)
         {
             return Unwrap(reader).ReadAsync(token);
         }
 
+        /// <summary>
+        /// Readers the each.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         public override async Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
         {
             try
@@ -947,6 +1306,15 @@ namespace ServiceStack.OrmLite.PostgreSQL
             }
         }
 
+        /// <summary>
+        /// Readers the each.
+        /// </summary>
+        /// <typeparam name="Return">The type of the return.</typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;Return&gt;.</returns>
         public override async Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default)
         {
             try
@@ -963,6 +1331,14 @@ namespace ServiceStack.OrmLite.PostgreSQL
             }
         }
 
+        /// <summary>
+        /// Readers the read.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public override async Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
         {
             try
@@ -970,7 +1346,7 @@ namespace ServiceStack.OrmLite.PostgreSQL
                 if (await ReadAsync(reader, token).ConfigureAwait(false))
                     return fn();
 
-                return default(T);
+                return default;
             }
             finally
             {
@@ -979,6 +1355,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
         }
 #endif
 
+        /// <summary>
+        /// Gets the drop function.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="functionName">Name of the function.</param>
+        /// <returns>System.String.</returns>
         public override string GetDropFunction(string database, string functionName)
         {
             var sb = StringBuilderCache.Allocate();
@@ -993,6 +1375,13 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the create view.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="selectSql">The select SQL.</param>
+        /// <returns>System.String.</returns>
         public override string GetCreateView(string database, ModelDefinition modelDef, StringBuilder selectSql)
         {
             var sb = StringBuilderCache.Allocate();
@@ -1008,6 +1397,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the drop view.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetDropView(string database, ModelDefinition modelDef)
         {
             var sb = StringBuilderCache.Allocate();
@@ -1022,11 +1417,22 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the UTC date function.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string GetUtcDateFunction()
         {
             return "(now() at time zone 'utc')";
         }
 
+        /// <summary>
+        /// Dates the difference function.
+        /// </summary>
+        /// <param name="interval">The interval.</param>
+        /// <param name="date1">The date1.</param>
+        /// <param name="date2">The date2.</param>
+        /// <returns>System.String.</returns>
         public override string DateDiffFunction(string interval, string date1, string date2)
         {
             return interval == "minute"
@@ -1037,25 +1443,29 @@ namespace ServiceStack.OrmLite.PostgreSQL
         /// <summary>
         /// Gets the SQL ISNULL Function
         /// </summary>
-        /// <param name="expression">
-        /// The expression.
-        /// </param>
-        /// <param name="alternateValue">
-        /// The alternate Value.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
+        /// <param name="expression">The expression.</param>
+        /// <param name="alternateValue">The alternate Value.</param>
+        /// <returns>The <see cref="string" />.</returns>
         public override string IsNullFunction(string expression, object alternateValue)
         {
             return $"COALESCE(({expression}), {alternateValue})";
         }
 
+        /// <summary>
+        /// Converts the flag.
+        /// </summary>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.String.</returns>
         public override string ConvertFlag(string expression)
         {
             return $"CAST(CAST(SIGN({expression}) AS char(1)) AS boolean)";
         }
 
+        /// <summary>
+        /// Databases the fragmentation information.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
         public override string DatabaseFragmentationInfo(string database)
         {
             var sb = new StringBuilder();
@@ -1125,31 +1535,61 @@ ORDER BY schemaname, tblname;");
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Databases the size.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
         public override string DatabaseSize(string database)
         {
             return "select pg_database_size(current_database()) / 1024 / 1024";
         }
 
+        /// <summary>
+        /// SQLs the version.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string SQLVersion()
         {
             return "select version()";
         }
 
+        /// <summary>
+        /// SQLs the name of the server.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string SQLServerName()
         {
             return "PostgreSQL";
         }
 
+        /// <summary>
+        /// Shrinks the database.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
         public override string ShrinkDatabase(string database)
         {
             return "VACUUM";
         }
 
+        /// <summary>
+        /// Res the index database.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="objectQualifier">The object qualifier.</param>
+        /// <returns>System.String.</returns>
         public override string ReIndexDatabase(string database, string objectQualifier)
         {
             return $"REINDEX DATABASE {database};";
         }
 
+        /// <summary>
+        /// Changes the recovery mode.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="mode">The mode.</param>
+        /// <returns>System.String.</returns>
         public override string ChangeRecoveryMode(string database, string mode)
         {
             return "";

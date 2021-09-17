@@ -1,5 +1,9 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
-//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="JsonWriter.Generic.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -10,12 +14,25 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Json
 {
+    /// <summary>
+    /// Class JsonWriter.
+    /// </summary>
     public static class JsonWriter
     {
+        /// <summary>
+        /// The instance
+        /// </summary>
         public static readonly JsWriter<JsonTypeSerializer> Instance = new();
 
+        /// <summary>
+        /// The write function cache
+        /// </summary>
         private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
 
+        /// <summary>
+        /// Removes the cache function.
+        /// </summary>
+        /// <param name="forType">For type.</param>
         internal static void RemoveCacheFn(Type forType)
         {
             Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
@@ -29,6 +46,11 @@ namespace ServiceStack.Text.Json
                 Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
         }
 
+        /// <summary>
+        /// Gets the write function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         internal static WriteObjectDelegate GetWriteFn(Type type)
         {
             try
@@ -61,8 +83,16 @@ namespace ServiceStack.Text.Json
             }
         }
 
+        /// <summary>
+        /// The json type information cache
+        /// </summary>
         private static Dictionary<Type, TypeInfo> JsonTypeInfoCache = new();
 
+        /// <summary>
+        /// Gets the type information.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>TypeInfo.</returns>
         internal static TypeInfo GetTypeInfo(Type type)
         {
             try
@@ -95,6 +125,11 @@ namespace ServiceStack.Text.Json
             }
         }
 
+        /// <summary>
+        /// Writes the late bound object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         internal static void WriteLateBoundObject(TextWriter writer, object value)
         {
             if (value == null)
@@ -124,11 +159,20 @@ namespace ServiceStack.Text.Json
             }
         }
 
+        /// <summary>
+        /// Gets the value type to string method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         internal static WriteObjectDelegate GetValueTypeToStringMethod(Type type)
         {
             return Instance.GetValueTypeToStringMethod(type);
         }
 
+        /// <summary>
+        /// Initializes the aot.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
@@ -139,8 +183,14 @@ namespace ServiceStack.Text.Json
         }
     }
 
+    /// <summary>
+    /// Class TypeInfo.
+    /// </summary>
     public class TypeInfo
     {
+        /// <summary>
+        /// The encode map key
+        /// </summary>
         internal bool EncodeMapKey;
     }
 
@@ -150,15 +200,27 @@ namespace ServiceStack.Text.Json
     /// <typeparam name="T"></typeparam>
     public static class JsonWriter<T>
     {
+        /// <summary>
+        /// The type information
+        /// </summary>
         internal static TypeInfo TypeInfo;
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static WriteObjectDelegate CacheFn;
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         public static void Reset()
         {
             JsonWriter.RemoveCacheFn(typeof(T));
             Refresh();
         }
 
+        /// <summary>
+        /// Refreshes this instance.
+        /// </summary>
         public static void Refresh()
         {
             if (JsonWriter.Instance == null)
@@ -169,16 +231,27 @@ namespace ServiceStack.Text.Json
                 : JsonWriter.Instance.GetWriteFn<T>();
         }
 
+        /// <summary>
+        /// Writes the function.
+        /// </summary>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate WriteFn()
         {
             return CacheFn ?? WriteObject;
         }
 
+        /// <summary>
+        /// Gets the type information.
+        /// </summary>
+        /// <returns>TypeInfo.</returns>
         public static TypeInfo GetTypeInfo()
         {
             return TypeInfo;
         }
 
+        /// <summary>
+        /// Initializes static members of the <see cref="JsonWriter{T}" /> class.
+        /// </summary>
         static JsonWriter()
         {
             if (JsonWriter.Instance == null)
@@ -195,6 +268,11 @@ namespace ServiceStack.Text.Json
                 : JsonWriter.Instance.GetWriteFn<T>();
         }
 
+        /// <summary>
+        /// Writes the object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteObject(TextWriter writer, object value)
         {
             TypeConfig<T>.Init();
@@ -212,6 +290,11 @@ namespace ServiceStack.Text.Json
             }
         }
 
+        /// <summary>
+        /// Writes the root object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteRootObject(TextWriter writer, object value)
         {
             TypeConfig<T>.Init();

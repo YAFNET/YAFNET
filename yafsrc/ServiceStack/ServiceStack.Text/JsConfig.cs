@@ -1,7 +1,13 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="JsConfig.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+
+using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
@@ -12,6 +18,9 @@ using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static class JsConfig
     {
         static JsConfig()
@@ -19,13 +28,14 @@ namespace ServiceStack.Text
             Reset();
         }
 
-        // force deterministic initialization of static constructor
+        /// <summary>
+        /// force deterministic initialization of static constructor
+        /// </summary>
         public static void InitStatics() { }
 
         /// <summary>
         /// Mark JsConfig global config as initialized and assert it's no longer mutated
         /// </summary>
-        /// <param name="config"></param>
         public static void Init() => Config.Init();
 
         /// <summary>
@@ -34,20 +44,32 @@ namespace ServiceStack.Text
         /// <param name="config"></param>
         public static void Init(Config config) => Config.Init(config);
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool HasInit => Config.HasInit;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static JsConfigScope BeginScope()
         {
-            return new(); //Populated with Config.Instance
+            return new(); // Populated with Config.Instance
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <param name="scope"></param>
+        /// <returns></returns>
         public static JsConfigScope CreateScope(string config, JsConfigScope scope = null)
         {
             if (string.IsNullOrEmpty(config))
                 return scope;
 
-            if (scope == null)
-                scope = BeginScope();
+            scope ??= BeginScope();
 
             var items = config.Split(',');
             foreach (var item in items)
@@ -229,10 +251,55 @@ namespace ServiceStack.Text
             return scope;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static UTF8Encoding UTF8Encoding { get; set; } = new(false);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="config"></param>
+        /// <returns></returns>
         public static JsConfigScope With(Config config) => (JsConfigScope)new JsConfigScope().Populate(config);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="convertObjectTypesIntoStringDictionary"></param>
+        /// <param name="tryToParsePrimitiveTypeValues"></param>
+        /// <param name="tryToParseNumericType"></param>
+        /// <param name="parsePrimitiveFloatingPointTypes"></param>
+        /// <param name="parsePrimitiveIntegerTypes"></param>
+        /// <param name="excludeDefaultValues"></param>
+        /// <param name="includeNullValues"></param>
+        /// <param name="includeNullValuesInDictionaries"></param>
+        /// <param name="includeDefaultEnums"></param>
+        /// <param name="excludeTypeInfo"></param>
+        /// <param name="includeTypeInfo"></param>
+        /// <param name="emitCamelCaseNames"></param>
+        /// <param name="emitLowercaseUnderscoreNames"></param>
+        /// <param name="dateHandler"></param>
+        /// <param name="timeSpanHandler"></param>
+        /// <param name="propertyConvention"></param>
+        /// <param name="preferInterfaces"></param>
+        /// <param name="throwOnDeserializationError"></param>
+        /// <param name="typeAttr"></param>
+        /// <param name="dateTimeFormat"></param>
+        /// <param name="typeWriter"></param>
+        /// <param name="typeFinder"></param>
+        /// <param name="treatEnumAsInteger"></param>
+        /// <param name="skipDateTimeConversion"></param>
+        /// <param name="alwaysUseUtc"></param>
+        /// <param name="assumeUtc"></param>
+        /// <param name="appendUtcOffset"></param>
+        /// <param name="escapeUnicode"></param>
+        /// <param name="includePublicFields"></param>
+        /// <param name="maxDepth"></param>
+        /// <param name="modelFactory"></param>
+        /// <param name="excludePropertyReferences"></param>
+        /// <param name="useSystemParseMethods"></param>
+        /// <returns></returns>
         [Obsolete("Use JsConfig.With(new Config { })")]
         public static JsConfigScope With(
             bool? convertObjectTypesIntoStringDictionary = null,
@@ -267,8 +334,9 @@ namespace ServiceStack.Text
             int? maxDepth = null,
             EmptyCtorFactoryDelegate modelFactory = null,
             string[] excludePropertyReferences = null,
-            bool? useSystemParseMethods = null) //Unused
+            bool? useSystemParseMethods = null)
         {
+            // Unused
             return new() {
                 ConvertObjectTypesIntoStringDictionary = convertObjectTypesIntoStringDictionary ?? Config.Instance.ConvertObjectTypesIntoStringDictionary,
                 TryToParsePrimitiveTypeValues = tryToParsePrimitiveTypeValues ?? Config.Instance.TryToParsePrimitiveTypeValues,
@@ -307,96 +375,144 @@ namespace ServiceStack.Text
             };
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string DateTimeFormat
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.DateTimeFormat : Config.Instance.DateTimeFormat;
             set => Config.AssertNotInit().DateTimeFormat = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool ConvertObjectTypesIntoStringDictionary
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ConvertObjectTypesIntoStringDictionary : Config.Instance.ConvertObjectTypesIntoStringDictionary;
             set => Config.AssertNotInit().ConvertObjectTypesIntoStringDictionary = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool TryToParsePrimitiveTypeValues
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.TryToParsePrimitiveTypeValues : Config.Instance.TryToParsePrimitiveTypeValues;
             set => Config.AssertNotInit().TryToParsePrimitiveTypeValues = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool TryToParseNumericType
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.TryToParseNumericType : Config.Instance.TryToParseNumericType;
             set => Config.AssertNotInit().TryToParseNumericType = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool TryParseIntoBestFit
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.TryParseIntoBestFit : Config.Instance.TryParseIntoBestFit;
             set => Config.AssertNotInit().TryParseIntoBestFit = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static ParseAsType ParsePrimitiveFloatingPointTypes
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ParsePrimitiveFloatingPointTypes : Config.Instance.ParsePrimitiveFloatingPointTypes;
             set => Config.AssertNotInit().ParsePrimitiveFloatingPointTypes = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static ParseAsType ParsePrimitiveIntegerTypes
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ParsePrimitiveIntegerTypes : Config.Instance.ParsePrimitiveIntegerTypes;
             set => Config.AssertNotInit().ParsePrimitiveIntegerTypes = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string[] ExcludePropertyReferences
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludePropertyReferences : Config.Instance.ExcludePropertyReferences;
             set => Config.AssertNotInit().ExcludePropertyReferences = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool ExcludeDefaultValues
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeDefaultValues : Config.Instance.ExcludeDefaultValues;
             set => Config.AssertNotInit().ExcludeDefaultValues = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool IncludeNullValues
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludeNullValues : Config.Instance.IncludeNullValues;
             set => Config.AssertNotInit().IncludeNullValues = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool IncludeNullValuesInDictionaries
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludeNullValuesInDictionaries : Config.Instance.IncludeNullValuesInDictionaries;
             set => Config.AssertNotInit().IncludeNullValuesInDictionaries = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool IncludeDefaultEnums
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludeDefaultEnums : Config.Instance.IncludeDefaultEnums;
             set => Config.AssertNotInit().IncludeDefaultEnums = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool TreatEnumAsInteger
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.TreatEnumAsInteger : Config.Instance.TreatEnumAsInteger;
             set => Config.AssertNotInit().TreatEnumAsInteger = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool ExcludeTypeInfo
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeTypeInfo : Config.Instance.ExcludeTypeInfo;
             set => Config.AssertNotInit().ExcludeTypeInfo = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool IncludeTypeInfo
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludeTypeInfo : Config.Instance.IncludeTypeInfo;
             set => Config.AssertNotInit().IncludeTypeInfo = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string TypeAttr
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.TypeAttr : Config.Instance.TypeAttr;
@@ -407,34 +523,40 @@ namespace ServiceStack.Text
             }
         }
 
-        internal static string JsonTypeAttrInObject
-        {
-            get => JsConfigScope.Current != null ? JsConfigScope.Current.JsonTypeAttrInObject : Config.Instance.JsonTypeAttrInObject;
-        }
+        internal static string JsonTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsonTypeAttrInObject : Config.Instance.JsonTypeAttrInObject;
 
-        internal static string JsvTypeAttrInObject
-        {
-            get => JsConfigScope.Current != null ? JsConfigScope.Current.JsvTypeAttrInObject : Config.Instance.JsvTypeAttrInObject;
-        }
+        internal static string JsvTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsvTypeAttrInObject : Config.Instance.JsvTypeAttrInObject;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<Type, string> TypeWriter
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.TypeWriter : Config.Instance.TypeWriter;
             set => Config.AssertNotInit().TypeWriter = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<string, Type> TypeFinder
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.TypeFinder : Config.Instance.TypeFinder;
             set => Config.AssertNotInit().TypeFinder = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<string, object> ParsePrimitiveFn
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ParsePrimitiveFn : Config.Instance.ParsePrimitiveFn;
             set => Config.AssertNotInit().ParsePrimitiveFn = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static DateHandler DateHandler
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.DateHandler : Config.Instance.DateHandler;
@@ -480,8 +602,11 @@ namespace ServiceStack.Text
             set => Config.AssertNotInit().EmitLowercaseUnderscoreNames = value;
         }
 
-        //Avoid multiple static property checks by getting snapshot of active config
-        public static Config GetConfig() => JsConfigScope.Current != null ? JsConfigScope.Current : Config.Instance;
+        /// <summary>
+        /// Avoid multiple static property checks by getting snapshot of active config
+        /// </summary>
+        /// <returns></returns>
+        public static Config GetConfig() => JsConfigScope.Current ?? Config.Instance;
 
         /// <summary>
         /// Define how property names are mapped during deserialization
@@ -504,6 +629,9 @@ namespace ServiceStack.Text
             set => Config.AssertNotInit().ThrowOnError = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         [Obsolete("Renamed to ThrowOnError")]
         public static bool ThrowOnDeserializationError
         {
@@ -588,6 +716,9 @@ namespace ServiceStack.Text
 
         internal static HashSet<Type> HasIncludeDefaultValue = new();
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static HashSet<Type> TreatValueAsRefTypes = new();
 
         /// <summary>
@@ -633,44 +764,73 @@ namespace ServiceStack.Text
             set => Config.AssertNotInit().ModelFactory = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static HashSet<Type> ExcludeTypes
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeTypes : Config.Instance.ExcludeTypes;
             set => Config.AssertNotInit().ExcludeTypes = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static HashSet<string> ExcludeTypeNames
         {
             get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeTypeNames : Config.Instance.ExcludeTypeNames;
             set => Config.AssertNotInit().ExcludeTypeNames = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string[] IgnoreAttributesNamed
         {
-            set => ReflectionExtensions.IgnoreAttributesNamed = value;
             get => ReflectionExtensions.IgnoreAttributesNamed;
+            set => ReflectionExtensions.IgnoreAttributesNamed = value;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static HashSet<string> AllowRuntimeTypeInTypes { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<Type, bool> AllowRuntimeType { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Reset()
         {
             foreach (var rawSerializeType in HasSerializeFn.ToArray())
             {
                 Reset(rawSerializeType);
             }
+
             foreach (var rawSerializeType in HasIncludeDefaultValue.ToArray())
             {
                 Reset(rawSerializeType);
             }
+
             foreach (var uniqueType in __uniqueTypes.ToArray())
             {
                 Reset(uniqueType);
@@ -684,8 +844,7 @@ namespace ServiceStack.Text
             TreatValueAsRefTypes = new HashSet<Type> { typeof(KeyValuePair<,>) };
             __uniqueTypes = new HashSet<Type>();
 
-            //Called when writing each string, too expensive to maintain as scoped config
-
+            // Called when writing each string, too expensive to maintain as scoped config
             AllowRuntimeType = null;
             AllowRuntimeTypeWithAttributesNamed = new HashSet<string>
             {
@@ -714,7 +873,7 @@ namespace ServiceStack.Text
             JsState.Reset();
         }
 
-        static void Reset(Type cachesForType)
+        private static void Reset(Type cachesForType)
         {
             typeof(JsConfig<>).MakeGenericType(new[] { cachesForType }).InvokeReset();
             typeof(TypeConfig<>).MakeGenericType(new[] { cachesForType }).InvokeReset();
@@ -727,7 +886,7 @@ namespace ServiceStack.Text
         }
 
         internal static HashSet<Type> __uniqueTypes = new();
-        internal static int __uniqueTypesCount = 0;
+        internal static int __uniqueTypesCount;
 
         internal static void AddUniqueType(Type type)
         {
@@ -741,11 +900,17 @@ namespace ServiceStack.Text
                 newTypes = new HashSet<Type>(__uniqueTypes) { type };
                 __uniqueTypesCount = newTypes.Count;
 
-            } while (!ReferenceEquals(
+            }
+
+ while (!ReferenceEquals(
                 Interlocked.CompareExchange(ref __uniqueTypes, newTypes, snapshot), snapshot));
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class JsConfig<T>
     {
         static JsConfig()
@@ -765,12 +930,12 @@ namespace ServiceStack.Text
         /// <summary>
         /// Always emit type info for this type.  Takes precedence over ExcludeTypeInfo
         /// </summary>
-        public static bool? IncludeTypeInfo = null;
+        public static bool? IncludeTypeInfo;
 
         /// <summary>
         /// Never emit type info for this type
         /// </summary>
-        public static bool? ExcludeTypeInfo = null;
+        public static bool? ExcludeTypeInfo;
 
         /// <summary>
         /// Text case to use for property names (Default = PascalCase)
@@ -797,6 +962,9 @@ namespace ServiceStack.Text
             set => TextCase = value == true ? TextCase.SnakeCase : TextCase;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool IncludeDefaultValue
         {
             get => JsConfig.HasIncludeDefaultValue.Contains(typeof(T));
@@ -815,6 +983,10 @@ namespace ServiceStack.Text
         /// Define custom serialization fn for BCL Structs
         /// </summary>
         private static Func<T, string> serializeFn;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<T, string> SerializeFn
         {
             get => serializeFn;
@@ -854,6 +1026,10 @@ namespace ServiceStack.Text
         /// Define custom raw serialization fn
         /// </summary>
         private static Func<T, string> rawSerializeFn;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<T, string> RawSerializeFn
         {
             get => rawSerializeFn;
@@ -873,6 +1049,9 @@ namespace ServiceStack.Text
         /// Define custom serialization hook
         /// </summary>
         private static Func<T, T> onSerializingFn;
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<T, T> OnSerializingFn
         {
             get => onSerializingFn;
@@ -883,6 +1062,10 @@ namespace ServiceStack.Text
         /// Define custom after serialization hook
         /// </summary>
         private static Action<T> onSerializedFn;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static Action<T> OnSerializedFn
         {
             get => onSerializedFn;
@@ -893,6 +1076,10 @@ namespace ServiceStack.Text
         /// Define custom deserialization fn for BCL Structs
         /// </summary>
         private static Func<string, T> deSerializeFn;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<string, T> DeSerializeFn
         {
             get => deSerializeFn;
@@ -903,24 +1090,42 @@ namespace ServiceStack.Text
         /// Define custom raw deserialization fn for objects
         /// </summary>
         private static Func<string, T> rawDeserializeFn;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<string, T> RawDeserializeFn
         {
             get => rawDeserializeFn;
             set { rawDeserializeFn = value; RefreshRead(); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool HasDeserializeFn => !JsState.InDeserializer<T>() && (DeSerializeFn != null || RawDeserializeFn != null);
 
         private static Func<T, T> onDeserializedFn;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<T, T> OnDeserializedFn
         {
             get => onDeserializedFn;
             set { onDeserializedFn = value; RefreshRead(); }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static bool HasDeserializingFn => OnDeserializingFn != null;
 
         private static Func<T, string, object, object> onDeserializingFn;
+
+        /// <summary>
+        /// 
+        /// </summary>
         public static Func<T, string, object, object> OnDeserializingFn
         {
             get => onDeserializingFn;
@@ -932,6 +1137,12 @@ namespace ServiceStack.Text
         /// </summary>
         public static string[] ExcludePropertyNames;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="writer"></param>
+        /// <param name="obj"></param>
+        /// <typeparam name="TSerializer"></typeparam>
         public static void WriteFn<TSerializer>(TextWriter writer, object obj)
         {
             if (RawSerializeFn != null && !JsState.InSerializer<T>())
@@ -966,6 +1177,11 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
         public static object ParseFn(string str)
         {
             return DeSerializeFn(str);
@@ -985,7 +1201,8 @@ namespace ServiceStack.Text
                     JsState.UnRegisterDeserializer<T>();
                 }
             }
-            else if (DeSerializeFn != null && !JsState.InDeserializer<T>())
+
+            if (DeSerializeFn != null && !JsState.InDeserializer<T>())
             {
                 JsState.RegisterDeserializer<T>();
                 try
@@ -997,11 +1214,9 @@ namespace ServiceStack.Text
                     JsState.UnRegisterDeserializer<T>();
                 }
             }
-            else
-            {
-                var parseFn = JsonReader.Instance.GetParseFn<T>();
-                return parseFn(str);
-            }
+
+            var parseFn = JsonReader.Instance.GetParseFn<T>();
+            return parseFn(str);
         }
 
         internal static void ClearFnCaches()
@@ -1010,6 +1225,9 @@ namespace ServiceStack.Text
             JsvWriter<T>.Reset();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void Reset()
         {
             RawSerializeFn = null;
@@ -1019,12 +1237,18 @@ namespace ServiceStack.Text
             IncludeTypeInfo = ExcludeTypeInfo = null;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void RefreshRead()
         {
             JsonReader<T>.Refresh();
             JsvReader<T>.Refresh();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static void RefreshWrite()
         {
             JsonWriter<T>.Refresh();
@@ -1032,56 +1256,97 @@ namespace ServiceStack.Text
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum PropertyConvention
     {
         /// <summary>
         /// The property names on target types must match property names in the JSON source
         /// </summary>
         Strict,
+
         /// <summary>
         /// The property names on target types may not match the property names in the JSON source
         /// </summary>
         Lenient
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum DateHandler
     {
+        /// <summary>
+        /// 
+        /// </summary>
         TimestampOffset,
+        /// <summary>
+        /// 
+        /// </summary>
         DCJSCompatible,
+        /// <summary>
+        /// 
+        /// </summary>
         ISO8601,
+        /// <summary>
+        /// 
+        /// </summary>
         ISO8601DateOnly,
+        /// <summary>
+        /// 
+        /// </summary>
         ISO8601DateTime,
+        /// <summary>
+        /// 
+        /// </summary>
         RFC1123,
+        /// <summary>
+        /// 
+        /// </summary>
         UnixTime,
+        /// <summary>
+        /// 
+        /// </summary>
         UnixTimeMs,
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum TimeSpanHandler
     {
         /// <summary>
         /// Uses the xsd format like PT15H10M20S
         /// </summary>
         DurationFormat,
+
         /// <summary>
         /// Uses the standard .net ToString method of the TimeSpan class
         /// </summary>
         StandardFormat
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public enum TextCase
     {
         /// <summary>
         /// If unspecified uses PascalCase
         /// </summary>
         Default,
+
         /// <summary>
         /// PascalCase
         /// </summary>
         PascalCase,
+
         /// <summary>
         /// camelCase
         /// </summary>
         CamelCase,
+
         /// <summary>
         /// snake_case
         /// </summary>

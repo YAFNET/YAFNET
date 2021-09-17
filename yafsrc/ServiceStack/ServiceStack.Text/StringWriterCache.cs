@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="StringWriterCache.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Globalization;
 using System.IO;
 
@@ -9,9 +15,16 @@ namespace ServiceStack.Text
     /// </summary>
     public static class StringWriterCache
     {
+        /// <summary>
+        /// The cache
+        /// </summary>
         [ThreadStatic]
         static StringWriter cache;
 
+        /// <summary>
+        /// Allocates this instance.
+        /// </summary>
+        /// <returns>StringWriter.</returns>
         public static StringWriter Allocate()
         {
             var ret = cache;
@@ -24,11 +37,20 @@ namespace ServiceStack.Text
             return ret;
         }
 
+        /// <summary>
+        /// Frees the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
         public static void Free(StringWriter writer)
         {
             cache = writer;
         }
 
+        /// <summary>
+        /// Returns the and free.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <returns>System.String.</returns>
         public static string ReturnAndFree(StringWriter writer)
         {
             var ret = writer.ToString();
@@ -42,9 +64,16 @@ namespace ServiceStack.Text
     /// </summary>
     public static class StringWriterCacheAlt
     {
+        /// <summary>
+        /// The cache
+        /// </summary>
         [ThreadStatic]
         static StringWriter cache;
 
+        /// <summary>
+        /// Allocates this instance.
+        /// </summary>
+        /// <returns>StringWriter.</returns>
         public static StringWriter Allocate()
         {
             var ret = cache;
@@ -57,11 +86,20 @@ namespace ServiceStack.Text
             return ret;
         }
 
+        /// <summary>
+        /// Frees the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
         public static void Free(StringWriter writer)
         {
             cache = writer;
         }
 
+        /// <summary>
+        /// Returns the and free.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <returns>System.String.</returns>
         public static string ReturnAndFree(StringWriter writer)
         {
             var ret = writer.ToString();
@@ -71,11 +109,21 @@ namespace ServiceStack.Text
     }
 
     //Use separate cache internally to avoid reallocations and cache misses
+    /// <summary>
+    /// Class StringWriterThreadStatic.
+    /// </summary>
     internal static class StringWriterThreadStatic
     {
+        /// <summary>
+        /// The cache
+        /// </summary>
         [ThreadStatic]
         static StringWriter cache;
 
+        /// <summary>
+        /// Allocates this instance.
+        /// </summary>
+        /// <returns>StringWriter.</returns>
         public static StringWriter Allocate()
         {
             var ret = cache;
@@ -88,11 +136,20 @@ namespace ServiceStack.Text
             return ret;
         }
 
+        /// <summary>
+        /// Frees the specified writer.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
         public static void Free(StringWriter writer)
         {
             cache = writer;
         }
 
+        /// <summary>
+        /// Returns the and free.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <returns>System.String.</returns>
         public static string ReturnAndFree(StringWriter writer)
         {
             var ret = writer.ToString();

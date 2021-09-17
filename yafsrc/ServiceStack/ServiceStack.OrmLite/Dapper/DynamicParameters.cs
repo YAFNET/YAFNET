@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="DynamicParameters.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,11 +19,28 @@ namespace ServiceStack.OrmLite.Dapper
     /// </summary>
     public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper.IParameterLookup, SqlMapper.IParameterCallbacks
     {
+        /// <summary>
+        /// The enumerable multi parameter
+        /// </summary>
         internal const DbType EnumerableMultiParameter = (DbType)(-1);
+        /// <summary>
+        /// The parameter reader cache
+        /// </summary>
         private static readonly Dictionary<SqlMapper.Identity, Action<IDbCommand, object>> paramReaderCache = new Dictionary<SqlMapper.Identity, Action<IDbCommand, object>>();
+        /// <summary>
+        /// The parameters
+        /// </summary>
         private readonly Dictionary<string, ParamInfo> parameters = new Dictionary<string, ParamInfo>();
+        /// <summary>
+        /// The templates
+        /// </summary>
         private List<object> templates;
 
+        /// <summary>
+        /// Gets the <see cref="System.Object"/> with the specified name.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.Object.</returns>
         object SqlMapper.IParameterLookup.this[string name] =>
             parameters.TryGetValue(name, out ParamInfo param) ? param.Value : null;
 
@@ -43,7 +66,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// Append a whole object full of params to the dynamic
         /// EG: AddDynamicParams(new {A = 1, B = 2}) // will add property A and B to the dynamic
         /// </summary>
-        /// <param name="param"></param>
+        /// <param name="param">The parameter.</param>
         public void AddDynamicParams(object param)
         {
             var obj = param;
@@ -132,6 +155,11 @@ namespace ServiceStack.OrmLite.Dapper
             };
         }
 
+        /// <summary>
+        /// Cleans the specified name.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         private static string Clean(string name)
         {
             if (!string.IsNullOrEmpty(name))
@@ -147,6 +175,11 @@ namespace ServiceStack.OrmLite.Dapper
             return name;
         }
 
+        /// <summary>
+        /// Add all the parameters needed to the command just before it executes
+        /// </summary>
+        /// <param name="command">The raw command prior to execution</param>
+        /// <param name="identity">Information about the query</param>
         void SqlMapper.IDynamicParameters.AddParameters(IDbCommand command, SqlMapper.Identity identity)
         {
             AddParameters(command, identity);
@@ -155,6 +188,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// If true, the command-text is inspected and only values that are clearly used are included on the connection
         /// </summary>
+        /// <value><c>true</c> if [remove unused]; otherwise, <c>false</c>.</value>
         public bool RemoveUnused { get; set; }
 
         /// <summary>
@@ -301,14 +335,16 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// All the names of the param in the bag, use Get to yank them out
         /// </summary>
+        /// <value>The parameter names.</value>
         public IEnumerable<string> ParameterNames => parameters.Select(p => p.Key);
 
         /// <summary>
         /// Get the value of a parameter
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="name"></param>
+        /// <param name="name">The name.</param>
         /// <returns>The value, note DBNull.Value is not returned, instead the value is returned as null</returns>
+        /// <exception cref="System.ApplicationException">Attempting to cast a DBNull to a non nullable type! Note that out/return parameters will not have updated values until the data stream completes (after the 'foreach' for Query(..., buffered: false), or after the GridReader has been disposed for QueryMultiple)</exception>
         public T Get<T>(string name)
         {
             var paramInfo = parameters[Clean(name)];
@@ -332,7 +368,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T"></typeparam>
         /// <param name="target">The object whose property/field you wish to populate.</param>
         /// <param name="expression">A MemberExpression targeting a property/field of the target (or descendant thereof.)</param>
-        /// <param name="dbType"></param>
+        /// <param name="dbType">Type of the database.</param>
         /// <param name="size">The size to set on the parameter. Defaults to 0, or DbString.DefaultLength in case of strings.</param>
         /// <returns>The DynamicParameters instance</returns>
         public DynamicParameters Output<T>(T target, Expression<Func<T, object>> expression, DbType? dbType = null, int? size = null)
@@ -486,8 +522,14 @@ namespace ServiceStack.OrmLite.Dapper
             return this;
         }
 
+        /// <summary>
+        /// The output callbacks
+        /// </summary>
         private List<Action> outputCallbacks;
 
+        /// <summary>
+        /// Called when [completed].
+        /// </summary>
         void SqlMapper.IParameterCallbacks.OnCompleted()
         {
             foreach (var param in from p in parameters select p.Value)

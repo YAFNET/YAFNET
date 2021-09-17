@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="ReflectionExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -25,16 +20,39 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Delegate EmptyCtorFactoryDelegate
+    /// </summary>
+    /// <param name="type">The type.</param>
+    /// <returns>EmptyCtorDelegate.</returns>
     public delegate EmptyCtorDelegate EmptyCtorFactoryDelegate(Type type);
+    /// <summary>
+    /// Delegate EmptyCtorDelegate
+    /// </summary>
+    /// <returns>System.Object.</returns>
     public delegate object EmptyCtorDelegate();
 
+    /// <summary>
+    /// Class ReflectionExtensions.
+    /// </summary>
     public static class ReflectionExtensions
     {
+        /// <summary>
+        /// Gets the type code.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>TypeCode.</returns>
         public static TypeCode GetTypeCode(this Type type)
         {
             return Type.GetTypeCode(type);
         }
 
+        /// <summary>
+        /// Determines whether [is instance of] [the specified this or base type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="thisOrBaseType">Type of the this or base.</param>
+        /// <returns><c>true</c> if [is instance of] [the specified this or base type]; otherwise, <c>false</c>.</returns>
         public static bool IsInstanceOf(this Type type, Type thisOrBaseType)
         {
             while (type != null)
@@ -48,6 +66,11 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Determines whether [has generic type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [has generic type] [the specified type]; otherwise, <c>false</c>.</returns>
         public static bool HasGenericType(this Type type)
         {
             while (type != null)
@@ -60,6 +83,11 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Firsts the type of the generic.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Type.</returns>
         public static Type FirstGenericType(this Type type)
         {
             while (type != null)
@@ -72,6 +100,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Gets the type with generic type definition of any.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="genericTypeDefinitions">The generic type definitions.</param>
+        /// <returns>Type.</returns>
         public static Type GetTypeWithGenericTypeDefinitionOfAny(this Type type, params Type[] genericTypeDefinitions)
         {
             foreach (var genericTypeDefinition in genericTypeDefinitions)
@@ -88,12 +122,24 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Determines whether [is or has generic interface type of] [the specified generic type definition].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="genericTypeDefinition">The generic type definition.</param>
+        /// <returns><c>true</c> if [is or has generic interface type of] [the specified generic type definition]; otherwise, <c>false</c>.</returns>
         public static bool IsOrHasGenericInterfaceTypeOf(this Type type, Type genericTypeDefinition)
         {
             return type.GetTypeWithGenericTypeDefinitionOf(genericTypeDefinition) != null
                 || type == genericTypeDefinition;
         }
 
+        /// <summary>
+        /// Gets the type with generic type definition of.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="genericTypeDefinition">The generic type definition.</param>
+        /// <returns>Type.</returns>
         public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
         {
             foreach (var t in type.GetInterfaces())
@@ -113,6 +159,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Gets the type with interface of.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="interfaceType">Type of the interface.</param>
+        /// <returns>Type.</returns>
         public static Type GetTypeWithInterfaceOf(this Type type, Type interfaceType)
         {
             if (type == interfaceType) return interfaceType;
@@ -126,6 +178,12 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Determines whether the specified interface type has interface.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="interfaceType">Type of the interface.</param>
+        /// <returns><c>true</c> if the specified interface type has interface; otherwise, <c>false</c>.</returns>
         public static bool HasInterface(this Type type, Type interfaceType)
         {
             foreach (var t in type.GetInterfaces())
@@ -136,6 +194,12 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Alls the type of the have interfaces of.
+        /// </summary>
+        /// <param name="assignableFromType">Type of the assignable from.</param>
+        /// <param name="types">The types.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool AllHaveInterfacesOfType(
             this Type assignableFromType, params Type[] types)
         {
@@ -146,16 +210,31 @@ namespace ServiceStack
             return true;
         }
 
+        /// <summary>
+        /// Determines whether [is nullable type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is nullable type] [the specified type]; otherwise, <c>false</c>.</returns>
         public static bool IsNullableType(this Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
         }
 
+        /// <summary>
+        /// Gets the underlying type code.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>TypeCode.</returns>
         public static TypeCode GetUnderlyingTypeCode(this Type type)
         {
             return GetTypeCode(Nullable.GetUnderlyingType(type) ?? type);
         }
 
+        /// <summary>
+        /// Determines whether [is numeric type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is numeric type] [the specified type]; otherwise, <c>false</c>.</returns>
         public static bool IsNumericType(this Type type)
         {
             if (type == null) return false;
@@ -194,6 +273,11 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Determines whether [is integer type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is integer type] [the specified type]; otherwise, <c>false</c>.</returns>
         public static bool IsIntegerType(this Type type)
         {
             if (type == null) return false;
@@ -220,6 +304,11 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Determines whether [is real number type] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if [is real number type] [the specified type]; otherwise, <c>false</c>.</returns>
         public static bool IsRealNumberType(this Type type)
         {
             if (type == null) return false;
@@ -241,6 +330,12 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Gets the type with generic interface of.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="genericInterfaceType">Type of the generic interface.</param>
+        /// <returns>Type.</returns>
         public static Type GetTypeWithGenericInterfaceOf(this Type type, Type genericInterfaceType)
         {
             foreach (var t in type.GetInterfaces())
@@ -257,6 +352,12 @@ namespace ServiceStack
                     : null;
         }
 
+        /// <summary>
+        /// Determines whether [has any type definitions of] [the specified these generic types].
+        /// </summary>
+        /// <param name="genericType">Type of the generic.</param>
+        /// <param name="theseGenericTypes">The these generic types.</param>
+        /// <returns><c>true</c> if [has any type definitions of] [the specified these generic types]; otherwise, <c>false</c>.</returns>
         public static bool HasAnyTypeDefinitionsOf(this Type genericType, params Type[] theseGenericTypes)
         {
             if (!genericType.IsGenericType) return false;
@@ -272,6 +373,13 @@ namespace ServiceStack
             return false;
         }
 
+        /// <summary>
+        /// Gets the generic arguments if both have same generic definition type and arguments.
+        /// </summary>
+        /// <param name="assignableFromType">Type of the assignable from.</param>
+        /// <param name="typeA">The type a.</param>
+        /// <param name="typeB">The type b.</param>
+        /// <returns>Type[].</returns>
         public static Type[] GetGenericArgumentsIfBothHaveSameGenericDefinitionTypeAndArguments(
             this Type assignableFromType, Type typeA, Type typeB)
         {
@@ -297,6 +405,13 @@ namespace ServiceStack
             return typeAGenericArgs;
         }
 
+        /// <summary>
+        /// Gets the generic arguments if both have convertible generic definition type and arguments.
+        /// </summary>
+        /// <param name="assignableFromType">Type of the assignable from.</param>
+        /// <param name="typeA">The type a.</param>
+        /// <param name="typeB">The type b.</param>
+        /// <returns>TypePair.</returns>
         public static TypePair GetGenericArgumentsIfBothHaveConvertibleGenericDefinitionTypeAndArguments(
             this Type assignableFromType, Type typeA, Type typeB)
         {
@@ -322,6 +437,11 @@ namespace ServiceStack
             return new TypePair(typeAGenericArgs, typeBGenericArgs);
         }
 
+        /// <summary>
+        /// Ares all string or value types.
+        /// </summary>
+        /// <param name="types">The types.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool AreAllStringOrValueTypes(params Type[] types)
         {
             foreach (var type in types)
@@ -331,7 +451,15 @@ namespace ServiceStack
             return true;
         }
 
+        /// <summary>
+        /// The constructor methods
+        /// </summary>
         static Dictionary<Type, EmptyCtorDelegate> ConstructorMethods = new();
+        /// <summary>
+        /// Gets the constructor method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>EmptyCtorDelegate.</returns>
         public static EmptyCtorDelegate GetConstructorMethod(Type type)
         {
             if (ConstructorMethods.TryGetValue(type, out var emptyCtorFn))
@@ -352,7 +480,15 @@ namespace ServiceStack
             return emptyCtorFn;
         }
 
+        /// <summary>
+        /// The type names map
+        /// </summary>
         static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = new();
+        /// <summary>
+        /// Gets the constructor method.
+        /// </summary>
+        /// <param name="typeName">Name of the type.</param>
+        /// <returns>EmptyCtorDelegate.</returns>
         public static EmptyCtorDelegate GetConstructorMethod(string typeName)
         {
             if (TypeNamesMap.TryGetValue(typeName, out var emptyCtorFn))
@@ -377,6 +513,11 @@ namespace ServiceStack
             return emptyCtorFn;
         }
 
+        /// <summary>
+        /// Gets the constructor method to cache.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>EmptyCtorDelegate.</returns>
         public static EmptyCtorDelegate GetConstructorMethodToCache(Type type)
         {
             if (type == typeof(string))
@@ -427,15 +568,30 @@ namespace ServiceStack
             return ReflectionOptimizer.Instance.CreateConstructor(type);
         }
 
+        /// <summary>
+        /// Class TypeMeta.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         private static class TypeMeta<T>
         {
+            /// <summary>
+            /// The empty ctor function
+            /// </summary>
             public static readonly EmptyCtorDelegate EmptyCtorFn;
+            /// <summary>
+            /// Initializes static members of the <see cref="TypeMeta{T}"/> class.
+            /// </summary>
             static TypeMeta()
             {
                 EmptyCtorFn = GetConstructorMethodToCache(typeof(T));
             }
         }
 
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.Object.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateInstance<T>()
         {
@@ -443,9 +599,12 @@ namespace ServiceStack
         }
 
         /// <summary>
-        /// Creates a new instance of type. 
+        /// Creates a new instance of type.
         /// First looks at JsConfig.ModelFactory before falling back to CreateInstance
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns>T.</returns>
         public static T New<T>(this Type type)
         {
             var factoryFn = JsConfig.ModelFactory(type)
@@ -454,9 +613,11 @@ namespace ServiceStack
         }
 
         /// <summary>
-        /// Creates a new instance of type. 
+        /// Creates a new instance of type.
         /// First looks at JsConfig.ModelFactory before falling back to CreateInstance
         /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         public static object New(this Type type)
         {
             var factoryFn = JsConfig.ModelFactory(type)
@@ -467,6 +628,8 @@ namespace ServiceStack
         /// <summary>
         /// Creates a new instance from the default constructor of type
         /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateInstance(this Type type)
         {
@@ -477,6 +640,12 @@ namespace ServiceStack
             return ctorFn();
         }
 
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="type">The type.</param>
+        /// <returns>T.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T CreateInstance<T>(this Type type)
         {
@@ -487,6 +656,11 @@ namespace ServiceStack
             return (T)ctorFn();
         }
 
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <param name="typeName">Name of the type.</param>
+        /// <returns>System.Object.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static object CreateInstance(string typeName)
         {
@@ -497,6 +671,11 @@ namespace ServiceStack
             return ctorFn();
         }
 
+        /// <summary>
+        /// Gets the module.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>Module.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Module GetModule(this Type type)
         {
@@ -506,6 +685,11 @@ namespace ServiceStack
             return type.Module;
         }
 
+        /// <summary>
+        /// Gets all properties.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>PropertyInfo[].</returns>
         public static PropertyInfo[] GetAllProperties(this Type type)
         {
             if (type.IsInterface)
@@ -544,6 +728,11 @@ namespace ServiceStack
                 .ToArray();
         }
 
+        /// <summary>
+        /// Gets the public properties.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>PropertyInfo[].</returns>
         public static PropertyInfo[] GetPublicProperties(this Type type)
         {
             if (type.IsInterface)
@@ -582,13 +771,22 @@ namespace ServiceStack
                 .ToArray();
         }
 
+        /// <summary>
+        /// The data member
+        /// </summary>
         public const string DataMember = "DataMemberAttribute";
 
+        /// <summary>
+        /// The ignore attributes named
+        /// </summary>
         internal static string[] IgnoreAttributesNamed = new[] {
             "IgnoreDataMemberAttribute",
             "JsonIgnoreAttribute"
         };
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         internal static void Reset()
         {
             IgnoreAttributesNamed = new[] {
@@ -611,6 +809,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Gets the serializable properties.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>PropertyInfo[].</returns>
         public static PropertyInfo[] GetSerializableProperties(this Type type)
         {
             var properties = type.IsDto()
@@ -619,6 +822,12 @@ namespace ServiceStack
             return properties.OnlySerializableProperties(type);
         }
 
+        /// <summary>
+        /// Called when [serializable properties].
+        /// </summary>
+        /// <param name="properties">The properties.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>PropertyInfo[].</returns>
         public static PropertyInfo[] OnlySerializableProperties(this PropertyInfo[] properties, Type type = null)
         {
             var isDto = type.IsDto();
@@ -643,6 +852,11 @@ namespace ServiceStack
                 .ToArray();
         }
 
+        /// <summary>
+        /// Gets the on deserializing.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>Func&lt;System.Object, System.String, System.Object, System.Object&gt;.</returns>
         public static Func<object, string, object, object> GetOnDeserializing<T>()
         {
             var method = typeof(T).GetMethodInfo("OnDeserializing");
@@ -652,6 +866,11 @@ namespace ServiceStack
             return (instance, memberName, value) => obj((T)instance, memberName, value);
         }
 
+        /// <summary>
+        /// Gets the serializable fields.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>FieldInfo[].</returns>
         public static FieldInfo[] GetSerializableFields(this Type type)
         {
             if (type.IsDto())
@@ -675,6 +894,11 @@ namespace ServiceStack
                 .ToArray();
         }
 
+        /// <summary>
+        /// Gets the data contract.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>DataContractAttribute.</returns>
         public static DataContractAttribute GetDataContract(this Type type)
         {
             var dataContract = type.FirstAttribute<DataContractAttribute>();
@@ -685,6 +909,11 @@ namespace ServiceStack
             return dataContract;
         }
 
+        /// <summary>
+        /// Gets the data member.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <returns>DataMemberAttribute.</returns>
         public static DataMemberAttribute GetDataMember(this PropertyInfo pi)
         {
             var dataMember = pi.AllAttributes(typeof(DataMemberAttribute))
@@ -696,6 +925,11 @@ namespace ServiceStack
             return dataMember;
         }
 
+        /// <summary>
+        /// Gets the data member.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <returns>DataMemberAttribute.</returns>
         public static DataMemberAttribute GetDataMember(this FieldInfo pi)
         {
             var dataMember = pi.AllAttributes(typeof(DataMemberAttribute))
@@ -707,12 +941,22 @@ namespace ServiceStack
             return dataMember;
         }
 
+        /// <summary>
+        /// Gets the name of the data member.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <returns>System.String.</returns>
         public static string GetDataMemberName(this PropertyInfo pi)
         {
             var attr = pi.GetDataMember();
             return attr?.Name;
         }
 
+        /// <summary>
+        /// Gets the name of the data member.
+        /// </summary>
+        /// <param name="fi">The fi.</param>
+        /// <returns>System.String.</returns>
         public static string GetDataMemberName(this FieldInfo fi)
         {
             var attr = fi.GetDataMember();

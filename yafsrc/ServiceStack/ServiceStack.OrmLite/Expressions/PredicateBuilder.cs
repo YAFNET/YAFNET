@@ -1,10 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-
+﻿// ***********************************************************************
+// <copyright file="PredicateBuilder.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
+
     /// <summary>
     /// Enables the efficient, dynamic composition of query predicates.
     /// </summary>
@@ -13,6 +19,8 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Creates a predicate that evaluates to true.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
         public static Expression<Func<T, bool>> True<T>()
         {
             return param => true;
@@ -21,6 +29,8 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Creates a predicate that evaluates to false.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
         public static Expression<Func<T, bool>> False<T>()
         {
             return param => false;
@@ -29,6 +39,9 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Creates a predicate expression from the specified lambda expression.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
         public static Expression<Func<T, bool>> Create<T>(Expression<Func<T, bool>> predicate)
         {
             return predicate;
@@ -37,6 +50,10 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Combines the first predicate with the second using the logical "and".
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
         public static Expression<Func<T, bool>> And<T>(this Expression<Func<T, bool>> first,
                                                        Expression<Func<T, bool>> second)
         {
@@ -46,6 +63,10 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Combines the first predicate with the second using the logical "or".
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
         public static Expression<Func<T, bool>> Or<T>(this Expression<Func<T, bool>> first,
                                                       Expression<Func<T, bool>> second)
         {
@@ -55,6 +76,9 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Negates the predicate.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expression">The expression.</param>
+        /// <returns>Expression&lt;Func&lt;T, System.Boolean&gt;&gt;.</returns>
         public static Expression<Func<T, bool>> Not<T>(this Expression<Func<T, bool>> expression)
         {
             UnaryExpression negated = Expression.Not(expression.Body);
@@ -64,6 +88,11 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Combines the first expression with the second using the specified merge function.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="first">The first.</param>
+        /// <param name="second">The second.</param>
+        /// <param name="merge">The merge.</param>
+        /// <returns>Expression&lt;T&gt;.</returns>
         private static Expression<T> Compose<T>(this Expression<T> first, Expression<T> second,
                                                 Func<Expression, Expression, Expression> merge)
         {

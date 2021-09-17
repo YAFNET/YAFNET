@@ -1,4 +1,10 @@
-﻿#if ASYNC
+﻿// ***********************************************************************
+// <copyright file="OrmLiteUtilExtensionsAsync.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+#if ASYNC
 // Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
@@ -14,13 +20,29 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
+    /// <summary>
+    /// Class OrmLiteUtilExtensionsAsync.
+    /// </summary>
     internal static class OrmLiteUtilExtensionsAsync
     {
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>T.</returns>
         public static T CreateInstance<T>()
         {
             return (T)ReflectionExtensions.CreateInstance<T>();
         }
 
+        /// <summary>
+        /// Convert to as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
         public static async Task<T> ConvertToAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
         {
             using (reader)
@@ -44,6 +66,15 @@ namespace ServiceStack.OrmLite
                 }, token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Convert to list as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
         public static async Task<List<T>> ConvertToListAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields, CancellationToken token)
         {
             if (typeof(T) == typeof(List<object>))
@@ -127,6 +158,14 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Convert to as an asynchronous operation.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
         public static async Task<object> ConvertToAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
         {
             var modelDef = type.GetModelDefinition();
@@ -142,6 +181,14 @@ namespace ServiceStack.OrmLite
                 }, token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Convert to list as an asynchronous operation.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="type">The type.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;IList&gt; representing the asynchronous operation.</returns>
         public static async Task<IList> ConvertToListAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
         {
             var modelDef = type.GetModelDefinition();

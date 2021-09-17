@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="DeserializeDictionary.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -17,16 +12,40 @@ using System.Threading;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeDictionary.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class DeserializeDictionary<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
-        const int KeyIndex = 0;
-        const int ValueIndex = 1;
+        /// <summary>
+        /// The key index
+        /// </summary>
+        private const int KeyIndex = 0;
 
+        /// <summary>
+        /// The value index
+        /// </summary>
+        private const int ValueIndex = 1;
+
+        /// <summary>
+        /// Gets the parse method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringDelegate.</returns>
         public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringSpanDelegate.</returns>
         public static ParseStringSpanDelegate GetParseStringSpanMethod(Type type)
         {
             var mapInterface = type.GetTypeWithGenericInterfaceOf(typeof(IDictionary<,>));
@@ -73,8 +92,19 @@ namespace ServiceStack.Text.Common
             return value => ParseDictionaryType(value, createMapType, dictionaryArgs, keyTypeParseMethod, valueTypeParseMethod);
         }
 
+        /// <summary>
+        /// Parses the json object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>JsonObject.</returns>
         public static JsonObject ParseJsonObject(string value) => ParseJsonObject(value.AsSpan());
 
+        /// <summary>
+        /// Parses the inherited json object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value">The value.</param>
+        /// <returns>T.</returns>
         public static T ParseInheritedJsonObject<T>(ReadOnlySpan<char> value) where T : JsonObject, new()
         {
             if (value.Length == 0)
@@ -105,6 +135,11 @@ namespace ServiceStack.Text.Common
             return result;
         }
 
+        /// <summary>
+        /// Parses the json object.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>JsonObject.</returns>
         public static JsonObject ParseJsonObject(ReadOnlySpan<char> value)
         {
             if (value.Length == 0)
@@ -135,8 +170,18 @@ namespace ServiceStack.Text.Common
             return result;
         }
 
+        /// <summary>
+        /// Parses the string dictionary.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
         public static Dictionary<string, string> ParseStringDictionary(string value) => ParseStringDictionary(value.AsSpan());
 
+        /// <summary>
+        /// Parses the string dictionary.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
         public static Dictionary<string, string> ParseStringDictionary(ReadOnlySpan<char> value)
         {
             if (value.IsEmpty)
@@ -167,8 +212,20 @@ namespace ServiceStack.Text.Common
             return result;
         }
 
+        /// <summary>
+        /// Parses the i dictionary.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="dictType">Type of the dictionary.</param>
+        /// <returns>IDictionary.</returns>
         public static IDictionary ParseIDictionary(string value, Type dictType) => ParseIDictionary(value.AsSpan(), dictType);
 
+        /// <summary>
+        /// Parses the i dictionary.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="dictType">Type of the dictionary.</param>
+        /// <returns>IDictionary.</returns>
         public static IDictionary ParseIDictionary(ReadOnlySpan<char> value, Type dictType)
         {
             if (value.IsEmpty) return null;
@@ -209,6 +266,16 @@ namespace ServiceStack.Text.Common
             return to;
         }
 
+        /// <summary>
+        /// Parses the dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <typeparam name="TValue">The type of the t value.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="parseKeyFn">The parse key function.</param>
+        /// <param name="parseValueFn">The parse value function.</param>
+        /// <returns>IDictionary&lt;TKey, TValue&gt;.</returns>
         public static IDictionary<TKey, TValue> ParseDictionary<TKey, TValue>(
             string value, Type createMapType,
             ParseStringDelegate parseKeyFn, ParseStringDelegate parseValueFn)
@@ -221,6 +288,16 @@ namespace ServiceStack.Text.Common
         }
 
 
+        /// <summary>
+        /// Parses the dictionary.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <typeparam name="TValue">The type of the t value.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="parseKeyFn">The parse key function.</param>
+        /// <param name="parseValueFn">The parse value function.</param>
+        /// <returns>IDictionary&lt;TKey, TValue&gt;.</returns>
         public static IDictionary<TKey, TValue> ParseDictionary<TKey, TValue>(
             ReadOnlySpan<char> value, Type createMapType,
             ParseStringSpanDelegate parseKeyFn, ParseStringSpanDelegate parseValueFn)
@@ -298,6 +375,12 @@ namespace ServiceStack.Text.Common
             return to;
         }
 
+        /// <summary>
+        /// Verifies the start index of the and get.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <returns>System.Int32.</returns>
         private static int VerifyAndGetStartIndex(ReadOnlySpan<char> value, Type createMapType)
         {
             var index = 0;
@@ -310,19 +393,51 @@ namespace ServiceStack.Text.Common
             return index;
         }
 
+        /// <summary>
+        /// The parse delegate cache
+        /// </summary>
         private static Dictionary<TypesKey, ParseDictionaryDelegate> ParseDelegateCache
             = new();
 
+        /// <summary>
+        /// Delegate ParseDictionaryDelegate
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="keyParseFn">The key parse function.</param>
+        /// <param name="valueParseFn">The value parse function.</param>
+        /// <returns>System.Object.</returns>
         private delegate object ParseDictionaryDelegate(ReadOnlySpan<char> value, Type createMapType,
             ParseStringSpanDelegate keyParseFn, ParseStringSpanDelegate valueParseFn);
 
+        /// <summary>
+        /// Parses the type of the dictionary.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="argTypes">The argument types.</param>
+        /// <param name="keyParseFn">The key parse function.</param>
+        /// <param name="valueParseFn">The value parse function.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseDictionaryType(string value, Type createMapType, Type[] argTypes,
             ParseStringDelegate keyParseFn, ParseStringDelegate valueParseFn) =>
             ParseDictionaryType(value.AsSpan(), createMapType, argTypes,
                 v => keyParseFn(v.ToString()), v => valueParseFn(v.ToString()));
 
-        static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
+        /// <summary>
+        /// The signature
+        /// </summary>
+        private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
 
+        /// <summary>
+        /// Parses the type of the dictionary.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="argTypes">The argument types.</param>
+        /// <param name="keyParseFn">The key parse function.</param>
+        /// <param name="valueParseFn">The value parse function.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseDictionaryType(ReadOnlySpan<char> value, Type createMapType, Type[] argTypes,
             ParseStringSpanDelegate keyParseFn, ParseStringSpanDelegate valueParseFn)
         {
@@ -349,13 +464,32 @@ namespace ServiceStack.Text.Common
             return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
         }
 
-        struct TypesKey
+        /// <summary>
+        /// Struct TypesKey
+        /// </summary>
+        private struct TypesKey
         {
-            Type Type1 { get; }
-            Type Type2 { get; }
+            /// <summary>
+            /// Gets the type1.
+            /// </summary>
+            /// <value>The type1.</value>
+            private Type Type1 { get; }
+            /// <summary>
+            /// Gets the type2.
+            /// </summary>
+            /// <value>The type2.</value>
+            private Type Type2 { get; }
 
-            readonly int hashcode;
+            /// <summary>
+            /// The hashcode
+            /// </summary>
+            private readonly int hashcode;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="TypesKey" /> struct.
+            /// </summary>
+            /// <param name="type1">The type1.</param>
+            /// <param name="type2">The type2.</param>
             public TypesKey(Type type1, Type type2)
             {
                 Type1 = type1;
@@ -366,6 +500,11 @@ namespace ServiceStack.Text.Common
                 }
             }
 
+            /// <summary>
+            /// Determines whether the specified <see cref="object" /> is equal to this instance.
+            /// </summary>
+            /// <param name="obj">The object to compare with the current instance.</param>
+            /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
             public override bool Equals(object obj)
             {
                 var types = (TypesKey)obj;
@@ -373,6 +512,10 @@ namespace ServiceStack.Text.Common
                 return Type1 == types.Type1 && Type2 == types.Type2;
             }
 
+            /// <summary>
+            /// Returns a hash code for this instance.
+            /// </summary>
+            /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
             public override int GetHashCode() => hashcode;
         }
     }

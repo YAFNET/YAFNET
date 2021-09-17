@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="DefaultTypeMap.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,13 +16,20 @@ namespace ServiceStack.OrmLite.Dapper
     /// </summary>
     public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     {
+        /// <summary>
+        /// The fields
+        /// </summary>
         private readonly List<FieldInfo> _fields;
+        /// <summary>
+        /// The type
+        /// </summary>
         private readonly Type _type;
 
         /// <summary>
         /// Creates default type map
         /// </summary>
         /// <param name="type">Entity type</param>
+        /// <exception cref="System.ArgumentNullException">type</exception>
         public DefaultTypeMap(Type type)
         {
             if (type == null)
@@ -27,6 +40,12 @@ namespace ServiceStack.OrmLite.Dapper
             _type = type;
         }
 
+        /// <summary>
+        /// Gets the property setter.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>MethodInfo.</returns>
         internal static MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
         {
             if (propertyInfo.DeclaringType == type) return propertyInfo.GetSetMethod(true);
@@ -40,6 +59,11 @@ namespace ServiceStack.OrmLite.Dapper
                    null).GetSetMethod(true);
         }
 
+        /// <summary>
+        /// Gets the settable props.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <returns>List&lt;PropertyInfo&gt;.</returns>
         internal static List<PropertyInfo> GetSettableProps(Type t)
         {
             return t
@@ -48,6 +72,11 @@ namespace ServiceStack.OrmLite.Dapper
                   .ToList();
         }
 
+        /// <summary>
+        /// Gets the settable fields.
+        /// </summary>
+        /// <param name="t">The t.</param>
+        /// <returns>List&lt;FieldInfo&gt;.</returns>
         internal static List<FieldInfo> GetSettableFields(Type t)
         {
             return t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToList();
@@ -98,6 +127,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// Returns the constructor, if any, that has the ExplicitConstructorAttribute on it.
         /// </summary>
+        /// <returns>ConstructorInfo.</returns>
         public ConstructorInfo FindExplicitConstructor()
         {
             var constructors = _type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -172,11 +202,13 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// Should column names like User_Id be allowed to match properties/fields like UserId ?
         /// </summary>
+        /// <value><c>true</c> if [match names with underscores]; otherwise, <c>false</c>.</value>
         public static bool MatchNamesWithUnderscores { get; set; }
 
         /// <summary>
         /// The settable properties for this typemap
         /// </summary>
+        /// <value>The properties.</value>
         public List<PropertyInfo> Properties { get; }
     }
 }

@@ -1,4 +1,10 @@
-﻿namespace ServiceStack.OrmLite.MySql
+﻿// ***********************************************************************
+// <copyright file="MySqlDialectProviderBase.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.OrmLite.MySql
 {
     using System;
     using System.Collections.Generic;
@@ -16,11 +22,23 @@
     using ServiceStack.Script;
     using ServiceStack.Text;
 
+    /// <summary>
+    /// Class MySqlDialectProviderBase.
+    /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteDialectProviderBase{TDialect}" />
+    /// </summary>
+    /// <typeparam name="TDialect">The type of the t dialect.</typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.OrmLiteDialectProviderBase{TDialect}" />
     public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProviderBase<TDialect> where TDialect : IOrmLiteDialectProvider
     {
 
+        /// <summary>
+        /// The text column definition
+        /// </summary>
         private const string TextColumnDefinition = "TEXT";
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MySqlDialectProviderBase{TDialect}"/> class.
+        /// </summary>
         public MySqlDialectProviderBase()
         {
             base.AutoIncrementDefinition = "AUTO_INCREMENT";
@@ -55,9 +73,15 @@
             };
         }
 
+        /// <summary>
+        /// The row version trigger format
+        /// </summary>
         public static string RowVersionTriggerFormat = "{0}RowVersionUpdateTrigger";
 
-        public static HashSet<string> ReservedWords = new HashSet<string>(new[]
+        /// <summary>
+        /// The reserved words
+        /// </summary>
+        public static HashSet<string> ReservedWords = new(new[]
         {
           "ACCESSIBLE",
           "ADD",
@@ -323,42 +347,73 @@
           "ZEROFILL",
         }, StringComparer.OrdinalIgnoreCase);
 
+        /// <summary>
+        /// Gets the load children sub select.
+        /// </summary>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="expr">The expr.</param>
+        /// <returns>System.String.</returns>
         public override string GetLoadChildrenSubSelect<From>(SqlExpression<From> expr)
         {
             return $"SELECT * FROM ({base.GetLoadChildrenSubSelect(expr)}) AS SubQuery";
         }
+
+        /// <summary>
+        /// Converts to postdroptablestatement.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string ToPostDropTableStatement(ModelDefinition modelDef)
         {
-            if (modelDef.RowVersion != null)
+            if (modelDef.RowVersion == null)
             {
-                var triggerName = RowVersionTriggerFormat.Fmt(GetTableName(modelDef));
-                return "DROP TRIGGER IF EXISTS {0}".Fmt(GetQuotedName(triggerName));
+                return null;
             }
-            return null;
+
+            var triggerName = RowVersionTriggerFormat.Fmt(GetTableName(modelDef));
+            return "DROP TRIGGER IF EXISTS {0}".Fmt(GetQuotedName(triggerName));
         }
 
+        /// <summary>
+        /// Converts to postcreatetablestatement.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string ToPostCreateTableStatement(ModelDefinition modelDef)
         {
-            if (modelDef.RowVersion != null)
+            if (modelDef.RowVersion == null)
             {
-                var triggerName = RowVersionTriggerFormat.Fmt(modelDef.ModelName);
-                var triggerBody = "SET NEW.{0} = OLD.{0} + 1;".Fmt(
-                    modelDef.RowVersion.FieldName.SqlColumn(this));
-
-                var sql = "CREATE TRIGGER {0} BEFORE UPDATE ON {1} FOR EACH ROW BEGIN {2} END;".Fmt(
-                    triggerName, GetTableName(modelDef), triggerBody);
-
-                return sql;
+                return null;
             }
 
-            return null;
+            var triggerName = RowVersionTriggerFormat.Fmt(modelDef.ModelName);
+            var triggerBody = "SET NEW.{0} = OLD.{0} + 1;".Fmt(
+                modelDef.RowVersion.FieldName.SqlColumn(this));
+
+            var sql = "CREATE TRIGGER {0} BEFORE UPDATE ON {1} FOR EACH ROW BEGIN {2} END;".Fmt(
+                triggerName, this.GetTableName(modelDef), triggerBody);
+
+            return sql;
+
         }
 
+        /// <summary>
+        /// Quote the string so that it can be used inside an SQL-expression
+        /// Escape quotes inside the string
+        /// </summary>
+        /// <param name="paramValue">The parameter value.</param>
+        /// <returns>System.String.</returns>
         public override string GetQuotedValue(string paramValue)
         {
             return "'" + paramValue.Replace("\\", "\\\\").Replace("'", @"\'") + "'";
         }
 
+        /// <summary>
+        /// Gets the quoted value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <returns>System.String.</returns>
         public override string GetQuotedValue(object value, Type fieldType)
         {
             if (value == null)
@@ -370,9 +425,22 @@
             return base.GetQuotedValue(value, fieldType);
         }
 
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public override string GetTableName(string table, string schema = null) =>
             GetTableName(table, schema, useStrategy:true);
 
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
+        /// <returns>System.String.</returns>
         public override string GetTableName(string table, string schema, bool useStrategy)
         {
             if (useStrategy)
@@ -387,22 +455,48 @@
                 : QuoteIfRequired(table);
         }
 
+        /// <summary>
+        /// Shoulds the quote.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool ShouldQuote(string name) => name != null &&
             (ReservedWords.Contains(name) || name.IndexOf(' ') >= 0 || name.IndexOf('.') >= 0);
 
+        /// <summary>
+        /// Gets the name of the quoted.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public override string GetQuotedName(string name) => name == null ? null : name.FirstCharEquals('`')
             ? name : '`' + name + '`';
 
+        /// <summary>
+        /// Gets the name of the quoted table.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public override string GetQuotedTableName(string tableName, string schema = null)
         {
             return GetQuotedName(GetTableName(tableName, schema));
         }
 
+        /// <summary>
+        /// SQLs the expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
         public override SqlExpression<T> SqlExpression<T>()
         {
             return new MySqlExpression<T>(this);
         }
 
+        /// <summary>
+        /// Converts to tablenamesstatement.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public override string ToTableNamesStatement(string schema)
         {
             return schema == null
@@ -410,6 +504,12 @@
                 : "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, NamingStrategy.GetSchemaName(schema)  + "\\_%");
         }
 
+        /// <summary>
+        /// Return table, row count SQL for listing all tables with their row counts
+        /// </summary>
+        /// <param name="live">If true returns live current row counts of each table (slower), otherwise returns cached row counts from RDBMS table stats</param>
+        /// <param name="schema">The table schema if any</param>
+        /// <returns>System.String.</returns>
         public override string ToTableNamesWithRowCountsStatement(bool live, string schema)
         {
             if (live)
@@ -420,6 +520,13 @@
                 : "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, NamingStrategy.GetSchemaName(schema)  + "\\_%");
         }
 
+        /// <summary>
+        /// Doeses the table exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
         {
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
@@ -430,6 +537,14 @@
             return result > 0;
         }
 
+        /// <summary>
+        /// Does table exist as an asynchronous operation.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
         {
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
@@ -440,6 +555,14 @@
             return result > 0;
         }
 
+        /// <summary>
+        /// Doeses the column exist.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
         {
             tableName = GetTableName(tableName, schema).StripQuotes();
@@ -452,6 +575,15 @@
             return result > 0;
         }
 
+        /// <summary>
+        /// Does column exist as an asynchronous operation.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null, CancellationToken token=default)
         {
             tableName = GetTableName(tableName, schema).StripQuotes();
@@ -464,6 +596,11 @@
             return result > 0;
         }
 
+        /// <summary>
+        /// Converts to createtablestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>System.String.</returns>
         public override string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
@@ -472,7 +609,7 @@
             var modelDef = GetModel(tableType);
             foreach (var fieldDef in CreateTableFieldsStrategy(modelDef))
             {
-                if (fieldDef.CustomSelect != null || (fieldDef.IsComputed && !fieldDef.IsPersisted))
+                if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
                     continue;
 
                 if (sbColumns.Length != 0) sbColumns.Append(", \n  ");
@@ -527,18 +664,34 @@
             return sql;
         }
 
+        /// <summary>
+        /// Doeses the schema exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesSchemaExist(IDbCommand dbCmd, string schemaName)
         {
             // schema is prefixed to table name
             return true;
         }
 
+        /// <summary>
+        /// Converts to createschemastatement.
+        /// </summary>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <returns>System.String.</returns>
         public override string ToCreateSchemaStatement(string schemaName)
         {
             // https://mariadb.com/kb/en/library/create-database/
-            return $"SELECT 1";
+            return "SELECT 1";
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef)
         {
             if (fieldDef.PropertyInfo?.HasAttributeCached<TextAttribute>() == true)
@@ -550,12 +703,16 @@
             }
 
             var ret = base.GetColumnDefinition(fieldDef);
-            if (fieldDef.IsRowVersion)
-                return $"{ret} DEFAULT 1";
 
-            return ret;
+            return fieldDef.IsRowVersion ? $"{ret} DEFAULT 1" : ret;
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
         {
             if (fieldDef.PropertyInfo?.HasAttributeCached<TextAttribute>() == true)
@@ -571,70 +728,166 @@
             return fieldDef.IsRowVersion ? $"{ret} DEFAULT 1" : ret;
         }
 
+        /// <summary>
+        /// SQLs the conflict.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="conflictResolution">The conflict resolution.</param>
+        /// <returns>System.String.</returns>
         public override string SqlConflict(string sql, string conflictResolution)
         {
             var parts = sql.SplitOnFirst(' ');
             return $"{parts[0]} {conflictResolution} {parts[1]}";
         }
 
+        /// <summary>
+        /// SQLs the currency.
+        /// </summary>
+        /// <param name="fieldOrValue">The field or value.</param>
+        /// <param name="currencySymbol">The currency symbol.</param>
+        /// <returns>System.String.</returns>
         public override string SqlCurrency(string fieldOrValue, string currencySymbol) =>
             SqlConcat(new[] {$"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))"});
 
+        /// <summary>
+        /// SQLs the cast.
+        /// </summary>
+        /// <param name="fieldOrValue">The field or value.</param>
+        /// <param name="castAs">The cast as.</param>
+        /// <returns>System.String.</returns>
         public override string SqlCast(object fieldOrValue, string castAs) =>
             castAs == Sql.VARCHAR
                 ? $"CAST({fieldOrValue} AS CHAR(1000))"
                 : $"CAST({fieldOrValue} AS {castAs})";
 
+        /// <summary>
+        /// SQLs the bool.
+        /// </summary>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <returns>System.String.</returns>
         public override string SqlBool(bool value) => value ? "1" : "0";
 
+        /// <summary>
+        /// Enables the foreign keys check.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
         public override void EnableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=1;");
+        /// <summary>
+        /// Enables the foreign keys check asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
             cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=1;", null, token);
+        /// <summary>
+        /// Disables the foreign keys check.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
         public override void DisableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=0;");
+        /// <summary>
+        /// Disables the foreign keys check asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
             cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=0;", null, token);
 
+        /// <summary>
+        /// Unwraps the specified database.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <returns>DbConnection.</returns>
         protected DbConnection Unwrap(IDbConnection db)
         {
             return (DbConnection)db.ToDbConnection();
         }
 
+        /// <summary>
+        /// Unwraps the specified command.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <returns>DbCommand.</returns>
         protected DbCommand Unwrap(IDbCommand cmd)
         {
             return (DbCommand)cmd.ToDbCommand();
         }
 
+        /// <summary>
+        /// Unwraps the specified reader.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <returns>DbDataReader.</returns>
         protected DbDataReader Unwrap(IDataReader reader)
         {
             return (DbDataReader)reader;
         }
 
 #if ASYNC
+        /// <summary>
+        /// Opens the asynchronous.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public override Task OpenAsync(IDbConnection db, CancellationToken token = default)
         {
             return Unwrap(db).OpenAsync(token);
         }
 
+        /// <summary>
+        /// Executes the reader asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDataReader&gt;.</returns>
         public override Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
         }
 
+        /// <summary>
+        /// Executes the non query asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         public override Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return Unwrap(cmd).ExecuteNonQueryAsync(token);
         }
 
+        /// <summary>
+        /// Executes the scalar asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public override Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return Unwrap(cmd).ExecuteScalarAsync(token);
         }
 
+        /// <summary>
+        /// Reads the asynchronous.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public override Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default)
         {
             return Unwrap(reader).ReadAsync(token);
         }
 
+        /// <summary>
+        /// Readers the each.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         public override async Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
         {
             try
@@ -653,6 +906,15 @@
             }
         }
 
+        /// <summary>
+        /// Readers the each.
+        /// </summary>
+        /// <typeparam name="Return">The type of the return.</typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;Return&gt;.</returns>
         public override async Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default)
         {
             try
@@ -669,6 +931,14 @@
             }
         }
 
+        /// <summary>
+        /// Readers the read.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public override async Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
         {
             try
@@ -685,6 +955,12 @@
         }
 #endif
 
+        /// <summary>
+        /// Gets the drop function.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="functionName">Name of the function.</param>
+        /// <returns>System.String.</returns>
         public override string GetDropFunction(string database, string functionName)
         {
             var sb = StringBuilderCache.Allocate();
@@ -699,6 +975,13 @@
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the create view.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="selectSql">The select SQL.</param>
+        /// <returns>System.String.</returns>
         public override string GetCreateView(string database, ModelDefinition modelDef, StringBuilder selectSql)
         {
             var sb = StringBuilderCache.Allocate();
@@ -714,6 +997,12 @@
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the drop view.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public override string GetDropView(string database, ModelDefinition modelDef)
         {
             var sb = StringBuilderCache.Allocate();
@@ -728,11 +1017,22 @@
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the UTC date function.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string GetUtcDateFunction()
         {
             return "UTC_DATE()";
         }
 
+        /// <summary>
+        /// Dates the difference function.
+        /// </summary>
+        /// <param name="interval">The interval.</param>
+        /// <param name="date1">The date1.</param>
+        /// <param name="date2">The date2.</param>
+        /// <returns>System.String.</returns>
         public override string DateDiffFunction(string interval, string date1, string date2)
         {
             return $"DATEDIFF({date1}, {date2})";
@@ -741,25 +1041,29 @@
         /// <summary>
         /// Gets the SQL ISNULL Function
         /// </summary>
-        /// <param name="expression">
-        /// The expression.
-        /// </param>
-        /// <param name="alternateValue">
-        /// The alternate Value.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
+        /// <param name="expression">The expression.</param>
+        /// <param name="alternateValue">The alternate Value.</param>
+        /// <returns>The <see cref="string" />.</returns>
         public override string IsNullFunction(string expression, object alternateValue)
         {
             return $"IFNULL(({expression}), {alternateValue})";
         }
 
+        /// <summary>
+        /// Converts the flag.
+        /// </summary>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.String.</returns>
         public override string ConvertFlag(string expression)
         {
             return $"cast(sign({expression}) as signed)";
         }
 
+        /// <summary>
+        /// Databases the fragmentation information.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
         public override string DatabaseFragmentationInfo(string database)
         {
             var sb = new StringBuilder();
@@ -777,31 +1081,61 @@
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Databases the size.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
         public override string DatabaseSize(string database)
         {
             return $"SELECT sum( data_length + index_length ) / 1024 / 1024 FROM information_schema.TABLES WHERE table_schema = '{database}'";
         }
 
+        /// <summary>
+        /// SQLs the version.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string SQLVersion()
         {
             return "select @@version";
         }
 
+        /// <summary>
+        /// SQLs the name of the server.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public override string SQLServerName()
         {
             return "MySQL";
         }
 
+        /// <summary>
+        /// Shrinks the database.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
         public override string ShrinkDatabase(string database)
         {
             return ""; //$"optimize table {database}";
         }
 
+        /// <summary>
+        /// Res the index database.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="objectQualifier">The object qualifier.</param>
+        /// <returns>System.String.</returns>
         public override string ReIndexDatabase(string database, string objectQualifier)
         {
             return ""; //$"REINDEX DATABASE {database}";
         }
 
+        /// <summary>
+        /// Changes the recovery mode.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="mode">The mode.</param>
+        /// <returns>System.String.</returns>
         public override string ChangeRecoveryMode(string database, string mode)
         {
             return "";
@@ -810,12 +1144,8 @@
         /// <summary>
         /// Just runs the SQL command according to specifications.
         /// </summary>
-        /// <param name="command">
-        /// The command.
-        /// </param>
-        /// <returns>
-        /// Returns the Results
-        /// </returns>
+        /// <param name="command">The command.</param>
+        /// <returns>Returns the Results</returns>
         public override string InnerRunSqlExecuteReader(IDbCommand command)
         {
             var sqlCommand = command as MySqlCommand;

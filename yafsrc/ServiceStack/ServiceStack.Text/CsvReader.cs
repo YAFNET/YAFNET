@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="CsvReader.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.Text.Common;
@@ -6,8 +12,16 @@ using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// Class CsvReader.
+    /// </summary>
     public class CsvReader
     {
+        /// <summary>
+        /// Parses the lines.
+        /// </summary>
+        /// <param name="csv">The CSV.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> ParseLines(string csv)
         {
             var rows = new List<string>();
@@ -59,7 +73,18 @@ namespace ServiceStack.Text
             return rows;
         }
 
+        /// <summary>
+        /// Parses the fields.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> ParseFields(string line) => ParseFields(line, null);
+        /// <summary>
+        /// Parses the fields.
+        /// </summary>
+        /// <param name="line">The line.</param>
+        /// <param name="parseFn">The parse function.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> ParseFields(string line, Func<string, string> parseFn)
         {
             var to = new List<string>();
@@ -78,6 +103,12 @@ namespace ServiceStack.Text
         }
 
         //Originally from JsvTypeSerializer.EatValue()
+        /// <summary>
+        /// Eats the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="i">The i.</param>
+        /// <returns>System.String.</returns>
         public static string EatValue(string value, ref int i)
         {
             var tokenStartPos = i;
@@ -184,21 +215,47 @@ namespace ServiceStack.Text
         }
     }
 
+    /// <summary>
+    /// Class CsvReader.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class CsvReader<T>
     {
+        /// <summary>
+        /// Gets or sets the headers.
+        /// </summary>
+        /// <value>The headers.</value>
         public static List<string> Headers { get; set; }
 
+        /// <summary>
+        /// The property setters
+        /// </summary>
         internal static List<SetMemberDelegate<T>> PropertySetters;
+        /// <summary>
+        /// The property setters map
+        /// </summary>
         internal static Dictionary<string, SetMemberDelegate<T>> PropertySettersMap;
 
+        /// <summary>
+        /// The property converters
+        /// </summary>
         internal static List<ParseStringDelegate> PropertyConverters;
+        /// <summary>
+        /// The property converters map
+        /// </summary>
         internal static Dictionary<string, ParseStringDelegate> PropertyConvertersMap;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="CsvReader{T}"/> class.
+        /// </summary>
         static CsvReader()
         {
             Reset();
         }
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         internal static void Reset()
         {
             Headers = new List<string>();
@@ -231,6 +288,10 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Configures the custom headers.
+        /// </summary>
+        /// <param name="customHeadersMap">The custom headers map.</param>
         internal static void ConfigureCustomHeaders(Dictionary<string, string> customHeadersMap)
         {
             Reset();
@@ -258,6 +319,12 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Gets the single row.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        /// <param name="recordType">Type of the record.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         private static List<T> GetSingleRow(IEnumerable<string> rows, Type recordType)
         {
             var row = new List<T>();
@@ -272,6 +339,11 @@ namespace ServiceStack.Text
             return row;
         }
 
+        /// <summary>
+        /// Gets the rows.
+        /// </summary>
+        /// <param name="records">The records.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> GetRows(IEnumerable<string> records)
         {
             var rows = new List<T>();
@@ -296,6 +368,11 @@ namespace ServiceStack.Text
             return rows;
         }
 
+        /// <summary>
+        /// Reads the object.
+        /// </summary>
+        /// <param name="csv">The CSV.</param>
+        /// <returns>System.Object.</returns>
         public static object ReadObject(string csv)
         {
             if (csv == null) return null; //AOT
@@ -303,6 +380,11 @@ namespace ServiceStack.Text
             return Read(CsvReader.ParseLines(csv));
         }
 
+        /// <summary>
+        /// Reads the object row.
+        /// </summary>
+        /// <param name="csv">The CSV.</param>
+        /// <returns>System.Object.</returns>
         public static object ReadObjectRow(string csv)
         {
             if (csv == null) return null; //AOT
@@ -310,6 +392,11 @@ namespace ServiceStack.Text
             return ReadRow(csv);
         }
 
+        /// <summary>
+        /// Reads the string dictionary.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        /// <returns>List&lt;Dictionary&lt;System.String, System.String&gt;&gt;.</returns>
         public static List<Dictionary<string, string>> ReadStringDictionary(IEnumerable<string> rows)
         {
             if (rows == null) return null; //AOT
@@ -339,6 +426,11 @@ namespace ServiceStack.Text
             return to;
         }
 
+        /// <summary>
+        /// Reads the specified rows.
+        /// </summary>
+        /// <param name="rows">The rows.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> Read(List<string> rows)
         {
             var to = new List<T>();
@@ -400,6 +492,11 @@ namespace ServiceStack.Text
             return to;
         }
 
+        /// <summary>
+        /// Reads the row.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>T.</returns>
         public static T ReadRow(string value)
         {
             if (value == null) return default(T); //AOT

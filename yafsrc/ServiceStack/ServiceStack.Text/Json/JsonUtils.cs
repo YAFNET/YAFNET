@@ -1,5 +1,9 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
-//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="JsonUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.IO;
@@ -7,44 +11,117 @@ using System.Runtime.CompilerServices;
 
 namespace ServiceStack.Text.Json
 {
+    /// <summary>
+    /// Class JsonUtils.
+    /// </summary>
     public static class JsonUtils
     {
+        /// <summary>
+        /// The maximum integer
+        /// </summary>
         public const long MaxInteger = 9007199254740992;
+        /// <summary>
+        /// The minimum integer
+        /// </summary>
         public const long MinInteger = -9007199254740992;
 
+        /// <summary>
+        /// The escape character
+        /// </summary>
         public const char EscapeChar = '\\';
 
+        /// <summary>
+        /// The quote character
+        /// </summary>
         public const char QuoteChar = '"';
+        /// <summary>
+        /// The null
+        /// </summary>
         public const string Null = "null";
+        /// <summary>
+        /// The true
+        /// </summary>
         public const string True = "true";
+        /// <summary>
+        /// The false
+        /// </summary>
         public const string False = "false";
 
+        /// <summary>
+        /// The space character
+        /// </summary>
         public const char SpaceChar = ' ';
+        /// <summary>
+        /// The tab character
+        /// </summary>
         public const char TabChar = '\t';
+        /// <summary>
+        /// The carriage return character
+        /// </summary>
         public const char CarriageReturnChar = '\r';
+        /// <summary>
+        /// The line feed character
+        /// </summary>
         public const char LineFeedChar = '\n';
+        /// <summary>
+        /// The form feed character
+        /// </summary>
         public const char FormFeedChar = '\f';
+        /// <summary>
+        /// The backspace character
+        /// </summary>
         public const char BackspaceChar = '\b';
 
         /// <summary>
         /// Micro-optimization keep pre-built char arrays saving a .ToCharArray() + function call (see .net implementation of .Write(string))
         /// </summary>
         private static readonly char[] EscapedBackslash = { EscapeChar, EscapeChar };
+        /// <summary>
+        /// The escaped tab
+        /// </summary>
         private static readonly char[] EscapedTab = { EscapeChar, 't' };
+        /// <summary>
+        /// The escaped carriage return
+        /// </summary>
         private static readonly char[] EscapedCarriageReturn = { EscapeChar, 'r' };
+        /// <summary>
+        /// The escaped line feed
+        /// </summary>
         private static readonly char[] EscapedLineFeed = { EscapeChar, 'n' };
+        /// <summary>
+        /// The escaped form feed
+        /// </summary>
         private static readonly char[] EscapedFormFeed = { EscapeChar, 'f' };
+        /// <summary>
+        /// The escaped backspace
+        /// </summary>
         private static readonly char[] EscapedBackspace = { EscapeChar, 'b' };
+        /// <summary>
+        /// The escaped quote
+        /// </summary>
         private static readonly char[] EscapedQuote = { EscapeChar, QuoteChar };
 
+        /// <summary>
+        /// The white space chars
+        /// </summary>
         public static readonly char[] WhiteSpaceChars = { ' ', TabChar, CarriageReturnChar, LineFeedChar };
 
+        /// <summary>
+        /// Determines whether [is white space] [the specified c].
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if [is white space] [the specified c]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsWhiteSpace(char c)
         {
             return c == ' ' || c >= '\x0009' && c <= '\x000d' || c == '\x00a0' || c == '\x0085' || c == TypeConstants.NonWidthWhiteSpace;
         }
 
+        /// <summary>
+        /// Writes the string.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteString(TextWriter writer, string value)
         {
             if (value == null)
@@ -149,6 +226,11 @@ namespace ServiceStack.Text.Json
             writer.Write(QuoteChar);
         }
 
+        /// <summary>
+        /// Determines whether the specified c is printable.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if the specified c is printable; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsPrintable(this char c)
         {
@@ -159,14 +241,12 @@ namespace ServiceStack.Text.Json
         /// Searches the string for one or more non-printable characters.
         /// </summary>
         /// <param name="value">The string to search.</param>
-        /// <param name="escapeHtmlChars"></param>
+        /// <param name="escapeHtmlChars">if set to <c>true</c> [escape HTML chars].</param>
         /// <returns>True if there are any characters that require escaping. False if the value can be written verbatim.</returns>
-        /// <remarks>
-        /// Micro optimizations: since quote and backslash are the only printable characters requiring escaping, removed previous optimization
+        /// <remarks>Micro optimizations: since quote and backslash are the only printable characters requiring escaping, removed previous optimization
         /// (using flags instead of value.IndexOfAny(EscapeChars)) in favor of two equality operations saving both memory and CPU time.
         /// Also slightly reduced code size by re-arranging conditions.
-        /// TODO: Possible Linq-only solution requires profiling: return value.Any(c => !c.IsPrintable() || c == QuoteChar || c == EscapeChar);
-        /// </remarks>
+        /// TODO: Possible Linq-only solution requires profiling: return value.Any(c =&gt; !c.IsPrintable() || c == QuoteChar || c == EscapeChar);</remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool HasAnyEscapeChars(string value, bool escapeHtmlChars)
         {
@@ -187,6 +267,11 @@ namespace ServiceStack.Text.Json
         }
 
         // Micro optimized
+        /// <summary>
+        /// Ints to hexadecimal.
+        /// </summary>
+        /// <param name="intValue">The int value.</param>
+        /// <param name="hex">The hexadecimal.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void IntToHex(int intValue, char[] hex)
         {
@@ -203,6 +288,11 @@ namespace ServiceStack.Text.Json
             }
         }
 
+        /// <summary>
+        /// Determines whether [is js object] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [is js object] [the specified value]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsJsObject(string value)
         {
@@ -211,6 +301,11 @@ namespace ServiceStack.Text.Json
                 && value[value.Length - 1] == '}';
         }
 
+        /// <summary>
+        /// Determines whether [is js object] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [is js object] [the specified value]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsJsObject(ReadOnlySpan<char> value)
         {
@@ -220,6 +315,11 @@ namespace ServiceStack.Text.Json
         }
 
 
+        /// <summary>
+        /// Determines whether [is js array] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [is js array] [the specified value]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsJsArray(string value)
         {
@@ -228,6 +328,11 @@ namespace ServiceStack.Text.Json
                 && value[value.Length - 1] == ']';
         }
 
+        /// <summary>
+        /// Determines whether [is js array] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [is js array] [the specified value]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsJsArray(ReadOnlySpan<char> value)
         {

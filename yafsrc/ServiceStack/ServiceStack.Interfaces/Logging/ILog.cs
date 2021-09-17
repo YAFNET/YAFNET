@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="ILog.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 
 namespace ServiceStack.Logging
@@ -10,9 +16,7 @@ namespace ServiceStack.Logging
         /// <summary>
         /// Gets or sets a value indicating whether this instance is debug enabled.
         /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance is debug enabled; otherwise, <c>false</c>.
-        /// </value>
+        /// <value><c>true</c> if this instance is debug enabled; otherwise, <c>false</c>.</value>
         bool IsDebugEnabled { get; }
 
         /// <summary>

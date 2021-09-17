@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="JsToken.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -8,10 +14,24 @@ using ServiceStack.Text.Json;
 
 namespace ServiceStack.Script
 {
+    /// <summary>
+    /// Class JsToken.
+    /// Implements the <see cref="ServiceStack.IRawString" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.IRawString" />
     public abstract class JsToken : IRawString
     {
+        /// <summary>
+        /// Converts to rawstring.
+        /// </summary>
+        /// <returns>System.String.</returns>
         public abstract string ToRawString();
 
+        /// <summary>
+        /// Jsons the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String.</returns>
         public string JsonValue(object value)
         {
             if (value == null || value == JsNull.Value)
@@ -23,10 +43,24 @@ namespace ServiceStack.Script
             return value.ToString();
         }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString() => ToRawString();
 
+        /// <summary>
+        /// Evaluates the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>System.Object.</returns>
         public abstract object Evaluate(ScriptScopeContext scope);
 
+        /// <summary>
+        /// Unwraps the value.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns>System.Object.</returns>
         public static object UnwrapValue(JsToken token)
         {
             if (token is JsLiteral literal)
@@ -35,22 +69,55 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class JsNull.
+    /// </summary>
     public static class JsNull
     {
+        /// <summary>
+        /// The string
+        /// </summary>
         public const string String = "null";
+        /// <summary>
+        /// The value
+        /// </summary>
         public static JsLiteral Value = new JsLiteral(null);
     }
 
+    /// <summary>
+    /// Class JsTokenUtils.
+    /// </summary>
     public static class JsTokenUtils
     {
+        /// <summary>
+        /// The valid numeric chars
+        /// </summary>
         private static readonly byte[] ValidNumericChars;
+        /// <summary>
+        /// The valid variable name chars
+        /// </summary>
         private static readonly byte[] ValidVarNameChars;
+        /// <summary>
+        /// The operator chars
+        /// </summary>
         private static readonly byte[] OperatorChars;
+        /// <summary>
+        /// The expression terminator chars
+        /// </summary>
         private static readonly byte[] ExpressionTerminatorChars;
+        /// <summary>
+        /// Creates new lineutf8.
+        /// </summary>
         public static readonly byte[] NewLineUtf8;
 
+        /// <summary>
+        /// The true
+        /// </summary>
         private const byte True = 1;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="JsTokenUtils"/> class.
+        /// </summary>
         static JsTokenUtils()
         {
             NewLineUtf8 = new byte[] { 10 }; // UTF8.GetBytes("\n");
@@ -75,6 +142,9 @@ namespace ServiceStack.Script
             ValidVarNameChars = a;
         }
 
+        /// <summary>
+        /// The operator precedence
+        /// </summary>
         public static readonly Dictionary<string, int> OperatorPrecedence = new Dictionary<string, int> {
             {")", 0},
             {";", 0},
@@ -105,21 +175,51 @@ namespace ServiceStack.Script
             {"%", 11},
         };
 
+        /// <summary>
+        /// Gets the binary precedence.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns>System.Int32.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int GetBinaryPrecedence(string token) => OperatorPrecedence.TryGetValue(token, out var precedence) ? precedence : 0;
 
+        /// <summary>
+        /// Determines whether [is numeric character] [the specified c].
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if [is numeric character] [the specified c]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNumericChar(this char c) => c < ValidNumericChars.Length && ValidNumericChars[c] == True;
 
+        /// <summary>
+        /// Determines whether [is valid variable name character] [the specified c].
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if [is valid variable name character] [the specified c]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsValidVarNameChar(this char c) => c < ValidVarNameChars.Length && ValidVarNameChars[c] == True;
 
+        /// <summary>
+        /// Determines whether [is operator character] [the specified c].
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if [is operator character] [the specified c]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsOperatorChar(this char c) => c < OperatorChars.Length && OperatorChars[c] == True;
 
+        /// <summary>
+        /// Determines whether [is expression terminator character] [the specified c].
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if [is expression terminator character] [the specified c]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsExpressionTerminatorChar(this char c) => c < ExpressionTerminatorChars.Length && ExpressionTerminatorChars[c] == True;
 
+        /// <summary>
+        /// Gets the unary operator.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>JsUnaryOperator.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static JsUnaryOperator GetUnaryOperator(this char c)
         {
@@ -138,18 +238,43 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Firsts the character equals.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool FirstCharEquals(this ReadOnlySpan<char> literal, char c) =>
             !literal.IsNullOrEmpty() && literal[0] == c;
 
+        /// <summary>
+        /// Firsts the character equals.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool FirstCharEquals(this string literal, char c) =>
             !string.IsNullOrEmpty(literal) && literal[0] == c;
 
+        /// <summary>
+        /// Safes the get character.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>System.Char.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char SafeGetChar(this ReadOnlySpan<char> literal, int index) =>
             index >= 0 && index < literal.Length ? literal[index] : default(char);
 
+        /// <summary>
+        /// Counts the preceding occurrences.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="index">The index.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>System.Int32.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CountPrecedingOccurrences(this ReadOnlySpan<char> literal, int index, char c)
         {
@@ -165,11 +290,24 @@ namespace ServiceStack.Script
             return total;
         }
 
+        /// <summary>
+        /// Safes the character equals.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="index">The index.</param>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool SafeCharEquals(this ReadOnlySpan<char> literal, int index, char c) =>
             index >= 0 && index < literal.Length && literal[index] == c;
 
 
+        /// <summary>
+        /// Advances the past pipe operator.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unix Pipe syntax is disallowed, use JS Pipeline Operator syntax '|>' or set ScriptConfig.AllowUnixPipeSyntax=true;</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReadOnlySpan<char> AdvancePastPipeOperator(this ReadOnlySpan<char> literal) =>
             literal.SafeCharEquals(1, '>')
@@ -177,24 +315,52 @@ namespace ServiceStack.Script
                 : ScriptConfig.AllowUnixPipeSyntax ? literal.Advance(1)
                     : throw new SyntaxErrorException("Unix Pipe syntax is disallowed, use JS Pipeline Operator syntax '|>' or set ScriptConfig.AllowUnixPipeSyntax=true; ");
 
+        /// <summary>
+        /// Safes the get character.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="index">The index.</param>
+        /// <returns>System.Char.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static char SafeGetChar(this ReadOnlyMemory<char> literal, int index) => literal.Span.SafeGetChar(index);
 
+        /// <summary>
+        /// Determines whether the specified c is end.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns><c>true</c> if the specified c is end; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsEnd(this char c) => c == default(char);
 
+        /// <summary>
+        /// Chops the specified c.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReadOnlyMemory<char> Chop(this ReadOnlyMemory<char> literal, char c) =>
             literal.IsEmpty || literal.Span[literal.Length - 1] != c
                 ? literal
                 : literal.Slice(0, literal.Length - 1);
 
+        /// <summary>
+        /// Chops the specified c.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReadOnlySpan<char> Chop(this ReadOnlySpan<char> literal, char c) =>
             literal.IsEmpty || literal[literal.Length - 1] != c
                 ? literal
                 : literal.Slice(0, literal.Length - 1);
 
+        /// <summary>
+        /// Chops the new line.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ReadOnlyMemory<char> ChopNewLine(this ReadOnlyMemory<char> literal)
         {
@@ -209,12 +375,28 @@ namespace ServiceStack.Script
         }
 
         // Remove `Js` prefix
+        /// <summary>
+        /// Converts to jsasttype.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>System.String.</returns>
         public static string ToJsAstType(this Type type) => type.Name.Substring(2);
 
+        /// <summary>
+        /// Converts to jsast.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static Dictionary<string, object> ToJsAst(this JsToken token) => token is JsExpression expression
             ? expression.ToJsAst()
             : throw new NotSupportedException(token.GetType().Name + " is not a JsExpression");
 
+        /// <summary>
+        /// Converts to jsaststring.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns>System.String.</returns>
         public static string ToJsAstString(this JsToken token)
         {
             using (JsConfig.With(new Config { IncludeNullValuesInDictionaries = true }))
@@ -223,31 +405,83 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Debugs the first character.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>System.String.</returns>
         internal static string DebugFirstChar(this ReadOnlySpan<char> literal) => literal.IsNullOrEmpty()
             ? "<end>"
             : $"'{literal[0]}'";
 
+        /// <summary>
+        /// Debugs the first character.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>System.String.</returns>
         internal static string DebugFirstChar(this ReadOnlyMemory<char> literal) => literal.Span.DebugFirstChar();
 
+        /// <summary>
+        /// Debugs the character.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>System.String.</returns>
         internal static string DebugChar(this char c) => c == 0 ? "'<end>'" : $"'{c}'";
 
+        /// <summary>
+        /// Debugs the token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns>System.String.</returns>
         internal static string DebugToken(this JsToken token) => $"'{token}'";
 
+        /// <summary>
+        /// Debugs the literal.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>System.String.</returns>
         internal static string DebugLiteral(this ReadOnlySpan<char> literal) => $"'{literal.SubstringWithEllipsis(0, 50)}'";
 
+        /// <summary>
+        /// Debugs the literal.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>System.String.</returns>
         internal static string DebugLiteral(this ReadOnlyMemory<char> literal) => $"'{literal.Span.SubstringWithEllipsis(0, 50)}'";
 
+        /// <summary>
+        /// Cooks the raw string.
+        /// </summary>
+        /// <param name="str">The string.</param>
+        /// <param name="quoteChar">The quote character.</param>
+        /// <returns>System.String.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static string CookRawString(this ReadOnlySpan<char> str, char quoteChar) =>
             JsonTypeSerializer.UnescapeJsString(str, quoteChar).Value() ?? "";
 
+        /// <summary>
+        /// Trims the first new line.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ReadOnlyMemory<char> TrimFirstNewLine(this ReadOnlyMemory<char> literal) => literal.StartsWith("\r\n")
             ? literal.Advance(2)
             : literal.StartsWith("\n") ? literal.Advance(1) : literal;
 
+        /// <summary>
+        /// Evaluates the specified token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns>System.Object.</returns>
         public static object Evaluate(this JsToken token) => token.Evaluate(JS.CreateScope());
 
+        /// <summary>
+        /// Evaluates to bool.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool EvaluateToBool(this JsToken token, ScriptScopeContext scope)
         {
             var ret = token.Evaluate(scope);
@@ -260,6 +494,9 @@ namespace ServiceStack.Script
         /// <summary>
         /// Evaluate if result can be async, if so converts async result to Task&lt;object&gt; otherwise wraps result in a Task
         /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public static async Task<bool> EvaluateToBoolAsync(this JsToken token, ScriptScopeContext scope)
         {
             var ret = await token.EvaluateAsync(scope);
@@ -272,6 +509,11 @@ namespace ServiceStack.Script
         /// <summary>
         /// Evaluate if result can be async, if so converts async result to Task&lt;object&gt; otherwise wraps result in a Task
         /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="result">if set to <c>true</c> [result].</param>
+        /// <param name="asyncResult">The asynchronous result.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool EvaluateToBool(this JsToken token, ScriptScopeContext scope, out bool? result, out Task<bool> asyncResult)
         {
             if (token.Evaluate(scope, out var oResult, out var oAsyncResult))
@@ -295,6 +537,9 @@ namespace ServiceStack.Script
         /// <summary>
         /// Evaluate if result can be async, if so converts async result to Task&lt;object&gt; otherwise wraps result in a Task
         /// </summary>
+        /// <param name="token">The token.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public static Task<object> EvaluateAsync(this JsToken token, ScriptScopeContext scope)
         {
             var result = token.Evaluate(scope);
@@ -308,9 +553,10 @@ namespace ServiceStack.Script
         /// <summary>
         /// Evaluate then set asyncResult if Result was async, otherwise set result.
         /// </summary>
-        /// <param name="scope"></param>
-        /// <param name="result"></param>
-        /// <param name="asyncResult"></param>
+        /// <param name="token">The token.</param>
+        /// <param name="scope">The scope.</param>
+        /// <param name="result">The result.</param>
+        /// <param name="asyncResult">The asynchronous result.</param>
         /// <returns>true if result was synchronous otherwise false</returns>
         public static bool Evaluate(this JsToken token, ScriptScopeContext scope, out object result, out Task<object> asyncResult)
         {
@@ -333,7 +579,26 @@ namespace ServiceStack.Script
             return false;
         }
 
+        /// <summary>
+        /// Parses the js token.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
         public static ReadOnlySpan<char> ParseJsToken(this ReadOnlySpan<char> literal, out JsToken token) => ParseJsToken(literal, out token, false);
+        /// <summary>
+        /// Parses the js token.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="token">The token.</param>
+        /// <param name="filterExpression">if set to <c>true</c> [filter expression].</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected ')' but instead found {literal.DebugFirstChar()} near: {literal.DebugLiteral()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected identifier but was instead '{arg.DebugToken()}', near: {literal.DebugLiteral()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected ',' or ')' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated string literal: {literal.ToString()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException"></exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated object literal near: {literal.DebugLiteral()}</exception>
         public static ReadOnlySpan<char> ParseJsToken(this ReadOnlySpan<char> literal, out JsToken token, bool filterExpression)
         {
             literal = literal.AdvancePastWhitespace();
@@ -582,6 +847,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Indexes the of quoted string.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="quoteChar">The quote character.</param>
+        /// <param name="hasEscapeChars">if set to <c>true</c> [has escape chars].</param>
+        /// <returns>System.Int32.</returns>
         public static int IndexOfQuotedString(this ReadOnlySpan<char> literal, char quoteChar, out bool hasEscapeChars)
         {
             char c;
@@ -609,6 +881,15 @@ namespace ServiceStack.Script
             return i;
         }
 
+        /// <summary>
+        /// Parses the arguments list.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected identifier but was instead '{arg.DebugToken()}', near: {literal.DebugLiteral()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected ',' or ')' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected '(' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}</exception>
         public static ReadOnlySpan<char> ParseArgumentsList(this ReadOnlySpan<char> literal, out List<JsIdentifier> args)
         {
             args = new List<JsIdentifier>();
@@ -648,6 +929,12 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the js template literal.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <returns>JsToken.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected end of template literal expression '}}' but was instead {literal.DebugFirstChar()}</exception>
         private static JsToken ParseJsTemplateLiteral(ReadOnlySpan<char> literal)
         {
             var quasis = new List<JsTemplateElement>();
@@ -689,6 +976,14 @@ namespace ServiceStack.Script
             return new JsTemplateLiteral(quasis.ToArray(), expressions.ToArray());
         }
 
+        /// <summary>
+        /// Parses the arrow expression body.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected '=>' but instead found {literal.DebugFirstChar()} near: {literal.DebugLiteral()}</exception>
         internal static ReadOnlySpan<char> ParseArrowExpressionBody(this ReadOnlySpan<char> literal, JsIdentifier[] args, out JsArrowFunctionExpression token)
         {
             literal = literal.AdvancePastWhitespace();
@@ -702,6 +997,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the variable declaration.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="kind">The kind.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
         internal static ReadOnlySpan<char> ParseVariableDeclaration(this ReadOnlySpan<char> literal, JsVariableDeclarationKind kind, out JsVariableDeclaration token)
         {
             literal = literal.AdvancePastWhitespace();
@@ -736,6 +1038,14 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the assignment expression.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected '=' but was {literal.DebugFirstChar()}</exception>
         internal static ReadOnlySpan<char> ParseAssignmentExpression(this ReadOnlySpan<char> literal, JsIdentifier id, out JsAssignmentExpression token)
         {
             literal = literal.AdvancePastWhitespace();
@@ -751,6 +1061,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the js member expression.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="node">The node.</param>
+        /// <param name="filterExpression">if set to <c>true</c> [filter expression].</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
         internal static ReadOnlySpan<char> ParseJsMemberExpression(this ReadOnlySpan<char> literal, ref JsToken node, bool filterExpression)
         {
             literal = literal.AdvancePastWhitespace();
@@ -812,6 +1129,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Ensures the past character.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="c">The c.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected '{c}' but was {literal.DebugFirstChar()}</exception>
         internal static ReadOnlySpan<char> EnsurePastChar(this ReadOnlySpan<char> literal, char c)
         {
             literal = literal.AdvancePastWhitespace();
@@ -822,6 +1146,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the js binary operator.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="op">The op.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Invalid Operator found near: {literal.DebugLiteral()}</exception>
         internal static ReadOnlySpan<char> ParseJsBinaryOperator(this ReadOnlySpan<char> literal, out JsBinaryOperator op)
         {
             literal = literal.AdvancePastWhitespace();
@@ -951,6 +1282,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the name of the variable.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="varName">Name of the variable.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected start of identifier but was {c.DebugChar()} near: {literal.DebugLiteral()}</exception>
         public static ReadOnlySpan<char> ParseVarName(this ReadOnlySpan<char> literal, out ReadOnlySpan<char> varName)
         {
             literal = literal.AdvancePastWhitespace();
@@ -977,6 +1315,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the name of the variable.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="varName">Name of the variable.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected start of identifier but was {c.DebugChar()} near: {literal.DebugLiteral()}</exception>
         public static ReadOnlyMemory<char> ParseVarName(this ReadOnlyMemory<char> literal, out ReadOnlyMemory<char> varName)
         {
             literal = literal.AdvancePastWhitespace();
@@ -1004,6 +1349,12 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the identifier.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="token">The token.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
         internal static ReadOnlySpan<char> ParseIdentifier(this ReadOnlySpan<char> literal, out JsToken token)
         {
             literal = literal.ParseVarName(out var identifier);
@@ -1026,10 +1377,24 @@ namespace ServiceStack.Script
 
     }
 
+    /// <summary>
+    /// Class CallExpressionUtils.
+    /// </summary>
     public static class CallExpressionUtils
     {
+        /// <summary>
+        /// The whitespace argument
+        /// </summary>
         private const char WhitespaceArgument = ':';
 
+        /// <summary>
+        /// Parses the js call expression.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="filterExpression">if set to <c>true</c> [filter expression].</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected identifier but instead found {token.DebugToken()}</exception>
         public static ReadOnlySpan<char> ParseJsCallExpression(this ReadOnlySpan<char> literal, out JsCallExpression expression, bool filterExpression = false)
         {
             literal = literal.ParseIdentifier(out var token);
@@ -1069,6 +1434,13 @@ namespace ServiceStack.Script
             return literal;
         }
 
+        /// <summary>
+        /// Parses the whitespace argument.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="argument">The argument.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Whitespace sensitive syntax did not find a '\\n' new line to mark the end of the statement, near {literal.DebugLiteral()}</exception>
         internal static ReadOnlySpan<char> ParseWhitespaceArgument(this ReadOnlySpan<char> literal, out JsToken argument)
         {
             // replace everything after ':' up till new line and rewrite as single string to method
@@ -1089,6 +1461,15 @@ namespace ServiceStack.Script
             return literal.Slice(endStringPos);
         }
 
+        /// <summary>
+        /// Parses the arguments.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="termination">The termination.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Spread operator expected array but instead found {listValue.DebugToken()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated arguments expression near: {literal.DebugLiteral()}</exception>
         internal static ReadOnlySpan<char> ParseArguments(this ReadOnlySpan<char> literal, out List<JsToken> arguments, char termination)
         {
             arguments = new List<JsToken>();

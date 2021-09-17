@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="WriteExpressionCommandExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 namespace ServiceStack.OrmLite
 {
     using System;
@@ -9,8 +15,20 @@ namespace ServiceStack.OrmLite
 
     using ServiceStack.Text;
 
+    /// <summary>
+    /// Class WriteExpressionCommandExtensions.
+    /// </summary>
     internal static class WriteExpressionCommandExtensions
     {
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="model">The model.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int UpdateOnly<T>(this IDbCommand dbCmd,
             T model,
             SqlExpression<T> onlyFields,
@@ -23,6 +41,13 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecNonQuery();
         }
 
+        /// <summary>
+        /// Updates the only SQL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="model">The model.</param>
+        /// <param name="onlyFields">The only fields.</param>
         internal static void UpdateOnlySql<T>(this IDbCommand dbCmd, T model, SqlExpression<T> onlyFields)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -41,6 +66,17 @@ namespace ServiceStack.OrmLite
                 dbCmd.CommandText += " " + onlyFields.WhereExpression;
         }
 
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="System.ArgumentNullException">onlyFields</exception>
         internal static int UpdateOnly<T>(this IDbCommand dbCmd, T obj,
             Expression<Func<T, object>> onlyFields = null,
             Expression<Func<T, bool>> where = null,
@@ -57,6 +93,17 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateOnly(obj, q, commandFilter);
         }
 
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="System.ArgumentNullException">onlyFields</exception>
         internal static int UpdateOnly<T>(this IDbCommand dbCmd, T obj,
             string[] onlyFields = null,
             Expression<Func<T, bool>> where = null,
@@ -73,6 +120,15 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateOnly(obj, q, commandFilter);
         }
 
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int UpdateOnly<T>(this IDbCommand dbCmd,
             Expression<Func<T>> updateFields,
             SqlExpression<T> q,
@@ -85,6 +141,15 @@ namespace ServiceStack.OrmLite
             return cmd.ExecNonQuery();
         }
 
+        /// <summary>
+        /// Initializes the update only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="q">The q.</param>
+        /// <returns>IDbCommand.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
         internal static IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
         {
             if (updateFields == null)
@@ -100,6 +165,16 @@ namespace ServiceStack.OrmLite
             return dbCmd;
         }
 
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="whereExpression">The where expression.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int UpdateOnly<T>(this IDbCommand dbCmd,
             Expression<Func<T>> updateFields,
             string whereExpression,
@@ -113,6 +188,16 @@ namespace ServiceStack.OrmLite
             return cmd.ExecNonQuery();
         }
 
+        /// <summary>
+        /// Initializes the update only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="whereExpression">The where expression.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>IDbCommand.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
         internal static IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, string whereExpression, IEnumerable<IDbDataParameter> sqlParams)
         {
             if (updateFields == null)
@@ -128,6 +213,15 @@ namespace ServiceStack.OrmLite
             return dbCmd;
         }
 
+        /// <summary>
+        /// Updates the add.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="q">The q.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int UpdateAdd<T>(this IDbCommand dbCmd,
             Expression<Func<T>> updateFields,
             SqlExpression<T> q,
@@ -138,6 +232,15 @@ namespace ServiceStack.OrmLite
             return cmd.ExecNonQuery();
         }
 
+        /// <summary>
+        /// Initializes the update add.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="q">The q.</param>
+        /// <returns>IDbCommand.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
         internal static IDbCommand InitUpdateAdd<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
         {
             if (updateFields == null)
@@ -153,6 +256,16 @@ namespace ServiceStack.OrmLite
             return dbCmd;
         }
 
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
         public static int UpdateOnly<T>(this IDbCommand dbCmd,
             Dictionary<string, object> updateFields,
             Expression<Func<T, bool>> where,
@@ -171,6 +284,15 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateAndVerify<T>(commandFilter, updateFields.ContainsKey(ModelDefinition.RowVersionName));
         }
 
+        /// <summary>
+        /// Gets the update only where expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotSupportedException">'{typeof(T).Name}' does not have a primary key</exception>
         internal static string GetUpdateOnlyWhereExpression<T>(this IOrmLiteDialectProvider dialectProvider,
             Dictionary<string, object> updateFields, out object[] args)
         {
@@ -207,6 +329,14 @@ namespace ServiceStack.OrmLite
             return "(" + dialectProvider.GetQuotedColumnName(pkField.FieldName) + " = {0} AND " + dialectProvider.GetRowVersionColumn(modelDef.RowVersion) + " = {1})";
         }
 
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int UpdateOnly<T>(this IDbCommand dbCmd,
             Dictionary<string, object> updateFields,
             Action<IDbCommand> commandFilter = null)
@@ -216,6 +346,16 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateAndVerify<T>(commandFilter, updateFields.ContainsKey(ModelDefinition.RowVersionName));
         }
 
+        /// <summary>
+        /// Updates the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="whereExpression">The where expression.</param>
+        /// <param name="whereParams">The where parameters.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int UpdateOnly<T>(this IDbCommand dbCmd,
             Dictionary<string, object> updateFields,
             string whereExpression,
@@ -226,6 +366,15 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateAndVerify<T>(commandFilter, updateFields.ContainsKey(ModelDefinition.RowVersionName));
         }
 
+        /// <summary>
+        /// Prepares the update only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="whereExpression">The where expression.</param>
+        /// <param name="whereParams">The where parameters.</param>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
         internal static void PrepareUpdateOnly<T>(this IDbCommand dbCmd, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams)
         {
             if (updateFields == null)
@@ -238,6 +387,14 @@ namespace ServiceStack.OrmLite
             q.PrepareUpdateStatement(dbCmd, updateFields);
         }
 
+        /// <summary>
+        /// Updates the non defaults.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="where">The where.</param>
+        /// <returns>System.Int32.</returns>
         public static int UpdateNonDefaults<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> where)
         {
             OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
@@ -248,6 +405,15 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecNonQuery();
         }
 
+        /// <summary>
+        /// Updates the specified item.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int Update<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> expression, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, item);
@@ -259,6 +425,15 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecNonQuery();
         }
 
+        /// <summary>
+        /// Updates the specified update only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateOnly">The update only.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int Update<T>(this IDbCommand dbCmd, object updateOnly, Expression<Func<T, bool>> where = null, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -273,6 +448,15 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateAndVerify<T>(commandFilter, hadRowVersion);
         }
 
+        /// <summary>
+        /// Prepares the update anon SQL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="updateOnly">The update only.</param>
+        /// <param name="whereSql">The where SQL.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal static bool PrepareUpdateAnonSql<T>(this IDbCommand dbCmd, IOrmLiteDialectProvider dialectProvider, object updateOnly, string whereSql)
         {
             var sql = StringBuilderCache.Allocate();
@@ -331,6 +515,15 @@ namespace ServiceStack.OrmLite
             return hadRowVersion;
         }
 
+        /// <summary>
+        /// Inserts the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <returns>System.Int64.</returns>
         public static long InsertOnly<T>(this IDbCommand dbCmd, T obj, string[] onlyFields, bool selectIdentity)
         {
             OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
@@ -346,6 +539,14 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteSql(sql);
         }
 
+        /// <summary>
+        /// Inserts the only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <returns>System.Int64.</returns>
         public static long InsertOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> insertFields, bool selectIdentity)
         {
             dbCmd.InitInsertOnly(insertFields);
@@ -356,6 +557,14 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Initializes the insert only.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <returns>IDbCommand.</returns>
+        /// <exception cref="System.ArgumentNullException">insertFields</exception>
         internal static IDbCommand InitInsertOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> insertFields)
         {
             if (insertFields == null)
@@ -368,6 +577,14 @@ namespace ServiceStack.OrmLite
             return dbCmd;
         }
 
+        /// <summary>
+        /// Deletes the specified where.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int Delete<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> where, Action<IDbCommand> commandFilter = null)
         {
             var ev = dbCmd.GetDialectProvider().SqlExpression<T>();
@@ -375,12 +592,28 @@ namespace ServiceStack.OrmLite
             return dbCmd.Delete(ev, commandFilter);
         }
 
+        /// <summary>
+        /// Deletes the specified where.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="where">The where.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         public static int Delete<T>(this IDbCommand dbCmd, SqlExpression<T> where, Action<IDbCommand> commandFilter = null)
         {
             var sql = where.ToDeleteRowStatement();
             return dbCmd.ExecuteSql(sql, where.Params, commandFilter);
         }
 
+        /// <summary>
+        /// Deletes the where.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="whereFilter">The where filter.</param>
+        /// <param name="whereParams">The where parameters.</param>
+        /// <returns>System.Int32.</returns>
         public static int DeleteWhere<T>(this IDbCommand dbCmd, string whereFilter, object[] whereParams)
         {
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();

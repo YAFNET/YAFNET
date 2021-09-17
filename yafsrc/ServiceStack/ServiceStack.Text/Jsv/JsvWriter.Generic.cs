@@ -1,5 +1,9 @@
-//Copyright (c) ServiceStack, Inc. All Rights Reserved.
-//License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="JsvWriter.Generic.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -10,12 +14,25 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Jsv
 {
+    /// <summary>
+    /// Class JsvWriter.
+    /// </summary>
     public static class JsvWriter
     {
+        /// <summary>
+        /// The instance
+        /// </summary>
         public static readonly JsWriter<JsvTypeSerializer> Instance = new();
 
+        /// <summary>
+        /// The write function cache
+        /// </summary>
         private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
 
+        /// <summary>
+        /// Removes the cache function.
+        /// </summary>
+        /// <param name="forType">For type.</param>
         internal static void RemoveCacheFn(Type forType)
         {
             Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
@@ -29,6 +46,11 @@ namespace ServiceStack.Text.Jsv
                 Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
         }
 
+        /// <summary>
+        /// Gets the write function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetWriteFn(Type type)
         {
             try
@@ -61,6 +83,11 @@ namespace ServiceStack.Text.Jsv
             }
         }
 
+        /// <summary>
+        /// Writes the late bound object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteLateBoundObject(TextWriter writer, object value)
         {
             if (value == null)
@@ -87,11 +114,20 @@ namespace ServiceStack.Text.Jsv
             }
         }
 
+        /// <summary>
+        /// Gets the value type to string method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate GetValueTypeToStringMethod(Type type)
         {
             return Instance.GetValueTypeToStringMethod(type);
         }
 
+        /// <summary>
+        /// Initializes the aot.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {
@@ -108,14 +144,23 @@ namespace ServiceStack.Text.Jsv
     /// <typeparam name="T"></typeparam>
     public static class JsvWriter<T>
     {
+        /// <summary>
+        /// The cache function
+        /// </summary>
         private static WriteObjectDelegate CacheFn;
 
+        /// <summary>
+        /// Resets this instance.
+        /// </summary>
         public static void Reset()
         {
             JsvWriter.RemoveCacheFn(typeof(T));
             Refresh();
         }
 
+        /// <summary>
+        /// Refreshes this instance.
+        /// </summary>
         public static void Refresh()
         {
             if (JsvWriter.Instance == null)
@@ -126,11 +171,18 @@ namespace ServiceStack.Text.Jsv
                 : JsvWriter.Instance.GetWriteFn<T>();
         }
 
+        /// <summary>
+        /// Writes the function.
+        /// </summary>
+        /// <returns>WriteObjectDelegate.</returns>
         public static WriteObjectDelegate WriteFn()
         {
             return CacheFn ?? WriteObject;
         }
 
+        /// <summary>
+        /// Initializes static members of the <see cref="JsvWriter{T}" /> class.
+        /// </summary>
         static JsvWriter()
         {
             CacheFn = typeof(T) == typeof(object)
@@ -138,6 +190,11 @@ namespace ServiceStack.Text.Jsv
                 : JsvWriter.Instance.GetWriteFn<T>();
         }
 
+        /// <summary>
+        /// Writes the object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteObject(TextWriter writer, object value)
         {
             if (writer == null) return; //AOT
@@ -157,6 +214,11 @@ namespace ServiceStack.Text.Jsv
             }
         }
 
+        /// <summary>
+        /// Writes the root object.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public static void WriteRootObject(TextWriter writer, object value)
         {
             if (writer == null) return; //AOT

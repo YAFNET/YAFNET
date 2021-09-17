@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="CachedTypeInfo.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -6,10 +12,21 @@ using System.Threading;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// Class CachedTypeInfo.
+    /// </summary>
     public class CachedTypeInfo
     {
+        /// <summary>
+        /// The cache map
+        /// </summary>
         static Dictionary<Type, CachedTypeInfo> CacheMap = new();
 
+        /// <summary>
+        /// Gets the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>CachedTypeInfo.</returns>
         public static CachedTypeInfo Get(Type type)
         {
             if (CacheMap.TryGetValue(type, out var value))
@@ -31,16 +48,32 @@ namespace ServiceStack.Text
             return instance;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CachedTypeInfo"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
         public CachedTypeInfo(Type type)
         {
             EnumInfo = EnumInfo.GetEnumInfo(type);
         }
 
+        /// <summary>
+        /// Gets the enum information.
+        /// </summary>
+        /// <value>The enum information.</value>
         public EnumInfo EnumInfo { get; }
     }
 
+    /// <summary>
+    /// Class EnumInfo.
+    /// </summary>
     public class EnumInfo
     {
+        /// <summary>
+        /// Gets the enum information.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>EnumInfo.</returns>
         public static EnumInfo GetEnumInfo(Type type)
         {
             if (type.IsEnum)
@@ -53,7 +86,14 @@ namespace ServiceStack.Text
             return null;
         }
 
+        /// <summary>
+        /// The enum type
+        /// </summary>
         private readonly Type enumType;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumInfo"/> class.
+        /// </summary>
+        /// <param name="enumType">Type of the enum.</param>
         private EnumInfo(Type enumType)
         {
             this.enumType = enumType;
@@ -82,10 +122,24 @@ namespace ServiceStack.Text
             isEnumFlag = enumType.IsEnumFlags();
         }
 
+        /// <summary>
+        /// The is enum flag
+        /// </summary>
         private readonly bool isEnumFlag;
+        /// <summary>
+        /// The enum member values
+        /// </summary>
         private readonly Dictionary<object, string> enumMemberValues;
+        /// <summary>
+        /// The enum member reverse lookup
+        /// </summary>
         private readonly Dictionary<string, object> enumMemberReverseLookup;
 
+        /// <summary>
+        /// Gets the serialized value.
+        /// </summary>
+        /// <param name="enumValue">The enum value.</param>
+        /// <returns>System.Object.</returns>
         public object GetSerializedValue(object enumValue)
         {
             if (enumMemberValues != null && enumMemberValues.TryGetValue(enumValue, out var memberValue))
@@ -95,6 +149,11 @@ namespace ServiceStack.Text
             return enumValue.ToString();
         }
 
+        /// <summary>
+        /// Parses the specified serialized value.
+        /// </summary>
+        /// <param name="serializedValue">The serialized value.</param>
+        /// <returns>System.Object.</returns>
         public object Parse(string serializedValue)
         {
             if (enumMemberReverseLookup.TryGetValue(serializedValue, out var enumValue))

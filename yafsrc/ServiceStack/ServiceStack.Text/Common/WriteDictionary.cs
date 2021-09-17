@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="WriteDictionary.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -21,28 +16,61 @@ using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Delegate WriteMapDelegate
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oMap">The o map.</param>
+    /// <param name="writeKeyFn">The write key function.</param>
+    /// <param name="writeValueFn">The write value function.</param>
     internal delegate void WriteMapDelegate(
         TextWriter writer,
         object oMap,
         WriteObjectDelegate writeKeyFn,
         WriteObjectDelegate writeValueFn);
 
+    /// <summary>
+    /// Class WriteDictionary.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     internal static class WriteDictionary<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Class MapKey.
+        /// </summary>
         internal class MapKey
         {
+            /// <summary>
+            /// The key type
+            /// </summary>
             internal Type KeyType;
+            /// <summary>
+            /// The value type
+            /// </summary>
             internal Type ValueType;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="MapKey" /> class.
+            /// </summary>
+            /// <param name="keyType">Type of the key.</param>
+            /// <param name="valueType">Type of the value.</param>
             public MapKey(Type keyType, Type valueType)
             {
                 KeyType = keyType;
                 ValueType = valueType;
             }
 
+            /// <summary>
+            /// Equalses the specified other.
+            /// </summary>
+            /// <param name="other">The other.</param>
+            /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
             public bool Equals(MapKey other)
             {
                 if (ReferenceEquals(null, other)) return false;
@@ -50,6 +78,11 @@ namespace ServiceStack.Text.Common
                 return Equals(other.KeyType, KeyType) && Equals(other.ValueType, ValueType);
             }
 
+            /// <summary>
+            /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+            /// </summary>
+            /// <param name="obj">The object to compare with the current object.</param>
+            /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
             public override bool Equals(object obj)
             {
                 if (ReferenceEquals(null, obj)) return false;
@@ -58,6 +91,10 @@ namespace ServiceStack.Text.Common
                 return Equals((MapKey)obj);
             }
 
+            /// <summary>
+            /// Returns a hash code for this instance.
+            /// </summary>
+            /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
             public override int GetHashCode()
             {
                 unchecked
@@ -67,8 +104,17 @@ namespace ServiceStack.Text.Common
             }
         }
 
+        /// <summary>
+        /// The cache FNS
+        /// </summary>
         static Dictionary<MapKey, WriteMapDelegate> CacheFns = new();
 
+        /// <summary>
+        /// Gets the write generic dictionary.
+        /// </summary>
+        /// <param name="keyType">Type of the key.</param>
+        /// <param name="valueType">Type of the value.</param>
+        /// <returns>Action&lt;TextWriter, System.Object, WriteObjectDelegate, WriteObjectDelegate&gt;.</returns>
         public static Action<TextWriter, object, WriteObjectDelegate, WriteObjectDelegate>
             GetWriteGenericDictionary(Type keyType, Type valueType)
         {
@@ -92,6 +138,11 @@ namespace ServiceStack.Text.Common
             return writeFn.Invoke;
         }
 
+        /// <summary>
+        /// Writes the i dictionary.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oMap">The o map.</param>
         public static void WriteIDictionary(TextWriter writer, object oMap)
         {
             WriteObjectDelegate writeKeyFn = null;
@@ -179,11 +230,27 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class ToStringDictionaryMethods.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the t key.</typeparam>
+    /// <typeparam name="TValue">The type of the t value.</typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public static class ToStringDictionaryMethods<TKey, TValue, TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Writes the i dictionary.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="oMap">The o map.</param>
+        /// <param name="writeKeyFn">The write key function.</param>
+        /// <param name="writeValueFn">The write value function.</param>
         public static void WriteIDictionary(
             TextWriter writer,
             object oMap,
@@ -194,6 +261,13 @@ namespace ServiceStack.Text.Common
             WriteGenericIDictionary(writer, (IDictionary<TKey, TValue>)oMap, writeKeyFn, writeValueFn);
         }
 
+        /// <summary>
+        /// Writes the generic i dictionary.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="map">The map.</param>
+        /// <param name="writeKeyFn">The write key function.</param>
+        /// <param name="writeValueFn">The write value function.</param>
         public static void WriteGenericIDictionary(
             TextWriter writer,
             IDictionary<TKey, TValue> map,

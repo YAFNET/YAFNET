@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="EachScriptBlock.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,18 +17,30 @@ namespace ServiceStack.Script
     /// <summary>
     /// Handlebars.js like each block
     /// Usages: {{#each customers}} {{Name}} {{/each}}
-    ///         {{#each customers}} {{it.Name}} {{/each}}
-    ///         {{#each num in numbers}} {{num}} {{/each}}
-    ///         {{#each num in [1,2,3]}} {{num}} {{/each}}
-    ///         {{#each numbers}} {{it}} {{else}} no numbers {{/each}}
-    ///         {{#each numbers}} {{it}} {{else if letters != null}} has letters {{else}} no numbers {{/each}}
-    ///         {{#each n in numbers where n > 5}} {{it}} {{else}} no numbers > 5 {{/each}}
-    ///         {{#each n in numbers where n > 5 orderby n skip 1 take 2}} {{it}} {{else}} no numbers > 5 {{/each}}
+    /// {{#each customers}} {{it.Name}} {{/each}}
+    /// {{#each num in numbers}} {{num}} {{/each}}
+    /// {{#each num in [1,2,3]}} {{num}} {{/each}}
+    /// {{#each numbers}} {{it}} {{else}} no numbers {{/each}}
+    /// {{#each numbers}} {{it}} {{else if letters != null}} has letters {{else}} no numbers {{/each}}
+    /// {{#each n in numbers where n &gt; 5}} {{it}} {{else}} no numbers &gt; 5 {{/each}}
+    /// {{#each n in numbers where n &gt; 5 orderby n skip 1 take 2}} {{it}} {{else}} no numbers &gt; 5 {{/each}}
     /// </summary>
     public class EachScriptBlock : ScriptBlock
     {
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "each";
 
+        /// <summary>
+        /// Write as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="block">The block.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="System.NotSupportedException">'each' block requires the collection to iterate</exception>
         public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
             if (block.Argument.IsNullOrEmpty())
@@ -128,6 +146,15 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Parses the argument.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="fragment">The fragment.</param>
+        /// <returns>EachArg.</returns>
+        /// <exception cref="System.NotSupportedException">'each' block requires the collection to iterate</exception>
+        /// <exception cref="System.NotSupportedException">'each' block expected identifier but was {token.DebugToken()}</exception>
+        /// <exception cref="System.NotSupportedException">'each' block requires the collection to iterate</exception>
         EachArg ParseArgument(ScriptScopeContext scope, PageBlockFragment fragment)
         {
             var literal = fragment.Argument.Span.ParseJsExpression(out var token);
@@ -197,17 +224,55 @@ namespace ServiceStack.Script
             return new EachArg(binding, hasExplicitBinding, source, where, orderBy, orderByDescending, skip, take);
         }
 
+        /// <summary>
+        /// Class EachArg.
+        /// </summary>
         class EachArg
         {
+            /// <summary>
+            /// The binding
+            /// </summary>
             public readonly string Binding;
+            /// <summary>
+            /// The has explicit binding
+            /// </summary>
             public readonly bool HasExplicitBinding;
+            /// <summary>
+            /// The source
+            /// </summary>
             public readonly JsToken Source;
+            /// <summary>
+            /// The where
+            /// </summary>
             public readonly JsToken Where;
+            /// <summary>
+            /// The order by
+            /// </summary>
             public readonly JsToken OrderBy;
+            /// <summary>
+            /// The order by descending
+            /// </summary>
             public readonly JsToken OrderByDescending;
+            /// <summary>
+            /// The skip
+            /// </summary>
             public readonly JsToken Skip;
+            /// <summary>
+            /// The take
+            /// </summary>
             public readonly JsToken Take;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="EachArg"/> class.
+            /// </summary>
+            /// <param name="binding">The binding.</param>
+            /// <param name="hasExplicitBinding">if set to <c>true</c> [has explicit binding].</param>
+            /// <param name="source">The source.</param>
+            /// <param name="where">The where.</param>
+            /// <param name="orderBy">The order by.</param>
+            /// <param name="orderByDescending">The order by descending.</param>
+            /// <param name="skip">The skip.</param>
+            /// <param name="take">The take.</param>
             public EachArg(string binding, bool hasExplicitBinding, JsToken source, JsToken where,
                 JsToken orderBy, JsToken orderByDescending, JsToken skip, JsToken take)
             {

@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="TypeProperties.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -6,8 +12,17 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class PropertyAccessor.
+    /// </summary>
     public class PropertyAccessor
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyAccessor"/> class.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <param name="publicGetter">The public getter.</param>
+        /// <param name="publicSetter">The public setter.</param>
         public PropertyAccessor(
             PropertyInfo propertyInfo,
             GetMemberDelegate publicGetter,
@@ -18,17 +33,41 @@ namespace ServiceStack
             PublicSetter = publicSetter;
         }
 
+        /// <summary>
+        /// Gets the property information.
+        /// </summary>
+        /// <value>The property information.</value>
         public PropertyInfo PropertyInfo { get; }
 
+        /// <summary>
+        /// Gets the public getter.
+        /// </summary>
+        /// <value>The public getter.</value>
         public GetMemberDelegate PublicGetter { get; }
 
+        /// <summary>
+        /// Gets the public setter.
+        /// </summary>
+        /// <value>The public setter.</value>
         public SetMemberDelegate PublicSetter { get; }
     }
 
+    /// <summary>
+    /// Class TypeProperties.
+    /// Implements the <see cref="ServiceStack.TypeProperties" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="ServiceStack.TypeProperties" />
     public class TypeProperties<T> : TypeProperties
     {
+        /// <summary>
+        /// The instance
+        /// </summary>
         public static readonly TypeProperties<T> Instance = new();
 
+        /// <summary>
+        /// Initializes static members of the <see cref="TypeProperties{T}"/> class.
+        /// </summary>
         static TypeProperties()
         {
             Instance.Type = typeof(T);
@@ -50,6 +89,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Gets the accessor.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns>PropertyAccessor.</returns>
         public new static PropertyAccessor GetAccessor(string propertyName)
         {
             return Instance.PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
@@ -58,12 +102,28 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class TypeProperties.
+    /// Implements the <see cref="ServiceStack.TypeProperties" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.TypeProperties" />
     public abstract class TypeProperties
     {
+        /// <summary>
+        /// The cache map
+        /// </summary>
         static Dictionary<Type, TypeProperties> CacheMap = new();
 
+        /// <summary>
+        /// The factory type
+        /// </summary>
         public static readonly Type FactoryType = typeof(TypeProperties<>);
 
+        /// <summary>
+        /// Gets the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>TypeProperties.</returns>
         public static TypeProperties Get(Type type)
         {
             if (CacheMap.TryGetValue(type, out TypeProperties value))
@@ -87,6 +147,11 @@ namespace ServiceStack
             return instance;
         }
 
+        /// <summary>
+        /// Gets the accessor.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <returns>PropertyAccessor.</returns>
         public PropertyAccessor GetAccessor(string propertyName)
         {
             return PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
@@ -94,13 +159,29 @@ namespace ServiceStack
                 : null;
         }
 
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>The type.</value>
         public Type Type { get; protected set; }
 
+        /// <summary>
+        /// The property map
+        /// </summary>
         public readonly Dictionary<string, PropertyAccessor> PropertyMap =
             new(PclExport.Instance.InvariantComparerIgnoreCase);
 
+        /// <summary>
+        /// Gets or sets the public property infos.
+        /// </summary>
+        /// <value>The public property infos.</value>
         public PropertyInfo[] PublicPropertyInfos { get; protected set; }
 
+        /// <summary>
+        /// Gets the public property.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>PropertyInfo.</returns>
         public PropertyInfo GetPublicProperty(string name)
         {
             foreach (var pi in PublicPropertyInfos)
@@ -111,8 +192,18 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// Gets the public getter.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <returns>GetMemberDelegate.</returns>
         public GetMemberDelegate GetPublicGetter(PropertyInfo pi) => GetPublicGetter(pi?.Name);
 
+        /// <summary>
+        /// Gets the public getter.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>GetMemberDelegate.</returns>
         public GetMemberDelegate GetPublicGetter(string name)
         {
             if (name == null)
@@ -123,8 +214,18 @@ namespace ServiceStack
                 : null;
         }
 
+        /// <summary>
+        /// Gets the public setter.
+        /// </summary>
+        /// <param name="pi">The pi.</param>
+        /// <returns>SetMemberDelegate.</returns>
         public SetMemberDelegate GetPublicSetter(PropertyInfo pi) => GetPublicSetter(pi?.Name);
 
+        /// <summary>
+        /// Gets the public setter.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>SetMemberDelegate.</returns>
         public SetMemberDelegate GetPublicSetter(string name)
         {
             if (name == null)
@@ -136,17 +237,42 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class PropertyInvoker.
+    /// </summary>
     public static class PropertyInvoker
     {
+        /// <summary>
+        /// Creates the getter.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>GetMemberDelegate.</returns>
         public static GetMemberDelegate CreateGetter(this PropertyInfo propertyInfo) =>
             ReflectionOptimizer.Instance.CreateGetter(propertyInfo);
 
+        /// <summary>
+        /// Creates the getter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
         public static GetMemberDelegate<T> CreateGetter<T>(this PropertyInfo propertyInfo) =>
             ReflectionOptimizer.Instance.CreateGetter<T>(propertyInfo);
 
+        /// <summary>
+        /// Creates the setter.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>SetMemberDelegate.</returns>
         public static SetMemberDelegate CreateSetter(this PropertyInfo propertyInfo) =>
             ReflectionOptimizer.Instance.CreateSetter(propertyInfo);
 
+        /// <summary>
+        /// Creates the setter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
         public static SetMemberDelegate<T> CreateSetter<T>(this PropertyInfo propertyInfo) =>
             ReflectionOptimizer.Instance.CreateSetter<T>(propertyInfo);
     }

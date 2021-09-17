@@ -1,3 +1,9 @@
+// ***********************************************************************
+// <copyright file="ProcessUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,6 +22,8 @@ namespace ServiceStack
         /// .NET Core / Win throws Win32Exception (193): The specified executable is not a valid application for this OS platform.
         /// This method converts it to a cmd.exe /c execute to workaround this
         /// </summary>
+        /// <param name="startInfo">The start information.</param>
+        /// <returns>ProcessStartInfo.</returns>
         public static ProcessStartInfo ConvertToCmdExec(this ProcessStartInfo startInfo)
         {
             var to = new ProcessStartInfo
@@ -34,6 +42,8 @@ namespace ServiceStack
         /// <summary>
         /// Returns path of executable if exists within PATH
         /// </summary>
+        /// <param name="exeName">Name of the executable.</param>
+        /// <returns>System.String.</returns>
         public static string FindExePath(string exeName)
         {
             try
@@ -74,6 +84,10 @@ namespace ServiceStack
         /// <summary>
         /// Run the command with the OS's command runner
         /// </summary>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDir">The working dir.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentNullException">arguments</exception>
         public static string RunShell(string arguments, string workingDir = null)
         {
             if (string.IsNullOrEmpty(arguments))
@@ -95,6 +109,11 @@ namespace ServiceStack
         /// <summary>
         /// Run the process and return the Standard Output, any Standard Error output will throw an Exception
         /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="workingDir">The working dir.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.Exception">`{fileName} {process.StartInfo.Arguments}` command failed, stderr: " + error + ", stdout:" + output</exception>
         public static string Run(string fileName, string arguments = null, string workingDir = null)
         {
             var process = new Process
@@ -135,6 +154,11 @@ namespace ServiceStack
         /// <summary>
         /// Run a Process asynchronously, returning  entire captured process output, whilst streaming stdOut, stdErr callbacks
         /// </summary>
+        /// <param name="startInfo">The start information.</param>
+        /// <param name="timeoutMs">The timeout ms.</param>
+        /// <param name="onOut">The on out.</param>
+        /// <param name="onError">The on error.</param>
+        /// <returns>A Task&lt;ProcessResult&gt; representing the asynchronous operation.</returns>
         public static async Task<ProcessResult> RunAsync(ProcessStartInfo startInfo, int? timeoutMs = null,
             Action<string> onOut = null, Action<string> onError = null)
         {
@@ -267,6 +291,11 @@ namespace ServiceStack
 
             return result;
         }
+        /// <summary>
+        /// Creates the error result.
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <returns>ProcessResult.</returns>
         public static ProcessResult CreateErrorResult(Exception e)
         {
             return new ProcessResult
@@ -290,36 +319,43 @@ namespace ServiceStack
         /// Exit code
         /// <para>If NULL, process exited due to timeout</para>
         /// </summary>
+        /// <value>The exit code.</value>
         public int? ExitCode { get; set; } = null;
 
         /// <summary>
         /// Standard error stream
         /// </summary>
+        /// <value>The standard error.</value>
         public string StdErr { get; set; }
 
         /// <summary>
         /// Standard output stream
         /// </summary>
+        /// <value>The standard out.</value>
         public string StdOut { get; set; }
 
         /// <summary>
         /// UTC Start
         /// </summary>
+        /// <value>The start at.</value>
         public DateTime StartAt { get; set; }
 
         /// <summary>
         /// UTC End
         /// </summary>
+        /// <value>The end at.</value>
         public DateTime EndAt { get; set; }
 
         /// <summary>
         /// Duration (ms)
         /// </summary>
+        /// <value>The duration ms.</value>
         public long DurationMs { get; set; }
 
         /// <summary>
         /// Duration (ms)
         /// </summary>
+        /// <value>The callback duration ms.</value>
         public long? CallbackDurationMs { get; set; }
     }
 

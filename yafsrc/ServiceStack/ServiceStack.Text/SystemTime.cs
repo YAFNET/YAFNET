@@ -1,24 +1,28 @@
-﻿//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//   Damian Hickey (dhickey@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="SystemTime.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 
 namespace ServiceStack.Text
 {
+    /// <summary>
+    /// Class SystemTime.
+    /// </summary>
     public static class SystemTime
     {
+        /// <summary>
+        /// The UTC date time resolver
+        /// </summary>
         public static Func<DateTime> UtcDateTimeResolver;
 
+        /// <summary>
+        /// Gets the now.
+        /// </summary>
+        /// <value>The now.</value>
         public static DateTime Now
         {
             get
@@ -28,6 +32,10 @@ namespace ServiceStack.Text
             }
         }
 
+        /// <summary>
+        /// Gets the UTC now.
+        /// </summary>
+        /// <value>The UTC now.</value>
         public static DateTime UtcNow
         {
             get

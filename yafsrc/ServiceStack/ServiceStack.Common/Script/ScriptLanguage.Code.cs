@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="ScriptLanguage.Code.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,16 +18,34 @@ namespace ServiceStack.Script
 
     /// <summary>
     /// Inverse of the #Script Language Template Syntax where each line is a statement
-    /// i.e. in contrast to #Script's default where text contains embedded template expressions {{ ... }} 
+    /// i.e. in contrast to #Script's default where text contains embedded template expressions {{ ... }}
     /// </summary>
     public sealed class ScriptCode : ScriptLanguage
     {
+        /// <summary>
+        /// Prevents a default instance of the <see cref="ScriptCode"/> class from being created.
+        /// </summary>
         private ScriptCode() { } // force usage of singleton
 
+        /// <summary>
+        /// The language
+        /// </summary>
         public static readonly ScriptLanguage Language = new ScriptCode();
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "code";
 
+        /// <summary>
+        /// Parses the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="modifiers">The modifiers.</param>
+        /// <returns>List&lt;PageFragment&gt;.</returns>
+        /// <exception cref="System.NotSupportedException">Unknown modifier '{modifiers.ToString()}', expected 'code|q', 'code|quiet' or 'code|mute'</exception>
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
         {
             var quiet = false;
@@ -42,6 +66,13 @@ namespace ServiceStack.Script
             };
         }
 
+        /// <summary>
+        /// Write page fragment as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="fragment">The fragment.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
         {
             var page = scope.PageResult;
@@ -58,6 +89,13 @@ namespace ServiceStack.Script
             return false;
         }
 
+        /// <summary>
+        /// Write statement as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="statement">The statement.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token)
         {
             var page = scope.PageResult;
@@ -97,20 +135,48 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class ScriptCodeUtils.
+    /// </summary>
     public static class ScriptCodeUtils
     {
+        /// <summary>
+        /// Codes the block.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <returns>SharpPage.</returns>
         [Obsolete("Use CodeSharpPage")]
         public static SharpPage CodeBlock(this ScriptContext context, string code) => context.CodeSharpPage(code);
 
+        /// <summary>
+        /// Codes the sharp page.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <returns>SharpPage.</returns>
         public static SharpPage CodeSharpPage(this ScriptContext context, string code)
             => context.Pages.OneTimePage(code, context.PageFormats[0].Extension, p => p.ScriptLanguage = ScriptCode.Language);
 
+        /// <summary>
+        /// Asserts the code.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <exception cref="System.NotSupportedException">ScriptCode.Language is not registered in {context.GetType().Name}.{nameof(context.ScriptLanguages)}</exception>
         private static void AssertCode(this ScriptContext context)
         {
             if (!context.ScriptLanguages.Contains(ScriptCode.Language))
                 throw new NotSupportedException($"ScriptCode.Language is not registered in {context.GetType().Name}.{nameof(context.ScriptLanguages)}");
         }
 
+        /// <summary>
+        /// Gets the code page result.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>PageResult.</returns>
+        /// <exception cref="ServiceStack.Script.PageResult"></exception>
         private static PageResult GetCodePageResult(ScriptContext context, string code, Dictionary<string, object> args)
         {
             context.AssertCode();
@@ -130,27 +196,59 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Renders the code.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.String.</returns>
         public static string RenderCode(this ScriptContext context, string code, Dictionary<string, object> args = null)
         {
             var pageResult = GetCodePageResult(context, code, args);
             return pageResult.RenderScript();
         }
 
+        /// <summary>
+        /// Render code as an asynchronous operation.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
         public static async Task<string> RenderCodeAsync(this ScriptContext context, string code, Dictionary<string, object> args = null)
         {
             var pageResult = GetCodePageResult(context, code, args);
             return await pageResult.RenderScriptAsync().ConfigAwait();
         }
 
+        /// <summary>
+        /// Parses the code.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <returns>JsBlockStatement.</returns>
         public static JsBlockStatement ParseCode(this ScriptContext context, string code) =>
             context.ParseCode(code.AsMemory());
 
+        /// <summary>
+        /// Parses the code.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <returns>JsBlockStatement.</returns>
         public static JsBlockStatement ParseCode(this ScriptContext context, ReadOnlyMemory<char> code)
         {
             var statements = context.ParseCodeStatements(code);
             return new JsBlockStatement(statements);
         }
 
+        /// <summary>
+        /// Ensures the return.
+        /// </summary>
+        /// <param name="code">The code.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentNullException">code</exception>
         public static string EnsureReturn(string code)
         {
             if (code == null)
@@ -162,9 +260,25 @@ namespace ServiceStack.Script
             return code;
         }
 
+        /// <summary>
+        /// Evaluates the code.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>T.</returns>
         public static T EvaluateCode<T>(this ScriptContext context, string code, Dictionary<string, object> args = null) =>
             context.EvaluateCode(code, args).ConvertTo<T>();
 
+        /// <summary>
+        /// Evaluates the code.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static object EvaluateCode(this ScriptContext context, string code, Dictionary<string, object> args = null)
         {
             var pageResult = GetCodePageResult(context, code, args);
@@ -175,9 +289,25 @@ namespace ServiceStack.Script
             return ScriptLanguage.UnwrapValue(returnValue);
         }
 
+        /// <summary>
+        /// Evaluate code as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
         public static async Task<T> EvaluateCodeAsync<T>(this ScriptContext context, string code, Dictionary<string, object> args = null) =>
             (await context.EvaluateCodeAsync(code, args).ConfigAwait()).ConvertTo<T>();
 
+        /// <summary>
+        /// Evaluate code as an asynchronous operation.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static async Task<object> EvaluateCodeAsync(this ScriptContext context, string code, Dictionary<string, object> args = null)
         {
             var pageResult = GetCodePageResult(context, code, args);
@@ -190,6 +320,14 @@ namespace ServiceStack.Script
         }
 
 
+        /// <summary>
+        /// Parses the code statements.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="code">The code.</param>
+        /// <returns>JsStatement[].</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated multi-line comment, near {line.DebugLiteral()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unexpected syntax after expression: {afterExpr.ToString()}, near {line.DebugLiteral()}</exception>
         internal static JsStatement[] ParseCodeStatements(this ScriptContext context, ReadOnlyMemory<char> code)
         {
             var to = new List<JsStatement>();
@@ -326,6 +464,13 @@ namespace ServiceStack.Script
 
         // #if ...
         //  ^
+        /// <summary>
+        /// Parses the code script block.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="context">The context.</param>
+        /// <param name="blockFragment">The block fragment.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         public static ReadOnlyMemory<char> ParseCodeScriptBlock(this ReadOnlyMemory<char> literal, ScriptContext context,
             out PageBlockFragment blockFragment)
         {
@@ -373,6 +518,13 @@ namespace ServiceStack.Script
 
         // cursorPos is after CRLF except at end where its at last char
 
+        /// <summary>
+        /// Froms the start to previous line.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="cursorPos">The cursor position.</param>
+        /// <param name="lineLength">Length of the line.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ReadOnlyMemory<char> FromStartToPreviousLine(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength)
         {
@@ -388,6 +540,13 @@ namespace ServiceStack.Script
             return ret;
         }
 
+        /// <summary>
+        /// Converts to linestart.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="cursorPos">The cursor position.</param>
+        /// <param name="lineLength">Length of the line.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ReadOnlyMemory<char> ToLineStart(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength)
         {
@@ -399,6 +558,14 @@ namespace ServiceStack.Script
             return ret;
         }
 
+        /// <summary>
+        /// Converts to linestart.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="cursorPos">The cursor position.</param>
+        /// <param name="lineLength">Length of the line.</param>
+        /// <param name="statementPos">The statement position.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static ReadOnlyMemory<char> ToLineStart(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength, int statementPos)
         {
@@ -418,6 +585,14 @@ namespace ServiceStack.Script
         //              ^
         //  else
         //  /block
+        /// <summary>
+        /// Parses the code body.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="blockName">Name of the block.</param>
+        /// <param name="body">The body.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">End block for '{blockName.ToString()}' not found.</exception>
         internal static ReadOnlyMemory<char> ParseCodeBody(this ReadOnlyMemory<char> literal, ReadOnlyMemory<char> blockName, out ReadOnlyMemory<char> body)
         {
             var inStatements = 0;
@@ -472,6 +647,15 @@ namespace ServiceStack.Script
         //  else
         //  ^
         //  /block
+        /// <summary>
+        /// Parses the code else block.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="blockName">Name of the block.</param>
+        /// <param name="elseArgument">The else argument.</param>
+        /// <param name="elseBody">The else body.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">End 'else' statement not found.</exception>
         internal static ReadOnlyMemory<char> ParseCodeElseBlock(this ReadOnlyMemory<char> literal, ReadOnlyMemory<char> blockName,
             out ReadOnlyMemory<char> elseArgument, out ReadOnlyMemory<char> elseBody)
         {
@@ -530,6 +714,15 @@ namespace ServiceStack.Script
             throw new SyntaxErrorException($"End 'else' statement not found.");
         }
 
+        /// <summary>
+        /// Parses the expression.
+        /// </summary>
+        /// <param name="literal">The literal.</param>
+        /// <param name="expr">The expr.</param>
+        /// <param name="filters">The filters.</param>
+        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected filter separator '|' but was {literal.DebugFirstChar()}</exception>
+        /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unexpected syntax '{literal.ToString()}', Expected pipeline operator '|>'</exception>
         internal static ReadOnlySpan<char> ParseExpression(this ReadOnlySpan<char> literal, out JsToken expr, out List<JsCallExpression> filters)
         {
             literal = literal.ParseJsExpression(out expr, filterExpression: true);
@@ -572,6 +765,13 @@ namespace ServiceStack.Script
         }
 
 
+        /// <summary>
+        /// Adds the expression.
+        /// </summary>
+        /// <param name="ret">The ret.</param>
+        /// <param name="originalText">The original text.</param>
+        /// <param name="expr">The expr.</param>
+        /// <param name="filters">The filters.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void AddExpression(this List<JsStatement> ret, ReadOnlyMemory<char> originalText,
             JsToken expr, List<JsCallExpression> filters)

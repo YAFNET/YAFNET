@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="PartialScriptBlock.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,16 +15,32 @@ namespace ServiceStack.Script
 {
     /// <summary>
     /// Partial Block doesn't emit anything it only creates and saves a partial in the PageResult
-    /// 
     /// Usages: {{#partial mypartial}} contents {{/partial}}
-    ///         {{#partial mypartial {format:'html'} }} contents {{/partial}}
-    ///         {{#partial mypartial {format:'html', pageArg:1} }} contents {{/partial}}
+    /// {{#partial mypartial {format:'html'} }} contents {{/partial}}
+    /// {{#partial mypartial {format:'html', pageArg:1} }} contents {{/partial}}
     /// </summary>
     public class PartialScriptBlock : ScriptBlock
     {
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "partial";
+        /// <summary>
+        /// Parse Body using Specified Language. Uses host language if unspecified.
+        /// </summary>
+        /// <value>The body.</value>
         public override ScriptLanguage Body => ScriptTemplate.Language;
 
+        /// <summary>
+        /// Writes the asynchronous.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="block">The block.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="System.NotSupportedException">'partial' block is missing name of partial</exception>
+        /// <exception cref="System.NotSupportedException">Any 'partial' argument must be an Object Dictionary</exception>
         public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
             var literal = block.Argument.ParseVarName(out var name);

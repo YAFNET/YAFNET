@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="RequestExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using ServiceStack.Text;
@@ -6,11 +12,17 @@ using ServiceStack.Web;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class RequestExtensions.
+    /// </summary>
     public static class RequestExtensions
     {
         /// <summary>
         /// Duplicate Params are given a unique key by appending a #1 suffix
         /// </summary>
+        /// <param name="request">The request.</param>
+        /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">request</exception>
         public static Dictionary<string, string> GetRequestParams(this IRequest request)
         {
             if (request == null)
@@ -28,6 +40,11 @@ namespace ServiceStack
             return map;
         }
 
+        /// <summary>
+        /// Adds to map.
+        /// </summary>
+        /// <param name="nvc">The NVC.</param>
+        /// <param name="map">The map.</param>
         private static void AddToMap(NameValueCollection nvc, IDictionary<string, string> map)
         {
             for (int index = 0; index < nvc.Count; index++)

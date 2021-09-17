@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="DeserializeTypeRef.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +14,17 @@ using ServiceStack.Text.Support;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeTypeRef.
+    /// </summary>
     internal static class DeserializeTypeRef
     {
+        /// <summary>
+        /// Creates the serialization error.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="strType">Type of the string.</param>
+        /// <returns>System.Runtime.Serialization.SerializationException.</returns>
         internal static SerializationException CreateSerializationError(Type type, string strType)
         {
             return new(String.Format(
@@ -17,6 +32,14 @@ namespace ServiceStack.Text.Common
             JsWriter.MapStartChar, type.Name, strType.Substring(0, strType.Length < 50 ? strType.Length : 50)));
         }
 
+        /// <summary>
+        /// Gets the serialization exception.
+        /// </summary>
+        /// <param name="propertyName">Name of the property.</param>
+        /// <param name="propertyValueString">The property value string.</param>
+        /// <param name="propertyType">Type of the property.</param>
+        /// <param name="e">The e.</param>
+        /// <returns>System.Runtime.Serialization.SerializationException.</returns>
         internal static SerializationException GetSerializationException(string propertyName, string propertyValueString, Type propertyType, Exception e)
         {
             var serializationException = new SerializationException($"Failed to set property '{propertyName}' with '{propertyValueString}'", e);
@@ -35,8 +58,17 @@ namespace ServiceStack.Text.Common
             return serializationException;
         }
 
+        /// <summary>
+        /// The type accessors cache
+        /// </summary>
         private static Dictionary<Type, KeyValuePair<string, TypeAccessor>[]> TypeAccessorsCache = new();
 
+        /// <summary>
+        /// Gets the cached type accessors.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="serializer">The serializer.</param>
+        /// <returns>System.Collections.Generic.KeyValuePair&lt;string, ServiceStack.Text.Common.TypeAccessor&gt;[].</returns>
         internal static KeyValuePair<string, TypeAccessor>[] GetCachedTypeAccessors(Type type, ITypeSerializer serializer)
         {
             if (TypeAccessorsCache.TryGetValue(type, out var typeAccessors))
@@ -59,6 +91,12 @@ namespace ServiceStack.Text.Common
             return typeAccessors;
         }
 
+        /// <summary>
+        /// Gets the type accessors.
+        /// </summary>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <param name="serializer">The serializer.</param>
+        /// <returns>System.Collections.Generic.KeyValuePair&lt;string, ServiceStack.Text.Common.TypeAccessor&gt;[].</returns>
         internal static KeyValuePair<string, TypeAccessor>[] GetTypeAccessors(TypeConfig typeConfig, ITypeSerializer serializer)
         {
             var type = typeConfig.Type;

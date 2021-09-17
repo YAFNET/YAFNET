@@ -1,14 +1,34 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="TimeSpanConverter.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Globalization;
 using System.Text;
 
 namespace ServiceStack.Text.Support
 {
+    /// <summary>
+    /// Class TimeSpanConverter.
+    /// </summary>
     public class TimeSpanConverter
     {
+        /// <summary>
+        /// The minimum serialized value
+        /// </summary>
         private const string MinSerializedValue = "-P10675199DT2H48M5.4775391S";
+        /// <summary>
+        /// The maximum serialized value
+        /// </summary>
         private const string MaxSerializedValue = "P10675199DT2H48M5.4775391S";
 
+        /// <summary>
+        /// Converts to xsdduration.
+        /// </summary>
+        /// <param name="timeSpan">The time span.</param>
+        /// <returns>System.String.</returns>
         public static string ToXsdDuration(TimeSpan timeSpan)
         {
             if (timeSpan == TimeSpan.MinValue)
@@ -60,6 +80,11 @@ namespace ServiceStack.Text.Support
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Froms the duration of the XSD.
+        /// </summary>
+        /// <param name="xsdDuration">Duration of the XSD.</param>
+        /// <returns>TimeSpan.</returns>
         public static TimeSpan FromXsdDuration(string xsdDuration)
         {
             if (xsdDuration == MinSerializedValue)

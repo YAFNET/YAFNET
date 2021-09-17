@@ -1,4 +1,10 @@
-﻿/*
+﻿// ***********************************************************************
+// <copyright file="ScriptLanguage.Lisp.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+/*
   Copyright (c) 2017 OKI Software Co., Ltd.
   Copyright (c) 2018 SUZUKI Hisao
 
@@ -46,16 +52,41 @@ using ServiceStack.Text.Json;
 
 namespace ServiceStack.Script
 {
+    /// <summary>
+    /// Class ScriptLisp. This class cannot be inherited.
+    /// Implements the <see cref="ServiceStack.Script.ScriptLanguage" />
+    /// Implements the <see cref="ServiceStack.Script.IConfigureScriptContext" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.ScriptLanguage" />
+    /// <seealso cref="ServiceStack.Script.IConfigureScriptContext" />
     public sealed class ScriptLisp : ScriptLanguage, IConfigureScriptContext
     {
+        /// <summary>
+        /// Prevents a default instance of the <see cref="ScriptLisp"/> class from being created.
+        /// </summary>
         private ScriptLisp() { } // force usage of singleton
 
+        /// <summary>
+        /// The language
+        /// </summary>
         public static readonly ScriptLanguage Language = new ScriptLisp();
 
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "lisp";
 
+        /// <summary>
+        /// Gets the line comment.
+        /// </summary>
+        /// <value>The line comment.</value>
         public override string LineComment => ";";
 
+        /// <summary>
+        /// Configures the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public void Configure(ScriptContext context)
         {
             Lisp.Init();
@@ -63,6 +94,14 @@ namespace ServiceStack.Script
             context.ScriptBlocks.Add(new DefnScriptBlock());
         }
 
+        /// <summary>
+        /// Parses the specified context.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="modifiers">The modifiers.</param>
+        /// <returns>List&lt;PageFragment&gt;.</returns>
+        /// <exception cref="System.NotSupportedException">Unknown modifier '{modifiers.ToString()}', expected 'code|q', 'code|quiet' or 'code|mute'</exception>
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
         {
             var quiet = false;
@@ -71,7 +110,7 @@ namespace ServiceStack.Script
             {
                 quiet = modifiers.EqualsOrdinal("q") || modifiers.EqualsOrdinal("quiet") || modifiers.EqualsOrdinal("mute");
                 if (!quiet)
-                    throw new NotSupportedException($"Unknown modifier '{modifiers.ToString()}', expected 'code|q', 'code|quiet' or 'code|mute'");
+                    throw new NotSupportedException($"Unknown modifier '{modifiers}', expected 'code|q', 'code|quiet' or 'code|mute'");
             }
 
             return new List<PageFragment> {
@@ -81,6 +120,13 @@ namespace ServiceStack.Script
             };
         }
 
+        /// <summary>
+        /// Write page fragment as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="fragment">The fragment.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
         {
             if (fragment is PageLispStatementFragment blockFragment)
@@ -95,6 +141,13 @@ namespace ServiceStack.Script
             return false;
         }
 
+        /// <summary>
+        /// Write statement as an asynchronous operation.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="statement">The statement.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public override async Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token)
         {
             var page = scope.PageResult;
@@ -131,49 +184,127 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class LispStatements.
+    /// Implements the <see cref="ServiceStack.Script.JsStatement" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.JsStatement" />
     public class LispStatements : JsStatement
     {
+        /// <summary>
+        /// Gets the s expressions.
+        /// </summary>
+        /// <value>The s expressions.</value>
         public object[] SExpressions { get; }
-        public LispStatements(object[] sExpressions) => SExpressions = sExpressions;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LispStatements"/> class.
+        /// </summary>
+        /// <param name="sExpressions">The s expressions.</param>
+        public LispStatements(object[] sExpressions)
+        {
+            SExpressions = sExpressions;
+        }
 
+        /// <summary>
+        /// Equalses the specified other.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected bool Equals(LispStatements other) => Equals(SExpressions, other.SExpressions);
+        /// <summary>
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return Equals((LispStatements)obj);
         }
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode() => SExpressions != null ? SExpressions.GetHashCode() : 0;
     }
 
+    /// <summary>
+    /// Class PageLispStatementFragment.
+    /// Implements the <see cref="ServiceStack.Script.PageFragment" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.PageFragment" />
     public class PageLispStatementFragment : PageFragment
     {
+        /// <summary>
+        /// Gets the lisp statements.
+        /// </summary>
+        /// <value>The lisp statements.</value>
         public LispStatements LispStatements { get; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="PageLispStatementFragment"/> is quiet.
+        /// </summary>
+        /// <value><c>true</c> if quiet; otherwise, <c>false</c>.</value>
         public bool Quiet { get; set; }
 
-        public PageLispStatementFragment(LispStatements statements) => LispStatements = statements;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageLispStatementFragment"/> class.
+        /// </summary>
+        /// <param name="statements">The statements.</param>
+        public PageLispStatementFragment(LispStatements statements)
+        {
+            LispStatements = statements;
+        }
 
+        /// <summary>
+        /// Equalses the specified other.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected bool Equals(PageLispStatementFragment other) => Equals(LispStatements, other.LispStatements);
+        /// <summary>
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((PageJsBlockStatementFragment)obj);
+            return obj.GetType() == this.GetType() && Equals((PageJsBlockStatementFragment)obj);
         }
+        /// <summary>
+        /// Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
         public override int GetHashCode() => LispStatements != null ? LispStatements.GetHashCode() : 0;
     }
 
+    /// <summary>
+    /// Class LispScriptMethods.
+    /// Implements the <see cref="ServiceStack.Script.ScriptMethods" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.ScriptMethods" />
     public class LispScriptMethods : ScriptMethods
     {
+        /// <summary>
+        /// Symbolses the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public List<string> symbols(ScriptScopeContext scope)
         {
             var interp = scope.GetLispInterpreter();
             return interp.Globals.Keys.Map(x => x.Name).OrderBy(x => x).ToList();
         }
 
+        /// <summary>
+        /// Gistindexes the specified scope.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>List&lt;GistLink&gt;.</returns>
         public List<GistLink> gistindex(ScriptScopeContext scope)
         {
             return Lisp.Interpreter.GetGistIndexLinks(scope);
@@ -183,16 +314,31 @@ namespace ServiceStack.Script
     /// <summary>
     /// Define and export a LISP function to the page
     /// Usage: {{#defn calc [a, b] }}
-    ///           (let ( (c (* a b)) )
-    ///             (+ a b c)
-    ///           )
-    ///        {{/defn}}
+    /// (let ( (c (* a b)) )
+    /// (+ a b c)
+    /// )
+    /// {{/defn}}
     /// </summary>
     public class DefnScriptBlock : ScriptBlock
     {
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public override string Name => "defn";
+        /// <summary>
+        /// Parse Body using Specified Language. Uses host language if unspecified.
+        /// </summary>
+        /// <value>The body.</value>
         public override ScriptLanguage Body => ScriptLanguage.Verbatim;
 
+        /// <summary>
+        /// Writes the asynchronous.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <param name="block">The block.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
         {
             // block.Argument key is unique to exact memory fragment, not string equality
@@ -216,19 +362,32 @@ namespace ServiceStack.Script
         }
     }
 
-    /// <summary>Exception in evaluation</summary>
+    /// <summary>
+    /// Exception in evaluation
+    /// </summary>
     public class LispEvalException : Exception
     {
-        /// <summary>Stack trace of Lisp evaluation</summary>
-        public List<string> Trace { get; } = new List<string>();
+        /// <summary>
+        /// Stack trace of Lisp evaluation
+        /// </summary>
+        /// <value>The trace.</value>
+        public List<string> Trace { get; } = new();
 
-        /// <summary>Construct with a base message, cause, and
-        /// a flag whether to quote strings in the cause.</summary>
+        /// <summary>
+        /// Construct with a base message, cause, and
+        /// a flag whether to quote strings in the cause.
+        /// </summary>
+        /// <param name="msg">The MSG.</param>
+        /// <param name="x">The x.</param>
+        /// <param name="quoteString">if set to <c>true</c> [quote string].</param>
         public LispEvalException(string msg, object x, bool quoteString = true)
             : base(msg + ": " + Lisp.Str(x, quoteString)) { }
 
-        /// <summary>Return a string representation which contains
-        /// the message and the stack trace.</summary>
+        /// <summary>
+        /// Return a string representation which contains
+        /// the message and the stack trace.
+        /// </summary>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString()
         {
             var sb = StringBuilderCache.Allocate().Append($"EvalException: {Message}");
@@ -238,10 +397,24 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class ScriptLispUtils.
+    /// </summary>
     public static class ScriptLispUtils
     {
+        /// <summary>
+        /// Gets the lisp interpreter.
+        /// </summary>
+        /// <param name="scope">The scope.</param>
+        /// <returns>Lisp.Interpreter.</returns>
         public static Lisp.Interpreter GetLispInterpreter(this ScriptScopeContext scope) =>
             scope.PageResult.GetLispInterpreter(scope);
+        /// <summary>
+        /// Gets the lisp interpreter.
+        /// </summary>
+        /// <param name="pageResult">The page result.</param>
+        /// <param name="scope">The scope.</param>
+        /// <returns>Lisp.Interpreter.</returns>
         public static Lisp.Interpreter GetLispInterpreter(this PageResult pageResult, ScriptScopeContext scope)
         {
             if (!pageResult.Args.TryGetValue(nameof(ScriptLisp), out var oInterp))
@@ -259,15 +432,34 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Lisps the sharp page.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <returns>SharpPage.</returns>
         public static SharpPage LispSharpPage(this ScriptContext context, string lisp)
             => context.Pages.OneTimePage(lisp, context.PageFormats[0].Extension, p => p.ScriptLanguage = ScriptLisp.Language);
 
+        /// <summary>
+        /// Asserts the lisp.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <exception cref="System.NotSupportedException">ScriptLisp.Language is not registered in {context.GetType().Name}.{nameof(context.ScriptLanguages)}</exception>
         private static void AssertLisp(this ScriptContext context)
         {
             if (!context.ScriptLanguages.Contains(ScriptLisp.Language))
                 throw new NotSupportedException($"ScriptLisp.Language is not registered in {context.GetType().Name}.{nameof(context.ScriptLanguages)}");
         }
 
+        /// <summary>
+        /// Gets the lisp page result.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>PageResult.</returns>
+        /// <exception cref="ServiceStack.Script.PageResult"></exception>
         private static PageResult GetLispPageResult(ScriptContext context, string lisp, Dictionary<string, object> args)
         {
             context.AssertLisp();
@@ -287,30 +479,72 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Renders the lisp.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.String.</returns>
         public static string RenderLisp(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
             return pageResult.RenderScript();
         }
 
+        /// <summary>
+        /// Render lisp as an asynchronous operation.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
         public static async Task<string> RenderLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
             return await pageResult.RenderScriptAsync();
         }
 
+        /// <summary>
+        /// Parses the lisp.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <returns>LispStatements.</returns>
         public static LispStatements ParseLisp(this ScriptContext context, string lisp) =>
             context.ParseLisp(lisp.AsMemory());
 
+        /// <summary>
+        /// Parses the lisp.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <returns>LispStatements.</returns>
         public static LispStatements ParseLisp(this ScriptContext context, ReadOnlyMemory<char> lisp)
         {
             var sExpressions = Lisp.Parse(lisp);
             return new LispStatements(sExpressions.ToArray());
         }
 
+        /// <summary>
+        /// Evaluates the lisp.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>T.</returns>
         public static T EvaluateLisp<T>(this ScriptContext context, string lisp, Dictionary<string, object> args = null) =>
             context.EvaluateLisp(lisp, args).ConvertTo<T>();
 
+        /// <summary>
+        /// Evaluates the lisp.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static object EvaluateLisp(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
@@ -321,9 +555,25 @@ namespace ServiceStack.Script
             return ScriptLanguage.UnwrapValue(returnValue);
         }
 
+        /// <summary>
+        /// Evaluate lisp as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
         public static async Task<T> EvaluateLispAsync<T>(this ScriptContext context, string lisp, Dictionary<string, object> args = null) =>
             (await context.EvaluateLispAsync(lisp, args)).ConvertTo<T>();
 
+        /// <summary>
+        /// Evaluate lisp as an asynchronous operation.
+        /// </summary>
+        /// <param name="context">The context.</param>
+        /// <param name="lisp">The lisp.</param>
+        /// <param name="args">The arguments.</param>
+        /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static async Task<object> EvaluateLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
@@ -335,6 +585,12 @@ namespace ServiceStack.Script
             return ScriptLanguage.UnwrapValue(ret.Item2);
         }
 
+        /// <summary>
+        /// Ensures the return.
+        /// </summary>
+        /// <param name="lisp">The lisp.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentNullException">lisp</exception>
         public static string EnsureReturn(string lisp)
         {
             // if code doesn't contain a return, wrap and return the expression
@@ -345,15 +601,39 @@ namespace ServiceStack.Script
         }
     }
 
+    /// <summary>
+    /// Class Utils.
+    /// </summary>
     internal static class Utils
     {
+        /// <summary>
+        /// Lisps the bool.
+        /// </summary>
+        /// <param name="t">if set to <c>true</c> [t].</param>
+        /// <returns>System.Object.</returns>
         internal static object lispBool(this bool t) => t ? Lisp.TRUE : null;
+        /// <summary>
+        /// Froms the lisp.
+        /// </summary>
+        /// <param name="o">The o.</param>
+        /// <returns>System.Object.</returns>
         internal static object fromLisp(this object o) => o == Lisp.TRUE ? true : o;
+        /// <summary>
+        /// Lasts the argument.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <returns>System.Object.</returns>
         internal static object lastArg(this object[] a)
         {
             var last = a[a.Length - 1];
             return last is Lisp.Cell lastCell ? lastCell.Car : last;
         }
+        /// <summary>
+        /// Asserts the enumerable.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <returns>IEnumerable.</returns>
+        /// <exception cref="ServiceStack.Script.LispEvalException">not IEnumerable</exception>
         internal static IEnumerable assertEnumerable(this object a)
         {
             if (a == null)
@@ -363,6 +643,13 @@ namespace ServiceStack.Script
             throw new LispEvalException("not IEnumerable", a);
         }
 
+        /// <summary>
+        /// Compares to.
+        /// </summary>
+        /// <param name="a">a.</param>
+        /// <param name="b">The b.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="ServiceStack.Script.LispEvalException">not IComparable</exception>
         internal static int compareTo(this object a, object b)
         {
             return a == null || b == null
@@ -374,6 +661,11 @@ namespace ServiceStack.Script
                         : throw new LispEvalException("not IComparable", a);
         }
 
+        /// <summary>
+        /// Unwraps the data list arguments.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <returns>Lisp.Cell.</returns>
         public static Lisp.Cell unwrapDataListArgs(this Lisp.Cell arg)
         {
             if (arg.Car is Lisp.Cell c && c.Car == Lisp.LIST) // allow clojure data list [] for fn args list by unwrapping (list ...) => ...
@@ -381,6 +673,11 @@ namespace ServiceStack.Script
             return arg;
         }
 
+        /// <summary>
+        /// Unwraps the script value.
+        /// </summary>
+        /// <param name="o">The o.</param>
+        /// <returns>System.Object.</returns>
         internal static object unwrapScriptValue(this object o)
         {
             if (o is Task t)
@@ -392,31 +689,38 @@ namespace ServiceStack.Script
     }
 
     /// <summary>
-    ///  A Lisp interpreter written in C# 7
-    /// </summary><remarks>
-    ///  This is ported from Nuka Lisp in Dart
-    ///  (https://github.com/nukata/lisp-in-dart) except for bignum.
-    ///  It is named after ex-Nukata Town in Japan.
-    /// </remarks>
+    /// A Lisp interpreter written in C# 7
+    /// </summary>
+    /// <remarks>This is ported from Nuka Lisp in Dart
+    /// (https://github.com/nukata/lisp-in-dart) except for bignum.
+    /// It is named after ex-Nukata Town in Japan.</remarks>
     public static class Lisp
     {
         /// <summary>
         /// Allow loading of remote scripts
-        ///  - https://example.org/lib.l
-        ///  - gist:{gist-id}
-        ///  - gist:{gist-id}/file.l
-        ///  - index:{name}
-        ///  - index:{name}/file.l
+        /// - https://example.org/lib.l
+        /// - gist:{gist-id}
+        /// - gist:{gist-id}/file.l
+        /// - index:{name}
+        /// - index:{name}/file.l
         /// </summary>
+        /// <value><c>true</c> if [allow loading remote scripts]; otherwise, <c>false</c>.</value>
         public static bool AllowLoadingRemoteScripts { get; set; } = true;
 
         /// <summary>
         /// Gist where to resolve `index:{name}` references from
         /// </summary>
+        /// <value>The index gist identifier.</value>
         public static string IndexGistId { get; set; } = "3624b0373904cfb2fc7bb3c2cb9dc1a3";
 
+        /// <summary>
+        /// The global interpreter
+        /// </summary>
         private static Interpreter GlobalInterpreter;
 
+        /// <summary>
+        /// Initializes static members of the <see cref="Lisp"/> class.
+        /// </summary>
         static Lisp()
         {
             Reset();
@@ -435,24 +739,37 @@ namespace ServiceStack.Script
         /// <summary>
         /// Load Lisp into Global Symbols, a new CreateInterpreter() starts with a copy of global symbols
         /// </summary>
+        /// <param name="lisp">The lisp.</param>
         public static void Import(string lisp) => Import(lisp.AsMemory());
 
         /// <summary>
         /// Load Lisp into Global Symbols, a new CreateInterpreter() starts with a copy of global symbols
         /// </summary>
+        /// <param name="lisp">The lisp.</param>
         public static void Import(ReadOnlyMemory<char> lisp)
         {
             Run(GlobalInterpreter, new Reader(lisp));
         }
 
+        /// <summary>
+        /// Sets the specified symbol name.
+        /// </summary>
+        /// <param name="symbolName">Name of the symbol.</param>
+        /// <param name="value">The value.</param>
         public static void Set(string symbolName, object value)
         {
             GlobalInterpreter.Globals[Sym.New(symbolName)] = value;
         }
 
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public static void Init() { } // Force running static initializers
 
-        /// <summary>Create a Lisp interpreter initialized pre-configured with Global Symbols.</summary>
+        /// <summary>
+        /// Create a Lisp interpreter initialized pre-configured with Global Symbols.
+        /// </summary>
+        /// <returns>Interpreter.</returns>
         public static Interpreter CreateInterpreter()
         {
             Init();
@@ -460,29 +777,49 @@ namespace ServiceStack.Script
             return interp;
         }
 
-        /// <summary>Cons cell</summary>
+        /// <summary>
+        /// Cons cell
+        /// </summary>
         public sealed class Cell : IEnumerable
         {
-            /// <summary>Head part of the cons cell</summary>
+            /// <summary>
+            /// Head part of the cons cell
+            /// </summary>
             public object Car;
-            /// <summary>Tail part of the cons cell</summary>
+            /// <summary>
+            /// Tail part of the cons cell
+            /// </summary>
             public object Cdr;
 
-            /// <summary>Construct a cons cell with its head and tail.</summary>
+            /// <summary>
+            /// Construct a cons cell with its head and tail.
+            /// </summary>
+            /// <param name="car">The car.</param>
+            /// <param name="cdr">The CDR.</param>
             public Cell(object car, object cdr)
             {
                 Car = car;
                 Cdr = cdr;
             }
 
-            /// <summary>Make a simple string representation.</summary>
+            /// <summary>
+            /// Make a simple string representation.
+            /// </summary>
+            /// <returns>A <see cref="string" /> that represents this instance.</returns>
             /// <remarks>Do not invoke this for any circular list.</remarks>
             public override string ToString() =>
                 $"({Car ?? "null"} . {Cdr ?? "null"})";
 
-            /// <summary>Length as a list</summary>
+            /// <summary>
+            /// Length as a list
+            /// </summary>
+            /// <value>The length.</value>
             public int Length => FoldL(0, this, (i, e) => i + 1);
 
+            /// <summary>
+            /// Returns an enumerator that iterates through a collection.
+            /// </summary>
+            /// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
             public IEnumerator GetEnumerator()
             {
                 var j = this;
@@ -492,6 +829,10 @@ namespace ServiceStack.Script
                 } while ((j = CdrCell(j)) != null);
             }
 
+            /// <summary>
+            /// Walks the specified function.
+            /// </summary>
+            /// <param name="fn">The function.</param>
             public void Walk(Action<Cell> fn)
             {
                 fn(this);
@@ -504,7 +845,13 @@ namespace ServiceStack.Script
 
 
         // MapCar((a b c), fn) => (fn(a) fn(b) fn(c))
-        static Cell MapCar(Cell j, Func<object, object> fn)
+        /// <summary>
+        /// Maps the car.
+        /// </summary>
+        /// <param name="j">The j.</param>
+        /// <param name="fn">The function.</param>
+        /// <returns>Cell.</returns>
+        private static Cell MapCar(Cell j, Func<object, object> fn)
         {
             if (j == null)
                 return null;
@@ -518,7 +865,15 @@ namespace ServiceStack.Script
         }
 
         // FoldL(x, (a b c), fn) => fn(fn(fn(x, a), b), c)
-        static T FoldL<T>(T x, Cell j, Func<T, object, T> fn)
+        /// <summary>
+        /// Folds the l.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="x">The x.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="fn">The function.</param>
+        /// <returns>T.</returns>
+        private static T FoldL<T>(T x, Cell j, Func<T, object, T> fn)
         {
             while (j != null)
             {
@@ -529,37 +884,66 @@ namespace ServiceStack.Script
         }
 
         // Supports both Cell + IEnumerable
-        static T FoldL<T>(T x, IEnumerable j, Func<T, object, T> fn)
+        /// <summary>
+        /// Folds the l.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="x">The x.</param>
+        /// <param name="j">The j.</param>
+        /// <param name="fn">The function.</param>
+        /// <returns>T.</returns>
+        private static T FoldL<T>(T x, IEnumerable j, Func<T, object, T> fn)
         {
             foreach (var e in j)
                 x = fn(x, e);
             return x;
         }
 
-        /// <summary>Lisp symbol</summary>
+        /// <summary>
+        /// Lisp symbol
+        /// </summary>
         public class Sym
         {
-            /// <summary>The symbol's name</summary>
+            /// <summary>
+            /// The symbol's name
+            /// </summary>
+            /// <value>The name.</value>
             public string Name { get; }
 
-            /// <summary>Construct a symbol that is not interned.</summary>
+            /// <summary>
+            /// Construct a symbol that is not interned.
+            /// </summary>
+            /// <param name="name">The name.</param>
             public Sym(string name)
             {
                 Name = name;
             }
 
-            /// <summary>Return the symbol's name</summary>
+            /// <summary>
+            /// Return the symbol's name
+            /// </summary>
+            /// <returns>A <see cref="string" /> that represents this instance.</returns>
             public override string ToString() => Name;
-            /// <summary>Return the hashcode of the symbol's name</summary>
+            /// <summary>
+            /// Return the hashcode of the symbol's name
+            /// </summary>
+            /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
             public override int GetHashCode() => Name.GetHashCode();
 
-            /// <summary>Table of interned symbols</summary>
+            /// <summary>
+            /// Table of interned symbols
+            /// </summary>
             protected static readonly Dictionary<string, Sym> Table =
-                new Dictionary<string, Sym>();
+                new();
 
-            /// <summary>Return an interned symbol for the name.</summary>
+            /// <summary>
+            /// Return an interned symbol for the name.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="make">The make.</param>
+            /// <returns>Sym.</returns>
             /// <remarks>If the name is not interned yet, such a symbol
-            /// will be constructed with <paramref name="make"/>.</remarks>
+            /// will be constructed with <paramref name="make" />.</remarks>
             protected static Sym New(string name, Func<string, Sym> make)
             {
                 lock (Table)
@@ -573,10 +957,17 @@ namespace ServiceStack.Script
                 }
             }
 
-            /// <summary>Construct an interned symbol.</summary>
+            /// <summary>
+            /// Construct an interned symbol.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <returns>Sym.</returns>
             public static Sym New(string name) => New(name, s => new Sym(s));
 
-            /// <summary>Is it interned?</summary>
+            /// <summary>
+            /// Is it interned?
+            /// </summary>
+            /// <value><c>true</c> if this instance is interned; otherwise, <c>false</c>.</value>
             public bool IsInterned
             {
                 get
@@ -592,60 +983,184 @@ namespace ServiceStack.Script
 
 
         // Expression keyword
-        sealed class Keyword : Sym
+        /// <summary>
+        /// Class Keyword. This class cannot be inherited.
+        /// Implements the <see cref="ServiceStack.Script.Lisp.Sym" />
+        /// </summary>
+        /// <seealso cref="ServiceStack.Script.Lisp.Sym" />
+        private sealed class Keyword : Sym
         {
-            Keyword(string name) : base(name) { }
+            /// <summary>
+            /// Construct a symbol that is not interned.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            private Keyword(string name) : base(name) { }
+            /// <summary>
+            /// News the specified name.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <returns>Sym.</returns>
             internal static new Sym New(string name)
                 => New(name, s => new Keyword(s));
         }
 
-        /// <summary>The symbol of <c>t</c></summary>
+        /// <summary>
+        /// The symbol of <c>t</c>
+        /// </summary>
         public static readonly Sym TRUE = Sym.New("t");
+        /// <summary>
+        /// The bool true
+        /// </summary>
         public static readonly Sym BOOL_TRUE = Sym.New("true");
+        /// <summary>
+        /// The bool false
+        /// </summary>
         public static readonly Sym BOOL_FALSE = Sym.New("false");
-        static readonly Sym VERBOSE = Sym.New("verbose");
+        /// <summary>
+        /// The verbose
+        /// </summary>
+        private static readonly Sym VERBOSE = Sym.New("verbose");
 
-        static readonly Sym COND = Keyword.New("cond");
-        static readonly Sym LAMBDA = Keyword.New("lambda");
-        static readonly Sym FN = Keyword.New("fn");
-        static readonly Sym MACRO = Keyword.New("macro");
-        static readonly Sym PROGN = Keyword.New("progn");
-        static readonly Sym QUASIQUOTE = Keyword.New("quasiquote");
-        static readonly Sym QUOTE = Keyword.New("quote");
-        static readonly Sym SETQ = Keyword.New("setq");
-        static readonly Sym EXPORT = Keyword.New("export");
+        /// <summary>
+        /// The cond
+        /// </summary>
+        private static readonly Sym COND = Keyword.New("cond");
+        /// <summary>
+        /// The lambda
+        /// </summary>
+        private static readonly Sym LAMBDA = Keyword.New("lambda");
+        /// <summary>
+        /// The function
+        /// </summary>
+        private static readonly Sym FN = Keyword.New("fn");
+        /// <summary>
+        /// The macro
+        /// </summary>
+        private static readonly Sym MACRO = Keyword.New("macro");
+        /// <summary>
+        /// The progn
+        /// </summary>
+        private static readonly Sym PROGN = Keyword.New("progn");
+        /// <summary>
+        /// The quasiquote
+        /// </summary>
+        private static readonly Sym QUASIQUOTE = Keyword.New("quasiquote");
+        /// <summary>
+        /// The quote
+        /// </summary>
+        private static readonly Sym QUOTE = Keyword.New("quote");
+        /// <summary>
+        /// The setq
+        /// </summary>
+        private static readonly Sym SETQ = Keyword.New("setq");
+        /// <summary>
+        /// The export
+        /// </summary>
+        private static readonly Sym EXPORT = Keyword.New("export");
 
-        static readonly Sym BOUND = Sym.New("bound?");
+        /// <summary>
+        /// The bound
+        /// </summary>
+        private static readonly Sym BOUND = Sym.New("bound?");
 
-        static readonly Sym BACK_QUOTE = Sym.New("`");
-        static readonly Sym COMMAND_AT = Sym.New(",@");
-        static readonly Sym COMMA = Sym.New(",");
-        static readonly Sym DOT = Sym.New(".");
-        static readonly Sym LEFT_PAREN = Sym.New("(");
-        static readonly Sym RIGHT_PAREN = Sym.New(")");
-        static readonly Sym SINGLE_QUOTE = Sym.New("'");
+        /// <summary>
+        /// The back quote
+        /// </summary>
+        private static readonly Sym BACK_QUOTE = Sym.New("`");
+        /// <summary>
+        /// The command at
+        /// </summary>
+        private static readonly Sym COMMAND_AT = Sym.New(",@");
+        /// <summary>
+        /// The comma
+        /// </summary>
+        private static readonly Sym COMMA = Sym.New(",");
+        /// <summary>
+        /// The dot
+        /// </summary>
+        private static readonly Sym DOT = Sym.New(".");
+        /// <summary>
+        /// The left paren
+        /// </summary>
+        private static readonly Sym LEFT_PAREN = Sym.New("(");
+        /// <summary>
+        /// The right paren
+        /// </summary>
+        private static readonly Sym RIGHT_PAREN = Sym.New(")");
+        /// <summary>
+        /// The single quote
+        /// </summary>
+        private static readonly Sym SINGLE_QUOTE = Sym.New("'");
 
-        static readonly Sym APPEND = Sym.New("append");
-        static readonly Sym CONS = Sym.New("cons");
+        /// <summary>
+        /// The append
+        /// </summary>
+        private static readonly Sym APPEND = Sym.New("append");
+        /// <summary>
+        /// The cons
+        /// </summary>
+        private static readonly Sym CONS = Sym.New("cons");
+        /// <summary>
+        /// The list
+        /// </summary>
         internal static readonly Sym LIST = Sym.New("list");
-        static readonly Sym REST = Sym.New("&rest");
-        static readonly Sym UNQUOTE = Sym.New("unquote");
-        static readonly Sym UNQUOTE_SPLICING = Sym.New("unquote-splicing");
+        /// <summary>
+        /// The rest
+        /// </summary>
+        private static readonly Sym REST = Sym.New("&rest");
+        /// <summary>
+        /// The unquote
+        /// </summary>
+        private static readonly Sym UNQUOTE = Sym.New("unquote");
+        /// <summary>
+        /// The unquote splicing
+        /// </summary>
+        private static readonly Sym UNQUOTE_SPLICING = Sym.New("unquote-splicing");
 
-        static readonly Sym LEFT_BRACE = Sym.New("{");
-        static readonly Sym RIGHT_BRACE = Sym.New("}");
-        static readonly Sym HASH = Sym.New("#");
-        static readonly Sym PERCENT = Sym.New("%");
-        static readonly Sym NEWMAP = Sym.New("new-map");
-        static readonly Sym ARG = Sym.New("_a");
+        /// <summary>
+        /// The left brace
+        /// </summary>
+        private static readonly Sym LEFT_BRACE = Sym.New("{");
+        /// <summary>
+        /// The right brace
+        /// </summary>
+        private static readonly Sym RIGHT_BRACE = Sym.New("}");
+        /// <summary>
+        /// The hash
+        /// </summary>
+        private static readonly Sym HASH = Sym.New("#");
+        /// <summary>
+        /// The percent
+        /// </summary>
+        private static readonly Sym PERCENT = Sym.New("%");
+        /// <summary>
+        /// The newmap
+        /// </summary>
+        private static readonly Sym NEWMAP = Sym.New("new-map");
+        /// <summary>
+        /// The argument
+        /// </summary>
+        private static readonly Sym ARG = Sym.New("_a");
 
-        static readonly Sym LEFT_BRACKET = Sym.New("[");
-        static readonly Sym RIGHT_BRACKET = Sym.New("]");
+        /// <summary>
+        /// The left bracket
+        /// </summary>
+        private static readonly Sym LEFT_BRACKET = Sym.New("[");
+        /// <summary>
+        /// The right bracket
+        /// </summary>
+        private static readonly Sym RIGHT_BRACKET = Sym.New("]");
 
         //------------------------------------------------------------------
 
         // Get cdr of list x as a Cell or null.
-        static Cell CdrCell(Cell x)
+        /// <summary>
+        /// CDRs the cell.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <returns>Cell.</returns>
+        /// <exception cref="ServiceStack.Script.LispEvalException">proper list expected</exception>
+        private static Cell CdrCell(Cell x)
         {
             var k = x.Cdr;
             if (k == null)
@@ -662,27 +1177,52 @@ namespace ServiceStack.Script
         }
 
 
-        /// <summary>Common base class of Lisp functions</summary>
+        /// <summary>
+        /// Common base class of Lisp functions
+        /// </summary>
         public abstract class LispFunc
         {
-            /// <summary>Number of arguments, made negative if the function
-            /// has &amp;rest</summary>
+            /// <summary>
+            /// Number of arguments, made negative if the function
+            /// has &amp;rest
+            /// </summary>
+            /// <value>The carity.</value>
             public int Carity { get; }
 
-            int Arity => Carity < 0 ? -Carity : Carity;
-            bool HasRest => Carity < 0;
+            /// <summary>
+            /// Gets the arity.
+            /// </summary>
+            /// <value>The arity.</value>
+            private int Arity => Carity < 0 ? -Carity : Carity;
+            /// <summary>
+            /// Gets a value indicating whether this instance has rest.
+            /// </summary>
+            /// <value><c>true</c> if this instance has rest; otherwise, <c>false</c>.</value>
+            private bool HasRest => Carity < 0;
 
             // Number of fixed arguments
-            int FixedArgs => Carity < 0 ? -Carity - 1 : Carity;
+            /// <summary>
+            /// Gets the fixed arguments.
+            /// </summary>
+            /// <value>The fixed arguments.</value>
+            private int FixedArgs => Carity < 0 ? -Carity - 1 : Carity;
 
-            /// <summary>Construct with Carity.</summary>
+            /// <summary>
+            /// Construct with Carity.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
             protected LispFunc(int carity)
             {
                 Carity = carity;
             }
 
-            /// <summary>Make a frame for local variables from a list of
-            /// actual arguments.</summary>
+            /// <summary>
+            /// Make a frame for local variables from a list of
+            /// actual arguments.
+            /// </summary>
+            /// <param name="arg">The argument.</param>
+            /// <returns>System.Object[].</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">arity not matched</exception>
             public object[] MakeFrame(Cell arg)
             {
                 var frame = new object[Arity];
@@ -701,7 +1241,12 @@ namespace ServiceStack.Script
                 return frame;
             }
 
-            /// <summary>Evaluate each expression in a frame.</summary>
+            /// <summary>
+            /// Evaluate each expression in a frame.
+            /// </summary>
+            /// <param name="frame">The frame.</param>
+            /// <param name="interp">The interp.</param>
+            /// <param name="env">The env.</param>
             public void EvalFrame(object[] frame, Interpreter interp, Cell env)
             {
                 int n = FixedArgs;
@@ -716,7 +1261,7 @@ namespace ServiceStack.Script
                         do
                         {
                             var e = interp.Eval(j.Car, env);
-                            Cell x = new Cell(e, null);
+                            Cell x = new(e, null);
                             if (z == null)
                                 z = x;
                             else
@@ -732,11 +1277,24 @@ namespace ServiceStack.Script
 
 
         // Common base class of functions which are defined with Lisp expressions
-        abstract class DefinedFunc : LispFunc
+        /// <summary>
+        /// Class DefinedFunc.
+        /// Implements the <see cref="ServiceStack.Script.Lisp.LispFunc" />
+        /// </summary>
+        /// <seealso cref="ServiceStack.Script.Lisp.LispFunc" />
+        private abstract class DefinedFunc : LispFunc
         {
             // Lisp list as the function body
+            /// <summary>
+            /// The body
+            /// </summary>
             public readonly Cell Body;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DefinedFunc"/> class.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
             protected DefinedFunc(int carity, Cell body) : base(carity)
             {
                 Body = body;
@@ -745,26 +1303,60 @@ namespace ServiceStack.Script
 
 
         // Common function type which represents any factory method of DefinedFunc
-        delegate DefinedFunc FuncFactory(int carity, Cell body, Cell env);
+        /// <summary>
+        /// Delegate FuncFactory
+        /// </summary>
+        /// <param name="carity">The carity.</param>
+        /// <param name="body">The body.</param>
+        /// <param name="env">The env.</param>
+        /// <returns>DefinedFunc.</returns>
+        private delegate DefinedFunc FuncFactory(int carity, Cell body, Cell env);
 
 
         // Compiled macro expression
-        sealed class Macro : DefinedFunc
+        /// <summary>
+        /// Class Macro. This class cannot be inherited.
+        /// Implements the <see cref="ServiceStack.Script.Lisp.DefinedFunc" />
+        /// </summary>
+        /// <seealso cref="ServiceStack.Script.Lisp.DefinedFunc" />
+        private sealed class Macro : DefinedFunc
         {
-            Macro(int carity, Cell body) : base(carity, body) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Macro"/> class.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
+            private Macro(int carity, Cell body) : base(carity, body) { }
+            /// <summary>
+            /// Returns a <see cref="string" /> that represents this instance.
+            /// </summary>
+            /// <returns>A <see cref="string" /> that represents this instance.</returns>
             public override string ToString() => $"#<macro:{Carity}:{Str(Body)}>";
 
             // Expand the macro with a list of actual arguments.
+            /// <summary>
+            /// Expands the with.
+            /// </summary>
+            /// <param name="interp">The interp.</param>
+            /// <param name="arg">The argument.</param>
+            /// <returns>System.Object.</returns>
             public object ExpandWith(Interpreter interp, Cell arg)
             {
                 object[] frame = MakeFrame(arg);
-                Cell env = new Cell(frame, null);
+                Cell env = new(frame, null);
                 object x = null;
                 for (Cell j = Body; j != null; j = CdrCell(j))
                     x = interp.Eval(j.Car, env);
                 return x;
             }
 
+            /// <summary>
+            /// Makes the specified carity.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>DefinedFunc.</returns>
             public static DefinedFunc Make(int carity, Cell body, Cell env)
             {
                 Debug.Assert(env == null);
@@ -774,11 +1366,32 @@ namespace ServiceStack.Script
 
 
         // Compiled lambda expression (Within another function)
-        sealed class Lambda : DefinedFunc
+        /// <summary>
+        /// Class Lambda. This class cannot be inherited.
+        /// Implements the <see cref="ServiceStack.Script.Lisp.DefinedFunc" />
+        /// </summary>
+        /// <seealso cref="ServiceStack.Script.Lisp.DefinedFunc" />
+        private sealed class Lambda : DefinedFunc
         {
-            Lambda(int carity, Cell body) : base(carity, body) { }
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Lambda"/> class.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
+            private Lambda(int carity, Cell body) : base(carity, body) { }
+            /// <summary>
+            /// Returns a <see cref="string" /> that represents this instance.
+            /// </summary>
+            /// <returns>A <see cref="string" /> that represents this instance.</returns>
             public override string ToString() => $"#<lambda:{Carity}:{Str(Body)}>";
 
+            /// <summary>
+            /// Makes the specified carity.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>DefinedFunc.</returns>
             public static DefinedFunc Make(int carity, Cell body, Cell env)
             {
                 Debug.Assert(env == null);
@@ -788,22 +1401,52 @@ namespace ServiceStack.Script
 
 
         // Compiled lambda expression (Closure with environment)
-        sealed class Closure : DefinedFunc
+        /// <summary>
+        /// Class Closure. This class cannot be inherited.
+        /// Implements the <see cref="ServiceStack.Script.Lisp.DefinedFunc" />
+        /// </summary>
+        /// <seealso cref="ServiceStack.Script.Lisp.DefinedFunc" />
+        private sealed class Closure : DefinedFunc
         {
             // The environment of the closure
+            /// <summary>
+            /// The env
+            /// </summary>
             public readonly Cell Env;
 
-            Closure(int carity, Cell body, Cell env) : base(carity, body)
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Closure"/> class.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
+            /// <param name="env">The env.</param>
+            private Closure(int carity, Cell body, Cell env) : base(carity, body)
             {
                 Env = env;
             }
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Closure"/> class.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="env">The env.</param>
             public Closure(Lambda x, Cell env) : this(x.Carity, x.Body, env) { }
 
+            /// <summary>
+            /// Returns a <see cref="string" /> that represents this instance.
+            /// </summary>
+            /// <returns>A <see cref="string" /> that represents this instance.</returns>
             public override string ToString() =>
                 $"#<closure:{Carity}:{Str(Env)}:{Str(Body)}>";
 
             // Make an environment to evaluate the body from a list of actual args.
+            /// <summary>
+            /// Makes the env.
+            /// </summary>
+            /// <param name="interp">The interp.</param>
+            /// <param name="arg">The argument.</param>
+            /// <param name="interpEnv">The interp env.</param>
+            /// <returns>Cell.</returns>
             public Cell MakeEnv(Interpreter interp, Cell arg, Cell interpEnv)
             {
                 object[] frame = MakeFrame(arg);
@@ -811,24 +1454,48 @@ namespace ServiceStack.Script
                 return new Cell(frame, Env); // Prepend the frame to this Env.
             }
 
+            /// <summary>
+            /// Makes the specified carity.
+            /// </summary>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>DefinedFunc.</returns>
             public static DefinedFunc Make(int carity, Cell body, Cell env) =>
                 new Closure(carity, body, env);
         }
 
 
-        /// <summary>Function type which represents any built-in function body
+        /// <summary>
+        /// Function type which represents any built-in function body
         /// </summary>
+        /// <param name="interp">The interp.</param>
+        /// <param name="frame">The frame.</param>
+        /// <returns>System.Object.</returns>
         public delegate object BuiltInFuncBody(Interpreter interp, object[] frame);
 
-        /// <summary>Built-in function</summary>
+        /// <summary>
+        /// Built-in function
+        /// </summary>
         public sealed class BuiltInFunc : LispFunc
         {
-            /// <summary>Name of this function</summary>
+            /// <summary>
+            /// Name of this function
+            /// </summary>
+            /// <value>The name.</value>
             public string Name { get; }
-            /// <summary>C# function as the body of this function</summary>
+            /// <summary>
+            /// C# function as the body of this function
+            /// </summary>
+            /// <value>The body.</value>
             public BuiltInFuncBody Body { get; }
 
-            /// <summary>Construct with Name, Carity and Body.</summary>
+            /// <summary>
+            /// Construct with Name, Carity and Body.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
             public BuiltInFunc(string name, int carity, BuiltInFuncBody body)
                 : base(carity)
             {
@@ -836,11 +1503,21 @@ namespace ServiceStack.Script
                 Body = body;
             }
 
-            /// <summary>Return a string representation in Lisp.</summary>
+            /// <summary>
+            /// Return a string representation in Lisp.
+            /// </summary>
+            /// <returns>A <see cref="string" /> that represents this instance.</returns>
             public override string ToString() => $"#<{Name}:{Carity}>";
 
-            /// <summary>Invoke the built-in function with a list of
-            /// actual arguments.</summary>
+            /// <summary>
+            /// Invoke the built-in function with a list of
+            /// actual arguments.
+            /// </summary>
+            /// <param name="interp">The interp.</param>
+            /// <param name="arg">The argument.</param>
+            /// <param name="interpEnv">The interp env.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException"></exception>
             public object EvalWith(Interpreter interp, Cell arg, Cell interpEnv)
             {
                 object[] frame = MakeFrame(arg);
@@ -862,12 +1539,30 @@ namespace ServiceStack.Script
 
 
         // Bound variable in a compiled lambda/macro expression
-        sealed class Arg
+        /// <summary>
+        /// Class Arg. This class cannot be inherited.
+        /// </summary>
+        private sealed class Arg
         {
+            /// <summary>
+            /// The level
+            /// </summary>
             public readonly int Level;
+            /// <summary>
+            /// The offset
+            /// </summary>
             public readonly int Offset;
+            /// <summary>
+            /// The symbol
+            /// </summary>
             public readonly Sym Symbol;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Arg"/> class.
+            /// </summary>
+            /// <param name="level">The level.</param>
+            /// <param name="offset">The offset.</param>
+            /// <param name="symbol">The symbol.</param>
             public Arg(int level, int offset, Sym symbol)
             {
                 Level = level;
@@ -875,9 +1570,18 @@ namespace ServiceStack.Script
                 Symbol = symbol;
             }
 
+            /// <summary>
+            /// Returns a <see cref="string" /> that represents this instance.
+            /// </summary>
+            /// <returns>A <see cref="string" /> that represents this instance.</returns>
             public override string ToString() => $"#{Level}:{Offset}:{Symbol}";
 
             // Set a value x to the location corresponding to the variable in env.
+            /// <summary>
+            /// Sets the value.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="env">The env.</param>
             public void SetValue(object x, Cell env)
             {
                 for (int i = 0; i < Level; i++)
@@ -887,6 +1591,12 @@ namespace ServiceStack.Script
             }
 
             // Get a value from the location corresponding to the variable in env.
+            /// <summary>
+            /// Gets the value.
+            /// </summary>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="System.IndexOutOfRangeException"></exception>
             public object GetValue(Cell env)
             {
                 for (int i = 0; i < Level; i++)
@@ -900,12 +1610,26 @@ namespace ServiceStack.Script
 
 
         // Exception which indicates on absence of a variable
-        sealed class NotVariableException : LispEvalException
+        /// <summary>
+        /// Class NotVariableException. This class cannot be inherited.
+        /// Implements the <see cref="ServiceStack.Script.LispEvalException" />
+        /// </summary>
+        /// <seealso cref="ServiceStack.Script.LispEvalException" />
+        private sealed class NotVariableException : LispEvalException
         {
+            /// <summary>
+            /// Initializes a new instance of the <see cref="NotVariableException"/> class.
+            /// </summary>
+            /// <param name="x">The x.</param>
             public NotVariableException(object x) : base("variable expected", x) { }
         }
 
         //------------------------------------------------------------------
+        /// <summary>
+        /// Converts to cons.
+        /// </summary>
+        /// <param name="seq">The seq.</param>
+        /// <returns>Cell.</returns>
         public static Cell ToCons(IEnumerable seq)
         {
             if (seq is not IEnumerable e)
@@ -919,40 +1643,87 @@ namespace ServiceStack.Script
             return j;
         }
 
-        static bool isTrue(object test) => test != null && !(test is bool b && !b);
+        /// <summary>
+        /// Determines whether the specified test is true.
+        /// </summary>
+        /// <param name="test">The test.</param>
+        /// <returns><c>true</c> if the specified test is true; otherwise, <c>false</c>.</returns>
+        private static bool isTrue(object test) => test != null && !(test is bool b && !b);
 
-        /// <summary>Core of the Lisp interpreter</summary>
+        /// <summary>
+        /// Core of the Lisp interpreter
+        /// </summary>
         public class Interpreter
         {
+            /// <summary>
+            /// The total evaluations
+            /// </summary>
             private static int totalEvaluations = 0;
+            /// <summary>
+            /// Gets the total evaluations.
+            /// </summary>
+            /// <value>The total evaluations.</value>
             public static int TotalEvaluations => Interlocked.CompareExchange(ref totalEvaluations, 0, 0);
 
+            /// <summary>
+            /// Gets or sets the evaluations.
+            /// </summary>
+            /// <value>The evaluations.</value>
             public int Evaluations { get; set; }
 
-            /// <summary>Table of the global values of symbols</summary>
-            internal readonly Dictionary<Sym, object> Globals = new Dictionary<Sym, object>();
+            /// <summary>
+            /// Table of the global values of symbols
+            /// </summary>
+            internal readonly Dictionary<Sym, object> Globals = new();
 
+            /// <summary>
+            /// Gets the symbol value.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <returns>System.Object.</returns>
             public object GetSymbolValue(string name) => Globals.TryGetValue(Sym.New(name), out var value)
                 ? value.fromLisp()
                 : null;
 
+            /// <summary>
+            /// Sets the symbol value.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="value">The value.</param>
             public void SetSymbolValue(string name, object value) => Globals[Sym.New(name)] = value.unwrapScriptValue();
 
-            /// <summary>Standard out</summary>
+            /// <summary>
+            /// Standard out
+            /// </summary>
+            /// <value>The c out.</value>
             public TextWriter COut { get; set; } = Console.Out;
 
-            /// <summary>Set each built-in function/variable as the global value
-            /// of symbol.</summary>
+            /// <summary>
+            /// Set each built-in function/variable as the global value
+            /// of symbol.
+            /// </summary>
             public Interpreter()
             {
                 InitGlobals();
             }
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Interpreter"/> class.
+            /// </summary>
+            /// <param name="globalInterp">The global interp.</param>
             public Interpreter(Interpreter globalInterp)
             {
                 Globals = new Dictionary<Sym, object>(globalInterp.Globals); // copy existing globals
             }
 
+            /// <summary>
+            /// Repls the eval.
+            /// </summary>
+            /// <param name="context">The context.</param>
+            /// <param name="outputStream">The output stream.</param>
+            /// <param name="lisp">The lisp.</param>
+            /// <param name="args">The arguments.</param>
+            /// <returns>System.String.</returns>
             public string ReplEval(ScriptContext context, Stream outputStream, string lisp, Dictionary<string, object> args = null)
             {
                 var returnResult = ScriptLispUtils.EnsureReturn(lisp);
@@ -987,7 +1758,14 @@ namespace ServiceStack.Script
                 return output;
             }
 
-            Func<object, object> resolve1ArgFn(object f, Interpreter interp)
+            /// <summary>
+            /// Resolve1s the argument function.
+            /// </summary>
+            /// <param name="f">The f.</param>
+            /// <param name="interp">The interp.</param>
+            /// <returns>Func&lt;System.Object, System.Object&gt;.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">not applicable</exception>
+            private Func<object, object> resolve1ArgFn(object f, Interpreter interp)
             {
                 switch (f)
                 {
@@ -1004,7 +1782,14 @@ namespace ServiceStack.Script
                 }
             }
 
-            Func<object, object, object> resolve2ArgFn(object f, Interpreter interp)
+            /// <summary>
+            /// Resolve2s the argument function.
+            /// </summary>
+            /// <param name="f">The f.</param>
+            /// <param name="interp">The interp.</param>
+            /// <returns>Func&lt;System.Object, System.Object, System.Object&gt;.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">not applicable</exception>
+            private Func<object, object, object> resolve2ArgFn(object f, Interpreter interp)
             {
                 switch (f)
                 {
@@ -1021,13 +1806,25 @@ namespace ServiceStack.Script
                 }
             }
 
-            Func<object, bool> resolvePredicate(object f, Interpreter interp)
+            /// <summary>
+            /// Resolves the predicate.
+            /// </summary>
+            /// <param name="f">The f.</param>
+            /// <param name="interp">The interp.</param>
+            /// <returns>Func&lt;System.Object, System.Boolean&gt;.</returns>
+            private Func<object, bool> resolvePredicate(object f, Interpreter interp)
             {
                 var fn = resolve1ArgFn(f, interp);
                 return x => isTrue(fn(x));
             }
 
-            object invoke(Closure fnclosure, params object[] args)
+            /// <summary>
+            /// Invokes the specified fnclosure.
+            /// </summary>
+            /// <param name="fnclosure">The fnclosure.</param>
+            /// <param name="args">The arguments.</param>
+            /// <returns>System.Object.</returns>
+            private object invoke(Closure fnclosure, params object[] args)
             {
                 var env = fnclosure.MakeEnv(this, ToCons(args), null);
                 var ret = EvalProgN(fnclosure.Body, env);
@@ -1035,32 +1832,92 @@ namespace ServiceStack.Script
                 return ret;
             }
 
-            object invoke(Macro fnmacro, params object[] args)
+            /// <summary>
+            /// Invokes the specified fnmacro.
+            /// </summary>
+            /// <param name="fnmacro">The fnmacro.</param>
+            /// <param name="args">The arguments.</param>
+            /// <returns>System.Object.</returns>
+            private object invoke(Macro fnmacro, params object[] args)
             {
                 var ret = fnmacro.ExpandWith(this, ToCons(args));
                 ret = Eval(ret, null);
                 return ret;
             }
 
-            object invoke(BuiltInFunc fnbulitin, params object[] args) => fnbulitin.Body(this, args);
+            /// <summary>
+            /// Invokes the specified fnbulitin.
+            /// </summary>
+            /// <param name="fnbulitin">The fnbulitin.</param>
+            /// <param name="args">The arguments.</param>
+            /// <returns>System.Object.</returns>
+            private object invoke(BuiltInFunc fnbulitin, params object[] args) => fnbulitin.Body(this, args);
 
-            object invoke(Delegate fndel, params object[] args)
+            /// <summary>
+            /// Invokes the specified fndel.
+            /// </summary>
+            /// <param name="fndel">The fndel.</param>
+            /// <param name="args">The arguments.</param>
+            /// <returns>System.Object.</returns>
+            private object invoke(Delegate fndel, params object[] args)
             {
                 var scriptMethodArgs = new List<object>(EvalArgs(ToCons(args), this));
                 var ret = JsCallExpression.InvokeDelegate(fndel, null, isMemberExpr: false, scriptMethodArgs);
                 return ret.unwrapScriptValue();
             }
 
-            List<object> toList(IEnumerable seq) => seq == null
+            /// <summary>
+            /// To the list.
+            /// </summary>
+            /// <param name="seq">The seq.</param>
+            /// <returns>List&lt;System.Object&gt;.</returns>
+            private List<object> toList(IEnumerable seq) => seq == null
                 ? new List<object>()
                 : seq.Cast<object>().ToList();
 
-            class ObjectComparer : IComparer<object>
+            /// <summary>
+            /// Class ObjectComparer.
+            /// Implements the <see cref="object" />
+            /// </summary>
+            /// <seealso cref="object" />
+            private class ObjectComparer : IComparer<object>
             {
+                /// <summary>
+                /// The comparer
+                /// </summary>
                 private readonly IComparer comparer;
-                public ObjectComparer(IComparer comparer) => this.comparer = comparer;
+                /// <summary>
+                /// Initializes a new instance of the <see cref="ObjectComparer"/> class.
+                /// </summary>
+                /// <param name="comparer">The comparer.</param>
+                public ObjectComparer(IComparer comparer)
+                {
+                    this.comparer = comparer;
+                }
+
+                /// <summary>
+                /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+                /// </summary>
+                /// <param name="x">The first object to compare.</param>
+                /// <param name="y">The second object to compare.</param>
+                /// <returns>A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" />, as shown in the following table.
+                /// Value
+                /// Meaning
+                /// Less than zero
+                /// <paramref name="x" /> is less than <paramref name="y" />.
+                /// Zero
+                /// <paramref name="x" /> equals <paramref name="y" />.
+                /// Greater than zero
+                /// <paramref name="x" /> is greater than <paramref name="y" />.</returns>
                 public int Compare(object x, object y) => comparer.Compare(x, y);
 
+                /// <summary>
+                /// Gets the comparer.
+                /// </summary>
+                /// <param name="x">The x.</param>
+                /// <param name="I">The i.</param>
+                /// <returns>IComparer&lt;System.Object&gt;.</returns>
+                /// <exception cref="ServiceStack.Script.LispEvalException">Not a IComparer</exception>
                 public static IComparer<object> GetComparer(object x, Interpreter I)
                 {
                     if (x is IComparer<object> objComparer)
@@ -1080,6 +1937,12 @@ namespace ServiceStack.Script
                     throw new LispEvalException("Not a IComparer", x);
                 }
 
+                /// <summary>
+                /// Gets the equality comparer.
+                /// </summary>
+                /// <param name="x">The x.</param>
+                /// <param name="I">The i.</param>
+                /// <returns>IEqualityComparer&lt;System.Object&gt;.</returns>
                 public static IEqualityComparer<object> GetEqualityComparer(object x, Interpreter I)
                 {
                     if (x is IEqualityComparer<object> objComparer)
@@ -1090,22 +1953,104 @@ namespace ServiceStack.Script
                 }
             }
 
-            class FnComparer : IComparer, IComparer<object>, IEqualityComparer<object>
+            /// <summary>
+            /// Class FnComparer.
+            /// Implements the <see cref="System.Collections.IComparer" />
+            /// Implements the <see cref="object" />
+            /// Implements the <see cref="object" />
+            /// </summary>
+            /// <seealso cref="System.Collections.IComparer" />
+            /// <seealso cref="object" />
+            /// <seealso cref="object" />
+            private class FnComparer : IComparer, IComparer<object>, IEqualityComparer<object>
             {
-                private Interpreter I;
+                /// <summary>
+                /// The i
+                /// </summary>
+                private readonly Interpreter I;
+                /// <summary>
+                /// The fnclosure
+                /// </summary>
                 private readonly Closure fnclosure;
+                /// <summary>
+                /// The fnmacro
+                /// </summary>
                 private readonly Macro fnmacro;
+                /// <summary>
+                /// The fndel
+                /// </summary>
                 private readonly Delegate fndel;
+                /// <summary>
+                /// The function compare to
+                /// </summary>
                 private readonly Func<object, object, int> fnCompareTo;
+                /// <summary>
+                /// The function compare equals
+                /// </summary>
                 private readonly Func<object, object, bool> fnCompareEquals;
 
-                public FnComparer(Interpreter i) => I = i;
-                public FnComparer(Interpreter I, Closure fnclosure) : this(I) => this.fnclosure = fnclosure;
-                public FnComparer(Interpreter I, Macro fnmacro) : this(I) => this.fnmacro = fnmacro;
-                public FnComparer(Func<object, object, int> fn) => this.fnCompareTo = fn;
-                public FnComparer(Func<object, object, bool> fnCompareEquals) => this.fnCompareEquals = fnCompareEquals;
-                public FnComparer(Delegate fndel) => this.fndel = fndel;
+                /// <summary>
+                /// Initializes a new instance of the <see cref="FnComparer"/> class.
+                /// </summary>
+                /// <param name="i">The i.</param>
+                public FnComparer(Interpreter i)
+                {
+                    I = i;
+                }
 
+                /// <summary>
+                /// Initializes a new instance of the <see cref="FnComparer"/> class.
+                /// </summary>
+                /// <param name="I">The i.</param>
+                /// <param name="fnclosure">The fnclosure.</param>
+                public FnComparer(Interpreter I, Closure fnclosure) : this(I)
+                {
+                    this.fnclosure = fnclosure;
+                }
+
+                /// <summary>
+                /// Initializes a new instance of the <see cref="FnComparer"/> class.
+                /// </summary>
+                /// <param name="I">The i.</param>
+                /// <param name="fnmacro">The fnmacro.</param>
+                public FnComparer(Interpreter I, Macro fnmacro) : this(I)
+                {
+                    this.fnmacro = fnmacro;
+                }
+
+                /// <summary>
+                /// Initializes a new instance of the <see cref="FnComparer"/> class.
+                /// </summary>
+                /// <param name="fn">The function.</param>
+                public FnComparer(Func<object, object, int> fn)
+                {
+                    this.fnCompareTo = fn;
+                }
+
+                /// <summary>
+                /// Initializes a new instance of the <see cref="FnComparer"/> class.
+                /// </summary>
+                /// <param name="fnCompareEquals">The function compare equals.</param>
+                public FnComparer(Func<object, object, bool> fnCompareEquals)
+                {
+                    this.fnCompareEquals = fnCompareEquals;
+                }
+
+                /// <summary>
+                /// Initializes a new instance of the <see cref="FnComparer"/> class.
+                /// </summary>
+                /// <param name="fndel">The fndel.</param>
+                public FnComparer(Delegate fndel)
+                {
+                    this.fndel = fndel;
+                }
+
+                /// <summary>
+                /// Compares two objects and returns a value indicating whether one is less than, equal to, or greater than the other.
+                /// </summary>
+                /// <param name="x">The first object to compare.</param>
+                /// <param name="y">The second object to compare.</param>
+                /// <returns>A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" />:   - If less than 0, <paramref name="x" /> is less than <paramref name="y" />.   - If 0, <paramref name="x" /> equals <paramref name="y" />.   - If greater than 0, <paramref name="x" /> is greater than <paramref name="y" />.</returns>
                 public int Compare(object x, object y) =>
                     fnclosure != null
                         ? DynamicInt.Instance.Convert(I.invoke(fnclosure, x, y))
@@ -1115,6 +2060,12 @@ namespace ServiceStack.Script
                                 ? fnCompareTo(x, y)
                                 : DynamicInt.Instance.Convert(I.invoke(fndel, x, y));
 
+                /// <summary>
+                /// Determines whether the specified objects are equal.
+                /// </summary>
+                /// <param name="x">The first object of type T to compare.</param>
+                /// <param name="y">The second object of type T to compare.</param>
+                /// <returns><see langword="true" /> if the specified objects are equal; otherwise, <see langword="false" />.</returns>
                 public bool Equals(object x, object y) =>
                     fnclosure != null
                         ? I.invoke(fnclosure, x, y).ConvertTo<bool>()
@@ -1124,10 +2075,23 @@ namespace ServiceStack.Script
                                 ? fnCompareEquals(x, y)
                                 : I.invoke(fndel, x, y).ConvertTo<bool>();
 
+                /// <summary>
+                /// Returns a hash code for this instance.
+                /// </summary>
+                /// <param name="obj">The <see cref="T:System.Object" /> for which a hash code is to be returned.</param>
+                /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
                 public int GetHashCode(object obj) => obj.GetHashCode();
             }
 
-            static ReadOnlyMemory<char> DownloadCachedUrl(ScriptScopeContext scope, string url, string cachePrefix, bool force = false)
+            /// <summary>
+            /// Downloads the cached URL.
+            /// </summary>
+            /// <param name="scope">The scope.</param>
+            /// <param name="url">The URL.</param>
+            /// <param name="cachePrefix">The cache prefix.</param>
+            /// <param name="force">if set to <c>true</c> [force].</param>
+            /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
+            private static ReadOnlyMemory<char> DownloadCachedUrl(ScriptScopeContext scope, string url, string cachePrefix, bool force = false)
             {
                 var cachedContents = GetCachedContents(scope, url, cachePrefix, out var vfsCache, out var cachedPath);
                 if (!force && cachedContents != null)
@@ -1141,6 +2105,11 @@ namespace ServiceStack.Script
             /// <summary>
             /// Cache final output from load reference
             /// </summary>
+            /// <param name="scope">The scope.</param>
+            /// <param name="vfsCache">The VFS cache.</param>
+            /// <param name="cachedPath">The cached path.</param>
+            /// <param name="text">The text.</param>
+            /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
             private static ReadOnlyMemory<char> WriteCacheFile(ScriptScopeContext scope, IVirtualPathProvider vfsCache, string cachedPath, ReadOnlyMemory<char> text)
             {
                 if (vfsCache is IVirtualFiles vfsWrite)
@@ -1157,6 +2126,15 @@ namespace ServiceStack.Script
                 return text;
             }
 
+            /// <summary>
+            /// Gets the cached contents.
+            /// </summary>
+            /// <param name="scope">The scope.</param>
+            /// <param name="url">The URL.</param>
+            /// <param name="cachePrefix">The cache prefix.</param>
+            /// <param name="vfsCache">The VFS cache.</param>
+            /// <param name="cachedPath">The cached path.</param>
+            /// <returns>System.Nullable&lt;ReadOnlyMemory&lt;System.Char&gt;&gt;.</returns>
             private static ReadOnlyMemory<char>? GetCachedContents(ScriptScopeContext scope, string url, string cachePrefix, out IVirtualPathProvider vfsCache, out string cachedPath)
             {
                 vfsCache = scope.Context.CacheFiles ?? scope.Context.VirtualFiles;
@@ -1166,6 +2144,13 @@ namespace ServiceStack.Script
                 return cachedFile?.GetTextContentsAsMemory();
             }
 
+            /// <summary>
+            /// Downloads the cached gist.
+            /// </summary>
+            /// <param name="scope">The scope.</param>
+            /// <param name="gistId">The gist identifier.</param>
+            /// <param name="force">if set to <c>true</c> [force].</param>
+            /// <returns>GithubGist.</returns>
             private static GithubGist DownloadCachedGist(ScriptScopeContext scope, string gistId, bool force = false)
             {
                 var gistUrl = GitHubGateway.ApiBaseUrl.CombineWith($"gists/{gistId}");
@@ -1174,21 +2159,38 @@ namespace ServiceStack.Script
                 return gist;
             }
 
+            /// <summary>
+            /// Gets the gist contents.
+            /// </summary>
+            /// <param name="scope">The scope.</param>
+            /// <param name="gistFile">The gist file.</param>
+            /// <returns>System.String.</returns>
             private static string GetGistContents(ScriptScopeContext scope, GistFile gistFile) => IsTruncated(gistFile)
                 ? DownloadCachedUrl(scope, gistFile.Raw_Url, "gist_file_").ToString()
                 : gistFile.Content;
 
             /// <summary>
             /// Load examples:
-            ///   - file.l
-            ///   - virtual/path/file.l
-            ///   - index:lib-calc
-            ///   - index:lib-calc/lib1.l
-            ///   - gist:{gist-id}
-            ///   - gist:{gist-id}/single-file.l
-            ///   - https://mydomain.org/file.l
+            /// - file.l
+            /// - virtual/path/file.l
+            /// - index:lib-calc
+            /// - index:lib-calc/lib1.l
+            /// - gist:{gist-id}
+            /// - gist:{gist-id}/single-file.l
+            /// - https://mydomain.org/file.l
             /// </summary>
-            static ReadOnlyMemory<char> lispContents(ScriptScopeContext scope, string path)
+            /// <param name="scope">The scope.</param>
+            /// <param name="path">The path.</param>
+            /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
+            /// <exception cref="System.NotSupportedException">Lisp.AllowLoadingRemoteScripts has been disabled</exception>
+            /// <exception cref="System.NotSupportedException">https:// is required for loading remote scripts</exception>
+            /// <exception cref="System.NotSupportedException">File '{specificFile}' does not exist in gist '{gistId}'</exception>
+            /// <exception cref="System.NotSupportedException">IndexGistId is unspecified</exception>
+            /// <exception cref="System.NotSupportedException">Could not resolve '{indexName}' from Gist Index '{IndexGistId}'</exception>
+            /// <exception cref="System.NotSupportedException"></exception>
+            /// <exception cref="System.NotSupportedException">File '{specificFile}' does not exist in gist '{gistId}'</exception>
+            /// <exception cref="System.NotSupportedException">File does not exist '{path}'</exception>
+            private static ReadOnlyMemory<char> lispContents(ScriptScopeContext scope, string path)
             {
                 var isUrl = path.IndexOf("://", StringComparison.Ordinal) >= 0;
                 if (path.StartsWith("index:") || path.StartsWith("gist:") || isUrl)
@@ -1300,6 +2302,13 @@ namespace ServiceStack.Script
                 return lisp;
             }
 
+            /// <summary>
+            /// Gets the gist index links.
+            /// </summary>
+            /// <param name="scope">The scope.</param>
+            /// <param name="force">if set to <c>true</c> [force].</param>
+            /// <returns>List&lt;GistLink&gt;.</returns>
+            /// <exception cref="System.NotSupportedException">IndexGistId '{IndexGistId}' does not contain index.md</exception>
             internal static List<GistLink> GetGistIndexLinks(ScriptScopeContext scope, bool force = false)
             {
                 var gistIndex = DownloadCachedGist(scope, IndexGistId, force);
@@ -1311,10 +2320,21 @@ namespace ServiceStack.Script
                 return indexLinks;
             }
 
+            /// <summary>
+            /// Determines whether the specified f is truncated.
+            /// </summary>
+            /// <param name="f">The f.</param>
+            /// <returns><c>true</c> if the specified f is truncated; otherwise, <c>false</c>.</returns>
             private static bool IsTruncated(GistFile f) => (string.IsNullOrEmpty(f.Content) || f.Content.Length < f.Size) && f.Truncated;
 
+            /// <summary>
+            /// The gensym counter
+            /// </summary>
             private static long gensymCounter = 0;
 
+            /// <summary>
+            /// Initializes the globals.
+            /// </summary>
             public void InitGlobals()
             {
                 Globals[TRUE] = Globals[BOOL_TRUE] = TRUE;
@@ -2014,19 +3034,41 @@ namespace ServiceStack.Script
                              new Cell("#Script Lisp", new Cell("based on Nukata Lisp Light v1.2", null)));
             }
 
-            /// <summary>Define a built-in function by a name, an arity,
-            /// and a body.</summary>
+            /// <summary>
+            /// Define a built-in function by a name, an arity,
+            /// and a body.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
             public void Def(string name, int carity, BuiltInFuncBody body)
             {
                 Globals[Sym.New(name)] = new BuiltInFunc(name, carity, body);
             }
+            /// <summary>
+            /// Definitions the specified name.
+            /// </summary>
+            /// <param name="name">The name.</param>
+            /// <param name="carity">The carity.</param>
+            /// <param name="body">The body.</param>
             public void Def(string name, int carity, Func<object[], object> body)
             {
                 Globals[Sym.New(name)] = new BuiltInFunc(name, carity, (I, a) => body(a));
             }
 
+            /// <summary>
+            /// Evals the specified s expressions.
+            /// </summary>
+            /// <param name="sExpressions">The s expressions.</param>
+            /// <returns>System.Object.</returns>
             public object Eval(IEnumerable<object> sExpressions) => Eval(sExpressions, null);
 
+            /// <summary>
+            /// Evals the specified s expressions.
+            /// </summary>
+            /// <param name="sExpressions">The s expressions.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
             public object Eval(IEnumerable<object> sExpressions, Cell env)
             {
                 object lastResult = null;
@@ -2037,8 +3079,17 @@ namespace ServiceStack.Script
                 return lastResult;
             }
 
+            /// <summary>
+            /// Gets or sets the scope.
+            /// </summary>
+            /// <value>The scope.</value>
             public ScriptScopeContext? Scope { get; set; }
 
+            /// <summary>
+            /// Asserts the scope.
+            /// </summary>
+            /// <returns>ScriptScopeContext.</returns>
+            /// <exception cref="System.NotSupportedException">Lisp Interpreter not configured with Required ScriptScopeContext</exception>
             public ScriptScopeContext AssertScope()
             {
                 if (Scope != null)
@@ -2047,9 +3098,32 @@ namespace ServiceStack.Script
                 throw new NotSupportedException("Lisp Interpreter not configured with Required ScriptScopeContext");
             }
 
+            /// <summary>
+            /// Evals the specified x.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <returns>System.Object.</returns>
             public object Eval(object x) => Eval(x, null);
 
-            /// <summary>Evaluate a Lisp expression in an environment.</summary>
+            /// <summary>
+            /// Evaluate a Lisp expression in an environment.
+            /// </summary>
+            /// <param name="x">The x.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="System.NotSupportedException"></exception>
+            /// <exception cref="System.NotSupportedException">Could not resolve #Script method '{fnName.Substring(1)}'</exception>
+            /// <exception cref="System.NotSupportedException">:index access requires 1 instance target or a string key</exception>
+            /// <exception cref="System.NotSupportedException">.memberAccess requires an instance target</exception>
+            /// <exception cref="System.NotSupportedException"></exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">void variable</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">bad quote</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">nested macro</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">bad quasiquote</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">bad keyword</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">not Sym</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">undefined</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">not applicable</exception>
             public object Eval(object x, Cell env)
             {
                 try
@@ -2334,6 +3408,13 @@ namespace ServiceStack.Script
                 }
             }
 
+            /// <summary>
+            /// Evals the arguments.
+            /// </summary>
+            /// <param name="arg">The argument.</param>
+            /// <param name="interp">The interp.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object[].</returns>
             public static object[] EvalArgs(Cell arg, Interpreter interp, Cell env = null)
             {
                 if (arg == null)
@@ -2356,6 +3437,16 @@ namespace ServiceStack.Script
                 return frame;
             }
 
+            /// <summary>
+            /// Evals the map arguments.
+            /// </summary>
+            /// <param name="arg">The argument.</param>
+            /// <param name="interp">The interp.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">Expected Cell Key/Value Pair</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">Map Key</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">Expected Cell Value</exception>
             public static Dictionary<string, object> EvalMapArgs(Cell arg, Interpreter interp, Cell env = null)
             {
                 if (arg == null)
@@ -2395,7 +3486,13 @@ namespace ServiceStack.Script
             }
 
             // (progn E1 ... En) => Evaluate E1, ... except for En and return it.
-            object EvalProgN(Cell j, Cell env)
+            /// <summary>
+            /// Evals the prog n.
+            /// </summary>
+            /// <param name="j">The j.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
+            private object EvalProgN(Cell j, Cell env)
             {
                 if (j == null)
                     return null;
@@ -2410,7 +3507,14 @@ namespace ServiceStack.Script
             }
 
             // Evaluate a conditional expression and return the selection.
-            object EvalCond(Cell j, Cell env)
+            /// <summary>
+            /// Evals the cond.
+            /// </summary>
+            /// <param name="j">The j.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">cond test expected</exception>
+            private object EvalCond(Cell j, Cell env)
             {
                 for (; j != null; j = CdrCell(j))
                 {
@@ -2440,7 +3544,16 @@ namespace ServiceStack.Script
             }
 
             // (setq V1 E1 ..) => Evaluate Ei and assign it to Vi; return the last.
-            object EvalSetQ(Cell j, Cell env)
+            /// <summary>
+            /// Evals the set q.
+            /// </summary>
+            /// <param name="j">The j.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">right value expected</exception>
+            /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
+            private object EvalSetQ(Cell j, Cell env)
             {
                 object result = null;
                 for (; j != null; j = CdrCell(j))
@@ -2468,11 +3581,21 @@ namespace ServiceStack.Script
             }
 
             // (export V1 E1 ..) => Evaluate Ei and assign it to Vi in PageResult.Args; return null.
-            object EvalExport(Cell j, Cell env, ScriptScopeContext scope)
+            /// <summary>
+            /// Evals the export.
+            /// </summary>
+            /// <param name="j">The j.</param>
+            /// <param name="env">The env.</param>
+            /// <param name="scope">The scope.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="System.NotSupportedException">scope is undefined</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">right value expected</exception>
+            /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
+            private object EvalExport(Cell j, Cell env, ScriptScopeContext scope)
             {
                 if (scope.PageResult == null)
                     throw new NotSupportedException("scope is undefined");
-                object result = null;
                 for (; j != null; j = CdrCell(j))
                 {
                     var lval = j.Car;
@@ -2481,7 +3604,7 @@ namespace ServiceStack.Script
                     j = CdrCell(j);
                     if (j == null)
                         throw new LispEvalException("right value expected", lval);
-                    result = Eval(j.Car, env);
+                    object result = Eval(j.Car, env);
                     switch (lval)
                     {
                         case Arg arg:
@@ -2498,9 +3621,17 @@ namespace ServiceStack.Script
             }
 
             // { :k1 v1 :k2 v2 } => Evaluate Object Dictionary (comma separators optional)
-            object EvalMap(Cell j, Cell env)
+            /// <summary>
+            /// Evals the map.
+            /// </summary>
+            /// <param name="j">The j.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">right value expected</exception>
+            /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
+            private object EvalMap(Cell j, Cell env)
             {
-                object result = null;
                 for (; j != null; j = CdrCell(j))
                 {
                     var lval = j.Car;
@@ -2509,7 +3640,7 @@ namespace ServiceStack.Script
                     j = CdrCell(j);
                     if (j == null)
                         throw new LispEvalException("right value expected", lval);
-                    result = Eval(j.Car, env);
+                    object result = Eval(j.Car, env);
                     switch (lval)
                     {
                         case Arg arg:
@@ -2526,7 +3657,15 @@ namespace ServiceStack.Script
             }
 
             // Compile a Lisp list (macro ...) or (lambda ...).
-            DefinedFunc Compile(Cell arg, Cell env, FuncFactory make)
+            /// <summary>
+            /// Compiles the specified argument.
+            /// </summary>
+            /// <param name="arg">The argument.</param>
+            /// <param name="env">The env.</param>
+            /// <param name="make">The make.</param>
+            /// <returns>DefinedFunc.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">arglist and body expected</exception>
+            private DefinedFunc Compile(Cell arg, Cell env, FuncFactory make)
             {
                 if (arg == null)
                     throw new LispEvalException("arglist and body expected", arg);
@@ -2541,7 +3680,15 @@ namespace ServiceStack.Script
             }
 
             // Expand macros and quasi-quotations in an expression.
-            object ExpandMacros(object j, int count, Cell env)
+            /// <summary>
+            /// Expands the macros.
+            /// </summary>
+            /// <param name="j">The j.</param>
+            /// <param name="count">The count.</param>
+            /// <param name="env">The env.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">bad quasiquote</exception>
+            private object ExpandMacros(object j, int count, Cell env)
             {
                 if (j is Cell cell && count > 0)
                 {
@@ -2583,7 +3730,13 @@ namespace ServiceStack.Script
             }
 
             // Replace inner lambda-expressions with Lambda instances.
-            object CompileInners(object j)
+            /// <summary>
+            /// Compiles the inners.
+            /// </summary>
+            /// <param name="j">The j.</param>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">nested macro</exception>
+            private object CompileInners(object j)
             {
                 if (j is Cell cell)
                 {
@@ -2616,7 +3769,20 @@ namespace ServiceStack.Script
         //------------------------------------------------------------------
 
         // Make an argument-table; return true if there is a rest argument.
-        static bool MakeArgTable(object arg, IDictionary<Sym, Arg> table)
+        /// <summary>
+        /// Makes the argument table.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <param name="table">The table.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="ServiceStack.Script.LispEvalException">2nd rest</exception>
+        /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
+        /// <exception cref="ServiceStack.Script.LispEvalException">duplicated argument name</exception>
+        /// <exception cref="ServiceStack.Script.LispEvalException">arglist expected</exception>
+        /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
+        /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
+        /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
+        private static bool MakeArgTable(object arg, IDictionary<Sym, Arg> table)
         {
             if (arg == null)
             {
@@ -2641,11 +3807,9 @@ namespace ServiceStack.Script
                             throw new NotVariableException(j);
                         hasRest = true;
                     }
-                    Sym sym = j as Sym;
-                    if (sym == null)
+                    if (j is not Sym sym)
                     {
-                        Arg jarg = j as Arg;
-                        if (jarg != null)
+                        if (j is Arg jarg)
                             sym = jarg.Symbol;
                         else
                             throw new NotVariableException(j);
@@ -2667,7 +3831,13 @@ namespace ServiceStack.Script
 
         // Scan 'j' for formal arguments in 'table' and replace them with Args.
         // And scan 'j' for free Args not in 'table' and promote their levels.
-        static object ScanForArgs(object j, IDictionary<Sym, Arg> table)
+        /// <summary>
+        /// Scans for arguments.
+        /// </summary>
+        /// <param name="j">The j.</param>
+        /// <param name="table">The table.</param>
+        /// <returns>System.Object.</returns>
+        private static object ScanForArgs(object j, IDictionary<Sym, Arg> table)
         {
             switch (j)
             {
@@ -2692,7 +3862,14 @@ namespace ServiceStack.Script
 
         // Scan for quasi-quotes and ScanForArgs them depending on the nesting
         // level.
-        static object ScanForQQ(object j, IDictionary<Sym, Arg> table, int level)
+        /// <summary>
+        /// Scans for qq.
+        /// </summary>
+        /// <param name="j">The j.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="level">The level.</param>
+        /// <returns>System.Object.</returns>
+        private static object ScanForQQ(object j, IDictionary<Sym, Arg> table, int level)
         {
             if (j is Cell cell)
             {
@@ -2724,17 +3901,30 @@ namespace ServiceStack.Script
         //------------------------------------------------------------------
         // Quasi-Quotation
 
-        /// <summary>Expand <c>x</c> of any quqsi-quotation <c>`x</c> into
-        /// the equivalent S-expression.</summary>
+        /// <summary>
+        /// Expand <c>x</c> of any quqsi-quotation <c>`x</c> into
+        /// the equivalent S-expression.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <returns>System.Object.</returns>
         public static object QqExpand(object x) =>
             QqExpand0(x, 0);        // Begin with the nesting level 0.
 
-        /// <summary>Quote <c>x</c> so that the result evaluates to <c>x</c>.
+        /// <summary>
+        /// Quote <c>x</c> so that the result evaluates to <c>x</c>.
         /// </summary>
+        /// <param name="x">The x.</param>
+        /// <returns>System.Object.</returns>
         public static object QqQuote(object x) =>
             x is Sym || x is Cell ? new Cell(QUOTE, new Cell(x, null)) : x;
 
-        static object QqExpand0(object x, int level)
+        /// <summary>
+        /// Qqs the expand0.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="level">The level.</param>
+        /// <returns>System.Object.</returns>
+        private static object QqExpand0(object x, int level)
         {
             if (x is Cell cell)
             {
@@ -2761,7 +3951,13 @@ namespace ServiceStack.Script
         // Example 1: (,a b) => h=(list a) t=((list 'b)) => ((list a 'b))
         // Example 2: (,a ,@(cons 2 3)) => h=(list a) t=((cons 2 3))
         //                              => ((cons a (cons 2 3)))
-        static Cell QqExpand1(object x, int level)
+        /// <summary>
+        /// Qqs the expand1.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="level">The level.</param>
+        /// <returns>Cell.</returns>
+        private static Cell QqExpand1(object x, int level)
         {
             if (x is Cell cell)
             {
@@ -2809,12 +4005,24 @@ namespace ServiceStack.Script
         }
 
         // (1 2), (3 4) => (1 2 3 4)
-        static object QqConcat(Cell x, object y) =>
+        /// <summary>
+        /// Qqs the concat.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>System.Object.</returns>
+        private static object QqConcat(Cell x, object y) =>
             x == null ? y :
             new Cell(x.Car, QqConcat(CdrCell(x), y));
 
         // (1 2 3), "a" => (cons 1 (cons 2 (cons 3 "a")))
-        static object QqConsCons(Cell x, object y) =>
+        /// <summary>
+        /// Qqs the cons cons.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="y">The y.</param>
+        /// <returns>System.Object.</returns>
+        private static object QqConsCons(Cell x, object y) =>
             x == null ? y :
             new Cell(CONS,
                      new Cell(x.Car,
@@ -2822,7 +4030,13 @@ namespace ServiceStack.Script
 
         // Expand x.car of `x so that the result can be used as an arg of append.
         // Example: ,a => (list a); ,@(foo 1 2) => (foo 1 2); b => (list 'b)
-        static object QqExpand2(object y, int level)
+        /// <summary>
+        /// Qqs the expand2.
+        /// </summary>
+        /// <param name="y">The y.</param>
+        /// <param name="level">The level.</param>
+        /// <returns>System.Object.</returns>
+        private static object QqExpand2(object y, int level)
         { // Let y be x.car.
             if (y is Cell cell)
             {
@@ -2849,11 +4063,15 @@ namespace ServiceStack.Script
         /// <summary>
         /// Returns List of SExpression's
         /// </summary>
+        /// <param name="lisp">The lisp.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         public static List<object> Parse(string lisp) => Parse(lisp.AsMemory());
 
         /// <summary>
         /// Returns List of SExpression's
         /// </summary>
+        /// <param name="lisp">The lisp.</param>
+        /// <returns>List&lt;System.Object&gt;.</returns>
         public static List<object> Parse(ReadOnlyMemory<char> lisp)
         {
             var to = new List<object>();
@@ -2869,7 +4087,12 @@ namespace ServiceStack.Script
 
         //    public static object Run(Interp interp, TextReader input) => Run(interp, new Reader(input));
 
-        /// <summary>Run Read-Eval Loop.</summary>
+        /// <summary>
+        /// Run Read-Eval Loop.
+        /// </summary>
+        /// <param name="interp">The interp.</param>
+        /// <param name="reader">The reader.</param>
+        /// <returns>System.Object.</returns>
         private static object Run(Interpreter interp, Reader reader)
         {
             object lastResult = Reader.EOF;
@@ -2884,22 +4107,49 @@ namespace ServiceStack.Script
 
         //------------------------------------------------------------------
 
-        /// <summary>Reader of Lisp expressions</summary>
+        /// <summary>
+        /// Reader of Lisp expressions
+        /// </summary>
         public class Reader
         {
-            object Token;
+            /// <summary>
+            /// The token
+            /// </summary>
+            private object Token;
 
-            IEnumerator<string> Tokens = ((IEnumerable<string>)TypeConstants.EmptyStringArray).GetEnumerator();
+            /// <summary>
+            /// The tokens
+            /// </summary>
+            private IEnumerator<string> Tokens = ((IEnumerable<string>)TypeConstants.EmptyStringArray).GetEnumerator();
 
-            int LineNo = 0;
+            /// <summary>
+            /// The line no
+            /// </summary>
+            private int LineNo = 0;
 
-            /// <summary>Token of "End Of File"</summary>
+            /// <summary>
+            /// Token of "End Of File"
+            /// </summary>
             public static object EOF = new Sym("#EOF");
 
-            private ReadOnlyMemory<char> source = default;
-            public Reader(ReadOnlyMemory<char> source) => this.source = source;
+            /// <summary>
+            /// The source
+            /// </summary>
+            private readonly ReadOnlyMemory<char> source = default;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Reader"/> class.
+            /// </summary>
+            /// <param name="source">The source.</param>
+            public Reader(ReadOnlyMemory<char> source)
+            {
+                this.source = source;
+            }
 
-            /// <summary>Read a Lisp expression and return it.</summary>
+            /// <summary>
+            /// Read a Lisp expression and return it.
+            /// </summary>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="ServiceStack.Script.LispEvalException">syntax error - false</exception>
             /// <remarks>Return EOF if the input runs out.</remarks>
             public object Read()
             {
@@ -2911,12 +4161,17 @@ namespace ServiceStack.Script
                 catch (FormatException ex)
                 {
                     throw new LispEvalException("syntax error",
-                        $"{ex.Message} -- {LineNo}: {Line.ToString()}",
+                        $"{ex.Message} -- {LineNo}: {Line}",
                         false);
                 }
             }
 
-            object ParseExpression()
+            /// <summary>
+            /// Parses the expression.
+            /// </summary>
+            /// <returns>System.Object.</returns>
+            /// <exception cref="System.FormatException">unexpected {Token}</exception>
+            private object ParseExpression()
             {
                 if (Token == LEFT_PAREN)
                 {
@@ -3031,7 +4286,14 @@ namespace ServiceStack.Script
                 }
             }
 
-            Cell ParseMapBody()
+            /// <summary>
+            /// Parses the map body.
+            /// </summary>
+            /// <returns>Cell.</returns>
+            /// <exception cref="System.FormatException">unexpected EOF</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">Expected Key Symbol with ':' prefix</exception>
+            /// <exception cref="ServiceStack.Script.LispEvalException">Expected Key Symbol or String</exception>
+            private Cell ParseMapBody()
             {
                 if (Token == EOF)
                     throw new FormatException("unexpected EOF");
@@ -3064,7 +4326,13 @@ namespace ServiceStack.Script
                 }
             }
 
-            Cell ParseDataListBody()
+            /// <summary>
+            /// Parses the data list body.
+            /// </summary>
+            /// <returns>Cell.</returns>
+            /// <exception cref="System.FormatException">unexpected EOF</exception>
+            /// <exception cref="System.FormatException">\")\" expected: {Token}</exception>
+            private Cell ParseDataListBody()
             {
                 if (Token == EOF)
                     throw new FormatException("unexpected EOF");
@@ -3097,7 +4365,13 @@ namespace ServiceStack.Script
                 }
             }
 
-            Cell ParseListBody()
+            /// <summary>
+            /// Parses the list body.
+            /// </summary>
+            /// <returns>Cell.</returns>
+            /// <exception cref="System.FormatException">unexpected EOF</exception>
+            /// <exception cref="System.FormatException">\")\" expected: {Token}</exception>
+            private Cell ParseListBody()
             {
                 if (Token == EOF)
                     throw new FormatException("unexpected EOF");
@@ -3126,7 +4400,13 @@ namespace ServiceStack.Script
                 }
             }
 
+            /// <summary>
+            /// The token objects
+            /// </summary>
             private IEnumerator<object> TokenObjects;
+            /// <summary>
+            /// The token delims
+            /// </summary>
             private static char[] TokenDelims = {
                 '"', ',', '(', ')', '`', '\'', '~',
                 '{','}',  //clojure map
@@ -3134,7 +4414,12 @@ namespace ServiceStack.Script
                 '[',']',  //clojure data list [e1 e2] => (list e1 e2)
             };
 
-            static void AddToken(List<object> tokens, string s)
+            /// <summary>
+            /// Adds the token.
+            /// </summary>
+            /// <param name="tokens">The tokens.</param>
+            /// <param name="s">The s.</param>
+            private static void AddToken(List<object> tokens, string s)
             {
                 if (s == "nil")
                     tokens.Add(null);
@@ -3144,11 +4429,21 @@ namespace ServiceStack.Script
                     tokens.Add(Sym.New(s));
             }
 
+            /// <summary>
+            /// The line
+            /// </summary>
             private ReadOnlyMemory<char> Line;
 
+            /// <summary>
+            /// The cursor position
+            /// </summary>
             private int cursorPos = 0;
 
-            void ReadToken()
+            /// <summary>
+            /// Reads the token.
+            /// </summary>
+            /// <exception cref="System.FormatException">unterminated string: {literal.DebugLiteral()}</exception>
+            private void ReadToken()
             {
                 while (TokenObjects == null || !TokenObjects.MoveNext())
                 {
@@ -3219,9 +4514,12 @@ namespace ServiceStack.Script
 
         //------------------------------------------------------------------
 
-        /// <summary>Make a string representation of Lisp expression.</summary>
+        /// <summary>
+        /// Make a string representation of Lisp expression.
+        /// </summary>
         /// <param name="x">Lisp expression</param>
         /// <param name="quoteString">flag whether to quote string</param>
+        /// <returns>System.String.</returns>
         public static string Str(object x, bool quoteString = true)
         {
             // 4 is the threshold of ellipsis for circular lists
@@ -3229,15 +4527,25 @@ namespace ServiceStack.Script
         }
 
         // Mapping from a quote symbol to its string representation
-        static readonly Dictionary<Sym, string> Quotes = new Dictionary<Sym, string>
-        {
+        /// <summary>
+        /// The quotes
+        /// </summary>
+        private static readonly Dictionary<Sym, string> Quotes = new() {
             [QUOTE] = "'",
             [QUASIQUOTE] = "`",
             [UNQUOTE] = ",",
             [UNQUOTE_SPLICING] = ",@"
         };
 
-        static string Str4(object x, bool quoteString, int count,
+        /// <summary>
+        /// STR4s the specified x.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="quoteString">if set to <c>true</c> [quote string].</param>
+        /// <param name="count">The count.</param>
+        /// <param name="printed">The printed.</param>
+        /// <returns>System.String.</returns>
+        private static string Str4(object x, bool quoteString, int count,
                            HashSet<Cell> printed)
         {
             switch (x)
@@ -3283,7 +4591,14 @@ namespace ServiceStack.Script
         }
 
         // Make a string representation of list omitting its "(" and ")".
-        static string StrListBody(Cell x, int count, HashSet<Cell> printed)
+        /// <summary>
+        /// Strings the list body.
+        /// </summary>
+        /// <param name="x">The x.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="printed">The printed.</param>
+        /// <returns>System.String.</returns>
+        private static string StrListBody(Cell x, int count, HashSet<Cell> printed)
         {
             if (printed == null)
                 printed = new HashSet<Cell>();
@@ -3301,7 +4616,7 @@ namespace ServiceStack.Script
                     if (count < 0)
                     {
                         s.Add("..."); // an ellipsis for a circular list
-                        return String.Join(" ", s);
+                        return string.Join(" ", s);
                     }
                 }
                 s.Add(Str4(cell.Car, true, count, printed));
@@ -3313,12 +4628,15 @@ namespace ServiceStack.Script
             }
             for (y = x; y is Cell cell; y = cell.Cdr)
                 printed.Remove(cell);
-            return String.Join(" ", s);
+            return string.Join(" ", s);
         }
 
         //------------------------------------------------------------------
 
-        /// <summary>Run Read-Eval-Print Loop.</summary>
+        /// <summary>
+        /// Run Read-Eval-Print Loop.
+        /// </summary>
+        /// <param name="context">The context.</param>
         /// <remarks>This never ends, use Ctrl+C to Exit. Exceptions are handled here and not thrown.</remarks>
         public static void RunRepl(ScriptContext context)
         {
@@ -3373,9 +4691,14 @@ namespace ServiceStack.Script
             }
         }
 
-        /// <summary>Lisp initialization script</summary>
+        /// <summary>
+        /// Lisp initialization script
+        /// </summary>
         public static string InitScript = Prelude + LispCore + Extensions;
 
+        /// <summary>
+        /// The prelude
+        /// </summary>
         public const string Prelude = @"
 (setq defmacro
       (macro (name args &rest body)

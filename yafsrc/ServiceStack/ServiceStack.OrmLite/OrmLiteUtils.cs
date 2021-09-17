@@ -1,13 +1,9 @@
-//
-// ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2013 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="OrmLiteUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -23,18 +19,41 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
+    /// <summary>
+    /// Class EOT.
+    /// </summary>
     internal class EOT { }
 
+    /// <summary>
+    /// Class OrmLiteUtils.
+    /// </summary>
     public static class OrmLiteUtils
     {
+        /// <summary>
+        /// The asynchronous requires net45 error
+        /// </summary>
         internal const string AsyncRequiresNet45Error = "Async support is only available in .NET 4.5 builds";
 
-        const int maxCachedIndexFields = 10000;
+        /// <summary>
+        /// The maximum cached index fields
+        /// </summary>
+        private const int maxCachedIndexFields = 10000;
+        /// <summary>
+        /// The index fields cache
+        /// </summary>
         private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache
             = new(maxCachedIndexFields);
 
+        /// <summary>
+        /// The log
+        /// </summary>
         internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteUtils));
 
+        /// <summary>
+        /// Handles the exception.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <param name="message">The message.</param>
         public static void HandleException(Exception ex, string message = null)
         {
             if (OrmLiteConfig.ThrowOnError)
@@ -43,11 +62,21 @@ namespace ServiceStack.OrmLite
             Log.Error(message ?? ex.Message, ex);
         }
 
+        /// <summary>
+        /// Debugs the command.
+        /// </summary>
+        /// <param name="log">The log.</param>
+        /// <param name="cmd">The command.</param>
         public static void DebugCommand(this ILog log, IDbCommand cmd)
         {
             log.Debug(GetDebugString(cmd));
         }
 
+        /// <summary>
+        /// Gets the debug string.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <returns>string.</returns>
         public static string GetDebugString(this IDbCommand cmd)
         {
             var sb = StringBuilderCache.Allocate();
@@ -73,21 +102,49 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Creates the instance.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>T.</returns>
         public static T CreateInstance<T>()
         {
             return (T)ReflectionExtensions.CreateInstance<T>();
         }
 
+        /// <summary>
+        /// Determines whether the specified type is tuple.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>bool.</returns>
         internal static bool IsTuple(this Type type) => type.Name.StartsWith("Tuple`", StringComparison.Ordinal);
 
+        /// <summary>
+        /// Determines whether [is value tuple] [the specified type].
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>bool.</returns>
         internal static bool IsValueTuple(this Type type) => type.Name.StartsWith("ValueTuple`", StringComparison.Ordinal);
 
+        /// <summary>
+        /// Determines whether this instance is scalar.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>bool.</returns>
         public static bool IsScalar<T>()
         {
             var isScalar = typeof(T).IsValueType && !typeof(T).IsValueTuple() || typeof(T) == typeof(string);
             return isScalar;
         }
 
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <returns>T.</returns>
         public static T ConvertTo<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
         {
             using (reader)
@@ -110,10 +167,15 @@ namespace ServiceStack.OrmLite
                     row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                     return row;
                 }
-                return default(T);
+                return default;
             }
         }
 
+        /// <summary>
+        /// Converts to list objects.
+        /// </summary>
+        /// <param name="dataReader">The data reader.</param>
+        /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
         public static List<object> ConvertToListObjects(this IDataReader dataReader)
         {
             var row = new List<object>();
@@ -125,6 +187,11 @@ namespace ServiceStack.OrmLite
             return row;
         }
 
+        /// <summary>
+        /// Converts to dictionary objects.
+        /// </summary>
+        /// <param name="dataReader">The data reader.</param>
+        /// <returns>System.Collections.Generic.Dictionary&lt;string, object&gt;.</returns>
         public static Dictionary<string, object> ConvertToDictionaryObjects(this IDataReader dataReader)
         {
             var row = new Dictionary<string, object>();
@@ -136,6 +203,11 @@ namespace ServiceStack.OrmLite
             return row;
         }
 
+        /// <summary>
+        /// Converts to expando object.
+        /// </summary>
+        /// <param name="dataReader">The data reader.</param>
+        /// <returns>System.Collections.Generic.IDictionary&lt;string, object&gt;.</returns>
         public static IDictionary<string, object> ConvertToExpandoObject(this IDataReader dataReader)
         {
             var row = (IDictionary<string, object>)new ExpandoObject();
@@ -147,6 +219,14 @@ namespace ServiceStack.OrmLite
             return row;
         }
 
+        /// <summary>
+        /// Converts to value tuple.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="values">The values.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <returns>T.</returns>
         public static T ConvertToValueTuple<T>(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
         {
             var row = typeof(T).CreateInstance();
@@ -180,6 +260,14 @@ namespace ServiceStack.OrmLite
             return (T)row;
         }
 
+        /// <summary>
+        /// Converts to list.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <returns>System.Collections.Generic.List&lt;T&gt;.</returns>
         public static List<T> ConvertToList<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields = null)
         {
             if (typeof(T) == typeof(List<object>))
@@ -274,6 +362,15 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Converts to multituple.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="modelIndexCaches">The model index caches.</param>
+        /// <param name="genericArgs">The generic arguments.</param>
+        /// <param name="values">The values.</param>
+        /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
         internal static List<object> ToMultiTuple(this IDataReader reader,
             IOrmLiteDialectProvider dialectProvider,
             List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> modelIndexCaches,
@@ -291,6 +388,14 @@ namespace ServiceStack.OrmLite
             return tupleArgs;
         }
 
+        /// <summary>
+        /// Gets the multi index caches.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="genericArgs">The generic arguments.</param>
+        /// <returns>System.Collections.Generic.List&lt;System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[]&gt;.</returns>
         internal static List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(
             this IDataReader reader,
             IOrmLiteDialectProvider dialectProvider,
@@ -332,6 +437,13 @@ namespace ServiceStack.OrmLite
             return modelIndexCaches;
         }
 
+        /// <summary>
+        /// Converts to.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>object.</returns>
         public static object ConvertTo(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type)
         {
             var modelDef = type.GetModelDefinition();
@@ -349,6 +461,13 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Converts to list.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Collections.IList.</returns>
         public static IList ConvertToList(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type)
         {
             var modelDef = type.GetModelDefinition();
@@ -368,16 +487,34 @@ namespace ServiceStack.OrmLite
             return to;
         }
 
+        /// <summary>
+        /// Gets the column names.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         internal static string GetColumnNames(this Type tableType, IOrmLiteDialectProvider dialect)
         {
             return GetColumnNames(tableType.GetModelDefinition(), dialect);
         }
 
+        /// <summary>
+        /// Gets the column names.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string GetColumnNames(this ModelDefinition modelDef, IOrmLiteDialectProvider dialect)
         {
             return dialect.GetColumnNames(modelDef);
         }
 
+        /// <summary>
+        /// Converts to selectstring.
+        /// </summary>
+        /// <typeparam name="TItem">The type of the t item.</typeparam>
+        /// <param name="items">The items.</param>
+        /// <returns>string.</returns>
         public static string ToSelectString<TItem>(this IEnumerable<TItem> items)
         {
             var sb = StringBuilderCache.Allocate();
@@ -395,6 +532,12 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Sets the ids in SQL parameters.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="idValues">The identifier values.</param>
+        /// <returns>string.</returns>
         internal static string SetIdsInSqlParams(this IDbCommand dbCmd, IEnumerable idValues)
         {
             var inArgs = Sql.Flatten(idValues);
@@ -410,11 +553,24 @@ namespace ServiceStack.OrmLite
             return sqlIn;
         }
 
+        /// <summary>
+        /// SQLs the FMT.
+        /// </summary>
+        /// <param name="sqlText">The SQL text.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>string.</returns>
         public static string SqlFmt(this string sqlText, params object[] sqlParams)
         {
             return SqlFmt(sqlText, OrmLiteConfig.DialectProvider, sqlParams);
         }
 
+        /// <summary>
+        /// SQLs the FMT.
+        /// </summary>
+        /// <param name="sqlText">The SQL text.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>string.</returns>
         public static string SqlFmt(this string sqlText, IOrmLiteDialectProvider dialect, params object[] sqlParams)
         {
             if (sqlParams.Length == 0)
@@ -442,39 +598,84 @@ namespace ServiceStack.OrmLite
             return string.Format(sqlText, escapedParams.ToArray());
         }
 
+        /// <summary>
+        /// SQLs the column.
+        /// </summary>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string SqlColumn(this string columnName, IOrmLiteDialectProvider dialect = null)
         {
             return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedColumnName(columnName);
         }
 
+        /// <summary>
+        /// SQLs the column raw.
+        /// </summary>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string SqlColumnRaw(this string columnName, IOrmLiteDialectProvider dialect = null)
         {
             return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetColumnName(columnName);
         }
 
+        /// <summary>
+        /// SQLs the table.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string SqlTable(this string tableName, IOrmLiteDialectProvider dialect = null)
         {
             return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedTableName(tableName);
         }
 
+        /// <summary>
+        /// SQLs the table raw.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string SqlTableRaw(this string tableName, IOrmLiteDialectProvider dialect = null)
         {
             return (dialect ?? OrmLiteConfig.DialectProvider).NamingStrategy.GetTableName(tableName);
         }
 
+        /// <summary>
+        /// SQLs the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>string.</returns>
         public static string SqlValue(this object value)
         {
             return "{0}".SqlFmt(value);
         }
 
-        public static Regex VerifyFragmentRegEx = new Regex("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)([^\\w]|$)+",
+        /// <summary>
+        /// The verify fragment reg ex
+        /// </summary>
+        public static Regex VerifyFragmentRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)([^\\w]|$)+",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        /// <summary>
+        /// The verify SQL reg ex
+        /// </summary>
         public static Regex VerifySqlRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)([^\\w]|$)+",
             RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+        /// <summary>
+        /// Gets or sets the SQL verify fragment function.
+        /// </summary>
+        /// <value>The SQL verify fragment function.</value>
         public static Func<string, string> SqlVerifyFragmentFn { get; set; }
 
+        /// <summary>
+        /// Determines whether [is unsafe SQL] [the specified SQL].
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="verifySql">The verify SQL.</param>
+        /// <returns>bool.</returns>
         public static bool isUnsafeSql(string sql, Regex verifySql)
         {
             if (sql == null)
@@ -496,6 +697,12 @@ namespace ServiceStack.OrmLite
             return match.Success;
         }
 
+        /// <summary>
+        /// SQLs the verify fragment.
+        /// </summary>
+        /// <param name="sqlFragment">The SQL fragment.</param>
+        /// <returns>string.</returns>
+        /// <exception cref="ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
         public static string SqlVerifyFragment(this string sqlFragment)
         {
             if (isUnsafeSql(sqlFragment, VerifyFragmentRegEx))
@@ -504,6 +711,9 @@ namespace ServiceStack.OrmLite
             return sqlFragment;
         }
 
+        /// <summary>
+        /// The illegal SQL fragment tokens
+        /// </summary>
         public static string[] IllegalSqlFragmentTokens = {
             "--", ";--", ";", "%", "/*", "*/", "@@", "@",
             "char", "nchar", "varchar", "nvarchar",
@@ -511,6 +721,13 @@ namespace ServiceStack.OrmLite
             "drop", "end", "exec", "execute", "fetch", "insert", "kill",
             "open", "select", "sys", "sysobjects", "syscolumns", "table", "update" };
 
+        /// <summary>
+        /// SQLs the verify fragment.
+        /// </summary>
+        /// <param name="sqlFragment">The SQL fragment.</param>
+        /// <param name="illegalFragments">The illegal fragments.</param>
+        /// <returns>string.</returns>
+        /// <exception cref="ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
         public static string SqlVerifyFragment(this string sqlFragment, IEnumerable<string> illegalFragments)
         {
             if (sqlFragment == null)
@@ -531,11 +748,22 @@ namespace ServiceStack.OrmLite
             return sqlFragment;
         }
 
+        /// <summary>
+        /// SQLs the parameter.
+        /// </summary>
+        /// <param name="paramValue">The parameter value.</param>
+        /// <returns>string.</returns>
         public static string SqlParam(this string paramValue)
         {
             return paramValue.Replace("'", "''");
         }
 
+        /// <summary>
+        /// Strips the quoted strings.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="quote">The quote.</param>
+        /// <returns>string.</returns>
         public static string StripQuotedStrings(this string text, char quote = '\'')
         {
             var sb = StringBuilderCache.Allocate();
@@ -555,6 +783,13 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// SQLs the join.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string SqlJoin<T>(this List<T> values, IOrmLiteDialectProvider dialect = null)
         {
             if (values == null)
@@ -572,6 +807,12 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// SQLs the join.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string SqlJoin(IEnumerable values, IOrmLiteDialectProvider dialect = null)
         {
             if (values == null)
@@ -590,11 +831,25 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// SQLs the in values.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>ServiceStack.OrmLite.SqlInValues.</returns>
         public static SqlInValues SqlInValues<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
         {
             return new(values, dialect);
         }
 
+        /// <summary>
+        /// SQLs the in parameters.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="values">The values.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>string.</returns>
         public static string SqlInParams<T>(this T[] values, IOrmLiteDialectProvider dialect = null)
         {
             var sb = StringBuilderCache.Allocate();
@@ -612,6 +867,16 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the index fields cache.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="modelDefinition">The model definition.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <param name="onlyFields">The only fields.</param>
+        /// <param name="startPos">The start position.</param>
+        /// <param name="endPos">The end position.</param>
+        /// <returns>System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[].</returns>
         public static Tuple<FieldDefinition, int, IOrmLiteConverter>[] GetIndexFieldsCache(this IDataReader reader,
             ModelDefinition modelDefinition,
             IOrmLiteDialectProvider dialect,
@@ -707,7 +972,17 @@ namespace ServiceStack.OrmLite
             return result;
         }
 
+        /// <summary>
+        /// The not found
+        /// </summary>
         private const int NotFound = -1;
+        /// <summary>
+        /// Finds the index of the column.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="dbFieldMap">The database field map.</param>
+        /// <returns>int.</returns>
         internal static int FindColumnIndex(IOrmLiteDialectProvider dialectProvider, FieldDefinition fieldDef, Dictionary<string, int> dbFieldMap)
         {
             var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
@@ -733,9 +1008,18 @@ namespace ServiceStack.OrmLite
             return NotFound;
         }
 
+        /// <summary>
+        /// The allowed property chars regex
+        /// </summary>
         private static readonly Regex AllowedPropertyCharsRegex = new(@"[^0-9a-zA-Z_]",
             RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
+        /// <summary>
+        /// Tries the index of the guess column.
+        /// </summary>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="dbFieldMap">The database field map.</param>
+        /// <returns>int.</returns>
         private static int TryGuessColumnIndex(string fieldName, Dictionary<string, int> dbFieldMap)
         {
             if (OrmLiteConfig.DisableColumnGuessFallback)
@@ -791,6 +1075,11 @@ namespace ServiceStack.OrmLite
             return NotFound;
         }
 
+        /// <summary>
+        /// Determines whether [is reference type] [the specified field type].
+        /// </summary>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <returns>bool.</returns>
         public static bool IsRefType(this Type fieldType)
         {
             return (!fieldType.UnderlyingSystemType.IsValueType
@@ -800,6 +1089,11 @@ namespace ServiceStack.OrmLite
                 && fieldType != typeof(string);
         }
 
+        /// <summary>
+        /// Strips the table prefixes.
+        /// </summary>
+        /// <param name="selectExpression">The select expression.</param>
+        /// <returns>string.</returns>
         public static string StripTablePrefixes(this string selectExpression)
         {
             if (selectExpression.IndexOf('.') < 0)
@@ -823,23 +1117,46 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb).Trim();
         }
 
+        /// <summary>
+        /// The quoted chars
+        /// </summary>
         private static readonly char[] QuotedChars = { '"', '`', '[', ']' };
 
+        /// <summary>
+        /// Aliases the or column.
+        /// </summary>
+        /// <param name="quotedExpr">The quoted expr.</param>
+        /// <returns>string.</returns>
         public static string AliasOrColumn(this string quotedExpr)
         {
             var ret = quotedExpr.LastRightPart(" AS ").Trim();
             return ret;
         }
 
+        /// <summary>
+        /// Strips the database quotes.
+        /// </summary>
+        /// <param name="quotedExpr">The quoted expr.</param>
+        /// <returns>string.</returns>
         public static string StripDbQuotes(this string quotedExpr)
         {
             return quotedExpr.Trim(QuotedChars);
         }
 
+        /// <summary>
+        /// Prints the SQL.
+        /// </summary>
         public static void PrintSql() => OrmLiteConfig.BeforeExecFilter = cmd => Console.WriteLine(cmd.GetDebugString());
 
+        /// <summary>
+        /// Uns the print SQL.
+        /// </summary>
         public static void UnPrintSql() => OrmLiteConfig.BeforeExecFilter = null;
 
+        /// <summary>
+        /// Captures the SQL.
+        /// </summary>
+        /// <returns>System.Text.StringBuilder.</returns>
         public static StringBuilder CaptureSql()
         {
             var sb = StringBuilderCache.Allocate();
@@ -847,22 +1164,44 @@ namespace ServiceStack.OrmLite
             return sb;
         }
 
+        /// <summary>
+        /// Captures the SQL.
+        /// </summary>
+        /// <param name="sb">The sb.</param>
         public static void CaptureSql(StringBuilder sb) =>
             OrmLiteConfig.BeforeExecFilter = cmd => sb.AppendLine(cmd.GetDebugString());
 
+        /// <summary>
+        /// Uns the capture SQL.
+        /// </summary>
         public static void UnCaptureSql() => OrmLiteConfig.BeforeExecFilter = null;
 
+        /// <summary>
+        /// Uns the capture SQL and free.
+        /// </summary>
+        /// <param name="sb">The sb.</param>
+        /// <returns>string.</returns>
         public static string UnCaptureSqlAndFree(StringBuilder sb)
         {
             OrmLiteConfig.BeforeExecFilter = null;
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the model definition.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <returns>ServiceStack.OrmLite.ModelDefinition.</returns>
         public static ModelDefinition GetModelDefinition(Type modelType)
         {
             return modelType.GetModelDefinition();
         }
 
+        /// <summary>
+        /// Converts to u long.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns>ulong.</returns>
         public static ulong ConvertToULong(byte[] bytes)
         {
             Array.Reverse(bytes); //Correct Endianness
@@ -870,11 +1209,28 @@ namespace ServiceStack.OrmLite
             return ulongValue;
         }
 
+        /// <summary>
+        /// Merges the specified parent.
+        /// </summary>
+        /// <typeparam name="Parent">The type of the parent.</typeparam>
+        /// <typeparam name="Child">The type of the child.</typeparam>
+        /// <param name="parent">The parent.</param>
+        /// <param name="children">The children.</param>
+        /// <returns>System.Collections.Generic.List&lt;Parent&gt;.</returns>
         public static List<Parent> Merge<Parent, Child>(this Parent parent, List<Child> children)
         {
             return new List<Parent> { parent }.Merge(children);
         }
 
+        /// <summary>
+        /// Merges the specified parents.
+        /// </summary>
+        /// <typeparam name="Parent">The type of the parent.</typeparam>
+        /// <typeparam name="Child">The type of the child.</typeparam>
+        /// <param name="parents">The parents.</param>
+        /// <param name="children">The children.</param>
+        /// <returns>System.Collections.Generic.List&lt;Parent&gt;.</returns>
+        /// <exception cref="Exception">$"Could not find Child Reference for '{typeof(Child).Name}' on Parent '{typeof(Parent).Name}'</exception>
         public static List<Parent> Merge<Parent, Child>(this List<Parent> parents, List<Child> children)
         {
             var modelDef = ModelDefinition<Parent>.Definition;
@@ -925,6 +1281,16 @@ namespace ServiceStack.OrmLite
             return parents;
         }
 
+        /// <summary>
+        /// Sets the list child results.
+        /// </summary>
+        /// <typeparam name="Parent">The type of the parent.</typeparam>
+        /// <param name="parents">The parents.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="childResults">The child results.</param>
+        /// <param name="refField">The reference field.</param>
         internal static void SetListChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
             FieldDefinition fieldDef, Type refType, IList childResults, FieldDefinition refField)
         {
@@ -953,6 +1319,15 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Sets the reference self child results.
+        /// </summary>
+        /// <typeparam name="Parent">The type of the parent.</typeparam>
+        /// <param name="parents">The parents.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refModelDef">The reference model definition.</param>
+        /// <param name="refSelf">The reference self.</param>
+        /// <param name="childResults">The child results.</param>
         internal static void SetRefSelfChildResults<Parent>(List<Parent> parents, FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
         {
             var map = new Dictionary<object, object>();
@@ -972,6 +1347,15 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Sets the reference field child results.
+        /// </summary>
+        /// <typeparam name="Parent">The type of the parent.</typeparam>
+        /// <param name="parents">The parents.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refField">The reference field.</param>
+        /// <param name="childResults">The child results.</param>
         internal static void SetRefFieldChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
             FieldDefinition fieldDef, FieldDefinition refField, IList childResults)
         {
@@ -993,12 +1377,25 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the non default value insert fields.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Collections.Generic.List&lt;string&gt;.</returns>
         [Obsolete("Use dialectProvider.GetNonDefaultValueInsertFields()")]
         public static List<string> GetNonDefaultValueInsertFields<T>(T obj)
         {
             return OrmLiteConfig.DialectProvider.GetNonDefaultValueInsertFields<T>(obj);
         }
 
+        /// <summary>
+        /// Asserts the type of the not anon.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
+        /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
+        /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
         public static void AssertNotAnonType<T>()
         {
             if (typeof(T) == typeof(object))
@@ -1011,6 +1408,13 @@ namespace ServiceStack.OrmLite
                 throw new ArgumentException("T generic argument should be a Table but was an ISqlExpression");
         }
 
+        /// <summary>
+        /// Gets the non default value insert fields.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Collections.Generic.List&lt;string&gt;.</returns>
         public static List<string> GetNonDefaultValueInsertFields<T>(this IOrmLiteDialectProvider dialectProvider, object obj)
         {
             AssertNotAnonType<T>();
@@ -1033,6 +1437,11 @@ namespace ServiceStack.OrmLite
                 : insertFields;
         }
 
+        /// <summary>
+        /// Parses the tokens.
+        /// </summary>
+        /// <param name="expr">The expr.</param>
+        /// <returns>System.Collections.Generic.List&lt;string&gt;.</returns>
         public static List<string> ParseTokens(this string expr)
         {
             var to = new List<string>();
@@ -1116,11 +1525,22 @@ namespace ServiceStack.OrmLite
             return to;
         }
 
+        /// <summary>
+        /// Alls the anon fields.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>string[].</returns>
         public static string[] AllAnonFields(this Type type)
         {
             return type.GetPublicProperties().Select(x => x.Name).ToArray();
         }
 
+        /// <summary>
+        /// Evals the factory function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expr">The expr.</param>
+        /// <returns>T.</returns>
         public static T EvalFactoryFn<T>(this Expression<Func<T>> expr)
         {
             var factoryFn = (Func<T>)CachedExpressionCompiler.Evaluate(expr);
@@ -1128,6 +1548,11 @@ namespace ServiceStack.OrmLite
             return model;
         }
 
+        /// <summary>
+        /// Joins the alias.
+        /// </summary>
+        /// <param name="alias">The alias.</param>
+        /// <returns>ServiceStack.OrmLite.JoinFormatDelegate.</returns>
         public static JoinFormatDelegate JoinAlias(string alias)
         {
             return (dialect, tableDef, expr) =>
@@ -1137,13 +1562,25 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// RDBMS Quoted string 'literal'
         /// </summary>
-        /// <returns></returns>
+        /// <param name="text">The text.</param>
+        /// <returns>string.</returns>
         public static string QuotedLiteral(string text) => text == null || text.IndexOf('\'') >= 0
             ? text
             : "'" + text + "'";
 
+        /// <summary>
+        /// Unquoteds the name of the column.
+        /// </summary>
+        /// <param name="columnExpr">The column expr.</param>
+        /// <returns>string.</returns>
         public static string UnquotedColumnName(string columnExpr) => columnExpr.LastRightPart('.').StripDbQuotes();
 
+        /// <summary>
+        /// Orders the by fields.
+        /// </summary>
+        /// <param name="dialect">The dialect.</param>
+        /// <param name="orderBy">The order by.</param>
+        /// <returns>string.</returns>
         public static string OrderByFields(IOrmLiteDialectProvider dialect, string orderBy)
         {
             if (string.IsNullOrEmpty(orderBy))

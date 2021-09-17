@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="JsWriter.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,34 +14,100 @@ using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class JsWriter.
+    /// </summary>
     public static class JsWriter
     {
+        /// <summary>
+        /// The type attribute
+        /// </summary>
         public const string TypeAttr = "__type";
 
+        /// <summary>
+        /// The map start character
+        /// </summary>
         public const char MapStartChar = '{';
+        /// <summary>
+        /// The map key seperator
+        /// </summary>
         public const char MapKeySeperator = ':';
+        /// <summary>
+        /// The item seperator
+        /// </summary>
         public const char ItemSeperator = ',';
+        /// <summary>
+        /// The map end character
+        /// </summary>
         public const char MapEndChar = '}';
+        /// <summary>
+        /// The map null value
+        /// </summary>
         public const string MapNullValue = "\"\"";
+        /// <summary>
+        /// The empty map
+        /// </summary>
         public const string EmptyMap = "{}";
 
+        /// <summary>
+        /// The list start character
+        /// </summary>
         public const char ListStartChar = '[';
+        /// <summary>
+        /// The list end character
+        /// </summary>
         public const char ListEndChar = ']';
+        /// <summary>
+        /// The return character
+        /// </summary>
         public const char ReturnChar = '\r';
+        /// <summary>
+        /// The line feed character
+        /// </summary>
         public const char LineFeedChar = '\n';
 
+        /// <summary>
+        /// The quote character
+        /// </summary>
         public const char QuoteChar = '"';
+        /// <summary>
+        /// The quote string
+        /// </summary>
         public const string QuoteString = "\"";
+        /// <summary>
+        /// The escaped quote string
+        /// </summary>
         public const string EscapedQuoteString = "\\\"";
+        /// <summary>
+        /// The item seperator string
+        /// </summary>
         public const string ItemSeperatorString = ",";
+        /// <summary>
+        /// The map key seperator string
+        /// </summary>
         public const string MapKeySeperatorString = ":";
 
+        /// <summary>
+        /// The CSV chars
+        /// </summary>
         public static readonly char[] CsvChars = new[] { ItemSeperator, QuoteChar };
+        /// <summary>
+        /// The escape chars
+        /// </summary>
         public static readonly char[] EscapeChars = new[] { QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar };
 
+        /// <summary>
+        /// The length from largest character
+        /// </summary>
         private const int LengthFromLargestChar = '}' + 1;
+        /// <summary>
+        /// The escape character flags
+        /// </summary>
         private static readonly bool[] EscapeCharFlags = new bool[LengthFromLargestChar];
 
+        /// <summary>
+        /// Initializes static members of the <see cref="JsWriter" /> class.
+        /// </summary>
         static JsWriter()
         {
             foreach (var escapeChar in EscapeChars)
@@ -45,6 +117,10 @@ namespace ServiceStack.Text.Common
             var loadConfig = JsConfig.TextCase; //force load
         }
 
+        /// <summary>
+        /// Writes the dynamic.
+        /// </summary>
+        /// <param name="callback">The callback.</param>
         public static void WriteDynamic(Action callback)
         {
             JsState.IsWritingDynamic = true;
@@ -61,8 +137,8 @@ namespace ServiceStack.Text.Common
         /// <summary>
         /// micro optimizations: using flags instead of value.IndexOfAny(EscapeChars)
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">The value.</param>
+        /// <returns><c>true</c> if [has any escape chars] [the specified value]; otherwise, <c>false</c>.</returns>
         public static bool HasAnyEscapeChars(string value)
         {
             var len = value.Length;
@@ -75,6 +151,11 @@ namespace ServiceStack.Text.Common
             return false;
         }
 
+        /// <summary>
+        /// Writes the item seperator if ran once.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="ranOnce">if set to <c>true</c> [ran once].</param>
         internal static void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
         {
             if (ranOnce)
@@ -83,6 +164,11 @@ namespace ServiceStack.Text.Common
                 ranOnce = true;
         }
 
+        /// <summary>
+        /// Shoulds the use default to string method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal static bool ShouldUseDefaultToStringMethod(Type type)
         {
             var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
@@ -106,6 +192,12 @@ namespace ServiceStack.Text.Common
             return underlyingType == typeof(Guid);
         }
 
+        /// <summary>
+        /// Gets the type serializer.
+        /// </summary>
+        /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
+        /// <returns>ITypeSerializer.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static ITypeSerializer GetTypeSerializer<TSerializer>()
         {
             if (typeof(TSerializer) == typeof(JsvTypeSerializer))
@@ -117,6 +209,11 @@ namespace ServiceStack.Text.Common
             throw new NotSupportedException(typeof(TSerializer).Name);
         }
 
+        /// <summary>
+        /// Writes the enum flags.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="enumFlagValue">The enum flag value.</param>
         public static void WriteEnumFlags(TextWriter writer, object enumFlagValue)
         {
             if (enumFlagValue == null) return;
@@ -154,6 +251,11 @@ namespace ServiceStack.Text.Common
             }
         }
 
+        /// <summary>
+        /// Shoulds the type of the allow runtime.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool ShouldAllowRuntimeType(Type type)
         {
             if (!JsState.IsRuntimeType)
@@ -188,6 +290,11 @@ namespace ServiceStack.Text.Common
             return false;
         }
 
+        /// <summary>
+        /// Asserts the type of the allowed runtime.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <exception cref="System.NotSupportedException"></exception>
         public static void AssertAllowedRuntimeType(Type type)
         {
             if (!ShouldAllowRuntimeType(type))
@@ -195,11 +302,21 @@ namespace ServiceStack.Text.Common
         }
     }
 
+    /// <summary>
+    /// Class JsWriter.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     public class JsWriter<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="JsWriter{TSerializer}" /> class.
+        /// </summary>
         public JsWriter()
         {
             this.SpecialTypes = new Dictionary<Type, WriteObjectDelegate>
@@ -210,6 +327,11 @@ namespace ServiceStack.Text.Common
             };
         }
 
+        /// <summary>
+        /// Gets the value type to string method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public WriteObjectDelegate GetValueTypeToStringMethod(Type type)
         {
             var underlyingType = Nullable.GetUnderlyingType(type);
@@ -295,6 +417,11 @@ namespace ServiceStack.Text.Common
             return Serializer.WriteObjectString;
         }
 
+        /// <summary>
+        /// Gets the write function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>WriteObjectDelegate.</returns>
         public WriteObjectDelegate GetWriteFn<T>()
         {
             if (typeof(T) == typeof(string))
@@ -335,15 +462,31 @@ namespace ServiceStack.Text.Common
             return ret;
         }
 
+        /// <summary>
+        /// Writes the value.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public void WriteValue(TextWriter writer, object value)
         {
             var valueWriter = (IValueWriter)value;
             valueWriter.WriteTo(Serializer, writer);
         }
 
+        /// <summary>
+        /// Throws the task not supported.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
+        /// <exception cref="System.NotSupportedException">Serializing Task's is not supported. Did you forget to await it?</exception>
         void ThrowTaskNotSupported(TextWriter writer, object value) =>
             throw new NotSupportedException("Serializing Task's is not supported. Did you forget to await it?");
 
+        /// <summary>
+        /// Gets the core write function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>WriteObjectDelegate.</returns>
         private WriteObjectDelegate GetCoreWriteFn<T>()
         {
             if (typeof(T).IsInstanceOf(typeof(System.Threading.Tasks.Task)))
@@ -439,8 +582,16 @@ namespace ServiceStack.Text.Common
             return Serializer.WriteBuiltIn;
         }
 
+        /// <summary>
+        /// The special types
+        /// </summary>
         public readonly Dictionary<Type, WriteObjectDelegate> SpecialTypes;
 
+        /// <summary>
+        /// Gets the special write function.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>WriteObjectDelegate.</returns>
         public WriteObjectDelegate GetSpecialWriteFn(Type type)
         {
             if (SpecialTypes.TryGetValue(type, out var writeFn))
@@ -455,11 +606,20 @@ namespace ServiceStack.Text.Common
             return null;
         }
 
+        /// <summary>
+        /// Writes the type.
+        /// </summary>
+        /// <param name="writer">The writer.</param>
+        /// <param name="value">The value.</param>
         public void WriteType(TextWriter writer, object value)
         {
             Serializer.WriteRawString(writer, JsConfig.TypeWriter((Type)value));
         }
 
+        /// <summary>
+        /// Initializes the aot.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
         public static void InitAot<T>()
         {

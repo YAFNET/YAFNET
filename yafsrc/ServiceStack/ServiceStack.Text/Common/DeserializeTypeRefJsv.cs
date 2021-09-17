@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="DeserializeTypeRefJsv.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using ServiceStack.Text.Json;
@@ -5,12 +11,29 @@ using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeTypeRefJsv.
+    /// </summary>
     internal static class DeserializeTypeRefJsv
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly JsvTypeSerializer Serializer = (JsvTypeSerializer)JsvTypeSerializer.Instance;
 
+        /// <summary>
+        /// The type attribute
+        /// </summary>
         static readonly ReadOnlyMemory<char> typeAttr = JsWriter.TypeAttr.AsMemory();
 
+        /// <summary>
+        /// Strings to type.
+        /// </summary>
+        /// <param name="strType">Type of the string.</param>
+        /// <param name="typeConfig">The type configuration.</param>
+        /// <param name="ctorFn">The ctor function.</param>
+        /// <param name="typeAccessors">The type accessors.</param>
+        /// <returns>System.Object.</returns>
         internal static object StringToType(ReadOnlySpan<char> strType,
             TypeConfig typeConfig,
             EmptyCtorDelegate ctorFn,

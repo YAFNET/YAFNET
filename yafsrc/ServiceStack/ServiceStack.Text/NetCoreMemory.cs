@@ -1,4 +1,10 @@
-﻿#if NETCORE2_1
+﻿// ***********************************************************************
+// <copyright file="NetCoreMemory.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+#if NETCORE2_1
 
 using System;
 using System.Buffers.Text;

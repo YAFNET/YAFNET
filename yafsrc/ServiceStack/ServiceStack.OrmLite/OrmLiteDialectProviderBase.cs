@@ -1,13 +1,9 @@
-﻿//
-// ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2013 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="OrmLiteDialectProviderBase.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 namespace ServiceStack.OrmLite
 {
@@ -27,12 +23,24 @@ namespace ServiceStack.OrmLite
     using ServiceStack.Script;
     using ServiceStack.Text;
 
+    /// <summary>
+    /// Class OrmLiteDialectProviderBase.
+    /// Implements the <see cref="ServiceStack.OrmLite.IOrmLiteDialectProvider" />
+    /// </summary>
+    /// <typeparam name="TDialect">The type of the t dialect.</typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.IOrmLiteDialectProvider" />
     public abstract class OrmLiteDialectProviderBase<TDialect>
         : IOrmLiteDialectProvider
         where TDialect : IOrmLiteDialectProvider
     {
+        /// <summary>
+        /// The log
+        /// </summary>
         protected static readonly ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrmLiteDialectProviderBase{TDialect}"/> class.
+        /// </summary>
         protected OrmLiteDialectProviderBase()
         {
             this.Variables = new Dictionary<string, string>();
@@ -91,6 +99,9 @@ namespace ServiceStack.OrmLite
                  */
         #endregion
 
+        /// <summary>
+        /// Initializes the column type map.
+        /// </summary>
         protected void InitColumnTypeMap()
         {
             this.EnumConverter = new EnumConverter();
@@ -124,6 +135,14 @@ namespace ServiceStack.OrmLite
             this.RegisterConverter<DateTimeOffset>(new DateTimeOffsetConverter());
         }
 
+        /// <summary>
+        /// Gets the column type definition.
+        /// </summary>
+        /// <param name="columnType">Type of the column.</param>
+        /// <param name="fieldLength">Length of the field.</param>
+        /// <param name="scale">The scale.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.ArgumentException"></exception>
         public string GetColumnTypeDefinition(Type columnType, int? fieldLength, int? scale)
         {
             var converter = this.GetConverter(columnType);
@@ -147,46 +166,110 @@ namespace ServiceStack.OrmLite
             return stringConverter.GetColumnDefinition(fieldLength);
         }
 
+        /// <summary>
+        /// Initializes the database parameter.
+        /// </summary>
+        /// <param name="dbParam">The database parameter.</param>
+        /// <param name="columnType">Type of the column.</param>
         public virtual void InitDbParam(IDbDataParameter dbParam, Type columnType)
         {
             var converter = this.GetConverterBestMatch(columnType);
             converter.InitDbParam(dbParam, columnType);
         }
 
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <returns>IDbDataParameter.</returns>
         public abstract IDbDataParameter CreateParam();
 
+        /// <summary>
+        /// Gets the variables.
+        /// </summary>
+        /// <value>The variables.</value>
         public Dictionary<string, string> Variables { get; set; }
 
+        /// <summary>
+        /// Gets or sets the execute filter.
+        /// </summary>
+        /// <value>The execute filter.</value>
         public IOrmLiteExecFilter ExecFilter { get; set; }
 
+        /// <summary>
+        /// The converters
+        /// </summary>
         public Dictionary<Type, IOrmLiteConverter> Converters = new();
 
+        /// <summary>
+        /// The automatic increment definition
+        /// </summary>
         public string AutoIncrementDefinition = "AUTOINCREMENT"; // SqlServer express limit
 
+        /// <summary>
+        /// Gets the decimal converter.
+        /// </summary>
+        /// <value>The decimal converter.</value>
         public DecimalConverter DecimalConverter => (DecimalConverter)this.Converters[typeof(decimal)];
 
+        /// <summary>
+        /// Gets the string converter.
+        /// </summary>
+        /// <value>The string converter.</value>
         public StringConverter StringConverter => (StringConverter)this.Converters[typeof(string)];
 
+        /// <summary>
+        /// Invoked when a DB Connection is opened
+        /// </summary>
+        /// <value>The on open connection.</value>
         public Action<IDbConnection> OnOpenConnection { get; set; }
 
+        /// <summary>
+        /// Gets or sets the parameter string.
+        /// </summary>
+        /// <value>The parameter string.</value>
         public string ParamString { get; set; } = "@";
 
+        /// <summary>
+        /// Gets or sets the naming strategy.
+        /// </summary>
+        /// <value>The naming strategy.</value>
         public INamingStrategy NamingStrategy { get; set; } = new OrmLiteDefaultNamingStrategy();
 
+        /// <summary>
+        /// Gets or sets the string serializer.
+        /// </summary>
+        /// <value>The string serializer.</value>
         public IStringSerializer StringSerializer { get; set; }
 
+        /// <summary>
+        /// The parameter name filter
+        /// </summary>
         private Func<string, string> paramNameFilter;
 
+        /// <summary>
+        /// Gets or sets the parameter name filter.
+        /// </summary>
+        /// <value>The parameter name filter.</value>
         public Func<string, string> ParamNameFilter
         {
             get => this.paramNameFilter ?? OrmLiteConfig.ParamNameFilter;
             set => this.paramNameFilter = value;
         }
 
+        /// <summary>
+        /// The default value format
+        /// </summary>
         public string DefaultValueFormat = " DEFAULT ({0})";
 
+        /// <summary>
+        /// The enum converter
+        /// </summary>
         private EnumConverter enumConverter;
 
+        /// <summary>
+        /// Gets or sets the enum converter.
+        /// </summary>
+        /// <value>The enum converter.</value>
         public EnumConverter EnumConverter
         {
             get => this.enumConverter;
@@ -197,8 +280,15 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// The row version converter
+        /// </summary>
         private RowVersionConverter rowVersionConverter;
 
+        /// <summary>
+        /// Gets or sets the row version converter.
+        /// </summary>
+        /// <value>The row version converter.</value>
         public RowVersionConverter RowVersionConverter
         {
             get => this.rowVersionConverter;
@@ -209,8 +299,15 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// The reference type converter
+        /// </summary>
         private ReferenceTypeConverter referenceTypeConverter;
 
+        /// <summary>
+        /// Gets or sets the reference type converter.
+        /// </summary>
+        /// <value>The reference type converter.</value>
         public ReferenceTypeConverter ReferenceTypeConverter
         {
             get => this.referenceTypeConverter;
@@ -221,8 +318,15 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// The value type converter
+        /// </summary>
         private ValueTypeConverter valueTypeConverter;
 
+        /// <summary>
+        /// Gets or sets the value type converter.
+        /// </summary>
+        /// <value>The value type converter.</value>
         public ValueTypeConverter ValueTypeConverter
         {
             get => this.valueTypeConverter;
@@ -233,12 +337,22 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Removes the converter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
         public void RemoveConverter<T>()
         {
             if (this.Converters.TryRemove(typeof(T), out var converter))
                 converter.DialectProvider = null;
         }
 
+        /// <summary>
+        /// Registers the converter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="converter">The converter.</param>
+        /// <exception cref="System.ArgumentNullException">converter</exception>
         public void RegisterConverter<T>(IOrmLiteConverter converter)
         {
             if (converter == null)
@@ -248,23 +362,44 @@ namespace ServiceStack.OrmLite
             this.Converters[typeof(T)] = converter;
         }
 
+        /// <summary>
+        /// Gets the explicit Converter registered for a specific type
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>IOrmLiteConverter.</returns>
         public IOrmLiteConverter GetConverter(Type type)
         {
             type = Nullable.GetUnderlyingType(type) ?? type;
             return this.Converters.TryGetValue(type, out IOrmLiteConverter converter) ? converter : null;
         }
 
+        /// <summary>
+        /// Shoulds the quote value.
+        /// </summary>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool ShouldQuoteValue(Type fieldType)
         {
             var converter = this.GetConverter(fieldType);
             return converter == null || converter is NativeValueOrmLiteConverter;
         }
 
+        /// <summary>
+        /// Froms the database row version.
+        /// </summary>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public virtual object FromDbRowVersion(Type fieldType, object value)
         {
             return this.RowVersionConverter.FromDbValue(fieldType, value);
         }
 
+        /// <summary>
+        /// Return best matching converter, falling back to Enum, Value or Ref Type Converters
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>IOrmLiteConverter.</returns>
         public IOrmLiteConverter GetConverterBestMatch(Type type)
         {
             if (type == typeof(RowVersionConverter))
@@ -280,6 +415,11 @@ namespace ServiceStack.OrmLite
             return type.IsRefType() ? (IOrmLiteConverter)this.ReferenceTypeConverter : this.ValueTypeConverter;
         }
 
+        /// <summary>
+        /// Gets the converter best match.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>IOrmLiteConverter.</returns>
         public virtual IOrmLiteConverter GetConverterBestMatch(FieldDefinition fieldDef)
         {
             var fieldType = Nullable.GetUnderlyingType(fieldDef.FieldType) ?? fieldDef.FieldType;
@@ -296,6 +436,12 @@ namespace ServiceStack.OrmLite
             return fieldType.IsRefType() ? (IOrmLiteConverter)this.ReferenceTypeConverter : this.ValueTypeConverter;
         }
 
+        /// <summary>
+        /// Converts to dbvalue.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         public virtual object ToDbValue(object value, Type type)
         {
             if (value == null || value is DBNull)
@@ -315,6 +461,12 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Froms the database value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         public virtual object FromDbValue(object value, Type type)
         {
             if (value == null || value is DBNull)
@@ -334,6 +486,13 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>System.Object.</returns>
         public object GetValue(IDataReader reader, int columnIndex, Type type)
         {
             if (this.Converters.TryGetValue(type, out var converter))
@@ -342,32 +501,79 @@ namespace ServiceStack.OrmLite
             return reader.GetValue(columnIndex);
         }
 
+        /// <summary>
+        /// Gets the values.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="values">The values.</param>
+        /// <returns>System.Int32.</returns>
         public virtual int GetValues(IDataReader reader, object[] values)
         {
             return reader.GetValues(values);
         }
 
+        /// <summary>
+        /// Creates the connection.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>IDbConnection.</returns>
         public abstract IDbConnection CreateConnection(string filePath, Dictionary<string, string> options);
 
+        /// <summary>
+        /// Quote the string so that it can be used inside an SQL-expression
+        /// Escape quotes inside the string
+        /// </summary>
+        /// <param name="paramValue">The parameter value.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedValue(string paramValue)
         {
             return "'" + paramValue.Replace("'", "''") + "'";
         }
 
+        /// <summary>
+        /// Gets the name of the schema.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetSchemaName(string schema)
         {
             return this.NamingStrategy.GetSchemaName(schema);
         }
 
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetTableName(ModelDefinition modelDef) =>
             this.GetTableName(modelDef.ModelName, modelDef.Schema, useStrategy: true);
 
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
+        /// <returns>System.String.</returns>
         public virtual string GetTableName(ModelDefinition modelDef, bool useStrategy) =>
             this.GetTableName(modelDef.ModelName, modelDef.Schema, useStrategy);
 
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetTableName(string table, string schema = null) =>
             this.GetTableName(table, schema, useStrategy: true);
 
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
+        /// <returns>System.String.</returns>
         public virtual string GetTableName(string table, string schema, bool useStrategy)
         {
             if (useStrategy)
@@ -382,27 +588,54 @@ namespace ServiceStack.OrmLite
                 : this.QuoteIfRequired(table);
         }
 
+        /// <summary>
+        /// Gets the table name with brackets.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.String.</returns>
         public virtual string GetTableNameWithBrackets<T>()
         {
             var modelDef = typeof(T).GetModelDefinition();
             return this.GetTableNameWithBrackets(modelDef.ModelName, modelDef.Schema);
         }
 
+        /// <summary>
+        /// Gets the table name with brackets.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetTableNameWithBrackets(ModelDefinition modelDef)
         {
             return this.GetTableNameWithBrackets(modelDef.ModelName, modelDef.Schema);
         }
 
+        /// <summary>
+        /// Gets the table name with brackets.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetTableNameWithBrackets(string tableName, string schema = null)
         {
             return $"[{this.NamingStrategy.GetSchemaName(schema)}].[{this.NamingStrategy.GetTableName(tableName)}]";
         }
 
+        /// <summary>
+        /// Gets the name of the quoted table.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedTableName(ModelDefinition modelDef)
         {
             return this.GetQuotedTableName(modelDef.ModelName, modelDef.Schema);
         }
 
+        /// <summary>
+        /// Gets the name of the quoted table.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedTableName(string tableName, string schema = null)
         {
             /*if (schema == null)
@@ -416,25 +649,58 @@ namespace ServiceStack.OrmLite
                 $"{this.GetQuotedName(escapedSchema)}.{this.GetQuotedName(this.NamingStrategy.GetTableName(tableName))}";
         }
 
+        /// <summary>
+        /// Gets the name of the quoted table.
+        /// </summary>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedTableName(string tableName, string schema, bool useStrategy) =>
             this.GetQuotedName(this.GetTableName(tableName, schema, useStrategy));
 
+        /// <summary>
+        /// Gets the name of the quoted column.
+        /// </summary>
+        /// <param name="columnName">Name of the column.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedColumnName(string columnName)
         {
             return this.GetQuotedName(this.NamingStrategy.GetColumnName(columnName));
         }
 
+        /// <summary>
+        /// Shoulds the quote.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool ShouldQuote(string name) =>
             !string.IsNullOrEmpty(name) && (name.IndexOf(' ') >= 0 || name.IndexOf('.') >= 0);
 
+        /// <summary>
+        /// Quotes if required.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public virtual string QuoteIfRequired(string name)
         {
             return this.ShouldQuote(name) ? this.GetQuotedName(name) : name;
         }
 
+        /// <summary>
+        /// Gets the name of the quoted.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedName(string name) =>
             name == null ? null : name.FirstCharEquals('"') ? name : '"' + name + '"';
 
+        /// <summary>
+        /// Gets the name of the quoted.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedName(string name, string schema)
         {
             return schema != null
@@ -442,11 +708,21 @@ namespace ServiceStack.OrmLite
                 : this.GetQuotedName(name);
         }
 
+        /// <summary>
+        /// Sanitizes the name of the field name for parameter.
+        /// </summary>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>System.String.</returns>
         public virtual string SanitizeFieldNameForParamName(string fieldName)
         {
             return OrmLiteConfig.SanitizeFieldNameForParamNameFn(fieldName);
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetColumnDefinition(FieldDefinition fieldDef)
         {
             var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
@@ -483,6 +759,12 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Gets the column definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
         {
             var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
@@ -526,8 +808,18 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Gets or sets the select identity SQL.
+        /// </summary>
+        /// <value>The select identity SQL.</value>
         public virtual string SelectIdentitySql { get; set; }
 
+        /// <summary>
+        /// Gets the last insert identifier.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <returns>System.Int64.</returns>
+        /// <exception cref="System.NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
         public virtual long GetLastInsertId(IDbCommand dbCmd)
         {
             if (this.SelectIdentitySql == null)
@@ -538,6 +830,12 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecLongScalar();
         }
 
+        /// <summary>
+        /// Gets the last insert identifier SQL suffix.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
         public virtual string GetLastInsertIdSqlSuffix<T>()
         {
             if (this.SelectIdentitySql == null)
@@ -547,10 +845,22 @@ namespace ServiceStack.OrmLite
             return "; " + this.SelectIdentitySql;
         }
 
+        /// <summary>
+        /// Determines whether [is full select statement] [the specified SQL].
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <returns><c>true</c> if [is full select statement] [the specified SQL]; otherwise, <c>false</c>.</returns>
         public virtual bool IsFullSelectStatement(string sql) =>
             !string.IsNullOrEmpty(sql) && sql.TrimStart().StartsWith("SELECT", StringComparison.OrdinalIgnoreCase);
 
         // Fmt
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToSelectStatement(Type tableType, string sqlFilter, params object[] filterParams)
         {
             if (this.IsFullSelectStatement(sqlFilter))
@@ -575,6 +885,17 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <param name="queryType">Type of the query.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="selectExpression">The select expression.</param>
+        /// <param name="bodyExpression">The body expression.</param>
+        /// <param name="orderByExpression">The order by expression.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="rows">The rows.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToSelectStatement(
             QueryType queryType,
             ModelDefinition modelDef,
@@ -602,21 +923,44 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Gets the row version select column.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="tablePrefix">The table prefix.</param>
+        /// <returns>SelectItem.</returns>
         public virtual SelectItem GetRowVersionSelectColumn(FieldDefinition field, string tablePrefix = null)
         {
             return new SelectItemColumn(this, field.FieldName, null, tablePrefix);
         }
 
+        /// <summary>
+        /// Gets the row version column.
+        /// </summary>
+        /// <param name="field">The field.</param>
+        /// <param name="tablePrefix">The table prefix.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetRowVersionColumn(FieldDefinition field, string tablePrefix = null)
         {
             return this.GetRowVersionSelectColumn(field, tablePrefix).ToString();
         }
 
+        /// <summary>
+        /// Gets the column names.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetColumnNames(ModelDefinition modelDef)
         {
             return this.GetColumnNames(modelDef, null).ToSelectString();
         }
 
+        /// <summary>
+        /// Gets the column names.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="tablePrefix">The table prefix.</param>
+        /// <returns>SelectItem[].</returns>
         public virtual SelectItem[] GetColumnNames(ModelDefinition modelDef, string tablePrefix)
         {
             var quotedPrefix = tablePrefix != null
@@ -645,8 +989,18 @@ namespace ServiceStack.OrmLite
             return sqlColumns;
         }
 
+        /// <summary>
+        /// Shoulds the skip insert.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         protected virtual bool ShouldSkipInsert(FieldDefinition fieldDef) => fieldDef.ShouldSkipInsert();
 
+        /// <summary>
+        /// Columns the name only.
+        /// </summary>
+        /// <param name="columnExpr">The column expr.</param>
+        /// <returns>System.String.</returns>
         public virtual string ColumnNameOnly(string columnExpr)
         {
             var nameOnly = columnExpr.LastRightPart('.');
@@ -654,6 +1008,12 @@ namespace ServiceStack.OrmLite
             return ret;
         }
 
+        /// <summary>
+        /// Gets the insert field definitions.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <returns>FieldDefinition[].</returns>
         public virtual FieldDefinition[] GetInsertFieldDefinitions(
             ModelDefinition modelDef,
             ICollection<string> insertFields)
@@ -669,6 +1029,13 @@ namespace ServiceStack.OrmLite
                 : modelDef.FieldDefinitionsArray;
         }
 
+        /// <summary>
+        /// Converts to insertrowstatement.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToInsertRowStatement(
             IDbCommand cmd,
             object objWithProperties,
@@ -710,6 +1077,14 @@ namespace ServiceStack.OrmLite
             return sql;
         }
 
+        /// <summary>
+        /// Converts to insertstatement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToInsertStatement<T>(IDbCommand dbCmd, T item, ICollection<string> insertFields = null)
         {
             dbCmd.Parameters.Clear();
@@ -724,6 +1099,11 @@ namespace ServiceStack.OrmLite
             return this.MergeParamsIntoSql(dbCmd.CommandText, this.ToArray(dbCmd.Parameters));
         }
 
+        /// <summary>
+        /// Gets the insert default value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.Object.</returns>
         protected virtual object GetInsertDefaultValue(FieldDefinition fieldDef)
         {
             if (!fieldDef.AutoId)
@@ -733,6 +1113,13 @@ namespace ServiceStack.OrmLite
             return null;
         }
 
+        /// <summary>
+        /// Prepares the parameterized insert statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="insertFields">The insert fields.</param>
+        /// <param name="shouldInclude">The should include.</param>
         public virtual void PrepareParameterizedInsertStatement<T>(
             IDbCommand cmd,
             ICollection<string> insertFields = null,
@@ -780,6 +1167,12 @@ namespace ServiceStack.OrmLite
                 $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
 
+        /// <summary>
+        /// Prepares the insert row statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="args">The arguments.</param>
         public virtual void PrepareInsertRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args)
         {
             var sbColumnNames = StringBuilderCache.Allocate();
@@ -818,6 +1211,14 @@ namespace ServiceStack.OrmLite
                 $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
         }
 
+        /// <summary>
+        /// Converts to updatestatement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToUpdateStatement<T>(IDbCommand dbCmd, T item, ICollection<string> updateFields = null)
         {
             dbCmd.Parameters.Clear();
@@ -832,6 +1233,11 @@ namespace ServiceStack.OrmLite
             return this.MergeParamsIntoSql(dbCmd.CommandText, this.ToArray(dbCmd.Parameters));
         }
 
+        /// <summary>
+        /// Converts to array.
+        /// </summary>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <returns>IDbDataParameter[].</returns>
         IDbDataParameter[] ToArray(IDataParameterCollection dbParams)
         {
             var to = new IDbDataParameter[dbParams.Count];
@@ -843,6 +1249,12 @@ namespace ServiceStack.OrmLite
             return to;
         }
 
+        /// <summary>
+        /// Merges the parameters into SQL.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="dbParams">The database parameters.</param>
+        /// <returns>System.String.</returns>
         public virtual string MergeParamsIntoSql(string sql, IEnumerable<IDbDataParameter> dbParams)
         {
             foreach (var dbParam in dbParams)
@@ -859,6 +1271,13 @@ namespace ServiceStack.OrmLite
             return sql;
         }
 
+        /// <summary>
+        /// Prepares the parameterized update statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <returns>If had RowVersion</returns>
         public virtual bool PrepareParameterizedUpdateStatement<T>(
             IDbCommand cmd,
             ICollection<string> updateFields = null)
@@ -922,11 +1341,22 @@ namespace ServiceStack.OrmLite
             return hadRowVersion;
         }
 
+        /// <summary>
+        /// Appends the null field condition.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="fieldDef">The field definition.</param>
         public virtual void AppendNullFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef)
         {
             sqlFilter.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append(" IS NULL");
         }
 
+        /// <summary>
+        /// Appends the field condition.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="cmd">The command.</param>
         public virtual void AppendFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef, IDbCommand cmd)
         {
             sqlFilter.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append("=").Append(
@@ -935,6 +1365,14 @@ namespace ServiceStack.OrmLite
             this.AddParameter(cmd, fieldDef);
         }
 
+        /// <summary>
+        /// Prepares the parameterized delete statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="deleteFieldValues">The delete field values.</param>
+        /// <returns>If had RowVersion</returns>
+        /// <exception cref="System.ArgumentException">DELETE's must have at least 1 criteria</exception>
         public virtual bool PrepareParameterizedDeleteStatement<T>(
             IDbCommand cmd,
             IDictionary<string, object> deleteFieldValues)
@@ -985,6 +1423,12 @@ namespace ServiceStack.OrmLite
             return hadRowVersion;
         }
 
+        /// <summary>
+        /// Prepares the stored procedure statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="obj">The object.</param>
         public virtual void PrepareStoredProcedureStatement<T>(IDbCommand cmd, T obj)
         {
             cmd.CommandText = this.ToExecuteProcedureStatement(obj);
@@ -994,6 +1438,9 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Used for adding updated DB params in INSERT and UPDATE statements
         /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>IDbDataParameter.</returns>
         protected IDbDataParameter AddParameter(IDbCommand cmd, FieldDefinition fieldDef)
         {
             var p = cmd.CreateParameter();
@@ -1003,40 +1450,96 @@ namespace ServiceStack.OrmLite
             return p;
         }
 
+        /// <summary>
+        /// Sets the parameter.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="p">The p.</param>
         public virtual void SetParameter(FieldDefinition fieldDef, IDbDataParameter p)
         {
             p.ParameterName = this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName));
             this.InitDbParam(p, fieldDef.ColumnType);
         }
 
+        /// <summary>
+        /// Enables the identity insert.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
         public virtual void EnableIdentityInsert<T>(IDbCommand cmd)
         {
         }
 
+        /// <summary>
+        /// Enables the identity insert asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public virtual Task EnableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default) =>
             TypeConstants.EmptyTask;
 
+        /// <summary>
+        /// Disables the identity insert.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
         public virtual void DisableIdentityInsert<T>(IDbCommand cmd)
         {
         }
 
+        /// <summary>
+        /// Disables the identity insert asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public virtual Task DisableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default) =>
             TypeConstants.EmptyTask;
 
+        /// <summary>
+        /// Enables the foreign keys check.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
         public virtual void EnableForeignKeysCheck(IDbCommand cmd)
         {
         }
 
+        /// <summary>
+        /// Enables the foreign keys check asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public virtual Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
             TypeConstants.EmptyTask;
 
+        /// <summary>
+        /// Disables the foreign keys check.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
         public virtual void DisableForeignKeysCheck(IDbCommand cmd)
         {
         }
 
+        /// <summary>
+        /// Disables the foreign keys check asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public virtual Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
             TypeConstants.EmptyTask;
 
+        /// <summary>
+        /// Sets the parameter values.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <exception cref="System.ArgumentException">Field Definition '{fieldName}' was not found</exception>
         public virtual void SetParameterValues<T>(IDbCommand dbCmd, object obj)
         {
             var modelDef = GetModel(typeof(T));
@@ -1078,11 +1581,22 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the field definition map.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>Dictionary&lt;System.String, FieldDefinition&gt;.</returns>
         public Dictionary<string, FieldDefinition> GetFieldDefinitionMap(ModelDefinition modelDef)
         {
             return modelDef.GetFieldDefinitionMap(this.SanitizeFieldNameForParamName);
         }
 
+        /// <summary>
+        /// Sets the parameter value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="obj">The object.</param>
         public virtual void SetParameterValue(FieldDefinition fieldDef, IDataParameter p, object obj)
         {
             var value = GetValueOrDbNull(fieldDef, obj);
@@ -1091,6 +1605,11 @@ namespace ServiceStack.OrmLite
             SetParameterSize(fieldDef, p);
         }
 
+        /// <summary>
+        /// Sets the size of the parameter.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="p">The p.</param>
         protected virtual void SetParameterSize(FieldDefinition fieldDef, IDataParameter p)
         {
             if (p.Value is string s && p is IDbDataParameter dataParam && dataParam.Size > 0 && s.Length > dataParam.Size)
@@ -1100,11 +1619,23 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Object.</returns>
         protected virtual object GetValue(FieldDefinition fieldDef, object obj)
         {
             return this.GetFieldValue(fieldDef, fieldDef.GetValue(obj));
         }
 
+        /// <summary>
+        /// Gets the field value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public object GetFieldValue(FieldDefinition fieldDef, object value)
         {
             if (value == null)
@@ -1124,6 +1655,12 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the field value.
+        /// </summary>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Object.</returns>
         public object GetFieldValue(Type fieldType, object value)
         {
             if (value == null)
@@ -1143,6 +1680,12 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the value or database null.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Object.</returns>
         protected virtual object GetValueOrDbNull(FieldDefinition fieldDef, object obj)
         {
             var value = this.GetValue(fieldDef, obj);
@@ -1152,6 +1695,13 @@ namespace ServiceStack.OrmLite
             return value;
         }
 
+        /// <summary>
+        /// Gets the quoted value or database null.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Object.</returns>
         protected virtual object GetQuotedValueOrDbNull<T>(FieldDefinition fieldDef, object obj)
         {
             var value = fieldDef.GetValue(obj);
@@ -1167,6 +1717,13 @@ namespace ServiceStack.OrmLite
             return unquotedVal;
         }
 
+        /// <summary>
+        /// Prepares the update row statement.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <exception cref="System.Exception">No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText</exception>
         public virtual void PrepareUpdateRowStatement(
             IDbCommand dbCmd,
             object objWithProperties,
@@ -1220,6 +1777,14 @@ namespace ServiceStack.OrmLite
                     "No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText);
         }
 
+        /// <summary>
+        /// Prepares the update row statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <exception cref="System.Exception">No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText</exception>
         public virtual void PrepareUpdateRowStatement<T>(
             IDbCommand dbCmd,
             Dictionary<string, object> args,
@@ -1263,6 +1828,14 @@ namespace ServiceStack.OrmLite
                     "No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
         }
 
+        /// <summary>
+        /// Prepares the update row add statement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <exception cref="System.Exception">No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText</exception>
         public virtual void PrepareUpdateRowAddStatement<T>(
             IDbCommand dbCmd,
             Dictionary<string, object> args,
@@ -1311,6 +1884,13 @@ namespace ServiceStack.OrmLite
                     "No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
         }
 
+        /// <summary>
+        /// Converts to deletestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToDeleteStatement(Type tableType, string sqlFilter, params object[] filterParams)
         {
             var sql = StringBuilderCache.Allocate();
@@ -1336,9 +1916,20 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        /// <summary>
+        /// Determines whether [has insert return values] [the specified model definition].
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns><c>true</c> if [has insert return values] [the specified model definition]; otherwise, <c>false</c>.</returns>
         public virtual bool HasInsertReturnValues(ModelDefinition modelDef) =>
             modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert);
 
+        /// <summary>
+        /// Gets the default value.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>System.String.</returns>
         public string GetDefaultValue(Type tableType, string fieldName)
         {
             var modelDef = tableType.GetModelDefinition();
@@ -1346,6 +1937,11 @@ namespace ServiceStack.OrmLite
             return this.GetDefaultValue(fieldDef);
         }
 
+        /// <summary>
+        /// Gets the default value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDefaultValue(FieldDefinition fieldDef)
         {
             var defaultValue = fieldDef.DefaultValue;
@@ -1357,6 +1953,11 @@ namespace ServiceStack.OrmLite
             return this.ResolveFragment(defaultValue);
         }
 
+        /// <summary>
+        /// Resolves the fragment.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <returns>System.String.</returns>
         public virtual string ResolveFragment(string sql)
         {
             if (string.IsNullOrEmpty(sql))
@@ -1368,17 +1969,49 @@ namespace ServiceStack.OrmLite
             return this.Variables.TryGetValue(sql, out var variable) ? variable : null;
         }
 
+        /// <summary>
+        /// Gets the automatic identifier default value.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetAutoIdDefaultValue(FieldDefinition fieldDef) => null;
 
+        /// <summary>
+        /// Gets or sets the create table fields strategy.
+        /// </summary>
+        /// <value>The create table fields strategy.</value>
         public Func<ModelDefinition, List<FieldDefinition>> CreateTableFieldsStrategy { get; set; } =
             GetFieldDefinitions;
 
+        /// <summary>
+        /// Gets the field definitions.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>List&lt;FieldDefinition&gt;.</returns>
         public static List<FieldDefinition> GetFieldDefinitions(ModelDefinition modelDef) => modelDef.FieldDefinitions;
 
+        /// <summary>
+        /// Converts to createschemastatement.
+        /// </summary>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <returns>System.String.</returns>
         public abstract string ToCreateSchemaStatement(string schemaName);
 
+        /// <summary>
+        /// Doeses the schema exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public abstract bool DoesSchemaExist(IDbCommand dbCmd, string schemaName);
 
+        /// <summary>
+        /// Doeses the schema exist asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public virtual Task<bool> DoesSchemaExistAsync(
             IDbCommand dbCmd,
             string schema,
@@ -1387,6 +2020,11 @@ namespace ServiceStack.OrmLite
             return this.DoesSchemaExist(dbCmd, schema).InTask();
         }
 
+        /// <summary>
+        /// Converts to createtablestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToCreateTableStatement(Type tableType)
         {
             var sbColumns = StringBuilderCache.Allocate();
@@ -1445,6 +2083,11 @@ namespace ServiceStack.OrmLite
             return sql;
         }
 
+        /// <summary>
+        /// Gets the unique constraints.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetUniqueConstraints(ModelDefinition modelDef)
         {
             var constraints = modelDef.UniqueConstraints.Map(
@@ -1454,9 +2097,21 @@ namespace ServiceStack.OrmLite
             return constraints.Count > 0 ? constraints.Join(",\n") : null;
         }
 
+        /// <summary>
+        /// Gets the name of the unique constraint.
+        /// </summary>
+        /// <param name="constraint">The constraint.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <returns>System.String.</returns>
         protected virtual string GetUniqueConstraintName(UniqueConstraintAttribute constraint, string tableName) =>
             constraint.Name ?? $"UC_{tableName}_{constraint.FieldNames.Join("_")}";
 
+        /// <summary>
+        /// Gets the check constraint.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetCheckConstraint(ModelDefinition modelDef, FieldDefinition fieldDef)
         {
             if (fieldDef.CheckConstraint == null)
@@ -1466,26 +2121,51 @@ namespace ServiceStack.OrmLite
                 $"CONSTRAINT CHK_{modelDef.Schema}_{modelDef.ModelName}_{fieldDef.FieldName} CHECK ({fieldDef.CheckConstraint})";
         }
 
+        /// <summary>
+        /// Converts to postcreatetablestatement.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToPostCreateTableStatement(ModelDefinition modelDef)
         {
             return null;
         }
 
+        /// <summary>
+        /// Converts to postdroptablestatement.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToPostDropTableStatement(ModelDefinition modelDef)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the foreign key on delete clause.
+        /// </summary>
+        /// <param name="foreignKey">The foreign key.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetForeignKeyOnDeleteClause(ForeignKeyConstraint foreignKey)
         {
             return !string.IsNullOrEmpty(foreignKey.OnDelete) ? " ON DELETE " + foreignKey.OnDelete : string.Empty;
         }
 
+        /// <summary>
+        /// Gets the foreign key on update clause.
+        /// </summary>
+        /// <param name="foreignKey">The foreign key.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetForeignKeyOnUpdateClause(ForeignKeyConstraint foreignKey)
         {
             return !string.IsNullOrEmpty(foreignKey.OnUpdate) ? " ON UPDATE " + foreignKey.OnUpdate : string.Empty;
         }
 
+        /// <summary>
+        /// Converts to createindexstatements.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public virtual List<string> ToCreateIndexStatements(Type tableType)
         {
             var sqlIndexes = new List<string>();
@@ -1544,11 +2224,26 @@ namespace ServiceStack.OrmLite
             return sqlIndexes;
         }
 
+        /// <summary>
+        /// Doeses the table exist.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public virtual bool DoesTableExist(IDbConnection db, string tableName, string schema = null)
         {
             return db.Exec(dbCmd => this.DoesTableExist(dbCmd, tableName, schema));
         }
 
+        /// <summary>
+        /// Does table exist as an asynchronous operation.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         public virtual async Task<bool> DoesTableExistAsync(
             IDbConnection db,
             string tableName,
@@ -1558,11 +2253,27 @@ namespace ServiceStack.OrmLite
             return await db.Exec(async dbCmd => await this.DoesTableExistAsync(dbCmd, tableName, schema, token));
         }
 
+        /// <summary>
+        /// Doeses the table exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Doeses the table exist asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public virtual Task<bool> DoesTableExistAsync(
             IDbCommand dbCmd,
             string tableName,
@@ -1572,11 +2283,29 @@ namespace ServiceStack.OrmLite
             return this.DoesTableExist(dbCmd, tableName, schema).InTask();
         }
 
+        /// <summary>
+        /// Doeses the column exist.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Doeses the column exist asynchronous.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public virtual Task<bool> DoesColumnExistAsync(
             IDbConnection db,
             string columnName,
@@ -1587,6 +2316,15 @@ namespace ServiceStack.OrmLite
             return this.DoesColumnExist(db, columnName, tableName, schema).InTask();
         }
 
+        /// <summary>
+        /// Gets the type of the column data.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string GetColumnDataType(
             IDbConnection db,
             string columnName,
@@ -1596,6 +2334,15 @@ namespace ServiceStack.OrmLite
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Columns the is nullable.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual bool ColumnIsNullable(
             IDbConnection db,
             string columnName,
@@ -1605,6 +2352,15 @@ namespace ServiceStack.OrmLite
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the maximum length of the column.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="tableName">Name of the table.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.Int64.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual long GetColumnMaxLength(
             IDbConnection db,
             string columnName,
@@ -1614,11 +2370,25 @@ namespace ServiceStack.OrmLite
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Doeses the sequence exist.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sequenceName">Name of the sequence.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual bool DoesSequenceExist(IDbCommand dbCmd, string sequenceName)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Doeses the sequence exist asynchronous.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sequenceName">Name of the sequence.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public virtual Task<bool> DoesSequenceExistAsync(
             IDbCommand dbCmd,
             string sequenceName,
@@ -1627,11 +2397,24 @@ namespace ServiceStack.OrmLite
             return this.DoesSequenceExist(dbCmd, sequenceName).InTask();
         }
 
+        /// <summary>
+        /// Gets the name of the index.
+        /// </summary>
+        /// <param name="isUnique">if set to <c>true</c> [is unique].</param>
+        /// <param name="modelName">Name of the model.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>System.String.</returns>
         protected virtual string GetIndexName(bool isUnique, string modelName, string fieldName)
         {
             return $"{(isUnique ? "u" : string.Empty)}idx_{modelName}_{fieldName}".ToLower();
         }
 
+        /// <summary>
+        /// Gets the name of the composite index.
+        /// </summary>
+        /// <param name="compositeIndex">Index of the composite.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         protected virtual string GetCompositeIndexName(CompositeIndexAttribute compositeIndex, ModelDefinition modelDef)
         {
             return compositeIndex.Name ?? this.GetIndexName(
@@ -1640,6 +2423,12 @@ namespace ServiceStack.OrmLite
                 string.Join("_", compositeIndex.FieldNames.Map(x => x.LeftPart(' ')).ToArray()));
         }
 
+        /// <summary>
+        /// Gets the composite index name with schema.
+        /// </summary>
+        /// <param name="compositeIndex">Index of the composite.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         protected virtual string GetCompositeIndexNameWithSchema(
             CompositeIndexAttribute compositeIndex,
             ModelDefinition modelDef)
@@ -1652,6 +2441,16 @@ namespace ServiceStack.OrmLite
                 string.Join("_", compositeIndex.FieldNames.ToArray()));
         }
 
+        /// <summary>
+        /// Converts to createindexstatement.
+        /// </summary>
+        /// <param name="isUnique">if set to <c>true</c> [is unique].</param>
+        /// <param name="indexName">Name of the index.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <param name="isCombined">if set to <c>true</c> [is combined].</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         protected virtual string ToCreateIndexStatement(
             bool isUnique,
             string indexName,
@@ -1667,22 +2466,53 @@ namespace ServiceStack.OrmLite
                    $"({(isCombined ? fieldName : this.GetQuotedColumnName(fieldName))}); \n";
         }
 
+        /// <summary>
+        /// Converts to createsequencestatements.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public virtual List<string> ToCreateSequenceStatements(Type tableType)
         {
             return new List<string>();
         }
 
+        /// <summary>
+        /// Converts to createsequencestatement.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="sequenceName">Name of the sequence.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToCreateSequenceStatement(Type tableType, string sequenceName)
         {
             return string.Empty;
         }
 
+        /// <summary>
+        /// Sequences the list.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public virtual List<string> SequenceList(Type tableType) => new List<string>();
 
+        /// <summary>
+        /// Sequences the list asynchronous.
+        /// </summary>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         public virtual Task<List<string>> SequenceListAsync(Type tableType, CancellationToken token = default) =>
             new List<string>().InTask();
 
         // TODO : make abstract  ??
+        /// <summary>
+        /// Converts to existstatement.
+        /// </summary>
+        /// <param name="fromTableType">Type of from table.</param>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string ToExistStatement(
             Type fromTableType,
             object objWithProperties,
@@ -1693,6 +2523,15 @@ namespace ServiceStack.OrmLite
         }
 
         // TODO : make abstract  ??
+        /// <summary>
+        /// Converts to selectfromprocedurestatement.
+        /// </summary>
+        /// <param name="fromObjWithProperties">From object with properties.</param>
+        /// <param name="outputModelType">Type of the output model.</param>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string ToSelectFromProcedureStatement(
             object fromObjWithProperties,
             Type outputModelType,
@@ -1703,88 +2542,191 @@ namespace ServiceStack.OrmLite
         }
 
         // TODO : make abstract  ??
+        /// <summary>
+        /// Converts to executeprocedurestatement.
+        /// </summary>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToExecuteProcedureStatement(object objWithProperties)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the model.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <returns>ModelDefinition.</returns>
         protected static ModelDefinition GetModel(Type modelType)
         {
             return modelType.GetModelDefinition();
         }
 
+        /// <summary>
+        /// SQLs the expression.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual SqlExpression<T> SqlExpression<T>()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Creates the parameterized delete statement.
+        /// </summary>
+        /// <param name="connection">The connection.</param>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <returns>IDbCommand.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public IDbCommand CreateParameterizedDeleteStatement(IDbConnection connection, object objWithProperties)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Gets the drop function.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="functionName">Name of the function.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropFunction(string database, string functionName)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the create view.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="selectSql">The select SQL.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetCreateView(string database, ModelDefinition modelDef, StringBuilder selectSql)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the drop view.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropView(string database, ModelDefinition modelDef)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the create index view.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="selectSql">The select SQL.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetCreateIndexView(ModelDefinition modelDef, string name, string selectSql)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the drop index view.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropIndexView(ModelDefinition modelDef, string name)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the drop index constraint.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropIndexConstraint(ModelDefinition modelDef, string name = null)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the drop primary key constraint.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the drop foreign key constraint.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropForeignKeyConstraint(ModelDefinition modelDef, string name)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the drop constraint.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropConstraint(ModelDefinition modelDef, string name)
         {
             return null;
         }
 
+        /// <summary>
+        /// Gets the drop foreign key constraints.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetDropForeignKeyConstraints(ModelDefinition modelDef)
         {
             return null;
         }
 
+        /// <summary>
+        /// Converts to addcolumnstatement.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToAddColumnStatement(Type modelType, FieldDefinition fieldDef)
         {
             var column = this.GetColumnDefinition(fieldDef);
             return $"ALTER TABLE {this.GetQuotedTableName(modelType.GetModelDefinition())} ADD COLUMN {column};";
         }
 
+        /// <summary>
+        /// Converts to altercolumnstatement.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToAlterColumnStatement(Type modelType, FieldDefinition fieldDef)
         {
             var column = this.GetColumnDefinition(fieldDef);
             return $"ALTER TABLE {this.GetQuotedTableName(modelType.GetModelDefinition())} MODIFY COLUMN {column};";
         }
 
+        /// <summary>
+        /// Converts to changecolumnnamestatement.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="oldColumnName">Old name of the column.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToChangeColumnNameStatement(
             Type modelType,
             FieldDefinition fieldDef,
@@ -1795,6 +2737,17 @@ namespace ServiceStack.OrmLite
                 $"ALTER TABLE {this.GetQuotedTableName(modelType.GetModelDefinition())} CHANGE COLUMN {this.GetQuotedColumnName(oldColumnName)} {column};";
         }
 
+        /// <summary>
+        /// Converts to addforeignkeystatement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TForeign">The type of the t foreign.</typeparam>
+        /// <param name="field">The field.</param>
+        /// <param name="foreignField">The foreign field.</param>
+        /// <param name="onUpdate">The on update.</param>
+        /// <param name="onDelete">The on delete.</param>
+        /// <param name="foreignKeyName">Name of the foreign key.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToAddForeignKeyStatement<T, TForeign>(
             Expression<Func<T, object>> field,
             Expression<Func<TForeign, object>> foreignField,
@@ -1821,6 +2774,14 @@ namespace ServiceStack.OrmLite
                    $" {this.GetForeignKeyOnUpdateClause(new ForeignKeyConstraint(typeof(T), onUpdate: this.FkOptionToString(onUpdate)))};";
         }
 
+        /// <summary>
+        /// Converts to createindexstatement.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="field">The field.</param>
+        /// <param name="indexName">Name of the index.</param>
+        /// <param name="unique">if set to <c>true</c> [unique].</param>
+        /// <returns>System.String.</returns>
         public virtual string ToCreateIndexStatement<T>(
             Expression<Func<T, object>> field,
             string indexName = null,
@@ -1840,6 +2801,11 @@ namespace ServiceStack.OrmLite
             return command;
         }
 
+        /// <summary>
+        /// Fks the option to string.
+        /// </summary>
+        /// <param name="option">The option.</param>
+        /// <returns>System.String.</returns>
         protected virtual string FkOptionToString(OnFkOption option)
         {
             switch (option)
@@ -1853,6 +2819,12 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the quoted value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetQuotedValue(object value, Type fieldType)
         {
             if (value == null || value == DBNull.Value)
@@ -1873,24 +2845,49 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Gets the parameter value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <returns>System.Object.</returns>
         public virtual object GetParamValue(object value, Type fieldType)
         {
             return this.ToDbValue(value, fieldType);
         }
 
+        /// <summary>
+        /// Initializes the query parameter.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
         public virtual void InitQueryParam(IDbDataParameter param)
         {
         }
 
+        /// <summary>
+        /// Initializes the update parameter.
+        /// </summary>
+        /// <param name="param">The parameter.</param>
         public virtual void InitUpdateParam(IDbDataParameter param)
         {
         }
 
+        /// <summary>
+        /// Escapes the wildcards.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.String.</returns>
         public virtual string EscapeWildcards(string value)
         {
             return value?.Replace("^", @"^^").Replace(@"\", @"^\").Replace("_", @"^_").Replace("%", @"^%");
         }
 
+        /// <summary>
+        /// Gets the load children sub select.
+        /// </summary>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="expr">The expr.</param>
+        /// <returns>System.String.</returns>
         public virtual string GetLoadChildrenSubSelect<From>(SqlExpression<From> expr)
         {
             var modelDef = expr.ModelDef;
@@ -1901,11 +2898,22 @@ namespace ServiceStack.OrmLite
             return subSql;
         }
 
+        /// <summary>
+        /// Converts to rowcountstatement.
+        /// </summary>
+        /// <param name="innerSql">The inner SQL.</param>
+        /// <returns>System.String.</returns>
         public virtual string ToRowCountStatement(string innerSql)
         {
             return $"SELECT COUNT(*) FROM ({innerSql}) AS COUNT";
         }
 
+        /// <summary>
+        /// Drops the column.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="modelType">Type of the model.</param>
+        /// <param name="columnName">Name of the column.</param>
         public virtual void DropColumn(IDbConnection db, Type modelType, string columnName)
         {
             var provider = db.GetDialectProvider();
@@ -1914,6 +2922,13 @@ namespace ServiceStack.OrmLite
             db.ExecuteSql(command);
         }
 
+        /// <summary>
+        /// Converts to dropcolumnstatement.
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="provider">The provider.</param>
+        /// <returns>System.String.</returns>
         protected virtual string ToDropColumnStatement(
             Type modelType,
             string columnName,
@@ -1923,59 +2938,152 @@ namespace ServiceStack.OrmLite
                    $"DROP COLUMN {provider.GetQuotedColumnName(columnName)};";
         }
 
+        /// <summary>
+        /// Converts to tablenamesstatement.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotSupportedException"></exception>
         public virtual string ToTableNamesStatement(string schema) => throw new NotSupportedException();
 
+        /// <summary>
+        /// Return table, row count SQL for listing all tables with their row counts
+        /// </summary>
+        /// <param name="live">If true returns live current row counts of each table (slower), otherwise returns cached row counts from RDBMS table stats</param>
+        /// <param name="schema">The table schema if any</param>
+        /// <returns>System.String.</returns>
         public virtual string ToTableNamesWithRowCountsStatement(bool live, string schema) =>
             null; // returning null Fallsback to slow UNION N+1 COUNT(*) op
 
+        /// <summary>
+        /// SQLs the conflict.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="conflictResolution">The conflict resolution.</param>
+        /// <returns>System.String.</returns>
         public virtual string SqlConflict(string sql, string conflictResolution) => sql; // NOOP
 
+        /// <summary>
+        /// SQLs the concat.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>System.String.</returns>
         public virtual string SqlConcat(IEnumerable<object> args) => $"CONCAT({string.Join(", ", args)})";
 
+        /// <summary>
+        /// SQLs the currency.
+        /// </summary>
+        /// <param name="fieldOrValue">The field or value.</param>
+        /// <returns>System.String.</returns>
         public virtual string SqlCurrency(string fieldOrValue) => this.SqlCurrency(fieldOrValue, "$");
 
+        /// <summary>
+        /// SQLs the currency.
+        /// </summary>
+        /// <param name="fieldOrValue">The field or value.</param>
+        /// <param name="currencySymbol">The currency symbol.</param>
+        /// <returns>System.String.</returns>
         public virtual string SqlCurrency(string fieldOrValue, string currencySymbol) =>
             this.SqlConcat(new List<string> { currencySymbol, fieldOrValue });
 
+        /// <summary>
+        /// SQLs the bool.
+        /// </summary>
+        /// <param name="value">if set to <c>true</c> [value].</param>
+        /// <returns>System.String.</returns>
         public virtual string SqlBool(bool value) => value ? "true" : "false";
 
+        /// <summary>
+        /// SQLs the limit.
+        /// </summary>
+        /// <param name="offset">The offset.</param>
+        /// <param name="rows">The rows.</param>
+        /// <returns>System.String.</returns>
         public virtual string SqlLimit(int? offset = null, int? rows = null) =>
             rows == null && offset == null ? string.Empty :
             offset == null ? "LIMIT " + rows : "LIMIT " + rows.GetValueOrDefault(int.MaxValue) + " OFFSET " + offset;
 
+        /// <summary>
+        /// SQLs the cast.
+        /// </summary>
+        /// <param name="fieldOrValue">The field or value.</param>
+        /// <param name="castAs">The cast as.</param>
+        /// <returns>System.String.</returns>
         public virtual string SqlCast(object fieldOrValue, string castAs) => $"CAST({fieldOrValue} AS {castAs})";
 
+        /// <summary>
+        /// Gets the SQL random.
+        /// </summary>
+        /// <value>The SQL random.</value>
         public virtual string SqlRandom => "RAND()";
 
         // Async API's, should be overriden by Dialect Providers to use .ConfigureAwait(false)
         // Default impl below uses TaskAwaiter shim in async.cs
+        /// <summary>
+        /// Opens the asynchronous.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
         public virtual Task OpenAsync(IDbConnection db, CancellationToken token = default)
         {
             db.Open();
             return TaskResult.Finished;
         }
 
+        /// <summary>
+        /// Executes the reader asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;IDataReader&gt;.</returns>
         public virtual Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return cmd.ExecuteReader().InTask();
         }
 
+        /// <summary>
+        /// Executes the non query asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int32&gt;.</returns>
         public virtual Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return cmd.ExecuteNonQuery().InTask();
         }
 
+        /// <summary>
+        /// Executes the scalar asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public virtual Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default)
         {
             return cmd.ExecuteScalar().InTask();
         }
 
+        /// <summary>
+        /// Reads the asynchronous.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Boolean&gt;.</returns>
         public virtual Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default)
         {
             return reader.Read().InTask();
         }
 
 #if ASYNC
+        /// <summary>
+        /// Readers the each.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         public virtual async Task<List<T>> ReaderEach<T>(
             IDataReader reader,
             Func<T> fn,
@@ -1998,6 +3106,15 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Readers the each.
+        /// </summary>
+        /// <typeparam name="Return">The type of the return.</typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="source">The source.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;Return&gt;.</returns>
         public virtual async Task<Return> ReaderEach<Return>(
             IDataReader reader,
             Action fn,
@@ -2019,6 +3136,14 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Readers the read.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public virtual async Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
         {
             try
@@ -2034,6 +3159,13 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Inserts the and get last insert identifier asynchronous.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Int64&gt;.</returns>
         public virtual Task<long> InsertAndGetLastInsertIdAsync<T>(IDbCommand dbCmd, CancellationToken token)
         {
             if (this.SelectIdentitySql == null)
@@ -2069,56 +3201,124 @@ namespace ServiceStack.OrmLite
         }
 #endif
 
+        /// <summary>
+        /// Gets the UTC date function.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string GetUtcDateFunction()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Dates the difference function.
+        /// </summary>
+        /// <param name="interval">The interval.</param>
+        /// <param name="date1">The date1.</param>
+        /// <param name="date2">The date2.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string DateDiffFunction(string interval, string date1, string date2)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Determines whether [is null function] [the specified expression].
+        /// </summary>
+        /// <param name="expression">The expression.</param>
+        /// <param name="alternateValue">The alternate value.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string IsNullFunction(string expression, object alternateValue)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Converts the flag.
+        /// </summary>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string ConvertFlag(string expression)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Databases the fragmentation information.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string DatabaseFragmentationInfo(string database)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Databases the size.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string DatabaseSize(string database)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// SQLs the version.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string SQLVersion()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// SQLs the name of the server.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string SQLServerName()
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Shrinks the database.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string ShrinkDatabase(string database)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Res the index database.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="objectQualifier">The object qualifier.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string ReIndexDatabase(string database, string objectQualifier)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Changes the recovery mode.
+        /// </summary>
+        /// <param name="database">The database.</param>
+        /// <param name="mode">The mode.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string ChangeRecoveryMode(string database, string mode)
         {
             throw new NotImplementedException();
@@ -2127,12 +3327,9 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Just runs the SQL command according to specifications.
         /// </summary>
-        /// <param name="command">
-        /// The command.
-        /// </param>
-        /// <returns>
-        /// Returns the Results
-        /// </returns>
+        /// <param name="command">The command.</param>
+        /// <returns>Returns the Results</returns>
+        /// <exception cref="System.NotImplementedException"></exception>
         public virtual string InnerRunSqlExecuteReader(IDbCommand command)
         {
             throw new NotImplementedException();

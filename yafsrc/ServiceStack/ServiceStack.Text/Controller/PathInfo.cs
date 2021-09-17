@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="PathInfo.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -17,24 +12,51 @@ using System.Linq;
 namespace ServiceStack.Text.Controller
 {
     /// <summary>
-    /// Class to hold  
+    /// Class to hold
     /// </summary>
     public class PathInfo
     {
+        /// <summary>
+        /// Gets the name of the controller.
+        /// </summary>
+        /// <value>The name of the controller.</value>
         public string ControllerName { get; private set; }
 
+        /// <summary>
+        /// Gets the name of the action.
+        /// </summary>
+        /// <value>The name of the action.</value>
         public string ActionName { get; private set; }
 
+        /// <summary>
+        /// Gets the arguments.
+        /// </summary>
+        /// <value>The arguments.</value>
         public List<string> Arguments { get; private set; }
 
+        /// <summary>
+        /// Gets the options.
+        /// </summary>
+        /// <value>The options.</value>
         public Dictionary<string, string> Options { get; private set; }
 
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathInfo" /> class.
+        /// </summary>
+        /// <param name="actionName">Name of the action.</param>
+        /// <param name="arguments">The arguments.</param>
         public PathInfo(string actionName, params string[] arguments)
             : this(actionName, arguments.ToList(), null)
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathInfo" /> class.
+        /// </summary>
+        /// <param name="actionName">Name of the action.</param>
+        /// <param name="arguments">The arguments.</param>
+        /// <param name="options">The options.</param>
         public PathInfo(string actionName, List<string> arguments, Dictionary<string, string> options)
         {
             ActionName = actionName;
@@ -42,6 +64,10 @@ namespace ServiceStack.Text.Controller
             Options = options ?? new Dictionary<string, string>();
         }
 
+        /// <summary>
+        /// Gets the first argument.
+        /// </summary>
+        /// <value>The first argument.</value>
         public string FirstArgument
         {
             get
@@ -50,21 +76,22 @@ namespace ServiceStack.Text.Controller
             }
         }
 
+        /// <summary>
+        /// Gets the argument value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="index">The index.</param>
+        /// <returns>T.</returns>
         public T GetArgumentValue<T>(int index)
         {
             return TypeSerializer.DeserializeFromString<T>(this.Arguments[index]);
         }
 
         /// <summary>
-        /// Parses the specified path info.
-        /// e.g.
-        ///		MusicPage/arg1/0/true?debug&showFlows=3 => PathInfo
-        ///			.ActionName = 'MusicPage'
-        ///			.Arguments = ['arg1','0','true']
-        ///			.Options = { debug:'True', showFlows:'3' }
+        /// Parses the specified path URI.
         /// </summary>
-        /// <param name="pathUri">The path url.</param>
-        /// <returns></returns>
+        /// <param name="pathUri">The path URI.</param>
+        /// <returns>PathInfo.</returns>
         public static PathInfo Parse(string pathUri)
         {
             var actionParts = pathUri.Split(new[] { "://" }, StringSplitOptions.None);

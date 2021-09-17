@@ -1,5 +1,9 @@
-﻿// Copyright (c) ServiceStack, Inc. All Rights Reserved.
-// License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
+﻿// ***********************************************************************
+// <copyright file="PathUtils.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 
 using System;
@@ -12,8 +16,17 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
+    /// <summary>
+    /// Class PathUtils.
+    /// </summary>
     public static class PathUtils
     {
+        /// <summary>
+        /// Maps the absolute path.
+        /// </summary>
+        /// <param name="relativePath">The relative path.</param>
+        /// <param name="appendPartialPathModifier">The append partial path modifier.</param>
+        /// <returns>System.String.</returns>
         public static string MapAbsolutePath(this string relativePath, string appendPartialPathModifier)
         {
             return PclExport.Instance.MapAbsolutePath(relativePath, appendPartialPathModifier);
@@ -73,12 +86,23 @@ namespace ServiceStack
 #endif
         }
 
+        /// <summary>
+        /// Combines the paths.
+        /// </summary>
+        /// <param name="sb">The sb.</param>
+        /// <param name="paths">The paths.</param>
+        /// <returns>System.String.</returns>
         internal static string CombinePaths(StringBuilder sb, params string[] paths)
         {
             AppendPaths(sb, paths);
             return sb.ToString();
         }
 
+        /// <summary>
+        /// Appends the paths.
+        /// </summary>
+        /// <param name="sb">The sb.</param>
+        /// <param name="paths">The paths.</param>
         public static void AppendPaths(StringBuilder sb, string[] paths)
         {
             foreach (var path in paths)
@@ -93,6 +117,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Combines the paths.
+        /// </summary>
+        /// <param name="paths">The paths.</param>
+        /// <returns>System.String.</returns>
         public static string CombinePaths(params string[] paths)
         {
             var sb = StringBuilderThreadStatic.Allocate();
@@ -100,6 +129,11 @@ namespace ServiceStack
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Asserts the dir.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
+        /// <returns>System.String.</returns>
         public static string AssertDir(this string dirPath)
         {
             if (!dirPath.DirectoryExists())
@@ -107,8 +141,17 @@ namespace ServiceStack
             return dirPath;
         }
 
+        /// <summary>
+        /// The slashes
+        /// </summary>
         private static readonly char[] Slashes = { '/', '\\' };
 
+        /// <summary>
+        /// Trims the end if.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="chars">The chars.</param>
+        /// <returns>System.String.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)] //only trim/allocate if need to
         private static string TrimEndIf(this string path, char[] chars)
         {
@@ -124,6 +167,12 @@ namespace ServiceStack
             return path;
         }
 
+        /// <summary>
+        /// Combines the with.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="withPath">The with path.</param>
+        /// <returns>System.String.</returns>
         public static string CombineWith(this string path, string withPath)
         {
             if (path == null)
@@ -134,6 +183,12 @@ namespace ServiceStack
             return startPath + (withPath[0] == '/' ? withPath : "/" + withPath);
         }
 
+        /// <summary>
+        /// Combines the with.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="thesePaths">The these paths.</param>
+        /// <returns>System.String.</returns>
         public static string CombineWith(this string path, params string[] thesePaths)
         {
             if (path == null)
@@ -148,6 +203,12 @@ namespace ServiceStack
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Combines the with.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <param name="thesePaths">The these paths.</param>
+        /// <returns>System.String.</returns>
         public static string CombineWith(this string path, params object[] thesePaths)
         {
             if (thesePaths.Length == 1 && thesePaths[0] == null) return path;
@@ -158,6 +219,11 @@ namespace ServiceStack
             return StringBuilderThreadStatic.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Resolves the paths.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>System.String.</returns>
         public static string ResolvePaths(this string path)
         {
             if (path == null || path.IndexOfAny("./", "/.") == -1)
@@ -190,6 +256,11 @@ namespace ServiceStack
                 : prefix + resolvedPath;
         }
 
+        /// <summary>
+        /// Converts to strings.
+        /// </summary>
+        /// <param name="thesePaths">The these paths.</param>
+        /// <returns>System.String[].</returns>
         public static string[] ToStrings(object[] thesePaths)
         {
             var to = new string[thesePaths.Length];
@@ -200,6 +271,13 @@ namespace ServiceStack
             return to;
         }
 
+        /// <summary>
+        /// Maps the specified items.
+        /// </summary>
+        /// <typeparam name="To">The type of to.</typeparam>
+        /// <param name="items">The items.</param>
+        /// <param name="converter">The converter.</param>
+        /// <returns>List&lt;To&gt;.</returns>
         internal static List<To> Map<To>(System.Collections.IEnumerable items, Func<object, To> converter)
         {
             if (items == null)

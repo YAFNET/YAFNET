@@ -1,24 +1,9 @@
-﻿// ---------------------------------------------------------------------
-// Copyright (c) 2015 Microsoft
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in
-// all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-// THE SOFTWARE.
-// ---------------------------------------------------------------------
+﻿// ***********************************************************************
+// <copyright file="RecyclableMemoryStream.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.IO;
@@ -32,12 +17,26 @@ using System.Threading;
 
 namespace ServiceStack.Text //Internalize to avoid conflicts
 {
+    /// <summary>
+    /// Class MemoryStreamFactory.
+    /// </summary>
     public static class MemoryStreamFactory
     {
+        /// <summary>
+        /// Gets or sets the use recyclable memory stream.
+        /// </summary>
+        /// <value>The use recyclable memory stream.</value>
         public static bool UseRecyclableMemoryStream { get; set; }
 
+        /// <summary>
+        /// The recyclable instance
+        /// </summary>
         public static RecyclableMemoryStreamManager RecyclableInstance = new();
 
+        /// <summary>
+        /// Gets the stream.
+        /// </summary>
+        /// <returns>System.IO.MemoryStream.</returns>
         public static MemoryStream GetStream()
         {
             return UseRecyclableMemoryStream
@@ -45,6 +44,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 : new MemoryStream();
         }
 
+        /// <summary>
+        /// Gets the stream.
+        /// </summary>
+        /// <param name="capacity">The capacity.</param>
+        /// <returns>System.IO.MemoryStream.</returns>
         public static MemoryStream GetStream(int capacity)
         {
             return UseRecyclableMemoryStream
@@ -52,6 +56,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 : new MemoryStream(capacity);
         }
 
+        /// <summary>
+        /// Gets the stream.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <returns>System.IO.MemoryStream.</returns>
         public static MemoryStream GetStream(byte[] bytes)
         {
             return UseRecyclableMemoryStream
@@ -59,6 +68,13 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                 : new MemoryStream(bytes, 0, bytes.Length, writable: true, publiclyVisible: true);
         }
 
+        /// <summary>
+        /// Gets the stream.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
+        /// <param name="index">The index.</param>
+        /// <param name="count">The count.</param>
+        /// <returns>System.IO.MemoryStream.</returns>
         public static MemoryStream GetStream(byte[] bytes, int index, int count)
         {
             return UseRecyclableMemoryStream
@@ -68,48 +84,118 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     }
 
 #if !NETSTANDARD
+    /// <summary>
+    /// Enum EventLevel
+    /// </summary>
     public enum EventLevel
     {
+        /// <summary>
+        /// The log always
+        /// </summary>
         LogAlways = 0,
+        /// <summary>
+        /// The critical
+        /// </summary>
         Critical,
+        /// <summary>
+        /// The error
+        /// </summary>
         Error,
+        /// <summary>
+        /// The warning
+        /// </summary>
         Warning,
+        /// <summary>
+        /// The informational
+        /// </summary>
         Informational,
+        /// <summary>
+        /// The verbose
+        /// </summary>
         Verbose,
     }
 
+    /// <summary>
+    /// Enum EventKeywords
+    /// </summary>
     public enum EventKeywords : long
     {
+        /// <summary>
+        /// The none
+        /// </summary>
         None = 0x0,
     }
 
+    /// <summary>
+    /// Class EventSourceAttribute. This class cannot be inherited.
+    /// Implements the <see cref="System.Attribute" />
+    /// </summary>
+    /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class EventSourceAttribute : Attribute
     {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the unique identifier.
+        /// </summary>
+        /// <value>The unique identifier.</value>
         public string Guid { get; set; }
     }
 
+    /// <summary>
+    /// Class EventAttribute. This class cannot be inherited.
+    /// Implements the <see cref="System.Attribute" />
+    /// </summary>
+    /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class EventAttribute : Attribute
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventAttribute"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
         public EventAttribute(int id) { }
 
+        /// <summary>
+        /// Gets or sets the level.
+        /// </summary>
+        /// <value>The level.</value>
         public EventLevel Level { get; set; }
     }
 
+    /// <summary>
+    /// Class EventSource.
+    /// </summary>
     public class EventSource
     {
+        /// <summary>
+        /// Writes the event.
+        /// </summary>
+        /// <param name="unused">The unused.</param>
         public void WriteEvent(params object[] unused)
         {
             return;
         }
 
+        /// <summary>
+        /// Determines whether this instance is enabled.
+        /// </summary>
+        /// <returns>bool.</returns>
         public bool IsEnabled()
         {
             return false;
         }
 
+        /// <summary>
+        /// Determines whether the specified level is enabled.
+        /// </summary>
+        /// <param name="level">The level.</param>
+        /// <param name="keywords">The keywords.</param>
+        /// <returns>bool.</returns>
         public bool IsEnabled(EventLevel level, EventKeywords keywords)
         {
             return false;
@@ -117,6 +203,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     }
 #endif
 
+    /// <summary>
+    /// Class RecyclableMemoryStreamManager. This class cannot be inherited.
+    /// </summary>
     public sealed partial class RecyclableMemoryStreamManager
     {
         /// <summary>
@@ -339,14 +428,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     /// <summary>
     /// Manages pools of RecyclableMemoryStream objects.
     /// </summary>
-    /// <remarks>
-    /// There are two pools managed in here. The small pool contains same-sized buffers that are handed to streams
+    /// <remarks>There are two pools managed in here. The small pool contains same-sized buffers that are handed to streams
     /// as they write more data.
-    ///
     /// For scenarios that need to call GetBuffer(), the large pool contains buffers of various sizes, all
     /// multiples/exponentials of LargeBufferMultiple (1 MB by default). They are split by size to avoid overly-wasteful buffer
-    /// usage. There should be far fewer 8 MB buffers than 1 MB buffers, for example.
-    /// </remarks>
+    /// usage. There should be far fewer 8 MB buffers than 1 MB buffers, for example.</remarks>
     public partial class RecyclableMemoryStreamManager
     {
         /// <summary>
@@ -389,15 +475,33 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// </summary>
         public const int DefaultMaximumBufferSize = 128 * 1024 * 1024;
 
+        /// <summary>
+        /// The large buffer free size
+        /// </summary>
         private readonly long[] largeBufferFreeSize;
+        /// <summary>
+        /// The large buffer in use size
+        /// </summary>
         private readonly long[] largeBufferInUseSize;
 
 
+        /// <summary>
+        /// The large pools
+        /// </summary>
         private readonly ConcurrentStack<byte[]>[] largePools;
 
+        /// <summary>
+        /// The small pool
+        /// </summary>
         private readonly ConcurrentStack<byte[]> smallPool;
 
+        /// <summary>
+        /// The small pool free size
+        /// </summary>
         private long smallPoolFreeSize;
+        /// <summary>
+        /// The small pool in use size
+        /// </summary>
         private long smallPoolInUseSize;
 
         /// <summary>
@@ -409,7 +513,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Initializes the memory manager with the given block requiredSize.
         /// </summary>
-        /// <param name="blockSize">Size of each block that is pooled. Must be > 0.</param>
+        /// <param name="blockSize">Size of each block that is pooled. Must be &gt; 0.</param>
         /// <param name="largeBufferMultiple">Each large buffer will be a multiple of this value.</param>
         /// <param name="maximumBufferSize">Buffers larger than this are not pooled</param>
         /// <exception cref="ArgumentOutOfRangeException">blockSize is not a positive number, or largeBufferMultiple is not a positive number, or maximumBufferSize is less than blockSize.</exception>
@@ -420,12 +524,15 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Initializes the memory manager with the given block requiredSize.
         /// </summary>
-        /// <param name="blockSize">Size of each block that is pooled. Must be > 0.</param>
+        /// <param name="blockSize">Size of each block that is pooled. Must be &gt; 0.</param>
         /// <param name="largeBufferMultiple">Each large buffer will be a multiple/exponential of this value.</param>
         /// <param name="maximumBufferSize">Buffers larger than this are not pooled</param>
         /// <param name="useExponentialLargeBuffer">Switch to exponential large buffer allocation strategy</param>
-        /// <exception cref="ArgumentOutOfRangeException">blockSize is not a positive number, or largeBufferMultiple is not a positive number, or maximumBufferSize is less than blockSize.</exception>
-        /// <exception cref="ArgumentException">maximumBufferSize is not a multiple/exponential of largeBufferMultiple</exception>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(blockSize), blockSize, blockSize must be a positive number</exception>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(blockSize), blockSize, blockSize must be a positive number</exception>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(blockSize), blockSize, blockSize must be a positive number</exception>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(blockSize), blockSize, blockSize must be a positive number</exception>
+        /// <exception cref="ArgumentException">blockSize is not a positive number, or largeBufferMultiple is not a positive number, or maximumBufferSize is less than blockSize.</exception>
         public RecyclableMemoryStreamManager(int blockSize, int largeBufferMultiple, int maximumBufferSize, bool useExponentialLargeBuffer)
         {
             if (blockSize <= 0)
@@ -452,8 +559,8 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
 
             if (!this.IsLargeBufferSize(maximumBufferSize))
             {
-                throw new ArgumentException(String.Format("maximumBufferSize is not {0} of largeBufferMultiple",
-                                                          this.UseExponentialLargeBuffer ? "an exponential" : "a multiple"),
+                throw new ArgumentException(
+                    $"maximumBufferSize is not {(this.UseExponentialLargeBuffer ? "an exponential" : "a multiple")} of largeBufferMultiple",
                                             nameof(maximumBufferSize));
             }
 
@@ -479,26 +586,31 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// The size of each block. It must be set at creation and cannot be changed.
         /// </summary>
+        /// <value>The size of the block.</value>
         public int BlockSize { get; }
 
         /// <summary>
         /// All buffers are multiples/exponentials of this number. It must be set at creation and cannot be changed.
         /// </summary>
+        /// <value>The large buffer multiple.</value>
         public int LargeBufferMultiple { get; }
 
         /// <summary>
         /// Use multiple large buffer allocation strategy. It must be set at creation and cannot be changed.
         /// </summary>
+        /// <value>The use multiple large buffer.</value>
         public bool UseMultipleLargeBuffer => !this.UseExponentialLargeBuffer;
 
         /// <summary>
         /// Use exponential large buffer allocation strategy. It must be set at creation and cannot be changed.
         /// </summary>
+        /// <value>The use exponential large buffer.</value>
         public bool UseExponentialLargeBuffer { get; }
 
         /// <summary>
         /// Gets the maximum buffer size.
         /// </summary>
+        /// <value>The maximum size of the buffer.</value>
         /// <remarks>Any buffer that is returned to the pool that is larger than this will be
         /// discarded and garbage collected.</remarks>
         public int MaximumBufferSize { get; }
@@ -506,16 +618,19 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Number of bytes in small pool not currently in use
         /// </summary>
+        /// <value>The size of the small pool free.</value>
         public long SmallPoolFreeSize => this.smallPoolFreeSize;
 
         /// <summary>
         /// Number of bytes currently in use by stream from the small pool
         /// </summary>
+        /// <value>The size of the small pool in use.</value>
         public long SmallPoolInUseSize => this.smallPoolInUseSize;
 
         /// <summary>
         /// Number of bytes in large pool not currently in use
         /// </summary>
+        /// <value>The size of the large pool free.</value>
         public long LargePoolFreeSize
         {
             get
@@ -533,6 +648,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Number of bytes currently in use by streams from the large pool
         /// </summary>
+        /// <value>The size of the large pool in use.</value>
         public long LargePoolInUseSize
         {
             get
@@ -550,11 +666,13 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// How many blocks are in the small pool
         /// </summary>
+        /// <value>The small blocks free.</value>
         public long SmallBlocksFree => this.smallPool.Count;
 
         /// <summary>
         /// How many buffers are in the large pool
         /// </summary>
+        /// <value>The large buffers free.</value>
         public long LargeBuffersFree
         {
             get
@@ -572,18 +690,21 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// How many bytes of small free blocks to allow before we start dropping
         /// those returned to us.
         /// </summary>
+        /// <value>The maximum free small pool bytes.</value>
         public long MaximumFreeSmallPoolBytes { get; set; }
 
         /// <summary>
         /// How many bytes of large free buffers to allow before we start dropping
         /// those returned to us.
         /// </summary>
+        /// <value>The maximum free large pool bytes.</value>
         public long MaximumFreeLargePoolBytes { get; set; }
 
         /// <summary>
         /// Maximum stream capacity in bytes. Attempts to set a larger capacity will
         /// result in an exception.
         /// </summary>
+        /// <value>The maximum stream capacity.</value>
         /// <remarks>A value of 0 indicates no limit.</remarks>
         public long MaximumStreamCapacity { get; set; }
 
@@ -591,6 +712,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Whether to save callstacks for stream allocations. This can help in debugging.
         /// It should NEVER be turned on generally in production.
         /// </summary>
+        /// <value>The generate call stacks.</value>
         public bool GenerateCallStacks { get; set; }
 
         /// <summary>
@@ -601,11 +723,13 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// retrieved from a stream which is subsequently modified is not used after modification (as it may no longer
         /// be valid).
         /// </summary>
+        /// <value>The aggressive buffer return.</value>
         public bool AggressiveBufferReturn { get; set; }
 
         /// <summary>
         /// Causes an exception to be thrown if ToArray is ever called.
         /// </summary>
+        /// <value>The throw exception on to array.</value>
         /// <remarks>Calling ToArray defeats the purpose of a pooled buffer. Use this property to discover code that is calling ToArray. If this is
         /// set and stream.ToArray() is called, a NotSupportedException will be thrown.</remarks>
         public bool ThrowExceptionOnToArray { get; set; }
@@ -616,8 +740,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <returns>A byte[] array</returns>
         internal byte[] GetBlock()
         {
-            byte[] block;
-            if (!this.smallPool.TryPop(out block))
+            if (!this.smallPool.TryPop(out byte[] block))
             {
                 // We'll add this back to the pool when the stream is disposed
                 // (unless our free pool is too large)
@@ -687,6 +810,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             return buffer;
         }
 
+        /// <summary>
+        /// Rounds the size of to large buffer.
+        /// </summary>
+        /// <param name="requiredSize">Size of the required.</param>
+        /// <returns>int.</returns>
         private int RoundToLargeBufferSize(int requiredSize)
         {
             if (this.UseExponentialLargeBuffer)
@@ -704,6 +832,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
         }
 
+        /// <summary>
+        /// Determines whether [is large buffer size] [the specified value].
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>bool.</returns>
         private bool IsLargeBufferSize(int value)
         {
             return value != 0 && (this.UseExponentialLargeBuffer
@@ -711,6 +844,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                                         : value % this.LargeBufferMultiple == 0);
         }
 
+        /// <summary>
+        /// Gets the index of the pool.
+        /// </summary>
+        /// <param name="length">The length.</param>
+        /// <returns>int.</returns>
         private int GetPoolIndex(int length)
         {
             if (this.UseExponentialLargeBuffer)
@@ -733,8 +871,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// </summary>
         /// <param name="buffer">The buffer to return.</param>
         /// <param name="tag">The tag of the stream returning this buffer, for logging if necessary.</param>
-        /// <exception cref="ArgumentNullException">buffer is null</exception>
-        /// <exception cref="ArgumentException">buffer.Length is not a multiple/exponential of LargeBufferMultiple (it did not originate from this pool)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentException">buffer is null</exception>
         internal void ReturnLargeBuffer(byte[] buffer, string tag)
         {
             if (buffer == null)
@@ -745,7 +884,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             if (!this.IsLargeBufferSize(buffer.Length))
             {
                 throw new ArgumentException(
-                    String.Format("buffer did not originate from this memory manager. The size is not {0} of ",
+                    string.Format("buffer did not originate from this memory manager. The size is not {0} of ",
                                   this.UseExponentialLargeBuffer ? "an exponential" : "a multiple") +
                     this.LargeBufferMultiple);
             }
@@ -789,8 +928,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// </summary>
         /// <param name="blocks">Collection of blocks to return to the pool</param>
         /// <param name="tag">The tag of the stream returning these blocks, for logging if necessary.</param>
-        /// <exception cref="ArgumentNullException">blocks is null</exception>
-        /// <exception cref="ArgumentException">blocks contains buffers that are the wrong size (or null) for this memory manager</exception>
+        /// <exception cref="ArgumentNullException">nameof(blocks)</exception>
+        /// <exception cref="ArgumentNullException">nameof(blocks)</exception>
+        /// <exception cref="ArgumentException">blocks is null</exception>
         internal void ReturnBlocks(ICollection<byte[]> blocks, string tag)
         {
             if (blocks == null)
@@ -829,51 +969,87 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
                               this.LargePoolFreeSize);
         }
 
+        /// <summary>
+        /// Reports the block created.
+        /// </summary>
         internal void ReportBlockCreated()
         {
             this.BlockCreated?.Invoke();
         }
 
+        /// <summary>
+        /// Reports the block discarded.
+        /// </summary>
         internal void ReportBlockDiscarded()
         {
             this.BlockDiscarded?.Invoke();
         }
 
+        /// <summary>
+        /// Reports the large buffer created.
+        /// </summary>
         internal void ReportLargeBufferCreated()
         {
             this.LargeBufferCreated?.Invoke();
         }
 
+        /// <summary>
+        /// Reports the large buffer discarded.
+        /// </summary>
+        /// <param name="reason">The reason.</param>
         internal void ReportLargeBufferDiscarded(Events.MemoryStreamDiscardReason reason)
         {
             this.LargeBufferDiscarded?.Invoke(reason);
         }
 
+        /// <summary>
+        /// Reports the stream created.
+        /// </summary>
         internal void ReportStreamCreated()
         {
             this.StreamCreated?.Invoke();
         }
 
+        /// <summary>
+        /// Reports the stream disposed.
+        /// </summary>
         internal void ReportStreamDisposed()
         {
             this.StreamDisposed?.Invoke();
         }
 
+        /// <summary>
+        /// Reports the stream finalized.
+        /// </summary>
         internal void ReportStreamFinalized()
         {
             this.StreamFinalized?.Invoke();
         }
 
+        /// <summary>
+        /// Reports the length of the stream.
+        /// </summary>
+        /// <param name="bytes">The bytes.</param>
         internal void ReportStreamLength(long bytes)
         {
             this.StreamLength?.Invoke(bytes);
         }
 
+        /// <summary>
+        /// Reports the stream to array.
+        /// </summary>
         internal void ReportStreamToArray()
         {
             this.StreamConvertedToArray?.Invoke();
         }
 
+        /// <summary>
+        /// Reports the usage report.
+        /// </summary>
+        /// <param name="smallPoolInUseBytes">The small pool in use bytes.</param>
+        /// <param name="smallPoolFreeBytes">The small pool free bytes.</param>
+        /// <param name="largePoolInUseBytes">The large pool in use bytes.</param>
+        /// <param name="largePoolFreeBytes">The large pool free bytes.</param>
         internal void ReportUsageReport(
             long smallPoolInUseBytes, long smallPoolFreeBytes, long largePoolInUseBytes, long largePoolFreeBytes)
         {
@@ -947,15 +1123,15 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Retrieve a new MemoryStream object with the given tag and at least the given capacity, possibly using
         /// a single contiguous underlying buffer.
         /// </summary>
-        /// <remarks>Retrieving a MemoryStream which provides a single contiguous buffer can be useful in situations
-        /// where the initial size is known and it is desirable to avoid copying data between the smaller underlying
-        /// buffers to a single large one. This is most helpful when you know that you will always call GetBuffer
-        /// on the underlying stream.</remarks>
         /// <param name="id">A unique identifier which can be used to trace usages of the stream.</param>
         /// <param name="tag">A tag which can be used to track the source of the stream.</param>
         /// <param name="requiredSize">The minimum desired capacity for the stream.</param>
         /// <param name="asContiguousBuffer">Whether to attempt to use a single contiguous buffer.</param>
         /// <returns>A MemoryStream.</returns>
+        /// <remarks>Retrieving a MemoryStream which provides a single contiguous buffer can be useful in situations
+        /// where the initial size is known and it is desirable to avoid copying data between the smaller underlying
+        /// buffers to a single large one. This is most helpful when you know that you will always call GetBuffer
+        /// on the underlying stream.</remarks>
         public MemoryStream GetStream(Guid id, string tag, int requiredSize, bool asContiguousBuffer)
         {
             if (!asContiguousBuffer || requiredSize <= this.BlockSize)
@@ -970,14 +1146,14 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Retrieve a new MemoryStream object with the given tag and at least the given capacity, possibly using
         /// a single contiguous underlying buffer.
         /// </summary>
-        /// <remarks>Retrieving a MemoryStream which provides a single contiguous buffer can be useful in situations
-        /// where the initial size is known and it is desirable to avoid copying data between the smaller underlying
-        /// buffers to a single large one. This is most helpful when you know that you will always call GetBuffer
-        /// on the underlying stream.</remarks>
         /// <param name="tag">A tag which can be used to track the source of the stream.</param>
         /// <param name="requiredSize">The minimum desired capacity for the stream.</param>
         /// <param name="asContiguousBuffer">Whether to attempt to use a single contiguous buffer.</param>
         /// <returns>A MemoryStream.</returns>
+        /// <remarks>Retrieving a MemoryStream which provides a single contiguous buffer can be useful in situations
+        /// where the initial size is known and it is desirable to avoid copying data between the smaller underlying
+        /// buffers to a single large one. This is most helpful when you know that you will always call GetBuffer
+        /// on the underlying stream.</remarks>
         public MemoryStream GetStream(string tag, int requiredSize, bool asContiguousBuffer)
         {
             return GetStream(Guid.NewGuid(), tag, requiredSize, asContiguousBuffer);
@@ -987,13 +1163,14 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Retrieve a new MemoryStream object with the given tag and with contents copied from the provided
         /// buffer. The provided buffer is not wrapped or used after construction.
         /// </summary>
-        /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
         /// <param name="id">A unique identifier which can be used to trace usages of the stream.</param>
         /// <param name="tag">A tag which can be used to track the source of the stream.</param>
         /// <param name="buffer">The byte buffer to copy data from.</param>
         /// <param name="offset">The offset from the start of the buffer to copy from.</param>
         /// <param name="count">The number of bytes to copy from the buffer.</param>
         /// <returns>A MemoryStream.</returns>
+        /// <exception cref="RecyclableMemoryStream">this, id, tag, count</exception>
+        /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
         public MemoryStream GetStream(Guid id, string tag, byte[] buffer, int offset, int count)
         {
             RecyclableMemoryStream stream = null;
@@ -1015,9 +1192,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Retrieve a new MemoryStream object with the contents copied from the provided
         /// buffer. The provided buffer is not wrapped or used after construction.
         /// </summary>
-        /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
         /// <param name="buffer">The byte buffer to copy data from.</param>
         /// <returns>A MemoryStream.</returns>
+        /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
         public MemoryStream GetStream(byte[] buffer)
         {
             return GetStream(null, buffer, 0, buffer.Length);
@@ -1028,12 +1205,12 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Retrieve a new MemoryStream object with the given tag and with contents copied from the provided
         /// buffer. The provided buffer is not wrapped or used after construction.
         /// </summary>
-        /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
         /// <param name="tag">A tag which can be used to track the source of the stream.</param>
         /// <param name="buffer">The byte buffer to copy data from.</param>
         /// <param name="offset">The offset from the start of the buffer to copy from.</param>
         /// <param name="count">The number of bytes to copy from the buffer.</param>
         /// <returns>A MemoryStream.</returns>
+        /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
         public MemoryStream GetStream(string tag, byte[] buffer, int offset, int count)
         {
             return GetStream(Guid.NewGuid(), tag, buffer, offset, count);
@@ -1147,8 +1324,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     /// MemoryStream implementation that deals with pooling and managing memory streams which use potentially large
     /// buffers.
     /// </summary>
-    /// <remarks>
-    /// This class works in tandem with the RecyclableMemoryStreamManager to supply MemoryStream
+    /// <remarks>This class works in tandem with the RecyclableMemoryStreamManager to supply MemoryStream
     /// objects to callers, while avoiding these specific problems:
     /// 1. LOH allocations - since all large buffers are pooled, they will never incur a Gen2 GC
     /// 2. Memory waste - A standard memory stream doubles its size when it runs out of room. This
@@ -1157,36 +1333,47 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
     /// This implementation only copies the bytes when GetBuffer is called.
     /// 4. Memory fragmentation - By using homogeneous buffer sizes, it ensures that blocks of memory
     /// can be easily reused.
-    ///
     /// The stream is implemented on top of a series of uniformly-sized blocks. As the stream's length grows,
     /// additional blocks are retrieved from the memory manager. It is these blocks that are pooled, not the stream
     /// object itself.
-    ///
     /// The biggest wrinkle in this implementation is when GetBuffer() is called. This requires a single
     /// contiguous buffer. If only a single block is in use, then that block is returned. If multiple blocks
     /// are in use, we retrieve a larger buffer from the memory manager. These large buffers are also pooled,
     /// split by size--they are multiples/exponentials of a chunk size (1 MB by default).
-    ///
     /// Once a large buffer is assigned to the stream the small blocks are NEVER again used for this stream. All operations take place on the
     /// large buffer. The large buffer can be replaced by a larger buffer from the pool as needed. All blocks and large buffers
     /// are maintained in the stream until the stream is disposed (unless AggressiveBufferReturn is enabled in the stream manager).
-    ///
     /// </remarks>
     public sealed class RecyclableMemoryStream : MemoryStream
     {
-        private const long MaxStreamLength = Int32.MaxValue;
+        /// <summary>
+        /// The maximum stream length
+        /// </summary>
+        private const long MaxStreamLength = int.MaxValue;
 
-        private static readonly byte[] emptyArray = new byte[0];
+        /// <summary>
+        /// The empty array
+        /// </summary>
+        private static readonly byte[] emptyArray = Array.Empty<byte>();
 
         /// <summary>
         /// All of these blocks must be the same size
         /// </summary>
         private readonly List<byte[]> blocks = new(1);
 
+        /// <summary>
+        /// The identifier
+        /// </summary>
         private readonly Guid id;
 
+        /// <summary>
+        /// The memory manager
+        /// </summary>
         private readonly RecyclableMemoryStreamManager memoryManager;
 
+        /// <summary>
+        /// The tag
+        /// </summary>
         private readonly string tag;
 
         /// <summary>
@@ -1197,20 +1384,21 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         private List<byte[]> dirtyBuffers;
 
         // long to allow Interlocked.Read (for .NET Standard 1.4 compat)
+        /// <summary>
+        /// The disposed state
+        /// </summary>
         private long disposedState;
 
         /// <summary>
         /// This is only set by GetBuffer() if the necessary buffer is larger than a single block size, or on
         /// construction if the caller immediately requests a single large buffer.
         /// </summary>
-        /// <remarks>If this field is non-null, it contains the concatenation of the bytes found in the individual
-        /// blocks. Once it is created, this (or a larger) largeBuffer will be used for the life of the stream.
-        /// </remarks>
         private byte[] largeBuffer;
 
         /// <summary>
         /// Unique identifier for this stream across its entire lifetime
         /// </summary>
+        /// <value>The identifier.</value>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         internal Guid Id
         {
@@ -1224,6 +1412,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// A temporary identifier for the current usage of this stream.
         /// </summary>
+        /// <value>The tag.</value>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         internal string Tag
         {
@@ -1237,6 +1426,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Gets the memory manager being used by this stream.
         /// </summary>
+        /// <value>The memory manager.</value>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         internal RecyclableMemoryStreamManager MemoryManager
         {
@@ -1251,12 +1441,14 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Callstack of the constructor. It is only set if MemoryManager.GenerateCallStacks is true,
         /// which should only be in debugging situations.
         /// </summary>
+        /// <value>The allocation stack.</value>
         internal string AllocationStack { get; }
 
         /// <summary>
         /// Callstack of the Dispose call. It is only set if MemoryManager.GenerateCallStacks is true,
         /// which should only be in debugging situations.
         /// </summary>
+        /// <value>The dispose stack.</value>
         internal string DisposeStack { get; private set; }
 
         #region Constructors
@@ -1364,8 +1556,6 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Returns the memory used by this stream back to the pool.
         /// </summary>
         /// <param name="disposing">Whether we're disposing (true), or being called by the finalizer (false)</param>
-        [SuppressMessage("Microsoft.Usage", "CA1816:CallGCSuppressFinalizeCorrectly",
-            Justification = "We have different disposal semantics, so SuppressFinalize is in a different spot.")]
         protected override void Dispose(bool disposing)
         {
             if (Interlocked.CompareExchange(ref this.disposedState, 1, 0) != 0)
@@ -1452,15 +1642,14 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Gets or sets the capacity
         /// </summary>
+        /// <value>The capacity.</value>
+        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         /// <remarks>Capacity is always in multiples of the memory manager's block size, unless
         /// the large buffer is in use.  Capacity never decreases during a stream's lifetime.
         /// Explicitly setting the capacity to a lower value than the current value will have no effect.
         /// This is because the buffers are all pooled by chunks and there's little reason to
         /// allow stream truncation.
-        ///
-        /// Writing past the current capacity will cause Capacity to automatically increase, until MaximumStreamCapacity is reached.
-        /// </remarks>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
+        /// Writing past the current capacity will cause Capacity to automatically increase, until MaximumStreamCapacity is reached.</remarks>
         public override int Capacity
         {
             get
@@ -1481,11 +1670,15 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
         }
 
+        /// <summary>
+        /// The length
+        /// </summary>
         private int length;
 
         /// <summary>
         /// Gets the number of bytes written to this stream.
         /// </summary>
+        /// <value>The length.</value>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         public override long Length
         {
@@ -1496,11 +1689,17 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
         }
 
+        /// <summary>
+        /// The position
+        /// </summary>
         private int position;
 
         /// <summary>
         /// Gets the current position in the stream
         /// </summary>
+        /// <value>The position.</value>
+        /// <exception cref="ArgumentOutOfRangeException">value, value must be non-negative</exception>
+        /// <exception cref="ArgumentOutOfRangeException">value, value must be non-negative</exception>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         public override long Position
         {
@@ -1529,21 +1728,25 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Whether the stream can currently read
         /// </summary>
+        /// <value>The can read.</value>
         public override bool CanRead => !this.Disposed;
 
         /// <summary>
         /// Whether the stream can currently seek
         /// </summary>
+        /// <value>The can seek.</value>
         public override bool CanSeek => !this.Disposed;
 
         /// <summary>
         /// Always false
         /// </summary>
+        /// <value>The can timeout.</value>
         public override bool CanTimeout => false;
 
         /// <summary>
         /// Whether the stream can currently write
         /// </summary>
+        /// <value>The can write.</value>
         public override bool CanWrite => !this.Disposed;
 
         /// <summary>
@@ -1551,9 +1754,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// The buffer may be longer than the stream length.
         /// </summary>
         /// <returns>A byte[] buffer</returns>
+        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         /// <remarks>IMPORTANT: Doing a Write() after calling GetBuffer() invalidates the buffer. The old buffer is held onto
         /// until Dispose is called, but the next time GetBuffer() is called, a new buffer from the pool will be required.</remarks>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
 #if NETSTANDARD1_4
         public byte[] GetBuffer()
 #else
@@ -1599,7 +1802,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <returns>Always returns true.</returns>
         /// <remarks>GetBuffer has no failure modes (it always returns something, even if it's an empty buffer), therefore this method
         /// always returns a valid ArraySegment to the same buffer returned by GetBuffer.</remarks>
-#if NET40 || NET48
+#if NET48
         public bool TryGetBuffer(out ArraySegment<byte> buffer)
 #else
         public override bool TryGetBuffer(out ArraySegment<byte> buffer)
@@ -1616,8 +1819,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// access the bytes in this stream. Calling ToArray will destroy the benefits of pooled buffers, but it is included
         /// for the sake of completeness.
         /// </summary>
+        /// <returns>byte[].</returns>
+        /// <exception cref="NotSupportedException">The underlying RecyclableMemoryStreamManager is configured to not allow calls to ToArray.</exception>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
-        /// <exception cref="NotSupportedException">The current RecyclableStreamManager object disallows ToArray calls.</exception>
 #pragma warning disable CS0809
         [Obsolete("This method has degraded performance vs. GetBuffer and should be avoided.")]
         public override byte[] ToArray()
@@ -1665,10 +1869,13 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <param name="count">Number of bytes to read.</param>
         /// <param name="streamPosition">Position in the stream to start reading from</param>
         /// <returns>The number of bytes read</returns>
-        /// <exception cref="ArgumentNullException">buffer is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">offset or count is less than 0</exception>
-        /// <exception cref="ArgumentException">offset subtracted from the buffer length is less than count</exception>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentOutOfRangeException">buffer is null</exception>
+        /// <exception cref="ArgumentException">offset or count is less than 0</exception>
+        /// <exception cref="ObjectDisposedException">offset subtracted from the buffer length is less than count</exception>
         public int SafeRead(byte[] buffer, int offset, int count, ref int streamPosition)
         {
             this.CheckDisposed();
@@ -1732,10 +1939,14 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <param name="buffer">Source buffer</param>
         /// <param name="offset">Start position</param>
         /// <param name="count">Number of bytes to write</param>
-        /// <exception cref="ArgumentNullException">buffer is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">offset or count is negative</exception>
-        /// <exception cref="ArgumentException">buffer.Length - offset is not less than count</exception>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
+        /// <exception cref="ArgumentOutOfRangeException">buffer is null</exception>
+        /// <exception cref="ArgumentException">offset or count is negative</exception>
+        /// <exception cref="ObjectDisposedException">buffer.Length - offset is not less than count</exception>
         public override void Write(byte[] buffer, int offset, int count)
         {
             this.CheckDisposed();
@@ -1852,6 +2063,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Returns a useful string for debugging. This should not normally be called in actual production code.
         /// </summary>
+        /// <returns>string.</returns>
         public override string ToString()
         {
             return $"Id = {this.Id}, Tag = {this.Tag}, Length = {this.Length:N0} bytes";
@@ -1861,6 +2073,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Writes a single byte to the current position in the stream.
         /// </summary>
         /// <param name="value">byte value to write</param>
+        /// <exception cref="IOException">Maximum capacity exceeded</exception>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
         public override void WriteByte(byte value)
         {
@@ -1945,8 +2158,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <summary>
         /// Sets the length of the stream
         /// </summary>
-        /// <exception cref="ArgumentOutOfRangeException">value is negative or larger than MaxStreamLength</exception>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
+        /// <param name="value">The value.</param>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(value), value must be non-negative and at most " + MaxStreamLength</exception>
+        /// <exception cref="ObjectDisposedException">value is negative or larger than MaxStreamLength</exception>
         public override void SetLength(long value)
         {
             this.CheckDisposed();
@@ -1971,10 +2185,12 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <param name="offset">How many bytes to move</param>
         /// <param name="loc">From where</param>
         /// <returns>The new position</returns>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(offset), offset cannot be larger than " + MaxStreamLength</exception>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(offset), offset cannot be larger than " + MaxStreamLength</exception>
+        /// <exception cref="ArgumentOutOfRangeException">nameof(offset), offset cannot be larger than " + MaxStreamLength</exception>
         /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
-        /// <exception cref="ArgumentOutOfRangeException">offset is larger than MaxStreamLength</exception>
-        /// <exception cref="ArgumentException">Invalid seek origin</exception>
-        /// <exception cref="IOException">Attempt to set negative position</exception>
+        /// <exception cref="ArgumentException">offset is larger than MaxStreamLength</exception>
+        /// <exception cref="IOException">Invalid seek origin</exception>
         public override long Seek(long offset, SeekOrigin loc)
         {
             this.CheckDisposed();
@@ -2010,8 +2226,8 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// Synchronously writes this stream's bytes to the argument stream.
         /// </summary>
         /// <param name="stream">Destination stream</param>
-        /// <remarks>Important: This does a synchronous write, which may not be desired in some situations</remarks>
         /// <exception cref="ArgumentNullException">stream is null</exception>
+        /// <remarks>Important: This does a synchronous write, which may not be desired in some situations</remarks>
         public override void WriteTo(Stream stream)
         {
             this.WriteTo(stream, 0, this.length);
@@ -2023,8 +2239,9 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         /// <param name="stream">Destination stream</param>
         /// <param name="offset">Offset in source</param>
         /// <param name="count">Number of bytes to write</param>
-        /// <exception cref="ArgumentNullException">stream is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">Offset is less than 0, or offset + count is beyond  this stream's length.</exception>
+        /// <exception cref="ArgumentNullException">nameof(stream)</exception>
+        /// <exception cref="ArgumentNullException">nameof(stream)</exception>
+        /// <exception cref="ArgumentOutOfRangeException">stream is null</exception>
         public void WriteTo(Stream stream, int offset, int count)
         {
             this.CheckDisposed();
@@ -2065,8 +2282,15 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         #endregion
 
         #region Helper Methods
+        /// <summary>
+        /// Sets the disposed.
+        /// </summary>
+        /// <value>The disposed.</value>
         private bool Disposed => Interlocked.Read(ref this.disposedState) != 0;
 
+        /// <summary>
+        /// Checks the disposed.
+        /// </summary>
         [MethodImpl((MethodImplOptions)256)]
         private void CheckDisposed()
         {
@@ -2076,12 +2300,24 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
         }
 
+        /// <summary>
+        /// Throws the disposed exception.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">$"The stream with Id {this.id} and Tag {this.tag} is disposed.</exception>
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void ThrowDisposedException()
         {
             throw new ObjectDisposedException($"The stream with Id {this.id} and Tag {this.tag} is disposed.");
         }
 
+        /// <summary>
+        /// Internals the read.
+        /// </summary>
+        /// <param name="buffer">The buffer.</param>
+        /// <param name="offset">The offset.</param>
+        /// <param name="count">The count.</param>
+        /// <param name="fromPosition">From position.</param>
+        /// <returns>int.</returns>
         private int InternalRead(byte[] buffer, int offset, int count, int fromPosition)
         {
             if (this.length - fromPosition <= 0)
@@ -2154,11 +2390,25 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         }
 #endif
 
+        /// <summary>
+        /// Struct BlockAndOffset
+        /// </summary>
         private struct BlockAndOffset
         {
+            /// <summary>
+            /// The block
+            /// </summary>
             public int Block;
+            /// <summary>
+            /// The offset
+            /// </summary>
             public int Offset;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="BlockAndOffset"/> struct.
+            /// </summary>
+            /// <param name="block">The block.</param>
+            /// <param name="offset">The offset.</param>
             public BlockAndOffset(int block, int offset)
             {
                 this.Block = block;
@@ -2166,6 +2416,11 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             }
         }
 
+        /// <summary>
+        /// Gets the block and relative offset.
+        /// </summary>
+        /// <param name="offset">The offset.</param>
+        /// <returns>ServiceStack.Text.RecyclableMemoryStream.BlockAndOffset.</returns>
         [MethodImpl((MethodImplOptions)256)]
         private BlockAndOffset GetBlockAndRelativeOffset(int offset)
         {
@@ -2173,6 +2428,12 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
             return new BlockAndOffset(offset / blockSize, offset % blockSize);
         }
 
+        /// <summary>
+        /// Ensures the capacity.
+        /// </summary>
+        /// <param name="newCapacity">The new capacity.</param>
+        /// <exception cref="InvalidOperationException">Requested capacity is too large: " + newCapacity + ". Limit is " +
+        ///                                                     this.memoryManager.MaximumStreamCapacity</exception>
         private void EnsureCapacity(int newCapacity)
         {
             if (newCapacity > this.memoryManager.MaximumStreamCapacity && this.memoryManager.MaximumStreamCapacity > 0)

@@ -1,4 +1,10 @@
-﻿namespace ServiceStack.OrmLite
+﻿// ***********************************************************************
+// <copyright file="SqlExpression.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+namespace ServiceStack.OrmLite
 {
     using System;
     using System.Collections;
@@ -12,44 +18,159 @@
     using System.Text.RegularExpressions;
 
     using ServiceStack.Text;
+    /// <summary>
+    /// Class SqlExpression.
+    /// Implements the <see cref="ServiceStack.OrmLite.ISqlExpression" />
+    /// Implements the <see cref="ServiceStack.OrmLite.IHasUntypedSqlExpression" />
+    /// Implements the <see cref="ServiceStack.OrmLite.IHasDialectProvider" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.OrmLite.ISqlExpression" />
+    /// <seealso cref="ServiceStack.OrmLite.IHasUntypedSqlExpression" />
+    /// <seealso cref="ServiceStack.OrmLite.IHasDialectProvider" />
     public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasDialectProvider
     {
+        /// <summary>
+        /// The true literal
+        /// </summary>
         public const string TrueLiteral = "(1=1)";
+        /// <summary>
+        /// The false literal
+        /// </summary>
         public const string FalseLiteral = "(1=0)";
 
+        /// <summary>
+        /// The underlying expression
+        /// </summary>
         private Expression<Func<T, bool>> underlyingExpression;
+        /// <summary>
+        /// The order by properties
+        /// </summary>
         private List<string> orderByProperties = new();
+        /// <summary>
+        /// The select expression
+        /// </summary>
         private string selectExpression = string.Empty;
+        /// <summary>
+        /// From expression
+        /// </summary>
         private string fromExpression;
 
+        /// <summary>
+        /// The order by
+        /// </summary>
         private string orderBy = string.Empty;
+        /// <summary>
+        /// Gets or sets the only fields.
+        /// </summary>
+        /// <value>The only fields.</value>
         public HashSet<string> OnlyFields { get; protected set; }
 
+        /// <summary>
+        /// Gets or sets the update fields.
+        /// </summary>
+        /// <value>The update fields.</value>
         public List<string> UpdateFields { get; set; }
+        /// <summary>
+        /// Gets or sets the insert fields.
+        /// </summary>
+        /// <value>The insert fields.</value>
         public List<string> InsertFields { get; set; }
 
+        /// <summary>
+        /// The model definition
+        /// </summary>
         protected ModelDefinition modelDef;
+        /// <summary>
+        /// Gets or sets the table alias.
+        /// </summary>
+        /// <value>The table alias.</value>
         public string TableAlias { get; set; }
+        /// <summary>
+        /// Gets or sets the dialect provider.
+        /// </summary>
+        /// <value>The dialect provider.</value>
         public IOrmLiteDialectProvider DialectProvider { get; set; }
+        /// <summary>
+        /// Gets or sets the parameters.
+        /// </summary>
+        /// <value>The parameters.</value>
         public List<IDbDataParameter> Params { get; set; }
+        /// <summary>
+        /// Gets or sets the SQL filter.
+        /// </summary>
+        /// <value>The SQL filter.</value>
         public Func<string, string> SqlFilter { get; set; }
+        /// <summary>
+        /// Gets or sets the select filter.
+        /// </summary>
+        /// <value>The select filter.</value>
         public static Action<SqlExpression<T>> SelectFilter { get; set; }
+        /// <summary>
+        /// Gets or sets the rows.
+        /// </summary>
+        /// <value>The rows.</value>
         public int? Rows { get; set; }
+        /// <summary>
+        /// Gets or sets the offset.
+        /// </summary>
+        /// <value>The offset.</value>
         public int? Offset { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the prefix field with table.
+        /// </summary>
+        /// <value>The name of the prefix field with table.</value>
         public bool PrefixFieldWithTableName { get; set; }
+        /// <summary>
+        /// Gets or sets the use select properties as aliases.
+        /// </summary>
+        /// <value>The use select properties as aliases.</value>
         public bool UseSelectPropertiesAsAliases { get; set; }
+        /// <summary>
+        /// Gets or sets the where statement without where string.
+        /// </summary>
+        /// <value>The where statement without where string.</value>
         public bool WhereStatementWithoutWhereString { get; set; }
 
+        /// <summary>
+        /// Gets or sets the custom select.
+        /// </summary>
+        /// <value>The custom select.</value>
         protected bool CustomSelect { get; set; }
+        /// <summary>
+        /// The use field name
+        /// </summary>
         protected bool useFieldName = false;
+        /// <summary>
+        /// The select distinct
+        /// </summary>
         protected bool selectDistinct = false;
+        /// <summary>
+        /// The visited expression is table column
+        /// </summary>
         protected bool visitedExpressionIsTableColumn = false;
+        /// <summary>
+        /// The skip parameterization for this expression
+        /// </summary>
         protected bool skipParameterizationForThisExpression = false;
+        /// <summary>
+        /// The has ensure conditions
+        /// </summary>
         private bool hasEnsureConditions = false;
+        /// <summary>
+        /// The in SQL method call
+        /// </summary>
         private bool inSqlMethodCall = false;
 
+        /// <summary>
+        /// Gets the sep.
+        /// </summary>
+        /// <value>The sep.</value>
         protected string Sep { get; private set; } = string.Empty;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SqlExpression{T}"/> class.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
         protected SqlExpression(IOrmLiteDialectProvider dialectProvider)
         {
             this.UpdateFields = new List<string>();
@@ -68,11 +189,20 @@
             initFilter?.Invoke(this.GetUntyped());
         }
 
+        /// <summary>
+        /// Clones this instance.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public SqlExpression<T> Clone()
         {
             return this.CopyTo(this.DialectProvider.SqlExpression<T>());
         }
 
+        /// <summary>
+        /// Copies to.
+        /// </summary>
+        /// <param name="to">To.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         protected virtual SqlExpression<T> CopyTo(SqlExpression<T> to)
         {
             to.modelDef = this.modelDef;
@@ -116,6 +246,8 @@
         /// <summary>
         /// Generate a unique SHA1 hash of expression with param values for caching
         /// </summary>
+        /// <param name="includeParams">The include parameters.</param>
+        /// <returns>string.</returns>
         public string ComputeHash(bool includeParams = true)
         {
             var uniqueExpr = this.Dump(includeParams);
@@ -131,8 +263,8 @@
         /// <summary>
         /// Dump internal state of this SqlExpression into a string
         /// </summary>
-        /// <param name="includeParams"></param>
-        /// <returns></returns>
+        /// <param name="includeParams">The include parameters.</param>
+        /// <returns>string.</returns>
         public string Dump(bool includeParams)
         {
             var sb = StringBuilderCache.Allocate();
@@ -209,19 +341,24 @@
         /// <summary>
         /// Clear select expression. All properties will be selected.
         /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select()
         {
             return this.Select(string.Empty);
         }
 
+        /// <summary>
+        /// Selects if distinct.
+        /// </summary>
+        /// <param name="selectExpression">The select expression.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         internal SqlExpression<T> SelectIfDistinct(string selectExpression) => this.selectDistinct ? this.SelectDistinct(selectExpression) : this.Select(selectExpression);
 
         /// <summary>
         /// set the specified selectExpression.
         /// </summary>
-        /// <param name='selectExpression'>
-        /// raw Select expression: "SomeField1, SomeField2 from SomeTable"
-        /// </param>
+        /// <param name="selectExpression">raw Select expression: "SomeField1, SomeField2 from SomeTable"</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select(string selectExpression)
         {
             selectExpression?.SqlVerifyFragment();
@@ -232,9 +369,8 @@
         /// <summary>
         /// set the specified DISTINCT selectExpression.
         /// </summary>
-        /// <param name='selectExpression'>
-        /// raw Select expression: "SomeField1, SomeField2 from SomeTable"
-        /// </param>
+        /// <param name="selectExpression">raw Select expression: "SomeField1, SomeField2 from SomeTable"</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct(string selectExpression)
         {
             selectExpression?.SqlVerifyFragment();
@@ -242,8 +378,19 @@
             return this.UnsafeSelect(selectExpression, true);
         }
 
+        /// <summary>
+        /// Unsafes the select.
+        /// </summary>
+        /// <param name="rawSelect">The raw select.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeSelect(string rawSelect) => this.UnsafeSelect(rawSelect, false);
 
+        /// <summary>
+        /// Unsafes the select.
+        /// </summary>
+        /// <param name="rawSelect">The raw select.</param>
+        /// <param name="distinct">The distinct.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeSelect(string rawSelect, bool distinct)
         {
             if (string.IsNullOrEmpty(rawSelect))
@@ -263,19 +410,23 @@
         /// <summary>
         /// Set the specified selectExpression using matching fields.
         /// </summary>
-        /// <param name='fields'>
-        /// Matching Fields: "SomeField1, SomeField2"
-        /// </param>
+        /// <param name="fields">Matching Fields: "SomeField1, SomeField2"</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select(string[] fields) => this.Select(fields, false);
 
         /// <summary>
         /// Set the specified DISTINCT selectExpression using matching fields.
         /// </summary>
-        /// <param name='fields'>
-        /// Matching Fields: "SomeField1, SomeField2"
-        /// </param>
+        /// <param name="fields">Matching Fields: "SomeField1, SomeField2"</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct(string[] fields) => this.Select(fields, true);
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        /// <param name="distinct">The distinct.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         internal virtual SqlExpression<T> Select(string[] fields, bool distinct)
         {
             if (fields == null || fields.Length == 0)
@@ -338,6 +489,12 @@
             return this;
         }
 
+        /// <summary>
+        /// Internals the select.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        /// <param name="distinct">The distinct.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> InternalSelect(Expression fields, bool distinct = false)
         {
             this.Reset(this.Sep = string.Empty);
@@ -356,145 +513,434 @@
         /// <summary>
         /// Fields to be selected.
         /// </summary>
-        /// <param name='fields'>
-        /// x=> x.SomeProperty1 or x=> new{ x.SomeProperty1, x.SomeProperty2}
-        /// </param>
+        /// <param name="fields">x=&gt; x.SomeProperty1 or x=&gt; new{ x.SomeProperty1, x.SomeProperty2}</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select(Expression<Func<T, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1>(Expression<Func<Table1, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5, Table6>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5, Table6, Table7>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <typeparam name="Table10">The type of the table10.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <typeparam name="Table10">The type of the table10.</typeparam>
+        /// <typeparam name="Table11">The type of the table11.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the specified fields.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <typeparam name="Table10">The type of the table10.</typeparam>
+        /// <typeparam name="Table11">The type of the table11.</typeparam>
+        /// <typeparam name="Table12">The type of the table12.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Select<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11, Table12>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11, Table12, object>> fields)
         {
             return this.InternalSelect(fields);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct(Expression<Func<T, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1>(Expression<Func<Table1, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5, Table6>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5, Table6, Table7>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <typeparam name="Table10">The type of the table10.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <typeparam name="Table10">The type of the table10.</typeparam>
+        /// <typeparam name="Table11">The type of the table11.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <typeparam name="Table6">The type of the table6.</typeparam>
+        /// <typeparam name="Table7">The type of the table7.</typeparam>
+        /// <typeparam name="Table8">The type of the table8.</typeparam>
+        /// <typeparam name="Table9">The type of the table9.</typeparam>
+        /// <typeparam name="Table10">The type of the table10.</typeparam>
+        /// <typeparam name="Table11">The type of the table11.</typeparam>
+        /// <typeparam name="Table12">The type of the table12.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11, Table12>(Expression<Func<Table1, Table2, Table3, Table4, Table5, Table6, Table7, Table8, Table9, Table10, Table11, Table12, object>> fields)
         {
             return this.InternalSelect(fields, true);
         }
 
+        /// <summary>
+        /// Selects the distinct.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SelectDistinct()
         {
             this.selectDistinct = true;
             return this;
         }
 
+        /// <summary>
+        /// Froms the specified tables.
+        /// </summary>
+        /// <param name="tables">The tables.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> From(string tables)
         {
             tables?.SqlVerifyFragment();
@@ -502,12 +948,21 @@
             return this.UnsafeFrom(tables);
         }
 
+        /// <summary>
+        /// Includes the table prefix.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> IncludeTablePrefix()
         {
             this.PrefixFieldWithTableName = true;
             return this;
         }
 
+        /// <summary>
+        /// Sets the table alias.
+        /// </summary>
+        /// <param name="tableAlias">The table alias.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> SetTableAlias(string tableAlias)
         {
             this.PrefixFieldWithTableName = tableAlias != null;
@@ -515,6 +970,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Unsafes from.
+        /// </summary>
+        /// <param name="rawFrom">The raw from.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeFrom(string rawFrom)
         {
             if (string.IsNullOrEmpty(rawFrom))
@@ -532,6 +992,10 @@
             return this;
         }
 
+        /// <summary>
+        /// Wheres this instance.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Where()
         {
             this.underlyingExpression = null; // Where() clears the expression
@@ -540,6 +1004,12 @@
             return this;
         }
 
+        /// <summary>
+        /// Formats the filter.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>string.</returns>
         private string FormatFilter(string sqlFilter, params object[] filterParams)
         {
             if (string.IsNullOrEmpty(sqlFilter))
@@ -572,6 +1042,11 @@
             return sqlFilter;
         }
 
+        /// <summary>
+        /// Creates the in parameter SQL.
+        /// </summary>
+        /// <param name="values">The values.</param>
+        /// <returns>string.</returns>
         private string CreateInParamSql(IEnumerable values)
         {
             var sbParams = StringBuilderCache.Allocate();
@@ -589,60 +1064,151 @@
             return sqlIn;
         }
 
+        /// <summary>
+        /// Unsafes the where.
+        /// </summary>
+        /// <param name="rawSql">The raw SQL.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeWhere(string rawSql, params object[] filterParams)
         {
             return this.AppendToWhere("AND", this.FormatFilter(rawSql, filterParams));
         }
 
+        /// <summary>
+        /// Wheres the specified SQL filter.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Where(string sqlFilter, params object[] filterParams)
         {
             return this.AppendToWhere("AND", this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams));
         }
 
+        /// <summary>
+        /// Unsafes the and.
+        /// </summary>
+        /// <param name="rawSql">The raw SQL.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeAnd(string rawSql, params object[] filterParams)
         {
             return this.AppendToWhere("AND", this.FormatFilter(rawSql, filterParams));
         }
 
+        /// <summary>
+        /// Ands the specified SQL filter.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> And(string sqlFilter, params object[] filterParams)
         {
             return this.AppendToWhere("AND", this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams));
         }
 
+        /// <summary>
+        /// Unsafes the or.
+        /// </summary>
+        /// <param name="rawSql">The raw SQL.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeOr(string rawSql, params object[] filterParams)
         {
             return this.AppendToWhere("OR", this.FormatFilter(rawSql, filterParams));
         }
 
+        /// <summary>
+        /// Ors the specified SQL filter.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Or(string sqlFilter, params object[] filterParams)
         {
             return this.AppendToWhere("OR", this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams));
         }
 
+        /// <summary>
+        /// Adds the condition.
+        /// </summary>
+        /// <param name="condition">The condition.</param>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> AddCondition(string condition, string sqlFilter, params object[] filterParams)
         {
             return this.AppendToWhere(condition, this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams));
         }
 
+        /// <summary>
+        /// Wheres the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Where(Expression<Func<T, bool>> predicate) => this.AppendToWhere("AND", predicate);
+        /// <summary>
+        /// Wheres the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Where(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("AND", predicate, filterParams);
 
+        /// <summary>
+        /// Ands the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> And(Expression<Func<T, bool>> predicate) => this.AppendToWhere("AND", predicate);
+        /// <summary>
+        /// Ands the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> And(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("AND", predicate, filterParams);
 
+        /// <summary>
+        /// Ors the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate) => this.AppendToWhere("OR", predicate);
 
+        /// <summary>
+        /// Ors the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("OR", predicate, filterParams);
 
+        /// <summary>
+        /// The original lambda
+        /// </summary>
         private LambdaExpression originalLambda;
 
-        void Reset(string sep = " ", bool useFieldName = true)
+        /// <summary>
+        /// Resets the specified sep.
+        /// </summary>
+        /// <param name="sep">The sep.</param>
+        /// <param name="useFieldName">Name of the use field.</param>
+        private void Reset(string sep = " ", bool useFieldName = true)
         {
             this.Sep = sep;
             this.useFieldName = useFieldName;
             this.originalLambda = null;
         }
 
+        /// <summary>
+        /// Appends to where.
+        /// </summary>
+        /// <param name="condition">The condition.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         protected SqlExpression<T> AppendToWhere(string condition, Expression predicate, object[] filterParams)
         {
             if (predicate == null)
@@ -655,6 +1221,12 @@
             return this.AppendToWhere(condition, formatExpr);
         }
 
+        /// <summary>
+        /// Appends to where.
+        /// </summary>
+        /// <param name="condition">The condition.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         protected SqlExpression<T> AppendToWhere(string condition, Expression predicate)
         {
             if (predicate == null)
@@ -666,6 +1238,11 @@
             return this.AppendToWhere(condition, newExpr);
         }
 
+        /// <summary>
+        /// Wheres the expression to string.
+        /// </summary>
+        /// <param name="expression">The expression.</param>
+        /// <returns>string.</returns>
         private static string WhereExpressionToString(object expression)
         {
             if (expression is bool b)
@@ -673,6 +1250,13 @@
             return expression.ToString();
         }
 
+        /// <summary>
+        /// Appends to where.
+        /// </summary>
+        /// <param name="condition">The condition.</param>
+        /// <param name="sqlExpression">The SQL expression.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+        /// <exception cref="NotSupportedException">Invalid whereExpression Expression with Ensure Conditions</exception>
         protected SqlExpression<T> AppendToWhere(string condition, string sqlExpression)
         {
             var addExpression = string.IsNullOrEmpty(this.WhereExpression)
@@ -706,13 +1290,63 @@
             return this;
         }
 
+        /// <summary>
+        /// Ensures the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Ensure(Expression<Func<T, bool>> predicate) => this.AppendToEnsure(predicate);
+        /// <summary>
+        /// Ensures the specified predicate.
+        /// </summary>
+        /// <typeparam name="Target">The type of the target.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Ensure<Target>(Expression<Func<Target, bool>> predicate) => this.AppendToEnsure(predicate);
+        /// <summary>
+        /// Ensures the specified predicate.
+        /// </summary>
+        /// <typeparam name="Source">The type of the source.</typeparam>
+        /// <typeparam name="Target">The type of the target.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Ensure<Source, Target>(Expression<Func<Source, Target, bool>> predicate) => this.AppendToEnsure(predicate);
+        /// <summary>
+        /// Ensures the specified predicate.
+        /// </summary>
+        /// <typeparam name="T1">The type of the t1.</typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Ensure<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate) => this.AppendToEnsure(predicate);
+        /// <summary>
+        /// Ensures the specified predicate.
+        /// </summary>
+        /// <typeparam name="T1">The type of the t1.</typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Ensure<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate) => this.AppendToEnsure(predicate);
+        /// <summary>
+        /// Ensures the specified predicate.
+        /// </summary>
+        /// <typeparam name="T1">The type of the t1.</typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <typeparam name="T5">The type of the t5.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Ensure<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate) => this.AppendToEnsure(predicate);
 
+        /// <summary>
+        /// Appends to ensure.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         protected SqlExpression<T> AppendToEnsure(Expression predicate)
         {
             if (predicate == null)
@@ -727,6 +1361,10 @@
         /// <summary>
         /// Add a WHERE Condition to always be applied, irrespective of other WHERE conditions
         /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
+        /// <exception cref="NotSupportedException">Invalid whereExpression Expression with Ensure Conditions</exception>
         public SqlExpression<T> Ensure(string sqlFilter, params object[] filterParams)
         {
             var condition = this.FormatFilter(sqlFilter, filterParams);
@@ -758,6 +1396,12 @@
             return this;
         }
 
+        /// <summary>
+        /// Lists the expression.
+        /// </summary>
+        /// <param name="expr">The expr.</param>
+        /// <param name="strExpr">The string expr.</param>
+        /// <returns>string.</returns>
         private string ListExpression(Expression expr, string strExpr)
         {
             if (expr is LambdaExpression lambdaExpr)
@@ -774,16 +1418,30 @@
             return strExpr;
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> GroupBy()
         {
             return this.GroupBy(string.Empty);
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <param name="groupBy">The group by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> GroupBy(string groupBy)
         {
             return this.UnsafeGroupBy(groupBy.SqlVerifyFragment());
         }
 
+        /// <summary>
+        /// Unsafes the group by.
+        /// </summary>
+        /// <param name="groupBy">The group by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeGroupBy(string groupBy)
         {
             if (!string.IsNullOrEmpty(groupBy))
@@ -791,6 +1449,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Internals the group by.
+        /// </summary>
+        /// <param name="expr">The expr.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> InternalGroupBy(Expression expr)
         {
             this.Reset(this.Sep = string.Empty);
@@ -811,36 +1474,81 @@
             return this;
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> GroupBy<Table>(Expression<Func<Table, object>> keySelector)
         {
             return this.InternalGroupBy(keySelector);
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> GroupBy<Table1, Table2>(Expression<Func<Table1, Table2, object>> keySelector)
         {
             return this.InternalGroupBy(keySelector);
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> GroupBy<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> keySelector)
         {
             return this.InternalGroupBy(keySelector);
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> GroupBy<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> keySelector)
         {
             return this.InternalGroupBy(keySelector);
         }
 
+        /// <summary>
+        /// Groups the by.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> GroupBy(Expression<Func<T, object>> keySelector)
         {
             return this.InternalGroupBy(keySelector);
         }
 
+        /// <summary>
+        /// Havings this instance.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Having()
         {
             return this.Having(string.Empty);
         }
 
+        /// <summary>
+        /// Havings the specified SQL filter.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Having(string sqlFilter, params object[] filterParams)
         {
             this.HavingExpression = this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams);
@@ -850,6 +1558,12 @@
             return this;
         }
 
+        /// <summary>
+        /// Unsafes the having.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeHaving(string sqlFilter, params object[] filterParams)
         {
             this.HavingExpression = this.FormatFilter(sqlFilter, filterParams);
@@ -859,6 +1573,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Appends the having.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         protected SqlExpression<T> AppendHaving(Expression predicate)
         {
             if (predicate != null)
@@ -873,17 +1592,62 @@
             return this;
         }
 
+        /// <summary>
+        /// Havings the specified predicate.
+        /// </summary>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Having(Expression<Func<T, bool>> predicate) => this.AppendHaving(predicate);
+        /// <summary>
+        /// Havings the specified predicate.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Having<Table>(Expression<Func<Table, bool>> predicate) => this.AppendHaving(predicate);
+        /// <summary>
+        /// Havings the specified predicate.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Having<Table1, Table2>(Expression<Func<Table1, Table2, bool>> predicate) => this.AppendHaving(predicate);
+        /// <summary>
+        /// Havings the specified predicate.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Having<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, bool>> predicate) => this.AppendHaving(predicate);
 
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy() => this.OrderBy(string.Empty);
 
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy(string orderBy) => this.UnsafeOrderBy(orderBy.SqlVerifyFragment());
 
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy(long columnIndex) => this.UnsafeOrderBy(columnIndex.ToString());
 
+        /// <summary>
+        /// Unsafes the order by.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> UnsafeOrderBy(string orderBy)
         {
             this.orderByProperties.Clear();
@@ -896,8 +1660,17 @@
             return this;
         }
 
+        /// <summary>
+        /// Orders the by random.
+        /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByRandom() => this.OrderBy(this.DialectProvider.SqlRandom);
 
+        /// <summary>
+        /// Gets the model definition.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>ServiceStack.OrmLite.ModelDefinition.</returns>
         public ModelDefinition GetModelDefinition(FieldDefinition fieldDef)
         {
             if (this.modelDef.FieldDefinitions.Any(x => x == fieldDef))
@@ -907,6 +1680,12 @@
                 .FirstOrDefault(tableDef => tableDef.FieldDefinitions.Any(x => x == fieldDef));
         }
 
+        /// <summary>
+        /// Orders the by fields.
+        /// </summary>
+        /// <param name="orderBySuffix">The order by suffix.</param>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> OrderByFields(string orderBySuffix, FieldDefinition[] fields)
         {
             this.orderByProperties.Clear();
@@ -937,16 +1716,41 @@
             return this;
         }
 
-        static class OrderBySuffix
+        /// <summary>
+        /// Class OrderBySuffix.
+        /// </summary>
+        private static class OrderBySuffix
         {
+            /// <summary>
+            /// The asc
+            /// </summary>
             public const string Asc = "";
+            /// <summary>
+            /// The desc
+            /// </summary>
             public const string Desc = " DESC";
         }
 
+        /// <summary>
+        /// Orders the by fields.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByFields(params FieldDefinition[] fields) => this.OrderByFields(OrderBySuffix.Asc, fields);
 
+        /// <summary>
+        /// Orders the by fields descending.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByFieldsDescending(params FieldDefinition[] fields) => this.OrderByFields(OrderBySuffix.Desc, fields);
 
+        /// <summary>
+        /// Orders the by fields.
+        /// </summary>
+        /// <param name="orderBySuffix">The order by suffix.</param>
+        /// <param name="fieldNames">The field names.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> OrderByFields(string orderBySuffix, string[] fieldNames)
         {
             this.orderByProperties.Clear();
@@ -985,18 +1789,78 @@
             return this;
         }
 
+        /// <summary>
+        /// Orders the by fields.
+        /// </summary>
+        /// <param name="fieldNames">The field names.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByFields(params string[] fieldNames) => this.OrderByFields(string.Empty, fieldNames);
 
+        /// <summary>
+        /// Orders the by fields descending.
+        /// </summary>
+        /// <param name="fieldNames">The field names.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByFieldsDescending(params string[] fieldNames) => this.OrderByFields(" DESC", fieldNames);
 
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy(Expression<Func<T, object>> keySelector) => this.OrderByInternal(keySelector);
 
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy<Table>(Expression<Func<Table, object>> fields) => this.OrderByInternal(fields);
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.OrderByInternal(fields);
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.OrderByInternal(fields);
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.OrderByInternal(fields);
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.OrderByInternal(fields);
 
+        /// <summary>
+        /// Orders the by internal.
+        /// </summary>
+        /// <param name="expr">The expr.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> OrderByInternal(Expression expr)
         {
             this.Reset(this.Sep = string.Empty);
@@ -1017,6 +1881,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Determines whether [is SQL class] [the specified object].
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>bool.</returns>
         public static bool IsSqlClass(object obj)
         {
             return obj != null &&
@@ -1024,6 +1893,11 @@
                     obj is SelectList);
         }
 
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenBy(string orderBy)
         {
             orderBy.SqlVerifyFragment();
@@ -1032,13 +1906,63 @@
             return this;
         }
 
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenBy(Expression<Func<T, object>> keySelector) => this.ThenByInternal(keySelector);
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenBy<Table>(Expression<Func<Table, object>> fields) => this.ThenByInternal(fields);
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenBy<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.ThenByInternal(fields);
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.ThenByInternal(fields);
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.ThenByInternal(fields);
+        /// <summary>
+        /// Thens the by.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.ThenByInternal(fields);
 
+        /// <summary>
+        /// Thens the by internal.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> ThenByInternal(Expression keySelector)
         {
             this.Reset(this.Sep = string.Empty);
@@ -1054,17 +1978,67 @@
             return this;
         }
 
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending(Expression<Func<T, object>> keySelector)
         {
             return this.OrderByDescendingInternal(keySelector);
         }
 
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending<Table>(Expression<Func<Table, object>> keySelector) => this.OrderByDescendingInternal(keySelector);
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.OrderByDescendingInternal(fields);
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.OrderByDescendingInternal(fields);
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.OrderByDescendingInternal(fields);
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.OrderByDescendingInternal(fields);
 
+        /// <summary>
+        /// Orders the by descending internal.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> OrderByDescendingInternal(Expression keySelector)
         {
             this.Reset(this.Sep = string.Empty);
@@ -1082,10 +2056,25 @@
             return this;
         }
 
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending(string orderBy) => this.UnsafeOrderByDescending(orderBy.SqlVerifyFragment());
 
+        /// <summary>
+        /// Orders the by descending.
+        /// </summary>
+        /// <param name="columnIndex">Index of the column.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> OrderByDescending(long columnIndex) => this.UnsafeOrderByDescending(columnIndex.ToString());
 
+        /// <summary>
+        /// Unsafes the order by descending.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> UnsafeOrderByDescending(string orderBy)
         {
             this.orderByProperties.Clear();
@@ -1094,6 +2083,11 @@
             return this;
         }
 
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <param name="orderBy">The order by.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenByDescending(string orderBy)
         {
             orderBy.SqlVerifyFragment();
@@ -1102,13 +2096,63 @@
             return this;
         }
 
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenByDescending(Expression<Func<T, object>> keySelector) => this.ThenByDescendingInternal(keySelector);
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <typeparam name="Table">The type of the table.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenByDescending<Table>(Expression<Func<Table, object>> fields) => this.ThenByDescendingInternal(fields);
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenByDescending<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.ThenByDescendingInternal(fields);
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.ThenByDescendingInternal(fields);
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.ThenByDescendingInternal(fields);
+        /// <summary>
+        /// Thens the by descending.
+        /// </summary>
+        /// <typeparam name="Table1">The type of the table1.</typeparam>
+        /// <typeparam name="Table2">The type of the table2.</typeparam>
+        /// <typeparam name="Table3">The type of the table3.</typeparam>
+        /// <typeparam name="Table4">The type of the table4.</typeparam>
+        /// <typeparam name="Table5">The type of the table5.</typeparam>
+        /// <param name="fields">The fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.ThenByDescendingInternal(fields);
 
+        /// <summary>
+        /// Thens the by descending internal.
+        /// </summary>
+        /// <param name="keySelector">The key selector.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         private SqlExpression<T> ThenByDescendingInternal(Expression keySelector)
         {
             this.Reset(this.Sep = string.Empty);
@@ -1125,6 +2169,9 @@
             return this;
         }
 
+        /// <summary>
+        /// Builds the order by clause internal.
+        /// </summary>
         private void BuildOrderByClauseInternal()
         {
             if (this.orderByProperties.Count > 0)
@@ -1149,6 +2196,8 @@
         /// <summary>
         /// Offset of the first row to return. The offset of the initial row is 0
         /// </summary>
+        /// <param name="skip">The skip.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Skip(int? skip = null)
         {
             this.Offset = skip;
@@ -1158,6 +2207,8 @@
         /// <summary>
         /// Number of rows returned by a SELECT statement
         /// </summary>
+        /// <param name="take">The take.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Take(int? take = null)
         {
             this.Rows = take;
@@ -1167,12 +2218,9 @@
         /// <summary>
         /// Set the specified offset and rows for SQL Limit clause.
         /// </summary>
-        /// <param name='skip'>
-        /// Offset of the first row to return. The offset of the initial row is 0
-        /// </param>
-        /// <param name='rows'>
-        /// Number of rows returned by a SELECT statement
-        /// </param>
+        /// <param name="skip">Offset of the first row to return. The offset of the initial row is 0</param>
+        /// <param name="rows">Number of rows returned by a SELECT statement</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Limit(int skip, int rows)
         {
             this.Offset = skip;
@@ -1183,12 +2231,9 @@
         /// <summary>
         /// Set the specified offset and rows for SQL Limit clause where they exist.
         /// </summary>
-        /// <param name='skip'>
-        /// Offset of the first row to return. The offset of the initial row is 0
-        /// </param>
-        /// <param name='rows'>
-        /// Number of rows returned by a SELECT statement
-        /// </param>
+        /// <param name="skip">Offset of the first row to return. The offset of the initial row is 0</param>
+        /// <param name="rows">Number of rows returned by a SELECT statement</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Limit(int? skip, int? rows)
         {
             this.Offset = skip;
@@ -1199,9 +2244,8 @@
         /// <summary>
         /// Set the specified rows for Sql Limit clause.
         /// </summary>
-        /// <param name='rows'>
-        /// Number of rows returned by a SELECT statement
-        /// </param>
+        /// <param name="rows">Number of rows returned by a SELECT statement</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Limit(int rows)
         {
             this.Offset = null;
@@ -1212,6 +2256,7 @@
         /// <summary>
         /// Clear Sql Limit clause
         /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Limit()
         {
             this.Offset = null;
@@ -1222,7 +2267,7 @@
         /// <summary>
         /// Clear Offset and Limit clauses. Alias for Limit()
         /// </summary>
-        /// <returns></returns>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> ClearLimits()
         {
             return this.Limit();
@@ -1231,9 +2276,8 @@
         /// <summary>
         /// Fields to be updated.
         /// </summary>
-        /// <param name='updatefields'>
-        /// List&lt;string&gt; containing Names of properties to be updated
-        /// </param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Update(List<string> updateFields)
         {
             this.UpdateFields = updateFields;
@@ -1243,9 +2287,8 @@
         /// <summary>
         /// Fields to be updated.
         /// </summary>
-        /// <param name='updatefields'>
-        /// IEnumerable&lt;string&gt; containing Names of properties to be updated
-        /// </param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Update(IEnumerable<string> updateFields)
         {
             this.UpdateFields = new List<string>(updateFields);
@@ -1255,9 +2298,8 @@
         /// <summary>
         /// Fields to be updated.
         /// </summary>
-        /// <param name='fields'>
-        /// x=> x.SomeProperty1 or x=> new { x.SomeProperty1, x.SomeProperty2 }
-        /// </param>
+        /// <param name="fields">x=&gt; x.SomeProperty1 or x=&gt; new { x.SomeProperty1, x.SomeProperty2 }</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Update(Expression<Func<T, object>> fields)
         {
             this.Reset(this.Sep = string.Empty, this.useFieldName = false);
@@ -1268,6 +2310,7 @@
         /// <summary>
         /// Clear UpdateFields list ( all fields will be updated)
         /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Update()
         {
             this.UpdateFields = new List<string>();
@@ -1277,12 +2320,9 @@
         /// <summary>
         /// Fields to be inserted.
         /// </summary>
-        /// <param name='fields'>
-        /// x=> x.SomeProperty1 or x=> new{ x.SomeProperty1, x.SomeProperty2}
-        /// </param>
-        /// <typeparam name='TKey'>
-        /// objectWithProperties
-        /// </typeparam>
+        /// <typeparam name="TKey">objectWithProperties</typeparam>
+        /// <param name="fields">x=&gt; x.SomeProperty1 or x=&gt; new{ x.SomeProperty1, x.SomeProperty2}</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Insert<TKey>(Expression<Func<T, TKey>> fields)
         {
             this.Reset(this.Sep = string.Empty, this.useFieldName = false);
@@ -1294,9 +2334,8 @@
         /// <summary>
         /// fields to be inserted.
         /// </summary>
-        /// <param name='insertFields'>
-        /// IList&lt;string&gt; containing Names of properties to be inserted
-        /// </param>
+        /// <param name="insertFields">IList&lt;string&gt; containing Names of properties to be inserted</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Insert(List<string> insertFields)
         {
             this.InsertFields = insertFields;
@@ -1306,28 +2345,49 @@
         /// <summary>
         /// Clear InsertFields list ( all fields will be inserted)
         /// </summary>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> Insert()
         {
             this.InsertFields = new List<string>();
             return this;
         }
 
+        /// <summary>
+        /// Withes the SQL filter.
+        /// </summary>
+        /// <param name="sqlFilter">The SQL filter.</param>
+        /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
         public virtual SqlExpression<T> WithSqlFilter(Func<string, string> sqlFilter)
         {
             this.SqlFilter = sqlFilter;
             return this;
         }
 
+        /// <summary>
+        /// SQLs the table.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>string.</returns>
         public string SqlTable(ModelDefinition modelDef)
         {
             return this.DialectProvider.GetQuotedTableName(modelDef);
         }
 
+        /// <summary>
+        /// SQLs the column.
+        /// </summary>
+        /// <param name="columnName">Name of the column.</param>
+        /// <returns>string.</returns>
         public string SqlColumn(string columnName)
         {
             return this.DialectProvider.GetQuotedColumnName(columnName);
         }
 
+        /// <summary>
+        /// Adds the parameter.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
         public virtual IDbDataParameter AddParam(object value)
         {
             var paramName = this.Params.Count.ToString();
@@ -1339,12 +2399,21 @@
             return parameter;
         }
 
+        /// <summary>
+        /// Converts to parameter.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>string.</returns>
         public string ConvertToParam(object value)
         {
             var p = this.AddParam(value);
             return p.ParameterName;
         }
 
+        /// <summary>
+        /// Copies the parameters to.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
         public virtual void CopyParamsTo(IDbCommand dbCmd)
         {
             try
@@ -1366,6 +2435,10 @@
             }
         }
 
+        /// <summary>
+        /// Converts to deleterowstatement.
+        /// </summary>
+        /// <returns>string.</returns>
         public virtual string ToDeleteRowStatement()
         {
             string sql;
@@ -1388,6 +2461,13 @@
                 : sql;
         }
 
+        /// <summary>
+        /// Prepares the update statement.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="item">The item.</param>
+        /// <param name="excludeDefaults">The exclude defaults.</param>
+        /// <exception cref="ArgumentException">$"No non-null or non-default values were provided for type: {typeof(T).Name}</exception>
         public virtual void PrepareUpdateStatement(IDbCommand dbCmd, T item, bool excludeDefaults = false)
         {
             this.CopyParamsTo(dbCmd);
@@ -1428,6 +2508,12 @@
                 : sql;
         }
 
+        /// <summary>
+        /// Prepares the update statement.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <exception cref="ArgumentException">$"No non-null or non-default values were provided for type: {typeof(T).Name}</exception>
         public virtual void PrepareUpdateStatement(IDbCommand dbCmd, Dictionary<string, object> updateFields)
         {
             this.CopyParamsTo(dbCmd);
@@ -1470,8 +2556,17 @@
                 : sql;
         }
 
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <returns>string.</returns>
         public virtual string ToSelectStatement() => ToSelectStatement(QueryType.Select);
 
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <param name="forType">For type.</param>
+        /// <returns>string.</returns>
         public virtual string ToSelectStatement(QueryType forType)
         {
             SelectFilter?.Invoke(this);
@@ -1488,6 +2583,7 @@
         /// <summary>
         /// Merge params into an encapsulated SQL Statement with embedded param values
         /// </summary>
+        /// <returns>string.</returns>
         public virtual string ToMergedParamsSelectStatement()
         {
             var sql = this.ToSelectStatement(QueryType.Select);
@@ -1495,6 +2591,10 @@
             return mergedSql;
         }
 
+        /// <summary>
+        /// Converts to countstatement.
+        /// </summary>
+        /// <returns>string.</returns>
         public virtual string ToCountStatement()
         {
             SelectFilter?.Invoke(this);
@@ -1507,6 +2607,10 @@
                 : sql;
         }
 
+        /// <summary>
+        /// Gets or sets the select expression.
+        /// </summary>
+        /// <value>The select expression.</value>
         public string SelectExpression
         {
             get
@@ -1518,6 +2622,10 @@
             set => this.selectExpression = value;
         }
 
+        /// <summary>
+        /// Gets or sets from expression.
+        /// </summary>
+        /// <value>From expression.</value>
         public string FromExpression
         {
             get => string.IsNullOrEmpty(this.fromExpression)
@@ -1526,36 +2634,69 @@
             set => this.fromExpression = value;
         }
 
+        /// <summary>
+        /// Gets the body expression.
+        /// </summary>
+        /// <value>The body expression.</value>
         public string BodyExpression =>
             this.FromExpression
             + (string.IsNullOrEmpty(this.WhereExpression) ? string.Empty : "\n" + this.WhereExpression)
             + (string.IsNullOrEmpty(this.GroupByExpression) ? string.Empty : "\n" + this.GroupByExpression)
             + (string.IsNullOrEmpty(this.HavingExpression) ? string.Empty : "\n" + this.HavingExpression);
 
+        /// <summary>
+        /// Gets or sets the where expression.
+        /// </summary>
+        /// <value>The where expression.</value>
         public string WhereExpression { get; set; }
 
+        /// <summary>
+        /// Gets or sets the group by expression.
+        /// </summary>
+        /// <value>The group by expression.</value>
         public string GroupByExpression { get; set; } = string.Empty;
 
+        /// <summary>
+        /// Gets or sets the having expression.
+        /// </summary>
+        /// <value>The having expression.</value>
         public string HavingExpression { get; set; }
 
+        /// <summary>
+        /// Gets or sets the order by expression.
+        /// </summary>
+        /// <value>The order by expression.</value>
         public string OrderByExpression
         {
             get => string.IsNullOrEmpty(this.orderBy) ? string.Empty : "\n" + this.orderBy;
             set => this.orderBy = value;
         }
 
+        /// <summary>
+        /// Gets or sets the model definition.
+        /// </summary>
+        /// <value>The model definition.</value>
         public ModelDefinition ModelDef
         {
             get => this.modelDef;
             protected set => this.modelDef = value;
         }
 
+        /// <summary>
+        /// Gets or sets the name of the use field.
+        /// </summary>
+        /// <value>The name of the use field.</value>
         protected internal bool UseFieldName
         {
             get => this.useFieldName;
             set => this.useFieldName = value;
         }
 
+        /// <summary>
+        /// Visits the specified exp.
+        /// </summary>
+        /// <param name="exp">The exp.</param>
+        /// <returns>object.</returns>
         public virtual object Visit(Expression exp)
         {
             this.visitedExpressionIsTableColumn = false;
@@ -1625,6 +2766,11 @@
             }
         }
 
+        /// <summary>
+        /// Visits the join.
+        /// </summary>
+        /// <param name="exp">The exp.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitJoin(Expression exp)
         {
             this.skipParameterizationForThisExpression = true;
@@ -1633,6 +2779,11 @@
             return visitedExpression;
         }
 
+        /// <summary>
+        /// Visits the lambda.
+        /// </summary>
+        /// <param name="lambda">The lambda.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitLambda(LambdaExpression lambda)
         {
             if (this.originalLambda == null) this.originalLambda = lambda;
@@ -1668,6 +2819,12 @@
             return this.Visit(lambda.Body);
         }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>object.</returns>
         public virtual object GetValue(object value, Type type)
         {
             if (this.skipParameterizationForThisExpression)
@@ -1677,6 +2834,11 @@
             return paramValue ?? "null";
         }
 
+        /// <summary>
+        /// Visits the binary.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitBinary(BinaryExpression b)
         {
             object originalLeft = null, originalRight = null, left, right;
@@ -1829,6 +2991,13 @@
             }
         }
 
+        /// <summary>
+        /// Pres the evaluate binary.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>System.Linq.Expressions.BinaryExpression.</returns>
         private BinaryExpression PreEvaluateBinary(BinaryExpression b, object left, object right)
         {
             var visitedBinaryExp = b;
@@ -1849,6 +3018,7 @@
         /// <summary>
         /// Determines whether the expression is the parameter inside MemberExpression which should be compared with TrueExpression.
         /// </summary>
+        /// <param name="e">The e.</param>
         /// <returns>Returns true if the specified expression is the parameter inside MemberExpression which should be compared with TrueExpression;
         /// otherwise, false.</returns>
         protected virtual bool IsBooleanComparison(Expression e)
@@ -1866,6 +3036,7 @@
         /// <summary>
         /// Determines whether the expression is the parameter.
         /// </summary>
+        /// <param name="e">The e.</param>
         /// <returns>Returns true if the specified expression is parameter;
         /// otherwise, false.</returns>
         protected virtual bool IsParameterAccess(Expression e)
@@ -1876,6 +3047,7 @@
         /// <summary>
         /// Determines whether the expression is a Parameter or Convert Expression.
         /// </summary>
+        /// <param name="e">The e.</param>
         /// <returns>Returns true if the specified expression is parameter or convert;
         /// otherwise, false.</returns>
         protected virtual bool IsParameterOrConvertAccess(Expression e)
@@ -1887,11 +3059,19 @@
         /// Check whether the expression is a constant expression to determine
         /// whether we should use the expression value instead of Column Name
         /// </summary>
+        /// <param name="e">The e.</param>
+        /// <returns>bool.</returns>
         protected virtual bool IsConstantExpression(Expression e)
         {
             return this.CheckExpressionForTypes(e, new[] { ExpressionType.Constant });
         }
 
+        /// <summary>
+        /// Checks the expression for types.
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <param name="types">The types.</param>
+        /// <returns>bool.</returns>
         protected bool CheckExpressionForTypes(Expression e, ExpressionType[] types)
         {
             while (e != null)
@@ -1950,6 +3130,11 @@
             return false;
         }
 
+        /// <summary>
+        /// Swaps the specified left.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
         private static void Swap(ref object left, ref object right)
         {
             var temp = right;
@@ -1957,6 +3142,14 @@
             left = temp;
         }
 
+        /// <summary>
+        /// Visits the filter.
+        /// </summary>
+        /// <param name="operand">The operand.</param>
+        /// <param name="originalLeft">The original left.</param>
+        /// <param name="originalRight">The original right.</param>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
         protected virtual void VisitFilter(string operand, object originalLeft, object originalRight, ref object left, ref object right)
         {
             if (this.skipParameterizationForThisExpression || this.visitedExpressionIsTableColumn)
@@ -1974,6 +3167,10 @@
             }
         }
 
+        /// <summary>
+        /// Converts to placeholder and parameter.
+        /// </summary>
+        /// <param name="right">The right.</param>
         protected virtual void ConvertToPlaceholderAndParameter(ref object right)
         {
             var parameter = this.AddParam(right);
@@ -1981,6 +3178,11 @@
             right = parameter.ParameterName;
         }
 
+        /// <summary>
+        /// Visits the member access.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitMemberAccess(MemberExpression m)
         {
             if (m.Expression != null)
@@ -2015,6 +3217,11 @@
             return CachedExpressionCompiler.Evaluate(m);
         }
 
+        /// <summary>
+        /// Gets the member expression.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
         protected virtual object GetMemberExpression(MemberExpression m)
         {
             var propertyInfo = m.Member as PropertyInfo;
@@ -2043,6 +3250,11 @@
             return new PartialSqlString(columnName);
         }
 
+        /// <summary>
+        /// Gets the table alias.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>string.</returns>
         protected virtual string GetTableAlias(MemberExpression m)
         {
             if (this.originalLambda == null)
@@ -2069,17 +3281,31 @@
             return null;
         }
 
+        /// <summary>
+        /// Called when [visit member type].
+        /// </summary>
+        /// <param name="modelType">Type of the model.</param>
         protected virtual void OnVisitMemberType(Type modelType)
         {
             var tableDef = modelType.GetModelDefinition();
             if (tableDef != null) this.visitedExpressionIsTableColumn = true;
         }
 
+        /// <summary>
+        /// Visits the member initialize.
+        /// </summary>
+        /// <param name="exp">The exp.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitMemberInit(MemberInitExpression exp)
         {
             return CachedExpressionCompiler.Evaluate(exp);
         }
 
+        /// <summary>
+        /// Visits the new.
+        /// </summary>
+        /// <param name="nex">The nex.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitNew(NewExpression nex)
         {
             var isAnonType = nex.Type.Name.StartsWith("<>");
@@ -2098,16 +3324,26 @@
             return CachedExpressionCompiler.Evaluate(nex);
         }
 
-        bool IsLambdaArg(Expression expr)
+        /// <summary>
+        /// Determines whether [is lambda argument] [the specified expr].
+        /// </summary>
+        /// <param name="expr">The expr.</param>
+        /// <returns>bool.</returns>
+        private bool IsLambdaArg(Expression expr)
         {
-            if (expr is ParameterExpression pe)
-                return this.IsLambdaArg(pe.Name);
-            if (expr is UnaryExpression ue && ue.Operand is ParameterExpression uepe)
-                return this.IsLambdaArg(uepe.Name);
-            return false;
+            return expr switch {
+                ParameterExpression pe => this.IsLambdaArg(pe.Name),
+                UnaryExpression ue when ue.Operand is ParameterExpression uepe => this.IsLambdaArg(uepe.Name),
+                _ => false
+            };
         }
 
-        bool IsLambdaArg(string name)
+        /// <summary>
+        /// Determines whether [is lambda argument] [the specified name].
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>bool.</returns>
+        private bool IsLambdaArg(string name)
         {
             var args = this.originalLambda?.Parameters;
             if (args != null)
@@ -2122,6 +3358,13 @@
             return false;
         }
 
+        /// <summary>
+        /// Sets the anon type property names for select expression.
+        /// </summary>
+        /// <param name="expr">The expr.</param>
+        /// <param name="arg">The argument.</param>
+        /// <param name="member">The member.</param>
+        /// <returns>object.</returns>
         private object SetAnonTypePropertyNamesForSelectExpression(object expr, Expression arg, MemberInfo member)
         {
             // When selecting a column use the anon type property name, rather than the table property name, as the returned column name
@@ -2208,6 +3451,10 @@
                 : expr;
         }
 
+        /// <summary>
+        /// Strips the aliases.
+        /// </summary>
+        /// <param name="selectList">The select list.</param>
         private static void StripAliases(SelectList selectList)
         {
             if (selectList == null)
@@ -2233,21 +3480,40 @@
             }
         }
 
+        /// <summary>
+        /// Class SelectList.
+        /// </summary>
         private class SelectList
         {
+            /// <summary>
+            /// The items
+            /// </summary>
             public readonly IEnumerable<object> Items;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="SqlExpression{T}.SelectList"/> class.
+            /// </summary>
+            /// <param name="items">The items.</param>
             public SelectList(IEnumerable<object> items)
             {
                 this.Items = items;
             }
 
+            /// <summary>
+            /// Converts to string.
+            /// </summary>
+            /// <returns>string.</returns>
             public override string ToString()
             {
                 return this.Items.ToSelectString();
             }
         }
 
+        /// <summary>
+        /// Visits the parameter.
+        /// </summary>
+        /// <param name="p">The p.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitParameter(ParameterExpression p)
         {
             var paramModelDef = p.Type.GetModelDefinition();
@@ -2262,6 +3528,11 @@
             return p.Name;
         }
 
+        /// <summary>
+        /// Visits the constant.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitConstant(ConstantExpression c)
         {
             if (c.Value == null)
@@ -2270,6 +3541,11 @@
             return c.Value;
         }
 
+        /// <summary>
+        /// Visits the unary.
+        /// </summary>
+        /// <param name="u">The u.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitUnary(UnaryExpression u)
         {
             switch (u.NodeType)
@@ -2292,6 +3568,12 @@
             return this.Visit(u.Operand);
         }
 
+        /// <summary>
+        /// Visits the index expression.
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <returns>object.</returns>
+        /// <exception cref="NotImplementedException">Unknown Expression: " + e</exception>
         protected virtual object VisitIndexExpression(IndexExpression e)
         {
             var arg = e.Arguments[0];
@@ -2308,15 +3590,20 @@
             throw new NotImplementedException("Unknown Expression: " + e);
         }
 
+        /// <summary>
+        /// Visits the conditional.
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitConditional(ConditionalExpression e)
         {
             var test = this.IsBooleanComparison(e.Test)
                 ? new PartialSqlString($"{this.VisitMemberAccess((MemberExpression)e.Test)}={this.GetQuotedTrueValue()}")
                 : this.Visit(e.Test);
 
-            if (test is bool)
+            if (test is bool b)
             {
-                if ((bool)test)
+                if (b)
                 {
                     var ifTrue = this.Visit(e.IfTrue);
                     if (!IsSqlClass(ifTrue))
@@ -2389,6 +3676,11 @@
             }
         }
 
+        /// <summary>
+        /// Gets the not value.
+        /// </summary>
+        /// <param name="o">The o.</param>
+        /// <returns>object.</returns>
         private object GetNotValue(object o)
         {
             if (!(o is PartialSqlString))
@@ -2400,6 +3692,11 @@
             return new PartialSqlString("NOT (" + o + ")");
         }
 
+        /// <summary>
+        /// Determines whether [is column access] [the specified m].
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>bool.</returns>
         protected virtual bool IsColumnAccess(MethodCallExpression m)
         {
             if (m.Object == null)
@@ -2430,6 +3727,11 @@
         }
 
 
+        /// <summary>
+        /// Visits the method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitMethodCall(MethodCallExpression m)
         {
             if (m.Method.DeclaringType == typeof(Sql))
@@ -2456,6 +3758,11 @@
             return this.EvaluateExpression(m);
         }
 
+        /// <summary>
+        /// Evaluates the expression.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
         private object EvaluateExpression(Expression m)
         {
             try
@@ -2483,6 +3790,11 @@
             }
         }
 
+        /// <summary>
+        /// Visits the expression list.
+        /// </summary>
+        /// <param name="original">The original.</param>
+        /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
         protected virtual List<object> VisitExpressionList(ReadOnlyCollection<Expression> original)
         {
             var list = new List<object>();
@@ -2503,6 +3815,11 @@
             return list;
         }
 
+        /// <summary>
+        /// Visits the in SQL expression list.
+        /// </summary>
+        /// <param name="original">The original.</param>
+        /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
         protected virtual List<object> VisitInSqlExpressionList(ReadOnlyCollection<Expression> original)
         {
             var list = new List<object>();
@@ -2527,6 +3844,11 @@
             return list;
         }
 
+        /// <summary>
+        /// Visits the new array.
+        /// </summary>
+        /// <param name="na">The na.</param>
+        /// <returns>object.</returns>
         protected virtual object VisitNewArray(NewArrayExpression na)
         {
             var exprs = this.VisitExpressionList(na.Expressions);
@@ -2539,12 +3861,22 @@
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Visits the new array from expression list.
+        /// </summary>
+        /// <param name="na">The na.</param>
+        /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
         protected virtual List<object> VisitNewArrayFromExpressionList(NewArrayExpression na)
         {
             var exprs = this.VisitExpressionList(na.Expressions);
             return exprs;
         }
 
+        /// <summary>
+        /// Binds the operant.
+        /// </summary>
+        /// <param name="e">The e.</param>
+        /// <returns>string.</returns>
         protected virtual string BindOperant(ExpressionType e)
         {
             switch (e)
@@ -2592,9 +3924,22 @@
             }
         }
 
+        /// <summary>
+        /// Gets the name of the quoted column.
+        /// </summary>
+        /// <param name="tableDef">The table definition.</param>
+        /// <param name="memberName">Name of the member.</param>
+        /// <returns>string.</returns>
         protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string memberName) => // Always call if no tableAlias to exec overrides
             this.GetQuotedColumnName(tableDef, null, memberName);
 
+        /// <summary>
+        /// Gets the name of the quoted column.
+        /// </summary>
+        /// <param name="tableDef">The table definition.</param>
+        /// <param name="tableAlias">The table alias.</param>
+        /// <param name="memberName">Name of the member.</param>
+        /// <returns>string.</returns>
         protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string tableAlias, string memberName)
         {
             if (this.useFieldName)
@@ -2623,6 +3968,11 @@
             return memberName;
         }
 
+        /// <summary>
+        /// Removes the quote from alias.
+        /// </summary>
+        /// <param name="exp">The exp.</param>
+        /// <returns>string.</returns>
         protected string RemoveQuoteFromAlias(string exp)
         {
             if ((exp.StartsWith("\"") || exp.StartsWith("`") || exp.StartsWith("'"))
@@ -2636,6 +3986,11 @@
             return exp;
         }
 
+        /// <summary>
+        /// Determines whether [is field name] [the specified quoted exp].
+        /// </summary>
+        /// <param name="quotedExp">The quoted exp.</param>
+        /// <returns>bool.</returns>
         protected virtual bool IsFieldName(object quotedExp)
         {
             var fieldExpr = quotedExp.ToString().StripTablePrefixes();
@@ -2652,33 +4007,65 @@
             return isJoinedField;
         }
 
+        /// <summary>
+        /// Gets the name of the column.
+        /// </summary>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>string.</returns>
         protected string GetColumnName(string fieldName)
         {
             return this.DialectProvider.NamingStrategy.GetColumnName(fieldName);
         }
 
+        /// <summary>
+        /// Gets the true expression.
+        /// </summary>
+        /// <returns>object.</returns>
         protected object GetTrueExpression()
         {
             return new PartialSqlString($"({this.GetQuotedTrueValue()}={this.GetQuotedTrueValue()})");
         }
 
+        /// <summary>
+        /// Gets the false expression.
+        /// </summary>
+        /// <returns>object.</returns>
         protected object GetFalseExpression()
         {
             return new PartialSqlString($"({this.GetQuotedTrueValue()}={this.GetQuotedFalseValue()})");
         }
 
+        /// <summary>
+        /// The quoted true
+        /// </summary>
         private string quotedTrue;
+        /// <summary>
+        /// Gets the quoted true value.
+        /// </summary>
+        /// <returns>object.</returns>
         protected object GetQuotedTrueValue()
         {
             return new PartialSqlString(this.quotedTrue ??= this.DialectProvider.GetQuotedValue(true, typeof(bool)));
         }
 
+        /// <summary>
+        /// The quoted false
+        /// </summary>
         private string quotedFalse;
+        /// <summary>
+        /// Gets the quoted false value.
+        /// </summary>
+        /// <returns>object.</returns>
         protected object GetQuotedFalseValue()
         {
             return new PartialSqlString(this.quotedFalse ??= this.DialectProvider.GetQuotedValue(false, typeof(bool)));
         }
 
+        /// <summary>
+        /// Builds the select expression.
+        /// </summary>
+        /// <param name="fields">The fields.</param>
+        /// <param name="distinct">The distinct.</param>
         private void BuildSelectExpression(string fields, bool distinct)
         {
             this.OnlyFields = null;
@@ -2690,11 +4077,20 @@
                                         : fields);
         }
 
+        /// <summary>
+        /// Gets all fields.
+        /// </summary>
+        /// <returns>System.Collections.Generic.IList&lt;string&gt;.</returns>
         public IList<string> GetAllFields()
         {
             return this.modelDef.FieldDefinitions.ConvertAll(r => r.Name);
         }
 
+        /// <summary>
+        /// Determines whether [is static array method] [the specified m].
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>bool.</returns>
         protected virtual bool IsStaticArrayMethod(MethodCallExpression m)
         {
             return m.Object == null
@@ -2702,6 +4098,12 @@
                    && m.Arguments.Count == 2;
         }
 
+        /// <summary>
+        /// Visits the static array method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
+        /// <exception cref="NotSupportedException"></exception>
         protected virtual object VisitStaticArrayMethodCall(MethodCallExpression m)
         {
             switch (m.Method.Name)
@@ -2721,6 +4123,11 @@
             }
         }
 
+        /// <summary>
+        /// Determines whether [is enumerable method] [the specified m].
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>bool.</returns>
         private static bool IsEnumerableMethod(MethodCallExpression m)
         {
             return m.Object != null
@@ -2730,6 +4137,12 @@
                 && m.Arguments.Count == 1;
         }
 
+        /// <summary>
+        /// Visits the enumerable method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
+        /// <exception cref="NotSupportedException"></exception>
         protected virtual object VisitEnumerableMethodCall(MethodCallExpression m)
         {
             switch (m.Method.Name)
@@ -2744,6 +4157,12 @@
             }
         }
 
+        /// <summary>
+        /// Converts to inpartialstring.
+        /// </summary>
+        /// <param name="memberExpr">The member expr.</param>
+        /// <param name="quotedColName">Name of the quoted col.</param>
+        /// <returns>object.</returns>
         private object ToInPartialString(Expression memberExpr, object quotedColName)
         {
             var result = this.EvaluateExpression(memberExpr);
@@ -2758,12 +4177,23 @@
             return new PartialSqlString(statement);
         }
 
+        /// <summary>
+        /// Determines whether [is static string method] [the specified m].
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>bool.</returns>
         protected virtual bool IsStaticStringMethod(MethodCallExpression m)
         {
             return m.Object == null
                    && (m.Method.Name == nameof(string.Concat) || m.Method.Name == nameof(string.Compare));
         }
 
+        /// <summary>
+        /// Visits the static string method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
+        /// <exception cref="NotSupportedException"></exception>
         protected virtual object VisitStaticStringMethodCall(MethodCallExpression m)
         {
             switch (m.Method.Name)
@@ -2778,6 +4208,11 @@
             }
         }
 
+        /// <summary>
+        /// Visits the length string property.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
         private object VisitLengthStringProperty(MemberExpression m)
         {
             var sql = this.Visit(m.Expression);
@@ -2793,11 +4228,21 @@
             return this.ToLengthPartialString(sql);
         }
 
+        /// <summary>
+        /// Converts to lengthpartialstring.
+        /// </summary>
+        /// <param name="arg">The argument.</param>
+        /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
         protected virtual PartialSqlString ToLengthPartialString(object arg)
         {
             return new PartialSqlString($"CHAR_LENGTH({arg})");
         }
 
+        /// <summary>
+        /// Builds the concat expression.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
         private PartialSqlString BuildConcatExpression(List<object> args)
         {
             for (int i = 0; i < args.Count; i++)
@@ -2809,6 +4254,11 @@
             return this.ToConcatPartialString(args);
         }
 
+        /// <summary>
+        /// Builds the compare expression.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
         private PartialSqlString BuildCompareExpression(List<object> args)
         {
             for (int i = 0; i < args.Count; i++)
@@ -2820,16 +4270,32 @@
             return this.ToComparePartialString(args);
         }
 
+        /// <summary>
+        /// Converts to concatpartialstring.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
         protected PartialSqlString ToConcatPartialString(List<object> args)
         {
             return new PartialSqlString(this.DialectProvider.SqlConcat(args));
         }
 
+        /// <summary>
+        /// Converts to comparepartialstring.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
         protected virtual PartialSqlString ToComparePartialString(List<object> args)
         {
             return new PartialSqlString($"(CASE WHEN {args[0]} = {args[1]} THEN 0 WHEN {args[0]} > {args[1]} THEN 1 ELSE -1 END)");
         }
 
+        /// <summary>
+        /// Visits the SQL method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
+        /// <exception cref="SelectList">this.DialectProvider.GetColumnNames(paramModelDef, alias)</exception>
         protected virtual object VisitSqlMethodCall(MethodCallExpression m)
         {
             List<object> args = this.VisitInSqlExpressionList(m.Arguments);
@@ -2893,6 +4359,12 @@
             return new PartialSqlString(statement);
         }
 
+        /// <summary>
+        /// Converts the in expression to SQL.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <param name="quotedColName">Name of the quoted col.</param>
+        /// <returns>string.</returns>
         protected string ConvertInExpressionToSql(MethodCallExpression m, object quotedColName)
         {
             var argValue = this.EvaluateExpression(m.Arguments[1]);
@@ -2949,11 +4421,23 @@
             throw new NotSupportedException($"In({argValue.GetType()})");
         }
 
+        /// <summary>
+        /// Creates the in sub query SQL.
+        /// </summary>
+        /// <param name="quotedColName">Name of the quoted col.</param>
+        /// <param name="subSelect">The sub select.</param>
+        /// <returns>string.</returns>
         protected virtual string CreateInSubQuerySql(object quotedColName, string subSelect)
         {
             return $"{quotedColName} IN ({subSelect})";
         }
 
+        /// <summary>
+        /// Visits the column access method.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>object.</returns>
+        /// <exception cref="NotSupportedException"></exception>
         protected virtual object VisitColumnAccessMethod(MethodCallExpression m)
         {
             List<object> args = this.VisitExpressionList(m.Arguments);
@@ -2961,7 +4445,7 @@
             if (!IsSqlClass(quotedColName))
                 quotedColName = this.ConvertToParam(quotedColName);
 
-            var statement = string.Empty;
+            string statement;
 
             var arg = args.Count > 0 ? args[0] : null;
             var wildcardArg = arg != null ? this.DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
@@ -3024,11 +4508,23 @@
             return new PartialSqlString(statement);
         }
 
+        /// <summary>
+        /// Converts to cast.
+        /// </summary>
+        /// <param name="quotedColName">Name of the quoted col.</param>
+        /// <returns>string.</returns>
         protected virtual string ToCast(string quotedColName)
         {
             return $"cast({quotedColName} as varchar(1000))";
         }
 
+        /// <summary>
+        /// Gets the substring SQL.
+        /// </summary>
+        /// <param name="quotedColumn">The quoted column.</param>
+        /// <param name="startIndex">The start index.</param>
+        /// <param name="length">The length.</param>
+        /// <returns>string.</returns>
         public virtual string GetSubstringSql(object quotedColumn, int startIndex, int? length = null)
         {
             return length != null
@@ -3036,6 +4532,15 @@
                 : $"substring({quotedColumn} from {startIndex})";
         }
 
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="direction">The direction.</param>
+        /// <param name="dbType">Type of the database.</param>
+        /// <param name="sourceVersion">The source version.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
         public IDbDataParameter CreateParam(string name,
             object value = null,
             ParameterDirection direction = ParameterDirection.Input,
@@ -3057,60 +4562,153 @@
             return p;
         }
 
+        /// <summary>
+        /// Gets the untyped.
+        /// </summary>
+        /// <returns>IUntypedSqlExpression.</returns>
         public IUntypedSqlExpression GetUntyped()
         {
             return new UntypedSqlExpressionProxy<T>(this);
         }
     }
 
+    /// <summary>
+    /// Interface ISqlExpression
+    /// </summary>
     public interface ISqlExpression
     {
+        /// <summary>
+        /// Gets the parameters.
+        /// </summary>
+        /// <value>The parameters.</value>
         List<IDbDataParameter> Params { get; }
 
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <returns>string.</returns>
         string ToSelectStatement();
+        /// <summary>
+        /// Converts to selectstatement.
+        /// </summary>
+        /// <param name="forType">For type.</param>
+        /// <returns>string.</returns>
         string ToSelectStatement(QueryType forType);
+        /// <summary>
+        /// Selects the into.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the t model.</typeparam>
+        /// <returns>string.</returns>
         string SelectInto<TModel>();
+        /// <summary>
+        /// Selects the into.
+        /// </summary>
+        /// <typeparam name="TModel">The type of the t model.</typeparam>
+        /// <param name="forType">For type.</param>
+        /// <returns>string.</returns>
         string SelectInto<TModel>(QueryType forType);
     }
 
+    /// <summary>
+    /// Enum QueryType
+    /// </summary>
     public enum QueryType
     {
+        /// <summary>
+        /// The select
+        /// </summary>
         Select,
+        /// <summary>
+        /// The single
+        /// </summary>
         Single,
+        /// <summary>
+        /// The scalar
+        /// </summary>
         Scalar,
     }
 
+    /// <summary>
+    /// Interface IHasDialectProvider
+    /// </summary>
     public interface IHasDialectProvider
     {
+        /// <summary>
+        /// Gets the dialect provider.
+        /// </summary>
+        /// <value>The dialect provider.</value>
         IOrmLiteDialectProvider DialectProvider { get; }
     }
 
+    /// <summary>
+    /// Class PartialSqlString.
+    /// </summary>
     public class PartialSqlString
     {
+        /// <summary>
+        /// The null
+        /// </summary>
         public static PartialSqlString Null = new("null");
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PartialSqlString"/> class.
+        /// </summary>
+        /// <param name="text">The text.</param>
         public PartialSqlString(string text)
         {
             this.Text = text;
         }
 
+        /// <summary>
+        /// Gets the text.
+        /// </summary>
+        /// <value>The text.</value>
         public string Text { get; internal set; }
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>string.</returns>
         public override string ToString() => this.Text;
 
+        /// <summary>
+        /// Equalses the specified other.
+        /// </summary>
+        /// <param name="other">The other.</param>
+        /// <returns>bool.</returns>
         protected bool Equals(PartialSqlString other) => this.Text == other.Text;
+        /// <summary>
+        /// Equalses the specified object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns>bool.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
             return this.Equals((PartialSqlString)obj);
         }
 
+        /// <summary>
+        /// Gets the hash code.
+        /// </summary>
+        /// <returns>int.</returns>
         public override int GetHashCode() => this.Text != null ? this.Text.GetHashCode() : 0;
     }
 
+    /// <summary>
+    /// Class EnumMemberAccess.
+    /// Implements the <see cref="ServiceStack.OrmLite.PartialSqlString" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.OrmLite.PartialSqlString" />
     public class EnumMemberAccess : PartialSqlString
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EnumMemberAccess"/> class.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="enumType">Type of the enum.</param>
+        /// <exception cref="ArgumentException">Type not valid, nameof(enumType)</exception>
         public EnumMemberAccess(string text, Type enumType)
             : base(text)
         {
@@ -3119,11 +4717,23 @@
             this.EnumType = enumType;
         }
 
+        /// <summary>
+        /// Gets the type of the enum.
+        /// </summary>
+        /// <value>The type of the enum.</value>
         public Type EnumType { get; private set; }
     }
 
+    /// <summary>
+    /// Class SelectItem.
+    /// </summary>
     public abstract class SelectItem
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectItem"/> class.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="alias">The alias.</param>
         protected SelectItem(IOrmLiteDialectProvider dialectProvider, string alias)
         {
             this.DialectProvider = dialectProvider ?? throw new ArgumentNullException(nameof(dialectProvider));
@@ -3134,15 +4744,37 @@
         /// <summary>
         /// Unquoted alias for the column or expression being selected.
         /// </summary>
+        /// <value>The alias.</value>
         public string Alias { get; set; }
 
+        /// <summary>
+        /// Gets or sets the dialect provider.
+        /// </summary>
+        /// <value>The dialect provider.</value>
         protected IOrmLiteDialectProvider DialectProvider { get; set; }
 
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>string.</returns>
         public abstract override string ToString();
     }
 
+    /// <summary>
+    /// Class SelectItemExpression.
+    /// Implements the <see cref="ServiceStack.OrmLite.SelectItem" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.OrmLite.SelectItem" />
     public class SelectItemExpression : SelectItem
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectItemExpression"/> class.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="selectExpression">The select expression.</param>
+        /// <param name="alias">The alias.</param>
+        /// <exception cref="ArgumentNullException">nameof(selectExpression)</exception>
+        /// <exception cref="ArgumentNullException">nameof(selectExpression)</exception>
         public SelectItemExpression(IOrmLiteDialectProvider dialectProvider, string selectExpression, string alias)
             : base(dialectProvider, alias)
         {
@@ -3158,8 +4790,13 @@
         /// <summary>
         /// The SQL expression being selected, including any necessary quoting.
         /// </summary>
+        /// <value>The select expression.</value>
         public string SelectExpression { get; set; }
 
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>string.</returns>
         public override string ToString()
         {
             var text = this.SelectExpression;
@@ -3170,8 +4807,21 @@
         }
     }
 
+    /// <summary>
+    /// Class SelectItemColumn.
+    /// Implements the <see cref="ServiceStack.OrmLite.SelectItem" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.OrmLite.SelectItem" />
     public class SelectItemColumn : SelectItem
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectItemColumn"/> class.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="columnName">Name of the column.</param>
+        /// <param name="columnAlias">The column alias.</param>
+        /// <param name="quotedTableAlias">The quoted table alias.</param>
+        /// <exception cref="ArgumentNullException">nameof(columnName)</exception>
         public SelectItemColumn(IOrmLiteDialectProvider dialectProvider, string columnName, string columnAlias = null, string quotedTableAlias = null)
             : base(dialectProvider, columnAlias)
         {
@@ -3185,13 +4835,19 @@
         /// <summary>
         /// Unquoted column name being selected.
         /// </summary>
+        /// <value>The name of the column.</value>
         public string ColumnName { get; set; }
 
         /// <summary>
         /// Table name or alias used to prefix the column name, if any. Already quoted.
         /// </summary>
+        /// <value>The quoted table alias.</value>
         public string QuotedTableAlias { get; set; }
 
+        /// <summary>
+        /// Converts to string.
+        /// </summary>
+        /// <returns>string.</returns>
         public override string ToString()
         {
             var text = this.DialectProvider.GetQuotedColumnName(this.ColumnName);
@@ -3205,22 +4861,82 @@
         }
     }
 
+    /// <summary>
+    /// Class OrmLiteDataParameter.
+    /// Implements the <see cref="System.Data.IDbDataParameter" />
+    /// </summary>
+    /// <seealso cref="System.Data.IDbDataParameter" />
     public class OrmLiteDataParameter : IDbDataParameter
     {
+        /// <summary>
+        /// Gets or sets the type of the database.
+        /// </summary>
+        /// <value>The type of the database.</value>
         public DbType DbType { get; set; }
+        /// <summary>
+        /// Gets or sets the direction.
+        /// </summary>
+        /// <value>The direction.</value>
         public ParameterDirection Direction { get; set; }
+        /// <summary>
+        /// Gets or sets the is nullable.
+        /// </summary>
+        /// <value>The is nullable.</value>
         public bool IsNullable { get; set; }
+        /// <summary>
+        /// Gets or sets the name of the parameter.
+        /// </summary>
+        /// <value>The name of the parameter.</value>
         public string ParameterName { get; set; }
+        /// <summary>
+        /// Gets or sets the source column.
+        /// </summary>
+        /// <value>The source column.</value>
         public string SourceColumn { get; set; }
+        /// <summary>
+        /// Gets or sets the source version.
+        /// </summary>
+        /// <value>The source version.</value>
         public DataRowVersion SourceVersion { get; set; }
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>The value.</value>
         public object Value { get; set; }
+        /// <summary>
+        /// Gets or sets the precision.
+        /// </summary>
+        /// <value>The precision.</value>
         public byte Precision { get; set; }
+        /// <summary>
+        /// Gets or sets the scale.
+        /// </summary>
+        /// <value>The scale.</value>
         public byte Scale { get; set; }
+        /// <summary>
+        /// Gets or sets the size.
+        /// </summary>
+        /// <value>The size.</value>
         public int Size { get; set; }
     }
 
+    /// <summary>
+    /// Class DbDataParameterExtensions.
+    /// </summary>
     public static class DbDataParameterExtensions
     {
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <param name="dbType">Type of the database.</param>
+        /// <param name="precision">The precision.</param>
+        /// <param name="scale">The scale.</param>
+        /// <param name="size">The size.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
         public static IDbDataParameter CreateParam(this IDbConnection db,
             string name,
             object value = null,
@@ -3233,6 +4949,18 @@
             return db.GetDialectProvider().CreateParam(name, value, fieldType, dbType, precision, scale, size);
         }
 
+        /// <summary>
+        /// Creates the parameter.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldType">Type of the field.</param>
+        /// <param name="dbType">Type of the database.</param>
+        /// <param name="precision">The precision.</param>
+        /// <param name="scale">The scale.</param>
+        /// <param name="size">The size.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
         public static IDbDataParameter CreateParam(this IOrmLiteDialectProvider dialectProvider,
             string name,
             object value = null,
@@ -3258,6 +4986,13 @@
             return p;
         }
 
+        /// <summary>
+        /// Configures the parameter.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="p">The p.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="dbType">Type of the database.</param>
         internal static void ConfigureParam(this IOrmLiteDialectProvider dialectProvider, IDbDataParameter p, object value, DbType? dbType)
         {
             if (value != null)
@@ -3283,16 +5018,41 @@
                 p.DbType = dbType.Value;
         }
 
+        /// <summary>
+        /// Adds the query parameter.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
         public static IDbDataParameter AddQueryParam(this IOrmLiteDialectProvider dialectProvider,
             IDbCommand dbCmd,
             object value,
             FieldDefinition fieldDef) => dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitQueryParam);
 
+        /// <summary>
+        /// Adds the update parameter.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
         public static IDbDataParameter AddUpdateParam(this IOrmLiteDialectProvider dialectProvider,
             IDbCommand dbCmd,
             object value,
             FieldDefinition fieldDef) => dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitUpdateParam);
 
+        /// <summary>
+        /// Adds the parameter.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="paramFilter">The parameter filter.</param>
+        /// <returns>System.Data.IDbDataParameter.</returns>
         public static IDbDataParameter AddParam(this IOrmLiteDialectProvider dialectProvider,
             IDbCommand dbCmd,
             object value,
@@ -3311,6 +5071,14 @@
             return parameter;
         }
 
+        /// <summary>
+        /// Gets the insert parameter.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>string.</returns>
         public static string GetInsertParam(this IOrmLiteDialectProvider dialectProvider,
             IDbCommand dbCmd,
             object value,
@@ -3322,6 +5090,14 @@
                 : p.ParameterName;
         }
 
+        /// <summary>
+        /// Gets the update parameter.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="value">The value.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>string.</returns>
         public static string GetUpdateParam(this IOrmLiteDialectProvider dialectProvider,
             IDbCommand dbCmd,
             object value,

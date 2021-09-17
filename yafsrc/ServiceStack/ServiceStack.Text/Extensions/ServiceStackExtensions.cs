@@ -1,3 +1,11 @@
+﻿// ***********************************************************************
+// <copyright file="ServiceStackExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+
+#if !NET5_0_OR_GREATER
 using System;
 
 namespace ServiceStack.Extensions
@@ -8,11 +16,21 @@ namespace ServiceStack.Extensions
     public static class ServiceStackExtensions
     {
         //Ambiguous definitions in .NET Core 3.0 System MemoryExtensions.cs 
+        /// <summary>
+        /// Trims the specified span.
+        /// </summary>
+        /// <param name="span">The span.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         public static ReadOnlyMemory<char> Trim(this ReadOnlyMemory<char> span)
         {
             return span.TrimStart().TrimEnd();
         }
 
+        /// <summary>
+        /// Trims the start.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         public static ReadOnlyMemory<char> TrimStart(this ReadOnlyMemory<char> value)
         {
             if (value.IsEmpty) return TypeConstants.NullStringMemory;
@@ -26,6 +44,11 @@ namespace ServiceStack.Extensions
             return value.Slice(start);
         }
 
+        /// <summary>
+        /// Trims the end.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
         public static ReadOnlyMemory<char> TrimEnd(this ReadOnlyMemory<char> value)
         {
             if (value.IsEmpty) return TypeConstants.NullStringMemory;
@@ -40,3 +63,5 @@ namespace ServiceStack.Extensions
         }
     }
 }
+
+#endif

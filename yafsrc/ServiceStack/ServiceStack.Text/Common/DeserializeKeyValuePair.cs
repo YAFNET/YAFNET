@@ -1,14 +1,9 @@
-//
-// https://github.com/ServiceStack/ServiceStack.Text
-// ServiceStack.Text: .NET C# POCO JSON, JSV and CSV Text Serializers.
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2012 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="DeserializeKeyValuePair.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections.Generic;
@@ -18,16 +13,39 @@ using ServiceStack.Text.Json;
 
 namespace ServiceStack.Text.Common
 {
+    /// <summary>
+    /// Class DeserializeKeyValuePair.
+    /// </summary>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
     internal static class DeserializeKeyValuePair<TSerializer>
         where TSerializer : ITypeSerializer
     {
+        /// <summary>
+        /// The serializer
+        /// </summary>
         private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
+        /// <summary>
+        /// The key index
+        /// </summary>
         const int KeyIndex = 0;
+        /// <summary>
+        /// The value index
+        /// </summary>
         const int ValueIndex = 1;
 
+        /// <summary>
+        /// Gets the parse method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringDelegate.</returns>
         public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
 
+        /// <summary>
+        /// Gets the parse string span method.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>ParseStringSpanDelegate.</returns>
         public static ParseStringSpanDelegate GetParseStringSpanMethod(Type type)
         {
             var mapInterface = type.GetTypeWithGenericInterfaceOf(typeof(KeyValuePair<,>));
@@ -45,12 +63,33 @@ namespace ServiceStack.Text.Common
             return value => ParseKeyValuePairType(value, createMapType, keyValuePairArgs, keyTypeParseMethod, valueTypeParseMethod);
         }
 
+        /// <summary>
+        /// Parses the key value pair.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <typeparam name="TValue">The type of the t value.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="parseKeyFn">The parse key function.</param>
+        /// <param name="parseValueFn">The parse value function.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseKeyValuePair<TKey, TValue>(
             string value, Type createMapType,
             ParseStringDelegate parseKeyFn, ParseStringDelegate parseValueFn) =>
             ParseKeyValuePair<TKey, TValue>(value.AsSpan(), createMapType,
                 v => parseKeyFn(v.ToString()), v => parseValueFn(v.ToString()));
 
+        /// <summary>
+        /// Parses the key value pair.
+        /// </summary>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <typeparam name="TValue">The type of the t value.</typeparam>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="parseKeyFn">The parse key function.</param>
+        /// <param name="parseValueFn">The parse value function.</param>
+        /// <returns>System.Object.</returns>
+        /// <exception cref="System.Runtime.Serialization.SerializationException">Incorrect KeyValuePair property: " + key.ToString()</exception>
         public static object ParseKeyValuePair<TKey, TValue>(
             ReadOnlySpan<char> value, Type createMapType,
             ParseStringSpanDelegate parseKeyFn, ParseStringSpanDelegate parseValueFn)
@@ -83,6 +122,12 @@ namespace ServiceStack.Text.Common
             return new KeyValuePair<TKey, TValue>(keyValue, valueValue);
         }
 
+        /// <summary>
+        /// Verifies the start index of the and get.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <returns>System.Int32.</returns>
         private static int VerifyAndGetStartIndex(ReadOnlySpan<char> value, Type createMapType)
         {
             var index = 0;
@@ -95,19 +140,51 @@ namespace ServiceStack.Text.Common
             return index;
         }
 
+        /// <summary>
+        /// The parse delegate cache
+        /// </summary>
         private static Dictionary<string, ParseKeyValuePairDelegate> ParseDelegateCache
             = new();
 
+        /// <summary>
+        /// Delegate ParseKeyValuePairDelegate
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="keyParseFn">The key parse function.</param>
+        /// <param name="valueParseFn">The value parse function.</param>
+        /// <returns>System.Object.</returns>
         private delegate object ParseKeyValuePairDelegate(ReadOnlySpan<char> value, Type createMapType,
             ParseStringSpanDelegate keyParseFn, ParseStringSpanDelegate valueParseFn);
 
+        /// <summary>
+        /// Parses the type of the key value pair.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="argTypes">The argument types.</param>
+        /// <param name="keyParseFn">The key parse function.</param>
+        /// <param name="valueParseFn">The value parse function.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseKeyValuePairType(string value, Type createMapType, Type[] argTypes,
             ParseStringDelegate keyParseFn, ParseStringDelegate valueParseFn) =>
             ParseKeyValuePairType(value.AsSpan(), createMapType, argTypes,
                 v => keyParseFn(v.ToString()), v => valueParseFn(v.ToString()));
 
+        /// <summary>
+        /// The signature
+        /// </summary>
         static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
 
+        /// <summary>
+        /// Parses the type of the key value pair.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="createMapType">Type of the create map.</param>
+        /// <param name="argTypes">The argument types.</param>
+        /// <param name="keyParseFn">The key parse function.</param>
+        /// <param name="valueParseFn">The value parse function.</param>
+        /// <returns>System.Object.</returns>
         public static object ParseKeyValuePairType(ReadOnlySpan<char> value, Type createMapType, Type[] argTypes,
             ParseStringSpanDelegate keyParseFn, ParseStringSpanDelegate valueParseFn)
         {
@@ -132,6 +209,11 @@ namespace ServiceStack.Text.Common
             return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
         }
 
+        /// <summary>
+        /// Gets the types key.
+        /// </summary>
+        /// <param name="types">The types.</param>
+        /// <returns>System.String.</returns>
         private static string GetTypesKey(params Type[] types)
         {
             var sb = StringBuilderThreadStatic.Allocate();

@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Reflection.Emit;
-using System.Text.RegularExpressions;
-using System.Threading;
-using PropertyAttributes = System.Reflection.PropertyAttributes;
+﻿// ***********************************************************************
+// <copyright file="SqlBuilder.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Reflection;
+    using System.Reflection.Emit;
+    using System.Text.RegularExpressions;
+    using System.Threading;
+
+    using PropertyAttributes = System.Reflection.PropertyAttributes;
+
 #if !NO_EXPRESSIONS
     /// <summary>
     /// Nice SqlBuilder class by @samsaffron from Dapper.Contrib:
@@ -18,19 +26,48 @@ namespace ServiceStack.OrmLite
     /// </summary>
     public class SqlBuilder
     {
-        readonly Dictionary<string, Clauses> data = new Dictionary<string, Clauses>();
-        int seq;
+        /// <summary>
+        /// The data
+        /// </summary>
+        private readonly Dictionary<string, Clauses> data = new();
+        /// <summary>
+        /// The seq
+        /// </summary>
+        private int seq;
 
-        class Clause
+        /// <summary>
+        /// Class Clause.
+        /// </summary>
+        private class Clause
         {
+            /// <summary>
+            /// Gets or sets the SQL.
+            /// </summary>
+            /// <value>The SQL.</value>
             public string Sql { get; set; }
+            /// <summary>
+            /// Gets or sets the parameters.
+            /// </summary>
+            /// <value>The parameters.</value>
             public object Parameters { get; set; }
         }
 
-        class DynamicParameters
+        /// <summary>
+        /// Class DynamicParameters.
+        /// </summary>
+        private class DynamicParameters
         {
-            class Property
+            /// <summary>
+            /// Class Property.
+            /// </summary>
+            private class Property
             {
+                /// <summary>
+                /// Initializes a new instance of the <see cref="Property"/> class.
+                /// </summary>
+                /// <param name="name">The name.</param>
+                /// <param name="type">The type.</param>
+                /// <param name="value">The value.</param>
                 public Property(string name, Type type, object value)
                 {
                     Name = name;
@@ -38,18 +75,38 @@ namespace ServiceStack.OrmLite
                     Value = value;
                 }
 
+                /// <summary>
+                /// The name
+                /// </summary>
                 public readonly string Name;
+                /// <summary>
+                /// The type
+                /// </summary>
                 public readonly Type Type;
+                /// <summary>
+                /// The value
+                /// </summary>
                 public readonly object Value;
             }
 
-            private readonly List<Property> properties = new List<Property>();
+            /// <summary>
+            /// The properties
+            /// </summary>
+            private readonly List<Property> properties = new();
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
+            /// </summary>
+            /// <param name="initParams">The initialize parameters.</param>
             public DynamicParameters(object initParams)
             {
                 AddDynamicParams(initParams);
             }
 
+            /// <summary>
+            /// Adds the dynamic parameters.
+            /// </summary>
+            /// <param name="cmdParams">The command parameters.</param>
             public void AddDynamicParams(object cmdParams)
             {
                 if (cmdParams == null) return;
@@ -63,8 +120,15 @@ namespace ServiceStack.OrmLite
             }
 
             // The property set and get methods require a special attrs:
+            /// <summary>
+            /// The get set attribute
+            /// </summary>
             private const MethodAttributes GetSetAttr = MethodAttributes.Public | MethodAttributes.SpecialName | MethodAttributes.HideBySig;
 
+            /// <summary>
+            /// Creates the type of the dynamic.
+            /// </summary>
+            /// <returns>System.Object.</returns>
             public object CreateDynamicType()
             {
                 var assemblyName = new AssemblyName { Name = "tmpAssembly" };
@@ -143,7 +207,7 @@ namespace ServiceStack.OrmLite
 
                 ctorIL.Emit(OpCodes.Ret);
 
-#if NETSTANDARD2_0
+#if NET5_0_OR_GREATER
                 var generetedType = typeBuilder.CreateTypeInfo().AsType();
 #else
                 var generetedType = typeBuilder.CreateType();
@@ -160,12 +224,30 @@ namespace ServiceStack.OrmLite
             }
         }
 
-        class Clauses : List<Clause>
+        /// <summary>
+        /// Class Clauses.
+        /// </summary>
+        private class Clauses : List<Clause>
         {
-            readonly string joiner;
-            readonly string prefix;
-            readonly string postfix;
+            /// <summary>
+            /// The joiner
+            /// </summary>
+            private readonly string joiner;
+            /// <summary>
+            /// The prefix
+            /// </summary>
+            private readonly string prefix;
+            /// <summary>
+            /// The postfix
+            /// </summary>
+            private readonly string postfix;
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Clauses"/> class.
+            /// </summary>
+            /// <param name="joiner">The joiner.</param>
+            /// <param name="prefix">The prefix.</param>
+            /// <param name="postfix">The postfix.</param>
             public Clauses(string joiner, string prefix = "", string postfix = "")
             {
                 this.joiner = joiner;
@@ -173,6 +255,11 @@ namespace ServiceStack.OrmLite
                 this.postfix = postfix;
             }
 
+            /// <summary>
+            /// Resolves the clauses.
+            /// </summary>
+            /// <param name="p">The p.</param>
+            /// <returns>System.String.</returns>
             public string ResolveClauses(DynamicParameters p)
             {
                 foreach (var item in this)
@@ -183,13 +270,36 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Class Template.
+        /// Implements the <see cref="ServiceStack.OrmLite.ISqlExpression" />
+        /// </summary>
+        /// <seealso cref="ServiceStack.OrmLite.ISqlExpression" />
         public class Template : ISqlExpression
         {
-            readonly string sql;
-            readonly SqlBuilder builder;
-            readonly object initParams;
-            int dataSeq = -1; // Unresolved
+            /// <summary>
+            /// The SQL
+            /// </summary>
+            private readonly string sql;
+            /// <summary>
+            /// The builder
+            /// </summary>
+            private readonly SqlBuilder builder;
+            /// <summary>
+            /// The initialize parameters
+            /// </summary>
+            private readonly object initParams;
+            /// <summary>
+            /// The data seq
+            /// </summary>
+            private int dataSeq = -1; // Unresolved
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Template"/> class.
+            /// </summary>
+            /// <param name="builder">The builder.</param>
+            /// <param name="sql">The SQL.</param>
+            /// <param name="parameters">The parameters.</param>
             public Template(SqlBuilder builder, string sql, object parameters)
             {
                 this.initParams = parameters;
@@ -197,9 +307,15 @@ namespace ServiceStack.OrmLite
                 this.builder = builder;
             }
 
-            static readonly Regex regex = new Regex(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline);
+            /// <summary>
+            /// The regex
+            /// </summary>
+            private static readonly Regex regex = new(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline);
 
-            void ResolveSql()
+            /// <summary>
+            /// Resolves the SQL.
+            /// </summary>
+            private void ResolveSql()
             {
                 if (dataSeq != builder.seq)
                 {
@@ -220,33 +336,85 @@ namespace ServiceStack.OrmLite
                 }
             }
 
-            string rawSql;
-            object parameters;
+            /// <summary>
+            /// The raw SQL
+            /// </summary>
+            private string rawSql;
+            /// <summary>
+            /// The parameters
+            /// </summary>
+            private object parameters;
 
+            /// <summary>
+            /// Gets the raw SQL.
+            /// </summary>
+            /// <value>The raw SQL.</value>
             public string RawSql { get { ResolveSql(); return rawSql; } }
+            /// <summary>
+            /// Gets the parameters.
+            /// </summary>
+            /// <value>The parameters.</value>
             public object Parameters { get { ResolveSql(); return parameters; } }
 
+            /// <summary>
+            /// Gets the parameters.
+            /// </summary>
+            /// <value>The parameters.</value>
             public List<IDbDataParameter> Params { get; private set; }
 
+            /// <summary>
+            /// Converts to selectstatement.
+            /// </summary>
+            /// <returns>string.</returns>
             public string ToSelectStatement() => ToSelectStatement(QueryType.Select);
+            /// <summary>
+            /// Converts to selectstatement.
+            /// </summary>
+            /// <param name="forType">For type.</param>
+            /// <returns>string.</returns>
             public string ToSelectStatement(QueryType forType)
             {
                 return RawSql;
             }
 
+            /// <summary>
+            /// Selects the into.
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <returns>System.String.</returns>
             public string SelectInto<T>() => RawSql;
+            /// <summary>
+            /// Selects the into.
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="queryType">Type of the query.</param>
+            /// <returns>System.String.</returns>
             public string SelectInto<T>(QueryType queryType) => RawSql;
         }
 
+        /// <summary>
+        /// Adds the template.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>Template.</returns>
         public Template AddTemplate(string sql, object parameters = null)
         {
             return new Template(this, sql, parameters);
         }
 
-        void AddClause(string name, string sql, object parameters, string joiner, string prefix = "", string postfix = "")
+        /// <summary>
+        /// Adds the clause.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <param name="joiner">The joiner.</param>
+        /// <param name="prefix">The prefix.</param>
+        /// <param name="postfix">The postfix.</param>
+        private void AddClause(string name, string sql, object parameters, string joiner, string prefix = "", string postfix = "")
         {
-            Clauses clauses;
-            if (!data.TryGetValue(name, out clauses))
+            if (!data.TryGetValue(name, out Clauses clauses))
             {
                 clauses = new Clauses(joiner, prefix, postfix);
                 data[name] = clauses;
@@ -256,36 +424,71 @@ namespace ServiceStack.OrmLite
         }
 
 
+        /// <summary>
+        /// Lefts the join.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>SqlBuilder.</returns>
         public SqlBuilder LeftJoin(string sql, object parameters = null)
         {
             AddClause("leftjoin", sql, parameters, joiner: "\nLEFT JOIN ", prefix: "\nLEFT JOIN ", postfix: "\n");
             return this;
         }
 
+        /// <summary>
+        /// Wheres the specified SQL.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>SqlBuilder.</returns>
         public SqlBuilder Where(string sql, object parameters = null)
         {
             AddClause("where", sql, parameters, " AND ", prefix: "WHERE ", postfix: "\n");
             return this;
         }
 
+        /// <summary>
+        /// Orders the by.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>SqlBuilder.</returns>
         public SqlBuilder OrderBy(string sql, object parameters = null)
         {
             AddClause("orderby", sql, parameters, " , ", prefix: "ORDER BY ", postfix: "\n");
             return this;
         }
 
+        /// <summary>
+        /// Selects the specified SQL.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>SqlBuilder.</returns>
         public SqlBuilder Select(string sql, object parameters = null)
         {
             AddClause("select", sql, parameters, " , ", prefix: "", postfix: "\n");
             return this;
         }
 
+        /// <summary>
+        /// Adds the parameters.
+        /// </summary>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>SqlBuilder.</returns>
         public SqlBuilder AddParameters(object parameters)
         {
             AddClause("--parameters", "", parameters, "");
             return this;
         }
 
+        /// <summary>
+        /// Joins the specified SQL.
+        /// </summary>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>SqlBuilder.</returns>
         public SqlBuilder Join(string sql, object parameters = null)
         {
             AddClause("join", sql, parameters, joiner: "\nJOIN ", prefix: "\nJOIN", postfix: "\n");

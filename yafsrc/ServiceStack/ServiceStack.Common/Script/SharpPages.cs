@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="SharpPages.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -7,31 +13,114 @@ namespace ServiceStack.Script
 {
     using ServiceStack.Extensions;
 
+    /// <summary>
+    /// Interface ISharpPages
+    /// </summary>
     public interface ISharpPages
     {
+        /// <summary>
+        /// Resolves the layout page.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="layout">The layout.</param>
+        /// <returns>SharpPage.</returns>
         SharpPage ResolveLayoutPage(SharpPage page, string layout);
+        /// <summary>
+        /// Adds the page.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <param name="file">The file.</param>
+        /// <returns>SharpPage.</returns>
         SharpPage AddPage(string virtualPath, IVirtualFile file);
+        /// <summary>
+        /// Gets the page.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>SharpPage.</returns>
         SharpPage GetPage(string virtualPath);
+        /// <summary>
+        /// Tries the get page.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>SharpPage.</returns>
         SharpPage TryGetPage(string path);
+        /// <summary>
+        /// Called when [time page].
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="ext">The ext.</param>
+        /// <returns>SharpPage.</returns>
         SharpPage OneTimePage(string contents, string ext);
+        /// <summary>
+        /// Called when [time page].
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="ext">The ext.</param>
+        /// <param name="init">The initialize.</param>
+        /// <returns>SharpPage.</returns>
         SharpPage OneTimePage(string contents, string ext, Action<SharpPage> init);
 
+        /// <summary>
+        /// Resolves the layout page.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="layout">The layout.</param>
+        /// <returns>SharpPage.</returns>
         SharpPage ResolveLayoutPage(SharpCodePage page, string layout);
+        /// <summary>
+        /// Gets the code page.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>SharpCodePage.</returns>
         SharpCodePage GetCodePage(string virtualPath);
 
+        /// <summary>
+        /// Gets the last modified.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <returns>DateTime.</returns>
         DateTime GetLastModified(SharpPage page);
     }
 
+    /// <summary>
+    /// Class SharpPages.
+    /// Implements the <see cref="ServiceStack.Script.ISharpPages" />
+    /// Implements the <see cref="ServiceStack.Templates.ITemplatePages" />
+    /// </summary>
+    /// <seealso cref="ServiceStack.Script.ISharpPages" />
+    /// <seealso cref="ServiceStack.Templates.ITemplatePages" />
     public partial class SharpPages : ISharpPages
     {
+        /// <summary>
+        /// Gets the context.
+        /// </summary>
+        /// <value>The context.</value>
         public ScriptContext Context { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SharpPages"/> class.
+        /// </summary>
+        /// <param name="context">The context.</param>
         public SharpPages(ScriptContext context) => this.Context = context;
 
+        /// <summary>
+        /// The layout
+        /// </summary>
         public static string Layout = "layout";
 
+        /// <summary>
+        /// The page map
+        /// </summary>
         readonly ConcurrentDictionary<string, SharpPage> pageMap = new ConcurrentDictionary<string, SharpPage>();
 
+        /// <summary>
+        /// Resolves the layout page.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="layout">The layout.</param>
+        /// <returns>SharpPage.</returns>
+        /// <exception cref="System.ArgumentNullException">page</exception>
+        /// <exception cref="System.ArgumentException">Page {page.File.VirtualPath} has not been initialized</exception>
         public virtual SharpPage ResolveLayoutPage(SharpPage page, string layout)
         {
             if (page == null)
@@ -70,6 +159,14 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Resolves the layout page.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <param name="layout">The layout.</param>
+        /// <returns>SharpPage.</returns>
+        /// <exception cref="System.ArgumentNullException">page</exception>
+        /// <exception cref="System.ArgumentException">Page {page.VirtualPath} has not been initialized</exception>
         public virtual SharpPage ResolveLayoutPage(SharpCodePage page, string layout)
         {
             if (page == null)
@@ -111,14 +208,30 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Gets the code page.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <returns>SharpCodePage.</returns>
         public SharpCodePage GetCodePage(string virtualPath) => Context.GetCodePage(virtualPath)
             ?? (virtualPath?.Length > 0 && virtualPath[virtualPath.Length - 1] != '/' ? Context.GetCodePage(virtualPath + '/') : null);
 
+        /// <summary>
+        /// Adds the page.
+        /// </summary>
+        /// <param name="virtualPath">The virtual path.</param>
+        /// <param name="file">The file.</param>
+        /// <returns>SharpPage.</returns>
         public virtual SharpPage AddPage(string virtualPath, IVirtualFile file)
         {
             return pageMap[virtualPath] = new SharpPage(Context, file);
         }
 
+        /// <summary>
+        /// Tries the get page.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns>SharpPage.</returns>
         public virtual SharpPage TryGetPage(string path)
         {
             var sanitizePath = path.Replace('\\', '/').TrimPrefixes("/").LastLeftPart('.');
@@ -129,6 +242,11 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// Gets the page.
+        /// </summary>
+        /// <param name="pathInfo">The path information.</param>
+        /// <returns>SharpPage.</returns>
         public virtual SharpPage GetPage(string pathInfo)
         {
             if (string.IsNullOrEmpty(pathInfo))
@@ -193,13 +311,39 @@ namespace ServiceStack.Script
             return null;
         }
 
+        /// <summary>
+        /// The temporary files
+        /// </summary>
         private static MemoryVirtualFiles tempFiles;
+        /// <summary>
+        /// Gets the temporary files.
+        /// </summary>
+        /// <value>The temporary files.</value>
         internal static MemoryVirtualFiles TempFiles => tempFiles ??= new MemoryVirtualFiles();
+        /// <summary>
+        /// The temporary dir
+        /// </summary>
         private static readonly InMemoryVirtualDirectory tempDir;
+        /// <summary>
+        /// The temporary dir
+        /// </summary>
         internal static readonly InMemoryVirtualDirectory TempDir = tempDir ??= new InMemoryVirtualDirectory(TempFiles, ScriptConstants.TempFilePath);
 
+        /// <summary>
+        /// Called when [time page].
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="ext">The ext.</param>
+        /// <returns>SharpPage.</returns>
         public virtual SharpPage OneTimePage(string contents, string ext) => OneTimePage(contents, ext, init: null);
 
+        /// <summary>
+        /// Called when [time page].
+        /// </summary>
+        /// <param name="contents">The contents.</param>
+        /// <param name="ext">The ext.</param>
+        /// <param name="init">The initialize.</param>
+        /// <returns>SharpPage.</returns>
         public SharpPage OneTimePage(string contents, string ext, Action<SharpPage> init)
         {
             var memFile = new InMemoryVirtualFile(TempFiles, TempDir)
@@ -227,6 +371,12 @@ namespace ServiceStack.Script
             }
         }
 
+        /// <summary>
+        /// Gets the last modified.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <returns>DateTime.</returns>
+        /// <exception cref="System.ArgumentNullException">page</exception>
         public DateTime GetLastModified(SharpPage page)
         {
             if (page == null)
@@ -250,6 +400,12 @@ namespace ServiceStack.Script
             return maxLastModified;
         }
 
+        /// <summary>
+        /// Gets the last modified page.
+        /// </summary>
+        /// <param name="page">The page.</param>
+        /// <returns>DateTime.</returns>
+        /// <exception cref="System.ArgumentNullException">page</exception>
         public DateTime GetLastModifiedPage(SharpPage page)
         {
             if (page == null)
@@ -316,6 +472,12 @@ namespace ServiceStack.Script
             return maxLastModified;
         }
 
+        /// <summary>
+        /// Gets the maximum last modified.
+        /// </summary>
+        /// <param name="file">The file.</param>
+        /// <param name="maxLastModified">The maximum last modified.</param>
+        /// <returns>DateTime.</returns>
         private DateTime GetMaxLastModified(IVirtualFile file, DateTime maxLastModified)
         {
             if (file == null)
