@@ -29,6 +29,7 @@ namespace YAF.Core.Services
     using System;
     using System.Collections.Generic;
     using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Net.Mail;
     using System.Web;
@@ -119,8 +120,9 @@ namespace YAF.Core.Services
                     }
                 });
 
-            var themeCss =
-                $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+            var inlineCss = File.ReadAllText(
+                this.Get<HttpContextBase>().Server
+                    .MapPath(this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")));
 
             var forumLink = this.Get<LinkBuilder>().ForumUrl;
 
@@ -166,7 +168,7 @@ namespace YAF.Core.Services
                                 {
                                     ["{user}"] = userName,
                                     ["{adminlink}"] = adminLink,
-                                    ["{themecss}"] = themeCss,
+                                    ["{css}"] = inlineCss,
                                     ["{forumlink}"] = forumLink
                                 }
                             };

@@ -55,12 +55,14 @@ namespace YAF.Core.Services
 
             var logoUrl =
                 $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
-            var themeCss =
-                $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
+
+            var inlineCss = File.ReadAllText(
+                this.Get<HttpContextBase>().Server
+                    .MapPath(this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")));
 
             this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
             this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
-            this.TemplateParams["{themecss}"] = themeCss;
+            this.TemplateParams["{css}"] = inlineCss;
             this.TemplateParams["{logo}"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
         }
 
