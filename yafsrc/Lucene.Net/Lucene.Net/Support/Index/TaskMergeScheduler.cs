@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Directory  = YAF.Lucene.Net.Store.Directory;
+using Directory = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -113,13 +113,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Return the priority that merge threads run at. This is always the same.
         /// </summary>
-        public int MergeThreadPriority =>
-#if !FEATURE_THREAD_PRIORITY
-            2;
-#else
-            (int)ThreadPriority.Normal;
-#endif
-
+        public int MergeThreadPriority => (int)ThreadPriority.Normal;
 
         /// <summary>
         /// This method has no effect in <see cref="TaskMergeScheduler"/> because the
