@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Controls.CategoryList"
     CodeBehind="CategoryList.ascx.cs" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 

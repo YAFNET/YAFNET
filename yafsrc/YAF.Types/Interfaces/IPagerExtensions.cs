@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,8 +27,6 @@ namespace YAF.Types.Interfaces
     using System.Collections.Generic;
     using System.Linq;
 
-    using YAF.Types.Interfaces;
-
     /// <summary>
     ///     The pager extensions.
     /// </summary>
@@ -53,8 +51,8 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static IList<T> GetPaged<T>([NotNull] this IList<T> list, [NotNull] IPager pager)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(pager);
 
             pager.Count = list.Count;
 
@@ -72,7 +70,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static int PageCount(this IPager pager)
         {
-            CodeContracts.VerifyNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(pager);
 
             return (int)Math.Ceiling((double)pager.Count / pager.PageSize);
         }
@@ -88,7 +86,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static int SkipIndex([NotNull] this IPager pager)
         {
-            CodeContracts.VerifyNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(pager);
 
             return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
         }

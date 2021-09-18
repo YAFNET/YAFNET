@@ -18,6 +18,8 @@ using System.Globalization;
 
 namespace ServiceStack.OrmLite.Converters
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Enum EnumKind
     /// </summary>

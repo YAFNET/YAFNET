@@ -35,7 +35,7 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
     using System.Xml.Linq;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;

@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Restore" CodeBehind="Restore.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />

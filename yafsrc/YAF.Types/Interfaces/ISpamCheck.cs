@@ -68,9 +68,12 @@ namespace YAF.Types.Interfaces
         /// <param name="message">
         /// The message to check for URLs.
         /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        bool ContainsSpamUrls(string message);
+        bool ContainsSpamUrls(string message, out string result);
     }
 }

@@ -11,6 +11,8 @@ using System.Reflection;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class FieldDefinition.
     /// </summary>

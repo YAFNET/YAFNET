@@ -38,7 +38,7 @@ namespace YAF.Core.Services
 
     using Newtonsoft.Json;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Configuration;
     using YAF.Core.Context;

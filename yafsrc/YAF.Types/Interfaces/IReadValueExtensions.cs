@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -51,9 +51,9 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static T Get<T>([NotNull] this IReadValue<T> readValue, [NotNull] string key, [NotNull] Func<T> getValue)
         {
-            CodeContracts.VerifyNotNull(readValue, "readValue");
-            CodeContracts.VerifyNotNull(key, "key");
-            CodeContracts.VerifyNotNull(getValue, "getValue");
+            CodeContracts.VerifyNotNull(readValue);
+            CodeContracts.VerifyNotNull(key);
+            CodeContracts.VerifyNotNull(getValue);
 
             var value = readValue.Get(key);
 
@@ -74,8 +74,8 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static T Get<T>([NotNull] this IReadValue<T> readValue, [NotNull] string key, [CanBeNull] T defaultValue)
         {
-            CodeContracts.VerifyNotNull(readValue, "readValue");
-            CodeContracts.VerifyNotNull(key, "key");
+            CodeContracts.VerifyNotNull(readValue);
+            CodeContracts.VerifyNotNull(key);
 
             var value = readValue.Get(key);
 
@@ -99,8 +99,8 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static bool GetAsBool([NotNull] this IReadValue<string> readValue, [NotNull] string key, bool defaultValue)
         {
-            CodeContracts.VerifyNotNull(readValue, "readValue");
-            CodeContracts.VerifyNotNull(key, "key");
+            CodeContracts.VerifyNotNull(readValue);
+            CodeContracts.VerifyNotNull(key);
 
             var value = readValue.Get(key);
 

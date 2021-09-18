@@ -7,6 +7,8 @@
 
 namespace ServiceStack.OrmLite.Converters
 {
+    using ServiceStack.Text;
+
     using System;
     using System.Data;
     using System.Globalization;

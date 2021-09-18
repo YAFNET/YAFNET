@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -47,8 +47,8 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
         {
-            CodeContracts.VerifyNotNull(injectServices, "injectServices");
-            CodeContracts.VerifyNotNull(instance, "instance");
+            CodeContracts.VerifyNotNull(injectServices);
+            CodeContracts.VerifyNotNull(instance);
 
             injectServices.InjectMarked<Inject>(instance);
         }

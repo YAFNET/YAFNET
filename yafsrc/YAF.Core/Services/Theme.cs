@@ -27,7 +27,7 @@ namespace YAF.Core.Services
     using System.IO;
     using System.Web.Hosting;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Configuration;
     using YAF.Types;

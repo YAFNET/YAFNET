@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Moderate.Index" Codebehind="Index.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
-<%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">

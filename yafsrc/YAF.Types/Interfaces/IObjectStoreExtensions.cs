@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -48,19 +48,21 @@ namespace YAF.Types.Interfaces
         /// The original key.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         /// <returns>
+        /// The <see cref="T"/>.
         /// </returns>
         public static T Get<T>([NotNull] this IObjectStore objectStore, [NotNull] string originalKey)
         {
-            CodeContracts.VerifyNotNull(objectStore, "objectStore");
-            CodeContracts.VerifyNotNull(originalKey, "originalKey");
+            CodeContracts.VerifyNotNull(objectStore);
+            CodeContracts.VerifyNotNull(originalKey);
 
             var item = objectStore.Get(originalKey);
 
-            if (item is T)
+            if (item is T item1)
             {
-                return (T)item;
+                return item1;
             }
 
             return default;
@@ -73,10 +75,11 @@ namespace YAF.Types.Interfaces
         /// The object store.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void RemoveOf<T>([NotNull] this IObjectStore objectStore)
         {
-            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+            CodeContracts.VerifyNotNull(objectStore);
 
             objectStore.GetAll<T>().ToList().ForEach(i => objectStore.Remove(i.Key));
         }
@@ -90,7 +93,7 @@ namespace YAF.Types.Interfaces
         public static void Clear([NotNull] this IObjectStore objectStore)
         {
             // remove all objects in the cache...
-            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+            CodeContracts.VerifyNotNull(objectStore);
 
             objectStore.RemoveOf<object>();
         }
@@ -101,10 +104,13 @@ namespace YAF.Types.Interfaces
         /// <param name="objectStore">
         /// The object store.
         /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public static int Count([NotNull] this IObjectStore objectStore)
         {
             // remove all objects in the cache...
-            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+            CodeContracts.VerifyNotNull(objectStore);
 
             return objectStore.GetAll<object>().Count();
         }
@@ -112,13 +118,19 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Count of T in the cache.
         /// </summary>
+        /// <typeparam name="T">
+        /// The Typed Parameter
+        /// </typeparam>
         /// <param name="objectStore">
         /// The object store.
         /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public static int CountOf<T>([NotNull] this IObjectStore objectStore)
         {
             // remove all objects in the cache...
-            CodeContracts.VerifyNotNull(objectStore, "objectStore");
+            CodeContracts.VerifyNotNull(objectStore);
 
             return objectStore.GetAll<T>().Count();
         }
@@ -133,12 +145,13 @@ namespace YAF.Types.Interfaces
         /// The where function.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         public static void RemoveOf<T>(
           [NotNull] this IObjectStore objectStore, [NotNull] Func<KeyValuePair<string, T>, bool> whereFunc)
         {
-            CodeContracts.VerifyNotNull(objectStore, "objectStore");
-            CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
+            CodeContracts.VerifyNotNull(objectStore);
+            CodeContracts.VerifyNotNull(whereFunc);
 
             objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
         }
@@ -152,13 +165,11 @@ namespace YAF.Types.Interfaces
         /// <param name="whereFunc">
         /// The where function.
         /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
         public static void Remove(
           [NotNull] this IObjectStore objectStore, [NotNull] Func<string, bool> whereFunc)
         {
-            CodeContracts.VerifyNotNull(objectStore, "objectStore");
-            CodeContracts.VerifyNotNull(whereFunc, "whereFunc");
+            CodeContracts.VerifyNotNull(objectStore);
+            CodeContracts.VerifyNotNull(whereFunc);
 
             objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
         }

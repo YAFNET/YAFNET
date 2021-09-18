@@ -10,6 +10,8 @@ using System.Data;
 
 namespace ServiceStack.OrmLite.Legacy
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class OrmLiteReadExpressionsApiLegacy.
     /// </summary>

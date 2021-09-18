@@ -28,7 +28,7 @@ namespace YAF.Core.Services
     using System.Dynamic;
     using System.Net;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Types;
     using YAF.Types.Extensions;

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -42,7 +42,7 @@ namespace YAF.Types.Flags
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "FlagsBase" /> class. 
+        ///   Initializes a new instance of the <see cref = "FlagsBase" /> class.
         ///   Creates new instance with all bits set to false (integer 0).
         /// </summary>
         protected FlagsBase()
@@ -51,7 +51,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
+        /// Initializes a new instance of the <see cref="FlagsBase"/> class.
         ///   Creates new instance and initialize it with value of bitValue parameter.
         /// </summary>
         /// <param name="bitValue">
@@ -59,7 +59,7 @@ namespace YAF.Types.Flags
         ///     Initialize integer value.
         /// </param>
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
+        /// Initializes a new instance of the <see cref="FlagsBase"/> class.
         ///   Creates new instance and initialize it with value of bitValue parameter.
         /// </summary>
         protected FlagsBase(int bitValue)
@@ -68,7 +68,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FlagsBase"/> class. 
+        /// Initializes a new instance of the <see cref="FlagsBase"/> class.
         ///   Creates new instance with bits set according to parameter array.
         /// </summary>
         /// <param name="bits">
@@ -180,7 +180,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public int EnumToIndex([NotNull] Enum theEnum)
         {
-            CodeContracts.VerifyNotNull(theEnum, "theEnum");
+            CodeContracts.VerifyNotNull(theEnum);
 
             return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
         }

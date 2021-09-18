@@ -27,7 +27,7 @@ namespace YAF.Core.Context
     using System;
     using System.Web;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Core.Helpers;
     using YAF.Core.Services;

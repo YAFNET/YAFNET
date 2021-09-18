@@ -10,6 +10,7 @@ namespace ServiceStack.OrmLite
     using System.Data;
 
     using ServiceStack.Logging;
+    using ServiceStack.Text;
 
     /// <summary>
     /// Interface IOrmLiteConverter

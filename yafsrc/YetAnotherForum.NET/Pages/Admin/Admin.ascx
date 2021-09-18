@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Admin"
     CodeBehind="Admin.ascx.cs" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Core.Helpers" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 <div class="row">

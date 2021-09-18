@@ -16,12 +16,15 @@
 
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
-    <ProjectReference Include="..\ServiceStack.Common\ServiceStack.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Net" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceStack\ServiceStack.csproj" />
   </ItemGroup>
 
 </Project>

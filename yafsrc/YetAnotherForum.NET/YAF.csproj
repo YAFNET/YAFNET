@@ -3459,9 +3459,9 @@
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack\ServiceStack.Text\ServiceStack.Text.csproj">
+    <ProjectReference Include="..\ServiceStack\ServiceStack\ServiceStack.csproj">
       <Project>{aa001480-3713-4927-8650-ed1e16afb791}</Project>
-      <Name>ServiceStack.Text</Name>
+      <Name>ServiceStack</Name>
     </ProjectReference>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj">
       <Project>{ef89e4df-d79f-4e83-a703-3be176f9428e}</Project>

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class OrmLiteDefaultNamingStrategy.
     /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteNamingStrategyBase" />

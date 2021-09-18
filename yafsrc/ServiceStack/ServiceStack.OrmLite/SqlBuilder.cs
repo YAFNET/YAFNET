@@ -7,6 +7,8 @@
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
     using System;
     using System.Collections.Generic;
     using System.Data;

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -88,39 +88,6 @@ namespace YAF.Core.BaseControls
     ///   Gets ServiceLocator.
     /// </summary>
     public IServiceLocator ServiceLocator => this.PageContext.ServiceLocator;
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// Creates a ID Based on the Control Structure
-    /// </summary>
-    /// <param name="prefix">
-    /// </param>
-    /// <returns>
-    /// The get extended id.
-    /// </returns>
-    public string GetExtendedID([NotNull] string prefix)
-    {
-      string createdID = null;
-
-      if (this.ID.IsSet())
-      {
-        createdID = $"{this.ID}_";
-      }
-
-      if (prefix.IsSet())
-      {
-        createdID += prefix;
-      }
-      else
-      {
-        createdID += Guid.NewGuid().ToString().Substring(0, 5);
-      }
-
-      return createdID;
-    }
 
     #endregion
   }

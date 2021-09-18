@@ -6,6 +6,8 @@
 // ***********************************************************************
 namespace ServiceStack.OrmLite.SqlServer
 {
+    using ServiceStack.Text;
+
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;

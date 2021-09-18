@@ -25,7 +25,7 @@ namespace YAF.Core.Extensions
 {
     using System.Web.UI;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Context;

@@ -31,7 +31,7 @@ namespace YAF.Core.Services
     using System.Net;
     using System.Web;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Configuration;
     using YAF.Core.Helpers;

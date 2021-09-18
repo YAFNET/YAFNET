@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,56 +23,56 @@
  */
 namespace YAF.Core.Extensions
 {
-  #region Using
+    #region Using
 
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The i permissions extensions.
-  /// </summary>
-  public static class IPermissionsExtensions
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The check.
-    /// </summary>
-    /// <param name="permissions">
-    /// The permissions.
-    /// </param>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    /// <returns>
-    /// The check.
-    /// </returns>
-    public static bool Check([NotNull] this IPermissions permissions, int permission)
-    {
-      CodeContracts.VerifyNotNull(permissions, "permissions");
-
-      return permissions.Check((ViewPermissions)permission);
-    }
-
-    /// <summary>
-    /// The handle request.
-    /// </summary>
-    /// <param name="permissions">
-    /// The permissions.
-    /// </param>
-    /// <param name="permission">
-    /// The permission.
-    /// </param>
-    public static void HandleRequest([NotNull] this IPermissions permissions, int permission)
-    {
-      CodeContracts.VerifyNotNull(permissions, "permissions");
-
-      permissions.HandleRequest((ViewPermissions)permission);
-    }
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
 
     #endregion
-  }
+
+    /// <summary>
+    /// The i permissions extensions.
+    /// </summary>
+    public static class IPermissionsExtensions
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// Check Viewing Permissions
+        /// </summary>
+        /// <param name="permissions">
+        /// The permissions.
+        /// </param>
+        /// <param name="permission">
+        /// The permission.
+        /// </param>
+        /// <returns>
+        /// The check.
+        /// </returns>
+        public static bool Check([NotNull] this IPermissions permissions, int permission)
+        {
+            CodeContracts.VerifyNotNull(permissions, "permissions");
+
+            return permissions.Check((ViewPermissions)permission);
+        }
+
+        /// <summary>
+        /// The handle request.
+        /// </summary>
+        /// <param name="permissions">
+        /// The permissions.
+        /// </param>
+        /// <param name="permission">
+        /// The permission.
+        /// </param>
+        public static void HandleRequest([NotNull] this IPermissions permissions, int permission)
+        {
+            CodeContracts.VerifyNotNull(permissions, "permissions");
+
+            permissions.HandleRequest((ViewPermissions)permission);
+        }
+
+        #endregion
+    }
 }

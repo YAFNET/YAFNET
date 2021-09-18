@@ -1,9 +1,9 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Posts" CodeBehind="Posts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 <%@ Register TagPrefix="YAF" TagName="DisplayPost" Src="../controls/DisplayPost.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="DisplayConnect" Src="../controls/DisplayConnect.ascx" %>

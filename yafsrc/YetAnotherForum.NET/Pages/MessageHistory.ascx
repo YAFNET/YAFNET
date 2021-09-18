@@ -1,11 +1,11 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.MessageHistory" CodeBehind="MessageHistory.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.MessageHistory" CodeBehind="MessageHistory.ascx.cs" %>
 
 <%@ Import Namespace="System.Globalization" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 

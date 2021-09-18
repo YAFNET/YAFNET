@@ -7,6 +7,8 @@
 
 namespace ServiceStack.OrmLite.PostgreSQL
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class PostgreSqlNamingStrategy.
     /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteNamingStrategyBase" />

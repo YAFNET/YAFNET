@@ -17,6 +17,8 @@ using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite.Legacy
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class OrmLiteReadCommandExtensionsAsyncLegacy.
     /// </summary>

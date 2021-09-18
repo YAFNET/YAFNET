@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -68,7 +68,7 @@ namespace YAF.Types.Interfaces
             DateTime? forumReadOverride,
             DateTime? topicReadOverride)
         {
-            CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
+            CodeContracts.VerifyNotNull(readTrackCurrentUser);
 
             var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
             var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
@@ -92,7 +92,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
         {
-            CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
+            CodeContracts.VerifyNotNull(readTrackCurrentUser);
 
             forumIds.ForEach(readTrackCurrentUser.SetForumRead);
         }
@@ -108,7 +108,7 @@ namespace YAF.Types.Interfaces
         /// </param>
         public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
         {
-            CodeContracts.VerifyNotNull(readTrackCurrentUser, "readTrackCurrentUser");
+            CodeContracts.VerifyNotNull(readTrackCurrentUser);
 
             topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
         }

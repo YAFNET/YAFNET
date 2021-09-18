@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="OpenAuthProviders.ascx.cs" Inherits="YAF.Controls.OpenAuthProviders" %>
-<%@ Import Namespace="ServiceStack" %>
+
+<%@ Import Namespace="ServiceStack.Text" %>
 
 
 <asp:Panel ID="SocialLoginList" runat="server">

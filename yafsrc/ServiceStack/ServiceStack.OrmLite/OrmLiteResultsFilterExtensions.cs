@@ -14,6 +14,8 @@ using ServiceStack.Logging;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class OrmLiteResultsFilterExtensions.
     /// </summary>

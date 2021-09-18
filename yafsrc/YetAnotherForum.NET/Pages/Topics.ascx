@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Topics" Codebehind="Topics.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="../controls/ForumList.ascx" %>
 
 

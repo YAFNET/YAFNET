@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class UntypedApiExtensions.
     /// </summary>

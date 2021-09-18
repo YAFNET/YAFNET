@@ -32,7 +32,7 @@ namespace YAF.Web.ReCAPTCHA
     using System.Text;
     using System.Web;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Core.Context;
     using YAF.Types;

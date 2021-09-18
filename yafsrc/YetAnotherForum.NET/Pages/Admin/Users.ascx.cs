@@ -34,8 +34,6 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
     using System.Xml.Serialization;
 
-    using ServiceStack;
-
     using YAF.Configuration;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
@@ -53,6 +51,8 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
+
+    using StringExtensions = ServiceStack.Text.StringExtensions;
 
     #endregion
 
@@ -506,7 +506,7 @@ namespace YAF.Pages.Admin
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
-            sw.Write(usersList.ToCsv());
+            sw.Write(StringExtensions.ToCsv(usersList));
             sw.Close();
 
             this.Get<HttpResponseBase>().Flush();

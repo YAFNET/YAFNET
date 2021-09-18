@@ -189,12 +189,20 @@ namespace YAF.Web.Controls
 
             if (domainKey.IsSet() && url != null)
             {
-                var dnsSafeHost = url.DnsSafeHost.ToLower();
+                /*var dnsSafeHost = url.DnsSafeHost.ToLower();
 
                 // handle www domains correctly.
                 if (dnsSafeHost.StartsWith("www."))
                 {
                     dnsSafeHost = dnsSafeHost.Replace("www.", string.Empty);
+                }*/
+
+                var dnsSafeHost = url.Host.ToLowerInvariant();
+                if (dnsSafeHost.LastIndexOf('.') != dnsSafeHost.IndexOf('.'))
+                {
+                    dnsSafeHost = dnsSafeHost.Remove(
+                        0,
+                        dnsSafeHost.IndexOf('.') + 1);
                 }
 
                 var currentDomainHash = HashHelper.Hash(

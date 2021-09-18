@@ -14,6 +14,8 @@ using System.Linq;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Interface IOrmLiteResultsFilter
     /// </summary>

@@ -2,10 +2,10 @@
     CodeBehind="EventLog.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="row">

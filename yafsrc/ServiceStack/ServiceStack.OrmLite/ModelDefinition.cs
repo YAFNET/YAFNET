@@ -14,6 +14,8 @@ using System.Runtime.CompilerServices;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class ModelDefinition.
     /// </summary>

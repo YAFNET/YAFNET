@@ -10,6 +10,8 @@ using ServiceStack.DataAnnotations;
 
 namespace ServiceStack.OrmLite.Converters
 {
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class StringConverter.
     /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteConverter" />

@@ -2,10 +2,10 @@
     CodeBehind="AlbumImageList.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Configuration" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 
 <div class="bg-light">

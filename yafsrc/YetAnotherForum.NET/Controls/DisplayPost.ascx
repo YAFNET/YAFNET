@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayPost" EnableViewState="false" Codebehind="DisplayPost.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="ServiceStack" %>
 <%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="ServiceStack.Text" %>
 
 <asp:PlaceHolder runat="server" ID="ShowHideIgnoredUserPost" Visible="False">
     <YAF:Alert runat="server" Type="info" Dismissing="True">
