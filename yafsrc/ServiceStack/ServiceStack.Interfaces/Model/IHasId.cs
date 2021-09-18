@@ -11,7 +11,7 @@ namespace ServiceStack.Model
     /// Interface IHasId
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IHasId<T>
+    public interface IHasId<out T>
     {
         /// <summary>
         /// Gets the identifier.

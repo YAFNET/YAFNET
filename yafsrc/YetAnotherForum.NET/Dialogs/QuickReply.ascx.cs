@@ -197,8 +197,7 @@ namespace YAF.Dialogs
                 var isPossibleSpamMessage = false;
 
                 // Check for SPAM
-                if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
-                                              && this.PageContext.BoardSettings.SpamService != SpamService.NoService)
+                if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
@@ -209,7 +208,7 @@ namespace YAF.Dialogs
                         out var spamResult))
                     {
                         var description =
-                            $@"Spam Check detected possible SPAM ({spamResult}) 
+                            $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.quickReplyEditor.Text}]
                                posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
                         switch (this.PageContext.BoardSettings.SpamPostHandling)
@@ -250,11 +249,6 @@ namespace YAF.Dialogs
 
                                 return;
                         }
-                    }
-
-                    if (this.Get<ISpamCheck>().ContainsSpamUrls(this.quickReplyEditor.Text))
-                    {
-                        return;
                     }
 
                     if (!this.PageContext.IsGuest)

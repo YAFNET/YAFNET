@@ -4,10 +4,11 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
 
 namespace ServiceStack.DataAnnotations
 {
+    using System;
+
     /// <summary>
     /// Class RangeAttribute.
     /// Implements the <see cref="ServiceStack.AttributeBase" />
@@ -19,17 +20,19 @@ namespace ServiceStack.DataAnnotations
         /// Gets the minimum.
         /// </summary>
         /// <value>The minimum.</value>
-        public object Minimum { get; private set; }
+        public object Minimum { get; }
+
         /// <summary>
         /// Gets the maximum.
         /// </summary>
         /// <value>The maximum.</value>
-        public object Maximum { get; private set; }
+        public object Maximum { get; }
+
         /// <summary>
         /// Gets the type of the operand.
         /// </summary>
         /// <value>The type of the operand.</value>
-        public Type OperandType { get; private set; }
+        public Type OperandType { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="RangeAttribute"/> class.

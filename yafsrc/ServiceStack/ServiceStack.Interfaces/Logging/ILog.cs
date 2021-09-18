@@ -4,10 +4,11 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
 
 namespace ServiceStack.Logging
 {
+    using System;
+
     /// <summary>
     /// Logs a message in a running application
     /// </summary>
@@ -60,12 +61,6 @@ namespace ServiceStack.Logging
         /// <param name="args">The args.</param>
         [JetBrains.Annotations.StringFormatMethod("format")]
         void ErrorFormat(string format, params object[] args);
-
-        /// <summary>
-        /// Logs a Fatal message.
-        /// </summary>
-        /// <param name="message">The message.</param>
-        void Fatal(object message);
 
         /// <summary>
         /// Logs a Fatal message and exception.

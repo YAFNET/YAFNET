@@ -32,7 +32,6 @@ namespace YAF.Pages
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Web;
-    using System.Web.UI.WebControls;
 
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
@@ -47,7 +46,10 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
     using YAF.Web.Extensions;
+
+    using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
 
@@ -740,7 +742,7 @@ namespace YAF.Pages
         private bool VerifyMessageAllowed(int count, string message)
         {
             // Check if SPAM Message first...
-            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess && this.PageContext.BoardSettings.SpamService != SpamService.NoService)
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 // Check content for spam
                 if (!this.Get<ISpamCheck>().CheckPostForSpam(
@@ -750,11 +752,11 @@ namespace YAF.Pages
                     this.PageContext.MembershipUser.Email,
                     out var spamResult))
                 {
-                    return !this.Get<ISpamCheck>().ContainsSpamUrls(message);
+                    return false;
                 }
 
                 var description =
-                    $@"Spam Check detected possible SPAM ({spamResult}) 
+                    $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
                        posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
                 switch (this.PageContext.BoardSettings.SpamPostHandling)

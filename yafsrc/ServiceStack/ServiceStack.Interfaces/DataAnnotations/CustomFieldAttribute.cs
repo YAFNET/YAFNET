@@ -111,12 +111,6 @@ namespace ServiceStack.DataAnnotations
     }
 
     /// <summary>
-    /// Class PgSqlBigIntArrayAttribute.
-    /// Implements the <see cref="ServiceStack.DataAnnotations.PgSqlLongArrayAttribute" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.DataAnnotations.PgSqlLongArrayAttribute" />
-    public class PgSqlBigIntArrayAttribute : PgSqlLongArrayAttribute { }
-    /// <summary>
     /// Class PgSqlLongArrayAttribute.
     /// Implements the <see cref="ServiceStack.DataAnnotations.CustomFieldAttribute" />
     /// </summary>

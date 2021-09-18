@@ -18,16 +18,4 @@ namespace ServiceStack.Configuration
         /// <returns>T.</returns>
         T TryResolve<T>();
     }
-
-    /// <summary>
-    /// Interface IHasResolver
-    /// </summary>
-    public interface IHasResolver
-    {
-        /// <summary>
-        /// Gets the resolver.
-        /// </summary>
-        /// <value>The resolver.</value>
-        IResolver Resolver { get; }
-    }
 }

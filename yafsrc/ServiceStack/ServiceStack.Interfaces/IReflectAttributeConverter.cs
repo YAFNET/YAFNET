@@ -4,12 +4,12 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace ServiceStack
 {
+    using System.Collections.Generic;
+    using System.Reflection;
+
     /// <summary>
     /// Interface IReflectAttributeConverter
     /// </summary>

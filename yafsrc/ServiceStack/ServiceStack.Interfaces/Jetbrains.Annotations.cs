@@ -35,7 +35,6 @@ using System;
 // ReSharper disable IntroduceOptionalParameters.Global
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
-
 namespace JetBrains.Annotations
 {
     /// <summary>
@@ -125,7 +124,7 @@ namespace JetBrains.Annotations
         /// Gets the name of the format parameter.
         /// </summary>
         /// <value>The name of the format parameter.</value>
-        [NotNull] public string FormatParameterName { get; private set; }
+        [NotNull] public string FormatParameterName { get; }
     }
 
     /// <summary>
@@ -150,7 +149,7 @@ namespace JetBrains.Annotations
         /// Gets the name.
         /// </summary>
         /// <value>The name.</value>
-        [NotNull] public string Name { get; private set; }
+        [NotNull] public string Name { get; }
     }
 
     /// <summary>
@@ -198,6 +197,7 @@ namespace JetBrains.Annotations
         /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute"/> class.
         /// </summary>
         public NotifyPropertyChangedInvocatorAttribute() { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute"/> class.
         /// </summary>
@@ -211,7 +211,7 @@ namespace JetBrains.Annotations
         /// Gets the name of the parameter.
         /// </summary>
         /// <value>The name of the parameter.</value>
-        [CanBeNull] public string ParameterName { get; private set; }
+        [CanBeNull] public string ParameterName { get; }
     }
 
     /// <summary>
@@ -294,13 +294,13 @@ namespace JetBrains.Annotations
         /// Gets the contract.
         /// </summary>
         /// <value>The contract.</value>
-        [NotNull] public string Contract { get; private set; }
+        [NotNull] public string Contract { get; }
 
         /// <summary>
         /// Gets a value indicating whether [force full states].
         /// </summary>
         /// <value><c>true</c> if [force full states]; otherwise, <c>false</c>.</value>
-        public bool ForceFullStates { get; private set; }
+        public bool ForceFullStates { get; }
     }
 
     /// <summary>
@@ -335,7 +335,7 @@ namespace JetBrains.Annotations
         /// Gets a value indicating whether this <see cref="LocalizationRequiredAttribute"/> is required.
         /// </summary>
         /// <value><c>true</c> if required; otherwise, <c>false</c>.</value>
-        public bool Required { get; private set; }
+        public bool Required { get; }
     }
 
     /// <summary>
@@ -391,7 +391,7 @@ namespace JetBrains.Annotations
         /// Gets the type of the base.
         /// </summary>
         /// <value>The type of the base.</value>
-        [NotNull] public Type BaseType { get; private set; }
+        [NotNull] public Type BaseType { get; }
     }
 
     /// <summary>
@@ -436,13 +436,13 @@ namespace JetBrains.Annotations
         /// Gets the use kind flags.
         /// </summary>
         /// <value>The use kind flags.</value>
-        public ImplicitUseKindFlags UseKindFlags { get; private set; }
+        public ImplicitUseKindFlags UseKindFlags { get; }
 
         /// <summary>
         /// Gets the target flags.
         /// </summary>
         /// <value>The target flags.</value>
-        public ImplicitUseTargetFlags TargetFlags { get; private set; }
+        public ImplicitUseTargetFlags TargetFlags { get; }
     }
 
     /// <summary>
@@ -506,19 +506,23 @@ namespace JetBrains.Annotations
         /// The default
         /// </summary>
         Default = Access | Assign | InstantiatedWithFixedConstructorSignature,
+
         /// <summary>
         /// Only entity marked with attribute considered used.
         /// </summary>
         Access = 1,
+
         /// <summary>
         /// Indicates implicit assignment to a member.
         /// </summary>
         Assign = 2,
+
         /// <summary>
         /// Indicates implicit instantiation of a type with fixed constructor signature.
         /// That means any unused constructor parameters won't be reported as such.
         /// </summary>
         InstantiatedWithFixedConstructorSignature = 4,
+
         /// <summary>
         /// Indicates implicit instantiation of a type.
         /// </summary>
@@ -536,14 +540,17 @@ namespace JetBrains.Annotations
         /// The default
         /// </summary>
         Default = Itself,
+
         /// <summary>
         /// The itself
         /// </summary>
         Itself = 1,
+
         /// <summary>
         /// Members of entity marked with attribute are considered used.
         /// </summary>
         Members = 2,
+
         /// <summary>
         /// Entity marked with attribute and all its members considered used.
         /// </summary>
@@ -575,7 +582,7 @@ namespace JetBrains.Annotations
         /// Gets the comment.
         /// </summary>
         /// <value>The comment.</value>
-        [CanBeNull] public string Comment { get; private set; }
+        [CanBeNull] public string Comment { get; }
     }
 
     /// <summary>
@@ -625,7 +632,7 @@ namespace JetBrains.Annotations
         /// Gets the justification.
         /// </summary>
         /// <value>The justification.</value>
-        [CanBeNull] public string Justification { get; private set; }
+        [CanBeNull] public string Justification { get; }
     }
 
     /// <summary>
@@ -674,7 +681,7 @@ namespace JetBrains.Annotations
         /// Gets the base path.
         /// </summary>
         /// <value>The base path.</value>
-        [CanBeNull] public string BasePath { get; private set; }
+        [CanBeNull] public string BasePath { get; }
     }
 
     /// <summary>
@@ -774,7 +781,7 @@ namespace JetBrains.Annotations
         /// Gets the format.
         /// </summary>
         /// <value>The format.</value>
-        [NotNull] public string Format { get; private set; }
+        [NotNull] public string Format { get; }
     }
 
     /// <summary>
@@ -798,7 +805,7 @@ namespace JetBrains.Annotations
         /// Gets the format.
         /// </summary>
         /// <value>The format.</value>
-        [NotNull] public string Format { get; private set; }
+        [NotNull] public string Format { get; }
     }
 
     /// <summary>
@@ -822,7 +829,7 @@ namespace JetBrains.Annotations
         /// Gets the format.
         /// </summary>
         /// <value>The format.</value>
-        [NotNull] public string Format { get; private set; }
+        [NotNull] public string Format { get; }
     }
 
     /// <summary>
@@ -846,7 +853,7 @@ namespace JetBrains.Annotations
         /// Gets the format.
         /// </summary>
         /// <value>The format.</value>
-        [NotNull] public string Format { get; private set; }
+        [NotNull] public string Format { get; }
     }
 
     /// <summary>
@@ -870,7 +877,7 @@ namespace JetBrains.Annotations
         /// Gets the format.
         /// </summary>
         /// <value>The format.</value>
-        [NotNull] public string Format { get; private set; }
+        [NotNull] public string Format { get; }
     }
 
     /// <summary>
@@ -894,7 +901,7 @@ namespace JetBrains.Annotations
         /// Gets the format.
         /// </summary>
         /// <value>The format.</value>
-        [NotNull] public string Format { get; private set; }
+        [NotNull] public string Format { get; }
     }
 
     /// <summary>
@@ -924,7 +931,7 @@ namespace JetBrains.Annotations
         /// Gets the anonymous property.
         /// </summary>
         /// <value>The anonymous property.</value>
-        [CanBeNull] public string AnonymousProperty { get; private set; }
+        [CanBeNull] public string AnonymousProperty { get; }
     }
 
     /// <summary>
@@ -953,7 +960,7 @@ namespace JetBrains.Annotations
         /// Gets the anonymous property.
         /// </summary>
         /// <value>The anonymous property.</value>
-        [CanBeNull] public string AnonymousProperty { get; private set; }
+        [CanBeNull] public string AnonymousProperty { get; }
     }
 
     /// <summary>
@@ -983,7 +990,7 @@ namespace JetBrains.Annotations
         /// Gets the anonymous property.
         /// </summary>
         /// <value>The anonymous property.</value>
-        [CanBeNull] public string AnonymousProperty { get; private set; }
+        [CanBeNull] public string AnonymousProperty { get; }
     }
 
     /// <summary>
@@ -1104,7 +1111,7 @@ namespace JetBrains.Annotations
         /// Gets the name.
         /// </summary>
         /// <value>The name.</value>
-        [CanBeNull] public string Name { get; private set; }
+        [CanBeNull] public string Name { get; }
     }
 
     /// <summary>
@@ -1128,7 +1135,7 @@ namespace JetBrains.Annotations
         /// Gets the name.
         /// </summary>
         /// <value>The name.</value>
-        [NotNull] public string Name { get; private set; }
+        [NotNull] public string Name { get; }
     }
 
     /// <summary>
@@ -1159,7 +1166,7 @@ namespace JetBrains.Annotations
         /// Gets the type of the collection access.
         /// </summary>
         /// <value>The type of the collection access.</value>
-        public CollectionAccessType CollectionAccessType { get; private set; }
+        public CollectionAccessType CollectionAccessType { get; }
     }
 
     /// <summary>
@@ -1172,14 +1179,17 @@ namespace JetBrains.Annotations
         /// Method does not use or modify content of the collection.
         /// </summary>
         None = 0,
+
         /// <summary>
         /// Method only reads content of the collection but does not modify it.
         /// </summary>
         Read = 1,
+
         /// <summary>
         /// Method can change content of the collection but does not add new elements.
         /// </summary>
         ModifyExistingContent = 2,
+
         /// <summary>
         /// Method can add new elements to the collection.
         /// </summary>
@@ -1215,7 +1225,7 @@ namespace JetBrains.Annotations
         /// Gets the type of the condition.
         /// </summary>
         /// <value>The type of the condition.</value>
-        public AssertionConditionType ConditionType { get; private set; }
+        public AssertionConditionType ConditionType { get; }
     }
 
     /// <summary>
@@ -1228,14 +1238,17 @@ namespace JetBrains.Annotations
         /// Marked parameter should be evaluated to true.
         /// </summary>
         IS_TRUE = 0,
+
         /// <summary>
         /// Marked parameter should be evaluated to false.
         /// </summary>
         IS_FALSE = 1,
+
         /// <summary>
         /// Marked parameter should be evaluated to null value.
         /// </summary>
         IS_NULL = 2,
+
         /// <summary>
         /// Marked parameter should be evaluated to not null value.
         /// </summary>
@@ -1310,13 +1323,13 @@ namespace JetBrains.Annotations
         /// Gets the name of the tag.
         /// </summary>
         /// <value>The name of the tag.</value>
-        [NotNull] public string TagName { get; private set; }
+        [NotNull] public string TagName { get; }
 
         /// <summary>
         /// Gets the type of the control.
         /// </summary>
         /// <value>The type of the control.</value>
-        [NotNull] public Type ControlType { get; private set; }
+        [NotNull] public Type ControlType { get; }
     }
 
     /// <summary>
@@ -1364,7 +1377,7 @@ namespace JetBrains.Annotations
         /// Gets the attribute.
         /// </summary>
         /// <value>The attribute.</value>
-        [NotNull] public string Attribute { get; private set; }
+        [NotNull] public string Attribute { get; }
     }
 
     /// <summary>
@@ -1379,7 +1392,7 @@ namespace JetBrains.Annotations
         /// Gets a value indicating whether [create constructor references].
         /// </summary>
         /// <value><c>true</c> if [create constructor references]; otherwise, <c>false</c>.</value>
-        public bool CreateConstructorReferences { get; private set; }
+        public bool CreateConstructorReferences { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AspTypePropertyAttribute"/> class.
@@ -1412,7 +1425,7 @@ namespace JetBrains.Annotations
         /// Gets the name.
         /// </summary>
         /// <value>The name.</value>
-        [NotNull] public string Name { get; private set; }
+        [NotNull] public string Name { get; }
     }
 
     /// <summary>
@@ -1438,13 +1451,13 @@ namespace JetBrains.Annotations
         /// Gets the type.
         /// </summary>
         /// <value>The type.</value>
-        [NotNull] public string Type { get; private set; }
+        [NotNull] public string Type { get; }
 
         /// <summary>
         /// Gets the name of the field.
         /// </summary>
         /// <value>The name of the field.</value>
-        [NotNull] public string FieldName { get; private set; }
+        [NotNull] public string FieldName { get; }
     }
 
     /// <summary>
@@ -1468,7 +1481,7 @@ namespace JetBrains.Annotations
         /// Gets the directive.
         /// </summary>
         /// <value>The directive.</value>
-        [NotNull] public string Directive { get; private set; }
+        [NotNull] public string Directive { get; }
     }
 
     /// <summary>
@@ -1487,6 +1500,7 @@ namespace JetBrains.Annotations
         {
             BaseType = baseType;
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RazorPageBaseTypeAttribute"/> class.
         /// </summary>
@@ -1502,12 +1516,13 @@ namespace JetBrains.Annotations
         /// Gets the type of the base.
         /// </summary>
         /// <value>The type of the base.</value>
-        [NotNull] public string BaseType { get; private set; }
+        [NotNull] public string BaseType { get; }
+
         /// <summary>
         /// Gets the name of the page.
         /// </summary>
         /// <value>The name of the page.</value>
-        [CanBeNull] public string PageName { get; private set; }
+        [CanBeNull] public string PageName { get; }
     }
 
     /// <summary>

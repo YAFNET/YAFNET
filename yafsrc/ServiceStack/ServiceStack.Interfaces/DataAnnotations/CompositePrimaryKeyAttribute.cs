@@ -20,14 +20,6 @@ namespace ServiceStack.DataAnnotations
         /// <summary>
         /// Initializes a new instance of the <see cref="CompositePrimaryKeyAttribute"/> class.
         /// </summary>
-        public CompositePrimaryKeyAttribute()
-        {
-            this.FieldNames = new List<string>();
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CompositePrimaryKeyAttribute"/> class.
-        /// </summary>
         /// <param name="fieldNames">The field names.</param>
         public CompositePrimaryKeyAttribute(params string[] fieldNames)
         {

@@ -91,21 +91,9 @@ namespace ServiceStack
         /// </summary>
         Report = 1 << 16,
         /// <summary>
-        /// The check out
-        /// </summary>
-        CheckOut = 1 << 17,
-        /// <summary>
         /// The check in
         /// </summary>
         CheckIn = 1 << 18,
-        /// <summary>
-        /// The un check out
-        /// </summary>
-        UnCheckOut = 1 << 19,
-        /// <summary>
-        /// The mk work space
-        /// </summary>
-        MkWorkSpace = 1 << 20,
         /// <summary>
         /// The update
         /// </summary>

@@ -457,8 +457,7 @@ namespace YAF.Pages
             var isPossibleSpamMessage = false;
 
             // Check for SPAM
-            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess
-                && this.PageContext.BoardSettings.SpamService != SpamService.NoService)
+            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 // Check content for spam
                 if (
@@ -472,7 +471,8 @@ namespace YAF.Pages
                         out var spamResult))
                 {
                     var description =
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
+                        $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
+                           posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
                     switch (this.PageContext.BoardSettings.SpamPostHandling)
                     {
@@ -507,11 +507,6 @@ namespace YAF.Pages
                             return;
                     }
                 }
-            }
-
-            if (this.Get<ISpamCheck>().ContainsSpamUrls(this.forumEditor.Text))
-            {
-                return;
             }
 
             // update the last post time...

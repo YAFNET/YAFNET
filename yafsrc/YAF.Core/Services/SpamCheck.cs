@@ -30,14 +30,12 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
 
     /// <summary>
@@ -89,11 +87,6 @@ namespace YAF.Core.Services
         {
             result = string.Empty;
 
-            if (this.Get<BoardSettings>().SpamServiceType.Equals(0))
-            {
-                return false;
-            }
-
             if (BoardContext.Current.User.NumPosts
                 >= this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
             {
@@ -116,7 +109,8 @@ namespace YAF.Core.Services
                     }
             }
 
-            return false;
+            // Check for Urls
+            return this.Get<ISpamCheck>().ContainsSpamUrls(postMessage, out result);
         }
 
         /// <summary>
@@ -211,15 +205,19 @@ namespace YAF.Core.Services
         /// <param name="message">
         /// The message to check for URLs.
         /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool ContainsSpamUrls(string message)
+        public bool ContainsSpamUrls(string message, out string result)
         {
+            result = string.Empty;
+
             // Check posts for urls if the user has only x posts
-            if (BoardContext.Current.User.NumPosts >
-                this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount || BoardContext.Current.IsAdmin ||
-                BoardContext.Current.ForumModeratorAccess)
+            if (BoardContext.Current.User.NumPosts > this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount ||
+                BoardContext.Current.IsAdmin || BoardContext.Current.ForumModeratorAccess)
             {
                 return false;
             }
@@ -231,48 +229,8 @@ namespace YAF.Core.Services
                 return false;
             }
 
-            var spamResult =
+            result =
                 $"The user posted {urlCount} urls but allowed only {this.Get<BoardSettings>().AllowedNumberOfUrls}";
-
-            switch (this.Get<BoardSettings>().SpamPostHandling)
-            {
-                case SpamPostHandling.DoNothing:
-                    this.Get<ILoggerService>().Log(
-                        BoardContext.Current.PageUserID,
-                        "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {BoardContext.Current.User.DisplayOrUserName()}",
-                        EventLogTypes.SpamMessageDetected);
-                    break;
-                case SpamPostHandling.FlagMessageUnapproved:
-                    this.Get<ILoggerService>().Log(
-                        BoardContext.Current.PageUserID,
-                        "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {(BoardContext.Current.IsGuest ? "Guest" : BoardContext.Current.User.DisplayOrUserName())}, it was flagged as unapproved post",
-                        EventLogTypes.SpamMessageDetected);
-                    break;
-                case SpamPostHandling.RejectMessage:
-                    this.Get<ILoggerService>().Log(
-                        BoardContext.Current.PageUserID,
-                        "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {BoardContext.Current.User.DisplayOrUserName()}, post was rejected",
-                        EventLogTypes.SpamMessageDetected);
-
-                    BoardContext.Current.AddLoadMessage(this.Get<ILocalization>().GetText("SPAM_MESSAGE"), MessageTypes.danger);
-
-                    break;
-                case SpamPostHandling.DeleteBanUser:
-                    this.Get<ILoggerService>().Log(
-                        BoardContext.Current.PageUserID,
-                        "Spam Message Detected",
-                        $"Spam Check detected possible SPAM ({spamResult}) posted by User: {BoardContext.Current.User.DisplayOrUserName()}, user was deleted and bannded",
-                        EventLogTypes.SpamMessageDetected);
-
-                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                        BoardContext.Current.PageUserID,
-                        BoardContext.Current.MembershipUser,
-                        BoardContext.Current.User.IP);
-                    break;
-            }
 
             return true;
         }

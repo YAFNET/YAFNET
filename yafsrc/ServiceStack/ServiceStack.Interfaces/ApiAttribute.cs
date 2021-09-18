@@ -33,7 +33,7 @@ namespace ServiceStack
     /// Implements the <see cref="ServiceStack.AttributeBase" />
     /// </summary>
     /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class ApiAttribute : AttributeBase
     {
         /// <summary>

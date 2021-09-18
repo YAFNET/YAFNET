@@ -18,17 +18,6 @@ namespace ServiceStack.DataAnnotations
     public class SqlServerMemoryOptimizedAttribute : AttributeBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerMemoryOptimizedAttribute"/> class.
-        /// </summary>
-        public SqlServerMemoryOptimizedAttribute() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerMemoryOptimizedAttribute"/> class.
-        /// </summary>
-        /// <param name="durability">The durability.</param>
-        public SqlServerMemoryOptimizedAttribute(SqlServerDurability durability) { Durability = durability; }
-
-        /// <summary>
         /// Gets or sets the durability.
         /// </summary>
         /// <value>The durability.</value>

@@ -86,12 +86,6 @@ namespace ServiceStack.Web
         object Dto { get; set; }
 
         /// <summary>
-        /// Buffer the Response OutputStream so it can be written in 1 batch
-        /// </summary>
-        /// <value><c>true</c> if [use buffered stream]; otherwise, <c>false</c>.</value>
-        bool UseBufferedStream { get; set; }
-
-        /// <summary>
         /// Signal that this response has been handled and no more processing should be done.
         /// When used in a request or response filter, no more filters or processing is done on this request.
         /// </summary>
@@ -102,7 +96,7 @@ namespace ServiceStack.Web
         /// </summary>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        Task CloseAsync(CancellationToken token = default(CancellationToken));
+        Task CloseAsync(CancellationToken token = default);
 
         /// <summary>
         /// Calls Response.End() on ASP.NET HttpResponse otherwise is an alias for Close().
@@ -120,7 +114,7 @@ namespace ServiceStack.Web
         /// </summary>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        Task FlushAsync(CancellationToken token = default(CancellationToken));
+        Task FlushAsync(CancellationToken token = default);
 
         /// <summary>
         /// Gets a value indicating whether this instance is closed.

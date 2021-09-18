@@ -8,6 +8,8 @@ using System;
 
 namespace ServiceStack.DataAnnotations
 {
+    using System.Globalization;
+
     /// <summary>
     /// Class DefaultAttribute.
     /// Implements the <see cref="ServiceStack.AttributeBase" />
@@ -63,7 +65,7 @@ namespace ServiceStack.DataAnnotations
         {
             this.DoubleValue = doubleValue;
             this.DefaultType = typeof(double);
-            this.DefaultValue = doubleValue.ToString();
+            this.DefaultValue = doubleValue.ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>

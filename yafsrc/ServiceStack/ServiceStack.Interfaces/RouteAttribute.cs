@@ -84,7 +84,7 @@ namespace ServiceStack
         /// in a request DTO whose ItemPath property contains "Books/12345".
         /// You may only specify one such variable in the path, and it must be positioned at
         /// the end of the path.</para></remarks>
-        public string Path { get; set; }
+        public string Path { get; }
 
         /// <summary>
         /// Gets or sets short summary of what the route does.
@@ -142,10 +142,9 @@ namespace ServiceStack
         /// <returns>bool.</returns>
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((RouteAttribute)obj);
+            return obj.GetType() == this.GetType() && Equals((RouteAttribute)obj);
         }
 
         /// <summary>
@@ -174,7 +173,7 @@ namespace ServiceStack
         {
             if (Summary == null && Notes == null && Matches == null && Priority == default)
             {
-                //Return ideal Constructor Args 
+                // Return ideal Constructor Args 
                 if (Path != null && Verbs != null)
                 {
                     return new ReflectAttribute
@@ -194,7 +193,7 @@ namespace ServiceStack
                 };
             }
 
-            //Otherwise return Property Args
+            // Otherwise return Property Args
             var to = new ReflectAttribute
             {
                 PropertyArgs = new List<KeyValuePair<PropertyInfo, object>> {
