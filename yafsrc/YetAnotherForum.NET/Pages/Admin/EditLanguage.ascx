@@ -32,6 +32,7 @@
                     <asp:Label runat="server" id="lblInfo"></asp:Label>
                 </YAF:Alert>
                 <hr />
+                <div class="table-responsive">
                 <asp:DataGrid id="grdLocals" runat="server" 
                               CssClass="table table-striped"
                               GridLines="None"
@@ -87,6 +88,7 @@
                         </asp:TemplateColumn>
                     </Columns>
                 </asp:DataGrid>
+                    </div>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" id="btnSave"

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -33,6 +33,7 @@ namespace YAF.Pages
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
@@ -76,6 +77,13 @@ namespace YAF.Pages
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet() && this.Get<IPermissions>()
                 .Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
             {
@@ -96,6 +104,31 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>
@@ -120,6 +153,9 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
+            this.PagerTop.PageSize = baseSize;
+
             List<ActiveUser> activeUsers = null;
 
             switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("v"))
@@ -188,11 +224,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlock(
-                "UnverifiedUserstablesorterLoadJs",
-                JavaScriptBlocks.LoadTableSorter("#ActiveUsers", "sortList: [[0,0]]", "#ActiveUsersPager"));
-
-            this.UserList.DataSource = activeUsers;
+            this.UserList.DataSource = activeUsers.GetPaged(this.PagerTop);
             this.DataBind();
         }
 

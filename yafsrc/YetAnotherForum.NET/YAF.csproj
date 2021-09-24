@@ -1961,7 +1961,6 @@
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
     <Content Include="Content\prism.css" />
-    <Content Include="Content\tablesorter\theme.bootstrap_4.min.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -2894,10 +2893,7 @@
     <Content Include="Scripts\jquery.netStack.js" />
     <Content Include="Scripts\prism.js" />
     <Content Include="Scripts\select2.js" />
-    <Content Include="Scripts\tablesorter\extras\jquery.tablesorter.pager.js" />
-    <Content Include="Scripts\tablesorter\jquery.tablesorter.combined.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
-    <Content Include="Scripts\tablesorter\widgets\widget-reflow.js" />
     <Content Include="Scripts\bootstrap-tagsinput.js" />
     <Content Include="Scripts\forum\InstallWizard.js" />
     <Content Include="Scripts\jquery.hovercard.js" />
@@ -3450,6 +3446,7 @@
     <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
     <Content Include="package-lock.json" />
     <None Include="package.json" />
+    <Content Include="Resources\mimeTypes.json" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js">
       <DependentUpon>jquery-3.6.0.js</DependentUpon>
     </None>

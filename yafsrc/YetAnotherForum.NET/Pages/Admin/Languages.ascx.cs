@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -33,9 +33,9 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Web.Extensions;
 
@@ -80,6 +80,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             this.BindData();
         }
 
@@ -91,6 +98,31 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_LANGUAGES", "TITLE"), string.Empty);
+        }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>
@@ -113,16 +145,12 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var cultureTable = StaticDataHelper.Cultures();
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
+            this.PagerTop.PageSize = baseSize;
 
-            this.List.DataSource = cultureTable;
+            var cultures = StaticDataHelper.Cultures().ToList().GetPaged(this.PagerTop);
 
-            this.PageContext.PageElements.RegisterJsBlock(
-                "tablesorterLoadJs",
-                JavaScriptBlocks.LoadTableSorter(
-                    "#language-table",
-                    cultureTable.Any() ? "headers: { 4: { sorter: false }}" : null,
-                    "#LanguagesPager"));
+            this.List.DataSource = cultures;
 
             this.DataBind();
         }

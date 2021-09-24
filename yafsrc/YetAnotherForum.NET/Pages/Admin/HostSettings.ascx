@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col flex-grow-1 ms-lg-3 d-lg-none">
-        <div class="nav flex-column" id="v-pills-tab-dropdown" role="tablist" aria-orientation="vertical">
+        <div class="nav d-grid gap-2" id="v-pills-tab-dropdown" role="tablist" aria-orientation="vertical">
              <div class="dropdown d-grid gap-2">
             <YAF:ThemeButton runat="server"
                              CssClass="dropdown-toggle"
@@ -13,7 +13,7 @@
                              Type="Secondary"
                              TextLocalizedTag="TITLE"
                              TextLocalizedPage="ADMIN_HOSTSETTINGS"></YAF:ThemeButton>
-            <div class="dropdown-menu scrollable-dropdown" aria-labelledby="dropdownMenuButton">
+            <div class="dropdown-menu scrollable-dropdown w-100" aria-labelledby="dropdownMenuButton">
                <a href="#View0" class="nav-link" data-bs-toggle="pill" role="tab">
                             <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         </a>

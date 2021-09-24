@@ -84,7 +84,7 @@ namespace YAF.Core.Controllers
                         var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
                         var iconImage = attach.FileName.IsImageName()
-                                            ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" />"
+                                            ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" class=""img-fluid img-thumbnail me-1"" />"
                                             : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
                         var attachment = new AttachmentItem

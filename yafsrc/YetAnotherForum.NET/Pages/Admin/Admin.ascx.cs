@@ -240,12 +240,13 @@ namespace YAF.Pages.Admin
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
-            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
-
             this.PageSizeUnverified.DataSource = StaticDataHelper.PageEntries();
             this.PageSizeUnverified.DataTextField = "Name";
             this.PageSizeUnverified.DataValueField = "Value";
             this.PageSizeUnverified.DataBind();
+
+            this.PageSize.SelectedValue =
+                this.PageSizeUnverified.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.BoardStatsSelect.Visible = this.PageContext.User.UserFlags.IsHostAdmin;
 
@@ -457,11 +458,6 @@ namespace YAF.Pages.Admin
             // bind list
             this.UserList.DataSource = unverifiedUsers;
             this.UserList.DataBind();
-
-            if (this.UserList.Items.Count == 0)
-            {
-                this.NoInfo.Visible = true;
-            }
         }
 
         /// <summary>

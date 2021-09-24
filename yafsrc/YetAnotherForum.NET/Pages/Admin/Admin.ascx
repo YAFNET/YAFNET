@@ -398,8 +398,15 @@
                                 </ItemTemplate>
                                 <FooterTemplate>
                                 </ul>
+                                <YAF:Alert runat="server" ID="NoInfo"
+                                           Type="success"
+                                           Visible="<%# this.UserList.Items.Count == 0 %>">
+                                    <YAF:Icon runat="server" IconName="check" />
+                                    <YAF:LocalizedLabel runat="server"
+                                                        LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
+                                </YAF:Alert>
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer" runat="server" Visible="<%# this.UserList.Items.Count != 0 %>">
                                     <div class="d-lg-flex">
                                         <div>
                                             <YAF:ThemeButton runat="server"
@@ -431,13 +438,7 @@
                                 </div>
                                 </FooterTemplate>
                             </asp:Repeater>
-                            <YAF:Alert runat="server" ID="NoInfo"
-                                       Type="success"
-                                       Visible="False">
-                                <YAF:Icon runat="server" IconName="check" />
-                                <YAF:LocalizedLabel runat="server"
-                                                    LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
-                            </YAF:Alert>
+                            
                         </div>
                  </div>
           </div>

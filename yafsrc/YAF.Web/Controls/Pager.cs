@@ -190,10 +190,10 @@ namespace YAF.Web.Controls
 
             writer.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
 
-            writer.Write(@"<div class=""btn-group mb-1"" role=""group"">");
+            writer.Write(@"<div class=""btn-group mb-1 d-none d-lg-inline-block me-2"" role=""group"">");
 
             writer.WriteLine(
-                @"<button type=""button"" title=""{0}"" class=""btn btn-secondary disabled d-none d-lg-inline-block"" aria-disabled=""true"">
+                @"<button type=""button"" title=""{0}"" class=""btn btn-secondary disabled"" aria-disabled=""true"">
                           <i class=""fas fa-copy""></i>&nbsp;{1:N0} {2}
                       </button>",
                 this.Get<ILocalization>().TransPage.IsSet()
@@ -201,6 +201,8 @@ namespace YAF.Web.Controls
                     : "Go to page...",
                 this.PageCount(),
                 this.GetText("COMMON", "PAGES"));
+
+            writer.Write(@"</div><div class=""btn-group mb-1"" role=""group"">");
 
             this.OutputLinks(writer, this.UsePostBack);
 

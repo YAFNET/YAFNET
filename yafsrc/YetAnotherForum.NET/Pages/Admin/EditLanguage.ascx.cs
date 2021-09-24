@@ -42,7 +42,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -84,7 +83,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///   The translations.
         /// </summary>
-        private List<Translation> translations = new();
+        private List<Translation> translations = new ();
 
         #endregion
 
@@ -93,12 +92,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///  Gets the List of attributes for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesAttributes { get; } = new();
+        private StringDictionary ResourcesAttributes { get; } = new ();
 
         /// <summary>
         ///  Gets the List of namespaces for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesNamespaces { get; } = new();
+        private StringDictionary ResourcesNamespaces { get; } = new ();
 
         #endregion
 
@@ -163,10 +162,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlock(
-                "FixGridTableJs",
-                JavaScriptBlocks.FixGridTable(this.grdLocals.ClientID));
-
             base.OnPreRender(e);
         }
 
@@ -233,16 +228,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Returns Back to The Languages Page
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Languages);
-        }
-
-        /// <summary>
         /// Checks if Resources are translated and handle Size of the Textboxes based on the Content Length
         /// </summary>
         /// <param name="sender">The sender.</param>
@@ -272,6 +257,16 @@ namespace YAF.Pages.Admin
             {
                 txtLocalized.ForeColor = Color.Red;
             }
+        }
+
+        /// <summary>
+        /// Returns Back to The Languages Page
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Languages);
         }
 
         /// <summary>
@@ -326,11 +321,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void LoadPageLocalization([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Save Values
-            this.UpdateLocalizedValues();
-
-            this.SaveLanguageFile();
-
             this.pageName = this.dDLPages.SelectedValue;
 
             this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
@@ -531,7 +521,7 @@ namespace YAF.Pages.Admin
                     var lblResourceName = item.FindControlAs<Label>("lblResourceName");
 
                     this.translations.Find(
-                        check => check.PageName.Equals(this.pageName) &&
+                        check => check.PageName.Equals(this.dDLPages.SelectedValue) &&
                                  check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue = txtLocalized.Text;
                 });
         }

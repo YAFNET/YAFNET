@@ -105,7 +105,7 @@ namespace YAF.Core.Controllers
                                                  FileName = image.FileName,
                                                  OnClick = $"CKEDITOR.tools.insertAlbumImage('{image.ID}')",
                                                  IconImage =
-                                                     $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" width=""40"" height=""40"" />",
+                                                     $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" class=""img-fluid img-thumbnail me-1"" />",
                                                  DataURL = url
                                              };
 

@@ -103,10 +103,8 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\tablesorter\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\**\*.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\tablesorter\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.FileUpload\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
@@ -182,6 +180,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
+	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json" />
     </ItemGroup>
 
     <ItemGroup>

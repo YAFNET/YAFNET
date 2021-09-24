@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -28,7 +28,7 @@ CKEDITOR.dialog.add("attachmentsDialog",
             minWidth: 200,
             title: editor.lang.attachments.title,
             onLoad: function() {
-                this.getElement().removeClass('cke_reset_all');
+                this.getElement().removeClass("cke_reset_all");
             },
             onShow: function() {
                 if ($("#PostAttachmentListPlaceholder").length) {
@@ -50,20 +50,20 @@ CKEDITOR.dialog.add("attachmentsDialog",
                                 '<div class="text-center mb-3">' +
                                 editor.lang.attachments.loading +
                                 '<div class="fa-3x text-center"><i class="fas fa-spinner fa-pulse"></i></div></div>' +
-                                '</div>' +
+                                "</div>" +
                                 '<div class="content">' +
                                 '<div id="PostAttachmentListPlaceholder" data-url="' +
-                                CKEDITOR.basePath.replace('Scripts/ckeditor/', '') +
+                                CKEDITOR.basePath.replace("Scripts/ckeditor/", "") +
                                 '" data-userid="0" data-notext="' +
                                 editor.lang.attachments.noAlbums +
                                 '" style="clear: both;">' +
                                 '<ul class="AttachmentList list-group-albums list-group">' +
-                                '</ul>' +
-                                '</div>' +
+                                "</ul>" +
+                                "</div>" +
                                 '<div class="OpenUploadDialog">' +
                                 '<button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#UploadDialog">' +
                                 editor.lang.attachments.upload +
-                                '</button></div>'
+                                "</button></div>"
                         }
                     ]
                 }
@@ -71,8 +71,8 @@ CKEDITOR.dialog.add("attachmentsDialog",
         }
     }), CKEDITOR.plugins.add("attachments",
     {
-        requires: 'dialog',
-        lang: 'en',
+        requires: "dialog",
+        lang: "en",
         init: function(editor) {
 
             var command = editor.addCommand("attachmentsStart", new CKEDITOR.dialogCommand("attachmentsDialog"));
@@ -82,7 +82,7 @@ CKEDITOR.dialog.add("attachmentsDialog",
                 var dialog = CKEDITOR.dialog.getCurrent()
                 var currentEditor = CKEDITOR.currentInstance;
 
-                var insert = '[attach]' + id + '[/attach]';
+                var insert = "[attach]" + id + "[/attach]";
 
                 if (editor.mode === "source") {
                     var doc = window["codemirror_" + editor.id].getDoc();

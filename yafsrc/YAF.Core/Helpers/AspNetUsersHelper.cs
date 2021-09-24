@@ -263,7 +263,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public bool DeleteUser(int userID, bool isBotAutoDelete = false)
         {
-            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(userID);
+            var user = this.GetRepository<User>().GetById(userID);
 
             if (user == null)
             {
@@ -293,7 +293,12 @@ namespace YAF.Core.Helpers
                     });
             }
 
-            this.Get<AspNetUsersManager>().Delete(user);
+            var aspNetUser = this.Get<IAspNetUsersHelper>().GetUser(user.ProviderUserKey);
+
+            if (aspNetUser != null)
+            {
+                this.Get<AspNetUsersManager>().Delete(aspNetUser);
+            }
 
             this.GetRepository<User>().Delete(userID);
 
@@ -301,7 +306,7 @@ namespace YAF.Core.Helpers
             {
                 this.Get<ILoggerService>().UserDeleted(
                     BoardContext.Current.User.ID,
-                    $"User {user.UserName} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.User.DisplayOrUserName())}.");
+                    $"User {user.DisplayOrUserName()} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.User.DisplayOrUserName())}.");
             }
 
             return true;
