@@ -3301,6 +3301,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\ckeditor\plugins\emoji\emoji.json" />
+    <Content Include="Resources\mimeTypes.json" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
@@ -3557,7 +3558,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -12,7 +12,7 @@
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
 
- * http://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
 
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
@@ -22,8 +22,12 @@
  * under the License.
  */
 
-using System.Reflection;
+namespace YAF.Types.Objects
+{
+    public class MimeType
+    {
+        public string Extension { get; set; }
 
-[assembly: AssemblyVersion("2.3.1.16")]
-[assembly: AssemblyFileVersion("2.3.1.16")]
-[assembly: AssemblyCopyright("Copyright © YetAnotherForum.NET")]
+        public string Type { get; set; }
+    }
+}
