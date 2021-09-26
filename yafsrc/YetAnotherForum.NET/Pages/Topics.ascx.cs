@@ -232,9 +232,12 @@ namespace YAF.Pages
                 this.Get<HttpResponseBase>().Redirect(this.forum.RemoteURL);
             }
 
-            this.PageTitle.Text = this.forum.Description.IsSet()
-                                      ? $"{this.HtmlEncode(this.forum.Name)} - <em>{this.HtmlEncode(this.forum.Description)}</em>"
-                                      : this.HtmlEncode(this.forum.Name);
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.BindData(); // Always because of yaf:TopicLine
 
@@ -346,13 +349,6 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-            this.PageSize.DataBind();
-
-            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
-
             var forums = this.Get<DataBroker>().BoardLayout(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID,

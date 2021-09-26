@@ -241,8 +241,6 @@ namespace YAF.Pages.Admin
 
             this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
-            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
-
             var allItem = new ListItem(this.GetText("ALL"), "-1");
 
             allItem.Attributes.Add(

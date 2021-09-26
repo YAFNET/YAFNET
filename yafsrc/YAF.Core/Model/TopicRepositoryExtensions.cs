@@ -771,7 +771,7 @@ namespace YAF.Core.Model
                 showMoved,
                 findLastRead,
                 (t, x, c) => t.ForumID == forumId &&
-                             (t.Priority == 1 || t.Priority <= 0 && t.LastPosted >= sinceDate) &&
+                             t.Priority != 2 && t.LastPosted >= sinceDate &&
                              (t.Flags & 8) != 8 && (t.TopicMovedID != null || t.NumPosts > 0 && x.UserID == userId && x.ReadAccess));
         }
 
@@ -825,7 +825,9 @@ namespace YAF.Core.Model
                     expression.Where(whereCriteria);
 
                     // -- count total
-                    var countTotalExpression = db.Connection.From<Topic>();
+                    var countTotalExpression = db.Connection.From<Topic>().Join<Forum>((t, f) => f.ID == t.ForumID)
+                        .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID)
+                        .Join<Forum, Category>((f, c) => c.ID == f.CategoryID);
 
                     countTotalExpression.Where(whereCriteria);
 

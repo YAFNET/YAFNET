@@ -72,7 +72,24 @@ namespace YAF.Types.Interfaces
         {
             CodeContracts.VerifyNotNull(pager);
 
-            return (int)Math.Ceiling((double)pager.Count / pager.PageSize);
+            return PageCount(pager.Count, pager.PageSize);
+        }
+
+        /// <summary>
+        /// Gets the Page Count from the Page Items Count and Page Size
+        /// </summary>
+        /// <param name="pageItemsCount">
+        /// The page Items Count.
+        /// </param>
+        /// <param name="pageSize">
+        /// Size of the page.
+        /// </param>
+        /// <returns>
+        /// Returns the Pages Count
+        /// </returns>
+        public static int PageCount(int pageItemsCount, int pageSize)
+        {
+            return (int)Math.Ceiling((double)pageItemsCount / pageSize);
         }
 
         /// <summary>

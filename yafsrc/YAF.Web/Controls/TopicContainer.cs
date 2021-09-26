@@ -368,7 +368,7 @@ namespace YAF.Web.Controls
         protected void CreatePostPager(HtmlTextWriter writer, int count, int pageSize, int topicID)
         {
             const int NumToDisplay = 4;
-            var pageCount = (int)Math.Ceiling((double)count / pageSize);
+            var pageCount = IPagerExtensions.PageCount(count, pageSize);
 
             if (pageCount <= 1)
             {

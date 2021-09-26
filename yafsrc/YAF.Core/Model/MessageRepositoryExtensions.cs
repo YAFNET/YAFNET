@@ -250,7 +250,7 @@ namespace YAF.Core.Model
                     }
 
                     var pageIndexCheck = pageIndex + 1;
-                    var totalPages = totalRows / pageSize;
+                    var totalPages = IPagerExtensions.PageCount(totalRows, pageSize);
 
                     if (totalPages == 0)
                     {

@@ -168,13 +168,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Search_Click(object sender, EventArgs e)
         {
-            this.PageSize.DataSource = StaticDataHelper.PageEntries();
-            this.PageSize.DataTextField = "Name";
-            this.PageSize.DataValueField = "Value";
-            this.PageSize.DataBind();
-
-            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
-
             this.BindData();
         }
 
