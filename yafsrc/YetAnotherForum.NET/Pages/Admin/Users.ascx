@@ -297,9 +297,9 @@
                         </ItemTemplate>
                     </asp:Repeater>
                     <YAF:Alert runat="server" ID="NoInfo"
-                               Type="warning"
+                               Type="info"
                                Visible="False">
-                        <i class="fa fa-exclamation-triangle fa-fw text-warning"></i>
+                        <i class="fa fa-exclamation-triangle fa-fw"></i>
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>

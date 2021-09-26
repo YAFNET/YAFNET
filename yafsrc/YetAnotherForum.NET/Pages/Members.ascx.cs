@@ -496,6 +496,8 @@ namespace YAF.Pages
             this.MemberList.DataSource = this.userList;
             this.DataBind();
 
+            this.NoInfo.Visible = this.MemberList.Items.Count == 0;
+
             switch (this.ViewState["SortNameField"].ToType<int?>())
             {
                 case 1:
