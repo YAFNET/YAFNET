@@ -114,6 +114,12 @@ namespace YAF.Pages
             }
         }
 
+        /// <summary>
+        /// Indicates if this Is Message Delete or Message Un-Delete Action
+        /// </summary>
+        private bool IsUnDelete =>
+            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "undelete";
+
         #endregion
 
         #region Methods
@@ -141,7 +147,7 @@ namespace YAF.Pages
         /// </returns>
         protected string GetActionText()
         {
-            return this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete"
+            return !this.IsUnDelete
                        ? this.GetText("DELETE")
                        : this.GetText("UNDELETE");
         }
@@ -156,7 +162,7 @@ namespace YAF.Pages
         {
             return
                 this.GetText(
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete"
+                    !this.IsUnDelete
                         ? "DELETE_REASON"
                         : "UNDELETE_REASON");
         }
@@ -222,7 +228,7 @@ namespace YAF.Pages
                 this.LinkedPosts.DataBind();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("action").ToLower() == "delete")
+            if (!this.IsUnDelete)
             {
                 this.Title.Text = this.GetText("EDIT");
                 this.Delete.TextLocalizedTag = "DELETE";
@@ -259,7 +265,16 @@ namespace YAF.Pages
             // populate the message preview with the message data-row...
             this.MessagePreview.Message = this.message.Item2.MessageText;
             this.MessagePreview.MessageID = this.message.Item2.ID;
-            this.MessagePreview.MessageFlags = this.message.Item2.MessageFlags;
+
+            var messageFlags = this.message.Item2.MessageFlags;
+
+            if (this.IsUnDelete)
+            {
+                // Override Delete Flag to show Message if Un-Delete action
+                messageFlags.IsDeleted = false;
+            }
+
+            this.MessagePreview.MessageFlags = messageFlags;
         }
 
         /// <summary>
