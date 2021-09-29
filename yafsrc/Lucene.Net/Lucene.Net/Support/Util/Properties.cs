@@ -1,4 +1,4 @@
-﻿using Lucene.Net.Configuration;
+﻿using YAF.Lucene.Net.Configuration;
 using Microsoft.Extensions.Configuration;
 using System;
 
