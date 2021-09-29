@@ -1,5 +1,5 @@
-﻿using YAF.Lucene.Net.Support.IO;
-using YAF.Lucene.Net.Util;
+﻿using Lucene.Net.Support.IO;
+using Lucene.Net.Util;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -116,7 +116,9 @@ namespace YAF.Lucene.Net.Store
                 return FileSupport.GetFileIOExceptionHResult(provokeException: (fileName) =>
                 {
                     using var lockStream = new FileStream(fileName, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite);
+#pragma warning disable CA1416 // Validate platform compatibility
                     lockStream.Lock(0, 1); // Create an exclusive lock
+#pragma warning restore CA1416 // Validate platform compatibility
                     using var stream = new FileStream(fileName, FileMode.Open, FileAccess.Write, FileShare.ReadWrite);
                     // try to find out if the file is locked by writing a byte. Note that we need to flush the stream to find out.
                     stream.WriteByte(0);
@@ -207,7 +209,9 @@ namespace YAF.Lucene.Net.Store
             switch (LockingStrategy)
             {
                 case FSLockingStrategy.FileStreamLockViolation:
+#pragma warning disable CA1416 // Validate platform compatibility
                     return new NativeFSLock(m_lockDir, path);
+#pragma warning restore CA1416 // Validate platform compatibility
                 case FSLockingStrategy.FileSharingViolation:
                     return new SharingNativeFSLock(m_lockDir, path);
                 default:
@@ -237,7 +241,7 @@ namespace YAF.Lucene.Net.Store
     // Note that using NativeFSLock would be ideal for all platforms. However, there is a
     // small chance that provoking lock/share exceptions will fail. In that rare case, we
     // fallback to this substandard implementation.
-    //
+    // 
     // Reference: https://stackoverflow.com/q/46380483
     internal class FallbackNativeFSLock : Lock
     {
@@ -562,6 +566,9 @@ namespace YAF.Lucene.Net.Store
     }
 
     // Uses FileStream locking of file pages.
+#if NET6_0
+    [System.Runtime.Versioning.SupportedOSPlatform("windows")]
+#endif
     internal class NativeFSLock : Lock
     {
 #pragma warning disable CA2213 // Disposable fields should be disposed
@@ -689,7 +696,6 @@ namespace YAF.Lucene.Net.Store
                             }
                             catch
                             {
-                                // try to delete the file if we created it, but it's not an error if we can't.
                             }
                         }
                     }
