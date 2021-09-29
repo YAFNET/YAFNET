@@ -932,6 +932,10 @@
     "Type": "image/png"
   },
   {
+    "Extension": "png",
+    "Type": "application/x-png"
+  },
+  {
     "Extension": "pnm",
     "Type": "application/x-portable-anymap"
   },
