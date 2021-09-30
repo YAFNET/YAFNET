@@ -35,6 +35,7 @@ namespace YAF.Controls
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
@@ -187,7 +188,7 @@ namespace YAF.Controls
                      () => this.GetRepository<User>().GetRecentUsers(),
                      TimeSpan.FromMinutes(this.PageContext.BoardSettings.ForumStatisticsCacheTimeout));
 
-                if (activeUsers30Day != null && activeUsers30Day.Any())
+                if (!activeUsers30Day.NullOrEmpty())
                 {
                     var activeUsers1Day1 = activeUsers30Day.Where(x => x.LastVisit >= DateTime.UtcNow.AddDays(-1)).ToList();
 

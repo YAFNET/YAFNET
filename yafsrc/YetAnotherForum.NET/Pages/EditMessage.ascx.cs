@@ -132,7 +132,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            var postedMessage = this.forumEditor.Text.Trim();
+            var postedMessage = HtmlHelper.StripHtml(this.forumEditor.Text.Trim());
 
             if (postedMessage.IsNotSet())
             {
@@ -418,7 +418,7 @@ namespace YAF.Pages
 
             this.GetRepository<Message>().Update(
                 this.Priority.SelectedValue.ToType<short>(),
-                this.forumEditor.Text.Trim(),
+                HtmlHelper.StripHtml(this.forumEditor.Text),
                 descriptionSave.Trim(),
                 string.Empty,
                 stylesSave.Trim(),

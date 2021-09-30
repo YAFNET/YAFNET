@@ -166,7 +166,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            var postedMessage = this.forumEditor.Text.Trim();
+            var postedMessage = HtmlHelper.StripHtml(this.forumEditor.Text.Trim());
 
             if (postedMessage.IsNotSet())
             {
@@ -421,7 +421,7 @@ namespace YAF.Pages
                 this.PageContext.PageForumID,
                 this.TopicId,
                 this.PageContext.PageUserID,
-                this.forumEditor.Text,
+                HtmlHelper.StripHtml(this.forumEditor.Text),
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
@@ -455,6 +455,8 @@ namespace YAF.Pages
             }
 
             var isPossibleSpamMessage = false;
+
+            var message = HtmlHelper.StripHtml(this.forumEditor.Text);
 
             // Check for SPAM
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
@@ -538,7 +540,7 @@ namespace YAF.Pages
                 if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
                 {
                     // Handle Mentions
-                    BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
+                    BBCodeHelper.FindMentions(message).ForEach(
                         user =>
                             {
                                 var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
@@ -554,7 +556,7 @@ namespace YAF.Pages
                             });
 
                     // Handle User Quoting
-                    BBCodeHelper.FindUserQuoting(this.forumEditor.Text).ForEach(
+                    BBCodeHelper.FindUserQuoting(message).ForEach(
                         user =>
                             {
                                 var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;

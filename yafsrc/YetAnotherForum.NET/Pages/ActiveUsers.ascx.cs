@@ -36,7 +36,6 @@ namespace YAF.Pages
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -219,7 +218,7 @@ namespace YAF.Pages
                     break;
             }
 
-            if (activeUsers == null || !activeUsers.Any())
+            if (activeUsers.NullOrEmpty())
             {
                 return;
             }

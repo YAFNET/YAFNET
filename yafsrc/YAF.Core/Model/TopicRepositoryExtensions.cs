@@ -1413,7 +1413,7 @@ namespace YAF.Core.Model
 
             return repository.Get(
                     t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
-                         !t.TopicFlags.IsDeleted && t.TopicMovedID == null).OrderByDescending(t => t.LastPosted)
+                         (t.Flags & 8) != 8 && t.TopicMovedID == null).OrderByDescending(t => t.LastPosted)
                 .FirstOrDefault();
         }
 

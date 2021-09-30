@@ -273,7 +273,7 @@ namespace YAF.Web.Controls
 
             writer.WriteEndTag(HtmlTextWriterTag.H5.ToString());
 
-            var topicDescription = this.TopicItem.Description;
+            var topicDescription = HtmlHelper.StripHtml(this.TopicItem.Description);
 
             if (topicDescription.IsSet())
             {

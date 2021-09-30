@@ -216,7 +216,7 @@ namespace YAF.Core.Services
 
             var userBuddyList = this.Get<IFriends>().ListAll();
 
-            if (userBuddyList == null || !userBuddyList.Any())
+            if (userBuddyList.NullOrEmpty())
             {
                 return false;
             }

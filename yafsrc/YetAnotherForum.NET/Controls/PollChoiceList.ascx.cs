@@ -224,7 +224,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.Voters != null && this.Voters.Any())
+            if (!this.Voters.NullOrEmpty())
             {
                 var voters = item.FindControlRecursiveAs<Label>("Voters");
                 var voterNames = new StringBuilder();

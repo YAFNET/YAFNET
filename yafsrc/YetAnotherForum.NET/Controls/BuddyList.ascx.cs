@@ -264,7 +264,7 @@ namespace YAF.Controls
             // set the Data table
             var buddyList = this.FriendsList;
 
-            if (buddyList != null && buddyList.Any())
+            if (!buddyList.NullOrEmpty())
             {
                 var buddyListView = buddyList;
                 // In what mode should this control work?

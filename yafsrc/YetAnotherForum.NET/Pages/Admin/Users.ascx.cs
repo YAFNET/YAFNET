@@ -460,7 +460,7 @@ namespace YAF.Pages.Admin
                 this.group.SelectedIndex <= 0 ? null : this.group.SelectedValue.ToType<int?>(),
                 this.rank.SelectedIndex <= 0 ? null : this.rank.SelectedValue.ToType<int?>());
 
-            if (users != null && users.Any())
+            if (!users.NullOrEmpty())
             {
                 this.PagerTop.Count = users.FirstOrDefault().TotalRows;
             }

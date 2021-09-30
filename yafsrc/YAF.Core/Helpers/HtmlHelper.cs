@@ -28,23 +28,26 @@ namespace YAF.Core.Helpers
     using System.Linq;
     using System.Text.RegularExpressions;
 
+    using YAF.Types;
+    using YAF.Types.Extensions;
+
     /// <summary>
     /// The html helper.
     /// </summary>
     public static class HtmlHelper
     {
         /// <summary>
-        /// The strip html.
+        /// Strip Html Tags from String
         /// </summary>
         /// <param name="text">
         /// The text.
         /// </param>
         /// <returns>
-        /// The strip html.
+        /// Returns the cleaned string
         /// </returns>
-        public static string StripHtml(string text)
+        public static string StripHtml([CanBeNull] string text)
         {
-            return Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
+            return text.IsNotSet() ? text : Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
         }
 
         /// <summary>
@@ -56,7 +59,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The clean html string.
         /// </returns>
-        public static string CleanHtmlString(string text)
+        public static string CleanHtmlString([CanBeNull] string text)
         {
             text = text.Replace("<br />", " ");
             text = text.Replace("&quot;", "\"");
@@ -76,7 +79,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The is valid tag.
         /// </returns>
-        public static bool IsValidTag(string tag, IEnumerable<string> allowedTags)
+        public static bool IsValidTag([CanBeNull] string tag, IEnumerable<string> allowedTags)
         {
             if (tag.IndexOf("javascript", StringComparison.Ordinal) >= 0)
             {

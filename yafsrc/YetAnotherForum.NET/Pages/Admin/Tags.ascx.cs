@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin
 
             this.List.DataSource = list;
 
-            this.PagerTop.Count = list != null && list.Any() ? this.GetRepository<Tag>().GetByBoardId().Count : 0;
+            this.PagerTop.Count = !list.NullOrEmpty() ? this.GetRepository<Tag>().GetByBoardId().Count : 0;
 
             // bind data to controls
             this.DataBind();

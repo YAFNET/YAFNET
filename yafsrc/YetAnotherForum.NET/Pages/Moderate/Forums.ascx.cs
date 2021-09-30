@@ -129,7 +129,7 @@ namespace YAF.Pages.Moderate
             this.topiclist.DataSource = topicList;
             this.UserList.DataSource = this.GetRepository<UserForum>().List(null, this.PageContext.PageForumID);
 
-            if (topicList != null && topicList.Any())
+            if (!topicList.NullOrEmpty())
             {
                 this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
             }

@@ -198,7 +198,7 @@ namespace YAF.Controls
                 this.PagerTop.PageSize);
 
             this.List.DataSource = dt;
-            this.PagerTop.Count = dt != null && dt.Any()
+            this.PagerTop.Count = !dt.NullOrEmpty()
                                       ? this.GetRepository<Attachment>().Count(a => a.UserID == this.CurrentUserID).ToType<int>()
                                       : 0;
 

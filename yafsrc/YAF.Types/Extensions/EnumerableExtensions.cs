@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -105,28 +105,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Creates an infinite IEnumerable from the <paramref name="currentEnumerable" /> padding it with default( <typeparamref
-        ///      name="T" /> ).
-        /// </summary>
-        /// <param name="currentEnumerable"> The current enumerable. </param>
-        /// <typeparam name="T"> </typeparam>
-        /// <returns> </returns>
-        public static IEnumerable<T> Infinite<T>([NotNull] this IEnumerable<T> currentEnumerable)
-        {
-            CodeContracts.VerifyNotNull(currentEnumerable);
-
-            foreach (var item in currentEnumerable)
-            {
-                yield return item;
-            }
-
-            while (true)
-            {
-                yield return default;
-            }
-        }
-
-        /// <summary>
         /// The distinct by.
         /// </summary>
         /// <param name="source">
@@ -148,6 +126,22 @@ namespace YAF.Types.Extensions
         {
             var knownKeys = new HashSet<TKey>();
             return source.Where(element => knownKeys.Add(keySelector(element)));
+        }
+
+        /// <summary>
+        /// Checks if List is Null Or Empty
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
+        static public bool NullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            if (source == null)
+            {
+                return true;
+            }
+
+            return !source.Any();
         }
 
         #endregion

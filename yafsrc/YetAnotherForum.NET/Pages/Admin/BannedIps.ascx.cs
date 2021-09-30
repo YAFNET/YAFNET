@@ -239,7 +239,7 @@ namespace YAF.Pages.Admin
 
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.Any()
+            this.PagerTop.Count = !bannedList.NullOrEmpty()
                                       ? this.GetRepository<BannedIP>()
                                           .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;

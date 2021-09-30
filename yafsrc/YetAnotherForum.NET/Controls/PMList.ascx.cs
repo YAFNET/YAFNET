@@ -516,14 +516,9 @@ namespace YAF.Controls
         {
             var list = (List<PagedPm>)this.Messages.DataSource;
 
-            if (exportPmIds != null && exportPmIds.Any())
-            {
-                list = list.Where(x => x.IsDeleted == false && exportPmIds.Contains(x.PMessageID)).ToList();
-            }
-            else
-            {
-                list = list.Where(x => x.IsDeleted == false).ToList();
-            }
+            list = !exportPmIds.NullOrEmpty()
+                ? list.Where(x => x.IsDeleted == false && exportPmIds.Contains(x.PMessageID)).ToList()
+                : list.Where(x => x.IsDeleted == false).ToList();
 
             var messageList = new List<PagedPm>();
 

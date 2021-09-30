@@ -408,7 +408,7 @@ namespace YAF.Pages.Admin
 
             this.List.DataSource = list;
 
-            this.PagerTop.Count = list != null && list.Any()
+            this.PagerTop.Count = !list.NullOrEmpty()
                                       ? list.FirstOrDefault().TotalRows
                                       : 0;
 

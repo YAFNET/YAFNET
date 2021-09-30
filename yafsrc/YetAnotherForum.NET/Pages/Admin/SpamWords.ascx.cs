@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
 
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.Any()
+            this.PagerTop.Count = !bannedList.NullOrEmpty()
                                       ? this.GetRepository<Spam_Words>()
                                           .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;

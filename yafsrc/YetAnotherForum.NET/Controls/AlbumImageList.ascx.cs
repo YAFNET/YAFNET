@@ -185,7 +185,7 @@ namespace YAF.Controls
                                      ? string.Empty
                                      : this.UserAlbum.CoverImageID.ToString();
 
-            if (albumImageList == null || !albumImageList.Any())
+            if (albumImageList.NullOrEmpty())
             {
                 return;
             }

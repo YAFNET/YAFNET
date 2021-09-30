@@ -157,10 +157,12 @@ namespace YAF.Controls
         protected void UploadUpdate_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0
-                                             || this.File.PostedFile.ContentLength <= 0)
+                                             || this.File.PostedFile.ContentLength <= 0 || !this.File.PostedFile.FileName.IsImageName())
             {
                 return;
             }
+
+            
 
             long x = this.PageContext.BoardSettings.AvatarWidth;
             long y = this.PageContext.BoardSettings.AvatarHeight;

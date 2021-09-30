@@ -138,7 +138,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            var postedMessage = this.forumEditor.Text.Trim();
+            var postedMessage = HtmlHelper.StripHtml(this.forumEditor.Text.Trim());
 
             if (postedMessage.IsNotSet())
             {
@@ -163,14 +163,14 @@ namespace YAF.Pages
                 return false;
             }
 
-            if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
+            if (this.SubjectRow.Visible && HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).IsNotSet())
             {
                 this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
                 return false;
             }
 
             if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
-                && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim()))
+                && this.GetRepository<Topic>().CheckForDuplicate(HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).Trim()))
             {
                 this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;
@@ -398,11 +398,11 @@ namespace YAF.Pages
             // Save to Db
             topicId = this.GetRepository<Topic>().SaveNew(
                 this.PageContext.PageForumID,
-                this.TopicSubjectTextBox.Text.Trim(),
+                HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text.Trim()),
                 string.Empty,
-                this.TopicStylesTextBox.Text.Trim(),
-                this.TopicDescriptionTextBox.Text.Trim(),
-                this.forumEditor.Text,
+                HtmlHelper.StripHtml(this.TopicStylesTextBox.Text.Trim()),
+                HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text.Trim()),
+                HtmlHelper.StripHtml(this.forumEditor.Text),
                 this.PageContext.PageUserID,
                 this.Priority.SelectedValue.ToType<short>(),
                 this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.Name,
@@ -440,6 +440,8 @@ namespace YAF.Pages
             }
 
             var isPossibleSpamMessage = false;
+
+            var message = HtmlHelper.StripHtml(this.forumEditor.Text);
 
             // Check for SPAM
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
@@ -524,7 +526,7 @@ namespace YAF.Pages
                 if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
                 {
                     // Handle Mentions
-                    BBCodeHelper.FindMentions(this.forumEditor.Text).ForEach(
+                    BBCodeHelper.FindMentions(message).ForEach(
                         user =>
                             {
                                 var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
@@ -540,7 +542,7 @@ namespace YAF.Pages
                             });
 
                     // Handle User Quoting
-                    BBCodeHelper.FindUserQuoting(this.forumEditor.Text).ForEach(
+                    BBCodeHelper.FindUserQuoting(message).ForEach(
                         user =>
                             {
                                 var userId = this.Get<IUserDisplayName>().FindUserByName(user).ID;
@@ -559,8 +561,8 @@ namespace YAF.Pages
                         Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
                         newTopicId,
                         newMessageId,
-                        this.TopicSubjectTextBox.Text,
-                        this.forumEditor.Text);
+                        HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text),
+                        message);
 
                     // Add tags
                     if (this.Tags.Text.IsSet())

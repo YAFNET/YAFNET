@@ -32,6 +32,7 @@ namespace YAF.Core.Services
     using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
 
@@ -49,7 +50,7 @@ namespace YAF.Core.Services
         /// </summary>
         public LoadMessage()
         {
-            if (this.SessionLoadString != null && this.SessionLoadString.Any())
+            if (!this.SessionLoadString.NullOrEmpty())
             {
                 this.LoadStringList.AddRange(this.SessionLoadString);
 

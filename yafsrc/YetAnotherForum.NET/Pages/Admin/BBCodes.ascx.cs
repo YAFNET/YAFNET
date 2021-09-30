@@ -232,7 +232,7 @@ namespace YAF.Pages.Admin
 
             this.bbCodeList.DataSource = list;
 
-            this.PagerTop.Count = list != null && list.Any()
+            this.PagerTop.Count = !list.NullOrEmpty()
                 ? this.GetRepository<BBCode>()
                     .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                 : 0;
