@@ -1154,12 +1154,15 @@ namespace ServiceStack.Text
         internal static object ParseObject(ReadOnlySpan<char> value)
         {
             var result = ParseInt64(value);
-            return typeCode switch {
+
+            /*return typeCode switch {
                 TypeCode.SByte => result,
                 TypeCode.Int16 => result,
                 TypeCode.Int32 => result,
                 _ => result
-            };
+            };*/
+
+            return result;
         }
 
         /// <summary>
@@ -1355,12 +1358,15 @@ namespace ServiceStack.Text
         internal static object ParseObject(ReadOnlySpan<char> value)
         {
             var result = ParseUInt64(value);
-            return typeCode switch {
+
+            /*return typeCode switch {
                 TypeCode.Byte => result,
                 TypeCode.UInt16 => result,
                 TypeCode.UInt32 => result,
                 _ => result
-            };
+            };*/
+
+            return result;
         }
 
         /// <summary>
