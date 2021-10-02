@@ -27290,7 +27290,7 @@ $(document).ready(function() {
     $(".yafnet .select2-select").each(function() {
         $(this).select2({
             width: "100%",
-            theme: "bootstrap4",
+            theme: "bootstrap-5",
             placeholder: $(this).attr("placeholder")
         });
     });
@@ -27308,13 +27308,16 @@ $(document).ready(function() {
         });
         $(".select2-image-select").val(selected);
     }
-    $(".yafnet .select2-image-select").select2({
-        width: "100%",
-        theme: "bootstrap4",
-        allowClear: false,
-        dropdownAutoWidth: true,
-        templateResult: formatState,
-        templateSelection: formatState
+    $(".yafnet .select2-image-select").each(function() {
+        $(this).select2({
+            width: "100%",
+            theme: "bootstrap-5",
+            allowClear: true,
+            dropdownAutoWidth: true,
+            templateResult: formatState,
+            templateSelection: formatState,
+            placeholder: $(this).attr("placeholder")
+        });
     });
     if ($("#PostAttachmentListPlaceholder").length) {
         var pageSize = 5;

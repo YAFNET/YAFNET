@@ -342,11 +342,8 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // load available images from images/medals folder
-            var medals = new List<NamedParameter>
-            {
-                new(
-                    this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"),
-                    BoardInfo.GetURLToContent("images/spacer.gif"))
+            var medals = new List<NamedParameter> {
+                new(this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"), "")
             };
 
             // add files from medals folder
@@ -357,6 +354,8 @@ namespace YAF.Pages.Admin
             medals.AddImageFiles(files, this.Get<BoardFolders>().Medals);
 
             // medal image
+            this.MedalImage.PlaceHolder = this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE");
+
             this.MedalImage.DataSource = medals;
             this.MedalImage.DataValueField = "Value";
             this.MedalImage.DataTextField = "Name";

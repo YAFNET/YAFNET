@@ -1003,7 +1003,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             }},
 
             width: '100%',
-            theme: 'bootstrap4',
+            theme: 'bootstrap-5',
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});";
@@ -1416,7 +1416,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 }}
             }},
             width: '100%',
-            theme: 'bootstrap4',
+            theme: 'bootstrap-5',
             allowClear: true,
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}

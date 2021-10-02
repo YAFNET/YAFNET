@@ -81,7 +81,7 @@ namespace YAF.Pages.Admin
         {
             var list = new List<NamedParameter>
             {
-                new(this.GetText("COMMON", "NONE"), BoardInfo.GetURLToContent("images/spacer.gif"))
+                new(this.GetText("COMMON", "NONE"), "")
             };
 
             var dir = new DirectoryInfo(
@@ -93,6 +93,8 @@ namespace YAF.Pages.Admin
 
                 list.AddImageFiles(files, this.Get<BoardFolders>().Categories);
             }
+
+            this.AvatarGallery.PlaceHolder = this.GetText("COMMON", "NONE");
 
             this.CategoryImages.DataSource = list;
             this.CategoryImages.DataValueField = "Value";

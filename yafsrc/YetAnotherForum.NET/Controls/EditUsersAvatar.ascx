@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="true"
+﻿<%@ Control Language="C#" AutoEventWireup="true"
     Inherits="YAF.Controls.EditUsersAvatar" CodeBehind="EditUsersAvatar.ascx.cs" %>
 
 <div class="row">

@@ -195,11 +195,8 @@ namespace YAF.Pages.Admin
         {
             var board = this.GetRepository<Board>().GetById(this.PageContext.PageBoardID);
 
-            var logos = new List<NamedParameter>
-            {
-                new(
-                    this.GetText("BOARD_LOGO_SELECT"),
-                    BoardInfo.GetURLToContent("images/spacer.gif"))
+            var logos = new List<NamedParameter> {
+                new(this.GetText("BOARD_LOGO_SELECT"), "")
             };
 
             var dir = new DirectoryInfo(
@@ -208,6 +205,8 @@ namespace YAF.Pages.Admin
             var files = dir.GetFiles("*.*").ToList();
 
             logos.AddImageFiles(files, this.Get<BoardFolders>().Logos);
+
+            this.BoardLogo.PlaceHolder = this.GetText("BOARD_LOGO_SELECT");
 
             this.BoardLogo.DataSource = logos;
             this.BoardLogo.DataValueField = "Value";

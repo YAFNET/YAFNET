@@ -1188,7 +1188,6 @@
     <Content Include="Content\jquery.fileupload.comb.min.css" />
     <None Include="Content\jquery.netStack.scss" />
     <Content Include="Content\select2\select2.css" />
-    <Content Include="Content\images\spacer.gif" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
@@ -3445,6 +3444,16 @@
     <Content Include="Content\Themes\morph\bootstrap-forum.scss" />
     <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
     <Content Include="package-lock.json" />
+    <Content Include="Content\select2\_disabled.scss" />
+    <Content Include="Content\select2\_dropdown.scss" />
+    <Content Include="Content\select2\_include-all.scss" />
+    <Content Include="Content\select2\_input-group.scss" />
+    <Content Include="Content\select2\_layout.scss" />
+    <Content Include="Content\select2\_multiple.scss" />
+    <Content Include="Content\select2\_single.scss" />
+    <Content Include="Content\select2\_sizing.scss" />
+    <Content Include="Content\select2\_validation.scss" />
+    <Content Include="Content\select2\_variables.scss" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js">

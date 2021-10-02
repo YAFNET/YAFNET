@@ -9858,7 +9858,7 @@ readers do not read off random characters that represent icons */
   bottom: 15px;
   width: 15px;
   height: 15px;
-  background: url(../Content/images/play-pause.png) 0 0 no-repeat;
+  background: url(../Content/images/play-pause.svg) 0 0 no-repeat;
   cursor: pointer;
   opacity: 0.8;
   display: none;

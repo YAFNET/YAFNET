@@ -303,8 +303,10 @@ namespace YAF.Controls
             {
                 var avatars = new List<NamedParameter>
                 {
-                    new(this.GetText("OURAVATAR"), BoardInfo.GetURLToContent("images/spacer.gif"))
+                    new(this.GetText("OURAVATAR"), "")
                 };
+
+                //this.GetText("OURAVATAR")
 
                 var dir = new DirectoryInfo(
                     this.Get<HttpRequestBase>()
@@ -316,6 +318,8 @@ namespace YAF.Controls
 
                 if (avatars.Any())
                 {
+                    this.AvatarGallery.PlaceHolder = this.GetText("OURAVATAR");
+
                     this.AvatarGallery.DataSource = avatars;
                     this.AvatarGallery.DataValueField = "Value";
                     this.AvatarGallery.DataTextField = "Name";
