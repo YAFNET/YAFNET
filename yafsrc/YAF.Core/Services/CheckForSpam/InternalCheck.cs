@@ -86,8 +86,7 @@ namespace YAF.Core.Services.CheckForSpam
 
                 var bannedIpList = BoardContext.Current.Get<IDataCache>().GetOrSet(
                     Constants.Cache.BannedIP,
-                    () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
-                        .Select(x => x.Mask.Trim()).ToList());
+                    () => bannedIPRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID));
 
                 var bannedNameRepository = BoardContext.Current.GetRepository<BannedName>();
 
@@ -109,7 +108,7 @@ namespace YAF.Core.Services.CheckForSpam
                     BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot Email");
                 }
 
-                if (bannedIpList.Any(i => i.Equals(ipAddress)))
+                if (bannedIpList.Select(x => x.Mask.Trim()).ToList().Any(i => i.Equals(ipAddress)))
                 {
                     responseText = $"internal detection found ip address {ipAddress}";
                     isBot = true;
