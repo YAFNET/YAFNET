@@ -1,4 +1,4 @@
-/*
+﻿/*
  * jQuery File Upload Video Preview Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
@@ -12,51 +12,51 @@
 /* global define, require */
 
 (function (factory) {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
+  "use strict";
+  if (typeof define === "function" && define.amd) {
     // Register as an anonymous AMD module:
-    define(['jquery', 'load-image', './jquery.fileupload-process'], factory);
-  } else if (typeof exports === 'object') {
+    define(["jquery", "load-image", "./jquery.fileupload-process"], factory);
+  } else if (typeof exports === "object") {
     // Node/CommonJS:
     factory(
-      require('jquery'),
-      require('blueimp-load-image/js/load-image'),
-      require('./jquery.fileupload-process')
+      require("jquery"),
+      require("blueimp-load-image/js/load-image"),
+      require("./jquery.fileupload-process")
     );
   } else {
     // Browser globals:
     factory(window.jQuery, window.loadImage);
   }
 })(function ($, loadImage) {
-  'use strict';
+  "use strict";
 
   // Prepend to the default processQueue:
   $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
     {
-      action: 'loadVideo',
+      action: "loadVideo",
       // Use the action as prefix for the "@" options:
       prefix: true,
-      fileTypes: '@',
-      maxFileSize: '@',
-      disabled: '@disableVideoPreview'
+      fileTypes: "@",
+      maxFileSize: "@",
+      disabled: "@disableVideoPreview"
     },
     {
-      action: 'setVideo',
-      name: '@videoPreviewName',
-      disabled: '@disableVideoPreview'
+      action: "setVideo",
+      name: "@videoPreviewName",
+      disabled: "@disableVideoPreview"
     }
   );
 
   // The File Upload Video Preview plugin extends the fileupload widget
   // with video preview functionality:
-  $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
+  $.widget("blueimp.yafFileUpload", $.blueimp.yafFileUpload, {
     options: {
       // The regular expression for the types of video files to load,
       // matched against the file type:
       loadVideoFileTypes: /^video\/.*$/
     },
 
-    _videoElement: document.createElement('video'),
+    _videoElement: document.createElement("video"),
 
     processActions: {
       // Loads the video file given via data.files and data.index
@@ -73,7 +73,7 @@
         if (
           this._videoElement.canPlayType &&
           this._videoElement.canPlayType(file.type) &&
-          ($.type(options.maxFileSize) !== 'number' ||
+          ($.type(options.maxFileSize) !== "number" ||
             file.size <= options.maxFileSize) &&
           (!options.fileTypes || options.fileTypes.test(file.type))
         ) {
@@ -92,7 +92,7 @@
       // Sets the video element as a property of the file object:
       setVideo: function (data, options) {
         if (data.video && !options.disabled) {
-          data.files[data.index][options.name || 'preview'] = data.video;
+          data.files[data.index][options.name || "preview"] = data.video;
         }
         return data;
       }

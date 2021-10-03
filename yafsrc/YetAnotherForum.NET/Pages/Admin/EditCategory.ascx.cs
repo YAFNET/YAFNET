@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
                 list.AddImageFiles(files, this.Get<BoardFolders>().Categories);
             }
 
-            this.AvatarGallery.PlaceHolder = this.GetText("COMMON", "NONE");
+            this.CategoryImages.PlaceHolder = this.GetText("COMMON", "NONE");
 
             this.CategoryImages.DataSource = list;
             this.CategoryImages.DataValueField = "Value";

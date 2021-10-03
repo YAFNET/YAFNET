@@ -1,4 +1,4 @@
-/*
+﻿/*
  * jQuery File Upload Audio Preview Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
@@ -12,51 +12,51 @@
 /* global define, require */
 
 (function (factory) {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
+  "use strict";
+  if (typeof define === "function" && define.amd) {
     // Register as an anonymous AMD module:
-    define(['jquery', 'load-image', './jquery.fileupload-process'], factory);
-  } else if (typeof exports === 'object') {
+    define(["jquery", "load-image", "./jquery.fileupload-process"], factory);
+  } else if (typeof exports === "object") {
     // Node/CommonJS:
     factory(
-      require('jquery'),
-      require('blueimp-load-image/js/load-image'),
-      require('./jquery.fileupload-process')
+      require("jquery"),
+      require("blueimp-load-image/js/load-image"),
+      require("./jquery.fileupload-process")
     );
   } else {
     // Browser globals:
     factory(window.jQuery, window.loadImage);
   }
 })(function ($, loadImage) {
-  'use strict';
+  "use strict";
 
   // Prepend to the default processQueue:
   $.blueimp.yafFileUpload.prototype.options.processQueue.unshift(
     {
-      action: 'loadAudio',
+      action: "loadAudio",
       // Use the action as prefix for the "@" options:
       prefix: true,
-      fileTypes: '@',
-      maxFileSize: '@',
-      disabled: '@disableAudioPreview'
+      fileTypes: "@",
+      maxFileSize: "@",
+      disabled: "@disableAudioPreview"
     },
     {
-      action: 'setAudio',
-      name: '@audioPreviewName',
-      disabled: '@disableAudioPreview'
+      action: "setAudio",
+      name: "@audioPreviewName",
+      disabled: "@disableAudioPreview"
     }
   );
 
   // The File Upload Audio Preview plugin extends the fileupload widget
   // with audio preview functionality:
-  $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
+  $.widget("blueimp.yafFileUpload", $.blueimp.yafFileUpload, {
     options: {
       // The regular expression for the types of audio files to load,
       // matched against the file type:
       loadAudioFileTypes: /^audio\/.*$/
     },
 
-    _audioElement: document.createElement('audio'),
+    _audioElement: document.createElement("audio"),
 
     processActions: {
       // Loads the audio file given via data.files and data.index
@@ -73,7 +73,7 @@
         if (
           this._audioElement.canPlayType &&
           this._audioElement.canPlayType(file.type) &&
-          ($.type(options.maxFileSize) !== 'number' ||
+          ($.type(options.maxFileSize) !== "number" ||
             file.size <= options.maxFileSize) &&
           (!options.fileTypes || options.fileTypes.test(file.type))
         ) {
@@ -92,7 +92,7 @@
       // Sets the audio element as a property of the file object:
       setAudio: function (data, options) {
         if (data.audio && !options.disabled) {
-          data.files[data.index][options.name || 'preview'] = data.audio;
+          data.files[data.index][options.name || "preview"] = data.audio;
         }
         return data;
       }
