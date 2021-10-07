@@ -292,7 +292,7 @@ GO
   FROM
       [{databaseOwner}].[{objectQualifier}prov_Membership]
       LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}AspNetUsers] ON [{databaseOwner}].[{objectQualifier}prov_Membership].UserId = [{databaseOwner}].[{objectQualifier}AspNetUsers].Id
-      iNNER JOIN [{databaseOwner}].[{objectQualifier}prov_Profile] p ON (p.UserID = [{databaseOwner}].[{objectQualifier}prov_Membership].UserId)
+      LEFT OUTER JOIN [{databaseOwner}].[{objectQualifier}prov_Profile] p ON (p.UserID = [{databaseOwner}].[{objectQualifier}prov_Membership].UserId)
   WHERE [{databaseOwner}].[{objectQualifier}AspNetUsers].Id IS NULL
 
 
