@@ -95,7 +95,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+            this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
         }
 
         #endregion

@@ -141,18 +141,18 @@ namespace YAF.Web.Controls
                         "f={0}&p={1}&name={2}",
                         this.PageContext.PageForumID,
                         page,
-                        this.PageContext.PageForumName)
+                        this.PageContext.PageForum.Name)
                     : this.Get<LinkBuilder>().GetLink(
                         ForumPages.Topics,
                         "f={0}&name={1}",
                         this.PageContext.PageForumID,
-                        this.PageContext.PageForumName),
+                        this.PageContext.PageForum.Name),
                 ForumPages.Posts => this.Get<LinkBuilder>().GetLink(
                     ForumPages.Posts,
                     "t={0}&p={1}&name={2}",
                     this.PageContext.PageTopicID,
                     page,
-                    this.PageContext.PageTopicName),
+                    this.PageContext.PageTopic.TopicName),
                 _ => string.Empty
             };
 

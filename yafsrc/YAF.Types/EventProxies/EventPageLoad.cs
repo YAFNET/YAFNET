@@ -23,25 +23,18 @@
  */
 namespace YAF.Types.EventProxies
 {
-    using System.Collections.Generic;
-    using System.Dynamic;
+    using System;
 
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models;
+    using YAF.Types.Objects;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The page load event.
     /// </summary>
     public class InitPageLoadEvent : IAmEvent
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The the expando data.
-        /// </summary>
-        private readonly ExpandoObject theExpandoData = new();
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -49,6 +42,10 @@ namespace YAF.Types.EventProxies
         /// </summary>
         public InitPageLoadEvent()
         {
+            this.UserRequestData = new UserRequestData();
+            //this.PageLoadData = new Tuple<PageLoad, User, Category, Forum, Topic, Message>();
+            this.UserLazyData = new UserLazyData();
+            this.PageQueryData = new PageQueryData();
         }
 
         #endregion
@@ -56,14 +53,34 @@ namespace YAF.Types.EventProxies
         #region Properties
 
         /// <summary>
-        /// Gets Data.
+        /// Gets or sets the user request data.
         /// </summary>
-        public dynamic Data => this.theExpandoData;
+        /// <value>The user request data.</value>
+        public UserRequestData UserRequestData { get; set; }
 
         /// <summary>
-        ///   Gets or sets PageLoadData.
+        /// Gets or sets the page load data.
         /// </summary>
-        public IDictionary<string, object> DataDictionary => this.theExpandoData;
+        /// <value>The page load data.</value>
+        public Tuple<PageLoad, User, Category, Forum, Topic> PageLoadData { get; set; }
+
+        public PageQueryData PageQueryData { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user lazy data.
+        /// </summary>
+        /// <value>The user lazy data.</value>
+        public UserLazyData UserLazyData { get; set; }
+
+        /// <summary>
+        /// The page data.
+        /// </summary>
+        public Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic>, UserLazyData, PageQueryData> PageData =>
+            new(
+                this.UserRequestData,
+                this.PageLoadData,
+                this.UserLazyData,
+                this.PageQueryData);
 
         #endregion
     }

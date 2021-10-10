@@ -23,16 +23,12 @@
  */
 namespace YAF.Core.Context
 {
-    using ServiceStack.Text;
-
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Types.Objects;
 
     /// <summary>
     /// The load page lazy user data.
@@ -92,12 +88,12 @@ namespace YAF.Core.Context
         /// <param name="event">The @event.</param>
         public void Handle([NotNull] InitPageLoadEvent @event)
         { 
-            UserLazyData activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.Data.UserID);
+            var activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.PageLoadData.Item1.UserID);
 
             if (activeUserLazyData != null)
             {
                 // add the lazy user data to this page data...
-                @event.DataDictionary.AddRange(activeUserLazyData.ToObjectDictionary());
+                @event.UserLazyData = activeUserLazyData;
             }
         }
 

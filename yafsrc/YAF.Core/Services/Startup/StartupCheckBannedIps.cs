@@ -125,14 +125,14 @@ namespace YAF.Core.Services.Startup
             try
             {
                 var bannedIPs = this.DataCache.GetOrSet(
-                        Constants.Cache.BannedIP,
-                        () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID));
+                    Constants.Cache.BannedIP,
+                    () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                        .Select(x => x.Mask.Trim()).ToList());
 
                 var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
 
                 // check for this user in the list...
-                if (bannedIPs == null || !bannedIPs.Select(x => x.Mask.Trim()).ToList()
-                    .Any(row => IPHelper.IsBanned(row, ipToCheck)))
+                if (bannedIPs == null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
                 {
                     return true;
                 }

@@ -113,7 +113,7 @@ namespace YAF.Pages
                 ForumPages.Topics,
                 "f={0}&name={1}",
                 this.PageContext.PageForumID,
-                this.PageContext.PageForumName);
+                this.PageContext.PageForum.Name);
         }
 
         /// <summary>
@@ -243,7 +243,7 @@ namespace YAF.Pages
                     true,
                     "t={0}&name={1}",
                     this.PageContext.PageTopicID,
-                    this.PageContext.PageTopicName);
+                    this.PageContext.PageTopic.TopicName);
 
                 if (this.PageContext.BoardSettings.AllowEmailTopic)
                 {
@@ -374,7 +374,7 @@ namespace YAF.Pages
                 this.TagFavorite2.Visible = false;
             }
 
-            this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
+            this.topic = this.PageContext.PageTopic;
 
             // in case topic is deleted or not existent
             if (this.topic == null)
@@ -443,7 +443,7 @@ namespace YAF.Pages
                 ForumPages.Posts,
                 "t={0}&name={1}",
                 this.PageContext.PageTopicID,
-                this.PageContext.PageTopicName);
+                this.PageContext.PageTopic.TopicName);
 
             this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
             this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
@@ -508,12 +508,12 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
             this.PageLinks.AddLink(
-                this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopicName)),
+                this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopic.TopicName)),
                 string.Empty);
         }
 
@@ -745,7 +745,7 @@ namespace YAF.Pages
                     ForumPages.Topics,
                     "f={0}&name={1}",
                     this.PageContext.PageForumID,
-                    this.PageContext.PageForumName);
+                    this.PageContext.PageForum.Name);
             }
 
             this.dataBound = true;
@@ -944,7 +944,7 @@ namespace YAF.Pages
                 true,
                 "t={0}&name={1}",
                 this.PageContext.PageTopicID,
-                this.PageContext.PageTopicName);
+                this.PageContext.PageTopic.TopicName);
 
             switch (e.Item.ToLower())
             {

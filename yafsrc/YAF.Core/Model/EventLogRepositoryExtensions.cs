@@ -101,7 +101,7 @@ namespace YAF.Core.Model
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
 
-                    var guestUserId = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserId;
+                    var guestUserId = BoardContext.Current.GuestUserID;
 
                     expression.Join<User>((e, u) => u.ID == (e.UserID != null ? e.UserID : guestUserId));
 

@@ -79,7 +79,7 @@ namespace YAF.Pages.Moderate
             this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
             // current page
-            this.PageLinks.AddLink(this.PageContext.PageForumName);
+            this.PageLinks.AddLink(this.PageContext.PageForum.Name);
         }
 
         /// <summary>

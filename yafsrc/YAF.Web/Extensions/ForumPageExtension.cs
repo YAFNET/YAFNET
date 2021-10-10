@@ -66,7 +66,7 @@ namespace YAF.Web.Extensions
                             // Tack on the topic we're viewing
                             title.Append(
                                 BoardContext.Current.Get<IBadWordReplace>()
-                                    .Replace(BoardContext.Current.PageTopicName.Truncate(80)));
+                                    .Replace(BoardContext.Current.PageTopic.TopicName.Truncate(80)));
                         }
 
                         // Append Current Page
@@ -74,10 +74,10 @@ namespace YAF.Web.Extensions
 
                         break;
                     case ForumPages.Topics:
-                        if (BoardContext.Current.PageForumName != string.Empty)
+                        if (BoardContext.Current.PageForum != null && BoardContext.Current.PageForum.Name.IsSet())
                         {
                             // Tack on the forum we're viewing
-                            title.Append(page.HtmlEncode(BoardContext.Current.PageForumName.Truncate(80)));
+                            title.Append(page.HtmlEncode(BoardContext.Current.PageForum.Name.Truncate(80)));
                         }
 
                         // Append Current Page
@@ -85,10 +85,10 @@ namespace YAF.Web.Extensions
 
                         break;
                     case ForumPages.Board:
-                        if (BoardContext.Current.PageCategoryName != string.Empty)
+                        if (BoardContext.Current.PageCategory != null && BoardContext.Current.PageCategory.Name.IsSet())
                         {
                             // Tack on the forum we're viewing
-                            title.Append(page.HtmlEncode(BoardContext.Current.PageCategoryName.Truncate(80)));
+                            title.Append(page.HtmlEncode(BoardContext.Current.PageCategory.Name.Truncate(80)));
                         }
 
                         break;

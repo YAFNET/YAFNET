@@ -110,11 +110,11 @@ namespace YAF.Core.Context
                 doNotTrack = UserAgentHelper.IsFeedReader(userAgent);
             }
 
-            @event.Data.DontTrack = doNotTrack;
-            @event.Data.UserAgent = userAgent;
-            @event.Data.IsSearchEngine = isSearchEngine;
-            @event.Data.Browser = browser;
-            @event.Data.Platform = platform;
+            @event.UserRequestData.DontTrack = doNotTrack;
+            @event.UserRequestData.UserAgent = userAgent;
+            @event.UserRequestData.IsSearchEngine = isSearchEngine;
+            @event.UserRequestData.Browser = browser;
+            @event.UserRequestData.Platform = platform;
 
             BoardContext.Current.Vars["DontTrack"] = doNotTrack;
         }

@@ -136,7 +136,7 @@ namespace YAF.Pages
                 ForumPages.Topics,
                 "f={0}&name={1}",
                 this.PageContext.PageForumID,
-                this.PageContext.PageForumName);
+                this.PageContext.PageForum.Name);
         }
 
         /// <summary>
@@ -284,7 +284,7 @@ namespace YAF.Pages
         {
             // setup page links
             this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+            this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
             this.PageLinks.AddForum(this.PageContext.PageForumID);
         }
 

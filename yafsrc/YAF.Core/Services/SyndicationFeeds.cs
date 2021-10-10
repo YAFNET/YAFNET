@@ -428,7 +428,7 @@ namespace YAF.Core.Services
             var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
             var feed = new FeedItem(
-                $"{this.Get<ILocalization>().GetText("PROFILE", "TOPIC")}{BoardContext.Current.PageTopicName} - {BoardContext.Current.BoardSettings.PostsPerPage}",
+                $"{this.Get<ILocalization>().GetText("PROFILE", "TOPIC")}{BoardContext.Current.PageTopic.TopicName} - {BoardContext.Current.BoardSettings.PostsPerPage}",
                 feedType,
                 urlAlphaNum);
 
@@ -511,7 +511,7 @@ namespace YAF.Core.Services
             var urlAlphaNum = FormatUrlForFeed(BaseUrlBuilder.BaseUrl);
 
             var feed = new FeedItem(
-                $"{this.Get<ILocalization>().GetText("DEFAULT", "FORUM")}:{BoardContext.Current.PageForumName}",
+                $"{this.Get<ILocalization>().GetText("DEFAULT", "FORUM")}:{BoardContext.Current.PageForum.Name}",
                 feedType,
                 urlAlphaNum);
 

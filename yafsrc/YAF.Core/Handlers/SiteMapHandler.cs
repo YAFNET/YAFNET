@@ -37,7 +37,6 @@ namespace YAF.Core.Handlers
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
 
     using SiteMap = YAF.Types.Objects.SiteMap;
@@ -79,7 +78,7 @@ namespace YAF.Core.Handlers
 
             var forumList = this.GetRepository<Forum>().ListAllWithAccess(
                 BoardContext.Current.BoardSettings.BoardID,
-                this.Get<IAspNetUsersHelper>().GuestUserId);
+                BoardContext.Current.GuestUserID);
 
             forumList.ForEach(
                 forum => siteMap.Add(

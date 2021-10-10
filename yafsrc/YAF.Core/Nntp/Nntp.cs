@@ -138,7 +138,7 @@ namespace YAF.Core.Nntp
                 return 0;
             }
 
-            var guestUserId = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserId; // Use guests user-id
+            var guestUserId = BoardContext.Current.GuestUserID; // Use guests user-id
 
             var dateTimeStart = DateTime.UtcNow;
             var articleCount = 0;

@@ -69,7 +69,7 @@ namespace YAF.Controls
                 var topicsList = this.Get<ISearch>().SearchSimilar(
                     this.PageContext.PageUserID,
                     this.PageContext.PageTopicID.ToString(),
-                    this.PageContext.PageTopicName,
+                    this.PageContext.PageTopic.TopicName,
                     "Topic").Take(5).ToList();
 
                 if (!topicsList.Any())

@@ -35,7 +35,6 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
@@ -115,7 +114,7 @@ namespace YAF.Controls
                  Constants.Cache.MostActiveUsers,
                  () => this.GetRepository<User>().LastActive(
                      this.PageContext.PageBoardID,
-                     this.Get<IAspNetUsersHelper>().GuestUserId,
+                     this.PageContext.GuestUserID,
                      DateTime.UtcNow.AddDays(-this.LastNumOfDays),
                      this.DisplayNumber),
                  TimeSpan.FromMinutes(5));

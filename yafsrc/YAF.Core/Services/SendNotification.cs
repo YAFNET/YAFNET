@@ -143,39 +143,41 @@ namespace YAF.Core.Services
                     try
                     {
                         // add each member of the group
-                        var membershipUser = this.Get<IAspNetUsersHelper>().GetUserByName(userName);
-                        var user = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(membershipUser.Id);
+                        var user = this.GetRepository<User>().GetSingle(x => x.Name == userName);
 
-                        var languageFile = UserHelper.GetUserLanguageFile(user);
+                        if (user != null)
+                        {
+                            var languageFile = UserHelper.GetUserLanguageFile(user);
 
-                        var subject = string.Format(
-                            this.Get<ILocalization>().GetText(
-                                "COMMON",
-                                isSpamMessage
-                                    ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                                    : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
-                                languageFile),
-                            this.BoardSettings.Name);
+                            var subject = string.Format(
+                                this.Get<ILocalization>().GetText(
+                                    "COMMON",
+                                    isSpamMessage
+                                        ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                                        : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL",
+                                    languageFile),
+                                this.BoardSettings.Name);
 
-                        var notifyModerators =
-                            new TemplateEmail(
-                                isSpamMessage
-                                    ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
-                                    : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
-                            {
-                                TemplateLanguageFile = languageFile,
-                                TemplateParams =
+                            var notifyModerators =
+                                new TemplateEmail(
+                                    isSpamMessage
+                                        ? "NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL"
+                                        : "NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL")
                                 {
-                                    ["{user}"] = userName,
-                                    ["{adminlink}"] = adminLink,
-                                    ["{css}"] = inlineCss,
-                                    ["{forumlink}"] = forumLink
-                                }
-                            };
+                                    TemplateLanguageFile = languageFile,
+                                    TemplateParams =
+                                    {
+                                        ["{user}"] = userName,
+                                        ["{adminlink}"] = adminLink,
+                                        ["{css}"] = inlineCss,
+                                        ["{forumlink}"] = forumLink
+                                    }
+                                };
 
-                        notifyModerators.SendEmail(
-                            new MailAddress(membershipUser.Email, membershipUser.UserName),
-                            subject);
+                            notifyModerators.SendEmail(
+                                new MailAddress(user.Email, user.DisplayOrUserName()),
+                                subject);
+                        }
                     }
                     finally
                     {

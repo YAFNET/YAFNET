@@ -313,7 +313,7 @@ namespace YAF.Dialogs
                             this.PageContext.PageForumID,
                             this.PageContext.PageTopicID,
                             messageId.ToType<int>(),
-                            this.PageContext.PageTopicName,
+                            this.PageContext.PageTopic.TopicName,
                             message);
                     }
 
@@ -322,7 +322,7 @@ namespace YAF.Dialogs
                         ForumPages.Posts,
                         "m={0}&name={1}&",
                         messageId,
-                        this.PageContext.PageTopicName);
+                        this.PageContext.PageTopic.TopicName);
                 }
                 else
                 {
@@ -335,7 +335,7 @@ namespace YAF.Dialogs
                             isPossibleSpamMessage);
                     }
 
-                    var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
+                    var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
 
                     this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
                 }

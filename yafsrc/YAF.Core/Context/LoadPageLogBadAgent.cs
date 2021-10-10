@@ -60,9 +60,9 @@ namespace YAF.Core.Context
             [NotNull] ILoggerService logger,
             [NotNull] HttpRequestBase httpRequestBase)
         {
-            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
-            CodeContracts.VerifyNotNull(logger, "logger");
-            CodeContracts.VerifyNotNull(httpRequestBase, "httpRequestBase");
+            CodeContracts.VerifyNotNull(serviceLocator);
+            CodeContracts.VerifyNotNull(logger);
+            CodeContracts.VerifyNotNull(httpRequestBase);
 
             this.ServiceLocator = serviceLocator;
             this.Logger = logger;
@@ -116,19 +116,19 @@ namespace YAF.Core.Context
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(@event.Data.UserAgent))
+            if (string.IsNullOrWhiteSpace(@event.UserRequestData.UserAgent))
             {
                 this.Logger.Warn("UserAgent string is empty.");
             }
 
-            if ((@event.Data.Platform.ToLower().Contains("unknown")
-                 || @event.Data.Browser.ToLower().Contains("unknown"))
-                && !UserAgentHelper.IsSearchEngineSpider(@event.Data.UserAgent))
+            if ((@event.UserRequestData.Platform.ToLower().Contains("unknown")
+                 || @event.UserRequestData.Browser.ToLower().Contains("unknown"))
+                && !UserAgentHelper.IsSearchEngineSpider(@event.UserRequestData.UserAgent))
             {
                 this.Logger.Log(
                     BoardContext.Current.PageUserID,
                     this,
-                    $"Unhandled UserAgent string:'{(string)@event.Data.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
+                    $"Unhandled UserAgent string:'{@event.UserRequestData.UserAgent}'<br />Platform:'{this.HttpRequestBase.Browser.Platform}'<br />Browser:'{this.HttpRequestBase.Browser.Browser}'");
             }
         }
 

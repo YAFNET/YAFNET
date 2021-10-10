@@ -34,7 +34,6 @@ namespace YAF.Core.Context
     using YAF.Configuration;
     using YAF.Configuration.Pattern;
     using YAF.Core.BasePages;
-    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Types;
@@ -66,11 +65,6 @@ namespace YAF.Core.Context
         /// The user.
         /// </summary>
         private AspNetUsers membershipUser;
-
-        /// <summary>
-        /// The user.
-        /// </summary>
-        private User user;
 
         /// <summary>
         /// The load message.
@@ -182,12 +176,12 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets the current Page Load Message
         /// </summary>
-        public LoadMessage LoadMessage => this.loadMessage ?? (this.loadMessage = new LoadMessage());
+        public LoadMessage LoadMessage => this.loadMessage ??= new LoadMessage();
 
         /// <summary>
         /// Gets the Current Page Elements
         /// </summary>
-        public PageElementRegister PageElements => this.pageElements ?? (this.pageElements = new PageElementRegister());
+        public PageElementRegister PageElements => this.pageElements ??= new PageElementRegister();
 
         /// <summary>
         /// Gets the Provides access to the Service Locator
@@ -202,12 +196,12 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets or sets the Current Membership User
         /// </summary>
-        public AspNetUsers MembershipUser => this.membershipUser ?? (this.membershipUser = this.Get<IAspNetUsersHelper>().GetUser());
+        public AspNetUsers MembershipUser => this.membershipUser ??= this.Get<IAspNetUsersHelper>().GetUser();
 
         /// <summary>
         ///   Gets the current YAF User.
         /// </summary>
-        public User User => this.user ?? (this.user = this.GetRepository<User>().GetById(Current.PageUserID));
+        public User User => this.PageData.Item2.Item2;
 
         /// <summary>
         /// Returns if user is Host User or an Admin of one or more forums.
@@ -217,7 +211,7 @@ namespace YAF.Core.Context
         /// <summary>
         /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
         /// </summary>
-        public TypeDictionary Vars { get; } = new();
+        public TypeDictionary Vars { get; } = new ();
 
         #endregion
 
@@ -288,7 +282,7 @@ namespace YAF.Core.Context
         /// </summary>
         protected override void InitUserAndPage()
         {
-            if (this.InitUserPage)
+            if (this.UserPageDataLoaded)
             {
                 return;
             }
@@ -307,7 +301,7 @@ namespace YAF.Core.Context
 
             this.Get<IRaiseEvent>().Raise(pageLoadEvent);
 
-            this.Page = pageLoadEvent.DataDictionary;
+            this.PageData = pageLoadEvent.PageData;
 
             this.AfterInit?.Invoke(this, EventArgs.Empty);
         }

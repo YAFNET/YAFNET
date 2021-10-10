@@ -1020,10 +1020,10 @@ namespace YAF.Core.Model
                 UserStyle = BoardContext.Current.User.UserStyle,
                 UserId = BoardContext.Current.PageUserID,
                 TopicId = BoardContext.Current.PageTopicID,
-                Topic = BoardContext.Current.PageTopicName,
+                Topic = BoardContext.Current.PageTopic.TopicName,
                 ForumId = forumId,
                 TopicTags = string.Empty,
-                ForumName = BoardContext.Current.PageForumName,
+                ForumName = BoardContext.Current.PageForum.Name,
                 Description = string.Empty
             };
 

@@ -104,7 +104,7 @@ namespace YAF.Pages
                     ForumPages.Topics,
                     "f={0}&name={1}",
                     this.PageContext.PageForumID,
-                    this.PageContext.PageForumName);
+                    this.PageContext.PageForum.Name);
             }
             else
             {
@@ -157,7 +157,7 @@ namespace YAF.Pages
                 ForumPages.Topics,
                 "f={0}&name={1}",
                 this.PageContext.PageForumID,
-                this.PageContext.PageForumName);
+                this.PageContext.PageForum.Name);
         }
 
         /// <summary>
@@ -197,9 +197,9 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+            this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
             this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddTopic(this.PageContext.PageTopicName, this.PageContext.PageTopicID);
+            this.PageLinks.AddTopic(this.PageContext.PageTopic.TopicName, this.PageContext.PageTopicID);
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
         }

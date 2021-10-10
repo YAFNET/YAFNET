@@ -657,7 +657,7 @@ namespace YAF.Controls
             {
                 if (this.TopicId > 0)
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.PageContext.PageTopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.PageContext.PageTopic.TopicName);
                 }
             }
             else

@@ -125,7 +125,7 @@ namespace YAF.Core.Helpers
         /// Gets the Username of the Guest user for the current board.
         /// </summary>
         public string GuestUserName =>
-            this.GetRepository<User>().GetById(this.Get<IAspNetUsersHelper>().GuestUserId).Name;
+            this.GetRepository<User>().GetById(BoardContext.Current.GuestUserID).Name;
 
         #endregion
 
@@ -502,21 +502,6 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// Simply tells you if the User ID passed is the Guest user
-        /// for the current board
-        /// </summary>
-        /// <param name="userID">
-        /// ID of user to lookup
-        /// </param>
-        /// <returns>
-        /// true if the user id is a guest user
-        /// </returns>
-        public bool IsGuestUser(object userID)
-        {
-            return userID is null or DBNull || this.Get<IAspNetUsersHelper>().IsGuestUser((int)userID);
-        }
-
-        /// <summary>
         /// Simply tells you if the user ID passed is the Guest user
         /// for the current board
         /// </summary>
@@ -528,7 +513,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public bool IsGuestUser(int userID)
         {
-            return this.Get<IAspNetUsersHelper>().GuestUserId == userID;
+            return BoardContext.Current.GuestUserID == userID;
         }
 
         /// <summary>

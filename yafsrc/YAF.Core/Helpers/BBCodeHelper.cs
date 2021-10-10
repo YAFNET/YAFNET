@@ -27,6 +27,9 @@ namespace YAF.Core.Helpers
     using System.Collections.Generic;
     using System.Linq;
     using System.Text.RegularExpressions;
+    using System.Web;
+
+    using YAF.Core.Context;
 
     /// <summary>
     /// The bb code helper.
@@ -80,6 +83,17 @@ namespace YAF.Core.Helpers
         public static string StripBBCode(string text)
         {
             return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
+        }
+
+        public static string EncodeCodeBlocks(string text)
+        {
+            var regex = new Regex(
+                @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]|\[code\](?<inner>(.*?))\[/code\]",
+                RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
+            return regex.Replace(
+                text,
+                match => BoardContext.Current.CurrentForumPage.HtmlEncode(match.Groups["inner"].Value));
         }
     }
 }

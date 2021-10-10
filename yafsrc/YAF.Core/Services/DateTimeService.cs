@@ -82,7 +82,7 @@ namespace YAF.Core.Services
         {
             get
             {
-                if (BoardContext.Current.Page == null)
+                if (BoardContext.Current.PageData == null)
                 {
                     return new TimeSpan(0, this.Get<BoardSettings>().ServerTimeCorrection, 0);
                 }

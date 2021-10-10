@@ -129,8 +129,8 @@ namespace YAF.Controls
                 var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
                     this.DataSource.ForumID,
                     this.DataSource.LastTopicID,
-                    this.DataSource.LastForumAccess,
-                    this.DataSource.LastTopicAccess);
+                    this.DataSource.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                    this.DataSource.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
                 var formattedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
                                             ? lastPostedDateTime.ToString(

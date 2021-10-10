@@ -38,7 +38,6 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -217,7 +216,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="PageLoad"/>.
         /// </returns>
-        public PageLoad GetPageLoad(
+        public Tuple<PageLoad, User, Category, Forum, Topic> GetPageLoad(
             [NotNull] string sessionID,
             [NotNull] int boardId,
             [CanBeNull] string userKey,
@@ -238,7 +237,7 @@ namespace YAF.Core.Services
                 int userId;
                 bool isGuest;
                 DateTime? previousVisit = null;
-                User currentUser = null;
+                User currentUser;
                 var activeUpdate = false;
 
                 // -- set IsActiveNow ActiveFlag - it's a default
@@ -246,6 +245,8 @@ namespace YAF.Core.Services
 
                 // -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
                 var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
+
+                var guestUser = guest.FirstOrDefault();
 
                 if (guest == null)
                 {
@@ -260,7 +261,7 @@ namespace YAF.Core.Services
 
                 if (userKey == null)
                 {
-                    var guestUser = guest.FirstOrDefault();
+                    currentUser = guestUser;
 
                     // -- this is a guest
                     userId = guestUser.ID;
@@ -514,7 +515,7 @@ namespace YAF.Core.Services
                 }
 
                 // -- return information
-                return this.GetRepository<ActiveAccess>().DbAccess.Execute(
+                var pageLoad = this.GetRepository<ActiveAccess>().DbAccess.Execute(
                     db =>
                     {
                         var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
@@ -563,26 +564,13 @@ namespace YAF.Core.Services
                                     Sql.Custom(
                                         $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
                                 IsCrawler = isCrawler,
-                                CategoryID = Sql.Custom($"{(category != null ? category.ID : 0)}"),
-                                CategoryName =
-                                    Sql.Custom(
-                                        $"{(category != null ? OrmLiteConfig.DialectProvider.GetQuotedValue(category.Name) : "NULL")}"),
-                                ForumName =
-                                    Sql.Custom(
-                                        $"{(forum != null ? OrmLiteConfig.DialectProvider.GetQuotedValue(forum.Name) : "NULL")}"),
-                                TopicID = Sql.Custom($"{(topic != null ? topic.ID : 0)}"),
-                                TopicName =
-                                    Sql.Custom(
-                                        $"{(topic != null ? OrmLiteConfig.DialectProvider.GetQuotedValue(topic.TopicName) : "NULL")}"),
-                                ForumTheme =
-                                    Sql.Custom(
-                                        $"{(forum != null && forum.ThemeURL.IsSet() ? OrmLiteConfig.DialectProvider.GetQuotedValue(forum.ThemeURL) : "NULL")}"),
-                                ParentForumID = Sql.Custom(
-                                    $"{(forum != null && forum.ParentID.HasValue ? OrmLiteConfig.DialectProvider.GetQuotedValue(forum.ParentID.Value, typeof(int)) : "NULL")}")
+                                GuestUserId = guestUser.ID
                             });
 
                         return db.Connection.Select<PageLoad>(expression);
                     }).FirstOrDefault();
+
+                return Tuple.Create(pageLoad, currentUser, category, forum, topic);
             }
         }
 

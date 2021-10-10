@@ -114,12 +114,6 @@ namespace YAF.Pages.Profile
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (!(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
-            {
-                // Not accessible...
-                this.Get<LinkBuilder>().AccessDenied();
-            }
-
             if (this.IsPostBack)
             {
                 this.ContentBody.CssClass = "card-body was-validated";

@@ -48,7 +48,7 @@ namespace YAF.Core.Context
         /// </param>
         public LoadPageVariablesFromQuery([NotNull] IServiceLocator serviceLocator)
         {
-            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator);
 
             this.ServiceLocator = serviceLocator;
         }
@@ -81,14 +81,14 @@ namespace YAF.Core.Context
         {
             var queryString = this.Get<HttpRequestBase>().QueryString;
 
-            @event.Data.CategoryID = queryString.GetFirstOrDefault("c").ToTypeOrDefault(0);
-            @event.Data.ForumID = queryString.GetFirstOrDefault("f").ToTypeOrDefault(0);
-            @event.Data.TopicID = queryString.GetFirstOrDefault("t").ToTypeOrDefault(0);
-            @event.Data.MessageID = queryString.GetFirstOrDefault("m").ToTypeOrDefault(0);
+            @event.PageQueryData.CategoryID = queryString.GetFirstOrDefault("c").ToTypeOrDefault(0);
+            @event.PageQueryData.ForumID = queryString.GetFirstOrDefault("f").ToTypeOrDefault(0);
+            @event.PageQueryData.TopicID = queryString.GetFirstOrDefault("t").ToTypeOrDefault(0);
+            @event.PageQueryData.MessageID = queryString.GetFirstOrDefault("m").ToTypeOrDefault(0);
 
             if (BoardContext.Current.Settings.CategoryID != 0)
             {
-                @event.Data.CategoryID = BoardContext.Current.Settings.CategoryID;
+                @event.PageQueryData.CategoryID = BoardContext.Current.Settings.CategoryID;
             }
         }
 

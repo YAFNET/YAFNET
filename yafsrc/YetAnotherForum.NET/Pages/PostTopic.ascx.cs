@@ -95,7 +95,7 @@ namespace YAF.Pages
                 ForumPages.Topics,
                 "f={0}&name={1}",
                 this.PageContext.PageForumID,
-                this.PageContext.PageForumName);
+                this.PageContext.PageForum.Name);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            var postedMessage = HtmlHelper.StripHtml(this.forumEditor.Text.Trim());
+            var postedMessage = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text.Trim()));
 
             if (postedMessage.IsNotSet())
             {
@@ -338,7 +338,7 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -402,7 +402,7 @@ namespace YAF.Pages
                 string.Empty,
                 HtmlHelper.StripHtml(this.TopicStylesTextBox.Text.Trim()),
                 HtmlHelper.StripHtml(this.TopicDescriptionTextBox.Text.Trim()),
-                HtmlHelper.StripHtml(this.forumEditor.Text),
+                HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
                 this.PageContext.PageUserID,
                 this.Priority.SelectedValue.ToType<short>(),
                 this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.Name,
@@ -626,7 +626,7 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
+                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
 
                 if (attachPollParameter.Length <= 0)
                 {

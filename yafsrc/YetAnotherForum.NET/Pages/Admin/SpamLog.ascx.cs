@@ -41,7 +41,6 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
@@ -197,7 +196,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string UserLink([NotNull] PagedEventLog item)
         {
-            if (item.UserID == 0 || item.UserID == this.Get<IAspNetUsersHelper>().GuestUserId)
+            if (item.UserID == 0 || item.UserID == this.PageContext.GuestUserID)
             {
                 return string.Empty;
             }

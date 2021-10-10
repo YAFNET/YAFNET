@@ -45,8 +45,6 @@ namespace YAF.Pages
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
-    using Forum = YAF.Types.Models.Forum;
-
     #endregion
 
     /// <summary>
@@ -60,11 +58,6 @@ namespace YAF.Pages
         ///   The show topic list selected.
         /// </summary>
         private int showTopicListSelected;
-
-        /// <summary>
-        /// The forum.
-        /// </summary>
-        private Forum forum;
 
         #endregion
 
@@ -124,7 +117,7 @@ namespace YAF.Pages
         /// <returns>The get sub forum title.</returns>
         protected string GetSubForumTitle()
         {
-            return this.GetTextFormatted("SUBFORUMS", this.HtmlEncode(this.PageContext.PageForumName));
+            return this.GetTextFormatted("SUBFORUMS", this.HtmlEncode(this.PageContext.PageForum.Name));
         }
 
         /// <summary>
@@ -174,7 +167,7 @@ namespace YAF.Pages
             this.Get<ISession>().UnreadTopics = 0;
 
             this.RssFeed.AdditionalParameters =
-                $"f={this.PageContext.PageForumID}&name={this.PageContext.PageForumName}";
+                $"f={this.PageContext.PageForumID}&name={this.PageContext.PageForum.Name}";
 
             this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
@@ -224,13 +217,15 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.forum = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);
-
-            if (this.forum.RemoteURL.IsSet())
+            if (this.PageContext.PageForum.RemoteURL.IsSet())
             {
                 this.Get<HttpResponseBase>().Clear();
-                this.Get<HttpResponseBase>().Redirect(this.forum.RemoteURL);
+                this.Get<HttpResponseBase>().Redirect(this.PageContext.PageForum.RemoteURL);
             }
+
+            this.PageTitle.Text = this.PageContext.PageForum.Description.IsSet()
+                ? $"{this.HtmlEncode(this.PageContext.PageForum.Name)} - <em>{this.HtmlEncode(this.PageContext.PageForum.Description)}</em>"
+                : this.HtmlEncode(this.PageContext.PageForum.Name);
 
             this.PageSize.DataSource = StaticDataHelper.PageEntries();
             this.PageSize.DataTextField = "Name";
@@ -242,7 +237,7 @@ namespace YAF.Pages
             this.BindData(); // Always because of yaf:TopicLine
 
             if (!this.PageContext.ForumPostAccess
-                || this.forum.ForumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+                || this.PageContext.PageForum.ForumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
                 this.NewTopic1.Visible = false;
                 this.NewTopic2.Visible = false;
@@ -271,7 +266,7 @@ namespace YAF.Pages
             if (this.PageContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID, true);

@@ -318,7 +318,7 @@ namespace YAF.Core.Handlers
                 isSearchEngine,
                 doNotTrack);
 
-            return pageRow.UploadAccess || pageRow.ModeratorAccess;
+            return pageRow.Item1.UploadAccess || pageRow.Item1.ModeratorAccess;
         }
     }
 }

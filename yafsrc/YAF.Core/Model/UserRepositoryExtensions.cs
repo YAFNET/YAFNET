@@ -40,7 +40,6 @@ namespace YAF.Core.Model
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Types.Models.Identity;
     using YAF.Types.Objects;
     using YAF.Types.Objects.Model;
 
@@ -602,7 +601,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var guestUserId = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUserId;
+            var guestUserId = BoardContext.Current.GuestUserID;
 
             if (guestUserId == userId)
             {
@@ -1160,6 +1159,9 @@ namespace YAF.Core.Model
         /// </param>
         /// <param name="activity">
         /// The activity.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
         /// </param>
         public static void Save(
             this IRepository<User> repository,

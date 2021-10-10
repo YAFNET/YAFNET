@@ -368,7 +368,7 @@ namespace YAF.Core.Helpers
         /// <returns>
         /// The update forum user.
         /// </returns>
-        public int? UpdateForumUser([NotNull] AspNetUsers user, int pageBoardID, string[] roles = null)
+        public int? UpdateForumUser([NotNull] AspNetUsers user, int pageBoardID, [CanBeNull] string[] roles = null)
         {
             if (user == null)
             {

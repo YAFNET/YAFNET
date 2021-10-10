@@ -47,7 +47,7 @@ namespace YAF.Core.Events
         /// </param>
         public UpdateTopicLastPost([NotNull] IServiceLocator serviceLocator)
         {
-            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator);
 
             this.ServiceLocator = serviceLocator;
         }

@@ -96,7 +96,6 @@ namespace YAF.Core.Handlers
         /// <summary>
         /// Sets the theme class up for usage
         /// </summary>
-        /// <exception cref="CantLoadThemeException"><c>CantLoadThemeException</c>.</exception>
         private void InitTheme()
         {
             if (this.initTheme)
@@ -108,15 +107,16 @@ namespace YAF.Core.Handlers
 
             string themeFile;
 
-            if (BoardContext.Current.Page != null && BoardContext.Current.User.ThemeFile.IsSet() &&
+            if (BoardContext.Current.PageData != null && BoardContext.Current.User.ThemeFile.IsSet() &&
                 BoardContext.Current.BoardSettings.AllowUserTheme)
             {
                 // use user-selected theme
                 themeFile = BoardContext.Current.User.ThemeFile;
             }
-            else if (BoardContext.Current.Page != null && BoardContext.Current.Page["ForumTheme"] != null)
+            else if (BoardContext.Current.PageData != null && BoardContext.Current.PageData.Item2.Item4 != null &&
+                     BoardContext.Current.PageData.Item2.Item4.ThemeURL.IsSet())
             {
-                themeFile = BoardContext.Current.Page["ForumTheme"].ToString();
+                themeFile = BoardContext.Current.PageData.Item2.Item4.ThemeURL;
             }
             else
             {

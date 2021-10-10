@@ -137,7 +137,7 @@ namespace YAF.Dialogs
                 ForumPages.Topics,
                 "f={0}&name={1}",
                 this.PageContext.PageForumID,
-                this.PageContext.PageForumName);
+                this.PageContext.PageForum.Name);
         }
 
         #endregion

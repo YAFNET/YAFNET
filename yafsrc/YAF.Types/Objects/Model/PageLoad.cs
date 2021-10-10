@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Objects.Model
 {
     using System;
@@ -53,46 +54,6 @@ namespace YAF.Types.Objects.Model
         public bool IsCrawler { get; set; }
 
         /// <summary>
-        /// Gets or sets the category id.
-        /// </summary>
-        public int? CategoryID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the category name.
-        /// </summary>
-        public string CategoryName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum name.
-        /// </summary>
-        public string ForumName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic id.
-        /// </summary>
-        public int? TopicID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topic name.
-        /// </summary>
-        public string TopicName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum theme.
-        /// </summary>
-        public string ForumTheme { get; set; }
-
-        /// <summary>
-        /// Gets or sets the parent forum id.
-        /// </summary>
-        public int? ParentForumID { get; set; }
-
-        /// <summary>
-        /// Gets or sets the board id.
-        /// </summary>
-        public int BoardID { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether delete access.
         /// </summary>
         public bool DeleteAccess { get; set; }
@@ -106,11 +67,6 @@ namespace YAF.Types.Objects.Model
         /// Gets or sets a value indicating whether edit access.
         /// </summary>
         public bool EditAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumID { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is admin.
@@ -181,6 +137,11 @@ namespace YAF.Types.Objects.Model
         /// Gets or sets a value indicating whether vote access.
         /// </summary>
         public bool VoteAccess { get; set; }
+
+        /// <summary>
+        /// Gets or sets the guest user id.
+        /// </summary>
+        public int GuestUserID { get; set; }
 
         #endregion
     }

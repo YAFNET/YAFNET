@@ -1534,14 +1534,14 @@ namespace YAF.Core.Model
         /// </param>
         public static void UpdateLastPost(
             [NotNull] this IRepository<Topic> repository,
-            [CanBeNull] int? forumId,
-            [CanBeNull] int? topicId)
+            [NotNull] int forumId,
+            [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
-            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16)
+            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16 && m.TopicID == topicId)
                 .OrderByDescending<Message>(m => m.Posted);
 
             var message = repository.DbAccess.Execute(db => db.Connection.Select(expression)).FirstOrDefault();
@@ -1552,34 +1552,17 @@ namespace YAF.Core.Model
                 return;
             }
 
-            if (topicId.HasValue)
-            {
-                repository.UpdateOnly(
-                    () => new Topic
-                    {
-                        LastPosted = message.Posted,
-                        LastMessageID = message.ID,
-                        LastUserID = message.UserID,
-                        LastUserName = message.UserName,
-                        LastUserDisplayName = message.UserDisplayName,
-                        LastMessageFlags = message.Flags
-                    },
-                    t => t.ID == topicId.Value);
-            }
-            else
-            {
-                repository.UpdateOnly(
-                    () => new Topic
-                    {
-                        LastPosted = message.Posted,
-                        LastMessageID = message.ID,
-                        LastUserID = message.UserID,
-                        LastUserName = message.UserName,
-                        LastUserDisplayName = message.UserDisplayName,
-                        LastMessageFlags = message.Flags
-                    },
-                    t => t.TopicMovedID == null && (!forumId.HasValue || t.ForumID == forumId.Value));
-            }
+            repository.UpdateOnly(
+                () => new Topic
+                {
+                    LastPosted = message.Posted,
+                    LastMessageID = message.ID,
+                    LastUserID = message.UserID,
+                    LastUserName = message.UserName,
+                    LastUserDisplayName = message.UserDisplayName,
+                    LastMessageFlags = message.Flags
+                },
+                t => t.ID == topicId);
         }
 
         #endregion

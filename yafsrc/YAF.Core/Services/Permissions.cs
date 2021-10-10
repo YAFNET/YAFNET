@@ -203,7 +203,7 @@ namespace YAF.Core.Services
                 isSearchEngine,
                 doNotTrack);
 
-            return pageRow.DownloadAccess || pageRow.ModeratorAccess;
+            return pageRow.Item1.DownloadAccess || pageRow.Item1.ModeratorAccess;
         }
 
         #endregion

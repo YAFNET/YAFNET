@@ -120,7 +120,7 @@ namespace YAF.Pages
                 ForumPages.Posts,
                 "t={0}&name={1}",
                 this.PageContext.PageTopicID,
-                this.PageContext.PageTopicName);
+                this.PageContext.PageTopic.TopicName);
         }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
+            this.topic = this.PageContext.PageTopic;
 
             if (this.EditMessageId.HasValue)
             {
@@ -336,7 +336,7 @@ namespace YAF.Pages
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
                     this.PageLinks.AddRoot();
-                    this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                    this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -538,7 +538,7 @@ namespace YAF.Pages
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopic.TopicName);
                 }
                 else
                 {
@@ -566,11 +566,11 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
+                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
 
                 if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
-                    url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName);
+                    url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName);
                 }
 
                 if (attachPollParameter.Length <= 0)
@@ -635,7 +635,7 @@ namespace YAF.Pages
             }
 
             // get  forum information
-            var forumInfo = this.GetRepository<Forum>().GetById(this.PageContext.PageForumID);
+            var forumInfo = this.PageContext.PageForum;
 
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return !postLocked && !forumInfo.ForumFlags.IsLocked
@@ -685,7 +685,7 @@ namespace YAF.Pages
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
 
-            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopicName);
+            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopic.TopicName);
             this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.topic.Description);
 
             if (this.topic.UserID == currentMessage.UserID.ToType<int>()

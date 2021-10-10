@@ -84,7 +84,7 @@ namespace YAF.Modules
                         true,
                         TopicLinkParams,
                         this.PageContext.PageTopicID,
-                        this.PageContext.PageTopicName);
+                        this.PageContext.PageTopic.TopicName);
 
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }

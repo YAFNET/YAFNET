@@ -27,19 +27,17 @@ namespace YAF.Core.Context
     using System;
     using System.Web;
 
-    using ServiceStack.Text;
-
     using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models;
     using YAF.Types.Objects.Model;
 
     /// <summary>
@@ -113,7 +111,7 @@ namespace YAF.Core.Context
             }
 
             var tries = 0;
-            PageLoad pageRow;
+            Tuple<PageLoad, User, Category, Forum, Topic> pageRow;
 
             var forumPage = string.Empty;
             var location = this.Get<HttpRequestBase>().QueryString.ToString();
@@ -133,14 +131,14 @@ namespace YAF.Core.Context
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     location,
                     forumPage,
-                    (string)@event.Data.Browser,
-                    (string)@event.Data.Platform,
-                    (int?)@event.Data.CategoryID,
-                    (int?)@event.Data.ForumID,
-                    (int?)@event.Data.TopicID,
-                    (int?)@event.Data.MessageID,
-                    (bool)@event.Data.IsSearchEngine,
-                    (bool)@event.Data.DontTrack);
+                    @event.UserRequestData.Browser,
+                    @event.UserRequestData.Platform,
+                    @event.PageQueryData.CategoryID,
+                    @event.PageQueryData.ForumID,
+                    @event.PageQueryData.TopicID,
+                    @event.PageQueryData.MessageID,
+                    @event.UserRequestData.IsSearchEngine,
+                    @event.UserRequestData.DontTrack);
 
                 // if the user doesn't exist create the user...
                 if (userKey != null && pageRow == null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
@@ -167,16 +165,27 @@ namespace YAF.Core.Context
             }
             while (pageRow == null && userKey != null);
 
-            if (pageRow == null)
+            // add all loaded page data into our data dictionary...
+            @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
+
+            // update Query Data
+            if (pageRow.Item3 != null)
             {
-                throw new ApplicationException("Unable to find the Guest User!");
+                @event.PageQueryData.CategoryID = pageRow.Item3.ID;
             }
 
-            // add all loaded page data into our data dictionary...
-            @event.DataDictionary.AddRange(pageRow.ToObjectDictionary());
+            if (pageRow.Item4 != null)
+            {
+                @event.PageQueryData.ForumID = pageRow.Item4.ID;
+            }
+
+            if (pageRow.Item5 != null)
+            {
+                @event.PageQueryData.TopicID = pageRow.Item5.ID;
+            }
 
             // clear active users list
-            if (@event.DataDictionary["ActiveUpdate"].ToType<bool>())
+            if (@event.PageLoadData.Item1.ActiveUpdate)
             {
                 // purge the cache if something has changed...
                 this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);

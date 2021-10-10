@@ -83,7 +83,7 @@ namespace YAF.Pages
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.SendEmail.ClientID));
 
-            this.Subject.Text = this.PageContext.PageTopicName;
+            this.Subject.Text = this.PageContext.PageTopic.TopicName;
 
             var emailTopic = new TemplateEmail("EMAILTOPIC")
             {
@@ -94,7 +94,7 @@ namespace YAF.Pages
                         true,
                         "t={0}&name={1}",
                         this.PageContext.PageTopicID,
-                        this.PageContext.PageTopicName),
+                        this.PageContext.PageTopic.TopicName),
                     ["{user}"] = this.PageContext.User.DisplayOrUserName()
                 }
             };
@@ -111,14 +111,14 @@ namespace YAF.Pages
             {
                 this.PageLinks.AddRoot();
 
-                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
 
             this.PageLinks.AddLink(
-                this.PageContext.PageTopicName,
-                this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName));
+                this.PageContext.PageTopic.TopicName,
+                this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName));
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace YAF.Pages
                     ForumPages.Posts,
                     "t={0}&name={1}",
                     this.PageContext.PageTopicID,
-                    this.PageContext.PageTopicName);
+                    this.PageContext.PageTopic.TopicName);
             }
             catch (Exception x)
             {

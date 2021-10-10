@@ -174,12 +174,12 @@ namespace YAF.Web.Extensions
             if (BoardContext.Current.PageForumID == forumId)
             {
                 pageLinks.AddLink(
-                    BoardContext.Current.PageForumName,
+                    BoardContext.Current.PageForum.Name,
                     noForumLink
                         ? string.Empty
                         : BoardContext.Current.Get<LinkBuilder>().GetForumLink(
                             forumId,
-                            BoardContext.Current.PageForumName));
+                            BoardContext.Current.PageForum.Name));
             }
 
             return pageLinks;

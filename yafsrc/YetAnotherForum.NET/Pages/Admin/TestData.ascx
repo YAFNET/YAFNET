@@ -68,7 +68,7 @@
             Password(for all users):
         </asp:Label>
         <asp:TextBox ID="Password" runat="server"
-                     CssClass="form-control" Text="testuser1234?" />
+                     CssClass="form-control" Text="TestUser1234?" />
         <asp:RequiredFieldValidator ID="PasswordRequiredfieldvalidator" runat="server"
                                     EnableClientScript="False"
                                     Text="0"
@@ -82,7 +82,7 @@
         </asp:Label>
         <asp:TextBox ID="Password2" runat="server"
                      CssClass="form-control"
-                     Text="testuser1234?" />
+                     Text="TestUser1234?" />
         <asp:CompareValidator ID="PasswordConfirmComparevalidator" runat="server"
                               EnableClientScript="False"
                               ControlToValidate="Password2"

@@ -24,10 +24,6 @@
 
 namespace YAF.Types.Objects
 {
-    using System.IO;
-
-    using YAF.Types.Extensions;
-
     /// <summary>
     /// FileUploadStatus Class
     /// </summary>
@@ -41,46 +37,12 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Initializes a new instance of the <see cref="FilesUploadStatus"/> class.
         /// </summary>
-        public FilesUploadStatus()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilesUploadStatus"/> class.
-        /// </summary>
-        /// <param name="fileInfo">The file information.</param>
-        public FilesUploadStatus(FileInfo fileInfo)
-        {
-            this.SetValues(fileInfo.Name, fileInfo.Length.ToType<int>());
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilesUploadStatus"/> class.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="fileLength">Length of the file.</param>
-        public FilesUploadStatus(string fileName, int fileLength)
-        {
-            this.SetValues(fileName, fileLength);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FilesUploadStatus"/> class.
-        /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileLength">Length of the file.</param>
         public FilesUploadStatus(string fileName, int fileLength, int fileID)
         {
             this.SetValues(fileName, fileLength, fileID);
         }
-
-        /// <summary>
-        /// Gets or sets the group.
-        /// </summary>
-        /// <value>
-        /// The group.
-        /// </value>
-        public string group { get; set; }
 
         /// <summary>
         /// Gets or sets the name.
@@ -159,28 +121,14 @@ namespace YAF.Types.Objects
         /// </summary>
         /// <param name="fileName">Name of the file.</param>
         /// <param name="fileLength">Length of the file.</param>
-        private void SetValues(string fileName, int fileLength)
+        /// <param name="fileId">The file identifier.</param>
+        private void SetValues(string fileName, int fileLength, int fileId)
         {
             this.name = fileName;
             this.type = "image/png";
             this.size = fileLength;
             this.progress = "1.0";
-            this.url = $"{HandlerPath}FileTransferHandler.ashx?f={fileName}";
-        }
-
-        /// <summary>
-        /// Sets the values.
-        /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="fileLength">Length of the file.</param>
-        /// <param name="fileID">The file identifier.</param>
-        private void SetValues(string fileName, int fileLength, int fileID)
-        {
-            this.name = fileName;
-            this.type = "image/png";
-            this.size = fileLength;
-            this.progress = "1.0";
-            this.fileID = fileID;
+            this.fileID = fileId;
             this.url = $"{HandlerPath}FileTransferHandler.ashx?f={fileName}";
         }
     }

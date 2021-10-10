@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,49 +21,34 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.EventProxies
+namespace YAF.Types.Objects
 {
-    #region Using
-
-    using YAF.Types.Interfaces.Events;
-
-    #endregion
-
     /// <summary>
-    /// The update topic last post event.
+    /// The page query data.
     /// </summary>
-    public class UpdateTopicLastPostEvent : IAmEvent
+    public class PageQueryData
     {
-        #region Constructors and Destructors
+        #region Public Properties
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateTopicLastPostEvent"/> class.
+        /// Gets or sets the category id.
         /// </summary>
-        /// <param name="forumId">
-        /// The forum id.
-        /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
-        /// </param>
-        public UpdateTopicLastPostEvent(int forumId, int topicId)
-        {
-            this.ForumId = forumId;
-            this.TopicId = topicId;
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the forum id.
-        /// </summary>
-        public int ForumId { get; set; }
+        public int CategoryID { get; set; }
 
         /// <summary>
         /// Gets or sets the topic id.
         /// </summary>
-        public int TopicId { get; set; }
+        public int TopicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
+        public int ForumID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message id.
+        /// </summary>
+        public int MessageID { get; set; }
 
         #endregion
     }

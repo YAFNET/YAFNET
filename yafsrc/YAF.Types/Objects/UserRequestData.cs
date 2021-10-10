@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,21 +24,18 @@
 
 namespace YAF.Types.Objects
 {
-    /// <summary>
-    /// Class MimeType.
-    /// </summary>
-    public class MimeType
-    {
-        /// <summary>
-        /// Gets or sets the extension.
-        /// </summary>
-        /// <value>The extension.</value>
-        public string Extension { get; set; }
+    using System;
 
-        /// <summary>
-        /// Gets or sets the type.
-        /// </summary>
-        /// <value>The type.</value>
-        public string Type { get; set; }
+    public class UserRequestData
+    {
+        public bool DontTrack { get; set; }
+
+        public string UserAgent { get; set; }
+
+        public bool IsSearchEngine { get; set; }
+
+        public string Browser { get; set; }
+
+        public string Platform { get; set; }
     }
 }

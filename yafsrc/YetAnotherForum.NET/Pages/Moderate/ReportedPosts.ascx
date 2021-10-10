@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h1><%# this.PageContext.PageForumName %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
+        <h1><%# this.PageContext.PageForum.Name %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
     </div>
 </div>
 <asp:Repeater ID="List" runat="server" OnItemDataBound="List_OnItemDataBound">

@@ -211,18 +211,6 @@ namespace YAF.Types.Interfaces.Identity
         string GetUserProviderKeyFromUserID(int userId);
 
         /// <summary>
-        /// Simply tells you if the User ID passed is the Guest user
-        /// for the current board
-        /// </summary>
-        /// <param name="userID">
-        /// ID of user to lookup
-        /// </param>
-        /// <returns>
-        /// true if the user id is a guest user
-        /// </returns>
-        bool IsGuestUser(object userID);
-
-        /// <summary>
         /// Simply tells you if the user ID passed is the Guest user
         /// for the current board
         /// </summary>

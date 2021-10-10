@@ -109,10 +109,10 @@ namespace YAF.Core.Events
         {
             var previousVisitKey = "PreviousVisit";
 
-            if (!BoardContext.Current.IsGuest && BoardContext.Current.Page[previousVisitKey] != DBNull.Value
+            if (!BoardContext.Current.IsGuest && BoardContext.Current.PageData.Item2.Item1.PreviousVisit.HasValue
                 && !this.YafSession.LastVisit.HasValue)
             {
-                this.YafSession.LastVisit = Convert.ToDateTime(BoardContext.Current.Page[previousVisitKey]);
+                this.YafSession.LastVisit = BoardContext.Current.PageData.Item2.Item1.PreviousVisit.Value;
             }
             else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
             {

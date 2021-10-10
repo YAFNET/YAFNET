@@ -123,7 +123,7 @@ namespace YAF.Pages
                 ForumPages.Posts,
                 "t={0}&name={1}",
                 this.PageContext.PageTopicID,
-                this.PageContext.PageTopicName);
+                this.PageContext.PageTopic.TopicName);
         }
 
         /// <summary>
@@ -250,7 +250,7 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.topic = this.GetRepository<Topic>().GetById(this.PageContext.PageTopicID);
+            this.topic = this.PageContext.PageTopic;
 
             // we reply to a post with a quote
             if (this.QuotedMessageId.HasValue)
@@ -312,7 +312,7 @@ namespace YAF.Pages
                 if (this.PageContext.Settings.LockedForum == 0)
                 {
                     this.PageLinks.AddRoot();
-                    this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+                    this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
                 }
 
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
@@ -575,14 +575,14 @@ namespace YAF.Pages
                         Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
                         this.TopicId,
                         messageId.ToType<int>(),
-                        this.PageContext.PageTopicName,
+                        this.PageContext.PageTopic.TopicName,
                         this.forumEditor.Text);
                 }
 
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopic.TopicName);
                 }
                 else
                 {
@@ -610,11 +610,11 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForumName);
+                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
 
                 if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
-                    url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopicName);
+                    url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName);
                 }
 
                 if (attachPollParameter.Length <= 0)
