@@ -577,17 +577,17 @@ namespace YAF.Controls
             if (this.PageContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 this.Birthday.Text =
-                    this.User.Item2.Profile_Birthday > DateTimeHelper.SqlDbMinTime() ||
-                    this.User.Item2.Profile_Birthday.IsNullOrEmptyField()
-                        ? PersianDateConverter.ToPersianDate(this.User.Item2.Profile_Birthday).ToString("d")
+                    this.User.Item2.Profile_Birthday.HasValue &&
+                    this.User.Item2.Profile_Birthday.Value > DateTimeHelper.SqlDbMinTime()
+                        ? PersianDateConverter.ToPersianDate(this.User.Item2.Profile_Birthday.Value).ToString("d")
                         : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
             }
             else
             {
                 this.Birthday.Text =
-                    this.User.Item2.Profile_Birthday > DateTimeHelper.SqlDbMinTime() ||
-                    this.User.Item2.Profile_Birthday.IsNullOrEmptyField()
-                        ? this.User.Item2.Profile_Birthday.Date.ToString("yyyy-MM-dd")
+                    this.User.Item2.Profile_Birthday.HasValue &&
+                    this.User.Item2.Profile_Birthday.Value > DateTimeHelper.SqlDbMinTime()
+                        ? this.User.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
                         : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
 
                 this.Birthday.TextMode = TextBoxMode.Date;

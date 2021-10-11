@@ -249,7 +249,7 @@ namespace YAF.Types.Models.Identity
         /// <summary>
         /// Gets or sets Birthday.
         /// </summary>
-        public DateTime Profile_Birthday { get; set; }
+        public DateTime? Profile_Birthday { get; set; }
 
         /// <summary>
         /// Gets or sets Blog.

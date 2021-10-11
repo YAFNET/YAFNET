@@ -541,7 +541,7 @@ namespace YAF.Pages
             {
                 this.BirthdayTR.Visible = true;
                 this.Birthday.Text = this.Get<IDateTimeService>().FormatDateLong(
-                    user.Item2.Profile_Birthday.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(user.Item1.TimeZoneInfo)));
+                    user.Item2.Profile_Birthday.Value.AddMinutes(-DateTimeHelper.GetTimeZoneOffset(user.Item1.TimeZoneInfo)));
             }
             else
             {
