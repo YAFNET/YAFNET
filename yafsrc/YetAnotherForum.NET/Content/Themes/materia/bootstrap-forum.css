@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
-* Bootstrap v5.1.1 (https://getbootstrap.com/)
+* Bootstrap v5.1.3 (https://getbootstrap.com/)
 * Copyright 2011-2021 The Bootstrap Authors
 * Copyright 2011-2021 Twitter, Inc.
 * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -666,9 +666,9 @@ progress {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-top: calc(var(--bs-gutter-y) * -1);
-  margin-right: calc(var(--bs-gutter-x) * -.5);
-  margin-left: calc(var(--bs-gutter-x) * -.5);
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-.5 * var(--bs-gutter-x));
+  margin-left: calc(-.5 * var(--bs-gutter-x));
 }
 .row > * {
   -ms-flex-negative: 0;
@@ -2233,8 +2233,8 @@ progress {
 .table > thead {
   vertical-align: bottom;
 }
-.table > :not(:last-child) > :last-child > * {
-  border-bottom-color: currentColor;
+.table > :not(:first-child) {
+  border-top: 2px solid currentColor;
 }
 
 .caption-top {
@@ -2255,8 +2255,11 @@ progress {
 .table-borderless > :not(caption) > * > * {
   border-bottom-width: 0;
 }
+.table-borderless > :not(:first-child) {
+  border-top-width: 0;
+}
 
-.table-striped > tbody > tr:nth-of-type(odd) {
+.table-striped > tbody > tr:nth-of-type(odd) > * {
   --bs-table-accent-bg: var(--bs-table-striped-bg);
   color: var(--bs-table-striped-color);
 }
@@ -2266,7 +2269,7 @@ progress {
   color: var(--bs-table-active-color);
 }
 
-.table-hover > tbody > tr:hover {
+.table-hover > tbody > tr:hover > * {
   --bs-table-accent-bg: var(--bs-table-hover-bg);
   color: var(--bs-table-hover-color);
 }
@@ -2432,7 +2435,7 @@ progress {
   color: #666;
 }
 
-.form-control, .bootstrap-tagsinput {
+.form-control {
   display: block;
   width: 100%;
   padding: 1rem 0;
@@ -2453,18 +2456,18 @@ progress {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-control, .bootstrap-tagsinput {
+  .form-control {
     -webkit-transition: none;
     transition: none;
   }
 }
-.form-control[type=file], [type=file].bootstrap-tagsinput {
+.form-control[type=file] {
   overflow: hidden;
 }
-.form-control[type=file]:not(:disabled):not([readonly]), [type=file].bootstrap-tagsinput:not(:disabled):not([readonly]) {
+.form-control[type=file]:not(:disabled):not([readonly]) {
   cursor: pointer;
 }
-.form-control:focus, .bootstrap-tagsinput:focus {
+.form-control:focus {
   color: #666;
   background-color: transparent;
   border-color: #90cbf9;
@@ -2472,34 +2475,34 @@ progress {
   -webkit-box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25);
           box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25);
 }
-.form-control::-webkit-date-and-time-value, .bootstrap-tagsinput::-webkit-date-and-time-value {
+.form-control::-webkit-date-and-time-value {
   height: 1.5em;
 }
-.form-control::-webkit-input-placeholder, .bootstrap-tagsinput::-webkit-input-placeholder {
+.form-control::-webkit-input-placeholder {
   color: rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
-.form-control::-moz-placeholder, .bootstrap-tagsinput::-moz-placeholder {
+.form-control::-moz-placeholder {
   color: rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
-.form-control:-ms-input-placeholder, .bootstrap-tagsinput:-ms-input-placeholder {
+.form-control:-ms-input-placeholder {
   color: rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
-.form-control::-ms-input-placeholder, .bootstrap-tagsinput::-ms-input-placeholder {
+.form-control::-ms-input-placeholder {
   color: rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
-.form-control::placeholder, .bootstrap-tagsinput::placeholder {
+.form-control::placeholder {
   color: rgba(0, 0, 0, 0.4);
   opacity: 1;
 }
-.form-control:disabled, .bootstrap-tagsinput:disabled, .form-control[readonly], [readonly].bootstrap-tagsinput {
+.form-control:disabled, .form-control[readonly] {
   background-color: transparent;
   opacity: 1;
 }
-.form-control::file-selector-button, .bootstrap-tagsinput::file-selector-button {
+.form-control::file-selector-button {
   padding: 1rem 0;
   margin: -1rem 0;
   -webkit-margin-end: 0;
@@ -2519,15 +2522,15 @@ progress {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-control::file-selector-button, .bootstrap-tagsinput::file-selector-button {
+  .form-control::file-selector-button {
     -webkit-transition: none;
     transition: none;
   }
 }
-.form-control:hover:not(:disabled):not([readonly])::file-selector-button, .bootstrap-tagsinput:hover:not(:disabled):not([readonly])::file-selector-button {
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: rgba(0, 0, 0, 0.05);
 }
-.form-control::-webkit-file-upload-button, .bootstrap-tagsinput::-webkit-file-upload-button {
+.form-control::-webkit-file-upload-button {
   padding: 1rem 0;
   margin: -1rem 0;
   -webkit-margin-end: 0;
@@ -2547,12 +2550,12 @@ progress {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-control::-webkit-file-upload-button, .bootstrap-tagsinput::-webkit-file-upload-button {
+  .form-control::-webkit-file-upload-button {
     -webkit-transition: none;
     transition: none;
   }
 }
-.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .bootstrap-tagsinput:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -2610,7 +2613,7 @@ progress {
           margin-inline-end: 0;
 }
 
-textarea.form-control, textarea.bootstrap-tagsinput {
+textarea.form-control {
   min-height: calc(1.5em + 2rem);
 }
 textarea.form-control-sm {
@@ -2652,7 +2655,7 @@ textarea.form-control-lg {
   background-position: right 0 center;
   background-size: 16px 12px;
   border: 0 solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 0;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -2690,6 +2693,7 @@ textarea.form-control-lg {
   padding-bottom: 0;
   padding-left: 0;
   font-size: 0.875rem;
+  border-radius: 0;
 }
 
 .form-select-lg {
@@ -2697,6 +2701,7 @@ textarea.form-control-lg {
   padding-bottom: 1.25rem;
   padding-left: 0;
   font-size: 1.25rem;
+  border-radius: 0;
 }
 
 .form-check {
@@ -2910,7 +2915,7 @@ textarea.form-control-lg {
 .form-floating {
   position: relative;
 }
-.form-floating > .form-control, .form-floating > .bootstrap-tagsinput,
+.form-floating > .form-control,
 .form-floating > .form-select {
   height: 3.5rem;
   line-height: 1.25;
@@ -2936,37 +2941,37 @@ textarea.form-control-lg {
     transition: none;
   }
 }
-.form-floating > .form-control, .form-floating > .bootstrap-tagsinput {
+.form-floating > .form-control {
   padding: 1rem 0;
 }
-.form-floating > .form-control::-webkit-input-placeholder, .form-floating > .bootstrap-tagsinput::-webkit-input-placeholder {
+.form-floating > .form-control::-webkit-input-placeholder {
   color: transparent;
 }
-.form-floating > .form-control::-moz-placeholder, .form-floating > .bootstrap-tagsinput::-moz-placeholder {
+.form-floating > .form-control::-moz-placeholder {
   color: transparent;
 }
-.form-floating > .form-control:-ms-input-placeholder, .form-floating > .bootstrap-tagsinput:-ms-input-placeholder {
+.form-floating > .form-control:-ms-input-placeholder {
   color: transparent;
 }
-.form-floating > .form-control::-ms-input-placeholder, .form-floating > .bootstrap-tagsinput::-ms-input-placeholder {
+.form-floating > .form-control::-ms-input-placeholder {
   color: transparent;
 }
-.form-floating > .form-control::placeholder, .form-floating > .bootstrap-tagsinput::placeholder {
+.form-floating > .form-control::placeholder {
   color: transparent;
 }
-.form-floating > .form-control:not(:-moz-placeholder-shown), .form-floating > .bootstrap-tagsinput:not(:-moz-placeholder-shown) {
+.form-floating > .form-control:not(:-moz-placeholder-shown) {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
-.form-floating > .form-control:not(:-ms-input-placeholder), .form-floating > .bootstrap-tagsinput:not(:-ms-input-placeholder) {
+.form-floating > .form-control:not(:-ms-input-placeholder) {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
-.form-floating > .form-control:focus, .form-floating > .bootstrap-tagsinput:focus, .form-floating > .form-control:not(:placeholder-shown), .form-floating > .bootstrap-tagsinput:not(:placeholder-shown) {
+.form-floating > .form-control:focus, .form-floating > .form-control:not(:placeholder-shown) {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
-.form-floating > .form-control:-webkit-autofill, .form-floating > .bootstrap-tagsinput:-webkit-autofill {
+.form-floating > .form-control:-webkit-autofill {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
@@ -2974,23 +2979,22 @@ textarea.form-control-lg {
   padding-top: 1.625rem;
   padding-bottom: 0.625rem;
 }
-.form-floating > .form-control:not(:-moz-placeholder-shown) ~ label, .form-floating > .bootstrap-tagsinput:not(:-moz-placeholder-shown) ~ label {
+.form-floating > .form-control:not(:-moz-placeholder-shown) ~ label {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
-.form-floating > .form-control:not(:-ms-input-placeholder) ~ label, .form-floating > .bootstrap-tagsinput:not(:-ms-input-placeholder) ~ label {
+.form-floating > .form-control:not(:-ms-input-placeholder) ~ label {
   opacity: 0.65;
   transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
-.form-floating > .form-control:focus ~ label, .form-floating > .bootstrap-tagsinput:focus ~ label,
+.form-floating > .form-control:focus ~ label,
 .form-floating > .form-control:not(:placeholder-shown) ~ label,
-.form-floating > .bootstrap-tagsinput:not(:placeholder-shown) ~ label,
 .form-floating > .form-select ~ label {
   opacity: 0.65;
   -webkit-transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
           transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
 }
-.form-floating > .form-control:-webkit-autofill ~ label, .form-floating > .bootstrap-tagsinput:-webkit-autofill ~ label {
+.form-floating > .form-control:-webkit-autofill ~ label {
   opacity: 0.65;
   -webkit-transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
           transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
@@ -3008,7 +3012,7 @@ textarea.form-control-lg {
           align-items: stretch;
   width: 100%;
 }
-.input-group > .form-control, .input-group > .bootstrap-tagsinput,
+.input-group > .form-control,
 .input-group > .form-select {
   position: relative;
   -webkit-box-flex: 1;
@@ -3017,7 +3021,7 @@ textarea.form-control-lg {
   width: 1%;
   min-width: 0;
 }
-.input-group > .form-control:focus, .input-group > .bootstrap-tagsinput:focus,
+.input-group > .form-control:focus,
 .input-group > .form-select:focus {
   z-index: 3;
 }
@@ -3048,7 +3052,7 @@ textarea.form-control-lg {
   border-radius: 0;
 }
 
-.input-group-lg > .form-control, .input-group-lg > .bootstrap-tagsinput,
+.input-group-lg > .form-control,
 .input-group-lg > .form-select,
 .input-group-lg > .input-group-text,
 .input-group-lg > .btn {
@@ -3057,7 +3061,7 @@ textarea.form-control-lg {
   border-radius: 0;
 }
 
-.input-group-sm > .form-control, .input-group-sm > .bootstrap-tagsinput,
+.input-group-sm > .form-control,
 .input-group-sm > .form-select,
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
@@ -3116,7 +3120,7 @@ textarea.form-control-lg {
   display: block;
 }
 
-.was-validated .form-control:valid, .was-validated .bootstrap-tagsinput:valid, .form-control.is-valid, .is-valid.bootstrap-tagsinput {
+.was-validated .form-control:valid, .form-control.is-valid {
   border-color: #4caf50;
   padding-right: calc(1.5em + 2rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%234caf50' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
@@ -3124,13 +3128,13 @@ textarea.form-control-lg {
   background-position: right calc(0.375em + 0.5rem) center;
   background-size: calc(0.75em + 1rem) calc(0.75em + 1rem);
 }
-.was-validated .form-control:valid:focus, .was-validated .bootstrap-tagsinput:valid:focus, .form-control.is-valid:focus, .is-valid.bootstrap-tagsinput:focus {
+.was-validated .form-control:valid:focus, .form-control.is-valid:focus {
   border-color: #4caf50;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
           box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25);
 }
 
-.was-validated textarea.form-control:valid, .was-validated textarea.bootstrap-tagsinput:valid, textarea.form-control.is-valid, textarea.is-valid.bootstrap-tagsinput {
+.was-validated textarea.form-control:valid, textarea.form-control.is-valid {
   padding-right: calc(1.5em + 2rem);
   background-position: top calc(0.375em + 0.5rem) right calc(0.375em + 0.5rem);
 }
@@ -3168,12 +3172,12 @@ textarea.form-control-lg {
   margin-left: 0.5em;
 }
 
-.was-validated .input-group .form-control:valid, .was-validated .input-group .bootstrap-tagsinput:valid, .input-group .form-control.is-valid, .input-group .is-valid.bootstrap-tagsinput,
+.was-validated .input-group .form-control:valid, .input-group .form-control.is-valid,
 .was-validated .input-group .form-select:valid,
 .input-group .form-select.is-valid {
   z-index: 1;
 }
-.was-validated .input-group .form-control:valid:focus, .was-validated .input-group .bootstrap-tagsinput:valid:focus, .input-group .form-control.is-valid:focus, .input-group .is-valid.bootstrap-tagsinput:focus,
+.was-validated .input-group .form-control:valid:focus, .input-group .form-control.is-valid:focus,
 .was-validated .input-group .form-select:valid:focus,
 .input-group .form-select.is-valid:focus {
   z-index: 3;
@@ -3208,7 +3212,7 @@ textarea.form-control-lg {
   display: block;
 }
 
-.was-validated .form-control:invalid, .was-validated .bootstrap-tagsinput:invalid, .form-control.is-invalid, .is-invalid.bootstrap-tagsinput {
+.was-validated .form-control:invalid, .form-control.is-invalid {
   border-color: #e51c23;
   padding-right: calc(1.5em + 2rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23e51c23'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23e51c23' stroke='none'/%3e%3c/svg%3e");
@@ -3216,13 +3220,13 @@ textarea.form-control-lg {
   background-position: right calc(0.375em + 0.5rem) center;
   background-size: calc(0.75em + 1rem) calc(0.75em + 1rem);
 }
-.was-validated .form-control:invalid:focus, .was-validated .bootstrap-tagsinput:invalid:focus, .form-control.is-invalid:focus, .is-invalid.bootstrap-tagsinput:focus {
+.was-validated .form-control:invalid:focus, .form-control.is-invalid:focus {
   border-color: #e51c23;
   -webkit-box-shadow: 0 0 0 0.25rem rgba(229, 28, 35, 0.25);
           box-shadow: 0 0 0 0.25rem rgba(229, 28, 35, 0.25);
 }
 
-.was-validated textarea.form-control:invalid, .was-validated textarea.bootstrap-tagsinput:invalid, textarea.form-control.is-invalid, textarea.is-invalid.bootstrap-tagsinput {
+.was-validated textarea.form-control:invalid, textarea.form-control.is-invalid {
   padding-right: calc(1.5em + 2rem);
   background-position: top calc(0.375em + 0.5rem) right calc(0.375em + 0.5rem);
 }
@@ -3260,12 +3264,12 @@ textarea.form-control-lg {
   margin-left: 0.5em;
 }
 
-.was-validated .input-group .form-control:invalid, .was-validated .input-group .bootstrap-tagsinput:invalid, .input-group .form-control.is-invalid, .input-group .is-invalid.bootstrap-tagsinput,
+.was-validated .input-group .form-control:invalid, .input-group .form-control.is-invalid,
 .was-validated .input-group .form-select:invalid,
 .input-group .form-select.is-invalid {
   z-index: 2;
 }
-.was-validated .input-group .form-control:invalid:focus, .was-validated .input-group .bootstrap-tagsinput:invalid:focus, .input-group .form-control.is-invalid:focus, .input-group .is-invalid.bootstrap-tagsinput:focus,
+.was-validated .input-group .form-control:invalid:focus, .input-group .form-control.is-invalid:focus,
 .was-validated .input-group .form-select:invalid:focus,
 .input-group .form-select.is-invalid:focus {
   z-index: 3;
@@ -13247,23 +13251,16 @@ p {
 
 textarea,
 textarea.form-control,
-textarea.bootstrap-tagsinput,
 input.form-control,
-input.bootstrap-tagsinput,
 input[type=text],
 input[type=password],
 input[type=email],
 input[type=number],
 [type=text].form-control,
-[type=text].bootstrap-tagsinput,
 [type=password].form-control,
-[type=password].bootstrap-tagsinput,
 [type=email].form-control,
-[type=email].bootstrap-tagsinput,
 [type=tel].form-control,
-[type=tel].bootstrap-tagsinput,
-[contenteditable].form-control,
-[contenteditable].bootstrap-tagsinput {
+[contenteditable].form-control {
   -webkit-box-shadow: inset 0 -1px 0 #ddd;
           box-shadow: inset 0 -1px 0 #ddd;
   -webkit-transition: -webkit-box-shadow 0.2s;
@@ -13274,21 +13271,15 @@ input[type=number],
 textarea:focus,
 textarea.form-control:focus,
 input.form-control:focus,
-input.bootstrap-tagsinput:focus,
 input[type=text]:focus,
 input[type=password]:focus,
 input[type=email]:focus,
 input[type=number]:focus,
 [type=text].form-control:focus,
-[type=text].bootstrap-tagsinput:focus,
 [type=password].form-control:focus,
-[type=password].bootstrap-tagsinput:focus,
 [type=email].form-control:focus,
-[type=email].bootstrap-tagsinput:focus,
 [type=tel].form-control:focus,
-[type=tel].bootstrap-tagsinput:focus,
-[contenteditable].form-control:focus,
-[contenteditable].bootstrap-tagsinput:focus {
+[contenteditable].form-control:focus {
   -webkit-box-shadow: inset 0 -2px 0 #2196f3;
           box-shadow: inset 0 -2px 0 #2196f3;
 }
@@ -13296,9 +13287,7 @@ textarea[disabled], textarea[readonly],
 textarea.form-control[disabled],
 textarea.form-control[readonly],
 input.form-control[disabled],
-input[disabled].bootstrap-tagsinput,
 input.form-control[readonly],
-input[readonly].bootstrap-tagsinput,
 input[type=text][disabled],
 input[type=text][readonly],
 input[type=password][disabled],
@@ -13308,48 +13297,36 @@ input[type=email][readonly],
 input[type=number][disabled],
 input[type=number][readonly],
 [type=text].form-control[disabled],
-[type=text][disabled].bootstrap-tagsinput,
 [type=text].form-control[readonly],
-[type=text][readonly].bootstrap-tagsinput,
 [type=password].form-control[disabled],
-[type=password][disabled].bootstrap-tagsinput,
 [type=password].form-control[readonly],
-[type=password][readonly].bootstrap-tagsinput,
 [type=email].form-control[disabled],
-[type=email][disabled].bootstrap-tagsinput,
 [type=email].form-control[readonly],
-[type=email][readonly].bootstrap-tagsinput,
 [type=tel].form-control[disabled],
-[type=tel][disabled].bootstrap-tagsinput,
 [type=tel].form-control[readonly],
-[type=tel][readonly].bootstrap-tagsinput,
 [contenteditable].form-control[disabled],
-[contenteditable][disabled].bootstrap-tagsinput,
-[contenteditable].form-control[readonly],
-[contenteditable][readonly].bootstrap-tagsinput {
+[contenteditable].form-control[readonly] {
   -webkit-box-shadow: none;
           box-shadow: none;
   border-bottom: 1px dotted #ddd;
 }
-textarea[disabled]::-webkit-input-placeholder, textarea.form-control[disabled]::-webkit-input-placeholder, input.form-control[disabled]::-webkit-input-placeholder, input[disabled].bootstrap-tagsinput::-webkit-input-placeholder, input[type=text][disabled]::-webkit-input-placeholder, input[type=password][disabled]::-webkit-input-placeholder, input[type=email][disabled]::-webkit-input-placeholder, input[type=number][disabled]::-webkit-input-placeholder, [type=text].form-control[disabled]::-webkit-input-placeholder, [type=text][disabled].bootstrap-tagsinput::-webkit-input-placeholder, [type=password].form-control[disabled]::-webkit-input-placeholder, [type=password][disabled].bootstrap-tagsinput::-webkit-input-placeholder, [type=email].form-control[disabled]::-webkit-input-placeholder, [type=email][disabled].bootstrap-tagsinput::-webkit-input-placeholder, [type=tel].form-control[disabled]::-webkit-input-placeholder, [type=tel][disabled].bootstrap-tagsinput::-webkit-input-placeholder, [contenteditable].form-control[disabled]::-webkit-input-placeholder, [contenteditable][disabled].bootstrap-tagsinput::-webkit-input-placeholder {
+textarea[disabled]::-webkit-input-placeholder, textarea.form-control[disabled]::-webkit-input-placeholder, input.form-control[disabled]::-webkit-input-placeholder, input[type=text][disabled]::-webkit-input-placeholder, input[type=password][disabled]::-webkit-input-placeholder, input[type=email][disabled]::-webkit-input-placeholder, input[type=number][disabled]::-webkit-input-placeholder, [type=text].form-control[disabled]::-webkit-input-placeholder, [type=password].form-control[disabled]::-webkit-input-placeholder, [type=email].form-control[disabled]::-webkit-input-placeholder, [type=tel].form-control[disabled]::-webkit-input-placeholder, [contenteditable].form-control[disabled]::-webkit-input-placeholder {
   color: #ddd;
 }
-textarea[disabled]::-moz-placeholder, textarea.form-control[disabled]::-moz-placeholder, input.form-control[disabled]::-moz-placeholder, input[disabled].bootstrap-tagsinput::-moz-placeholder, input[type=text][disabled]::-moz-placeholder, input[type=password][disabled]::-moz-placeholder, input[type=email][disabled]::-moz-placeholder, input[type=number][disabled]::-moz-placeholder, [type=text].form-control[disabled]::-moz-placeholder, [type=text][disabled].bootstrap-tagsinput::-moz-placeholder, [type=password].form-control[disabled]::-moz-placeholder, [type=password][disabled].bootstrap-tagsinput::-moz-placeholder, [type=email].form-control[disabled]::-moz-placeholder, [type=email][disabled].bootstrap-tagsinput::-moz-placeholder, [type=tel].form-control[disabled]::-moz-placeholder, [type=tel][disabled].bootstrap-tagsinput::-moz-placeholder, [contenteditable].form-control[disabled]::-moz-placeholder, [contenteditable][disabled].bootstrap-tagsinput::-moz-placeholder {
+textarea[disabled]::-moz-placeholder, textarea.form-control[disabled]::-moz-placeholder, input.form-control[disabled]::-moz-placeholder, input[type=text][disabled]::-moz-placeholder, input[type=password][disabled]::-moz-placeholder, input[type=email][disabled]::-moz-placeholder, input[type=number][disabled]::-moz-placeholder, [type=text].form-control[disabled]::-moz-placeholder, [type=password].form-control[disabled]::-moz-placeholder, [type=email].form-control[disabled]::-moz-placeholder, [type=tel].form-control[disabled]::-moz-placeholder, [contenteditable].form-control[disabled]::-moz-placeholder {
   color: #ddd;
 }
-textarea[disabled]:-ms-input-placeholder, textarea.form-control[disabled]:-ms-input-placeholder, input.form-control[disabled]:-ms-input-placeholder, input[disabled].bootstrap-tagsinput:-ms-input-placeholder, input[type=text][disabled]:-ms-input-placeholder, input[type=password][disabled]:-ms-input-placeholder, input[type=email][disabled]:-ms-input-placeholder, input[type=number][disabled]:-ms-input-placeholder, [type=text].form-control[disabled]:-ms-input-placeholder, [type=text][disabled].bootstrap-tagsinput:-ms-input-placeholder, [type=password].form-control[disabled]:-ms-input-placeholder, [type=password][disabled].bootstrap-tagsinput:-ms-input-placeholder, [type=email].form-control[disabled]:-ms-input-placeholder, [type=email][disabled].bootstrap-tagsinput:-ms-input-placeholder, [type=tel].form-control[disabled]:-ms-input-placeholder, [type=tel][disabled].bootstrap-tagsinput:-ms-input-placeholder, [contenteditable].form-control[disabled]:-ms-input-placeholder, [contenteditable][disabled].bootstrap-tagsinput:-ms-input-placeholder {
+textarea[disabled]:-ms-input-placeholder, textarea.form-control[disabled]:-ms-input-placeholder, input.form-control[disabled]:-ms-input-placeholder, input[type=text][disabled]:-ms-input-placeholder, input[type=password][disabled]:-ms-input-placeholder, input[type=email][disabled]:-ms-input-placeholder, input[type=number][disabled]:-ms-input-placeholder, [type=text].form-control[disabled]:-ms-input-placeholder, [type=password].form-control[disabled]:-ms-input-placeholder, [type=email].form-control[disabled]:-ms-input-placeholder, [type=tel].form-control[disabled]:-ms-input-placeholder, [contenteditable].form-control[disabled]:-ms-input-placeholder {
   color: #ddd;
 }
-textarea[disabled]::-ms-input-placeholder, textarea.form-control[disabled]::-ms-input-placeholder, input.form-control[disabled]::-ms-input-placeholder, input[disabled].bootstrap-tagsinput::-ms-input-placeholder, input[type=text][disabled]::-ms-input-placeholder, input[type=password][disabled]::-ms-input-placeholder, input[type=email][disabled]::-ms-input-placeholder, input[type=number][disabled]::-ms-input-placeholder, [type=text].form-control[disabled]::-ms-input-placeholder, [type=text][disabled].bootstrap-tagsinput::-ms-input-placeholder, [type=password].form-control[disabled]::-ms-input-placeholder, [type=password][disabled].bootstrap-tagsinput::-ms-input-placeholder, [type=email].form-control[disabled]::-ms-input-placeholder, [type=email][disabled].bootstrap-tagsinput::-ms-input-placeholder, [type=tel].form-control[disabled]::-ms-input-placeholder, [type=tel][disabled].bootstrap-tagsinput::-ms-input-placeholder, [contenteditable].form-control[disabled]::-ms-input-placeholder, [contenteditable][disabled].bootstrap-tagsinput::-ms-input-placeholder {
+textarea[disabled]::-ms-input-placeholder, textarea.form-control[disabled]::-ms-input-placeholder, input.form-control[disabled]::-ms-input-placeholder, input[type=text][disabled]::-ms-input-placeholder, input[type=password][disabled]::-ms-input-placeholder, input[type=email][disabled]::-ms-input-placeholder, input[type=number][disabled]::-ms-input-placeholder, [type=text].form-control[disabled]::-ms-input-placeholder, [type=password].form-control[disabled]::-ms-input-placeholder, [type=email].form-control[disabled]::-ms-input-placeholder, [type=tel].form-control[disabled]::-ms-input-placeholder, [contenteditable].form-control[disabled]::-ms-input-placeholder {
   color: #ddd;
 }
 textarea[disabled], textarea[disabled]::placeholder,
 textarea.form-control[disabled],
 textarea.form-control[disabled]::placeholder,
 input.form-control[disabled],
-input[disabled].bootstrap-tagsinput,
 input.form-control[disabled]::placeholder,
-input[disabled].bootstrap-tagsinput::placeholder,
 input[type=text][disabled],
 input[type=text][disabled]::placeholder,
 input[type=password][disabled],
@@ -13359,52 +13336,34 @@ input[type=email][disabled]::placeholder,
 input[type=number][disabled],
 input[type=number][disabled]::placeholder,
 [type=text].form-control[disabled],
-[type=text][disabled].bootstrap-tagsinput,
 [type=text].form-control[disabled]::placeholder,
-[type=text][disabled].bootstrap-tagsinput::placeholder,
 [type=password].form-control[disabled],
-[type=password][disabled].bootstrap-tagsinput,
 [type=password].form-control[disabled]::placeholder,
-[type=password][disabled].bootstrap-tagsinput::placeholder,
 [type=email].form-control[disabled],
-[type=email][disabled].bootstrap-tagsinput,
 [type=email].form-control[disabled]::placeholder,
-[type=email][disabled].bootstrap-tagsinput::placeholder,
 [type=tel].form-control[disabled],
-[type=tel][disabled].bootstrap-tagsinput,
 [type=tel].form-control[disabled]::placeholder,
-[type=tel][disabled].bootstrap-tagsinput::placeholder,
 [contenteditable].form-control[disabled],
-[contenteditable][disabled].bootstrap-tagsinput,
-[contenteditable].form-control[disabled]::placeholder,
-[contenteditable][disabled].bootstrap-tagsinput::placeholder {
+[contenteditable].form-control[disabled]::placeholder {
   color: #ddd;
 }
 textarea::-ms-clear,
 textarea.form-control::-ms-clear,
-textarea.bootstrap-tagsinput::-ms-clear,
 input.form-control::-ms-clear,
-input.bootstrap-tagsinput::-ms-clear,
 input[type=text]::-ms-clear,
 input[type=password]::-ms-clear,
 input[type=email]::-ms-clear,
 input[type=number]::-ms-clear,
 [type=text].form-control::-ms-clear,
-[type=text].bootstrap-tagsinput::-ms-clear,
 [type=password].form-control::-ms-clear,
-[type=password].bootstrap-tagsinput::-ms-clear,
 [type=email].form-control::-ms-clear,
-[type=email].bootstrap-tagsinput::-ms-clear,
 [type=tel].form-control::-ms-clear,
-[type=tel].bootstrap-tagsinput::-ms-clear,
-[contenteditable].form-control::-ms-clear,
-[contenteditable].bootstrap-tagsinput::-ms-clear {
+[contenteditable].form-control::-ms-clear {
   display: none;
 }
 
 select,
-select.form-control,
-select.bootstrap-tagsinput {
+select.form-control {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
@@ -13417,8 +13376,7 @@ select.bootstrap-tagsinput {
           box-shadow: inset 0 -1px 0 #ddd;
 }
 select::-ms-expand,
-select.form-control::-ms-expand,
-select.bootstrap-tagsinput::-ms-expand {
+select.form-control::-ms-expand {
   display: none;
 }
 select.input-sm,
@@ -13530,7 +13488,6 @@ select.form-control[multiple] {
 
 .has-warning input:not([type=checkbox]),
 .has-warning .form-control,
-.has-warning .bootstrap-tagsinput,
 .has-warning input.form-control[readonly],
 .has-warning input[type=text][readonly],
 .has-warning [type=text].form-control[readonly],
@@ -13543,7 +13500,6 @@ select.form-control[multiple] {
 
 .has-danger input:not([type=checkbox]),
 .has-danger .form-control,
-.has-danger .bootstrap-tagsinput,
 .has-danger input.form-control[readonly],
 .has-danger input[type=text][readonly],
 .has-danger [type=text].form-control[readonly],
@@ -13556,7 +13512,6 @@ select.form-control[multiple] {
 
 .has-success input:not([type=checkbox]),
 .has-success .form-control,
-.has-success .bootstrap-tagsinput,
 .has-success input.form-control[readonly],
 .has-success input[type=text][readonly],
 .has-success [type=text].form-control[readonly],
@@ -13802,7 +13757,7 @@ select.form-control[multiple] {
   color: #666;
   background-color: transparent;
   border: 0 solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 0;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -13861,7 +13816,7 @@ select.form-control[multiple] {
 
 .select2-container--bootstrap-5 .select2-dropdown {
   border-color: transparent;
-  border-radius: 0.25rem;
+  border-radius: 0;
 }
 .select2-container--bootstrap-5 .select2-dropdown.select2-dropdown--below {
   border-top: 0 solid transparent;
@@ -13890,7 +13845,7 @@ select.form-control[multiple] {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  border-radius: 0.25rem;
+  border-radius: 0;
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -13998,7 +13953,7 @@ select.form-control[multiple] {
   color: #666;
   cursor: auto;
   border: 0 solid transparent;
-  border-radius: 0.25rem;
+  border-radius: 0;
 }
 .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__rendered .select2-selection__choice .select2-selection__choice__remove {
   width: 0.75rem;
