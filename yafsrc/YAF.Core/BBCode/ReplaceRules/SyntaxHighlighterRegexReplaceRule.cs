@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -35,9 +35,9 @@ namespace YAF.Core.BBCode.ReplaceRules
         #region Constants and Fields
 
         /// <summary>
-        ///   The _syntax highlighter.
+        ///   The syntax highlighter.
         /// </summary>
-        private readonly HighLighter syntaxHighlighter = new();
+        private readonly HighLighter syntaxHighlighter = new ();
 
         #endregion
 
@@ -46,29 +46,20 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// <summary>
         /// Initializes a new instance of the <see cref="SyntaxHighlighterRegexReplaceRule"/> class.
         /// </summary>
-        /// <param name="isEditMode">
-        /// Indicates if the formatting is for the Editor.
-        /// </param>
         /// <param name="regExSearch">
         /// The Search Regex.
         /// </param>
         /// <param name="regExReplace">
         /// The Replace Regex.
         /// </param>
-        public SyntaxHighlighterRegexReplaceRule(bool isEditMode, Regex regExSearch, string regExReplace)
+        public SyntaxHighlighterRegexReplaceRule(Regex regExSearch, string regExReplace)
             : base(regExSearch, regExReplace)
         {
-            this.IsEditMode = isEditMode;
             this.syntaxHighlighter.ReplaceEnter = true;
             this.RuleRank = 1;
         }
 
         #endregion
-
-        /// <summary>
-        /// Gets a value indicating whether the formatting is for the Editor.
-        /// </summary>
-        private bool IsEditMode { get; }
 
         #region Public Methods
 
@@ -88,7 +79,7 @@ namespace YAF.Core.BBCode.ReplaceRules
             while (m.Success)
             {
                 var inner = this.syntaxHighlighter.ColorText(
-                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value, this.IsEditMode);
+                    this.GetInnerValue(m.Groups["inner"].Value), m.Groups["language"].Value);
 
                 var replaceItem = this.RegExReplace.Replace("${inner}", inner);
 

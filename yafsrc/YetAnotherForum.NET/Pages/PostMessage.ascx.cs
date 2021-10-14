@@ -166,7 +166,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            var postedMessage = HtmlHelper.StripHtml(this.forumEditor.Text.Trim());
+            var postedMessage = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text.Trim()));
 
             if (postedMessage.IsNotSet())
             {
@@ -266,7 +266,7 @@ namespace YAF.Pages
                             this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
 
                         this.quotedMessage.Item2.MessageText =
-                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(quotedMessageText));
+                            HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(HtmlHelper.CleanHtmlString(quotedMessageText)));
                     }
 
                     if (this.quotedMessage.Item2.TopicID != this.PageContext.PageTopicID)
@@ -421,7 +421,7 @@ namespace YAF.Pages
                 this.PageContext.PageForumID,
                 this.TopicId,
                 this.PageContext.PageUserID,
-                HtmlHelper.StripHtml(this.forumEditor.Text),
+                HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,

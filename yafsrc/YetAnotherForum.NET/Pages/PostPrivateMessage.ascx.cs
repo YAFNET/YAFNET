@@ -46,7 +46,6 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
     using YAF.Web.Extensions;
 
     using ListItem = System.Web.UI.WebControls.ListItem;
@@ -585,7 +584,7 @@ namespace YAF.Pages
             if (this.ToList.SelectedItem is { Value: "0" })
             {
                 // administrator is sending PMs to all users
-                var body = this.editor.Text;
+                var body = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.editor.Text));
                 var messageFlags = new MessageFlags
                 {
                     IsHtml = this.editor.UsesHTML,

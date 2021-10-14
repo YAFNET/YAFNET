@@ -441,7 +441,7 @@ namespace YAF.Core.Model
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => message.UserID == userId && x.UserID == pageUserId && x.ReadAccess &&
                                               e.BoardID == boardId && (topic.Flags & 8) != 8 &&
-                                              (message.Flags & 8) != 8).OrderByDescending<Message>(x => x.Posted)
+                                              (message.Flags & 8) != 8 && (message.Flags & 16) == 16).OrderByDescending<Message>(x => x.Posted)
                 .Take(count);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic, User>(expression));

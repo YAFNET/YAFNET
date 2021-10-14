@@ -132,7 +132,7 @@ namespace YAF.Pages
         protected bool IsPostReplyVerified()
         {
             // To avoid posting whitespace(s) or empty messages
-            var postedMessage = HtmlHelper.StripHtml(this.forumEditor.Text.Trim());
+            var postedMessage = HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text.Trim()));
 
             if (postedMessage.IsNotSet())
             {
@@ -418,7 +418,7 @@ namespace YAF.Pages
 
             this.GetRepository<Message>().Update(
                 this.Priority.SelectedValue.ToType<short>(),
-                HtmlHelper.StripHtml(this.forumEditor.Text),
+                HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
                 descriptionSave.Trim(),
                 string.Empty,
                 stylesSave.Trim(),
@@ -664,7 +664,7 @@ namespace YAF.Pages
                 currentMessage.MessageText = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.MessageText);
             }
 
-            this.forumEditor.Text = currentMessage.MessageText;
+            this.forumEditor.Text = BBCodeHelper.DecodeCodeBlocks(currentMessage.MessageText);
 
             if (this.forumEditor.UsesHTML && currentMessage.MessageFlags.IsBBCode)
             {

@@ -874,7 +874,6 @@ namespace YAF.Core.BBCode
             // add rule for code block type with syntax highlighting
             ruleEngine.AddRule(
                 new SyntaxHighlighterRegexReplaceRule(
-                    isEditMode,
                     new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options),
                     @"<div class=""code"">${inner}</div>")
                     {
@@ -887,7 +886,6 @@ namespace YAF.Core.BBCode
             // add rule for code block type with no syntax highlighting
             ruleEngine.AddRule(
                 new SyntaxHighlighterRegexReplaceRule(
-                    isEditMode,
                     new Regex(@"\[code\](?<inner>(.*?))\[/code\]\r\n|\[code\](?<inner>(.*?))\[/code\]", Options),
                     @"<div class=""code"">${inner}</div>"));
 

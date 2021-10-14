@@ -72,7 +72,7 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// The strip bb code.
+        /// Strips BB Code Tags
         /// </summary>
         /// <param name="text">
         /// The text.
@@ -85,15 +85,44 @@ namespace YAF.Core.Helpers
             return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
         }
 
+        /// <summary>
+        /// Encode Content inside Code Blocks
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public static string EncodeCodeBlocks(string text)
         {
             var regex = new Regex(
-                @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]|\[code\](?<inner>(.*?))\[/code\]",
-                RegexOptions.IgnoreCase | RegexOptions.Multiline);
+                @"\](?<inner>(.*?))\[/code\]",
+                RegexOptions.IgnoreCase | RegexOptions.Singleline);
 
             return regex.Replace(
                 text,
-                match => BoardContext.Current.CurrentForumPage.HtmlEncode(match.Groups["inner"].Value));
+                match => $"]{BoardContext.Current.CurrentForumPage.HtmlEncode(match.Groups["inner"].Value)}[/code]");
+        }
+
+        /// <summary>
+        /// Encode Content inside Code Blocks
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string DecodeCodeBlocks(string text)
+        {
+            var regex = new Regex(
+                @"\](?<inner>(.*?))\[/code\]",
+                RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+            return regex.Replace(
+                text,
+                match => $"]{HttpUtility.HtmlDecode(match.Groups["inner"].Value)}[/code]");
         }
     }
 }

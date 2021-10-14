@@ -71,13 +71,10 @@ namespace YAF.Core.BBCode
         /// <param name="language">
         /// The language.
         /// </param>
-        /// <param name="isEditMode">
-        /// The is Edit Mode.
-        /// </param>
         /// <returns>
         /// The color text.
         /// </returns>
-        public string ColorText(string codeText, string language, bool isEditMode)
+        public string ColorText(string codeText, string language)
         {
             language = language.ToLower();
 
@@ -107,7 +104,7 @@ namespace YAF.Core.BBCode
                 language,
                 highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
 
-            tmpOutput.Append(isEditMode ? HttpUtility.HtmlEncode(codeText) : codeText);
+            tmpOutput.Append(HttpUtility.HtmlDecode(codeText));
 
             tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
 
