@@ -341,6 +341,13 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
+            var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId.Value);
+
+            if (medal == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
             // load available images from images/medals folder
             var medals = new List<NamedParameter> {
                 new(this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"), "")
@@ -377,8 +384,6 @@ namespace YAF.Pages.Admin
 
             this.GroupList.DataSource = this.GetRepository<GroupMedal>().List(null, this.CurrentMedalId.Value);
             this.GroupList.DataBind();
-
-            var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == this.CurrentMedalId.Value);
 
             // set controls
             this.Name.Text = medal.Name;

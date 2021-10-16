@@ -75,7 +75,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootbox.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.fileupload.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensionsDnn.js" />
@@ -214,10 +213,10 @@
     <!-- Create the Install package -->
     <ZipDirectory
             SourceDirectory="$(MSBuildProjectDirectory)\Package\"
-            DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-v$(YAFVersion)-Install.$(Extension)" />
+            DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Install.$(Extension)" />
 
     <!-- Copy the Install package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v$(YAFVersion)-Install.$(Extension)"
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Install.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <!--Create Deploy Package -->
@@ -245,10 +244,10 @@
     <!-- Create the Deploy package -->
     <ZipDirectory
             SourceDirectory="$(MSBuildProjectDirectory)\Package\deploy"
-            DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-v$(YAFVersion)-Deploy.$(Extension)" />
+            DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Deploy.$(Extension)" />
 
     <!-- Copy the Deploy package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v$(YAFVersion)-Deploy.$(Extension)"
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Deploy.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package\deploy" />
@@ -271,10 +270,10 @@
     <!-- Create the Upgrade package -->
     <ZipDirectory
       SourceDirectory="$(MSBuildProjectDirectory)\Package\"
-      DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-v$(YAFVersion)-Upgrade.$(Extension)" />
+      DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Upgrade.$(Extension)" />
 
     <!-- Copy the Upgrade package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v$(YAFVersion)-Upgrade.$(Extension)"
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Upgrade.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />

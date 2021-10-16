@@ -90,7 +90,7 @@ namespace YAF.Pages.Admin
 
             if (user == null)
             {
-                return;
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             // do admin permission check...

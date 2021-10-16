@@ -10587,7 +10587,7 @@
         }
     };
     const elementMap = new Map();
-    var Data = {
+    const Data = {
         set(element, key, instance) {
             if (!elementMap.has(element)) {
                 elementMap.set(element, new Map());
@@ -10616,7 +10616,7 @@
             }
         }
     };
-    const VERSION = "5.1.1";
+    const VERSION = "5.1.3";
     class BaseComponent {
         constructor(element) {
             element = getElement(element);
@@ -11042,7 +11042,7 @@
                 }
             };
             SelectorEngine.find(SELECTOR_ITEM_IMG, this._element).forEach(itemImg => {
-                EventHandler.on(itemImg, EVENT_DRAG_START, e => e.preventDefault());
+                EventHandler.on(itemImg, EVENT_DRAG_START, event => event.preventDefault());
             });
             if (this._pointerEvent) {
                 EventHandler.on(this._element, EVENT_POINTERDOWN, event => start(event));
@@ -11268,6 +11268,7 @@
     const CLASS_NAME_COLLAPSE = "collapse";
     const CLASS_NAME_COLLAPSING = "collapsing";
     const CLASS_NAME_COLLAPSED = "collapsed";
+    const CLASS_NAME_DEEPER_CHILDREN = `:scope .${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`;
     const CLASS_NAME_HORIZONTAL = "collapse-horizontal";
     const WIDTH = "width";
     const HEIGHT = "height";
@@ -11317,7 +11318,7 @@
             let actives = [];
             let activesData;
             if (this._config.parent) {
-                const children = SelectorEngine.find(`.${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`, this._config.parent);
+                const children = SelectorEngine.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
                 actives = SelectorEngine.find(SELECTOR_ACTIVES, this._config.parent).filter(elem => !children.includes(elem));
             }
             const container = SelectorEngine.findOne(this._selector);
@@ -11412,7 +11413,7 @@
             if (!this._config.parent) {
                 return;
             }
-            const children = SelectorEngine.find(`.${CLASS_NAME_COLLAPSE} .${CLASS_NAME_COLLAPSE}`, this._config.parent);
+            const children = SelectorEngine.find(CLASS_NAME_DEEPER_CHILDREN, this._config.parent);
             SelectorEngine.find(SELECTOR_DATA_TOGGLE$4, this._config.parent).filter(elem => !children.includes(elem)).forEach(element => {
                 const selected = getElementFromSelector(element);
                 if (selected) {
@@ -11576,7 +11577,7 @@
             });
         };
     }
-    var applyStyles$1 = {
+    const applyStyles$1 = {
         name: "applyStyles",
         enabled: true,
         phase: "write",
@@ -11587,33 +11588,19 @@
     function getBasePlacement(placement) {
         return placement.split("-")[0];
     }
-    var round$1 = Math.round;
     function getBoundingClientRect(element, includeScale) {
-        if (includeScale === void 0) {
-            includeScale = false;
-        }
         var rect = element.getBoundingClientRect();
         var scaleX = 1;
         var scaleY = 1;
-        if (isHTMLElement(element) && includeScale) {
-            var offsetHeight = element.offsetHeight;
-            var offsetWidth = element.offsetWidth;
-            if (offsetWidth > 0) {
-                scaleX = rect.width / offsetWidth || 1;
-            }
-            if (offsetHeight > 0) {
-                scaleY = rect.height / offsetHeight || 1;
-            }
-        }
         return {
-            width: round$1(rect.width / scaleX),
-            height: round$1(rect.height / scaleY),
-            top: round$1(rect.top / scaleY),
-            right: round$1(rect.right / scaleX),
-            bottom: round$1(rect.bottom / scaleY),
-            left: round$1(rect.left / scaleX),
-            x: round$1(rect.left / scaleX),
-            y: round$1(rect.top / scaleY)
+            width: rect.width / scaleX,
+            height: rect.height / scaleY,
+            top: rect.top / scaleY,
+            right: rect.right / scaleX,
+            bottom: rect.bottom / scaleY,
+            left: rect.left / scaleX,
+            x: rect.left / scaleX,
+            y: rect.top / scaleY
         };
     }
     function getLayoutRect(element) {
@@ -11778,7 +11765,7 @@
         }
         state.elements.arrow = arrowElement;
     }
-    var arrow$1 = {
+    const arrow$1 = {
         name: "arrow",
         enabled: true,
         phase: "main",
@@ -11879,7 +11866,7 @@
             "data-popper-placement": state.placement
         });
     }
-    var computeStyles$1 = {
+    const computeStyles$1 = {
         name: "computeStyles",
         enabled: true,
         phase: "beforeWrite",
@@ -11913,7 +11900,7 @@
             }
         };
     }
-    var eventListeners = {
+    const eventListeners = {
         name: "eventListeners",
         enabled: true,
         phase: "write",
@@ -12286,7 +12273,7 @@
             state.reset = true;
         }
     }
-    var flip$1 = {
+    const flip$1 = {
         name: "flip",
         enabled: true,
         phase: "main",
@@ -12341,7 +12328,7 @@
             "data-popper-escaped": hasPopperEscaped
         });
     }
-    var hide$1 = {
+    const hide$1 = {
         name: "hide",
         enabled: true,
         phase: "main",
@@ -12378,7 +12365,7 @@
         }
         state.modifiersData[name] = data;
     }
-    var offset$1 = {
+    const offset$1 = {
         name: "offset",
         enabled: true,
         phase: "main",
@@ -12394,7 +12381,7 @@
             placement: state.placement
         });
     }
-    var popperOffsets$1 = {
+    const popperOffsets$1 = {
         name: "popperOffsets",
         enabled: true,
         phase: "read",
@@ -12475,7 +12462,7 @@
         }
         state.modifiersData[name] = data;
     }
-    var preventOverflow$1 = {
+    const preventOverflow$1 = {
         name: "preventOverflow",
         enabled: true,
         phase: "main",
@@ -12506,9 +12493,9 @@
             isFixed = false;
         }
         var isOffsetParentAnElement = isHTMLElement(offsetParent);
-        var offsetParentIsScaled = isHTMLElement(offsetParent) && isElementScaled(offsetParent);
+        isHTMLElement(offsetParent) && isElementScaled(offsetParent);
         var documentElement = getDocumentElement(offsetParent);
-        var rect = getBoundingClientRect(elementOrVirtualElement, offsetParentIsScaled);
+        var rect = getBoundingClientRect(elementOrVirtualElement);
         var scroll = {
             scrollLeft: 0,
             scrollTop: 0
@@ -12522,7 +12509,7 @@
                 scroll = getNodeScroll(offsetParent);
             }
             if (isHTMLElement(offsetParent)) {
-                offsets = getBoundingClientRect(offsetParent, true);
+                offsets = getBoundingClientRect(offsetParent);
                 offsets.x += offsetParent.clientLeft;
                 offsets.y += offsetParent.clientTop;
             } else if (documentElement) {
@@ -12737,7 +12724,7 @@
     var createPopper = popperGenerator({
         defaultModifiers: defaultModifiers
     });
-    var Popper = Object.freeze({
+    const Popper = Object.freeze({
         __proto__: null,
         popperGenerator: popperGenerator,
         detectOverflow: detectOverflow,
@@ -13804,21 +13791,21 @@
     EventHandler.on(window, EVENT_LOAD_DATA_API$1, () => SelectorEngine.find(OPEN_SELECTOR).forEach(el => Offcanvas.getOrCreateInstance(el).show()));
     enableDismissTrigger(Offcanvas);
     defineJQueryPlugin(Offcanvas);
-    const uriAttrs = new Set([ "background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href" ]);
+    const uriAttributes = new Set([ "background", "cite", "href", "itemtype", "longdesc", "poster", "src", "xlink:href" ]);
     const ARIA_ATTRIBUTE_PATTERN = /^aria-[\w-]*$/i;
-    const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file):|[^#&/:?]*(?:[#/?]|$))/i;
+    const SAFE_URL_PATTERN = /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^#&/:?]*(?:[#/?]|$))/i;
     const DATA_URL_PATTERN = /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[\d+/a-z]+=*$/i;
-    const allowedAttribute = (attr, allowedAttributeList) => {
-        const attrName = attr.nodeName.toLowerCase();
-        if (allowedAttributeList.includes(attrName)) {
-            if (uriAttrs.has(attrName)) {
-                return Boolean(SAFE_URL_PATTERN.test(attr.nodeValue) || DATA_URL_PATTERN.test(attr.nodeValue));
+    const allowedAttribute = (attribute, allowedAttributeList) => {
+        const attributeName = attribute.nodeName.toLowerCase();
+        if (allowedAttributeList.includes(attributeName)) {
+            if (uriAttributes.has(attributeName)) {
+                return Boolean(SAFE_URL_PATTERN.test(attribute.nodeValue) || DATA_URL_PATTERN.test(attribute.nodeValue));
             }
             return true;
         }
-        const regExp = allowedAttributeList.filter(attrRegex => attrRegex instanceof RegExp);
+        const regExp = allowedAttributeList.filter(attributeRegex => attributeRegex instanceof RegExp);
         for (let i = 0, len = regExp.length; i < len; i++) {
-            if (regExp[i].test(attrName)) {
+            if (regExp[i].test(attributeName)) {
                 return true;
             }
         }
@@ -13865,20 +13852,19 @@
         }
         const domParser = new window.DOMParser();
         const createdDocument = domParser.parseFromString(unsafeHtml, "text/html");
-        const allowlistKeys = Object.keys(allowList);
         const elements = [].concat(...createdDocument.body.querySelectorAll("*"));
         for (let i = 0, len = elements.length; i < len; i++) {
-            const el = elements[i];
-            const elName = el.nodeName.toLowerCase();
-            if (!allowlistKeys.includes(elName)) {
-                el.remove();
+            const element = elements[i];
+            const elementName = element.nodeName.toLowerCase();
+            if (!Object.keys(allowList).includes(elementName)) {
+                element.remove();
                 continue;
             }
-            const attributeList = [].concat(...el.attributes);
-            const allowedAttributes = [].concat(allowList["*"] || [], allowList[elName] || []);
-            attributeList.forEach(attr => {
-                if (!allowedAttribute(attr, allowedAttributes)) {
-                    el.removeAttribute(attr.nodeName);
+            const attributeList = [].concat(...element.attributes);
+            const allowedAttributes = [].concat(allowList["*"] || [], allowList[elementName] || []);
+            attributeList.forEach(attribute => {
+                if (!allowedAttribute(attribute, allowedAttributes)) {
+                    element.removeAttribute(attribute.nodeName);
                 }
             });
         }
@@ -14930,7 +14916,7 @@
     }
     enableDismissTrigger(Toast);
     defineJQueryPlugin(Toast);
-    var index_umd = {
+    const index_umd = {
         Alert: Alert,
         Button: Button,
         Carousel: Carousel,

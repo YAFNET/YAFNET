@@ -86,6 +86,11 @@ namespace YAF.Pages.Admin
             var rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
             var rank = this.GetRepository<Rank>().GetById(rankId);
 
+            if (rank == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
             this.Name.Text = rank.Name;
             this.IsStart.Checked = rank.RankFlags.IsStart;
             this.IsLadder.Checked = rank.RankFlags.IsLadder;

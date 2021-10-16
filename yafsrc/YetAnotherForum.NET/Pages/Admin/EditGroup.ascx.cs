@@ -148,14 +148,19 @@ namespace YAF.Pages.Admin
             this.NewGroupRow.Visible = false;
 
             // get data about edited role
-            var row = this.GetRepository<Group>().GetById(
+            var group = this.GetRepository<Group>().GetById(
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i"));
 
+            if (group == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
             // get role flags
-            var flags = row.GroupFlags;
+            var flags = group.GroupFlags;
 
             // set controls to role values
-            this.Name.Text = row.Name;
+            this.Name.Text = group.Name;
 
             this.IsAdminX.Checked = flags.IsAdmin;
             this.IsAdminX.Enabled = !flags.IsGuest;
@@ -166,26 +171,26 @@ namespace YAF.Pages.Admin
             this.IsModeratorX.Checked = flags.IsModerator;
             this.IsModeratorX.Enabled = !flags.IsGuest;
 
-            this.PMLimit.Text = row.PMLimit.ToString();
+            this.PMLimit.Text = group.PMLimit.ToString();
             this.PMLimit.Enabled = !flags.IsGuest;
 
-            this.StyleTextBox.Text = row.Style;
+            this.StyleTextBox.Text = group.Style;
 
-            this.Priority.Text = row.SortOrder.ToString();
+            this.Priority.Text = group.SortOrder.ToString();
 
-            this.UsrAlbums.Text = row.UsrAlbums.ToString();
+            this.UsrAlbums.Text = group.UsrAlbums.ToString();
             this.UsrAlbums.Enabled = !flags.IsGuest;
 
-            this.UsrAlbumImages.Text = row.UsrAlbumImages.ToString();
+            this.UsrAlbumImages.Text = group.UsrAlbumImages.ToString();
             this.UsrAlbumImages.Enabled = !flags.IsGuest;
 
-            this.UsrSigChars.Text = row.UsrSigChars.ToString();
+            this.UsrSigChars.Text = group.UsrSigChars.ToString();
             this.UsrSigChars.Enabled = !flags.IsGuest;
 
-            this.UsrSigBBCodes.Text = row.UsrSigBBCodes;
+            this.UsrSigBBCodes.Text = group.UsrSigBBCodes;
             this.UsrSigBBCodes.Enabled = !flags.IsGuest;
 
-            this.Description.Text = row.Description;
+            this.Description.Text = group.Description;
 
             this.IsGuestX.Checked = flags.IsGuest;
 

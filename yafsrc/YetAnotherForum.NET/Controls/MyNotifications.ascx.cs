@@ -155,7 +155,12 @@ namespace YAF.Controls
 
             var topicLink = new ThemeButton
             {
-                NavigateUrl = this.Get<LinkBuilder>().GetTopicLink(activity.Item1.MessageID.Value, activity.Item3.TopicName),
+                NavigateUrl =
+                    this.Get<LinkBuilder>().GetLink(
+                        ForumPages.Posts,
+                        "m={0}&name={1}",
+                        activity.Item1.MessageID.Value,
+                        activity.Item3.TopicName),
                 Type = ButtonStyle.None,
                 Text = activity.Item3.TopicName,
                 Icon = "comment",

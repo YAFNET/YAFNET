@@ -224,6 +224,11 @@ namespace YAF.Pages.Admin
 
                 var board = this.GetRepository<Board>().GetById(this.BoardId.Value);
 
+                if (board == null)
+                {
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                }
+
                 this.Name.Text = board.Name;
             }
             else

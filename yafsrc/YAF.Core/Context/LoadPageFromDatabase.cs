@@ -169,10 +169,7 @@ namespace YAF.Core.Context
             @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
 
             // update Query Data
-            if (pageRow.Item3 != null)
-            {
-                @event.PageQueryData.CategoryID = pageRow.Item3.ID;
-            }
+            @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;
 
             if (pageRow.Item4 != null)
             {

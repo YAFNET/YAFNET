@@ -369,25 +369,19 @@
             OnTick="UpdateStatusTimerTick" />
     </ContentTemplate>
 </asp:UpdatePanel>
-<div>
-    <div id="SyncUsersMessage" style="display: none">
-        <div class="card link-light bg-danger mb-3 text-center">
-            <div class="card-body">
-                <blockquote class="blockquote mb-0 card-body">
-                    <p>
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SYNC_TITLE" LocalizedPage="ADMIN_USERS" />
-                    </p>
-                    <p>
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SYNC_MSG" LocalizedPage="ADMIN_USERS" />
-                    </p>
-                    <footer>
-                        <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
-                    </footer>
-                </blockquote>
+
+<div class="modal fade" id="SyncUsersMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SYNC_TITLE" LocalizedPage="ADMIN_USERS" />
+            </div>
+            <div class="modal-body text-center">
+                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SYNC_MSG" LocalizedPage="ADMIN_USERS" />
+                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
             </div>
         </div>
     </div>
 </div>
-
 
 <modal:Import ID="ImportDialog" runat="server" />

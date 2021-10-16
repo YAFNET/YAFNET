@@ -54,14 +54,6 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditCategory : AdminPage
     {
-        /// <summary>
-        /// The category id.
-        /// </summary>
-        public int CategoryId =>
-            this.Get<HttpRequestBase>().QueryString.Exists("c")
-                ? this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"))
-                : 0;
-
         #region Methods
 
         /// <summary>
@@ -161,7 +153,7 @@ namespace YAF.Pages.Admin
             var category = this.GetRepository<Category>().GetSingle(c => c.Name == this.Name.Text);
 
             // Check Name duplicate only if new Category
-            if (category != null && this.CategoryId == 0)
+            if (category != null && this.PageContext.PageCategoryID == 0)
             {
                 this.PageContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
@@ -170,7 +162,7 @@ namespace YAF.Pages.Admin
             }
 
             // save category
-            this.GetRepository<Category>().Save(this.CategoryId, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
+            this.GetRepository<Category>().Save(this.PageContext.PageCategoryID, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
 
             // redirect
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
@@ -181,33 +173,42 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("c"))
+            if (this.Get<HttpRequestBase>().QueryString.Exists("c"))
             {
-                this.IconHeader.Text = this.GetText("NEW_CATEGORY");
+                this.BindExisting(); 
+            }
+            else
+            {
+                this.BindNew();
+            }
+        }
 
-                // Currently creating a New Category, and auto fill the Category Sort Order + 1
-                var sortOrder = 1;
+        private void BindNew()
+        {
+            this.IconHeader.Text = this.GetText("NEW_CATEGORY");
 
-                try
-                {
-                    sortOrder = this.GetRepository<Category>().GetHighestSortOrder() + sortOrder;
-                }
-                catch
-                {
-                    sortOrder = 1;
-                }
+            // Currently creating a New Category, and auto fill the Category Sort Order + 1
+            var sortOrder = 1;
 
-                this.SortOrder.Text = sortOrder.ToString();
-
-                return;
+            try
+            {
+                sortOrder = this.GetRepository<Category>().GetHighestSortOrder() + sortOrder;
+            }
+            catch
+            {
+                sortOrder = 1;
             }
 
-            var category = this.GetRepository<Category>().List(this.CategoryId)
-                .FirstOrDefault();
+            this.SortOrder.Text = sortOrder.ToString();
+        }
+
+        private void BindExisting()
+        {
+            var category = this.PageContext.PageCategory;
 
             if (category == null)
             {
-                return;
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             this.Name.Text = category.Name;

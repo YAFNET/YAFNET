@@ -72,22 +72,15 @@
     </div>
 </div>
 
-
-<div>
-    <div id="DeleteForumMessage" style="display:none">
-        <div class="card link-light text-center bg-danger mb-3">
-            <div class="card-body">
-                <blockquote class="blockquote">
-                    <p>
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REINDEX_TITLE" LocalizedPage="ADMIN_REINDEX" />
-                    </p>
-                    <p>
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REINDEX_MSG" LocalizedPage="ADMIN_REINDEX" />
-                    </p>
-                    <footer>
-                        <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
-                    </footer>
-                </blockquote>
+<div class="modal fade" id="DeleteForumMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="REINDEX_TITLE" LocalizedPage="ADMIN_REINDEX" />
+            </div>
+            <div class="modal-body text-center">
+                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="REINDEX_MSG" LocalizedPage="ADMIN_REINDEX" />
+                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
             </div>
         </div>
     </div>

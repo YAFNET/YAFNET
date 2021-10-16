@@ -376,12 +376,6 @@ namespace YAF.Pages
 
             this.topic = this.PageContext.PageTopic;
 
-            // in case topic is deleted or not existent
-            if (this.topic == null)
-            {
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
-            }
-
             if (this.topic.PollID.HasValue)
             {
                 this.PollList.TopicId = this.PageContext.PageTopicID;
@@ -739,15 +733,6 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            if (this.topic == null)
-            {
-                this.Get<LinkBuilder>().Redirect(
-                    ForumPages.Topics,
-                    "f={0}&name={1}",
-                    this.PageContext.PageForumID,
-                    this.PageContext.PageForum.Name);
-            }
-
             this.dataBound = true;
 
             var showDeleted = this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
@@ -927,7 +912,12 @@ namespace YAF.Pages
         /// </summary>
         private void InitializeComponent()
         {
-            // Poll.ItemCommand += Poll_ItemCommand;
+            // in case topic is deleted or not existent
+            if (this.PageContext.PageTopic == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
             this.ShareMenu.ItemClick += this.ShareMenuItemClick;
             this.OptionsMenu.ItemClick += this.OptionsMenuItemClick;
         }

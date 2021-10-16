@@ -92,7 +92,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!(sender is DropDownList dropDownList))
+            if (sender is not DropDownList dropDownList)
             {
                 return;
             }
@@ -200,10 +200,10 @@ namespace YAF.Pages.Admin
                 try
                 {
                     // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
-                    var forum = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null)
+                    var forumCheck = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null)
                         .OrderByDescending(a => a.SortOrder).FirstOrDefault();
 
-                    sortOrder = forum.SortOrder + sortOrder;
+                    sortOrder = forumCheck.SortOrder + sortOrder;
                 }
                 catch
                 {
@@ -218,22 +218,27 @@ namespace YAF.Pages.Admin
                 }
             }
 
-            var row = this.GetRepository<Forum>().GetById(forumId.Value);
+            var forum = this.GetRepository<Forum>().GetById(forumId.Value);
 
-            this.Name.Text = row.Name;
-            this.Description.Text = row.Description;
-            this.SortOrder.Text = row.SortOrder.ToString();
-            this.HideNoAccess.Checked = row.ForumFlags.IsHidden;
-            this.Locked.Checked = row.ForumFlags.IsLocked;
-            this.IsTest.Checked = row.ForumFlags.IsTest;
-            this.Moderated.Checked = row.ForumFlags.IsModerated;
+            if (forum == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
+            this.Name.Text = forum.Name;
+            this.Description.Text = forum.Description;
+            this.SortOrder.Text = forum.SortOrder.ToString();
+            this.HideNoAccess.Checked = forum.ForumFlags.IsHidden;
+            this.Locked.Checked = forum.ForumFlags.IsLocked;
+            this.IsTest.Checked = forum.ForumFlags.IsTest;
+            this.Moderated.Checked = forum.ForumFlags.IsModerated;
 
             this.IconHeader.Text = $"{this.GetText("ADMIN_EDITFORUM", "HEADER1")} <strong>{this.Name.Text}</strong>";
 
             this.ModeratedPostCountRow.Visible = this.Moderated.Checked;
             this.ModerateNewTopicOnlyRow.Visible = this.Moderated.Checked;
 
-            if (!row.ModeratedPostCount.HasValue)
+            if (!forum.ModeratedPostCount.HasValue)
             {
                 this.ModerateAllPosts.Checked = true;
             }
@@ -241,16 +246,16 @@ namespace YAF.Pages.Admin
             {
                 this.ModerateAllPosts.Checked = false;
                 this.ModeratedPostCount.Visible = true;
-                this.ModeratedPostCount.Text = row.ModeratedPostCount.Value.ToString();
+                this.ModeratedPostCount.Text = forum.ModeratedPostCount.Value.ToString();
             }
 
-            this.ModerateNewTopicOnly.Checked = row.IsModeratedNewTopicOnly;
+            this.ModerateNewTopicOnly.Checked = forum.IsModeratedNewTopicOnly;
 
-            this.Styles.Text = row.Styles;
+            this.Styles.Text = forum.Styles;
 
-            this.CategoryList.SelectedValue = row.CategoryID.ToString();
+            this.CategoryList.SelectedValue = forum.CategoryID.ToString();
 
-            var item = this.ForumImages.Items.FindByText(row.ImageURL);
+            var item = this.ForumImages.Items.FindByText(forum.ImageURL);
             if (item != null)
             {
                 item.Selected = true;
@@ -259,17 +264,17 @@ namespace YAF.Pages.Admin
             // populate parent forums list with forums according to selected category
             this.BindParentList();
 
-            if (row.ParentID.HasValue)
+            if (forum.ParentID.HasValue)
             {
-                this.ParentList.SelectedValue = row.ParentID.ToString();
+                this.ParentList.SelectedValue = forum.ParentID.ToString();
             }
 
-            if (row.ThemeURL.IsSet())
+            if (forum.ThemeURL.IsSet())
             {
-                this.ThemeList.SelectedValue = row.ThemeURL;
+                this.ThemeList.SelectedValue = forum.ThemeURL;
             }
 
-            this.remoteurl.Text = row.RemoteURL;
+            this.remoteurl.Text = forum.RemoteURL;
         }
 
         /// <summary>

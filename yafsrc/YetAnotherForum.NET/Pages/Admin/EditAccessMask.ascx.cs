@@ -183,6 +183,10 @@ namespace YAF.Pages.Admin
                     this.UploadAccess.Checked = accessMask.AccessFlags.UploadAccess;
                     this.DownloadAccess.Checked = accessMask.AccessFlags.DownloadAccess;
                 }
+                else
+                {
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+                }
             }
             else
             {

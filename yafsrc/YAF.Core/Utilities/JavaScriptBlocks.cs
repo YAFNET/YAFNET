@@ -276,11 +276,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// </returns>
         public static string BlockUiExecuteJs([NotNull] string messageId, [NotNull] string buttonId)
         {
-            return $@"{Config.JQueryAlias}(document).ready(function() {{
-                      {Config.JQueryAlias}('{buttonId}').click(function() {{ 
-                                   {Config.JQueryAlias}.blockUI({{ 
-                                                 message: {Config.JQueryAlias}('#{messageId}') }});
-                       }});
+            return $@"document.addEventListener('DOMContentLoaded', function() {{
+                     [].forEach.call(document.querySelectorAll('{buttonId}'), function(el) {{
+                            el.addEventListener('click', function() {{
+                                    var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
+                                                 backdrop: 'static',
+                                                 keyboard: false
+                                              }});
+                                   modal.show();
+                       }});}});
                       }});";
         }
 
@@ -296,8 +300,11 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         public static string BlockUiFunctionJs([NotNull] string messageId)
         {
             return $@"function blockUIMessage() {{ 
-                                   {Config.JQueryAlias}.blockUI({{ 
-                                                 message: {Config.JQueryAlias}('#{messageId}') }});
+                                 var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
+                                                 backdrop: 'static',
+                                                 keyboard: false
+                                              }});
+                                   modal.show();
                        }};";
         }
 
