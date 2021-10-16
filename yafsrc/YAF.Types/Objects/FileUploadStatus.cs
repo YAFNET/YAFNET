@@ -37,8 +37,15 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Initializes a new instance of the <see cref="FilesUploadStatus"/> class.
         /// </summary>
-        /// <param name="fileName">Name of the file.</param>
-        /// <param name="fileLength">Length of the file.</param>
+        /// <param name="fileName">
+        /// Name of the file.
+        /// </param>
+        /// <param name="fileLength">
+        /// Length of the file.
+        /// </param>
+        /// <param name="fileID">
+        /// The file ID.
+        /// </param>
         public FilesUploadStatus(string fileName, int fileLength, int fileID)
         {
             this.SetValues(fileName, fileLength, fileID);
