@@ -97,7 +97,7 @@
     <ErrorReport>none</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-     <ExcludeFilesFromDeployment>Content\jquery.fileupload.comb.css.bundle;Content\forum.css;Content\InstallWizard.css;Content\jquery.fileupload.comb.css;Content\jquery.hovercard.css;Content\jquery.hovercard.min.css;Content\jsdifflib.css;Content\jsdifflib.min.css;Content\prism.css;Content\select2.css;Content\*.scss;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\InstallWizard.js;Scripts\InstallWizard.comb.js;Scripts\jquery.fileupload.comb.js;Scripts\jquery.ForumExtensions.js;Scripts\jquery.hovercard.js;Scripts\jsdifflib.js;Scripts\jsdifflib.min.js;Scripts\prism.js;Scripts\*.js.bundle</ExcludeFilesFromDeployment>
+    <ExcludeFilesFromDeployment>Content\jquery.fileupload.comb.css.bundle;Content\forum.css;Content\InstallWizard.css;Content\jquery.fileupload.comb.css;Content\jquery.hovercard.css;Content\jquery.hovercard.min.css;Content\jsdifflib.css;Content\jsdifflib.min.css;Content\prism.css;Content\select2.css;Content\*.scss;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\InstallWizard.js;Scripts\InstallWizard.comb.js;Scripts\jquery.fileupload.comb.js;Scripts\jquery.ForumExtensions.js;Scripts\jquery.hovercard.js;Scripts\jsdifflib.js;Scripts\jsdifflib.min.js;Scripts\prism.js;Scripts\*.js.bundle</ExcludeFilesFromDeployment>
     <ExcludeFoldersFromDeployment>Content\bootstrap;Content\jQuery.FileUpload;Scripts\jQuery.FileUpload</ExcludeFoldersFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
     <TypeScriptTarget>ES2015</TypeScriptTarget>
@@ -1186,6 +1186,12 @@
     <Content Include="Content\favicons\safari-pinned-tab.svg" />
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
     <Content Include="Content\jquery.fileupload.comb.min.css" />
+    <Content Include="Content\bootstrap\helpers\_stacks.scss" />
+    <Content Include="Content\bootstrap\helpers\_vr.scss" />
+    <Content Include="Content\bootstrap\mixins\_backdrop.scss" />
+    <Content Include="Content\bootstrap\mixins\_color-scheme.scss" />
+    <Content Include="Content\bootstrap\_offcanvas.scss" />
+    <Content Include="Content\bootstrap\_placeholders.scss" />
     <None Include="Content\jquery.netStack.scss" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -3705,7 +3711,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
