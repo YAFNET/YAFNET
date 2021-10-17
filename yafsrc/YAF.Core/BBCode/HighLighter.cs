@@ -104,7 +104,7 @@ namespace YAF.Core.BBCode
                 language,
                 highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
 
-            tmpOutput.Append(HttpUtility.HtmlDecode(codeText));
+            tmpOutput.AppendFormat("<!---->{0}<!---->", codeText);
 
             tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
 

@@ -147,6 +147,12 @@ namespace YAF.Pages
         /// </param>
         protected override void OnInit([NotNull] EventArgs e)
         {
+            // in case topic is deleted or not existent
+            if (this.PageContext.PageForum == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
             this.Unload += this.Topics_Unload;
 
             this.ShowList.SelectedIndexChanged += this.ShowList_SelectedIndexChanged;
