@@ -24,7 +24,6 @@
 
 namespace YAF.Types.Extensions
 {
-    using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
@@ -46,19 +45,17 @@ namespace YAF.Types.Extensions
         /// <param name="paramName">
         /// The parameter Name.
         /// </param>
-        /// <param name="comparer">
-        /// The comparer.
-        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
         public static string GetFirstOrDefault(
-            [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
+            [NotNull] this NameValueCollection collection,
+            [NotNull] string paramName)
         {
             CodeContracts.VerifyNotNull(collection);
             CodeContracts.VerifyNotNull(paramName);
 
-            return collection.ToLookup(comparer)[paramName].FirstOrDefault();
+            return collection.GetValueList(paramName).FirstOrDefault();
         }
 
         /// <summary>
@@ -73,19 +70,17 @@ namespace YAF.Types.Extensions
         /// <param name="paramName">
         /// The parameter Name.
         /// </param>
-        /// <param name="comparer">
-        /// The comparer.
-        /// </param>
         /// <returns>
         /// The <see cref="T"/>.
         /// </returns>
         public static T GetFirstOrDefaultAs<T>(
-            [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
+            [NotNull] this NameValueCollection collection,
+            [NotNull] string paramName)
         {
             CodeContracts.VerifyNotNull(collection);
             CodeContracts.VerifyNotNull(paramName);
 
-            return collection.GetFirstOrDefault(paramName, comparer).ToType<T>();
+            return collection.GetFirstOrDefault(paramName).ToType<T>();
         }
 
         /// <summary>
@@ -97,21 +92,19 @@ namespace YAF.Types.Extensions
         /// <param name="paramName">
         /// The parameter name.
         /// </param>
-        /// <param name="comparer">
-        /// The comparer.
-        /// </param>
         /// <returns>
         /// Returns the integer Value
         /// </returns>
         public static int? GetFirstOrDefaultAsInt(
-            [NotNull] this NameValueCollection collection, [NotNull] string paramName, IEqualityComparer<string> comparer = null)
+            [NotNull] this NameValueCollection collection,
+            [NotNull] string paramName)
         {
             CodeContracts.VerifyNotNull(collection);
             CodeContracts.VerifyNotNull(paramName);
 
-            if (collection.GetFirstOrDefault(paramName, comparer) != null && int.TryParse(
-                    collection.GetFirstOrDefault(paramName),
-                    out var value))
+            if (collection.GetFirstOrDefault(paramName) != null && int.TryParse(
+                collection.GetFirstOrDefault(paramName),
+                out var value))
             {
                 return value;
             }
@@ -131,32 +124,16 @@ namespace YAF.Types.Extensions
         /// <returns>
         /// Does not return null.
         /// </returns>
-        public static IEnumerable<string> GetValueList([NotNull] this NameValueCollection collection, [NotNull] string paramName)
+        public static IEnumerable<string> GetValueList(
+            [NotNull] this NameValueCollection collection,
+            [NotNull] string paramName)
         {
             CodeContracts.VerifyNotNull(collection);
             CodeContracts.VerifyNotNull(paramName);
 
-            return collection[paramName] == null ? Enumerable.Empty<string>() : collection[paramName].Split(',').AsEnumerable();
-        }
-
-        /// <summary>
-        /// Flattens a <see cref="NameValueCollection"/> to a simple string <see cref="IDictionary{TKey,TValue}"/>.
-        /// </summary>
-        /// <param name="collection">
-        /// The collection.
-        /// </param>
-        /// <param name="comparer">
-        /// The comparer.
-        /// </param>
-        /// <returns>
-        /// The <see cref="ILookup"/>.
-        /// </returns>
-        [NotNull]
-        public static ILookup<string, string> ToLookup([NotNull] this NameValueCollection collection, IEqualityComparer<string> comparer = null)
-        {
-            CodeContracts.VerifyNotNull(collection);
-
-            return collection.Cast<string>().ToLookup(key => key, key => collection[key], comparer ?? StringComparer.OrdinalIgnoreCase);
+            return collection[paramName] == null
+                ? Enumerable.Empty<string>()
+                : collection[paramName].Split(',').AsEnumerable();
         }
 
         /// <summary>
