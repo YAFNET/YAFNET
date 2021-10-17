@@ -208,6 +208,10 @@
     "Type": "text/plain"
   },
   {
+    "Extension": "config",
+    "Type": "application/xml"
+  },
+  {
     "Extension": "cpio",
     "Type": "application/x-cpio"
   },
