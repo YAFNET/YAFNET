@@ -33,6 +33,7 @@ namespace YAF.Core.Services
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
     using YAF.Types;
@@ -167,7 +168,7 @@ namespace YAF.Core.Services
         public ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption)
         {
             // load the DB so BoardContext can work...
-            CodeContracts.VerifyNotNull(newCaption, "newCaption");
+            CodeContracts.VerifyNotNull(newCaption);
 
             this.Get<StartupInitializeDb>().Run();
 
@@ -191,6 +192,14 @@ namespace YAF.Core.Services
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
         public void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("imgprv")))
+            {
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+                return;
+            }
+
             var etag =
                 $@"""{context.Request.QueryString.GetFirstOrDefault("imgprv")}{localizationFile.GetHashCode()}""";
 
@@ -249,6 +258,24 @@ namespace YAF.Core.Services
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
         public void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("album")))
+            {
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                return;
+            }
+
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("cover")))
+            {
+                context.Response.Write(
+                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                return;
+            }
+
             var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
 
             try
@@ -334,6 +361,15 @@ namespace YAF.Core.Services
         {
             try
             {
+                // Check QueryString first
+                if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("image")))
+                {
+                    context.Response.Write(
+                        "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                    return;
+                }
+
                 // ImageID
                 var image = this.GetRepository<UserAlbumImage>()
                     .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));
@@ -394,6 +430,15 @@ namespace YAF.Core.Services
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
         public void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("p")))
+            {
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                return;
+            }
+
             var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
             try
