@@ -102,11 +102,6 @@ namespace YAF.Pages
         /// </summary>
         protected int? QuotedMessageId => this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("q");
 
-        /// <summary>
-        ///   Gets TopicID.
-        /// </summary>
-        protected int TopicId => this.PageContext.PageTopicID;
-
         #endregion
 
         #region Methods
@@ -283,7 +278,7 @@ namespace YAF.Pages
 
             this.HandleUploadControls();
 
-            this.LastPosts1.TopicID = this.TopicId;
+            this.LastPosts1.TopicID = this.PageContext.PageTopicID;
 
             if (!this.IsPostBack)
             {
@@ -363,7 +358,7 @@ namespace YAF.Pages
 
             // Set Poll
             this.PollId = this.topic.PollID;
-            this.PollList.TopicId = this.TopicId;
+            this.PollList.TopicId = this.PageContext.PageTopicID;
             this.PollList.PollId = this.PollId;
         }
 
@@ -419,7 +414,8 @@ namespace YAF.Pages
 
             var messageId = this.GetRepository<Message>().SaveNew(
                 this.PageContext.PageForumID,
-                this.TopicId,
+                this.PageContext.PageTopicID,
+                this.PageContext.PageTopic.TopicName,
                 this.PageContext.PageUserID,
                 HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
                 this.User != null ? null : this.From.Text,
@@ -526,7 +522,7 @@ namespace YAF.Pages
             if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible)
             {
                 // new topic poll token
-                attachPollParameter = $"&t={this.TopicId}";
+                attachPollParameter = $"&t={this.PageContext.PageTopicID}";
 
                 // new return forum poll token
                 returnForum = $"&f={this.PageContext.PageForumID}";
@@ -549,7 +545,7 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddMentionToStream(
                                         userId,
-                                        this.TopicId,
+                                        this.PageContext.PageTopicID,
                                         messageId.ToType<int>(),
                                         this.PageContext.PageUserID);
                                 }
@@ -565,7 +561,7 @@ namespace YAF.Pages
                                 {
                                     this.Get<IActivityStream>().AddQuotingToStream(
                                         userId,
-                                        this.TopicId,
+                                        this.PageContext.PageTopicID,
                                         messageId.ToType<int>(),
                                         this.PageContext.PageUserID);
                                 }
@@ -573,7 +569,7 @@ namespace YAF.Pages
 
                     this.Get<IActivityStream>().AddReplyToStream(
                         Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                        this.TopicId,
+                        this.PageContext.PageTopicID,
                         messageId.ToType<int>(),
                         this.PageContext.PageTopic.TopicName,
                         this.forumEditor.Text);

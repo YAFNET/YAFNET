@@ -143,6 +143,7 @@ namespace YAF.Pages.Admin
                 this.CreatePosts(
                     this.PostsForum.Text.ToType<int>(),
                     this.PostsTopic.SelectedValue.ToType<int>(),
+                    this.PostsTopic.SelectedItem.Text,
                     this.PostsNumber.Text.ToType<int>()));
 
             sb.AppendFormat("{0} Private Messages, ", this.CreatePMessages());
@@ -662,7 +663,7 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The number of created posts.
         /// </returns>
-        private int CreatePosts(int forumID, int topicID, int numMessages)
+        private int CreatePosts(int forumID, int topicID, string topicName, int numMessages)
         {
             if (numMessages <= 0)
             {
@@ -690,6 +691,7 @@ namespace YAF.Pages.Admin
                 this.GetRepository<Message>().SaveNew(
                     forumID,
                     topicID,
+                    topicName,
                     this.PageContext.PageUserID,
                     $"msgd-{this.randomGuid}  {this.MyMessage.Text.Trim()}",
                     this.PageContext.User.Name,
@@ -731,6 +733,8 @@ namespace YAF.Pages.Admin
                 return 0;
             }
 
+            var topicName = this.TopicPrefixTB.Text.Trim() + this.randomGuid;
+
             int topics;
             for (topics = 0; topics < numTopics; topics++)
             {
@@ -738,7 +742,7 @@ namespace YAF.Pages.Admin
 
                 var topicId = this.GetRepository<Topic>().SaveNew(
                     forumId,
-                    this.TopicPrefixTB.Text.Trim() + this.randomGuid,
+                    topicName,
                     string.Empty,
                     string.Empty,
                     $"{this.TopicPrefixTB.Text.Trim()}{this.randomGuid}descr",
@@ -774,7 +778,7 @@ namespace YAF.Pages.Admin
 
                 if (messagesToCreate > 0)
                 {
-                    this.CreatePosts(forumId, topicId, messagesToCreate);
+                    this.CreatePosts(forumId, topicId, topicName, messagesToCreate);
                 }
             }
 

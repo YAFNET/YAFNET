@@ -1090,6 +1090,7 @@ namespace YAF.Core.Model
             messageId = BoardContext.Current.GetRepository<Message>().SaveNew(
                 forumId,
                 newTopicId,
+                subject,
                 userId,
                 message,
                 userName,

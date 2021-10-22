@@ -128,6 +128,7 @@ namespace YAF.Core.Model
             BoardContext.Current.GetRepository<Message>().SaveNew(
                 nntpForum.ForumID,
                 topicId.Value,
+                topic,
                 userId,
                 body,
                 userName,
