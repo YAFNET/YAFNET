@@ -454,7 +454,15 @@ namespace YAF.Core.Services
         {
             if (input.IsSet())
             {
-                return this.SearchIndex(out totalHits, forumId, userId, input, fieldName, pageIndex, pageSize);
+                try
+                {
+                    return this.SearchIndex(out totalHits, forumId, userId, input, fieldName, pageIndex, pageSize);
+                }
+                catch (Exception exception)
+                {
+                   this.Get<ILoggerService>().Error(exception, "Search Error");
+                }
+                
             }
 
             totalHits = 0;
