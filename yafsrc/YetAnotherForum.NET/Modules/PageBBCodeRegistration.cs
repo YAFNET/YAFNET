@@ -34,7 +34,7 @@ namespace YAF.Modules
     /// <summary>
     /// The page bb code registration.
     /// </summary>
-    [YafModule("Page BBCode Registration Module", "Tiny Gecko", 1)]
+    [Module("Page BBCode Registration Module", "Tiny Gecko", 1)]
     public class PageBBCodeRegistration : SimpleBaseForumModule
     {
         #region Public Methods
@@ -49,7 +49,7 @@ namespace YAF.Modules
                 case ForumPages.PrivateMessage:
                 case ForumPages.Search:
                 case ForumPages.Posts:
-                case ForumPages.Profile:
+                case ForumPages.UserProfile:
                     this.Get<IBBCode>().RegisterCustomBBCodePageElements(
                         this.PageContext.CurrentForumPage.Page,
                         this.PageContext.CurrentForumPage.GetType());

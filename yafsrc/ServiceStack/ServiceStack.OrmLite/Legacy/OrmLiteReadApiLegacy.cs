@@ -1,17 +1,30 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="OrmLiteReadApiLegacy.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Data;
 
 namespace ServiceStack.OrmLite.Legacy
 {
+    /// <summary>
+    /// Class OrmLiteReadApiLegacy.
+    /// </summary>
     [Obsolete(Messages.LegacyApi)]
     public static class OrmLiteReadApiLegacy
     {
         /// <summary>
         /// Returns results from using an SqlFormat query. E.g:
-        /// <para>db.SelectFmt&lt;Person&gt;("Age &gt; {0}", 40)</para>
-        /// <para>db.SelectFmt&lt;Person&gt;("SELECT * FROM Person WHERE Age &gt; {0}", 40)</para>
+        /// <para>db.SelectFmt&lt;Person&gt;("Age &gt; {0}", 40)</para><para>db.SelectFmt&lt;Person&gt;("SELECT * FROM Person WHERE Age &gt; {0}", 40)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static List<T> SelectFmt<T>(this IDbConnection dbConn, string sqlFormat, params object[] filterParams)
         {
@@ -22,6 +35,12 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns a partial subset of results from the specified tableType using a SqlFormat query. E.g:
         /// <para>db.SelectFmt&lt;EntityWithId&gt;(typeof(Person), "Age &gt; {0}", 40)</para>
         /// </summary>
+        /// <typeparam name="TModel">The type of the t model.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="fromTableType">Type of from table.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>List&lt;TModel&gt;.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static List<TModel> SelectFmt<TModel>(this IDbConnection dbConn, Type fromTableType, string sqlFormat, params object[] filterParams)
         {
@@ -32,6 +51,11 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns a lazyily loaded stream of results using an SqlFilter query. E.g:
         /// <para>db.SelectLazyFmt&lt;Person&gt;("Age &gt; {0}", 40)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>IEnumerable&lt;T&gt;.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static IEnumerable<T> SelectLazyFmt<T>(this IDbConnection dbConn, string sqlFormat, params object[] filterParams)
         {
@@ -42,6 +66,11 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns the first result using a SqlFormat query. E.g:
         /// <para>db.SingleFmt&lt;Person&gt;("Age = {0}", 42)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns>T.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static T SingleFmt<T>(this IDbConnection dbConn, string sqlFormat, params object[] filterParams)
         {
@@ -52,6 +81,11 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns a single scalar value using an SqlFormat query. E.g:
         /// <para>db.ScalarFmt&lt;int&gt;("SELECT COUNT(*) FROM Person WHERE Age &gt; {0}", 40)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>T.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static T ScalarFmt<T>(this IDbConnection dbConn, string sqlFormat, params object[] sqlParams)
         {
@@ -62,6 +96,11 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns the first column in a List using a SqlFormat query. E.g:
         /// <para>db.ColumnFmt&lt;string&gt;("SELECT LastName FROM Person WHERE Age = {0}", 27)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static List<T> ColumnFmt<T>(this IDbConnection dbConn, string sqlFormat, params object[] sqlParams)
         {
@@ -72,6 +111,11 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns the distinct first column values in a HashSet using an SqlFormat query. E.g:
         /// <para>db.ColumnDistinctFmt&lt;int&gt;("SELECT Age FROM Person WHERE Age &lt; {0}", 50)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>HashSet&lt;T&gt;.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static HashSet<T> ColumnDistinctFmt<T>(this IDbConnection dbConn, string sqlFormat, params object[] sqlParams)
         {
@@ -82,6 +126,12 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns an Dictionary&lt;K, List&lt;V&gt;&gt; grouping made from the first two columns using an SqlFormat query. E.g:
         /// <para>db.LookupFmt&lt;int, string&gt;("SELECT Age, LastName FROM Person WHERE Age &lt; {0}", 50)</para>
         /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>Dictionary&lt;K, List&lt;V&gt;&gt;.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static Dictionary<K, List<V>> LookupFmt<K, V>(this IDbConnection dbConn, string sqlFormat, params object[] sqlParams)
         {
@@ -92,6 +142,12 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns a Dictionary from the first 2 columns: Column 1 (Keys), Column 2 (Values) using an SqlFormat query. E.g:
         /// <para>db.DictionaryFmt&lt;int, string&gt;("SELECT Id, LastName FROM Person WHERE Age &lt; {0}", 50)</para>
         /// </summary>
+        /// <typeparam name="K"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>Dictionary&lt;K, V&gt;.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static Dictionary<K, V> DictionaryFmt<K, V>(this IDbConnection dbConn, string sqlFormat, params object[] sqlParams)
         {
@@ -100,9 +156,13 @@ namespace ServiceStack.OrmLite.Legacy
 
         /// <summary>
         /// Returns true if the Query returns any records, using an SqlFormat query. E.g:
-        /// <para>db.ExistsFmt&lt;Person&gt;("Age = {0}", 42)</para>
-        /// <para>db.ExistsFmt&lt;Person&gt;("SELECT * FROM Person WHERE Age = {0}", 50)</para>
+        /// <para>db.ExistsFmt&lt;Person&gt;("Age = {0}", 42)</para><para>db.ExistsFmt&lt;Person&gt;("SELECT * FROM Person WHERE Age = {0}", 50)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sqlFormat">The SQL format.</param>
+        /// <param name="filterParams">The filter parameters.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [Obsolete(Messages.LegacyApi)]
         public static bool ExistsFmt<T>(this IDbConnection dbConn, string sqlFormat, params object[] filterParams)
         {
@@ -113,6 +173,10 @@ namespace ServiceStack.OrmLite.Legacy
         /// Returns true if the Query returns any records that match the SqlExpression lambda, E.g:
         /// <para>db.Exists&lt;Person&gt;(q =&gt; q.Where(x =&gt; x.Age &lt; 50))</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [Obsolete("Use db.Exists(db.From<T>())")]
         public static bool Exists<T>(this IDbConnection dbConn, Func<SqlExpression<T>, SqlExpression<T>> expression)
         {

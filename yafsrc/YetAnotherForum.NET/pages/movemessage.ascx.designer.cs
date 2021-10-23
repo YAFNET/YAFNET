@@ -33,15 +33,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel7;
 
         /// <summary>
-        /// LocalizedLabel8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel8;
-
-        /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
@@ -85,15 +76,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Move;
-
-        /// <summary>
-        /// LocalizedLabel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
 
         /// <summary>
         /// LocalizedLabel4 control.

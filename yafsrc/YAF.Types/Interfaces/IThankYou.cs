@@ -57,18 +57,46 @@ namespace YAF.Types.Interfaces
             int messageId);
 
         /// <summary>
+        /// Creates an instance of the thank you object from the current information.
+        /// </summary>
+        /// <param name="username">
+        /// The Current Username
+        /// </param>
+        /// <param name="textTag">
+        /// Button Text
+        /// </param>
+        /// <param name="titleTag">
+        /// Button  Title
+        /// </param>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
+        /// <returns>
+        /// Returns ThankYou Info
+        /// </returns>
+        [NotNull]
+        ThankYouInfo GetThankYou(
+            [NotNull] string username,
+            [NotNull] string textTag,
+            [NotNull] string titleTag,
+            int messageId);
+
+        /// <summary>
         /// This method returns a string which shows how many times users have
         ///   thanked the message with the provided messageID. Returns an empty string.
         /// </summary>
         /// <param name="username">
         /// The username.
         /// </param>
-        /// <param name="messageID">
-        /// The Message ID.
+        /// <param name="messageId">
+        /// The Message Id.
+        /// </param>
+        /// <param name="thanksInfoOnly">
+        /// The thank Info Only.
         /// </param>
         /// <returns>
-        /// The thanks number.
+        /// The thanks info.
         /// </returns>
-        string ThanksInfo([NotNull] string username, int messageID);
+        string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly);
     }
 }

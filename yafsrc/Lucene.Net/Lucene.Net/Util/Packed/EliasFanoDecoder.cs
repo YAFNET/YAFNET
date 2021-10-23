@@ -1,7 +1,8 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -77,11 +78,11 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (efIndex < 0)
             {
-                throw new InvalidOperationException("index before sequence");
+                throw IllegalStateException.Create("index before sequence");
             }
             if (efIndex >= numEncoded)
             {
-                throw new InvalidOperationException("index after sequence");
+                throw IllegalStateException.Create("index after sequence");
             }
             return efIndex;
         }
@@ -92,12 +93,14 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <para/>
         /// This is only intended for use after <see cref="AdvanceToIndex(long)"/> returned <c>true</c>. </summary>
         /// <returns> The value encoded at <see cref="CurrentIndex()"/>. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual long CurrentValue()
         {
             return CombineHighLowValues(CurrentHighValue(), CurrentLowValue());
         }
 
         ///  <returns> The high value for the current decoding index. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private long CurrentHighValue()
         {
             return setBitForIndex - efIndex; // sequence of unary gaps
@@ -112,9 +115,9 @@ namespace YAF.Lucene.Net.Util.Packed
                 return 0;
             }
             long bitPos = packIndex * numBits;
-            int index = (int)((long)((ulong)bitPos >> LOG2_INT64_SIZE));
+            int index = (int)(bitPos.TripleShift(LOG2_INT64_SIZE));
             int bitPosAtIndex = (int)(bitPos & ((sizeof(long) * 8) - 1));
-            long value = (long)((ulong)longArray[index] >> bitPosAtIndex);
+            long value = longArray[index].TripleShift(bitPosAtIndex);
             if ((bitPosAtIndex + numBits) > (sizeof(long) * 8))
             {
                 value |= (longArray[index + 1] << ((sizeof(long) * 8) - bitPosAtIndex));
@@ -124,6 +127,7 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         ///  <returns> The low value for the current decoding index. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private long CurrentLowValue()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(((efIndex >= 0) && (efIndex < numEncoded)), "efIndex {0}", efIndex);
@@ -132,6 +136,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         ///  <returns> The given <paramref name="highValue"/> shifted left by the number of low bits from by the EliasFanoSequence,
         ///           logically OR-ed with the given <paramref name="lowValue"/>. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private long CombineHighLowValues(long highValue, long lowValue)
         {
             return (highValue << efEncoder.numLowBits) | lowValue;
@@ -156,6 +161,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// Set the decoding index to just before the first encoded value.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void ToBeforeSequence()
         {
             efIndex = -1;
@@ -184,8 +190,8 @@ namespace YAF.Lucene.Net.Util.Packed
                 return false;
             }
             setBitForIndex += 1;
-            int highIndex = (int)((long)((ulong)setBitForIndex >> LOG2_INT64_SIZE));
-            curHighLong = (long)((ulong)efEncoder.upperLongs[highIndex] >> CurrentRightShift);
+            int highIndex = (int)(setBitForIndex.TripleShift(LOG2_INT64_SIZE));
+            curHighLong = efEncoder.upperLongs[highIndex].TripleShift(CurrentRightShift);
             return true;
         }
 
@@ -199,7 +205,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             setBitForIndex += (sizeof(long) * 8) - (setBitForIndex & ((sizeof(long) * 8) - 1));
             //assert getCurrentRightShift() == 0;
-            int highIndex = (int)((long)((ulong)setBitForIndex >> LOG2_INT64_SIZE));
+            int highIndex = (int)(setBitForIndex.TripleShift(LOG2_INT64_SIZE));
             curHighLong = efEncoder.upperLongs[highIndex];
         }
 
@@ -220,6 +226,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <see cref="setBitForIndex"/> and <see cref="efIndex"/> have just been incremented, scan to the next high set bit
         /// by incrementing <see cref="setBitForIndex"/>, and by setting <see cref="curHighLong"/> accordingly. </summary>
         /// <returns> The next encoded high value. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private long NextHighValue()
         {
             ToNextHighValue();
@@ -297,12 +304,12 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             setBitForIndex += 1; // the high bit at setBitForIndex belongs to the unary code for efIndex
 
-            int highIndex = (int)((long)((ulong)setBitForIndex >> LOG2_INT64_SIZE));
+            int highIndex = (int)(setBitForIndex.TripleShift(LOG2_INT64_SIZE));
             long upperLong = efEncoder.upperLongs[highIndex];
-            curHighLong = (long)((ulong)upperLong >> ((int)(setBitForIndex & ((sizeof(long) * 8) - 1)))); // may contain the unary 1 bit for efIndex
+            curHighLong = upperLong.TripleShift(((int)(setBitForIndex & ((sizeof(long) * 8) - 1)))); // may contain the unary 1 bit for efIndex
 
             // determine index entry to advance to
-            long highTarget = (long)((ulong)target >> efEncoder.numLowBits);
+            long highTarget = target.TripleShift(efEncoder.numLowBits);
 
             long indexEntryIndex = (highTarget / efEncoder.indexInterval) - 1;
             if (indexEntryIndex >= 0) // not before first index entry
@@ -317,9 +324,9 @@ namespace YAF.Lucene.Net.Util.Packed
                 {
                     setBitForIndex = UnPackValue(efEncoder.upperZeroBitPositionIndex, efEncoder.nIndexEntryBits, indexEntryIndex, indexMask);
                     efIndex = setBitForIndex - indexHighValue; // the high bit at setBitForIndex belongs to the unary code for efIndex
-                    highIndex = (int)(((ulong)setBitForIndex >> LOG2_INT64_SIZE));
+                    highIndex = (int)setBitForIndex.TripleShift(LOG2_INT64_SIZE);
                     upperLong = efEncoder.upperLongs[highIndex];
-                    curHighLong = (long)((ulong)upperLong >> ((int)(setBitForIndex & ((sizeof(long) * 8) - 1)))); // may contain the unary 1 bit for efIndex
+                    curHighLong = upperLong.TripleShift((int)(setBitForIndex & ((sizeof(long) * 8) - 1))); // may contain the unary 1 bit for efIndex
                 }
                 if (Debugging.AssertsEnabled) Debugging.Assert(efIndex < numEncoded); // there is a high value to be found.
             }
@@ -337,7 +344,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 }
                 setBitForIndex += (sizeof(long) * 8) - (setBitForIndex & ((sizeof(long) * 8) - 1));
                 // highIndex = (int)(setBitForIndex >>> LOG2_LONG_SIZE);
-                if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == (int)((long)((ulong)setBitForIndex >> LOG2_INT64_SIZE)));
+                if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == (int)(setBitForIndex.TripleShift(LOG2_INT64_SIZE)));
                 highIndex += 1;
                 upperLong = efEncoder.upperLongs[highIndex];
                 curHighLong = upperLong;
@@ -348,7 +355,7 @@ namespace YAF.Lucene.Net.Util.Packed
             while (curHighLong == 0L)
             {
                 setBitForIndex += (sizeof(long) * 8) - (setBitForIndex & ((sizeof(long) * 8) - 1));
-                if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == (int)((ulong)setBitForIndex >> LOG2_INT64_SIZE));
+                if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == setBitForIndex.TripleShift(LOG2_INT64_SIZE));
                 highIndex += 1;
                 upperLong = efEncoder.upperLongs[highIndex];
                 curHighLong = upperLong;
@@ -372,22 +379,22 @@ namespace YAF.Lucene.Net.Util.Packed
 
                 if ((setBitForIndex & ((sizeof(long) * 8) - 1)) == 0L) // exhausted curHighLong
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == (int)((ulong)setBitForIndex >> LOG2_INT64_SIZE));
+                    if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == setBitForIndex.TripleShift(LOG2_INT64_SIZE));
                     highIndex += 1;
                     upperLong = efEncoder.upperLongs[highIndex];
                     curHighLong = upperLong;
                 }
                 else
                 {
-                    if (Debugging.AssertsEnabled) Debugging.Assert(highIndex == (int)((ulong)setBitForIndex >> LOG2_INT64_SIZE));
-                    curHighLong = (long)((ulong)upperLong >> ((int)(setBitForIndex & ((sizeof(long) * 8) - 1))));
+                    if (Debugging.AssertsEnabled) Debugging.Assert(highIndex == setBitForIndex.TripleShift(LOG2_INT64_SIZE));
+                    curHighLong = upperLong.TripleShift(((int)(setBitForIndex & ((sizeof(long) * 8) - 1))));
                 }
                 // curHighLong has enough clear bits to reach highTarget, and may not have enough set bits.
 
                 while (curHighLong == 0L)
                 {
                     setBitForIndex += (sizeof(long) * 8) - (setBitForIndex & ((sizeof(long) * 8) - 1));
-                    if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == (int)((ulong)setBitForIndex >> LOG2_INT64_SIZE));
+                    if (Debugging.AssertsEnabled) Debugging.Assert((highIndex + 1) == setBitForIndex.TripleShift(LOG2_INT64_SIZE));
                     highIndex += 1;
                     upperLong = efEncoder.upperLongs[highIndex];
                     curHighLong = upperLong;
@@ -414,10 +421,11 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// Set the decoding index to just after the last encoded value.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void ToAfterSequence()
         {
             efIndex = numEncoded; // just after last index
-            setBitForIndex = ((long)((ulong)efEncoder.lastEncoded >> efEncoder.numLowBits)) + numEncoded;
+            setBitForIndex = (efEncoder.lastEncoded.TripleShift(efEncoder.numLowBits)) + numEncoded;
         }
 
         /// <returns> the number of bits in a long before (<see cref="setBitForIndex"/> modulo <c>sizeof(long)</c>) </returns>
@@ -442,7 +450,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 return false;
             }
             setBitForIndex -= 1;
-            int highIndex = (int)((ulong)setBitForIndex >> LOG2_INT64_SIZE);
+            int highIndex = (int)setBitForIndex.TripleShift(LOG2_INT64_SIZE);
             curHighLong = efEncoder.upperLongs[highIndex] << CurrentLeftShift;
             return true;
         }
@@ -457,7 +465,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             setBitForIndex -= (setBitForIndex & ((sizeof(long) * 8) - 1)) + 1;
             //assert getCurrentLeftShift() == 0;
-            int highIndex = (int)((ulong)setBitForIndex >> LOG2_INT64_SIZE);
+            int highIndex = (int)setBitForIndex.TripleShift(LOG2_INT64_SIZE);
             curHighLong = efEncoder.upperLongs[highIndex];
         }
 
@@ -541,7 +549,7 @@ namespace YAF.Lucene.Net.Util.Packed
             {
                 return NO_MORE_VALUES;
             }
-            long highTarget = (long)((ulong)target >> efEncoder.numLowBits);
+            long highTarget = target.TripleShift(efEncoder.numLowBits);
             long highValue = BackToHighValue(highTarget);
             if (highValue == NO_MORE_VALUES)
             {

@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -33,18 +33,19 @@ namespace YAF.Core.Handlers
     using System.Web.SessionState;
 
     using YAF.Configuration;
-    using YAF.Core;
-    using YAF.Core.Extensions;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Services.Startup;
-    using YAF.Core.UsersRoles;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The File Upload Handler
@@ -164,8 +165,7 @@ namespace YAF.Core.Handlers
 
             try
             {
-                var allowedExtensions = this.GetRepository<FileExtension>()
-                    .Get(e => e.BoardId == BoardContext.Current.PageBoardID).Select(x => x.Extension).ToList();
+                var allowedExtensions = this.Get<BoardSettings>().AllowedFileExtensions.ToLower().Split(',');
 
                 for (var i = 0; i < context.Request.Files.Count; i++)
                 {
@@ -219,7 +219,6 @@ namespace YAF.Core.Handlers
                     if (this.Get<BoardSettings>().UseFileTable)
                     {
                         newAttachmentId = this.GetRepository<Attachment>().Save(
-                            0,
                             yafUserId,
                             fileName,
                             file.ContentLength,
@@ -238,7 +237,6 @@ namespace YAF.Core.Handlers
                         }
 
                         newAttachmentId = this.GetRepository<Attachment>().Save(
-                            0,
                             yafUserId,
                             fileName,
                             file.ContentLength,
@@ -253,7 +251,7 @@ namespace YAF.Core.Handlers
             }
             catch (Exception ex)
             {
-                this.Get<ILogger>().Error(ex, "Error during Attachment upload");
+                this.Get<ILoggerService>().Error(ex, "Error during Attachment upload");
             }
         }
 
@@ -268,12 +266,11 @@ namespace YAF.Core.Handlers
         private bool CheckAccessRights([NotNull] int boardId, [NotNull] int forumId)
         {
             // Find user name
-            var user = UserMembershipHelper.GetUser();
+            var user = this.Get<IAspNetUsersHelper>().GetUser();
 
             var browser =
                 $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
             var platform = HttpContext.Current.Request.Browser.Platform;
-            var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
             var userAgent = HttpContext.Current.Request.UserAgent;
 
             // try and get more verbose platform name by ref and other parameters
@@ -282,16 +279,17 @@ namespace YAF.Core.Handlers
                 HttpContext.Current.Request.Browser.Crawler,
                 ref platform,
                 ref browser,
-                out var isSearchEngine,
-                out var doNotTrack);
+                out var isSearchEngine);
+
+            var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 
             this.Get<StartupInitializeDb>().Run();
 
-            object userKey;
+            string userKey;
 
             if (user != null)
             {
-                userKey = user.ProviderUserKey;
+                userKey = user.Id;
             }
             else
             {
@@ -304,7 +302,7 @@ namespace YAF.Core.Handlers
                 return true;
             }
 
-            var pageRow = this.GetRepository<ActiveAccess>().PageLoadAsDataRow(
+            var pageRow = this.Get<DataBroker>().GetPageLoad(
                 HttpContext.Current.Session.SessionID,
                 boardId,
                 userKey,
@@ -313,15 +311,14 @@ namespace YAF.Core.Handlers
                 HttpContext.Current.Request.QueryString.ToString(),
                 browser,
                 platform,
-                null,
+                0,
                 forumId,
-                null,
-                null,
+                0,
+                0,
                 isSearchEngine,
-                isMobileDevice,
                 doNotTrack);
 
-            return pageRow["UploadAccess"].ToType<bool>() || pageRow["ModeratorAccess"].ToType<bool>();
+            return pageRow.Item1.UploadAccess || pageRow.Item1.ModeratorAccess;
         }
     }
 }

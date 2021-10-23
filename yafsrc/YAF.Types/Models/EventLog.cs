@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -37,39 +37,51 @@ namespace YAF.Types.Models
     /// A class which represents the EventLog table.
     /// </summary>
     [Serializable]
-    public partial class EventLog : IEntity, IHaveID
+    public class EventLog : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public EventLog()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("EventLogID")]
         public int ID { get; set; }
-        [Default(OrmLiteVariables.SystemUtc)]
+
+        /// <summary>
+        /// Gets or sets the event time.
+        /// </summary>
+        [Required]
         public DateTime EventTime { get; set; }
 
-        [References(typeof(User))]
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         public int? UserID { get; set; }
 
-        [StringLength(100)]
-        public string UserName { get; set; }
-
+        /// <summary>
+        /// Gets or sets the source.
+        /// </summary>
         [Required]
         [StringLength(50)]
         public string Source { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
         [Required]
         [Default(0)]
         public int Type { get; set; }
 
+        /// <summary>
+        /// Gets or sets the event type.
+        /// </summary>
         [Ignore]
         public EventLogTypes EventType
         {

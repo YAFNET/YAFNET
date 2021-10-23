@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,19 +26,19 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -52,45 +52,25 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets or sets MessageID.
         /// </summary>
-        public virtual int MessageID
-        {
-            get => this.ViewState["MessageID"]?.ToType<int>() ?? 0;
-
-            set => this.ViewState["MessageID"] = value;
-        }
+        public virtual int MessageID { get; set; }
 
         /// <summary>
         ///   Gets or sets Resolved.
         /// </summary>
-        [NotNull]
-        public virtual string Resolved
-        {
-            get => this.ViewState["Resolved"].ToString();
-
-            set => this.ViewState["Resolved"] = value;
-        }
+        [CanBeNull]
+        public virtual string Resolved { get; set; }
 
         /// <summary>
         ///   Gets or sets ResolvedBy. It returns UserID as string value
         /// </summary>
-        [NotNull]
-        public virtual string ResolvedBy
-        {
-            get => this.ViewState["ResolvedBy"].ToString();
-
-            set => this.ViewState["ResolvedBy"] = value;
-        }
+        [CanBeNull]
+        public virtual int? ResolvedBy { get; set; }
 
         /// <summary>
         ///   Gets or sets ResolvedDate.
         /// </summary>
-        [NotNull]
-        public virtual string ResolvedDate
-        {
-            get => this.ViewState["ResolvedDate"].ToString();
-
-            set => this.ViewState["ResolvedDate"] = value;
-        }
+        [CanBeNull]
+        public virtual string ResolvedDate { get; set; }
 
         #endregion
 
@@ -104,122 +84,79 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var reportersList = this.GetRepository<Message>().ListReportersAsDataTable(this.MessageID);
+            var reportersList = this.GetRepository<User>().MessageReporters(this.MessageID);
 
-            if (!reportersList.HasRows())
+            if (!reportersList.Any())
             {
                 return;
             }
 
             writer.BeginRender();
-            reportersList.AsEnumerable().ForEach(
+
+            reportersList.ForEach(
                 reporter =>
                     {
                         writer.WriteLine(@"<div class=""alert alert-secondary"" role=""alert"">");
 
                         string howMany = null;
-                        if (reporter["ReportedNumber"].ToType<int>() > 1)
+                        if (reporter.Item1.ReportedNumber > 1)
                         {
-                            howMany = $"({reporter["ReportedNumber"]})";
+                            howMany = $"({this.GetTextFormatted("REPORTED_TIMES", reporter.Item1.ReportedNumber)})";
                         }
+
+                        var reporterName = reporter.Item2.DisplayOrUserName();
 
                         // If the message was previously resolved we have not null string
                         // and can add an info about last user who resolved the message
-                        if (this.ResolvedDate.IsSet())
+                        if (this.ResolvedDate.IsSet() && DateTime.Parse(this.ResolvedDate) > DateTime.MinValue)
                         {
-                            var resolvedByName = this.GetRepository<User>().ListAsDataTable(
-                                this.PageContext.PageBoardID,
-                                this.ResolvedBy.ToType<int>(),
-                                true).Rows[0]["Name"].ToString();
+                            var resolvedBy = this.GetRepository<User>().GetById(
+                                this.ResolvedBy.Value);
 
-                            var resolvedByDisplayName =
-                                UserMembershipHelper.GetDisplayNameFromID(this.ResolvedBy.ToType<long>()).IsSet()
-                                    ? this.Server.HtmlEncode(
-                                        this.Get<IUserDisplayName>().GetName(this.ResolvedBy.ToType<int>()))
-                                    : this.Server.HtmlEncode(resolvedByName);
+                            var resolvedByName = resolvedBy.DisplayOrUserName();
 
                             writer.Write(
-                                @"<span class=""font-weight-bold"">{0}</span><a href=""{1}""> {2}</a> : {3}",
+                                @"<span class=""fw-bold me-2"">{0}</span><a href=""{1}"">{2}</a> : {3}",
                                 this.GetText("RESOLVEDBY"),
-                                BuildLink.GetLink(
-                                    ForumPages.Profile,
-                                    "u={0}&name={1}",
-                                    this.ResolvedBy.ToType<int>(),
-                                    resolvedByDisplayName),
-                                resolvedByDisplayName,
-                                this.Get<IDateTime>().FormatDateTimeTopic(this.ResolvedDate));
+                                this.Get<LinkBuilder>().GetUserProfileLink(this.ResolvedBy.ToType<int>(), resolvedByName),
+                                resolvedByName,
+                                this.Get<IDateTimeService>().FormatDateTimeTopic(this.ResolvedDate));
                         }
 
                         writer.Write(
-                            @"<span class=""font-weight-bold"">{3}</span><a href=""{1}""> {0}{2} </a>",
-                            UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()).IsSet()
-                                ? this.Server.HtmlEncode(
-                                    this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                                : this.Server.HtmlEncode(reporter["UserName"].ToString()),
-                            BuildLink.GetLink(
-                                ForumPages.Profile,
-                                "u={0}&name={1}",
-                                reporter["UserID"].ToType<int>(),
-                                reporter["UserName"].ToString()),
+                            @"<span class=""fw-bold mx-2"">{3}</span><a href=""{1}"" class=""me-2"">{0}</a><em>{2}</em>",
+                            reporterName,
+                            this.Get<LinkBuilder>().GetUserProfileLink(reporter.Item2.ID, reporterName),
                             howMany,
                             this.GetText("REPORTEDBY"));
 
                         writer.Write(
-                            @"<a class=""btn btn-secondary btn-sm"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
-                            UserMembershipHelper.GetDisplayNameFromID(reporter["UserID"].ToType<long>()).IsSet()
-                                ? this.Server.HtmlEncode(
-                                    this.Get<IUserDisplayName>().GetName(reporter["UserID"].ToType<int>()))
-                                : this.Server.HtmlEncode(reporter["UserName"].ToString()),
-                            BuildLink.GetLink(
+                            @"<a class=""btn btn-secondary btn-sm ms-2"" href=""{1}""><i class=""fa fa-envelope fa-fw""></i>&nbsp;{2} {0}</a>",
+                            reporterName,
+                            this.Get<LinkBuilder>().GetLink(
                                 ForumPages.PostPrivateMessage,
                                 "u={0}&r={1}",
-                                reporter["UserID"].ToType<int>(),
+                                reporter.Item2.ID,
                                 this.MessageID),
                             this.GetText("REPLYTO"));
 
-                        var reportString = reporter["ReportText"].ToString().Trim().Split('|');
+                        var reportString = reporter.Item1.ReportText.Trim().Split('|');
 
                         reportString.ForEach(
                             t =>
-                                {
-                                    var textString = t.Split("??".ToCharArray());
+                            {
+                                var textString = t.Split("??".ToCharArray());
 
-                                    writer.Write(
-                                        @"<span class=""font-weight-bold pl-1"">@</span><span class=""pl-1"">{0}</span>",
-                                        this.Get<IDateTime>().FormatDateTimeTopic(textString[0]));
+                                writer.Write(
+                                    @"<p class=""card-text"">@<span class=""ps-1"">{0}</span></p>",
+                                    this.Get<IDateTimeService>().FormatDateTimeTopic(textString[0]));
 
-                                    // Apply style if a post was previously resolved
-                                    var resStyle = "post_res";
-                                    try
-                                    {
-                                        if (!(textString[0].IsNotSet()
-                                              && this.ResolvedDate.IsNotSet()))
-                                        {
-                                            if (Convert.ToDateTime(textString[0])
-                                                < Convert.ToDateTime(this.ResolvedDate))
-                                            {
-                                                resStyle = "post";
-                                            }
-                                        }
-                                    }
-                                    catch (Exception)
-                                    {
-                                        resStyle = "post_res";
-                                    }
+                                writer.Write(@"<p class=""card-text"">");
 
-                                    if (textString.Length > 2)
-                                    {
-                                        writer.Write(@"<p class=""card-text {0}"">", resStyle);
-                                        writer.Write(textString[2]);
-                                        writer.WriteLine(@"</p>");
-                                    }
-                                    else
-                                    {
-                                        writer.WriteLine(@"<p class=""card-text"">");
-                                        writer.Write(t);
-                                        writer.WriteLine(@"</p>");
-                                    }
-                                });
+                                writer.Write(textString.Length > 2 ? textString[2] : t);
+
+                                writer.WriteLine(@"</p>");
+                            });
 
                         writer.Write("</div>");
                     });

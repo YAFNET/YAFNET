@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Tasks
 {
     #region Using
 
@@ -45,7 +45,10 @@ namespace YAF.Core
     {
         #region Static Fields
 
-        protected static ConcurrentDictionary<string, IBackgroundTask> _taskManager = new ConcurrentDictionary<string, IBackgroundTask>();
+        /// <summary>
+        /// The task manager.
+        /// </summary>
+        protected static ConcurrentDictionary<string, IBackgroundTask> taskManager = new();
 
         #endregion
 
@@ -54,43 +57,38 @@ namespace YAF.Core
         /// <summary>
         ///     Gets TaskCount.
         /// </summary>
-        public virtual int TaskCount => _taskManager.Count;
+        public virtual int TaskCount => taskManager.Count;
 
         /// <summary>
         ///     All the names of tasks running.
         /// </summary>
         [NotNull]
-        public virtual IList<string> TaskManagerInstances => _taskManager.Keys.ToList();
+        public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
 
         /// <summary>
         ///     Gets TaskManagerSnapshot.
         /// </summary>
         [NotNull]
-        public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot
-        {
-            get
-            {
-                return _taskManager.ToDictionary(k => k.Key, v => v.Value);
-            }
-        }
+        public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
 
         #endregion
 
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Check if Tasks are Running.
+        /// Check if Tasks are Running.
         /// </summary>
-        /// <param name="instanceNames">
+        /// <param name="instanceName">
+        /// The instance Names.
         /// </param>
         /// <returns>
-        ///     The tasks are running.
+        /// The tasks are running.
         /// </returns>
-        public virtual bool AreTasksRunning([NotNull] string[] instanceNames)
+        public virtual bool AreTasksRunning([NotNull] string[] instanceName)
         {
             var isRunning = false;
-            
-            foreach (var s in instanceNames)
+
+            foreach (var s in instanceName)
             {
                 isRunning = this.TryGetTask(s, out var task) && task.IsRunning;
                 if (isRunning)
@@ -117,20 +115,24 @@ namespace YAF.Core
         }
 
         /// <summary>
-        ///     Start a non-running task -- will set the <see cref="HttpApplication" /> instance.
+        /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
         /// </summary>
         /// <param name="instanceName">
-        ///     Unique name of this task
+        /// Unique name of this task
         /// </param>
-        /// <param name="start">
-        ///     Task to run
+        /// <param name="startTask">
+        /// Task to run
         /// </param>
-        public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start);
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> startTask);
 
         /// <summary>
-        ///     Stops a task from running if it's not critical
+        /// Stops a task from running if it's not critical
         /// </summary>
         /// <param name="instanceName">
+        /// The instance Name.
         /// </param>
         public virtual void StopTask([NotNull] string instanceName)
         {
@@ -161,34 +163,35 @@ namespace YAF.Core
         /// </returns>
         public virtual bool TaskExists([NotNull] string instanceName)
         {
-            return _taskManager.ContainsKey(instanceName);
+            return taskManager.ContainsKey(instanceName);
         }
 
         /// <summary>
-        ///     Attempt to get the instance of the task.
+        /// Attempt to get the instance of the task.
         /// </summary>
         /// <param name="instanceName">
         /// The instance Name.
         /// </param>
-        /// <returns>
-        /// </returns>
-        public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task)
-        {
-            return _taskManager.TryGetValue(instanceName, out task);
-        }
-
-        /// <summary>
-        ///     The try remove task.
-        /// </summary>
-        /// <param name="instanceName">
-        ///     The instance name.
+        /// <param name="task">
+        /// The task.
         /// </param>
         /// <returns>
-        ///     The try remove task.
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task) => taskManager.TryGetValue(instanceName, out task);
+
+        /// <summary>
+        /// The try remove task.
+        /// </summary>
+        /// <param name="instanceName">
+        /// The instance name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
         /// </returns>
         public virtual bool TryRemoveTask([NotNull] string instanceName)
         {
-            return _taskManager.TryRemove(instanceName, out var task);
+            return taskManager.TryRemove(instanceName, out _);
         }
 
         #endregion

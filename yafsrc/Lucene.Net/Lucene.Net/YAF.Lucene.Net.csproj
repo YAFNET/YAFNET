@@ -31,7 +31,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="J2N" Version="2.0.0-beta-0012" />
+    <Compile Remove="Index\Memory\**" />
+    <EmbeddedResource Remove="Index\Memory\**" />
+    <None Remove="Index\Memory\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="J2N" Version="2.0.0-beta-0016" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Primitives" Version="5.0.1" />
   </ItemGroup>
@@ -42,7 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Index\Memory\" />
     <Folder Include="Sandbox\" />
   </ItemGroup>
 

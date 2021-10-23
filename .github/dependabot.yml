@@ -1,0 +1,13 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/yafsrc/"
+  schedule:
+    interval: daily
+    time: "04:00"
+  open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/yafsrc/YetAnotherForum.NET/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10

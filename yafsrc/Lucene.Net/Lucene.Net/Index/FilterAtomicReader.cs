@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A <see cref="FilterAtomicReader"/> contains another <see cref="AtomicReader"/>, which it
@@ -52,9 +52,9 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public static AtomicReader Unwrap(AtomicReader reader)
         {
-            while (reader is FilterAtomicReader)
+            while (reader is FilterAtomicReader filterAtomicReader)
             {
-                reader = ((FilterAtomicReader)reader).m_input;
+                reader = filterAtomicReader.m_input;
             }
             return reader;
         }

@@ -70,6 +70,6 @@ namespace YAF.UrlRewriter.Actions
         /// </summary>
         public IList<IRewriteCondition> Conditions { get; } = new List<IRewriteCondition>();
 
-        private bool _permanent;
+        private readonly bool _permanent;
     }
 }

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,11 +30,6 @@ namespace YAF.Types.Constants
     public enum AuthService
     {
         /// <summary>
-        /// regular login UTH service
-        /// </summary>
-        none,
-
-        /// <summary>
         /// The facebook AUTH service
         /// </summary>
         facebook,
@@ -47,6 +42,11 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The google AUTH service
         /// </summary>
-        google
+        google,
+
+        /// <summary>
+        /// The github.
+        /// </summary>
+        github
     }
 }

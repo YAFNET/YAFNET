@@ -1,8 +1,9 @@
-using J2N.Runtime.CompilerServices;
+﻿using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using JCG = J2N.Collections.Generic;
 
@@ -25,7 +26,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// An <see cref="AtomicReader"/> which reads multiple, parallel indexes.  Each index
@@ -48,13 +49,8 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     public class ParallelAtomicReader : AtomicReader
     {
-        private void InitializeInstanceFields()
-        {
-            fields = new ParallelFields(this);
-        }
-
         private readonly FieldInfos fieldInfos;
-        private ParallelFields fields;
+        private readonly ParallelFields fields = new ParallelFields();
         private readonly AtomicReader[] parallelReaders, storedFieldsReaders;
         private readonly ISet<AtomicReader> completeReaderSet = new JCG.HashSet<AtomicReader>(IdentityEqualityComparer<AtomicReader>.Default);
         private readonly bool closeSubReaders;
@@ -90,7 +86,6 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public ParallelAtomicReader(bool closeSubReaders, AtomicReader[] readers, AtomicReader[] storedFieldsReaders)
         {
-            InitializeInstanceFields();
             this.closeSubReaders = closeSubReaders;
             if (readers.Length == 0 && storedFieldsReaders.Length > 0)
             {
@@ -194,14 +189,11 @@ namespace YAF.Lucene.Net.Index
         // Single instance of this, per ParallelReader instance
         private sealed class ParallelFields : Fields
         {
-            private readonly ParallelAtomicReader outerInstance;
-
             // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
             internal readonly IDictionary<string, Terms> fields = new JCG.SortedDictionary<string, Terms>(StringComparer.Ordinal);
 
-            internal ParallelFields(ParallelAtomicReader outerInstance)
+            internal ParallelFields()
             {
-                this.outerInstance = outerInstance;
             }
 
             internal void AddField(string fieldName, Terms terms)
@@ -216,8 +208,7 @@ namespace YAF.Lucene.Net.Index
 
             public override Terms GetTerms(string field)
             {
-                Terms result;
-                fields.TryGetValue(field, out result);
+                fields.TryGetValue(field, out Terms result);
                 return result;
             }
 
@@ -282,7 +273,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     if (fields == null)
                     {
-                        fields = new ParallelFields(this);
+                        fields = new ParallelFields();
                     }
                     fields.AddField(fieldName, vector);
                 }
@@ -295,7 +286,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                IOException ioe = null;
+                Exception ioe = null; // LUCENENET: No need to cast to IOExcpetion
                 foreach (AtomicReader reader in completeReaderSet)
                 {
                     try
@@ -309,7 +300,7 @@ namespace YAF.Lucene.Net.Index
                             reader.DecRef();
                         }
                     }
-                    catch (IOException e)
+                    catch (Exception e) when (e.IsIOException())
                     {
                         if (ioe == null)
                         {
@@ -320,7 +311,7 @@ namespace YAF.Lucene.Net.Index
                 // throw the first exception
                 if (ioe != null)
                 {
-                    throw ioe;
+                    ExceptionDispatchInfo.Capture(ioe).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
                 }
             }
         }
@@ -328,44 +319,38 @@ namespace YAF.Lucene.Net.Index
         public override NumericDocValues GetNumericDocValues(string field)
         {
             EnsureOpen();
-            AtomicReader reader;
-            return fieldToReader.TryGetValue(field, out reader) ? reader.GetNumericDocValues(field) : null;
+            return fieldToReader.TryGetValue(field, out AtomicReader reader) ? reader.GetNumericDocValues(field) : null;
         }
 
         public override BinaryDocValues GetBinaryDocValues(string field)
         {
             EnsureOpen();
-            AtomicReader reader;
-            return fieldToReader.TryGetValue(field, out reader) ? reader.GetBinaryDocValues(field) : null;
+            return fieldToReader.TryGetValue(field, out AtomicReader reader) ? reader.GetBinaryDocValues(field) : null;
         }
 
         public override SortedDocValues GetSortedDocValues(string field)
         {
             EnsureOpen();
-            AtomicReader reader;
-            return fieldToReader.TryGetValue(field, out reader) ? reader.GetSortedDocValues(field) : null;
+            return fieldToReader.TryGetValue(field, out AtomicReader reader) ? reader.GetSortedDocValues(field) : null;
         }
 
         public override SortedSetDocValues GetSortedSetDocValues(string field)
         {
             EnsureOpen();
-            AtomicReader reader;
-            return fieldToReader.TryGetValue(field, out reader) ? reader.GetSortedSetDocValues(field) : null;
+            return fieldToReader.TryGetValue(field, out AtomicReader reader) ? reader.GetSortedSetDocValues(field) : null;
         }
 
         public override IBits GetDocsWithField(string field)
         {
             EnsureOpen();
-            AtomicReader reader;
-            return fieldToReader.TryGetValue(field, out reader) ? reader.GetDocsWithField(field) : null;
+            return fieldToReader.TryGetValue(field, out AtomicReader reader) ? reader.GetDocsWithField(field) : null;
         }
 
         public override NumericDocValues GetNormValues(string field)
         {
             EnsureOpen();
-            AtomicReader reader;
             NumericDocValues values = null;
-            if (fieldToReader.TryGetValue(field, out reader))
+            if (fieldToReader.TryGetValue(field, out AtomicReader reader))
             {
                 values = reader.GetNormValues(field);
             }

@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// Embeds a [read-only] <see cref="SegmentInfo"/> and adds per-commit
@@ -243,7 +243,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (value < 0 || value > Info.DocCount)
                 {
-                    throw new ArgumentException("invalid delCount=" + value + " (docCount=" + Info.DocCount + ")");
+                    throw new ArgumentOutOfRangeException(nameof(DelCount), "invalid delCount=" + value + " (docCount=" + Info.DocCount + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.delCount = value;
             }

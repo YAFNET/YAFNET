@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 
@@ -144,13 +144,13 @@ namespace YAF.Lucene.Net.Codecs
         {
             get
             {
-                if (codecFactory is IServiceListable)
+                if (codecFactory is IServiceListable serviceListable)
                 {
-                    return ((IServiceListable)codecFactory).AvailableServices;
+                    return serviceListable.AvailableServices;
                 }
                 else
                 {
-                    throw new NotSupportedException("The current CodecFactory class does not implement IServiceListable.");
+                    throw UnsupportedOperationException.Create("The current CodecFactory class does not implement IServiceListable.");
                 }
             }
         }

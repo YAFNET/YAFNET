@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class digest
+    public partial class Digest
     {
 
         /// <summary>
@@ -22,24 +22,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-
-        /// <summary>
-        /// LocalizedLabel9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel9;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -87,15 +69,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton Button2;
 
         /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-
-        /// <summary>
         /// DigestHtmlPlaceHolder control.
         /// </summary>
         /// <remarks>
@@ -130,15 +103,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton GenerateDigest;
-
-        /// <summary>
-        /// LocalizedLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
         /// LocalizedLabel7 control.

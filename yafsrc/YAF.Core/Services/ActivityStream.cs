@@ -29,7 +29,6 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -63,19 +62,19 @@ namespace YAF.Core.Services
         /// <param name="messageID">The message unique identifier.</param>
         /// <param name="topicTitle">The topic title.</param>
         /// <param name="message">The message.</param>
-        public void AddTopicToStream(int forumID, long topicID, int messageID, string topicTitle, string message)
+        public void AddTopicToStream(int forumID, int topicID, int messageID, string topicTitle, string message)
         {
             var flags = new ActivityFlags { CreatedTopic = true };
 
             var activity = new Activity
             {
-                                   Flags = flags.BitValue,
-                                   TopicID = topicID.ToType<int>(),
-                                   MessageID = messageID,
-                                   UserID = forumID,
-                                   Notification = false,
-                                   Created = System.DateTime.UtcNow
-                               };
+                Flags = flags.BitValue,
+                TopicID = topicID,
+                MessageID = messageID,
+                UserID = forumID,
+                Notification = false,
+                Created = DateTime.UtcNow
+            };
 
             this.GetRepository<Activity>().Insert(activity);
         }
@@ -88,18 +87,18 @@ namespace YAF.Core.Services
         /// <param name="messageID">The message unique identifier.</param>
         /// <param name="topicTitle">The topic title.</param>
         /// <param name="message">The message.</param>
-        public void AddReplyToStream(int forumID, long topicID, int messageID, string topicTitle, string message)
+        public void AddReplyToStream(int forumID, int topicID, int messageID, string topicTitle, string message)
         {
             var flags = new ActivityFlags { CreatedReply = true };
 
             var activity = new Activity
             {
-                                   Flags = flags.BitValue,
-                                   TopicID = topicID.ToType<int>(),
-                                   MessageID = messageID,
-                                   UserID = forumID,
-                                   Notification = false,
-                                   Created = System.DateTime.UtcNow
+                Flags = flags.BitValue,
+                TopicID = topicID,
+                MessageID = messageID,
+                UserID = forumID,
+                Notification = false,
+                Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -132,7 +131,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -168,7 +167,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
                                };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -204,7 +203,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = true,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);
@@ -240,7 +239,7 @@ namespace YAF.Core.Services
                                    MessageID = messageId,
                                    UserID = userId,
                                    Notification = false,
-                                   Created = System.DateTime.UtcNow
+                                   Created = DateTime.UtcNow
             };
 
             this.GetRepository<Activity>().Insert(activity);

@@ -28,28 +28,11 @@ namespace YAF.Core.Services.CheckForSpam
     #endregion
 
     /// <summary>
-    /// The akismet spam client.
+    /// The Akismet spam client.
     /// </summary>
     public class AkismetSpamClient : CheckForSpamClientBase
     {
         #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AkismetSpamClient"/> class.
-        /// </summary>
-        /// <param name="apiKey">
-        /// The api key.
-        /// </param>
-        /// <param name="blogUrl">
-        /// The blog url.
-        /// </param>
-        /// <param name="httpClient">
-        /// The http client.
-        /// </param>
-        public AkismetSpamClient([NotNull] string apiKey, [NotNull] Uri blogUrl, [NotNull] HttpClient httpClient)
-            : base(apiKey, blogUrl, httpClient)
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AkismetSpamClient"/> class.
@@ -73,25 +56,25 @@ namespace YAF.Core.Services.CheckForSpam
         /// Gets CheckUrlFormat.
         /// </summary>
         [NotNull]
-        protected override string CheckUrlFormat => "http://{0}.rest.akismet.com/1.1/comment-check";
+        protected override string CheckUrlFormat => "https://{0}.rest.akismet.com/1.1/comment-check";
 
         /// <summary>
         /// Gets SubmitHamUrlFormat.
         /// </summary>
         [NotNull]
-        protected override string SubmitHamUrlFormat => "http://{0}.rest.akismet.com/1.1/submit-ham";
+        protected override string SubmitHamUrlFormat => "https://{0}.rest.akismet.com/1.1/submit-ham";
 
         /// <summary>
         /// Gets SubmitSpamUrlFormat.
         /// </summary>
         [NotNull]
-        protected override string SubmitSpamUrlFormat => "http://{0}.rest.akismet.com/1.1/submit-spam";
+        protected override string SubmitSpamUrlFormat => "https://{0}.rest.akismet.com/1.1/submit-spam";
 
         /// <summary>
         /// Gets SubmitVerifyKeyFormat.
         /// </summary>
         [NotNull]
-        protected override string SubmitVerifyKeyFormat => "http://rest.akismet.com/1.1/verify-key";
+        protected override string SubmitVerifyKeyFormat => "https://rest.akismet.com/1.1/verify-key";
 
         #endregion
     }

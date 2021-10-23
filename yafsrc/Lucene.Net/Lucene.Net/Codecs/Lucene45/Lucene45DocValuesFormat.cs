@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace YAF.Lucene.Net.Codecs.Lucene45
 {
     /*
@@ -17,8 +19,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * limitations under the License.
      */
 
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Lucene 4.5 DocValues format.
@@ -159,11 +161,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         {
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override DocValuesConsumer FieldsConsumer(SegmentWriteState state)
         {
             return new Lucene45DocValuesConsumer(state, DATA_CODEC, DATA_EXTENSION, META_CODEC, META_EXTENSION);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override DocValuesProducer FieldsProducer(SegmentReadState state)
         {
             return new Lucene45DocValuesProducer(state, DATA_CODEC, DATA_EXTENSION, META_CODEC, META_EXTENSION);

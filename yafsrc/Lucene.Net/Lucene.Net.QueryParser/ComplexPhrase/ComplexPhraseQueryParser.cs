@@ -26,6 +26,12 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
      * limitations under the License.
      */
 
+    // LUCENENET: Special case exception - QueryParser has its own ParseException types that are generated.
+    // We won't know until we start generating QueryParser how to handle this scenario, but for now we are
+    // mapping this explicitly INSIDE of the namespace declaration to prevent our Lucene.ParseException from being
+    // used instead.
+    using ParseException  = YAF.Lucene.Net.QueryParsers.Classic.ParseException;
+
     /// <summary>
     /// <see cref="QueryParser"/> which permits complex phrase query syntax eg "(john jon
     /// jonathan~) peters*".
@@ -142,7 +148,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                 }
                 catch (ParseException pe)
                 {
-                    throw new Exception("Error parsing complex phrase", pe);
+                    throw RuntimeException.Create("Error parsing complex phrase", pe);
                 }
             }
             return base.NewTermQuery(term);
@@ -279,10 +285,10 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                         numNegatives++;
                     }
 
-                    if (qc is BooleanQuery)
+                    if (qc is BooleanQuery booleanQuery)
                     {
                         List<SpanQuery> sc = new List<SpanQuery>();
-                        AddComplexPhraseClause(sc, (BooleanQuery)qc);
+                        AddComplexPhraseClause(sc, booleanQuery);
                         if (sc.Count > 0)
                         {
                             allSpanClauses[i] = sc[0];
@@ -298,9 +304,8 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                     }
                     else
                     {
-                        if (qc is TermQuery)
+                        if (qc is TermQuery tq)
                         {
-                            TermQuery tq = (TermQuery)qc;
                             allSpanClauses[i] = new SpanTermQuery(tq.Term);
                         }
                         else
@@ -333,7 +338,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                 SpanQuery[] includeClauses = positiveClauses
                     .ToArray();
 
-                SpanQuery include = null;
+                SpanQuery include; // LUCENENET: IDE0059: Remove unnecessary value assignment
                 if (includeClauses.Length == 1)
                 {
                     include = includeClauses[0]; // only one positive clause
@@ -370,16 +375,14 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                         chosenList = nots;
                     }
 
-                    if (childQuery is TermQuery)
+                    if (childQuery is TermQuery tq)
                     {
-                        TermQuery tq = (TermQuery)childQuery;
                         SpanTermQuery stq = new SpanTermQuery(tq.Term);
                         stq.Boost = tq.Boost;
                         chosenList.Add(stq);
                     }
-                    else if (childQuery is BooleanQuery)
+                    else if (childQuery is BooleanQuery cbq)
                     {
-                        BooleanQuery cbq = (BooleanQuery)childQuery;
                         AddComplexPhraseClause(chosenList, cbq);
                     }
                     else

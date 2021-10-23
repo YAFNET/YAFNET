@@ -1,4 +1,5 @@
-﻿using J2N;
+﻿// Lucene version compatibility level 4.8.1
+using J2N;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Diagnostics;
@@ -184,7 +185,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
                 CharacterUtils.GetInstance(version) : CharacterUtils.GetJava4Instance(version);
             if (minGram < 1)
             {
-                throw new ArgumentException("minGram must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(minGram), "minGram must be greater than zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (minGram > maxGram)
             {

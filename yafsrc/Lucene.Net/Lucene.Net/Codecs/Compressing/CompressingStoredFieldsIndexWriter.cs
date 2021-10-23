@@ -1,6 +1,6 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// Efficient index format for block-based <see cref="Codec"/>s.
@@ -73,6 +73,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
     {
         internal const int BLOCK_SIZE = 1024; // number of chunks to serialize at once
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static long MoveSignToLowOrderBit(long n)
         {
             return (n >> 63) ^ (n << 1);
@@ -97,6 +98,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             fieldsIndexOut.WriteVInt32(PackedInt32s.VERSION_CURRENT);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void Reset()
         {
             blockChunks = 0;
@@ -212,7 +214,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             if (numDocs != totalDocs)
             {
-                throw new InvalidOperationException("Expected " + numDocs + " docs, but got " + totalDocs);
+                throw IllegalStateException.Create("Expected " + numDocs + " docs, but got " + totalDocs);
             }
             if (blockChunks > 0)
             {
@@ -223,6 +225,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             CodecUtil.WriteFooter(fieldsIndexOut);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Dispose()
         {
             fieldsIndexOut.Dispose();

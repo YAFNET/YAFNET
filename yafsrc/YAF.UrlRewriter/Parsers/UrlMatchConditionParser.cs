@@ -1,9 +1,9 @@
-// UrlRewriter - A .NET URL Rewriter module
+﻿// UrlRewriter - A .NET URL Rewriter module
 // Version 2.0
 //
 // Copyright 2011 Intelligencia
 // Copyright 2011 Seth Yates
-// 
+//
 
 namespace YAF.UrlRewriter.Parsers
 {
@@ -32,12 +32,8 @@ namespace YAF.UrlRewriter.Parsers
             }
 
             var urlPattern = node.GetOptionalAttribute(Constants.AttrUrl);
-            if (urlPattern == null)
-            {
-                return null;
-            }
 
-            return new UrlMatchCondition(urlPattern);
+            return urlPattern == null ? null : new UrlMatchCondition(urlPattern);
         }
     }
 }

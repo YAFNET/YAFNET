@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A data compressor.

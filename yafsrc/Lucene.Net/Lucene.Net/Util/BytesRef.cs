@@ -1,9 +1,11 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
 
@@ -41,10 +43,9 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
+    // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
+    [DebuggerDisplay("{ToString()} {Utf8ToString()}")]
     public sealed class BytesRef : IComparable<BytesRef>, IComparable, IEquatable<BytesRef> // LUCENENET specific - implemented IComparable for FieldComparator, IEquatable<BytesRef>
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
     {
         /// <summary>
         /// An empty byte array for convenience </summary>
@@ -138,6 +139,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="text"> Must be well-formed unicode text, with no
         /// unpaired surrogates or invalid UTF16 code units. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CopyChars(ICharSequence text)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(Offset == 0); // TODO broken if offset != 0
@@ -149,6 +151,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="text"> Must be well-formed unicode text, with no
         /// unpaired surrogates or invalid UTF16 code units. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CopyChars(string text)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(Offset == 0); // TODO broken if offset != 0
@@ -191,6 +194,7 @@ namespace YAF.Lucene.Net.Util
         /// object.
         /// </summary>
         /// <seealso cref="DeepCopyOf(BytesRef)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Clone()
         {
             return new BytesRef(bytes, Offset, Length);
@@ -199,10 +203,11 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Calculates the hash code as required by <see cref="Index.TermsHash"/> during indexing.
         /// <para/> This is currently implemented as MurmurHash3 (32
-        /// bit), using the seed from 
+        /// bit), using the seed from
         /// <see cref="StringHelper.GOOD_FAST_HASH_SEED"/>, but is subject to
         /// change from release to release.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             return StringHelper.Murmurhash3_x86_32(this, StringHelper.GOOD_FAST_HASH_SEED);
@@ -219,6 +224,7 @@ namespace YAF.Lucene.Net.Util
             return false;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         bool IEquatable<BytesRef>.Equals(BytesRef other) // LUCENENET specific - implemented IEquatable<BytesRef>
             => BytesEquals(other);
 
@@ -226,6 +232,7 @@ namespace YAF.Lucene.Net.Util
         /// Interprets stored bytes as UTF8 bytes, returning the
         /// resulting <see cref="string"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string Utf8ToString()
         {
             CharsRef @ref = new CharsRef(Length);
@@ -296,6 +303,7 @@ namespace YAF.Lucene.Net.Util
         /// <para/>
         /// @lucene.internal
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Grow(int newLength)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(Offset == 0); // NOTE: senseless if offset != 0
@@ -304,6 +312,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Unsigned byte order comparison </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CompareTo(object other) // LUCENENET specific: Implemented IComparable for FieldComparer
         {
             BytesRef br = other as BytesRef;
@@ -313,6 +322,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Unsigned byte order comparison </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CompareTo(BytesRef other)
         {
             return utf8SortedAsUnicodeSortOrder.Compare(this, other);
@@ -343,6 +353,7 @@ namespace YAF.Lucene.Net.Util
         /// The returned <see cref="BytesRef"/> will have a length of <c>other.Length</c>
         /// and an offset of zero.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static BytesRef DeepCopyOf(BytesRef other)
         {
             BytesRef copy = new BytesRef();
@@ -358,31 +369,31 @@ namespace YAF.Lucene.Net.Util
         {
             if (Bytes == null)
             {
-                throw new InvalidOperationException("bytes is null");
+                throw IllegalStateException.Create("bytes is null");
             }
             if (Length < 0)
             {
-                throw new InvalidOperationException("length is negative: " + Length);
+                throw IllegalStateException.Create("length is negative: " + Length);
             }
             if (Length > Bytes.Length)
             {
-                throw new InvalidOperationException("length is out of bounds: " + Length + ",bytes.length=" + Bytes.Length);
+                throw IllegalStateException.Create("length is out of bounds: " + Length + ",bytes.length=" + Bytes.Length);
             }
             if (Offset < 0)
             {
-                throw new InvalidOperationException("offset is negative: " + Offset);
+                throw IllegalStateException.Create("offset is negative: " + Offset);
             }
             if (Offset > Bytes.Length)
             {
-                throw new InvalidOperationException("offset out of bounds: " + Offset + ",bytes.length=" + Bytes.Length);
+                throw IllegalStateException.Create("offset out of bounds: " + Offset + ",bytes.length=" + Bytes.Length);
             }
             if (Offset + Length < 0)
             {
-                throw new InvalidOperationException("offset+length is negative: offset=" + Offset + ",length=" + Length);
+                throw IllegalStateException.Create("offset+length is negative: offset=" + Offset + ",length=" + Length);
             }
             if (Offset + Length > Bytes.Length)
             {
-                throw new InvalidOperationException("offset+length out of bounds: offset=" + Offset + ",length=" + Length + ",bytes.length=" + Bytes.Length);
+                throw IllegalStateException.Create("offset+length out of bounds: offset=" + Offset + ",length=" + Length + ",bytes.length=" + Bytes.Length);
             }
             return true;
         }
@@ -492,7 +503,7 @@ namespace YAF.Lucene.Net.Util
         UTF8AsHex
     }
 
-    // LUCENENET specific - when this object is a parameter of 
+    // LUCENENET specific - when this object is a parameter of
     // a method that calls string.Format(),
     // defers execution of building a string until
     // string.Format() is called.
@@ -522,7 +533,7 @@ namespace YAF.Lucene.Net.Util
                     {
                         return bytesRef.Utf8ToString();
                     }
-                    catch (IndexOutOfRangeException)
+                    catch (Exception e) when (e.IsIndexOutOfBoundsException())
                     {
                         return bytesRef.ToString();
                     }

@@ -55,19 +55,11 @@ namespace YAF.Core.Model
         /// <param name="topicId">
         /// The topic ID.
         /// </param>
-        public static void Add(
-            this IRepository<TopicTag> repository,
-            int tagId,
-            int topicId)
+        public static void Add(this IRepository<TopicTag> repository, [NotNull] int tagId, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            var newId = repository.Insert(
-                new TopicTag
-                    {
-                        TagID = tagId,
-                        TopicID = topicId
-                    });
+            var newId = repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
 
             repository.FireNew(newId);
         }
@@ -84,18 +76,16 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, int topicId)
+        public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
             expression.Join<Tag>((topicTag, tag) => tag.ID == topicTag.TagID)
-                .Where<TopicTag>(t => t.TopicID == topicId)
-                .Select();
+                .Where<TopicTag>(t => t.TopicID == topicId);
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<TopicTag, Tag>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<TopicTag, Tag>(expression));
         }
 
         /// <summary>
@@ -110,11 +100,11 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
+        public static string ListAsDelimitedString(this IRepository<TopicTag> repository, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
-            
-            return  repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
         }
 
         #endregion

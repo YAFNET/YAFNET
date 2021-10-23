@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,6 +27,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -34,20 +35,9 @@ namespace YAF.Types.Models
     ///     A class which represents the Active table.
     /// </summary>
     [Serializable]
-    public partial class Active : IEntity, IHaveBoardID
+    [CompositePrimaryKey(nameof(SessionID), nameof(BoardID))]
+    public class Active : IEntity, IHaveBoardID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Active"/> class.
-        /// </summary>
-        public Active()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -69,6 +59,17 @@ namespace YAF.Types.Models
         public int? Flags { get; set; }
 
         /// <summary>
+        /// Gets or sets the user flags.
+        /// </summary>
+        [Ignore]
+        public ActiveFlags ActiveFlags
+        {
+            get => new(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
+
+        /// <summary>
         /// Gets or sets the forum id.
         /// </summary>
         [References(typeof(Forum))]
@@ -81,7 +82,7 @@ namespace YAF.Types.Models
         public string ForumPage { get; set; }
 
         /// <summary>
-        /// Gets or sets the ip.
+        /// Gets or sets the IP Address.
         /// </summary>
         [Required]
         [StringLength(39)]
@@ -115,7 +116,7 @@ namespace YAF.Types.Models
         /// Gets or sets the session id.
         /// </summary>
         [Required]
-        [StringLength(24)]
+        [StringLength(50)]
         public string SessionID { get; set; }
 
         /// <summary>
@@ -130,15 +131,6 @@ namespace YAF.Types.Models
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

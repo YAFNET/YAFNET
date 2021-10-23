@@ -29,6 +29,7 @@ namespace YAF.Types.Exceptions
     /// <summary>
     ///     The no valid DB access provider found exception.
     /// </summary>
+    [Serializable]
     public class NoValidDbAccessProviderFoundException : Exception
     {
         #region Constructors and Destructors

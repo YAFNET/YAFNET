@@ -23,18 +23,18 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i have board id.
-  /// </summary>
-  public interface IHaveBoardID
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets BoardId.
+    /// The i have board id.
     /// </summary>
-    int BoardID { get; }
+    public interface IHaveBoardID
+    {
+        #region Properties
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets BoardId.
+        /// </summary>
+        int BoardID { get; }
+
+        #endregion
+    }
 }

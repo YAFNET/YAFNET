@@ -38,7 +38,7 @@ namespace YAF.Core.ForumModules
   /// <summary>
   /// The user clean up task module.
   /// </summary>
-  [YafModule("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
+  [Module("Clean Up User Task Starting Module", "Tiny Gecko", 1)]
   public class UserCleanUpTaskForumModule : BaseForumModule
   {
     #region Public Methods
@@ -57,7 +57,7 @@ namespace YAF.Core.ForumModules
     #region Methods
 
     /// <summary>
-    /// The current_ after init.
+    /// Start Task after Initialization
     /// </summary>
     /// <param name="sender">
     /// The sender.

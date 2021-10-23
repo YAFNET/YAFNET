@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,6 +27,7 @@ namespace YAF.Types.Extensions
 
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using YAF.Types.Attributes;
 
@@ -40,25 +41,23 @@ namespace YAF.Types.Extensions
         #region Public Methods
 
         /// <summary>
-        /// Gets all items for an enum type.
+        /// Gets all items for an Enumerator type.
         /// </summary>
         /// <typeparam name="T">
+        /// the Typed Parameter
         /// </typeparam>
         /// <returns>
-        /// The <see cref="IEnumerable"/>.
+        /// Returns all Enumerator Items
         /// </returns>
         public static IEnumerable<T> GetAllItems<T>() where T : struct
         {
-            foreach (var item in Enum.GetValues(typeof(T)))
-            {
-                yield return (T)item;
-            }
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
 
         /// <summary>
-        /// Will get the string value for a given enums value, this will
+        /// Will get the string value for a given Enumerator value, this will
         ///   only work if you assign the StringValue attribute to
-        ///   the items in your enum.
+        ///   the items in your Enumerator.
         /// </summary>
         /// <param name="value">
         /// The value.
@@ -89,53 +88,53 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// The to enum.
+        /// Converts A Integer to an Enumerator.
         /// </summary>
         /// <param name="value">
         /// The value.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Enumerator.
         /// </typeparam>
         /// <returns>
+        /// Returns the Typed Enumerator.
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         public static T ToEnum<T>(this int value)
         {
             var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
-                throw new ApplicationException("ToEnum does not support non-enum types");
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
             }
 
             return (T)Enum.Parse(enumType, value.ToString());
         }
 
         /// <summary>
-        /// The to enum.
+        /// Converts A String to an Enumerator.
         /// </summary>
         /// <param name="value">
         /// The value.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Enumerator.
         /// </typeparam>
         /// <returns>
+        /// Returns the Typed Enumerator.
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         public static T ToEnum<T>(this string value)
         {
             var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
-                throw new ApplicationException("ToEnum does not support non-enum types");
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
             }
 
             return (T)Enum.Parse(enumType, value);
         }
 
         /// <summary>
-        /// The to enum.
+        /// Converts A String to an Enumerator.
         /// </summary>
         /// <param name="value">
         /// The value.
@@ -144,53 +143,30 @@ namespace YAF.Types.Extensions
         /// The ignore Case.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Enumerator.
         /// </typeparam>
         /// <returns>
+        /// Returns the Typed Enumerator.
         /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
         public static T ToEnum<T>(this string value, bool ignoreCase)
         {
             var enumType = typeof(T);
             if (enumType.BaseType != typeof(Enum))
             {
-                throw new ApplicationException("ToEnum does not support non-enum types");
+                throw new ArgumentNullException(nameof(value), "ToEnum does not support non-enum types");
             }
 
             return (T)Enum.Parse(enumType, value, ignoreCase);
         }
 
         /// <summary>
-        /// The to enum.
-        /// </summary>
-        /// <param name="value">
-        /// The value.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// </returns>
-        /// <exception cref="ApplicationException">
-        /// </exception>
-        public static T ToEnum<T>(this object value)
-        {
-            var enumType = typeof(T);
-            if (enumType.BaseType != typeof(Enum))
-            {
-                throw new ApplicationException("ObjToEnum does not support non-enum types");
-            }
-
-            return (T)Enum.Parse(enumType, value.ToString());
-        }
-
-        /// <summary>
-        /// Will get the enum value as an integer saving a cast (int).
+        /// Will get the Enumerator value as an integer saving a cast
         /// </summary>
         /// <param name="value">
         /// The value.
         /// </param>
         /// <returns>
-        /// The to int.
+        /// The Integer value.
         /// </returns>
         public static int ToInt(this Enum value)
         {

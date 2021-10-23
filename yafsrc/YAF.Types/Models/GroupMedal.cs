@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,48 +24,50 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_GroupMedal table.
+    /// A class which represents the GroupMedal table.
     /// </summary>
     [Serializable]
-    [Table(Name = "GroupMedal")]
-    public partial class GroupMedal : IEntity
+    [CompositePrimaryKey(nameof(MedalID), nameof(GroupID))]
+    public class GroupMedal : IEntity
     {
-        partial void OnCreated();
-
-        public GroupMedal()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
-
+        /// <summary>
+        /// Gets or sets the group id.
+        /// </summary>
         [References(typeof(Group))]
         [Required]
         public int GroupID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the medal id.
+        /// </summary>
         [References(typeof(Medal))]
         [Required]
         public int MedalID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the message.
+        /// </summary>
         [StringLength(100)]
         public string Message { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether hide.
+        /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool Hide { get; set; }
 
-        [Required]
-        [Default(0)]
-        public bool OnlyRibbon { get; set; }
-
+        /// <summary>
+        /// Gets or sets the sort order.
+        /// </summary>
         [Required]
         [Default(255)]
         public byte SortOrder { get; set; }

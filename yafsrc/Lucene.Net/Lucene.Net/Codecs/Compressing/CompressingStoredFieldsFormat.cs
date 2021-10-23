@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -19,10 +20,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// A <see cref="StoredFieldsFormat"/> that is very similar to
@@ -96,21 +97,24 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             this.compressionMode = compressionMode;
             if (chunkSize < 1)
             {
-                throw new ArgumentException("chunkSize must be >= 1");
+                throw new ArgumentOutOfRangeException(nameof(chunkSize), "chunkSize must be >= 1"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.chunkSize = chunkSize;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override StoredFieldsReader FieldsReader(Directory directory, SegmentInfo si, FieldInfos fn, IOContext context)
         {
             return new CompressingStoredFieldsReader(directory, si, segmentSuffix, fn, context, formatName, compressionMode);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override StoredFieldsWriter FieldsWriter(Directory directory, SegmentInfo si, IOContext context)
         {
             return new CompressingStoredFieldsWriter(directory, si, segmentSuffix, context, formatName, compressionMode, chunkSize);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
             return this.GetType().Name + "(compressionMode=" + compressionMode + ", chunkSize=" + chunkSize + ")";

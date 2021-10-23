@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,7 +28,9 @@ namespace YAF.Core.BaseControls
   using System;
   using System.Web.UI;
 
+  using YAF.Core.Context;
   using YAF.Types.Interfaces;
+  using YAF.Types.Interfaces.Services;
 
   #endregion
 
@@ -47,14 +49,14 @@ namespace YAF.Core.BaseControls
     /// <summary>
     /// The _logger.
     /// </summary>
-    private ILogger _logger;
+    private ILoggerService _logger;
 
     #endregion
 
     #region Constructors and Destructors
 
     /// <summary>
-    ///   Initializes a new instance of the <see cref = "BaseUserControl" /> class. 
+    ///   Initializes a new instance of the <see cref = "BaseUserControl" /> class.
     /// </summary>
     public BaseUserControl()
     {
@@ -73,7 +75,7 @@ namespace YAF.Core.BaseControls
     /// <summary>
     ///   Gets or sets Logger.
     /// </summary>
-    public ILogger Logger => this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
+    public ILoggerService Logger => this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
 
     /// <summary>
     ///   Gets PageContext.
@@ -96,7 +98,7 @@ namespace YAF.Core.BaseControls
     /// </summary>
     void IRaiseControlLifeCycles.RaiseInit()
     {
-      this.OnInit(new EventArgs());
+      this.OnInit(EventArgs.Empty);
     }
 
     /// <summary>
@@ -104,7 +106,7 @@ namespace YAF.Core.BaseControls
     /// </summary>
     void IRaiseControlLifeCycles.RaiseLoad()
     {
-      this.OnLoad(new EventArgs());
+      this.OnLoad(EventArgs.Empty);
     }
 
     /// <summary>
@@ -112,7 +114,7 @@ namespace YAF.Core.BaseControls
     /// </summary>
     void IRaiseControlLifeCycles.RaisePreRender()
     {
-      this.OnPreRender(new EventArgs());
+      this.OnPreRender(EventArgs.Empty);
     }
 
     #endregion

@@ -33,15 +33,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.PlaceHolder ModerateUsersHolder;
 
         /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-
-        /// <summary>
         /// UserList control.
         /// </summary>
         /// <remarks>
@@ -67,15 +58,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.Pager PagerTop;
-
-        /// <summary>
-        /// LocalizedLabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
 
         /// <summary>
         /// topiclist control.

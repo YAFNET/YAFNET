@@ -1,12 +1,11 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using Console  = YAF.Lucene.Net.Util.SystemConsole;
 using JCG = J2N.Collections.Generic;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
-using YAF.Lucene.Net.Util;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -27,24 +26,23 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using UnicodeUtil  = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Exposes flex API on a pre-flex index, as a codec.
@@ -54,7 +52,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     [Obsolete("(4.0)")]
     internal class Lucene3xFields : FieldsProducer
     {
-        private static bool DEBUG_SURROGATES = false;
+#pragma warning disable CA1802 // Use literals where appropriate
+        private static readonly bool DEBUG_SURROGATES = false;
+#pragma warning restore CA1802 // Use literals where appropriate
 
         public TermInfosReader Tis { get; set; }
         public TermInfosReader TisNoIndex { get; private set; }
@@ -62,18 +62,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         public IndexInput FreqStream { get; private set; }
         public IndexInput ProxStream { get; private set; }
         private readonly FieldInfos fieldInfos;
-        private readonly SegmentInfo si;
+        //private readonly SegmentInfo si; // LUCENENET: Never read
 
         // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
         internal readonly IDictionary<string, FieldInfo> fields = new JCG.SortedDictionary<string, FieldInfo>(StringComparer.Ordinal);
         internal readonly IDictionary<string, Terms> preTerms = new Dictionary<string, Terms>();
-        private readonly Directory dir;
-        private readonly IOContext context;
+        //private readonly Directory dir; // LUCENENET: Never read
+        //private readonly IOContext context; // LUCENENET: Never read
         //private Directory cfsReader; // LUCENENET NOTE: cfsReader not used
 
         public Lucene3xFields(Directory dir, FieldInfos fieldInfos, SegmentInfo info, IOContext context, int indexDivisor)
         {
-            si = info;
+            //si = info; // LUCENENET: Never read
 
             // NOTE: we must always load terms index, even for
             // "sequential" scan during merging, because what is
@@ -97,7 +97,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     TisNoIndex = null;
                     Tis = r;
                 }
-                this.context = context;
+                //this.context = context; // LUCENENET: Never read
                 this.fieldInfos = fieldInfos;
 
                 // make sure that all index files have been read or are kept open
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     Dispose();
                 }
             }
-            this.dir = dir;
+            //this.dir = dir; // LUCENENET: Never read
         }
 
         // If this returns, we do the surrogates dance so that the
@@ -156,8 +156,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public override Terms GetTerms(string field)
         {
-            Terms result;
-            preTerms.TryGetValue(field, out result);
+            preTerms.TryGetValue(field, out Terms result);
             return result;
         }
 
@@ -280,8 +279,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             private SegmentTermEnum seekTermEnum;
 
-            private static readonly sbyte UTF8_NON_BMP_LEAD = unchecked((sbyte) 0xf0);
-            private static readonly sbyte UTF8_HIGH_BMP_LEAD = unchecked((sbyte) 0xee);
+            private const sbyte UTF8_NON_BMP_LEAD = unchecked((sbyte)0xf0);
+            private const sbyte UTF8_HIGH_BMP_LEAD = unchecked((sbyte)0xee);
 
             // Returns true if the unicode char is "after" the
             // surrogates in UTF16, ie >= U+E000 and <= U+FFFF:
@@ -359,7 +358,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                 if (DEBUG_SURROGATES)
                 {
-                    Console.WriteLine("      got term=" + UnicodeUtil.ToHexString(t2.Text()));
+                    Console.WriteLine("      got term=" + UnicodeUtil.ToHexString(t2.Text));
                 }
 
                 // Now test if prefix is identical and we found
@@ -498,7 +497,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     {
                         if (DEBUG_SURROGATES)
                         {
-                            Console.WriteLine("      got term=" + UnicodeUtil.ToHexString(t2.Text()) + " " + t2.Bytes);
+                            Console.WriteLine("      got term=" + UnicodeUtil.ToHexString(t2.Text) + " " + t2.Bytes);
                         }
 
                         BytesRef b2 = t2.Bytes;
@@ -667,7 +666,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                         scratch[1] = (sbyte)scratchTerm.Bytes[upTo + 1];
                         scratch[2] = (sbyte)scratchTerm.Bytes[upTo + 2];
 
-                        scratchTerm.Bytes[upTo] = (byte)UTF8_HIGH_BMP_LEAD;
+                        scratchTerm.Bytes[upTo] = unchecked((byte)UTF8_HIGH_BMP_LEAD);
                         scratchTerm.Bytes[upTo + 1] = 0x80;
                         scratchTerm.Bytes[upTo + 2] = 0x80;
                         scratchTerm.Length = upTo + 3;
@@ -697,7 +696,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                             }
                             else
                             {
-                                Console.WriteLine("      hit term=" + UnicodeUtil.ToHexString(t2.Text()) + " " + (t2 == null ? null : t2.Bytes));
+                                Console.WriteLine($"      hit term={UnicodeUtil.ToHexString(t2.Text)} {t2?.Bytes}");
                             }
                         }
 
@@ -818,10 +817,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override void SeekExact(long ord)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
-            public override long Ord => throw new NotSupportedException();
+            public override long Ord => throw UnsupportedOperationException.Create();
 
             public override SeekStatus SeekCeil(BytesRef term)
             {
@@ -909,7 +908,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                     if (DEBUG_SURROGATES)
                     {
-                        Console.WriteLine("  seek hit non-exact term=" + UnicodeUtil.ToHexString(t.Text()));
+                        Console.WriteLine("  seek hit non-exact term=" + UnicodeUtil.ToHexString(t.Text));
                     }
 
                     BytesRef br = t.Bytes;
@@ -1062,41 +1061,20 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
-                PreDocsEnum docsEnum;
-                if (reuse == null || !(reuse is PreDocsEnum))
-                {
+                if (reuse == null || !(reuse is PreDocsEnum docsEnum) || docsEnum.FreqStream != outerInstance.FreqStream)
                     docsEnum = new PreDocsEnum(outerInstance);
-                }
-                else
-                {
-                    docsEnum = (PreDocsEnum)reuse;
-                    if (docsEnum.FreqStream != outerInstance.FreqStream)
-                    {
-                        docsEnum = new PreDocsEnum(outerInstance);
-                    }
-                }
+
                 return docsEnum.Reset(termEnum, liveDocs);
             }
 
             public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
             {
-                PreDocsAndPositionsEnum docsPosEnum;
                 if (fieldInfo.IndexOptions != IndexOptions.DOCS_AND_FREQS_AND_POSITIONS)
-                {
                     return null;
-                }
-                else if (reuse == null || !(reuse is PreDocsAndPositionsEnum))
-                {
+
+                if (reuse is null || !(reuse is PreDocsAndPositionsEnum docsPosEnum) || docsPosEnum.FreqStream != outerInstance.FreqStream)
                     docsPosEnum = new PreDocsAndPositionsEnum(outerInstance);
-                }
-                else
-                {
-                    docsPosEnum = (PreDocsAndPositionsEnum)reuse;
-                    if (docsPosEnum.FreqStream != outerInstance.FreqStream)
-                    {
-                        docsPosEnum = new PreDocsAndPositionsEnum(outerInstance);
-                    }
-                }
+
                 return docsPosEnum.Reset(termEnum, liveDocs);
             }
         }

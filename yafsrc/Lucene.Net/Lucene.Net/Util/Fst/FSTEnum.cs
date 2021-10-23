@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -171,7 +173,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     bool found = false;
                     while (low <= high)
                     {
-                        mid = (int)((uint)(low + high) >> 1);
+                        mid = (low + high).TripleShift(1);
                         @in.Position = arc.PosArcsStart;
                         @in.SkipBytes(arc.BytesPerArc * mid + 1);
                         int midLabel = m_fst.ReadLabel(@in);
@@ -344,7 +346,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     bool found = false;
                     while (low <= high)
                     {
-                        mid = (int)((uint)(low + high) >> 1);
+                        mid = (low + high).TripleShift(1);
                         @in.Position = arc.PosArcsStart;
                         @in.SkipBytes(arc.BytesPerArc * mid + 1);
                         int midLabel = m_fst.ReadLabel(@in);
@@ -627,6 +629,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private FST.Arc<T> GetArc(int idx)
         {
             if (m_arcs[idx] == null)

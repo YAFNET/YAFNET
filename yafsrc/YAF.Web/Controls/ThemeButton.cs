@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -40,30 +40,31 @@ namespace YAF.Web.Controls
     using YAF.Types.Interfaces;
 
     using AttributeCollection = System.Web.UI.AttributeCollection;
+    using ButtonStyle = YAF.Types.Constants.ButtonStyle;
 
     #endregion
 
     /// <summary>
     /// The theme button.
     /// </summary>
-    public sealed class ThemeButton : BaseControl, IPostBackEventHandler
+    public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     {
         #region Constants and Fields
 
         /// <summary>
         ///   The click event.
         /// </summary>
-        private static readonly object ClickEvent = new object();
+        private static readonly object ClickEvent = new();
 
         /// <summary>
         ///   The command event.
         /// </summary>
-        private static readonly object CommandEvent = new object();
+        private static readonly object CommandEvent = new();
 
         /// <summary>
         ///   The localized label.
         /// </summary>
-        private readonly LocalizedLabel localizedLabel = new LocalizedLabel();
+        private readonly LocalizedLabel localizedLabel = new();
 
         #endregion
 
@@ -81,6 +82,8 @@ namespace YAF.Web.Controls
         #endregion
 
         #region Events
+
+        public string ValidationGroup { get; set; }
 
         /// <summary>
         ///   The click.
@@ -116,14 +119,21 @@ namespace YAF.Web.Controls
             set => this.ViewState["Enabled"] = value;
         }
 
+        public bool IconMobileOnly
+        {
+            get => this.ViewState["IconMobileOnly"]?.ToType<bool>() ?? false;
+
+            set => this.ViewState["IconMobileOnly"] = value;
+        }
+
         /// <summary>
         /// Gets or sets the behavior mode (single-line, multiline, or password) of the <see cref="T:System.Web.UI.WebControls.TextBox" /> control.
         /// </summary>
         [Category("Appearance")]
-        [DefaultValue(ButtonAction.Primary)]
-        public ButtonAction Type
+        [DefaultValue(ButtonStyle.Primary)]
+        public ButtonStyle Type
         {
-            get => this.ViewState["Type"]?.ToType<ButtonAction>() ?? ButtonAction.Primary;
+            get => this.ViewState["Type"]?.ToType<ButtonStyle>() ?? ButtonStyle.Primary;
 
             set => this.ViewState["Type"] = value;
         }
@@ -145,6 +155,13 @@ namespace YAF.Web.Controls
         /// </summary>
         public AttributeCollection Attributes { get; }
 
+        [DefaultValue(false)]
+        public bool CausesValidation
+        {
+            get => this.ViewState["CausesValidation"]?.ToType<bool>() ?? false;
+            set => this.ViewState["CausesValidation"] = value;
+        }
+
         /// <summary>
         ///   Gets or sets CommandArgument.
         /// </summary>
@@ -164,6 +181,8 @@ namespace YAF.Web.Controls
 
             set => this.ViewState["commandName"] = value;
         }
+
+        public string PostBackUrl { get; set; }
 
         /// <summary>
         /// Gets or sets the text.
@@ -437,8 +456,30 @@ namespace YAF.Web.Controls
         /// </param>
         void IPostBackEventHandler.RaisePostBackEvent([NotNull] string eventArgument)
         {
-            this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
-            this.OnClick(EventArgs.Empty);
+            if (this.CausesValidation)
+            {
+                if (this.ValidationGroup.IsSet())
+                {
+                    this.Page.Validate(this.ValidationGroup);
+                }
+                else
+                {
+                    this.Page.Validate();
+                }
+
+                if (!this.Page.IsValid)
+                {
+                    return;
+                }
+
+                this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
+                this.OnClick(EventArgs.Empty);
+            }
+            else
+            {
+                this.OnCommand(new CommandEventArgs(this.CommandName, this.CommandArgument));
+                this.OnClick(EventArgs.Empty);
+            }
         }
 
         #endregion
@@ -450,17 +491,35 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
+            if (this.CausesValidation)
+            {
+                var postBackOptions = new PostBackOptions(this)
+                {
+                    PerformValidation = true,
+                    ValidationGroup = this.ValidationGroup,
+                    RequiresJavaScriptProtocol = true,
+                    ClientSubmit = false,
+                    AutoPostBack = false
+                };
+
+                this.Page.ClientScript.RegisterForEventValidation(postBackOptions);
+            }
+
             // get the title...
             var title = this.GetLocalizedTitle();
 
-            output.BeginRender();
-            output.WriteBeginTag("a");
-            output.WriteAttribute("id", this.ClientID);
+            writer.BeginRender();
+            writer.WriteBeginTag("a");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+
+            string uniqueID = this.UniqueID;
+
+            writer.WriteAttribute(HtmlTextWriterAttribute.Name.ToString(), uniqueID);
 
             var actionClass = GetAttributeValue(this.Type);
 
@@ -477,7 +536,7 @@ namespace YAF.Web.Controls
             {
                 cssClass.Append(" disabled");
 
-                output.WriteAttribute("aria-disabled", "true");
+                writer.WriteAttribute("aria-disabled", "true");
             }
 
             if (this.CssClass.IsSet())
@@ -485,25 +544,25 @@ namespace YAF.Web.Controls
                 cssClass.AppendFormat(" {0}", this.CssClass);
             }
 
-            cssClass.Append(" mb-1");
-
-            output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), cssClass.ToString());
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), cssClass.ToString());
 
             if (title.IsSet())
             {
-                output.WriteAttribute("title", HttpUtility.HtmlEncode(title));
+                writer.WriteAttribute("title", HttpUtility.HtmlEncode(title));
             }
             else if (this.TitleNonLocalized.IsSet())
             {
-                output.WriteAttribute("title", HttpUtility.HtmlEncode(this.TitleNonLocalized));
+                writer.WriteAttribute("title", HttpUtility.HtmlEncode(this.TitleNonLocalized));
             }
 
-            if (this.DataToggle.IsSet() && (this.DataToggle == "dropdown" || this.DataToggle == "popover"))
+            writer.WriteAttribute("role", "button");
+
+            if (this.DataToggle.IsSet() && this.DataToggle is "dropdown" or "popover")
             {
                 this.NavigateUrl = "#";
             }
 
-            output.WriteAttribute(
+            writer.WriteAttribute(
                 "href",
                 this.NavigateUrl.IsSet()
                     ? this.NavigateUrl.Replace("&", "&amp;")
@@ -514,19 +573,19 @@ namespace YAF.Web.Controls
             {
                 // add attributes...
                 this.Attributes.Keys.Cast<string>().ForEach(key =>
-                    
+
                 {
                     // get the attribute and write it...
                     if (key.ToLower() == "onclick")
                     {
                         // special handling... add to it...
-                        output.WriteAttribute(key, $"{this.Attributes[key]};");
+                        writer.WriteAttribute(key, $"{this.Attributes[key]};");
                     }
                     else if (key.ToLower().StartsWith("data-") || key.ToLower().StartsWith("on")
                                                                || key.ToLower() == "rel" || key.ToLower() == "target")
                     {
                         // only write javascript attributes -- and a few other attributes...
-                        output.WriteAttribute(key, this.Attributes[key]);
+                        writer.WriteAttribute(key, this.Attributes[key]);
                     }
                 });
             }
@@ -535,113 +594,110 @@ namespace YAF.Web.Controls
             if (this.ReturnConfirmText.IsSet())
             {
                 this.DataToggle = "confirm";
-                output.WriteAttribute("data-title", this.ReturnConfirmText);
-                output.WriteAttribute("data-yes", this.GetText("YES"));
-                output.WriteAttribute("data-no", this.GetText("NO"));
+                writer.WriteAttribute("data-title", this.ReturnConfirmText);
+                writer.WriteAttribute("data-yes", this.GetText("YES"));
+                writer.WriteAttribute("data-no", this.GetText("NO"));
 
                 if (this.ReturnConfirmEvent.IsSet())
                 {
-                    output.WriteAttribute("data-confirm-event", this.ReturnConfirmEvent);
+                    writer.WriteAttribute("data-confirm-event", this.ReturnConfirmEvent);
                 }
             }
 
             // Write Modal
             if (this.DataTarget.IsSet())
             {
-                output.WriteAttribute("data-target", $"#{this.DataTarget}");
+                writer.WriteAttribute("data-bs-target", $"#{this.DataTarget}");
 
                 if (this.DataTarget == "modal")
                 {
-                    output.WriteAttribute("aria-haspopup", "true");
+                    writer.WriteAttribute("aria-haspopup", "true");
                 }
             }
 
             // Write popover content
             if (this.DataContent.IsSet())
             {
-                output.WriteAttribute("data-content", this.DataContent.Replace("\"", "'"));
-                output.WriteAttribute("tabindex", "0");
+                writer.WriteAttribute("data-bs-content", this.DataContent.Replace("\"", "'"));
+                writer.WriteAttribute("tabindex", "0");
             }
 
             if (this.DataDismiss.IsSet())
             {
-                output.WriteAttribute("data-dismiss", this.DataDismiss);
+                writer.WriteAttribute("data-bs-dismiss", this.DataDismiss);
             }
 
             // Write Dropdown
             if (this.DataToggle.IsSet())
             {
-                output.WriteAttribute("data-toggle", this.DataToggle);
+                writer.WriteAttribute("data-bs-toggle", this.DataToggle);
 
-                output.WriteAttribute("aria-expanded", "false");
+                writer.WriteAttribute("aria-expanded", "false");
             }
 
             if (this.Text.IsNotSet() && this.Icon.IsSet())
             {
-                output.WriteAttribute("aria-label", this.Icon);
+                writer.WriteAttribute("aria-label", this.Icon);
             }
 
-            output.Write(HtmlTextWriter.TagRightChar);
+            writer.Write(HtmlTextWriter.TagRightChar);
 
             if (this.Icon.IsSet())
             {
                 var iconColorClass = this.IconColor.IsSet() ? $" {this.IconColor}" : this.IconColor;
 
-                output.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>&nbsp;", this.Icon, iconColorClass, this.IconCssClass);
+                writer.Write("<i class=\"{2} fa-{0} fa-fw{1}\"></i>", this.Icon, iconColorClass, this.IconCssClass);
+            }
+
+            if (this.TextLocalizedTag.IsSet() || this.Text.IsSet())
+            {
+                writer.WriteBeginTag("span");
+
+                writer.WriteAttribute(
+                    HtmlTextWriterAttribute.Class.ToString(),
+                    this.IconMobileOnly ? "ms-1 d-none d-lg-inline-block" : "ms-1");
+
+                writer.Write(HtmlTextWriter.TagRightChar);
             }
 
             if (this.Text.IsSet())
             {
-                output.Write(this.Text);
+                writer.Write(this.Text);
             }
 
             // render the optional controls (if any)
-            base.Render(output);
+            base.Render(writer);
 
-            // output.WriteEndTag("span");
-            output.WriteEndTag("a");
-            output.EndRender();
+            writer.WriteEndTag("span");
+
+            writer.WriteEndTag("a");
+            writer.EndRender();
         }
-
         /// <summary>
         /// Gets the CSS class value.
         /// </summary>
         /// <param name="mode">The button action.</param>
         /// <returns>Returns the CSS Class for the button</returns>
         /// <exception cref="InvalidOperationException">Exception when other value</exception>
-        private static string GetAttributeValue(ButtonAction mode)
+        private static string GetAttributeValue([CanBeNull] ButtonStyle mode)
         {
-            switch (mode)
+            return mode switch
             {
-                case ButtonAction.Primary:
-                    return "btn btn-primary";
-                case ButtonAction.Secondary:
-                    return "btn btn-secondary";
-                case ButtonAction.OutlineSecondary:
-                    return "btn btn-outline-secondary";
-                case ButtonAction.Success:
-                    return "btn btn-success";
-                case ButtonAction.OutlineSuccess:
-                    return "btn btn-outline-success";
-                case ButtonAction.Danger:
-                    return "btn btn-danger";
-                case ButtonAction.Warning:
-                    return "btn btn-warning";
-                case ButtonAction.Info:
-                    return "btn btn-info";
-                case ButtonAction.OutlineInfo:
-                    return "btn btn-outline-info";
-                case ButtonAction.Light:
-                    return "btn btn-light";
-                case ButtonAction.Dark:
-                    return "btn btn-dark";
-                case ButtonAction.Link:
-                    return "btn btn-link";
-                case ButtonAction.None:
-                    return string.Empty;
-                default:
-                    throw new InvalidOperationException();
-            }
+                ButtonStyle.Primary => "btn btn-primary",
+                ButtonStyle.Secondary => "btn btn-secondary",
+                ButtonStyle.OutlineSecondary => "btn btn-outline-secondary",
+                ButtonStyle.Success => "btn btn-success",
+                ButtonStyle.OutlineSuccess => "btn btn-outline-success",
+                ButtonStyle.Danger => "btn btn-danger",
+                ButtonStyle.Warning => "btn btn-warning",
+                ButtonStyle.Info => "btn btn-info",
+                ButtonStyle.OutlineInfo => "btn btn-outline-info",
+                ButtonStyle.Light => "btn btn-light",
+                ButtonStyle.Dark => "btn btn-dark",
+                ButtonStyle.Link => "btn btn-link",
+                ButtonStyle.None => string.Empty,
+                _ => throw new InvalidOperationException()
+            };
         }
 
         /// <summary>
@@ -656,19 +712,15 @@ namespace YAF.Web.Controls
         /// <exception cref="InvalidOperationException">
         /// Exception when other value
         /// </exception>
-        private static string GetButtonSizeClass(ButtonSize size)
+        private static string GetButtonSizeClass([CanBeNull] ButtonSize size)
         {
-            switch (size)
+            return size switch
             {
-                case ButtonSize.Normal:
-                    return string.Empty;
-                case ButtonSize.Large:
-                    return "btn-lg";
-                case ButtonSize.Small:
-                    return "btn-sm";
-                default:
-                    throw new InvalidOperationException();
-            }
+                ButtonSize.Normal => string.Empty,
+                ButtonSize.Large => "btn-lg",
+                ButtonSize.Small => "btn-sm",
+                _ => throw new InvalidOperationException()
+            };
         }
 
         /// <summary>
@@ -679,7 +731,7 @@ namespace YAF.Web.Controls
         /// </returns>
         private string GetLocalizedTitle()
         {
-            if (this.Site != null && this.Site.DesignMode && this.TitleLocalizedTag.IsSet())
+            if (this.Site is { DesignMode: true } && this.TitleLocalizedTag.IsSet())
             {
                 return $"[TITLE:{this.TitleLocalizedTag}]";
             }

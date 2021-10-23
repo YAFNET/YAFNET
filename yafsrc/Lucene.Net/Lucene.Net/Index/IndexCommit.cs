@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
     */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// <para>Expert: represents a single commit into an index as seen by the
@@ -95,9 +95,8 @@ namespace YAF.Lucene.Net.Index
         /// Two IndexCommits are equal if both their <see cref="Store.Directory"/> and versions are equal. </summary>
         public override bool Equals(object other)
         {
-            if (other is IndexCommit)
+            if (other is IndexCommit otherCommit)
             {
-                IndexCommit otherCommit = (IndexCommit)other;
                 return otherCommit.Directory == Directory && otherCommit.Generation == Generation;
             }
             else
@@ -128,7 +127,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (Directory != commit.Directory)
             {
-                throw new NotSupportedException("cannot compare IndexCommits from different Directory instances");
+                throw UnsupportedOperationException.Create("cannot compare IndexCommits from different Directory instances");
             }
 
             long gen = Generation;

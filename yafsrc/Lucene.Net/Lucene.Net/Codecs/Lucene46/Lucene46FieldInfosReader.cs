@@ -1,4 +1,5 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
+using J2N.Numerics;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene46
@@ -20,17 +21,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
      * limitations under the License.
      */
 
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Lucene 4.6 FieldInfos reader.
@@ -92,8 +93,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
 
                     // DV Types are packed in one byte
                     byte val = input.ReadByte();
-                    DocValuesType docValuesType = GetDocValuesType(input, (sbyte)(val & 0x0F));
-                    DocValuesType normsType = GetDocValuesType(input, (sbyte)(((int)((uint)val >> 4)) & 0x0F));
+                    DocValuesType docValuesType = GetDocValuesType(input, (byte)(val & 0x0F));
+                    DocValuesType normsType = GetDocValuesType(input, (byte)((val.TripleShift(4)) & 0x0F));
                     long dvGen = input.ReadInt64();
                     IDictionary<string, string> attributes = input.ReadStringStringMap();
                     infos[i] = new FieldInfo(name, isIndexed, fieldNumber, storeTermVector, omitNorms, storePayloads, indexOptions, docValuesType, normsType, attributes.AsReadOnly());
@@ -127,7 +128,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
             }
         }
 
-        private static DocValuesType GetDocValuesType(IndexInput input, sbyte b)
+        private static DocValuesType GetDocValuesType(IndexInput input, byte b)
         {
             if (b == 0)
             {

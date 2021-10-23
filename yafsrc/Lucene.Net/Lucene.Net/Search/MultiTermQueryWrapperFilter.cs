@@ -20,14 +20,14 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using Fields  = YAF.Lucene.Net.Index.Fields;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// A wrapper for <see cref="MultiTermQuery"/>, that exposes its

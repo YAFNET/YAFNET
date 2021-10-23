@@ -147,7 +147,7 @@ namespace YAF.Controls
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList Gender;
+        protected global::System.Web.UI.WebControls.DropDownList Gender;
 
         /// <summary>
         /// LocalizedLabel6 control.
@@ -400,6 +400,15 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Facebook;
+
+        /// <summary>
+        /// CustomProfile control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater CustomProfile;
 
         /// <summary>
         /// UpdateProfile control.

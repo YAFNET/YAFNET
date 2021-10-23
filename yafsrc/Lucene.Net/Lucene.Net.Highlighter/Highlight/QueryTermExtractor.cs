@@ -65,7 +65,7 @@ namespace YAF.Lucene.Net.Search.Highlight
                     var idf = (float)(Math.Log((float)totalNumDocs / (double)(docFreq + 1)) + 1.0);
                     t.Weight *= idf;
                 }
-                catch (IOException)
+                catch (Exception e) when (e.IsIOException())
                 {
                     //ignore 
                 }
@@ -105,10 +105,10 @@ namespace YAF.Lucene.Net.Search.Highlight
         {
             try
             {
-                if (query is BooleanQuery)
-                    GetTermsFromBooleanQuery((BooleanQuery)query, terms, prohibited, fieldName);
-                else if (query is FilteredQuery)
-                    GetTermsFromFilteredQuery((FilteredQuery)query, terms, prohibited, fieldName);
+                if (query is BooleanQuery booleanQuery)
+                    GetTermsFromBooleanQuery(booleanQuery, terms, prohibited, fieldName);
+                else if (query is FilteredQuery filteredQuery)
+                    GetTermsFromFilteredQuery(filteredQuery, terms, prohibited, fieldName);
                 else
                 {
                     var nonWeightedTerms = new JCG.HashSet<Term>();
@@ -117,14 +117,12 @@ namespace YAF.Lucene.Net.Search.Highlight
                     {
                         if ((fieldName == null) || (term.Field.Equals(fieldName, StringComparison.Ordinal)))
                         {
-                            terms.Add(new WeightedTerm(query.Boost, term.Text()));
+                            terms.Add(new WeightedTerm(query.Boost, term.Text));
                         }
                     }
                 }
             }
-#pragma warning disable 168
-            catch (NotSupportedException ignore)
-#pragma warning restore 168
+            catch (Exception ignore) when (ignore.IsUnsupportedOperationException())
             {
                 //this is non-fatal for our purposes
             }

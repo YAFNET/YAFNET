@@ -1,4 +1,4 @@
-using J2N.Threading;
+﻿using J2N.Threading;
 using System;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;
@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using Counter = YAF.Lucene.Net.Util.Counter;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
 
     /// <summary>
     /// The <see cref="TimeLimitingCollector"/> is used to timeout search requests that
@@ -43,11 +43,11 @@ namespace YAF.Lucene.Net.Search
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
         [Serializable]
 #endif
-        public class TimeExceededException : Exception
+        public class TimeExceededException : Exception, IRuntimeException // LUCENENET specific: Added IRuntimeException for identification of the Java superclass in .NET
         {
-            private long timeAllowed;
-            private long timeElapsed;
-            private int lastDocCollected;
+            private readonly long timeAllowed; // LUCENENET: marked readonly
+            private readonly long timeElapsed; // LUCENENET: marked readonly
+            private readonly int lastDocCollected; // LUCENENET: marked readonly
 
             internal TimeExceededException(long timeAllowed, long timeElapsed, int lastDocCollected)
                 : base("Elapsed time: " + timeElapsed + "Exceeded allowed search time: " + timeAllowed + " ms.")
@@ -57,7 +57,7 @@ namespace YAF.Lucene.Net.Search
                 this.lastDocCollected = lastDocCollected;
             }
 
-            // For testing purposes
+            // LUCENENET: For testing purposes
             internal TimeExceededException(string message)
                 : base(message)
             {
@@ -278,7 +278,7 @@ namespace YAF.Lucene.Net.Search
             //   afford losing a tick or two.
             //
             // See section 17 of the Java Language Specification for details.
-            private long time = 0;
+            private readonly long time = 0;
 
             private volatile bool stop = false;
             private long resolution;
@@ -303,18 +303,9 @@ namespace YAF.Lucene.Net.Search
                 {
                     // TODO: Use System.nanoTime() when Lucene moves to Java SE 5.
                     counter.AddAndGet(resolution);
-//#if FEATURE_THREAD_INTERRUPT
-//                    try
-//                    {
-//#endif
-                        Thread.Sleep(TimeSpan.FromMilliseconds(Interlocked.Read(ref resolution)));
-//#if FEATURE_THREAD_INTERRUPT // LUCENENET NOTE: Senseless to catch and rethrow the same exception type
-//                    }
-//                    catch (ThreadInterruptedException ie)
-//                    {
-//                        throw new ThreadInterruptedException("Thread Interrupted Exception", ie);
-//                    }
-//#endif
+
+                    Thread.Sleep(TimeSpan.FromMilliseconds(Interlocked.Read(ref resolution)));
+                    // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException 
                 }
             }
 

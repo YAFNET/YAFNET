@@ -1,9 +1,10 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Codecs.Lucene40;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
-using System.Diagnostics;
-using System.Reflection;
+using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -24,24 +25,24 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using BufferedChecksumIndexInput = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
-    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using BufferedChecksumIndexInput  = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
+    using ByteArrayDataInput  = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
 
     /// <summary>
     /// <see cref="StoredFieldsReader"/> impl for <see cref="CompressingStoredFieldsFormat"/>.
@@ -51,13 +52,15 @@ namespace YAF.Lucene.Net.Codecs.Compressing
     public sealed class CompressingStoredFieldsReader : StoredFieldsReader
     {
         // Do not reuse the decompression buffer when there is more than 32kb to decompress
-        private static readonly int BUFFER_REUSE_THRESHOLD = 1 << 15;
+        private const int BUFFER_REUSE_THRESHOLD = 1 << 15;
 
         private readonly int version;
         private readonly FieldInfos fieldInfos;
         private readonly CompressingStoredFieldsIndexReader indexReader;
         private readonly long maxPointer;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexInput fieldsStream;
+#pragma warning restore CA2213 // Disposable fields should be disposed
         private readonly int chunkSize;
         private readonly int packedIntsVersion;
         private readonly CompressionMode compressionMode;
@@ -101,7 +104,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 indexStream = d.OpenChecksumInput(indexStreamFN, context);
                 string codecNameIdx = formatName + CompressingStoredFieldsWriter.CODEC_SFX_IDX;
                 version = CodecUtil.CheckHeader(indexStream, codecNameIdx, CompressingStoredFieldsWriter.VERSION_START, CompressingStoredFieldsWriter.VERSION_CURRENT);
-                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.GetFilePointer());
+                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 indexReader = new CompressingStoredFieldsIndexReader(indexStream, si);
 
                 long maxPointer = -1;
@@ -140,7 +143,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 {
                     throw new CorruptIndexException("Version mismatch between stored fields index and data: " + version + " != " + fieldsVersion);
                 }
-                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == fieldsStream.GetFilePointer());
+                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                 if (version >= CompressingStoredFieldsWriter.VERSION_BIG_CHUNKS)
                 {
@@ -166,17 +169,19 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         }
 
         /// <exception cref="ObjectDisposedException"> If this FieldsReader is disposed. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnsureOpen()
         {
             if (closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this FieldsReader is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this FieldsReader is disposed.");
             }
         }
 
         /// <summary>
         /// Dispose the underlying <see cref="IndexInput"/>s.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (!closed)
@@ -223,7 +228,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                     break;
 
                 default:
-                    throw new InvalidOperationException("Unknown type flag: " + bits.ToString("x"));
+                    throw AssertionError.Create("Unknown type flag: " + bits.ToString("x"));
             }
         }
 
@@ -248,7 +253,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                     break;
 
                 default:
-                    throw new InvalidOperationException("Unknown type flag: " + bits.ToString("x"));
+                    throw AssertionError.Create("Unknown type flag: " + bits.ToString("x"));
             }
         }
 
@@ -284,7 +289,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 }
                 else
                 {
-                    long filePointer = fieldsStream.GetFilePointer();
+                    long filePointer = fieldsStream.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     PackedInt32s.Reader reader = PackedInt32s.GetDirectReaderNoHeader(fieldsStream, PackedInt32s.Format.PACKED, packedIntsVersion, chunkDocs, bitsPerStoredFields);
                     numStoredFields = (int)(reader.Get(docID - docBase));
                     fieldsStream.Seek(filePointer + PackedInt32s.Format.PACKED.ByteCount(packedIntsVersion, chunkDocs, bitsPerStoredFields));
@@ -340,7 +345,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 }
 
                 decompressor.Decompress(fieldsStream, chunkSize, offset, Math.Min(length, chunkSize - offset), bytes);
-                documentInput = new DataInputAnonymousInnerClassHelper(this, offset, length);
+                documentInput = new DataInputAnonymousClass(this, length);
             }
             else
             {
@@ -353,7 +358,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             for (int fieldIDX = 0; fieldIDX < numStoredFields; fieldIDX++)
             {
                 long infoAndBits = documentInput.ReadVInt64();
-                int fieldNumber = (int)((long)((ulong)infoAndBits >> CompressingStoredFieldsWriter.TYPE_BITS));
+                int fieldNumber = (int)infoAndBits.TripleShift(CompressingStoredFieldsWriter.TYPE_BITS);
                 FieldInfo fieldInfo = fieldInfos.FieldInfo(fieldNumber);
 
                 int bits = (int)(infoAndBits & CompressingStoredFieldsWriter.TYPE_MASK);
@@ -375,17 +380,15 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             }
         }
 
-        private class DataInputAnonymousInnerClassHelper : DataInput
+        private class DataInputAnonymousClass : DataInput
         {
             private readonly CompressingStoredFieldsReader outerInstance;
 
-            private int offset;
-            private int length;
+            private readonly int length;
 
-            public DataInputAnonymousInnerClassHelper(CompressingStoredFieldsReader outerInstance, int offset, int length)
+            public DataInputAnonymousClass(CompressingStoredFieldsReader outerInstance, int length)
             {
                 this.outerInstance = outerInstance;
-                this.offset = offset;
                 this.length = length;
                 decompressed = outerInstance.bytes.Length;
             }
@@ -397,7 +400,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 if (Debugging.AssertsEnabled) Debugging.Assert(decompressed <= length);
                 if (decompressed == length)
                 {
-                    throw new Exception();
+                    throw EOFException.Create();
                 }
                 int toDecompress = Math.Min(length - decompressed, outerInstance.chunkSize);
                 outerInstance.decompressor.Decompress(outerInstance.fieldsStream, toDecompress, 0, toDecompress, outerInstance.bytes);
@@ -593,7 +596,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.Version == CompressingStoredFieldsWriter.VERSION_CURRENT);
                 long chunkEnd = docBase + chunkDocs == outerInstance.numDocs ? outerInstance.maxPointer : outerInstance.indexReader.GetStartPointer(docBase + chunkDocs);
-                @out.CopyBytes(fieldsStream, chunkEnd - fieldsStream.GetFilePointer());
+                @out.CopyBytes(fieldsStream, chunkEnd - fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             }
 
             /// <summary>

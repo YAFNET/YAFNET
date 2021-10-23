@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Implements a <see cref="TermsEnum"/> wrapping a provided
@@ -122,18 +122,18 @@ namespace YAF.Lucene.Net.Index
 
         public override long Ord => currentOrd;
 
-        public override int DocFreq => throw new NotSupportedException();
+        public override int DocFreq => throw UnsupportedOperationException.Create();
 
         public override long TotalTermFreq => -1;
 
         public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;

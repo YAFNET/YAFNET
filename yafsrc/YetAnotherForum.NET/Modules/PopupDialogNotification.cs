@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,11 +28,8 @@ namespace YAF.Modules
 
     using System;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Types;
-    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -85,16 +82,17 @@ namespace YAF.Modules
                       }}
 
                       $.notify({{
-                                   title: ""{this.Get<BoardSettings>().Name}"",
+                                   title: ""{this.PageContext.BoardSettings.Name}"",
                                    message: newErrorStr,
                                    icon: iconFA
                             }},
                             {{
                                   type: newErrorType,
-                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }}, delay: {this.Get<BoardSettings>().MessageNotifcationDuration} * 1000
+                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }},
+                                  delay: {this.PageContext.BoardSettings.MessageNotifcationDuration} * 1000
                         }});}} }}";
 
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 this,
                 this.ShowModalFunction,
                 javaScriptFunction);

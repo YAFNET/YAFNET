@@ -37,7 +37,7 @@ namespace YAF.Types.Objects
         /// <summary>
         ///   The _active lock.
         /// </summary>
-        private readonly object _activeLock = new object();
+        private readonly object _activeLock = new();
 
         /// <summary>
         ///   The _bad word.

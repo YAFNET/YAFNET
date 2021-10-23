@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Core;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.In;
 using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Standard;
@@ -67,11 +68,11 @@ namespace YAF.Lucene.Net.Analysis.Hi
                 {
                     return LoadStopwordSet(false, typeof(HindiAnalyzer), DEFAULT_STOPWORD_FILE, STOPWORDS_COMMENT);
                 }
-                catch (IOException ex)
+                catch (Exception ex) when (ex.IsIOException())
                 {
                     // default set should always be present as it is part of the
                     // distribution (JAR)
-                    throw new Exception("Unable to load default stopword set", ex);
+                    throw RuntimeException.Create("Unable to load default stopword set", ex);
                 }
             }
         }

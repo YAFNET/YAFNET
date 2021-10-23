@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.Extensions
 {
-  #region Using
+    #region Using
 
     using System;
     using System.Linq;
@@ -34,28 +34,29 @@ namespace YAF.Types.Extensions
 
     #endregion
 
-  /// <summary>
-  /// The type extensions.
-  /// </summary>
-  public static class TypeExtensions
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The get signing key.
+    /// The type extensions.
     /// </summary>
-    /// <param name="sourceType">
-    /// The source type.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
+    public static class TypeExtensions
     {
-      CodeContracts.VerifyNotNull(sourceType, "sourceType");
+        #region Public Methods
 
-      return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
+        /// <summary>
+        /// The get signing key.
+        /// </summary>
+        /// <param name="sourceType">
+        /// The source type.
+        /// </param>
+        /// <returns>
+        /// Returns the Signing Key
+        /// </returns>
+        public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
+        {
+            CodeContracts.VerifyNotNull(sourceType);
+
+            return sourceType.Assembly.Evidence.OfType<StrongName>().Select(t => t.PublicKey).FirstOrDefault();
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

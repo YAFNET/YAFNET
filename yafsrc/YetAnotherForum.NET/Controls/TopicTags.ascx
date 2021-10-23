@@ -1,6 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="TopicTags.ascx.cs"
     Inherits="YAF.Controls.TopicTags" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 
 <div class="row mb-3">
@@ -13,13 +14,13 @@
                 </h5>
             </FooterTemplate>
             <ItemTemplate>
-                <span class="badge badge-primary">
+                <span class="badge bg-primary">
                     <YAF:Icon runat="server" IconName="tag"></YAF:Icon>
-                    <a href="<%# BuildLink.GetLinkNotEscaped(
+                    <a href="<%# this.Get<LinkBuilder>().GetLink(
                                      ForumPages.Search,
                                      "tag={0}",
                                      this.Eval("Item2.TagName")) %>"
-                       class="text-white"><%# this.Eval("Item2.TagName") %>
+                       class="link-light"><%# this.Eval("Item2.TagName") %>
                     </a>
                 </span>
             </ItemTemplate>

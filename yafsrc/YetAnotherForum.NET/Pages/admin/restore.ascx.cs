@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,19 +27,19 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -47,7 +47,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Restore Topics Page
     /// </summary>
-    public partial class restore : AdminPage
+    public partial class Restore : AdminPage
     {
         #region Methods
 
@@ -58,10 +58,40 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
+            if (this.IsPostBack)
             {
-                this.BindData();
+                return;
             }
+
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
+            this.PageSizeMessages.DataSource = StaticDataHelper.PageEntries();
+            this.PageSizeMessages.DataTextField = "Name";
+            this.PageSizeMessages.DataValueField = "Value";
+            this.PageSizeMessages.DataBind();
+
+            this.PageSizeMessages.SelectedValue = this.PageContext.User.PageSize.ToString();
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>
@@ -70,13 +100,8 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_RESTORE", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RESTORE", "TITLE")}";
         }
 
         /// <summary>
@@ -90,13 +115,16 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            var topicId = e.CommandArgument.ToType<int>();
+            var commandArgs = e.CommandArgument.ToString().Split(';');
+
+            var topicId = commandArgs[0].ToType<int>();
+            var forumId = commandArgs[1].ToType<int>();
 
             switch (e.CommandName)
             {
                 case "delete":
                     {
-                        this.GetRepository<Topic>().Delete(topicId, true);
+                        this.GetRepository<Topic>().Delete(forumId, topicId, true);
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -112,10 +140,12 @@ namespace YAF.Pages.Admin
                         if (getFirstMessage != null)
                         {
                             this.GetRepository<Message>().Delete(
+                                forumId,
+                                topicId,
                                 getFirstMessage.ID,
                                 true,
                                 string.Empty,
-                                0,
+                                false,
                                 true,
                                 false);
                         }
@@ -136,55 +166,21 @@ namespace YAF.Pages.Admin
                     }
 
                     break;
-                case "restore_all":
-                    {
-                        var topicIds = (from RepeaterItem item in this.DeletedTopics.Items
-                                        select item.FindControlAs<HiddenField>("hiddenID")
-                                        into hiddenId
-                                        select hiddenId.Value.ToType<int>()).ToList();
-
-                        topicIds.ForEach(
-                            topicID =>
-                                {
-                                    var getFirstMessage = this.GetRepository<Message>()
-                                        .GetSingle(m => m.TopicID == topicID && m.Position == 0);
-
-                                    if (getFirstMessage != null)
-                                    {
-                                        this.GetRepository<Message>().Delete(
-                                            getFirstMessage.ID,
-                                            true,
-                                            string.Empty,
-                                            0,
-                                            true,
-                                            false);
-                                    }
-
-                                    var topic = this.GetRepository<Topic>().GetById(topicID);
-
-                                    var flags = topic.TopicFlags;
-
-                                    flags.IsDeleted = false;
-
-                                    this.GetRepository<Topic>().UpdateOnly(
-                                        () => new Topic { Flags = flags.BitValue },
-                                        t => t.ID == topicID);
-                                });
-
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
-
-                        this.BindData();
-                    }
-
-                    break;
                 case "delete_all":
                     {
-                        var topicIds = (from RepeaterItem item in this.DeletedTopics.Items
-                                        select item.FindControlAs<HiddenField>("hiddenID")
-                                        into hiddenId
-                                        select hiddenId.Value.ToType<int>()).ToList();
+                        var topicIds = new List<(int forumId, int topicId)>();
 
-                        topicIds.ForEach(topic => { this.GetRepository<Topic>().Delete(topic, true); });
+                        this.DeletedTopics.Items.Cast<RepeaterItem>().ForEach(item =>
+                        {
+                            var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
+
+                            var args = hiddenId.Value.Split(';');
+
+                            topicIds.Add((args[1].ToType<int>(), args[0].ToType<int>()));
+                        });
+
+                        topicIds.ForEach(
+                            x => this.GetRepository<Topic>().Delete(x.forumId, x.topicId, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -195,26 +191,25 @@ namespace YAF.Pages.Admin
 
                     break;
 
-                /*case "delete_complete":
+                case "delete_complete":
                     {
-                        var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(
-                            BoardContext.Current.PageBoardID,
-                            this.Filter.Text);
+                        var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);
 
-                        deletedTopics.ForEach(topic => { this.GetRepository<Topic>().Delete(topic.Item2.ID, true); });
+                        deletedTopics.ForEach(
+                            topic => this.GetRepository<Topic>().Delete(topic.Item2.ForumID, topic.Item2.ID, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
 
-                    break;*/
+                    break;
                 case "delete_zero":
                     {
-                        var deletedTopics = this.GetRepository<Topic>()
-                            .Get(t => t.NumPosts.Equals(0));
+                        var deletedTopics = this.GetRepository<Topic>().Get(t => (t.Flags & 8) == 8 && t.NumPosts.Equals(0));
 
-                        deletedTopics.ForEach(topic => { this.GetRepository<Topic>().Delete(topic.ID, true); });
+                        deletedTopics.ForEach(
+                            topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -236,13 +231,26 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void Messages_ItemCommand(object source, RepeaterCommandEventArgs e)
         {
-            var messageId = e.CommandArgument.ToType<int>();
+            var commandArgs = e.CommandArgument.ToString().Split(';');
+
+            var messageId = commandArgs[0].ToType<int>();
+            var forumId = commandArgs[1].ToType<int>();
+            var topicId = commandArgs[2].ToType<int>();
 
             switch (e.CommandName)
             {
                 case "delete":
                     {
-                        this.GetRepository<Message>().Delete(messageId, true, string.Empty, 1, true, true);
+                        // delete message
+                        this.GetRepository<Message>().Delete(
+                            forumId,
+                            topicId,
+                            messageId,
+                            true,
+                            string.Empty,
+                            true,
+                            true,
+                            true);
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -253,10 +261,12 @@ namespace YAF.Pages.Admin
                 case "restore":
                     {
                         this.GetRepository<Message>().Delete(
+                            forumId,
+                            topicId,
                             messageId,
                             true,
                             string.Empty,
-                            0,
+                            false,
                             true,
                             false);
 
@@ -268,16 +278,27 @@ namespace YAF.Pages.Admin
                     break;
                 case "delete_all":
                     {
-                        var messageIds = (from RepeaterItem item in this.DeletedMessages.Items
-                                          select item.FindControlAs<HiddenField>("hiddenID")
-                                          into hiddenId
-                                          select hiddenId.Value.ToType<int>()).ToList();
+                        var messageIds = new List<(int forumId, int topicId, int messageId)>();
+
+                        this.DeletedMessages.Items.Cast<RepeaterItem>().ForEach(item =>
+                        {
+                            var hiddenId = item.FindControlAs<HiddenField>("hiddenID");
+
+                            var args = hiddenId.Value.Split(';');
+
+                            messageIds.Add((args[1].ToType<int>(), args[2].ToType<int>(), args[0].ToType<int>()));
+                        });
 
                         messageIds.ForEach(
-                            message =>
-                                {
-                                    this.GetRepository<Message>().Delete(message, true, string.Empty, 1, true, true);
-                                });
+                            x => this.GetRepository<Message>().Delete(
+                                x.forumId,
+                                x.topicId,
+                                x.messageId,
+                                true,
+                                string.Empty,
+                                true,
+                                true,
+                                true));
 
                         this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
@@ -320,11 +341,11 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.PageContext.BoardSettings.TopicsPerPage;
-            this.PagerMessages.PageSize = this.PageContext.BoardSettings.TopicsPerPage;
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
+            this.PagerMessages.PageSize = this.PageSizeMessages.SelectedValue.ToType<int>();
 
             var deletedTopics = this.GetRepository<Topic>()
-                .GetDeletedTopics(BoardContext.Current.PageBoardID, this.Filter.Text);
+                .GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);
 
             var count = deletedTopics.Count;
 
@@ -338,7 +359,7 @@ namespace YAF.Pages.Admin
                                       : 0;
 
             var deletedMessages = this.GetRepository<Message>()
-                .GetDeletedMessages(BoardContext.Current.PageBoardID);
+                .GetDeletedMessages(this.PageContext.PageBoardID);
 
             count = deletedMessages.Count;
 
@@ -348,8 +369,8 @@ namespace YAF.Pages.Admin
             this.DeletedMessages.DataBind();
 
             this.PagerMessages.Count = deletedMessagesPaged.Any()
-                                           ? count
-                                           : 0;
+                                      ? count
+                                      : 0;
         }
 
         #endregion

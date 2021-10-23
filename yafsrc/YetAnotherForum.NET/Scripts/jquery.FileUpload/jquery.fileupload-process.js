@@ -1,4 +1,4 @@
-/*
+﻿/*
  * jQuery File Upload Processing Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
@@ -12,25 +12,25 @@
 /* global define, require */
 
 (function (factory) {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
+  "use strict";
+  if (typeof define === "function" && define.amd) {
     // Register as an anonymous AMD module:
-    define(['jquery', './jquery.fileupload'], factory);
-  } else if (typeof exports === 'object') {
+    define(["jquery", "./jquery.fileupload"], factory);
+  } else if (typeof exports === "object") {
     // Node/CommonJS:
-    factory(require('jquery'), require('./jquery.fileupload'));
+    factory(require("jquery"), require("./jquery.fileupload"));
   } else {
     // Browser globals:
     factory(window.jQuery);
   }
 })(function ($) {
-  'use strict';
+  "use strict";
 
   var originalAdd = $.blueimp.yafFileUpload.prototype.options.add;
 
   // The File Upload Processing plugin extends the fileupload widget
   // with file processing functionality:
-  $.widget('blueimp.yafFileUpload', $.blueimp.yafFileUpload, {
+  $.widget("blueimp.yafFileUpload", $.blueimp.yafFileUpload, {
     options: {
       // The list of processing actions:
       processQueue: [
@@ -44,7 +44,7 @@
       add: function (e, data) {
         var $this = $(this);
         data.process(function () {
-          return $this.yafFileUpload('process', data);
+          return $this.yafFileUpload("process", data);
         });
         originalAdd.call(this, e, data);
       }
@@ -65,7 +65,7 @@
         // eslint-disable-next-line new-cap
         dfd = $.Deferred().resolveWith(that, [data]),
         chain = dfd.promise();
-      this._trigger('process', null, data);
+      this._trigger("process", null, data);
       $.each(data.processQueue, function (i, settings) {
         var func = function (data) {
           if (originalData.errorThrown) {
@@ -82,12 +82,12 @@
       });
       chain
         .done(function () {
-          that._trigger('processdone', null, data);
-          that._trigger('processalways', null, data);
+          that._trigger("processdone", null, data);
+          that._trigger("processalways", null, data);
         })
         .fail(function () {
-          that._trigger('processfail', null, data);
-          that._trigger('processalways', null, data);
+          that._trigger("processfail", null, data);
+          that._trigger("processalways", null, data);
         });
       return chain;
     },
@@ -103,7 +103,7 @@
           action = this.action,
           prefix = this.prefix === true ? action : this.prefix;
         $.each(this, function (key, value) {
-          if ($.type(value) === 'string' && value.charAt(0) === '@') {
+          if ($.type(value) === "string" && value.charAt(0) === "@") {
             settings[key] =
               options[
                 value.slice(1) ||
@@ -120,7 +120,7 @@
       options.processQueue = processQueue;
     },
 
-    // Returns the number of files currently in the processsing queue:
+    // Returns the number of files currently in the processing queue:
     processing: function () {
       return this._processing;
     },
@@ -133,7 +133,7 @@
       if (options.processQueue && options.processQueue.length) {
         this._transformProcessQueue(options);
         if (this._processing === 0) {
-          this._trigger('processstart');
+          this._trigger("processstart");
         }
         $.each(data.files, function (index) {
           var opts = index ? $.extend({}, options) : options,
@@ -152,7 +152,7 @@
           ).always(function () {
             that._processing -= 1;
             if (that._processing === 0) {
-              that._trigger('processstop');
+              that._trigger("processstop");
             }
           });
         });

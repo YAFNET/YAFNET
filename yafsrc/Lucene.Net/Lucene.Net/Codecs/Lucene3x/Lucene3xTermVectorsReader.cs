@@ -1,13 +1,14 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using IBits = YAF.Lucene.Net.Util.IBits;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-using Directory = YAF.Lucene.Net.Store.Directory;
+using IBits  = YAF.Lucene.Net.Util.IBits;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
+using Directory  = YAF.Lucene.Net.Store.Directory;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -28,20 +29,20 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using Fields  = YAF.Lucene.Net.Index.Fields;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     [Obsolete("Only for reading existing 3.x indexes")]
     internal class Lucene3xTermVectorsReader : TermVectorsReader
@@ -80,21 +81,25 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         private readonly FieldInfos fieldInfos;
 
-        private IndexInput tvx;
-        private IndexInput tvd;
-        private IndexInput tvf;
-        private int size;
-        private int numTotalDocs;
+#pragma warning disable CA2213 // Disposable fields should be disposed
+        private readonly IndexInput tvx; // LUCENENET: marked readonly
+        private readonly IndexInput tvd; // LUCENENET: marked readonly
+        private readonly IndexInput tvf; // LUCENENET: marked readonly
+#pragma warning restore CA2213 // Disposable fields should be disposed
+        private readonly int size; // LUCENENET: marked readonly
+        private readonly int numTotalDocs; // LUCENENET: marked readonly
 
         // The docID offset where our docs begin in the index
         // file.  this will be 0 if we have our own private file.
-        private int docStoreOffset;
+        private readonly int docStoreOffset; // LUCENENET: marked readonly
 
         // when we are inside a compound share doc store (CFX),
         // (lucene 3.0 indexes only), we privately open our own fd.
         // TODO: if we are worried, maybe we could eliminate the
         // extra fd somehow when you also have vectors...
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly CompoundFileDirectory storeCFSReader;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         private readonly int format;
 
@@ -179,7 +184,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     {
                         Dispose();
                     } // keep our original exception
-                    catch (Exception)
+                    catch (Exception t) when (t.IsThrowable())
                     {
                     }
                 }
@@ -187,11 +192,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         // Not private to avoid synthetic access$NNN methods
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void SeekTvx(int docNum)
         {
             tvx.Seek((docNum + docStoreOffset) * 16L + FORMAT_SIZE);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int CheckValidFormat(IndexInput @in)
         {
             int format = @in.ReadInt32();
@@ -206,6 +213,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             return format;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -266,24 +274,27 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override IEnumerator<string> GetEnumerator()
             {
-                return new IteratorAnonymousInnerClassHelper(this);
+                return new IteratorAnonymousClass(this);
             }
 
-            private class IteratorAnonymousInnerClassHelper : IEnumerator<string>
+            private class IteratorAnonymousClass : IEnumerator<string>
             {
                 private readonly TVFields outerInstance;
                 private string current;
-                private int i, upTo;
+                private int i;
+                private readonly int upTo;
 
-                public IteratorAnonymousInnerClassHelper(TVFields outerInstance)
+                public IteratorAnonymousClass(TVFields outerInstance)
                 {
                     this.outerInstance = outerInstance;
                     upTo = this.outerInstance.fieldNumbers.Length;
                     i = 0;
                 }
 
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 public bool MoveNext()
                 {
                     if (outerInstance.fieldNumbers != null && i < upTo)
@@ -300,7 +311,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
                 public void Reset()
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
                 public void Dispose()
@@ -317,8 +328,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     return null;
                 }
 
-                int fieldIndex;
-                if (!fieldNumberToIndex.TryGetValue(fieldInfo.Number, out fieldIndex))
+                if (!fieldNumberToIndex.TryGetValue(fieldInfo.Number, out int fieldIndex))
                 {
                     // Term vectors were not indexed for this field
                     return null;
@@ -361,10 +371,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 byte bits = outerInstance.tvf.ReadByte();
                 storePositions = (bits & STORE_POSITIONS_WITH_TERMVECTOR) != 0;
                 storeOffsets = (bits & STORE_OFFSET_WITH_TERMVECTOR) != 0;
-                tvfFPStart = outerInstance.tvf.GetFilePointer();
+                tvfFPStart = outerInstance.tvf.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 unicodeSortOrder = outerInstance.SortTermsByUnicode();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override TermsEnum GetEnumerator()
             {
                 var termsEnum = new TVTermsEnum(outerInstance);
@@ -372,23 +383,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 return termsEnum;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override TermsEnum GetEnumerator(TermsEnum reuse)
             {
-                TVTermsEnum termsEnum;
-#pragma warning disable IDE0038 // Use pattern matching
-                if (reuse is null || !(reuse is TVTermsEnum))
-#pragma warning restore IDE0038 // Use pattern matching
-                {
+                if (reuse is null || !(reuse is TVTermsEnum termsEnum) || !termsEnum.CanReuse(outerInstance.tvf))
                     termsEnum = new TVTermsEnum(outerInstance);
-                }
-                else
-                {
-                    var reusable = (TVTermsEnum)reuse;
-                    if (reusable.CanReuse(outerInstance.tvf))
-                        termsEnum = reusable;
-                    else
-                        termsEnum = new TVTermsEnum(outerInstance);
-                }
 
                 termsEnum.Reset(numTerms, tvfFPStart, storePositions, storeOffsets, unicodeSortOrder);
                 return termsEnum;
@@ -406,6 +405,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override IComparer<BytesRef> Comparer
             {
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 get
                 {
                     if (unicodeSortOrder)
@@ -456,6 +456,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 tvf = (IndexInput)origTVF.Clone();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual bool CanReuse(IndexInput tvf)
             {
                 return tvf == origTVF;
@@ -553,9 +554,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override void SeekExact(long ord)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override bool MoveNext()
             {
                 if (++currentTerm >= numTerms)
@@ -575,27 +577,23 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override BytesRef Term => termAndPostings[currentTerm].Term;
 
-            public override long Ord => throw new NotSupportedException();
+            public override long Ord => throw UnsupportedOperationException.Create();
 
             public override int DocFreq => 1;
 
             public override long TotalTermFreq => termAndPostings[currentTerm].Freq;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags) // ignored
             {
-                TVDocsEnum docsEnum;
-                if (reuse != null && reuse is TVDocsEnum)
-                {
-                    docsEnum = (TVDocsEnum)reuse;
-                }
-                else
-                {
+                if (reuse is null || !(reuse is TVDocsEnum docsEnum))
                     docsEnum = new TVDocsEnum();
-                }
+
                 docsEnum.Reset(liveDocs, termAndPostings[currentTerm]);
                 return docsEnum;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
             {
                 if (!storePositions && !storeOffsets)
@@ -603,21 +601,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     return null;
                 }
 
-                TVDocsAndPositionsEnum docsAndPositionsEnum;
-                if (reuse != null && reuse is TVDocsAndPositionsEnum)
-                {
-                    docsAndPositionsEnum = (TVDocsAndPositionsEnum)reuse;
-                }
-                else
-                {
+                if (reuse is null || !(reuse is TVDocsAndPositionsEnum docsAndPositionsEnum))
                     docsAndPositionsEnum = new TVDocsAndPositionsEnum();
-                }
+
                 docsAndPositionsEnum.Reset(liveDocs, termAndPostings[currentTerm]);
                 return docsAndPositionsEnum;
             }
 
             public override IComparer<BytesRef> Comparer
             {
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 get
                 {
                     if (unicodeSortOrder)
@@ -645,6 +638,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override int DocID => doc;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int NextDoc()
             {
                 if (!didNext && (liveDocs == null || liveDocs.Get(0)))
@@ -658,6 +652,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int Advance(int target)
             {
                 if (!didNext && target == 0)
@@ -670,6 +665,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual void Reset(IBits liveDocs, TermAndPostings termAndPostings)
             {
                 this.liveDocs = liveDocs;
@@ -678,6 +674,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 didNext = false;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return 1;
@@ -696,6 +693,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override int Freq
             {
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 get
                 {
                     if (positions != null)
@@ -712,6 +710,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override int DocID => doc;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int NextDoc()
             {
                 if (!didNext && (liveDocs == null || liveDocs.Get(0)))
@@ -725,6 +724,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int Advance(int target)
             {
                 if (!didNext && target == 0)
@@ -737,6 +737,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual void Reset(IBits liveDocs, TermAndPostings termAndPostings)
             {
                 this.liveDocs = liveDocs;
@@ -748,6 +749,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 nextPos = 0;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override BytesRef GetPayload()
             {
                 return null;
@@ -765,7 +767,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 // IndexOutOfRangeException if we didn't, which doesn't really provide good feedback as to what the cause is.
                 // This matches the behavior of Lucene 8.x. See #267.
                 if (((positions != null && nextPos < positions.Length) || startOffsets != null && nextPos < startOffsets.Length) == false)
-                    throw new InvalidOperationException("Read past last position");
+                    throw IllegalStateException.Create("Read past last position");
 
                 if (positions != null)
                 {
@@ -780,6 +782,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override int StartOffset
             {
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 get
                 {
                     if (startOffsets != null)
@@ -795,6 +798,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
             public override int EndOffset
             {
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 get
                 {
                     if (endOffsets != null)
@@ -808,12 +812,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return 1;
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override Fields Get(int docID)
         {
             if (tvx != null)
@@ -860,17 +866,20 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         // true when segments are used for "normal" searching;
         // it's only false during testing, to create a pre-flex
         // index, using the test-only PreFlexRW.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected internal virtual bool SortTermsByUnicode()
         {
             return true;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed()
         {
             // everything is disk-based
             return 0;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void CheckIntegrity()
         {
         }

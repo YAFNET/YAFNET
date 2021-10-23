@@ -1,11 +1,11 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 using System.Reflection;
-using Attribute = YAF.Lucene.Net.Util.Attribute;
-using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+using Attribute  = YAF.Lucene.Net.Util.Attribute;
+using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
 
 namespace YAF.Lucene.Net.Analysis
 {
@@ -26,8 +26,8 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using CharTermAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
-    using IAttributeReflector = YAF.Lucene.Net.Util.IAttributeReflector;
+    using CharTermAttribute  = YAF.Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
+    using IAttributeReflector  = YAF.Lucene.Net.Util.IAttributeReflector;
 
     /// <summary>
     /// A <see cref="Token"/> is an occurrence of a term from the text of a field.  It consists of
@@ -257,7 +257,7 @@ namespace YAF.Lucene.Net.Analysis
             {
                 if (value < 0)
                 {
-                    throw new ArgumentException("Increment must be zero or greater: " + value);
+                    throw new ArgumentOutOfRangeException(nameof(PositionIncrement), "Increment must be zero or greater: " + value); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.positionIncrement = value;
             }
@@ -399,16 +399,15 @@ namespace YAF.Lucene.Net.Analysis
                 return true;
             }
 
-            
-            if (obj is Token)
+
+            if (obj is Token other)
             {
-                var other = (Token)obj;
-                return (startOffset == other.startOffset && 
-                    endOffset == other.endOffset && 
-                    flags == other.flags && 
-                    positionIncrement == other.positionIncrement && 
-                    (type == null ? other.type == null : type.Equals(other.type, StringComparison.Ordinal)) && 
-                    (payload == null ? other.payload == null : payload.Equals(other.payload)) && 
+                return (startOffset == other.startOffset &&
+                    endOffset == other.endOffset &&
+                    flags == other.flags &&
+                    positionIncrement == other.positionIncrement &&
+                    (type == null ? other.type == null : type.Equals(other.type, StringComparison.Ordinal)) &&
+                    (payload == null ? other.payload == null : payload.Equals(other.payload)) &&
                     base.Equals(obj)
                 );
             }
@@ -598,8 +597,7 @@ namespace YAF.Lucene.Net.Analysis
 
         public override void CopyTo(IAttribute target)
         {
-            var to = target as Token;
-            if (to != null)
+            if (target is Token to)
             {
                 to.Reinit(this);
                 // reinit shares the payload, so clone it:
@@ -677,8 +675,7 @@ namespace YAF.Lucene.Net.Analysis
                     return true;
                 }
 
-                var af = other as TokenAttributeFactory;
-                if (af != null)
+                if (other is TokenAttributeFactory af)
                 {
                     return this.@delegate.Equals(af.@delegate);
                 }

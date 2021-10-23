@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -22,7 +23,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
 
     internal sealed class PackedReaderIterator : PackedInt32s.ReaderIterator
     {
@@ -48,6 +49,7 @@ namespace YAF.Lucene.Net.Util.Packed
             position = -1;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int Iterations(int mem)
         {
             int iterations = bulkOperation.ComputeIterations(m_valueCount, mem);
@@ -73,7 +75,7 @@ namespace YAF.Lucene.Net.Util.Packed
             int remaining = m_valueCount - position - 1;
             if (remaining <= 0)
             {
-                throw new EndOfStreamException();
+                throw EOFException.Create();
             }
             count = Math.Min(remaining, count);
 

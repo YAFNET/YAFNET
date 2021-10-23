@@ -1,8 +1,8 @@
-using J2N.Text;
+﻿using J2N.Text;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
+using WritableArrayAttribute  = YAF.Lucene.Net.Support.WritableArrayAttribute;
 
 namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
@@ -23,20 +23,17 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
     * limitations under the License.
     */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
-    using IAttributeReflector = YAF.Lucene.Net.Util.IAttributeReflector;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using UnicodeUtil = YAF.Lucene.Net.Util.UnicodeUtil;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using Attribute  = YAF.Lucene.Net.Util.Attribute;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
+    using IAttributeReflector  = YAF.Lucene.Net.Util.IAttributeReflector;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using UnicodeUtil  = YAF.Lucene.Net.Util.UnicodeUtil;
 
     /// <summary>
     /// Default implementation of <see cref="ICharTermAttribute"/>. </summary>
-    public class CharTermAttribute : Attribute, ICharTermAttribute, ITermToBytesRefAttribute, IAppendable
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public class CharTermAttribute : Attribute, ICharTermAttribute, ITermToBytesRefAttribute, IAppendable // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private const int MIN_BUFFER_SIZE = 10;
 
@@ -126,15 +123,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
 
         // *** CharSequence interface ***
 
-        // LUCENENET specific: Replaced with this[int] to .NETify
-        //public char CharAt(int index)
-        //{
-        //    if (index >= TermLength)
-        //    {
-        //        throw new IndexOutOfRangeException();
-        //    }
-        //    return TermBuffer[index];
-        //}
+        // LUCENENET specific: Replaced CharAt(int) with this[int] to .NETify
 
         char ICharSequence.this[int index] => this[index];
 

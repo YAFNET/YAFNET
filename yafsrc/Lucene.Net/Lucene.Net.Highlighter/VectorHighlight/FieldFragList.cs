@@ -1,6 +1,7 @@
-﻿using YAF.Lucene.Net.Support;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Float = J2N.Numerics.Single;
 using Toffs = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo.Toffs;
 using WeightedPhraseInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
 
@@ -29,13 +30,15 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     /// </summary>
     public abstract class FieldFragList
     {
-        private List<WeightedFragInfo> fragInfos = new List<WeightedFragInfo>();
+        private readonly List<WeightedFragInfo> fragInfos = new List<WeightedFragInfo>();
 
         /// <summary>
         /// a constructor.
         /// </summary>
         /// <param name="fragCharSize">the length (number of chars) of a fragment</param>
-        public FieldFragList(int fragCharSize)
+#pragma warning disable IDE0060 // Remove unused parameter
+        protected FieldFragList(int fragCharSize) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
         }
 
@@ -55,12 +58,12 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// <summary>
         /// List of term offsets + weight for a frag info
         /// </summary>
-        public class WeightedFragInfo
+        public class WeightedFragInfo : IFormattable // LUCENENET specific - implemented IFormattable for floating point representations
         {
-            private IList<SubInfo> subInfos;
-            private float totalBoost;
-            private int startOffset;
-            private int endOffset;
+            private readonly IList<SubInfo> subInfos; // LUCENENET: marked readonly
+            private readonly float totalBoost; // LUCENENET: marked readonly
+            private readonly int startOffset; // LUCENENET: marked readonly
+            private readonly int endOffset; // LUCENENET: marked readonly
 
             public WeightedFragInfo(int startOffset, int endOffset, IList<SubInfo> subInfos, float totalBoost)
             {
@@ -80,13 +83,23 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
             public override string ToString()
             {
+                return ToString(null);
+            }
+
+            // LUCENENET specific: allow formatting the boost in the current culture.
+
+            public virtual string ToString(IFormatProvider provider)
+            {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("subInfos=(");
                 foreach (SubInfo si in subInfos)
                     sb.Append(si.ToString());
-                sb.Append(")/").Append(Number.ToString(totalBoost)).Append('(').Append(startOffset).Append(',').Append(endOffset).Append(')');
+                // LUCENENET: allow formatting in the current culture
+                sb.Append(")/").Append(Float.ToString(totalBoost, provider)).Append('(').Append(startOffset).Append(',').Append(endOffset).Append(')');
                 return sb.ToString();
             }
+
+            string IFormattable.ToString(string format, IFormatProvider provider) => ToString(provider);
 
             /// <summary>
             /// Represents the list of term offsets for some text

@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 
@@ -174,7 +175,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException();
+                throw AssertionError.Create();
             }
         }
 
@@ -185,7 +186,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             for (int j = 1; j <= 8; ++j)
             {
-                blocks[blocksOffset++] = (byte)((long)((ulong)block >> (64 - (j << 3))));
+                blocks[blocksOffset++] = (byte)block.TripleShift(64 - (j << 3));
             }
             return blocksOffset;
         }

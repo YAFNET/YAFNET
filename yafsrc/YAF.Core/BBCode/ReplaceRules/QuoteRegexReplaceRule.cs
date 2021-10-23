@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,11 +27,14 @@ namespace YAF.Core.BBCode.ReplaceRules
     using System.Text;
     using System.Text.RegularExpressions;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Models;
 
     /// <summary>
     /// Quote Block regular express replace
@@ -69,20 +72,17 @@ namespace YAF.Core.BBCode.ReplaceRules
         {
             var sb = new StringBuilder(text);
 
-            var match = this._regExSearch.Match(text);
+            var match = this.RegExSearch.Match(text);
 
             while (match.Success)
             {
-                var innerReplace = new StringBuilder(this._regExReplace);
+                var innerReplace = new StringBuilder(this.RegExReplace);
                 var i = 0;
 
-                if (this._truncateLength > 0)
-                {
-                    // special handling to truncate urls
-                    innerReplace.Replace(
-                        "${innertrunc}",
-                        match.Groups["inner"].Value.TruncateMiddle(this._truncateLength));
-                }
+                // special handling to truncate urls
+                innerReplace.Replace(
+                    "${innertrunc}",
+                    match.Groups["inner"].Value);
 
                 var quote = match.Groups["quote"].Value;
 
@@ -92,14 +92,18 @@ namespace YAF.Core.BBCode.ReplaceRules
                 // extract post id if exists
                 if (quote.Contains(";"))
                 {
-                    string postId;
-
-                    string userName;
+                    string postId, userName, topicLink = string.Empty;
 
                     try
                     {
                         postId = quote.Substring(quote.LastIndexOf(";", StringComparison.Ordinal) + 1);
                         userName = quote = quote.Remove(quote.LastIndexOf(";", StringComparison.Ordinal));
+
+                        topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
+                            ForumPages.Posts,
+                            "m={0}&name={1}",
+                            postId,
+                            BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>()));
                     }
                     catch (Exception)
                     {
@@ -110,7 +114,7 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                     quote = postId.IsSet()
                                 ? $@"<footer class=""blockquote-footer"">
-                                         <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", postId)}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
+                                         <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{topicLink}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
                                          <p class=""mb-0 mt-2"">"
                                 : $@"<footer class=""blockquote-footer"">
                                          <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0"">";
@@ -124,7 +128,7 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                 innerReplace.Replace("${quote}", quote);
 
-                this._variables.ForEach(
+                this.Variables.ForEach(
                     variable =>
                         {
                             var varName = variable;
@@ -140,10 +144,10 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                             var value = match.Groups[varName].Value;
 
-                            if (this._variableDefaults != null && value.Length == 0)
+                            if (this.VariableDefaults != null && value.Length == 0)
                             {
                                 // use default instead
-                                value = this._variableDefaults[i];
+                                value = this.VariableDefaults[i];
                             }
 
                             innerReplace.Replace(
@@ -164,7 +168,7 @@ namespace YAF.Core.BBCode.ReplaceRules
                 sb.Insert(match.Groups[0].Index, innerReplace.ToString());
 
                 // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-                match = this._regExSearch.Match(sb.ToString());
+                match = this.RegExSearch.Match(sb.ToString());
             }
 
             text = sb.ToString();

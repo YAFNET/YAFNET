@@ -23,41 +23,41 @@
  */
 namespace YAF.Types.EventProxies
 {
-  #region Using
+    #region Using
 
-  using System.Web;
+    using System.Web;
 
-  using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Events;
 
-  #endregion
-
-  /// <summary>
-  /// The http application init event.
-  /// </summary>
-  public class HttpApplicationInitEvent : IAmEvent
-  {
-    #region Constructors and Destructors
+    #endregion
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HttpApplicationInitEvent"/> class.
+    /// The http application init event.
     /// </summary>
-    /// <param name="httpApplication">
-    /// The http application.
-    /// </param>
-    public HttpApplicationInitEvent([NotNull] HttpApplication httpApplication)
+    public class HttpApplicationInitEvent : IAmEvent
     {
-      this.HttpApplication = httpApplication;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpApplicationInitEvent"/> class.
+        /// </summary>
+        /// <param name="httpApplication">
+        /// The http application.
+        /// </param>
+        public HttpApplicationInitEvent([NotNull] HttpApplication httpApplication)
+        {
+            this.HttpApplication = httpApplication;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets HttpApplication.
+        /// </summary>
+        public HttpApplication HttpApplication { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets HttpApplication.
-    /// </summary>
-    public HttpApplication HttpApplication { get; set; }
-
-    #endregion
-  }
 }

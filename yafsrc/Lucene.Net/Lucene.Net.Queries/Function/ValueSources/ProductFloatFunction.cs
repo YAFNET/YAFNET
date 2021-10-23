@@ -1,4 +1,6 @@
-﻿namespace YAF.Lucene.Net.Queries.Function.ValueSources
+﻿// Lucene version compatibility level 4.8.1
+
+namespace YAF.Lucene.Net.Queries.Function.ValueSources
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

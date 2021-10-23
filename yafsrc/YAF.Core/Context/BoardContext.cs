@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -22,29 +22,30 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Context
 {
     #region Using
 
     using System;
     using System.Web;
-    using System.Web.Security;
 
     using Autofac;
 
     using YAF.Configuration;
     using YAF.Configuration.Pattern;
+    using YAF.Core.BasePages;
     using YAF.Core.Helpers;
     using YAF.Core.Services;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models;
+
+    using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 
     #endregion
 
@@ -61,19 +62,9 @@ namespace YAF.Core
         private readonly ILifetimeScope contextLifetimeContainer;
 
         /// <summary>
-        /// The variables.
-        /// </summary>
-        private readonly TypeDictionary variables = new TypeDictionary();
-
-        /// <summary>
         /// The user.
         /// </summary>
-        private MembershipUser user;
-
-        /// <summary>
-        /// The combined user data.
-        /// </summary>
-        private CombinedUserDataHelper combinedUserData;
+        private AspNetUsers membershipUser;
 
         /// <summary>
         /// The load message.
@@ -100,10 +91,10 @@ namespace YAF.Core
             this.contextLifetimeContainer = contextLifetimeContainer;
 
             // init the repository
-            this.Globals = new ContextVariableRepository(this.variables);
+            this.Globals = new ContextVariableRepository(this.Vars);
 
             // init context...
-            this.Init?.Invoke(this, new EventArgs());
+            this.Init?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -155,12 +146,6 @@ namespace YAF.Core
         public ForumPage CurrentForumPage { get; set; }
 
         /// <summary>
-        /// Gets the Instance of the Combined UserData for the current user.
-        /// </summary>
-        public IUserData CurrentUserData =>
-            this.combinedUserData ?? (this.combinedUserData = new CombinedUserDataHelper());
-
-        /// <summary>
         /// Gets the current page as the forumPage Enumerator (for comparison)
         /// </summary>
         public ForumPages ForumPageType
@@ -169,7 +154,7 @@ namespace YAF.Core
             {
                 if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").IsNotSet())
                 {
-                    return ForumPages.forum;
+                    return ForumPages.Board;
                 }
 
                 try
@@ -178,7 +163,7 @@ namespace YAF.Core
                 }
                 catch (Exception)
                 {
-                    return ForumPages.forum;
+                    return ForumPages.Board;
                 }
             }
         }
@@ -191,22 +176,12 @@ namespace YAF.Core
         /// <summary>
         /// Gets the current Page Load Message
         /// </summary>
-        public LoadMessage LoadMessage => this.loadMessage ?? (this.loadMessage = new LoadMessage());
+        public LoadMessage LoadMessage => this.loadMessage ??= new LoadMessage();
 
         /// <summary>
         /// Gets the Current Page Elements
         /// </summary>
-        public PageElementRegister PageElements => this.pageElements ?? (this.pageElements = new PageElementRegister());
-
-        /// <summary>
-        /// Gets the Current Page User Profile
-        /// </summary>
-        public YafUserProfile Profile => (YafUserProfile)this.Get<HttpContextBase>().Profile;
-
-        /// <summary>
-        /// Gets or sets the Current Page Query ID Helper
-        /// </summary>
-        public QueryStringIDHelper QueryIDs { get; set; }
+        public PageElementRegister PageElements => this.pageElements ??= new PageElementRegister();
 
         /// <summary>
         /// Gets the Provides access to the Service Locator
@@ -216,27 +191,27 @@ namespace YAF.Core
         /// <summary>
         /// Gets the Current Page Control Settings from Forum Control
         /// </summary>
-        public ControlSettings Settings => ControlSettings.Current;
-
-        /// <summary>
-        /// Gets the UrlBuilder
-        /// </summary>
-        public IUrlBuilder UrlBuilder => FactoryProvider.UrlBuilder;
+        public ControlSettings Settings => this.Get<ControlSettings>();
 
         /// <summary>
         /// Gets or sets the Current Membership User
         /// </summary>
-        public MembershipUser User
-        {
-            get => this.user ?? (this.user = UserMembershipHelper.GetUser(true));
+        public AspNetUsers MembershipUser => this.membershipUser ??= this.Get<IAspNetUsersHelper>().GetUser();
 
-            set => this.user = value;
-        }
+        /// <summary>
+        ///   Gets the current YAF User.
+        /// </summary>
+        public User User => this.PageData.Item2.Item2;
+
+        /// <summary>
+        /// Returns if user is Host User or an Admin of one or more forums.
+        /// </summary>
+        public bool IsAdmin => this.User.UserFlags.IsHostAdmin || Current.IsForumAdmin;
 
         /// <summary>
         /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
         /// </summary>
-        public TypeDictionary Vars => this.variables;
+        public TypeDictionary Vars { get; } = new ();
 
         #endregion
 
@@ -250,9 +225,9 @@ namespace YAF.Core
         /// </returns>
         public object this[[NotNull] string varName]
         {
-            get => this.variables.ContainsKey(varName) ? this.variables[varName] : null;
+            get => this.Vars.ContainsKey(varName) ? this.Vars[varName] : null;
 
-            set => this.variables[varName] = value;
+            set => this.Vars[varName] = value;
         }
 
         #endregion
@@ -295,7 +270,7 @@ namespace YAF.Core
         /// </summary>
         public void Dispose()
         {
-            this.Unload?.Invoke(this, new EventArgs());
+            this.Unload?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -307,28 +282,28 @@ namespace YAF.Core
         /// </summary>
         protected override void InitUserAndPage()
         {
-            if (this.InitUserPage)
+            if (this.UserPageDataLoaded)
             {
                 return;
             }
 
-            this.BeforeInit?.Invoke(this, new EventArgs());
+            this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
-            if (this.User != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
+            if (this.MembershipUser != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
                                       || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
-                                      != this.User.UserName))
+                                      != this.MembershipUser.UserName))
             {
-                RoleMembershipHelper.UpdateForumUser(this.User, this.PageBoardID);
-                this.Get<HttpSessionStateBase>()["UserUpdated"] = this.User.UserName;
+                this.Get<IAspNetRolesHelper>().UpdateForumUser(this.MembershipUser, this.PageBoardID);
+                this.Get<HttpSessionStateBase>()["UserUpdated"] = this.MembershipUser.UserName;
             }
 
             var pageLoadEvent = new InitPageLoadEvent();
 
             this.Get<IRaiseEvent>().Raise(pageLoadEvent);
 
-            this.Page = pageLoadEvent.DataDictionary;
+            this.PageData = pageLoadEvent.PageData;
 
-            this.AfterInit?.Invoke(this, new EventArgs());
+            this.AfterInit?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

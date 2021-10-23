@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class replacewords
+    public partial class ReplaceWords
     {
 
         /// <summary>

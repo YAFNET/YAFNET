@@ -3,17 +3,48 @@
 
 <div class="row">
     <div class="col">
-        <div class="card mb-3">
+        <div class="card my-3">
             <div class="card-header">
-                <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel runat="server" ID="Title" 
-                                                                              LocalizedPage="MYTOPICS"
-                                                                              LocalizedTag="ActiveTopics"></YAF:LocalizedLabel>
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server" ID="IconHeader"
+                                        IconName="comments"
+                                        LocalizedPage="MYTOPICS"
+                                        LocalizedTag="ActiveTopics" />
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="input-group input-group-sm me-2" role="group">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                                </div>
+                                <asp:DropDownList runat="server" ID="PageSize"
+                                                  AutoPostBack="True"
+                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                  CssClass="form-select">
+                                </asp:DropDownList>
+                            </div>
+                            <asp:PlaceHolder runat="server" ID="FilterHolder">
+                                <div class="input-group input-group-sm">
+                                    <asp:Label runat="server" AssociatedControlID="Since"
+                                               CssClass="input-group-text">
+                                        <YAF:LocalizedLabel ID="SinceLabel" runat="server"
+                                                            LocalizedTag="SINCE"/>
+                                    </asp:Label>
+                                    <asp:DropDownList ID="Since" runat="server" 
+                                                      AutoPostBack="True" 
+                                                      OnSelectedIndexChanged="Since_SelectedIndexChanged" 
+                                                      CssClass="form-select" />
+                                </div>
+                            </asp:PlaceHolder>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
-                <YAF:Pager runat="server" ID="PagerTop" OnPageChange="Pager_PageChange" />
                 <asp:Repeater ID="TopicList" runat="server">
                     <ItemTemplate>
-                        <%# this.CreateTopicLine((System.Data.DataRowView)Container.DataItem) %>
+                        <%# this.CreateTopicLine(Container.DataItem) %>
                     </ItemTemplate>
                     <SeparatorTemplate>
                         <div class="row">
@@ -23,33 +54,34 @@
                         </div>
                     </SeparatorTemplate>
                 </asp:Repeater>
-                <YAF:Pager runat="server" ID="PagerBottom" LinkedPager="PagerTop" OnPageChange="Pager_PageChange" />
+                <asp:PlaceHolder runat="server" Visible="<%# this.TopicList.Items.Count == 0 %>">
+                    <div class="card-body">
+                        <YAF:Alert runat="server" ID="Info"
+                                   Type="info">
+                            <YAF:Icon runat="server" IconName="info-circle" />
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="NO_POSTS" />
+                        </YAF:Alert>
+                    </div>
+                </asp:PlaceHolder>
             </div>
-            <asp:Panel runat="server" ID="Footer" 
-                       CssClass="card-footer">
-                <div class="mb-1 form-inline">
-                    <asp:Label runat="server" AssociatedControlID="Since">
-                        <YAF:LocalizedLabel ID="SinceLabel" runat="server"
-                                            LocalizedTag="SINCE"/>
-                    </asp:Label>&nbsp;
-                    <asp:DropDownList ID="Since" runat="server" 
-                                      AutoPostBack="True" 
-                                      OnSelectedIndexChanged="Since_SelectedIndexChanged" 
-                                      CssClass="select2-select custom-select" />
+            <div class="card-footer">
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                        <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
+                                         TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
+                                         Type="Secondary"
+                                         Size="Small"
+                                         Icon="glasses"/>
+                        <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="False" />
+                    </div>
                 </div>
-            </asp:Panel>
+            </div>
+    </div>
     </div>
 </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="btn-group float-right" role="group" aria-label="Tools">
-            <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
-                             TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
-                             Type="Secondary"
-                             Size="Small"
-                             Icon="glasses"/>
-            <YAF:RssFeedLink ID="RssFeed" runat="server" Visible="False" />
-        </div>
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager runat="server" ID="PagerTop" 
+                   OnPageChange="Pager_PageChange" />
     </div>
 </div>

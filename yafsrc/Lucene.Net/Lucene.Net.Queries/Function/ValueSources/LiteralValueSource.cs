@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Util;
 using System;
@@ -44,14 +45,14 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         public override FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext)
         {
 
-            return new StrDocValuesAnonymousInnerClassHelper(this, this);
+            return new StrDocValuesAnonymousClass(this, this);
         }
 
-        private class StrDocValuesAnonymousInnerClassHelper : StrDocValues
+        private class StrDocValuesAnonymousClass : StrDocValues
         {
             private readonly LiteralValueSource outerInstance;
 
-            public StrDocValuesAnonymousInnerClassHelper(LiteralValueSource outerInstance, LiteralValueSource @this)
+            public StrDocValuesAnonymousClass(LiteralValueSource outerInstance, LiteralValueSource @this)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;

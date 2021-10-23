@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -38,23 +38,25 @@ namespace YAF.Pages.Admin
     using System.Xml;
     using System.Xml.XPath;
 
-    using YAF.Core;
-    using YAF.Core.Utilities;
+    using YAF.Configuration;
+    using YAF.Core.BasePages;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
+
+    using ListItem = System.Web.UI.WebControls.ListItem;
 
     #endregion
 
     /// <summary>
     /// Administrative Page for the editing of forum properties.
     /// </summary>
-    public partial class editlanguage : AdminPage
+    public partial class EditLanguage : AdminPage
     {
         #region Constants and Fields
 
@@ -74,9 +76,14 @@ namespace YAF.Pages.Admin
         private string xmlFile;
 
         /// <summary>
+        /// The current page name.
+        /// </summary>
+        private string pageName;
+
+        /// <summary>
         ///   The translations.
         /// </summary>
-        private List<Translation> translations = new List<Translation>();
+        private List<Translation> translations = new ();
 
         #endregion
 
@@ -85,12 +92,12 @@ namespace YAF.Pages.Admin
         /// <summary>
         ///  Gets the List of attributes for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesAttributes { get; } = new StringDictionary();
+        private StringDictionary ResourcesAttributes { get; } = new ();
 
         /// <summary>
         ///  Gets the List of namespaces for Resources in destination translation file
         /// </summary>
-        private StringDictionary ResourcesNamespaces { get; } = new StringDictionary();
+        private StringDictionary ResourcesNamespaces { get; } = new ();
 
         #endregion
 
@@ -113,8 +120,8 @@ namespace YAF.Pages.Admin
             finalList.AddRange(
                 list.Where(
                     item1 => finalList.Find(
-                                 check => check.PageName.Equals(item1.PageName)
-                                          && check.ResourceName.Equals(item1.ResourceName)) == null));
+                        check => check.PageName.Equals(item1.PageName) &&
+                                 check.ResourceName.Equals(item1.ResourceName)) == null));
 
             return finalList;
         }
@@ -126,14 +133,13 @@ namespace YAF.Pages.Admin
         /// <param name="args">The <see cref="System.Web.UI.WebControls.ServerValidateEventArgs"/> instance containing the event data.</param>
         public void LocalizedTextCheck([NotNull] object sender, [NotNull] ServerValidateEventArgs args)
         {
-            foreach (var tbx in this.grdLocals.Items.Cast<DataGridItem>()
-                .Select(item => item.FindControlAs<TextBox>("txtLocalized")).Where(tbx => args.Value.Equals(tbx.Text)))
-            {
-                tbx.ForeColor = tbx.Text.Equals(tbx.ToolTip, StringComparison.OrdinalIgnoreCase)
-                                    ? Color.Red
-                                    : Color.Black;
-                break;
-            }
+            var textBox = this.grdLocals.Items.Cast<DataGridItem>()
+                .Select(item => item.FindControlAs<TextBox>("txtLocalized"))
+                .FirstOrDefault(tbx => args.Value.Equals(tbx.Text));
+
+            textBox.ForeColor = textBox.Text.Equals(textBox.ToolTip, StringComparison.OrdinalIgnoreCase)
+                ? Color.Red
+                : Color.Black;
 
             args.IsValid = true;
         }
@@ -156,11 +162,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-           BoardContext.Current.PageElements.RegisterJsBlock(
-                "FixGridTableJs",
-                JavaScriptBlocks.FixGridTable(this.grdLocals.ClientID));
-
-           base.OnPreRender(e);
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -170,7 +172,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.langPath = HttpContext.Current.Request.MapPath($"{BoardInfo.ForumServerFileRoot}languages");
+            this.langPath = this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages");
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("x"))
             {
@@ -190,7 +192,9 @@ namespace YAF.Pages.Admin
 
             this.dDLPages.Items.FindByText("DEFAULT").Selected = true;
 
-            this.lblPageName.Text = "DEFAULT";
+            this.pageName = "DEFAULT";
+
+            this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
 
             if (this.update)
             {
@@ -215,27 +219,12 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_LANGUAGES", "TITLE"),
-                BuildLink.GetLink(ForumPages.admin_languages));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Languages));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITLANGUAGE", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_LANGUAGES", "TITLE")} - {this.GetText("ADMIN_EDITLANGUAGE", "TITLE")}";
-        }
-
-        /// <summary>
-        /// Returns Back to The Languages Page
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.admin_languages);
         }
 
         /// <summary>
@@ -271,25 +260,35 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// Returns Back to The Languages Page
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Languages);
+        }
+
+        /// <summary>
         /// Creates controls for column 1 (Resource tag) and column 2 (Resource value).
         /// </summary>
-        /// <param name="pageName">Name of the page.</param>
+        /// <param name="name">Name of the page.</param>
         /// <param name="resourceName">Name of the resource.</param>
         /// <param name="srcResourceValue">The SRC resource value.</param>
         /// <param name="dstResourceValue">The DST resource value.</param>
         private void CreatePageResourceControl(
-            [NotNull] string pageName,
+            [NotNull] string name,
             [NotNull] string resourceName,
             [NotNull] string srcResourceValue,
             [NotNull] string dstResourceValue)
         {
             var translation = new Translation
-                                  {
-                                      PageName = pageName,
-                                      ResourceName = resourceName,
-                                      ResourceValue = srcResourceValue,
-                                      LocalizedValue = dstResourceValue
-                                  };
+            {
+                PageName = name,
+                ResourceName = resourceName,
+                ResourceValue = srcResourceValue,
+                LocalizedValue = dstResourceValue
+            };
 
             this.translations.Add(translation);
         }
@@ -297,10 +296,10 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Creates a header row in the Resource Page DropDown Header text is page section name in XML file.
         /// </summary>
-        /// <param name="pageName">Name of the page.</param>
-        private void CreatePageResourceHeader([NotNull] string pageName)
+        /// <param name="name">Name of the page.</param>
+        private void CreatePageResourceHeader([NotNull] string name)
         {
-            this.dDLPages.Items.Add(new ListItem(pageName, pageName));
+            this.dDLPages.Items.Add(new ListItem(name, name));
         }
 
         /// <summary>
@@ -309,7 +308,7 @@ namespace YAF.Pages.Admin
         private void InitializeComponent()
         {
             this.btnLoadPageLocalization.Click += this.LoadPageLocalization;
-            this.btnCancel.Click += CancelClick;
+            this.btnCancel.Click += this.CancelClick;
             this.btnSave.Click += this.SaveClick;
 
             this.grdLocals.ItemDataBound += GrdLocalsItemDataBound;
@@ -322,12 +321,9 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void LoadPageLocalization([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Save Values
-            this.UpdateLocalizedValues();
+            this.pageName = this.dDLPages.SelectedValue;
 
-            this.SaveLanguageFile();
-
-            this.lblPageName.Text = this.dDLPages.SelectedValue;
+            this.IconHeader.Text = $"{this.GetText("ADMIN_EDITLANGUAGE", "HEADER")} {this.pageName}";
 
             this.grdLocals.DataSource =
                 this.translations.FindAll(check => check.PageName.Equals(this.dDLPages.SelectedValue));
@@ -380,53 +376,55 @@ namespace YAF.Pages.Admin
                 navDst.MoveToRoot();
                 navDst.MoveToFirstChild();
 
-                foreach (XPathNavigator pageItemNavigator in navSrc.Select("page"))
-                {
-                    // int pageResourceCount = 0;
-                    var pageNameAttributeValue = pageItemNavigator.GetAttribute("name", string.Empty);
-
-                    this.CreatePageResourceHeader(pageNameAttributeValue);
-
-                    var resourceItemCollection = pageItemNavigator.Select("Resource");
-
-                    foreach (XPathNavigator resourceItem in resourceItemCollection)
+                navSrc.Select("page").Cast<XPathNavigator>().ForEach(
+                    pageItemNavigator =>
                     {
-                        var resourceTagAttributeValue = resourceItem.GetAttribute("tag", string.Empty);
+                        // int pageResourceCount = 0;
+                        var pageNameAttributeValue = pageItemNavigator.GetAttribute("name", string.Empty);
 
-                        var iteratorSe = navDst.Select(
-                            $"/Resources/page[@name=\"{pageNameAttributeValue}\"]/Resource[@tag=\"{resourceTagAttributeValue}\"]");
+                        this.CreatePageResourceHeader(pageNameAttributeValue);
 
-                        if (iteratorSe.Count <= 0)
-                        {
-                            // pageResourceCount++;
+                        var resourceItemCollection = pageItemNavigator.Select("Resource");
 
-                            // Generate Missing Languages
-                            this.CreatePageResourceControl(
-                                pageNameAttributeValue,
-                                resourceTagAttributeValue,
-                                resourceItem.Value,
-                                resourceItem.Value);
-
-                            this.update = true;
-                        }
-
-                        while (iteratorSe.MoveNext())
-                        {
-                            // pageResourceCount++;
-                            if (!iteratorSe.Current.Value.Equals(
-                                    resourceItem.Value,
-                                    StringComparison.OrdinalIgnoreCase))
+                        resourceItemCollection.Cast<XPathNavigator>().ForEach(
+                            resourceItem =>
                             {
-                            }
+                                var resourceTagAttributeValue = resourceItem.GetAttribute("tag", string.Empty);
 
-                            this.CreatePageResourceControl(
-                                pageNameAttributeValue,
-                                resourceTagAttributeValue,
-                                resourceItem.Value,
-                                iteratorSe.Current.Value);
-                        }
-                    }
-                }
+                                var iteratorSe = navDst.Select(
+                                    $"/Resources/page[@name=\"{pageNameAttributeValue}\"]/Resource[@tag=\"{resourceTagAttributeValue}\"]");
+
+                                if (iteratorSe.Count <= 0)
+                                {
+                                    // pageResourceCount++;
+
+                                    // Generate Missing Languages
+                                    this.CreatePageResourceControl(
+                                        pageNameAttributeValue,
+                                        resourceTagAttributeValue,
+                                        resourceItem.Value,
+                                        resourceItem.Value);
+
+                                    this.update = true;
+                                }
+
+                                while (iteratorSe.MoveNext())
+                                {
+                                    // pageResourceCount++;
+                                    if (!iteratorSe.Current.Value.Equals(
+                                        resourceItem.Value,
+                                        StringComparison.OrdinalIgnoreCase))
+                                    {
+                                    }
+
+                                    this.CreatePageResourceControl(
+                                        pageNameAttributeValue,
+                                        resourceTagAttributeValue,
+                                        resourceItem.Value,
+                                        iteratorSe.Current.Value);
+                                }
+                            });
+                    });
             }
             catch (Exception exception)
             {
@@ -454,12 +452,9 @@ namespace YAF.Pages.Admin
             this.translations = RemoveDuplicateSections(this.translations);
 
             var settings = new XmlWriterSettings
-                               {
-                                   Encoding = Encoding.UTF8,
-                                   OmitXmlDeclaration = false,
-                                   Indent = true,
-                                   IndentChars = " "
-                               };
+            {
+                Encoding = Encoding.UTF8, OmitXmlDeclaration = false, Indent = true, IndentChars = " "
+            };
 
             var xw = XmlWriter.Create(Path.Combine(this.langPath, this.xmlFile), settings);
             xw.WriteStartDocument();
@@ -467,39 +462,36 @@ namespace YAF.Pages.Admin
             // <Resources>
             xw.WriteStartElement("Resources");
 
-            foreach (string key in this.ResourcesNamespaces.Keys)
-            {
-                xw.WriteAttributeString("xmlns", key, null, this.ResourcesNamespaces[key]);
-            }
+            this.ResourcesNamespaces.Keys.Cast<string>().ForEach(
+                key => xw.WriteAttributeString("xmlns", key, null, this.ResourcesNamespaces[key]));
 
-            foreach (string key in this.ResourcesAttributes.Keys)
-            {
-                xw.WriteAttributeString(key, this.ResourcesAttributes[key]);
-            }
+            this.ResourcesAttributes.Keys.Cast<string>()
+                .ForEach(key => xw.WriteAttributeString(key, this.ResourcesAttributes[key]));
 
             var currentPageName = string.Empty;
 
-            foreach (var trans in this.translations.OrderBy(t => t.PageName).ThenBy(t => t.ResourceName))
-            {
-                // <page></page>
-                if (!trans.PageName.Equals(currentPageName, StringComparison.OrdinalIgnoreCase))
+            this.translations.OrderBy(t => t.PageName).ThenBy(t => t.ResourceName).ForEach(
+                trans =>
                 {
-                    if (currentPageName.IsSet())
+                    // <page></page>
+                    if (!trans.PageName.Equals(currentPageName, StringComparison.OrdinalIgnoreCase))
                     {
-                        xw.WriteFullEndElement();
+                        if (currentPageName.IsSet())
+                        {
+                            xw.WriteFullEndElement();
+                        }
+
+                        currentPageName = trans.PageName;
+
+                        xw.WriteStartElement("page");
+                        xw.WriteAttributeString("name", currentPageName);
                     }
 
-                    currentPageName = trans.PageName;
-
-                    xw.WriteStartElement("page");
-                    xw.WriteAttributeString("name", currentPageName);
-                }
-
-                xw.WriteStartElement("Resource");
-                xw.WriteAttributeString("tag", trans.ResourceName);
-                xw.WriteString(trans.LocalizedValue);
-                xw.WriteFullEndElement();
-            }
+                    xw.WriteStartElement("Resource");
+                    xw.WriteAttributeString("tag", trans.ResourceName);
+                    xw.WriteString(trans.LocalizedValue);
+                    xw.WriteFullEndElement();
+                });
 
             // final </page>
             if (currentPageName.IsSet())
@@ -523,16 +515,15 @@ namespace YAF.Pages.Admin
         {
             this.grdLocals.Items.Cast<DataGridItem>().ForEach(
                 item =>
-                    {
-                        var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
+                {
+                    var txtLocalized = item.FindControlAs<TextBox>("txtLocalized");
 
-                        var lblResourceName = item.FindControlAs<Label>("lblResourceName");
+                    var lblResourceName = item.FindControlAs<Label>("lblResourceName");
 
-                        this.translations.Find(
-                                check => check.PageName.Equals(this.lblPageName.Text)
-                                         && check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue =
-                            txtLocalized.Text;
-                    });
+                    this.translations.Find(
+                        check => check.PageName.Equals(this.dDLPages.SelectedValue) &&
+                                 check.ResourceName.Equals(lblResourceName.Text)).LocalizedValue = txtLocalized.Text;
+                });
         }
 
         #endregion

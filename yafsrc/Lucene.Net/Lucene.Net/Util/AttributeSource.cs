@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-using FlagsAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
+using FlagsAttribute  = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util
@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Util
                         // directly rather than using Activator.CreateInstance()
                         return CreateInstance(attributeType) ?? (Attribute)Activator.CreateInstance(attributeType);
                     }
-                    catch (Exception e)
+                    catch (Exception e) when (e.IsInstantiationException() || e.IsIllegalAccessException())
                     {
                         throw new ArgumentException("Could not instantiate implementing class for " + typeof(S).FullName, e);
                     }
@@ -165,10 +165,7 @@ namespace YAF.Lucene.Net.Util
         /// This class holds the state of an <see cref="AttributeSource"/>. </summary>
         /// <seealso cref="CaptureState()"/>
         /// <seealso cref="RestoreState(State)"/>
-        public sealed class State
-#if FEATURE_CLONEABLE
-            : System.ICloneable
-#endif
+        public sealed class State // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
         {
             internal Attribute attribute;
             internal State next;
@@ -209,9 +206,9 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public AttributeSource(AttributeSource input)
         {
-            if (input == null)
+            if (input is null)
             {
-                throw new ArgumentException("input AttributeSource must not be null");
+                throw new ArgumentNullException(nameof(input), "input AttributeSource must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             this.attributes = input.attributes;
             this.attributeImpls = input.attributeImpls;
@@ -257,7 +254,7 @@ namespace YAF.Lucene.Net.Util
             State initState = GetCurrentState();
             if (initState != null)
             {
-                return new IteratorAnonymousInnerClassHelper(initState);
+                return new IteratorAnonymousClass(initState);
             }
             else
             {
@@ -265,9 +262,9 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
-        private class IteratorAnonymousInnerClassHelper : IEnumerator<Attribute>
+        private class IteratorAnonymousClass : IEnumerator<Attribute>
         {
-            public IteratorAnonymousInnerClassHelper(AttributeSource.State initState)
+            public IteratorAnonymousClass(AttributeSource.State initState)
             {
                 state = initState;
             }
@@ -277,7 +274,7 @@ namespace YAF.Lucene.Net.Util
 
             //public virtual void Remove() // LUCENENET specific - not used
             //{
-            //    throw new NotSupportedException();
+            //    throw UnsupportedOperationException.Create();
             //}
 
             public void Dispose()
@@ -299,7 +296,7 @@ namespace YAF.Lucene.Net.Util
 
             public void Reset()
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public Attribute Current => current;
@@ -318,6 +315,7 @@ namespace YAF.Lucene.Net.Util
         {
             return knownImplClasses.GetValue(clazz, (key) =>
             {
+                // we have the slight chance that another thread may do the same, but who cares?
                 LinkedList<WeakReference<Type>> foundInterfaces = new LinkedList<WeakReference<Type>>();
                 // find all interfaces that this attribute instance implements
                 // and that extend the Attribute interface
@@ -443,24 +441,23 @@ namespace YAF.Lucene.Net.Util
                 return s;
             }
             var c = s = currentState[0] = new State();
-            using (var it = attributeImpls.Values.GetEnumerator())
+            using var it = attributeImpls.Values.GetEnumerator();
+            it.MoveNext();
+            c.attribute = it.Current;
+            while (it.MoveNext())
             {
-                it.MoveNext();
+                c.next = new State();
+                c = c.next;
                 c.attribute = it.Current;
-                while (it.MoveNext())
-                {
-                    c.next = new State();
-                    c = c.next;
-                    c.attribute = it.Current;
-                }
-                return s;
             }
+            return s;
         }
 
         /// <summary>
         /// Resets all <see cref="Attribute"/>s in this <see cref="AttributeSource"/> by calling
         /// <see cref="Attribute.Clear()"/> on each <see cref="IAttribute"/> implementation.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearAttributes()
         {
             for (State state = GetCurrentState(); state != null; state = state.next)
@@ -473,6 +470,7 @@ namespace YAF.Lucene.Net.Util
         /// Captures the state of all <see cref="Attribute"/>s. The return value can be passed to
         /// <see cref="RestoreState(State)"/> to restore the state of this or another <see cref="AttributeSource"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual State CaptureState()
         {
             State state = this.GetCurrentState();
@@ -496,7 +494,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public void RestoreState(State state)
         {
-            if (state == null)
+            if (state is null)
             {
                 return;
             }
@@ -578,23 +576,21 @@ namespace YAF.Lucene.Net.Util
         /// </list>
         /// </summary>
         /// <seealso cref="ReflectWith(IAttributeReflector)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public string ReflectAsString(bool prependAttClass)
         {
             StringBuilder buffer = new StringBuilder();
-            ReflectWith(new AttributeReflectorAnonymousInnerClassHelper(this, prependAttClass, buffer));
+            ReflectWith(new AttributeReflectorAnonymousClass(prependAttClass, buffer));
             return buffer.ToString();
         }
 
-        private class AttributeReflectorAnonymousInnerClassHelper : IAttributeReflector
+        private class AttributeReflectorAnonymousClass : IAttributeReflector
         {
-            private readonly AttributeSource outerInstance;
+            private readonly bool prependAttClass;
+            private readonly StringBuilder buffer;
 
-            private bool prependAttClass;
-            private StringBuilder buffer;
-
-            public AttributeReflectorAnonymousInnerClassHelper(AttributeSource outerInstance, bool prependAttClass, StringBuilder buffer)
+            public AttributeReflectorAnonymousClass(bool prependAttClass, StringBuilder buffer)
             {
-                this.outerInstance = outerInstance;
                 this.prependAttClass = prependAttClass;
                 this.buffer = buffer;
             }
@@ -615,7 +611,11 @@ namespace YAF.Lucene.Net.Util
                 {
                     buffer.Append(attClass.Name).Append('#');
                 }
-                buffer.Append(key).Append('=').Append(object.ReferenceEquals(value, null) ? "null" : value);
+                buffer.Append(key).Append('=');
+                if (value is null)
+                    buffer.Append("null");
+                else
+                    buffer.Append(value);
             }
         }
 
@@ -627,6 +627,7 @@ namespace YAF.Lucene.Net.Util
         /// corresponding <see cref="Attribute.ReflectWith(IAttributeReflector)"/> method.</para>
         /// </summary>
         /// <seealso cref="Attribute.ReflectWith(IAttributeReflector)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ReflectWith(IAttributeReflector reflector)
         {
             for (State state = GetCurrentState(); state != null; state = state.next)
@@ -683,7 +684,7 @@ namespace YAF.Lucene.Net.Util
             for (State state = GetCurrentState(); state != null; state = state.next)
             {
                 Attribute targetImpl = target.attributeImpls[state.attribute.GetType()];
-                if (targetImpl == null)
+                if (targetImpl is null)
                 {
                     throw new ArgumentException("this AttributeSource contains Attribute of type " + state.attribute.GetType().Name + " that is not in the target");
                 }

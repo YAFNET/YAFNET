@@ -1,9 +1,14 @@
-// UrlRewriter - A .NET URL Rewriter module
-// Version 2.0
-//
-// Copyright 2011 Intelligencia
-// Copyright 2011 Seth Yates
-// 
+// --------------------------------------------------------------------------------------------------------------------
+// <copyright company="Intelligencia" file="TransformFactory.cs">
+//   Copyright (c)2011 Seth Yates
+//   //   Author Seth Yates
+//   //   Author Stewart Rae
+// </copyright>
+// <summary>
+//   Forked Version for YAF.NET
+//   Original can be found at https://github.com/sethyates/urlrewriter
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace YAF.UrlRewriter.Configuration
 {
@@ -54,6 +59,9 @@ namespace YAF.UrlRewriter.Configuration
                 : null;
         }
 
-        private IDictionary<string, IRewriteTransform> _transforms = new Dictionary<string, IRewriteTransform>();
+        /// <summary>
+        /// The _transforms.
+        /// </summary>
+        private readonly IDictionary<string, IRewriteTransform> _transforms = new Dictionary<string, IRewriteTransform>();
     }
 }

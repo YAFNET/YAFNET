@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,10 @@ namespace YAF.Types.Objects
 {
     using System;
 
+    using ServiceStack.DataAnnotations;
+
+    using YAF.Types.Flags;
+
     /// <summary>
     /// The moderator.
     /// </summary>
@@ -34,56 +38,20 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Initializes a new instance of the <see cref="SimpleModerator"/> class.
         /// </summary>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        /// <param name="forumName">
-        /// The forum Name.
-        /// </param>
-        /// <param name="moderatorID">
-        /// The moderator id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
-        /// <param name="avatar">
-        /// The avatar.
-        /// </param>
-        /// <param name="avatarImage">
-        /// The avatar Image.
-        /// </param>
-        /// <param name="displayName">
-        /// The display Name.
-        /// </param>
-        /// <param name="style">
-        /// The style.
-        /// </param>
-        /// <param name="isGroup">
-        /// The is group.
-        /// </param>
-        public SimpleModerator(
-            long forumID, string forumName, long moderatorID,  string name, string email, int blockFlags, string avatar, bool avatarImage, string displayName, string style, bool isGroup)
+        public SimpleModerator()
         {
-            this.ForumID = forumID;
-            this.ForumName = forumName;
-            this.ModeratorID = moderatorID;
-            this.Name = name;
-            this.Email = email;
-            this.BlockFlags = blockFlags;
-            this.Avatar = avatar;
-            this.AvatarImage = avatarImage;
-            this.DisplayName = displayName;
-            this.Style = style;
-            this.IsGroup = isGroup;
+            this.UserBlockFlags = new UserBlockFlags(this.ModeratorBlockFlags);
         }
+
+        /// <summary>
+        ///   Gets or sets The Moderators Forums
+        /// </summary>
+        public ModeratorsForums[] ForumIDs { get; set; }
 
         /// <summary>
         /// Gets or sets ForumID.
         /// </summary>
-        public long ForumID { get; set; }
+        public int ForumID { get; set; }
 
         /// <summary>
         /// Gets or sets Forum Name.
@@ -93,7 +61,7 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Gets or sets ModeratorID.
         /// </summary>
-        public long ModeratorID { get; set; }
+        public int ModeratorID { get; set; }
 
         /// <summary>
         /// Gets or sets Name.
@@ -105,7 +73,15 @@ namespace YAF.Types.Objects
         /// </summary>
         public string Email { get; set; }
 
-        public int BlockFlags { get; set; }
+        /// <summary>
+        /// Gets or sets the block flags.
+        /// </summary>
+        public int ModeratorBlockFlags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user block flags.
+        /// </summary>
+        public UserBlockFlags UserBlockFlags { get; set; }
 
         /// <summary>
         /// Gets or sets Avatar.
@@ -134,5 +110,16 @@ namespace YAF.Types.Objects
         /// Gets or sets a value indicating whether IsGroup.
         /// </summary>
         public bool IsGroup { get; set; }
+
+        /// <summary>
+        /// Gets or sets the suspended.
+        /// </summary>
+        public DateTime? Suspended { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected forum id.
+        /// </summary>
+        [Ignore]
+        public string SelectedForumId { get; set; }
     }
 }

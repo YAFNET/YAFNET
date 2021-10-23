@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -131,12 +131,12 @@ namespace YAF.Lucene.Net.Util
                 }
                 else if (!singletonSet.Add(mi))
                 {
-                    throw new NotSupportedException("VirtualMethod instances must be singletons and therefore " + "assigned to static final members in the same class, they use as baseClass ctor param.");
+                    throw UnsupportedOperationException.Create("VirtualMethod instances must be singletons and therefore " + "assigned to static final members in the same class, they use as baseClass ctor param.");
                 }
             }
-            catch (NotSupportedException nsme)
+            catch (Exception nsme) when (nsme.IsNoSuchMethodException())
             {
-                throw new ArgumentException(baseClass.Name + " has no such method: " + nsme.Message);
+                throw new ArgumentException(baseClass.Name + " has no such method: " + nsme.Message, nsme);
             }
         }
 
@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Util
         public int GetImplementationDistance(Type subclazz)
         {
             // LUCENENET: Replaced WeakIdentityMap with ConditionalWeakTable - This operation is simplified over Lucene.
-            return cache.GetValue(subclazz, (key) => Convert.ToInt32(ReflectImplementationDistance(key), CultureInfo.InvariantCulture));
+            return cache.GetValue(subclazz, (key) => ReflectImplementationDistance(key));
         }
 
         /// <summary>
@@ -174,12 +174,21 @@ namespace YAF.Lucene.Net.Util
                 // lookup method, if success mark as overridden
                 if (!overridden)
                 {
-                    MethodInfo mi =  GetMethod(clazz, method,
-                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly,
-                        parameters);
+                    try
+                    {
+                        MethodInfo mi = GetMethod(clazz, method,
+                            BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly,
+                            parameters);
 
-                    if (mi != null)
-                        overridden = true;
+                        // LUCENENET specific - .NET returns null when it cannot find a method, it doesn't throw an exception
+                        if (mi != null)
+                            overridden = true;
+                    }
+                    // LUCENENET specific - there is a minor chance this will happen in .NET. This is
+                    // just to mimic the fact they were swallowing in Java when the method isn't found.
+                    catch (AmbiguousMatchException)
+                    {
+                    }
                 }
 
                 // increment distance if overridden
@@ -205,7 +214,7 @@ namespace YAF.Lucene.Net.Util
             return m1.GetImplementationDistance(clazz).CompareTo(m2.GetImplementationDistance(clazz));
         }
 
-        private MethodInfo GetMethod(Type clazz, string methodName, BindingFlags bindingFlags, Type[] methodParameters)
+        private static MethodInfo GetMethod(Type clazz, string methodName, BindingFlags bindingFlags, Type[] methodParameters) // LUCENENET: CA1822: Mark members as static
         {
 #if FEATURE_TYPE_GETMETHOD__BINDINGFLAGS_PARAMS
             return clazz.GetMethod(methodName, bindingFlags, null, methodParameters, null);
@@ -217,7 +226,7 @@ namespace YAF.Lucene.Net.Util
 
             if (methods.Length == 0)
             {
-                return default(MethodInfo);
+                return default;
             }
             else if (methods.Length == 1)
             {

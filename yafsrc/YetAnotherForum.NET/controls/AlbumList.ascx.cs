@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,22 +28,18 @@ namespace YAF.Controls
 
     using System;
     using System.Linq;
-    using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -57,7 +53,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets the User ID.
         /// </summary>
-        public int UserID { get; set; }
+        public User User { get; set; }
 
         #endregion
 
@@ -70,7 +66,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.EditAlbumImages, "u={0}&a=new", this.UserID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a=new");
         }
 
         /// <summary>
@@ -80,7 +76,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void Albums_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
-            BuildLink.Redirect(ForumPages.EditAlbumImages, "a={0}", e.CommandArgument);
+            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a={0}", e.CommandArgument);
         }
 
         /// <summary>
@@ -89,17 +85,15 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.UserID == this.PageContext.PageUserID)
+            if (this.User.ID == this.PageContext.PageUserID)
             {
                 // Register Js Blocks.
-                BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                this.PageContext.PageElements.RegisterJsBlockStartup(
                     "AlbumEventsJs",
                     JavaScriptBlocks.AlbumEventsJs(
                         this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
                         this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
-                BoardContext.Current.PageElements.RegisterJsBlockStartup(
-                    "ChangeAlbumTitleJs", JavaScriptBlocks.ChangeAlbumTitleJs);
-                BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                this.PageContext.PageElements.RegisterJsBlockStartup(
                     "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
             }
 
@@ -118,28 +112,27 @@ namespace YAF.Controls
                 return;
             }
 
-            this.AlbumHeaderLabel.Param0 = this.HtmlEncode(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? UserMembershipHelper.GetDisplayNameFromID(this.UserID)
-                    : UserMembershipHelper.GetUserNameFromID(this.UserID));
+            this.Header.Param0 = this.HtmlEncode(this.User.DisplayOrUserName());
 
             this.BindData();
 
-            HttpContext.Current.Session["localizationFile"] = this.Get<ILocalization>().LanguageFileName;
+            var userAlbum = (int)this.GetRepository<User>().MaxAlbumData(
+                this.PageContext.PageUserID,
+                this.PageContext.PageBoardID).UserAlbum;
 
             // Show Albums Max Info
-            if (this.UserID == this.PageContext.PageUserID)
+            if (this.User.ID == this.PageContext.PageUserID)
             {
                 this.albumsInfo.Text = this.Get<ILocalization>().GetTextFormatted(
-                    "ALBUMS_INFO", this.PageContext.NumAlbums, this.PageContext.UsrAlbums);
-                if (this.PageContext.UsrAlbums > this.PageContext.NumAlbums)
+                    "ALBUMS_INFO", this.PageContext.NumAlbums, userAlbum);
+                if (userAlbum > this.PageContext.NumAlbums)
                 {
                     this.AddAlbum.Visible = true;
                 }
 
-                this.albumsInfo.Text = this.PageContext.UsrAlbums > 0
+                this.albumsInfo.Text = userAlbum > 0
                                            ? this.Get<ILocalization>().GetTextFormatted(
-                                               "ALBUMS_INFO", this.PageContext.NumAlbums, this.PageContext.UsrAlbums)
+                                               "ALBUMS_INFO", this.PageContext.NumAlbums, userAlbum)
                                            : this.Get<ILocalization>().GetText("ALBUMS_NOTALLOWED");
 
                 this.albumsInfo.Visible = true;
@@ -169,28 +162,19 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<BoardSettings>().AlbumsPerPage;
+            this.PagerTop.PageSize = this.PageContext.BoardSettings.AlbumsPerPage;
 
             // set the Data table
-            var albumListDT = this.GetRepository<UserAlbum>().ListByUser(this.UserID);
+            var albums = this.GetRepository<UserAlbum>().ListByUserPaged(this.User.ID, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);
 
-            if (albumListDT == null || !albumListDT.Any())
+            if (albums.NullOrEmpty())
             {
                 return;
             }
 
-            this.PagerTop.Count = albumListDT.Count;
+            this.PagerTop.Count = this.GetRepository<UserAlbum>().ListByUser(this.User.ID).Count;
 
-            // create paged data source for the album list
-            var pds = new PagedDataSource
-                {
-                    DataSource = albumListDT,
-                    AllowPaging = true,
-                    CurrentPageIndex = this.PagerTop.CurrentPageIndex,
-                    PageSize = this.PagerTop.PageSize
-                };
-
-            this.Albums.DataSource = pds;
+            this.Albums.DataSource = albums;
             this.DataBind();
         }
 

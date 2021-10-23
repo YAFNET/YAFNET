@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Events
 {
     #region Using
 
@@ -33,6 +33,7 @@ namespace YAF.Core
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -61,7 +62,7 @@ namespace YAF.Core
         /// <param name="logger">
         /// The logger.
         /// </param>
-        public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILogger logger)
+        public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILoggerService logger)
         {
             this.Logger = logger;
             this._serviceLocator = serviceLocator;
@@ -74,7 +75,7 @@ namespace YAF.Core
         /// <summary>
         ///     Gets or sets the logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         #endregion
 
@@ -108,6 +109,8 @@ namespace YAF.Core
             this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(
                 theHandler =>
                 {
+                    theHandler.Handle(eventObject);
+
                     try
                     {
                         theHandler.Handle(eventObject);
@@ -120,7 +123,7 @@ namespace YAF.Core
                         }
                         else
                         {
-                            this.Logger.Error(ex, "Exception Raising Event to Handler: {0}", theHandler.GetType().Name);
+                            this.Logger.Error(ex, $"Exception Raising Event to Handler: {theHandler.GetType().Name}");
                         }
                     }
                 });

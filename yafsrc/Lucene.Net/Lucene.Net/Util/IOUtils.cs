@@ -1,8 +1,10 @@
-using J2N;
+﻿using J2N;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util
@@ -24,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// This class emulates the new Java 7 "Try-With-Resources" statement.
@@ -164,6 +166,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="priorException">  <c>null</c> or an exception that will be rethrown after method completion. </param>
         /// <param name="objects">         Objects to call <see cref="IDisposable.Dispose()"/> on. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void DisposeWhileHandlingException(Exception priorException, params IDisposable[] objects)
         {
             Exception th = null;
@@ -177,7 +180,7 @@ namespace YAF.Lucene.Net.Util
                         @object.Dispose();
                     }
                 }
-                catch (Exception t)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     AddSuppressed(priorException ?? th, t);
                     if (th == null)
@@ -189,7 +192,7 @@ namespace YAF.Lucene.Net.Util
 
             if (priorException != null)
             {
-                throw priorException;
+                ExceptionDispatchInfo.Capture(priorException).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
             }
             else
             {
@@ -200,6 +203,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Disposes all given <see cref="IDisposable"/>s, suppressing all thrown exceptions. </summary>
         /// <seealso cref="DisposeWhileHandlingException(Exception, IDisposable[])"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void DisposeWhileHandlingException(Exception priorException, IEnumerable<IDisposable> objects) 
         {
             Exception th = null;
@@ -213,7 +217,7 @@ namespace YAF.Lucene.Net.Util
                         @object.Dispose();
                     }
                 }
-                catch (Exception t)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     AddSuppressed(priorException ?? th, t);
                     if (th == null)
@@ -225,7 +229,7 @@ namespace YAF.Lucene.Net.Util
 
             if (priorException != null)
             {
-                throw priorException;
+                ExceptionDispatchInfo.Capture(priorException).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
             }
             else
             {
@@ -242,6 +246,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="objects">
         ///          Objects to call <see cref="IDisposable.Dispose()"/> on </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Dispose(params IDisposable[] objects) 
         {
             Exception th = null;
@@ -255,7 +260,7 @@ namespace YAF.Lucene.Net.Util
                         @object.Dispose();
                     }
                 }
-                catch (Exception t)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     AddSuppressed(th, t);
                     if (th == null)
@@ -271,6 +276,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Disposes all given <see cref="IDisposable"/>s. </summary>
         /// <seealso cref="Dispose(IDisposable[])"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Dispose(IEnumerable<IDisposable> objects)
         {
             Exception th = null;
@@ -284,7 +290,7 @@ namespace YAF.Lucene.Net.Util
                         @object.Dispose();
                     }
                 }
-                catch (Exception t)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     AddSuppressed(th, t);
                     if (th == null)
@@ -303,6 +309,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="objects">
         ///          Objects to call <see cref="IDisposable.Dispose()"/> on </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void DisposeWhileHandlingException(params IDisposable[] objects) 
         {
             foreach (var o in objects)
@@ -314,7 +321,7 @@ namespace YAF.Lucene.Net.Util
                         o.Dispose();
                     }
                 }
-                catch (Exception)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     //eat it
                 }
@@ -324,6 +331,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Disposes all given <see cref="IDisposable"/>s, suppressing all thrown exceptions. </summary>
         /// <seealso cref="DisposeWhileHandlingException(IDisposable[])"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void DisposeWhileHandlingException(IEnumerable<IDisposable> objects)
         {
             foreach (IDisposable @object in objects)
@@ -335,7 +343,7 @@ namespace YAF.Lucene.Net.Util
                         @object.Dispose();
                     }
                 }
-                catch (Exception)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     //eat it
                 }
@@ -352,6 +360,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="exception"> this exception should get the suppressed one added </param>
         /// <param name="suppressed"> the suppressed exception </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void AddSuppressed(Exception exception, Exception suppressed)
         {
             if (exception != null && suppressed != null)
@@ -372,6 +381,7 @@ namespace YAF.Lucene.Net.Util
         /// <param name="stream"> The stream to wrap in a reader </param>
         /// <param name="charSet"> The expected charset </param>
         /// <returns> A wrapping reader </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static TextReader GetDecodingReader(Stream stream, Encoding charSet)
         {
             return new StreamReader(stream, charSet);
@@ -453,7 +463,7 @@ namespace YAF.Lucene.Net.Util
                 {
                     dir.DeleteFile(name);
                 }
-                catch (Exception)
+                catch (Exception ignored) when (ignored.IsThrowable())
                 {
                     // ignore
                 }
@@ -496,9 +506,9 @@ namespace YAF.Lucene.Net.Util
         {
             if (th != null)
             {
-                if (th is IOException)
+                if (th.IsIOException())
                 {
-                    throw th;
+                    ExceptionDispatchInfo.Capture(th).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
                 }
                 ReThrowUnchecked(th);
             }
@@ -513,87 +523,16 @@ namespace YAF.Lucene.Net.Util
         {
             if (th != null)
             {
-                throw th;
+                if (th.IsRuntimeException())
+                    ExceptionDispatchInfo.Capture(th).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
+                if (th.IsError())
+                    ExceptionDispatchInfo.Capture(th).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
+                throw RuntimeException.Create(th);
             }
         }
 
         // LUCENENET specific: Fsync is pointless in .NET, since we are 
         // calling FileStream.Flush(true) before the stream is disposed
         // which means we never need it at the point in Java where it is called.
-        //        /// <summary>
-        //        /// Ensure that any writes to the given file is written to the storage device that contains it. </summary>
-        //        /// <param name="fileToSync"> The file to fsync </param>
-        //        /// <param name="isDir"> If <c>true</c>, the given file is a directory (we open for read and ignore <see cref="IOException"/>s,
-        //        ///  because not all file systems and operating systems allow to fsync on a directory) </param>
-        //        public static void Fsync(string fileToSync, bool isDir)
-        //        {
-        //            // Fsync does not appear to function properly for Windows and Linux platforms. In Lucene version
-        //            // they catch this in IOException branch and return if the call is for the directory. 
-        //            // In Lucene.Net the exception is UnauthorizedAccessException and is not handled by
-        //            // IOException block. No need to even attempt to fsync, just return if the call is for directory
-        //            if (isDir)
-        //            {
-        //                return;
-        //            }
-
-        //            var retryCount = 1;
-        //            while (true)
-        //            {
-        //                FileStream file = null;
-        //                bool success = false;
-        //                try
-        //                {
-        //                    // If the file is a directory we have to open read-only, for regular files we must open r/w for the fsync to have an effect.
-        //                    // See http://blog.httrack.com/blog/2013/11/15/everything-you-always-wanted-to-know-about-fsync/
-        //                    file = new FileStream(fileToSync,
-        //                        FileMode.Open, // We shouldn't create a file when syncing.
-        //                        // Java version uses FileChannel which doesn't create the file if it doesn't already exist, 
-        //                        // so there should be no reason for attempting to create it in Lucene.Net.
-        //                        FileAccess.Write,
-        //                        FileShare.ReadWrite);
-        //                    //FileSupport.Sync(file);
-        //                    file.Flush(true);
-        //                    success = true;
-        //                }
-        //#pragma warning disable 168
-        //                catch (IOException e)
-        //#pragma warning restore 168
-        //                {
-        //                    if (retryCount == 5)
-        //                    {
-        //                        throw;
-        //                    }
-        //#if FEATURE_THREAD_INTERRUPT
-        //                    try
-        //                    {
-        //#endif
-        //                        // Pause 5 msec
-        //                        Thread.Sleep(5);
-        //#if FEATURE_THREAD_INTERRUPT
-        //                    }
-        //                    catch (ThreadInterruptedException ie)
-        //                    {
-        //                        var ex = new ThreadInterruptedException(ie.ToString(), ie);
-        //                        ex.AddSuppressed(e);
-        //                        throw ex;
-        //                    }
-        //#endif
-        //                }
-        //                finally
-        //                {
-        //                    if (file != null)
-        //                    {
-        //                        file.Dispose();
-        //                    }
-        //                }
-
-        //                if (success)
-        //                {
-        //                    return;
-        //                }
-
-        //                retryCount++;
-        //            }
-        //        }
     }
 }

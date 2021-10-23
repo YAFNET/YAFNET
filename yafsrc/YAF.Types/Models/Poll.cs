@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,54 +24,68 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_Poll table.
+    /// A class which represents the Poll table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Poll")]
-    public partial class Poll : IEntity, IHaveID
+    public class Poll : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public Poll()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the Poll id.
+        /// </summary>
         [Alias("PollID")]
         [AutoIncrement]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the question.
+        /// </summary>
         [Required]
-        [StringLength(50)]
+        [StringLength(256)]
         public string Question { get; set; }
+
+        /// <summary>
+        /// Gets or sets the closes.
+        /// </summary>
         public DateTime? Closes { get; set; }
-        [References(typeof(PollGroupCluster))]
-        public int? PollGroupID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [Required]
         [Default(1)]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the object path.
+        /// </summary>
         [StringLength(255)]
         public string ObjectPath { get; set; }
-        [StringLength(50)]
-        public string MimeType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Default(0)]
         public int Flags { get; set; }
-        [Compute]
-        public bool? IsClosedBound { get; set; }
-        [Compute]
-        public bool? AllowMultipleChoices { get; set; }
-        [Compute]
-        public bool? ShowVoters { get; set; }
-        [Compute]
-        public bool? AllowSkipVote { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Poll flags.
+        /// </summary>
+        [Ignore]
+        public PollFlags PollFlags
+        {
+            get => new(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
 
         #endregion
     }

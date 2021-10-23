@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,14 +33,15 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     #endregion
@@ -55,7 +56,8 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID => Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+        protected int CurrentUserID =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -77,6 +79,27 @@ namespace YAF.Controls
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -87,7 +110,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_users);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>
@@ -111,10 +134,10 @@ namespace YAF.Controls
         /// The pager top_ page change.
         /// </summary>
         /// <param name="sender">
-        /// The source of the event. 
+        /// The source of the event.
         /// </param>
         /// <param name="e">
-        /// The <see cref="System.EventArgs"/> instance containing the event data. 
+        /// The <see cref="System.EventArgs"/> instance containing the event data.
         /// </param>
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
@@ -153,7 +176,7 @@ namespace YAF.Controls
         protected void DeleteAttachments_Click(object sender, EventArgs e)
         {
             (from RepeaterItem item in this.List.Items
-             where item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem
+             where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
              where item.FindControlAs<CheckBox>("Selected").Checked
              select item).ForEach(
                 item => this.GetRepository<Attachment>().DeleteById(
@@ -167,7 +190,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<BoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             var dt = this.GetRepository<Attachment>().GetPaged(
                 a => a.UserID == this.CurrentUserID,
@@ -175,7 +198,7 @@ namespace YAF.Controls
                 this.PagerTop.PageSize);
 
             this.List.DataSource = dt;
-            this.PagerTop.Count = dt != null && dt.Any()
+            this.PagerTop.Count = !dt.NullOrEmpty()
                                       ? this.GetRepository<Attachment>().Count(a => a.UserID == this.CurrentUserID).ToType<int>()
                                       : 0;
 

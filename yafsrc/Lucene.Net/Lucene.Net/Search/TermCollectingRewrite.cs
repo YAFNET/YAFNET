@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 
@@ -21,16 +21,16 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Fields  = YAF.Lucene.Net.Index.Fields;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReaderContext  = YAF.Lucene.Net.Index.IndexReaderContext;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     public abstract class TermCollectingRewrite<Q> : MultiTermQuery.RewriteMethod where Q : Query // LUCENENET NOTE: Class was made public instaed of internal because it has public derived types
     {
@@ -79,7 +79,7 @@ namespace YAF.Lucene.Net.Search
                 IComparer<BytesRef> newTermComp = termsEnum.Comparer;
                 if (lastTermComp != null && newTermComp != null && newTermComp != lastTermComp)
                 {
-                    throw new Exception("term comparer should not change between segments: " + lastTermComp + " != " + newTermComp);
+                    throw RuntimeException.Create("term comparer should not change between segments: " + lastTermComp + " != " + newTermComp);
                 }
                 lastTermComp = newTermComp;
                 collector.SetReaderContext(topReaderContext, context);

@@ -27,16 +27,17 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Text;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
-    using YAF.Core.Helpers;
+    using YAF.Configuration;
+    using YAF.Core.BasePages;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -44,7 +45,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Database Maintenance Page
     /// </summary>
-    public partial class reindex : AdminPage
+    public partial class ReIndex : AdminPage
     {
         #region Methods
 
@@ -82,7 +83,7 @@ namespace YAF.Pages.Admin
 
             this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
             this.Shrink.ReturnConfirmEvent = "blockUIMessage";
-            
+
             this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
             this.Reindex.ReturnConfirmEvent = "blockUIMessage";
 
@@ -102,14 +103,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_REINDEX", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMINMENU", "ADMIN_REINDEX")}";
         }
 
         /// <summary>
@@ -121,7 +117,7 @@ namespace YAF.Pages.Admin
         {
             try
             {
-                this.txtIndexStatistics.Text = (string)this.Get<IDbFunction>().Query.getstats();
+                this.txtIndexStatistics.Text = this.Get<IDbAccess>().GetDatabaseFragmentationInfo();
             }
             catch (Exception ex)
             {
@@ -136,22 +132,19 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void RecoveryModeClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var recoveryMode = string.Empty;
-
-            switch (this.RadioButtonList1.SelectedIndex)
+            var recoveryMode = this.RadioButtonList1.SelectedIndex switch
             {
-                case 0:
-                    recoveryMode = "FULL";
-                    break;
-                case 1:
-                    recoveryMode = "SIMPLE";
-                    break;
-                case 2:
-                    recoveryMode = "BULK_LOGGED";
-                    break;
-            }
+                0 => "FULL",
+                1 => "SIMPLE",
+                2 => "BULK_LOGGED",
+                _ => string.Empty
+            };
 
-            this.txtIndexStatistics.Text = this.Get<IDbFunction>().ChangeRecoveryMode(recoveryMode);
+            const string result = "Done";
+
+            var stats = this.txtIndexStatistics.Text = this.Get<IDbAccess>().ChangeRecoveryMode(recoveryMode);
+
+            this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
         }
 
         /// <summary>
@@ -161,7 +154,11 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.txtIndexStatistics.Text = string.Empty + this.Get<IDbFunction>().ReIndexDatabase();
+            const string result = "Done";
+
+            var stats = this.Get<IDbAccess>().ReIndexDatabase(Config.DatabaseObjectQualifier);
+
+            this.txtIndexStatistics.Text = stats.IsSet() ? stats : result;
         }
 
         /// <summary>
@@ -174,11 +171,19 @@ namespace YAF.Pages.Admin
         {
             try
             {
-                this.Get<IDbFunction>().ShrinkDatabase();
-                this.txtIndexStatistics.Text = string.Empty;
-                this.txtIndexStatistics.Text = this.GetTextFormatted(
+                var result = new StringBuilder();
+
+                result.Append(this.Get<IDbAccess>().ShrinkDatabase());
+
+                result.Append(" ");
+
+                result.AppendLine(this.GetTextFormatted(
                     "INDEX_SHRINK",
-                    this.Get<IDbFunction>().GetDBSize());
+                    this.Get<IDbAccess>().GetDatabaseSize()));
+
+                result.Append(" ");
+
+                this.txtIndexStatistics.Text = result.ToString();
             }
             catch (Exception error)
             {

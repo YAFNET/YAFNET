@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
 using System.Collections.Generic;
@@ -24,13 +24,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FilteredTermsEnum  = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using NumericUtils  = YAF.Lucene.Net.Util.NumericUtils;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// <para>A <see cref="Query"/> that matches numeric values within a
@@ -171,7 +171,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (precisionStep < 1)
             {
-                throw new ArgumentException("precisionStep must be >=1");
+                throw new ArgumentOutOfRangeException(nameof(precisionStep), "precisionStep must be >=1"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.precisionStep = precisionStep;
             this.dataType = dataType;
@@ -233,9 +233,8 @@ namespace YAF.Lucene.Net.Search
             {
                 return false;
             }
-            if (o is NumericRangeQuery<T>)
+            if (o is NumericRangeQuery<T> q)
             {
-                var q = (NumericRangeQuery<T>)o;
                 return ((q.min == null ? min == null : q.min.Equals(min)) && (q.max == null ? max == null : q.max.Equals(max)) && minInclusive == q.minInclusive && maxInclusive == q.maxInclusive && precisionStep == q.precisionStep);
             }
             return false;
@@ -352,7 +351,7 @@ namespace YAF.Lucene.Net.Search
                                 maxBound--;
                             }
 
-                            NumericUtils.SplitInt64Range(new Int64RangeBuilderAnonymousInnerClassHelper(this), this.outerInstance.precisionStep, minBound, maxBound);
+                            NumericUtils.SplitInt64Range(new Int64RangeBuilderAnonymousClass(this), this.outerInstance.precisionStep, minBound, maxBound);
                             break;
                         }
 
@@ -399,7 +398,7 @@ namespace YAF.Lucene.Net.Search
                                 maxBound--;
                             }
 
-                            NumericUtils.SplitInt32Range(new Int32RangeBuilderAnonymousInnerClassHelper(this), this.outerInstance.precisionStep, minBound, maxBound);
+                            NumericUtils.SplitInt32Range(new Int32RangeBuilderAnonymousClass(this), this.outerInstance.precisionStep, minBound, maxBound);
                             break;
                         }
 
@@ -411,11 +410,11 @@ namespace YAF.Lucene.Net.Search
                 termComp = Comparer;
             }
 
-            private class Int64RangeBuilderAnonymousInnerClassHelper : NumericUtils.Int64RangeBuilder
+            private class Int64RangeBuilderAnonymousClass : NumericUtils.Int64RangeBuilder
             {
                 private readonly NumericRangeTermsEnum outerInstance;
 
-                public Int64RangeBuilderAnonymousInnerClassHelper(NumericRangeTermsEnum outerInstance)
+                public Int64RangeBuilderAnonymousClass(NumericRangeTermsEnum outerInstance)
                 {
                     this.outerInstance = outerInstance;
                 }
@@ -427,11 +426,11 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            private class Int32RangeBuilderAnonymousInnerClassHelper : NumericUtils.Int32RangeBuilder
+            private class Int32RangeBuilderAnonymousClass : NumericUtils.Int32RangeBuilder
             {
                 private readonly NumericRangeTermsEnum outerInstance;
 
-                public Int32RangeBuilderAnonymousInnerClassHelper(NumericRangeTermsEnum outerInstance)
+                public Int32RangeBuilderAnonymousClass(NumericRangeTermsEnum outerInstance)
                 {
                     this.outerInstance = outerInstance;
                 }

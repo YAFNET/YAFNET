@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,42 +26,34 @@ namespace YAF.Core.Nntp
     #region Using
 
     using System;
-    using System.Data.SqlClient;
     using System.Linq;
-    using System.Web;
+    using System.Runtime.Caching;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
+    using YAF.Types.Objects.Nntp;
 
     #endregion
 
     /// <summary>
     /// The on request delegate.
     /// </summary>
-    /// <param name="msg">
-    /// The msg.
+    /// <param name="message">
+    /// The message.
     /// </param>
-    public delegate void OnRequestDelegate(string msg);
+    public delegate void OnRequestDelegate(string message);
 
     /// <summary>
     /// The YAF NNTP.
     /// </summary>
     public class Nntp : INewsreader
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The _application state base.
-        /// </summary>
-        private readonly HttpApplicationStateBase _applicationStateBase;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -70,12 +62,8 @@ namespace YAF.Core.Nntp
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="applicationStateBase">
-        /// The application state base.
-        /// </param>
-        public Nntp([NotNull] ILogger logger, [NotNull] HttpApplicationStateBase applicationStateBase)
+        public Nntp([NotNull] ILoggerService logger)
         {
-            this._applicationStateBase = applicationStateBase;
             this.Logger = logger;
         }
 
@@ -86,7 +74,7 @@ namespace YAF.Core.Nntp
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         #endregion
 
@@ -95,58 +83,87 @@ namespace YAF.Core.Nntp
         #region INewsreader
 
         /// <summary>
+        /// The get nntp connection.
+        /// </summary>
+        /// <param name="nntpForum">
+        /// The nntp forum.
+        /// </param>
+        /// <returns>
+        /// The <see cref="NntpConnection"/>.
+        /// </returns>
+        [NotNull]
+        public static NntpConnection GetNntpConnection([NotNull] Tuple<NntpForum, NntpServer, Forum> nntpForum)
+        {
+            CodeContracts.VerifyNotNull(nntpForum);
+
+            var nntpConnection = new NntpConnection();
+
+            // call connect server
+            nntpConnection.ConnectServer(nntpForum.Item2.Address.ToLower(), nntpForum.Item2.Port ?? 119);
+
+            // provide authentication if required...
+            if (!nntpForum.Item2.UserName.IsSet() || !nntpForum.Item2.UserPass.IsSet())
+            {
+                return nntpConnection;
+            }
+
+            nntpConnection.ProvideIdentity(nntpForum.Item2.UserName, nntpForum.Item2.UserPass);
+            nntpConnection.SendIdentity();
+
+            return nntpConnection;
+        }
+
+        /// <summary>
         /// The read articles.
         /// </summary>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
         /// <param name="lastUpdate">
-        /// The n last update.
+        /// The last update.
         /// </param>
         /// <param name="timeToRun">
-        /// The n time to run.
+        /// The time to run.
         /// </param>
         /// <param name="createUsers">
-        /// The b create users.
+        /// The create users.
         /// </param>
         /// <returns>
-        /// The read articles.
+        /// The <see cref="int"/>.
         /// </returns>
-        /// <exception cref="NntpException"><c>NntpException</c>.</exception>
-        public int ReadArticles(int boardID, int lastUpdate, int timeToRun, bool createUsers)
+        public int ReadArticles(int boardId, int lastUpdate, int timeToRun, bool createUsers)
         {
-            if (this._applicationStateBase["WorkingInYafNNTP"] != null)
+            if (MemoryCache.Default["WorkingInYafNNTP"] != null)
             {
                 return 0;
             }
 
-            var guestUserId = UserMembershipHelper.GuestUserId; // Use guests user-id
+            var guestUserId = BoardContext.Current.GuestUserID; // Use guests user-id
 
-            // string hostAddress = BoardContext.Current.Get<HttpRequestBase>().UserHostAddress;     
             var dateTimeStart = DateTime.UtcNow;
             var articleCount = 0;
             var count = 0;
 
             try
             {
-                this._applicationStateBase["WorkingInYafNNTP"] = true;
+                MemoryCache.Default["WorkingInYafNNTP"] = true;
 
                 // Only those not updated in the last 30 minutes
                 foreach (var nntpForum in BoardContext.Current.GetRepository<NntpForum>()
-                    .NntpForumList(boardID, lastUpdate, null, true))
+                    .NntpForumList(boardId, true)
+                    .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > lastUpdate))
                 {
                     using (var nntpConnection = GetNntpConnection(nntpForum))
                     {
-                        var group = nntpConnection.ConnectGroup(nntpForum.GroupName);
+                        var group = nntpConnection.ConnectGroup(nntpForum.Item1.GroupName);
 
-                        var lastMessageNo = nntpForum.LastMessageNo ?? 0;
+                        var lastMessageNo = nntpForum.Item1.LastMessageNo;
 
                         // start at the bottom...
                         var currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
-                        var nntpForumID = nntpForum.NntpForumID;
-                        var cutOffDate = nntpForum.DateCutOff ?? DateTime.MinValue;
+                        var cutOffDate = nntpForum.Item1.DateCutOff ?? DateTime.MinValue;
 
-                        if (nntpForum.DateCutOff.HasValue)
+                        if (nntpForum.Item1.DateCutOff.HasValue)
                         {
                             var behindCutOff = true;
 
@@ -177,7 +194,8 @@ namespace YAF.Core.Nntp
 
                             // update the group lastMessage info...
                             BoardContext.Current.GetRepository<NntpForum>().Update(
-                                nntpForum.NntpForumID,
+                                nntpForum.Item1.ForumID,
+                                nntpForum.Item1.ID,
                                 currentMessage,
                                 guestUserId);
                         }
@@ -193,7 +211,7 @@ namespace YAF.Core.Nntp
                                 }
                                 catch (InvalidOperationException ex)
                                 {
-                                    this.Logger.Error(ex, "Error Downloading Message ID {0}", currentMessage);
+                                    this.Logger.Error(ex, $"Error Downloading Message ID {currentMessage}");
 
                                     // just advance to the next message
                                     currentMessage++;
@@ -213,18 +231,16 @@ namespace YAF.Core.Nntp
                                 if (dateTime < cutOffDate)
                                 {
                                     this.Logger.Debug(
-                                        "Skipped message id {0} due to date being {1}.",
-                                        currentMessage,
-                                        dateTime);
+                                        $"Skipped message id {currentMessage} due to date being {dateTime}.");
                                     continue;
                                 }
 
-                                if (fromName.IsSet() && fromName.LastIndexOf('<') > 0)
+                                if (fromName.IsSet() && fromName.Contains("<"))
                                 {
                                     fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
                                     fromName = fromName.Replace("\"", string.Empty).Trim();
                                 }
-                                else if (fromName.IsSet() && fromName.LastIndexOf('(') > 0)
+                                else if (fromName.IsSet() && fromName.Contains("("))
                                 {
                                     fromName = fromName.Substring(0, fromName.LastIndexOf('(') - 1).Trim();
                                 }
@@ -240,17 +256,16 @@ namespace YAF.Core.Nntp
 
                                 if (createUsers)
                                 {
-                                    guestUserId = BoardContext.Current.GetRepository<User>().Nntp(
-                                        boardID,
+                                    guestUserId = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
+                                        boardId,
                                         fromName,
-                                        string.Empty,
-                                        article.Header.TimeZoneOffset);
+                                        string.Empty);
                                 }
 
                                 var body = ReplaceBody(article.Body.Text.Trim());
 
                                 BoardContext.Current.GetRepository<NntpTopic>().SaveMessage(
-                                    nntpForumID.Value,
+                                    nntpForum.Item1,
                                     subject.Truncate(75),
                                     body,
                                     guestUserId,
@@ -271,14 +286,17 @@ namespace YAF.Core.Nntp
                                     break;
                                 }
 
-                                if (count++ > 1000)
+                                if (count++ <= 1000)
                                 {
-                                    count = 0;
-                                    BoardContext.Current.GetRepository<NntpForum>().Update(
-                                        nntpForum.NntpForumID,
-                                        lastMessageNo,
-                                        guestUserId);
+                                    continue;
                                 }
+
+                                count = 0;
+                                BoardContext.Current.GetRepository<NntpForum>().Update(
+                                    nntpForum.Item1.ForumID,
+                                    nntpForum.Item1.ID,
+                                    lastMessageNo,
+                                    guestUserId);
                             }
                             catch (NntpException exception)
                             {
@@ -286,19 +304,21 @@ namespace YAF.Core.Nntp
                                 {
                                     throw;
                                 }
-                                else if (exception.ErrorCode != 423)
+
+                                if (exception.ErrorCode != 423)
                                 {
                                     this.Logger.Error(exception, "YafNntp");
                                 }
                             }
-                            catch (SqlException exception)
+                            catch (Exception exception)
                             {
                                 this.Logger.Error(exception, "YafNntp DB Failure");
                             }
                         }
 
                         BoardContext.Current.GetRepository<NntpForum>().Update(
-                            nntpForum.NntpForumID,
+                            nntpForum.Item1.ForumID,
+                            nntpForum.Item1.ID,
                             lastMessageNo,
                             guestUserId);
 
@@ -312,41 +332,10 @@ namespace YAF.Core.Nntp
             }
             finally
             {
-                this._applicationStateBase["WorkingInYafNNTP"] = null;
+                MemoryCache.Default["WorkingInYafNNTP"] = null;
             }
 
             return articleCount;
-        }
-
-        /// <summary>
-        /// The get nntp connection.
-        /// </summary>
-        /// <param name="nntpForum">
-        /// The nntp forum.
-        /// </param>
-        /// <returns>
-        /// The <see cref="NntpConnection"/>.
-        /// </returns>
-        [NotNull]
-        public static NntpConnection GetNntpConnection([NotNull] TypedNntpForum nntpForum)
-        {
-            CodeContracts.VerifyNotNull(nntpForum, "nntpForum");
-
-            var nntpConnection = new NntpConnection();
-
-            // call connect server
-            nntpConnection.ConnectServer(nntpForum.Address.ToLower(), nntpForum.Port ?? 119);
-
-            // provide authentication if required...
-            if (!nntpForum.UserName.IsSet() || !nntpForum.UserPass.IsSet())
-            {
-                return nntpConnection;
-            }
-
-            nntpConnection.ProvideIdentity(nntpForum.UserName, nntpForum.UserPass);
-            nntpConnection.SendIdentity();
-
-            return nntpConnection;
         }
 
         #endregion
@@ -362,7 +351,7 @@ namespace YAF.Core.Nntp
         /// The body.
         /// </param>
         /// <returns>
-        /// The replace body.
+        /// The <see cref="string"/>.
         /// </returns>
         [NotNull]
         private static string ReplaceBody([NotNull] string body)
@@ -372,18 +361,6 @@ namespace YAF.Core.Nntp
             body = body.Replace("<br>", "<br />");
             body = body.Replace("<hr>", "<hr />");
 
-            //// vzrus: various wrong NNTP tags replacements
-
-            // body = body.Replace("&amp;lt;", "&lt;");
-            // body = body.Replace("&amp;gt;", "&gt;");
-            // body = body.Replace("&lt;br&gt;", "");
-            // body = body.Replace("&lt;hr&gt;", "<hr />");
-
-            // body = body.Replace("&amp;quot;", @"&#34;");
-
-            // Innerquote class in yaf terms, should be replaced while displaying     
-            // body = body.Replace("&lt;quote&gt;", @"[quote]");
-            // body = body.Replace("&lt;/quote&gt;", @"[/quote]");
             return body;
         }
 

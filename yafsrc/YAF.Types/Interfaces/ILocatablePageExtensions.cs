@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
     using System;
     using System.Collections.Generic;
@@ -31,30 +31,31 @@ namespace YAF.Types.Interfaces
 
     #endregion
 
-  /// <summary>
-  /// The locatable page extension.
-  /// </summary>
-  public static class ILocatablePageExtensions
-  {
-    #region Public Methods
+    /// <summary>
+    /// The locatable page extension.
+    /// </summary>
+    public static class ILocatablePageExtensions
+    {
+        #region Public Methods
 
-      /// <summary>
-      /// The get page.
-      /// </summary>
-      /// <param name="locatablePages">
-      /// The locatable pages.
-      /// </param>
-      /// <param name="pageName">
-      /// The page name.
-      /// </param>
-      /// <returns>
-      /// </returns>
-      public static ILocatablePage GetPage([NotNull] this IEnumerable<ILocatablePage> locatablePages, [NotNull] string pageName)
-      {
-          return
-              locatablePages.FirstOrDefault(p => string.Equals(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase));
-      }
+        /// <summary>
+        /// The get page.
+        /// </summary>
+        /// <param name="locatablePages">
+        /// The locatable pages.
+        /// </param>
+        /// <param name="pageName">
+        /// The page name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="ILocatablePage"/>.
+        /// </returns>
+        public static ILocatablePage GetPage([NotNull] this IEnumerable<ILocatablePage> locatablePages, [NotNull] string pageName)
+        {
+            return
+                locatablePages.FirstOrDefault(p => string.Equals(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase));
+        }
 
-      #endregion
-  }
+        #endregion
+    }
 }

@@ -23,16 +23,16 @@
  */
 namespace YAF.Controls
 {
-  #region Using
+    #region Using
 
-  using YAF.Core.BaseControls;
+    using YAF.Core.BaseControls;
 
-  #endregion
+    #endregion
 
-  /// <summary>
-  /// The forum icon legend.
-  /// </summary>
-  public partial class ForumIconLegend : BaseUserControl
-  {
-  }
+    /// <summary>
+    /// The forum icon legend.
+    /// </summary>
+    public partial class ForumIconLegend : BaseUserControl
+    {
+    }
 }

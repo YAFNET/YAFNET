@@ -56,45 +56,46 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        public static void Save(
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Save(
             this IRepository<BannedName> repository,
-            int? id,
-            string mask,
-            string reason,
-            int? boardId = null)
+            [CanBeNull] int? id,
+            [NotNull] string mask,
+            [NotNull] string reason,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (id.HasValue)
             {
                 repository.Update(
                     new BannedName
-                        {
-                            BoardID = boardId ?? repository.BoardID,
-                            ID = id.Value,
-                            Mask = mask,
-                            Reason = reason,
-                            Since = DateTime.Now
-                        });
+                    {
+                        BoardID = boardId ?? repository.BoardID, Mask = mask, Reason = reason, Since = DateTime.Now
+                    });
 
                 repository.FireUpdated(id.Value);
-            }
-            else
-            {
-                var banned = repository.GetSingle(b => b.BoardID == repository.BoardID && b.Mask == mask);
 
-                if (banned == null)
-                {
-                    repository.Insert(
-                        new BannedName()
-                            {
-                                BoardID = boardId ?? repository.BoardID,
-                                Mask = mask,
-                                Reason = reason,
-                                Since = DateTime.Now
-                            });
-                }
+                return true;
             }
+
+            if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
+            {
+                return false;
+            }
+
+            repository.Insert(
+                new BannedName
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    Mask = mask,
+                    Reason = reason,
+                    Since = DateTime.Now
+                });
+
+            return true;
         }
 
         #endregion

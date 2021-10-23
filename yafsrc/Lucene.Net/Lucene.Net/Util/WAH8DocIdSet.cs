@@ -1,9 +1,11 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -24,11 +26,11 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using ByteArrayDataInput  = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using MonotonicAppendingInt64Buffer  = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// <see cref="DocIdSet"/> implementation based on word-aligned hybrid encoding on
@@ -91,6 +93,7 @@ namespace YAF.Lucene.Net.Util
         private static readonly MonotonicAppendingInt64Buffer SINGLE_ZERO_BUFFER = LoadSingleZeroBuffer();
         // LUCENENET specific - optimized empty array creation
         private static readonly WAH8DocIdSet EMPTY = new WAH8DocIdSet(Arrays.Empty<byte>(), 0, 1, SINGLE_ZERO_BUFFER, SINGLE_ZERO_BUFFER);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static MonotonicAppendingInt64Buffer LoadSingleZeroBuffer() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             var buffer = new MonotonicAppendingInt64Buffer(1, 64, PackedInt32s.COMPACT);
@@ -100,9 +103,10 @@ namespace YAF.Lucene.Net.Util
         }
 
         private static readonly IComparer<Iterator> SERIALIZED_LENGTH_COMPARER = Comparer<Iterator>.Create((wi1, wi2) => wi1.@in.Length - wi2.@in.Length);
-        
+
         /// <summary>
         /// Same as <see cref="Intersect(ICollection{WAH8DocIdSet}, int)"/> with the default index interval. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static WAH8DocIdSet Intersect(ICollection<WAH8DocIdSet> docIdSets)
         {
             return Intersect(docIdSets, DEFAULT_INDEX_INTERVAL);
@@ -114,6 +118,10 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public static WAH8DocIdSet Intersect(ICollection<WAH8DocIdSet> docIdSets, int indexInterval)
         {
+            // LUCENENET: Added guard clause for null
+            if (docIdSets is null)
+                throw new ArgumentNullException(nameof(docIdSets));
+
             switch (docIdSets.Count)
             {
                 case 0:
@@ -175,6 +183,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Same as <see cref="Union(ICollection{WAH8DocIdSet}, int)"/> with the default index interval. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static WAH8DocIdSet Union(ICollection<WAH8DocIdSet> docIdSets)
         {
             return Union(docIdSets, DEFAULT_INDEX_INTERVAL);
@@ -196,7 +205,7 @@ namespace YAF.Lucene.Net.Util
             }
             // The logic below is very similar to DisjunctionScorer
             int numSets = docIdSets.Count;
-            PriorityQueue<Iterator> iterators = new PriorityQueueAnonymousInnerClassHelper(numSets);
+            PriorityQueue<Iterator> iterators = new PriorityQueueAnonymousClass(numSets);
             foreach (WAH8DocIdSet set in docIdSets)
             {
                 Iterator iterator = (Iterator)set.GetIterator();
@@ -235,23 +244,25 @@ namespace YAF.Lucene.Net.Util
             return builder.Build();
         }
 
-        private class PriorityQueueAnonymousInnerClassHelper : PriorityQueue<WAH8DocIdSet.Iterator>
+        private class PriorityQueueAnonymousClass : PriorityQueue<WAH8DocIdSet.Iterator>
         {
-            public PriorityQueueAnonymousInnerClassHelper(int numSets)
+            public PriorityQueueAnonymousClass(int numSets)
                 : base(numSets)
             {
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected internal override bool LessThan(Iterator a, Iterator b)
             {
                 return a.wordNum < b.wordNum;
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int WordNum(int docID)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docID >= 0);
-            return (int)((uint)docID >> 3);
+            return docID.TripleShift(3);
         }
 
         /// <summary>
@@ -291,7 +302,7 @@ namespace YAF.Lucene.Net.Util
             {
                 if (indexInterval < MIN_INDEX_INTERVAL)
                 {
-                    throw new ArgumentException("indexInterval must be >= " + MIN_INDEX_INTERVAL);
+                    throw new ArgumentOutOfRangeException(nameof(indexInterval), "indexInterval must be >= " + MIN_INDEX_INTERVAL); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.indexInterval = indexInterval;
                 return this;
@@ -318,14 +329,14 @@ namespace YAF.Lucene.Net.Util
                 {
                     token |= 1 << 3;
                 }
-                @out.WriteByte((byte)(sbyte)token);
+                @out.WriteByte((byte)token);
                 if (cleanLengthMinus2 > 0x03)
                 {
-                    @out.WriteVInt32((int)((uint)cleanLengthMinus2 >> 2));
+                    @out.WriteVInt32(cleanLengthMinus2.TripleShift(2));
                 }
                 if (dirtyLength > 0x07)
                 {
-                    @out.WriteVInt32((int)((uint)dirtyLength >> 3));
+                    @out.WriteVInt32(dirtyLength.TripleShift(3));
                 }
             }
 
@@ -346,9 +357,9 @@ namespace YAF.Lucene.Net.Util
                 {
                     WriteHeader(reverse, clean, dirtyWords.Length);
                 }
-                catch (IOException cannotHappen)
+                catch (Exception cannotHappen) when (cannotHappen.IsIOException())
                 {
-                    throw new InvalidOperationException(cannotHappen.ToString(), cannotHappen); // LUCENENET NOTE: This was AssertionError in Lucene
+                    throw AssertionError.Create(cannotHappen.Message, cannotHappen);
                 }
                 @out.WriteBytes(dirtyWords.Bytes, 0, dirtyWords.Length);
                 dirtyWords.Length = 0;
@@ -528,7 +539,7 @@ namespace YAF.Lucene.Net.Util
             {
                 if (docID <= lastDocID)
                 {
-                    throw new ArgumentException("Doc ids must be added in-order, got " + docID + " which is <= lastDocID=" + lastDocID);
+                    throw new ArgumentOutOfRangeException(nameof(docID), "Doc ids must be added in-order, got " + docID + " which is <= lastDocID=" + lastDocID); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 int wordNum = WordNum(docID);
                 if (this.wordNum == -1)
@@ -561,6 +572,7 @@ namespace YAF.Lucene.Net.Util
                 return this;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override object SetIndexInterval(int indexInterval)
             {
                 return (Builder)base.SetIndexInterval(indexInterval);
@@ -601,9 +613,10 @@ namespace YAF.Lucene.Net.Util
             return new Iterator(data, cardinality, indexInterval, positions, wordNums);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int ReadCleanLength(ByteArrayDataInput @in, int token)
         {
-            int len = ((int)((uint)token >> 4)) & 0x07;
+            int len = (token.TripleShift(4)) & 0x07;
             int startPosition = @in.Position;
             if ((len & 0x04) != 0)
             {
@@ -616,6 +629,7 @@ namespace YAF.Lucene.Net.Util
             return len;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int ReadDirtyLength(ByteArrayDataInput @in, int token)
         {
             int len = token & 0x0F;
@@ -783,7 +797,7 @@ namespace YAF.Lucene.Net.Util
                 // we found a window containing our target, let's binary search now
                 while (lo <= hi)
                 {
-                    int mid = (int)((uint)(lo + hi) >> 1);
+                    int mid = (lo + hi).TripleShift(1);
                     int midWordNum = (int)wordNums.Get(mid);
                     if (midWordNum <= targetWordNum)
                     {
@@ -856,7 +870,7 @@ namespace YAF.Lucene.Net.Util
                 if (bitList != 0) // there are remaining bits in the current word
                 {
                     docID = (wordNum << 3) | ((bitList & 0x0F) - 1);
-                    bitList = (int)((uint)bitList >> 4);
+                    bitList = bitList.TripleShift(4);
                     return docID;
                 }
                 NextWord();
@@ -867,7 +881,7 @@ namespace YAF.Lucene.Net.Util
                 bitList = BitUtil.BitList(word);
                 if (Debugging.AssertsEnabled) Debugging.Assert(bitList != 0);
                 docID = (wordNum << 3) | ((bitList & 0x0F) - 1);
-                bitList = (int)((uint)bitList >> 4);
+                bitList = bitList.TripleShift(4);
                 return docID;
             }
 
@@ -883,6 +897,7 @@ namespace YAF.Lucene.Net.Util
                 return SlowAdvance(target);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return cardinality;
@@ -890,14 +905,12 @@ namespace YAF.Lucene.Net.Util
         }
 
         /// <summary>
-        /// Return the number of documents in this <see cref="DocIdSet"/> in constant time. </summary>
-        public int Cardinality()
-        {
-            return cardinality;
-        }
+        /// Gets the number of documents in this <see cref="DocIdSet"/> in constant time. </summary>
+        public int Cardinality => cardinality;
 
         /// <summary>
         /// Return the memory usage of this class in bytes. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long RamBytesUsed()
         {
             return RamUsageEstimator.AlignObjectSize(3 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 2 * RamUsageEstimator.NUM_BYTES_INT32)

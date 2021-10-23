@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -32,12 +32,15 @@ namespace YAF.Core.Model
     using ServiceStack.OrmLite;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     /// <summary>
@@ -78,7 +81,7 @@ namespace YAF.Core.Model
             int? pageIndex = 0,
             int? pageSize = 10000000)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -90,7 +93,27 @@ namespace YAF.Core.Model
 
             expression.OrderByDescending<Attachment>(item => item.ID).Page(pageIndex + 1, pageSize);
 
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Attachment>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User,Attachment>(expression));
+        }
+
+        /// <summary>
+        /// Gets all Messages with Attachments
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        public static List<Message> GetMessageAttachments(this IRepository<Attachment> repository)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
+
+            expression.Join<Attachment>((m, a) => a.MessageID == m.ID);
+
+            return repository.DbAccess.Execute(db => db.Connection.Select(expression));
         }
 
         /// <summary>
@@ -111,15 +134,15 @@ namespace YAF.Core.Model
 
             expression.Where(attach => attach.ID == attachId).Select(
                 attach => new
-                              {
-                                  attach.ID,
-                                  attach.Bytes,
-                                  attach.ContentType,
-                                  attach.Downloads,
-                                  attach.FileName,
-                                  attach.MessageID,
-                                  attach.UserID
-                              });
+                {
+                    attach.ID,
+                    attach.Bytes,
+                    attach.ContentType,
+                    attach.Downloads,
+                    attach.FileName,
+                    attach.MessageID,
+                    attach.UserID
+                });
 
             return repository.DbAccess.Execute(db => db.Connection.Select(expression)).FirstOrDefault();
         }
@@ -133,9 +156,9 @@ namespace YAF.Core.Model
         /// <param name="attachmentId">
         /// The board id.
         /// </param>
-        public static void Delete(this IRepository<Attachment> repository, int attachmentId)
+        public static void Delete(this IRepository<Attachment> repository, [NotNull] int attachmentId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var attachment = repository.GetById(attachmentId);
 
@@ -148,7 +171,7 @@ namespace YAF.Core.Model
                 catch (Exception e)
                 {
                     // error deleting that file...
-                    BoardContext.Current.Get<ILogger>().Warn(e, "Error Deleting Attachment");
+                    BoardContext.Current.Get<ILoggerService>().Warn(e, "Error Deleting Attachment");
                 }
             }
 
@@ -164,33 +187,32 @@ namespace YAF.Core.Model
         /// <param name="messageId">
         /// The message id.
         /// </param>
-        public static void DeleteByMessageId(this IRepository<Attachment> repository, int messageId)
+        public static void DeleteByMessageId(this IRepository<Attachment> repository, [NotNull] int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var attachments = repository.Get(a => a.MessageID == messageId);
 
-            var uploadDir =
-                HostingEnvironment.MapPath(
-                    string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+            var uploadDir = HostingEnvironment.MapPath(
+                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardContext.Current.Get<BoardFolders>().Uploads));
 
             attachments.ForEach(
                 attachment =>
+                {
+                    try
                     {
-                        try
-                        {
-                            var fileName = $"{uploadDir}/{messageId}.{attachment.FileName}.yafupload";
+                        var fileName = $"{uploadDir}/{messageId}.{attachment.FileName}.yafupload";
 
-                            if (File.Exists(fileName))
-                            {
-                                File.Delete(fileName);
-                            }
-                        }
-                        catch
+                        if (File.Exists(fileName))
                         {
-                            // error deleting that file...
+                            File.Delete(fileName);
                         }
-                    });
+                    }
+                    catch
+                    {
+                        // error deleting that file...
+                    }
+                });
         }
 
         /// <summary>
@@ -198,9 +220,9 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <param name="attachmentId">The attachment identifier.</param>
-        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
+        public static void IncrementDownloadCounter(this IRepository<Attachment> repository, [NotNull] int attachmentId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateAdd(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
         }
@@ -209,7 +231,6 @@ namespace YAF.Core.Model
         /// The save.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="messageId">The message id.</param>
         /// <param name="userId">The user identifier.</param>
         /// <param name="fileName">The file name.</param>
         /// <param name="bytes">The bytes.</param>
@@ -218,25 +239,24 @@ namespace YAF.Core.Model
         /// <returns>Returns the new attachment identifier</returns>
         public static int Save(
             this IRepository<Attachment> repository,
-            int messageId,
-            int userId,
-            string fileName,
-            int bytes,
-            string contentType,
-            byte[] fileData = null)
+            [NotNull] int userId,
+            [NotNull] string fileName,
+            [NotNull] int bytes,
+            [NotNull] string contentType,
+            [CanBeNull] byte[] fileData = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var entity = new Attachment
-                             {
-                                 MessageID = 0,
-                                 Downloads = 0,
-                                 UserID = userId,
-                                 FileName = fileName,
-                                 Bytes = bytes,
-                                 ContentType = contentType,
-                                 FileData = fileData
-                             };
+            {
+                MessageID = 0,
+                Downloads = 0,
+                UserID = userId,
+                FileName = fileName,
+                Bytes = bytes,
+                ContentType = contentType,
+                FileData = fileData
+            };
 
             var newAttachmentId = repository.Insert(entity);
 

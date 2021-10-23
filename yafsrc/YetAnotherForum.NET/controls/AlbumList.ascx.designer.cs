@@ -15,13 +15,22 @@ namespace YAF.Controls
     {
 
         /// <summary>
-        /// AlbumHeaderLabel control.
+        /// Header control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel AlbumHeaderLabel;
+        protected global::YAF.Web.Controls.LocalizedLabel Header;
+
+        /// <summary>
+        /// albumsInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label albumsInfo;
 
         /// <summary>
         /// AddAlbum control.
@@ -33,15 +42,6 @@ namespace YAF.Controls
         protected global::YAF.Web.Controls.ThemeButton AddAlbum;
 
         /// <summary>
-        /// PagerTop control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
-
-        /// <summary>
         /// Albums control.
         /// </summary>
         /// <remarks>
@@ -51,21 +51,12 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Repeater Albums;
 
         /// <summary>
-        /// PagerBottom control.
+        /// PagerTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
-
-        /// <summary>
-        /// albumsInfo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label albumsInfo;
+        protected global::YAF.Web.Controls.Pager PagerTop;
     }
 }

@@ -1,10 +1,11 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util.Packed;
 using System;
-using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene41
 {
@@ -34,7 +35,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// <summary>
         /// Special number of bits per value used whenever all values to encode are equal.
         /// </summary>
-        private static readonly int ALL_VALUES_EQUAL = 0;
+        private const int ALL_VALUES_EQUAL = 0;
 
         /// <summary>
         /// Upper limit of the number of bytes that might be required to stored
@@ -76,6 +77,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// Compute the number of iterations required to decode <see cref="Lucene41PostingsFormat.BLOCK_SIZE"/>
         /// values with the provided <see cref="PackedInt32s.IDecoder"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int ComputeIterations(PackedInt32s.IDecoder decoder)
         {
             return (int)Math.Ceiling((float)Lucene41PostingsFormat.BLOCK_SIZE / decoder.ByteValueCount);
@@ -85,6 +87,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// Compute the number of bytes required to encode a block of values that require
         /// <paramref name="bitsPerValue"/> bits per value with format <paramref name="format"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int EncodedSize(PackedInt32s.Format format, int packedIntsVersion, int bitsPerValue)
         {
             long byteCount = format.ByteCount(packedIntsVersion, Lucene41PostingsFormat.BLOCK_SIZE, bitsPerValue);
@@ -140,7 +143,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             for (int bpv = 1; bpv <= 32; ++bpv)
             {
                 var code = @in.ReadVInt32();
-                var formatId = (int)((uint)code >> 5);
+                var formatId = code.TripleShift(5);
                 var bitsPerValue = (code & 31) + 1;
 
                 PackedInt32s.Format format = PackedInt32s.Format.ById(formatId);
@@ -163,7 +166,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         {
             if (IsAllEqual(data))
             {
-                @out.WriteByte((byte)(sbyte)ALL_VALUES_EQUAL);
+                @out.WriteByte((byte)ALL_VALUES_EQUAL);
                 @out.WriteVInt32(data[0]);
                 return;
             }
@@ -226,9 +229,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
             if (Debugging.AssertsEnabled) Debugging.Assert(numBits > 0 && numBits <= 32, numBits.ToString());
             int encodedSize = encodedSizes[numBits];
-            @in.Seek(@in.GetFilePointer() + encodedSize);
+            @in.Seek(@in.Position + encodedSize); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsAllEqual(int[] data)
         {
             int v = data[0];
@@ -246,6 +250,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// Compute the number of bits required to serialize any of the longs in
         /// <paramref name="data"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int BitsRequired(int[] data)
         {
             long or = 0;

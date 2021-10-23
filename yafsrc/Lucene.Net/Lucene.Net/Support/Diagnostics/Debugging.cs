@@ -1,6 +1,7 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Util;
 using System;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Diagnostics
@@ -35,7 +36,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <see cref="Index.FreqProxTermsWriterPerField"/>, <see cref="Index.StoredFieldsProcessor"/>,
         /// <see cref="Index.TermVectorsConsumer"/>, and <see cref="Index.TermVectorsConsumerPerField"/>.
         /// </summary>
-        public static bool AssertsEnabled = SystemProperties.GetPropertyAsBoolean("assert", false);
+        public static bool AssertsEnabled = false;//SystemProperties.GetPropertyAsBoolean("assert", false);
 
         /// <summary>
         /// Checks for a condition; if the condition is <c>false</c>, throws an <see cref="AssertionException"/>.
@@ -43,6 +44,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// IMPORTANT: For best performance, only call this method after checking to ensure the value of <see cref="AssertsEnabled"/> is <c>true</c>.
         /// </summary>
         /// <param name="condition">The conditional expression to evaluate. If the condition is <c>true</c>, no exception is thrown.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert(bool condition)
         {
@@ -51,7 +53,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -66,6 +68,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// This message contains text intermixed with zero or more format items, which correspond to
         /// the <paramref name="p0"/> parameter.</param>
         /// <param name="p0">The parameter corresponding to the format item at index 0 (<c>{0}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0>(bool condition, string messageFormat, T0 p0)
         {
@@ -74,7 +77,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -90,6 +93,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// the <paramref name="p0"/> or <paramref name="p1"/> parameters.</param>
         /// <param name="p0">The parameter corresponding to the format item at index 0 (<c>{0}</c>).</param>
         /// <param name="p1">The parameter corresponding to the format item at index 1 (<c>{1}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0, T1>(bool condition, string messageFormat, T0 p0, T1 p1)
         {
@@ -98,7 +102,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -115,6 +119,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <param name="p0">The parameter corresponding to the format item at index 0 (<c>{0}</c>).</param>
         /// <param name="p1">The parameter corresponding to the format item at index 1 (<c>{1}</c>).</param>
         /// <param name="p2">The parameter corresponding to the format item at index 2 (<c>{2}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0, T1, T2>(bool condition, string messageFormat, T0 p0, T1 p1, T2 p2)
         {
@@ -123,7 +128,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -141,6 +146,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <param name="p1">The parameter corresponding to the format item at index 1 (<c>{1}</c>).</param>
         /// <param name="p2">The parameter corresponding to the format item at index 2 (<c>{2}</c>).</param>
         /// <param name="p3">The parameter corresponding to the format item at index 3 (<c>{3}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0, T1, T2, T3>(bool condition, string messageFormat, T0 p0, T1 p1, T2 p2, T3 p3)
         {
@@ -149,7 +155,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -169,6 +175,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <param name="p2">The parameter corresponding to the format item at index 2 (<c>{2}</c>).</param>
         /// <param name="p3">The parameter corresponding to the format item at index 3 (<c>{3}</c>).</param>
         /// <param name="p4">The parameter corresponding to the format item at index 4 (<c>{4}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0, T1, T2, T3, T4>(bool condition, string messageFormat, T0 p0, T1 p1, T2 p2, T3 p3, T4 p4)
         {
@@ -177,7 +184,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -198,6 +205,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <param name="p3">The parameter corresponding to the format item at index 3 (<c>{3}</c>).</param>
         /// <param name="p4">The parameter corresponding to the format item at index 4 (<c>{4}</c>).</param>
         /// <param name="p5">The parameter corresponding to the format item at index 5 (<c>{5}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0, T1, T2, T3, T4, T5>(bool condition, string messageFormat, T0 p0, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5)
         {
@@ -206,7 +214,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -228,6 +236,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <param name="p4">The parameter corresponding to the format item at index 4 (<c>{4}</c>).</param>
         /// <param name="p5">The parameter corresponding to the format item at index 5 (<c>{5}</c>).</param>
         /// <param name="p6">The parameter corresponding to the format item at index 6 (<c>{6}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0, T1, T2, T3, T4, T5, T6>(bool condition, string messageFormat, T0 p0, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6)
         {
@@ -236,7 +245,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -259,6 +268,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <param name="p5">The parameter corresponding to the format item at index 5 (<c>{5}</c>).</param>
         /// <param name="p6">The parameter corresponding to the format item at index 6 (<c>{6}</c>).</param>
         /// <param name="p7">The parameter corresponding to the format item at index 7 (<c>{7}</c>).</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert<T0, T1, T2, T3, T4, T5, T6, T7>(bool condition, string messageFormat, T0 p0, T1 p1, T2 p2, T3 p3, T4 p4, T5 p5, T6 p6, T7 p7)
         {
@@ -276,6 +286,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// </summary>
         /// <param name="condition">The conditional expression to evaluate. If the condition is <c>true</c>, no exception is thrown.</param>
         /// <param name="message">The message to use to indicate a failure of <paramref name="condition"/>.</param>
+        [DebuggerStepThrough]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Assert(bool condition, string message)
         {
@@ -287,7 +298,7 @@ namespace YAF.Lucene.Net.Diagnostics
         ///// Checks for a condition; if the condition is <c>false</c>, throws an <see cref="AssertionException"/>.
         ///// </summary>
         ///// <param name="conditionFactory">A delegate that returns the conditional expression to evaluate. If the condition is <c>true</c>, no exception is thrown.</param>
-
+        //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public static void Assert(Func<bool> conditionFactory)
         //{
@@ -302,6 +313,7 @@ namespace YAF.Lucene.Net.Diagnostics
         ///// </summary>
         ///// <param name="conditionFactory">A delegate that returns the conditional expression to evaluate. If the condition returned from the factory is <c>true</c>, no exception is thrown.</param>
         ///// <param name="messageFactory">A delegate to build the message to use.</param>
+        //[DebuggerStepThrough]
         //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         //public static void Assert(Func<bool> conditionFactory, Func<string> messageFactory)
         //{

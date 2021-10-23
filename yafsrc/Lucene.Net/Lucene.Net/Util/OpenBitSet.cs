@@ -1,7 +1,8 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -22,8 +23,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// An "open" BitSet implementation that allows direct access to the array of words
@@ -78,10 +79,7 @@ namespace YAF.Lucene.Net.Util
     ///     </item>
     /// </list>
     /// </summary>
-    public class OpenBitSet : DocIdSet, IBits
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public class OpenBitSet : DocIdSet, IBits // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         protected internal long[] m_bits;
         protected internal int m_wlen; // number of words (elements) used in the array
@@ -121,7 +119,7 @@ namespace YAF.Lucene.Net.Util
         {
             if (numWords > bits.Length)
             {
-                throw new ArgumentException("numWords cannot exceed bits.length");
+                throw new ArgumentOutOfRangeException(nameof(numWords), "numWords cannot exceed bits.Length"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.m_bits = bits;
             this.m_wlen = numWords;
@@ -155,19 +153,22 @@ namespace YAF.Lucene.Net.Util
         //}
 
         /// <summary>
-        /// Returns the current capacity of this set. This is *not* equal to <see cref="Cardinality()"/>.
+        /// Returns the current capacity of this set. This is *not* equal to <see cref="Cardinality"/>.
         /// <para/>
         /// NOTE: This is equivalent to size() or length() in Lucene.
         /// </summary>
         public virtual int Length => m_bits.Length << 6;
 
+        int IBits.Length => Length;
+
         /// <summary>
         /// Returns <c>true</c> if there are no set bits </summary>
-        public virtual bool IsEmpty => Cardinality() == 0;
+        public virtual bool IsEmpty => Cardinality == 0;
 
         /// <summary>
         /// Expert: returns the <see cref="T:long[]"/> storing the bits. </summary>
         [WritableArray]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual long[] GetBits()
         {
             return m_bits;
@@ -258,7 +259,7 @@ namespace YAF.Lucene.Net.Util
             if (Debugging.AssertsEnabled) Debugging.Assert(index >= 0 && index < numBits);
             int i = index >> 6; // div 64
             int bit = index & 0x3f; // mod 64
-            return ((int)((long)((ulong)m_bits[i] >> bit))) & 0x01;
+            return ((int)m_bits[i].TripleShift(bit)) & 0x01;
         }
 
         /*
@@ -465,7 +466,7 @@ namespace YAF.Lucene.Net.Util
             int endWord = (int)((endIndex - 1) >> 6);
 
             long startmask = -1L << (int)startIndex;
-            long endmask = -(int)((uint)1L >> (int)-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
+            long endmask = (-1L).TripleShift((int)-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
 
             // invert masks since we are clearing
             startmask = ~startmask;
@@ -648,18 +649,21 @@ namespace YAF.Lucene.Net.Util
         */
 
         /// <summary>
-        /// Get the number of set bits.
+        /// Gets the number of set bits.
         /// </summary>
         /// <returns> The number of set bits. </returns>
-        public virtual long Cardinality()
+        public virtual long Cardinality
         {
-            return BitUtil.Pop_Array(m_bits, 0, m_wlen);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => BitUtil.Pop_Array(m_bits, 0, m_wlen);
         }
+
 
         /// <summary>
         /// Returns the popcount or cardinality of the intersection of the two sets.
         /// Neither set is modified.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long IntersectionCount(OpenBitSet a, OpenBitSet b)
         {
             return BitUtil.Pop_Intersect(a.m_bits, b.m_bits, 0, Math.Min(a.m_wlen, b.m_wlen));
@@ -753,13 +757,13 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public virtual long NextSetBit(long index)
         {
-            int i = (int)((long)((ulong)index >> 6));
+            int i = (int)index.TripleShift(6);
             if (i >= m_wlen)
             {
                 return -1;
             }
             int subIndex = (int)index & 0x3f; // index within the word
-            long word = (long)((ulong)m_bits[i] >> subIndex); // skip all the bits to the right of index
+            long word = m_bits[i].TripleShift(subIndex); // skip all the bits to the right of index
 
             if (word != 0)
             {
@@ -872,6 +876,7 @@ namespace YAF.Lucene.Net.Util
             return -1;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Clone()
         {
             //OpenBitSet obs = (OpenBitSet)base.Clone();
@@ -971,18 +976,21 @@ namespace YAF.Lucene.Net.Util
         // some BitSet compatability methods
 
         /// <summary>see <see cref="Intersect(OpenBitSet)"/></summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void And(OpenBitSet other)
         {
             Intersect(other);
         }
 
         /// <summary>see <see cref="Union(OpenBitSet)"/></summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void Or(OpenBitSet other)
         {
             Union(other);
         }
 
         /// <summary>see <see cref="AndNot(OpenBitSet)"/></summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void AndNot(OpenBitSet other)
         {
             Remove(other);
@@ -1018,6 +1026,7 @@ namespace YAF.Lucene.Net.Util
         /// Ensure that the <see cref="T:long[]"/> is big enough to hold numBits, expanding it if
         /// necessary.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void EnsureCapacity(long numBits)
         {
             EnsureCapacityWords(Bits2words(numBits));
@@ -1042,6 +1051,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the number of 64 bit words it would take to hold <paramref name="numBits"/>. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int Bits2words(long numBits)
         {
             return (int)(((numBits - 1) >> 6) + 1);
@@ -1100,7 +1110,7 @@ namespace YAF.Lucene.Net.Util
             for (int i = m_bits.Length; --i >= 0; )
             {
                 h ^= m_bits[i];
-                h = (h << 1) | ((long)((ulong)h >> 63)); // rotate left
+                h = (h << 1) | (h.TripleShift(63)); // rotate left
             }
             // fold leftmost bits into right and add a constant to prevent
             // empty sets from returning 0, which is too common.

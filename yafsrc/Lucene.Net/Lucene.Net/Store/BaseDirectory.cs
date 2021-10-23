@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 
 namespace YAF.Lucene.Net.Store
@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Store
     {
         private volatile bool isOpen = true;
 
-        // LUCENENET specific - since we can't make a CLS-compliant 
+        // LUCENENET specific - since we can't make a CLS-compliant
         // protected volatile field, we are exposing it through a protected
         // property.
         protected internal virtual bool IsOpen
@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Store
         {
             if (!IsOpen)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this Directory is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this Directory is disposed.");
             }
         }
     }

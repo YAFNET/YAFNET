@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,17 +31,15 @@ namespace YAF.Controls
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     #endregion
@@ -89,35 +87,14 @@ namespace YAF.Controls
                 return;
             }
 
-            var previousPageSize = this.Get<ISession>().UserActivityPageSize;
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
 
-            if (previousPageSize.HasValue)
-            {
-                // look for value previously selected
-                var sinceItem = this.PageSize.Items.FindByValue(previousPageSize.Value.ToString());
-
-                // and select it if found
-                if (sinceItem != null)
-                {
-                    this.PageSize.SelectedIndex = this.PageSize.Items.IndexOf(sinceItem);
-                }
-            }
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.BindData();
-        }
-
-        /// <summary>
-        /// The get first item class.
-        /// </summary>
-        /// <param name="itemIndex">
-        /// The item index.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        protected string GetFirstItemClass(int itemIndex)
-        {
-            return itemIndex > 0 ? "border-right" : string.Empty;
         }
 
         /// <summary>
@@ -157,23 +134,22 @@ namespace YAF.Controls
             var title = e.Item.FindControlAs<Literal>("Title");
             var messageHolder = e.Item.FindControlAs<PlaceHolder>("Message");
             var displayDateTime = e.Item.FindControlAs<DisplayDateTime>("DisplayDateTime");
-            var markRead = e.Item.FindControlAs<ThemeButton>("MarkRead");
 
             var message = string.Empty;
             var icon = string.Empty;
 
             var topicLink = new ThemeButton
             {
-                NavigateUrl = BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", activity.Item1.MessageID.Value),
-                Type = ButtonAction.None,
+                NavigateUrl = this.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName),
+                Type = ButtonStyle.None,
                 Text = activity.Item2.TopicName,
-                Icon = "comment"
+                Icon = "comment",
+                IconCssClass = "far"
             };
 
             if (activity.Item1.ActivityFlags.CreatedTopic)
             {
-                topicLink.NavigateUrl = BuildLink.GetLink(ForumPages.Posts, "t={0}", activity.Item1.TopicID.Value);
-
+                topicLink.NavigateUrl = this.Get<LinkBuilder>().GetTopicLink(activity.Item1.TopicID.Value, activity.Item2.TopicName);
                 title.Text = this.GetText("ACCOUNT", "CREATED_TOPIC");
                 icon = "comment";
                 message = this.GetTextFormatted("CREATED_TOPIC_MSG", topicLink.RenderToString());
@@ -195,7 +171,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = user.Suspended,
                     Style = user.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? user.DisplayName : user.Name
+                    ReplaceName = user.DisplayOrUserName()
                 };
 
                 title.Text = this.GetText("ACCOUNT", "GIVEN_THANKS");
@@ -211,19 +187,11 @@ namespace YAF.Controls
             card.CssClass = activity.Item1.Notification ? "card shadow" : "card";
 
             iconLabel.Text = $@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
-               <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>;";
+               <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>";
 
             displayDateTime.DateTime = activity.Item1.Created;
 
             messageHolder.Controls.Add(new Literal { Text = message });
-
-            if (!activity.Item1.Notification)
-            {
-                return;
-            }
-
-            markRead.CommandArgument = activity.Item1.MessageID.Value.ToString();
-            markRead.Visible = true;
         }
 
         /// <summary>
@@ -234,47 +202,6 @@ namespace YAF.Controls
         protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
-            this.BindData();
-        }
-
-        /// <summary>
-        /// Mark all Activity as read
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void MarkAll_Click(object sender, EventArgs e)
-        {
-            this.GetRepository<Activity>().MarkAllAsRead(this.PageContext.PageUserID);
-
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
-
-            this.BindData();
-        }
-
-        /// <summary>
-        /// The activity stream_ on item command.
-        /// </summary>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        protected void ActivityStream_OnItemCommand(object source, RepeaterCommandEventArgs e)
-        {
-            if (e.CommandName != "read")
-            {
-                return;
-            }
-
-            this.GetRepository<Activity>().UpdateNotification(
-                this.PageContext.PageUserID,
-                e.CommandArgument.ToType<int>());
-
             this.BindData();
         }
 
@@ -321,8 +248,6 @@ namespace YAF.Controls
         /// </param>
         protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.Get<ISession>().UserActivityPageSize = this.PageSize.SelectedValue.ToType<int>();
-
             this.BindData();
         }
 
@@ -337,17 +262,17 @@ namespace YAF.Controls
 
             if (!this.CreatedTopic.Checked)
             {
-                stream.RemoveAll(a => a.Item1.CreatedTopic);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedTopic);
             }
 
             if (!this.CreatedReply.Checked)
             {
-                stream.RemoveAll(a => a.Item1.CreatedReply);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.CreatedReply);
             }
 
             if (!this.GivenThanks.Checked)
             {
-                stream.RemoveAll(a => a.Item1.GivenThanks);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
             }
 
             var paged = stream.Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize)
@@ -355,17 +280,9 @@ namespace YAF.Controls
 
             this.ActivityStream.DataSource = paged;
 
-            if (paged.Any())
-            {
-                this.PagerTop.Count = stream.Count;
+            this.ItemCount = paged.Any() ? stream.Count : 0;
 
-                this.ItemCount = paged.Count;
-            }
-            else
-            {
-                this.PagerTop.Count = 0;
-                this.ItemCount = 0;
-            }
+            this.PagerTop.Count = stream.Count;
 
             this.DataBind();
         }

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,14 +34,15 @@ namespace YAF.Pages
     using System.Xml.Serialization;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -56,7 +57,7 @@ namespace YAF.Pages
         /// <summary>
         ///  List with the Help Content
         /// </summary>
-        private readonly List<HelpContent> helpContents = new List<HelpContent>();
+        private readonly List<HelpContent> helpContents = new();
 
         #endregion
 
@@ -83,9 +84,9 @@ namespace YAF.Pages
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
-            if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowHelpTo))
+            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 
@@ -105,7 +106,7 @@ namespace YAF.Pages
 
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.GetText("SUBTITLE"), BuildLink.GetLink(ForumPages.Help));
+                this.GetText("SUBTITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Help));
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("faq").IsSet())
             {
@@ -122,17 +123,11 @@ namespace YAF.Pages
                         $"{faqPage}TITLE"),
                     string.Empty);
 
-                this.Page.Header.Title =
-                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", $"{faqPage}TITLE")}";
-
                 this.BindData();
             }
             else
             {
                 this.PageLinks.AddLink(this.GetText("HELP_INDEX", "SEARCHHELPTITLE"), string.Empty);
-
-                this.Page.Header.Title =
-                    $"{this.GetText("SUBTITLE")} - {this.GetText("HELP_INDEX", "SEARCHHELPTITLE")}";
 
                 // Load Index and Search
                 this.SearchHolder.Visible = true;
@@ -140,6 +135,13 @@ namespace YAF.Pages
                 this.SubTitle.Text = this.GetText("subtitle");
                 this.HelpContent.Text = this.GetText("welcome");
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
         }
 
         /// <summary>
@@ -222,9 +224,9 @@ namespace YAF.Pages
                 item =>
                 {
                     item.Content = this.Get<IFormatMessage>().SurroundWordList(
-                        item.Content, highlightWords, @"<span class=""highlight"">", @"</span>");
+                        item.Content, highlightWords, "<mark>", "</mark>");
                     item.Title = this.Get<IFormatMessage>().SurroundWordList(
-                        item.Title, highlightWords, @"<span class=""highlight"">", @"</span>");
+                        item.Title, highlightWords, "<mark>", "</mark>");
                 });
 
             if (searchList.Count.Equals(0))
@@ -256,7 +258,7 @@ namespace YAF.Pages
             var serializer = new XmlSerializer(typeof(List<HelpNavigation>));
 
             var xmlFilePath =
-                HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
+                this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}Resources/HelpMenuList.xml");
 
             if (File.Exists(xmlFilePath))
             {
@@ -269,49 +271,24 @@ namespace YAF.Pages
 
             foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages))
             {
-                string helpContent;
+                string helpContent = helpPage.HelpPage switch {
+                    "RECOVER" => this.GetTextFormatted(
+                        $"{helpPage.HelpPage}CONTENT",
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),
+                    "BBCODES" => this.GetTextFormatted($"{helpPage.HelpPage}CONTENT", BoardInfo.ForumBaseUrl),
+                    "POSTING" => this.GetTextFormatted(
+                        $"{helpPage.HelpPage}CONTENT",
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes")),
+                    _ => this.GetText($"{helpPage.HelpPage}CONTENT")
+                };
 
-                switch (helpPage.HelpPage)
-                {
-                    case "RECOVER":
-                        {
-                            helpContent = this.GetTextFormatted(
-                                $"{helpPage.HelpPage}CONTENT",
-                                BuildLink.GetLink(ForumPages.RecoverPassword));
-                        }
-
-                        break;
-                    case "BBCODES":
-                        {
-                            helpContent = this.GetTextFormatted(
-                                $"{helpPage.HelpPage}CONTENT",
-                                BoardInfo.ForumBaseUrl);
-                        }
-
-                        break;
-                    case "POSTING":
-                        {
-                            helpContent = this.GetTextFormatted(
-                                $"{helpPage.HelpPage}CONTENT",
-                                BuildLink.GetLink(ForumPages.Help, "faq=bbcodes"));
-                        }
-
-                        break;
-                    default:
-                        {
-                            helpContent = this.GetText($"{helpPage.HelpPage}CONTENT");
-                        }
-
-                        break;
-                }
-                
                 this.helpContents.Add(
                     new HelpContent
-                        {
-                            HelpPage = helpPage.HelpPage,
-                            Title = this.GetText($"{helpPage.HelpPage}TITLE"),
-                            Content = helpContent
-                        });
+                    {
+                        HelpPage = helpPage.HelpPage,
+                        Title = this.GetText($"{helpPage.HelpPage}TITLE"),
+                        Content = helpContent
+                    });
             }
         }
 

@@ -1,4 +1,5 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
+using J2N.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,29 +24,26 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches spans which are near one another.  One can specify <i>slop</i>, the
     /// maximum number of intervening unmatched positions, as well as whether
     /// matches are required to be in-order.
     /// </summary>
-    public class SpanNearQuery : SpanQuery
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public class SpanNearQuery : SpanQuery // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         protected readonly IList<SpanQuery> m_clauses;
         protected int m_slop;
         protected bool m_inOrder;
 
         protected string m_field;
-        private bool collectPayloads;
+        private readonly bool collectPayloads; // LUCENENET: marked readonly
 
         /// <summary>
         /// Construct a <see cref="SpanNearQuery"/>.  Matches spans matching a span from each
@@ -221,7 +219,7 @@ namespace YAF.Lucene.Net.Search.Spans
             // Mix bits before folding in things like boost, since it could cancel the
             // last element of clauses.  this particular mix also serves to
             // differentiate SpanNearQuery hashcodes from others.
-            result ^= (result << 14) | ((int)((uint)result >> 19)); // reversible
+            result ^= (result << 14) | (result.TripleShift(19)); // reversible
             result += J2N.BitConversion.SingleToRawInt32Bits(Boost);
             result += m_slop;
             result ^= (m_inOrder ? unchecked((int)0x99AFD3BD) : 0);

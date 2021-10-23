@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -45,7 +45,7 @@ namespace YAF.Types.Interfaces.Data
         IDbInformation Information { get; }
 
         /// <summary>
-        ///     Gets the current db provider factory
+        ///     Gets the current Database provider factory
         /// </summary>
         /// <returns> </returns>
         DbProviderFactory DbProviderFactory { get; }
@@ -77,18 +77,20 @@ namespace YAF.Types.Interfaces.Data
         /// The get command.
         /// </summary>
         /// <param name="sql">
-        /// The sql. 
+        /// The SQL Command.
         /// </param>
-        /// <param name="commandType"></param>
+        /// <param name="commandType">
+        /// The command type.
+        /// </param>
         /// <param name="parameters">
-        /// Command Parameters 
+        /// The parameters.
         /// </param>
         /// <returns>
-        /// The <see cref="DbCommand"/> . 
+        /// The <see cref="IDbCommand"/>.
         /// </returns>
         IDbCommand GetCommand(
             [NotNull] string sql,
-            CommandType commandType = CommandType.StoredProcedure, 
+            CommandType commandType,
             [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
 
         #endregion

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,14 +29,14 @@ namespace YAF.Web.Controls
     using System.Globalization;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -50,7 +50,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The ControlHtml.
         /// </summary>
-        private const string ControlHtml = @"<abbr class=""timeago"" title=""{1}"" data-toggle=""tooltip"" data-html=""true"">{0}</abbr>";
+        private const string ControlHtml = @"<abbr class=""timeago"" title=""{1}"" data-bs-toggle=""tooltip"" data-bs-html=""true"">{0}</abbr>";
 
         #endregion
 
@@ -71,7 +71,7 @@ namespace YAF.Web.Controls
         /// </summary>
         public DateTimeFormat Format
         {
-            get => this.ViewState["Format"]?.ToEnum<DateTimeFormat>() ?? DateTimeFormat.Both;
+            get => this.ViewState["Format"]?.ToString().ToEnum<DateTimeFormat>() ?? DateTimeFormat.Both;
 
             set => this.ViewState["Format"] = value;
         }
@@ -94,7 +94,7 @@ namespace YAF.Web.Controls
                 }
                 catch (InvalidCastException)
                 {
-                    // not useable...            
+                    // not useable...
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -118,11 +118,11 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            var formattedDatetime = this.Get<IDateTime>().Format(this.Format, this.DateTime);
+            var formattedDatetime = this.Get<IDateTimeService>().Format(this.Format, this.DateTime);
 
             writer.Write(
                 ControlHtml,
-                this.Get<BoardSettings>().ShowRelativeTime
+                this.PageContext.BoardSettings.ShowRelativeTime
                     ? this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                     : formattedDatetime,
                 formattedDatetime);

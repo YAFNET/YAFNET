@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,12 +27,11 @@ namespace YAF.Core.Extensions
     using System.Collections.Generic;
     using System.ServiceModel.Syndication;
 
-    using YAF.Core.Syndication;
-    using YAF.Core.UsersRoles;
-    using YAF.Types.Constants;
+    using YAF.Core.Context;
+    using YAF.Core.Services;
+    using YAF.Core.Services.Syndication;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// The syndication item extensions.
@@ -79,17 +78,17 @@ namespace YAF.Core.Extensions
             string link,
             string id,
             DateTime posted,
-            YafSyndicationFeed feed,
+            FeedItem feed,
             List<SyndicationLink> links)
         {
             var si = new SyndicationItem(
-                         BoardContext.Current.Get<IBadWordReplace>().Replace(title),
-                         new TextSyndicationContent(
-                             BoardContext.Current.Get<IBadWordReplace>().Replace(content),
-                             TextSyndicationContentKind.Html),
-                         new Uri(link),
-                         id,
-                         new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
+                BoardContext.Current.Get<IBadWordReplace>().Replace(title),
+                new TextSyndicationContent(
+                    BoardContext.Current.Get<IBadWordReplace>().Replace(content),
+                    TextSyndicationContentKind.Html),
+                new Uri(link),
+                id,
+                new DateTimeOffset(posted)) { PublishDate = new DateTimeOffset(posted) };
 
             links?.ForEach(syndicationLink => si.Links.Add(syndicationLink));
 
@@ -147,7 +146,7 @@ namespace YAF.Core.Extensions
             string link,
             string id,
             DateTime posted,
-            YafSyndicationFeed feed)
+            FeedItem feed)
         {
             AddSyndicationItem(currentList, title, content, summary, link, id, posted, feed, null);
         }
@@ -162,64 +161,29 @@ namespace YAF.Core.Extensions
         /// <returns>The SyndicationPerson.</returns>
         public static SyndicationPerson NewSyndicationPerson(
             string userEmail,
-            long userId,
+            int userId,
             string userName,
             string userDisplayName)
         {
             string userNameToShow;
+
             if (BoardContext.Current.BoardSettings.EnableDisplayName)
             {
                 userNameToShow = userDisplayName.IsNotSet()
-                                     ? UserMembershipHelper.GetDisplayNameFromID(userId)
-                                     : userDisplayName;
+                    ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
+                    : userDisplayName;
             }
             else
             {
-                userNameToShow = userName.IsNotSet() ? UserMembershipHelper.GetUserNameFromID(userId) : userName;
+                userNameToShow = userName.IsNotSet()
+                    ? BoardContext.Current.Get<IUserDisplayName>().GetNameById(userId)
+                    : userName;
             }
 
             return new SyndicationPerson(
                 userEmail,
                 userNameToShow,
-                BuildLink.GetLinkNotEscaped(ForumPages.Profile, true, "u={0}&name={1}", userId, userNameToShow));
-        }
-
-        /// <summary>
-        /// The add syndication item.
-        /// </summary>
-        /// <param name="currentList">
-        /// The current list.
-        /// </param>
-        /// <param name="title">
-        /// The title.
-        /// </param>
-        /// <param name="content">
-        /// The content.
-        /// </param>
-        /// <param name="link">
-        /// The link.
-        /// </param>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <param name="posted">
-        /// The posted.
-        /// </param>
-        public static void AddSyndicationItem(
-            this List<SyndicationItem> currentList,
-            string title,
-            string content,
-            string link,
-            string id,
-            DateTime posted)
-        {
-            var si = new SyndicationItem(
-                BoardContext.Current.Get<IBadWordReplace>().Replace(title),
-                new TextSyndicationContent(BoardContext.Current.Get<IBadWordReplace>().Replace(content)),
-                new Uri(link),
-                id,
-                new DateTimeOffset(posted));
-            currentList.Add(si);
+                BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, userNameToShow));
         }
 
         #endregion

@@ -26,19 +26,12 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -47,20 +40,6 @@ namespace YAF.Dialogs
     /// </summary>
     public partial class AttachmentsUpload : BaseUserControl
     {
-        /// <summary>
-        /// Gets the file extensions.
-        /// </summary>
-        /// <value>
-        /// The file extensions.
-        /// </value>
-        private IEnumerable<FileExtension> FileExtensions
-        {
-            get
-            {
-                return this.GetRepository<FileExtension>().Get(e => e.BoardId == this.PageContext.PageBoardID);
-            }
-        }
-
         #region Methods
 
         /// <summary>
@@ -72,16 +51,16 @@ namespace YAF.Dialogs
             base.OnPreRender(e);
 
             // Setup Hover Card JS
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "fileUploadjs",
                 JavaScriptBlocks.FileUploadLoadJs(
-                    string.Join("|", this.FileExtensions.Select(ext => ext.Extension)),
-                    this.Get<BoardSettings>().MaxFileSize,
+                    this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                    this.PageContext.BoardSettings.MaxFileSize,
                     $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
                     this.PageContext.PageForumID,
                     this.PageContext.PageBoardID,
-                    this.Get<BoardSettings>().ImageAttachmentResizeWidth,
-                    this.Get<BoardSettings>().ImageAttachmentResizeHeight));
+                    this.PageContext.BoardSettings.ImageAttachmentResizeWidth,
+                    this.PageContext.BoardSettings.ImageAttachmentResizeHeight));
         }
 
         /// <summary>
@@ -92,35 +71,16 @@ namespace YAF.Dialogs
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // show disallowed or allowed localized text depending on the Board Setting
-            this.ExtensionTitle.LocalizedTag = this.Get<BoardSettings>().FileExtensionAreAllowed
-                                                   ? "ALLOWED_EXTENSIONS"
-                                                   : "DISALLOWED_EXTENSIONS";
+            this.ExtensionTitle.LocalizedTag = "ALLOWED_EXTENSIONS";
 
-            var types = string.Empty;
-            var first = true;
+            this.ExtensionsList.Text = this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", ", ");
 
-            this.FileExtensions.ForEach(
-                extension =>
-                    {
-                        types += $"{(first ? string.Empty : ", ")}*.{extension.Extension}";
-
-                        if (first)
-                        {
-                            first = false;
-                        }
-                    });
-            
-            if (types.IsSet())
-            {
-                this.ExtensionsList.Text = types;
-            }
-
-            if (this.Get<BoardSettings>().MaxFileSize > 0)
+            if (this.PageContext.BoardSettings.MaxFileSize > 0)
             {
                 this.UploadNodePlaceHold.Visible = true;
                 this.UploadNote.Text = this.GetTextFormatted(
                     "UPLOAD_NOTE",
-                    (this.Get<BoardSettings>().MaxFileSize / 1024).ToString());
+                    (this.PageContext.BoardSettings.MaxFileSize / 1024).ToString());
             }
             else
             {

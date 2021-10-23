@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,13 +29,13 @@ namespace YAF.Core.Data
     using System.Collections.Generic;
     using System.Data;
     using System.Data.Common;
+    using System.Linq;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
@@ -45,39 +45,21 @@ namespace YAF.Core.Data
     /// </summary>
     public abstract class DbAccessBase : IDbAccess
     {
-        #region Fields
-
-        /// <summary>
-        ///     The provider name.
-        /// </summary>
-        protected readonly string ProviderName;
-
-        /// <summary>
-        /// The profiler.
-        /// </summary>
-        private readonly IProfileQuery profiler;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DbAccessBase"/> class.
         /// </summary>
         /// <param name="dbProviderFactory">
-        /// The db provider factory. 
+        /// The db provider factory.
         /// </param>
-        /// <param name="providerName">
-        /// The provider name. 
-        /// </param>
-        /// <param name="connectionString">
-        /// The connection String. 
+        /// <param name="information">
+        /// The information.
         /// </param>
         protected DbAccessBase(
-            [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IProfileQuery profiler, IDbInformation information)
+            [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IDbInformation information)
         {
             this.Information = information;
-            this.profiler = profiler;
             this.DbProviderFactory = dbProviderFactory(information.ProviderName);
         }
 
@@ -98,7 +80,6 @@ namespace YAF.Core.Data
         #endregion
 
         #region Public Methods and Operators
-        
 
         /// <summary>
         /// The execute.
@@ -121,64 +102,60 @@ namespace YAF.Core.Data
         {
             var command = cmd ?? this.GetCommand(string.Empty, CommandType.Text);
 
-           // OrmLiteConfig.ClearCache();
-           using (this.profiler.Start(command.CommandText))
-           {
-               var result = default(T);
+            T result;
 
-               if (dbTransaction == null)
-               {
-                   if (command.Connection != null && command.Connection.State == ConnectionState.Open)
-                   {
-                       result = execFunc(command);
-                   }
-                   else
-                   {
-                       using (var connection = this.CreateConnectionOpen())
-                       {
-                           // get an open connection
-                           command.Connection = connection;
+            if (dbTransaction == null)
+            {
+                if (command.Connection is { State: ConnectionState.Open })
+                {
+                    result = execFunc(command);
+                }
+                else
+                {
+                    using (var connection = this.CreateConnectionOpen())
+                    {
+                        // get an open connection
+                        command.Connection = connection;
 
-                           result = execFunc(command);
+                        result = execFunc(command);
 
-                           connection.Close();
-                       }
-                   }
-               }
-               else
-               {
-                   command.Populate(dbTransaction);
+                        connection.Close();
+                    }
+                }
+            }
+            else
+            {
+                command.Populate(dbTransaction);
 
-                   result = execFunc(command);
-               }
+                result = execFunc(command);
+            }
 
-               return result;
-           }
+            return result;
         }
 
         /// <summary>
         /// The get command.
         /// </summary>
         /// <param name="sql">
-        /// The sql. 
+        /// The sql.
         /// </param>
         /// <param name="commandType"></param>
         /// <param name="parameters">
-        /// The parameters. 
+        /// The parameters.
         /// </param>
         /// <returns>
-        /// The <see cref="DbCommand"/> . 
+        /// The <see cref="DbCommand"/> .
         /// </returns>
         public virtual IDbCommand GetCommand(
-            [NotNull] string sql, CommandType commandType = CommandType.StoredProcedure, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
+            [NotNull] string sql, CommandType commandType, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
         {
             var cmd = this.DbProviderFactory.CreateCommand();
             parameters = parameters.IfNullEmpty();
 
-            cmd.CommandTimeout = int.Parse(Config.SqlCommandTimeout);
+            cmd.CommandTimeout = Config.SqlCommandTimeout;
             cmd.CommandType = commandType;
 
-            cmd.CommandText = commandType == CommandType.StoredProcedure ? this.FormatProcedureText(sql) : sql;
+            cmd.CommandText = sql;
 
             // map parameters for this command...
             this.MapParameters(cmd, parameters);
@@ -191,35 +168,23 @@ namespace YAF.Core.Data
         #region Methods
 
         /// <summary>
-        /// The format procedure text.
-        /// </summary>
-        /// <param name="functionName">
-        /// The function name. 
-        /// </param>
-        /// <returns>
-        /// The format procedure text. 
-        /// </returns>
-        protected virtual string FormatProcedureText(string functionName)
-        {
-            return $"[{{databaseOwner}}].[{{objectQualifier}}{functionName}]";
-        }
-
-        /// <summary>
         /// The map parameters.
         /// </summary>
         /// <param name="cmd">
-        /// The cmd. 
+        /// The cmd.
         /// </param>
         /// <param name="parameters">
-        /// The parameters. 
+        /// The parameters.
         /// </param>
         protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
         {
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-            CodeContracts.VerifyNotNull(parameters, "parameters");
+            var keyValuePairs = parameters.ToList();
+
+            CodeContracts.VerifyNotNull(cmd);
+            CodeContracts.VerifyNotNull(keyValuePairs);
 
             // add all/any parameters...
-            parameters.ForEach(cmd.AddParam);
+            keyValuePairs.ForEach(cmd.AddParam);
         }
 
         #endregion

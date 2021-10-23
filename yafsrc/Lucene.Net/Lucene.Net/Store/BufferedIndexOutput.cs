@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Store
         /// Creates a new <see cref="BufferedIndexOutput"/> with the default buffer size
         /// (<see cref="DEFAULT_BUFFER_SIZE"/> bytes see <see cref="DEFAULT_BUFFER_SIZE"/>)
         /// </summary>
-        public BufferedIndexOutput()
+        protected BufferedIndexOutput() // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             : this(DEFAULT_BUFFER_SIZE)
         {
         }
@@ -48,7 +48,9 @@ namespace YAF.Lucene.Net.Store
         /// Creates a new <see cref="BufferedIndexOutput"/> with the given buffer size. </summary>
         /// <param name="bufferSize"> the buffer size in bytes used to buffer writes internally. </param>
         /// <exception cref="ArgumentException"> if the given buffer size is less or equal to <c>0</c> </exception>
-        public BufferedIndexOutput(int bufferSize) : this(bufferSize, new CRC32()) { }
+        protected BufferedIndexOutput(int bufferSize) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
+            : this(bufferSize, new CRC32())
+        { }
 
         // LUCENENET specific - added constructor overload so FSDirectory can still subclass BufferedIndexOutput, but
         // utilize its own buffer, since FileStream is already buffered in .NET.
@@ -56,7 +58,7 @@ namespace YAF.Lucene.Net.Store
         {
             if (bufferSize <= 0)
             {
-                throw new ArgumentException("bufferSize must be greater than 0 (got " + bufferSize + ")");
+                throw new ArgumentOutOfRangeException("bufferSize must be greater than 0 (got " + bufferSize + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.bufferSize = bufferSize;
             // LUCENENET: We lazy-load the buffer, so we don't force all subclasses to allocate it
@@ -165,10 +167,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        public override long GetFilePointer()
-        {
-            return bufferStart + bufferPosition;
-        }
+        public override long Position => bufferStart + bufferPosition; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
         [Obsolete("(4.1) this method will be removed in Lucene 5.0")]
         public override void Seek(long pos)

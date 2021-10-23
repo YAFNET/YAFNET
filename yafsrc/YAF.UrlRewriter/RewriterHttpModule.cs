@@ -38,7 +38,7 @@ namespace YAF.UrlRewriter
                 return;
             }
 
-            context.BeginRequest += this.BeginRequest;
+            context.BeginRequest += BeginRequest;
         }
 
         /// <summary>
@@ -57,16 +57,16 @@ namespace YAF.UrlRewriter
         /// Event handler for the "BeginRequest" event.
         /// </summary>
         /// <param name="sender">The sender object</param>
-        /// <param name="e">Event args</param>
-        private void BeginRequest(object sender, EventArgs args)
+        /// <param name="args"></param>
+        private static void BeginRequest(object sender, EventArgs args)
         {
             // Add our PoweredBy header
             // HttpContext.Current.Response.AddHeader(Constants.HeaderXPoweredBy, Configuration.XPoweredBy);
 
             // Allow a bypass to be set up by the using application
             var context = HttpContext.Current;
-            if (context.Items.Contains(@"Intelligencia.UrlRewriter.Bypass") && 
-                context.Items[@"Intelligencia.UrlRewriter.Bypass"] is bool && 
+            if (context.Items.Contains(@"Intelligencia.UrlRewriter.Bypass") &&
+                context.Items[@"Intelligencia.UrlRewriter.Bypass"] is bool &&
                 (bool)context.Items[@"Intelligencia.UrlRewriter.Bypass"])
             {
                 // A bypass is set!
@@ -79,7 +79,7 @@ namespace YAF.UrlRewriter
         /// <summary>
         /// The _rewriter.
         /// </summary>
-        private static RewriterEngine _rewriter = new RewriterEngine(
+        private static readonly RewriterEngine _rewriter = new(
             new HttpContextFacade(),
             new ConfigurationManagerFacade(),
             new RewriterConfiguration());

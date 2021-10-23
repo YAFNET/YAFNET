@@ -48,11 +48,13 @@ namespace YAF.Core.Model
         /// <param name="topicId">The topic identifier.</param>
         public static void Add(this IRepository<WatchTopic> repository, int userId, int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.Insert(new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow });
+            var watchTopic = new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow };
 
-            repository.FireNew();
+            repository.Insert(watchTopic);
+
+            repository.FireNew(watchTopic);
         }
 
         /// <summary>
@@ -70,9 +72,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="int?"/>.
         /// </returns>
-        public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
+        public static int? Check(this IRepository<WatchTopic> repository, [NotNull] int userId, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var topic = repository.GetSingle(w => w.UserID == userId && w.TopicID == topicId);
 
@@ -88,21 +90,29 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user identifier.
         /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<WatchTopic, Topic>> List(this IRepository<WatchTopic> repository, int userId)
+        public static List<Tuple<WatchTopic, Topic>> List(
+            this IRepository<WatchTopic> repository,
+            [NotNull] int userId,
+            [NotNull] int pageIndex = 0,
+            [NotNull] int pageSize = 10000000)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
-            expression.Join<Topic>((a, b) => b.ID == a.TopicID)
-                .Where<WatchTopic>((b) => b.UserID == userId)
-                .Select();
+            expression.Join<Topic>((a, b) => b.ID == a.TopicID).Where<WatchTopic>(b => b.UserID == userId)
+                .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<WatchTopic, Topic>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<WatchTopic, Topic>(expression));
         }
     }
 }

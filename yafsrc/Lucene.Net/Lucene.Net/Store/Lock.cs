@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Threading;
 
@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Store
         ///        <see cref="LOCK_OBTAIN_WAIT_FOREVER"/> to retry forever </param>
         /// <returns> <c>true</c> if lock was obtained </returns>
         /// <exception cref="LockObtainFailedException"> if lock wait times out </exception>
-        /// <exception cref="ArgumentException"> if <paramref name="lockWaitTimeout"/> is
+        /// <exception cref="ArgumentOutOfRangeException"> if <paramref name="lockWaitTimeout"/> is
         ///         out of bounds </exception>
         /// <exception cref="IOException"> if <see cref="Obtain()"/> throws <see cref="IOException"/> </exception>
         public bool Obtain(long lockWaitTimeout)
@@ -116,7 +116,7 @@ namespace YAF.Lucene.Net.Store
             bool locked = Obtain();
             if (lockWaitTimeout < 0 && lockWaitTimeout != LOCK_OBTAIN_WAIT_FOREVER)
             {
-                throw new ArgumentException("lockWaitTimeout should be LOCK_OBTAIN_WAIT_FOREVER or a non-negative number (got " + lockWaitTimeout + ")");
+                throw new ArgumentOutOfRangeException("lockWaitTimeout should be LOCK_OBTAIN_WAIT_FOREVER or a non-negative number (got " + lockWaitTimeout + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
 
             long maxSleepCount = lockWaitTimeout / LOCK_POLL_INTERVAL;
@@ -130,25 +130,15 @@ namespace YAF.Lucene.Net.Store
                     {
                         reason += ": " + FailureReason;
                     }
-                    LockObtainFailedException e = new LockObtainFailedException(reason);
-                    e = FailureReason != null
-                                        ? new LockObtainFailedException(reason, FailureReason)
-                                        : new LockObtainFailedException(reason);
+                    LockObtainFailedException e = FailureReason != null
+                        ? new LockObtainFailedException(reason, FailureReason)
+                        : new LockObtainFailedException(reason);
                     throw e;
                 }
 
-//#if FEATURE_THREAD_INTERRUPT
-//                try
-//                {
-//#endif
-                    Thread.Sleep(TimeSpan.FromMilliseconds(LOCK_POLL_INTERVAL));
-//#if FEATURE_THREAD_INTERRUPT // LUCENENET NOTE: Senseless to catch and rethrow the same exception type
-//                }
-//                catch (ThreadInterruptedException ie)
-//                {
-//                    throw new ThreadInterruptedException(ie.ToString(), ie);
-//                }
-//#endif
+                Thread.Sleep(TimeSpan.FromMilliseconds(LOCK_POLL_INTERVAL));
+                // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException
+
                 locked = Obtain();
             }
             return locked;
@@ -178,8 +168,8 @@ namespace YAF.Lucene.Net.Store
         /// Utility class for executing code with exclusive access. </summary>
         public abstract class With<T> // LUCENENET specific - made generic so we don't need to deal with casting
         {
-            private Lock @lock;
-            private long lockWaitTimeout;
+            private readonly Lock @lock; // LUCENENET: marked readonly
+            private readonly long lockWaitTimeout; // LUCENENET: marked readonly
 
             /// <summary>
             /// Constructs an executor that will grab the named <paramref name="lock"/>. </summary>
@@ -187,7 +177,7 @@ namespace YAF.Lucene.Net.Store
             /// <param name="lockWaitTimeout"> length of time to wait in
             ///        milliseconds or 
             ///        <see cref="LOCK_OBTAIN_WAIT_FOREVER"/> to retry forever </param>
-            public With(Lock @lock, long lockWaitTimeout)
+            protected With(Lock @lock, long lockWaitTimeout) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             {
                 this.@lock = @lock;
                 this.lockWaitTimeout = lockWaitTimeout;

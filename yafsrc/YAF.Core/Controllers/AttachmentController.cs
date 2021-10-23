@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,12 +28,13 @@ namespace YAF.Core.Controllers
     using System.Linq;
     using System.Web.Http;
 
+    using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
 
     /// <summary>
     /// The YAF Attachment controller.
@@ -63,7 +64,7 @@ namespace YAF.Core.Controllers
         [HttpPost]
         public IHttpActionResult GetAttachments(PagedResults pagedResults)
         {
-            var userId = pagedResults.UserId;
+            var userId = BoardContext.Current.PageUserID;
             var pageSize = pagedResults.PageSize;
             var pageNumber = pagedResults.PageNumber;
 
@@ -83,13 +84,13 @@ namespace YAF.Core.Controllers
                         var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
                         var iconImage = attach.FileName.IsImageName()
-                                            ? $@"<img class=""popupitemIcon"" src=""{url}"" alt=""{description}"" title=""{description}"" />"
+                                            ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" class=""img-fluid img-thumbnail me-1"" />"
                                             : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
                         var attachment = new AttachmentItem
-                                             {
+                        {
                                                  FileName = attach.FileName,
-                                                 OnClick = $"insertAttachment('{attach.ID}', '{url}')",
+                                                 OnClick = $"CKEDITOR.tools.insertAttachment('{attach.ID}')",
                                                  IconImage = $@"{iconImage}<span>{description}</span>"
                                              };
 

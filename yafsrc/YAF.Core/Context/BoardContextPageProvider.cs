@@ -21,22 +21,21 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Context
 {
     #region Using
 
     using System.Web;
 
     using Autofac;
+    using Autofac.Core.Lifetime;
 
-    using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
 
     #endregion
 
     /// <summary>
-    /// The yaf context provider.
+    /// The board context page provider.
     /// </summary>
     internal class BoardContextPageProvider : IReadOnlyProvider<BoardContext>
     {
@@ -94,13 +93,15 @@ namespace YAF.Core
                     return _globalInstance ?? (_globalInstance = this.CreateContextInstance());
                 }
 
-                if (!(HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance))
+                if (HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance)
                 {
-                    pageInstance = this.CreateContextInstance();
-
-                    // make sure it's put back in the page...
-                    HttpContext.Current.Items[PageBoardContextName] = pageInstance;
+                    return pageInstance;
                 }
+
+                pageInstance = this.CreateContextInstance();
+
+                // make sure it's put back in the page...
+                HttpContext.Current.Items[PageBoardContextName] = pageInstance;
 
                 return pageInstance;
             }
@@ -114,10 +115,11 @@ namespace YAF.Core
         /// The create context instance.
         /// </summary>
         /// <returns>
+        /// The <see cref="BoardContext"/>.
         /// </returns>
         private BoardContext CreateContextInstance()
         {
-            var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(LifetimeScope.Context);
+            var lifetimeContainer = this._lifetimeScope.BeginLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
 
             var instance = new BoardContext(lifetimeContainer);
             this._injectServices.Inject(instance);

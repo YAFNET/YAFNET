@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class languages
+    public partial class Languages
     {
 
         /// <summary>
@@ -24,22 +24,22 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// LocalizedLabel1 control.
+        /// HelpLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.LocalizedLabel HelpLabel2;
 
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// PageSize control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
 
         /// <summary>
         /// List control.
@@ -49,5 +49,14 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater List;
+
+        /// <summary>
+        /// PagerTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Pager PagerTop;
     }
 }

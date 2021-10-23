@@ -1,10 +1,11 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
+using System.Runtime.CompilerServices;
+using WritableArrayAttribute  = YAF.Lucene.Net.Support.WritableArrayAttribute;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -35,10 +36,8 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
+    // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     public sealed class CharsRef : IComparable<CharsRef>, ICharSequence, IEquatable<CharsRef> // LUCENENET specific - implemented IEquatable<CharsRef>
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
     {
         /// <summary>
         /// An empty character array for convenience </summary>
@@ -54,7 +53,7 @@ namespace YAF.Lucene.Net.Util
         public char[] Chars
         {
             get => chars;
-            set => chars = value ?? throw new ArgumentNullException(nameof(value), "Chars cannot be null");
+            set => chars = value ?? throw new ArgumentNullException(nameof(Chars), "Chars cannot be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
         private char[] chars;
 
@@ -112,6 +111,7 @@ namespace YAF.Lucene.Net.Util
         /// object.
         /// </summary>
         /// <seealso cref="DeepCopyOf(CharsRef)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Clone()
         {
             return new CharsRef(chars, Offset, Length);
@@ -131,14 +131,14 @@ namespace YAF.Lucene.Net.Util
 
         public override bool Equals(object other)
         {
-            if (other == null)
+            if (other is null)
             {
                 return false;
             }
 
-            if (other is CharsRef)
+            if (other is CharsRef charsRef)
             {
-                return this.CharsEquals(((CharsRef)other));
+                return this.CharsEquals(charsRef);
             }
             return false;
         }
@@ -207,6 +207,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="other">
         ///          The <see cref="CharsRef"/> to copy. </param>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void CopyChars(CharsRef other)
         {
             CopyChars(other.chars, other.Offset, other.Length);
@@ -259,6 +260,7 @@ namespace YAF.Lucene.Net.Util
             Length = newLen;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
             return new string(chars, Offset, Length);
@@ -279,12 +281,13 @@ namespace YAF.Lucene.Net.Util
         // LUCENENET specific - added to .NETify
         public char this[int index]
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 // NOTE: must do a real check here to meet the specs of CharSequence
                 if (index < 0 || index >= Length)
                 {
-                    throw new ArgumentOutOfRangeException(nameof(index)); // LUCENENET: Changed exception type to ArgumentOutOfRangeException
+                    throw new ArgumentOutOfRangeException(nameof(index)); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 return chars[Offset + index];
             }
@@ -388,6 +391,7 @@ namespace YAF.Lucene.Net.Util
         /// The returned <see cref="CharsRef"/> will have a Length of <c>other.Length</c>
         /// and an offset of zero.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static CharsRef DeepCopyOf(CharsRef other)
         {
             CharsRef clone = new CharsRef();
@@ -403,31 +407,31 @@ namespace YAF.Lucene.Net.Util
         {
             if (Chars == null)
             {
-                throw new InvalidOperationException("chars is null");
+                throw IllegalStateException.Create("chars is null");
             }
             if (Length < 0)
             {
-                throw new InvalidOperationException("Length is negative: " + Length);
+                throw IllegalStateException.Create("Length is negative: " + Length);
             }
             if (Length > Chars.Length)
             {
-                throw new InvalidOperationException("Length is out of bounds: " + Length + ",chars.Length=" + Chars.Length);
+                throw IllegalStateException.Create("Length is out of bounds: " + Length + ",chars.Length=" + Chars.Length);
             }
             if (Offset < 0)
             {
-                throw new InvalidOperationException("offset is negative: " + Offset);
+                throw IllegalStateException.Create("offset is negative: " + Offset);
             }
             if (Offset > Chars.Length)
             {
-                throw new InvalidOperationException("offset out of bounds: " + Offset + ",chars.Length=" + Chars.Length);
+                throw IllegalStateException.Create("offset out of bounds: " + Offset + ",chars.Length=" + Chars.Length);
             }
             if (Offset + Length < 0)
             {
-                throw new InvalidOperationException("offset+Length is negative: offset=" + Offset + ",Length=" + Length);
+                throw IllegalStateException.Create("offset+Length is negative: offset=" + Offset + ",Length=" + Length);
             }
             if (Offset + Length > Chars.Length)
             {
-                throw new InvalidOperationException("offset+Length out of bounds: offset=" + Offset + ",Length=" + Length + ",chars.Length=" + Chars.Length);
+                throw IllegalStateException.Create("offset+Length out of bounds: offset=" + Offset + ",Length=" + Length + ",chars.Length=" + Chars.Length);
             }
             return true;
         }

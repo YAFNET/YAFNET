@@ -23,37 +23,37 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System;
-
-  /// <summary>
-  /// Base Replace Rules Interface
-  /// </summary>
-  public interface IReplaceRule
-  {
-    #region Properties
+    using System;
 
     /// <summary>
-    ///   Gets RuleDescription.
+    /// Base Replace Rules Interface
     /// </summary>
-    string RuleDescription { get; }
+    public interface IReplaceRule
+    {
+        #region Properties
 
-    #endregion
+        /// <summary>
+        ///   Gets RuleDescription.
+        /// </summary>
+        string RuleDescription { get; }
 
-    #region Public Methods
+        #endregion
 
-    /// <summary>
-    /// The replace.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="replacement">
-    /// The replacement.
-    /// </param>
-    /// <exception cref="NotImplementedException">
-    /// </exception>
-    void Replace(ref string text, IReplaceBlocks replacement);
+        #region Public Methods
 
-    #endregion
-  }
+        /// <summary>
+        /// The replace.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="replacement">
+        /// The replacement.
+        /// </param>
+        /// <exception cref="NotImplementedException">
+        /// </exception>
+        void Replace(ref string text, IReplaceBlocks replacement);
+
+        #endregion
+    }
 }

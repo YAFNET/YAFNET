@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,10 +26,10 @@ namespace YAF.Types.Objects
     #region Using
 
     using System;
-    using System.Collections.Generic;
-    using System.Data;
     using System.Globalization;
-    using System.Linq;
+
+    using YAF.Types.Extensions;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -41,23 +41,28 @@ namespace YAF.Types.Objects
         /// <summary>
         /// Initializes a new instance of the <see cref="SearchMessage"/> class.
         /// </summary>
-        /// <param name="row">The row.</param>
-        public SearchMessage([NotNull] DataRow row)
+        /// <param name="tupleSearchItem">
+        /// The tuple Search Item.
+        /// </param>
+        public SearchMessage(Tuple<Forum, Topic, Message, User> tupleSearchItem)
         {
-            this.MessageId = row.Field<int?>("MessageID");
-            this.Message = row.Field<string>("Message");
-            this.Flags = row.Field<int>("Flags");
-            this.Posted = row.Field<DateTime>("Posted").ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
-            this.UserName = row.Field<string>("UserName");
-            this.UserDisplayName = row.Field<string>("UserDisplayName");
-            this.UserStyle = row.Field<string>("UserStyle");
-            this.UserId = row.Field<int?>("UserID");
+            this.MessageId = tupleSearchItem.Item3.ID;
+            this.Message = tupleSearchItem.Item3.MessageText;
+            this.Flags = tupleSearchItem.Item3.Flags;
+            this.Posted = tupleSearchItem.Item3.Posted.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture);
+            this.UserName = tupleSearchItem.Item3.UserName.IsSet()
+                ? tupleSearchItem.Item3.UserName
+                : tupleSearchItem.Item4.Name;
+            this.UserDisplayName = tupleSearchItem.Item3.UserDisplayName.IsSet() ? tupleSearchItem.Item3.UserDisplayName : tupleSearchItem.Item4.DisplayName;
+            this.UserStyle = tupleSearchItem.Item4.UserStyle;
+            this.UserId = tupleSearchItem.Item3.UserID;
+            this.Suspended = tupleSearchItem.Item4.Suspended;
 
-            this.TopicId = row.Field<int?>("TopicID");
-            this.Topic = row.Field<string>("Topic");
-            this.ForumId = row.Field<int?>("ForumID");
-            this.ForumName = row.Field<string>("Name");
-            this.Description = row.Field<string>("Description");
+            this.TopicId = tupleSearchItem.Item2.ID;
+            this.Topic = tupleSearchItem.Item2.TopicName;
+            this.ForumId = tupleSearchItem.Item1.ID;
+            this.ForumName = tupleSearchItem.Item1.Name;
+            this.Description = tupleSearchItem.Item2.Description;
         }
 
         /// <summary>
@@ -124,6 +129,11 @@ namespace YAF.Types.Objects
         /// The user style.
         /// </value>
         public string UserStyle { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user suspended.
+        /// </summary>
+        public DateTime? Suspended { get; set; }
 
         /// <summary>
         /// Gets or sets the user identifier.

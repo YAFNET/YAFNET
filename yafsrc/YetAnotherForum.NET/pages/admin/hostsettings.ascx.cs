@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -26,20 +26,20 @@ namespace YAF.Pages.Admin
 
     using System;
     using System.Linq;
-    using System.ServiceModel.Security;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.BoardSettings;
     using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -47,7 +47,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Host Settings Page.
     /// </summary>
-    public partial class hostsettings : AdminPage
+    public partial class HostSettings : AdminPage
     {
         #region Methods
 
@@ -62,8 +62,8 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void IndexSearch_OnClick(object sender, EventArgs e)
         {
-            this.Get<BoardSettings>().ForceUpdateSearchIndex = true;
-            ((LoadBoardSettings)BoardContext.Current.BoardSettings).SaveRegistry();
+            this.PageContext.BoardSettings.ForceUpdateSearchIndex = true;
+            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
         }
@@ -76,17 +76,6 @@ namespace YAF.Pages.Admin
         protected void ActiveDiscussionsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
-            this.RemoveCacheKey(Constants.Cache.ForumActiveDiscussions);
-        }
-
-        /// <summary>
-        /// Resets the Board Categories Cache
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void BoardCategoriesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.RemoveCacheKey(Constants.Cache.ForumCategory);
         }
 
         /// <summary>
@@ -123,17 +112,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Resets the Replace Rules Cache
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ReplaceRulesCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
-            this.CheckCache();
-        }
-
-        /// <summary>
         /// Resets the Forum Statistics Cache
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -164,9 +142,9 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "yafTabsJs",
-                JavaScriptBlocks.BootstrapNavsLoadJs("v-pills-tab", this.hidLastTab.ClientID));
+                JavaScriptBlocks.BootstrapTabLoadJs("v-pills-tab", this.hidLastTab.ClientID));
 
             base.OnPreRender(e);
         }
@@ -178,9 +156,9 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.IsHostAdmin)
+            if (!this.PageContext.User.UserFlags.IsHostAdmin)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (!this.IsPostBack)
@@ -214,13 +192,8 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_HOSTSETTINGS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_HOSTSETTINGS", "TITLE")}";
         }
 
         /// <summary>
@@ -233,7 +206,7 @@ namespace YAF.Pages.Admin
             // write all the settings back to the settings class
 
             // load Board Setting collection information...
-            var settingCollection = new BoardSettingCollection(this.Get<BoardSettings>());
+            var settingCollection = new BoardSettingCollection(this.PageContext.BoardSettings);
 
             // handle checked fields...
             settingCollection.SettingsBool.Keys.ForEach(
@@ -244,7 +217,7 @@ namespace YAF.Pages.Admin
                         if (control is CheckBox box && settingCollection.SettingsBool[name].CanWrite)
                         {
                             settingCollection.SettingsBool[name].SetValue(
-                                this.Get<BoardSettings>(),
+                                this.PageContext.BoardSettings,
                                 box.Checked,
                                 null);
                         }
@@ -260,13 +233,13 @@ namespace YAF.Pages.Admin
                         {
                             case TextBox box when settingCollection.SettingsString[name].CanWrite:
                                 settingCollection.SettingsString[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     box.Text.Trim(),
                                     null);
                                 break;
                             case DropDownList list when settingCollection.SettingsString[name].CanWrite:
                                 settingCollection.SettingsString[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     Convert.ToString(list.SelectedItem.Value),
                                     null);
                                 break;
@@ -295,13 +268,13 @@ namespace YAF.Pages.Admin
                                         int.TryParse(value, out i);
                                     }
 
-                                    settingCollection.SettingsInt[name].SetValue(this.Get<BoardSettings>(), i, null);
+                                    settingCollection.SettingsInt[name].SetValue(this.PageContext.BoardSettings, i, null);
                                     break;
                                 }
 
                             case DropDownList list when settingCollection.SettingsInt[name].CanWrite:
                                 settingCollection.SettingsInt[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     list.SelectedItem.Value.ToType<int>(),
                                     null);
                                 break;
@@ -331,7 +304,7 @@ namespace YAF.Pages.Admin
                                     }
 
                                     settingCollection.SettingsDouble[name].SetValue(
-                                        this.Get<BoardSettings>(),
+                                        this.PageContext.BoardSettings,
                                         i,
                                         null);
                                     break;
@@ -339,7 +312,7 @@ namespace YAF.Pages.Admin
 
                             case DropDownList list when settingCollection.SettingsDouble[name].CanWrite:
                                 settingCollection.SettingsDouble[name].SetValue(
-                                    this.Get<BoardSettings>(),
+                                    this.PageContext.BoardSettings,
                                     Convert.ToDouble(list.SelectedItem.Value),
                                     null);
                                 break;
@@ -347,12 +320,12 @@ namespace YAF.Pages.Admin
                     });
 
             // save the settings to the database
-            ((LoadBoardSettings)this.Get<BoardSettings>()).SaveRegistry();
+            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
             // reload all settings from the DB
             this.PageContext.BoardSettings = null;
 
-            BuildLink.Redirect(ForumPages.admin_admin);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Admin);
         }
 
         /// <summary>
@@ -363,14 +336,12 @@ namespace YAF.Pages.Admin
             var localizations = new[] { "FORBIDDEN", "REG_USERS", "ALL_USERS" };
 
             var dropDownLists = new[]
-                                    {
-                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
-                                        this.ForumFeedAccess, this.TopicsFeedAccess, this.ActiveTopicFeedAccess,
-                                        this.FavoriteTopicFeedAccess, this.ReportPostPermissions,
-                                        this.ProfileViewPermissions, this.MembersListViewPermissions,
-                                        this.ActiveUsersViewPermissions, this.SearchPermissions, this.ShowHelpTo,
-                                        this.ShowTeamTo, this.ShowShareTopicTo
-                                    };
+            {
+                this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
+                this.TopicsFeedAccess, this.FavoriteTopicFeedAccess, this.ReportPostPermissions,
+                this.ProfileViewPermissions, this.MembersListViewPermissions, this.ActiveUsersViewPermissions,
+                this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo, this.ShowShareTopicTo
+            };
 
             dropDownLists.ForEach(
                 ddl => ddl.Items.AddRange(
@@ -416,12 +387,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
-
             this.DataBind();
 
             // load Board Setting collection information...
-            var settingCollection = new BoardSettingCollection(this.Get<BoardSettings>());
+            var settingCollection = new BoardSettingCollection(this.PageContext.BoardSettings);
 
             // handle checked fields...
             settingCollection.SettingsBool.Keys.ForEach(
@@ -433,7 +402,7 @@ namespace YAF.Pages.Admin
                         {
                             // get the value from the property...
                             box.Checked = (bool)Convert.ChangeType(
-                                settingCollection.SettingsBool[name].GetValue(this.Get<BoardSettings>(), null),
+                                settingCollection.SettingsBool[name].GetValue(this.PageContext.BoardSettings, null),
                                 typeof(bool));
                         }
                     });
@@ -449,14 +418,14 @@ namespace YAF.Pages.Admin
                             case TextBox box when settingCollection.SettingsString[name].CanRead:
                                 // get the value from the property...
                                 box.Text = (string)Convert.ChangeType(
-                                    settingCollection.SettingsString[name].GetValue(this.Get<BoardSettings>(), null),
+                                    settingCollection.SettingsString[name].GetValue(this.PageContext.BoardSettings, null),
                                     typeof(string));
                                 break;
                             case DropDownList list when settingCollection.SettingsString[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
                                         settingCollection.SettingsString[name].GetValue(
-                                            this.Get<BoardSettings>(),
+                                            this.PageContext.BoardSettings,
                                             null).ToString());
 
                                     if (listItem != null)
@@ -486,14 +455,14 @@ namespace YAF.Pages.Admin
 
                                     // get the value from the property...
                                     box.Text = settingCollection.SettingsInt[name]
-                                        .GetValue(this.Get<BoardSettings>(), null).ToString();
+                                        .GetValue(this.PageContext.BoardSettings, null).ToString();
                                     break;
                                 }
 
                             case DropDownList list when settingCollection.SettingsInt[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
-                                        settingCollection.SettingsInt[name].GetValue(this.Get<BoardSettings>(), null)
+                                        settingCollection.SettingsInt[name].GetValue(this.PageContext.BoardSettings, null)
                                             .ToString());
 
                                     if (listItem != null)
@@ -519,14 +488,14 @@ namespace YAF.Pages.Admin
 
                                 // get the value from the property...
                                 box.Text = settingCollection.SettingsDouble[name]
-                                    .GetValue(this.Get<BoardSettings>(), null).ToString();
+                                    .GetValue(this.PageContext.BoardSettings, null).ToString();
                                 break;
 
                             case DropDownList list when settingCollection.SettingsDouble[name].CanRead:
                                 {
                                     var listItem = list.Items.FindByValue(
                                         settingCollection.SettingsDouble[name].GetValue(
-                                            this.Get<BoardSettings>(),
+                                            this.PageContext.BoardSettings,
                                             null).ToString());
 
                                     if (listItem != null)
@@ -540,24 +509,24 @@ namespace YAF.Pages.Admin
                     });
 
             // special field handling...
-            this.AvatarSize.Text = this.Get<BoardSettings>().AvatarSize != 0
-                                       ? this.Get<BoardSettings>().AvatarSize.ToString()
+            this.AvatarSize.Text = this.PageContext.BoardSettings.AvatarSize != 0
+                                       ? this.PageContext.BoardSettings.AvatarSize.ToString()
                                        : string.Empty;
-            this.MaxFileSize.Text = this.Get<BoardSettings>().MaxFileSize != 0
-                                        ? this.Get<BoardSettings>().MaxFileSize.ToString()
+            this.MaxFileSize.Text = this.PageContext.BoardSettings.MaxFileSize != 0
+                                        ? this.PageContext.BoardSettings.MaxFileSize.ToString()
                                         : string.Empty;
 
-            this.AlbumImagesSizeMax.Text = this.Get<BoardSettings>().AlbumImagesSizeMax != 0
-                                               ? this.Get<BoardSettings>().AlbumImagesSizeMax.ToString()
+            this.AlbumImagesSizeMax.Text = this.PageContext.BoardSettings.AlbumImagesSizeMax != 0
+                                               ? this.PageContext.BoardSettings.AlbumImagesSizeMax.ToString()
                                                : string.Empty;
 
-            this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbFunction>().GetSQLVersion());
+            this.SQLVersion.Text = this.HtmlEncode(this.Get<IDbAccess>().GetSQLVersion());
 
             this.AppCores.Text = SystemInfo.Processors;
             this.AppMemory.Text =
                 $"{SystemInfo.AllocatedMemory.ToType<long>() / 1000000} MB of {SystemInfo.MappedMemory.ToType<long>() / 1000000} MB";
             this.AppOSName.Text = SystemInfo.VersionString;
-            this.AppRuntime.Text = $"{SystemInfo.RuntimeName} {SystemInfo.RuntimeString}";
+            this.AppRuntime.Text = $".NET {SystemInfo.RuntimeString}";
         }
 
         /// <summary>
@@ -568,9 +537,8 @@ namespace YAF.Pages.Admin
             this.ForumStatisticsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardStats);
             this.BoardUserStatsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.BoardUserStats);
             this.ActiveDiscussionsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveDiscussions)
-                                                       || this.CheckCacheKey(Constants.Cache.ForumActiveDiscussions);
+                                                       || this.CheckCacheKey(Constants.Cache.ActiveDiscussions);
             this.BoardModeratorsCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumModerators);
-            this.BoardCategoriesCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ForumCategory);
             this.ActiveUserLazyDataCacheReset.Enabled = this.CheckCacheKey(Constants.Cache.ActiveUserLazyData);
             this.ResetCacheAll.Enabled = this.Get<IDataCache>().Count() > 0;
         }

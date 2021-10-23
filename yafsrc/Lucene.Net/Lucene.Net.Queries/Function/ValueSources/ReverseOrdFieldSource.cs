@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using System;
@@ -69,21 +70,18 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             var sindex = FieldCache.DEFAULT.GetTermsIndex(r, field);
             var end = sindex.ValueCount;
 
-            return new Int32DocValuesAnonymousInnerClassHelper(this, this, off, sindex, end);
+            return new Int32DocValuesAnonymousClass(this, off, sindex, end);
         }
 
-        private class Int32DocValuesAnonymousInnerClassHelper : Int32DocValues
+        private class Int32DocValuesAnonymousClass : Int32DocValues
         {
-            private readonly ReverseOrdFieldSource outerInstance;
-
             private readonly int off;
             private readonly SortedDocValues sindex;
             private readonly int end;
 
-            public Int32DocValuesAnonymousInnerClassHelper(ReverseOrdFieldSource outerInstance, ReverseOrdFieldSource @this, int off, SortedDocValues sindex, int end)
+            public Int32DocValuesAnonymousClass(ReverseOrdFieldSource @this, int off, SortedDocValues sindex, int end)
                 : base(@this)
             {
-                this.outerInstance = outerInstance;
                 this.off = off;
                 this.sindex = sindex;
                 this.end = end;

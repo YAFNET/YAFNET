@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,7 +25,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
@@ -58,15 +58,14 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<Tuple<Activity, User, Topic>> Notifications(
             this IRepository<Activity> repository,
-            int userId)
+            [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
             expression.Join<User>((a, u) => u.ID == a.FromUserID).Join<Topic>((a, t) => t.ID == a.TopicID.Value)
-                .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created)
-                .Select();
+                .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
         }
@@ -83,17 +82,15 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<Activity, Topic>> Timeline(
-            this IRepository<Activity> repository,
-            int userId)
+        public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
             expression.Join<Topic>((a, t) => t.ID == a.TopicID)
-                .Where<Activity>(a => a.UserID == userId && a.ReceivedThanks == false && a.WasQuoted == false)
-                .OrderByDescending(a => a.Created).Select();
+                .Where<Activity>(a => a.UserID == userId && (a.Flags & 1024) != 1024 && (a.Flags & 4096) != 4096)
+                .OrderByDescending(a => a.Created);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, Topic>(expression));
         }
@@ -112,10 +109,10 @@ namespace YAF.Core.Model
         /// </param>
         public static void UpdateNotification(
             this IRepository<Activity> repository,
-            int userId,
-            int messageId)
+            [NotNull] int userId,
+            [NotNull] int messageId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
@@ -138,10 +135,10 @@ namespace YAF.Core.Model
         /// </param>
         public static void UpdateTopicNotification(
             this IRepository<Activity> repository,
-            int userId,
-            int topicId)
+            [NotNull] int userId,
+            [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
@@ -159,11 +156,9 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public static void MarkAllAsRead(
-            this IRepository<Activity> repository,
-            int userId)
+        public static void MarkAllAsRead(this IRepository<Activity> repository, [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
                 () => new Activity { Notification = false },

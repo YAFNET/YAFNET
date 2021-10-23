@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene45
 {
@@ -19,14 +20,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * limitations under the License.
      */
 
-    using Lucene40LiveDocsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
-    using Lucene40SegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
-    using Lucene41StoredFieldsFormat = YAF.Lucene.Net.Codecs.Lucene41.Lucene41StoredFieldsFormat;
-    using Lucene42FieldInfosFormat = YAF.Lucene.Net.Codecs.Lucene42.Lucene42FieldInfosFormat;
-    using Lucene42NormsFormat = YAF.Lucene.Net.Codecs.Lucene42.Lucene42NormsFormat;
-    using Lucene42TermVectorsFormat = YAF.Lucene.Net.Codecs.Lucene42.Lucene42TermVectorsFormat;
-    using PerFieldDocValuesFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldDocValuesFormat;
-    using PerFieldPostingsFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
+    using Lucene40LiveDocsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
+    using Lucene40SegmentInfoFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
+    using Lucene41StoredFieldsFormat  = YAF.Lucene.Net.Codecs.Lucene41.Lucene41StoredFieldsFormat;
+    using Lucene42FieldInfosFormat  = YAF.Lucene.Net.Codecs.Lucene42.Lucene42FieldInfosFormat;
+    using Lucene42NormsFormat  = YAF.Lucene.Net.Codecs.Lucene42.Lucene42NormsFormat;
+    using Lucene42TermVectorsFormat  = YAF.Lucene.Net.Codecs.Lucene42.Lucene42TermVectorsFormat;
+    using PerFieldDocValuesFormat  = YAF.Lucene.Net.Codecs.PerField.PerFieldDocValuesFormat;
+    using PerFieldPostingsFormat  = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
 
     /// <summary>
     /// Implements the Lucene 4.5 index format, with configurable per-field postings
@@ -54,15 +55,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
 
         private readonly PostingsFormat postingsFormat;
 
-        private class PerFieldPostingsFormatAnonymousInnerClassHelper : PerFieldPostingsFormat
+        private class PerFieldPostingsFormatAnonymousClass : PerFieldPostingsFormat
         {
             private readonly Lucene45Codec outerInstance;
 
-            public PerFieldPostingsFormatAnonymousInnerClassHelper(Lucene45Codec outerInstance)
+            public PerFieldPostingsFormatAnonymousClass(Lucene45Codec outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override PostingsFormat GetPostingsFormatForField(string field)
             {
                 return outerInstance.GetPostingsFormatForField(field);
@@ -71,15 +73,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
 
         private readonly DocValuesFormat docValuesFormat;
 
-        private class PerFieldDocValuesFormatAnonymousInnerClassHelper : PerFieldDocValuesFormat
+        private class PerFieldDocValuesFormatAnonymousClass : PerFieldDocValuesFormat
         {
             private readonly Lucene45Codec outerInstance;
 
-            public PerFieldDocValuesFormatAnonymousInnerClassHelper(Lucene45Codec outerInstance)
+            public PerFieldDocValuesFormatAnonymousClass(Lucene45Codec outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override DocValuesFormat GetDocValuesFormatForField(string field)
             {
                 return outerInstance.GetDocValuesFormatForField(field);
@@ -91,8 +94,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         public Lucene45Codec()
             : base()
         {
-            postingsFormat = new PerFieldPostingsFormatAnonymousInnerClassHelper(this);
-            docValuesFormat = new PerFieldDocValuesFormatAnonymousInnerClassHelper(this);
+            postingsFormat = new PerFieldPostingsFormatAnonymousClass(this);
+            docValuesFormat = new PerFieldDocValuesFormatAnonymousClass(this);
         }
 
         public override sealed StoredFieldsFormat StoredFieldsFormat => fieldsFormat;
@@ -113,6 +116,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         /// <para/>
         /// The default implementation always returns "Lucene41"
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual PostingsFormat GetPostingsFormatForField(string field)
         {
             // LUCENENET specific - lazy initialize the codec to ensure we get the correct type if overridden.
@@ -129,6 +133,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         /// <para/>
         /// The default implementation always returns "Lucene45"
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual DocValuesFormat GetDocValuesFormatForField(string field)
         {
             // LUCENENET specific - lazy initialize the codec to ensure we get the correct type if overridden.

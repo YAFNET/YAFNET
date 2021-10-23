@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,24 +25,20 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Linq;
     using System.Text;
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -74,12 +70,21 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets or sets the forum name of the current location
         /// </summary>
-        [NotNull]
         public string ForumName
         {
             get => this.ViewState["ForumName"] != null ? this.ViewState["ForumName"].ToString() : string.Empty;
 
             set => this.ViewState["ForumName"] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        public string Location
+        {
+            get => this.ViewState["Location"] != null ? this.ViewState["Location"].ToString() : string.Empty;
+
+            set => this.ViewState["Location"] = value;
         }
 
         /// <summary>
@@ -91,12 +96,12 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.ViewState["ForumPage"] != null || this.ViewState["ForumPage"] != DBNull.Value)
+                if (this.ViewState["ForumPage"] != null && this.ViewState["ForumPage"] != DBNull.Value)
                 {
                     return this.ViewState["ForumPage"].ToString();
                 }
 
-                return "MAINPAGE";
+                return "Board";
             }
 
             set => this.ViewState["ForumPage"] = value;
@@ -169,17 +174,6 @@ namespace YAF.Web.Controls
             set => this.ViewState["UserID"] = value;
         }
 
-        /// <summary>
-        ///   Gets or sets the UserName of the current user
-        /// </summary>
-        [NotNull]
-        public string UserName
-        {
-            get => this.ViewState["UserName"] != null ? this.ViewState["UserName"].ToString() : string.Empty;
-
-            set => this.ViewState["UserName"] = value;
-        }
-
         #endregion
 
         #region Methods
@@ -187,204 +181,178 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var forumPageName = this.ForumPage;
-            string forumPageAttributes = null;
+            if (this.ForumPage.IsNotSet())
+            {
+                this.ForumPage = "Board";
+            }
+
+            var forumPageName = this.ForumPage.ToEnum<ForumPages>();
+            string forumPageAttributes = this.Location;
             var outText = new StringBuilder();
 
-            // Find a user page name. If it's missing we are very probably on the start page 
-            if (forumPageName.IsNotSet())
+            writer.BeginRender();
+
+            switch (forumPageName)
             {
-                forumPageName = "MAINPAGE";
-            }
-            else
-            {
-                // We find here a page name start position
-                if (forumPageName.Contains("g="))
-                {
-                    forumPageName = forumPageName.Substring(forumPageName.IndexOf("g=", StringComparison.Ordinal) + 2);
-
-                    // We find here a page name end position
-                    if (forumPageName.Contains("&"))
-                    {
-                        forumPageAttributes =
-                            forumPageName.Substring(forumPageName.IndexOf("&", StringComparison.Ordinal) + 1);
-                        forumPageName = forumPageName.Substring(
-                            0,
-                            forumPageName.IndexOf("&", StringComparison.Ordinal));
-                    }
-                }
-                else
-                {
-                    if (Config.IsDotNetNuke)
-                    {
-                        var indexOf = forumPageName.IndexOf("&", StringComparison.Ordinal);
-                        forumPageName = forumPageName.Substring(indexOf + 1);
-                    }
-
-                    var idx = forumPageName.IndexOf("=", StringComparison.Ordinal);
-                    if (idx > 0)
-                    {
-                        forumPageAttributes = forumPageName.Substring(
-                            0,
-                            forumPageName.IndexOf("&", StringComparison.Ordinal) > 0
-                                ? forumPageName.IndexOf("&", StringComparison.Ordinal)
-                                : forumPageName.Length - 1);
-
-                        forumPageName = forumPageName.Substring(0, idx);
-                    }
-                }
-            }
-
-            output.BeginRender();
-
-            // All pages should be processed in call frequency order 
-            // We are in messages
-            if (this.TopicID > 0 && this.ForumID > 0)
-            {
-                switch (forumPageName)
-                {
-                    case "topics":
-                        outText.Append(this.GetText("ACTIVELOCATION", "TOPICS"));
-                        break;
-
-                    case "posts":
-                        outText.Append(this.GetText("ACTIVELOCATION", "POSTS"));
-                        break;
-
-                    case "postmessage":
-                        outText.Append(this.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL"));
-                        break;
-
-                    case "reportpost":
-                        outText.Append(this.GetText("ACTIVELOCATION", "REPORTPOST"));
-                        outText.Append(". ");
-                        outText.Append(this.GetText("ACTIVELOCATION", "TOPICS"));
-                        break;
-
-                    case "messagehistory":
-                        outText.Append(this.GetText("ACTIVELOCATION", "MESSAGEHISTORY"));
-                        outText.Append(". ");
-                        outText.Append(this.GetText("ACTIVELOCATION", "TOPICS"));
-                        break;
-
-                    default:
-                        outText.Append(this.GetText("ACTIVELOCATION", "POSTS"));
-                        break;
-                }
-
-                if (this.HasForumAccess)
-                {
-                    outText.AppendFormat(
-                        @"<a href=""{0}"" id=""topicid_{1}""  title=""{2}"" runat=""server""> {3} </a>",
-                        BuildLink.GetLink(ForumPages.Posts, "t={0}", this.TopicID),
-                        this.UserID,
-                        this.GetText("COMMON", "VIEW_TOPIC"),
-                        HttpUtility.HtmlEncode(this.TopicName));
-
-                    if (!this.LastLinkOnly)
-                    {
-                        outText.Append(this.GetText("ACTIVELOCATION", "TOPICINFORUM"));
-                        outText.AppendFormat(
-                            @"<a href=""{0}"" id=""forumidtopic_{1}"" title=""{2}"" runat=""server""> {3} </a>",
-                            BuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
-                            this.UserID,
-                            this.GetText("COMMON", "VIEW_FORUM"),
-                            HttpUtility.HtmlEncode(this.ForumName));
-                    }
-                }
-            }
-            else if (this.ForumID > 0 && this.TopicID <= 0)
-            {
-                // User views a forum
-                if (forumPageName == "topics")
-                {
+                case ForumPages.Board:
+                    outText.Append(
+                        this.ForumPage.Contains("c=")
+                            ? this.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY")
+                            : this.GetText("ACTIVELOCATION", "MAINPAGE"));
+                    break;
+                case ForumPages.Albums:
+                    outText.Append(this.RenderAlbumsLocation(forumPageAttributes));
+                    break;
+                case ForumPages.Album:
+                    outText.Append(this.RenderAlbumLocation(forumPageAttributes));
+                    break;
+                case ForumPages.UserProfile:
+                    outText.Append(this.RenderProfileLocation(forumPageAttributes));
+                    break;
+                case ForumPages.Topics:
                     outText.Append(this.GetText("ACTIVELOCATION", "FORUM"));
 
                     if (this.HasForumAccess)
                     {
                         outText.AppendFormat(
-                            @"<a href=""{0}"" id=""forumid_{1}"" title=""{2}"" runat=""server""> {3} </a>",
-                            BuildLink.GetLink(ForumPages.topics, "f={0}", this.ForumID),
-                            this.UserID,
+                            @"<a href=""{0}"" title=""{1}"" data-bs-toggle=""tooltip"">{2}</a>",
+                            this.Get<LinkBuilder>().GetForumLink(this.ForumID, this.ForumName),
                             this.GetText("COMMON", "VIEW_FORUM"),
                             HttpUtility.HtmlEncode(this.ForumName));
                     }
-                }
-            }
-            else
-            {
-                // First specially treated pages where we can render
-                // an info about user name, etc. 
-                switch (forumPageName)
-                {
-                    case "profile":
-                        outText.Append(this.Profile(forumPageAttributes));
-                        break;
-                    case "albums":
-                        outText.Append(this.Albums(forumPageAttributes));
-                        break;
-                    case "album":
-                        outText.Append(this.Album(forumPageAttributes));
-                        break;
-                    default:
-                        if (forumPageName == "forum" && this.TopicID <= 0 && this.ForumID <= 0)
+
+                    break;
+                default:
+                    if (!BoardContext.Current.IsAdmin && this.ForumPage.ToUpper().Contains("MODERATE_"))
+                    {
+                        // We shouldn't show moderators activity to all users but admins
+                        outText.Append(this.GetText("ACTIVELOCATION", "MODERATE"));
+                    }
+                    else if (!BoardContext.Current.User.UserFlags.IsHostAdmin &&
+                             this.ForumPage.ToUpper().Contains("ADMIN_"))
+                    {
+                        // We shouldn't show admin activity to all users
+                        outText.Append(this.GetText("ACTIVELOCATION", "ADMINTASK"));
+                    }
+                    else
+                    {
+                        if (this.TopicID > 0 && this.ForumID > 0)
                         {
-                            outText.Append(
-                                this.ForumPage.Contains("c=")
-                                    ? this.GetText("ACTIVELOCATION", "FORUMFROMCATEGORY")
-                                    : this.GetText("ACTIVELOCATION", "MAINPAGE"));
-                        }
-                        else if (!BoardContext.Current.IsAdmin && forumPageName.ToUpper().Contains("MODERATE_"))
-                        {
-                            // We shouldn't show moderators activity to all users but admins
-                            outText.Append(this.GetText("ACTIVELOCATION", "MODERATE"));
-                        }
-                        else if (!BoardContext.Current.IsHostAdmin && forumPageName.ToUpper().Contains("ADMIN_"))
-                        {
-                            // We shouldn't show admin activity to all users 
-                            outText.Append(this.GetText("ACTIVELOCATION", "ADMINTASK"));
+                            outText.Append(this.RenderTopicsOrForumLocations(forumPageName));
                         }
                         else
                         {
                             // Generic action name based on page name
-                            outText.Append(this.GetText("ACTIVELOCATION", forumPageName.ToUpper()));
+                            outText.Append(this.GetText("ACTIVELOCATION", this.ForumPage.ToUpper()));
                         }
+                    }
 
-                        break;
-                }
+                    break;
             }
 
             var outputText = outText.ToString();
 
-            if (outputText.Contains("ACTIVELOCATION") || outputText.Trim().IsNotSet()
-                                                      || forumPageName.IndexOf("p=", StringComparison.Ordinal) == 0)
-            {
-                if (forumPageName.Contains("p="))
-                {
-                    outText.AppendFormat("{0}.", this.GetText("ACTIVELOCATION", "NODATA"));
-                }
-                else
-                {
-                    if (this.Get<BoardSettings>().EnableActiveLocationErrorsLog)
-                    {
-                        this.Logger.Log(
-                            this.UserID,
-                            this,
-                            $"Incorrect active location string: ForumID = {this.ForumID}; ForumName= {this.ForumName}; ForumPage={this.ForumPage}; TopicID={this.TopicID}; TopicName={this.TopicName}; UserID={this.UserID}; UserName={this.UserName}; Attributes={forumPageAttributes}; ForumPageName={forumPageName}; URL={this.Get<HttpRequestBase>().Url.AbsoluteUri}");
-                    }
+            writer.Write(outputText);
 
-                    outputText = this.GetText("ACTIVELOCATION", "NODATA");
-                }
+            writer.EndRender();
+        }
+
+        /// <summary>
+        /// Gets the User id from query string.
+        /// </summary>
+        /// <param name="queryString">
+        /// The query string.
+        /// </param>
+        /// <returns>
+        /// Returns the User Id
+        /// </returns>
+        private static int? GetUserIdFromQueryString(string queryString)
+        {
+            var userID = queryString.Substring(queryString.IndexOf("u=", StringComparison.Ordinal) + 2);
+
+            userID = userID.Contains("&")
+                ? userID.Substring(0, userID.IndexOf("&", StringComparison.Ordinal)).Trim()
+                : userID.Substring(0).Trim();
+
+            if (ValidationHelper.IsValidInt(userID))
+            {
+                return userID.ToType<int>();
             }
 
-            output.Write(outputText);
+            return null;
+        }
 
-            output.EndRender();
+        /// <summary>
+        /// The render topics or forum locations.
+        /// </summary>
+        /// <param name="forumPageName">
+        /// The forum page name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string RenderTopicsOrForumLocations(ForumPages forumPageName)
+        {
+            var outText = new StringBuilder();
+
+            // All pages should be processed in call frequency order
+            // We are in messages
+            switch (forumPageName)
+            {
+                case ForumPages.Posts:
+                    outText.Append(this.GetText("ACTIVELOCATION", "POSTS"));
+                    break;
+
+                case ForumPages.PostMessage:
+                    outText.Append(this.GetText("ACTIVELOCATION", "POSTMESSAGE_FULL"));
+                    break;
+
+                case ForumPages.ReportPost:
+                    outText.Append(this.GetText("ACTIVELOCATION", "REPORTPOST"));
+                    outText.Append(". ");
+                    outText.Append(this.GetText("ACTIVELOCATION", "TOPICS"));
+                    break;
+
+                case ForumPages.MessageHistory:
+                    outText.Append(this.GetText("ACTIVELOCATION", "MESSAGEHISTORY"));
+                    outText.Append(". ");
+                    outText.Append(this.GetText("ACTIVELOCATION", "TOPICS"));
+                    break;
+
+                default:
+                    outText.Append(this.GetText("ACTIVELOCATION", "POSTS"));
+                    break;
+            }
+
+            if (!this.HasForumAccess)
+            {
+                return outText.ToString();
+            }
+
+            outText.AppendFormat(
+                @"<a href=""{0}"" title=""{1}"" data-bs-toggle=""tooltip"">{2}</a>",
+                this.Get<LinkBuilder>().GetTopicLink(this.TopicID, this.TopicName),
+                this.GetText("COMMON", "VIEW_TOPIC"),
+                HttpUtility.HtmlEncode(this.TopicName));
+
+            if (this.LastLinkOnly)
+            {
+                return outText.ToString();
+            }
+
+            outText.Append(this.GetText("ACTIVELOCATION", "TOPICINFORUM"));
+            outText.AppendFormat(
+                @"<a href=""{0}"" title=""{1}"" data-bs-toggle=""tooltip"">{2}</a>",
+                this.Get<LinkBuilder>().GetForumLink(this.ForumID, this.ForumName),
+                this.GetText("COMMON", "VIEW_FORUM"),
+                HttpUtility.HtmlEncode(this.ForumName));
+
+            return outText.ToString();
         }
 
         /// <summary>
@@ -396,73 +364,63 @@ namespace YAF.Web.Controls
         /// <returns>
         /// The string
         /// </returns>
-        private string Album([NotNull] string forumPageAttributes)
+        private string RenderAlbumLocation([NotNull] string forumPageAttributes)
         {
-            var outstring = new StringBuilder();
-            var userID = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
-                .Trim();
-
-            if (userID.Contains("&"))
-            {
-                userID = userID.Substring(0, userID.IndexOf("&", StringComparison.Ordinal)).Trim();
-            }
+            var outString = new StringBuilder();
 
             var albumID =
                 forumPageAttributes.Substring(forumPageAttributes.IndexOf("a=", StringComparison.Ordinal) + 2);
 
             albumID = albumID.Contains("&")
-                          ? albumID.Substring(0, albumID.IndexOf("&", StringComparison.Ordinal)).Trim()
-                          : albumID.Substring(0).Trim();
+                ? albumID.Substring(0, albumID.IndexOf("&", StringComparison.Ordinal)).Trim()
+                : albumID.Substring(0).Trim();
 
-            if (ValidationHelper.IsValidInt(userID) && ValidationHelper.IsValidInt(albumID))
+            var userId = GetUserIdFromQueryString(forumPageAttributes);
+
+            if (userId.HasValue && ValidationHelper.IsValidInt(albumID))
             {
                 // The DataRow should not be missing in the case
-                var dr = this.GetRepository<UserAlbum>().List(albumID.Trim().ToType<int>()).FirstOrDefault();
+                var userAlbum = this.GetRepository<UserAlbum>().GetById(albumID.Trim().ToType<int>());
 
                 // If album doesn't have a Title, use his ID.
-                var albumName = dr.Title.IsNotSet() ? dr.Title : dr.ID.ToString();
+                var albumName = userAlbum.Title.IsNotSet() ? userAlbum.Title : userAlbum.ID.ToString();
 
                 // Render
-                if (userID.ToType<int>() != this.UserID)
+                if (userId.Value != this.UserID)
                 {
-                    var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userID.ToType<long>()));
+                    var user = this.GetRepository<User>().GetById(userId.Value);
 
-                    if (displayName.IsNotSet())
-                    {
-                        displayName = HttpUtility.HtmlEncode(
-                            UserMembershipHelper.GetUserNameFromID(userID.ToType<long>()));
-                    }
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
 
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
-                    outstring.AppendFormat(
-                        @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.Album, "a={0}", albumID),
-                        userID + this.PageContext.PageUserID,
+                    outString.AppendFormat(
+                        @" <a href=""{0}"">{1}</a> ",
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Album, "a={0}", albumID),
                         HttpUtility.HtmlEncode(albumName));
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
-                    outstring.AppendFormat(
-                        @"<a href=""{0}"" id=""albumuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userID, displayName),
-                        userID,
-                        HttpUtility.HtmlEncode(displayName));
+
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
+
+                    outString.AppendFormat(
+                        @" <a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
+                        this.Get<LinkBuilder>().GetUserProfileLink(userId.Value, user.DisplayOrUserName()),
+                        this.GetText("COMMON", "VIEW_USRPROFILE"),
+                        HttpUtility.HtmlEncode(user.DisplayOrUserName()));
                 }
                 else
                 {
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
-                    outstring.AppendFormat(
-                        @"<a href=""{0}"" id=""uiseralbumid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.Album, "a={0}", albumID),
-                        userID + this.PageContext.PageUserID,
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OWN"));
+
+                    outString.AppendFormat(
+                        @"<a href=""{0}"">{1}</a>",
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Album, "a={0}", albumID),
                         HttpUtility.HtmlEncode(albumName));
                 }
             }
             else
             {
-                outstring.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
+                outString.Append(this.GetText("ACTIVELOCATION", "ALBUM"));
             }
 
-            return outstring.ToString();
+            return outString.ToString();
         }
 
         /// <summary>
@@ -474,44 +432,37 @@ namespace YAF.Web.Controls
         /// <returns>
         /// The string
         /// </returns>
-        private string Albums([NotNull] string forumPageAttributes)
+        private string RenderAlbumsLocation([NotNull] string forumPageAttributes)
         {
-            var outstring = new StringBuilder();
+            var outString = new StringBuilder();
 
-            var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2)
-                .Substring(0).Trim();
+            var userId = GetUserIdFromQueryString(forumPageAttributes);
 
-            if (ValidationHelper.IsValidInt(userId))
+            if (userId.HasValue)
             {
-                if (userId.ToType<int>() == this.UserID)
+                if (userId.Value != this.UserID)
                 {
-                    outstring.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OWN"));
+                    var user = this.GetRepository<User>().GetById(userId.Value);
+
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
+
+                    outString.AppendFormat(
+                        @" <a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
+                        this.Get<LinkBuilder>().GetUserProfileLink(userId.Value, user.DisplayOrUserName()),
+                        this.GetText("COMMON", "VIEW_USRPROFILE"),
+                        HttpUtility.HtmlEncode(user.DisplayOrUserName()));
                 }
                 else
                 {
-                    var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userId.ToType<long>()));
-
-                    if (displayName.IsNotSet())
-                    {
-                        displayName = HttpUtility.HtmlEncode(
-                            UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
-                    }
-
-                    outstring.AppendFormat(
-                        @"{3}<a href=""{0}"" id=""albumsuserid_{1}"" runat=""server""> {2} </a>",
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
-                        userId + this.PageContext.PageUserID,
-                        HttpUtility.HtmlEncode(displayName),
-                        this.GetText("ACTIVELOCATION", "ALBUMS_OFUSER"));
+                    outString.Append(this.GetText("ACTIVELOCATION", "ALBUMS_OWN"));
                 }
             }
             else
             {
-                outstring.Append(this.GetTextFormatted("ACTIVELOCATION", "ALBUMS"));
+                outString.Append(this.GetTextFormatted("ACTIVELOCATION", "ALBUMS"));
             }
 
-            return outstring.ToString();
+            return outString.ToString();
         }
 
         /// <summary>
@@ -523,47 +474,37 @@ namespace YAF.Web.Controls
         /// <returns>
         /// The profile.
         /// </returns>
-        private string Profile([NotNull] string forumPageAttributes)
+        private string RenderProfileLocation([NotNull] string forumPageAttributes)
         {
-            var outstring = new StringBuilder();
-            var userId = forumPageAttributes.Substring(forumPageAttributes.IndexOf("u=", StringComparison.Ordinal) + 2);
+            var outString = new StringBuilder();
 
-            userId = userId.Contains("&")
-                         ? userId.Substring(0, userId.IndexOf("&", StringComparison.Ordinal)).Trim()
-                         : userId.Substring(0).Trim();
+            var userId = GetUserIdFromQueryString(forumPageAttributes);
 
-            if (ValidationHelper.IsValidInt(userId.Trim()))
+            if (userId.HasValue)
             {
-                if (userId.ToType<int>() != this.UserID)
+                if (userId.Value != this.UserID)
                 {
-                    var displayName =
-                        HttpUtility.HtmlEncode(UserMembershipHelper.GetDisplayNameFromID(userId.ToType<long>()));
+                    var user = this.GetRepository<User>().GetById(userId.Value);
 
-                    if (displayName.IsNotSet())
-                    {
-                        displayName = HttpUtility.HtmlEncode(
-                            UserMembershipHelper.GetUserNameFromID(userId.ToType<long>()));
-                    }
+                    outString.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
 
-                    outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OFUSER"));
-                    outstring.AppendFormat(
-                        @"<a href=""{0}""  id=""profileuserid_{1}"" title=""{2}"" alt=""{2}"" runat=""server""> {3} </a>",
-                        BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName),
-                        userId + this.PageContext.PageUserID,
+                    outString.AppendFormat(
+                        @" <a href=""{0}"" data-bs-toggle=""tooltip"" title=""{1}"">{2}</a>",
+                        this.Get<LinkBuilder>().GetUserProfileLink(userId.Value, user.DisplayOrUserName()),
                         this.GetText("COMMON", "VIEW_USRPROFILE"),
-                        HttpUtility.HtmlEncode(displayName));
+                        HttpUtility.HtmlEncode(user.DisplayOrUserName()));
                 }
                 else
                 {
-                    outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE_OWN"));
+                    outString.Append(this.GetText("ACTIVELOCATION", "PROFILE_OWN"));
                 }
             }
             else
             {
-                outstring.Append(this.GetText("ACTIVELOCATION", "PROFILE"));
+                outString.Append(this.GetText("ACTIVELOCATION", "PROFILE"));
             }
 
-            return outstring.ToString();
+            return outString.ToString();
         }
 
         #endregion

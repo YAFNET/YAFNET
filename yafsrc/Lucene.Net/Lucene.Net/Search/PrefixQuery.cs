@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search
@@ -20,11 +20,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents containing terms with a specified prefix. A <see cref="PrefixQuery"/>
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Search
                 buffer.Append(Field);
                 buffer.Append(":");
             }
-            buffer.Append(_prefix.Text());
+            buffer.Append(_prefix.Text);
             buffer.Append('*');
             buffer.Append(ToStringUtils.Boost(Boost));
             return buffer.ToString();

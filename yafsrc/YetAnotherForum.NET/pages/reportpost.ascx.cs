@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,17 +29,16 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -52,18 +51,24 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   To save message id value.
+        ///   The _all posts by user.
         /// </summary>
-        private int messageID;
-
-        // message body editor
+        private Tuple<Topic, Message, User, Forum> message;
 
         /// <summary>
-        ///   The _editor.
+        /// The topic name.
         /// </summary>
-        private ForumEditor reportEditor;
+        private string topicName;
 
         #endregion
+
+        /// <summary>
+        ///   Gets AllPostsByUser.
+        /// </summary>
+        public Tuple<Topic, Message, User, Forum> Message =>
+            this.message ??= this.GetRepository<Message>().GetMessageWithAccess(this.MessageId, this.PageContext.PageUserID);
+
+        protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
         #region Constructors and Destructors
 
@@ -80,7 +85,7 @@ namespace YAF.Pages
         #region Methods
 
         /// <summary>
-        /// The btn cancel query_ click.
+        /// Return to Post
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -88,14 +93,14 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void BtnCancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Redirect to reported post
             this.RedirectToPost();
         }
 
         /// <summary>
-        /// The btn run query_ click.
+        /// Report Message.
         /// </summary>
         /// <param name="sender">
         /// The sender.
@@ -103,54 +108,44 @@ namespace YAF.Pages
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void BtnReport_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ReportClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.reportEditor.Text.Length > this.Get<BoardSettings>().MaxReportPostChars)
+            if (!this.Page.IsValid)
             {
-                this.IncorrectReportLabel.Text = this.GetTextFormatted(
-                    "REPORTTEXT_TOOLONG",
-                    this.Get<BoardSettings>().MaxReportPostChars);
-                this.IncorrectReportLabel.DataBind();
+                return;
+            }
+
+            if (this.Report.Text.Length > this.PageContext.BoardSettings.MaxReportPostChars)
+            {
+                this.PageContext.AddLoadMessage(
+                    this.GetTextFormatted("REPORTTEXT_TOOLONG", this.PageContext.BoardSettings.MaxReportPostChars),
+                    MessageTypes.danger);
+
                 return;
             }
 
             // Save the reported message
-            this.GetRepository<Message>().Report(
-                this.messageID,
+            this.GetRepository<MessageReported>().Report(
+                this.Message,
                 this.PageContext.PageUserID,
                 DateTime.UtcNow,
-                this.reportEditor.Text);
+                this.Report.Text);
 
             // Send Notification to Mods about the Reported Post.
-            if (this.Get<BoardSettings>().EmailModeratorsOnReportedPost)
+            if (this.PageContext.BoardSettings.EmailModeratorsOnReportedPost)
             {
                 // not approved, notify moderators
-                this.Get<ISendNotification>()
-                    .ToModeratorsThatMessageWasReported(
-                        this.PageContext.PageForumID,
-                        this.messageID,
-                        this.PageContext.PageUserID,
-                        this.reportEditor.Text);
+                this.Get<ISendNotification>().ToModeratorsThatMessageWasReported(
+                    this.PageContext.PageForumID,
+                    this.MessageId,
+                    this.PageContext.PageUserID,
+                    this.Report.Text);
             }
-			
-			this.PageContext.LoadMessage.AddSession(this.GetText("MSG_REPORTED"), MessageTypes.success);
+
+            this.PageContext.LoadMessage.AddSession(this.GetText("MSG_REPORTED"), MessageTypes.success);
 
             // Redirect to reported post
             this.RedirectToPost();
-        }
-
-        /// <summary>
-        /// Handles the Init event of the Page control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // get the forum editor based on the settings
-            this.reportEditor = ForumEditorHelper.GetCurrentForumEditor();
-
-            // add editor to the page
-            this.EditorLine.Controls.Add(this.reportEditor);
         }
 
         /// <summary>
@@ -160,47 +155,55 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // set attributes of editor
-            this.reportEditor.BaseDir = $"{BoardInfo.ForumClientFileRoot}Scripts";
-
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // We check here if the user have access to the option
-                if (!this.Get<IPermissions>().Check(this.Get<BoardSettings>().ReportPostPermissions))
+                if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
                 {
-                    BuildLink.Redirect(ForumPages.Info, "i=1");
-                }
-
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
-                {
-                    BuildLink.Redirect(ForumPages.Error, "Incorrect message value: {0}", this.messageID);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
                 }
             }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.btnReport.ClientID));
 
             if (this.IsPostBack)
             {
                 return;
             }
 
-            // Get reported message text for better quoting                    
-            var messageRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
-
-            // Checking if the user has a right to view the message and getting data  
-            if (messageRow.HasRows())
+            // Checking if the user has a right to view the message and getting data
+            if (this.Message != null)
             {
-                // populate the repeater with the message data row...
-                this.MessageList.DataSource = messageRow;
-                this.MessageList.DataBind();
+                this.topicName = this.Message.Item1.TopicName;
+
+                this.MessagePreview.CurrentMessage = this.Message.Item2;
+
+                this.UserLink1.Suspended = this.Message.Item3.Suspended;
+                this.UserLink1.ReplaceName = this.Message.Item3.DisplayOrUserName();
+                this.UserLink1.Style = this.Message.Item3.UserStyle;
+                this.UserLink1.UserID = this.Message.Item3.ID;
+
+                this.Posted.DateTime = this.Message.Item2.Posted;
             }
             else
             {
-                BuildLink.Redirect(ForumPages.Info, "i=1");
+                this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
             }
 
+            this.Report.MaxLength = this.PageContext.BoardSettings.MaxReportPostChars;
+
+            this.LocalizedLblMaxNumberOfPost.Param0 = this.PageContext.BoardSettings.MaxReportPostChars.ToString();
+        }
+
+        /// <summary>
+        /// The create page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             // Get Forum Link
             this.PageLinks.AddRoot();
-
-            this.LocalizedLblMaxNumberOfPost.Param0 = this.Get<BoardSettings>().MaxReportPostChars.ToString();
         }
 
         /// <summary>
@@ -209,7 +212,7 @@ namespace YAF.Pages
         protected void RedirectToPost()
         {
             // Redirect to reported post
-            BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", this.messageID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", this.MessageId, this.topicName);
         }
 
         #endregion

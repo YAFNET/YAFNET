@@ -74,6 +74,9 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// The format message.
         /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
         /// <param name="message">
         /// The message.
         /// </param>
@@ -89,7 +92,7 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The formatted message.
         /// </returns>
-        string Format([NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
+        string Format([NotNull] int messageId, [NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
 
         /// <summary>
         /// The format syndication message.
@@ -124,28 +127,10 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The get cleaned topic message.
         /// </returns>
-        MessageCleaned GetCleanedTopicMessage([NotNull] object topicMessage, [NotNull] object topicId);
+        MessageCleaned GetCleanedTopicMessage([NotNull] string topicMessage, [NotNull] int topicId);
 
         /// <summary>
-        /// The method to detect a forbidden HTML code from delimited by 'delimiter' list
-        /// </summary>
-        /// <param name="stringToClear">
-        /// The string To Clear.
-        /// </param>
-        /// <param name="stringToMatch">
-        /// The string To Match.
-        /// </param>
-        /// <param name="delimiter">
-        /// The delimiter.
-        /// </param>
-        /// <returns>
-        /// Returns a forbidden HTML tag or a null string
-        /// </returns>
-        [CanBeNull]
-        string HtmlTagForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delimiter);
-
-        /// <summary>
-        /// Removes nested YafBBCode quotes from the given message body.
+        /// Removes nested quotes from the given message body.
         /// </summary>
         /// <param name="body">
         /// Message body test to remove nested quotes from
@@ -189,41 +174,10 @@ namespace YAF.Types.Interfaces
         /// <param name="allowHtml">
         /// The allow html.
         /// </param>
-        /// <param name="matchList">
-        /// The match List.
-        /// </param>
-        /// <returns>
-        /// The repaired html.
-        /// </returns>
-        string RepairHtml([NotNull] string html, bool allowHtml, [NotNull] IEnumerable<string> matchList);
-
-        /// <summary>
-        /// The repair html.
-        /// </summary>
-        /// <param name="html">
-        /// The html.
-        /// </param>
-        /// <param name="allowHtml">
-        /// The allow html.
-        /// </param>
         /// <returns>
         /// The repaired html.
         /// </returns>
         string RepairHtml([NotNull] string html, bool allowHtml);
-
-        /// <summary>
-        /// The repair html.
-        /// </summary>
-        /// <param name="html">
-        /// The html.
-        /// </param>
-        /// <param name="allowHtml">
-        /// The allow html.
-        /// </param>
-        /// <returns>
-        /// The repaired html.
-        /// </returns>
-        string RepairHtmlFeeds([NotNull] string html, bool allowHtml);
 
         /// <summary>
         /// Surrounds a word list with prefix/postfix. Case insensitive.

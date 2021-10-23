@@ -1,5 +1,6 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -82,7 +83,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (pending == null)
             {
-                throw new Exception("this buffer is frozen");
+                throw IllegalStateException.Create("this buffer is frozen");
             }
             if (pendingOff == pending.Length)
             {
@@ -101,6 +102,7 @@ namespace YAF.Lucene.Net.Util.Packed
             pending[pendingOff++] = l;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void Grow(int newBlockCount)
         {
             Array.Resize<PackedInt32s.Reader>(ref values, newBlockCount);
@@ -215,6 +217,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual long BaseRamBytesUsed()
         {
             return RamUsageEstimator.NUM_BYTES_OBJECT_HEADER 

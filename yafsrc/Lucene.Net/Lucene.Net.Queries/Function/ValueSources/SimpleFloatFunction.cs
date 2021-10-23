@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using System.Collections;
 
@@ -28,7 +29,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public abstract class SimpleSingleFunction : SingularFunction
     {
-        public SimpleSingleFunction(ValueSource source)
+        protected SimpleSingleFunction(ValueSource source) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             : base(source)
         {
         }
@@ -38,15 +39,15 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         public override FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext)
         {
             FunctionValues vals = m_source.GetValues(context, readerContext);
-            return new SingleDocValuesAnonymousInnerClassHelper(this, this, vals);
+            return new SingleDocValuesAnonymousClass(this, this, vals);
         }
 
-        private class SingleDocValuesAnonymousInnerClassHelper : SingleDocValues
+        private class SingleDocValuesAnonymousClass : SingleDocValues
         {
             private readonly SimpleSingleFunction outerInstance;
             private readonly FunctionValues vals;
 
-            public SingleDocValuesAnonymousInnerClassHelper(SimpleSingleFunction outerInstance, SimpleSingleFunction @this, FunctionValues vals)
+            public SingleDocValuesAnonymousClass(SimpleSingleFunction outerInstance, SimpleSingleFunction @this, FunctionValues vals)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;

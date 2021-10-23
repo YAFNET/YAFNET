@@ -1,9 +1,11 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene41
 {
@@ -33,12 +35,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
     /// <seealso cref="Lucene41SkipReader"/>
     public sealed class Lucene41PostingsReader : PostingsReaderBase
     {
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexInput docIn;
         private readonly IndexInput posIn;
         private readonly IndexInput payIn;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         private readonly ForUtil forUtil;
-        private int version;
+        private readonly int version; // LUCENENET: marked readonly
 
         // public static boolean DEBUG = false;
 
@@ -82,6 +86,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Init(IndexInput termsIn)
         {
             // Make sure we are talking to the matching postings writer
@@ -89,7 +94,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             int indexBlockSize = termsIn.ReadVInt32();
             if (indexBlockSize != Lucene41PostingsFormat.BLOCK_SIZE)
             {
-                throw new InvalidOperationException("index-time BLOCK_SIZE (" + indexBlockSize + ") != read-time BLOCK_SIZE (" + Lucene41PostingsFormat.BLOCK_SIZE + ")");
+                throw IllegalStateException.Create("index-time BLOCK_SIZE (" + indexBlockSize + ") != read-time BLOCK_SIZE (" + Lucene41PostingsFormat.BLOCK_SIZE + ")");
             }
         }
 
@@ -105,7 +110,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 for (int i = 0; i < num; i++)
                 {
                     int code = docIn.ReadVInt32();
-                    docBuffer[i] = (int)((uint)code >> 1);
+                    docBuffer[i] = code.TripleShift(1);
                     if ((code & 1) != 0)
                     {
                         freqBuffer[i] = 1;
@@ -125,11 +130,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override BlockTermState NewTermState()
         {
             return new Lucene41PostingsWriter.Int32BlockTermState();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -234,21 +241,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override DocsEnum Docs(FieldInfo fieldInfo, BlockTermState termState, IBits liveDocs, DocsEnum reuse, DocsFlags flags)
         {
-            BlockDocsEnum docsEnum;
-            if (reuse is BlockDocsEnum)
-            {
-                docsEnum = (BlockDocsEnum)reuse;
-                if (!docsEnum.CanReuse(docIn, fieldInfo))
-                {
-                    docsEnum = new BlockDocsEnum(this, fieldInfo);
-                }
-            }
-            else
-            {
+            if (reuse is null || !(reuse is BlockDocsEnum docsEnum) || !docsEnum.CanReuse(docIn, fieldInfo))
                 docsEnum = new BlockDocsEnum(this, fieldInfo);
-            }
+
             return docsEnum.Reset(liveDocs, (Lucene41PostingsWriter.Int32BlockTermState)termState, flags);
         }
 
@@ -262,36 +260,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
             if ((!indexHasOffsets || (flags & DocsAndPositionsFlags.OFFSETS) == 0) && (!indexHasPayloads || (flags & DocsAndPositionsFlags.PAYLOADS) == 0))
             {
-                BlockDocsAndPositionsEnum docsAndPositionsEnum;
-                if (reuse is BlockDocsAndPositionsEnum)
-                {
-                    docsAndPositionsEnum = (BlockDocsAndPositionsEnum)reuse;
-                    if (!docsAndPositionsEnum.CanReuse(docIn, fieldInfo))
-                    {
-                        docsAndPositionsEnum = new BlockDocsAndPositionsEnum(this, fieldInfo);
-                    }
-                }
-                else
-                {
+                if (reuse is null || !(reuse is BlockDocsAndPositionsEnum docsAndPositionsEnum) || !docsAndPositionsEnum.CanReuse(docIn, fieldInfo))
                     docsAndPositionsEnum = new BlockDocsAndPositionsEnum(this, fieldInfo);
-                }
+
                 return docsAndPositionsEnum.Reset(liveDocs, (Lucene41PostingsWriter.Int32BlockTermState)termState);
             }
             else
             {
-                EverythingEnum everythingEnum;
-                if (reuse is EverythingEnum)
-                {
-                    everythingEnum = (EverythingEnum)reuse;
-                    if (!everythingEnum.CanReuse(docIn, fieldInfo))
-                    {
-                        everythingEnum = new EverythingEnum(this, fieldInfo);
-                    }
-                }
-                else
-                {
+                if (reuse is null || !(reuse is EverythingEnum everythingEnum) || !everythingEnum.CanReuse(docIn, fieldInfo))
                     everythingEnum = new EverythingEnum(this, fieldInfo);
-                }
+
                 return everythingEnum.Reset(liveDocs, (Lucene41PostingsWriter.Int32BlockTermState)termState, flags);
             }
         }
@@ -355,6 +333,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 encoded = new byte[ForUtil.MAX_ENCODED_SIZE];
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool CanReuse(IndexInput docIn, FieldInfo fieldInfo)
             {
                 // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
@@ -593,6 +572,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return docFreq;
@@ -676,6 +656,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 indexHasPayloads = fieldInfo.HasPayloads;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool CanReuse(IndexInput docIn, FieldInfo fieldInfo)
             {
                 return docIn == startDocIn && 
@@ -770,7 +751,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 // if (DEBUG) {
                 //   System.out.println("      refillPositions");
                 // }
-                if (posIn.GetFilePointer() == lastPosBlockFP)
+                if (posIn.Position == lastPosBlockFP) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 {
                     // if (DEBUG) {
                     //   System.out.println("        vInt pos block @ fp=" + posIn.getFilePointer() + " hasPayloads=" + indexHasPayloads + " hasOffsets=" + indexHasOffsets);
@@ -786,10 +767,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                             {
                                 payloadLength = posIn.ReadVInt32();
                             }
-                            posDeltaBuffer[i] = (int)((uint)code >> 1);
+                            posDeltaBuffer[i] = code.TripleShift(1);
                             if (payloadLength != 0)
                             {
-                                posIn.Seek(posIn.GetFilePointer() + payloadLength);
+                                posIn.Seek(posIn.Position + payloadLength); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                             }
                         }
                         else
@@ -988,7 +969,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                         // if (DEBUG) {
                         //   System.out.println("        skip whole block @ fp=" + posIn.getFilePointer());
                         // }
-                        if (Debugging.AssertsEnabled) Debugging.Assert(posIn.GetFilePointer() != lastPosBlockFP);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(posIn.Position != lastPosBlockFP); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         outerInstance.forUtil.SkipBlock(posIn);
                         toSkip -= Lucene41PostingsFormat.BLOCK_SIZE;
                     }
@@ -1042,11 +1023,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
             public override int EndOffset => -1;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override BytesRef GetPayload()
             {
                 return null;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return docFreq;
@@ -1178,6 +1161,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool CanReuse(IndexInput docIn, FieldInfo fieldInfo)
             {
                 // LUCENENET specific - to avoid boxing, changed from CompareTo() to IndexOptionsComparer.Compare()
@@ -1276,7 +1260,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 // if (DEBUG) {
                 //   System.out.println("      refillPositions");
                 // }
-                if (posIn.GetFilePointer() == lastPosBlockFP)
+                if (posIn.Position == lastPosBlockFP) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 {
                     // if (DEBUG) {
                     //   System.out.println("        vInt pos block @ fp=" + posIn.getFilePointer() + " hasPayloads=" + indexHasPayloads + " hasOffsets=" + indexHasOffsets);
@@ -1298,7 +1282,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                             //   System.out.println("        i=" + i + " payloadLen=" + payloadLength);
                             // }
                             payloadLengthBuffer[i] = payloadLength;
-                            posDeltaBuffer[i] = (int)((uint)code >> 1);
+                            posDeltaBuffer[i] = code.TripleShift(1);
                             if (payloadLength != 0)
                             {
                                 if (payloadByteUpto + payloadLength > payloadBytes.Length)
@@ -1325,7 +1309,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                             {
                                 offsetLength = posIn.ReadVInt32();
                             }
-                            offsetStartDeltaBuffer[i] = (int)((uint)deltaCode >> 1);
+                            offsetStartDeltaBuffer[i] = deltaCode.TripleShift(1);
                             offsetLengthBuffer[i] = offsetLength;
                             // if (DEBUG) {
                             //   System.out.println("          startOffDelta=" + offsetStartDeltaBuffer[i] + " offsetLen=" + offsetLengthBuffer[i]);
@@ -1364,7 +1348,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                             // this works, because when writing a vint block we always force the first length to be written
                             outerInstance.forUtil.SkipBlock(payIn); // skip over lengths
                             int numBytes = payIn.ReadVInt32(); // read length of payloadBytes
-                            payIn.Seek(payIn.GetFilePointer() + numBytes); // skip over payloadBytes
+                            payIn.Seek(payIn.Position + numBytes); // skip over payloadBytes // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         }
                         payloadByteUpto = 0;
                     }
@@ -1575,7 +1559,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                         // if (DEBUG) {
                         //   System.out.println("        skip whole block @ fp=" + posIn.getFilePointer());
                         // }
-                        if (Debugging.AssertsEnabled) Debugging.Assert(posIn.GetFilePointer() != lastPosBlockFP);
+                        if (Debugging.AssertsEnabled) Debugging.Assert(posIn.Position != lastPosBlockFP); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         outerInstance.forUtil.SkipBlock(posIn);
 
                         if (indexHasPayloads)
@@ -1585,7 +1569,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
                             // Skip payloadBytes block:
                             int numBytes = payIn.ReadVInt32();
-                            payIn.Seek(payIn.GetFilePointer() + numBytes);
+                            payIn.Seek(payIn.Position + numBytes); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                         }
 
                         if (indexHasOffsets)
@@ -1682,6 +1666,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
             public override int EndOffset => endOffset;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override BytesRef GetPayload()
             {
                 // if (DEBUG) {
@@ -1697,12 +1682,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return docFreq;
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed()
         {
             return 0;

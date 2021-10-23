@@ -1,9 +1,10 @@
-<%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.tags"
+﻿<%@ Control Language="c#" AutoEventWireup="True" EnableViewState="true" Inherits="YAF.Pages.Admin.Tags"
     CodeBehind="Tags.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Types.Models" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -12,9 +13,27 @@
     <div class="col-xl-12">
         <div class="card mb-3">
                 <div class="card-header">
-                    <YAF:IconHeader runat="server"
-                                    IconName="tags"
-                                    LocalizedPage="ADMIN_TAGS"></YAF:IconHeader>
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-auto">
+                            <YAF:IconHeader runat="server"
+                                            IconName="tags"
+                                            LocalizedPage="ADMIN_TAGS"></YAF:IconHeader>
+                            </div>
+                            <div class="col-auto">
+                                <div class="btn-toolbar" role="toolbar">
+                                    <div class="input-group input-group-sm me-2" role="group">
+                                        <div class="input-group-text">
+                                            <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="PageSize"
+                                                          AutoPostBack="True"
+                                                          OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                          CssClass="form-select">
+                                        </asp:DropDownList>
+                                    </div>
+                                </div>
+                        </div>
+            </div>
                     </div>
                 <div class="card-body">
         <asp:Repeater runat="server" ID="List" OnItemCommand="ListItemCommand">
@@ -30,18 +49,18 @@
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="USAGES"></YAF:LocalizedLabel>
-                            <span class="badge badge-secondary">
+                            <span class="badge bg-secondary">
                                 <%# this.GetRepository<TopicTag>().Count(x => x.TagID == ((Tag)Container.DataItem).ID)  %>
                             </span>
                         </small>
                     </div>
                     <small>
                         <div class="btn-group btn-group-sm">
-                            <a href="<%# BuildLink.GetLink(
+                            <a href="<%# this.Get<LinkBuilder>().GetLink(
                                              ForumPages.Search,
                                              "tag={0}",
                                              this.Eval("TagName")) %>"
-                               class="btn btn-info btn-sm mb-1"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
+                               class="btn btn-info"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"
                                              Size="Small"
@@ -61,7 +80,7 @@
                     <YAF:Alert runat="server" ID="NoInfo"
                                Type="success"
                                Visible="False">
-                        <YAF:Icon runat="server" IconName="check" IconType="text-success" />
+                        <YAF:Icon runat="server" IconName="check" />
                         <YAF:LocalizedLabel runat="server"
                                             LocalizedTag="NO_ENTRY"></YAF:LocalizedLabel>
                     </YAF:Alert>

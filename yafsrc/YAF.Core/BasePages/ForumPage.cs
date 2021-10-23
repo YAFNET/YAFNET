@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,30 +21,29 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.BasePages
 {
     #region Using
 
     using System;
     using System.Collections;
-    using System.Web.Security;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
-#if DEBUG
-    using YAF.Core.Data.Profiling;
-#endif
+    using YAF.Core.Handlers;
+    using YAF.Core.Helpers;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Utils.Helpers.StringUtils;
+    using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models.Identity;
 
     #endregion
 
@@ -60,14 +59,9 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   Cache for the page
+        ///   The trans page.
         /// </summary>
-        private readonly Hashtable _pageCache;
-
-        /// <summary>
-        ///   The _trans page.
-        /// </summary>
-        private readonly string _transPage;
+        private readonly string transPage;
 
         /// <summary>
         /// The Unicode Encoder
@@ -75,14 +69,9 @@ namespace YAF.Core
         private readonly UnicodeEncoder unicodeEncoder;
 
         /// <summary>
-        ///   No Database Toggle
+        ///   The top page control.
         /// </summary>
-        private bool _noDataBase;
-
-        /// <summary>
-        ///   The _top page control.
-        /// </summary>
-        private Control _topPageControl;
+        private Control topPageControl;
 
         #endregion
 
@@ -108,9 +97,9 @@ namespace YAF.Core
             this.Get<IInjectServices>().Inject(this);
 
             // create empty hashtable for cache entries));
-            this._pageCache = new Hashtable();
+            this.PageCache = new Hashtable();
 
-            this._transPage = transPage;
+            this.transPage = transPage;
             this.Init += this.ForumPage_Init;
             this.Load += this.ForumPage_Load;
             this.Unload += this.ForumPage_Unload;
@@ -131,12 +120,6 @@ namespace YAF.Core
         #endregion
 
         #region Properties
-
-        /// <summary>
-        ///   Gets a value indicating whether CanLogin.
-        /// </summary>
-        [Obsolete("Useless property that always returns true. Do not use anymore.")]
-        public bool CanLogin => true;
 
         /// <summary>
         ///   Gets or sets DataCache.
@@ -160,9 +143,9 @@ namespace YAF.Core
         public PlaceHolder ForumTopControl { get; set; }
 
         /// <summary>
-        ///   Gets ForumURL.
+        /// Gets or sets a value indicating whether is account page.
         /// </summary>
-        public string ForumURL => BuildLink.GetLink(ForumPages.forum, true);
+        public virtual bool IsAccountPage { get; protected set; }
 
         /// <summary>
         ///   Gets or sets a value indicating whether Is Admin Page.
@@ -193,17 +176,12 @@ namespace YAF.Core
         ///   Gets or sets Logger.
         /// </summary>
         [Inject]
-        public ILogger Logger { get; set; }
-
-        /// <summary>
-        ///   Gets or sets the Notification.
-        /// </summary>
-        public Control Notification { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         ///   Gets cache associated with this page.
         /// </summary>
-        public Hashtable PageCache => this._pageCache;
+        public Hashtable PageCache { get; }
 
         /// <summary>
         ///   Gets the current forum Context (helper reference)
@@ -237,8 +215,8 @@ namespace YAF.Core
         public bool ShowFooter { get; protected set; } = Config.ShowFooter;
 
         /// <summary>
-        ///   Gets or sets a value indicating whether 
-        ///   if you don't want the menus at top and bottom. 
+        ///   Gets or sets a value indicating whether
+        ///   if you don't want the menus at top and bottom.
         ///   Only admin pages will set this to false
         /// </summary>
         public bool ShowToolBar { get; protected set; } = Config.ShowToolBar;
@@ -250,52 +228,37 @@ namespace YAF.Core
         {
             get
             {
-                if (this._topPageControl != null)
+                if (this.topPageControl != null)
                 {
-                    return this._topPageControl;
+                    return this.topPageControl;
                 }
 
-                if (Page?.Header != null)
+                if (this.Page?.Header != null)
                 {
-                    this._topPageControl = this.Page.Header;
+                    this.topPageControl = this.Page.Header;
                 }
                 else
                 {
-                    this._topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
+                    this.topPageControl = this.FindControlRecursiveBoth("YafHead") ?? this.ForumTopControl;
                 }
 
-                return this._topPageControl;
+                return this.topPageControl;
             }
         }
 
         /// <summary>
         ///   Gets the current user.
         /// </summary>
-        public MembershipUser User => this.PageContext.User;
+        public AspNetUsers User => this.PageContext.MembershipUser;
 
         /// <summary>
-        ///   Sets a value indicating whether  Set to <see langword = "true" /> if this is the start page. Should only be set by the page that initialized the database.
+        /// Gets or sets a value indicating whether no data base, Should only be set by the page that initialized the database.
         /// </summary>
-        protected bool NoDataBase
-        {
-            set => this._noDataBase = value;
-        }
+        protected bool NoDataBase { get; set; }
 
         #endregion
 
         #region Public Methods
-
-        /// <summary>
-        /// Determines whether the specified value is null.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <returns>
-        /// The is null.
-        /// </returns>
-        public static object IsNull([NotNull] string value)
-        {
-            return value == null || value.ToLower() == string.Empty ? (object)DBNull.Value : value;
-        }
 
         /// <summary>
         /// Encodes the HTML
@@ -305,12 +268,7 @@ namespace YAF.Core
         [CanBeNull]
         public string HtmlEncode([NotNull] object data)
         {
-            if (!(data is string))
-            {
-                return null;
-            }
-
-            return this.unicodeEncoder.XSSEncode(data.ToString());
+            return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());
         }
 
         /// <summary>
@@ -332,7 +290,7 @@ namespace YAF.Core
         /// </summary>
         void IRaiseControlLifeCycles.RaiseInit()
         {
-            this.OnInit(new EventArgs());
+            this.OnInit(EventArgs.Empty);
         }
 
         /// <summary>
@@ -340,7 +298,7 @@ namespace YAF.Core
         /// </summary>
         void IRaiseControlLifeCycles.RaiseLoad()
         {
-            this.OnLoad(new EventArgs());
+            this.OnLoad(EventArgs.Empty);
         }
 
         /// <summary>
@@ -348,7 +306,7 @@ namespace YAF.Core
         /// </summary>
         void IRaiseControlLifeCycles.RaisePreRender()
         {
-            this.OnPreRender(new EventArgs());
+            this.OnPreRender(EventArgs.Empty);
         }
 
         #endregion
@@ -362,9 +320,6 @@ namespace YAF.Core
         /// </summary>
         protected virtual void CreatePageLinks()
         {
-            // forum index
-            // this.PageLinks.AddRoot();
-
             // Page link creation goes to this method (overloads in descendant classes)
         }
 
@@ -398,19 +353,15 @@ namespace YAF.Core
         {
             this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
 
-            if (this._noDataBase)
+            if (this.NoDataBase)
             {
                 return;
             }
 
-#if DEBUG
-			QueryCounter.Reset();
-#endif
-
             // set the current translation page...
-            this.Get<LocalizationProvider>().TranslationPage = this._transPage;
+            this.Get<LocalizationProvider>().TranslationPage = this.transPage;
 
-            // fire preload event...
+            // fire pre-load event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePreLoadEvent());
         }
 
@@ -421,14 +372,12 @@ namespace YAF.Core
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Get<BoardSettings>().DoUrlReferrerSecurityCheck)
+            if (!this.IsPostBack)
             {
-                Security.CheckRequestValidity(this.Request);
+                this.CreatePageLinks();
             }
 
-           // this.CreatePageLinks(); 
-
-            // fire preload event...
+            // fire pre-load event...
             this.Get<IRaiseEvent>().Raise(new ForumPagePostLoadEvent());
         }
 
@@ -441,14 +390,6 @@ namespace YAF.Core
         {
             this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
 
-            // sets up the head elements in addition to the Css and image elements));
-           // this.SetupHeaderElements();
-
-            // setup the forum control header & footer properties
-            /*if (this.ForumHeader != null)
-            {
-                this.ForumHeader.Visible = this.ShowToolBar;
-            }*/
             this.ForumFooter.Visible = this.ShowFooter;
         }
 
@@ -462,7 +403,7 @@ namespace YAF.Core
             this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
 
             // release cache
-            this._pageCache?.Clear();
+            this.PageCache?.Clear();
         }
 
         #endregion

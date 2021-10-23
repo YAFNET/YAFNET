@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
@@ -19,12 +19,11 @@
  *
 */
 
-
 #if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Support
@@ -51,7 +50,9 @@ namespace YAF.Lucene.Net.Support
 
         private WeakDictionary(int initialCapacity, IEnumerable<KeyValuePair<TKey, TValue>> otherDict)
         {
-            _hm = new JCG.Dictionary<WeakKey<TKey>, TValue>(initialCapacity);
+            // LUCENENET specific - using ConcurrentDictionary here not because we need concurrency, but because
+            // it allows removing items while iterating forward.
+            _hm = new ConcurrentDictionary<WeakKey<TKey>, TValue>(concurrencyLevel: 10, capacity: initialCapacity);
             foreach (var kvp in otherDict)
             {
                 _hm.Add(new WeakKey<TKey>(kvp.Key), kvp.Value);
@@ -65,12 +66,11 @@ namespace YAF.Lucene.Net.Support
         private void Clean()
         {
             if (_hm.Count == 0) return;
-            var newHm = new JCG.Dictionary<WeakKey<TKey>, TValue>(_hm.Count);
-            foreach (var entry in _hm.Where(x => x.Key != null && x.Key.IsAlive))
+            foreach (var kvp in _hm)
             {
-                newHm.Add(entry.Key, entry.Value);
+                if (!kvp.Key.TryGetTarget(out TKey _))
+                    _hm.Remove(kvp.Key);
             }
-            _hm = newHm;
         }
 
         private void CleanIfNeeded()
@@ -85,9 +85,12 @@ namespace YAF.Lucene.Net.Support
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            foreach (var kvp in _hm.Where(x => x.Key.IsAlive))
+            foreach (var kvp in _hm)
             {
-                yield return new KeyValuePair<TKey, TValue>(kvp.Key.Target, kvp.Value);
+                if (kvp.Key.TryGetTarget(out TKey key))
+                {
+                    yield return new KeyValuePair<TKey, TValue>(key, kvp.Value);
+                }
             }
         }
 
@@ -185,7 +188,7 @@ namespace YAF.Lucene.Net.Support
             throw new NotSupportedException();
         }
 
-#region KeyCollection
+        #region Nested Class: KeyCollection
 
         private class KeyCollection : ICollection<TKey>
         {
@@ -200,7 +203,8 @@ namespace YAF.Lucene.Net.Support
             {
                 foreach (var key in _internalDict.Keys)
                 {
-                    yield return key.Target;
+                    if (key.TryGetTarget(out TKey target))
+                        yield return target;
                 }
             }
 
@@ -243,7 +247,7 @@ namespace YAF.Lucene.Net.Support
 #endregion Explicit Interface Definitions
         }
 
-#endregion KeyCollection
+        #endregion Nested Class: KeyCollection
 
         /// <summary>
         /// A weak reference wrapper for the hashtable keys. Whenever a key\value pair
@@ -252,16 +256,16 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         private class WeakKey<T> where T : class
         {
-            private readonly WeakReference reference;
+            private readonly WeakReference<T> reference;
             private readonly int hashCode;
 
             public WeakKey(T key)
             {
-                if (key == null)
-                    throw new ArgumentNullException("key");
+                if (key is null)
+                    throw new ArgumentNullException(nameof(key));
 
-                hashCode = key.GetHashCode();
-                reference = new WeakReference(key);
+                hashCode = key is null ? 0 : key.GetHashCode();
+                reference = new WeakReference<T>(key);
             }
 
             public override int GetHashCode()
@@ -271,25 +275,20 @@ namespace YAF.Lucene.Net.Support
 
             public override bool Equals(object obj)
             {
-                if (!reference.IsAlive || obj == null) return false;
-
-                if (object.ReferenceEquals(this, obj))
-                {
-                    return true;
-                }
-
+                if (obj is null) return false;
                 if (obj is WeakKey<T> other)
                 {
-                    var referenceTarget = reference.Target; // Careful: can be null in the mean time...
-                    return referenceTarget != null && referenceTarget.Equals(other.Target);
+                    bool gotThis = this.TryGetTarget(out T thisTarget), gotOther = other.TryGetTarget(out T otherTarget);
+                    if (gotThis && gotOther && thisTarget.Equals(otherTarget))
+                        return true;
+                    else if (gotThis == false && gotOther == false)
+                        return true;
                 }
 
                 return false;
             }
 
-            public T Target => (T)reference.Target;
-
-            public bool IsAlive => reference.IsAlive;
+            public bool TryGetTarget(out T target) => reference.TryGetTarget(out target);
         }
     }
 }

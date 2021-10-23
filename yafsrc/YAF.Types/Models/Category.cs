@@ -36,40 +36,44 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    public partial class Category : IEntity, IHaveID, IHaveBoardID
+    public class Category : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
-
-        public Category()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("CategoryID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Required]
         [Index]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [Required]
         [Index]
         [StringLength(128)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sort order.
+        /// </summary>
         [Required]
         public short SortOrder { get; set; }
 
+        /// <summary>
+        /// Gets or sets the category image.
+        /// </summary>
         [StringLength(255)]
         public string CategoryImage { get; set; }
-
-        [References(typeof(PollGroupCluster))]
-        public int? PollGroupID { get; set; }
-
 
         #endregion
     }

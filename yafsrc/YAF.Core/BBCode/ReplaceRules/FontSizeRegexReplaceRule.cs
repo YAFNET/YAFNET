@@ -36,13 +36,13 @@ namespace YAF.Core.BBCode.ReplaceRules
         /// Initializes a new instance of the <see cref="FontSizeRegexReplaceRule"/> class.
         /// </summary>
         /// <param name="regExSearch">
-        /// The reg ex search.
+        /// The Search Regex
         /// </param>
         /// <param name="regExReplace">
-        /// The reg ex replace.
+        /// The Replace Regex.
         /// </param>
         /// <param name="regExOptions">
-        /// The reg ex options.
+        /// The Regex options.
         /// </param>
         public FontSizeRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
             : base(regExSearch, regExReplace, regExOptions, new[] { "size" }, new[] { "5" })
@@ -76,19 +76,19 @@ namespace YAF.Core.BBCode.ReplaceRules
         private static string GetFontSize(string inputStr)
         {
             int[] sizes = { 50, 70, 80, 90, 100, 120, 140, 160, 180 };
-            var size = 5;
 
             // try to parse the input string...
-            int.TryParse(inputStr, out size);
+            int.TryParse(inputStr, out var size);
 
-            if (size > 9)
+            switch (size)
             {
-                return $"{size}px"; 
-            }
-
-            if (size < 1)
-            {
-                size = 1;
+                case > 9:
+                    return $"{size}%";
+                case 9:
+                    return $"{size}px";
+                case < 1:
+                    size = 1;
+                    break;
             }
 
             if (size > sizes.Length)

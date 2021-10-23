@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,10 +25,12 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -39,202 +41,304 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    [Table(Name = "User")]
-    public partial class User : IEntity, IHaveBoardID, IHaveID
+    public class User : IEntity, IHaveBoardID, IHaveID
     {
-        partial void OnCreated();
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.
+        /// </summary>
         public User()
         {
             try
             {
-                this.ProviderUserKey = this.IsGuest.Value ? null : this.ProviderUserKey;
+                this.ProviderUserKey = this.UserFlags.IsGuest ? null : this.ProviderUserKey;
             }
             catch (Exception)
             {
-                this.IsGuest = true;
+                this.UserFlags.IsGuest = true;
                 this.ProviderUserKey = null;
             }
-
-            this.OnCreated();
         }
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("UserID")]
         [AutoIncrement]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Required]
-        [Index(NonClustered = true)]
+        [Index]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the provider user key.
+        /// </summary>
         [StringLength(255)]
         public string ProviderUserKey { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [Required]
         [Index]
         [StringLength(255)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
         [Required]
         [Index]
         [StringLength(255)]
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the password.
+        /// </summary>
         [Required]
         [StringLength(32)]
         public string Password { get; set; }
 
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
         [StringLength(255)]
         public string Email { get; set; }
 
+        /// <summary>
+        /// Gets or sets the joined.
+        /// </summary>
         [Required]
         [Index]
         public DateTime Joined { get; set; }
 
+        /// <summary>
+        /// Gets or sets the last visit.
+        /// </summary>
         [Required]
         public DateTime LastVisit { get; set; }
 
+        /// <summary>
+        /// Gets or sets the IP Address.
+        /// </summary>
         [StringLength(39)]
         public string IP { get; set; }
 
+        /// <summary>
+        /// Gets or sets the number of posts.
+        /// </summary>
         [Required]
         public int NumPosts { get; set; }
 
+        /// <summary>
+        /// Gets or sets the time zone.
+        /// </summary>
         public string TimeZone { get; set; }
 
+        /// <summary>
+        ///   Gets TimeZone.
+        /// </summary>
+        [Ignore]
+        public TimeZoneInfo TimeZoneInfo
+        {
+            get
+            {
+                TimeZoneInfo timeZoneInfo;
+
+                var tz = this.TimeZone;
+                if (System.Text.RegularExpressions.Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
+                {
+                    return TimeZoneInfo.Local;
+                }
+
+                try
+                {
+                    timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(tz);
+                }
+                catch (Exception)
+                {
+                    timeZoneInfo = TimeZoneInfo.Local;
+                }
+
+                return timeZoneInfo;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the avatar.
+        /// </summary>
         [StringLength(255)]
         public string Avatar { get; set; }
 
+        /// <summary>
+        /// Gets or sets the signature.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Signature { get; set; }
 
+        /// <summary>
+        /// Gets or sets the avatar image.
+        /// </summary>
         public byte[] AvatarImage { get; set; }
 
+        /// <summary>
+        /// Gets or sets the avatar image type.
+        /// </summary>
         [StringLength(50)]
         public string AvatarImageType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the rank id.
+        /// </summary>
         [References(typeof(Rank))]
         [Required]
         public int RankID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the suspended.
+        /// </summary>
         public DateTime? Suspended { get; set; }
 
+        /// <summary>
+        /// Gets or sets the language file.
+        /// </summary>
         [StringLength(50)]
         public string LanguageFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets the theme file.
+        /// </summary>
         [StringLength(50)]
         public string ThemeFile { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether pm notification.
+        /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool PMNotification { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether auto watch topics.
+        /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool AutoWatchTopics { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether daily digest.
+        /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool DailyDigest { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether activity.
+        /// </summary>
         [Required]
-        [Default(1)]
+        [Default(typeof(bool), "1")]
         public bool Activity { get; set; }
 
+        /// <summary>
+        /// Gets or sets the notification type.
+        /// </summary>
         [Default(10)]
         public int? NotificationType { get; set; }
 
+        /// <summary>
+        /// Gets NotificationSetting.
+        /// </summary>
+        [Ignore]
+        public UserNotificationSetting NotificationSetting
+        {
+            get
+            {
+                var value = this.NotificationType ?? 0;
+
+                return value.ToEnum<UserNotificationSetting>();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(0)]
         public int Flags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user flags.
+        /// </summary>
         [Ignore]
         public UserFlags UserFlags
         {
-            get => new UserFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }
 
+        /// <summary>
+        /// Gets or sets the block flags.
+        /// </summary>
         [Required]
         [Default(0)]
         public int BlockFlags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the block.
+        /// </summary>
         [Ignore]
         public UserBlockFlags Block
         {
-            get => new UserBlockFlags(this.BlockFlags);
+            get => new(this.BlockFlags);
 
             set => this.BlockFlags = value.BitValue;
         }
 
+        /// <summary>
+        /// Gets or sets the points.
+        /// </summary>
         [Required]
         [Default(1)]
         public int Points { get; set; }
 
-        [Compute]
-        public bool? IsApproved { get; set; }
-
-        [Compute]
-        public bool? IsActiveExcluded { get; set; }
-
+        /// <summary>
+        /// Gets or sets the culture.
+        /// </summary>
         [StringLength(10)]
         public string Culture { get; set; }
 
-        [StringLength(50)]
-        public string TextEditor { get; set; }
-
-        [Compute]
-        public bool? IsGuest { get; set; }
-
-        [Compute]
-        public bool? IsCaptchaExcluded { get; set; }
-
-        [Compute]
-        public bool? IsDST { get; set; }
-
-        [Compute]
-        public bool? IsDirty { get; set; }
-
-        [Compute]
-        public bool? Moderated { get; set; }
-
-        [Required]
-        [Default(0)]
-        public bool IsFacebookUser { get; set; }
-
-        [Required]
-        [Default(0)]
-        public bool IsTwitterUser { get; set; }
-
+        /// <summary>
+        /// Gets or sets the user style.
+        /// </summary>
         [Index]
         [StringLength(510)]
         public string UserStyle { get; set; }
 
-        [Required]
-        [Default(0)]
-        public int StyleFlags { get; set; }
-
-        [Compute]
-        public bool? IsUserStyle { get; set; }
-
-        [Compute]
-        public bool? IsGroupStyle { get; set; }
-
-        [Compute]
-        public bool? IsRankStyle { get; set; }
-
-        [Required]
-        [Default(0)]
-        public bool IsGoogleUser { get; set; }
-
+        /// <summary>
+        /// Gets or sets the suspended reason.
+        /// </summary>
         public string SuspendedReason { get; set; }
 
+        /// <summary>
+        /// Gets or sets the suspended by.
+        /// </summary>
         [Required]
         [Default(0)]
         public int SuspendedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Page Size.
+        /// </summary>
+        [Required]
+        [Default(5)]
+        public int PageSize { get; set; }
 
         #endregion
     }

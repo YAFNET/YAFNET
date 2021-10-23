@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
@@ -19,15 +19,12 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
      * limitations under the License.
      */
 
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+    using Attribute  = YAF.Lucene.Net.Util.Attribute;
+    using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
 
     /// <summary>
     /// Default implementation of <see cref="IFlagsAttribute"/>. </summary>
-    public class FlagsAttribute : Attribute, IFlagsAttribute
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public class FlagsAttribute : Attribute, IFlagsAttribute // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private int flags = 0;
 
@@ -55,9 +52,9 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
                 return true;
             }
 
-            if (other is FlagsAttribute)
+            if (other is FlagsAttribute flagsAttribute)
             {
-                return ((FlagsAttribute)other).flags == flags;
+                return flagsAttribute.flags == flags;
             }
 
             return false;

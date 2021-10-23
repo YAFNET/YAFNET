@@ -26,6 +26,7 @@ namespace YAF.Configuration
     #region Using
 
     using System;
+    using System.Runtime.Caching;
     using System.Text;
     using System.Web;
     using System.Web.Hosting;
@@ -115,7 +116,7 @@ namespace YAF.Configuration
 
                 try
                 {
-                    var boardSettings = HttpContext.Current.Application["BoardSettings$1"] as BoardSettings;
+                    var boardSettings = MemoryCache.Default["BoardSettings$1"] as BoardSettings;
 
                     baseUrlMask = boardSettings.BaseUrlMask.IsSet()
                                       ? TreatBaseUrl(boardSettings.BaseUrlMask)
@@ -275,10 +276,6 @@ namespace YAF.Configuration
                 else if (Config.IsDotNetNuke)
                 {
                     pathBuilder.Append("DesktopModules/YetAnotherForumDotNet/");
-                }
-                else if (Config.IsRainbow)
-                {
-                    pathBuilder.Append("DesktopModules/Forum/");
                 }
                 else if (Config.IsPortal)
                 {

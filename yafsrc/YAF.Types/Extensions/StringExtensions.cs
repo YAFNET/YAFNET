@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,11 +29,11 @@ namespace YAF.Types.Extensions
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Security.Cryptography;
     using System.Text;
     using System.Text.RegularExpressions;
 
     using YAF.Types;
+    using YAF.Types.Attributes;
 
     #endregion
 
@@ -62,35 +62,9 @@ namespace YAF.Types.Extensions
             str = str.Replace("'", @"\'");
             str = str.Replace("\r", @"\r");
             str = str.Replace("\n", @"\n");
-            str = str.Replace("\"", "'");
+            str = str.Replace("\"", "\'");
 
             return str;
-        }
-
-        /// <summary>
-        /// Function to check a max word length, used i.e. in topic names.
-        /// </summary>
-        /// <param name="text">
-        /// The raw string to format
-        /// </param>
-        /// <param name="maxWordLength">
-        /// The max Word Length.
-        /// </param>
-        /// <returns>
-        /// The formatted string
-        /// </returns>
-        public static bool AreAnyWordsOverMaxLength([NotNull] this string text, int maxWordLength)
-        {
-            CodeContracts.VerifyNotNull(text, "text");
-
-            if (maxWordLength <= 0 || text.Length <= 0)
-            {
-                return false;
-            }
-
-            var overMax = text.Split(' ').Where(w => w.IsSet() && w.Length > maxWordLength);
-
-            return overMax.Any();
         }
 
         /// <summary>
@@ -103,17 +77,15 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static int FastIndexOf([NotNull] this string source, [NotNull] string pattern)
         {
-            CodeContracts.VerifyNotNull(source, "source");
-            CodeContracts.VerifyNotNull(pattern, "pattern");
+            CodeContracts.VerifyNotNull(source);
+            CodeContracts.VerifyNotNull(pattern);
 
-            if (pattern.Length == 0)
+            switch (pattern.Length)
             {
-                return 0;
-            }
-
-            if (pattern.Length == 1)
-            {
-                return source.IndexOf(pattern[0]);
+                case 0:
+                    return 0;
+                case 1:
+                    return source.IndexOf(pattern[0]);
             }
 
             var limit = source.Length - pattern.Length + 1;
@@ -171,8 +143,8 @@ namespace YAF.Types.Extensions
         /// <param name="forEachAction">For each action.</param>
         public static void ForEachChar([NotNull] this string input, [NotNull] Action<char> forEachAction)
         {
-            CodeContracts.VerifyNotNull(input, "input");
-            CodeContracts.VerifyNotNull(forEachAction, "forEachAction");
+            CodeContracts.VerifyNotNull(input);
+            CodeContracts.VerifyNotNull(forEachAction);
 
             input.ForEach(forEachAction);
         }
@@ -191,45 +163,57 @@ namespace YAF.Types.Extensions
         /// </returns>
         public static string GenerateRandomString(int length, [NotNull] string pickFrom)
         {
-            CodeContracts.VerifyNotNull(pickFrom, "pickfrom");
+            CodeContracts.VerifyNotNull(pickFrom);
 
             var r = new Random();
-            var result = string.Empty;
+            var result = new StringBuilder();
             var pickFromLength = pickFrom.Length - 1;
 
             for (var i = 0; i < length; i++)
             {
                 var index = r.Next(pickFromLength);
-                result += pickFrom.Substring(index, 1);
+                result.Append(pickFrom.Substring(index, 1));
             }
 
-            return result;
+            return result.ToString();
         }
 
         /// <summary>
         /// Removes empty strings from the list
         /// </summary>
-        /// <param name="inputList">The input list.</param>
-        /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="inputList" /> is <c>null</c>.</exception>
+        /// <param name="inputList">
+        /// The input list.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// <paramref name="inputList"/> is <c>null</c>.
+        /// </exception>
+        /// <returns>
+        /// Returns the Cleaned List
+        /// </returns>
         [NotNull]
         public static List<string> GetNewNoEmptyStrings([NotNull] this IEnumerable<string> inputList)
         {
-            CodeContracts.VerifyNotNull(inputList, "inputList");
+            CodeContracts.VerifyNotNull(inputList);
 
             return inputList.Where(x => x.IsSet()).ToList();
         }
 
         /// <summary>
-        /// Removes strings that are smaller then <paramref name="minSize" />
+        /// Removes strings that are smaller then <paramref name="minSize"/>
         /// </summary>
-        /// <param name="inputList">The input list.</param>
-        /// <param name="minSize">The minimum size.</param>
-        /// <returns></returns>
+        /// <param name="inputList">
+        /// The input list.
+        /// </param>
+        /// <param name="minSize">
+        /// The minimum size.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
         [NotNull]
         public static List<string> GetNewNoSmallStrings([NotNull] this IEnumerable<string> inputList, int minSize)
         {
-            CodeContracts.VerifyNotNull(inputList, "inputList");
+            CodeContracts.VerifyNotNull(inputList);
 
             return inputList.Where(x => x.Length >= minSize).ToList();
         }
@@ -329,33 +313,6 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Converts a string into it's hexadecimal representation.
-        /// </summary>
-        /// <param name="inputString">The input string.</param>
-        /// <returns>
-        /// The string to hex bytes.
-        /// </returns>
-        public static string StringToHexBytes(this string inputString)
-        {
-            var result = string.Empty;
-            if (inputString.IsNotSet())
-            {
-                return result;
-            }
-
-            var cryptoServiceProvider = new MD5CryptoServiceProvider();
-
-            var emailBytes = Encoding.UTF8.GetBytes(inputString);
-            emailBytes = cryptoServiceProvider.ComputeHash(emailBytes);
-
-            var s = new StringBuilder();
-
-            emailBytes.ForEach(b => s.Append(b.ToString("x2").ToLower()));
-
-            return s.ToString();
-        }
-
-        /// <summary>
         /// Converts a string to a list using delimiter.
         /// </summary>
         /// <param name="str">
@@ -393,8 +350,8 @@ namespace YAF.Types.Extensions
             char delimiter,
             [NotNull] List<string> exclude)
         {
-            CodeContracts.VerifyNotNull(str, "str");
-            CodeContracts.VerifyNotNull(exclude, "exclude");
+            CodeContracts.VerifyNotNull(str);
+            CodeContracts.VerifyNotNull(exclude);
 
             var list = str.Split(delimiter).ToList();
 
@@ -407,14 +364,12 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// Creates a delimited string an enumerable list of T.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The typed Parameter</typeparam>
         /// <param name="objList">The object list.</param>
         /// <param name="delimiter">The delimiter.</param>
         /// <returns>
         /// The list to string.
         /// </returns>
-        /// <exception cref="System.ArgumentNullException">objList;objList is null.</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="objList" /> is <c>null</c>.</exception>
         public static string ToDelimitedString<T>(this IEnumerable<T> objList, string delimiter) where T : IConvertible
         {
             if (objList == null)
@@ -441,19 +396,20 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        /// Cleans a string into a proper RegEx statement. 
+        /// Cleans a string into a proper Regular Expression statement.
         ///   E.g. "[b]Whatever[/b]" will be converted to:
         ///   "\[b\]Whatever\[\/b\]"
         /// </summary>
         /// <param name="input">
+        /// The input.
         /// </param>
         /// <returns>
-        /// The to reg ex string.
+        /// The <see cref="string"/>.
         /// </returns>
         [NotNull]
         public static string ToRegExString([NotNull] this string input)
         {
-            CodeContracts.VerifyNotNull(input, "input");
+            CodeContracts.VerifyNotNull(input);
 
             var sb = new StringBuilder();
 
@@ -474,30 +430,42 @@ namespace YAF.Types.Extensions
         /// <summary>
         /// Converts a String to a MemoryStream.
         /// </summary>
-        /// <param name="str">
+        /// <param name="inputString">
+        /// The input String.
         /// </param>
         /// <returns>
+        /// The <see cref="Stream"/>.
         /// </returns>
         [NotNull]
-        public static Stream ToStream([NotNull] this string str)
+        public static Stream ToStream([NotNull] this string inputString)
         {
-            CodeContracts.VerifyNotNull(str, "str");
+            CodeContracts.VerifyNotNull(inputString);
 
-            var byteArray = Encoding.ASCII.GetBytes(str);
+            var byteArray = Encoding.ASCII.GetBytes(inputString);
             return new MemoryStream(byteArray);
         }
 
-        /// <summary>Truncates a string with the specified limits and adds (...) to the end if truncated</summary>
-        /// <param name="input">input string</param>
-        /// <param name="inputLimit"></param>
-        /// <param name="cutOfString"></param>
-        /// <returns>truncated string</returns>
+        /// <summary>
+        /// Truncates a string with the specified limits and adds (...) to the end if truncated
+        /// </summary>
+        /// <param name="input">
+        /// input string
+        /// </param>
+        /// <param name="inputLimit">
+        /// The input Limit.
+        /// </param>
+        /// <param name="cutOfString">
+        /// The cut Of String.
+        /// </param>
+        /// <returns>
+        /// truncated string
+        /// </returns>
         public static string Truncate(
             [CanBeNull] this string input,
             int inputLimit,
             [NotNull] string cutOfString = "...")
         {
-            CodeContracts.VerifyNotNull(cutOfString, "cutOfString");
+            CodeContracts.VerifyNotNull(cutOfString);
 
             var output = input;
 
@@ -518,8 +486,8 @@ namespace YAF.Types.Extensions
             // cut the string down to the maximum number of characters
             output = output.Substring(0, limit);
 
-            // Check if the space right after the truncate point 
-            // was a space. if not, we are in the middle of a word and 
+            // Check if the space right after the truncate point
+            // was a space. if not, we are in the middle of a word and
             // need to cut out the rest of it
             if (input.Substring(output.Length, 1) != " ")
             {
@@ -534,60 +502,6 @@ namespace YAF.Types.Extensions
 
             // Finally, add the the cut off string...
             output += cutOfString;
-
-            return output;
-        }
-
-        /// <summary>
-        /// Truncates a string with the specified limits by adding (...) to the middle
-        /// </summary>
-        /// <param name="input">
-        /// input string
-        /// </param>
-        /// <param name="limit">
-        /// max size of string
-        /// </param>
-        /// <returns>
-        /// truncated string
-        /// </returns>
-        public static string TruncateMiddle(this string input, int limit)
-        {
-            if (input.IsNotSet())
-            {
-                return null;
-            }
-
-            var output = input;
-            const string Middle = "...";
-
-            // Check if the string is longer than the allowed amount
-            // otherwise do nothing
-            if (output.Length <= limit || limit <= 0)
-            {
-                return output;
-            }
-
-            // figure out how much to make it fit...
-            var left = limit / 2 - Middle.Length / 2;
-            var right = limit - left - Middle.Length / 2;
-
-            if (left + right + Middle.Length < limit)
-            {
-                right++;
-            }
-            else if (left + right + Middle.Length > limit)
-            {
-                right--;
-            }
-
-            // cut the left side
-            output = input.Substring(0, left);
-
-            // add the middle
-            output += Middle;
-
-            // add the right side...
-            output += input.Substring(input.Length - right, right);
 
             return output;
         }
@@ -632,6 +546,24 @@ namespace YAF.Types.Extensions
             };
 
             return lettersDictionary.Aggregate(persianString, (current, item) => current.Replace(item.Key, item.Value));
+        }
+
+        /// <summary>
+        /// Converts a String Number to GUID.
+        /// </summary>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Guid"/>.
+        /// </returns>
+        public static Guid ToGuid([NotNull] this string value)
+        {
+            CodeContracts.VerifyNotNull(value);
+
+            byte[] bytes = new byte[16];
+            BitConverter.GetBytes(value.ToType<int>()).CopyTo(bytes, 0);
+            return new Guid(bytes);
         }
 
         #endregion

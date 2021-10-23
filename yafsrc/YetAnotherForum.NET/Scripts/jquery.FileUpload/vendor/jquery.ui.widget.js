@@ -1,4 +1,4 @@
-/*! jQuery UI - v1.12.1+0b7246b6eeadfa9e2696e22f3230f6452f8129dc - 2020-02-20
+﻿/*! jQuery UI - v1.12.1+0b7246b6eeadfa9e2696e22f3230f6452f8129dc - 2020-02-20
  * http://jqueryui.com
  * Includes: widget.js
  * Copyright jQuery Foundation and other contributors; Licensed MIT */
@@ -7,23 +7,23 @@
 /* eslint-disable no-param-reassign, new-cap, jsdoc/require-jsdoc */
 
 (function (factory) {
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
+  "use strict";
+  if (typeof define === "function" && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['jquery'], factory);
-  } else if (typeof exports === 'object') {
+    define(["jquery"], factory);
+  } else if (typeof exports === "object") {
     // Node/CommonJS
-    factory(require('jquery'));
+    factory(require("jquery"));
   } else {
     // Browser globals
     factory(window.jQuery);
   }
 })(function ($) {
-  ('use strict');
+  ("use strict");
 
   $.ui = $.ui || {};
 
-  $.ui.version = '1.12.1';
+  $.ui.version = "1.12.1";
 
   /*!
    * jQuery UI Widget 1.12.1
@@ -43,7 +43,7 @@
   // Support: jQuery 1.9.x or older
   // $.expr[ ":" ] is deprecated.
   if (!$.expr.pseudos) {
-    $.expr.pseudos = $.expr[':'];
+    $.expr.pseudos = $.expr[":"];
   }
 
   // Support: jQuery 1.11.x or older
@@ -62,9 +62,9 @@
       // eslint-disable-next-line eqeqeq
       for (i = 0; (elem = elems[i]) != null; i++) {
         // Only trigger remove when necessary to save time
-        events = $._data(elem, 'events');
+        events = $._data(elem, "events");
         if (events && events.remove) {
-          $(elem).triggerHandler('remove');
+          $(elem).triggerHandler("remove");
         }
       }
       orig(elems);
@@ -78,9 +78,9 @@
     // so that it can be used as a mixin for multiple widgets (#8876)
     var proxiedPrototype = {};
 
-    var namespace = name.split('.')[0];
-    name = name.split('.')[1];
-    var fullName = namespace + '-' + name;
+    var namespace = name.split(".")[0];
+    name = name.split(".")[1];
+    var fullName = namespace + "-" + name;
 
     if (!prototype) {
       prototype = base;
@@ -191,7 +191,7 @@
         // Redefine the child widget using the same prototype that was
         // originally used, but inherit from the new version of the base
         $.widget(
-          childPrototype.namespace + '.' + childPrototype.widgetName,
+          childPrototype.namespace + "." + childPrototype.widgetName,
           constructor,
           child._proto
         );
@@ -243,43 +243,43 @@
   $.widget.bridge = function (name, object) {
     var fullName = object.prototype.widgetFullName || name;
     $.fn[name] = function (options) {
-      var isMethodCall = typeof options === 'string';
+      var isMethodCall = typeof options === "string";
       var args = widgetSlice.call(arguments, 1);
       var returnValue = this;
 
       if (isMethodCall) {
         // If this is an empty collection, we need to have the instance method
         // return undefined instead of the jQuery instance
-        if (!this.length && options === 'instance') {
+        if (!this.length && options === "instance") {
           returnValue = undefined;
         } else {
           this.each(function () {
             var methodValue;
             var instance = $.data(this, fullName);
 
-            if (options === 'instance') {
+            if (options === "instance") {
               returnValue = instance;
               return false;
             }
 
             if (!instance) {
               return $.error(
-                'cannot call methods on ' +
+                "cannot call methods on " +
                   name +
-                  ' prior to initialization; ' +
+                  " prior to initialization; " +
                   "attempted to call method '" +
                   options +
                   "'"
               );
             }
 
-            if (!$.isFunction(instance[options]) || options.charAt(0) === '_') {
+            if (!$.isFunction(instance[options]) || options.charAt(0) === "_") {
               return $.error(
                 "no such method '" +
                   options +
                   "' for " +
                   name +
-                  ' widget instance'
+                  " widget instance"
               );
             }
 
@@ -321,9 +321,9 @@
   $.Widget._childConstructors = [];
 
   $.Widget.prototype = {
-    widgetName: 'widget',
-    widgetEventPrefix: '',
-    defaultElement: '<div>',
+    widgetName: "widget",
+    widgetEventPrefix: "",
+    defaultElement: "<div>",
 
     options: {
       classes: {},
@@ -337,7 +337,7 @@
       element = $(element || this.defaultElement || this)[0];
       this.element = $(element);
       this.uuid = widgetUuid++;
-      this.eventNamespace = '.' + this.widgetName + this.uuid;
+      this.eventNamespace = "." + this.widgetName + this.uuid;
 
       this.bindings = $();
       this.hoverable = $();
@@ -378,7 +378,7 @@
         this._setOptionDisabled(this.options.disabled);
       }
 
-      this._trigger('create', null, this._getCreateEventData());
+      this._trigger("create", null, this._getCreateEventData());
       this._init();
     },
 
@@ -403,7 +403,7 @@
       // We can probably remove the unbind calls in 2.0
       // all event bindings should go through this._on()
       this.element.off(this.eventNamespace).removeData(this.widgetFullName);
-      this.widget().off(this.eventNamespace).removeAttr('aria-disabled');
+      this.widget().off(this.eventNamespace).removeAttr("aria-disabled");
 
       // Clean up events and states
       this.bindings.off(this.eventNamespace);
@@ -426,10 +426,10 @@
         return $.widget.extend({}, this.options);
       }
 
-      if (typeof key === 'string') {
+      if (typeof key === "string") {
         // Handle nested keys, e.g., "foo.bar" => { foo: { bar: ___ } }
         options = {};
-        parts = key.split('.');
+        parts = key.split(".");
         key = parts.shift();
         if (parts.length) {
           curOption = options[key] = $.widget.extend({}, this.options[key]);
@@ -466,13 +466,13 @@
     },
 
     _setOption: function (key, value) {
-      if (key === 'classes') {
+      if (key === "classes") {
         this._setOptionClasses(value);
       }
 
       this.options[key] = value;
 
-      if (key === 'disabled') {
+      if (key === "disabled") {
         this._setOptionDisabled(value);
       }
 
@@ -517,15 +517,15 @@
     _setOptionDisabled: function (value) {
       this._toggleClass(
         this.widget(),
-        this.widgetFullName + '-disabled',
+        this.widgetFullName + "-disabled",
         null,
         !!value
       );
 
       // If the widget is becoming disabled, then nothing is interactive
       if (value) {
-        this._removeClass(this.hoverable, null, 'ui-state-hover');
-        this._removeClass(this.focusable, null, 'ui-state-focus');
+        this._removeClass(this.hoverable, null, "ui-state-hover");
+        this._removeClass(this.focusable, null, "ui-state-focus");
       }
     },
 
@@ -559,7 +559,7 @@
 
           if (!isTracked) {
             that._on($(element), {
-              remove: '_untrackClassesElement'
+              remove: "_untrackClassesElement"
             });
           }
         });
@@ -592,7 +592,7 @@
         processClassString(options.extra.match(/\S+/g) || []);
       }
 
-      return full.join(' ');
+      return full.join(" ");
     },
 
     _untrackClassesElement: function (event) {
@@ -615,8 +615,8 @@
     },
 
     _toggleClass: function (element, keys, extra, add) {
-      add = typeof add === 'boolean' ? add : extra;
-      var shift = typeof element === 'string' || element === null,
+      add = typeof add === "boolean" ? add : extra;
+      var shift = typeof element === "string" || element === null,
         options = {
           extra: shift ? keys : extra,
           keys: shift ? element : keys,
@@ -632,7 +632,7 @@
       var instance = this;
 
       // No suppressDisabledCheck flag, shuffle arguments
-      if (typeof suppressDisabledCheck !== 'boolean') {
+      if (typeof suppressDisabledCheck !== "boolean") {
         handlers = element;
         element = suppressDisabledCheck;
         suppressDisabledCheck = false;
@@ -656,18 +656,17 @@
           if (
             !suppressDisabledCheck &&
             (instance.options.disabled === true ||
-              $(this).hasClass('ui-state-disabled'))
+              $(this).hasClass("ui-state-disabled"))
           ) {
             return;
           }
-          return (typeof handler === 'string'
-            ? instance[handler]
-            : handler
+          return (
+              typeof handler === "string" ? instance[handler] : handler
           ).apply(instance, arguments);
         }
 
         // Copy the guid so direct unbinding works
-        if (typeof handler !== 'string') {
+        if (typeof handler !== "string") {
           handlerProxy.guid = handler.guid =
             handler.guid || handlerProxy.guid || $.guid++;
         }
@@ -686,7 +685,7 @@
 
     _off: function (element, eventName) {
       eventName =
-        (eventName || '').split(' ').join(this.eventNamespace + ' ') +
+        (eventName || "").split(" ").join(this.eventNamespace + " ") +
         this.eventNamespace;
       element.off(eventName);
 
@@ -699,9 +698,8 @@
     _delay: function (handler, delay) {
       var instance = this;
       function handlerProxy() {
-        return (typeof handler === 'string'
-          ? instance[handler]
-          : handler
+          return (
+              typeof handler === "string" ? instance[handler] : handler
         ).apply(instance, arguments);
       }
       return setTimeout(handlerProxy, delay || 0);
@@ -711,10 +709,10 @@
       this.hoverable = this.hoverable.add(element);
       this._on(element, {
         mouseenter: function (event) {
-          this._addClass($(event.currentTarget), null, 'ui-state-hover');
+          this._addClass($(event.currentTarget), null, "ui-state-hover");
         },
         mouseleave: function (event) {
-          this._removeClass($(event.currentTarget), null, 'ui-state-hover');
+          this._removeClass($(event.currentTarget), null, "ui-state-hover");
         }
       });
     },
@@ -723,10 +721,10 @@
       this.focusable = this.focusable.add(element);
       this._on(element, {
         focusin: function (event) {
-          this._addClass($(event.currentTarget), null, 'ui-state-focus');
+          this._addClass($(event.currentTarget), null, "ui-state-focus");
         },
         focusout: function (event) {
-          this._removeClass($(event.currentTarget), null, 'ui-state-focus');
+          this._removeClass($(event.currentTarget), null, "ui-state-focus");
         }
       });
     },
@@ -737,9 +735,8 @@
 
       data = data || {};
       event = $.Event(event);
-      event.type = (type === this.widgetEventPrefix
-        ? type
-        : this.widgetEventPrefix + type
+      event.type = (
+          type === this.widgetEventPrefix ? type : this.widgetEventPrefix + type
       ).toLowerCase();
 
       // The original event may come from any element
@@ -765,21 +762,21 @@
     }
   };
 
-  $.each({ show: 'fadeIn', hide: 'fadeOut' }, function (method, defaultEffect) {
-    $.Widget.prototype['_' + method] = function (element, options, callback) {
-      if (typeof options === 'string') {
+  $.each({ show: "fadeIn", hide: "fadeOut" }, function (method, defaultEffect) {
+    $.Widget.prototype["_" + method] = function (element, options, callback) {
+      if (typeof options === "string") {
         options = { effect: options };
       }
 
       var hasOptions;
       var effectName = !options
         ? method
-        : options === true || typeof options === 'number'
+        : options === true || typeof options === "number"
         ? defaultEffect
         : options.effect || defaultEffect;
 
       options = options || {};
-      if (typeof options === 'number') {
+      if (typeof options === "number") {
         options = { duration: options };
       }
 

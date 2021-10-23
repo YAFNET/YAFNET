@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -44,21 +44,20 @@ namespace YAF.Core.Data
         /// <summary>
         /// Initializes a new instance of the <see cref="BasicRepository{T}"/> class.
         /// </summary>
-        /// <param name="dbFunction">
-        /// The db function. 
-        /// </param>
         /// <param name="dbAccess">
-        /// The db Access.
+        /// The database Access.
         /// </param>
         /// <param name="raiseEvent">
-        /// The raise Event. 
+        /// The raise Event.
         /// </param>
         /// <param name="haveBoardId">
-        /// The have Board Id. 
+        /// The have Board Id.
         /// </param>
-        public BasicRepository(IDbFunction dbFunction, IDbAccess dbAccess, IRaiseEvent raiseEvent, IHaveBoardID haveBoardId)
+        public BasicRepository(
+            IDbAccess dbAccess,
+            IRaiseEvent raiseEvent,
+            IHaveBoardID haveBoardId)
         {
-            this.DbFunction = dbFunction;
             this.DbAccess = dbAccess;
             this.DbEvent = raiseEvent;
             this.BoardID = haveBoardId.BoardID;
@@ -74,19 +73,14 @@ namespace YAF.Core.Data
         public int BoardID { get; set; }
 
         /// <summary>
-        /// Gets the db access.
+        /// Gets the database access.
         /// </summary>
         public IDbAccess DbAccess { get; }
 
         /// <summary>
-        ///     Gets the db event.
+        ///     Gets the database event.
         /// </summary>
         public IRaiseEvent DbEvent { get; }
-
-        /// <summary>
-        ///     Gets the db function.
-        /// </summary>
-        public IDbFunction DbFunction { get; }
 
         #endregion
     }

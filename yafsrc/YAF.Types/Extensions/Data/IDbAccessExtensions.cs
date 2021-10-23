@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,9 +24,13 @@
 namespace YAF.Types.Extensions.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Data.Common;
+    using System.Linq;
     using System.Linq.Expressions;
+    using System.Text;
+    using System.Text.RegularExpressions;
 
     using ServiceStack.OrmLite;
 
@@ -43,7 +47,7 @@ namespace YAF.Types.Extensions.Data
         /// The begin transaction.
         /// </summary>
         /// <param name="dbAccess">
-        /// The DB access.
+        /// The Database access.
         /// </param>
         /// <param name="isolationLevel">
         /// The isolation level.
@@ -55,7 +59,7 @@ namespace YAF.Types.Extensions.Data
             [NotNull] this IDbAccess dbAccess,
             IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
         {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess);
 
             return dbAccess.CreateConnectionOpen().BeginTransaction(isolationLevel);
         }
@@ -70,7 +74,7 @@ namespace YAF.Types.Extensions.Data
         [NotNull]
         public static DbConnection CreateConnection([NotNull] this IDbAccess dbAccess)
         {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess);
 
             var connection = dbAccess.DbProviderFactory.CreateConnection();
             connection.ConnectionString = dbAccess.Information.ConnectionString();
@@ -82,7 +86,7 @@ namespace YAF.Types.Extensions.Data
         /// Get an open DB connection.
         /// </summary>
         /// <param name="dbAccess">
-        /// The DB Access.
+        /// The Database access.
         /// </param>
         /// <returns>
         /// The <see cref="DbConnection"/> .
@@ -90,7 +94,7 @@ namespace YAF.Types.Extensions.Data
         [NotNull]
         public static DbConnection CreateConnectionOpen([NotNull] this IDbAccess dbAccess)
         {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess);
 
             var connection = dbAccess.CreateConnection();
 
@@ -104,246 +108,36 @@ namespace YAF.Types.Extensions.Data
         }
 
         /// <summary>
-        /// Executes a non query in a transaction
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The DB access.
-        /// </param>
-        /// <param name="cmd">
-        /// The command.
-        /// </param>
-        /// <param name="dbTransaction">
-        /// The DB Transaction.
-        /// </param>
-        /// <returns>
-        /// The <see cref="int"/> .
-        /// </returns>
-        public static int ExecuteNonQuery(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-
-            return dbAccess.Execute(c => c.ExecuteNonQuery(), cmd, dbTransaction);
-        }
-
-        /// <summary>
-        /// Executes a non query in a transaction
-        /// </summary>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="cmd">The command.</param>
-        /// <param name="useTransaction">if set to <c>true</c> [use transaction].</param>
-        /// <param name="isolationLevel">The isolation level.</param>
-        /// <returns>Returns the Result</returns>
-        public static int ExecuteNonQuery(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            bool useTransaction,
-            IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-
-            if (!useTransaction)
-            {
-                return dbAccess.ExecuteNonQuery(cmd);
-            }
-
-            using (var dbTransaction = dbAccess.BeginTransaction(isolationLevel))
-            {
-                var result = dbAccess.Execute(c => c.ExecuteNonQuery(), cmd, dbTransaction);
-                dbTransaction.Commit();
-
-                return result;
-            }
-        }
-
-        /// <summary>
-        /// Executes the scalar.
-        /// </summary>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <param name="cmd">The command.</param>
-        /// <param name="dbTransaction">The DB Transaction.</param>
-        /// <returns>
-        /// Returns the Data
-        /// </returns>
-        public static object ExecuteScalar(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-
-            return dbAccess.Execute(c => c.ExecuteScalar(), cmd, dbTransaction);
-        }
-
-        /// <summary>
-        /// Gets the data.
-        /// </summary>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <param name="cmd">The command.</param>
-        /// <param name="dbTransaction">The database transaction.</param>
-        /// <returns>
-        /// The <see cref="DataTable" /> .
-        /// </returns>
-        public static DataTable GetData(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-
-            return dbAccess.GetDataSet(cmd, dbTransaction).Tables[0];
-        }
-
-        /// <summary>
-        /// Gets the DataSet.
-        /// </summary>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <param name="cmd">The command.</param>
-        /// <param name="dbTransaction">The database transaction.</param>
-        /// <returns>
-        /// The <see cref="DataSet" /> .
-        /// </returns>
-        public static DataSet GetDataSet(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [CanBeNull] IDbTransaction dbTransaction = null)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-
-            return dbAccess.Execute(
-                c =>
-                    {
-                        var ds = new DataSet();
-
-                        IDbDataAdapter dataAdapter = dbAccess.DbProviderFactory.CreateDataAdapter();
-
-                        if (dataAdapter != null)
-                        {
-                            dataAdapter.SelectCommand = cmd;
-                            dataAdapter.Fill(ds);
-                        }
-
-                        return ds;
-                    },
-                cmd,
-                dbTransaction);
-        }
-
-        /// <summary>
-        /// Gets the reader.
-        /// </summary>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <param name="cmd">The command.</param>
-        /// <param name="dbTransaction">The DB transaction.</param>
-        /// <returns>
-        /// The <see cref="IDataReader" /> .
-        /// </returns>
-        public static IDataReader GetReader(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] IDbCommand cmd,
-            [NotNull] IDbTransaction dbTransaction)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-            CodeContracts.VerifyNotNull(cmd, "cmd");
-            CodeContracts.VerifyNotNull(dbTransaction, "dbTransaction");
-
-            return dbAccess.Execute(c => c.ExecuteReader(), cmd, dbTransaction);
-        }
-
-        /// <summary>
-        /// Gets the name of the table.
-        /// </summary>
-        /// <typeparam name="T">The type parameter</typeparam>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <returns>
-        /// The <see cref="string" />.
-        /// </returns>
-        public static string GetTableName<T>(this IDbAccess dbAccess)
-        {
-            return OrmLiteConfig.DialectProvider.GetQuotedTableName(ModelDefinition<T>.Definition);
-        }
-
-        /// <summary>
-        /// The run.
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The DB access.
-        /// </param>
-        /// <param name="runFunc">
-        /// The run function.
-        /// </param>
-        /// <typeparam name="T">The type Parameter</typeparam>
-        /// <returns>
-        /// The <see cref="T"/> .
-        /// </returns>
-        public static T Run<T>([NotNull] this IDbAccess dbAccess, Func<IDbConnection, T> runFunc)
-        {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
-            CodeContracts.VerifyNotNull(runFunc, "runFunc");
-
-            using (var connection = dbAccess.CreateConnectionOpen())
-            {
-                return runFunc(connection);
-            }
-        }
-
-        /// <summary>
         /// Runs the update command.
         /// </summary>
-        /// <typeparam name="T">The type Parameter</typeparam>
-        /// <param name="dbAccess">The DB access.</param>
-        /// <param name="update">The update.</param>
-        /// <param name="transaction">The transaction.</param>
+        /// <typeparam name="T">
+        /// The type Parameter
+        /// </typeparam>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="update">
+        /// The update.
+        /// </param>
         /// <returns>
-        /// The <see cref="int" />.
+        /// The <see cref="int"/>.
         /// </returns>
-        public static int Update<T>(
-            [NotNull] this IDbAccess dbAccess,
-            [NotNull] T update,
-            [CanBeNull] IDbTransaction transaction = null)
+        public static int Update<T>([NotNull] this IDbAccess dbAccess, [NotNull] T update)
             where T : IEntity
         {
-            CodeContracts.VerifyNotNull(dbAccess, "dbAccess");
+            CodeContracts.VerifyNotNull(dbAccess);
 
-            if (transaction?.Connection != null)
-            {
-                using (var command = transaction.Connection.CreateCommand())
-                {
-                    OrmLiteConfig.DialectProvider.PrepareParameterizedUpdateStatement<T>(command);
-                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, update);
-
-                    return dbAccess.ExecuteNonQuery(command, transaction);
-                }
-            }
-
-            // no transaction
-            using (var connection = dbAccess.CreateConnectionOpen())
-            {
-                using (var command = connection.CreateCommand())
-                {
-                    OrmLiteConfig.DialectProvider.PrepareParameterizedUpdateStatement<T>(command);
-                    OrmLiteConfig.DialectProvider.SetParameterValues<T>(command, update);
-
-                    return dbAccess.ExecuteNonQuery(command, transaction);
-                }
-            }
+            return dbAccess.Execute(db => db.Connection.Update(update));
         }
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
         /// Numeric fields generates an increment sql which is useful to increment counters, etc...
         /// avoiding concurrency conflicts
-        /// 
+        ///
         ///   db.UpdateAdd(() => new Person { Age = 5 }, where: p => p.LastName == "Hendrix");
         ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
-        /// 
+        ///
         ///   db.UpdateAdd(() => new Person { Age = 5 });
         ///   UPDATE "Person" SET "Age" = "Age" + 5
         /// </summary>
@@ -369,7 +163,7 @@ namespace YAF.Types.Extensions.Data
 
         /// <summary>
         ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
-        ///   
+        ///
         ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
         ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         ///
@@ -392,7 +186,7 @@ namespace YAF.Types.Extensions.Data
             return dbAccess.Execute(
                 db => db.Connection.UpdateOnly(
                     updateFields,
-                    OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
+                    where, //OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
                     commandFilter));
         }
 
@@ -405,6 +199,236 @@ namespace YAF.Types.Extensions.Data
         {
             return dbAccess.Execute(
                 db => db.Connection.Exists(OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where)));
+        }
+
+        /// <summary>
+        /// The get database fragmentation info.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetDatabaseFragmentationInfo([NotNull] this IDbAccess dbAccess)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            var result = new StringBuilder();
+
+            try
+            {
+                var infos = dbAccess.Execute(
+                    db => db.Connection.SqlList<dynamic>(
+                        OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Connection.Database)));
+
+                if (infos == null)
+                {
+                    return null;
+                }
+
+                infos.ForEach(
+                    info =>
+                    {
+                        IDictionary<string, object> propertyValues = info;
+
+                        propertyValues.Keys.ForEach(
+                            property => result.AppendFormat("{0} : {1} ", property, propertyValues[property]));
+
+                        result.Append("\r\n");
+                    });
+            }
+            catch (Exception)
+            {
+                return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+            }
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// Gets the size of the database.
+        /// </summary>
+        /// <param name="dbAccess">The database access.</param>
+        /// <returns>Returns the size of the database</returns>
+        public static int GetDatabaseSize([NotNull] this IDbAccess dbAccess)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            return dbAccess.Execute(
+                db => db.Connection.Scalar<int>(OrmLiteConfig.DialectProvider.DatabaseSize(db.Connection.Database)));
+        }
+
+        /// <summary>
+        /// Gets the current SQL Engine Edition.
+        /// </summary>
+        /// <param name="dbAccess">The database access.</param>
+        /// <returns>
+        /// Returns the current SQL Engine Edition.
+        /// </returns>
+        public static string GetSQLVersion([NotNull] this IDbAccess dbAccess)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            var version = dbAccess.Execute(
+                db => db.Connection.Scalar<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
+
+            var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
+
+            return version.StartsWith(serverName) ? version : $"{serverName} {version}";
+        }
+
+        /// <summary>
+        /// The shrink database.
+        /// </summary>
+        /// <param name="dbAccess">The database access.</param>
+        public static string ShrinkDatabase([NotNull] this IDbAccess dbAccess)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            return dbAccess.Execute(
+                db => db.Connection.Scalar<string>(
+                    OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Connection.Database)));
+        }
+
+        /// <summary>
+        /// Re-Index the Database
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The database access.
+        /// </param>
+        /// <param name="objectQualifier">
+        /// The object Qualifier.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string ReIndexDatabase([NotNull] this IDbAccess dbAccess, string objectQualifier)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            return dbAccess.Execute(
+                db => db.Connection.Scalar<string>(
+                    OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, objectQualifier)));
+        }
+
+        /// <summary>
+        /// Change Database Recovery Mode
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="recoveryMode">
+        /// The recovery mode.
+        /// </param>
+        public static string ChangeRecoveryMode(this IDbAccess dbAccess, [NotNull] string recoveryMode)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            try
+            {
+                return dbAccess.Execute(
+                    db => db.Connection.Scalar<string>(
+                        OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, recoveryMode)));
+            }
+            catch (Exception)
+            {
+                return $"Not Supported by {OrmLiteConfig.DialectProvider.SQLServerName()} Server";
+            }
+        }
+
+        /// <summary>
+        /// Run the SQL Statement.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="sql">
+        /// The SQL Statement.
+        /// </param>
+        /// <param name="timeOut">
+        /// The time Out.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string RunSQL(
+            [NotNull] this IDbAccess dbAccess,
+            [NotNull] string sql,
+            [NotNull] int timeOut)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            return dbAccess.Execute(
+                    db =>
+                    {
+                        using (var cmd = db.Connection.CreateCommand())
+                        {
+                            // added so command won't timeout anymore...
+                            cmd.CommandTimeout = timeOut;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = sql;
+
+                            return db.GetDialectProvider().InnerRunSqlExecuteReader(cmd);
+                        }
+                    });
+        }
+
+        /// <summary>
+        /// The system initialize execute scripts.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="script">
+        /// The script.
+        /// </param>
+        /// <param name="scriptFile">
+        /// The script file.
+        /// </param>
+        /// <param name="timeOut">
+        /// The time Out.
+        /// </param>
+        public static void SystemInitializeExecuteScripts(
+            [NotNull] this IDbAccess dbAccess,
+            [NotNull] string script,
+            [NotNull] string scriptFile,
+            [NotNull] int timeOut)
+        {
+            CodeContracts.VerifyNotNull(dbAccess);
+
+            var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
+
+            using (var trans = dbAccess.CreateConnectionOpen().BeginTransaction())
+            {
+                foreach (var sql in statements.Select(sql0 => sql0.Trim()))
+                {
+                    try
+                    {
+                        if (sql.Length <= 0)
+                        {
+                            continue;
+                        }
+
+                        using (var cmd = trans.Connection.CreateCommand())
+                        {
+                            // added so command won't timeout anymore...
+                            cmd.CommandTimeout = timeOut;
+                            cmd.Transaction = trans;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = sql.Trim();
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    catch (Exception x)
+                    {
+                        trans.Rollback();
+                        throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
+                    }
+                }
+
+                trans.Commit();
+            }
         }
 
         #endregion

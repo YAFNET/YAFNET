@@ -1,9 +1,9 @@
 using YAF.Lucene.Net.Diagnostics;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using System.Runtime.CompilerServices;
+using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A compression mode. Tells how much effort should be spent on compression and
@@ -42,24 +42,23 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// very fast. Use this mode with indices that have a high update rate but
         /// should be able to load documents from disk quickly.
         /// </summary>
-        public static readonly CompressionMode FAST = new CompressionModeAnonymousInnerClassHelper();
+        public static readonly CompressionMode FAST = new CompressionModeAnonymousClass();
 
-        private class CompressionModeAnonymousInnerClassHelper : CompressionMode
+        private class CompressionModeAnonymousClass : CompressionMode
         {
-            public CompressionModeAnonymousInnerClassHelper()
-            {
-            }
-
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override Compressor NewCompressor()
             {
                 return new LZ4FastCompressor();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override Decompressor NewDecompressor()
             {
                 return LZ4_DECOMPRESSOR;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override string ToString()
             {
                 return "FAST";
@@ -72,24 +71,23 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// provide a good compression ratio. this mode might be interesting if/when
         /// your index size is much bigger than your OS cache.
         /// </summary>
-        public static readonly CompressionMode HIGH_COMPRESSION = new CompressionModeAnonymousInnerClassHelper2();
+        public static readonly CompressionMode HIGH_COMPRESSION = new CompressionModeAnonymousClass2();
 
-        private class CompressionModeAnonymousInnerClassHelper2 : CompressionMode
+        private class CompressionModeAnonymousClass2 : CompressionMode
         {
-            public CompressionModeAnonymousInnerClassHelper2()
-            {
-            }
-
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override Compressor NewCompressor()
             {
                 return new DeflateCompressor(CompressionLevel.Optimal);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override Decompressor NewDecompressor()
             {
                 return new DeflateDecompressor();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override string ToString()
             {
                 return "HIGH_COMPRESSION";
@@ -102,24 +100,23 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// mode is best used with indices that have a low update rate but should be
         /// able to load documents from disk quickly.
         /// </summary>
-        public static readonly CompressionMode FAST_DECOMPRESSION = new CompressionModeAnonymousInnerClassHelper3();
+        public static readonly CompressionMode FAST_DECOMPRESSION = new CompressionModeAnonymousClass3();
 
-        private class CompressionModeAnonymousInnerClassHelper3 : CompressionMode
+        private class CompressionModeAnonymousClass3 : CompressionMode
         {
-            public CompressionModeAnonymousInnerClassHelper3()
-            {
-            }
-
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override Compressor NewCompressor()
             {
                 return new LZ4HighCompressor();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override Decompressor NewDecompressor()
             {
                 return LZ4_DECOMPRESSOR;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override string ToString()
             {
                 return "FAST_DECOMPRESSION";
@@ -142,14 +139,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// </summary>
         public abstract Decompressor NewDecompressor();
 
-        private static readonly Decompressor LZ4_DECOMPRESSOR = new DecompressorAnonymousInnerClassHelper();
+        private static readonly Decompressor LZ4_DECOMPRESSOR = new DecompressorAnonymousClass();
 
-        private class DecompressorAnonymousInnerClassHelper : Decompressor
+        private class DecompressorAnonymousClass : Decompressor
         {
-            public DecompressorAnonymousInnerClassHelper()
-            {
-            }
-
             public override void Decompress(DataInput @in, int originalLength, int offset, int length, BytesRef bytes)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(offset + length <= originalLength);
@@ -167,6 +160,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 bytes.Length = length;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override object Clone()
             {
                 return this;
@@ -182,6 +176,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 ht = new LZ4.HashTable();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Compress(byte[] bytes, int off, int len, DataOutput @out)
             {
                 LZ4.Compress(bytes, off, len, @out, ht);
@@ -197,6 +192,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 ht = new LZ4.HCHashTable();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Compress(byte[] bytes, int off, int len, DataOutput @out)
             {
                 LZ4.CompressHC(bytes, off, len, @out, ht);
@@ -205,11 +201,6 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
         private sealed class DeflateDecompressor : Decompressor
         {
-
-            internal DeflateDecompressor()
-            {
-            }
-
             public override void Decompress(DataInput input, int originalLength, int offset, int length, BytesRef bytes)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(offset + length <= originalLength);
@@ -224,14 +215,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 byte[] decompressedBytes = null;
 
                 using (MemoryStream decompressedStream = new MemoryStream())
+                using (MemoryStream compressedStream = new MemoryStream(compressedBytes))
                 {
-                    using (MemoryStream compressedStream = new MemoryStream(compressedBytes))
-                    {
-                        using (DeflateStream dStream = new DeflateStream(compressedStream, System.IO.Compression.CompressionMode.Decompress))
-                        {
-                            dStream.CopyTo(decompressedStream);
-                        }
-                    }
+                    using DeflateStream dStream = new DeflateStream(compressedStream, System.IO.Compression.CompressionMode.Decompress);
+                    dStream.CopyTo(decompressedStream);
                     decompressedBytes = decompressedStream.ToArray();
                 }
 
@@ -242,9 +229,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
                 bytes.Bytes = decompressedBytes;
                 bytes.Offset = offset;
-                bytes.Length = length;            
+                bytes.Length = length;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override object Clone()
             {
                 return new DeflateDecompressor();
@@ -253,7 +241,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
         private class DeflateCompressor : Compressor
         {
-            private CompressionLevel compressionLevel;
+            private readonly CompressionLevel compressionLevel; // LUCENENET: marked readonly
             internal DeflateCompressor(CompressionLevel level)
             {
                 compressionLevel = level;

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,18 +29,16 @@ namespace YAF.Dialogs
     using System;
     using System.Linq;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -98,7 +96,6 @@ namespace YAF.Dialogs
             this.UserName.Text = null;
             this.UserNameList.Items.Clear();
             this.UserMessage.Text = null;
-            this.UserOnlyRibbon.Checked = false;
             this.UserHide.Checked = false;
             this.UserSortOrder.Text = "0";
 
@@ -116,7 +113,7 @@ namespace YAF.Dialogs
             {
                 // Edit
                 // load user-medal to the controls
-                var row = this.GetRepository<UserMedal>().ListAsDataTable(this.UserId, this.MedalId).GetFirstRow();
+                var row = this.GetRepository<UserMedal>().List(this.UserId, this.MedalId.Value).FirstOrDefault();
 
                 // tweak it for editing
                 this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_USER");
@@ -124,13 +121,12 @@ namespace YAF.Dialogs
                 this.FindUsers.Visible = false;
 
                 // load data to controls
-                this.UserID.Text = row["UserID"].ToString();
-                this.UserName.Text = row["UserName"].ToString();
-                this.UserMessage.Text = row["Message"].ToString();
-                this.UserSortOrder.Text = row["SortOrder"].ToString();
-                this.UserOnlyRibbon.Checked = row["OnlyRibbon"].ToType<bool>();
-                this.UserHide.Checked = row["Hide"].ToType<bool>();
-                this.Name = row["Name"].ToString();
+                this.UserID.Text = row.Item3.ID.ToString();
+                this.UserName.Text = row.Item3.Name;
+                this.UserMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
+                this.UserSortOrder.Text = row.Item2.SortOrder.ToString();
+                this.UserHide.Checked = row.Item2.Hide;
+                this.Name = row.Item1.Name;
 
                 this.UserMedalEditTitle.Text = this.Name;
             }
@@ -140,6 +136,27 @@ namespace YAF.Dialogs
                 // set title
                 this.UserMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "ADD_TOUSER");
             }
+        }
+
+        /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.AddUserSave.ClientID));
         }
 
         /// <summary>
@@ -164,7 +181,7 @@ namespace YAF.Dialogs
             // clear button is not necessary now
             this.Clear.Visible = false;
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
@@ -177,10 +194,9 @@ namespace YAF.Dialogs
         protected void FindUsersClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // try to find users by user name
-            var users = this.GetRepository<User>().FindUserTyped(
-                true,
-                userName: this.UserName.Text,
-                displayName: this.UserName.Text);
+            var users = this.GetRepository<User>().Get(
+                u => u.BoardID == this.PageContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
+                    u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
             if (!users.Any())
             {
@@ -203,7 +219,7 @@ namespace YAF.Dialogs
             // we need clear button displayed now
             this.Clear.Visible = true;
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
@@ -215,24 +231,33 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
+
             // test if there is specified user name/id
-            if (this.UserID.Text.IsNotSet() && this.UserNameList.SelectedValue.IsNotSet()
+            if (this.UserNameList.SelectedValue.IsNotSet()
                                             && this.UserName.Text.IsNotSet())
             {
                 // no username, nor userID specified
                 this.PageContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
                     MessageTypes.warning);
+
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("UserEditDialog"));
+
                 return;
             }
 
             if (this.UserNameList.SelectedValue.IsNotSet() && this.UserID.Text.IsNotSet())
             {
                 // only username is specified, we must find id for it
-                var users = this.GetRepository<User>().FindUserTyped(
-                    true,
-                    userName: this.UserName.Text,
-                    displayName: this.UserName.Text);
+                var users = this.GetRepository<User>().Get(
+                    u => u.BoardID == this.PageContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
+                        u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
                 if (users.Count > 1)
                 {
@@ -240,6 +265,10 @@ namespace YAF.Dialogs
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"),
                         MessageTypes.warning);
+
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("UserEditDialog"));
                     return;
                 }
 
@@ -249,6 +278,10 @@ namespace YAF.Dialogs
                     this.PageContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
                         MessageTypes.warning);
+
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                        "openModalJs",
+                        JavaScriptBlocks.OpenModalJs("UserEditDialog"));
                     return;
                 }
 
@@ -269,7 +302,6 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                     this.UserHide.Checked,
-                    this.UserOnlyRibbon.Checked,
                     this.UserSortOrder.Text.ToType<byte>());
             }
             else
@@ -279,11 +311,10 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.UserMessage.Text.IsNotSet() ? null : this.UserMessage.Text,
                     this.UserHide.Checked,
-                    this.UserOnlyRibbon.Checked,
                     this.UserSortOrder.Text.ToType<byte>());
             }
 
-            if (this.Get<BoardSettings>().EmailUserOnMedalAward)
+            if (this.PageContext.BoardSettings.EmailUserOnMedalAward)
             {
                 this.Get<ISendNotification>().ToUserWithNewMedal(this.UserID.Text.ToType<int>(), this.Name);
             }
@@ -293,7 +324,7 @@ namespace YAF.Dialogs
             this.Get<IDataCache>().Remove(string.Format(Constants.Cache.UserMedals, this.UserId));
 
             // re-bind data
-            BuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", this.MedalId.Value);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, "medalid={0}", this.MedalId.Value);
         }
 
         #endregion

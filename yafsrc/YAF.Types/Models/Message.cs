@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,131 +24,107 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// A class which represents the Message table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Message")]
-    public partial class Message : IEntity, IHaveID
+    public class Message : IEntity, IHaveID
     {
-        partial void OnCreated();
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Message"/> class.
+        /// </summary>
         public Message()
         {
-            this.OnCreated();
         }
 
-        public Message([NotNull] DataRow row)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Message"/> class.
+        /// </summary>
+        /// <param name="row">
+        /// The row.
+        /// </param>
+        public Message([NotNull] PagedMessage row)
         {
-            this.ID = row.Field<int?>("MessageID") ?? 0;
-            this.UserID = row.Field<int?>("UserID") ?? 0;
-            this.UserName = row.Field<string>("UserName");
-            this.MessageText = row.Field<string>("Message");
-            this.TopicID = row.Field<int?>("TopicID") ?? 0;
+            this.ID = row.MessageID;
+            this.UserID = row.UserID;
+            this.UserName = row.UserName;
+            this.MessageText = row.Message;
+            this.TopicID = row.TopicID;
 
-            this.Posted = row.Field<DateTime?>("Posted").Value;
+            this.Posted = row.Posted;
 
-            try
-            {
-                this.Topic = row.Field<string>("Topic");
-            }
-            catch (ArgumentException)
-            {
-                this.Topic = row.Field<string>("Subject");
-            }
+            this.Topic = row.Topic;
 
-            this.Flags = row.Field<int?>("Flags") ?? 0;
+            this.Flags = row.Flags;
 
-            if (row.Table.Columns.Contains("Edited"))
-            {
-                this.Edited = row.Field<DateTime?>("Edited");
-                this.EditReason = row.Field<string>("EditReason");
-            }
+            this.Edited = row.Edited;
+            this.EditReason = row.EditReason;
 
             try
             {
-                this.Position = row.Field<int?>("Position") ?? 0;
+                this.Position = row.Position;
             }
             catch (Exception)
             {
                 this.Position = 0;
             }
 
-
             try
             {
-                this.IsModeratorChanged = row.Field<bool?>("IsModeratorChanged");
+                this.IsModeratorChanged = row.IsModeratorChanged;
             }
             catch (Exception)
             {
                 this.IsModeratorChanged = false;
             }
-            
+
             try
             {
-                this.DeleteReason = row.Field<string>("DeleteReason");
+                this.DeleteReason = row.DeleteReason;
             }
             catch (Exception)
             {
                 this.DeleteReason = string.Empty;
             }
-            
+
             try
             {
-                this.BlogPostID = row.Field<string>("BlogPostID");
-            }
-            catch (Exception)
-            {
-                this.BlogPostID = string.Empty;
-            }
-            
-            try
-            {
-                this.IP = row.Field<string>("IP");
+                this.IP = row.IP;
             }
             catch (Exception)
             {
                 this.IP = string.Empty;
             }
-           
+
             try
             {
-                this.ExternalMessageId = row.Field<string>("ExternalMessageId");
+                this.ExternalMessageId = row.ExternalMessageId;
             }
             catch (Exception)
             {
                 this.ExternalMessageId = string.Empty;
             }
-            
+
             try
             {
-                this.ReferenceMessageId = row.Field<string>("ReferenceMessageId");
+                this.ReferenceMessageId = row.ReferenceMessageId;
             }
             catch (Exception)
             {
                 this.ReferenceMessageId = string.Empty;
             }
-            
-            try
-            {
-                this.HasAttachments = row.Field<bool?>("HasAttachments");
-            }
-            catch (Exception)
-            {
-                this.HasAttachments = false;
-            }
 
             try
             {
-                this.AnswerMessageId = row.Field<int?>("AnswerMessageId");
+                this.AnswerMessageId = row.AnswerMessageId;
             }
             catch (Exception)
             {
@@ -157,7 +133,7 @@ namespace YAF.Types.Models
 
             try
             {
-                this.Signature = row.Field<string>("Signature");
+                this.Signature = row.Signature;
             }
             catch (Exception)
             {
@@ -167,79 +143,155 @@ namespace YAF.Types.Models
 
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [AliasAttribute("MessageID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic.
+        /// </summary>
         [Ignore]
         public string Topic { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
         [References(typeof(Topic))]
         [Required]
         [Index]
 
         public int TopicID { get; set; }
-        [References(typeof(Message))]
+
+        /// <summary>
+        /// Gets or sets the reply to.
+        /// </summary>
         public int? ReplyTo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the position.
+        /// </summary>
         [Required]
         public int Position { get; set; }
+
+        /// <summary>
+        /// Gets or sets the indent.
+        /// </summary>
         [Required]
         public int Indent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         [Index]
 
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user name.
+        /// </summary>
         [StringLength(255)]
         public string UserName { get; set; }
 
-        [Ignore]
-        public bool? HasAttachments { get; set; }
+        /// <summary>
+        /// Gets or sets the posted.
+        /// </summary>
         [Required]
         public DateTime Posted { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message text.
+        /// </summary>
         [Alias("Message")]
+        [CustomField(OrmLiteVariables.MaxText)]
         public string MessageText { get; set; }
+
+        /// <summary>
+        /// Gets or sets the IP.
+        /// </summary>
         [Required]
         [StringLength(39)]
         public string IP { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited.
+        /// </summary>
         public DateTime? Edited { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(23)]
         [Index]
-
         public int Flags { get; set; }
 
+        /// <summary>
+        /// Gets or sets the message flags.
+        /// </summary>
         [Ignore]
         public MessageFlags MessageFlags
         {
-            get => new MessageFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }
+
+        /// <summary>
+        /// Gets or sets the edit reason.
+        /// </summary>
         [StringLength(100)]
         public string EditReason { get; set; }
 
+        /// <summary>
+        /// Gets or sets the signature.
+        /// </summary>
         [Ignore]
         public string Signature { get; set; }
+
+        /// <summary>
+        /// Gets or sets the is moderator changed.
+        /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool? IsModeratorChanged { get; set; }
+
+        /// <summary>
+        /// Gets or sets the delete reason.
+        /// </summary>
         [StringLength(100)]
         public string DeleteReason { get; set; }
-        [Compute]
-        public bool? IsDeleted { get; set; }
-        [Compute]
-        public bool? IsApproved { get; set; }
-        [StringLength(50)]
-        public string BlogPostID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited by.
+        /// </summary>
         public int? EditedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the external message id.
+        /// </summary>
         [StringLength(255)]
         public string ExternalMessageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reference message id.
+        /// </summary>
         [StringLength(255)]
         public string ReferenceMessageId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user display name.
+        /// </summary>
         [StringLength(255)]
         public string UserDisplayName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the answer message id.
+        /// </summary>
         [Ignore]
         public int? AnswerMessageId { get; set; }
 

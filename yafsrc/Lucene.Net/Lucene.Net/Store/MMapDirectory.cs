@@ -1,4 +1,4 @@
-using J2N.IO;
+﻿using J2N.IO;
 using J2N.IO.MemoryMappedFiles;
 using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants = YAF.Lucene.Net.Util.Constants;
+    using Constants  = YAF.Lucene.Net.Util.Constants;
 
     /// <summary>
     /// File-based <see cref="Directory"/> implementation that uses
@@ -108,7 +108,7 @@ namespace YAF.Lucene.Net.Store
         {
             if (maxChunkSize <= 0)
             {
-                throw new ArgumentException("Maximum chunk size for mmap must be >0");
+                throw new ArgumentOutOfRangeException(nameof(maxChunkSize), "Maximum chunk size for mmap must be > 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.chunkSizePower = 31 - maxChunkSize.LeadingZeroCount();
             if (Debugging.AssertsEnabled) Debugging.Assert(this.chunkSizePower >= 0 && this.chunkSizePower <= 30);
@@ -189,16 +189,16 @@ namespace YAF.Lucene.Net.Store
         public override IndexInputSlicer CreateSlicer(string name, IOContext context)
         {
             var full = (MMapIndexInput)OpenInput(name, context);
-            return new IndexInputSlicerAnonymousInnerClassHelper(this, full);
+            return new IndexInputSlicerAnonymousClass(this, full);
         }
 
-        private class IndexInputSlicerAnonymousInnerClassHelper : IndexInputSlicer
+        private class IndexInputSlicerAnonymousClass : IndexInputSlicer
         {
             private readonly MMapDirectory outerInstance;
 
-            private MMapIndexInput full;
+            private readonly MMapIndexInput full;
 
-            public IndexInputSlicerAnonymousInnerClassHelper(MMapDirectory outerInstance, MMapIndexInput full)
+            public IndexInputSlicerAnonymousClass(MMapDirectory outerInstance, MMapIndexInput full)
             {
                 this.outerInstance = outerInstance;
                 this.full = full;
@@ -230,13 +230,11 @@ namespace YAF.Lucene.Net.Store
         {
             internal MemoryMappedFile memoryMappedFile; // .NET port: this is equivalent to FileChannel.map
             private readonly FileStream fc;
-            private readonly MMapDirectory outerInstance;
 
             internal MMapIndexInput(MMapDirectory outerInstance, string resourceDescription, FileStream fc)
                 : base(resourceDescription, null, fc.Length, outerInstance.chunkSizePower, true)
             {
-                this.outerInstance = outerInstance;
-                this.fc = fc ?? throw new ArgumentNullException(nameof(fc));
+                this.fc = fc ?? throw new ArgumentNullException(nameof(fc)); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
                 this.SetBuffers(outerInstance.Map(this, fc, 0, fc.Length));
             }
 
@@ -300,7 +298,7 @@ namespace YAF.Lucene.Net.Store
             long chunkSize = 1L << chunkSizePower;
 
             // we always allocate one more buffer, the last one may be a 0 byte one
-            int nrBuffers = (int)((long)((ulong)length >> chunkSizePower)) + 1;
+            int nrBuffers = (int)length.TripleShift(chunkSizePower) + 1;
 
             ByteBuffer[] buffers = new ByteBuffer[nrBuffers];
 

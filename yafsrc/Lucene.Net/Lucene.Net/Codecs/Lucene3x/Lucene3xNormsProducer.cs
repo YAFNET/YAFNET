@@ -1,10 +1,10 @@
+﻿using J2N.Runtime.CompilerServices;
 using J2N.Threading.Atomic;
-using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -26,21 +26,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Reads Lucene 3.x norms format and exposes it via <see cref="Index.DocValues"/> API.
@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         {
             Directory separateNormsDir = info.Dir; // separate norms are never inside CFS
             maxdoc = info.DocCount;
-            string segmentName = info.Name;
+            //string segmentName = info.Name; // LUCENENET: IDE0059: Remove unnecessary value assignment
             bool success = false;
             try
             {
@@ -161,6 +161,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 {
                     norms.Clear();
                     openFiles.Clear();
+                    singleNormStream?.Dispose(); // LUCENENET: Dispose singleNormStream and set to null
+                    singleNormStream = null;
                 }
             }
         }
@@ -179,6 +181,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool HasSeparateNorms(SegmentInfo info, int number)
         {
             string v = info.GetAttribute(Lucene3xSegmentInfoFormat.NORMGEN_PREFIX + number);
@@ -232,22 +235,23 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                                 file.Dispose();
                             }
                             outerInstance.ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(bytes));
-                            instance = new NumericDocValuesAnonymousInnerClassHelper(this, bytes);
+                            instance = new NumericDocValuesAnonymousClass(bytes);
                         }
                         return instance;
                     }
                 }
             }
 
-            private class NumericDocValuesAnonymousInnerClassHelper : NumericDocValues
+            private class NumericDocValuesAnonymousClass : NumericDocValues
             {
                 private readonly byte[] bytes;
 
-                public NumericDocValuesAnonymousInnerClassHelper(NormsDocValues outerInstance, byte[] bytes)
+                public NumericDocValuesAnonymousClass(byte[] bytes)
                 {
                     this.bytes = bytes;
                 }
 
+                [MethodImpl(MethodImplOptions.AggressiveInlining)]
                 public override long Get(int docID)
                 {
                     return bytes[docID];
@@ -255,6 +259,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override NumericDocValues GetNumeric(FieldInfo field)
         {
             var dv = norms[field.Name];
@@ -264,24 +269,25 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public override BinaryDocValues GetBinary(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
         public override SortedDocValues GetSorted(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
         public override SortedSetDocValues GetSortedSet(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
         public override IBits GetDocsWithField(FieldInfo field)
         {
-            throw new InvalidOperationException();
+            throw AssertionError.Create();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed() => ramBytesUsed;
 
         public override void CheckIntegrity() { }

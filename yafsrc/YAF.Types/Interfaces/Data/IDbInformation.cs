@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,9 +26,10 @@ namespace YAF.Types.Interfaces.Data
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
 
     /// <summary>
-    /// The DB Information Interface
+    /// The Database Information Interface
     /// </summary>
     public interface IDbInformation
     {
@@ -43,38 +44,9 @@ namespace YAF.Types.Interfaces.Data
         string ProviderName { get; }
 
         /// <summary>
-        /// Gets the full text upgrade script.
-        /// </summary>
-        /// <value>
-        /// The full text upgrade script.
-        /// </value>
-        string FullTextUpgradeScript { get; }
-
-        /// <summary>
-        ///     Gets the Azure Script List.
-        /// </summary>
-        IEnumerable<string> AzureScripts { get; }
-
-        /// <summary>
-        ///     Gets the Install Script List.
-        /// </summary>
-        IEnumerable<string> InstallScripts { get; }
-
-        /// <summary>
-        ///     Gets the Upgrade Script List.
-        /// </summary>
-        IEnumerable<string> UpgradeScripts { get; }
-        
-
-        /// <summary>
-        ///     Gets the YAF Provider Install script list
-        /// </summary>
-        IEnumerable<string> YAFProviderInstallScripts { get; }
-
-        /// <summary>
         ///     Gets the YAF Provider Upgrade script list
         /// </summary>
-        IEnumerable<string> YAFProviderUpgradeScripts { get; }
+        IEnumerable<string> IdentityUpgradeScripts { get; }
 
         /// <summary>
         /// Gets the DB Connection Parameters.
@@ -87,5 +59,33 @@ namespace YAF.Types.Interfaces.Data
         /// <param name="parameters">The Connection Parameters</param>
         /// <returns>Returns the Connection String</returns>
         string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters);
+
+        /// <summary>
+        /// Create Table Views
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The database access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The database command.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool CreateViews(IDbAccess dbAccess, IDbCommand dbCommand);
+
+        /// <summary>
+        /// Create Indexes on Table Views
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The database access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The database command.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool CreateIndexViews(IDbAccess dbAccess, IDbCommand dbCommand);
     }
 }

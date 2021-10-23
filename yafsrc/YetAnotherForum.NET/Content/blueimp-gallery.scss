@@ -20,12 +20,8 @@ $border_color_1: #fff;
     right: 0;
     bottom: 0;
     left: 0;
-    -webkit-transition: opacity 0.2s linear;
-    -moz-transition: opacity 0.2s linear;
-    -o-transition: opacity 0.2s linear;
     transition: opacity 0.2s linear;
     backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
     position: fixed;
     z-index: 999999;
     overflow: hidden;
@@ -44,21 +40,14 @@ $border_color_1: #fff;
                 right: 0;
                 bottom: 0;
                 left: 0;
-                -webkit-transition: opacity 0.2s linear;
-                -moz-transition: opacity 0.2s linear;
-                -o-transition: opacity 0.2s linear;
                 transition: opacity 0.2s linear;
                 backface-visibility: hidden;
-                -moz-backface-visibility: hidden;
                 margin: auto;
                 width: auto;
                 height: auto;
                 max-width: 100%;
                 max-height: 100%;
                 opacity: 1;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
                 user-select: none;
             }
 
@@ -66,9 +55,6 @@ $border_color_1: #fff;
             float: left;
             height: 100%;
             text-align: center;
-            -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-            -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
-            -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
             transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
         }
 
@@ -106,9 +92,6 @@ $border_color_1: #fff;
         opacity: 0.9;
         cursor: pointer;
         display: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
         user-select: none;
 
         &:hover {
@@ -132,9 +115,6 @@ $border_color_1: #fff;
         display: none;
         left: auto;
         right: 15px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
         user-select: none;
 
         &:hover {
@@ -161,9 +141,6 @@ $border_color_1: #fff;
         font-size: 30px;
         text-decoration: none;
         cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
         user-select: none;
 
         &:hover {
@@ -196,13 +173,10 @@ $border_color_1: #fff;
         bottom: 15px;
         width: 15px;
         height: 15px;
-        background: url(../Content/images/play-pause.png) 0 0 no-repeat;
+        background: url(../Content/images/play-pause.svg) 0 0 no-repeat;
         cursor: pointer;
         opacity: 0.8;
         display: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
         user-select: none;
 
         &:hover {
@@ -223,19 +197,14 @@ $border_color_1: #fff;
         text-align: center;
         line-height: 10px;
         display: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
         user-select: none;
 
         > li {
             display: inline-block;
+            position: relative;
             width: 9px;
             height: 9px;
             margin: 6px 3px 0 3px;
-            -webkit-box-sizing: content-box;
-            -moz-box-sizing: content-box;
             box-sizing: content-box;
             border: 1px solid transparent;
             background: #ccc;
@@ -264,6 +233,7 @@ $border_color_1: #fff;
                 position: absolute;
                 content: '';
                 top: -5em;
+                left: 4px;
                 width: 75px;
                 height: 75px;
                 transition: transform 600ms ease-out, opacity 400ms ease-out;
@@ -290,7 +260,6 @@ $border_color_1: #fff;
     margin: 1em auto;
     padding-bottom: 56.25%;
     box-shadow: 0 0 10px #000;
-    -ms-touch-action: pan-y;
     touch-action: pan-y;
     > .slides
 
@@ -319,55 +288,31 @@ $border_color_1: #fff;
 
 {
     display: block;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
     transform: translateZ(0);
 }
 
 > .next {
     display: block;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
     transform: translateZ(0);
 }
 
 > .close {
     display: block;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
     transform: translateZ(0);
 }
 
 > .title {
     display: block;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
     transform: translateZ(0);
 }
 
 > .play-pause {
     display: block;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
     transform: translateZ(0);
 }
 
 > .indicator {
     display: block;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
     transform: translateZ(0);
 }
 

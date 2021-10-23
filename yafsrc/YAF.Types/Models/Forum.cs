@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -36,21 +36,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(CategoryID), nameof(Name))]
-    public partial class Forum : IEntity, IHaveID
+    public class Forum : IEntity, IHaveID
     {
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Forum"/> class.
-        /// </summary>
-        public Forum()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -146,12 +133,6 @@ namespace YAF.Types.Models
         public string RemoteURL { get; set; }
 
         /// <summary>
-        /// Gets or sets the is hidden.
-        /// </summary>
-        [Compute]
-        public bool? IsHidden { get; set; }
-
-        /// <summary>
         /// Gets or sets the flags.
         /// </summary>
         [Required]
@@ -165,7 +146,7 @@ namespace YAF.Types.Models
         [Ignore]
         public ForumFlags ForumFlags
         {
-            get => new ForumFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }
@@ -175,12 +156,6 @@ namespace YAF.Types.Models
         /// </summary>
         [StringLength(50)]
         public string ThemeURL { get; set; }
-
-        /// <summary>
-        /// Gets or sets the poll group id.
-        /// </summary>
-        [References(typeof(PollGroupCluster))]
-        public int? PollGroupID { get; set; }
 
         /// <summary>
         /// Gets or sets the image url.
@@ -195,24 +170,6 @@ namespace YAF.Types.Models
         public string Styles { get; set; }
 
         /// <summary>
-        /// Gets or sets the is locked.
-        /// </summary>
-        [Compute]
-        public bool? IsLocked { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is no count.
-        /// </summary>
-        [Compute]
-        public bool? IsNoCount { get; set; }
-
-        /// <summary>
-        /// Gets or sets the is moderated.
-        /// </summary>
-        [Compute]
-        public bool? IsModerated { get; set; }
-
-        /// <summary>
         /// Gets or sets the user id.
         /// </summary>
         public int? UserID { get; set; }
@@ -225,7 +182,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets a value indicating whether is moderated new topic only.
         /// </summary>
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool IsModeratedNewTopicOnly { get; set; }
 
         #endregion

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -23,128 +23,90 @@
  */
 namespace YAF.Modules
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web.UI.HtmlControls;
+    using System;
+    using System.Web.UI.HtmlControls;
 
-  using YAF.Core;
-  using YAF.Core.Extensions;
-  using YAF.Types;
-  using YAF.Types.Attributes;
-  using YAF.Types.Constants;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-  using YAF.Utils;
-  using YAF.Utils.Helpers;
-
-  #endregion
-
-  /// <summary>
-  /// Summary description for PageRssFeedLinkModule
-  /// </summary>
-  [YafModule("Page Rss Feed Link Module", "Tiny Gecko", 1)]
-  public class PageRssFeedLinkForumModule : SimpleBaseForumModule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _forum page title.
-    /// </summary>
-    protected string _forumPageTitle;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
+    using YAF.Types;
+    using YAF.Types.Attributes;
+    using YAF.Types.Constants;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Public Methods
-
     /// <summary>
-    /// The init after page.
+    /// Summary description for PageRssFeedLinkModule
     /// </summary>
-    public override void InitAfterPage()
+    [Module("Page Rss Feed Link Module", "Tiny Gecko", 1)]
+    public class PageRssFeedLinkForumModule : SimpleBaseForumModule
     {
-      this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
-    }
+        #region Public Methods
 
-    /// <summary>
-    /// The init before page.
-    /// </summary>
-    public override void InitBeforePage()
-    {
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The forum page_ pre render.
-    /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    /// <param name="e">
-    /// The e.
-    /// </param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
-    {
-      var head = this.ForumControl.Page.Header ??
-                      this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
-
-      if (head != null)
-      {
-        var groupAccess =
-          this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
-
-        if (this.PageContext.BoardSettings.ShowRSSLink && groupAccess)
+        /// <summary>
+        /// The init after page.
+        /// </summary>
+        public override void InitAfterPage()
         {
-          // setup the rss link...
-          var rssLink = new HtmlLink
-            {
-              Href =
-                BuildLink.GetLink(
-                  ForumPages.RssTopic,
-                  true,
-                  "pg={0}&ft={1}",
-                  YafRssFeeds.LatestPosts.ToInt(),
-                  YafSyndicationFormats.Rss.ToInt())
-            };
-
-          // defaults to the "Active" rss.
-          rssLink.Attributes.Add("rel", "alternate");
-          rssLink.Attributes.Add("type", "application/rss+xml");
-          rssLink.Attributes.Add(
-            "title",
-            $"{this.GetText("RSSFEED")} - {BoardContext.Current.BoardSettings.Name}");
-
-          head.Controls.Add(rssLink);
+            this.CurrentForumPage.PreRender += this.ForumPage_PreRender;
         }
 
-        if (this.PageContext.BoardSettings.ShowAtomLink && groupAccess)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// The forum page_ pre render.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-          // setup the rss link...
-          var atomLink = new HtmlLink
+            var head = this.ForumControl.Page.Header ??
+                            this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+
+            if (head == null)
             {
-              Href =
-                BuildLink.GetLink(
-                  ForumPages.RssTopic,
-                  true,
-                  "pg={0}&ft={1}",
-                  YafRssFeeds.LatestPosts.ToInt(),
-                  YafSyndicationFormats.Atom.ToInt())
+                return;
+            }
+
+            var groupAccess =
+                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+
+            if (!this.PageContext.BoardSettings.ShowAtomLink || !groupAccess)
+            {
+                return;
+            }
+
+            // setup the rss link...
+            var atomLink = new HtmlLink
+            {
+                Href =
+                                       this.Get<LinkBuilder>().GetLink(
+                                           ForumPages.Feed,
+                                           true,
+                                           "feed={0}",
+                                           RssFeeds.LatestPosts.ToInt())
             };
 
-          // defaults to the "Active" rss.
-          atomLink.Attributes.Add("rel", "alternate");
-          atomLink.Attributes.Add("type", "application/atom+xml");
-          atomLink.Attributes.Add(
-            "title",
-            $"{this.GetText("ATOMFEED")} - {BoardContext.Current.BoardSettings.Name}");
+            // defaults to the "Active" rss.
+            atomLink.Attributes.Add("rel", "alternate");
+            atomLink.Attributes.Add("type", "application/atom+xml");
+            atomLink.Attributes.Add(
+                "title",
+                $"{this.GetText("ATOMFEED")} - {this.PageContext.BoardSettings.Name}");
 
-          head.Controls.Add(atomLink);
+            head.Controls.Add(atomLink);
         }
-      }
-    }
 
-    #endregion
-  }
+        #endregion
+    }
 }

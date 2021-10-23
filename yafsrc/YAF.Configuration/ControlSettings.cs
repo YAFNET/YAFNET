@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,8 +24,6 @@
 
 namespace YAF.Configuration
 {
-    using YAF.Configuration.Pattern;
-
     /// <summary>
     /// Class provides glue/settings transfer between YAF forum control and base classes
     /// </summary>
@@ -40,15 +38,10 @@ namespace YAF.Configuration
         {
             this.LockedForum = 0;
 
-            this.CategoryID = !int.TryParse(Config.CategoryID, out var categoryId) ? 0 : categoryId;
+            this.CategoryID = Config.CategoryID;
 
-            this.BoardID = !int.TryParse(Config.BoardID, out var boardId) ? 1 : boardId;
+            this.BoardID = Config.BoardID;
         }
-
-        /// <summary>
-        /// Gets Current.
-        /// </summary>
-        public static ControlSettings Current => PageSingleton<ControlSettings>.Instance;
 
         /// <summary>
         /// Gets or sets BoardID.

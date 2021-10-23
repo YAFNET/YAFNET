@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Text;
@@ -21,11 +22,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using NumericUtils  = YAF.Lucene.Net.Util.NumericUtils;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
 
     /// <summary>
     /// A range filter built on top of a cached single term field (in <see cref="IFieldCache"/>).
@@ -746,7 +747,7 @@ namespace YAF.Lucene.Net.Search
         {
             int h = field.GetHashCode();
             h ^= (lowerVal != null) ? lowerVal.GetHashCode() : 550356204;
-            h = (h << 1) | ((int)((uint)h >> 31)); // rotate to distinguish lower from upper
+            h = (h << 1) | (h.TripleShift(31)); // rotate to distinguish lower from upper
             h ^= (upperVal != null) ? upperVal.GetHashCode() : -1674416163;
             h ^= (parser != null) ? parser.GetHashCode() : -1572457324;
             h ^= (includeLower ? 1549299360 : -365038026) ^ (includeUpper ? 1721088258 : 1948649653);

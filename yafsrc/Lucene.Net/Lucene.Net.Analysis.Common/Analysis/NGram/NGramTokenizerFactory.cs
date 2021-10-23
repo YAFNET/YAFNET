@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
             maxGramSize = GetInt32(args, "maxGramSize", NGramTokenizer.DEFAULT_MAX_NGRAM_SIZE);
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 

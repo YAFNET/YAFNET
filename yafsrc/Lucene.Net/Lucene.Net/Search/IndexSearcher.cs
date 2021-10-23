@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using System;
@@ -27,18 +27,18 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using DefaultSimilarity = YAF.Lucene.Net.Search.Similarities.DefaultSimilarity;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using DefaultSimilarity  = YAF.Lucene.Net.Search.Similarities.DefaultSimilarity;
     using Document = Documents.Document;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
-    using MultiFields = YAF.Lucene.Net.Index.MultiFields;
-    using ReaderUtil = YAF.Lucene.Net.Index.ReaderUtil;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using Terms = YAF.Lucene.Net.Index.Terms;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReaderContext  = YAF.Lucene.Net.Index.IndexReaderContext;
+    using MultiFields  = YAF.Lucene.Net.Index.MultiFields;
+    using ReaderUtil  = YAF.Lucene.Net.Index.ReaderUtil;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
 
     /// <summary>
     /// Implements search over a single <see cref="Index.IndexReader"/>.
@@ -439,7 +439,7 @@ namespace YAF.Lucene.Net.Search
             }
             if (after != null && after.Doc >= limit)
             {
-                throw new ArgumentException("after.doc exceeds the number of documents in the reader: after.doc=" + after.Doc + " limit=" + limit);
+                throw new ArgumentException("after.Doc exceeds the number of documents in the reader: after.Doc=" + after.Doc + " limit=" + limit);
             }
             nDocs = Math.Min(nDocs, limit);
 
@@ -525,9 +525,9 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         protected virtual TopFieldDocs Search(Weight weight, FieldDoc after, int nDocs, Sort sort, bool fillFields, bool doDocScores, bool doMaxScore)
         {
-            if (sort == null)
+            if (sort is null)
             {
-                throw new ArgumentNullException("Sort must not be null");
+                throw new ArgumentNullException("Sort must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
 
             int limit = reader.MaxDoc;
@@ -863,7 +863,7 @@ namespace YAF.Lucene.Net.Search
 
             public void Reset()
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public bool MoveNext()
@@ -878,18 +878,14 @@ namespace YAF.Lucene.Net.Search
 
                         return true;
                     }
-#if FEATURE_THREAD_INTERRUPT
-                    catch (ThreadInterruptedException /*e*/)
+                    catch (Exception e) when (e.IsInterruptedException())
                     {
-                        //throw new ThreadInterruptedException(e.ToString(), e);
+                        // LUCENENET: Throwing as same type, no need to wrap here
                         throw; // LUCENENET: CA2200: Rethrow to preserve stack details (https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2200-rethrow-to-preserve-stack-details)
                     }
-#endif
                     catch (Exception e)
                     {
-                        // LUCENENET NOTE: We need to re-throw this as Exception to 
-                        // ensure it is not caught in the wrong place
-                        throw new Exception(e.ToString(), e);
+                        throw RuntimeException.Create(e);
                     }
                     finally
                     {
@@ -900,11 +896,7 @@ namespace YAF.Lucene.Net.Search
                 return false;
             }
 
-            // LUCENENET NOTE: Not supported in .NET anyway
-            //public override void Remove()
-            //{
-            //  throw new NotSupportedException();
-            //}
+            // LUCENENET NOTE: Remove() excluded because it is not applicable in .NET
 
             public IEnumerator<T> GetEnumerator()
             {

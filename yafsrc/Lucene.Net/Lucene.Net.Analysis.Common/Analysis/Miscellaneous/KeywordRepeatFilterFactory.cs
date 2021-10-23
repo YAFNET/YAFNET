@@ -1,4 +1,5 @@
-﻿using System;
+// Lucene version compatibility level 4.8.1
+using System;
 using System.Collections.Generic;
 using YAF.Lucene.Net.Analysis.Util;
 
@@ -37,7 +38,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 

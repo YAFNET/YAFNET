@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
@@ -20,13 +20,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene 4.0 implementation of <see cref="SegmentInfoWriter"/>.
@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 output.WriteString(si.Version);
                 output.WriteInt32(si.DocCount);
 
-                output.WriteByte((byte)(sbyte)(si.UseCompoundFile ? SegmentInfo.YES : SegmentInfo.NO));
+                output.WriteByte((byte)(si.UseCompoundFile ? SegmentInfo.YES : SegmentInfo.NO));
                 output.WriteStringStringMap(si.Diagnostics);
                 output.WriteStringStringMap(Collections.EmptyMap<string, string>());
                 output.WriteStringSet(si.GetFiles());

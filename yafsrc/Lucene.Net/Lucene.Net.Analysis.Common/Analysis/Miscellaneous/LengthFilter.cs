@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System;
@@ -41,11 +42,11 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (min < 0)
             {
-                throw new ArgumentOutOfRangeException("minimum length must be greater than or equal to zero");
+                throw new ArgumentOutOfRangeException(nameof(min), "minimum length must be greater than or equal to zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("maximum length must not be greater than minimum length");
+                throw new ArgumentOutOfRangeException(nameof(max), "maximum length must not be greater than minimum length"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.min = min;
             this.max = max;
@@ -65,11 +66,11 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (min < 0)
             {
-                throw new ArgumentOutOfRangeException("minimum length must be greater than or equal to zero");
+                throw new ArgumentOutOfRangeException(nameof(min), "minimum length must be greater than or equal to zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("maximum length must not be greater than minimum length");
+                throw new ArgumentOutOfRangeException(nameof(max), "maximum length must not be greater than minimum length"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.min = min;
             this.max = max;

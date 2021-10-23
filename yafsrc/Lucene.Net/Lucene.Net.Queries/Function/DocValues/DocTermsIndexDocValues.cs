@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Mutable;
@@ -38,13 +39,13 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
         protected readonly BytesRef m_spare = new BytesRef();
         protected readonly CharsRef m_spareChars = new CharsRef();
 
-        public DocTermsIndexDocValues(ValueSource vs, AtomicReaderContext context, string field)
+        protected DocTermsIndexDocValues(ValueSource vs, AtomicReaderContext context, string field) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
             try
             {
                 m_termsIndex = FieldCache.DEFAULT.GetTermsIndex(context.AtomicReader, field);
             }
-            catch (Exception e)
+            catch (Exception e) when (e.IsRuntimeException())
             {
                 throw new DocTermsIndexException(field, e);
             }
@@ -165,20 +166,20 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
     [Serializable]
 #endif
-        public sealed class DocTermsIndexException : Exception
+        public sealed class DocTermsIndexException : Exception, IRuntimeException // LUCENENET specific: Added IRuntimeException for identification of the Java superclass in .NET
         {
             public DocTermsIndexException(string fieldName, Exception cause)
                 : base("Can't initialize DocTermsIndex to generate (function) FunctionValues for field: " + fieldName, cause)
             {
-            }  
+            }
 
-#if FEATURE_SERIALIZABLE_EXCEPTIONS
-            // For testing
-            public DocTermsIndexException(string message)
+            // LUCENENET: For testing purposes
+            internal DocTermsIndexException(string message)
                 : base(message)
             {
             }
 
+#if FEATURE_SERIALIZABLE_EXCEPTIONS
             /// <summary>
             /// Initializes a new instance of this class with serialized data.
             /// </summary>

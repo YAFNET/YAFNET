@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,12 +31,12 @@ namespace YAF.Types.Constants
         /// <summary>
         /// The Forum page.
         /// </summary>
-        forum,
+        Board,
 
         /// <summary>
         /// The topics.
         /// </summary>
-        topics,
+        Topics,
 
         /// <summary>
         /// The Posts page.
@@ -44,9 +44,9 @@ namespace YAF.Types.Constants
         Posts,
 
         /// <summary>
-        /// The profile.
+        /// The user profile page.
         /// </summary>
-        Profile,
+        UserProfile,
 
         /// <summary>
         /// The ActiveUsers.
@@ -54,14 +54,14 @@ namespace YAF.Types.Constants
         ActiveUsers,
 
         /// <summary>
-        /// The moderating.
-        /// </summary>
-        Moderating,
-
-        /// <summary>
         /// The post topic page.
         /// </summary>
         PostTopic,
+
+        /// <summary>
+        /// The edit  message page.
+        /// </summary>
+        EditMessage,
 
         /// <summary>
         /// The post message page.
@@ -82,16 +82,6 @@ namespace YAF.Types.Constants
         /// The MessageHistory page displays a user message changes.
         /// </summary>
         MessageHistory,
-
-        /// <summary>
-        /// The ModForumUser page.
-        /// </summary>
-        ModForumUser,
-
-        /// <summary>
-        /// The attachments.
-        /// </summary>
-        Attachments,
 
         /// <summary>
         /// The PostMessage.
@@ -119,14 +109,9 @@ namespace YAF.Types.Constants
         ReportPost,
 
         /// <summary>
-        /// The PM.
+        /// The MyMessages Page.
         /// </summary>
-        PM,
-
-        /// <summary>
-        /// The Account.
-        /// </summary>
-        Account,
+        MyMessages,
 
         /// <summary>
         /// The Notification.
@@ -149,64 +134,14 @@ namespace YAF.Types.Constants
         Albums,
 
         /// <summary>
-        /// The BlockOptions.
-        /// </summary>
-        BlockOptions,
-
-        /// <summary>
         /// The EditAlbumImages.
         /// </summary>
         EditAlbumImages,
 
         /// <summary>
-        /// The EditProfile.
-        /// </summary>
-        EditProfile,
-
-        /// <summary>
-        /// The EditSettings.
-        /// </summary>
-        EditSettings,
-
-        /// <summary>
-        /// The EditAvatar.
-        /// </summary>
-        EditAvatar,
-
-        /// <summary>
-        /// The EditSignature.
-        /// </summary>
-        EditSignature,
-
-        /// <summary>
-        /// The Subscriptions.
-        /// </summary>
-        Subscriptions,
-
-        /// <summary>
         /// The Message.
         /// </summary>
         PrivateMessage,
-
-        /// <summary>
-        /// The Change Password page.
-        /// </summary>
-        ChangePassword,
-
-        /// <summary>
-        /// The Delete Account page.
-        /// </summary>
-        DeleteAccount,
-
-        /// <summary>
-        /// The Login page.
-        /// </summary>
-        Login,
-
-        /// <summary>
-        /// The approve.
-        /// </summary>
-        Approve,
 
         /// <summary>
         /// The Info page.
@@ -219,14 +154,9 @@ namespace YAF.Types.Constants
         Cookies,
 
         /// <summary>
-        /// The Rules page.
+        /// The Rules and Privacy page.
         /// </summary>
-        Rules,
-
-        /// <summary>
-        /// The Register page.
-        /// </summary>
-        Register,
+        RulesAndPrivacy,
 
         /// <summary>
         /// The Search page.
@@ -239,14 +169,14 @@ namespace YAF.Types.Constants
         MyTopics,
 
         /// <summary>
-        /// The Logout page.
-        /// </summary>
-        Logout,
-
-        /// <summary>
         /// The moderate index page.
         /// </summary>
         Moderate_Index,
+
+        /// <summary>
+        /// The moderate forum page.
+        /// </summary>
+        Moderate_Forums,
 
         /// <summary>
         /// The moderate reported posts page.
@@ -259,19 +189,9 @@ namespace YAF.Types.Constants
         Moderate_UnapprovedPosts,
 
         /// <summary>
-        /// The Error page.
+        /// The Jabber page.
         /// </summary>
-        Error,
-
-        /// <summary>
-        /// The avatar page.
-        /// </summary>
-        Avatar,
-
-        /// <summary>
-        /// The XMPP page.
-        /// </summary>
-        Xmpp,
+        Jabber,
 
         /// <summary>
         /// The Email page.
@@ -279,9 +199,9 @@ namespace YAF.Types.Constants
         Email,
 
         /// <summary>
-        /// The RSS Topic page.
+        /// The Feed page.
         /// </summary>
-        RssTopic,
+        Feed,
 
         /// <summary>
         /// The PollEdit page.
@@ -299,253 +219,340 @@ namespace YAF.Types.Constants
         Team,
 
         /// <summary>
-        /// The RecoverPassword page.
+        /// The approve.
         /// </summary>
-        RecoverPassword,
+        Account_Approve,
 
         /// <summary>
-        /// The admin_admin.
+        /// The Account Forgot Password page.
         /// </summary>
-        admin_admin,
+        Account_ForgotPassword,
 
         /// <summary>
-        /// The admin_hostsettings.
+        /// The Logout page.
         /// </summary>
-        admin_hostsettings,
+        Account_Logout,
 
         /// <summary>
-        /// The admin_boards.
+        /// The Account Reset Password page.
         /// </summary>
-        admin_boards,
+        Account_ResetPassword,
 
         /// <summary>
-        /// The admin_boardsettings.
+        /// The Register page.
         /// </summary>
-        admin_boardsettings,
+        Account_Register,
 
         /// <summary>
-        /// The admin_forums.
+        /// The Login page.
         /// </summary>
-        admin_forums,
+        Account_Login,
 
         /// <summary>
-        /// The admin_bannedemail.
+        /// The Account Info Page.
         /// </summary>
-        admin_bannedemail,
+        MyAccount,
 
         /// <summary>
-        /// The admin_bannedip.
+        /// The Admin admin page.
         /// </summary>
-        admin_bannedip,
+        Admin_Admin,
 
         /// <summary>
-        /// The admin_bannedname.
+        /// The Admin host settings page.
         /// </summary>
-        admin_bannedname,
+        Admin_HostSettings,
 
         /// <summary>
-        /// The admin_accessmasks.
+        /// The Admin boards.
         /// </summary>
-        admin_accessmasks,
+        Admin_Boards,
 
         /// <summary>
-        /// The admin_groups.
+        /// The Admin Announcement page.
         /// </summary>
-        admin_groups,
+        Admin_BoardAnnouncement,
 
         /// <summary>
-        /// The admin_users.
+        /// The Admin board settings page.
         /// </summary>
-        admin_users,
+        Admin_Settings,
 
         /// <summary>
-        /// The admin_ranks.
+        /// The Admin forums page.
         /// </summary>
-        admin_ranks,
+        Admin_Forums,
 
         /// <summary>
-        /// The admin_mail.
+        /// The Admin banned email page.
         /// </summary>
-        admin_mail,
+        Admin_BannedEmails,
 
         /// <summary>
-        /// The admin_medals.
+        /// The Admin banned IP page.
         /// </summary>
-        admin_medals,
+        Admin_BannedIps,
 
         /// <summary>
-        /// The admin_pageaccesslist.
+        /// The Admin banned name page.
         /// </summary>
-        admin_pageaccesslist,
+        Admin_BannedNames,
 
         /// <summary>
-        /// The admin_pageaccessedit.
+        /// The Admin access masks page.
         /// </summary>
-        admin_pageaccessedit,
+        Admin_AccessMasks,
 
         /// <summary>
-        /// The admin_prune.
+        /// The Admin groups page.
         /// </summary>
-        admin_prune,
+        Admin_Groups,
 
         /// <summary>
-        /// The admin_attachments.
+        /// The Admin users page.
         /// </summary>
-        admin_attachments,
+        Admin_Users,
 
         /// <summary>
-        /// The admin_tags.
+        /// The Admin ranks page.
         /// </summary>
-        admin_tags,
+        Admin_Ranks,
 
         /// <summary>
-        /// The admin_restore.
+        /// The Admin mail page.
         /// </summary>
-        admin_restore,
+        Admin_Mail,
 
         /// <summary>
-        /// The admin_pm.
+        /// The Admin medals page.
         /// </summary>
-        admin_pm,
+        Admin_Medals,
 
         /// <summary>
-        /// The admin_eventlog.
+        /// The Admin page access list page.
         /// </summary>
-        admin_eventlog,
+        Admin_PageAccessList,
 
         /// <summary>
-        /// The admin_spamlog.
+        /// The Admin page access edit page.
         /// </summary>
-        admin_spamlog,
+        Admin_PageAccessEdit,
 
         /// <summary>
-        /// The admin_nntpservers.
+        /// The admin profile definitions page.
         /// </summary>
-        admin_nntpservers,
+        Admin_ProfileDefinitions,
 
         /// <summary>
-        /// The admin_nntpforums.
+        /// The Admin prune page.
         /// </summary>
-        admin_nntpforums,
+        Admin_Prune,
 
         /// <summary>
-        /// The admin_nntpretrieve.
+        /// The Admin Restore page.
         /// </summary>
-        admin_nntpretrieve,
+        Admin_Restore,
 
         /// <summary>
-        /// The admin_version.
+        /// The Admin pm page.
         /// </summary>
-        admin_version,
+        Admin_Pm,
 
         /// <summary>
-        /// The admin_editaccessmask.
+        /// The Admin event log page.
         /// </summary>
-        admin_editaccessmask,
+        Admin_EventLog,
 
         /// <summary>
-        /// The admin_editboard.
+        /// The Admin spam log page.
         /// </summary>
-        admin_editboard,
+        Admin_SpamLog,
 
         /// <summary>
-        /// The admin_editcategory.
+        /// The Admin nntp servers page.
         /// </summary>
-        admin_editcategory,
+        Admin_NntpServers,
 
         /// <summary>
-        /// The admin_editforum.
+        /// The Admin nntp forums page.
         /// </summary>
-        admin_editforum,
+        Admin_NntpForums,
 
         /// <summary>
-        /// The admin_deleteforum.
+        /// The Admin nntp retrieve page.
         /// </summary>
-        admin_deleteforum,
+        Admin_NntpRetrieve,
 
         /// <summary>
-        /// The admin_editgroup.
+        /// The Admin version page.
         /// </summary>
-        admin_editgroup,
+        Admin_Version,
 
         /// <summary>
-        /// The admin_editmedal.
+        /// The Admin edit access mask page.
         /// </summary>
-        admin_editmedal,
+        Admin_EditAccessMask,
 
         /// <summary>
-        /// The admin_editrank.
+        /// The Admin edit board page.
         /// </summary>
-        admin_editrank,
+        Admin_EditBoard,
 
         /// <summary>
-        /// The admin_edituser.
+        /// The Admin edit category page.
         /// </summary>
-        admin_edituser,
+        Admin_EditCategory,
 
         /// <summary>
-        /// The admin_reguser.
+        /// The Admin edit forum page.
         /// </summary>
-        admin_reguser,
+        Admin_EditForum,
 
         /// <summary>
-        /// The admin_replacewords.
+        /// The Admin delete forum.
         /// </summary>
-        admin_replacewords,
+        Admin_DeleteForum,
 
         /// <summary>
-        /// The admin spam words
+        /// The Admin edit group page.
         /// </summary>
-        admin_spamwords,
+        Admin_EditGroup,
 
         /// <summary>
-        /// The admin_extensions.
+        /// The Admin edit medal page.
         /// </summary>
-        admin_extensions,
+        Admin_EditMedal,
 
         /// <summary>
-        /// The admin_bbcode.
+        /// The Admin edit rank page.
         /// </summary>
-        admin_bbcode,
+        Admin_EditRank,
 
         /// <summary>
-        /// The admin_bbcode_edit.
+        /// The Admin edit user page.
         /// </summary>
-        admin_bbcode_edit,
+        Admin_EditUser,
 
         /// <summary>
-        /// The admin_languages.
+        /// The Admin register user page.
         /// </summary>
-        admin_languages,
+        Admin_RegisterUser,
 
         /// <summary>
-        /// The admin_editlanguage.
+        /// The Admin replace words page.
         /// </summary>
-        admin_editlanguage,
+        Admin_ReplaceWords,
 
         /// <summary>
-        /// The admin_reindex.
+        /// The admin spam words page.
         /// </summary>
-        admin_reindex,
+        Admin_SpamWords,
 
         /// <summary>
-        /// The admin_runsql.
+        /// The Admin BBCode page.
         /// </summary>
-        admin_runsql,
+        Admin_BBCodes,
 
         /// <summary>
-        /// The admin_taskmanager.
+        /// The Admin BBCode edit page.
         /// </summary>
-        admin_taskmanager,
+        Admin_BBCode_Edit,
 
         /// <summary>
-        /// The admin_restartapp.
+        /// The Admin languages page.
         /// </summary>
-        admin_restartapp,
+        Admin_Languages,
+
+        /// <summary>
+        /// The Admin edit language page.
+        /// </summary>
+        Admin_EditLanguage,
+
+        /// <summary>
+        /// The Admin re index page.
+        /// </summary>
+        Admin_ReIndex,
+
+        /// <summary>
+        /// The Admin run SQL page.
+        /// </summary>
+        Admin_RunSql,
+
+        /// <summary>
+        /// The Admin task manager page.
+        /// </summary>
+        Admin_TaskManager,
+
+#if DEBUG
+        /// <summary>
+        /// The admin_ test data.
+        /// </summary>
+        Admin_TestData,
+#endif
+
+        /// <summary>
+        /// The Admin restart app page.
+        /// </summary>
+        Admin_RestartApp,
 
         /// <summary>
         /// Digest Admin page
         /// </summary>
-        admin_digest
+        Admin_Digest,
+
+        /// <summary>
+        /// The admin attachments page
+        /// </summary>
+        Admin_Attachments,
+
+        /// <summary>
+        /// The admin tags page
+        /// </summary>
+        Admin_Tags,
+
+        /// <summary>
+        /// The attachments.
+        /// </summary>
+        Profile_Attachments,
+
+        /// <summary>
+        /// The BlockOptions.
+        /// </summary>
+        Profile_BlockOptions,
+
+        /// <summary>
+        /// The Change Password page.
+        /// </summary>
+        Profile_ChangePassword,
+
+        /// <summary>
+        /// The Delete Account page.
+        /// </summary>
+        Profile_DeleteAccount,
+
+        /// <summary>
+        /// The EditAvatar.
+        /// </summary>
+        Profile_EditAvatar,
+
+        /// <summary>
+        /// The EditProfile.
+        /// </summary>
+        Profile_EditProfile,
+
+        /// <summary>
+        /// The EditSettings.
+        /// </summary>
+        Profile_EditSettings,
+
+        /// <summary>
+        /// The EditSignature.
+        /// </summary>
+        Profile_EditSignature,
+
+        /// <summary>
+        /// The Subscriptions.
+        /// </summary>
+        Profile_Subscriptions
     }
 }

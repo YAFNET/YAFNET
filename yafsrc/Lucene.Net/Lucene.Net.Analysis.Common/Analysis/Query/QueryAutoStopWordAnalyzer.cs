@@ -1,4 +1,5 @@
-﻿using J2N.Collections.Generic.Extensions;
+// Lucene version compatibility level 4.8.1
+using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Index;
@@ -132,13 +133,12 @@ namespace YAF.Lucene.Net.Analysis.Query
                 CharsRef spare = new CharsRef();
                 if (terms != null)
                 {
-                    TermsEnum te = terms.GetIterator(null);
-                    BytesRef text;
-                    while ((text = te.Next()) != null)
+                    TermsEnum te = terms.GetEnumerator();
+                    while (te.MoveNext())
                     {
                         if (te.DocFreq > maxDocFreq)
                         {
-                            UnicodeUtil.UTF8toUTF16(text, spare);
+                            UnicodeUtil.UTF8toUTF16(te.Term, spare);
                             stopWords.Add(spare.ToString());
                         }
                     }

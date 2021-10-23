@@ -22,11 +22,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using QueryAndLimit = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
+    using BinaryDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query  = YAF.Lucene.Net.Search.Query;
+    using QueryAndLimit  = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
 
     internal class CoalescedUpdates
     {
@@ -68,14 +68,14 @@ namespace YAF.Lucene.Net.Index
 
         public virtual IEnumerable<Term> TermsIterable()
         {
-            return new IterableAnonymousInnerClassHelper(this);
+            return new IterableAnonymousClass(this);
         }
 
-        private class IterableAnonymousInnerClassHelper : IEnumerable<Term>
+        private class IterableAnonymousClass : IEnumerable<Term>
         {
             private readonly CoalescedUpdates outerInstance;
 
-            public IterableAnonymousInnerClassHelper(CoalescedUpdates outerInstance)
+            public IterableAnonymousClass(CoalescedUpdates outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
@@ -98,21 +98,21 @@ namespace YAF.Lucene.Net.Index
 
         public virtual IEnumerable<QueryAndLimit> QueriesIterable()
         {
-            return new IterableAnonymousInnerClassHelper2(this);
+            return new IterableAnonymousClass2(this);
         }
 
-        private class IterableAnonymousInnerClassHelper2 : IEnumerable<QueryAndLimit>
+        private class IterableAnonymousClass2 : IEnumerable<QueryAndLimit>
         {
             private readonly CoalescedUpdates outerInstance;
 
-            public IterableAnonymousInnerClassHelper2(CoalescedUpdates outerInstance)
+            public IterableAnonymousClass2(CoalescedUpdates outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
 
             public virtual IEnumerator<QueryAndLimit> GetEnumerator()
             {
-                return new IteratorAnonymousInnerClassHelper(this);
+                return new IteratorAnonymousClass(this);
             }
 
             IEnumerator IEnumerable.GetEnumerator()
@@ -120,13 +120,13 @@ namespace YAF.Lucene.Net.Index
                 return GetEnumerator();
             }
 
-            private class IteratorAnonymousInnerClassHelper : IEnumerator<QueryAndLimit>
+            private class IteratorAnonymousClass : IEnumerator<QueryAndLimit>
             {
-                private readonly IterableAnonymousInnerClassHelper2 outerInstance;
+                private readonly IterableAnonymousClass2 outerInstance;
                 private readonly IEnumerator<KeyValuePair<Query, int>> iter;
                 private QueryAndLimit current;
 
-                public IteratorAnonymousInnerClassHelper(IterableAnonymousInnerClassHelper2 outerInstance)
+                public IteratorAnonymousClass(IterableAnonymousClass2 outerInstance)
                 {
                     this.outerInstance = outerInstance;
                     iter = this.outerInstance.outerInstance.queries.GetEnumerator();
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Index
 
                 public void Reset()
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
                 public QueryAndLimit Current => current;

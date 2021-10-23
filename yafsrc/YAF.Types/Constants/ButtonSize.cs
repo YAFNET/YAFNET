@@ -22,73 +22,26 @@
  * under the License.
  */
 
- namespace YAF.Types.Constants
+namespace YAF.Types.Constants
 {
     /// <summary>
-    /// The Button types
+    /// The Button sizes
     /// </summary>
-    public enum ButtonAction
+    public enum ButtonSize
     {
         /// <summary>
-        /// The primary
+        /// The normal.
         /// </summary>
-        Primary,
+        Normal,
 
         /// <summary>
-        /// The secondary
+        /// The large.
         /// </summary>
-        Secondary,
-
-        OutlineSecondary,
+        Large,
 
         /// <summary>
-        /// The success
+        /// The small.
         /// </summary>
-        Success,
-
-        /// <summary>
-        /// The outline success.
-        /// </summary>
-        OutlineSuccess,
-
-        /// <summary>
-        /// The danger
-        /// </summary>
-        Danger,
-
-        /// <summary>
-        /// The warning
-        /// </summary>
-        Warning,
-
-        /// <summary>
-        /// The information
-        /// </summary>
-        Info,
-
-        /// <summary>
-        /// The outline information
-        /// </summary>
-        OutlineInfo,
-
-        /// <summary>
-        /// The light
-        /// </summary>
-        Light,
-
-        /// <summary>
-        /// The dark
-        /// </summary>
-        Dark,
-
-        /// <summary>
-        /// The link
-        /// </summary>
-        Link,
-
-        /// <summary>
-        /// The none
-        /// </summary>
-        None
+        Small
     }
 }

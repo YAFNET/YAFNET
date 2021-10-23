@@ -1,9 +1,10 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -24,16 +25,16 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using BooleanQuery = YAF.Lucene.Net.Search.BooleanQuery;
-    using CachingTokenFilter = YAF.Lucene.Net.Analysis.CachingTokenFilter;
-    using MultiPhraseQuery = YAF.Lucene.Net.Search.MultiPhraseQuery;
-    using Occur = YAF.Lucene.Net.Search.Occur;
-    using PhraseQuery = YAF.Lucene.Net.Search.PhraseQuery;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermQuery = YAF.Lucene.Net.Search.TermQuery;
-    using TokenStream = YAF.Lucene.Net.Analysis.TokenStream;
+    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
+    using BooleanQuery  = YAF.Lucene.Net.Search.BooleanQuery;
+    using CachingTokenFilter  = YAF.Lucene.Net.Analysis.CachingTokenFilter;
+    using MultiPhraseQuery  = YAF.Lucene.Net.Search.MultiPhraseQuery;
+    using Occur  = YAF.Lucene.Net.Search.Occur;
+    using PhraseQuery  = YAF.Lucene.Net.Search.PhraseQuery;
+    using Query  = YAF.Lucene.Net.Search.Query;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermQuery  = YAF.Lucene.Net.Search.TermQuery;
+    using TokenStream  = YAF.Lucene.Net.Analysis.TokenStream;
 
     /// <summary>
     /// Creates queries from the <see cref="Analyzer"/> chain.
@@ -70,6 +71,7 @@ namespace YAF.Lucene.Net.Util
         /// <param name="queryText"> Text to be passed to the analyzer. </param>
         /// <returns> <see cref="TermQuery"/> or <see cref="BooleanQuery"/>, based on the analysis
         ///         of <paramref name="queryText"/>. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual Query CreateBooleanQuery(string field, string queryText)
         {
             return CreateBooleanQuery(field, queryText, Occur.SHOULD);
@@ -100,6 +102,7 @@ namespace YAF.Lucene.Net.Util
         /// <param name="queryText"> Text to be passed to the analyzer. </param>
         /// <returns> <see cref="TermQuery"/>, <see cref="BooleanQuery"/>, <see cref="PhraseQuery"/>, or
         ///         <see cref="MultiPhraseQuery"/>, based on the analysis of <paramref name="queryText"/>. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual Query CreatePhraseQuery(string field, string queryText)
         {
             return CreatePhraseQuery(field, queryText, 0);
@@ -113,6 +116,7 @@ namespace YAF.Lucene.Net.Util
         /// <param name="phraseSlop"> number of other words permitted between words in query phrase </param>
         /// <returns> <see cref="TermQuery"/>, <see cref="BooleanQuery"/>, <see cref="PhraseQuery"/>, or
         ///         <see cref="MultiPhraseQuery"/>, based on the analysis of <paramref name="queryText"/>. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual Query CreatePhraseQuery(string field, string queryText, int phraseSlop)
         {
             return CreateFieldQuery(analyzer, Occur.MUST, field, queryText, true, phraseSlop);
@@ -140,9 +144,8 @@ namespace YAF.Lucene.Net.Util
             }
 
             Query query = CreateFieldQuery(analyzer, Occur.SHOULD, field, queryText, false, 0);
-            if (query is BooleanQuery)
+            if (query is BooleanQuery bq)
             {
-                BooleanQuery bq = (BooleanQuery)query;
                 bq.MinimumNumberShouldMatch = (int)(fraction * bq.Clauses.Count);
             }
             return query;
@@ -195,7 +198,7 @@ namespace YAF.Lucene.Net.Util
             int numTokens = 0;
             int positionCount = 0;
             bool severalTokensAtSamePosition = false;
-            bool hasMoreTokens = false;
+            bool hasMoreTokens/* = false*/; // LUCENENET: IDE0059: Remove unnecessary value assignment
 
             TokenStream source = null;
             try
@@ -234,15 +237,15 @@ namespace YAF.Lucene.Net.Util
                             hasMoreTokens = buffer.IncrementToken();
                         }
                     }
-                    catch (IOException)
+                    catch (Exception e) when (e.IsIOException())
                     {
                         // ignore
                     }
                 }
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
-                throw new Exception("Error analyzing query text", e);
+                throw RuntimeException.Create("Error analyzing query text", e);
             }
             finally
             {
@@ -266,7 +269,7 @@ namespace YAF.Lucene.Net.Util
                     if (Debugging.AssertsEnabled) Debugging.Assert(hasNext == true);
                     termAtt.FillBytesRef();
                 }
-                catch (IOException)
+                catch (Exception e) when (e.IsIOException())
                 {
                     // safe to ignore, because we know the number of tokens
                 }
@@ -292,7 +295,7 @@ namespace YAF.Lucene.Net.Util
                                     if (Debugging.AssertsEnabled) Debugging.Assert(hasNext == true);
                                     termAtt.FillBytesRef();
                                 }
-                                catch (IOException)
+                                catch (Exception e) when (e.IsIOException())
                                 {
                                     // safe to ignore, because we know the number of tokens
                                 }
@@ -314,7 +317,7 @@ namespace YAF.Lucene.Net.Util
                                     if (Debugging.AssertsEnabled) Debugging.Assert(hasNext == true);
                                     termAtt.FillBytesRef();
                                 }
-                                catch (IOException)
+                                catch (Exception e) when (e.IsIOException())
                                 {
                                     // safe to ignore, because we know the number of tokens
                                 }
@@ -361,7 +364,7 @@ namespace YAF.Lucene.Net.Util
                                     positionIncrement = posIncrAtt.PositionIncrement;
                                 }
                             }
-                            catch (IOException)
+                            catch (Exception e) when (e.IsIOException())
                             {
                                 // safe to ignore, because we know the number of tokens
                             }
@@ -412,7 +415,7 @@ namespace YAF.Lucene.Net.Util
                                 positionIncrement = posIncrAtt.PositionIncrement;
                             }
                         }
-                        catch (IOException)
+                        catch (Exception e) when (e.IsIOException())
                         {
                             // safe to ignore, because we know the number of tokens
                         }
@@ -439,6 +442,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="disableCoord"> Disable coord. </param>
         /// <returns> New <see cref="BooleanQuery"/> instance. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual BooleanQuery NewBooleanQuery(bool disableCoord)
         {
             return new BooleanQuery(disableCoord);
@@ -451,6 +455,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="term"> Term. </param>
         /// <returns> New <see cref="TermQuery"/> instance. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual Query NewTermQuery(Term term)
         {
             return new TermQuery(term);
@@ -462,6 +467,7 @@ namespace YAF.Lucene.Net.Util
         /// This is intended for subclasses that wish to customize the generated queries. 
         /// </summary>
         /// <returns> New <see cref="PhraseQuery"/> instance. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual PhraseQuery NewPhraseQuery()
         {
             return new PhraseQuery();
@@ -473,6 +479,7 @@ namespace YAF.Lucene.Net.Util
         /// This is intended for subclasses that wish to customize the generated queries. 
         /// </summary>
         /// <returns> New <see cref="MultiPhraseQuery"/> instance. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual MultiPhraseQuery NewMultiPhraseQuery()
         {
             return new MultiPhraseQuery();

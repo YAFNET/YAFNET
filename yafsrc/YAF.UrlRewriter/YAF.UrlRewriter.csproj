@@ -14,7 +14,7 @@
     <FileUpgradeFlags />
     <UpgradeBackupLocation />
     <SignAssembly>true</SignAssembly>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net48</TargetFrameworks>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -90,5 +90,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
+    <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
   </ItemGroup>
 </Project>

@@ -23,13 +23,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using TermsEnumIndex = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumIndex;
-    using TermsEnumWithSlice = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumWithSlice;
+    using AppendingPackedInt64Buffer  = YAF.Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using MonotonicAppendingInt64Buffer  = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using TermsEnumIndex  = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumIndex;
+    using TermsEnumWithSlice  = YAF.Lucene.Net.Index.MultiTermsEnum.TermsEnumWithSlice;
 
     /// <summary>
     /// A wrapper for <see cref="CompositeReader"/> providing access to <see cref="DocValues"/>.
@@ -46,14 +46,8 @@ namespace YAF.Lucene.Net.Index
     /// @lucene.experimental
     /// @lucene.internal
     /// </summary>
-    public class MultiDocValues
+    public static class MultiDocValues // LUCENENET specific: CA1052 Static holder types should be Static or NotInheritable
     {
-        /// <summary>
-        /// No instantiation </summary>
-        private MultiDocValues()
-        {
-        }
-
         /// <summary>
         /// Returns a <see cref="NumericDocValues"/> for a reader's norms (potentially merging on-the-fly).
         /// <para>
@@ -101,15 +95,15 @@ namespace YAF.Lucene.Net.Index
 
             if (Debugging.AssertsEnabled) Debugging.Assert(anyReal);
 
-            return new NumericDocValuesAnonymousInnerClassHelper(values, starts);
+            return new NumericDocValuesAnonymousClass(values, starts);
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper : NumericDocValues
+        private class NumericDocValuesAnonymousClass : NumericDocValues
         {
-            private NumericDocValues[] values;
-            private int[] starts;
+            private readonly NumericDocValues[] values;
+            private readonly int[] starts;
 
-            public NumericDocValuesAnonymousInnerClassHelper(NumericDocValues[] values, int[] starts)
+            public NumericDocValuesAnonymousClass(NumericDocValues[] values, int[] starts)
             {
                 this.values = values;
                 this.starts = starts;
@@ -168,16 +162,16 @@ namespace YAF.Lucene.Net.Index
             }
             else
             {
-                return new NumericDocValuesAnonymousInnerClassHelper2(values, starts);
+                return new NumericDocValuesAnonymousClass2(values, starts);
             }
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper2 : NumericDocValues
+        private class NumericDocValuesAnonymousClass2 : NumericDocValues
         {
-            private NumericDocValues[] values;
-            private int[] starts;
+            private readonly NumericDocValues[] values;
+            private readonly int[] starts;
 
-            public NumericDocValuesAnonymousInnerClassHelper2(NumericDocValues[] values, int[] starts)
+            public NumericDocValuesAnonymousClass2(NumericDocValues[] values, int[] starts)
             {
                 this.values = values;
                 this.starts = starts;
@@ -297,16 +291,16 @@ namespace YAF.Lucene.Net.Index
             }
             else
             {
-                return new BinaryDocValuesAnonymousInnerClassHelper(values, starts);
+                return new BinaryDocValuesAnonymousClass(values, starts);
             }
         }
 
-        private class BinaryDocValuesAnonymousInnerClassHelper : BinaryDocValues
+        private class BinaryDocValuesAnonymousClass : BinaryDocValues
         {
-            private BinaryDocValues[] values;
-            private int[] starts;
+            private readonly BinaryDocValues[] values;
+            private readonly int[] starts;
 
-            public BinaryDocValuesAnonymousInnerClassHelper(BinaryDocValues[] values, int[] starts)
+            public BinaryDocValuesAnonymousClass(BinaryDocValues[] values, int[] starts)
             {
                 this.values = values;
                 this.starts = starts;

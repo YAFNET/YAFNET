@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2021 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,7 +33,7 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -251,17 +251,6 @@ namespace YAF.Pages
 
             if (!this.IsPostBack)
             {
-                if (this.PageContext.Settings.LockedForum == 0)
-                {
-                    this.PageLinks.AddRoot();
-                    this.PageLinks.AddLink(
-                        this.PageContext.PageCategoryName,
-                        BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-                }
-
-                this.PageLinks.AddForum(this.PageContext.PageForumID);
-                this.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
-
                 this.PagerTop.PageSize = 25;
 
                 var showMoved = this.Get<BoardSettings>().ShowMoved;
@@ -279,6 +268,21 @@ namespace YAF.Pages
             }
 
             this.BindData();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddCategory(this.PageContext.PageCategoryName, this.PageContext.PageCategoryID);
+            }
+
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
         }
 
         /// <summary>

@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using NormsFormat = YAF.Lucene.Net.Codecs.NormsFormat;
+    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using NormsFormat  = YAF.Lucene.Net.Codecs.NormsFormat;
 
     // TODO FI: norms could actually be stored as doc store
 
@@ -98,7 +98,7 @@ namespace YAF.Lucene.Net.Index
 
         internal override InvertedDocEndConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
         {
-            return new NormsConsumerPerField(docInverterPerField, fieldInfo, this);
+            return new NormsConsumerPerField(docInverterPerField, fieldInfo /* , this // LUCENENET: Not referenced */);
         }
     }
 }

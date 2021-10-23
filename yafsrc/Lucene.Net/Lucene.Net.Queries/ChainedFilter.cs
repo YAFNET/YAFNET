@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
@@ -109,7 +110,7 @@ namespace YAF.Lucene.Net.Queries
             return BitsFilteredDocIdSet.Wrap(GetDocIdSet(context, DEFAULT, index), acceptDocs);
         }
 
-        private DocIdSetIterator GetDISI(Filter filter, AtomicReaderContext context)
+        private static DocIdSetIterator GetDISI(Filter filter, AtomicReaderContext context) // LUCENENET: CA1822: Mark members as static
         {
             // we dont pass acceptDocs, we will filter at the end using an additional filter
             DocIdSet docIdSet = filter.GetDocIdSet(context, null);
@@ -206,22 +207,22 @@ namespace YAF.Lucene.Net.Queries
         /// <exception cref="IOException"/>
         private void DoChain(FixedBitSet result, int logic, DocIdSet dis)
         {
-            if (dis is FixedBitSet)
+            if (dis is FixedBitSet fixedBitSet)
             {
                 // optimized case for FixedBitSets
                 switch (logic)
                 {
                     case OR:
-                        result.Or((FixedBitSet)dis);
+                        result.Or(fixedBitSet);
                         break;
                     case AND:
-                        result.And((FixedBitSet)dis);
+                        result.And(fixedBitSet);
                         break;
                     case ANDNOT:
-                        result.AndNot((FixedBitSet)dis);
+                        result.AndNot(fixedBitSet);
                         break;
                     case XOR:
-                        result.Xor((FixedBitSet)dis);
+                        result.Xor(fixedBitSet);
                         break;
                     default:
                         DoChain(result, DEFAULT, dis);

@@ -1,4 +1,4 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
@@ -283,6 +283,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Aligns an object size to be the next multiple of <see cref="NUM_BYTES_OBJECT_ALIGNMENT"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long AlignObjectSize(long size)
         {
             size += (long)NUM_BYTES_OBJECT_ALIGNMENT - 1L;
@@ -292,6 +293,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:byte[]"/> object. </summary>
         // LUCENENET specific overload for CLS compliance
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(byte[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + arr.Length);
@@ -300,6 +302,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:sbyte[]"/> object. </summary>
         [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(sbyte[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + arr.Length);
@@ -307,6 +310,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:bool[]"/> object. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(bool[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + arr.Length);
@@ -314,6 +318,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:char[]"/> object. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(char[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_CHAR * arr.Length);
@@ -321,6 +326,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:short[]"/> object. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(short[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_INT16 * arr.Length);
@@ -328,6 +334,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:int[]"/> object. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(int[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_INT32 * arr.Length);
@@ -335,6 +342,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:float[]"/> object. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(float[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_SINGLE * arr.Length);
@@ -342,6 +350,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:long[]"/> object. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(long[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_INT64 * arr.Length);
@@ -349,6 +358,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:double[]"/> object. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(double[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_DOUBLE * arr.Length);
@@ -357,6 +367,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:ulong[]"/> object. </summary>
         [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(ulong[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_INT64 * arr.Length);
@@ -365,6 +376,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:uint[]"/> object. </summary>
         [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(uint[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_INT32 * arr.Length);
@@ -373,6 +385,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Returns the size in bytes of the <see cref="T:ushort[]"/> object. </summary>
         [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(ushort[] arr)
         {
             return AlignObjectSize((long)NUM_BYTES_ARRAY_HEADER + (long)NUM_BYTES_INT16 * arr.Length);
@@ -387,6 +400,7 @@ namespace YAF.Lucene.Net.Util
         /// (it isn't side-effect free). After the method exits, this memory
         /// should be GCed.</para>
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long SizeOf(object obj)
         {
             return MeasureObjectSize(obj);
@@ -425,6 +439,10 @@ namespace YAF.Lucene.Net.Util
         /// <exception cref="ArgumentException"> if <paramref name="clazz"/> is an array class. </exception>
         public static long ShallowSizeOfInstance(Type clazz)
         {
+            // LUCENENET: Added guard clause for null
+            if (clazz is null)
+                throw new ArgumentNullException(nameof(clazz));
+
             if (clazz.IsArray)
             {
                 throw new ArgumentException("this method does not work with array classes.");
@@ -573,10 +591,10 @@ namespace YAF.Lucene.Net.Util
 
                         totalSize += cachedInfo.AlignedShallowInstanceSize;
                     }
-                    catch (Exception e)
+                    catch (Exception e) when (e.IsIllegalAccessException())
                     {
                         // this should never happen as we enabled setAccessible().
-                        throw new Exception("Reflective field access failed?", e);
+                        throw RuntimeException.Create("Reflective field access failed?", e);
                     }
                 }
             }
@@ -593,6 +611,7 @@ namespace YAF.Lucene.Net.Util
         /// Create a cached information about shallow size and reference fields for
         /// a given class.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static ClassCache CreateCacheEntry(Type clazz)
         {
             ClassCache cachedInfo;
@@ -631,6 +650,7 @@ namespace YAF.Lucene.Net.Util
         /// <para/>The returned offset will be the maximum of whatever was measured so far and
         /// <paramref name="f"/> field's offset and representation size (unaligned).
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static long AdjustForField(long sizeSoFar, FieldInfo f)
         {
             Type type = f.FieldType;
@@ -649,7 +669,7 @@ namespace YAF.Lucene.Net.Util
             //  }
             //  catch (Exception ex)
             //  {
-            //    throw new Exception("Access problem with sun.misc.Unsafe", ex);
+            //    throw RuntimeException.Create("Access problem with sun.misc.Unsafe", ex);
             //  }
             //}
             //else
@@ -663,6 +683,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Returns <c>size</c> in human-readable units (GB, MB, KB or bytes).
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string HumanReadableUnits(long bytes)
         {
             return HumanReadableUnits(bytes, new NumberFormatInfo() { NumberDecimalDigits = 1 });
@@ -695,6 +716,7 @@ namespace YAF.Lucene.Net.Util
         /// Return a human-readable size of a given object. </summary>
         /// <seealso cref="SizeOf(object)"/>
         /// <seealso cref="HumanReadableUnits(long)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string HumanSizeOf(object @object)
         {
             return HumanReadableUnits(SizeOf(@object));
@@ -704,6 +726,7 @@ namespace YAF.Lucene.Net.Util
         /// Return a human-readable size of a given object. </summary>
         /// <seealso cref="SizeOf(object)"/>
         /// <seealso cref="HumanReadableUnits(long)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string HumanSizeOf(object @object, IFormatProvider df)
         {
             return HumanReadableUnits(SizeOf(@object), df);
@@ -895,6 +918,7 @@ namespace YAF.Lucene.Net.Util
             /// </summary>
             /// <param name="capacity">
             ///          New capacity (must be a power of two). </param>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void AllocateBuffers(int capacity)
             {
                 this.keys = new object[capacity];
@@ -904,12 +928,12 @@ namespace YAF.Lucene.Net.Util
             /// <summary>
             /// Return the next possible capacity, counting from the current buffers' size.
             /// </summary>
-            private int NextCapacity(int current) // LUCENENET NOTE: made private, since protected is not valid in a sealed class
+            private static int NextCapacity(int current) // LUCENENET NOTE: made private, since protected is not valid in a sealed class // LUCENENET: CA1822: Mark members as static
             {
                 if (Debugging.AssertsEnabled)
                 {
                     Debugging.Assert(current > 0 && ((current & (current - 1)) == 0), "Capacity must be a power of two.");
-                    Debugging.Assert((current << 1) > 0, "Maximum capacity exceeded ({0}).", ((int)((uint)0x80000000 >> 1)));
+                    Debugging.Assert((current << 1) > 0, "Maximum capacity exceeded ({0}).", ((int)(0x80000000 >> 1))); // LUCENENET: No need to cast to uint because it already is
                 }
 
                 if (current < MIN_CAPACITY / 2)
@@ -925,9 +949,9 @@ namespace YAF.Lucene.Net.Util
             private int RoundCapacity(int requestedCapacity) // LUCENENET NOTE: made private, since protected is not valid in a sealed class
             {
                 // Maximum positive integer that is a power of two.
-                if (requestedCapacity > ((int)((uint)0x80000000 >> 1)))
+                if (requestedCapacity > ((int)(0x80000000 >> 1))) // LUCENENET: No need to cast to uint because it already is
                 {
-                    return ((int)((uint)0x80000000 >> 1));
+                    return ((int)(0x80000000 >> 1)); // LUCENENET: No need to cast to uint because it already is
                 }
 
                 int capacity = MIN_CAPACITY;
@@ -939,6 +963,7 @@ namespace YAF.Lucene.Net.Util
                 return capacity;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void Clear()
             {
                 Assigned = 0;
@@ -955,9 +980,10 @@ namespace YAF.Lucene.Net.Util
             //    }
             //}
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public IEnumerator<KType> GetEnumerator()
             {
-                return new IteratorAnonymousInnerClassHelper(this);
+                return new IteratorAnonymousClass(this);
             }
 
             System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
@@ -965,11 +991,11 @@ namespace YAF.Lucene.Net.Util
                 return GetEnumerator();
             }
 
-            private class IteratorAnonymousInnerClassHelper : IEnumerator<KType>
+            private class IteratorAnonymousClass : IEnumerator<KType>
             {
                 private readonly IdentityHashSet<KType> outerInstance;
 
-                public IteratorAnonymousInnerClassHelper(IdentityHashSet<KType> outerInstance)
+                public IteratorAnonymousClass(IdentityHashSet<KType> outerInstance)
                 {
                     this.outerInstance = outerInstance;
                     pos = -1;
@@ -1010,7 +1036,7 @@ namespace YAF.Lucene.Net.Util
 
                 public void Reset()
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
                 public void Dispose()

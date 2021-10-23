@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,19 +26,17 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -61,7 +59,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Sets the DataRow.
         /// </summary>
-        public DataRow DataRow
+        public PagedMessage DataRow
         {
             set => this.CurrentMessage = value != null ? new Message(value) : null;
         }
@@ -79,7 +77,7 @@ namespace YAF.Web.Controls
             set
             {
                 this.currentMessage = value ?? new Message();
-                this.MessageFlags = new MessageFlags(this.currentMessage.Flags);
+                this.MessageFlags = this.currentMessage.MessageFlags;
             }
         }
 
@@ -96,7 +94,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets Message Id.
         /// </summary>
-        public int? MessageId => this.CurrentMessage.ID == 0 ? null : this.CurrentMessage.ID.ToType<int?>();
+        public override int? MessageID => this.CurrentMessage.ID;
 
         /// <summary>
         ///   Gets or sets a value indicating whether Show the Edit Message if needed.
@@ -121,7 +119,7 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.ShowSignature && this.Get<BoardSettings>().AllowSignatures
+                if (this.ShowSignature && this.PageContext.BoardSettings.AllowSignatures
                                        && this.CurrentMessage.Signature.IsSet()
                                        && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
                 {
@@ -145,9 +143,9 @@ namespace YAF.Web.Controls
         /// </returns>
         public static string TruncateMessage([NotNull] string message)
         {
-            CodeContracts.VerifyNotNull(message, "message");
+            CodeContracts.VerifyNotNull(message);
 
-            var maxPostSize = Math.Max(BoardContext.Current.Get<BoardSettings>().MaxPostSize, 0);
+            var maxPostSize = Math.Max(BoardContext.Current.BoardSettings.MaxPostSize, 0);
 
             // 0 == unlimited
             return maxPostSize == 0 || message.Length <= maxPostSize ? message : message.Truncate(maxPostSize);
@@ -163,38 +161,11 @@ namespace YAF.Web.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
+            CodeContracts.VerifyNotNull(this.MessageFlags);
 
-            this.MessageID = this.CurrentMessage.ID;
-
-            if (!this.MessageFlags.IsDeleted)
+            if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
             {
-                // populate DisplayUserID
-                if (!UserMembershipHelper.IsGuestUser(this.CurrentMessage.UserID))
-                {
-                    this.DisplayUserID = this.CurrentMessage.UserID;
-                }
-
-                if (this.ShowAttachments)
-                {
-                    if (this.CurrentMessage.HasAttachments ?? false)
-                    {
-                        // add attached files control...
-                        var attached = new MessageAttached { MessageID = this.CurrentMessage.ID };
-
-                        if (this.CurrentMessage.UserID > 0
-                            && BoardContext.Current.Get<BoardSettings>().EnableDisplayName)
-                        {
-                            attached.UserName = UserMembershipHelper.GetDisplayNameFromID(this.CurrentMessage.UserID);
-                        }
-                        else
-                        {
-                            attached.UserName = this.CurrentMessage.UserName;
-                        }
-
-                        this.Controls.Add(attached);
-                    }
-                }
+                this.DisplayUserID = this.CurrentMessage.UserID;
             }
 
             base.OnPreRender(e);
@@ -206,9 +177,9 @@ namespace YAF.Web.Controls
         /// <param name="writer">The writer.</param>
         protected override void RenderMessage([NotNull] HtmlTextWriter writer)
         {
-            CodeContracts.VerifyNotNull(writer, "writer");
-            CodeContracts.VerifyNotNull(this.MessageFlags, "MessageFlags");
-            CodeContracts.VerifyNotNull(this.CurrentMessage, "CurrentMessage");
+            CodeContracts.VerifyNotNull(writer);
+            CodeContracts.VerifyNotNull(this.MessageFlags);
+            CodeContracts.VerifyNotNull(this.CurrentMessage);
 
             if (this.MessageFlags.IsDeleted)
             {
@@ -228,7 +199,7 @@ namespace YAF.Web.Controls
             }
             else if (this.CurrentMessage.Edited > this.CurrentMessage.Posted)
             {
-               this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
+                this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
 
                 // handle a message that's been edited...
                 var editedMessageDateTime = this.CurrentMessage.Posted;
@@ -239,6 +210,7 @@ namespace YAF.Web.Controls
                 }
 
                 var formattedMessage = this.Get<IFormatMessage>().Format(
+                    this.CurrentMessage.ID,
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags,
                     false,
@@ -249,13 +221,13 @@ namespace YAF.Web.Controls
                     formattedMessage,
                     this.MessageFlags,
                     this.DisplayUserID,
-                    this.MessageId);
+                    this.MessageID);
 
                 // Render Edit Message
                 if (this.ShowEditMessage
-                    && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.Get<BoardSettings>().EditTimeOut))
+                    && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.PageContext.BoardSettings.EditTimeOut))
                 {
-                    this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageId);
+                    this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageID);
                 }
 
                 // Render Go to Answer Message
@@ -267,6 +239,7 @@ namespace YAF.Web.Controls
             else
             {
                 var formattedMessage = this.Get<IFormatMessage>().Format(
+                    this.CurrentMessage.ID,
                     this.HighlightMessage(this.Message, true),
                     this.MessageFlags);
 
@@ -284,7 +257,7 @@ namespace YAF.Web.Controls
                 }
             }
         }
-       
+
         #endregion
     }
 }

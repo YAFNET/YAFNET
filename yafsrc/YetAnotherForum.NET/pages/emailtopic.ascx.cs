@@ -30,14 +30,14 @@ namespace YAF.Pages
     using System.Net.Mail;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -71,7 +71,7 @@ namespace YAF.Pages
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess
                 || !this.PageContext.BoardSettings.AllowEmailTopic)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -79,36 +79,46 @@ namespace YAF.Pages
                 return;
             }
 
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.SendEmail.ClientID));
+
+            this.Subject.Text = this.PageContext.PageTopic.TopicName;
+
+            var emailTopic = new TemplateEmail("EMAILTOPIC")
+            {
+                TemplateParams =
+                {
+                    ["{link}"] = this.Get<LinkBuilder>().GetLink(
+                        ForumPages.Posts,
+                        true,
+                        "t={0}&name={1}",
+                        this.PageContext.PageTopicID,
+                        this.PageContext.PageTopic.TopicName),
+                    ["{user}"] = this.PageContext.User.DisplayOrUserName()
+                }
+            };
+
+            this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             if (this.PageContext.Settings.LockedForum == 0)
             {
-                this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
+                this.PageLinks.AddRoot();
+
+                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
             }
 
             this.PageLinks.AddForum(this.PageContext.PageForumID);
+
             this.PageLinks.AddLink(
-                this.PageContext.PageTopicName,
-                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
-
-            this.Subject.Text = this.PageContext.PageTopicName;
-
-            var emailTopic = new TemplateEmail
-                                 {
-                                     TemplateParams =
-                                         {
-                                             ["{link}"] =
-                                             BuildLink.GetLinkNotEscaped(
-                                                 ForumPages.Posts,
-                                                 true,
-                                                 "t={0}",
-                                                 this.PageContext.PageTopicID),
-                                             ["{user}"] = this.PageContext.PageUserName
-                                         }
-                                 };
-
-            this.Message.Text = emailTopic.ProcessTemplate("EMAILTOPIC");
+                this.PageContext.PageTopic.TopicName,
+                this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName));
         }
 
         /// <summary>
@@ -118,23 +128,21 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SendEmail_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.EmailAddress.Text.Length == 0)
-            {
-                this.PageContext.AddLoadMessage(this.GetText("need_email"), MessageTypes.warning);
-                return;
-            }
-
             try
             {
                 var emailTopic = new TemplateEmail("EMAILTOPIC")
-                                     {
-                                         TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
-                                     };
+                {
+                    TemplateParams = { ["{message}"] = this.Message.Text.Trim() }
+                };
 
                 // send a change email message...
                 emailTopic.SendEmail(new MailAddress(this.EmailAddress.Text.Trim()), this.Subject.Text.Trim());
 
-                BuildLink.Redirect(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
+                this.Get<LinkBuilder>().Redirect(
+                    ForumPages.Posts,
+                    "t={0}&name={1}",
+                    this.PageContext.PageTopicID,
+                    this.PageContext.PageTopic.TopicName);
             }
             catch (Exception x)
             {

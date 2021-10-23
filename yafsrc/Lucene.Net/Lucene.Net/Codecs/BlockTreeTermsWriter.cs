@@ -1,11 +1,11 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util.Fst;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Codecs
@@ -27,21 +27,21 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteSequenceOutputs = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using NoOutputs = YAF.Lucene.Net.Util.Fst.NoOutputs;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
-    using Util = YAF.Lucene.Net.Util.Fst.Util;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteSequenceOutputs  = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using Int32sRef  = YAF.Lucene.Net.Util.Int32sRef;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using NoOutputs  = YAF.Lucene.Net.Util.Fst.NoOutputs;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Util  = YAF.Lucene.Net.Util.Fst.Util;
 
     /*
       TODO:
@@ -233,8 +233,10 @@ namespace YAF.Lucene.Net.Codecs
 
         internal const string TERMS_INDEX_CODEC_NAME = "BLOCK_TREE_TERMS_INDEX";
 
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexOutput @out;
         private readonly IndexOutput indexOut;
+#pragma warning restore CA2213 // Disposable fields should be disposed
         internal readonly int minItemsInBlock;
         internal readonly int maxItemsInBlock;
 
@@ -285,11 +287,11 @@ namespace YAF.Lucene.Net.Codecs
         {
             if (minItemsInBlock <= 1)
             {
-                throw new ArgumentException("minItemsInBlock must be >= 2; got " + minItemsInBlock);
+                throw new ArgumentOutOfRangeException(nameof(minItemsInBlock), "minItemsInBlock must be >= 2; got " + minItemsInBlock); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (maxItemsInBlock <= 0)
             {
-                throw new ArgumentException("maxItemsInBlock must be >= 1; got " + maxItemsInBlock);
+                throw new ArgumentOutOfRangeException(nameof(maxItemsInBlock), "maxItemsInBlock must be >= 1; got " + maxItemsInBlock); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (minItemsInBlock > maxItemsInBlock)
             {
@@ -338,6 +340,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Writes the terms file header. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected internal virtual void WriteHeader(IndexOutput @out)
         {
             CodecUtil.WriteHeader(@out, TERMS_CODEC_NAME, VERSION_CURRENT);
@@ -345,6 +348,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Writes the index file header. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected internal virtual void WriteIndexHeader(IndexOutput @out)
         {
             CodecUtil.WriteHeader(@out, TERMS_INDEX_CODEC_NAME, VERSION_CURRENT);
@@ -352,6 +356,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Writes the terms file trailer. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected internal virtual void WriteTrailer(IndexOutput @out, long dirStart)
         {
             @out.WriteInt64(dirStart);
@@ -359,6 +364,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Writes the index file trailer. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected internal virtual void WriteIndexTrailer(IndexOutput indexOut, long dirStart)
         {
             indexOut.WriteInt64(dirStart);
@@ -373,6 +379,7 @@ namespace YAF.Lucene.Net.Codecs
             return new TermsWriter(this, field);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static long EncodeOutput(long fp, bool hasTerms, bool isFloor)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(fp < (1L << 62));
@@ -459,31 +466,29 @@ namespace YAF.Lucene.Net.Codecs
                     if (blocks.Count == 0)
                         return "[]";
 
-                    using (var it = blocks.GetEnumerator())
+                    using var it = blocks.GetEnumerator();
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append('[');
+                    it.MoveNext();
+                    while (true)
                     {
-                        StringBuilder sb = new StringBuilder();
-                        sb.Append('[');
-                        it.MoveNext();
-                        while (true)
+                        var e = it.Current;
+                        // There is a chance that the Prefix will contain invalid UTF8,
+                        // so we catch that and use the alternative way of displaying it
+                        try
                         {
-                            var e = it.Current;
-                            // There is a chance that the Prefix will contain invalid UTF8,
-                            // so we catch that and use the alternative way of displaying it
-                            try
-                            {
-                                sb.Append(e.ToString());
-                            }
-                            catch (IndexOutOfRangeException)
-                            {
-                                sb.Append("BLOCK: ");
-                                sb.Append(e.Prefix.ToString());
-                            }
-                            if (!it.MoveNext())
-                            {
-                                return sb.Append(']').ToString();
-                            }
-                            sb.Append(',').Append(' ');
+                            sb.Append(e.ToString());
                         }
+                        catch (IndexOutOfRangeException)
+                        {
+                            sb.Append("BLOCK: ");
+                            sb.Append(e.Prefix.ToString());
+                        }
+                        if (!it.MoveNext())
+                        {
+                            return sb.Append(']').ToString();
+                        }
+                        sb.Append(',').Append(' ');
                     }
                 }
             }
@@ -496,7 +501,7 @@ namespace YAF.Lucene.Net.Codecs
                     // it might contain garbage that cannot be converted into text.
                     Debugging.Assert((IsFloor && floorBlocks != null && floorBlocks.Count != 0) || (!IsFloor && floorBlocks == null), "isFloor={0} floorBlocks={1}", IsFloor, new PendingBlocksFormatter(floorBlocks));
 
-                    Debugging.Assert(scratchBytes.GetFilePointer() == 0);
+                    Debugging.Assert(scratchBytes.Position == 0); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
 
                 // TODO: try writing the leading vLong in MSB order
@@ -512,7 +517,7 @@ namespace YAF.Lucene.Net.Codecs
                         //if (DEBUG) {
                         //  System.out.println("    write floorLeadByte=" + Integer.toHexString(sub.floorLeadByte&0xff));
                         //}
-                        scratchBytes.WriteByte((byte)(sbyte)sub.FloorLeadByte);
+                        scratchBytes.WriteByte((byte)sub.FloorLeadByte);
                         if (Debugging.AssertsEnabled) Debugging.Assert(sub.Fp > Fp);
                         scratchBytes.WriteVInt64((sub.Fp - Fp) << 1 | (uint)(sub.HasTerms ? 1 : 0));
                     }
@@ -520,7 +525,7 @@ namespace YAF.Lucene.Net.Codecs
 
                 ByteSequenceOutputs outputs = ByteSequenceOutputs.Singleton;
                 Builder<BytesRef> indexBuilder = new Builder<BytesRef>(FST.INPUT_TYPE.BYTE1, 0, 0, true, false, int.MaxValue, outputs, null, false, PackedInt32s.COMPACT, true, 15);
-                var bytes = new byte[(int)scratchBytes.GetFilePointer()];
+                var bytes = new byte[(int)scratchBytes.Position]; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (Debugging.AssertsEnabled) Debugging.Assert(bytes.Length > 0);
                 scratchBytes.WriteTo(bytes, 0);
                 indexBuilder.Add(Util.ToInt32sRef(Prefix, scratchIntsRef), new BytesRef(bytes, 0, bytes.Length));
@@ -580,7 +585,9 @@ namespace YAF.Lucene.Net.Codecs
             }
         }
 
+#pragma warning disable CA2213 // Disposable fields should be disposed
         internal readonly RAMOutputStream scratchBytes = new RAMOutputStream();
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         internal class TermsWriter : TermsConsumer
         {
@@ -688,7 +695,7 @@ namespace YAF.Lucene.Net.Codecs
                     // and we found 30 terms/sub-blocks starting w/ that
                     // prefix, and minItemsInBlock <= 30 <=
                     // maxItemsInBlock.
-                    PendingBlock nonFloorBlock = WriteBlock(prevTerm, prefixLength, prefixLength, count, count, 0, false, -1, true);
+                    PendingBlock nonFloorBlock = WriteBlock(prevTerm, prefixLength, prefixLength, count, count, /*0, LUCENENET: Never read */ false, -1, true);
                     nonFloorBlock.CompileIndex(null, outerInstance.scratchBytes);
                     pending.Add(nonFloorBlock);
                 }
@@ -864,7 +871,7 @@ namespace YAF.Lucene.Net.Codecs
                                 prevTerm.Int32s[prevTerm.Offset + prefixLength] = startLabel;
                             }
                             //System.out.println("  " + subCount + " subs");
-                            PendingBlock floorBlock = WriteBlock(prevTerm, prefixLength, curPrefixLength, curStart, pendingCount, subTermCountSums[1 + sub], true, startLabel, curStart == pendingCount);
+                            PendingBlock floorBlock = WriteBlock(prevTerm, prefixLength, curPrefixLength, curStart, pendingCount, /*subTermCountSums[1 + sub], LUCENENET: Never read */ true, startLabel, curStart == pendingCount);
                             if (firstBlock == null)
                             {
                                 firstBlock = floorBlock;
@@ -908,7 +915,7 @@ namespace YAF.Lucene.Net.Codecs
                                   System.out.println("      **");
                                 }
                                 */
-                                floorBlocks.Add(WriteBlock(prevTerm, prefixLength, prefixLength + 1, curStart, curStart, 0, true, startLabel, true));
+                                floorBlocks.Add(WriteBlock(prevTerm, prefixLength, prefixLength + 1, curStart,curStart, /* 0, LUCENENET: Never read */ true, startLabel, true));
                                 break;
                             }
                         }
@@ -926,13 +933,15 @@ namespace YAF.Lucene.Net.Codecs
             }
 
             // for debugging
+#pragma warning disable IDE0051 // Remove unused private members
             private string ToString(BytesRef b)
+#pragma warning restore IDE0051 // Remove unused private members
             {
                 try
                 {
                     return b.Utf8ToString() + " " + b;
                 }
-                catch (Exception)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     // If BytesRef isn't actually UTF8, or it's eg a
                     // prefix of UTF8 that ends mid-unicode-char, we
@@ -943,7 +952,9 @@ namespace YAF.Lucene.Net.Codecs
 
             // Writes all entries in the pending slice as a single
             // block:
-            private PendingBlock WriteBlock(Int32sRef prevTerm, int prefixLength, int indexPrefixLength, int startBackwards, int length, int futureTermCount, bool isFloor, int floorLeadByte, bool isLastInFloor)
+            private PendingBlock WriteBlock(Int32sRef prevTerm, int prefixLength, int indexPrefixLength,
+                int startBackwards, int length, /*int futureTermCount, // LUCENENET: Not used*/
+                bool isFloor, int floorLeadByte, bool isLastInFloor)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(length > 0);
 
@@ -953,7 +964,7 @@ namespace YAF.Lucene.Net.Codecs
 
                 IList<PendingEntry> slice = pending.SubList(start, start + length);
 
-                long startFP = outerInstance.@out.GetFilePointer();
+                long startFP = outerInstance.@out.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                 BytesRef prefix = new BytesRef(indexPrefixLength);
                 for (int m = 0; m < indexPrefixLength; m++)
@@ -1127,17 +1138,17 @@ namespace YAF.Lucene.Net.Codecs
                 // search on lookup
 
                 // Write suffixes byte[] blob to terms dict output:
-                outerInstance.@out.WriteVInt32((int)(suffixWriter.GetFilePointer() << 1) | (isLeafBlock ? 1 : 0));
+                outerInstance.@out.WriteVInt32((int)(suffixWriter.Position << 1) | (isLeafBlock ? 1 : 0)); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 suffixWriter.WriteTo(outerInstance.@out);
                 suffixWriter.Reset();
 
                 // Write term stats byte[] blob
-                outerInstance.@out.WriteVInt32((int)statsWriter.GetFilePointer());
+                outerInstance.@out.WriteVInt32((int)statsWriter.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 statsWriter.WriteTo(outerInstance.@out);
                 statsWriter.Reset();
 
                 // Write term meta data byte[] blob
-                outerInstance.@out.WriteVInt32((int)metaWriter.GetFilePointer());
+                outerInstance.@out.WriteVInt32((int)metaWriter.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 metaWriter.WriteTo(outerInstance.@out);
                 metaWriter.Reset();
 
@@ -1180,6 +1191,7 @@ namespace YAF.Lucene.Net.Codecs
 
             public override IComparer<BytesRef> Comparer => BytesRef.UTF8SortedAsUnicodeComparer;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override PostingsConsumer StartTerm(BytesRef text)
             {
                 //if (DEBUG) System.out.println("\nBTTW.startTerm term=" + fieldInfo.name + ":" + toString(text) + " seg=" + segment);
@@ -1233,7 +1245,7 @@ namespace YAF.Lucene.Net.Codecs
                     this.docCount = docCount;
 
                     // Write FST to index
-                    indexStartFP = outerInstance.indexOut.GetFilePointer();
+                    indexStartFP = outerInstance.indexOut.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     root.Index.Save(outerInstance.indexOut);
                     //System.out.println("  write FST " + indexStartFP + " field=" + fieldInfo.name);
 
@@ -1271,11 +1283,11 @@ namespace YAF.Lucene.Net.Codecs
         {
             if (disposing)
             {
-                IOException ioe = null;
+                Exception ioe = null; // LUCENENET: No need to cast to IOExcpetion
                 try
                 {
-                    long dirStart = @out.GetFilePointer();
-                    long indexDirStart = indexOut.GetFilePointer();
+                    long dirStart = @out.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
+                    long indexDirStart = indexOut.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                     @out.WriteVInt32(fields.Count);
 
@@ -1300,13 +1312,13 @@ namespace YAF.Lucene.Net.Codecs
                     WriteIndexTrailer(indexOut, indexDirStart);
                     CodecUtil.WriteFooter(indexOut);
                 }
-                catch (IOException ioe2)
+                catch (Exception ioe2) when (ioe2.IsIOException())
                 {
                     ioe = ioe2;
                 }
                 finally
                 {
-                    IOUtils.DisposeWhileHandlingException(ioe, @out, indexOut, postingsWriter);
+                    IOUtils.DisposeWhileHandlingException(ioe, @out, indexOut, postingsWriter, scratchBytes); // LUCENENET: Added scratchBytes
                 }
             }
         }

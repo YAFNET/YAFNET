@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -51,10 +51,12 @@ namespace YAF.Types.Interfaces
         void GetMentionUsers([NotNull] HttpContext context);
 
         /// <summary>
-        /// Gets the twitter user info as JSON string for the hover cards
+        /// Gets the Default Text Avatar
         /// </summary>
-        /// <param name="context">The context.</param>
-        void GetTwitterUserInfo([NotNull] HttpContext context);
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        void GetTextAvatar([NotNull] HttpContext context);
 
         /// <summary>
         /// The get response local avatar.
@@ -71,13 +73,5 @@ namespace YAF.Types.Interfaces
         /// The context.
         /// </param>
         void GetResponseCaptcha([NotNull] HttpContext context);
-
-        /// <summary>
-        /// The get response remote avatar.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        void GetResponseRemoteAvatar([NotNull] HttpContext context);
     }
 }

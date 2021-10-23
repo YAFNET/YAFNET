@@ -21,10 +21,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
-    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using CollectionUtil  = YAF.Lucene.Net.Util.CollectionUtil;
+    using FieldsConsumer  = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     internal sealed class FreqProxTermsWriter : TermsHashConsumer
     {
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Index
                     termsHash = perField.termsHash;
                     int numPostings = perField.bytesHash.Count;
                     perField.Reset();
-                    perField.ShrinkHash(numPostings);
+                    perField.ShrinkHash(/* numPostings // LUCENENET: Not used */);
                     fieldWriter.Reset();
                 }
 

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,9 +25,9 @@ namespace YAF.Types.EventProxies
 {
     #region Using
 
-    using System.Web.Security;
-
+    using YAF.Types;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Models.Identity;
 
     #endregion
 
@@ -47,9 +47,9 @@ namespace YAF.Types.EventProxies
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public NewUserRegisteredEvent([NotNull] MembershipUser user, int userId)
+        public NewUserRegisteredEvent([NotNull] AspNetUsers user, int userId)
         {
-            CodeContracts.VerifyNotNull(user, "user");
+            CodeContracts.VerifyNotNull(user);
 
             this.User = user;
             this.UserId = userId;
@@ -62,7 +62,7 @@ namespace YAF.Types.EventProxies
         /// <summary>
         /// Gets or sets User.
         /// </summary>
-        public MembershipUser User { get; set; }
+        public AspNetUsers User { get; set; }
 
         /// <summary>
         /// Gets or sets UserId.

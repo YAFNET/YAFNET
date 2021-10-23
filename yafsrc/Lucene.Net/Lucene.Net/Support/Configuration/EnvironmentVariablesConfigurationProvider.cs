@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Concurrent;
@@ -66,6 +66,8 @@ namespace YAF.Lucene.Net.Configuration
         {
             value = Data.GetOrAdd(key, (name) =>
             {
+                // LUCENENET: There is a slight chance that two threads could load the
+                // same environment variable at the same time, but it shouldn't be too expensive. See #417.
                 if (ignoreSecurityExceptionsOnRead)
                 {
                     try
@@ -118,7 +120,7 @@ namespace YAF.Lucene.Net.Configuration
             return indexOf < 0 ? key.Substring(prefixLength) : key.Substring(prefixLength, indexOf - prefixLength);
         }
 
-        private IChangeToken _reloadToken = new ConfigurationReloadToken();
+        private readonly IChangeToken _reloadToken = new ConfigurationReloadToken();
 
         /// <summary>
         /// Returns a <see cref="IChangeToken"/> that can be used to listen when this provider is reloaded.

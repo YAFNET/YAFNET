@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class tags
+    public partial class Tags
     {
 
         /// <summary>
@@ -22,6 +22,24 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
+
+        /// <summary>
+        /// HelpLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel HelpLabel2;
+
+        /// <summary>
+        /// PageSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
 
         /// <summary>
         /// List control.

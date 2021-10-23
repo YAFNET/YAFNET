@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,7 +26,7 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -54,13 +54,15 @@ namespace YAF.Core.Model
         /// <param name="forumId">
         /// The forum id.
         /// </param>
-        public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
+        public static void Add(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.Insert(new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow });
+            var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
 
-            repository.FireNew();
+            repository.Insert(watchForum);
+
+            repository.FireNew(watchForum);
         }
 
         /// <summary>
@@ -78,9 +80,9 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="int?"/>.
         /// </returns>
-        public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
+        public static int? Check(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
 
@@ -96,21 +98,29 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
+        /// <param name="pageIndex">
+        /// The page Index.
+        /// </param>
+        /// <param name="pageSize">
+        /// The page Size.
+        /// </param>
         /// <returns>
         /// The <see cref="List"/>.
         /// </returns>
-        public static List<Tuple<WatchForum, Forum>> List(this IRepository<WatchForum> repository, int userId)
+        public static List<Tuple<WatchForum, Forum>> List(
+            this IRepository<WatchForum> repository,
+            [NotNull] int userId,
+            [NotNull] int pageIndex = 0,
+            [NotNull] int pageSize = 10000000)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 
-            expression.Join<Forum>((a, b) => b.ID == a.ForumID)
-                .Where<WatchForum>((b) => b.UserID == userId)
-                .Select();
+            expression.Join<Forum>((a, b) => b.ID == a.ForumID).Where<WatchForum>(b => b.UserID == userId)
+                .OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);
 
-            return repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<WatchForum, Forum>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<WatchForum, Forum>(expression));
         }
 
         #endregion

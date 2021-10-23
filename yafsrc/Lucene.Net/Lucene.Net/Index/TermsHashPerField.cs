@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
 using System;
@@ -23,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using Int32BlockPool = YAF.Lucene.Net.Util.Int32BlockPool;
+    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRefHash  = YAF.Lucene.Net.Util.BytesRefHash;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using Int32BlockPool  = YAF.Lucene.Net.Util.Int32BlockPool;
 
     internal sealed class TermsHashPerField : InvertedDocConsumerPerField
     {
@@ -84,7 +85,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal void ShrinkHash(int targetSize)
+        internal void ShrinkHash(/* int targetSize // LUCENENET: Not referenced */)
         {
             // Fully free the bytesHash on each flush but keep the pool untouched
             // bytesHash.clear will clear the ByteStartArray and in turn the ParallelPostingsArray too
@@ -282,11 +283,6 @@ namespace YAF.Lucene.Net.Index
         internal int[] intUptos;
         internal int intUptoStart;
 
-        internal void WriteByte(int stream, sbyte b)
-        {
-            WriteByte(stream, (byte)b);
-        }
-
         internal void WriteByte(int stream, byte b)
         {
             int upto = intUptos[intUptoStart + stream];
@@ -322,10 +318,10 @@ namespace YAF.Lucene.Net.Index
             if (Debugging.AssertsEnabled) Debugging.Assert(stream < streamCount);
             while ((i & ~0x7F) != 0)
             {
-                WriteByte(stream, (sbyte)((i & 0x7f) | 0x80));
-                i = (int)((uint)i >> 7);
+                WriteByte(stream, (byte)((i & 0x7f) | 0x80));
+                i = i.TripleShift(7);
             }
-            WriteByte(stream, (sbyte)i);
+            WriteByte(stream, (byte)i);
         }
 
         internal override void Finish()

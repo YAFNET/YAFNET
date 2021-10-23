@@ -36,16 +36,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [Alias("Tag")]
-    public partial class Tag : IEntity, IHaveBoardID, IHaveID
+    public class Tag : IEntity, IHaveBoardID, IHaveID
     {
-       /// <summary>
-        /// Initializes a new instance of the <see cref="Tag"/> class.
-        /// </summary>
-        public Tag()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -69,10 +61,5 @@ namespace YAF.Types.Models
         public string TagName { get; set; }
 
         #endregion
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
     }
 }

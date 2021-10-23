@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Spans
@@ -20,23 +20,20 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Base class for filtering a <see cref="SpanQuery"/> based on the position of a match.
     /// </summary>
-    public abstract class SpanPositionCheckQuery : SpanQuery
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public abstract class SpanPositionCheckQuery : SpanQuery // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         protected SpanQuery m_match;
 
-        public SpanPositionCheckQuery(SpanQuery match)
+        protected SpanPositionCheckQuery(SpanQuery match) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
             this.m_match = match;
         }
@@ -116,7 +113,7 @@ namespace YAF.Lucene.Net.Search.Spans
         {
             private readonly SpanPositionCheckQuery outerInstance;
 
-            private Spans spans;
+            private readonly Spans spans; // LUCENENET: marked readonly
 
             public PositionCheckSpan(SpanPositionCheckQuery outerInstance, AtomicReaderContext context, IBits acceptDocs, IDictionary<Term, TermContext> termContexts)
             {

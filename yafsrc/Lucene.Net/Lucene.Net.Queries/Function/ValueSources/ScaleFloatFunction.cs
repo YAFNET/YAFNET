@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using System.Collections;
@@ -117,10 +118,10 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             float maxSource = scaleInfo.MaxVal;
 
             var vals = m_source.GetValues(context, readerContext);
-            return new SingleDocValuesAnonymousInnerClassHelper(this, this, scale, minSource, maxSource, vals);
+            return new SingleDocValuesAnonymousClass(this, this, scale, minSource, maxSource, vals);
         }
 
-        private class SingleDocValuesAnonymousInnerClassHelper : SingleDocValues
+        private class SingleDocValuesAnonymousClass : SingleDocValues
         {
             private readonly ScaleSingleFunction outerInstance;
 
@@ -129,7 +130,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             private readonly float maxSource;
             private readonly FunctionValues vals;
 
-            public SingleDocValuesAnonymousInnerClassHelper(ScaleSingleFunction outerInstance, ScaleSingleFunction @this, float scale, float minSource, float maxSource, FunctionValues vals)
+            public SingleDocValuesAnonymousClass(ScaleSingleFunction outerInstance, ScaleSingleFunction @this, float scale, float minSource, float maxSource, FunctionValues vals)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;

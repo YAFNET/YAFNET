@@ -26,16 +26,16 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
+    using Codec  = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocValuesFormat  = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer  = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using StoredFieldsReader  = YAF.Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader  = YAF.Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// <see cref="IndexReader"/> implementation over a single segment.
@@ -185,7 +185,7 @@ namespace YAF.Lucene.Net.Index
         // initialize the per-field DocValuesProducer
         private void InitDocValuesProducers(Codec codec)
         {
-            Directory dir = core.cfsReader != null ? core.cfsReader : si.Info.Dir;
+            Directory dir = core.cfsReader ?? si.Info.Dir;
             DocValuesFormat dvFormat = codec.DocValuesFormat;
             IDictionary<long?, IList<FieldInfo>> genInfos = GetGenInfos();
 
@@ -255,9 +255,7 @@ namespace YAF.Lucene.Net.Index
                     continue;
                 }
                 long gen = fi.DocValuesGen;
-                IList<FieldInfo> infos;
-                genInfos.TryGetValue(gen, out infos);
-                if (infos == null)
+                if (!genInfos.TryGetValue(gen, out IList<FieldInfo> infos) || infos == null)
                 {
                     infos = new List<FieldInfo>();
                     genInfos[gen] = infos;
@@ -456,14 +454,9 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            NumericDocValues dvs;
-            object dvsDummy;
-            dvFields.TryGetValue(field, out dvsDummy);
-            dvs = (NumericDocValues)dvsDummy;
-            if (dvs == null)
+            if (!dvFields.TryGetValue(field, out object dvsDummy) || !(dvsDummy is NumericDocValues dvs))
             {
-                DocValuesProducer dvProducer;
-                dvProducersByField.TryGetValue(field, out dvProducer);
+                dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
                 dvs = dvProducer.GetNumeric(fi);
                 dvFields[field] = dvs;
@@ -489,11 +482,9 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, IBits> dvFields = docsWithFieldLocal.Value;
 
-            dvFields.TryGetValue(field, out IBits dvs);
-            if (dvs == null)
+            if (!dvFields.TryGetValue(field, out IBits dvs) || dvs == null)
             {
-                DocValuesProducer dvProducer;
-                dvProducersByField.TryGetValue(field, out dvProducer);
+                dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
                 dvs = dvProducer.GetDocsWithField(fi);
                 dvFields[field] = dvs;
@@ -513,11 +504,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            object ret;
-            BinaryDocValues dvs;
-            dvFields.TryGetValue(field, out ret);
-            dvs = (BinaryDocValues)ret;
-            if (dvs == null)
+            if (!dvFields.TryGetValue(field, out object ret) || !(ret is BinaryDocValues dvs))
             {
                 dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
@@ -539,11 +526,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            SortedDocValues dvs;
-            object ret;
-            dvFields.TryGetValue(field, out ret);
-            dvs = (SortedDocValues)ret;
-            if (dvs == null)
+            if (!dvFields.TryGetValue(field, out object ret) || !(ret is SortedDocValues dvs))
             {
                 dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);
@@ -565,11 +548,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> dvFields = docValuesLocal.Value;
 
-            object ret;
-            SortedSetDocValues dvs;
-            dvFields.TryGetValue(field, out ret);
-            dvs = (SortedSetDocValues)ret;
-            if (dvs == null)
+            if (!dvFields.TryGetValue(field, out object ret) || !(ret is SortedSetDocValues dvs))
             {
                 dvProducersByField.TryGetValue(field, out DocValuesProducer dvProducer);
                 if (Debugging.AssertsEnabled) Debugging.Assert(dvProducer != null);

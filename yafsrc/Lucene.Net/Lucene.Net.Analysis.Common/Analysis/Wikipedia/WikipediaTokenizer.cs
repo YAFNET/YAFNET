@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
@@ -164,7 +165,7 @@ namespace YAF.Lucene.Net.Analysis.Wikipedia
             // TODO: cutover to enum
             if (tokenOutput != TOKENS_ONLY && tokenOutput != UNTOKENIZED_ONLY && tokenOutput != BOTH)
             {
-                throw new ArgumentException("tokenOutput must be TOKENS_ONLY, UNTOKENIZED_ONLY or BOTH");
+                throw new ArgumentOutOfRangeException(nameof(tokenOutput), "tokenOutput must be TOKENS_ONLY, UNTOKENIZED_ONLY or BOTH"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.tokenOutput = tokenOutput;
             this.untokenizedTypes = untokenizedTypes;

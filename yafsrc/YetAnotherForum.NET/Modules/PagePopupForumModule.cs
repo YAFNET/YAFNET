@@ -36,7 +36,7 @@ namespace YAF.Modules
     /// <summary>
     /// The Page Popup Module
     /// </summary>
-    [YafModule("Page Popup Module", "Tiny Gecko", 1)]
+    [Module("Page Popup Module", "Tiny Gecko", 1)]
     public class PagePopupForumModule : SimpleBaseForumModule
     {
         #region Constants and Fields
@@ -100,7 +100,7 @@ namespace YAF.Modules
                 "modalNotification",
                 string
                     .Format(
-                        "var fpModal = function() {{ {2}('{0}', '{1}','{3}'); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
+                        "var fpModal = function() {{ {2}(\"{0}\", \"{1}\",\"{3}\"); Sys.Application.remove_load(fpModal); }}; Sys.Application.add_load(fpModal);",
                         message.Message,
                             message.MessageType.ToString().ToLower(),
                             this.errorPopup.ShowModalFunction,
@@ -116,9 +116,9 @@ namespace YAF.Modules
             {
                 // add error control...
                 this.errorPopup = new PopupDialogNotification
-                    {
-                        ID = "YafForumPageErrorPopup1"
-                    };
+                {
+                    ID = "YafForumPageErrorPopup1"
+                };
 
                 this.ForumControl.Controls.Add(this.errorPopup);
             }

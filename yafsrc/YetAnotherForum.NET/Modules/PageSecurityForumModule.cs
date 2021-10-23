@@ -25,30 +25,22 @@ namespace YAF.Modules
 {
     #region Using
 
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
     /// Module that handles individual page security features -- needs to be expanded.
     /// </summary>
-    [YafModule("Page Security Module", "Tiny Gecko", 1)]
+    [Module("Page Security Module", "Tiny Gecko", 1)]
     public class PageSecurityForumModule : SimpleBaseForumModule
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The _page pre load.
-        /// </summary>
-        private readonly IFireEvent<ForumPagePreLoadEvent> _pagePreLoad;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -59,8 +51,7 @@ namespace YAF.Modules
         /// </param>
         public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
         {
-            this._pagePreLoad = pagePreLoad;
-            this._pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
+            pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
         }
 
         #endregion
@@ -81,9 +72,7 @@ namespace YAF.Modules
             [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
         {
             // no security features for login/logout pages
-            if (this.ForumPageType == ForumPages.Login || this.ForumPageType == ForumPages.Approve
-                                                       || this.ForumPageType == ForumPages.Logout
-                                                       || this.ForumPageType == ForumPages.RecoverPassword)
+            if (this.CurrentForumPage.IsAccountPage)
             {
                 return;
             }
@@ -105,14 +94,14 @@ namespace YAF.Modules
             // not totally necessary... but provides another layer of protection...
             if (this.CurrentForumPage.IsAdminPage && !this.PageContext.IsAdmin)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
                 return;
             }
 
             // handle security features...
-            if (this.ForumPageType == ForumPages.Register && this.PageContext.BoardSettings.DisableRegistrations)
+            if (this.ForumPageType == ForumPages.Account_Register && this.PageContext.BoardSettings.DisableRegistrations)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 

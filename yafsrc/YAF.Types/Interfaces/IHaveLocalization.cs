@@ -23,18 +23,18 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The i have localization.
-  /// </summary>
-  public interface IHaveLocalization
-  {
-    #region Properties
-
     /// <summary>
-    /// Gets Localization.
+    /// The i have localization.
     /// </summary>
-    ILocalization Localization { get; }
+    public interface IHaveLocalization
+    {
+        #region Properties
 
-    #endregion
-  }
+        /// <summary>
+        /// Gets Localization.
+        /// </summary>
+        ILocalization Localization { get; }
+
+        #endregion
+    }
 }

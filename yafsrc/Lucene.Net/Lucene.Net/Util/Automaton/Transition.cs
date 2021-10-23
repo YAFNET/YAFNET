@@ -1,7 +1,8 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 /*
@@ -43,10 +44,7 @@ namespace YAF.Lucene.Net.Util.Automaton
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-    public class Transition
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    public class Transition // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /*
          * CLASS INVARIANT: min<=max
@@ -127,6 +125,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// the destination state).
         /// </summary>
         /// <returns> Hash code. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             return min * 2 + max * 3;
@@ -136,11 +135,13 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// Clones this transition.
         /// </summary>
         /// <returns> Clone with same character interval and destination state. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual object Clone()
         {
             return (Transition)base.MemberwiseClone();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void AppendCharString(int c, StringBuilder b)
         {
             if (c >= 0x21 && c <= 0x7e && c != '\\' && c != '"')
@@ -203,6 +204,7 @@ namespace YAF.Lucene.Net.Util.Automaton
             return b.ToString();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void AppendDot(StringBuilder b)
         {
             b.Append(" -> ").Append(to.number).Append(" [label=\"");

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,33 +24,31 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_UserGroup table.
+    /// A class which represents the UserGroup table.
     /// </summary>
     [Serializable]
-    [Table(Name = "UserGroup")]
-    public partial class UserGroup : IEntity
+    [CompositePrimaryKey(nameof(UserID), nameof(GroupID))]
+    public class UserGroup : IEntity
     {
-        partial void OnCreated();
-
-        public UserGroup()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
-
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         [Index]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group id.
+        /// </summary>
         [References(typeof(Group))]
         [Required]
         public int GroupID { get; set; }

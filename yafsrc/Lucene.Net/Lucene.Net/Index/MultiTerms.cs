@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CompiledAutomaton = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using CompiledAutomaton  = YAF.Lucene.Net.Util.Automaton.CompiledAutomaton;
 
     /// <summary>
     /// Exposes flex API, merged from flex API of
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Index
                     IComparer<BytesRef> subTermComp = subs[i].Comparer;
                     if (subTermComp != null && !subTermComp.Equals(_termComp))
                     {
-                        throw new InvalidOperationException("sub-readers have different BytesRef.Comparers; cannot merge");
+                        throw IllegalStateException.Create("sub-readers have different BytesRef.Comparers; cannot merge");
                     }
                 }
                 _hasFreqs &= subs[i].HasFreqs;

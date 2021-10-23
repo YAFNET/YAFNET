@@ -7,13 +7,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    using System.Web.UI.WebControls;
+namespace YAF.Pages.Admin
+{
 
-    using YAF.Web.Controls;
 
-    public partial class pageaccesslist {
-        
+    public partial class PageAccessList
+    {
 
         /// <summary>
         /// PageLinks control.
@@ -22,28 +21,7 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected PageLinks PageLinks;
-        
-
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected LocalizedLabel LocalizedLabel1;
-        
-
-        /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected LocalizedLabel LocalizedLabel2;
-        
+        protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
         /// List control.
@@ -52,6 +30,6 @@ namespace YAF.Pages.Admin {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected Repeater List;
+        protected global::System.Web.UI.WebControls.Repeater List;
     }
 }

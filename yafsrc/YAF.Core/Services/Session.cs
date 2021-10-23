@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,10 +31,10 @@ namespace YAF.Core.Services
     using System.Collections.Generic;
     using System.Web;
 
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -53,7 +53,7 @@ namespace YAF.Core.Services
         /// </param>
         public Session([NotNull] HttpSessionStateBase sessionState)
         {
-            CodeContracts.VerifyNotNull(sessionState, "sessionState");
+            CodeContracts.VerifyNotNull(sessionState);
 
             this.SessionState = sessionState;
         }
@@ -63,16 +63,6 @@ namespace YAF.Core.Services
         #region Properties
 
         /// <summary>
-        /// Gets or sets the user activity page size.
-        /// </summary>
-        public int? UserActivityPageSize
-        {
-            get => (int?)this.SessionState["UserActivityPageSize"];
-
-            set => this.SessionState["UserActivityPageSize"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets UserTopicSince.
         /// </summary>
         public int? UserTopicSince
@@ -80,26 +70,6 @@ namespace YAF.Core.Services
             get => (int?)this.SessionState["UserTopicSince"];
 
             set => this.SessionState["UserTopicSince"] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets Twitter Token.
-        /// </summary>
-        public string TwitterToken
-        {
-            get => (string)this.SessionState["TwitterToken"];
-
-            set => this.SessionState["TwitterToken"] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets Twitter Token Secret.
-        /// </summary>
-        public string TwitterTokenSecret
-        {
-            get => (string)this.SessionState["TwitterTokenSecret"];
-
-            set => this.SessionState["TwitterTokenSecret"] = value;
         }
 
         /// <summary>
@@ -168,13 +138,13 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastPm.
         /// </summary>
-        public System.DateTime LastPendingBuddies
+        public DateTime LastPendingBuddies
         {
             get
             {
                 if (this.SessionState["lastpendingbuddies"] != null)
                 {
-                    return (System.DateTime)this.SessionState["lastpendingbuddies"];
+                    return (DateTime)this.SessionState["lastpendingbuddies"];
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -186,13 +156,13 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastPm.
         /// </summary>
-        public System.DateTime LastPm
+        public DateTime LastPm
         {
             get
             {
                 if (this.SessionState["lastpm"] != null)
                 {
-                    return (System.DateTime)this.SessionState["lastpm"];
+                    return (DateTime)this.SessionState["lastpm"];
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -204,13 +174,13 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastPost.
         /// </summary>
-        public System.DateTime LastPost
+        public DateTime LastPost
         {
             get
             {
                 if (this.SessionState["lastpost"] != null)
                 {
-                    return (System.DateTime)this.SessionState["lastpost"];
+                    return (DateTime)this.SessionState["lastpost"];
                 }
 
                 return DateTimeHelper.SqlDbMinTime();
@@ -222,9 +192,9 @@ namespace YAF.Core.Services
         /// <summary>
         ///   Gets or sets LastVisit.
         /// </summary>
-        public System.DateTime? LastVisit
+        public DateTime? LastVisit
         {
-            get => (System.DateTime?)this.SessionState["lastvisit"];
+            get => (DateTime?)this.SessionState["lastvisit"];
 
             set
             {
@@ -312,7 +282,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// A DateTime object of when the forum was last read.
         /// </returns>
-        public System.DateTime GetForumRead(int forumId)
+        public DateTime GetForumRead(int forumId)
         {
             var t = this.ForumRead;
             if (t == null || !t.ContainsKey(forumId))
@@ -320,7 +290,7 @@ namespace YAF.Core.Services
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
-            return (System.DateTime)t[forumId];
+            return (DateTime)t[forumId];
         }
 
         /// <summary>
@@ -332,7 +302,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The DateTime object from the topicID.
         /// </returns>
-        public System.DateTime GetTopicRead(int topicId)
+        public DateTime GetTopicRead(int topicId)
         {
             var t = this.TopicRead;
 
@@ -341,7 +311,7 @@ namespace YAF.Core.Services
                 return this.LastVisit ?? DateTimeHelper.SqlDbMinTime();
             }
 
-            return (System.DateTime)t[topicId];
+            return (DateTime)t[topicId];
         }
 
         /// <summary>
@@ -353,7 +323,7 @@ namespace YAF.Core.Services
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        public void SetForumRead(int forumId, System.DateTime date)
+        public void SetForumRead(int forumId, DateTime date)
         {
             var t = this.ForumRead ?? new Hashtable();
 
@@ -370,7 +340,7 @@ namespace YAF.Core.Services
         /// <param name="date">
         /// The DateTime you wish to set the read to.
         /// </param>
-        public void SetTopicRead(int topicId, System.DateTime date)
+        public void SetTopicRead(int topicId, DateTime date)
         {
             var t = this.TopicRead ?? new Hashtable();
 

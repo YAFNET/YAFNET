@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Events
 {
     #region Using
 
@@ -29,6 +29,7 @@ namespace YAF.Core
     using System.Collections.Generic;
     using System.Web;
 
+    using YAF.Core.Helpers;
     using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Attributes;
@@ -36,11 +37,12 @@ namespace YAF.Core
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
     /// <summary>
-    /// The app init task manager.
+    /// Initializes the Application task manager.
     /// </summary>
     [ExportService(ServiceLifetimeScope.Singleton)]
     public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplicationInitEvent>, IHaveServiceLocator
@@ -48,9 +50,9 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The _app instance.
+        ///   The app instance.
         /// </summary>
-        private HttpApplication _appInstance;
+        private HttpApplication appInstance;
 
         #endregion
 
@@ -65,7 +67,7 @@ namespace YAF.Core
         /// <param name="logger">
         /// The logger.
         /// </param>
-        public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILogger logger)
+        public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILoggerService logger)
         {
             this.ServiceLocator = serviceLocator;
             this.Logger = logger;
@@ -78,7 +80,7 @@ namespace YAF.Core
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
         ///   Gets Order.
@@ -103,12 +105,15 @@ namespace YAF.Core
         /// <param name="start">
         /// Task to run
         /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
         {
             CodeContracts.VerifyNotNull(instanceName, "instanceName");
             CodeContracts.VerifyNotNull(start, "start");
 
-            if (this._appInstance == null)
+            if (this.appInstance == null)
             {
                 return false;
             }
@@ -123,7 +128,7 @@ namespace YAF.Core
 
             var injectServices = this.Get<IInjectServices>();
 
-            _taskManager.AddOrUpdate(
+            taskManager.AddOrUpdate(
                 instanceName,
                 s =>
                     {
@@ -143,7 +148,6 @@ namespace YAF.Core
                     });
 
             return true;
-
         }
 
         #endregion
@@ -160,7 +164,7 @@ namespace YAF.Core
         /// </param>
         public void Handle([NotNull] HttpApplicationInitEvent @event)
         {
-            this._appInstance = @event.HttpApplication;
+            this.appInstance = @event.HttpApplication;
 
             // wire up provider so that the task module can be found...
             this.Get<CurrentTaskModuleProvider>().Instance = this;
@@ -177,7 +181,7 @@ namespace YAF.Core
                     }
                     catch (Exception ex)
                     {
-                        this.Logger.Fatal(ex, $"Failed to start: {instance.GetType().Name}");
+                        this.Logger.Error(ex, $"Failed to start: {instance.GetType().Name}");
                     }
                 });
         }

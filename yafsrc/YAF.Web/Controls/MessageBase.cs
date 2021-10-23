@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,18 +30,15 @@ namespace YAF.Web.Controls
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
-    using System.Web.Compilation;
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
     using YAF.Core.BBCode;
-    using YAF.Core.Services;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -62,21 +59,16 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Gets CustomBBCode.
         /// </summary>
-        protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode
-        {
-            get
-            {
-                return this.Get<IObjectStore>().GetOrSet(
-                    "CustomBBCodeRegExDictionary",
-                    () =>
-                        {
-                            var bbcodeTable = this.Get<DataBroker>().GetCustomBBCode();
-                            return
-                                bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
-                                    codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
-                        });
-            }
-        }
+        protected IDictionary<Types.Models.BBCode, Regex> CustomBBCode =>
+            this.Get<IObjectStore>().GetOrSet(
+                "CustomBBCodeRegExDictionary",
+                () =>
+                {
+                    var bbcodeTable = this.Get<IBBCode>().GetCustomBBCode();
+                    return
+                        bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet()).ToDictionary(
+                            codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
+                });
 
         #region Methods
 
@@ -135,7 +127,7 @@ namespace YAF.Web.Controls
                             sb.Append(workingMessage.Substring(0, match.Groups[0].Index));
 
                             // create/render the control...
-                            var module = BuildManager.GetType(codeRow.ModuleClass, true, false);
+                            var module = Type.GetType(codeRow.ModuleClass, true, false);
                             var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
                             // assign parameters...

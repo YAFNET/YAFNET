@@ -1,6 +1,8 @@
 ﻿using YAF.Lucene.Net.Support.IO;
+using System.Diagnostics.CodeAnalysis;
+using System;
 using System.IO;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Console  = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
 {
@@ -24,10 +26,14 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
     /// <summary>
     /// Token Manager.
     /// </summary>
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "This class is based on generated code")]
+	[SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "This class is based on generated code")]
     public class StandardSyntaxParserTokenManager /*: StandardSyntaxParserConstants*/
     {
         /// <summary>Debug output.</summary>
+#pragma warning disable IDE0052 // Remove unread private members
         private TextWriter debugStream = Console.Out; // LUCENENET specific - made private, since we already have a setter
+#pragma warning restore IDE0052 // Remove unread private members
         /// <summary>Set debug output.</summary>
         public void SetDebugStream(TextWriter ds) { debugStream = new SafeTextWriterWrapper(ds); }
         private int JjStopStringLiteralDfa_2(int pos, long active0)
@@ -83,9 +89,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
         private int JjMoveStringLiteralDfa1_2(long active0)
         {
             try { m_curChar = m_input_stream.ReadChar(); }
-#pragma warning disable 168
-            catch (IOException e)
-#pragma warning restore 168
+            catch (Exception e) when (e.IsIOException())
             {
                 JjStopStringLiteralDfa_2(0, active0);
                 return 1;
@@ -424,9 +428,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 if ((i = jjnewStateCnt) == (startsAt = 33 - (jjnewStateCnt = startsAt)))
                     return curPos;
                 try { m_curChar = m_input_stream.ReadChar(); }
-#pragma warning disable 168
-                catch (IOException e) { return curPos; }
-#pragma warning restore 168
+                catch (Exception e) when (e.IsIOException()) { return curPos; }
             }
         }
         private int JjMoveStringLiteralDfa0_0()
@@ -512,9 +514,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 if ((i = jjnewStateCnt) == (startsAt = 3 - (jjnewStateCnt = startsAt)))
                     return curPos;
                 try { m_curChar = m_input_stream.ReadChar(); }
-#pragma warning disable 168
-                catch (IOException e) { return curPos; }
-#pragma warning restore 168
+                catch (Exception e) when (e.IsIOException()) { return curPos; }
             }
         }
         private int JjStopStringLiteralDfa_1(int pos, long active0)
@@ -553,9 +553,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
         private int JjMoveStringLiteralDfa1_1(long active0)
         {
             try { m_curChar = m_input_stream.ReadChar(); }
-#pragma warning disable 168
-            catch (IOException e)
-#pragma warning restore 168
+            catch (Exception e) when (e.IsIOException())
             {
                 JjStopStringLiteralDfa_1(0, active0);
                 return 1;
@@ -576,9 +574,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             jjmatchedKind = kind;
             jjmatchedPos = pos;
             try { m_curChar = m_input_stream.ReadChar(); }
-#pragma warning disable 168
-            catch (IOException e) { return pos + 1; }
-#pragma warning restore 168
+            catch (Exception e) when (e.IsIOException()) { return pos + 1; }
             return JjMoveNfa_1(state, pos + 1);
         }
         private int JjMoveNfa_1(int startState, int curPos)
@@ -719,9 +715,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 if ((i = jjnewStateCnt) == (startsAt = 7 - (jjnewStateCnt = startsAt)))
                     return curPos;
                 try { m_curChar = m_input_stream.ReadChar(); }
-#pragma warning disable 168
-                catch (IOException e) { return curPos; }
-#pragma warning restore 168
+                catch (Exception e) when (e.IsIOException()) { return curPos; }
             }
         }
         internal static readonly int[] jjnextStates = {
@@ -783,12 +777,12 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1,
            -1, 1, 1, 2, -1, 2, 2, -1, -1,
         };
-        static readonly long[] jjtoToken = {
+        private static readonly long[] jjtoToken = {
            0x3ffffff01L,
         };
-        static readonly long[] jjtoSkip = {
-           0x80L,
-        };
+        //static readonly long[] jjtoSkip = { // LUCENENET: Never read
+        //   0x80L,
+        //};
         protected ICharStream m_input_stream;
         private readonly uint[] jjrounds = new uint[33];
         private readonly int[] jjstateSet = new int[66];
@@ -847,7 +841,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             int beginColumn;
             int endColumn;
             string im = jjstrLiteralImages[jjmatchedKind];
-            curTokenImage = (im == null) ? m_input_stream.GetImage() : im;
+            curTokenImage = im ?? m_input_stream.GetImage();
             beginLine = m_input_stream.BeginLine;
             beginColumn = m_input_stream.BeginColumn;
             endLine = m_input_stream.EndLine;
@@ -882,9 +876,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 {
                     m_curChar = m_input_stream.BeginToken();
                 }
-#pragma warning disable 168
-                catch (IOException e)
-#pragma warning restore 168
+                catch (Exception e) when (e.IsIOException())
                 {
                     jjmatchedKind = 0;
                     matchedToken = JjFillToken();
@@ -932,9 +924,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 string error_after = null;
                 bool EOFSeen = false;
                 try { m_input_stream.ReadChar(); m_input_stream.BackUp(1); }
-#pragma warning disable 168
-                catch (IOException e1)
-#pragma warning restore 168
+                catch (Exception e1) when (e1.IsIOException())
                 {
                     EOFSeen = true;
                     error_after = curPos <= 1 ? "" : m_input_stream.GetImage();

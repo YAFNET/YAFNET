@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -27,11 +27,12 @@ namespace YAF.Web.Extensions
     using System.Linq;
     using System.Text;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     public static class ForumPageExtensions
@@ -42,7 +43,7 @@ namespace YAF.Web.Extensions
 
             var pageString = string.Empty;
 
-            if (BoardContext.Current.ForumPageType is ForumPages.Posts or ForumPages.topics)
+            if (BoardContext.Current.ForumPageType is ForumPages.Posts or ForumPages.Topics)
             {
                 // get current page...
                 var currentPager = page.FindControlAs<Pager>("Pager");
@@ -64,30 +65,30 @@ namespace YAF.Web.Extensions
                         {
                             // Tack on the topic we're viewing
                             title.Append(
-                                BoardContext.Current.Get<IBadWordReplace>().Replace(BoardContext.Current.PageTopicName.Truncate(80)));
+                                BoardContext.Current.Get<IBadWordReplace>()
+                                    .Replace(BoardContext.Current.PageTopic.TopicName.Truncate(80)));
                         }
 
                         // Append Current Page
                         title.Append(pageString);
 
                         break;
-                    case ForumPages.topics:
-                        if (BoardContext.Current.PageForumName != string.Empty)
+                    case ForumPages.Topics:
+                        if (BoardContext.Current.PageForum != null && BoardContext.Current.PageForum.Name.IsSet())
                         {
                             // Tack on the forum we're viewing
-                            title.Append(page.HtmlEncode(BoardContext.Current.PageForumName.Truncate(80)));
+                            title.Append(page.HtmlEncode(BoardContext.Current.PageForum.Name.Truncate(80)));
                         }
 
                         // Append Current Page
                         title.Append(pageString);
 
                         break;
-                    case ForumPages.forum:
-                        if (BoardContext.Current.PageCategoryName != string.Empty)
+                    case ForumPages.Board:
+                        if (BoardContext.Current.PageCategory != null && BoardContext.Current.PageCategory.Name.IsSet())
                         {
                             // Tack on the forum we're viewing
-                            title.Append(
-                                page.HtmlEncode(BoardContext.Current.PageCategoryName.Truncate(80)));
+                            title.Append(page.HtmlEncode(BoardContext.Current.PageCategory.Name.Truncate(80)));
                         }
 
                         break;
@@ -120,13 +121,10 @@ namespace YAF.Web.Extensions
 
             var boardName = page.HtmlEncode(BoardContext.Current.BoardSettings.Name);
 
-            return
-                title.Length > 0
+            return title.Length > 0
                     ? BoardContext.Current.BoardSettings.TitleTemplate.Replace("{title}", title.ToString())
                         .Replace("{boardName}", boardName)
                     : boardName;
-
-
         }
     }
 }

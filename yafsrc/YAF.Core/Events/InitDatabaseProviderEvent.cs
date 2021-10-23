@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Data
+namespace YAF.Core.Events
 {
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;

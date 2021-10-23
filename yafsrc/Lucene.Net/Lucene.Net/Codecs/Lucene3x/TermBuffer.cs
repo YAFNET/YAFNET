@@ -1,11 +1,11 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+using System.Runtime.CompilerServices;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -26,17 +26,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using Term = YAF.Lucene.Net.Index.Term;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using Term  = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// @lucene.experimental 
     /// </summary>
     [Obsolete("(4.0)")]
-    internal sealed class TermBuffer
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    internal sealed class TermBuffer // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private string field;
         private Term term; // cached
@@ -51,6 +48,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         internal int newSuffixStart; // only valid right after .read is called
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CompareTo(TermBuffer other)
         {
             if (field == other.field) // fields are interned
@@ -99,6 +97,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Set(Term term)
         {
             if (term == null)
@@ -113,6 +112,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             this.term = term;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Set(TermBuffer other)
         {
             field = other.field;
@@ -123,6 +123,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             bytes.CopyBytes(other.bytes);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Reset()
         {
             field = null;
@@ -130,6 +131,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             currentFieldNumber = -1;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Term ToTerm()
         {
             if (field == null) // unset
@@ -142,16 +144,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         public object Clone()
         {
-            TermBuffer clone = null;
-            try
-            {
-                clone = (TermBuffer)base.MemberwiseClone();
-            }
-#pragma warning disable 168
-            catch (InvalidOperationException e)
-#pragma warning restore 168
-            {
-            }
+            // LUCENENET: MemberwiseClone() doesn't throw in .NET
+            TermBuffer clone = (TermBuffer)base.MemberwiseClone();
             clone.bytes = BytesRef.DeepCopyOf(bytes);
             return clone;
         }

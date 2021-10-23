@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PackageId>ServiceStack.OrmLite</PackageId>
     <AssemblyName>ServiceStack.OrmLite</AssemblyName>
-    <TargetFrameworks>net472</TargetFrameworks>
+    <TargetFrameworks>net48</TargetFrameworks>
     <Title>OrmLite - Fast, code-first, config-free POCO ORM</Title>
     <PackageDescription>
       Common library for the Light, simple and fast convention-based code-first POCO, OrmLite.
@@ -16,23 +16,15 @@
 
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
-    <ProjectReference Include="..\ServiceStack.Common\ServiceStack.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <Reference Include="System.Net" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Dynamic.Runtime" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Collections.NonGeneric" Version="4.3.0" />
-    <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
-    <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
-    <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
+  <ItemGroup>
+    <ProjectReference Include="..\ServiceStack\ServiceStack.csproj" />
   </ItemGroup>
 
 </Project>

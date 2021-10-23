@@ -1,7 +1,8 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util
@@ -35,10 +36,7 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
-    public sealed class Int32sRef : IComparable<Int32sRef>
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public sealed class Int32sRef : IComparable<Int32sRef> // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// An empty integer array for convenience.
@@ -57,7 +55,7 @@ namespace YAF.Lucene.Net.Util
         public int[] Int32s // LUCENENET TODO: API - change to indexer
         {
             get => ints;
-            set => ints = value ?? throw new ArgumentNullException(nameof(value), "Ints should never be null");
+            set => ints = value ?? throw new ArgumentNullException(nameof(Int32s), "Int32s should never be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
         private int[] ints;
 
@@ -103,6 +101,7 @@ namespace YAF.Lucene.Net.Util
         /// object.
         /// </summary>
         /// <seealso cref="DeepCopyOf(Int32sRef)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Clone()
         {
             return new Int32sRef(ints, Offset, Length);
@@ -120,15 +119,15 @@ namespace YAF.Lucene.Net.Util
             return result;
         }
 
-        public override bool Equals(object other)
+        public override bool Equals(object obj)
         {
-            if (other == null)
+            if (obj is null)
             {
                 return false;
             }
-            if (other is Int32sRef)
+            if (obj is Int32sRef other)
             {
-                return this.Int32sEquals((Int32sRef)other);
+                return this.Int32sEquals(other);
             }
             return false;
         }
@@ -213,6 +212,7 @@ namespace YAF.Lucene.Net.Util
         /// <para/>
         /// @lucene.internal
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Grow(int newLength)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(Offset == 0);
@@ -246,6 +246,7 @@ namespace YAF.Lucene.Net.Util
         /// The returned <see cref="Int32sRef"/> will have a length of <c>other.Length</c>
         /// and an offset of zero.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Int32sRef DeepCopyOf(Int32sRef other)
         {
             Int32sRef clone = new Int32sRef();
@@ -261,31 +262,31 @@ namespace YAF.Lucene.Net.Util
         {
             if (ints == null)
             {
-                throw new InvalidOperationException("ints is null");
+                throw IllegalStateException.Create("ints is null");
             }
             if (Length < 0)
             {
-                throw new InvalidOperationException("length is negative: " + Length);
+                throw IllegalStateException.Create("length is negative: " + Length);
             }
             if (Length > ints.Length)
             {
-                throw new InvalidOperationException("length is out of bounds: " + Length + ",ints.length=" + Int32s.Length);
+                throw IllegalStateException.Create("length is out of bounds: " + Length + ",ints.length=" + Int32s.Length);
             }
             if (Offset < 0)
             {
-                throw new InvalidOperationException("offset is negative: " + Offset);
+                throw IllegalStateException.Create("offset is negative: " + Offset);
             }
             if (Offset > ints.Length)
             {
-                throw new InvalidOperationException("offset out of bounds: " + Offset + ",ints.length=" + Int32s.Length);
+                throw IllegalStateException.Create("offset out of bounds: " + Offset + ",ints.length=" + Int32s.Length);
             }
             if (Offset + Length < 0)
             {
-                throw new InvalidOperationException("offset+length is negative: offset=" + Offset + ",length=" + Length);
+                throw IllegalStateException.Create("offset+length is negative: offset=" + Offset + ",length=" + Length);
             }
             if (Offset + Length > Int32s.Length)
             {
-                throw new InvalidOperationException("offset+length out of bounds: offset=" + Offset + ",length=" + Length + ",ints.length=" + Int32s.Length);
+                throw IllegalStateException.Create("offset+length out of bounds: offset=" + Offset + ",length=" + Length + ",ints.length=" + Int32s.Length);
             }
             return true;
         }

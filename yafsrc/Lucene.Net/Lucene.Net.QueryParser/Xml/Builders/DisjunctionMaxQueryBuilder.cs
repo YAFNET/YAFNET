@@ -46,9 +46,8 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
             for (int i = 0; i < nl.Count; i++)
             {
                 XmlNode node = nl.Item(i);
-                if (node is XmlElement)
+                if (node is XmlElement queryElem)
                 { // all elements are disjuncts.
-                    XmlElement queryElem = (XmlElement)node;
                     Query q = factory.GetQuery(queryElem);
                     dq.Add(q);
                 }

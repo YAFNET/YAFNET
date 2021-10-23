@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class editgroup
+    public partial class EditGroup
     {
 
         /// <summary>
@@ -22,24 +22,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-
-        /// <summary>
-        /// LocalizedLabel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
 
         /// <summary>
         /// HelpLabel1 control.
@@ -58,15 +40,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox Name;
-
-        /// <summary>
-        /// postNameRequired control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator postNameRequired;
 
         /// <summary>
         /// HelpLabel6 control.
@@ -238,24 +211,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UsrSigBBCodes;
-
-        /// <summary>
-        /// HelpLabel9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel9;
-
-        /// <summary>
-        /// UsrSigHTMLTags control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UsrSigHTMLTags;
 
         /// <summary>
         /// HelpLabel10 control.

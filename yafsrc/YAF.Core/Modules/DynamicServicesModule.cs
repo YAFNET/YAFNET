@@ -30,11 +30,11 @@ namespace YAF.Core.Modules
     using System.Reflection;
 
     using Autofac;
+    using Autofac.Core.Lifetime;
 
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
@@ -57,16 +57,16 @@ namespace YAF.Core.Modules
         /// <summary>
         /// The load.
         /// </summary>
-        /// <param name="containerBuilder">
+        /// <param name="builder">
         /// The container builder.
         /// </param>
-        protected override void Load(ContainerBuilder containerBuilder)
+        protected override void Load(ContainerBuilder builder)
         {
             // external first...
-            RegisterDynamicServices(containerBuilder, ExtensionAssemblies);
+            RegisterDynamicServices(builder, ExtensionAssemblies);
 
             // internal bindings next...
-            RegisterDynamicServices(containerBuilder, new[] { Assembly.GetExecutingAssembly() });
+            RegisterDynamicServices(builder, new[] { Assembly.GetExecutingAssembly() });
         }
 
         /// <summary>
@@ -139,12 +139,12 @@ namespace YAF.Core.Modules
                                 built.InstancePerLifetimeScope();
                                 break;
 
-                            case ServiceLifetimeScope.InstancePerDependancy:
+                            case ServiceLifetimeScope.InstancePerDependency:
                                 built.InstancePerDependency();
                                 break;
 
                             case ServiceLifetimeScope.InstancePerContext:
-                                built.InstancePerMatchingLifetimeScope(LifetimeScope.Context);
+                                built.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
                                 break;
                         }
                     });

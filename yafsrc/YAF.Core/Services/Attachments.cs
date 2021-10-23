@@ -30,8 +30,7 @@ namespace YAF.Core.Services
     using System.IO;
     using System.Web;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
@@ -39,6 +38,7 @@ namespace YAF.Core.Services
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion
@@ -103,7 +103,7 @@ namespace YAF.Core.Services
 
                 if (attachment.FileData == null)
                 {
-                    var uploadFolder = BoardFolders.Current.Uploads;
+                    var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                     var oldFileName =
                         context.Server.MapPath(
@@ -113,7 +113,7 @@ namespace YAF.Core.Services
                         context.Server.MapPath(
                             $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
-                    var fileName = oldFileName;
+                    string fileName;
 
                     if (File.Exists(oldFileName))
                     {
@@ -163,7 +163,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>()
+                this.Get<ILoggerService>()
                     .Log(
                         BoardContext.Current.PageUserID,
                         this,
@@ -214,7 +214,7 @@ namespace YAF.Core.Services
 
                 if (attachment.FileData == null)
                 {
-                    var uploadFolder = BoardFolders.Current.Uploads;
+                    var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                     var oldFileName =
                          context.Server.MapPath(
@@ -224,7 +224,7 @@ namespace YAF.Core.Services
                         context.Server.MapPath(
                             $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}-{attachment.ID}")}.{attachment.FileName}.yafupload");
 
-                    var fileName = oldFileName;
+                    string fileName;
 
                     if (File.Exists(oldFileName))
                     {
@@ -250,8 +250,8 @@ namespace YAF.Core.Services
                 {
                     data = attachment.FileData;
                 }
-				
-				if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))
+
+                if (!MimeTypes.FileMatchContentType(attachment.FileName, attachment.ContentType))
                 {
                     // Illegal File
                     context.Response.Write(
@@ -266,7 +266,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>()
+                this.Get<ILoggerService>()
                     .Log(
                         BoardContext.Current.PageUserID,
                         this,

@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using System.Collections;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             {
                 var x = m_sources[0].GetValues(context, readerContext);
                 var y = m_sources[1].GetValues(context, readerContext);
-                return new FunctionValuesAnonymousInnerClassHelper(this, x, y);
+                return new FunctionValuesAnonymousClass(this, x, y);
             }
 
             var valsArr = new FunctionValues[size];
@@ -62,17 +63,17 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                 valsArr[i] = m_sources[i].GetValues(context, readerContext);
             }
 
-            return new FunctionValuesAnonymousInnerClassHelper2(this, valsArr);
+            return new FunctionValuesAnonymousClass2(this, valsArr);
         }
 
-        private class FunctionValuesAnonymousInnerClassHelper : FunctionValues
+        private class FunctionValuesAnonymousClass : FunctionValues
         {
             private readonly VectorValueSource outerInstance;
 
             private readonly FunctionValues x;
             private readonly FunctionValues y;
 
-            public FunctionValuesAnonymousInnerClassHelper(VectorValueSource outerInstance, FunctionValues x, FunctionValues y)
+            public FunctionValuesAnonymousClass(VectorValueSource outerInstance, FunctionValues x, FunctionValues y)
             {
                 this.outerInstance = outerInstance;
                 this.x = x;
@@ -136,12 +137,12 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             }
         }
 
-        private class FunctionValuesAnonymousInnerClassHelper2 : FunctionValues
+        private class FunctionValuesAnonymousClass2 : FunctionValues
         {
             private readonly VectorValueSource outerInstance;
             private readonly FunctionValues[] valsArr;
 
-            public FunctionValuesAnonymousInnerClassHelper2(VectorValueSource outerInstance, FunctionValues[] valsArr)
+            public FunctionValuesAnonymousClass2(VectorValueSource outerInstance, FunctionValues[] valsArr)
             {
                 this.outerInstance = outerInstance;
                 this.valsArr = valsArr;

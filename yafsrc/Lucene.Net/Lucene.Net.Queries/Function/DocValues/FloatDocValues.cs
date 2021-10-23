@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Util.Mutable;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Util.Mutable;
 using System;
 using System.Globalization;
 
@@ -31,7 +32,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
     {
         protected readonly ValueSource m_vs;
 
-        public SingleDocValues(ValueSource vs)
+        protected SingleDocValues(ValueSource vs) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
             this.m_vs = vs;
         }

@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
 
     /// <summary>
     /// This class can be used if the token attributes of a <see cref="TokenStream"/>
@@ -98,6 +98,30 @@ namespace YAF.Lucene.Net.Analysis
             // capture final state
             m_input.End();
             finalState = CaptureState();
+        }
+
+        /// <summary>
+        /// Releases resources used by the <see cref="CachingTokenFilter"/> and
+        /// if overridden in a derived class, optionally releases unmanaged resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources;
+        /// <c>false</c> to release only unmanaged resources.</param>
+
+        // LUCENENET specific
+        protected override void Dispose(bool disposing)
+        {
+            try
+            {
+                if (disposing)
+                {
+                    iterator?.Dispose();
+                    iterator = null;
+                }
+            }
+            finally
+            {
+                base.Dispose(disposing);
+            }
         }
     }
 }

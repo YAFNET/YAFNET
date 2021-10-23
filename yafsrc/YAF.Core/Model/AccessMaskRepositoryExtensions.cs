@@ -23,9 +23,11 @@
  */
 namespace YAF.Core.Model
 {
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -57,23 +59,23 @@ namespace YAF.Core.Model
         /// <param name="boardId">The board id.</param>
         public static void Save(
             this IRepository<AccessMask> repository,
-            int? accessMaskId,
-            string name,
-            bool readAccess,
-            bool postAccess,
-            bool replyAccess,
-            bool priorityAccess,
-            bool pollAccess,
-            bool voteAccess,
-            bool moderatorAccess,
-            bool editAccess,
-            bool deleteAccess,
-            bool uploadAccess,
-            bool downloadAccess,
-            short sortOrder,
-            int? boardId = null)
+            [CanBeNull] int? accessMaskId,
+            [NotNull] string name,
+            [NotNull] bool readAccess,
+            [NotNull] bool postAccess,
+            [NotNull] bool replyAccess,
+            [NotNull] bool priorityAccess,
+            [NotNull] bool pollAccess,
+            [NotNull] bool voteAccess,
+            [NotNull] bool moderatorAccess,
+            [NotNull] bool editAccess,
+            [NotNull] bool deleteAccess,
+            [NotNull] bool uploadAccess,
+            [NotNull] bool downloadAccess,
+            [NotNull] short sortOrder,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var flags = new AccessFlags
                             {
@@ -99,6 +101,10 @@ namespace YAF.Core.Model
                         Flags = flags.BitValue,
                         SortOrder = sortOrder
                     });
+
+            // empty out access table(s)
+            BoardContext.Current.GetRepository<Active>().DeleteAll();
+            BoardContext.Current.GetRepository<ActiveAccess>().DeleteAll();
         }
 
         #endregion

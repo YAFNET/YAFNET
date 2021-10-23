@@ -22,15 +22,16 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.BasePages
 {
     #region Using
 
     using System;
 
+    using YAF.Core.Services;
     using YAF.Types;
-    using YAF.Utils;
-
+    using YAF.Types.Interfaces;
+    
     #endregion
 
     /// <summary>
@@ -83,7 +84,7 @@ namespace YAF.Core
             // Only moderators are allowed here
             if (!this.PageContext.IsModeratorInAnyForum)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 

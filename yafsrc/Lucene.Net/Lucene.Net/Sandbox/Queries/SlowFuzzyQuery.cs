@@ -1,11 +1,12 @@
 ﻿using J2N;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Automaton;
 using System;
+using System.Globalization;
 using System.Text;
+using Float = J2N.Numerics.Single;
 
 namespace YAF.Lucene.Net.Sandbox.Queries
 {
@@ -37,13 +38,13 @@ namespace YAF.Lucene.Net.Sandbox.Queries
     [Obsolete("Use FuzzyQuery instead.")]
     public class SlowFuzzyQuery : MultiTermQuery
     {
-        public readonly static float defaultMinSimilarity = LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE;
-        public readonly static int defaultPrefixLength = 0;
-        public readonly static int defaultMaxExpansions = 50;
+        public const float defaultMinSimilarity = LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE;
+        public const int defaultPrefixLength = 0;
+        public const int defaultMaxExpansions = 50;
 
-        private float minimumSimilarity;
-        private int prefixLength;
-        private bool termLongEnough = false;
+        private readonly float minimumSimilarity; // LUCENENET: marked readonly
+        private readonly int prefixLength; // LUCENENET: marked readonly
+        private readonly bool termLongEnough = false; // LUCENENET: marked readonly
 
         protected Term m_term;
 
@@ -85,15 +86,15 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             if (minimumSimilarity >= 1.0f && minimumSimilarity != (int)minimumSimilarity)
                 throw new ArgumentException("fractional edit distances are not allowed");
             if (minimumSimilarity < 0.0f)
-                throw new ArgumentException("minimumSimilarity < 0");
+                throw new ArgumentOutOfRangeException(nameof(minimumSimilarity), "minimumSimilarity < 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             if (prefixLength < 0)
-                throw new ArgumentException("prefixLength < 0");
+                throw new ArgumentOutOfRangeException(nameof(prefixLength), "prefixLength < 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             if (maxExpansions < 0)
-                throw new ArgumentException("maxExpansions < 0");
+                throw new ArgumentOutOfRangeException(nameof(maxExpansions), "maxExpansions < 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
 
             MultiTermRewriteMethod = new MultiTermQuery.TopTermsScoringBooleanQueryRewrite(maxExpansions);
 
-            string text = term.Text();
+            string text = term.Text;
             int len = text.CodePointCount(0, text.Length);
             if (len > 0 && (minimumSimilarity >= 1f || len > 1.0f / (1.0f - minimumSimilarity)))
             {
@@ -163,9 +164,9 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 buffer.Append(m_term.Field);
                 buffer.Append(":");
             }
-            buffer.Append(m_term.Text());
+            buffer.Append(m_term.Text);
             buffer.Append('~');
-            buffer.Append(Number.ToString(minimumSimilarity));
+            buffer.Append(Float.ToString(minimumSimilarity, NumberFormatInfo.InvariantInfo));
             buffer.Append(ToStringUtils.Boost(Boost));
             return buffer.ToString();
         }

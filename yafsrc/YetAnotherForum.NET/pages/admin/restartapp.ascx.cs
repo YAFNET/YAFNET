@@ -29,11 +29,9 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -41,7 +39,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Restart App Page.
     /// </summary>
-    public partial class restartapp : AdminPage
+    public partial class RestartApp : AdminPage
     {
         #region Methods
 
@@ -52,7 +50,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-             this.DataBind();
+            this.DataBind();
         }
 
         /// <summary>
@@ -61,11 +59,8 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot()
-                .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin))
+                .AddAdminIndex()
                 .AddLink(this.GetText("ADMIN_RESTARTAPP", "TITLE"));
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RESTARTAPP", "TITLE")}";
         }
 
         /// <summary>

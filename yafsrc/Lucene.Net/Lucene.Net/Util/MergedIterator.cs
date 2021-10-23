@@ -109,7 +109,7 @@ namespace YAF.Lucene.Net.Util
 
         public void Reset()
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public void Dispose()
@@ -142,7 +142,7 @@ namespace YAF.Lucene.Net.Util
                 }
                 else
                 {
-                    top[i].Current = default(T);
+                    top[i].Current = default;
                 }
             }
             numTop = 0;
@@ -271,7 +271,7 @@ namespace YAF.Lucene.Net.Util
 
         public void Reset()
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public void Dispose()
@@ -304,7 +304,7 @@ namespace YAF.Lucene.Net.Util
                 }
                 else
                 {
-                    top[i].Current = default(T);
+                    top[i].Current = default;
                 }
             }
             numTop = 0;

@@ -24,6 +24,24 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
+        /// HelpLabel2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel HelpLabel2;
+
+        /// <summary>
+        /// PageSize control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList PageSize;
+
+        /// <summary>
         /// UserList control.
         /// </summary>
         /// <remarks>
@@ -31,5 +49,14 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater UserList;
+
+        /// <summary>
+        /// PagerTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Pager PagerTop;
     }
 }

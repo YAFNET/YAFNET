@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,34 +24,24 @@
 namespace YAF.Core.Services
 {
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net.Mail;
-    
+    using System.Web;
+
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     ///     The YAF template email.
     /// </summary>
     public class TemplateEmail : IHaveServiceLocator
     {
-        #region Fields
-
-        #endregion
-
         #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="TemplateEmail" /> class.
-        /// </summary>
-        public TemplateEmail()
-            : this(null, true)
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TemplateEmail"/> class.
@@ -60,42 +50,25 @@ namespace YAF.Core.Services
         /// The template name.
         /// </param>
         public TemplateEmail(string templateName)
-            : this(templateName, true)
-        {
-            var logoUrl =
-                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{this.Get<BoardSettings>().ForumLogo}";
-            var themeCss =
-                $"{this.Get<BoardSettings>().BaseUrlMask}{this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")}";
-
-            this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
-            this.TemplateParams["{forumlink}"] = BoardInfo.ForumURL;
-            this.TemplateParams["{themecss}"] = themeCss;
-            this.TemplateParams["{logo}"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TemplateEmail"/> class.
-        /// </summary>
-        /// <param name="templateName">
-        /// The template name.
-        /// </param>
-        /// <param name="htmlEnabled">
-        /// The html enabled.
-        /// </param>
-        public TemplateEmail(string templateName, bool htmlEnabled)
         {
             this.TemplateName = templateName;
-            this.HtmlEnabled = htmlEnabled;
+
+            var logoUrl =
+                $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
+
+            var inlineCss = File.ReadAllText(
+                this.Get<HttpContextBase>().Server
+                    .MapPath(this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")));
+
+            this.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
+            this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
+            this.TemplateParams["{css}"] = inlineCss;
+            this.TemplateParams["{logo}"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
         }
 
         #endregion
 
         #region Public Properties
-
-        /// <summary>
-        ///     Gets or sets a value indicating whether HtmlEnabled.
-        /// </summary>
-        public bool HtmlEnabled { get; set; }
 
         /// <summary>
         ///     Gets the service locator.
@@ -155,16 +128,15 @@ namespace YAF.Core.Services
         public void SendEmail(MailAddress fromAddress, MailAddress toAddress, string subject)
         {
             var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
-            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
-
-            // null out html if it's not desired
-            if (!this.HtmlEnabled || htmlBody.IsNotSet())
-            {
-                htmlBody = null;
-            }
 
             // just send directly
-            this.Get<ISendMail>().Send(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
+            this.Get<IMailService>().Send(
+                fromAddress,
+                toAddress,
+                fromAddress,
+                subject,
+                textBody,
+                this.ProcessHtml(textBody));
         }
 
         /// <summary>
@@ -185,16 +157,15 @@ namespace YAF.Core.Services
         public MailMessage CreateEmail(MailAddress fromAddress, MailAddress toAddress, string subject)
         {
             var textBody = this.ProcessTemplate($"{this.TemplateName}_TEXT").Trim();
-            var htmlBody = this.ProcessTemplate($"{this.TemplateName}_HTML").Trim();
-
-            // null out html if it's not desired
-            if (!this.HtmlEnabled || htmlBody.IsNotSet())
-            {
-                htmlBody = null;
-            }
 
             // Create Mail Message
-            return this.Get<ISendMail>().CreateMessage(fromAddress, toAddress, fromAddress, subject, textBody, htmlBody);
+            return this.Get<IMailService>().CreateMessage(
+                fromAddress,
+                toAddress,
+                fromAddress,
+                subject,
+                textBody,
+                this.ProcessHtml(textBody));
         }
 
         #endregion
@@ -222,6 +193,29 @@ namespace YAF.Core.Services
             }
 
             return email;
+        }
+
+        /// <summary>
+        /// Load Email Template and inject content
+        /// </summary>
+        /// <param name="textBody">
+        /// The text body.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string ProcessHtml(string textBody)
+        {
+            var htmlTemplate = File.ReadAllText(this.Get<HttpContextBase>().Server.MapPath(
+                $"{BoardInfo.ForumServerFileRoot}Resources/EmailTemplate.html"));
+
+            var formattedBody = this.Get<IBBCode>().MakeHtml(textBody, true, true);
+
+            var html = this.TemplateParams.Keys.Aggregate(
+                htmlTemplate,
+                (current, key) => current.Replace(key, this.TemplateParams[key]));
+
+            return html.Replace("{CONTENT}", formattedBody);
         }
 
         /// <summary>

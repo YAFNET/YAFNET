@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 
@@ -26,14 +27,8 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// 
     /// @lucene.internal
     /// </summary>
-    public class StemmerUtil
+    public static class StemmerUtil // LUCENENET specific: CA1052 Static holder types should be Static or NotInheritable
     {
-        /// <summary>
-        /// no instance </summary>
-        private StemmerUtil()
-        {
-        }
-
         /// <summary>
         /// Returns true if the character array starts with the prefix.
         /// </summary>

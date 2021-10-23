@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System.Collections;
@@ -45,16 +46,16 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             FunctionValues trueVals = trueSource.GetValues(context, readerContext);
             FunctionValues falseVals = falseSource.GetValues(context, readerContext);
 
-            return new FunctionValuesAnonymousInnerClassHelper(ifVals, trueVals, falseVals);
+            return new FunctionValuesAnonymousClass(ifVals, trueVals, falseVals);
         }
 
-        private class FunctionValuesAnonymousInnerClassHelper : FunctionValues
+        private class FunctionValuesAnonymousClass : FunctionValues
         {
             private readonly FunctionValues ifVals;
             private readonly FunctionValues trueVals;
             private readonly FunctionValues falseVals;
 
-            public FunctionValuesAnonymousInnerClassHelper(FunctionValues ifVals, FunctionValues trueVals, FunctionValues falseVals)
+            public FunctionValuesAnonymousClass(FunctionValues ifVals, FunctionValues trueVals, FunctionValues falseVals)
             {
                 this.ifVals = ifVals;
                 this.trueVals = trueVals;

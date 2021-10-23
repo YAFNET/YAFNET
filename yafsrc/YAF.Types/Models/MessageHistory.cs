@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,43 +24,68 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_MessageHistory table.
+    /// A class which represents the MessageHistory table.
     /// </summary>
     [Serializable]
-    [Table(Name = "MessageHistory")]
-    public partial class MessageHistory : IEntity
+    [CompositePrimaryKey(nameof(MessageID), nameof(Edited))]
+    public class MessageHistory : IEntity
     {
-        partial void OnCreated();
-
-        public MessageHistory()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the message id.
+        /// </summary>
         [References(typeof(Message))]
         [Required]
         public int MessageID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the IP Address.
+        /// </summary>
         [Required]
         [StringLength(39)]
         public string IP { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited.
+        /// </summary>
         [Required]
         public DateTime Edited { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edited by.
+        /// </summary>
         public int? EditedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the edit reason.
+        /// </summary>
         [StringLength(100)]
         public string EditReason { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether is moderator changed.
+        /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool IsModeratorChanged { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(23)]
         public int Flags { get; set; }

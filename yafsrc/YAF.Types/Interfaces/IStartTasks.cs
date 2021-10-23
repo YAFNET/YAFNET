@@ -23,15 +23,15 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// Interface for starting tasks
-  /// </summary>
-  public interface IStartTasks
-  {
     /// <summary>
-    /// Start various tasks
+    /// Interface for starting tasks
     /// </summary>
-    /// <param name="manager"></param>
-    void Start(ITaskModuleManager manager);
-  }
+    public interface IStartTasks
+    {
+        /// <summary>
+        /// Start various tasks
+        /// </summary>
+        /// <param name="manager"></param>
+        void Start(ITaskModuleManager manager);
+    }
 }

@@ -41,6 +41,12 @@
     <Resource tag="YOUR_USERDISPLAYNAME">Your display name:</Resource>
     <Resource tag="YOUR_USERNAME">Ditt brukernavn:</Resource>
   </page>
+  <page name="ACCOUNT_RESEST_PASSWORD">
+    <Resource tag="CONFIRM_PASSWORD">Confirm New Password</Resource>
+    <Resource tag="INVALID_MATCH">The Password and Confirmation Password must match.</Resource>
+    <Resource tag="PASSWORD">Enter New Password</Resource>
+    <Resource tag="TITLE">Lost Password</Resource>
+  </page>
   <page name="ACTIVELOCATION">
     <Resource tag="ACCOUNT">Views a user profile</Resource>
     <Resource tag="ACTIVEUSERS">Views Active Users list</Resource>
@@ -86,6 +92,7 @@
     <Resource tag="ADMIN_NNTPRETRIEVE">Retrieves NNTP</Resource>
     <Resource tag="ADMIN_NNTPSERVERS">Views/edits NNTP servers</Resource>
     <Resource tag="ADMIN_PM">Views/edits PMs</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Views the Custom Profile Definitions</Resource>
     <Resource tag="ADMIN_PRUNE">Views/performs pruning</Resource>
     <Resource tag="ADMIN_RANKS">Views ranks in admin section</Resource>
     <Resource tag="ADMIN_REGUSER">Registers a user</Resource>
@@ -100,10 +107,6 @@
     <Resource tag="ADMIN_SPAMWORDS_EDIT">Edits spam words list</Resource>
     <Resource tag="ADMIN_SPAMWORDS_IMPORT">Imports spam words</Resource>
     <Resource tag="ADMIN_TASKMANAGER">Views/manages task manager</Resource>
-    <Resource tag="ADMIN_TEST_DATA">Views/edits test data generator</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS">Views admin topic status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_EDIT">Edits Topic Status</Resource>
-    <Resource tag="ADMIN_TOPICSTATUS_IMPORT">Imports topic status</Resource>
     <Resource tag="ADMIN_USERS">Views users in admin section</Resource>
     <Resource tag="ADMIN_USERS_IMPORT">Imports users</Resource>
     <Resource tag="ADMIN_VERSION">Views version</Resource>
@@ -167,14 +170,13 @@
     <Resource tag="PRINTTOPIC">Prints topic</Resource>
     <Resource tag="PROFILE">Views a user profile</Resource>
     <Resource tag="PROFILE_OFUSER">Views profile of user</Resource>
-    <Resource tag="PROFILE_OWN">Views his profile</Resource>
+    <Resource tag="PROFILE_OWN">Views his/her own profile</Resource>
     <Resource tag="RECOVERPASSWORD">No data</Resource>
     <Resource tag="REGISTER">Registers</Resource>
     <Resource tag="REPORTPOST">Reports a post</Resource>
     <Resource tag="RSSTOPIC">Views RSS feed</Resource>
     <Resource tag="RULES">Views forum rules</Resource>
     <Resource tag="SEARCH">Uses search</Resource>
-    <Resource tag="SHOUTBOX">Uses shoutbox</Resource>
     <Resource tag="SUBSCRIPTIONS">Vies subscriptions</Resource>
     <Resource tag="TEAM">Views team page</Resource>
     <Resource tag="TOPICINFORUM"> in forum </Resource>
@@ -245,6 +247,7 @@
     <Resource tag="POSTS_DAY">Posts per day:</Resource>
     <Resource tag="SIZE_DATABASE">Size of database:</Resource>
     <Resource tag="STATS_DONTCOUNT">These statistics don't count deleted topics and posts.</Resource>
+    <Resource tag="TITLE">Dashboard</Resource>
     <Resource tag="TOPICS_DAY">Topics per day:</Resource>
     <Resource tag="USERS_DAY">Users per day:</Resource>
   </page>
@@ -255,6 +258,7 @@
     <Resource tag="ADD_IP">Add New Email</Resource>
     <Resource tag="IMPORT_IPS">Import Email(s)</Resource>
     <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_EXIST">The Banned Email Address Already exists!</Resource>
     <Resource tag="MSG_REMOVEBAN_EMAIL">Email was successfully deleted</Resource>
     <Resource tag="REASON">Reason</Resource>
     <Resource tag="SINCE">Since</Resource>
@@ -263,6 +267,7 @@
   <page name="ADMIN_BANNEDEMAIL_EDIT">
     <Resource tag="MASK">Mask:</Resource>
     <Resource tag="MASK_HELP">The Email address to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="NEED_MASK">You must define an Email address.</Resource>
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the email address was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Email Address</Resource>
@@ -276,7 +281,7 @@
     <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Email Address on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new email address was found in the upload.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new email address(es) imported successfully.</Resource>
-    <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Email Addresses on StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import Email Addresses</Resource>
   </page>
   <page name="ADMIN_BANNEDIP">
@@ -286,6 +291,7 @@
     <Resource tag="IMPORT_IPS">Import Address(es)</Resource>
     <Resource tag="MASK">Mask</Resource>
     <Resource tag="MSG_DELETE">Delete this Banned Item?</Resource>
+    <Resource tag="MSG_EXIST">The Banned IP Already exists!</Resource>
     <Resource tag="MSG_REMOVEBAN_IP">IP Address or Mask '{0}' was successfully deleted</Resource>
     <Resource tag="REASON">Reason</Resource>
     <Resource tag="SINCE">Since</Resource>
@@ -298,6 +304,7 @@
     <Resource tag="INVALID_VALUE">One of the IP section does not have a value. Valid values are 0-255 or "*" for a wildcard.</Resource>
     <Resource tag="MASK">Mask:</Resource>
     <Resource tag="MASK_HELP">The ip address to ban. You can use wild cards (127.0.0.*).</Resource>
+    <Resource tag="NEED_MASK">You must define an IP address.</Resource>
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the ip was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned IP Address</Resource>
@@ -311,13 +318,14 @@
     <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing an Ip Address on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new ip address was found in the upload.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new ip address(es) imported successfully.</Resource>
-    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot Ips on StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import IP Addresses</Resource>
   </page>
   <page name="ADMIN_BANNEDNAME">
     <Resource tag="ADD_IP">Add New User Name</Resource>
     <Resource tag="IMPORT_IPS">Import Name(s)</Resource>
     <Resource tag="MASK">Mask</Resource>
+    <Resource tag="MSG_EXIST">The Banned Name Already exists!</Resource>
     <Resource tag="MSG_REMOVEBAN_NAME">The user name was successfully deleted</Resource>
     <Resource tag="REASON">Reason</Resource>
     <Resource tag="SINCE">Since</Resource>
@@ -326,6 +334,7 @@
   <page name="ADMIN_BANNEDNAME_EDIT">
     <Resource tag="MASK">Mask:</Resource>
     <Resource tag="MASK_HELP">The User Name to ban. You can use Regular Expressions.</Resource>
+    <Resource tag="NEED_MASK">You must define a User Name.</Resource>
     <Resource tag="REASON">Reason:</Resource>
     <Resource tag="REASON_HELP">The reason why the user name was banned.</Resource>
     <Resource tag="TITLE">Add/Edit Banned Name</Resource>
@@ -339,7 +348,7 @@
     <Resource tag="IMPORT_FILE_HELP">Must be *.txt file containing one Name on each line</Resource>
     <Resource tag="IMPORT_NOTHING">Nothing imported: no new name was found in the upload.</Resource>
     <Resource tag="IMPORT_SUCESS">{0} new name(s) imported successfully.</Resource>
-    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="http://www.stopforumspam.com/downloads/"&gt;http://www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
+    <Resource tag="NOTE">You can find a list of Spam Bot user names on StopForumSpam.com &lt;a href="https//www.stopforumspam.com/downloads/"&gt;https//www.stopforumspam.com/downloads/&lt;/a&gt;, that can be imported here.</Resource>
     <Resource tag="TITLE">Import Name(s)</Resource>
   </page>
   <page name="ADMIN_BBCODE">
@@ -371,6 +380,7 @@
     <Resource tag="HEADER1">Name &amp; Description (all fields are required)</Resource>
     <Resource tag="HEADER2">Regular Expression</Resource>
     <Resource tag="HEADER3">Javascript &amp; CSS (all fields are optional)</Resource>
+    <Resource tag="MSG_NAME">You must enter a name.</Resource>
     <Resource tag="MSG_NUMBER">You must enter an number value from 0 to 32767 for sort order.</Resource>
     <Resource tag="MSG_POSITIVE_VALUE">The sort order value should be a positive integer from 0 to 32767.</Resource>
     <Resource tag="ONCLICK_JS">OnClick JS:</Resource>
@@ -427,10 +437,6 @@
     <Resource tag="BOARD_EMAIL_ONREGISTER_HELP">Semi-colon (;) separated list of emails to send a notification to on user registration.</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS">Email Moderators On a Reported Post:</Resource>
     <Resource tag="BOARD_EMAIL_REPORTMODS_HELP">Should all the moderators of a forum be notified if someone reported a post?</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS">File Extensions List is:</Resource>
-    <Resource tag="BOARD_FILE_EXTENSIONS_HELP">Is the list of file extensions allowed files or disallowed files (less secure)?</Resource>
-    <Resource tag="BOARD_JQ_THEME">jQuery UI Theme:</Resource>
-    <Resource tag="BOARD_JQ_THEME_HELP">The jQuery UI Theme to use on this board for the Tabs and Accordion.</Resource>
     <Resource tag="BOARD_LOGO">Board Logo:</Resource>
     <Resource tag="BOARD_LOGO_HELP">Select a Board Logo or use the default YAF Board Logo, Logos will be loaded from the Folder Images/Logos.</Resource>
     <Resource tag="BOARD_LOGO_SELECT">Select a Board logo</Resource>
@@ -441,8 +447,6 @@
     <Resource tag="BOARD_SETUP">Board Setup</Resource>
     <Resource tag="BOARD_THEME">Theme:</Resource>
     <Resource tag="BOARD_THEME_HELP">The theme to use on this board.</Resource>
-    <Resource tag="BOARD_THEME_LOGO">Allow Themed Logo:</Resource>
-    <Resource tag="BOARD_THEME_LOGO_HELP">Gets logo from theme file (Does not work in portal).</Resource>
     <Resource tag="BOARD_THREADED">Allow Threaded:</Resource>
     <Resource tag="BOARD_THREADED_HELP">Allow threaded view for posts.</Resource>
     <Resource tag="BOARD_TOPIC_DEFAULT">Show Topic Default:</Resource>
@@ -456,6 +460,7 @@
     <Resource tag="FORUM_DEFAULT_ACCESSMASK">New Forum Default Access mask:</Resource>
     <Resource tag="FORUM_DEFAULT_ACCESSMASK_HELP">The Default Access Mask when creating a new Forum</Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>
+    <Resource tag="NEED_MESSAGE">You need to enter an Announcement Message.</Resource>
     <Resource tag="TITLE">Board Settings</Resource>
   </page>
   <page name="ADMIN_COMMON">
@@ -502,6 +507,25 @@
     <Resource tag="MSG_VALID_MAIL">Please enter a valid email address to send a test.</Resource>
     <Resource tag="SEND_TEST">Send Test</Resource>
     <Resource tag="TITLE">Digest</Resource>
+  </page>
+  <page name="ADMIN_EDIT_PROFILEDEFINITION">
+    <Resource tag="DATA_TYPE">Data Type</Resource>
+    <Resource tag="DATA_TYPE_HELP">Select an Data Type for the Profile Definition.</Resource>
+    <Resource tag="DEFAULT">Default Value</Resource>
+    <Resource tag="DEFAULT_HELP">Define a Default Value, would be needed if required is set.</Resource>
+    <Resource tag="LENGTH">Length</Resource>
+    <Resource tag="LENGTH_HELP">Maximum Length of the Field</Resource>
+    <Resource tag="NAME">Name</Resource>
+    <Resource tag="NAME_HELP">Will be used as Profile Name/Label</Resource>
+    <Resource tag="NEED_LENGTH">Maximum Length Value with Minimum 1 is required</Resource>
+    <Resource tag="NEED_NAME">You must define a name</Resource>
+    <Resource tag="REQUIRED">Required</Resource>
+    <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
+    <Resource tag="SAVE_NEW">Save New</Resource>
+    <Resource tag="SHOW_USERINFO">Show in User Info</Resource>
+    <Resource tag="SHOW_USERINFO_HELP">Show in User Info inside Post Header</Resource>
+    <Resource tag="TITLE">Add New Profile Definition</Resource>
+    <Resource tag="TITLE_EDIT">Edit Profile Definition</Resource>
   </page>
   <page name="ADMIN_EDITACCESSMASKS">
     <Resource tag="ACCESS">Access</Resource>
@@ -665,6 +689,7 @@
     <Resource tag="IS_START_HELP">If this is checked, all new users will be a member of this role. &lt;br /&gt;&lt;span style="color:red"&gt;[b]Warning:[/b] at least one Group need to have this Check box enabled or new users wont be able to register.[/b]&lt;/span&gt;</Resource>
     <Resource tag="MSG_ALBUM_NUMBER">You should enter integer value for the number of user albums.</Resource>
     <Resource tag="MSG_INTEGER">You should enter integer value for priority.</Resource>
+    <Resource tag="MSG_NAME">You need to enter a Role name.</Resource>
     <Resource tag="MSG_SIG_NUMBER">You should enter integer value for the number of chars in user signature.</Resource>
     <Resource tag="MSG_TOTAL_NUMBER">You should enter integer value for the total number of images in all albums.</Resource>
     <Resource tag="MSG_VALID_NUMBER">You should enter integer value for pmessage number.</Resource>
@@ -730,26 +755,18 @@
     <Resource tag="MEDAL_USER_HELP">Enter a Username or Click on "Find Users" to select a User from the User List</Resource>
     <Resource tag="MSG_AMBIGOUS_USER">Ambiguous user name specified!</Resource>
     <Resource tag="MSG_IMAGE">Medal image must be specified!</Resource>
+    <Resource tag="MSG_NAME">You must enter a medal name!</Resource>
     <Resource tag="MSG_SMALL_IMAGE">Small medal image must be specified!</Resource>
     <Resource tag="MSG_VALID_USER">Please specify valid user!</Resource>
     <Resource tag="MSG_VALID_USER">Please specify valid user!</Resource>
-    <Resource tag="ONLY_RIBBON">Show Only Ribbon Bar:</Resource>
-    <Resource tag="ONLY_RIBBON_HELP">If checked, only ribbon bar is displayed in user box.</Resource>
     <Resource tag="OVERRIDE_MESSAGE">Message:</Resource>
     <Resource tag="OVERRIDE_MESSAGE_HELP">Overrides default if specified (Optional).</Resource>
     <Resource tag="OVERRIDE_ORDER">Sort Order:</Resource>
     <Resource tag="OVERRIDE_ORDER_HELP">Overrides default if specified (Optional).</Resource>
-    <Resource tag="RIBBON_IMAGE">Ribbon Bar Image:</Resource>
-    <Resource tag="RIBBON_IMAGE_HELP">This image will be shown in medal's info (optional).</Resource>
     <Resource tag="SELECT_IMAGE">Select Medal Image</Resource>
+    <Resource tag="SELECT_IMAGE_HELP">Medal will be shown in User Profile</Resource>
     <Resource tag="SHOW_MESSAGE">Show Message:</Resource>
     <Resource tag="SHOW_MESSAGE_HELP">Means that message describing why user received medal will be shown/hidden.</Resource>
-    <Resource tag="SMALL_IMAGE">Small Medal Image:</Resource>
-    <Resource tag="SMALL_IMAGE_HELP">This image will be shown in user box.</Resource>
-    <Resource tag="SMALL_RIBBON">Small Ribbon Bar Image:</Resource>
-    <Resource tag="SMALL_RIBBON_HELP">This image will be shown in user box (optional).</Resource>
-    <Resource tag="SORT_ORDER">Sort Order:</Resource>
-    <Resource tag="SORT_ORDER_HELP">Default sort order of a medal.</Resource>
     <Resource tag="TITLE">Add/Edit Medal</Resource>
   </page>
   <page name="ADMIN_EDITNNTPFORUM">
@@ -796,6 +813,7 @@
     <Resource tag="MIN_POSTS">Minimum Posts:</Resource>
     <Resource tag="MIN_POSTS_HELP">Minimum number of posts before users are advanced to this rank.</Resource>
     <Resource tag="MSG_RANK_INTEGER">Rank Priority should be small integer.</Resource>
+    <Resource tag="NEED_NAME">You must define a rank name.</Resource>
     <Resource tag="PRIVATE_MESSAGES">Private Messages:</Resource>
     <Resource tag="PRIVATE_MESSAGES_HELP">Max. Private Messages allowed to Rank members.</Resource>
     <Resource tag="RANK_DESC">Description:</Resource>
@@ -811,8 +829,6 @@
     <Resource tag="SELECT_IMAGE">Select Rank Image</Resource>
     <Resource tag="SIG_BBCODE">User signature BBCodes:</Resource>
     <Resource tag="SIG_BBCODE_HELP">Comma separated  BBCodes allowed in a user signature in the rank.</Resource>
-    <Resource tag="SIG_HTML">User signature HTML tags:</Resource>
-    <Resource tag="SIG_HTML_HELP">Comma separated HTML tags allowed in a user signature in the rank.</Resource>
     <Resource tag="SIG_LENGTH">Max number of chars in a user signature:</Resource>
     <Resource tag="SIG_LENGTH_HELP">Max number of chars in a user signature in the rank.</Resource>
     <Resource tag="TITLE">Add/Edit Rank</Resource>
@@ -1011,8 +1027,6 @@
     <Resource tag="ALLOW_EMAIL_TOPIC_HELP">If checked, users will be allowed to email topics.</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME">Allow Forums With Same Name:</Resource>
     <Resource tag="ALLOW_FORUMS_DUPLICATENAME_HELP">If checked forums with duplicated names can be created.</Resource>
-    <Resource tag="ALLOW_GRAVATARS">Allow Gravatars:</Resource>
-    <Resource tag="ALLOW_GRAVATARS_HELP">Automatically use users Gravatars if they exist (note: may require additional processing).</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL">Allow Guests View Poll Options:</Resource>
     <Resource tag="ALLOW_GUESTS_VIEWPOLL_HELP">If enabled Guests can see poll choices.</Resource>
     <Resource tag="ALLOW_HIDE_POLLRESULTS">Allow Users Hide Poll Results:</Resource>
@@ -1025,8 +1039,6 @@
     <Resource tag="ALLOW_MULTI_VOTING_HELP">If enabled users can create poll questions allowing multiple choices voting.</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL">Allow Notification of All Posts on All topics:</Resource>
     <Resource tag="ALLOW_NOTIFICATION_ONALL_HELP">Allow users to get individual email notifications on all emails -- tons of email traffic.</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE">Allow Password Change:</Resource>
-    <Resource tag="ALLOW_PASS_CHANGE_HELP">Allow users to change their passwords.</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION">Allow Private Message Notifications:</Resource>
     <Resource tag="ALLOW_PM_NOTIFICATION_HELP">Allow users email notifications when new private messages arrive.</Resource>
     <Resource tag="ALLOW_PMS">Allow Private Messages:</Resource>
@@ -1043,8 +1055,6 @@
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
     <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
     <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION">Allow Topic Description:</Resource>
-    <Resource tag="ALLOW_TOPIC_DESCRIPTION_HELP">If checked, users can add a topic description.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -1053,6 +1063,8 @@
     <Resource tag="ALLOW_USERS_POLLIMAGES_HELP">If enabled Users can add images as poll options.</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR">Allow users to pick text editor</Resource>
     <Resource tag="ALLOW_USERTEXTEDITOR_HELP">Allow users to pick text editor in their profiles.</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS">Allowed File Extensions:</Resource>
+    <Resource tag="ALLOWED_EXTENSIONS_HELP">The list of allowed File Extensions for Attachments.</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS">Sub Forums In Forums List:</Resource>
     <Resource tag="AMOUNT_OF_SUBFORUMS_HELP">The amount of Sub Forums In Forums List.</Resource>
     <Resource tag="APP_CORES">Processor Cores:</Resource>
@@ -1128,6 +1140,10 @@
     <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minium Length for Display Names.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
     <Resource tag="DYNAMIC_METATAGS_HELP">If checked, description and keywords meta tags will be created dynamically on the post pages.</Resource>
+    <Resource tag="EDITOR_BASCIC_HELP">Editor Toolbar used for Signatures ans Quick Replies.</Resource>
+    <Resource tag="EDITOR_BASIC">Editor Toolbar Basic:</Resource>
+    <Resource tag="EDITOR_FULL">Editor Toolbar Full:</Resource>
+    <Resource tag="EDITOR_FULL_HELP">Editor Toolbar used for Posting and Private Messages.</Resource>
     <Resource tag="EMAIL_VERIFICATION">Require Email Verification:</Resource>
     <Resource tag="EMAIL_VERIFICATION_HELP">If unchecked users will not need to verify their email address.</Resource>
     <Resource tag="ENABLE_ABLBUMS">Enable Album Feature:</Resource>
@@ -1179,8 +1195,6 @@
     <Resource tag="FORUM_FEEDS_ACCESS_HELP">Restrict display of forum feeds.</Resource>
     <Resource tag="GENDER_TEMPLATE">Gender:</Resource>
     <Resource tag="GENDER_TEMPLATE_HELP">Template for rendering user's gender.</Resource>
-    <Resource tag="GRAVATAR_RATING">Gravatar Rating:</Resource>
-    <Resource tag="GRAVATAR_RATING_HELP">Max. rating of Gravatar if allowed.</Resource>
     <Resource tag="GROUPS_TEMPLATE">Groups template:</Resource>
     <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
@@ -1202,6 +1216,7 @@
     <Resource tag="HEADER_LOGIN">Login/Registration Settings</Resource>
     <Resource tag="HEADER_LOGSCOPE">Log scope</Resource>
     <Resource tag="HEADER_MESSAGE_NOTIFICATION">Message Notification Settings</Resource>
+    <Resource tag="HEADER_PASSWORD">Password Strength Settings</Resource>
     <Resource tag="HEADER_PERMISSION">Permission Settings</Resource>
     <Resource tag="HEADER_PMS">Private Messages</Resource>
     <Resource tag="HEADER_POLL">Poll Settings</Resource>
@@ -1209,7 +1224,6 @@
     <Resource tag="HEADER_SEARCH">Search Settings</Resource>
     <Resource tag="HEADER_SERVER_INFO">Server Info</Resource>
     <Resource tag="HEADER_SETUP">Host Setup</Resource>
-    <Resource tag="HEADER_SHOUT">Shoutbox Settings</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings (Content Checking)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
     <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
@@ -1295,8 +1309,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Max Search Results:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Maximum number of search results that can be returned. Enter "0" for unlimited (not recommended).</Resource>
-    <Resource tag="MAX_WORD_LENGTH">Max Word Length:</Resource>
-    <Resource tag="MAX_WORD_LENGTH_HELP">Use it to limit number of a word characters in topic names and some other places.</Resource>
     <Resource tag="MEDALS_TEMPLATE">Medals template:</Resource>
     <Resource tag="MEDALS_TEMPLATE_HELP">Template for rendering user's medals.</Resource>
     <Resource tag="MEMBERLIST_PAGE_SIZE">Member List Page Size:</Resource>
@@ -1323,6 +1335,16 @@
     <Resource tag="NOTIFICATION_MOBILE_HELP">Option to Show Native Notifcation Dialogs on Mobile Devices.</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT">Online User Status Cache Timeout:</Resource>
     <Resource tag="ONLINE_STATUS_TIMEOUT_HELP">You can fine-tune it depending on your site activity (in milliseconds)</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE">Require Lower Case:</Resource>
+    <Resource tag="PASSWORD_LOWER_CASE_HELP">Option to require a lower case letter ('a' - 'z') in a Password.</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH">Minimum Length:</Resource>
+    <Resource tag="PASSWORD_MIN_LENGTH_HELP">The minimum required password length.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT">Require Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_DIGIT_HELP">Option to require a numeric digit ('0' - '9') in a Password.</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER">Require non Letter Or Digit:</Resource>
+    <Resource tag="PASSWORD_REQUIRE_NON_LETTER_HELP">Option to requires a non-letter or digit character in a Password.</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE">Require Upper Case:</Resource>
+    <Resource tag="PASSWORD_UPPER_CASE_HELP">Option to require a upper case letter ('A' - 'Z') in a Password.</Resource>
     <Resource tag="PM_ATTACHMENTS">Allow attachments in Private Messages</Resource>
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Image File size:</Resource>
@@ -1407,10 +1429,6 @@
     <Resource tag="SERVER_VERSION_HELP">What version of SQL Server is running.</Resource>
     <Resource tag="SERVERTIME_CORRECT">Server Time Zone Correction:</Resource>
     <Resource tag="SERVERTIME_CORRECT_HELP">Enter a positive or a negative value in minutes between -720 and 720, if the server UTC time value is incorrect: </Resource>
-    <Resource tag="SHOUTBOX_COUNT">Shoutbox Message Count:</Resource>
-    <Resource tag="SHOUTBOX_COUNT_HELP">The Number of Messages that will be shown in the shoutbox.</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE">Shout Box Default State:</Resource>
-    <Resource tag="SHOUTBOX_DEFAULTSTATE_HELP">The Default State for the Shout Box if it should be collapsed or expanded (Note: the State is saved as cookie, if you change the value you need to delete the cookie to see the changes).</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION">Show Active Discussions:</Resource>
     <Resource tag="SHOW_ACTIVE_DISCUSSION_HELP">Enable or disable display of active discussions list on board index page.</Resource>
     <Resource tag="SHOW_ATOM_LINKS">Show Atom Links:</Resource>
@@ -1462,8 +1480,6 @@
     <Resource tag="SHOW_RSS_LINKS">Show RSS Links:</Resource>
     <Resource tag="SHOW_RSS_LINKS_HELP">Enable or disable display of RSS links throughout the forum.</Resource>
     <Resource tag="SHOW_SCROLL">Show Scroll Back to Top Button</Resource>
-    <Resource tag="SHOW_SHOUTBOX">Show Shoutbox:</Resource>
-    <Resource tag="SHOW_SHOUTBOX_HELP">Enable or disable display of the Shoutbox (Chat Module) in the forum page.</Resource>
     <Resource tag="SHOW_SIMILARTOPICS">Show Similar Topics:</Resource>
     <Resource tag="SHOW_SIMILARTOPICS_HELP">Should similar topics to be displayed at the bottom of a topic.</Resource>
     <Resource tag="SHOW_THANK_DATE">Show The Date on Which Users Have Thanked Posts:</Resource>
@@ -1501,10 +1517,11 @@
     <Resource tag="SSL_LOGIN_HELP">Enforce a secure connection for users to log in.</Resource>
     <Resource tag="SSL_REGISTER">Use SSL while registering:</Resource>
     <Resource tag="SSL_REGISTER_HELP">Enforce a secure connection for users to register.</Resource>
+    <Resource tag="SSL_REQUIRE">Require SSL</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT">Forum Statistics Cache Timeout:</Resource>
     <Resource tag="STATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="STOPFORUMSPAM_KEY">StopForumSpam.com API Key:</Resource>
-    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="http://www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
+    <Resource tag="STOPFORUMSPAM_KEY_HELP">In order to Report a User as Bot you need an StopForumSpam.com API Key &lt;a href="https//www.stopforumspam.com/signup"&gt;Sign Up here&lt;a&gt;.</Resource>
     <Resource tag="STYLED_NICKS">Use styled nicks:</Resource>
     <Resource tag="STYLED_NICKS_HELP">If checked, you can use colors, font size change etc. for active users nicks.</Resource>
     <Resource tag="STYLED_TOPIC_TITLES">Use styled Topic Titles:</Resource>
@@ -1526,6 +1543,8 @@
     <Resource tag="TOPICS_PER_PAGE_HELP">Number of topics to show per page.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
+    <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
+    <Resource tag="TWOCOLUMN_BOARD_HELP">If enabled show forums in the left column and forum discussions and Stats in the Right Column</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG">Enable Unhandled UserAgent Log:</Resource>
     <Resource tag="UNHANDLED_USERAGENT_LOG_HELP">If checked, all unhandled UserAgent strings are logged.</Resource>
     <Resource tag="USE_FARSI_CALENDER">Use Farsi (Shamsi) Persian Calender:</Resource>
@@ -1546,8 +1565,6 @@
     <Resource tag="VIEWMEMBERLIST_PERMISSION_HELP">Allow viewing of members list to:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION">Profile Viewing Permissions:</Resource>
     <Resource tag="VIEWPROFILE_PERMISSION_HELP">Allow viewing of other users' profiles to:</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION">Shout Box View Permission:</Resource>
-    <Resource tag="VIEWSHOUTBOX_PERMISSION_HELP">View Permission for the Shout Box to allow for all Users (Including Guests) or only registered users.</Resource>
     <Resource tag="WELCOME_NOTIFICATION">Send User Welcome Notification:</Resource>
     <Resource tag="WELCOME_NOTIFICATION_0">Send No Message</Resource>
     <Resource tag="WELCOME_NOTIFICATION_1">Send as e-mail</Resource>
@@ -1604,25 +1621,26 @@
   </page>
   <page name="ADMIN_NNTPRETRIEVE">
     <Resource tag="BETA_WARNING">&lt;p style="color: red"&gt;
-		The NNTP feature of Yet Another Forum.net is still beta, and &lt;strong&gt;will&lt;/strong&gt; have bugs.
-		Bugs you should look for is character set conversion, and incorrect time on posts.
-		Usenet articles will be posted to the forum with the date from the article header,
-		meaning that you well could get future dates. Please let me know of any unknown
-		time zones that are encountered.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		The forums usenet Articles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
-		be posted back to the usenet. For speed purposes usenet articles are automatically
-		approved, meaning that if the forum is moderated, the posts will be automatically
-		approved.
-	&lt;/p&gt;
-	&lt;p style="color: red"&gt;
-		To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
-	&lt;/p&gt;</Resource>
+    The NNTP feature of Yet Another Forum.net is still beta, and &lt;strong&gt;will&lt;/strong&gt; have bugs.
+    Bugs you should look for is character set conversion, and incorrect time on posts.
+    Usenet articles will be posted to the forum with the date from the article header,
+    meaning that you well could get future dates. Please let me know of any unknown
+    time zones that are encountered.
+  &lt;/p&gt;
+  &lt;p style="color: red"&gt;
+    The forums usenet Articles are posted to should be read-only, as messages will &lt;strong&gt;not&lt;/strong&gt;
+    be posted back to the usenet. For speed purposes usenet articles are automatically
+    approved, meaning that if the forum is moderated, the posts will be automatically
+    approved.
+  &lt;/p&gt;
+  &lt;p style="color: red"&gt;
+    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.
+  &lt;/p&gt;</Resource>
     <Resource tag="GROUPS">Groups ready for retrieval</Resource>
     <Resource tag="HEADER">Retrieve NNTP Articles</Resource>
     <Resource tag="LAST_MESSAGE">Last Message</Resource>
     <Resource tag="LAST_UPDATE">Last Update</Resource>
+    <Resource tag="NO_GROUPS">No Groups ready for retrieval</Resource>
     <Resource tag="RETRIEVE">Retrieve</Resource>
     <Resource tag="Retrieved">Retrieved {0} articles. {1:N2} articles per second.</Resource>
     <Resource tag="SECONDS">seconds</Resource>
@@ -1664,6 +1682,14 @@
     <Resource tag="PM_NUMBER">Number of private messages:</Resource>
     <Resource tag="TITLE">PM Maintenance</Resource>
   </page>
+  <page name="ADMIN_PROFILEDEFINITIONS">
+    <Resource tag="CONFIRM_DELETE">Delete Definition?</Resource>
+    <Resource tag="NEW_DEF">Add New Definition</Resource>
+    <Resource tag="TITLE">Custom Profile Definitions</Resource>
+  </page>
+  <page name="ADMIN_PROFILER">
+    <Resource tag="TITLE">Web Profiler</Resource>
+  </page>
   <page name="ADMIN_PRUNE">
     <Resource tag="ALL_FORUMS">All Forums</Resource>
     <Resource tag="CONFIRM_PRUNE">Do you really want to prune topics? This process is irreversible.</Resource>
@@ -1676,6 +1702,7 @@
     <Resource tag="PRUNE_PERMANENT">Permanently remove from DB:</Resource>
     <Resource tag="PRUNE_PERMANENT_HELP">All Topics marked with the Deleted flag will be permanently deleted.</Resource>
     <Resource tag="PRUNE_START">Start Prune Task</Resource>
+    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="TITLE">Prune Topics</Resource>
     <Resource tag="TITLE_HELP">Option to delete All Topics that are not marked as persistent.</Resource>
   </page>
@@ -1764,7 +1791,6 @@
     <Resource tag="MSG_DELETED">Topics deleted</Resource>
     <Resource tag="MSG_RESTORED">Topic restored</Resource>
     <Resource tag="RESTORE_MESSAGE">Restore Message</Resource>
-    <Resource tag="RESTORE_TOPIC">Restore Topic</Resource>
     <Resource tag="SEARCH">Reload</Resource>
     <Resource tag="TITLE">Restore &amp; Delete Topics</Resource>
     <Resource tag="TITLE_HELP">Option to restore topics that are flagged as deleted topics, or to permanently delete them from the database.</Resource>
@@ -1773,6 +1799,7 @@
   </page>
   <page name="ADMIN_RUNSQL">
     <Resource tag="HEADER">Run SQL Query</Resource>
+    <Resource tag="NEED_QUERY">You need to enter a Query.</Resource>
     <Resource tag="RUN_QUERY">Run Query</Resource>
     <Resource tag="RUN_TRANSCATION">Run In Transaction</Resource>
     <Resource tag="SQL_COMMAND">SQL Command:</Resource>
@@ -1793,6 +1820,7 @@
   </page>
   <page name="ADMIN_SPAMWORDS_EDIT">
     <Resource tag="MSG_REGEX_SPAM">The Regular expression statement you have entered is invalid.</Resource>
+    <Resource tag="NEED_SPAM">You must define a Spam word.</Resource>
     <Resource tag="SPAM">"Spam" Word (Find) Expression:</Resource>
     <Resource tag="SPAM_HELP">Regular expression statement. Escape punctation with a preceding slash (e.g. '\.').</Resource>
     <Resource tag="TITLE">Add New Spam Word</Resource>
@@ -1819,40 +1847,6 @@
     <Resource tag="RUNNING">Is Running</Resource>
     <Resource tag="STOP_TASK">Stop Task</Resource>
     <Resource tag="TITLE">Task Manger</Resource>
-  </page>
-  <page name="ADMIN_TEST_DATA">
-    <Resource tag="TITLE">Create Test Data (DEBUG Only)</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS">
-    <Resource tag="ADD">Add</Resource>
-    <Resource tag="CONFIRM_DELETE">Delete this Status?</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION">Status</Resource>
-    <Resource tag="EXPORT">Export to XML</Resource>
-    <Resource tag="HEADER">Allowed File Extensions</Resource>
-    <Resource tag="ICON">Icon</Resource>
-    <Resource tag="IMPORT">Import from XML</Resource>
-    <Resource tag="TITLE">Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Status Name</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_EDIT">
-    <Resource tag="DEFAULT_DESCRIPTION">Default Status Name:</Resource>
-    <Resource tag="DEFAULT_DESCRIPTION_HELP">Default Status Name, this Name is used when its not found in the current Language File.</Resource>
-    <Resource tag="HEADER">Add/Edit Topic Status</Resource>
-    <Resource tag="MSG_ENTER">You must enter something.</Resource>
-    <Resource tag="TITLE">Add/Edit Topic Status</Resource>
-    <Resource tag="TITLE_EDIT">Edit Topic Status</Resource>
-    <Resource tag="TOPICSTATUS_NAME">Topic Status Value:</Resource>
-    <Resource tag="TOPICSTATUS_NAME_HELP">This is the Value that is used to retrieve the Topic Status Icon and/or Text. That needs to be defined in the Theme Files and languages.</Resource>
-  </page>
-  <page name="ADMIN_TOPICSTATUS_IMPORT">
-    <Resource tag="HEADER">Import Topic Status List</Resource>
-    <Resource tag="IMPORT">Import List</Resource>
-    <Resource tag="IMPORT_FAILED">Failed to import: {0}</Resource>
-    <Resource tag="IMPORT_FILE">Select Import File:</Resource>
-    <Resource tag="IMPORT_FILE_HELP">Must be *.xml file</Resource>
-    <Resource tag="IMPORT_NOTHING">Nothing imported: no new status was found in the upload.</Resource>
-    <Resource tag="IMPORT_SUCESS">{0} new status(es) imported successfully.</Resource>
-    <Resource tag="TITLE">Import Topic Status</Resource>
   </page>
   <page name="ADMIN_USERS">
     <Resource tag="APPROVED">Approved</Resource>
@@ -1915,6 +1909,7 @@
     <Resource tag="admin_bannedip">Banned IPs</Resource>
     <Resource tag="admin_bannedname">Banned Names</Resource>
     <Resource tag="admin_bbcode">BBCode Extensions</Resource>
+    <Resource tag="ADMIN_BoardAnnouncement">Board Announcement</Resource>
     <Resource tag="admin_boards">Boards</Resource>
     <Resource tag="admin_boardsettings">Board Settings</Resource>
     <Resource tag="admin_digest">Digest</Resource>
@@ -1933,6 +1928,8 @@
     <Resource tag="admin_pageaccessedit">Edit Admin Page Access</Resource>
     <Resource tag="admin_pageaccesslist">Admin Page Access</Resource>
     <Resource tag="admin_pm">Private Messages</Resource>
+    <Resource tag="ADMIN_PROFILEDEFINITIONS">Custom Profile Definitions</Resource>
+    <Resource tag="admin_profiler">Web Profiler</Resource>
     <Resource tag="admin_prune">Prune Topics</Resource>
     <Resource tag="admin_ranks">Ranks</Resource>
     <Resource tag="admin_reindex">DB Maintenance</Resource>
@@ -1942,10 +1939,8 @@
     <Resource tag="admin_runsql">Run SQL Query</Resource>
     <Resource tag="ADMIN_SPAMLOG">Spam Event Log</Resource>
     <Resource tag="admin_spamwords">Spam Check Words</Resource>
-    <Resource tag="admin_tags">Tags</Resource>
+    <Resource tag="ADMIN_TAGS">Tags</Resource>
     <Resource tag="admin_taskmanager">Task Manager</Resource>
-    <Resource tag="admin_test_data">Create Test Data</Resource>
-    <Resource tag="admin_topicstatus">Topic Status</Resource>
     <Resource tag="admin_users">Users</Resource>
     <Resource tag="admin_version">Version Check</Resource>
     <Resource tag="Database">Database</Resource>
@@ -1960,6 +1955,7 @@
   <page name="ALBUM">
     <Resource tag="ALBUM_CHANGE_TITLE">Add Title</Resource>
     <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION">Add Caption</Resource>
+    <Resource tag="ALBUM_IMAGE_CHANGE_CAPTION2">Change Caption</Resource>
     <Resource tag="ALBUM_IMAGES_NUMBER">{0} Image(s)</Resource>
     <Resource tag="ALBUM_VIEW">Click to View Album</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
@@ -1985,6 +1981,7 @@
     <Resource tag="CONFIRM_DELETE">Delete attachment(s)?</Resource>
     <Resource tag="CURRENT_UPLOADS">Current Attachment Uploads:</Resource>
     <Resource tag="DELETE">Slett</Resource>
+    <Resource tag="DELETED">{0} Attachment(s) deleted!</Resource>
     <Resource tag="DISALLOWED_EXTENSIONS">Disallowed File Types</Resource>
     <Resource tag="DROP_HERE">Drop file(s) here</Resource>
     <Resource tag="ERROR_TOOBIG">Fila du prøver å laste opp er for stor.</Resource>
@@ -2070,6 +2067,8 @@
     <Resource tag="BUTTON_ATTACH_TT">Attach files to this post</Resource>
     <Resource tag="BUTTON_DELETE">Delete</Resource>
     <Resource tag="BUTTON_DELETE_TT">Delete this Post</Resource>
+    <Resource tag="BUTTON_DELETE_UNDELETE">Delete from DB</Resource>
+    <Resource tag="BUTTON_DELETE_UNDELETE_TT">Delete this post from the Database</Resource>
     <Resource tag="BUTTON_DELETEALBUM">Delete Album</Resource>
     <Resource tag="BUTTON_DELETEATTACHMENT">Delete Attachment(s)</Resource>
     <Resource tag="BUTTON_DELETEATTACHMENT_TT">Delete selected attachment(s)s</Resource>
@@ -2159,6 +2158,7 @@
     <Resource tag="BBCODE_QUOTEPOSTED">Originally Posted by: {0}</Resource>
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Go to Quoted Post</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
+    <Resource tag="BROWSE">Browse</Resource>
     <Resource tag="CAL_JQ_CULTURE">no</Resource>
     <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
@@ -2193,6 +2193,12 @@
     <Resource tag="DOWNLOAD">Download</Resource>
     <Resource tag="EDIT">Edit</Resource>
     <Resource tag="EMAILVERIFICATION_SUBJECT">{0} Email Verification</Resource>
+    <Resource tag="ENTRIES_10">10 Entries</Resource>
+    <Resource tag="ENTRIES_15">15 Entries</Resource>
+    <Resource tag="ENTRIES_20">20 Entries</Resource>
+    <Resource tag="ENTRIES_25">25 Entries</Resource>
+    <Resource tag="ENTRIES_5">5 Entries</Resource>
+    <Resource tag="ENTRIES_50">50 Entries</Resource>
     <Resource tag="EXTERNALUSER">(External User)</Resource>
     <Resource tag="FONT_COLOR">Font Color</Resource>
     <Resource tag="FONT_SIZE">Font Size</Resource>
@@ -2277,6 +2283,8 @@
                 }
           }
   </Resource>
+    <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
     <Resource tag="TOPIC_NOTIFICATION_SUBJECT">Topic Subscription New Post Notification (From {0})</Resource>
@@ -2321,7 +2329,7 @@
   <page name="COOKIES">
     <Resource tag="COOKIES_TEXT">
     Cookies are small text files that are placed on your computer by websites that you visit. They are widely used in order to make websites work, or work more efficiently, as well as to provide information to the owners of the site. Depending on your access level and actions on the site, various preference based cookies may be set to enrich your experience.
-    
+
     [br]
     [b]Standard Cookies[/b][br]
     We’re using cookies for the following purposes:
@@ -2335,7 +2343,7 @@
 
     [b]Third Party Cookies[/b][br]
     The site owner may set additional cookies in addition to the standard cookies above. These cookies are often used for website usage tracking, or set by embedded service providers when viewing embedded content from providers such as YouTube and Vimeo, etc.
-    
+
     [br]
 
     [b]How do I change my cookie settings?[/b][br]
@@ -2635,8 +2643,8 @@
     <Resource tag="SHOW_UNREAD_ONLY">Show only Unread Topics.</Resource>
     <Resource tag="STATS">Statistikk</Resource>
     <Resource tag="STATS_BIRTHDAYS">Today's Birthdays: </Resource>
-    <Resource tag="STATS_LASTMEMBER">Nyeste medlem er</Resource>
-    <Resource tag="STATS_LASTPOST">Siste innlegg {0} av {1}.</Resource>
+    <Resource tag="STATS_LASTMEMBER">Nyeste medlem er:</Resource>
+    <Resource tag="STATS_LASTPOST">Siste innlegg {0} av:</Resource>
     <Resource tag="STATS_MEMBERS">Vi har {0:N0} registrerte medlemmer.</Resource>
     <Resource tag="STATS_POSTS">{0:N0} innlegg i {1:N0} emner i {2:N0} forum.</Resource>
     <Resource tag="STATS_SPAM">Anti Spam Statistics</Resource>
@@ -2669,6 +2677,7 @@
     <Resource tag="FROM">From:</Resource>
     <Resource tag="LAST10">Last 10 Posts (In reverse order)</Resource>
     <Resource tag="MESSAGE">Message:</Resource>
+    <Resource tag="NEED_REASON">You need to enter a Reason why the message is deleted.</Resource>
     <Resource tag="POSTED">Posted:</Resource>
     <Resource tag="PREVIEWTITLE">Message:</Resource>
     <Resource tag="PRIORITY">Priority:</Resource>
@@ -2696,10 +2705,13 @@
     <Resource tag="ASK_DELETEIMAGE">Delete this image?</Resource>
     <Resource tag="ERROR_MAXALBUMS">You cannot add any more albums to this account.</Resource>
     <Resource tag="ERROR_TOOBIG">You cannot upload images that big.</Resource>
+    <Resource tag="IMAGES">Album Image(s)</Resource>
     <Resource tag="IMAGES_COUNT_LIMIT">Your image limit is reached. You can add no more then {0} images.</Resource>
     <Resource tag="IMAGES_INFO">Note: Currently this Album contains {0} Image(s) you are allowed to have {1} images for each album. The max. filesize for an Image is {2} kb</Resource>
+    <Resource tag="NEED_TITLE">You need to specify a title.</Resource>
     <Resource tag="SELECT_FILE">Select an Image File ('.jpg', '.gif', '.png' or '.bmp') you want to upload.</Resource>
     <Resource tag="TITLE">Add/Edit Album</Resource>
+    <Resource tag="TITLE_NEW">Create New Album</Resource>
   </page>
   <page name="EDIT_AVATAR">
     <Resource tag="AVATAR">Avatar</Resource>
@@ -2714,7 +2726,7 @@
     <Resource tag="NOTE_LOCAL">Note If the Image is larger than {0}x{1} pixels, it will be automatically resized. And the size of your image can't be more than {2} KB.</Resource>
     <Resource tag="NOTE_REMOTE">Note: If the Image is larger than {0}x{1} pixels, it will be automatically resized.</Resource>
     <Resource tag="OURAVATAR">Select your Avatar from our Collection:</Resource>
-    <Resource tag="OURAVATAR_SELECT">Click Here to Select an Avatar</Resource>
+    <Resource tag="OURAVATAR_SELECT">Open Gallery</Resource>
     <Resource tag="TITLE">Modify Avatar</Resource>
     <Resource tag="WARN_BIGFILE">The size of your image can't be more than {0} bytes.</Resource>
     <Resource tag="WARN_FILESIZE">The size of your image was {0} bytes.</Resource>
@@ -2748,7 +2760,6 @@
     <Resource tag="FIELD_TOOLONG">{0} length cannot be more than {1} characters.</Resource>
     <Resource tag="FORUM_SETTINGS">Forum innstillinger</Resource>
     <Resource tag="GET_LOCATION">Get Location from IP Address</Resource>
-    <Resource tag="GOOGLE">Your Google Profile URL:</Resource>
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Hjemmeside</Resource>
     <Resource tag="HOMEPAGE2">Din hjemmeside:</Resource>
@@ -2762,11 +2773,13 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
     <Resource tag="REALNAME2">Hva er ditt fulle navn?</Resource>
     <Resource tag="REGION">State:</Resource>
     <Resource tag="SELECT_LANGUAGE">Hvilket språk ønsker du å bruke:</Resource>
+    <Resource tag="SELECT_PAGESIZE">Standard Page Size:</Resource>
     <Resource tag="SELECT_TEXTEDITOR">Select your text editor:</Resource>
     <Resource tag="SELECT_THEME">Velg ditt favoritt tema:</Resource>
     <Resource tag="SKYPE">Your SKYPE ID:</Resource>
@@ -2803,6 +2816,8 @@
     <Resource tag="FAILED">Klarte ikke å sende e-posten.\n\n{0}</Resource>
     <Resource tag="MESSAGE">Melding:</Resource>
     <Resource tag="NEED_EMAIL">Du må skrive inn en e-postadresse.</Resource>
+    <Resource tag="NEED_MESSAGE">You must enter a Message.</Resource>
+    <Resource tag="NEED_SUBJECT">You must enter an email subject.</Resource>
     <Resource tag="SEND">Send e-post</Resource>
     <Resource tag="SUBJECT">Emne:</Resource>
     <Resource tag="TITLE">Send en side til en venn</Resource>
@@ -2838,19 +2853,45 @@
     <Resource tag="YOUR_BUDDYLIST">Your Friend List</Resource>
     <Resource tag="YOUR_REQUESTS">Your Requests</Resource>
   </page>
+  <page name="GENDER">
+    <Resource tag="AGENDER">Agender</Resource>
+    <Resource tag="ANDROGYNE">Androgyne</Resource>
+    <Resource tag="BIGENDER">Bigender</Resource>
+    <Resource tag="CISGENDER">Cisgender</Resource>
+    <Resource tag="FEMALETOMALE">Female to Male</Resource>
+    <Resource tag="GENDERFLUID">Gender Fluid</Resource>
+    <Resource tag="GENDERNONCONFORMING">Gender Nonconforming</Resource>
+    <Resource tag="GENDERQUEER">Genderqueer</Resource>
+    <Resource tag="GENDERQUESTIONING">Gender Questioning</Resource>
+    <Resource tag="INTERSEX">Intersex</Resource>
+    <Resource tag="MALETOFEMALE">Male to Female</Resource>
+    <Resource tag="MAN">Man</Resource>
+    <Resource tag="NONBINARY">Non-binary</Resource>
+    <Resource tag="OTHER">Other</Resource>
+    <Resource tag="PANGENDER">Pangender</Resource>
+    <Resource tag="TRANS">Trrans</Resource>
+    <Resource tag="TRANSFEMININE">Transfeminine</Resource>
+    <Resource tag="TRANSGENDER">Transgender</Resource>
+    <Resource tag="TRANSMAN">Transgender Man</Resource>
+    <Resource tag="TRANSMASCULINE">Transmasculine</Resource>
+    <Resource tag="TRANSSEXUAL">Transsexual</Resource>
+    <Resource tag="TRANSWOMAN">Transgender Woman</Resource>
+    <Resource tag="TWOSPIRIT">Two-Spirit</Resource>
+    <Resource tag="WOMAN">Woman</Resource>
+  </page>
   <page name="HELP_INDEX">
     <Resource tag="ANOUNCECONTENT">&lt;p&gt;Announcements are special messages posted by the administrator or moderators. They are a simple one-way communication with the users and you can't reply. If you wish to discuss announcements, you will have to create a new thread in the forum.&lt;/p&gt;
 &lt;p&gt;Announcement topics are displayed at the top of forum listing pages, above regular and sticky topics.&lt;/p&gt;
         </Resource>
     <Resource tag="ANOUNCETITLE">Announcements</Resource>
     <Resource tag="ATTACHMENTSCONTENT">
-      &amp;lt;p&amp;gt;To attach a file to a post, simply copy and paste the file, in to the editor. &amp;lt;/p&amp;gt;
-      &amp;lt;p&amp;gt;From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.&amp;lt;/p&amp;gt;
-      &amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;What files types can be used? How large can attachments be?&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;
-      &amp;lt;p&amp;gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&amp;lt;/p&amp;gt;
-      &amp;lt;p&amp;gt;&amp;lt;strong&amp;gt;How to add an image to a post?&amp;lt;/strong&amp;gt;&amp;lt;/p&amp;gt;
-      &amp;lt;p&amp;gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&amp;lt;/p&amp;gt;
-      &amp;lt;p&amp;gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the &amp;#39;Insert Image&amp;#39; icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&amp;lt;/p&amp;gt;
+      &lt;p&gt;To attach a file to a post, simply copy and paste the file, in to the editor. &lt;/p&gt;
+      &lt;p&gt;From the Attachments (paper clip icon) toolbar button in the editor you can also select an previous uploaded attachment, or upload a new one.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;What files types can be used? How large can attachments be?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;In the attachment window you will find a list of the allowed file types you can use. There may also be an overall quota limit to the number of attachments you can post to the board.&lt;/p&gt;
+      &lt;p&gt;&lt;strong&gt;How to add an image to a post?&lt;/strong&gt;&lt;/p&gt;
+      &lt;p&gt;If you have uploaded an image as an attachment, they will be automatically generated a thumbnail that will displayed in your message, with an Link to the Full Size Image&lt;/p&gt;
+      &lt;p&gt;To include an image that is not uploaded as an attachment and is located on another website, you can do so by copying the full URL to the image, (not the page on which the image is located), and either pressing the 'Insert Image' icon or by typing [img] before the URL and [/img] after it, ensuring that you do not have any spaces before or after the URL of the image.&lt;/p&gt;
     </Resource>
     <Resource tag="ATTACHMENTSTITLE">Attachments and Images</Resource>
     <Resource tag="BBCODESCONTENT">&lt;p&gt;On this Page you find a list  of the BB code tags you can use to format your messages.&lt;/p&gt;
@@ -3047,7 +3088,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [left]this text is left aligned[/left]&lt;br /&gt;
-	  [center]this text is center aligned[/center]&lt;br /&gt;
+    [center]this text is center aligned[/center]&lt;br /&gt;
       [right]this text is right aligned[/right]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
@@ -3055,8 +3096,8 @@
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;div align="left"&gt;this text is left aligned&lt;/div&gt;
-			&lt;div align="center"&gt;this text is center aligned&lt;/div&gt;
-			&lt;div align="right"&gt;this text is right aligned&lt;/div&gt;&lt;/td&gt;
+      &lt;div align="center"&gt;this text is center aligned&lt;/div&gt;
+      &lt;div align="right"&gt;this text is right aligned&lt;/div&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Highlight&lt;/td&gt;
@@ -3105,14 +3146,14 @@
     &lt;/td&gt;
     &lt;td&gt;
       [email]someone@mydomain.com[/email]&lt;br /&gt;
-			[email=someone@mydomain.com]Click Here to Email Me[/email]&lt;/td&gt;
+      [email=someone@mydomain.com]Click Here to Email Me[/email]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;a href="mailto:someone@mydomain.com" title="someone@mydomain.com"&gt;someone@mydomain.com&lt;/a&gt;&lt;br /&gt;
-			&lt;a href="mailto:someone@mydomain.com" title="Click Here to Email Me"&gt;Click Here to Email Me&lt;/a&gt;&lt;/td&gt;
+      &lt;a href="mailto:someone@mydomain.com" title="Click Here to Email Me"&gt;Click Here to Email Me&lt;/a&gt;&lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;URL Hyper Links&lt;/td&gt;
@@ -3130,7 +3171,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [url]{0}[/url]&lt;br /&gt;
-	 [url={0}]mydomain[/url]&lt;/td&gt;
+   [url={0}]mydomain[/url]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3155,7 +3196,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [modalurl]{0}[/modalurl]&lt;br /&gt;
-	 [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
+   [modalurl={0}]mydomain[/modalurl]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3345,18 +3386,18 @@
     &lt;td&gt;
       [img]{0}Content/images/YAFLogo.svg[/img]&lt;br /&gt;&lt;br /&gt;
       [img={0}Content/images/YAFLogo.svg]YAF Logo[/img]&lt;br /&gt;&lt;br /&gt;
-	  [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Linked)
-	&lt;/td&gt;
+    [url={0}] [img]{0}Content/images/YAFLogo.svg[/img] [/url] (Linked)
+  &lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;br /&gt;
-		&lt;br /&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
-		&lt;br /&gt;
-		&lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;/a&gt; (Linked)
-	&lt;/td&gt;
+    &lt;br /&gt;&lt;img src="{0}Content/images/YAFLogo.svg" alt="YAF Logo" title="YAF Logo" /&gt;&lt;br /&gt;
+    &lt;br /&gt;
+    &lt;a href="{0}" target="_blank" title="YAF Logo"&gt;&lt;img class="inlineimg" src="{0}Content/images/YAFLogo.svg" alt="" /&gt;&lt;/a&gt; (Linked)
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;You Tube&lt;/td&gt;
@@ -3488,8 +3529,8 @@
     &lt;/td&gt;
     &lt;td&gt;
       [quote]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
-		[quote=John Doe;123]Quoted Text.[/quote]&lt;/td&gt;
+    [quote=John Doe]Quoted Text.[/quote]&lt;br /&gt;&lt;br /&gt;
+    [quote=John Doe;123]Quoted Text.[/quote]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3517,7 +3558,7 @@
     &lt;/td&gt;
     &lt;td&gt;
       [code]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
 public class Hello1&lt;br /&gt;
 {{&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
@@ -3525,9 +3566,9 @@ public class Hello1&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
 }}&lt;br /&gt;
-		[/code]&lt;br /&gt;&lt;br /&gt;
+    [/code]&lt;br /&gt;&lt;br /&gt;
         [code=csharp]&lt;br /&gt;
-		// Hello1.cs&lt;br /&gt;
+    // Hello1.cs&lt;br /&gt;
 public class Hello1&lt;br /&gt;
 {{&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;public static void Main()&lt;br /&gt;
@@ -3535,7 +3576,7 @@ public class Hello1&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;System.Console.WriteLine("Hello, World!");&lt;br /&gt;
 &amp;nbsp;&amp;nbsp;}}&lt;br /&gt;
 }}&lt;br /&gt;
-		[/code]&lt;/td&gt;
+    [/code]&lt;/td&gt;
   &lt;/tr&gt;
    &lt;tr&gt;
     &lt;td style="width:15%;padding-left:10px;vertical-align:top;"&gt;
@@ -3593,12 +3634,12 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" title="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" /&gt;   
+    &lt;img src="{0}Content/images/HiddenWarnDescription.png" alt="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" title="The content of this post is hidden. After you THANK the poster, refresh the page to see the hidden content. You need to thank the Current Post" /&gt;
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Group Hide&lt;/td&gt;
@@ -3623,15 +3664,15 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;You have insufficient rights to see the hidden content.&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Thanks&lt;/td&gt;
@@ -3656,17 +3697,17 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered, and have at least 2 thank(s) received.)&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
-  
+
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Posts&lt;/td&gt;
   &lt;/tr&gt;
@@ -3690,17 +3731,17 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and have 10 post(s) or more.)&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
-  
+
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Reply&lt;/td&gt;
   &lt;/tr&gt;
@@ -3724,15 +3765,15 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and reply to the message to see the hidden Content.)&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Hide-Reply-Thanks&lt;/td&gt;
@@ -3757,15 +3798,15 @@ public class Hello1
     &lt;/td&gt;
     &lt;td&gt;
     &lt;p&gt;If you don't have the right to view the content, you see an Info Message that Informs you way you don't see the Content&lt;/p&gt;
-    
+
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;Hidden Content (You must be registered and reply to the message, or give thank, to see the hidden Content.)&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;Otherwise as Guest you see a Info Message&lt;/p&gt;
     &lt;div class="ui-widget"&gt;&lt;div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"&gt;&lt;p&gt;&lt;span class="ui-icon ui-icon-alert" style="float: left; padding: 0 0 3px 2px;"&gt;&lt;/span&gt;This board requires you to be registered and logged-in before you can view hidden messages.&lt;/div&gt;&lt;/div&gt;
-    
+
     &lt;p&gt;If you do have access to see the Content you simply see the Hidden Content&lt;/p&gt;&lt;br /&gt;
     &lt;p&gt;Hidden Content&lt;/p&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Spoiler&lt;/td&gt;
@@ -3791,8 +3832,8 @@ public class Hello1
     &lt;td&gt;
     &lt;!-- BEGIN spoiler --&gt;
     &lt;script type="text/javascript"&gt;
-	function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}
-	&lt;/script&gt;
+  function toggleSpoiler(btn,elid){{var el=document.getElementById(elid);if(el==null){{return}}if(el.style.display==''){{el.style.display='none';btn.value='Show Spoiler'}}else{{el.style.display='';btn.value='Hide Spoiler'}}}}
+  &lt;/script&gt;
 &lt;div class="spoilertitle"&gt;
 &lt;input type="button" value="Show Spoiler" class="spoilerbutton" name="spoilerBtn4360a" onclick="toggleSpoiler(this,'spoil_c3a3b');"/&gt;
 &lt;/div&gt;
@@ -3800,7 +3841,7 @@ public class Hello1
 Spoiler Content
 &lt;/div&gt;
 &lt;!-- END spoiler --&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 &lt;br /&gt;
@@ -3833,12 +3874,12 @@ Spoiler Content
     &lt;/td&gt;
     &lt;td&gt;
     &lt;style type="text/css"&gt;.yafnet .userLinkContainer{{background: url({0}Content/icons/user.png) #fff no-repeat 4px 50%;border: 1px solid #eee;padding: 4px 2px 4px 25px;margin: 3px;font-size: 80%;font-weight: bold;    background-color: #fff;-webkit-border-radius: 4px;-moz-border-radius: 4px;border-radius: 4px;}}.yafnet .userLinkContainer:hover{{border: 1px solid #ddd;background-color: #eee;}}
-	&lt;/style&gt;
+  &lt;/style&gt;
     &lt;span class="userLinkContainer"&gt;
 &lt;a href="{0}yaf_profile1234.aspx" rel="nofollow" title="View profile" target="_blank" id="UserLinkBBCodeFor12224" class="UserLinkBBCode"&gt;Username&lt;/a&gt;
 &lt;img id="OnlineStatusImage" src="{0}/Themes/OrangeGrey/icon_useronline.png" alt="Online" style="vertical-align: bottom" title="User is Online"/&gt;
 &lt;/span&gt;
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
   &lt;tr&gt;
     &lt;td class="header2" colspan="2"&gt;Stop BB Code Parsing&lt;/td&gt;
@@ -3862,7 +3903,7 @@ Spoiler Content
       &lt;strong&gt;Output&lt;/strong&gt;
     &lt;/td&gt;
     &lt;td&gt;[noparse][b]Sample text.[/b][/noparse]
-	&lt;/td&gt;
+  &lt;/td&gt;
   &lt;/tr&gt;
 &lt;/table&gt;
 
@@ -3923,7 +3964,7 @@ Spoiler Content
 </Resource>
     <Resource tag="EDITPROFILETITLE">Editing User Profile &amp; Forum Settings</Resource>
     <Resource tag="FORUMSCONTENT">&lt;p&gt;&lt;strong&gt;What is YAF?&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronounced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is led by Ingo Herbote. YAF runs on any web server that supports ASP.NET v4.0 (and above) and SQL Server. YAF is licensed under Apache 2.0.&lt;/p&gt;
+&lt;p&gt;YetAnotherForum.NET (YAF) is The Open Source Discussion Forum for sites running ASP.NET. 100% written in C#, YAF (pronounced like &amp;quot;laugh&amp;quot;) is a unique combination of Open Source, Microsoft's .NET platform and an international collaboration of the .NET developer community. Growing and changing daily, the YAF project is led by Ingo Herbote. YAF runs on any web server that supports ASP.NET v4.8 (and above) and SQL Server. YAF is licensed under Apache 2.0.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How is all of this structured?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;A Forum contains various areas, which themselves contain forums (more specific subject areas) which contain topics  which are made up of individual messages (where a user writes something).&lt;/p&gt;
 &lt;p&gt;The Forums home page has a list of categories and forums, with basic statistics for each, including the number of topics and messages, and which member posted the most recent message.&lt;/p&gt;
@@ -4134,14 +4175,14 @@ Spoiler Content
 &lt;p&gt;Personal information such as E-Mail Address or Passwords are &lt;strong&gt;NOT&lt;/strong&gt; shown.&lt;/p&gt;</Resource>
     <Resource tag="PUBLICPROFILETITLE">My Public Profile</Resource>
     <Resource tag="READPOSTTOPICS">Reading and Posting Messages</Resource>
-    <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;" 
+    <Resource tag="RECOVERCONTENT">&lt;p&gt;If you forget your password, you can click on the "&lt;a href="{0}"&gt;Lost Password&lt;/a&gt;"
   link. This will appear on any page that requires you to fill in your password. &lt;/p&gt;
-&lt;p&gt;This link brings up a page where you should enter your User Name. An email will 
+&lt;p&gt;This link brings up a page where you should enter your User Name. An email will
   be sent to that address shortly, with instructions for resetting your password.&lt;/p&gt;
-&lt;p&gt; Since passwords are encrypted, there is no way to resend your original password. 
+&lt;p&gt; Since passwords are encrypted, there is no way to resend your original password.
   This option provides you with the ability to reset your password.  &lt;/p&gt;
-&lt;p&gt;You must be able to receive emails to your registered email address for this to 
-  work. You may need to check your spam filters and folder if you do not see this 
+&lt;p&gt;You must be able to receive emails to your registered email address for this to
+  work. You may need to check your spam filters and folder if you do not see this
   email in a few minutes. &lt;/p&gt;</Resource>
     <Resource tag="RECOVERTITLE">Recover lost password</Resource>
     <Resource tag="REGISTRATIONCONTENT">&lt;p&gt;The administrator will probably require you to register in order to use all the features of the forum. Being registered gives you an identity on the board, a fixed username on all messages you post and an online public profile.&lt;/p&gt;
@@ -4229,6 +4270,7 @@ Spoiler Content
     <Resource tag="SEND">Send e-post</Resource>
     <Resource tag="SUBJECT">Melding:</Resource>
     <Resource tag="TITLE">E-postadresse</Resource>
+    <Resource tag="TITLE2">Send E-mail to {0}</Resource>
   </page>
   <page name="IM_ICQ">
     <Resource tag="BODY">Skriv din melding her:</Resource>
@@ -4297,6 +4339,7 @@ Spoiler Content
     <Resource tag="CONNECT_VIA">Or Connect via</Resource>
     <Resource tag="EMAIL">E-postadresse</Resource>
     <Resource tag="EMAIL_SENT_PASSWORD">En e-post har blitt sendt med ditt nye passord.</Resource>
+    <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FACEBOOK_LOGIN">Login with Facebook</Resource>
     <Resource tag="FORUM_LOGIN">Forum innlogging</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
@@ -4448,6 +4491,7 @@ Spoiler Content
     <Resource tag="REPLYTO">Reply by private message to</Resource>
     <Resource tag="REPORT_SPAM">Report as SPAM</Resource>
     <Resource tag="REPORTED">Reported posts</Resource>
+    <Resource tag="REPORTED_TIMES">{0} Reports</Resource>
     <Resource tag="REPORTEDBY">Reported by:</Resource>
     <Resource tag="RESOLVE">Resolve Post Copies</Resource>
     <Resource tag="RESOLVED">Mark as resolved</Resource>
@@ -4566,10 +4610,10 @@ Spoiler Content
     </Resource>
     <Resource tag="PREVIEWTITLE">Forhåndsvis:</Resource>
     <Resource tag="RECIPIENTS_PMBOX_FULL">User {0} has a full Private Message Inbox. Sorry, they will not receive your PM until they free up space.</Resource>
-    <Resource tag="REPORT_BODY">I would like to Report the Message: 
+    <Resource tag="REPORT_BODY">I would like to Report the Message:
 
-  {0} 
-     
+  {0}
+
   for the following Reason...</Resource>
     <Resource tag="REPORT_SUBJECT">Report a Private Message from User: {0}</Resource>
     <Resource tag="REPORTED_SUBJECT">Re: Reply to you post report.</Resource>
@@ -4716,9 +4760,6 @@ Spoiler Content
     <Resource tag="FACEBOOK_TOPIC">Like this Topic</Resource>
     <Resource tag="FORUM_JUMP">Gå til forum</Resource>
     <Resource tag="GO_TO_ANSWER">Go to the topic answer</Resource>
-    <Resource tag="GOOGLE">Google+</Resource>
-    <Resource tag="GOOGLE_TITLE">Visit {0}'s Google+ Profile</Resource>
-    <Resource tag="GOOGLEPLUS_TOPIC">Share Topic on Google+</Resource>
     <Resource tag="GROUPS">Grupper</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
@@ -4861,9 +4902,6 @@ Spoiler Content
     <Resource tag="FACEBOOK">Facebook Profile:</Resource>
     <Resource tag="FORUM_ACCESS">Forum Access</Resource>
     <Resource tag="GENDER">Kjønn:</Resource>
-    <Resource tag="GENDER0">Ikke spesifisert</Resource>
-    <Resource tag="GENDER1">Mann</Resource>
-    <Resource tag="GENDER2">Kvinne</Resource>
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Grupper:</Resource>
     <Resource tag="HOURS">timer</Resource>
@@ -4898,7 +4936,7 @@ Spoiler Content
     <Resource tag="SUSPEND">Utestend</Resource>
     <Resource tag="SUSPEND_BY">Suspended By:</Resource>
     <Resource tag="SUSPEND_CURRENT">Current Suspension</Resource>
-    <Resource tag="SUSPEND_INFO">&lt;strong&gt;NOTE&lt;/strong&gt; The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
+    <Resource tag="SUSPEND_INFO">The Suspension is based on the Users current Date and Time which is Now: {0}.</Resource>
     <Resource tag="SUSPEND_NEW">New Suspension</Resource>
     <Resource tag="SUSPEND_REASON">Suspend Reason:</Resource>
     <Resource tag="SUSPEND_USER">Suspend User:</Resource>
@@ -4924,6 +4962,7 @@ Spoiler Content
     <Resource tag="PASSWORD_SENT">Your password has been sent to your e-mail address on file.</Resource>
     <Resource tag="PASSWORDRETRIEVAL_EMAIL_SUBJECT">Password Retrieval for {0} Forum</Resource>
     <Resource tag="QUESTION_FAILURE">Your answer could not be verified. Please try again.</Resource>
+    <Resource tag="SUCCESS">An email with the Reset Link was send to your email address!</Resource>
     <Resource tag="TITLE">Lost Password</Resource>
     <Resource tag="USERNAME_FAILURE">Unable to locate the user name entered.</Resource>
   </page>
@@ -5075,6 +5114,7 @@ Spoiler Content
     <Resource tag="RECATCHA_BADWORDS">You are wrong! Try again.</Resource>
     <Resource tag="REGISTER">Registrer</Resource>
     <Resource tag="REGISTER_AUTH">Register with {0}</Resource>
+    <Resource tag="RESET_PASS_EMAIL_SUBJECT">Reset Password for {0} Forum</Resource>
     <Resource tag="RETYPE_PASSWORD">Gjenta passord</Resource>
     <Resource tag="SECURITY_ANSWER">Security Answer</Resource>
     <Resource tag="SECURITY_QUESTION">Security Question</Resource>
@@ -5092,6 +5132,7 @@ Spoiler Content
     <Resource tag="ENTER_TEXT">Enter report text here.</Resource>
     <Resource tag="HEADER">Report post</Resource>
     <Resource tag="MSG_REPORTED">Message was Reported!</Resource>
+    <Resource tag="NEED_REASON">You need to provide a Report Reason.</Resource>
     <Resource tag="POSTEDBY">Posted by:</Resource>
     <Resource tag="REPORTTEXT_ALLTAGSFORBIDDEN">Tags are not allowed in reports.</Resource>
     <Resource tag="REPORTTEXT_FORBIDDENTAG">The tag [{0}] is not allowed in reports.</Resource>
@@ -5141,16 +5182,16 @@ Spoiler Content
     [br]You agree not to use any automated tools for registering and/or posting on this bulletin board. By failing to obey this rule you would be granting us permission to repeatedly query your web server.
 
     [br][size=7][b]Privacy Policy[/b][/size][br]
-    
+
     [br][size=6][b]1. An overview of data protection[/b][/size][br]
-    
+
     [br][size=5][b]General information[/b][/size][br]
     The following information will provide you with an easy to navigate overview of what will happen with your personal data when you visit our website. The term “personal data” comprises all data that can be used to personally identify you. For detailed information about the subject matter of data protection, please consult our Data Protection Declaration, which we have included beneath this copy.
 
     [br][size=5][b]Data recording on our website[/b][/size][br]
-    
+
     [br][b]Who is the responsible party for the recording of data on this website (i.e. the “controller”)?[/b][br]
-    
+
     [br]The data on this website is processed by the operator of the website, whose contact information is available under section “Information about the responsible party” on this website.
 
     [br][b]How do we record your data?[/b][br]
@@ -5162,7 +5203,7 @@ Spoiler Content
     [br][b]What are the purposes we use your data for?[/b][br]
 
     [br]A portion of the information is generated to guarantee the error free provision of the website. Other data may be used to analyse your user patterns.
-    
+
     [br][b]What rights do you have as far as your information is concerned?[/b][br]
 
     [br]You have the right to receive information about the source, recipients and purposes of your archived personal data at any time without having to pay a fee for such disclosures. You also have the right to demand that your data are rectified, blocked or eradicated. Please do not hesitate to contact us at any time under the address disclosed in section “Information about the responsible party” on this website if you have questions about this or any other data protection related issues. You also have the right to log a complaint with the competent supervising agency.
@@ -5191,9 +5232,9 @@ Spoiler Content
 
     [br][size=5][b]Revocation of your consent to the processing of data[/b][/size][br]
     [br]A wide range of data processing transactions are possible only subject to your express consent. You can also revoke at any time any consent you have already given us. To do so, all you are required to do is sent us an informal notification via e-mail. This shall be without prejudice to the lawfulness of any data collection that occurred prior to your revocation.
-    
+
     [br][size=5][b]Right to object to the collection of data in special cases; right to object to direct advertising (Art. 21 GDPR)[/b][/size][br]
-    
+
     [br][b]In the event that data are processed on the basis of Art. 6 Sect. 1 lit. e or f GDPR, you have the right to at any time object to the processing of your personal data based on grounds arising from your unique situation. This also applies to any profiling based on these provisions. To determine the legal basis, on which any processing of data is based, please consult this Data Protection Declaration. If you log an objection, we will no longer process your affected personal data, unless we are in a position to present compelling protection worthy grounds for the processing of your data, that outweigh your interests, rights and freedoms or if the purpose of the processing is the claiming, exercising or defence of legal entitlements (objection pursuant to Art. 21 Sect. 1 GDPR).[/b]
     [/b]
 
@@ -5218,11 +5259,11 @@ Spoiler Content
     [*]If we do not need your personal data any longer and you need it to exercise, defend or claim legal entitlements, you have the right to demand the restriction of the processing of your personal data instead of its eradication.
     [*]If you have raised an objection pursuant to Art. 21 Sect. 1 GDPR, your rights and our rights will have to be weighed against each other. As long as it has not been determined whose interests prevail, you have the right to demand a restriction of the processing of your personal data.
     [/list]
-    
+
     [br]If you have restricted the processing of your personal data, these data – with the exception of their archiving – may be processed only subject to your consent or to claim, exercise or defend legal entitlements or to protect the rights of other natural persons or legal entities or for important public interest reasons cited by the European Union or a member state of the EU.
-    
+
     [br][size=6][b]3. Recording of data on our website[/b][/size][br]
-    
+
     [br][size=5][b]Cookies[/b][/size][br]
     [br]In some instances, our website and its pages use so-called cookies. Cookies do not cause any damage to your computer and do not contain viruses. The purpose of cookies is to make our website more user friendly, effective and more secure. Cookies are small text files that are placed on your computer and stored by your browser.
     [br]
@@ -5274,18 +5315,18 @@ Spoiler Content
     [br]The data is processed on the basis of Art. 6 Sect. 1 lit. f GDPR. It is in the website operators legitimate interest, to protect the operator’s web content against misuse by automated industrial espionage systems and against SPAM.
     [br]
     [br]For more information about Google reCAPTCHA and to review the Data Privacy Declaration of Google, please follow these link: [url]https://policies.google.com/privacy?hl=en[/url].
-    
+
     [br][size=5][b]BlogSpam.net[/b][/size][br]
     [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
-    
+
     [br][size=5][b]Akismet[/b][/size][br]
     [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
     [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
-    
+
     [br][size=5][b]StopForumSpam[/b][/size][br]
     [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
     [br][url=https://www.stopforumspam.com/gdpr]Privacy Policy[/url].
-    
+
     [br][size=5][b]BotScout[/b][/size][br]
     [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.
     [br][url=http://botscout.com/w3c/]Privacy Policy[/url].
@@ -5322,14 +5363,6 @@ Spoiler Content
     <Resource tag="TITLE_ONLY">Search Titles Only</Resource>
     <Resource tag="TOPIC">Emne:</Resource>
   </page>
-  <page name="SHOUTBOX">
-    <Resource tag="CLEAR">Clear</Resource>
-    <Resource tag="FLYOUT">Fly Out</Resource>
-    <Resource tag="HEADING">Chat with other members</Resource>
-    <Resource tag="MUSTBELOGGEDIN">You must be logged in to use the shoutbox.</Resource>
-    <Resource tag="SUBMIT">Submit</Resource>
-    <Resource tag="TITLE">ShoutBox</Resource>
-  </page>
   <page name="SUBSCRIPTIONS">
     <Resource tag="ALLTOPICS">Notification for [b]all posts on all topics[/b]</Resource>
     <Resource tag="DAILY_DIGEST">Receive once daily digest/summary of activity?</Resource>
@@ -5362,35 +5395,6 @@ Spoiler Content
     <Resource tag="VIEW_FORUMS">View Forums ({0} total)...</Resource>
   </page>
   <page name="TEMPLATES">
-    <Resource tag="CHANGEEMAIL_HTML">
-    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-    &lt;/head&gt;
-    &lt;body class="bg-light"&gt;
-    &lt;div class="container"&gt;
-    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-    &lt;/div&gt;
-    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-    &lt;div class="card-body"&gt;
-    &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-    &lt;p class="mt-3 mb-4"&gt; Your request to change your email address to &lt;strong&gt;{newemail}&lt;/strong&gt; is almost complete!&lt;/p&gt;
-    &lt;p&gt; Just confirm the change by clicking this link:&lt;/p&gt;
-    &lt;p class="mt-3 mb-3 text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-    &lt;p&gt;And enter approval key:&lt;/p&gt;
-    &lt;pre class="text-center"&gt;&lt;strong&gt;{key}&lt;/strong&gt;&lt;/pre&gt;
-    &lt;p&gt; If you did not request a change to your email address please simply ignore this email.&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;/body&gt;
-    &lt;/html&gt;
-</Resource>
     <Resource tag="CHANGEEMAIL_TEXT">
 Hello {user},
 
@@ -5415,29 +5419,6 @@ Hello!
 
 {link}
 </Resource>
-    <Resource tag="EMAILTOPIC_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; {message}&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="EMAILTOPIC_TEXT">
      {message}
 
@@ -5453,35 +5434,6 @@ Hello!
 
       Administration Link: {adminlink}
     </Resource>
-    <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello !&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;A new user has registered on the {forumname} forum (Be Aware the SPAM BOT Protection System has detected the user as possible BOT!):&lt;/p&gt;
-
-     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
-
-     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_BOT_USER_REGISTER_TEXT">
       Hello!
 
@@ -5498,47 +5450,19 @@ Hello!
       You have been successfully registered on the {forumname} forum using Facebook Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with facebook)
-	  
+
     </Resource>
-    <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Facebook Login:&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Facebook)&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_FACEBOOK_REGISTER_TEXT">
       Hello {user}.
 
       You have been successfully registered on the {forumname} forum using Facebook Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with Facebook)
 
     </Resource>
@@ -5548,170 +5472,42 @@ Hello!
       You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
-	  
+
     </Resource>
-    <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum using Google Login:&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Email: {email} (Please don't change your email, or you are unable to login with Google)&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_GOOGLE_REGISTER_TEXT">
       Hello {user}.
 
       You have been successfully registered on the {forumname} forum using Google Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please don't change your email, or you are unable to login with Google)
 
     </Resource>
-    <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;Congratulations you have been awarded with the {medalname} on the {forumname} forum.&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_MEDAL_AWARDED_TEXT">
     Hello {user}.
 
     Congratulations you have been awarded with the {medalname} on the {forumname} forum.
   </Resource>
-    <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;A new message that needs to be approved has been posted in the {forumname} forum&lt;/p&gt;
-     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_MESSAGE_APPROVAL_TEXT">
-		A new message that needs to be approved has been posted in the {forumname} forum:
-		
-		Administration Link: {adminlink}
-	</Resource>
-    <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;A message was reported by {reporter} for the following reason: {reason}&lt;/p&gt;
-     &lt;p&gt;The Message was posted in the {forumname} forum.&lt;/p&gt;
-     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
+    A new message that needs to be approved has been posted in the {forumname} forum:
 
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
+    Administration Link: {adminlink}
+  </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_REPORTED_MESSAGE_TEXT">
       A message was reported by {reporter} for the following reason: {reason}
-	  
+
 The Message was posted in the {forumname} forum.
-      
+
       Administration Link: {adminlink}
-   </Resource>
-    <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked&lt;/p&gt;
-     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
    </Resource>
     <Resource tag="NOTIFICATION_ON_MODERATOR_SPAMMESSAGE_APPROVAL_TEXT">
       A new message (posted in the {forumname} forum) was detected as SPAM, needs to be checked:
-      
+
       Administration Link: {adminlink}
    </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER">
@@ -5720,39 +5516,11 @@ The Message was posted in the {forumname} forum.
       You have been successfully registered on the {forumname} forum:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+    Auto Generated Password: {pass}
+
       User Email: {email}
-	  
+
     </Resource>
-    <Resource tag="NOTIFICATION_ON_REGISTER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt; Hello &lt;strong&gt;{user}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum:&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Password: {pass}&lt;/p&gt;
-     &lt;p class="text-center"&gt;Auto Generated Security Answer: {answer}&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_REGISTER_TEXT">
     Hello {user}.
 
@@ -5760,7 +5528,7 @@ The Message was posted in the {forumname} forum.
 
     User Name: {user}
     Auto Generated Password: {pass}
-    Auto Generated Security Answer: {answer}
+
     User Email: {email}
 
   </Resource>
@@ -5774,35 +5542,6 @@ The Message was posted in the {forumname} forum.
     {forumlink}
 
   </Resource>
-    <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;The suspension of your forum account has ended or was lifted.&lt;/p&gt;
-
-     &lt;p&gt;Thanks!&lt;br /&gt;
-     The {forumname} Team&lt;br /&gt;
-     {forumlink}
-     &lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_ENDED_USER_TEXT">
     Hello {user},
 
@@ -5817,7 +5556,7 @@ The Message was posted in the {forumname} forum.
     Hello {user},
 
     Your forum account on the {forumname} forum has been temporarily suspended.
-    
+
     This suspension is due to end on {suspendedUntil}.
 
     For the following Reason: '{suspendReason}'
@@ -5827,39 +5566,6 @@ The Message was posted in the {forumname} forum.
     {forumlink}
 
   </Resource>
-    <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;Your forum account on the {forumname} forum has been temporarily suspended.&lt;/p&gt;
-
-     &lt;p&gt;This suspension is due to end on {suspendedUntil}.&lt;/p&gt;
-
-     &lt;p&gt;For the following Reason: '{suspendReason}'&lt;/p&gt;
-
-     &lt;p&gt;Thanks!&lt;br /&gt;
-     The {forumname} Team&lt;br /&gt;
-     {forumlink}
-     &lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_SUSPENDING_USER_TEXT">
     Hello {user},
 
@@ -5880,50 +5586,21 @@ The Message was posted in the {forumname} forum.
       You have been successfully registered on the {forumname} forum using Twitter Login:
 
       User Name: {user}
-	  Auto Generated Password: {pass}
-	  Auto Generated Security Answer: {answer}
+    Auto Generated Password: {pass}
+
       User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)
-	  
+
     </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER">
-		Hello!
+    Hello!
 
-		A new user has registered on the {forumname} forum:
-		
-		User Name: {user}
-		User Email: {email}
-		
-		Administration Link: {adminlink}
-	</Resource>
-    <Resource tag="NOTIFICATION_ON_USER_REGISTER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello !&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;A new user has registered on the {forumname} forum:&lt;/p&gt;
+    A new user has registered on the {forumname} forum:
 
-     &lt;p class="text-center"&gt;User Name: {user}&lt;/p&gt;
-     &lt;p class="text-center"&gt;User Email: {email}&lt;/p&gt;
+    User Name: {user}
+    User Email: {email}
 
-     &lt;p class="text-center"&gt;Administration Link: {adminlink}&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
+    Administration Link: {adminlink}
+  </Resource>
     <Resource tag="NOTIFICATION_ON_USER_REGISTER_TEXT">
       Hello!
 
@@ -5951,44 +5628,6 @@ The Message was posted in the {forumname} forum.
     {forumlink}
 
   </Resource>
-    <Resource tag="NOTIFICATION_ON_WELCOME_USER_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;You have been successfully registered on the {forumname} forum. You're all ready to go!&lt;/p&gt;
-
-     &lt;p&gt;Before posting, consider other ways of finding information:&lt;/p&gt;
-
-     &lt;ul&gt;
-     &lt;li&gt;Use the help pages to find out how the forum works&lt;/li&gt;
-     &lt;li&gt;Try the Forum Search, often times your questions are already been answered&lt;/li&gt;
-     &lt;li&gt;Do not post any abusive, vulgar, obscene, hateful, slanderous, threatening, sexually-oriented or any other material that may violate any applicable laws.&lt;/li&gt;
-     &lt;li&gt;Doing so may lead to you being permanently banned from this forum. Note that all IP addresses are logged and may aid in enforcing these conditions.&lt;/li&gt;
-     &lt;/ul&gt;
-
-     &lt;p&gt;Thanks!&lt;br /&gt;
-     The {forumname} Team&lt;br /&gt;
-     {forumlink}
-     &lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ON_WELCOME_USER_TEXT">
     Hello {user},
 
@@ -6010,7 +5649,7 @@ The Message was posted in the {forumname} forum.
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-     
+
      {roles}
 
      Thanks!
@@ -6018,42 +5657,11 @@ The Message was posted in the {forumname} forum.
      {forumlink}
 
    </Resource>
-    <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):&lt;/p&gt;
-
-     &lt;p class="text-center"&gt;{roles}&lt;/p&gt;
-
-     &lt;p&gt;Thanks!&lt;br /&gt;
-     The {forumname} Team&lt;br /&gt;
-     {forumlink}
-     &lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="NOTIFICATION_ROLE_ASSIGNMENT_TEXT">
      Hello {user},
 
      Your user account on the {forumname} forum has has been recently updated to include access to the following Group(s):
-     
+
      {roles}
 
 
@@ -6066,50 +5674,19 @@ The Message was posted in the {forumname} forum.
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-     
+
      {roles}
 
      Thanks!
      The {forumname} Team
      {forumlink}
 
-   </Resource>
-    <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello {user},&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):&lt;/p&gt;
-
-     &lt;p class="text-center"&gt;{roles}&lt;/p&gt;
-
-     &lt;p&gt;Thanks!&lt;br /&gt;
-     The {forumname} Team&lt;br /&gt;
-     {forumlink}
-     &lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
    </Resource>
     <Resource tag="NOTIFICATION_ROLE_UNASSIGNMENT_TEXT">
      Hello {user},
 
      Your user account on the {forumname} forum  has been recently updated to restrict access to the following Groups(s):
-     
+
      {roles}
 
 
@@ -6117,35 +5694,6 @@ The Message was posted in the {forumname} forum.
      The {forumname} Team
      {forumlink}
 
-   </Resource>
-    <Resource tag="PASSWORDRETRIEVAL_ADMIN_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;Your password has been resetted for the {forumname}, and new password has been generated for you at {forumlink}.&lt;/p&gt;
-     &lt;p&gt;Please return to the site and login using the following information:&lt;/p&gt;
-     &lt;div class="text-center"&gt;&lt;code&gt;
-     User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
-     Password: &lt;strong&gt;{password}&lt;/strong&gt;
-     &lt;/code&gt;&lt;/div&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
    </Resource>
     <Resource tag="PASSWORDRETRIEVAL_ADMIN_TEXT">
      Hello {username},
@@ -6157,35 +5705,6 @@ The Message was posted in the {forumname} forum.
      User Name: {username}
      Password: {password}
    </Resource>
-    <Resource tag="PASSWORDRETRIEVAL_HTML">
-    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-    &lt;/head&gt;
-    &lt;body class="bg-light"&gt;
-    &lt;div class="container"&gt;
-    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-    &lt;/div&gt;
-    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-    &lt;div class="card-body"&gt;
-    &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
-    &lt;p class="mt-3 mb-4"&gt;You or someone (with the IP Address: {ipaddress}) has requested to reset your password because you have forgotten your password.&lt;/p&gt;
-    &lt;p&gt;Please return to the site and login using the following information:&lt;/p&gt;
-    &lt;div class="text-center"&gt;&lt;code&gt;
-    User Name: &lt;strong&gt;{username}&lt;/strong&gt;&lt;br /&gt;
-    Password: &lt;strong&gt;{password}&lt;/strong&gt;
-    &lt;/code&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;/body&gt;
-    &lt;/html&gt;
-</Resource>
     <Resource tag="PASSWORDRETRIEVAL_TEXT">
       Hello {username},
 
@@ -6198,32 +5717,6 @@ The Message was posted in the {forumname} forum.
       User Name: {username}
       Password: {password}
     </Resource>
-    <Resource tag="PMNOTIFICATION_HTML">
-     &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-     &lt;html&gt;
-     &lt;head&gt;
-     &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-     &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-     &lt;/head&gt;
-     &lt;body class="bg-light"&gt;
-     &lt;div class="container"&gt;
-     &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-     &lt;/div&gt;
-     &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-     &lt;div class="card-body"&gt;
-     &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
-     &lt;p class="mt-3 mb-4"&gt;A new Private Message from {fromuser} about {subject} was send to you at {forumname}.&lt;/p&gt;
-     &lt;p&gt;To read the message, open the following link in your browser:&lt;/p&gt;
-     &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-     &lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-     &lt;/div&gt;
-
-     &lt;/body&gt;
-     &lt;/html&gt;
-   </Resource>
     <Resource tag="PMNOTIFICATION_TEXT">
 A new Private Message from {fromuser} about {subject} was send to you at {forumname}.
 
@@ -6231,38 +5724,13 @@ To read the message, open the following link in your browser:
 
 {link}
 </Resource>
-    <Resource tag="TOPICPOST_HTML">
-    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-    &lt;/head&gt;
-    &lt;body class="bg-light"&gt;
-    &lt;div class="container"&gt;
-    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-    &lt;/div&gt;
-    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-    &lt;div class="card-body"&gt;
-    &lt;p class="mt-3 mb-4"&gt;There's a new post in topic "{topic}" at {forumname} By {postedby}:&lt;/p&gt;
-    &lt;p&gt;"{bodytruncated}"
+    <Resource tag="RESET_PASS_TEXT">
+     You have requested to reset your password for {forumname}.
 
-    &lt;p&gt;To read more, click or copy and paste the following link into your browser:&lt;/p&gt;
+     Please open the following link in your web browser:
 
-    &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-
-    &lt;p&gt;You can manage your subscriptions here:&lt;/p&gt;
-
-    &lt;p class="text-center"&gt;&lt;a href="{subscriptionlink}"&gt;{subscriptionlink}&lt;/a&gt;&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;/body&gt;
-    &lt;/html&gt;
-  </Resource>
+     {link}
+   </Resource>
     <Resource tag="TOPICPOST_TEXT">
 A new message has been posted in the thread {topic} at {forumname}.
 
@@ -6271,37 +5739,9 @@ To read the message, open the following link in your browser:
 {link}
 
       You can manage your subscriptions here:
-      
+
       {subscriptionlink}
 </Resource>
-    <Resource tag="VERIFYEMAIL_HTML">
-    &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
-    &lt;html&gt;
-    &lt;head&gt;
-    &lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
-    &lt;link rel="stylesheet" media="all" href="{themecss}" /&gt;
-    &lt;/head&gt;
-    &lt;body class="bg-light"&gt;
-    &lt;div class="container"&gt;
-    &lt;div class="mx-auto mt-4 mb-3 text-center" style="width:100px;height:40px;background: url('{logo}') no-repeat"&gt;
-    &lt;/div&gt;
-    &lt;div class="card mb-4" style="border-top: 5px solid #3761b5;"&gt;
-    &lt;div class="card-body"&gt;
-    &lt;h4 class="text-center"&gt;Hello &lt;strong&gt;{username}&lt;/strong&gt;,&lt;/h4&gt;
-    &lt;p class="mt-3 mb-4"&gt;You have requested to join {forumname}, but before you can join your email address must be verified.&lt;/p&gt;
-    &lt;p&gt;To verify your email address open the following link in your web browser:&lt;/p&gt;
-    &lt;p class="text-center"&gt;&lt;a href="{link}"&gt;{link}&lt;/a&gt;&lt;/p&gt;
-    &lt;p&gt;Your approval key is:&lt;/p&gt;
-    &lt;p class="text-center"&gt;{key}&lt;/p&gt;
-    &lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;div class="text-center text-muted"&gt;&lt;strong&gt;{forumname}&lt;/strong&gt; at &lt;a href="{forumlink}"&gt;{forumlink}&lt;/a&gt;&lt;/div&gt;
-    &lt;/div&gt;
-
-    &lt;/body&gt;
-    &lt;/html&gt;
-  </Resource>
     <Resource tag="VERIFYEMAIL_TEXT">
 You have requested to join {forumname}, but before you can join your email address must be verified.
 

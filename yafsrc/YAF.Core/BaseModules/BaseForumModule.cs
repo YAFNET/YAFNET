@@ -25,6 +25,7 @@ namespace YAF.Core.BaseModules
 {
   #region Using
 
+  using YAF.Core.Context;
   using YAF.Types;
   using YAF.Types.Attributes;
   using YAF.Types.Extensions;
@@ -47,7 +48,7 @@ namespace YAF.Core.BaseModules
     /// <summary>
     ///   Gets Description.
     /// </summary>
-    public virtual string Description => this.GetType().GetAttribute<YafModule>().ModuleName;
+    public virtual string Description => this.GetType().GetAttribute<Module>().ModuleName;
 
     /// <summary>
     ///   Gets or sets Forum Control Object.

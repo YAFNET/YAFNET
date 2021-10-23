@@ -30,7 +30,9 @@ namespace YAF.Core.Handlers
     using System.Net;
     using System.Web;
     using System.Web.SessionState;
-    using YAF.Core;
+
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -68,7 +70,7 @@ namespace YAF.Core.Handlers
         /// </param>
         public void ProcessRequest([NotNull] HttpContext context)
         {
-            if (context.Session["lastvisit"] != null)
+            if (this.Get<ISession>().LastVisit.HasValue && context.Request.CheckRequestValidity())
             {
                 // defaults
                 var previewCropped = false;
@@ -90,11 +92,7 @@ namespace YAF.Core.Handlers
                 }
 
                 /////////////
-                if (context.Request.QueryString.Exists("twitterinfo"))
-                {
-                    this.Get<IResources>().GetTwitterUserInfo(context);
-                }
-                else if (context.Request.QueryString.Exists("userinfo"))
+                if (context.Request.QueryString.Exists("userinfo"))
                 {
                     this.Get<IResources>().GetUserInfo(context);
                 }
@@ -110,20 +108,9 @@ namespace YAF.Core.Handlers
                 {
                     this.Get<IResources>().GetResponseLocalAvatar(context);
                 }
-                else if (context.Request.QueryString.Exists("url")
-                         && context.Request.QueryString.Exists("width")
-                         && context.Request.QueryString.Exists("height"))
+                else if (context.Request.QueryString.Exists("avatar"))
                 {
-                    var maxWidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
-                    var maxHeight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
-
-                    var etagCodeCode =
-                        $@"""{(context.Request.QueryString.GetFirstOrDefault("url") + maxHeight + maxWidth).GetHashCode()}""";
-
-                    if (!CheckETagCode(context, etagCodeCode))
-                    {
-                        this.Get<IResources>().GetResponseRemoteAvatar(context);
-                    }
+                    this.Get<IResources>().GetTextAvatar(context);
                 }
                 else if (context.Request.QueryString.Exists("a"))
                 {
@@ -140,7 +127,8 @@ namespace YAF.Core.Handlers
                 }
                 else if (context.Request.QueryString.Exists("p"))
                 {
-                    var etagCodeCode = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
+                    var etagCodeCode =
+                        $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
                     if (!CheckETagCode(context, etagCodeCode))
                     {
@@ -152,10 +140,10 @@ namespace YAF.Core.Handlers
                     // captcha
                     this.Get<IResources>().GetResponseCaptcha(context);
                 }
-                else if (context.Request.QueryString.Exists("cover")
-                         && context.Request.QueryString.Exists("album"))
+                else if (context.Request.QueryString.Exists("cover") && context.Request.QueryString.Exists("album"))
                 {
-                    var etagCode = $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
+                    var etagCode =
+                        $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
 
                     if (!CheckETagCode(context, etagCode))
                     {

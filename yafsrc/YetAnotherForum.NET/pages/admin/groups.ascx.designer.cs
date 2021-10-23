@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class groups
+    public partial class Groups
     {
 
         /// <summary>
@@ -22,24 +22,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-
-        /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// LocalizedLabel4 control.
@@ -58,15 +40,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater RoleListNet;
-
-        /// <summary>
-        /// LocalizedLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
 
         /// <summary>
         /// LocalizedLabel5 control.

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
 using System.Text;
@@ -22,13 +22,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using IndexingChain = YAF.Lucene.Net.Index.DocumentsWriterPerThread.IndexingChain;
-    using IndexReaderWarmer = YAF.Lucene.Net.Index.IndexWriter.IndexReaderWarmer;
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using TextWriterInfoStream = YAF.Lucene.Net.Util.TextWriterInfoStream;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
+    using Codec  = YAF.Lucene.Net.Codecs.Codec;
+    using IndexingChain  = YAF.Lucene.Net.Index.DocumentsWriterPerThread.IndexingChain;
+    using IndexReaderWarmer  = YAF.Lucene.Net.Index.IndexWriter.IndexReaderWarmer;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using TextWriterInfoStream  = YAF.Lucene.Net.Util.TextWriterInfoStream;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     /// <summary>
     /// Holds all the configuration that is used to create an <see cref="IndexWriter"/>.
@@ -66,10 +66,7 @@ namespace YAF.Lucene.Net.Index
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
-    public sealed class IndexWriterConfig : LiveIndexWriterConfig
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public sealed class IndexWriterConfig : LiveIndexWriterConfig // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         // LUCENENET specific: De-nested OpenMode enum from this class to prevent naming conflict
 
@@ -240,7 +237,7 @@ namespace YAF.Lucene.Net.Index
         new public IndexDeletionPolicy IndexDeletionPolicy
         {
             get => delPolicy;
-            set => delPolicy = value ?? throw new ArgumentNullException(nameof(value), "IndexDeletionPolicy must not be null");
+            set => delPolicy = value ?? throw new ArgumentNullException(nameof(IndexDeletionPolicy), "IndexDeletionPolicy must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -269,20 +266,9 @@ namespace YAF.Lucene.Net.Index
         new public Similarity Similarity
         {
             get => similarity;
-            set => similarity = value ?? throw new ArgumentNullException(nameof(value), "Similarity must not be null");
+            set => similarity = value ?? throw new ArgumentNullException(nameof(Similarity), "Similarity must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
-
-#if !FEATURE_CONCURRENTMERGESCHEDULER
-        /// <summary>
-        /// Expert: Gets or sets the merge scheduler used by this writer. The default is
-        /// <see cref="TaskMergeScheduler"/>.
-        /// <para/>
-        /// <b>NOTE:</b> the merge scheduler cannot be <c>null</c>.
-        ///
-        /// <para/>Only takes effect when <see cref="IndexWriter"/> is first created.
-        /// </summary>
-#else
         /// <summary>
         /// Expert: Gets or sets the merge scheduler used by this writer. The default is
         /// <see cref="ConcurrentMergeScheduler"/>.
@@ -291,13 +277,12 @@ namespace YAF.Lucene.Net.Index
         ///
         /// <para/>Only takes effect when <see cref="IndexWriter"/> is first created.
         /// </summary>
-#endif
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public IMergeScheduler MergeScheduler
         {
             get => mergeScheduler;
-            set => mergeScheduler = value ?? throw new ArgumentNullException(nameof(value), "MergeScheduler must not be null");
+            set => mergeScheduler = value ?? throw new ArgumentNullException(nameof(MergeScheduler), "MergeScheduler must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -325,7 +310,7 @@ namespace YAF.Lucene.Net.Index
         new public Codec Codec
         {
             get => codec;
-            set => codec = value ?? throw new ArgumentException(nameof(value), "Codec must not be null");
+            set => codec = value ?? throw new ArgumentNullException(nameof(Codec), "Codec must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -341,7 +326,7 @@ namespace YAF.Lucene.Net.Index
         new public MergePolicy MergePolicy
         {
             get => mergePolicy;
-            set => mergePolicy = value ?? throw new ArgumentNullException(nameof(value), "MergePolicy must not be null");
+            set => mergePolicy = value ?? throw new ArgumentNullException(nameof(MergePolicy), "MergePolicy must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -364,7 +349,7 @@ namespace YAF.Lucene.Net.Index
         new internal DocumentsWriterPerThreadPool IndexerThreadPool
         {
             get => indexerThreadPool;
-            set => indexerThreadPool = value ?? throw new ArgumentNullException(nameof(value), "IndexerThreadPool must not be null");
+            set => indexerThreadPool = value ?? throw new ArgumentNullException(nameof(IndexerThreadPool), "IndexerThreadPool must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -379,21 +364,9 @@ namespace YAF.Lucene.Net.Index
         // so must declare it new. See: http://stackoverflow.com/q/82437
         new public int MaxThreadStates
         {
-            get
-            {
-                try
-                {
-                    return indexerThreadPool.MaxThreadStates;
-                }
-                catch (InvalidCastException cce)
-                {
-                    throw new InvalidOperationException(cce.Message, cce);
-                }
-            }
-            set
-            {
-                this.indexerThreadPool = new DocumentsWriterPerThreadPool(value);
-            }
+            // LUCENENET: Changes brought over from 4.8.1 mean there is no chance of a cast failure
+            get => indexerThreadPool.MaxThreadStates;
+            set => this.indexerThreadPool = new DocumentsWriterPerThreadPool(value);
         }
 
         /// <summary>
@@ -426,7 +399,7 @@ namespace YAF.Lucene.Net.Index
         new internal IndexingChain IndexingChain
         {
             get => indexingChain;
-            set => indexingChain = value ?? throw new ArgumentNullException(nameof(value), "IndexingChain must not be null");
+            set => indexingChain = value ?? throw new ArgumentNullException(nameof(IndexingChain), "IndexingChain must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -448,7 +421,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (value <= 0 || value >= 2048)
                 {
-                    throw new ArgumentException("PerThreadHardLimit must be greater than 0 and less than 2048MB");
+                    throw new ArgumentOutOfRangeException(nameof(RAMPerThreadHardLimitMB), "PerThreadHardLimit must be greater than 0 and less than 2048MB"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.perThreadHardLimitMB = value;
             }
@@ -467,7 +440,7 @@ namespace YAF.Lucene.Net.Index
         new internal FlushPolicy FlushPolicy
         {
             get => flushPolicy;
-            set => flushPolicy = value ?? throw new ArgumentNullException(nameof(value), "FlushPolicy must not be null");
+            set => flushPolicy = value ?? throw new ArgumentNullException(nameof(FlushPolicy), "FlushPolicy must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         // LUCENENT NOTE: The following properties would be pointless,
@@ -556,9 +529,9 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public IndexWriterConfig SetInfoStream(TextWriter printStream)
         {
-            if (printStream == null)
+            if (printStream is null)
             {
-                throw new ArgumentException("printStream must not be null");
+                throw new ArgumentNullException("printStream must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             return SetInfoStream(new TextWriterInfoStream(printStream));
         }

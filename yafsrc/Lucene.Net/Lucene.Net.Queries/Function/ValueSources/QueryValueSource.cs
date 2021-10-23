@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -162,9 +163,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                 // a match!
                 return scorer.GetScore();
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
-                throw new Exception("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
+                throw RuntimeException.Create("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
             }
         }
 
@@ -203,9 +204,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                 // a match!
                 return true;
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
-                throw new Exception("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
+                throw RuntimeException.Create("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
             }
         }
 
@@ -215,9 +216,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             {
                 return Exists(doc) ? scorer.GetScore() : (float?)null;
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
-                throw new Exception("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
+                throw RuntimeException.Create("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
             }
         }
 
@@ -267,9 +268,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                     mutableValue.Value = scorer.GetScore();
                     mutableValue.Exists = true;
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
+                    throw RuntimeException.Create("caught exception in QueryDocVals(" + q + ") doc=" + doc, e);
                 }
             });
         }

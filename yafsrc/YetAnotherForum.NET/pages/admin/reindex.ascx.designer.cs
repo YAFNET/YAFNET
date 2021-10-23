@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    
-    
-    public partial class reindex {
-        
+namespace YAF.Pages.Admin
+{
+
+
+    public partial class ReIndex
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,25 +22,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
-        /// <summary>
-        /// LocalizedLabel5 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel5;
-        
+
         /// <summary>
         /// txtIndexStatistics control.
         /// </summary>
@@ -47,7 +31,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtIndexStatistics;
-        
+
         /// <summary>
         /// PanelGetStats control.
         /// </summary>
@@ -56,7 +40,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder PanelGetStats;
-        
+
         /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
@@ -65,7 +49,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-        
+
         /// <summary>
         /// GetStats control.
         /// </summary>
@@ -74,7 +58,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton GetStats;
-        
+
         /// <summary>
         /// PanelRecoveryMode control.
         /// </summary>
@@ -83,7 +67,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder PanelRecoveryMode;
-        
+
         /// <summary>
         /// RecoveryMode control.
         /// </summary>
@@ -92,7 +76,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton RecoveryMode;
-        
+
         /// <summary>
         /// RadioButtonList1 control.
         /// </summary>
@@ -101,7 +85,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList1;
-        
+
         /// <summary>
         /// PanelReindex control.
         /// </summary>
@@ -110,7 +94,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder PanelReindex;
-        
+
         /// <summary>
         /// LocalizedLabel4 control.
         /// </summary>
@@ -119,7 +103,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
-        
+
         /// <summary>
         /// Reindex control.
         /// </summary>
@@ -128,7 +112,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Reindex;
-        
+
         /// <summary>
         /// PanelShrink control.
         /// </summary>
@@ -137,7 +121,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder PanelShrink;
-        
+
         /// <summary>
         /// LocalizedLabel3 control.
         /// </summary>
@@ -146,7 +130,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
-        
+
         /// <summary>
         /// Shrink control.
         /// </summary>
@@ -155,7 +139,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Shrink;
-        
+
         /// <summary>
         /// LocalizedLabel6 control.
         /// </summary>
@@ -164,7 +148,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
-        
+
         /// <summary>
         /// LocalizedLabel7 control.
         /// </summary>

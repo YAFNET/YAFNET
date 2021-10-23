@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
-    using State = YAF.Lucene.Net.Util.Automaton.State;
-    using Transition = YAF.Lucene.Net.Util.Automaton.Transition;
+    using Automaton  = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using State  = YAF.Lucene.Net.Util.Automaton.State;
+    using Transition  = YAF.Lucene.Net.Util.Automaton.Transition;
 
     // TODO: maybe also toFST?  then we can translate atts into FST outputs/weights
 
@@ -225,10 +225,10 @@ namespace YAF.Lucene.Net.Analysis
                         termUnicode[j++] = cp = Character.CodePointAt(utf16, i);
                     }
                 }
-                else
-                {
-                    termLen = termUTF8.Length;
-                }
+                //else
+                //{
+                //    termLen = termUTF8.Length; // LUCENENET: IDE0059: Remove unnecessary value assignment
+                //}
 
                 for (int byteIDX = 0; byteIDX < termLen; byteIDX++)
                 {

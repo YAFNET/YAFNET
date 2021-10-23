@@ -18,6 +18,7 @@ namespace YAF.UrlRewriter
     using System.Text.RegularExpressions;
     using System.Web;
 
+    using YAF.Types.Extensions;
     using YAF.UrlRewriter.Configuration;
     using YAF.UrlRewriter.Utilities;
 
@@ -50,20 +51,13 @@ namespace YAF.UrlRewriter
             this.Location = rawUrl;
 
             // Initialise the Properties collection from all the server variables, headers and cookies.
-            foreach (var key in httpContext.ServerVariables.AllKeys)
-            {
-                this.Properties.Add(key, httpContext.ServerVariables[key]);
-            }
+            httpContext.ServerVariables.AllKeys.ForEach(key => this.Properties.Add(key, httpContext.ServerVariables[key]));
 
-            foreach (var key in httpContext.RequestHeaders.AllKeys)
-            {
-                this.Properties.Add(key, httpContext.RequestHeaders[key]);
-            }
+            httpContext.RequestHeaders.AllKeys.ForEach(
+                key => this.Properties.Add(key, httpContext.RequestHeaders[key]));
 
-            foreach (var key in httpContext.RequestCookies.AllKeys)
-            {
-                this.Properties.Add(key, httpContext.RequestCookies[key].Value);
-            }
+            httpContext.RequestCookies.AllKeys.ForEach(
+                key => this.Properties.Add(key, httpContext.RequestCookies[key].Value));
         }
 
         /// <summary>
@@ -87,7 +81,7 @@ namespace YAF.UrlRewriter
         /// <summary>
         /// The properties for the context, including headers and cookie values.
         /// </summary>
-        public NameValueCollection Properties { get; } = new NameValueCollection();
+        public NameValueCollection Properties { get; } = new();
 
         /// <summary>
         /// Output response headers.
@@ -96,7 +90,7 @@ namespace YAF.UrlRewriter
         /// This collection is the collection of headers to add to the response.
         /// For the headers sent in the request, use the <see cref="RewriteContext.Properties">Properties</see> property.
         /// </remarks>
-        public NameValueCollection ResponseHeaders { get; } = new NameValueCollection();
+        public NameValueCollection ResponseHeaders { get; } = new();
 
         /// <summary>
         /// The status code to send in the response.
@@ -110,7 +104,7 @@ namespace YAF.UrlRewriter
         /// This is the collection of cookies to send in the response.  For the cookies
         /// received in the request, use the <see cref="RewriteContext.Properties">Properties</see> property.
         /// </remarks>
-        public HttpCookieCollection ResponseCookies { get; } = new HttpCookieCollection();
+        public HttpCookieCollection ResponseCookies { get; } = new();
 
         /// <summary>
         /// Last matching pattern from a match (if any).
@@ -137,6 +131,6 @@ namespace YAF.UrlRewriter
             return this._engine.ResolveLocation(location);
         }
 
-        private RewriterEngine _engine;
+        private readonly RewriterEngine _engine;
     }
 }

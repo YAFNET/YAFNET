@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// An <see cref="IndexDeletionPolicy"/> that wraps any other
@@ -122,7 +122,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (!initCalled)
             {
-                throw new InvalidOperationException("this instance is not being used by IndexWriter; be sure to use the instance returned from writer.getConfig().getIndexDeletionPolicy()");
+                throw IllegalStateException.Create("this instance is not being used by IndexWriter; be sure to use the instance returned from writer.Config.IndexDeletionPolicy");
             }
             int? refCount = m_refCounts[gen];
             if (refCount == null)
@@ -150,16 +150,15 @@ namespace YAF.Lucene.Net.Index
             lock (this)
             {
                 long gen = ic.Generation;
-                int refCount;
                 int refCountInt;
-                if (!m_refCounts.TryGetValue(gen, out refCount))
+                if (!m_refCounts.TryGetValue(gen, out int refCount))
                 {
                     m_indexCommits[gen] = m_lastCommit;
                     refCountInt = 0;
                 }
                 else
                 {
-                    refCountInt = (int)refCount;
+                    refCountInt = refCount;
                 }
                 m_refCounts[gen] = refCountInt + 1;
             }
@@ -187,12 +186,12 @@ namespace YAF.Lucene.Net.Index
             {
                 if (!initCalled)
                 {
-                    throw new InvalidOperationException("this instance is not being used by IndexWriter; be sure to use the instance returned from writer.getConfig().getIndexDeletionPolicy()");
+                    throw IllegalStateException.Create("this instance is not being used by IndexWriter; be sure to use the instance returned from writer.Config.IndexDeletionPolicy");
                 }
                 if (m_lastCommit == null)
                 {
                     // No commit yet, eg this is a new IndexWriter:
-                    throw new InvalidOperationException("No index commit to snapshot");
+                    throw IllegalStateException.Create("No index commit to snapshot");
                 }
 
                 IncRef(m_lastCommit);

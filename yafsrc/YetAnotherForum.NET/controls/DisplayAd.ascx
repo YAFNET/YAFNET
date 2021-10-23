@@ -1,5 +1,4 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd"
-    EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Controls.DisplayAd" EnableViewState="false" Codebehind="DisplayAd.ascx.cs" %>
 
 <div class="row">
     <div class="col-xl-12">
@@ -7,7 +6,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <span class="badge badge-warning">
+                        <span class="badge bg-warning text-dark">
                             <YAF:LocalizedLabel ID="SponserName" runat="server" 
                                                 LocalizedTag="AD_USERNAME" />
                         </span>

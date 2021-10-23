@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Search;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Search;
 
 namespace YAF.Lucene.Net.Queries
 {

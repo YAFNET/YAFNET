@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Search;
+﻿using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -79,6 +79,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Quick and dirty convenience method </summary>
         /// <seealso cref="Check(FieldCache.CacheEntry[])"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Insanity[] CheckSanity(IFieldCache cache)
         {
             return CheckSanity(cache.GetCacheEntries());
@@ -88,6 +89,7 @@ namespace YAF.Lucene.Net.Util
         /// Quick and dirty convenience method that instantiates an instance with
         /// "good defaults" and uses it to test the <see cref="FieldCache.CacheEntry"/>s </summary>
         /// <seealso cref="Check(FieldCache.CacheEntry[])"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Insanity[] CheckSanity(params FieldCache.CacheEntry[] cacheEntries)
         {
             FieldCacheSanityChecker sanityChecker = new FieldCacheSanityChecker(estimateRam: true);
@@ -171,7 +173,10 @@ namespace YAF.Lucene.Net.Util
         /// instances accordingly.  The <see cref="MapOfSets{TKey, TValue}"/> are used to populate
         /// the <see cref="Insanity"/> objects. </summary>
         /// <seealso cref="InsanityType.VALUEMISMATCH"/>
-        private ICollection<Insanity> CheckValueMismatch(MapOfSets<int, FieldCache.CacheEntry> valIdToItems, MapOfSets<ReaderField, int> readerFieldToValIds, ISet<ReaderField> valMismatchKeys)
+        private static ICollection<Insanity> CheckValueMismatch( // LUCENENET: CA1822: Mark members as static
+            MapOfSets<int, FieldCache.CacheEntry> valIdToItems,
+            MapOfSets<ReaderField, int> readerFieldToValIds,
+            ISet<ReaderField> valMismatchKeys)
         {
             List<Insanity> insanity = new List<Insanity>(valMismatchKeys.Count * 3);
 
@@ -208,7 +213,7 @@ namespace YAF.Lucene.Net.Util
         /// found that have an ancestry relationships.
         /// </summary>
         /// <seealso cref="InsanityType.SUBREADER"/>
-        private ICollection<Insanity> CheckSubreaders(MapOfSets<int, FieldCache.CacheEntry> valIdToItems, MapOfSets<ReaderField, int> readerFieldToValIds)
+        private static ICollection<Insanity> CheckSubreaders(MapOfSets<int, FieldCache.CacheEntry> valIdToItems, MapOfSets<ReaderField, int> readerFieldToValIds) // LUCENENET: CA1822: Mark members as static
         {
             List<Insanity> insanity = new List<Insanity>(23);
 
@@ -289,16 +294,15 @@ namespace YAF.Lucene.Net.Util
         /// the hierarchy of subReaders building up a list of the objects
         /// returned by <c>seed.CoreCacheKey</c>
         /// </summary>
-        private IList<object> GetAllDescendantReaderKeys(object seed)
+        private static IList<object> GetAllDescendantReaderKeys(object seed) // LUCENENET: CA1822: Mark members as static
         {
-            var all = new List<object>(17) {seed}; // will grow as we iter
+            var all = new JCG.List<object>(17) { seed }; // will grow as we iter
             for (var i = 0; i < all.Count; i++)
             {
                 var obj = all[i];
                 // TODO: We don't check closed readers here (as getTopReaderContext
                 // throws ObjectDisposedException), what should we do? Reflection?
-                var reader = obj as IndexReader;
-                if (reader != null)
+                if (obj is IndexReader reader)
                 {
                     try
                     {
@@ -311,14 +315,14 @@ namespace YAF.Lucene.Net.Util
                             }
                         }
                     }
-                    catch (ObjectDisposedException)
+                    catch (Exception ace) when (ace.IsAlreadyClosedException())
                     {
                         // ignore this reader
                     }
                 }
             }
             // need to skip the first, because it was the seed
-            return all.GetRange(1, all.Count - 1);
+            return all.GetView(1, all.Count - 1); // LUCENENET: Converted end index to length
         }
 
         /// <summary>
@@ -336,6 +340,7 @@ namespace YAF.Lucene.Net.Util
                 this.FieldName = fieldName;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int GetHashCode()
             {
                 return RuntimeHelpers.GetHashCode(readerKey) * FieldName.GetHashCode();
@@ -372,7 +377,8 @@ namespace YAF.Lucene.Net.Util
 
             public Insanity(InsanityType type, string msg, params FieldCache.CacheEntry[] entries)
             {
-                // LUCENENET specific - rearranged order to take advantage of throw expressions
+                // LUCENENET specific - rearranged order to take advantage of throw expressions and
+                // changed from IllegalArgumentException to ArgumentNullException (.NET convention)
                 this.type = type ?? throw new ArgumentNullException(nameof(type), "Insanity requires non-null InsanityType");
                 this.entries = entries ?? throw new ArgumentNullException(nameof(entries), "Insanity requires non-null CacheEntry[]");
                 if (0 == entries.Length)
@@ -441,6 +447,7 @@ namespace YAF.Lucene.Net.Util
                 this.label = label;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override string ToString()
             {
                 return label;

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Index
@@ -53,14 +53,14 @@ namespace YAF.Lucene.Net.Index
             {
                 first.Abort();
             }
-            catch (Exception)
+            catch (Exception t) when (t.IsThrowable())
             {
             }
             try
             {
                 second.Abort();
             }
-            catch (Exception)
+            catch (Exception t) when (t.IsThrowable())
             {
             }
         }

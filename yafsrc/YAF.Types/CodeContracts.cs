@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,8 @@ namespace YAF.Types
 {
     using System;
 
+    using YAF.Types.Attributes;
+
     /// <summary>
     ///     Provides functions used for code contracts.
     /// </summary>
@@ -47,8 +49,31 @@ namespace YAF.Types
         ///     <c>null</c>.
         /// </exception>
         [ContractAnnotation("obj:null => halt")]
+        [Obsolete("Use VerfifyNotNull(argumentName) instead")]
         public static void VerifyNotNull<T>([CanBeNull] T obj, string argumentName) where T : class
         {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(argumentName, $"{argumentName} cannot be null");
+            }
+        }
+
+        /// <summary>
+        ///     Validates argument (obj) is not <see langword="null" />. Throws exception
+        ///     if it is.
+        /// </summary>
+        /// <typeparam name="T">
+        ///     type of the argument that's being verified
+        /// </typeparam>
+        /// <param name="obj">value of argument to verify not null</param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="obj" /> is
+        ///     <c>null</c>.
+        /// </exception>
+        [ContractAnnotation("obj:null => halt")]
+        public static void VerifyNotNull<T>([CanBeNull] T obj) where T : class
+        {
+            var argumentName = nameof(obj);
             if (obj == null)
             {
                 throw new ArgumentNullException(argumentName, $"{argumentName} cannot be null");

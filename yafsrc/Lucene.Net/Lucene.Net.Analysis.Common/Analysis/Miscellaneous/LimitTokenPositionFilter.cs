@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
@@ -68,7 +69,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (maxTokenPosition < 1)
             {
-                throw new ArgumentException("maxTokenPosition must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(maxTokenPosition), "maxTokenPosition must be greater than zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.maxTokenPosition = maxTokenPosition;
             this.consumeAllTokens = consumeAllTokens;

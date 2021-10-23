@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,12 +27,12 @@ namespace YAF.Web.Controls
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -77,23 +77,6 @@ namespace YAF.Web.Controls
             }
 
             set => this.ViewState["DefaultState"] = value;
-        }
-
-        /// <summary>
-        ///   Gets PageContext.
-        /// </summary>
-        public BoardContext PageContext
-        {
-            get
-            {
-                if (this.Site != null && this.Site.DesignMode)
-                {
-                    // design-time, return null...
-                    return null;
-                }
-
-                return BoardContext.Current;
-            }
         }
 
         /// <summary>
@@ -150,10 +133,10 @@ namespace YAF.Web.Controls
         {
             // setup initial image state...
             this.Text = new Icon
-                            {
-                                IconName = GetCollapsiblePanelIcon(this.PanelID, this.DefaultState),
-                                IconType = "text-primary"
-                            }.RenderToString();
+            {
+                IconName = GetCollapsiblePanelIcon(this.PanelID, this.DefaultState),
+                IconType = "text-primary"
+            }.RenderToString();
 
             this.CssClass = "btn-collapse px-0";
 
@@ -205,19 +188,19 @@ namespace YAF.Web.Controls
         /// </returns>
         private static string GetCollapsiblePanelIcon([NotNull] string panelId, CollapsiblePanelState defaultState)
         {
-            CodeContracts.VerifyNotNull(panelId, "panelID");
+            CodeContracts.VerifyNotNull(panelId);
 
             var stateValue = BoardContext.Current.Get<ISession>().PanelState[panelId];
 
             if (stateValue != CollapsiblePanelState.None)
             {
-                return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
+                return stateValue == CollapsiblePanelState.Expanded ? "chevron-up" : "chevron-down";
             }
 
             stateValue = defaultState;
             BoardContext.Current.Get<ISession>().PanelState[panelId] = defaultState;
 
-            return stateValue == CollapsiblePanelState.Expanded ? "minus-square" : "plus-square";
+            return stateValue == CollapsiblePanelState.Expanded ? "chevron-up" : "chevron-down";
         }
 
         #endregion

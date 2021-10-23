@@ -55,9 +55,9 @@ namespace YAF.Types.Attributes
         InstancePerScope,
 
         /// <summary>
-        ///   One instance per dependancy.
+        ///   One instance per dependency.
         /// </summary>
-        InstancePerDependancy,
+        InstancePerDependency,
 
         /// <summary>
         ///   One instance per context.
@@ -96,6 +96,15 @@ namespace YAF.Types.Attributes
         /// <summary>
         /// Initializes a new instance of the <see cref="ExportServiceAttribute"/> class.
         /// </summary>
+        /// <param name="serviceLifetimeScope">
+        /// The service Lifetime Scope.
+        /// </param>
+        /// <param name="keyed">
+        /// The keyed.
+        /// </param>
+        /// <param name="registerSpecifiedTypes">
+        /// The register Specified Types.
+        /// </param>
         public ExportServiceAttribute(
           ServiceLifetimeScope serviceLifetimeScope, [CanBeNull] object keyed, [NotNull] params Type[] registerSpecifiedTypes)
         {

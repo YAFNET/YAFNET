@@ -8,7 +8,7 @@
 
   var defaultOptions = {
     tagClass: function(item) {
-      return "badge badge-primary";
+      return "badge bg-primary";
     },
     focusClass: "focus",
     itemValue: function(item) {
@@ -45,7 +45,7 @@
     this.itemsArray = [];
 
     this.$element = $(element);
-    this.$element.addClass("sr-only");
+      this.$element.addClass("visually-hidden");
 
     this.isSelect = (element.tagName === "SELECT");
     this.multiple = (this.isSelect && element.hasAttribute("multiple"));
@@ -141,7 +141,7 @@
 
       // add a tag element
 
-        var $tag = $('<span class="' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : "") + '"><i class="fas fa-tag mr-1"></i>' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
+        var $tag = $('<span class="' + htmlEncode(tagClass) + (itemTitle !== null ? ('" title="' + itemTitle) : "") + '"><i class="fas fa-tag me-1"></i>' + htmlEncode(itemText) + '<span data-role="remove"></span></span>');
       $tag.data("item", item);
       self.findInputWrapper().before($tag);
 

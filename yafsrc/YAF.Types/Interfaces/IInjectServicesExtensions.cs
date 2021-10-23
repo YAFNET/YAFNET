@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -23,36 +23,36 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
     using YAF.Types.Attributes;
 
     #endregion
 
-  /// <summary>
-  /// The inject services extensions.
-  /// </summary>
-  public static class IInjectServicesExtensions
-  {
-    #region Public Methods
-
     /// <summary>
-    /// Injects instance with public properties marked with Inject attribute.
+    /// The inject services extensions.
     /// </summary>
-    /// <param name="injectServices">
-    /// The inject services.
-    /// </param>
-    /// <param name="instance">
-    /// The instance.
-    /// </param>
-    public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
+    public static class IInjectServicesExtensions
     {
-      CodeContracts.VerifyNotNull(injectServices, "injectServices");
-      CodeContracts.VerifyNotNull(instance, "instance");
+        #region Public Methods
 
-      injectServices.InjectMarked<Inject>(instance);
+        /// <summary>
+        /// Injects instance with public properties marked with Inject attribute.
+        /// </summary>
+        /// <param name="injectServices">
+        /// The inject services.
+        /// </param>
+        /// <param name="instance">
+        /// The instance.
+        /// </param>
+        public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
+        {
+            CodeContracts.VerifyNotNull(injectServices);
+            CodeContracts.VerifyNotNull(instance);
+
+            injectServices.InjectMarked<Inject>(instance);
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

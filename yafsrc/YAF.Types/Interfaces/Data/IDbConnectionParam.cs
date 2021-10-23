@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,19 +25,19 @@
 namespace YAF.Types.Interfaces.Data
 {
     /// <summary>
-    /// The db connection param.
+    /// The Database connection parameter.
     /// </summary>
     public interface IDbConnectionParam : IHaveID
     {
         #region Properties
 
         /// <summary>
-        ///   Gets or sets DefaultValue.
+        ///   Gets the DefaultValue.
         /// </summary>
         string Value { get; }
 
         /// <summary>
-        ///   Gets or sets Label.
+        ///   Gets the Label.
         /// </summary>
         string Name { get; }
 

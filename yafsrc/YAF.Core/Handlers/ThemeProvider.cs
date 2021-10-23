@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,8 +25,9 @@ namespace YAF.Core.Handlers
 
     using System;
 
+    using YAF.Core.Context;
     using YAF.Core.Services;
-    using YAF.Types.Exceptions;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -95,7 +96,6 @@ namespace YAF.Core.Handlers
         /// <summary>
         /// Sets the theme class up for usage
         /// </summary>
-        /// <exception cref="CantLoadThemeException"><c>CantLoadThemeException</c>.</exception>
         private void InitTheme()
         {
             if (this.initTheme)
@@ -103,34 +103,35 @@ namespace YAF.Core.Handlers
                 return;
             }
 
-            this.BeforeInit?.Invoke(this, new EventArgs());
+            this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
-            string theme;
+            string themeFile;
 
-            if (BoardContext.Current.Page != null && BoardContext.Current.Page["ThemeFile"] != null &&
+            if (BoardContext.Current.PageData != null && BoardContext.Current.User.ThemeFile.IsSet() &&
                 BoardContext.Current.BoardSettings.AllowUserTheme)
             {
                 // use user-selected theme
-                theme = BoardContext.Current.Page["ThemeFile"].ToString();
+                themeFile = BoardContext.Current.User.ThemeFile;
             }
-            else if (BoardContext.Current.Page != null && BoardContext.Current.Page["ForumTheme"] != null)
+            else if (BoardContext.Current.PageData != null && BoardContext.Current.PageData.Item2.Item4 != null &&
+                     BoardContext.Current.PageData.Item2.Item4.ThemeURL.IsSet())
             {
-                theme = BoardContext.Current.Page["ForumTheme"].ToString();
+                themeFile = BoardContext.Current.PageData.Item2.Item4.ThemeURL;
             }
             else
             {
-                theme = BoardContext.Current.BoardSettings.Theme;
+                themeFile = BoardContext.Current.BoardSettings.Theme;
             }
 
-            if (!Services.Theme.IsValidTheme(theme))
+            if (!Services.Theme.IsValidTheme(themeFile))
             {
-                theme = "yaf";
+                themeFile = "yaf";
             }
 
             // create the theme class
-            this.Theme = new Theme(theme);
+            this.Theme = new Theme(themeFile);
 
-            this.AfterInit?.Invoke(this, new EventArgs());
+            this.AfterInit?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion

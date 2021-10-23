@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,33 +33,49 @@ namespace YAF.Types.Models
     /// A class which represents the WatchForum table.
     /// </summary>
     [Serializable]
-
     [UniqueConstraint(nameof(ForumID), nameof(UserID))]
-    public partial class WatchForum : IEntity, IHaveID
+    public class WatchForum : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public WatchForum()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("WatchForumID")]
         [AutoIncrement]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last mail.
+        /// </summary>
         public DateTime? LastMail { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether
+        /// selected for editing.
+        /// </summary>
+        [Ignore]
+        public bool Selected { get; set; }
 
         #endregion
     }

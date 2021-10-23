@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,18 +25,21 @@ namespace YAF.Core.Services.Startup
 {
     #region Using
 
+    using System;
     using System.Linq;
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -45,16 +48,7 @@ namespace YAF.Core.Services.Startup
     /// </summary>
     public class StartupCheckBannedIps : BaseStartupService
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _init var name.
-        /// </summary>
-        protected const string _initVarName = "YafCheckBannedIps_Init";
-
-        #endregion
-
-        #region Constructors and Destructors
+       #region Constructors and Destructors
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StartupCheckBannedIps" /> class.
@@ -69,7 +63,7 @@ namespace YAF.Core.Services.Startup
             [NotNull] HttpResponseBase httpResponseBase,
             [NotNull] HttpRequestBase httpRequestBase,
             IRepository<BannedIP> bannedIpRepository,
-            [NotNull] ILogger logger)
+            [NotNull] ILoggerService logger)
         {
             this.DataCache = dataCache;
             this.HttpResponseBase = httpResponseBase;
@@ -108,13 +102,13 @@ namespace YAF.Core.Services.Startup
         /// <summary>
         /// Gets or sets Logger.
         /// </summary>
-        public ILogger Logger { get; set; }
+        public ILoggerService Logger { get; set; }
 
         /// <summary>
-        ///   Gets InitVarName.
+        ///   Gets the service name.
         /// </summary>
         [NotNull]
-        protected override string InitVarName => "YafCheckBannedIps_Init";
+        protected override string ServiceName => "CheckBannedIps_Init";
 
         #endregion
 
@@ -124,40 +118,48 @@ namespace YAF.Core.Services.Startup
         /// The run service.
         /// </summary>
         /// <returns>
-        /// The run service.
+        /// The <see cref="bool"/>.
         /// </returns>
         protected override bool RunService()
         {
-            // TODO: The data cache needs a more fast string array check as number of banned ips can be huge, but current output is too demanding on perfomance in the cases.
-            var bannedIPs = this.DataCache.GetOrSet(
-                Constants.Cache.BannedIP,
-                () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask.Trim()).ToList());
-
-            var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
-
-            // check for this user in the list...
-            if (bannedIPs == null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
+            try
             {
+                var bannedIPs = this.DataCache.GetOrSet(
+                    Constants.Cache.BannedIP,
+                    () => this.BannedIpRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID)
+                        .Select(x => x.Mask.Trim()).ToList());
+
+                var ipToCheck = this.HttpRequestBase.ServerVariables["REMOTE_ADDR"];
+
+                // check for this user in the list...
+                if (bannedIPs == null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
+                {
+                    return true;
+                }
+
+                if (BoardContext.Current.BoardSettings.LogBannedIP)
+                {
+                    this.Logger.Log(
+                        null,
+                        "Banned IP Blocked",
+                        $@"Ending Response for Banned User at IP ""{ipToCheck}""",
+                        EventLogTypes.IpBanDetected);
+                }
+
+                if (Config.BannedIpRedirectUrl.IsSet())
+                {
+                    this.HttpResponseBase.Redirect(Config.BannedIpRedirectUrl);
+                }
+
+                this.HttpResponseBase.End();
+
+                return false;
+            }
+            catch (Exception)
+            {
+                // Fails if YAF is not installed
                 return true;
             }
-
-            if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
-            {
-                this.Logger.Log(
-                    null,
-                    "Banned IP Blocked",
-                    $@"Ending Response for Banned User at IP ""{ipToCheck}""",
-                    EventLogTypes.IpBanDetected);
-            }
-
-            if (Config.BannedIpRedirectUrl.IsSet())
-            {
-                this.HttpResponseBase.Redirect(Config.BannedIpRedirectUrl);
-            }
-
-            this.HttpResponseBase.End();
-
-            return false;
         }
 
         #endregion

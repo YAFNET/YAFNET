@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+﻿using J2N.Numerics;
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -144,16 +145,14 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             }
         }
 
-        internal class TermOrdValComparerAnonymousHelper : FieldComparer.TermOrdValComparer
+        private class TermOrdValComparerAnonymousClass : FieldComparer.TermOrdValComparer
         {
             private readonly SortedSetSortField outerInstance;
-            private readonly int numHits;
 
-            public TermOrdValComparerAnonymousHelper(SortedSetSortField outerInstance, int numHits)
+            public TermOrdValComparerAnonymousClass(SortedSetSortField outerInstance, int numHits)
                 : base(numHits, outerInstance.Field, outerInstance.m_missingValue == STRING_LAST)
             {
                 this.outerInstance = outerInstance;
-                this.numHits = numHits;
             }
 
             protected override SortedDocValues GetSortedDocValues(AtomicReaderContext context, string field)
@@ -162,7 +161,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
 
                 if (sortedSet.ValueCount >= int.MaxValue)
                 {
-                    throw new NotSupportedException("fields containing more than " + (int.MaxValue - 1) + " unique terms are unsupported");
+                    throw UnsupportedOperationException.Create("fields containing more than " + (int.MaxValue - 1) + " unique terms are unsupported");
                 }
 
                 SortedDocValues singleton = DocValues.UnwrapSingleton(sortedSet);
@@ -181,7 +180,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 {
                     if (sortedSet is RandomAccessOrds == false)
                     {
-                        throw new NotSupportedException("codec does not support random access ordinals, cannot use selector: " + outerInstance.selector);
+                        throw UnsupportedOperationException.Create("codec does not support random access ordinals, cannot use selector: " + outerInstance.selector);
                     }
                     RandomAccessOrds randomOrds = (RandomAccessOrds)sortedSet;
                     switch (outerInstance.selector)
@@ -191,8 +190,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                         case Selector.MIDDLE_MAX: return new MiddleMaxValue(randomOrds);
                         case Selector.MIN:
                         default:
-                            if (Debugging.AssertsEnabled) Debugging.Assert(false);
-                            return null;
+                            throw AssertionError.Create();
                     }
                 }
             }
@@ -200,7 +198,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
 
         public override FieldComparer GetComparer(int numHits, int sortPos)
         {
-            return new TermOrdValComparerAnonymousHelper(this, numHits);
+            return new TermOrdValComparerAnonymousClass(this, numHits);
         }
 
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the first ordinal (min)</summary>
@@ -245,7 +243,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             public override int GetOrd(int docID)
             {
                 @in.SetDocument(docID);
-                int count = @in.Cardinality();
+                int count = @in.Cardinality;
                 if (count == 0)
                 {
                     return -1;
@@ -282,14 +280,14 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             public override int GetOrd(int docID)
             {
                 @in.SetDocument(docID);
-                int count = @in.Cardinality();
+                int count = @in.Cardinality;
                 if (count == 0)
                 {
                     return -1;
                 }
                 else
                 {
-                    return (int)@in.OrdAt((int)((uint)(count - 1)) >> 1);
+                    return (int)@in.OrdAt((count - 1).TripleShift(1));
                 }
             }
 
@@ -319,14 +317,14 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             public override int GetOrd(int docID)
             {
                 @in.SetDocument(docID);
-                int count = @in.Cardinality();
+                int count = @in.Cardinality;
                 if (count == 0)
                 {
                     return -1;
                 }
                 else
                 {
-                    return (int)@in.OrdAt((int)((uint)count >> 1));
+                    return (int)@in.OrdAt(count.TripleShift(1));
                 }
             }
 

@@ -23,23 +23,23 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// Generic I Read Value interface.
-  /// </summary>
-  /// <typeparam name="T">
-  /// Type returned from the configuration.
-  /// </typeparam>
-  public interface IReadValue<out T>
-  {
     /// <summary>
-    /// Get a value.
+    /// Generic I Read Value interface.
     /// </summary>
-    /// <param name="originalKey">
-    /// The key.
-    /// </param>
-    /// <returns>
-    /// Config value or default(T) if not available.
-    /// </returns>
-    T Get(string originalKey);
-  }
+    /// <typeparam name="T">
+    /// Type returned from the configuration.
+    /// </typeparam>
+    public interface IReadValue<out T>
+    {
+        /// <summary>
+        /// Get a value.
+        /// </summary>
+        /// <param name="originalKey">
+        /// The key.
+        /// </param>
+        /// <returns>
+        /// Config value or default(T) if not available.
+        /// </returns>
+        T Get(string originalKey);
+    }
 }

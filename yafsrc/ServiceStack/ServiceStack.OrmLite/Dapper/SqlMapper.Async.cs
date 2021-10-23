@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="SqlMapper.Async.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    /// <summary>
+    /// Class SqlMapper.
+    /// </summary>
     public static partial class SqlMapper
     {
         /// <summary>
@@ -21,6 +30,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;IEnumerable&lt;dynamic&gt;&gt;.</returns>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static Task<IEnumerable<dynamic>> QueryAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryAsync<dynamic>(cnn, typeof(DapperRow), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered, default(CancellationToken)));
@@ -30,6 +40,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;IEnumerable&lt;dynamic&gt;&gt;.</returns>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static Task<IEnumerable<dynamic>> QueryAsync(this IDbConnection cnn, CommandDefinition command) =>
             QueryAsync<dynamic>(cnn, typeof(DapperRow), command);
@@ -39,6 +50,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static Task<dynamic> QueryFirstAsync(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<dynamic>(cnn, Row.First, typeof(DapperRow), command);
@@ -48,6 +60,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static Task<dynamic> QueryFirstOrDefaultAsync(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<dynamic>(cnn, Row.FirstOrDefault, typeof(DapperRow), command);
@@ -57,6 +70,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static Task<dynamic> QuerySingleAsync(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<dynamic>(cnn, Row.Single, typeof(DapperRow), command);
@@ -66,6 +80,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
         public static Task<dynamic> QuerySingleOrDefaultAsync(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<dynamic>(cnn, Row.SingleOrDefault, typeof(DapperRow), command);
@@ -80,10 +95,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <returns>
-        /// A sequence of data of <typeparamref name="T"/>; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
-        /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
-        /// </returns>
+        /// <returns>A sequence of data of <typeparamref name="T" />; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
+        /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
         public static Task<IEnumerable<T>> QueryAsync<T>(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryAsync<T>(cnn, typeof(T), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered, default(CancellationToken)));
 
@@ -97,6 +110,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QueryFirstAsync<T>(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<T>(cnn, Row.First, typeof(T), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -110,6 +124,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QueryFirstOrDefaultAsync<T>(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<T>(cnn, Row.FirstOrDefault, typeof(T), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -123,6 +138,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QuerySingleAsync<T>(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<T>(cnn, Row.Single, typeof(T), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -136,6 +152,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QuerySingleOrDefaultAsync<T>(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<T>(cnn, Row.SingleOrDefault, typeof(T), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -148,6 +165,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         public static Task<dynamic> QueryFirstAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<dynamic>(cnn, Row.First, typeof(DapperRow), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -160,6 +178,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         public static Task<dynamic> QueryFirstOrDefaultAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<dynamic>(cnn, Row.FirstOrDefault, typeof(DapperRow), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -172,6 +191,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         public static Task<dynamic> QuerySingleAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<dynamic>(cnn, Row.Single, typeof(DapperRow), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -184,6 +204,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
+        /// <returns>Task&lt;dynamic&gt;.</returns>
         public static Task<dynamic> QuerySingleOrDefaultAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryRowAsync<dynamic>(cnn, Row.SingleOrDefault, typeof(DapperRow), new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
 
@@ -197,7 +218,9 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+        /// <returns>Task&lt;IEnumerable&lt;System.Object&gt;&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public static Task<IEnumerable<object>> QueryAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -214,7 +237,9 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public static Task<object> QueryFirstAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -230,7 +255,9 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public static Task<object> QueryFirstOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -246,7 +273,9 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public static Task<object> QuerySingleAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -262,7 +291,9 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use, if any.</param>
         /// <param name="commandTimeout">The command timeout (in seconds).</param>
         /// <param name="commandType">The type of command to execute.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
+        /// <exception cref="System.ArgumentNullException">type</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public static Task<object> QuerySingleOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -275,10 +306,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
-        /// <returns>
-        /// A sequence of data of <typeparamref name="T"/>; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
-        /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).
-        /// </returns>
+        /// <returns>A sequence of data of <typeparamref name="T" />; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
+        /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
         public static Task<IEnumerable<T>> QueryAsync<T>(this IDbConnection cnn, CommandDefinition command) =>
             QueryAsync<T>(cnn, typeof(T), command);
 
@@ -288,6 +317,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;IEnumerable&lt;System.Object&gt;&gt;.</returns>
         public static Task<IEnumerable<object>> QueryAsync(this IDbConnection cnn, Type type, CommandDefinition command) =>
             QueryAsync<object>(cnn, type, command);
 
@@ -297,6 +327,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public static Task<object> QueryFirstAsync(this IDbConnection cnn, Type type, CommandDefinition command) =>
             QueryRowAsync<object>(cnn, Row.First, type, command);
 
@@ -306,6 +337,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QueryFirstAsync<T>(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<T>(cnn, Row.First, typeof(T), command);
 
@@ -315,6 +347,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public static Task<object> QueryFirstOrDefaultAsync(this IDbConnection cnn, Type type, CommandDefinition command) =>
             QueryRowAsync<object>(cnn, Row.FirstOrDefault, type, command);
 
@@ -324,6 +357,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QueryFirstOrDefaultAsync<T>(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<T>(cnn, Row.FirstOrDefault, typeof(T), command);
 
@@ -333,6 +367,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public static Task<object> QuerySingleAsync(this IDbConnection cnn, Type type, CommandDefinition command) =>
             QueryRowAsync<object>(cnn, Row.Single, type, command);
 
@@ -342,6 +377,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QuerySingleAsync<T>(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<T>(cnn, Row.Single, typeof(T), command);
 
@@ -351,6 +387,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="type">The type to return.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;System.Object&gt;.</returns>
         public static Task<object> QuerySingleOrDefaultAsync(this IDbConnection cnn, Type type, CommandDefinition command) =>
             QueryRowAsync<object>(cnn, Row.SingleOrDefault, type, command);
 
@@ -360,9 +397,18 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command used to query on this connection.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> QuerySingleOrDefaultAsync<T>(this IDbConnection cnn, CommandDefinition command) =>
             QueryRowAsync<T>(cnn, Row.SingleOrDefault, typeof(T), command);
 
+        /// <summary>
+        /// Executes the reader with flags fallback asynchronous.
+        /// </summary>
+        /// <param name="cmd">The command.</param>
+        /// <param name="wasClosed">if set to <c>true</c> [was closed].</param>
+        /// <param name="behavior">The behavior.</param>
+        /// <param name="cancellationToken">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;DbDataReader&gt;.</returns>
         private static Task<DbDataReader> ExecuteReaderWithFlagsFallbackAsync(DbCommand cmd, bool wasClosed, CommandBehavior behavior, CancellationToken cancellationToken)
         {
             var task = cmd.ExecuteReaderAsync(GetBehavior(wasClosed, behavior), cancellationToken);
@@ -376,6 +422,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// Attempts to open a connection asynchronously, with a better error message for unsupported usages.
         /// </summary>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="cancel">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task.</returns>
+        /// <exception cref="System.InvalidOperationException">Async operations require use of a DbConnection or an already-open IDbConnection</exception>
         private static Task TryOpenAsync(this IDbConnection cnn, CancellationToken cancel)
         {
             if (cnn is DbConnection dbConn)
@@ -389,8 +439,13 @@ namespace ServiceStack.OrmLite.Dapper
         }
 
         /// <summary>
-        /// Attempts setup a <see cref="DbCommand"/> on a <see cref="DbConnection"/>, with a better error message for unsupported usages.
+        /// Attempts setup a <see cref="DbCommand" /> on a <see cref="DbConnection" />, with a better error message for unsupported usages.
         /// </summary>
+        /// <param name="command">The command.</param>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="paramReader">The parameter reader.</param>
+        /// <returns>DbCommand.</returns>
+        /// <exception cref="System.InvalidOperationException">Async operations require use of a DbConnection or an IDbConnection where .CreateCommand() returns a DbCommand</exception>
         private static DbCommand TrySetupAsyncCommand(this CommandDefinition command, IDbConnection cnn, Action<IDbCommand, object> paramReader)
         {
             if (command.SetupCommand(cnn, paramReader) is DbCommand dbCommand)
@@ -403,6 +458,14 @@ namespace ServiceStack.OrmLite.Dapper
             }
         }
 
+        /// <summary>
+        /// Query as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="effectiveType">Type of the effective.</param>
+        /// <param name="command">The command.</param>
+        /// <returns>A Task&lt;IEnumerable`1&gt; representing the asynchronous operation.</returns>
         private static async Task<IEnumerable<T>> QueryAsync<T>(this IDbConnection cnn, Type effectiveType, CommandDefinition command)
         {
             object param = command.Parameters;
@@ -467,6 +530,15 @@ namespace ServiceStack.OrmLite.Dapper
             }
         }
 
+        /// <summary>
+        /// Query row as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="row">The row.</param>
+        /// <param name="effectiveType">Type of the effective.</param>
+        /// <param name="command">The command.</param>
+        /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
         private static async Task<T> QueryRowAsync<T>(this IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command)
         {
             object param = command.Parameters;
@@ -558,10 +630,24 @@ namespace ServiceStack.OrmLite.Dapper
             }
         }
 
+        /// <summary>
+        /// Struct AsyncExecState
+        /// </summary>
         private struct AsyncExecState
         {
+            /// <summary>
+            /// The command
+            /// </summary>
             public readonly DbCommand Command;
+            /// <summary>
+            /// The task
+            /// </summary>
             public readonly Task<int> Task;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="AsyncExecState"/> struct.
+            /// </summary>
+            /// <param name="command">The command.</param>
+            /// <param name="task">The task.</param>
             public AsyncExecState(DbCommand command, Task<int> task)
             {
                 Command = command;
@@ -569,6 +655,13 @@ namespace ServiceStack.OrmLite.Dapper
             }
         }
 
+        /// <summary>
+        /// Execute multi implementation as an asynchronous operation.
+        /// </summary>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="multiExec">The multi execute.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         private static async Task<int> ExecuteMultiImplAsync(IDbConnection cnn, CommandDefinition command, IEnumerable multiExec)
         {
             bool isFirst = true;
@@ -665,6 +758,13 @@ namespace ServiceStack.OrmLite.Dapper
             return total;
         }
 
+        /// <summary>
+        /// Execute implementation as an asynchronous operation.
+        /// </summary>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="param">The parameter.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         private static async Task<int> ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, object param)
         {
             var identity = new Identity(command.CommandText, command.CommandType, cnn, null, param?.GetType());
@@ -688,7 +788,7 @@ namespace ServiceStack.OrmLite.Dapper
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 2 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -702,29 +802,29 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMapAsync<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn,
                 new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default(CancellationToken)), map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 2 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
-        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="command">The command to execute.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TReturn>(this IDbConnection cnn, CommandDefinition command, Func<TFirst, TSecond, TReturn> map, string splitOn = "Id") =>
             MultiMapAsync<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, command, map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 3 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -739,30 +839,30 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMapAsync<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn,
                 new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default(CancellationToken)), map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 3 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
         /// <typeparam name="TThird">The third type in the recordset.</typeparam>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
-        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="command">The command to execute.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TReturn>(this IDbConnection cnn, CommandDefinition command, Func<TFirst, TSecond, TThird, TReturn> map, string splitOn = "Id") =>
             MultiMapAsync<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, command, map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 4 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -778,14 +878,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMapAsync<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, TReturn>(cnn,
                 new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default(CancellationToken)), map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 4 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -793,16 +893,16 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="TFourth">The fourth type in the recordset.</typeparam>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
-        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="command">The command to execute.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TReturn>(this IDbConnection cnn, CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, string splitOn = "Id") =>
             MultiMapAsync<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, TReturn>(cnn, command, map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 5 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -819,14 +919,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, TReturn>(cnn,
                 new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default(CancellationToken)), map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 5 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -835,16 +935,16 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="TFifth">The fifth type in the recordset.</typeparam>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
-        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="command">The command to execute.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn, CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, string splitOn = "Id") =>
             MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, TReturn>(cnn, command, map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 6 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -862,14 +962,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, TReturn>(cnn,
                 new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default(CancellationToken)), map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 6 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -879,16 +979,16 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="TSixth">The sixth type in the recordset.</typeparam>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
-        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="command">The command to execute.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(this IDbConnection cnn, CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, string splitOn = "Id") =>
              MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, TReturn>(cnn, command, map, splitOn);
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with 7 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -907,14 +1007,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
             MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(cnn,
                 new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default(CancellationToken)), map, splitOn);
 
         /// <summary>
         /// Perform an asynchronous multi-mapping query with 7 input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TFirst">The first type in the recordset.</typeparam>
         /// <typeparam name="TSecond">The second type in the recordset.</typeparam>
@@ -925,13 +1025,29 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="TSeventh">The seventh type in the recordset.</typeparam>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
-        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="command">The command to execute.</param>
         /// <param name="map">The function to map row types to the return type.</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, CommandDefinition command, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, string splitOn = "Id") =>
             MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(cnn, command, map, splitOn);
 
+        /// <summary>
+        /// Multi map as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="TFirst">The type of the t first.</typeparam>
+        /// <typeparam name="TSecond">The type of the t second.</typeparam>
+        /// <typeparam name="TThird">The type of the t third.</typeparam>
+        /// <typeparam name="TFourth">The type of the t fourth.</typeparam>
+        /// <typeparam name="TFifth">The type of the t fifth.</typeparam>
+        /// <typeparam name="TSixth">The type of the t sixth.</typeparam>
+        /// <typeparam name="TSeventh">The type of the t seventh.</typeparam>
+        /// <typeparam name="TReturn">The type of the t return.</typeparam>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="map">The map.</param>
+        /// <param name="splitOn">The split on.</param>
+        /// <returns>A Task&lt;IEnumerable`1&gt; representing the asynchronous operation.</returns>
         private static async Task<IEnumerable<TReturn>> MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, CommandDefinition command, Delegate map, string splitOn)
         {
             object param = command.Parameters;
@@ -957,7 +1073,7 @@ namespace ServiceStack.OrmLite.Dapper
 
         /// <summary>
         /// Perform a asynchronous multi-mapping query with an arbitrary number of input types.
-        /// This returns a single type, combined from the raw types via <paramref name="map"/>.
+        /// This returns a single type, combined from the raw types via <paramref name="map" />.
         /// </summary>
         /// <typeparam name="TReturn">The combined type to return.</typeparam>
         /// <param name="cnn">The connection to query on.</param>
@@ -970,13 +1086,24 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="splitOn">The field we should split and read the second object from (default: "Id").</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An enumerable of <typeparamref name="TReturn"/>.</returns>
+        /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
         public static Task<IEnumerable<TReturn>> QueryAsync<TReturn>(this IDbConnection cnn, string sql, Type[] types, Func<object[], TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
         {
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None, default(CancellationToken));
             return MultiMapAsync(cnn, command, types, map, splitOn);
         }
 
+        /// <summary>
+        /// Multi map as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="TReturn">The type of the t return.</typeparam>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="types">The types.</param>
+        /// <param name="map">The map.</param>
+        /// <param name="splitOn">The split on.</param>
+        /// <returns>A Task&lt;IEnumerable`1&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentException">you must provide at least one type to deserialize</exception>
         private static async Task<IEnumerable<TReturn>> MultiMapAsync<TReturn>(this IDbConnection cnn, CommandDefinition command, Type[] types, Func<object[], TReturn> map, string splitOn)
         {
             if (types.Length < 1)
@@ -1004,6 +1131,14 @@ namespace ServiceStack.OrmLite.Dapper
             }
         }
 
+        /// <summary>
+        /// Executes the reader synchronize.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="func">The function.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>IEnumerable&lt;T&gt;.</returns>
         private static IEnumerable<T> ExecuteReaderSync<T>(IDataReader reader, Func<IDataReader, object> func, object parameters)
         {
             using (reader)
@@ -1026,6 +1161,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use for this query.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>Task&lt;GridReader&gt;.</returns>
         public static Task<GridReader> QueryMultipleAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             QueryMultipleAsync(cnn, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered));
 
@@ -1034,6 +1170,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command to execute for this query.</param>
+        /// <returns>A Task&lt;GridReader&gt; representing the asynchronous operation.</returns>
         public static async Task<GridReader> QueryMultipleAsync(this IDbConnection cnn, CommandDefinition command)
         {
             object param = command.Parameters;
@@ -1076,7 +1213,7 @@ namespace ServiceStack.OrmLite.Dapper
         }
 
         /// <summary>
-        /// Execute parameterized SQL and return an <see cref="IDataReader"/>.
+        /// Execute parameterized SQL and return an <see cref="IDataReader" />.
         /// </summary>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
@@ -1084,27 +1221,23 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>An <see cref="IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
-        /// <remarks>
-        /// This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="DataTable"/>
-        /// or <see cref="T:DataSet"/>.
-        /// </remarks>
+        /// <returns>An <see cref="IDataReader" /> that can be used to iterate over the results of the SQL query.</returns>
         /// <example>
-        /// <code>
-        /// <![CDATA[
+        ///   <code><![CDATA[
         /// DataTable table = new DataTable("MyTable");
         /// using (var reader = ExecuteReader(cnn, sql, param))
         /// {
-        ///     table.Load(reader);
+        /// table.Load(reader);
         /// }
-        /// ]]>
-        /// </code>
+        /// ]]></code>
         /// </example>
+        /// <remarks>This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="DataTable" />
+        /// or <see cref="T:DataSet" />.</remarks>
         public static Task<IDataReader> ExecuteReaderAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             ExecuteWrappedReaderImplAsync(cnn, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered), CommandBehavior.Default).CastResult<DbDataReader, IDataReader>();
 
         /// <summary>
-        /// Execute parameterized SQL and return a <see cref="DbDataReader"/>.
+        /// Execute parameterized SQL and return a <see cref="DbDataReader" />.
         /// </summary>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="sql">The SQL to execute.</param>
@@ -1112,53 +1245,59 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
+        /// <returns>Task&lt;DbDataReader&gt;.</returns>
         public static Task<DbDataReader> ExecuteReaderAsync(this DbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             ExecuteWrappedReaderImplAsync(cnn, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered), CommandBehavior.Default);
 
         /// <summary>
-        /// Execute parameterized SQL and return an <see cref="IDataReader"/>.
+        /// Execute parameterized SQL and return an <see cref="IDataReader" />.
         /// </summary>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
-        /// <returns>An <see cref="IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
-        /// <remarks>
-        /// This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="DataTable"/>
-        /// or <see cref="T:DataSet"/>.
-        /// </remarks>
+        /// <returns>An <see cref="IDataReader" /> that can be used to iterate over the results of the SQL query.</returns>
+        /// <remarks>This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="DataTable" />
+        /// or <see cref="T:DataSet" />.</remarks>
         public static Task<IDataReader> ExecuteReaderAsync(this IDbConnection cnn, CommandDefinition command) =>
             ExecuteWrappedReaderImplAsync(cnn, command, CommandBehavior.Default).CastResult<DbDataReader, IDataReader>();
 
         /// <summary>
-        /// Execute parameterized SQL and return a <see cref="DbDataReader"/>.
+        /// Execute parameterized SQL and return a <see cref="DbDataReader" />.
         /// </summary>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
+        /// <returns>Task&lt;DbDataReader&gt;.</returns>
         public static Task<DbDataReader> ExecuteReaderAsync(this DbConnection cnn, CommandDefinition command) =>
             ExecuteWrappedReaderImplAsync(cnn, command, CommandBehavior.Default);
 
         /// <summary>
-        /// Execute parameterized SQL and return an <see cref="IDataReader"/>.
+        /// Execute parameterized SQL and return an <see cref="IDataReader" />.
         /// </summary>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
-        /// <param name="commandBehavior">The <see cref="CommandBehavior"/> flags for this reader.</param>
-        /// <returns>An <see cref="IDataReader"/> that can be used to iterate over the results of the SQL query.</returns>
-        /// <remarks>
-        /// This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="DataTable"/>
-        /// or <see cref="T:DataSet"/>.
-        /// </remarks>
+        /// <param name="commandBehavior">The <see cref="CommandBehavior" /> flags for this reader.</param>
+        /// <returns>An <see cref="IDataReader" /> that can be used to iterate over the results of the SQL query.</returns>
+        /// <remarks>This is typically used when the results of a query are not processed by Dapper, for example, used to fill a <see cref="DataTable" />
+        /// or <see cref="T:DataSet" />.</remarks>
         public static Task<IDataReader> ExecuteReaderAsync(this IDbConnection cnn, CommandDefinition command, CommandBehavior commandBehavior) =>
             ExecuteWrappedReaderImplAsync(cnn, command, commandBehavior).CastResult<DbDataReader, IDataReader>();
 
         /// <summary>
-        /// Execute parameterized SQL and return a <see cref="DbDataReader"/>.
+        /// Execute parameterized SQL and return a <see cref="DbDataReader" />.
         /// </summary>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
-        /// <param name="commandBehavior">The <see cref="CommandBehavior"/> flags for this reader.</param>
+        /// <param name="commandBehavior">The <see cref="CommandBehavior" /> flags for this reader.</param>
+        /// <returns>Task&lt;DbDataReader&gt;.</returns>
         public static Task<DbDataReader> ExecuteReaderAsync(this DbConnection cnn, CommandDefinition command, CommandBehavior commandBehavior) =>
             ExecuteWrappedReaderImplAsync(cnn, command, commandBehavior);
 
+        /// <summary>
+        /// Execute wrapped reader implementation as an asynchronous operation.
+        /// </summary>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="command">The command.</param>
+        /// <param name="commandBehavior">The command behavior.</param>
+        /// <returns>A Task&lt;DbDataReader&gt; representing the asynchronous operation.</returns>
         private static async Task<DbDataReader> ExecuteWrappedReaderImplAsync(IDbConnection cnn, CommandDefinition command, CommandBehavior commandBehavior)
         {
             Action<IDbCommand, object> paramReader = GetParameterReader(cnn, ref command);
@@ -1190,7 +1329,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>The first cell returned, as <see cref="object"/>.</returns>
+        /// <returns>The first cell returned, as <see cref="object" />.</returns>
         public static Task<object> ExecuteScalarAsync(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             ExecuteScalarImplAsync<object>(cnn, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered));
 
@@ -1204,7 +1343,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="transaction">The transaction to use for this command.</param>
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
-        /// <returns>The first cell returned, as <typeparamref name="T"/>.</returns>
+        /// <returns>The first cell returned, as <typeparamref name="T" />.</returns>
         public static Task<T> ExecuteScalarAsync<T>(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
             ExecuteScalarImplAsync<T>(cnn, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered));
 
@@ -1213,7 +1352,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
-        /// <returns>The first cell selected as <see cref="object"/>.</returns>
+        /// <returns>The first cell selected as <see cref="object" />.</returns>
         public static Task<object> ExecuteScalarAsync(this IDbConnection cnn, CommandDefinition command) =>
             ExecuteScalarImplAsync<object>(cnn, command);
 
@@ -1223,10 +1362,17 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type to return.</typeparam>
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
-        /// <returns>The first cell selected as <typeparamref name="T"/>.</returns>
+        /// <returns>The first cell selected as <typeparamref name="T" />.</returns>
         public static Task<T> ExecuteScalarAsync<T>(this IDbConnection cnn, CommandDefinition command) =>
             ExecuteScalarImplAsync<T>(cnn, command);
 
+        /// <summary>
+        /// Execute scalar implementation as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cnn">The CNN.</param>
+        /// <param name="command">The command.</param>
+        /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
         private static async Task<T> ExecuteScalarImplAsync<T>(IDbConnection cnn, CommandDefinition command)
         {
             Action<IDbCommand, object> paramReader = null;

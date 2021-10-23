@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Surround.Query;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;
@@ -54,6 +55,8 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
     /// to two terms may appear between a and b. 
     /// </para>
     /// </summary>
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "This class is based on generated code")]
+    [SuppressMessage("Style", "IDE0028:Collection initialization can be simplified", Justification = "This class is based on generated code")]
     public class QueryParser
     {
         internal readonly int minimumPrefixLength = 3;
@@ -192,7 +195,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             q = FieldsQuery();
             Jj_consume_token(0);
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery FieldsQuery()
@@ -202,7 +205,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             fieldNames = OptionalFields();
             q = OrQuery();
             { if (true) return (fieldNames == null) ? q : GetFieldsQuery(q, fieldNames); }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public IList<string> OptionalFields()
@@ -231,7 +234,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             }
         label_1:
             { if (true) return fieldNames; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery OrQuery()
@@ -264,7 +267,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             }
         label_2:
             { if (true) return (queries == null) ? q : GetOrQuery(queries, true /* infix */, oprt); }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery AndQuery()
@@ -297,7 +300,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             }
         label_3:
             { if (true) return (queries == null) ? q : GetAndQuery(queries, true /* infix */, oprt); }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery NotQuery()
@@ -330,7 +333,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             }
         label_4:
             { if (true) return (queries == null) ? q : GetNotQuery(queries, oprt); }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery NQuery()
@@ -361,7 +364,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             }
         label_5:
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery WQuery()
@@ -392,7 +395,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             }
         label_6:
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery PrimaryQuery()
@@ -426,7 +429,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             }
             OptionalWeights(q);
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery PrefixOperatorQuery()
@@ -464,7 +467,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                     Jj_consume_token(-1);
                     throw new ParseException();
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public IList<SrndQuery> FieldsQueryList()
@@ -493,7 +496,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         label_7:
             Jj_consume_token(RegexpToken.RPAREN);
             { if (true) return queries; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public SrndQuery SimpleTerm()
@@ -541,12 +544,12 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                     Jj_consume_token(-1);
                     throw new ParseException();
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public void OptionalWeights(SrndQuery q)
         {
-            Token weight = null;
+            Token weight; // LUCENENET: IDE0059: Remove unnecessary value assignment
             while (true)
             {
                 switch ((jj_ntk == -1) ? Jj_ntk() : jj_ntk)
@@ -566,9 +569,9 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                     // LUCENENET TODO: Test parsing float in various cultures (.NET)
                     f = float.Parse(weight.Image);
                 }
-                catch (Exception floatExc)
+                catch (Exception floatExc) // LUCENENET: No need to call the IsException() extension method here because we are dealing only with a .NET platform method
                 {
-                    { if (true) throw new ParseException(boostErrorMessage + weight.Image + " (" + floatExc + ")"); }
+                    { if (true) throw new ParseException(boostErrorMessage + weight.Image + " (" + floatExc + ")", floatExc); }
                 }
                 if (f <= 0.0)
                 {
@@ -605,7 +608,8 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         private int jj_la;
         private int jj_gen;
         private readonly int[] jj_la1 = new int[10];
-        private static int[] jj_la1_0 = new int[] { 0x100, 0x200, 0x400, 0x1000, 0x800, 0x7c3b00, 0x1b00, 0x8000, 0x7c0000, 0x20000, };// LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private static readonly int[] jj_la1_0 = new int[] { // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+            0x100, 0x200, 0x400, 0x1000, 0x800, 0x7c3b00, 0x1b00, 0x8000, 0x7c0000, 0x20000, };
 
         // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         //static QueryParser()
@@ -779,10 +783,10 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                 return (jj_ntk = Jj_nt.Kind);
         }
 
-        private IList<int[]> jj_expentries = new List<int[]>();
+        private readonly IList<int[]> jj_expentries = new List<int[]>(); // LUCENENET: marked readonly
         private int[] jj_expentry;
         private int jj_kind = -1;
-        private int[] jj_lasttokens = new int[100];
+        private readonly int[] jj_lasttokens = new int[100]; // LUCENENET: marked readonly
         private int jj_endpos;
 
         private void Jj_add_error_token(int kind, int pos)

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,19 +26,18 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
+    using System.Text;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -104,13 +103,13 @@ namespace YAF.Web.Controls
         /// <value>
         /// <c>true</c> if the user can view profiles; otherwise, <c>false</c>.
         /// </value>
-        private bool CanViewProfile => this.Get<IPermissions>().Check(this.Get<BoardSettings>().ProfileViewPermissions);
+        private bool CanViewProfile => this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ProfileViewPermissions);
 
         /// <summary>
         /// Gets a value indicating whether is hover card enabled.
         /// </summary>
         private bool IsHoverCardEnabled =>
-            this.Get<BoardSettings>().EnableUserInfoHoverCards && this.EnableHoverCard
+            this.PageContext.BoardSettings.EnableUserInfoHoverCards && this.EnableHoverCard
                                                                   && BoardContext.Current.CurrentForumPage != null;
 
         #endregion
@@ -144,11 +143,9 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter output)
         {
-            var displayName = this.ReplaceName.IsNotSet()
-                                  ? this.Get<IUserDisplayName>().GetName(this.UserID)
-                                  : this.ReplaceName;
+            var displayName = this.ReplaceName;
 
-            if (this.UserID == -1 || !displayName.IsSet())
+            if (this.UserID == -1)
             {
                 return;
             }
@@ -157,49 +154,39 @@ namespace YAF.Web.Controls
 
             output.BeginRender();
 
-            if (!this.IsGuest && this.CrawlerName.IsNotSet())
+            var isCrawler = this.CrawlerName.IsSet();
+
+            if (isCrawler)
+            {
+                this.IsGuest = true;
+            }
+
+            if (!this.IsGuest)
             {
                 output.WriteBeginTag("a");
 
-                output.WriteAttribute("href", BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", this.UserID, displayName));
+               output.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(this.UserID, displayName));
+
+                var cssClass = new StringBuilder();
+
+                cssClass.Append("btn-sm");
 
                 if (this.CanViewProfile && this.IsHoverCardEnabled)
                 {
-                    if (this.CssClass.IsSet())
-                    {
-                        this.CssClass += " btn-sm hc-user";
-                    }
-                    else
-                    {
-                        this.CssClass = " btn-sm hc-user";
-                    }
+                    cssClass.Append(" hc-user");
 
                     output.WriteAttribute(
                         "data-hovercard",
-                        $"{(Config.IsDotNetNuke ? $"{BaseUrlBuilder.GetBaseUrlFromVariables()}{BaseUrlBuilder.AppPath}" : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={BoardContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(BuildLink.GetBasePath())}");
+                        $"{(Config.IsDotNetNuke ? $"{BaseUrlBuilder.GetBaseUrlFromVariables()}{BaseUrlBuilder.AppPath}" : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={BoardContext.Current.PageBoardID}&type=json&forumUrl={HttpUtility.UrlEncode(this.Get<LinkBuilder>().GetBasePath())}");
                 }
                 else
                 {
                     output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
-
-                    if (this.CssClass.IsSet())
-                    {
-                        if (this.CssClass.Equals("dropdown-toggle"))
-                        {
-                            output.WriteAttribute("data-toggle", "dropdown");
-                            output.WriteAttribute("aria-haspopup", "true");
-                            output.WriteAttribute("aria-expanded", "false");
-                        }
-
-                        this.CssClass += " btn-sm";
-                    }
-                    else
-                    {
-                        this.CssClass = " btn-sm";
-                    }
                 }
 
-                if (this.Get<BoardSettings>().UseNoFollowLinks)
+                this.CssClass = cssClass.ToString();
+
+                if (this.PageContext.BoardSettings.UseNoFollowLinks)
                 {
                     output.WriteAttribute("rel", "nofollow");
                 }
@@ -219,13 +206,18 @@ namespace YAF.Web.Controls
             output.Write(HtmlTextWriter.TagRightChar);
 
             // show online icon
-            if (this.Get<BoardSettings>().ShowUserOnlineStatus && this.CrawlerName.IsNotSet())
+            if (this.PageContext.BoardSettings.ShowUserOnlineStatus && !isCrawler)
             {
                 var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = userSuspended };
 
                 onlineStatusIcon.RenderControl(output);
+            }
 
-                output.Write("&nbsp;");
+            if (isCrawler)
+            {
+                var icon = new Icon { IconName = "robot" };
+
+                icon.RenderControl(output);
             }
 
             // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
@@ -233,7 +225,7 @@ namespace YAF.Web.Controls
             {
                 output.WriteEncodedText(this.CrawlerName);
             }
-            else if (!this.CrawlerName.IsSet() && this.ReplaceName.IsSet() && this.IsGuest)
+            else if (this.CrawlerName.IsNotSet() && this.ReplaceName.IsSet() && this.IsGuest)
             {
                 output.WriteEncodedText(this.ReplaceName);
             }

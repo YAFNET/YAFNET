@@ -22,20 +22,20 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.BasePages
 {
     #region Using
 
     using System;
 
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-
+    
     #endregion
 
     /// <summary>
@@ -76,13 +76,6 @@ namespace YAF.Core
         /// </summary>
         public override string PageName => $"admin_{base.PageName}";
 
-        /// <summary>
-        /// Creates page links for this page.
-        /// </summary>
-        protected override void CreatePageLinks()
-        {
-        }
-
         #endregion
 
         #region Methods
@@ -94,31 +87,25 @@ namespace YAF.Core
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void AdminPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.CreatePageLinks();
-            }
-            
             // not admins are forbidden
             if (!this.PageContext.IsAdmin)
             { 
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             // host admins are not checked
-            if (this.PageContext.IsHostAdmin)
+            if (this.PageContext.User.UserFlags.IsHostAdmin)
             {
                 return;
             }
 
             // Load the page access list.
-            var dt = this.GetRepository<AdminPageUserAccess>().List(
-                this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString().ToLowerInvariant());
+            var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString());
 
             // Check access rights to the page.
-            if (!this.PageContext.ForumPageType.ToString().IsSet() || dt == null || !dt.HasRows())
+            if (!this.PageContext.ForumPageType.ToString().IsSet() || !hasAccess)
             {
-                BuildLink.RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }
         }
 

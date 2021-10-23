@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    
-    
-    public partial class pageaccessedit {
-        
+namespace YAF.Pages.Admin
+{
+
+
+    public partial class PageAccessEdit
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,43 +22,16 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
-        /// LocalizedLabel2 control.
+        /// IconHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-        
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
-        /// <summary>
-        /// UserNameLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel UserNameLabel;
-        
-        /// <summary>
-        /// UserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UserName;
-        
+        protected global::YAF.Web.Controls.IconHeader IconHeader;
+
         /// <summary>
         /// AccessList control.
         /// </summary>
@@ -65,7 +40,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater AccessList;
-        
+
         /// <summary>
         /// Save control.
         /// </summary>
@@ -74,7 +49,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Save;
-        
+
         /// <summary>
         /// GrantAll control.
         /// </summary>
@@ -83,7 +58,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton GrantAll;
-        
+
         /// <summary>
         /// RevokeAll control.
         /// </summary>
@@ -92,7 +67,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton RevokeAll;
-        
+
         /// <summary>
         /// Cancel control.
         /// </summary>

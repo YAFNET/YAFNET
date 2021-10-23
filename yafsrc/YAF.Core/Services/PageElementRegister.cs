@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,9 +29,9 @@ namespace YAF.Core.Services
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Core;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Configuration;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
 
     #endregion
 
@@ -40,22 +40,13 @@ namespace YAF.Core.Services
     /// </summary>
     public class PageElementRegister
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _registered elements.
-        /// </summary>
-        private readonly List<string> registeredElements = new List<string>();
-
-        #endregion
-
         #region Properties
 
         /// <summary>
         ///   Gets elements (using in the head or header) that are registered on the page.
         ///   Used mostly by RegisterPageElementHelper.
         /// </summary>
-        public List<string> RegisteredElements => this.registeredElements;
+        public List<string> RegisteredElements { get; } = new();
 
         #endregion
 
@@ -69,7 +60,7 @@ namespace YAF.Core.Services
         /// </param>
         public void AddPageElement(string name)
         {
-            this.registeredElements.Add(name.ToLower());
+            this.RegisteredElements.Add(name.ToLower());
         }
 
         /// <summary>
@@ -83,7 +74,7 @@ namespace YAF.Core.Services
         /// </returns>
         public bool PageElementExists(string name)
         {
-            return this.registeredElements.Contains(name.ToLower());
+            return this.RegisteredElements.Contains(name.ToLower());
         }
 
         /// <summary>
@@ -125,17 +116,6 @@ namespace YAF.Core.Services
                 BoardContext.Current.CurrentForumPage.TopPageControl,
                 name,
                 JsAndCssHelper.CompressCss(cssContents));
-        }
-
-        /// <summary>
-        /// Add the given CSS to the page header within a style tag
-        /// </summary>
-        /// <param name="cssUrl">
-        /// Url of the CSS file to add
-        /// </param>
-        public void RegisterCssInclude(string cssUrl)
-        {
-            this.RegisterCssInclude(BoardContext.Current.CurrentForumPage.TopPageControl, cssUrl);
         }
 
         /// <summary>

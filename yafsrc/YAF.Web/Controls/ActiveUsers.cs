@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,16 +28,13 @@ namespace YAF.Web.Controls
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -51,7 +48,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The _active user table.
         /// </summary>
-        private DataTable activeUserTable;
+        private List<ActiveUser> activeUsers;
 
         #endregion
 
@@ -61,55 +58,44 @@ namespace YAF.Web.Controls
         ///   Gets or sets list of users to display in control.
         /// </summary>
         [CanBeNull]
-        public DataTable ActiveUserTable
+        public List<ActiveUser> ActiveUsersList
         {
             get
             {
-                if (this.activeUserTable != null)
+                if (this.activeUsers != null)
                 {
-                    return this.activeUserTable;
+                    return this.activeUsers;
                 }
 
                 // read there data from view state
-                if (this.ViewState["ActiveUserTable"] != null)
+                if (this.ViewState["ActiveUsers"] != null)
                 {
                     // cast it
-                    this.activeUserTable = this.ViewState["ActiveUserTable"] as DataTable;
+                    this.activeUsers = this.ViewState["ActiveUsers"] as List<ActiveUser>;
                 }
 
                 // return data table
-                return this.activeUserTable;
+                return this.activeUsers;
             }
 
             set
             {
                 // save it to view state
-                this.ViewState["ActiveUserTable"] = value;
+                this.ViewState["ActiveUsers"] = value;
 
                 // save it also to local variable to avoid repetitive casting from ViewState in getter
-                this.activeUserTable = value;
+                this.activeUsers = value;
             }
         }
 
         /// <summary>
-        ///   Gets or sets a value indicating whether treat displaying of guest users same way as that of hidden users.
+        /// Gets or sets the Instant ID for this control.
         /// </summary>
-        public bool TreatGuestAsHidden
-        {
-            get =>
-                this.ViewState["TreatGuestAsHidden"] != null && Convert.ToBoolean(this.ViewState["TreatGuestAsHidden"]);
-
-            set => this.ViewState["TreatGuestAsHidden"] = value;
-        }
-
-        /// <summary> 
-        /// Gets or sets the Instant ID for this control. 
-        /// </summary> 
-        /// <remarks> 
-        /// Multiple instants of this control can exist in the same page but 
-        /// each must have a different instant ID. Not specifying an Instant ID 
-        /// default to the ID being string.Empty. 
-        /// </remarks> 
+        /// <remarks>
+        /// Multiple instants of this control can exist in the same page but
+        /// each must have a different instant ID. Not specifying an Instant ID
+        /// default to the ID being string.Empty.
+        /// </remarks>
         public string InstantId
         {
             get => (this.ViewState["InstantId"] as string) + string.Empty;
@@ -133,68 +119,56 @@ namespace YAF.Web.Controls
             base.OnPreRender(e);
 
             // we shall continue only if there are active user data available
-            if (this.ActiveUserTable == null)
+            if (this.ActiveUsersList == null)
             {
                 return;
-            }
-
-            // add style column if there is no such column in the table
-            // style column defines how concrete user's link should be styled
-            if (!this.ActiveUserTable.Columns.Contains("Style"))
-            {
-                this.ActiveUserTable.Columns.Add("Style", typeof(string));
-                this.ActiveUserTable.AcceptChanges();
             }
 
             var crawlers = new List<string>();
 
             // go through the table and process each row
-            this.ActiveUserTable.Rows.Cast<DataRow>().ForEach(
-                row =>
+            this.ActiveUsersList.ForEach(
+                user =>
                     {
                         UserLink userLink;
 
-                        var isCrawler = row["IsCrawler"].ToType<int>() > 0;
+                        var isCrawler = user.IsCrawler;
 
                         // create new link and set its parameters
                         if (isCrawler)
                         {
-                            if (crawlers.Contains(row["Browser"].ToString()))
+                            if (crawlers.Contains(user.Browser))
                             {
                                 return;
                             }
 
-                            crawlers.Add(row["Browser"].ToString());
+                            crawlers.Add(user.Browser);
                             userLink = new UserLink
-                                           {
-                                               CrawlerName = row["Browser"].ToString(),
-                                               UserID = row["UserID"].ToType<int>(),
-                                               Style = this.Get<BoardSettings>().UseStyledNicks
-                                                           ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                               row["Style"].ToString())
-                                                           : string.Empty
-                                           };
+                            {
+                                Suspended = user.Suspended,
+                                CrawlerName = user.Browser,
+                                UserID = user.UserID,
+                                Style = user.UserStyle
+                            };
                             userLink.ID += userLink.CrawlerName;
                         }
                         else
                         {
                             userLink = new UserLink
-                                           {
-                                               UserID = row["UserID"].ToType<int>(),
-                                               Style = this.Get<BoardSettings>().UseStyledNicks
-                                                           ? this.Get<IStyleTransform>().DecodeStyleByString(
-                                                               row["Style"].ToString())
-                                                           : string.Empty,
-                                               ReplaceName = this.Get<BoardSettings>().EnableDisplayName
-                                                                 ? row["UserDisplayName"].ToString()
-                                                                 : row["UserName"].ToString()
-                                           };
+                            {
+                                Suspended = user.Suspended,
+                                UserID = user.UserID,
+                                Style = user.UserStyle,
+                                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                                    ? user.UserDisplayName
+                                    : user.UserName
+                            };
                             userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
                         }
 
                         // how many users of this type is present (valid for guests, others have it 1)
-                        var userCount = row["UserCount"].ToType<int>();
-                        if (userCount > 1 && (!isCrawler || !this.Get<BoardSettings>().ShowCrawlersInActiveList))
+                        var userCount = user.UserCount;
+                        if (userCount > 1 && (!isCrawler || !this.PageContext.BoardSettings.ShowCrawlersInActiveList))
                         {
                             // add postfix if there is more the one user of this name
                             userLink.PostfixText = $" ({userCount})";
@@ -204,13 +178,13 @@ namespace YAF.Web.Controls
                         var addControl = true;
 
                         // we might not want to add this user link if user is marked as hidden
-                        if (Convert.ToBoolean(row["IsHidden"]) || // or if user is guest and guest should be hidden
-                            this.TreatGuestAsHidden && Convert.ToBoolean(row["IsGuest"]))
+                        if (user.IsActiveExcluded || // or if user is guest and guest should be hidden
+                            user.IsGuest)
                         {
                             // hidden user are always visible to admin and himself)
                             if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
                             {
-                                userLink.PostfixText = $"  <i class=\"fas fa-user-secret\"></i>";
+                                userLink.PostfixText = "  <i class=\"fas fa-user-secret\"></i>";
                             }
                             else
                             {
@@ -223,13 +197,6 @@ namespace YAF.Web.Controls
                         if (!addControl)
                         {
                             return;
-                        }
-
-                        // vzrus: if guests or crawlers there can be a control with the same id. 
-                        var ul = this.FindControlRecursiveAs<UserLink>(userLink.ID);
-                        if (ul != null)
-                        {
-                            this.Controls.Remove(ul);
                         }
 
                         this.Controls.Add(userLink);
@@ -258,6 +225,9 @@ namespace YAF.Web.Controls
 
                         writer.Write(@"</li>");
                     });
+
+            // writes ending tag
+            writer.Write(@"</ul>");
         }
 
         #endregion

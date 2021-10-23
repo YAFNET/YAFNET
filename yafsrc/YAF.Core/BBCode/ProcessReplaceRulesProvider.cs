@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -43,19 +43,19 @@ namespace YAF.Core.BBCode
     #region Constants and Fields
 
     /// <summary>
-    ///   The _inject services.
+    ///   The inject services.
     /// </summary>
-    private readonly IInjectServices _injectServices;
+    private readonly IInjectServices injectServices;
 
     /// <summary>
-    /// The _object store.
+    /// The object store.
     /// </summary>
-    private readonly IObjectStore _objectStore;
+    private readonly IObjectStore objectStore;
 
     /// <summary>
-    ///   The _unique flags.
+    ///   The unique flags.
     /// </summary>
-    private readonly IEnumerable<bool> _uniqueFlags;
+    private readonly IEnumerable<bool> uniqueFlags;
 
     #endregion
 
@@ -65,6 +65,7 @@ namespace YAF.Core.BBCode
     /// Initializes a new instance of the <see cref="ProcessReplaceRulesProvider"/> class.
     /// </summary>
     /// <param name="objectStore">
+    /// The object Store.
     /// </param>
     /// <param name="serviceLocator">
     /// The service locator.
@@ -76,15 +77,15 @@ namespace YAF.Core.BBCode
     /// The unique Flags.
     /// </param>
     public ProcessReplaceRulesProvider(
-      [NotNull] IObjectStore objectStore, 
-      [NotNull] IServiceLocator serviceLocator, 
-      [NotNull] IInjectServices injectServices, 
+      [NotNull] IObjectStore objectStore,
+      [NotNull] IServiceLocator serviceLocator,
+      [NotNull] IInjectServices injectServices,
       [NotNull] IEnumerable<bool> uniqueFlags)
     {
       this.ServiceLocator = serviceLocator;
-      this._objectStore = objectStore;
-      this._injectServices = injectServices;
-      this._uniqueFlags = uniqueFlags;
+      this.objectStore = objectStore;
+      this.injectServices = injectServices;
+      this.uniqueFlags = uniqueFlags;
     }
 
     #endregion
@@ -92,27 +93,20 @@ namespace YAF.Core.BBCode
     #region Properties
 
     /// <summary>
-    ///   The Instance of this provider.
+    ///   Gets the Instance of this provider.
     /// </summary>
-    /// <returns>
-    /// </returns>
-    public IProcessReplaceRules Instance
-    {
-      get
-      {
-        return this._objectStore.GetOrSet(
-          string.Format(Constants.Cache.ReplaceRules, this._uniqueFlags.ToIntOfBits()), 
-          () =>
+    public IProcessReplaceRules Instance =>
+        this.objectStore.GetOrSet(
+            string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()),
+            () =>
             {
-              var processRules = new ProcessReplaceRules();
+                var processRules = new ProcessReplaceRules();
 
-              // inject
-              this._injectServices.Inject(processRules);
+                // inject
+                this.injectServices.Inject(processRules);
 
-              return processRules;
+                return processRules;
             });
-      }
-    }
 
     /// <summary>
     ///   Gets or sets ServiceLocator.

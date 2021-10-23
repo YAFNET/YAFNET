@@ -33,16 +33,8 @@ namespace YAF.Types.Models
     /// A class which represents the TopicTag table.
     /// </summary>
     [Serializable]
-    public partial class TopicTag : IEntity
+    public class TopicTag : IEntity
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TopicTag"/> class.
-        /// </summary>
-        public TopicTag()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -56,14 +48,10 @@ namespace YAF.Types.Models
         /// Gets or sets the topic id.
         /// </summary>
         [References(typeof(Topic))]
+        [Index]
         [Required]
         public int TopicID { get; set; }
 
         #endregion
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
     }
 }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -36,34 +36,42 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(Hash))]
-    public partial class CheckEmail : IEntity, IHaveID
+    public class CheckEmail : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public CheckEmail()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("CheckEmailID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
         [StringLength(255)]
         public string Email { get; set; }
 
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
 
+        /// <summary>
+        /// Gets or sets the hash.
+        /// </summary>
         [Required]
         [Index]
-        [StringLength(32)]
+        [StringLength(255)]
         public string Hash { get; set; }
 
         #endregion

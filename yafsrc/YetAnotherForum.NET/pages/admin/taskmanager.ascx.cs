@@ -29,11 +29,9 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -41,7 +39,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Task Manager Admin Page
     /// </summary>
-    public partial class taskmanager : AdminPage
+    public partial class TaskManager : AdminPage
     {
         #region Methods
 
@@ -57,7 +55,7 @@ namespace YAF.Pages.Admin
         protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? "badge badge-success" : "badge badge-default";
+            return enabled ? "badge bg-success" : "badge badge-default";
         }
 
         /// <summary>
@@ -79,9 +77,6 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected void BindData()
         {
-            this.lblTaskCount.Text = string
-                .Format(this.GetText("ADMIN_TASKMANAGER", "HEADER"), this.Get<ITaskModuleManager>().TaskCount.ToString());
-
             this.taskRepeater.DataSource = this.Get<ITaskModuleManager>().TaskManagerSnapshot;
             this.taskRepeater.DataBind();
         }
@@ -117,15 +112,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_TASKMANAGER", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_TASKMANAGER", "TITLE")}";
         }
 
         /// <summary>

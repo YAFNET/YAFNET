@@ -1,3 +1,4 @@
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
@@ -111,7 +112,7 @@ namespace YAF.Lucene.Net.Index
         /// Sole constructor. (For invocation by subclass
         /// constructors, typically implicit.)
         /// </summary>
-        public LogMergePolicy()
+        protected LogMergePolicy() // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             : base(DEFAULT_NO_CFS_RATIO, MergePolicy.DEFAULT_MAX_CFS_SEGMENT_SIZE)
         {
         }
@@ -161,7 +162,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (value < 2)
                 {
-                    throw new ArgumentException("mergeFactor cannot be less than 2");
+                    throw new ArgumentOutOfRangeException(nameof(MergeFactor), "mergeFactor cannot be less than 2"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.m_mergeFactor = value;
             }
@@ -230,9 +231,7 @@ namespace YAF.Lucene.Net.Index
             for (int i = 0; i < numSegments && numToMerge <= maxNumSegments; i++)
             {
                 SegmentCommitInfo info = infos.Info(i);
-                bool? isOriginal;
-                segmentsToMerge.TryGetValue(info, out isOriginal);
-                if (isOriginal != null)
+                if (segmentsToMerge.TryGetValue(info, out bool? isOriginal) && isOriginal != null)
                 {
                     segmentIsOriginal = isOriginal.Value;
                     numToMerge++;
@@ -243,15 +242,16 @@ namespace YAF.Lucene.Net.Index
             return numToMerge <= maxNumSegments && (numToMerge != 1 || !segmentIsOriginal || IsMerged(infos, mergeInfo));
         }
 
-        /// <summary>
-        /// Returns the merges necessary to merge the index, taking the max merge
-        /// size or max merge docs into consideration. this method attempts to respect
-        /// the <paramref name="maxNumSegments"/> parameter, however it might be, due to size
-        /// constraints, that more than that number of segments will remain in the
-        /// index. Also, this method does not guarantee that exactly
-        /// <paramref name="maxNumSegments"/> will remain, but &lt;= that number.
-        /// </summary>
-        private MergeSpecification FindForcedMergesSizeLimit(SegmentInfos infos, int maxNumSegments, int last)
+        // LUCENENET: This documentation ic clearly out of date because it refers to an unused parameter
+        ///// <summary>
+        ///// Returns the merges necessary to merge the index, taking the max merge
+        ///// size or max merge docs into consideration. this method attempts to respect
+        ///// the <paramref name="maxNumSegments"/> parameter, however it might be, due to size
+        ///// constraints, that more than that number of segments will remain in the
+        ///// index. Also, this method does not guarantee that exactly
+        ///// <paramref name="maxNumSegments"/> will remain, but &lt;= that number.
+        ///// </summary>
+        private MergeSpecification FindForcedMergesSizeLimit(SegmentInfos infos, /* int maxNumSegments, LUCENENET: Not referenced */ int last)
         {
             MergeSpecification spec = new MergeSpecification();
             IList<SegmentCommitInfo> segments = infos.AsList();
@@ -272,14 +272,14 @@ namespace YAF.Lucene.Net.Index
                     {
                         // there is more than 1 segment to the right of
                         // this one, or a mergeable single segment.
-                        spec.Add(new OneMerge(segments.SubList(start + 1, last)));
+                        spec.Add(new OneMerge(segments.GetView(start + 1, last - (start + 1)))); // LUCENENET: Converted end index to length
                     }
                     last = start;
                 }
                 else if (last - start == m_mergeFactor)
                 {
                     // mergeFactor eligible segments were found, add them as a merge.
-                    spec.Add(new OneMerge(segments.SubList(start, last)));
+                    spec.Add(new OneMerge(segments.GetView(start, last - start))); // LUCENENET: Converted end index to length
                     last = start;
                 }
                 --start;
@@ -289,7 +289,7 @@ namespace YAF.Lucene.Net.Index
             // already fully merged
             if (last > 0 && (++start + 1 < last || !IsMerged(infos, infos.Info(start))))
             {
-                spec.Add(new OneMerge(segments.SubList(start, last)));
+                spec.Add(new OneMerge(segments.GetView(start, last - start))); // LUCENENET: Converted end index to length
             }
 
             return spec.Merges.Count == 0 ? null : spec;
@@ -309,7 +309,7 @@ namespace YAF.Lucene.Net.Index
             // mergeFactor) to potentially be run concurrently:
             while (last - maxNumSegments + 1 >= m_mergeFactor)
             {
-                spec.Add(new OneMerge(segments.SubList(last - m_mergeFactor, last)));
+                spec.Add(new OneMerge(segments.GetView(last - m_mergeFactor, m_mergeFactor))); // LUCENENET: Converted end index to length
                 last -= m_mergeFactor;
             }
 
@@ -323,7 +323,7 @@ namespace YAF.Lucene.Net.Index
                     // choice is simple:
                     if (last > 1 || !IsMerged(infos, infos.Info(0)))
                     {
-                        spec.Add(new OneMerge(segments.SubList(0, last)));
+                        spec.Add(new OneMerge(segments.GetView(0, last))); // LUCENENET: Converted end index to length
                     }
                 }
                 else if (last > maxNumSegments)
@@ -357,7 +357,7 @@ namespace YAF.Lucene.Net.Index
                         }
                     }
 
-                    spec.Add(new OneMerge(segments.SubList(bestStart, bestStart + finalMergeSize)));
+                    spec.Add(new OneMerge(segments.GetView(bestStart, finalMergeSize))); // LUCENENET: Converted end index to length
                 }
             }
             return spec.Merges.Count == 0 ? null : spec;
@@ -443,7 +443,7 @@ namespace YAF.Lucene.Net.Index
 
             if (anyTooLarge)
             {
-                return FindForcedMergesSizeLimit(infos, maxNumSegments, last);
+                return FindForcedMergesSizeLimit(infos, /* maxNumSegments, // LUCENENET: Not referenced */ last);
             }
             else
             {
@@ -492,7 +492,7 @@ namespace YAF.Lucene.Net.Index
                         {
                             Message("  add merge " + firstSegmentWithDeletions + " to " + (i - 1) + " inclusive");
                         }
-                        spec.Add(new OneMerge(segments.SubList(firstSegmentWithDeletions, i)));
+                        spec.Add(new OneMerge(segments.GetView(firstSegmentWithDeletions, i - firstSegmentWithDeletions))); // LUCENENET: Converted end index to length
                         firstSegmentWithDeletions = i;
                     }
                 }
@@ -505,7 +505,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         Message("  add merge " + firstSegmentWithDeletions + " to " + (i - 1) + " inclusive");
                     }
-                    spec.Add(new OneMerge(segments.SubList(firstSegmentWithDeletions, i)));
+                    spec.Add(new OneMerge(segments.GetView(firstSegmentWithDeletions, i - firstSegmentWithDeletions))); // LUCENENET: Converted end index to length
                     firstSegmentWithDeletions = -1;
                 }
             }
@@ -516,7 +516,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     Message("  add merge " + firstSegmentWithDeletions + " to " + (numSegments - 1) + " inclusive");
                 }
-                spec.Add(new OneMerge(segments.SubList(firstSegmentWithDeletions, numSegments)));
+                spec.Add(new OneMerge(segments.GetView(firstSegmentWithDeletions, numSegments - firstSegmentWithDeletions))); // LUCENENET: Converted end index to length
             }
 
             return spec;
@@ -526,13 +526,13 @@ namespace YAF.Lucene.Net.Index
         {
             internal readonly SegmentCommitInfo info;
             internal readonly float level;
-            private int index;
+            //private int index; // LUCENENET: Never read
 
-            public SegmentInfoAndLevel(SegmentCommitInfo info, float level, int index)
+            public SegmentInfoAndLevel(SegmentCommitInfo info, float level /*, int index // LUCENENET: Never read */)
             {
                 this.info = info;
                 this.level = level;
-                this.index = index;
+                //this.index = index; // LUCENENET: Never read
             }
 
             // Sorts largest to smallest
@@ -577,7 +577,7 @@ namespace YAF.Lucene.Net.Index
                     size = 1;
                 }
 
-                SegmentInfoAndLevel infoLevel = new SegmentInfoAndLevel(info, (float)Math.Log(size) / norm, i);
+                SegmentInfoAndLevel infoLevel = new SegmentInfoAndLevel(info, (float)Math.Log(size) / norm /*, i*/);  // LUCENENET: index is never read
                 levels.Add(infoLevel);
 
                 if (IsVerbose)

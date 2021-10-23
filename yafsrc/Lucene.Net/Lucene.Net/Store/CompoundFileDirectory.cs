@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
@@ -25,10 +25,10 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Class for accessing a compound stream.
@@ -82,12 +82,14 @@ namespace YAF.Lucene.Net.Store
 
         private readonly Directory directory;
         private readonly string fileName;
-        private readonly int readBufferSize;
+        //private readonly int readBufferSize; // LUCENENET: Never read
         private readonly IDictionary<string, FileEntry> entries;
         private readonly bool openForWrite;
         private static readonly IDictionary<string, FileEntry> SENTINEL = Collections.EmptyMap<string, FileEntry>();
         private readonly CompoundFileWriter writer;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexInputSlicer handle;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         /// <summary>
         /// Create a new <see cref="CompoundFileDirectory"/>.
@@ -96,7 +98,7 @@ namespace YAF.Lucene.Net.Store
         {
             this.directory = directory;
             this.fileName = fileName;
-            this.readBufferSize = BufferedIndexInput.GetBufferSize(context);
+            //this.readBufferSize = BufferedIndexInput.GetBufferSize(context); // LUCENENET: Never read
             this.IsOpen = false;
             this.openForWrite = openForWrite;
             if (!openForWrite)
@@ -138,7 +140,7 @@ namespace YAF.Lucene.Net.Store
         /// Helper method that reads CFS entries from an input stream </summary>
         private static IDictionary<string, FileEntry> ReadEntries(IndexInputSlicer handle, Directory dir, string name)
         {
-            IOException priorE = null;
+            Exception priorE = null; // LUCENENET: No need to cast to IOExcpetion
             IndexInput stream = null;
             ChecksumIndexInput entriesStream = null;
             // read the first VInt. If it is negative, it's the version number
@@ -199,7 +201,7 @@ namespace YAF.Lucene.Net.Store
                 }
                 return mapping;
             }
-            catch (IOException ioe)
+            catch (Exception ioe) when (ioe.IsIOException())
             {
                 priorE = ioe;
             }
@@ -208,7 +210,7 @@ namespace YAF.Lucene.Net.Store
                 IOUtils.DisposeWhileHandlingException(priorE, stream, entriesStream);
             }
             // this is needed until Java 7's real try-with-resources:
-            throw new InvalidOperationException("impossible to get here");
+            throw AssertionError.Create("impossible to get here");
         }
 
         private static IDictionary<string, FileEntry> ReadLegacyEntries(IndexInput stream, int firstInt)
@@ -364,15 +366,17 @@ namespace YAF.Lucene.Net.Store
         /// <exception cref="NotSupportedException"> always: not supported by CFS  </exception>
         public override void DeleteFile(string name)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         /// <summary>
         /// Not implemented </summary>
         /// <exception cref="NotSupportedException"> always: not supported by CFS  </exception>
+#pragma warning disable IDE0060, CA1822 // Remove unused parameter, Mark members as static
         public void RenameFile(string from, string to)
+#pragma warning restore IDE0060, CA1822 // Remove unused parameter, Mark members as static
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         /// <summary>
@@ -401,7 +405,7 @@ namespace YAF.Lucene.Net.Store
 
         public override void Sync(ICollection<string> names)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         /// <summary>
@@ -409,7 +413,7 @@ namespace YAF.Lucene.Net.Store
         /// <exception cref="NotSupportedException"> always: not supported by CFS  </exception>
         public override Lock MakeLock(string name)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public override IndexInputSlicer CreateSlicer(string name, IOContext context)
@@ -423,16 +427,16 @@ namespace YAF.Lucene.Net.Store
                     " found (fileName=" + name + " files: " + 
                     string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", entries.Keys) + ")");
             }
-            return new IndexInputSlicerAnonymousInnerClassHelper(this, entry);
+            return new IndexInputSlicerAnonymousClass(this, entry);
         }
 
-        private class IndexInputSlicerAnonymousInnerClassHelper : IndexInputSlicer
+        private class IndexInputSlicerAnonymousClass : IndexInputSlicer
         {
             private readonly CompoundFileDirectory outerInstance;
 
-            private FileEntry entry;
+            private readonly FileEntry entry;
 
-            public IndexInputSlicerAnonymousInnerClassHelper(CompoundFileDirectory outerInstance, FileEntry entry)
+            public IndexInputSlicerAnonymousClass(CompoundFileDirectory outerInstance, FileEntry entry)
             {
                 this.outerInstance = outerInstance;
                 this.entry = entry;

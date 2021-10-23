@@ -1,7 +1,9 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -22,8 +24,8 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
 
     /// <summary>
     /// Reader for sequences of <see cref="long"/>s written with <see cref="BlockPackedWriter"/>. 
@@ -33,62 +35,64 @@ namespace YAF.Lucene.Net.Util.Packed
     /// <seealso cref="BlockPackedWriter"/>
     public sealed class BlockPackedReaderIterator
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static long ZigZagDecode(long n)
         {
-            return (((long)((ulong)n >> 1)) ^ -(n & 1));
+            return ((n.TripleShift(1)) ^ -(n & 1));
         }
 
         // same as DataInput.ReadVInt64 but supports negative values
         /// <summary>
         /// NOTE: This was readVLong() in Lucene.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static long ReadVInt64(DataInput @in)
         {
             byte b = @in.ReadByte();
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return b;
             }
             long i = b & 0x7FL;
             b = @in.ReadByte();
             i |= (b & 0x7FL) << 7;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = @in.ReadByte();
             i |= (b & 0x7FL) << 14;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = @in.ReadByte();
             i |= (b & 0x7FL) << 21;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = @in.ReadByte();
             i |= (b & 0x7FL) << 28;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = @in.ReadByte();
             i |= (b & 0x7FL) << 35;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = @in.ReadByte();
             i |= (b & 0x7FL) << 42;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = @in.ReadByte();
             i |= (b & 0x7FL) << 49;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
@@ -142,7 +146,7 @@ namespace YAF.Lucene.Net.Util.Packed
             if (Debugging.AssertsEnabled) Debugging.Assert(count >= 0);
             if (ord + count > valueCount || ord + count < 0)
             {
-                throw new EndOfStreamException();
+                throw EOFException.Create();
             }
 
             // 1. skip buffered values
@@ -160,7 +164,7 @@ namespace YAF.Lucene.Net.Util.Packed
             while (count >= blockSize)
             {
                 int token = @in.ReadByte() & 0xFF;
-                int bitsPerValue = (int)((uint)token >> AbstractBlockPackedWriter.BPV_SHIFT);
+                int bitsPerValue = token.TripleShift(AbstractBlockPackedWriter.BPV_SHIFT);
                 if (bitsPerValue > 64)
                 {
                     throw new IOException("Corrupted");
@@ -186,11 +190,12 @@ namespace YAF.Lucene.Net.Util.Packed
             off += (int)count;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SkipBytes(long count)
         {
             if (@in is IndexInput input)
             {
-                input.Seek(input.GetFilePointer() + count);
+                input.Seek(input.Position + count); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             }
             else
             {
@@ -214,7 +219,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (ord == valueCount)
             {
-                throw new EndOfStreamException();
+                throw EOFException.Create();
             }
             if (off == blockSize)
             {
@@ -232,7 +237,7 @@ namespace YAF.Lucene.Net.Util.Packed
             if (Debugging.AssertsEnabled) Debugging.Assert(count > 0);
             if (ord == valueCount)
             {
-                throw new EndOfStreamException();
+                throw EOFException.Create();
             }
             if (off == blockSize)
             {
@@ -253,7 +258,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             int token = @in.ReadByte() & 0xFF;
             bool minEquals0 = (token & AbstractBlockPackedWriter.MIN_VALUE_EQUALS_0) != 0;
-            int bitsPerValue = (int)((uint)token >> AbstractBlockPackedWriter.BPV_SHIFT);
+            int bitsPerValue = token.TripleShift(AbstractBlockPackedWriter.BPV_SHIFT);
             if (bitsPerValue > 64)
             {
                 throw new IOException("Corrupted");

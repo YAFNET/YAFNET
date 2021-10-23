@@ -27,11 +27,11 @@ namespace YAF.Core.Controllers
     using System.Collections.Generic;
     using System.Web.Http;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
 
     /// <summary>
     /// The YAF Tags controller.
@@ -49,13 +49,10 @@ namespace YAF.Core.Controllers
         #endregion
 
         /// <summary>
-        /// Get similar topic titles
+        /// Get all tags by Board Id
         /// </summary>
-        /// <param name="searchTopic">
-        /// The search Topic.
-        /// </param>
         /// <returns>
-        /// Returns the search Results.
+        /// Returns list of all tags.
         /// </returns>
         [Route("Tags/GetBoardTags")]
         [HttpPost]

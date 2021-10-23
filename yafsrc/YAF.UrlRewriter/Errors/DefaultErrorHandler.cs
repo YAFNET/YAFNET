@@ -38,6 +38,6 @@ namespace YAF.UrlRewriter.Errors
             context.Server.Execute(this._url);
         }
 
-        private string _url;
+        private readonly string _url;
     }
 }

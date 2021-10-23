@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,8 +27,6 @@ namespace YAF.Types.Interfaces
     using System.Collections.Generic;
     using System.Linq;
 
-    using YAF.Types.Interfaces;
-
     /// <summary>
     ///     The pager extensions.
     /// </summary>
@@ -46,14 +44,15 @@ namespace YAF.Types.Interfaces
         /// The pager.
         /// </param>
         /// <typeparam name="T">
+        /// The Typed Parameter
         /// </typeparam>
         /// <returns>
         /// The <see cref="IEnumerable{T}"/>.
         /// </returns>
         public static IList<T> GetPaged<T>([NotNull] this IList<T> list, [NotNull] IPager pager)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(pager);
 
             pager.Count = list.Count;
 
@@ -71,9 +70,26 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static int PageCount(this IPager pager)
         {
-            CodeContracts.VerifyNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(pager);
 
-            return (int)Math.Ceiling((double)pager.Count / pager.PageSize);
+            return PageCount(pager.Count, pager.PageSize);
+        }
+
+        /// <summary>
+        /// Gets the Page Count from the Page Items Count and Page Size
+        /// </summary>
+        /// <param name="pageItemsCount">
+        /// The page Items Count.
+        /// </param>
+        /// <param name="pageSize">
+        /// Size of the page.
+        /// </param>
+        /// <returns>
+        /// Returns the Pages Count
+        /// </returns>
+        public static int PageCount(int pageItemsCount, int pageSize)
+        {
+            return (int)Math.Ceiling((double)pageItemsCount / pageSize);
         }
 
         /// <summary>
@@ -87,7 +103,7 @@ namespace YAF.Types.Interfaces
         /// </returns>
         public static int SkipIndex([NotNull] this IPager pager)
         {
-            CodeContracts.VerifyNotNull(pager, "pager");
+            CodeContracts.VerifyNotNull(pager);
 
             return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
         }

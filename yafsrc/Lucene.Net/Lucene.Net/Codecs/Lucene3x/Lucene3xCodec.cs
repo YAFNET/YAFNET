@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using JCG = J2N.Collections.Generic;
-using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -22,10 +22,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using Lucene40LiveDocsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Lucene40LiveDocsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Supports the Lucene 3.x index format (readonly) </summary>
@@ -58,18 +58,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         private readonly LiveDocsFormat liveDocsFormat = new Lucene40LiveDocsFormat();
 
         // 3.x doesn't support docvalues
-        private readonly DocValuesFormat docValuesFormat = new DocValuesFormatAnonymousInnerClassHelper();
+        private readonly DocValuesFormat docValuesFormat = new DocValuesFormatAnonymousClass();
 
-        private class DocValuesFormatAnonymousInnerClassHelper : DocValuesFormat
+        private class DocValuesFormatAnonymousClass : DocValuesFormat
         {
-            public DocValuesFormatAnonymousInnerClassHelper()
+            public DocValuesFormatAnonymousClass()
                 : base()
             {
             }
 
             public override DocValuesConsumer FieldsConsumer(SegmentWriteState state)
             {
-                throw new NotSupportedException("this codec cannot write docvalues");
+                throw UnsupportedOperationException.Create("this codec cannot write docvalues");
             }
 
             public override DocValuesProducer FieldsProducer(SegmentReadState state)

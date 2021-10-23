@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,31 +27,33 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Data;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Drawing.Imaging;
-    using System.IO;
+    using System.Drawing.Text;
     using System.Linq;
-    using System.Net;
+    using System.Runtime.Caching;
     using System.Text;
     using System.Web;
 
-    using ServiceStack;
+    using Newtonsoft.Json;
+
+    using ServiceStack.Text;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Services.Auth;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Helpers;
+    using YAF.Core.Model;
+    using YAF.Core.Utilities.ImageUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers.ImageUtils;
 
     #endregion
 
@@ -90,11 +92,9 @@ namespace YAF.Core.Services
             {
                 var userId = context.Request.QueryString.GetFirstOrDefaultAs<int>("userinfo");
 
-                var boardId = context.Request.QueryString.GetFirstOrDefaultAs<int>("boardId");
+                var user = this.Get<IAspNetUsersHelper>().GetBoardUser(userId);
 
-                var user = UserMembershipHelper.GetMembershipUserById(userId, boardId);
-
-                if (user == null || user.ProviderUserKey.ToString() == "0")
+                if (user == null || user.Item1.ID == 0)
                 {
                     context.Response.Write(
                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -110,69 +110,66 @@ namespace YAF.Core.Services
                     return;
                 }
 
-                var userData = new CombinedUserDataHelper(user, userId);
-
                 context.Response.Clear();
 
                 context.Response.ContentType = "application/json";
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(
-                    System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetMaxAge(TimeSpan.FromSeconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
-                var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId);
+                var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
 
                 avatarUrl = avatarUrl.IsNotSet()
-                           ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
-                           : avatarUrl;
+                    ? $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={user.Item1.ID}"
+                    : avatarUrl;
 
                 var activeUsers = this.Get<IDataCache>().GetOrSet(
                     Constants.Cache.UsersOnlineStatus,
-                    () =>
-                    this.Get<DataBroker>().GetActiveList(
-                        false, BoardContext.Current.Get<BoardSettings>().ShowCrawlersInActiveList),
-                    TimeSpan.FromMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                    () => this.GetRepository<Active>().List(
+                        false,
+                        this.Get<BoardSettings>().ShowCrawlersInActiveList,
+                        this.Get<BoardSettings>().ActiveListTime),
+                    TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
                 var userIsOnline =
-                    activeUsers.AsEnumerable().Any(
-                        x => x.Field<int>("UserId").Equals(userId) && !x.Field<bool>("IsHidden"));
+                    activeUsers.Any(
+                        x => x.UserID == userId && x.IsActiveExcluded == false);
 
-                var userName = this.Get<BoardSettings>().EnableDisplayName ? userData.DisplayName : userData.UserName;
+                var userName = user.Item1.DisplayOrUserName();
 
                 userName = HttpUtility.HtmlEncode(userName);
 
-                var location = userData.Profile.Country.IsSet()
-                                   ? this.Get<ILocalization>().GetText(
-                                       "COUNTRY", userData.Profile.Country.Trim())
-                                   : HttpUtility.HtmlEncode(userData.Profile.Location);
+                var location = user.Item2.Profile_Country.IsSet()
+                                   ? BoardContext.Current.Get<IHaveLocalization>().GetText(
+                                       "COUNTRY", user.Item2.Profile_Country.Trim())
+                                   : HttpUtility.HtmlEncode(user.Item2.Profile_Location);
 
-                if (userData.Profile.Region.IsSet() && userData.Profile.Country.IsSet())
+                if (user.Item2.Profile_Region.IsSet() && user.Item2.Profile_Country.IsSet())
                 {
-                    var tag = $"RGN_{userData.Profile.Country.Trim()}_{userData.Profile.Region}";
+                    var tag = $"RGN_{user.Item2.Profile_Country.Trim()}_{user.Item2.Profile_Region}";
 
-                    location += $", {this.Get<ILocalization>().GetText("REGION", tag)}";
+                    location += $", {this.Get<IHaveLocalization>().GetText("REGION", tag)}";
                 }
 
                 var userInfo = new ForumUserInfo
                 {
                     Name = userName,
-                    RealName = HttpUtility.HtmlEncode(userData.Profile.RealName),
+                    RealName = HttpUtility.HtmlEncode(user.Item2.Profile_RealName),
                     Avatar = avatarUrl,
-                    Interests = HttpUtility.HtmlEncode(userData.Profile.Interests),
-                    HomePage = userData.Profile.Homepage,
-                    Posts = $"{userData.NumPosts:N0}",
-                    Rank = userData.RankName,
+                    Interests = HttpUtility.HtmlEncode(user.Item2.Profile_Interests),
+                    HomePage = user.Item2.Profile_Homepage,
+                    Posts = $"{user.Item1.NumPosts:N0}",
+                    Rank = user.Item3.Name,
                     Location = location,
                     Joined =
-                        $"{this.Get<ILocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTime>().FormatDateLong(userData.Joined)}",
-                    Online = userIsOnline/*,
-                    ProfileLink = BuildLink.GetLink(ForumPages.Profile, true, "u={0}&name={1}", userId, userName)*/
+                        $"{this.Get<IHaveLocalization>().GetText("PROFILE", "JOINED")} {this.Get<IDateTimeService>().FormatDateLong(user.Item1.Joined)}",
+                    Online = userIsOnline
                 };
 
-                if (BoardContext.Current.Get<BoardSettings>().EnableUserReputation)
+                if (this.Get<BoardSettings>().EnableUserReputation)
                 {
-                    userInfo.Points = (userData.Points.ToType<int>() > 0 ? "+" : string.Empty) + userData.Points;
+                    userInfo.Points = (user.Item1.Points > 0 ? "+" : string.Empty) + user.Item1.Points;
                 }
 
                 context.Response.Write(userInfo.ToJson());
@@ -181,7 +178,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -199,21 +196,23 @@ namespace YAF.Core.Services
                 if (BoardContext.Current == null)
                 {
                     context.Response.Write(
-                   "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+                        "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
 
                     return;
                 }
 
-                var customBbCode = this.Get<DataBroker>().GetCustomBBCode().ToList();
+                // TODo : Cache list
+                var customBbCode = this.GetRepository<BBCode>().GetByBoardId()
+                    .Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
 
                 context.Response.Clear();
 
                 context.Response.ContentType = "application/json";
                 context.Response.ContentEncoding = Encoding.UTF8;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(
-                    System.DateTime.UtcNow.AddMilliseconds(BoardContext.Current.Get<BoardSettings>().OnlineStatusCacheTimeout));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetMaxAge(
+                    TimeSpan.FromSeconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
                 context.Response.Write(customBbCode.ToJson());
 
@@ -221,7 +220,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -254,20 +253,20 @@ namespace YAF.Core.Services
                                 : user.Name.StartsWith(searchQuery));
 
                 var users = usersList.AsEnumerable().Where(u => !this.Get<IUserIgnored>().IsIgnored(u.ID)).Select(
-                    u => new { UserName = this.Get<BoardSettings>().EnableDisplayName ? u.DisplayName : u.Name });
+                    u => new { id = u.ID, name = u.DisplayOrUserName() });
 
                 context.Response.Clear();
 
                 context.Response.ContentType = "application/json";
                 context.Response.ContentEncoding = Encoding.UTF8;
 
-                context.Response.Write(users.ToJson());
+                context.Response.Write(JsonConvert.SerializeObject(users));
 
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -275,40 +274,89 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Gets the twitter user info as JSON string for the hover cards
+        /// Gets the Default Text Avatar
         /// </summary>
-        /// <param name="context">The context.</param>
-        public void GetTwitterUserInfo([NotNull] HttpContext context)
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        public void GetTextAvatar([NotNull] HttpContext context)
         {
             try
             {
-                var twitterName = context.Request.QueryString.GetFirstOrDefault("twitterinfo");
+                var user = BoardContext.Current.GetRepository<User>()
+                    .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("avatar"));
 
-                if (!Config.IsTwitterEnabled)
+                if (user == null)
                 {
-                    context.Response.Write(
-                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
-
                     return;
                 }
 
-                var authTwitter = new OAuthTwitter
+                var abbreviation = user.DisplayOrUserName().GetAbbreviation();
+
+                var backgroundColor = ValidationHelper.IsNumeric(user.ProviderUserKey)
+                    ? $"#{user.ProviderUserKey.ToGuid().ToString().Substring(0, 6)}"
+                    : $"#{user.ProviderUserKey.Substring(0, 6)}";
+
+                using (var bmp = new Bitmap(this.Get<BoardSettings>().AvatarWidth, this.Get<BoardSettings>().AvatarHeight))
                 {
-                    ConsumerKey = Config.TwitterConsumerKey,
-                    ConsumerSecret = Config.TwitterConsumerSecret,
-                    Token = Config.TwitterToken,
-                    TokenSecret = Config.TwitterTokenSecret
-                };
+                    using (var graphics = Graphics.FromImage(bmp))
+                    {
+                        graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+                        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                var tweetApi = new TweetAPI(authTwitter);
+                        using (Brush brush = new SolidBrush((Color)new ColorConverter().ConvertFromString(backgroundColor)))
+                        {
+                            graphics.FillRectangle(
+                                brush,
+                                0,
+                                0,
+                                this.Get<BoardSettings>().AvatarWidth,
+                                this.Get<BoardSettings>().AvatarHeight);
+                        }
 
-                context.Response.Write(tweetApi.UsersLookupJson(twitterName));
+                        var sf = new StringFormat
+                        {
+                            Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center
+                        };
 
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        var font = new Font("Arial", 48, FontStyle.Bold, GraphicsUnit.Pixel);
+
+                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                        graphics.DrawString(
+                            abbreviation,
+                            font,
+                            new SolidBrush(Color.WhiteSmoke),
+                            new RectangleF(
+                                0,
+                                0,
+                                this.Get<BoardSettings>().AvatarWidth,
+                                this.Get<BoardSettings>().AvatarHeight),
+                            sf);
+                        graphics.Flush();
+
+                        var converter = new ImageConverter();
+
+                        var image = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
+
+                        context.Response.Clear();
+
+                        context.Response.ContentType = "image/png";
+                        context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                        context.Response.Cache.SetMaxAge(TimeSpan.FromDays(30));
+                        context.Response.Cache.SetLastModified(DateTime.UtcNow);
+
+                        context.Response.OutputStream.Write(image, 0, image.Length);
+                    }
+                }
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x, EventLogTypes.Information);
+                this.Get<ILoggerService>()
+                    .Log(
+                        BoardContext.Current.PageUserID,
+                        this,
+                        $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
+                        EventLogTypes.Information);
 
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
@@ -344,14 +392,15 @@ namespace YAF.Core.Services
 
                 context.Response.ContentType = contentType;
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetMaxAge(
+                    TimeSpan.FromHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
                 context.Response.OutputStream.Write(data, 0, data.Length);
             }
             catch (Exception x)
             {
-                this.Get<ILogger>()
+                this.Get<ILoggerService>()
                    .Log(
                        BoardContext.Current.PageUserID,
                        this,
@@ -378,7 +427,7 @@ namespace YAF.Core.Services
 
                 var captchaImage =
                     new CaptchaImage(
-                        CaptchaHelper.GetCaptchaText(new HttpSessionStateWrapper(context.Session), context.Cache, true),
+                        CaptchaHelper.GetCaptchaText(new HttpSessionStateWrapper(context.Session), MemoryCache.Default, true),
                         250,
                         50,
                         "Century Schoolbook");
@@ -389,114 +438,12 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(BoardContext.Current.PageUserID, this, x);
+                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x);
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
 
 #endif
-        }
-
-        /// <summary>
-        /// The get response remote avatar.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        public void GetResponseRemoteAvatar([NotNull] HttpContext context)
-        {
-            var avatarUrl = context.Request.QueryString.GetFirstOrDefault("url");
-
-            if (avatarUrl.StartsWith("/"))
-            {
-                var basePath = $"{HttpContext.Current.Request.Url.Scheme}://{HttpContext.Current.Request.Url.Host}";
-
-                avatarUrl = $"{basePath}{avatarUrl}";
-            }
-
-            var maxWidth = int.Parse(context.Request.QueryString.GetFirstOrDefault("width"));
-            var maxHeight = int.Parse(context.Request.QueryString.GetFirstOrDefault("height"));
-
-            var etagCode =
-                $@"""{(context.Request.QueryString.GetFirstOrDefault("url") + maxHeight + maxWidth).GetHashCode()}""";
-
-            var webClient = new WebClient { Credentials = CredentialCache.DefaultCredentials };
-
-            try
-            {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
-                ServicePointManager.ServerCertificateValidationCallback += (send, certificate, chain, sslPolicyErrors) => true;
-
-                var originalData = webClient.DownloadData(avatarUrl);
-
-                if (originalData == null)
-                {
-                    // Output no-avatar
-                    context.Response.Redirect($"{BoardInfo.ForumClientFileRoot}/Images/noavatar.svg");
-                    return;
-                }
-
-                using (var avatarStream = new MemoryStream(originalData))
-                {
-                    using (var img = new Bitmap(avatarStream))
-                    {
-                        var width = img.Width;
-                        var height = img.Height;
-
-                        if (width <= maxWidth && height <= maxHeight)
-                        {
-                            context.Response.Redirect(avatarUrl);
-                        }
-
-                        if (width > maxWidth)
-                        {
-                            height = (height / (double)width * maxWidth).ToType<int>();
-                            width = maxWidth;
-                        }
-
-                        if (height > maxHeight)
-                        {
-                            width = (width / (double)height * maxHeight).ToType<int>();
-                            height = maxHeight;
-                        }
-
-                        // Create the target bitmap
-                        using (var bmp = new Bitmap(width, height))
-                        {
-                            // Create the graphics object to do the high quality resizing
-                            using (var gfx = Graphics.FromImage(bmp))
-                            {
-                                gfx.CompositingQuality = CompositingQuality.HighQuality;
-                                gfx.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                                gfx.SmoothingMode = SmoothingMode.HighQuality;
-
-                                // Draw the source image
-                                gfx.DrawImage(img, new Rectangle(new Point(0, 0), new Size(width, height)));
-                            }
-
-                            // Output the data
-                            context.Response.ContentType = "image/jpeg";
-                            context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                            context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                            context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
-                            context.Response.Cache.SetETag(etagCode);
-                            bmp.Save(context.Response.OutputStream, ImageFormat.Jpeg);
-                        }
-                    }
-                }
-            }
-            catch (WebException exception)
-            {
-                // issue getting access to the avatar...
-                this.Get<ILogger>().Log(
-                    BoardContext.Current.PageUserID,
-                    this,
-                    $"URL: {avatarUrl}<br />Referer URL: {context.Request.UrlReferrer?.AbsoluteUri ?? string.Empty}<br />Exception: {exception}");
-
-                // Output the data
-                context.Response.Redirect($"{BoardInfo.ForumClientFileRoot}/Images/noavatar.svg");
-            }
         }
     }
 }

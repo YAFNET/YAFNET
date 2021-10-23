@@ -1,7 +1,8 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -22,16 +23,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
 
     /// <summary>
     /// Class responsible for access to stored document fields.
@@ -41,16 +42,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     /// @lucene.internal
     /// </summary>
     /// <seealso cref="Lucene40StoredFieldsFormat"/>
-    public sealed class Lucene40StoredFieldsReader : StoredFieldsReader, IDisposable
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public sealed class Lucene40StoredFieldsReader : StoredFieldsReader // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private readonly FieldInfos fieldInfos;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexInput fieldsStream;
         private readonly IndexInput indexStream;
-        private int numTotalDocs;
-        private int size;
+#pragma warning restore CA2213 // Disposable fields should be disposed
+        private readonly int numTotalDocs; // LUCENENET: marked readonly
+        private readonly int size; // LUCENENET: marked readonly
         private bool closed;
 
         /// <summary>
@@ -60,6 +60,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// clones are called (eg, currently <see cref="Index.SegmentReader"/> manages
         /// this logic).
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override object Clone()
         {
             EnsureOpen();
@@ -94,8 +95,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 CodecUtil.CheckHeader(fieldsStream, Lucene40StoredFieldsWriter.CODEC_NAME_DAT, Lucene40StoredFieldsWriter.VERSION_START, Lucene40StoredFieldsWriter.VERSION_CURRENT);
                 if (Debugging.AssertsEnabled)
                 {
-                    Debugging.Assert(Lucene40StoredFieldsWriter.HEADER_LENGTH_DAT == fieldsStream.GetFilePointer());
-                    Debugging.Assert(Lucene40StoredFieldsWriter.HEADER_LENGTH_IDX == indexStream.GetFilePointer());
+                    Debugging.Assert(Lucene40StoredFieldsWriter.HEADER_LENGTH_DAT == fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
+                    Debugging.Assert(Lucene40StoredFieldsWriter.HEADER_LENGTH_IDX == indexStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
                 long indexSize = indexStream.Length - Lucene40StoredFieldsWriter.HEADER_LENGTH_IDX;
                 this.size = (int)(indexSize >> 3);
@@ -120,7 +121,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     {
                         Dispose();
                     } // ensure we throw our original exception
-                    catch (Exception)
+                    catch (Exception t) when (t.IsThrowable())
                     {
                     }
                 }
@@ -128,11 +129,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         /// <exception cref="ObjectDisposedException"> if this FieldsReader is disposed. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnsureOpen()
         {
             if (closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this FieldsReader is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this FieldsReader is disposed.");
             }
         }
 
@@ -141,6 +143,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// This means that the <see cref="Index.Fields"/> values will not be accessible.
         /// </summary>
         /// <exception cref="IOException"> If an I/O error occurs. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -160,6 +163,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// </summary>
         public int Count => size;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SeekIndex(int docID)
         {
             indexStream.Seek(Lucene40StoredFieldsWriter.HEADER_LENGTH_IDX + docID * 8L);
@@ -264,7 +268,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             else
             {
                 int length = fieldsStream.ReadVInt32();
-                fieldsStream.Seek(fieldsStream.GetFilePointer() + length);
+                fieldsStream.Seek(fieldsStream.Position + length); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             }
         }
 
@@ -302,11 +306,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             return fieldsStream;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed()
         {
             return 0;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void CheckIntegrity()
         {
         }

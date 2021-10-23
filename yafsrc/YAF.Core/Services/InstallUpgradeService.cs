@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -25,27 +25,32 @@
 namespace YAF.Core.Services
 {
     using System;
-    using System.Data;
     using System.IO;
     using System.Linq;
+    using System.Threading;
     using System.Web;
+    using System.Web.Configuration;
 
     using ServiceStack.OrmLite;
 
     using YAF.Configuration;
+    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
+    using YAF.Core.Services.Migrations;
+    using YAF.Core.Tasks;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils;
+    using YAF.Types.Models.Identity;
 
     /// <summary>
     ///     The install upgrade service.
@@ -57,12 +62,7 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The BBCode extensions import xml file.
         /// </summary>
-        private const string BbcodeImport = "bbCodeExtensions.xml";
-
-        /// <summary>
-        ///     The File type extensions import xml file.
-        /// </summary>
-        private const string FileImport = "fileExtensions.xml";
+        private const string BbcodeImport = "BBCodeExtensions.xml";
 
         /// <summary>
         ///     The Spam Words list import xml file.
@@ -74,15 +74,21 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InstallUpgradeService" /> class.
+        /// Initializes a new instance of the <see cref="InstallUpgradeService"/> class.
         /// </summary>
-        /// <param name="serviceLocator">The service locator.</param>
-        /// <param name="raiseEvent">The raise Event.</param>
-        /// <param name="dbAccess">The database access.</param>
-        public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess dbAccess)
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        /// <param name="raiseEvent">
+        /// The raise Event.
+        /// </param>
+        /// <param name="access">
+        /// The access.
+        /// </param>
+        public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access)
         {
             this.RaiseEvent = raiseEvent;
-            this.DbAccess = dbAccess;
+            this.DbAccess = access;
             this.ServiceLocator = serviceLocator;
         }
 
@@ -105,9 +111,8 @@ namespace YAF.Core.Services
                 catch
                 {
                     // failure... no boards.
+                    return false;
                 }
-
-                return false;
             }
         }
 
@@ -136,11 +141,11 @@ namespace YAF.Core.Services
         /// <summary>
         /// Initializes the forum.
         /// </summary>
+        /// <param name="applicationId">
+        /// The application Id.
+        /// </param>
         /// <param name="forumName">
         /// The forum name.
-        /// </param>
-        /// <param name="timeZone">
-        /// The time zone.
         /// </param>
         /// <param name="culture">
         /// The culture.
@@ -164,40 +169,55 @@ namespace YAF.Core.Services
         /// The admin provider user key.
         /// </param>
         public void InitializeForum(
-            string forumName,
-            string timeZone,
-            string culture,
-            string forumEmail,
-            string forumLogo,
-            string forumBaseUrlMask,
-            string adminUserName,
-            string adminEmail,
-            object adminProviderUserKey)
+            [NotNull] Guid applicationId,
+            [NotNull] string forumName,
+            [NotNull] string culture,
+            [CanBeNull] string forumEmail,
+            [NotNull] string forumLogo,
+            [NotNull] string forumBaseUrlMask,
+            [NotNull] string adminUserName,
+            [NotNull] string adminEmail,
+            [NotNull] string adminProviderUserKey)
         {
+            CodeContracts.VerifyNotNull(forumName);
+            CodeContracts.VerifyNotNull(forumName);
+            CodeContracts.VerifyNotNull(culture);
+            CodeContracts.VerifyNotNull(forumLogo);
+            CodeContracts.VerifyNotNull(forumBaseUrlMask);
+            CodeContracts.VerifyNotNull(adminUserName);
+            CodeContracts.VerifyNotNull(adminEmail);
+            CodeContracts.VerifyNotNull(adminProviderUserKey);
+
             var cult = StaticDataHelper.Cultures();
-            var langFile = "english.xml";
 
-            cult.Rows.Cast<DataRow>().Where(dataRow => dataRow["CultureTag"].ToString() == culture)
-                .ForEach(dataRow => langFile = (string)dataRow["CultureFile"]);
+            var languageFromCulture = cult
+                .FirstOrDefault(c => c.CultureTag == culture);
 
-            this.GetRepository<Board>().SystemInitialize(
+            var langFile = languageFromCulture != null ? languageFromCulture.CultureFile : "english.xml";
+
+            // -- initialize required 'registry' settings
+            this.GetRepository<Registry>().Save("applicationid", applicationId.ToString());
+
+            if (forumEmail.IsSet())
+            {
+                this.GetRepository<Registry>().Save("forumemail", forumEmail);
+            }
+
+            this.GetRepository<Registry>().Save("forumlogo", forumLogo);
+            this.GetRepository<Registry>().Save("baseurlmask", forumBaseUrlMask);
+
+            this.GetRepository<Board>().Create(
                 forumName,
-                timeZone,
+                forumEmail,
                 culture,
                 langFile,
-                forumEmail,
-                forumLogo,
-                forumBaseUrlMask,
-                string.Empty,
                 adminUserName,
                 adminEmail,
                 adminProviderUserKey,
+                true,
                 Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
-            this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
-            this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
-
-            this.ImportStatics();
+            this.AddOrUpdateExtensions();
         }
 
         /// <summary>
@@ -215,54 +235,72 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The upgrade database.
+        /// Initialize Or Upgrade the Database
         /// </summary>
-        /// <param name="upgradeExtensions">
-        /// The upgrade Extensions.
+        /// <param name="updateExtensions">
+        /// update Extensions ?!.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool UpgradeDatabase(bool upgradeExtensions)
+        public bool InitializeOrUpgradeDatabase(bool updateExtensions)
         {
             var isForumInstalled = this.IsForumInstalled;
 
-            // try
-            this.FixAccess(false);
-
-            var isAzureEngine = this.Get<IDbFunction>().GetSQLEngine().Equals("Azure");
+            this.CreateOrUpdateTables();
 
             if (!isForumInstalled)
             {
-                this.ExecuteInstallScripts(isAzureEngine);
+                this.ExecuteInstallScripts();
             }
-            else
-            {
-                this.ExecuteUpgradeScripts(isAzureEngine);
-            }
-
-            this.FixAccess(true);
 
             var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
             this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
             this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
-            // Handle Tables
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
-
-            // Ederon : 9/7/2007
-            // re-sync all boards - necessary for proper last post bubbling
-            this.GetRepository<Board>().ReSync();
-
-            this.RaiseEvent.RaiseIssolated(new AfterUpgradeDatabaseEvent(prevVersion, BoardInfo.AppVersion), null);
-
             if (isForumInstalled)
             {
-                if (prevVersion < 30 || upgradeExtensions)
+                if (prevVersion < 80)
                 {
-                    this.ImportStatics();
+                    if (!Config.IsDotNetNuke)
+                    {
+                        this.MigrateConfig();
+                    }
+
+                    // Migrate File Extensions
+                    var extensions = this.GetRepository<FileExtension>()
+                        .Get(x => x.BoardId == this.Get<BoardSettings>().BoardID);
+
+                    this.GetRepository<Registry>().Save(
+                        "allowedfileextensions",
+                        extensions.Select(x => x.Extension).ToDelimitedString(","));
+
+                    this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
+
+                    // Upgrade to ASPNET Identity
+                    if (!Config.IsDotNetNuke)
+                    {
+                        this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
+                    }
+
+                    this.Get<ITaskModuleManager>().StartTask(MigrateAttachmentsTask.TaskName, () => new MigrateAttachmentsTask());
+
+                    while (this.Get<ITaskModuleManager>().IsTaskRunning(MigrateAttachmentsTask.TaskName))
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                    // Delete old registry Settings
+                    this.GetRepository<Registry>().DeleteLegacy();
+
+                    // update default points from 0 to 1
+                    this.GetRepository<User>().UpdateOnly(() => new User { Points = 1 }, u => u.Points == 0);
+                }
+
+                if (prevVersion < 30 || updateExtensions)
+                {
+                    this.AddOrUpdateExtensions();
                 }
 
                 if (prevVersion < 42)
@@ -288,20 +326,6 @@ namespace YAF.Core.Services
                 this.Get<IDataCache>().Remove(Constants.Cache.Version);
             }
 
-            if (this.IsForumInstalled)
-            {
-                this.ExecuteScript(this.DbAccess.Information.FullTextUpgradeScript, false);
-            }
-
-            // run custom script...
-            this.ExecuteScript("custom/custom.sql", true);
-
-            if (Config.IsDotNetNuke)
-            {
-                // run dnn custom script...
-                this.ExecuteScript("custom/dnn.sql", true);
-            }
-
             return true;
         }
 
@@ -312,68 +336,54 @@ namespace YAF.Core.Services
         /// <summary>
         /// Executes the install scripts.
         /// </summary>
-        /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
-        private void ExecuteInstallScripts(bool isAzureEngine)
+        private void ExecuteInstallScripts()
         {
-            // Install Membership Scripts
-            if (isAzureEngine)
+            if (!Config.IsDotNetNuke)
             {
-                this.DbAccess.Information.AzureScripts.ForEach(script => this.ExecuteScript(script, true));
+                // Install Membership Scripts
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
+                this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
             }
-            else
-            {
-                this.DbAccess.Information.YAFProviderInstallScripts.ForEach(script => this.ExecuteScript(script, true));
-            }
-
-            //////
 
             // Run other
-            this.DbAccess.Information.InstallScripts.ForEach(script => this.ExecuteScript(script, true));
+            this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
+
+            this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateIndexViews(this.DbAccess, dbCommand));
         }
 
         /// <summary>
-        /// Executes the upgrade scripts.
+        /// Crate Tables and Update Tables
         /// </summary>
-        /// <param name="isAzureEngine">if set to <c>true</c> [is azure engine].</param>
-        private void ExecuteUpgradeScripts(bool isAzureEngine)
+        private void CreateOrUpdateTables()
         {
-            if (isAzureEngine)
-            {
-                this.DbAccess.Information.AzureScripts.ForEach(script => this.ExecuteScript(script, true));
-            }
-            else
-            {
-                // upgrade Membership Scripts
-                this.DbAccess.Information.YAFProviderUpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
-            }
-
-            this.DbAccess.Information.UpgradeScripts.ForEach(script => this.ExecuteScript(script, true));
+            this.CreateTablesIfNotExists();
         }
 
-        /*
         /// <summary>
         /// Create missing tables
         /// </summary>
-        private void CreateTables()
+        private void CreateTablesIfNotExists()
         {
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Board>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Rank>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<User>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollGroupCluster>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Category>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Forum>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Topic>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Message>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Thanks>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Buddy>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<FavoriteTopic>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Types.Models.FavoriteTopic>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbum>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbumImage>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Active>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ActiveAccess>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Activity>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AdminPageUserAccess>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Group>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<EventLogGroupAccess>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedIP>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedName>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedEmail>());
@@ -381,15 +391,12 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Poll>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Choice>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollVote>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollVoteRefuse>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AccessMask>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumAccess>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Mail>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageHistory>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReported>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReportedAudit>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserProfile>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchForum>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchTopic>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Attachment>());
@@ -398,20 +405,25 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpServer>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpForum>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpTopic>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Registry>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<EventLog>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<FileExtension>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BBCode>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Medal>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<GroupMedal>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserMedal>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<IgnoreUser>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicReadTracking>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserPMessage>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumReadTracking>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ReputationVote>());
-        }*/
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileDefinition>());
+            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
+        }
 
         /// <summary>
         /// The execute script.
@@ -419,10 +431,7 @@ namespace YAF.Core.Services
         /// <param name="scriptFile">
         /// The script file.
         /// </param>
-        /// <param name="useTransactions">
-        /// The use transactions.
-        /// </param>
-        private void ExecuteScript([NotNull] string scriptFile, bool useTransactions)
+        private void ExecuteScript([NotNull] string scriptFile)
         {
             string script;
             var fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);
@@ -440,22 +449,16 @@ namespace YAF.Core.Services
                 throw new IOException($"Failed to read {fileName}", x);
             }
 
-            this.Get<IDbFunction>().SystemInitializeExecutescripts(script, scriptFile, useTransactions);
+            this.Get<IDbAccess>().SystemInitializeExecuteScripts(
+                CommandTextHelpers.GetCommandTextReplaced(script),
+                scriptFile,
+                Config.SqlCommandTimeout);
         }
 
         /// <summary>
-        /// Fixes the access.
+        ///    Add or Update BBCode Extensions and Spam Words
         /// </summary>
-        /// <param name="grantAccess">if set to <c>true</c> [grant access].</param>
-        private void FixAccess(bool grantAccess)
-        {
-            this.Get<IDbFunction>().SystemInitializeFixaccess(grantAccess);
-        }
-
-        /// <summary>
-        ///     The import statics.
-        /// </summary>
-        private void ImportStatics()
+        private void AddOrUpdateExtensions()
         {
             var loadWrapper = new Action<string, Action<Stream>>(
                 (file, streamAction) =>
@@ -475,23 +478,67 @@ namespace YAF.Core.Services
                         }
                     });
 
-            var boards = this.GetRepository<Board>().ListTyped();
+            // get all boards...
+            var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
 
             // Upgrade all Boards
-            boards.ForEach(
-                board =>
+            boardIds.ForEach(
+                boardId =>
                     {
-                        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(board.ID));
+                        this.Get<IRaiseEvent>().Raise(new ImportStaticDataEvent(boardId));
 
                         // load default bbcode if available...
-                        loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(board.ID, s));
-
-                        // load default extensions if available...
-                        loadWrapper(FileImport, s => DataImport.FileExtensionImport(board.ID, s));
+                        loadWrapper(BbcodeImport, s => DataImport.BBCodeExtensionImport(boardId, s));
 
                         // load default spam word if available...
-                        loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(board.ID, s));
+                        loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                     });
+        }
+
+        /// <summary>
+        /// Migrate Legacy Membership Settings
+        /// </summary>
+        private void MigrateConfig()
+        {
+            try
+            {
+                var membershipSection = (MembershipSection)WebConfigurationManager.GetSection("system.web/membership");
+
+                var defaultProvider = membershipSection.DefaultProvider;
+                var hashAlgorithmType = membershipSection.HashAlgorithmType;
+
+                var providerSettings = membershipSection.Providers[defaultProvider];
+
+                var hashHex = providerSettings.Parameters["hashHex"];
+                var hashCase = providerSettings.Parameters["hashCase"];
+                var passwordFormat = providerSettings.Parameters["passwordFormat"];
+
+                ConfigHelper config = new ();
+
+                if (hashAlgorithmType.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipHashAlgorithmType", hashAlgorithmType);
+                }
+
+                if (hashHex.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipHashHex", hashHex);
+                }
+
+                if (hashCase.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipHashCase", hashCase);
+                }
+
+                if (passwordFormat.IsSet())
+                {
+                    config.WriteAppSetting("YAF.LegacyMembershipPasswordFormat", passwordFormat);
+                }
+            }
+            catch (Exception)
+            {
+                // Can Be ignored if settings have already been removed
+            }
         }
 
         #endregion

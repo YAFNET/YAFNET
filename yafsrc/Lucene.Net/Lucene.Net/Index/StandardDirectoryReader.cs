@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     internal sealed class StandardDirectoryReader : DirectoryReader
     {
@@ -50,14 +50,14 @@ namespace YAF.Lucene.Net.Index
         /// called from <c>DirectoryReader.Open(...)</c> methods </summary>
         internal static DirectoryReader Open(Directory directory, IndexCommit commit, int termInfosIndexDivisor)
         {
-            return (DirectoryReader)new FindSegmentsFileAnonymousInnerClassHelper(directory, termInfosIndexDivisor).Run(commit);
+            return (DirectoryReader)new FindSegmentsFileAnonymousClass(directory, termInfosIndexDivisor).Run(commit);
         }
 
-        private class FindSegmentsFileAnonymousInnerClassHelper : SegmentInfos.FindSegmentsFile
+        private class FindSegmentsFileAnonymousClass : SegmentInfos.FindSegmentsFile
         {
             private readonly int termInfosIndexDivisor;
 
-            public FindSegmentsFileAnonymousInnerClassHelper(Directory directory, int termInfosIndexDivisor)
+            public FindSegmentsFileAnonymousClass(Directory directory, int termInfosIndexDivisor)
                 : base(directory)
             {
                 this.termInfosIndexDivisor = termInfosIndexDivisor;
@@ -68,24 +68,21 @@ namespace YAF.Lucene.Net.Index
                 var sis = new SegmentInfos();
                 sis.Read(directory, segmentFileName);
                 var readers = new SegmentReader[sis.Count];
+                // LUCENENET: Ported over changes from 4.8.1 to this method
                 for (int i = sis.Count - 1; i >= 0; i--)
                 {
-                    IOException prior = null;
+                    //IOException prior = null; // LUCENENET: Not used
                     bool success = false;
                     try
                     {
                         readers[i] = new SegmentReader(sis.Info(i), termInfosIndexDivisor, IOContext.READ);
                         success = true;
                     }
-                    catch (IOException ex)
-                    {
-                        prior = ex;
-                    }
                     finally
                     {
                         if (!success)
                         {
-                            IOUtils.DisposeWhileHandlingException(prior, readers);
+                            IOUtils.DisposeWhileHandlingException(readers);
                         }
                     }
                 }
@@ -156,9 +153,7 @@ namespace YAF.Lucene.Net.Index
                         {
                             r.DecRef();
                         }
-#pragma warning disable 168
-                        catch (Exception th)
-#pragma warning restore 168
+                        catch (Exception th) when (th.IsThrowable())
                         {
                             // ignore any exception that is thrown here to not mask any original
                             // exception.
@@ -195,9 +190,7 @@ namespace YAF.Lucene.Net.Index
             for (int i = infos.Count - 1; i >= 0; i--)
             {
                 // find SegmentReader for this segment
-                int? oldReaderIndex;
-                segmentReaders.TryGetValue(infos.Info(i).Info.Name, out oldReaderIndex);
-                if (oldReaderIndex == null)
+                if (!segmentReaders.TryGetValue(infos.Info(i).Info.Name, out int? oldReaderIndex) || oldReaderIndex == null)
                 {
                     // this is a new segment, no old SegmentReader can be reused
                     newReaders[i] = null;
@@ -254,7 +247,7 @@ namespace YAF.Lucene.Net.Index
                     }
                     success = true;
                 }
-                catch (Exception ex)
+                catch (Exception ex) when (ex.IsThrowable())
                 {
                     prior = ex;
                 }
@@ -281,7 +274,7 @@ namespace YAF.Lucene.Net.Index
                                         newReaders[i].DecRef();
                                     }
                                 }
-                                catch (Exception t)
+                                catch (Exception t) when (t.IsThrowable())
                                 {
                                     if (prior == null)
                                     {
@@ -405,14 +398,14 @@ namespace YAF.Lucene.Net.Index
 
         private DirectoryReader DoOpenFromCommit(IndexCommit commit)
         {
-            return (DirectoryReader)new FindSegmentsFileAnonymousInnerClassHelper2(this, m_directory).Run(commit);
+            return (DirectoryReader)new FindSegmentsFileAnonymousClass2(this, m_directory).Run(commit);
         }
 
-        private class FindSegmentsFileAnonymousInnerClassHelper2 : SegmentInfos.FindSegmentsFile
+        private class FindSegmentsFileAnonymousClass2 : SegmentInfos.FindSegmentsFile
         {
             private readonly StandardDirectoryReader outerInstance;
 
-            public FindSegmentsFileAnonymousInnerClassHelper2(StandardDirectoryReader outerInstance, Directory directory)
+            public FindSegmentsFileAnonymousClass2(StandardDirectoryReader outerInstance, Directory directory)
                 : base(directory)
             {
                 this.outerInstance = outerInstance;
@@ -472,7 +465,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     r.DecRef();
                 }
-                catch (Exception t)
+                catch (Exception t) when (t.IsThrowable())
                 {
                     if (firstExc == null)
                     {
@@ -487,9 +480,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     writer.DecRefDeleter(segmentInfos);
                 }
-#pragma warning disable 168
-                catch (ObjectDisposedException ex)
-#pragma warning restore 168
+                catch (Exception ex) when (ex.IsAlreadyClosedException())
                 {
                     // this is OK, it just means our original writer was
                     // closed before we were, and this may leave some
@@ -552,7 +543,7 @@ namespace YAF.Lucene.Net.Index
 
             public override void Delete()
             {
-                throw new NotSupportedException("this IndexCommit does not support deletions");
+                throw UnsupportedOperationException.Create("this IndexCommit does not support deletions");
             }
         }
     }

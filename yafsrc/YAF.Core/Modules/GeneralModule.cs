@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,14 +25,16 @@
 namespace YAF.Core.Modules
 {
     using System.Collections.Generic;
-    using System.Data.Common;
     using System.Linq;
     using System.Reflection;
 
     using Autofac;
 
+    using YAF.Core.BaseModules;
+    using YAF.Core.Context;
     using YAF.Core.Data;
-    using YAF.Core.Data.Filters;
+    using YAF.Core.Events;
+    using YAF.Core.Helpers;
     using YAF.Core.Nntp;
     using YAF.Core.Services.Cache;
     using YAF.Types.Interfaces;
@@ -57,7 +59,6 @@ namespace YAF.Core.Modules
             RegisterDataBindings(builder);
             RegisterGeneral(builder);
             RegisterEventBindings(builder);
-            RegisterMembershipProviders(builder);
             RegisterModules(builder);
             RegisterPages(builder);
         }
@@ -74,17 +75,13 @@ namespace YAF.Core.Modules
             builder.RegisterType<DbAccessProvider>().As<IDbAccessProvider>().SingleInstance();
             builder.Register(c => c.Resolve<IComponentContext>().Resolve<IDbAccessProvider>().Instance).As<IDbAccess>()
                 .InstancePerDependency().PreserveExistingDefaults();
-            builder.Register((c, p) => DbProviderFactories.GetFactory(p.TypedAs<string>())).ExternallyOwned()
-                .PreserveExistingDefaults();
-
-            builder.RegisterType<DynamicDbFunction>().As<IDbFunction>().InstancePerDependency();
 
             // register generic IRepository handler, which can be easily overriden by more advanced repository handler
             builder.RegisterGeneric(typeof(BasicRepository<>)).As(typeof(IRepository<>)).InstancePerDependency();
 
             // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
             // Do the BoardContext check inside the constructor and throw an exception if it's required.
-            builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
+            //builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
         }
 
         /// <summary>
@@ -140,32 +137,6 @@ namespace YAF.Core.Modules
 
             // Shared object store -- used for objects local only
             builder.RegisterType<HttpRuntimeCache>().As<IObjectStore>().SingleInstance().PreserveExistingDefaults();
-        }
-
-        /// <summary>
-        /// Register membership providers
-        /// </summary>
-        /// <param name="builder">
-        /// The builder.
-        /// </param>
-        private static void RegisterMembershipProviders(ContainerBuilder builder)
-        {
-            // membership
-            builder.RegisterType<CurrentMembershipProvider>().AsSelf().InstancePerLifetimeScope()
-                .PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentMembershipProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
-
-            // roles
-            builder.RegisterType<CurrentRoleProvider>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentRoleProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
-
-            // profiles
-            builder.RegisterType<CurrentProfileProvider>().AsSelf().InstancePerLifetimeScope()
-                .PreserveExistingDefaults();
-            builder.Register(x => x.Resolve<IComponentContext>().Resolve<CurrentProfileProvider>().Instance)
-                .ExternallyOwned().PreserveExistingDefaults();
         }
 
         /// <summary>

@@ -23,26 +23,26 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// Generic I Write Value.
-  /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public interface IWriteValue<in T>
-  {
-    #region Public Methods
-
     /// <summary>
-    /// Set a value.
+    /// Generic I Write Value.
     /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    void Set(string key, T value);
+    /// <typeparam name="T">
+    /// </typeparam>
+    public interface IWriteValue<in T>
+    {
+        #region Public Methods
 
-    #endregion
-  }
+        /// <summary>
+        /// Set a value.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        void Set(string key, T value);
+
+        #endregion
+    }
 }

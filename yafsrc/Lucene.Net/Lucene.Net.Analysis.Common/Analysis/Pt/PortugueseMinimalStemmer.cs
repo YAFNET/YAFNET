@@ -1,4 +1,5 @@
-﻿namespace YAF.Lucene.Net.Analysis.Pt
+// Lucene version compatibility level 4.8.1
+namespace YAF.Lucene.Net.Analysis.Pt
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more

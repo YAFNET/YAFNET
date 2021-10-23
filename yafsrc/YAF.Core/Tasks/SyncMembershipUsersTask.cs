@@ -23,75 +23,78 @@
  */
 namespace YAF.Core.Tasks
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Core.UsersRoles;
-  using YAF.Types;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// Run when we want to do migration of users in the background...
-  /// </summary>
-  public class SyncMembershipUsersTask : LongBackgroundTask
-  {
-    #region Constants and Fields
+    using YAF.Core.Context;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    ///   Gets TaskName.
+    /// Run when we want to do migration of users in the background...
     /// </summary>
-    [NotNull]
-    public static string TaskName { get; } = "SyncMembershipUsersTask";
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The start.
-    /// </summary>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <returns>
-    /// The start.
-    /// </returns>
-    public static bool Start(int boardId)
+    public class SyncMembershipUsersTask : LongBackgroundTask
     {
-      if (BoardContext.Current.Get<ITaskModuleManager>() == null)
-      {
-        return false;
-      }
+        #region Constants and Fields
 
-      BoardContext.Current.Get<ITaskModuleManager>().StartTask(TaskName, () => new SyncMembershipUsersTask { Data = boardId });
+        #endregion
 
-      return true;
+        #region Properties
+
+        /// <summary>
+        ///   Gets TaskName.
+        /// </summary>
+        [NotNull]
+        public static string TaskName { get; } = "SyncMembershipUsersTask";
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Starts the Task
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Start(int boardId)
+        {
+            if (BoardContext.Current.Get<ITaskModuleManager>() == null)
+            {
+                return false;
+            }
+
+            BoardContext.Current.Get<ITaskModuleManager>().StartTask(
+                TaskName,
+                () => new SyncMembershipUsersTask { Data = boardId });
+
+            return true;
+        }
+
+        /// <summary>
+        /// The run once.
+        /// </summary>
+        public override void RunOnce()
+        {
+            try
+            {
+                // attempt to run the sync code...
+                this.Get<IAspNetRolesHelper>().SyncAllMembershipUsers((int)this.Data);
+            }
+            catch (Exception x)
+            {
+                this.Logger.Error(x, $"Error In {TaskName} Task");
+            }
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// The run once.
-    /// </summary>
-    public override void RunOnce()
-    {
-      try
-      {
-        // attempt to run the sync code...
-        RoleMembershipHelper.SyncAllMembershipUsers((int)this.Data);
-      }
-      catch (Exception x)
-      {
-          this.Logger.Error(x, $"Error In {TaskName} Task");
-      }
-    }
-
-    #endregion
-  }
 }

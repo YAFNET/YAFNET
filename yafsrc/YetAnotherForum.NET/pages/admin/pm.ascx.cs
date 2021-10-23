@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,15 +28,13 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -44,7 +42,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Private messages page
     /// </summary>
-    public partial class pm : AdminPage
+    public partial class Pm : AdminPage
     {
         #region Methods
 
@@ -77,13 +75,8 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_PM", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_PM", "TITLE")}";
         }
 
         /// <summary>
@@ -94,7 +87,7 @@ namespace YAF.Pages.Admin
             this.Days1.Text = "60";
             this.Days2.Text = "180";
 
-            this.Count.Text = this.GetRepository<UserPMessage>().Count(m => m.IsDeleted == false).ToString();
+            this.Count.Text = this.GetRepository<UserPMessage>().Count(m => (m.Flags & 8) != 8).ToString();
         }
 
         /// <summary>

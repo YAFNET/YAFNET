@@ -21,12 +21,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// <para>Wrapper to allow <see cref="SpanQuery"/> objects participate in composite
@@ -74,7 +74,7 @@ namespace YAF.Lucene.Net.Search.Spans
     public class FieldMaskingSpanQuery : SpanQuery
     {
         private SpanQuery maskedQuery;
-        private string field;
+        private readonly string field; // LUCENENET: marked readonly
 
         public FieldMaskingSpanQuery(SpanQuery maskedQuery, string maskedField)
         {

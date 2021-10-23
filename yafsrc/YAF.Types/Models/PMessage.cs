@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,43 +24,76 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_PMessage table.
+    /// A class which represents the PMessage table.
     /// </summary>
     [Serializable]
-    [Table(Name = "PMessage")]
-    public partial class PMessage : IEntity, IHaveID
+    public class PMessage : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public PMessage()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("PMessageID")]
         [AutoIncrement]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the from user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int FromUserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the subject.
+        /// </summary>
         [Required]
         [StringLength(100)]
         public string Subject { get; set; }
+
+        /// <summary>
+        /// Gets or sets the body.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Body { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flags.
+        /// </summary>
         [Required]
         [Default(23)]
         public int Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the p message flags.
+        /// </summary>
+        [Ignore]
+        public PMessageFlags PMessageFlags
+        {
+            get => new(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
+
+        /// <summary>
+        /// Gets or sets the reply to.
+        /// </summary>
+        [Default(null)]
         public int? ReplyTo { get; set; }
 
         #endregion

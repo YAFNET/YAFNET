@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -30,7 +30,7 @@ namespace YAF.Web.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -127,10 +127,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Shows the localized text string (if available)
         /// </summary>
-        /// <param name="output">The output.</param>
-        protected override void Render(HtmlTextWriter output)
+        /// <param name="writer">The output.</param>
+        protected override void Render(HtmlTextWriter writer)
         {
-            output.BeginRender();
+            writer.BeginRender();
 
             var text = this.GetText(this.LocalizedPage, this.LocalizedTag).Fmt(this.Param0, this.Param1, this.Param2);
 
@@ -177,16 +177,16 @@ namespace YAF.Web.Controls
             button.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "btn btn-sm");
             button.Attributes.Add(HtmlTextWriterAttribute.Title.ToString(), tooltip);
 
-            button.Attributes.Add("data-toggle", "tooltip");
-            button.Attributes.Add("data-placement", "right");
+            button.Attributes.Add("data-bs-toggle", "tooltip");
+            button.Attributes.Add("data-bs-placement", "right");
 
-            button.Controls.Add(new Literal { Text = @"<i class=""fas fa-info-circle text-info fa-lg""></i>" });
+            button.Controls.Add(new Icon { IconName = "info-circle", IconSize = "fa-lg", IconType = "text-info" });
 
             label.Controls.Add(button);
 
-            label.RenderControl(output);
+            label.RenderControl(writer);
 
-            output.EndRender();
+            writer.EndRender();
         }
 
         #endregion

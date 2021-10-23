@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,12 +34,15 @@ namespace YAF.Core.Tasks
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.BoardSettings;
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion
@@ -134,7 +137,6 @@ namespace YAF.Core.Tasks
             // we're good to send -- update latest send so no duplication...
             boardSettings.LastDigestSend = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             boardSettings.ForceDigestSend = false;
-            boardSettings.SaveGuestUserIdBackup();
 
             boardSettings.SaveRegistry();
 
@@ -151,12 +153,12 @@ namespace YAF.Core.Tasks
         {
             try
             {
-                var boardIds = this.GetRepository<Board>().ListTyped().Select(b => b.ID);
+                var boardIds = this.GetRepository<Board>().GetAll().Select(b => b.ID);
 
                 boardIds.ForEach(
-                    boardId =>
+                    id =>
                         {
-                            var boardSettings = new LoadBoardSettings(boardId);
+                            var boardSettings = new LoadBoardSettings(id);
 
                             if (!IsTimeToSendDigestForBoard(boardSettings))
                             {
@@ -164,26 +166,24 @@ namespace YAF.Core.Tasks
                             }
 
                             // get users with digest enabled...
-                            var usersWithDigest = this.GetRepository<User>()
-                                .FindUserTyped(false, boardId, dailyDigest: true).Where(
-                                    x => x.IsGuest != null && !x.IsGuest.Value && (x.IsApproved ?? false));
+                            var usersWithDigest = this.GetRepository<User>().Get(
+                                u => u.BoardID == id && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
+                                     u.DailyDigest);
 
-                            var typedUserFinds = usersWithDigest as IList<User> ?? usersWithDigest.ToList();
-
-                            if (typedUserFinds.Any())
+                            if (usersWithDigest.Any())
                             {
                                 // start sending...
-                                this.SendDigestToUsers(typedUserFinds, boardSettings);
+                                this.SendDigestToUsers(usersWithDigest, boardSettings);
                             }
                             else
                             {
-                                this.Get<ILogger>().Info("no user found");
+                                this.Get<ILoggerService>().Info("no user found");
                             }
                         });
             }
             catch (Exception ex)
             {
-                this.Get<ILogger>().Error(ex, $"Error In {TaskName} Task");
+                this.Get<ILoggerService>().Error(ex, $"Error In {TaskName} Task");
             }
         }
 
@@ -219,7 +219,7 @@ namespace YAF.Core.Tasks
                                 return;
                             }
 
-                            var membershipUser = UserMembershipHelper.GetUser(user.Name);
+                            var membershipUser = this.Get<IAspNetUsersHelper>().GetUserByName(user.Name);
 
                             if (membershipUser == null || membershipUser.Email.IsNotSet())
                             {
@@ -239,7 +239,7 @@ namespace YAF.Core.Tasks
                         }
                         catch (Exception e)
                         {
-                            this.Get<ILogger>().Error(e, $"Error In Creating Digest for User {user.ID}");
+                            this.Get<ILoggerService>().Error(e, $"Error In Creating Digest for User {user.ID}");
                         }
                         finally
                         {
@@ -247,9 +247,9 @@ namespace YAF.Core.Tasks
                         }
                     });
 
-            this.Get<ISendMail>().SendAll(mailMessages);
+            this.Get<IMailService>().SendAll(mailMessages);
 
-            this.Get<ILogger>().Log(
+            this.Get<ILoggerService>().Log(
                 $"Digest send to {mailMessages.Count} user(s)",
                 EventLogTypes.Information,
                 null,

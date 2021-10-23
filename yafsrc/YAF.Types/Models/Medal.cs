@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -35,20 +36,8 @@ namespace YAF.Types.Models
     ///     A class which represents the Medal table.
     /// </summary>
     [Serializable]
-    public partial class Medal : IEntity, IHaveBoardID, IHaveID
+    public class Medal : IEntity, IHaveBoardID, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Medal"/> class.
-        /// </summary>
-        public Medal()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         [Required]
@@ -63,6 +52,7 @@ namespace YAF.Types.Models
         [StringLength(100)]
         public string Name { get; set; }
 
+        [CustomField(OrmLiteVariables.MaxText)]
         public string Description { get; set; }
 
         [Required]
@@ -76,30 +66,6 @@ namespace YAF.Types.Models
         [StringLength(250)]
         public string MedalURL { get; set; }
 
-        [StringLength(250)]
-        public string RibbonURL { get; set; }
-
-        [Required]
-        [StringLength(250)]
-        public string SmallMedalURL { get; set; }
-
-        [StringLength(250)]
-        public string SmallRibbonURL { get; set; }
-
-        [Required]
-        public short SmallMedalWidth { get; set; }
-
-        [Required]
-        public short SmallMedalHeight { get; set; }
-
-        public short? SmallRibbonWidth { get; set; }
-
-        public short? SmallRibbonHeight { get; set; }
-
-        [Required]
-        [Default(255)]
-        public byte SortOrder { get; set; }
-
         [Required]
         [Default(0)]
         public int Flags { get; set; }
@@ -107,19 +73,10 @@ namespace YAF.Types.Models
         [Ignore]
         public MedalFlags MedalFlags
         {
-            get => new MedalFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

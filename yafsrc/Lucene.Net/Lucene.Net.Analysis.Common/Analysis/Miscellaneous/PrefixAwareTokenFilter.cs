@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
@@ -78,7 +79,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
 
         public override sealed bool IncrementToken()
         {
-            Token nextToken = null;
+            Token nextToken; // LUCENENET: IDE0059: Remove unnecessary value assignment
             if (!prefixExhausted)
             {
                 nextToken = GetNextPrefixInputToken(reusableToken);

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,27 +27,23 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
-    using System.Web.Security;
+    using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
-    using YAF.Core.Utilities;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -64,9 +60,9 @@ namespace YAF.Controls
         private int currentUserId;
 
         /// <summary>
-        /// The _user data.
+        /// The user.
         /// </summary>
-        private CombinedUserDataHelper userData;
+        private User user;
 
         #endregion
 
@@ -86,8 +82,7 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private CombinedUserDataHelper UserData =>
-            this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
+        private User User => this.user ??= this.GetRepository<User>().GetById(this.currentUserId);
 
         #endregion
 
@@ -100,8 +95,8 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(
-                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.Account);
+            this.Get<LinkBuilder>().Redirect(
+                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
         /// <summary>
@@ -115,35 +110,16 @@ namespace YAF.Controls
         }
 
         /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
-                "DatePickerJs",
-                JavaScriptBlocks.DatePickerLoadJs(
-                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            //this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
-
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u");
-
             if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
-                                                              && this.PageContext.QueryIDs.ContainsKey("u"))
+                                                              && this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                this.currentUserId = this.PageContext.QueryIDs["u"].ToType<int>();
+                this.currentUserId = this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             }
             else
             {
@@ -158,13 +134,9 @@ namespace YAF.Controls
             this.LoginInfo.Visible = true;
 
             // End Modifications for enhanced profile
-            this.ForumSettingsRows.Visible = this.Get<BoardSettings>().AllowUserTheme
-                                             || this.Get<BoardSettings>().AllowUserLanguage;
-
-            this.UserThemeRow.Visible = this.Get<BoardSettings>().AllowUserTheme;
-            this.TrTextEditors.Visible = this.Get<BoardSettings>().AllowUsersTextEditor;
-            this.UserLanguageRow.Visible = this.Get<BoardSettings>().AllowUserLanguage;
-            this.LoginInfo.Visible = this.Get<BoardSettings>().AllowEmailChange;
+            this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
+            this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
+            this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -182,8 +154,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserId);
-
             if (this.UpdateEmailFlag)
             {
                 var newEmail = this.Email.Text.Trim();
@@ -194,51 +164,38 @@ namespace YAF.Controls
                     return;
                 }
 
-                var userNameFromEmail = this.Get<MembershipProvider>().GetUserNameByEmail(this.Email.Text.Trim());
+                var userFromEmail = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim());
 
-                if (userNameFromEmail.IsSet() && userNameFromEmail != userName)
+                if (userFromEmail != null && userFromEmail.Email != this.User.Name)
                 {
                     this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
-                if (this.Get<BoardSettings>().EmailVerification)
+                try
                 {
-                    this.Get<ISendNotification>().SendEmailChangeVerification(newEmail, this.currentUserId, userName);
+                    this.Get<IAspNetUsersHelper>().UpdateEmail(userFromEmail, this.Email.Text.Trim());
                 }
-                else
+                catch (ApplicationException)
                 {
-                    // just update the e-mail...
-                    try
-                    {
-                        UserMembershipHelper.UpdateEmail(this.currentUserId, this.Email.Text.Trim());
-                    }
-                    catch (ApplicationException)
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                            MessageTypes.warning);
+                    this.PageContext.AddLoadMessage(
+                        this.GetText("PROFILE", "DUPLICATED_EMAIL"),
+                        MessageTypes.warning);
 
-                        return;
-                    }
+                    return;
                 }
             }
 
             // vzrus: We should do it as we need to write null value to db, else it will be empty.
             // Localizer currently treats only nulls.
-            object language = null;
-            object culture = this.Culture.SelectedValue;
-            object theme = this.Theme.SelectedValue;
-            object editor = this.ForumEditor.SelectedValue;
+            string language = null;
+            var culture = this.Culture.SelectedValue;
+            var theme = this.Theme.SelectedValue;
+            var pageSize = this.PageSize.SelectedValue.ToType<int>();
 
             if (this.Theme.SelectedValue.IsNotSet())
             {
                 theme = null;
-            }
-
-            if (this.ForumEditor.SelectedValue.IsNotSet())
-            {
-                editor = null;
             }
 
             if (this.Culture.SelectedValue.IsNotSet())
@@ -247,44 +204,23 @@ namespace YAF.Controls
             }
             else
             {
-                StaticDataHelper.Cultures().Rows.Cast<DataRow>()
-                    .Where(row => culture.ToString() == row["CultureTag"].ToString()).ForEach(
-                        row => { language = row["CultureFile"].ToString(); });
+                StaticDataHelper.Cultures()
+                    .Where(row => culture == row.CultureTag).ForEach(
+                        row => language = row.CultureFile);
             }
 
             // save remaining settings to the DB
             this.GetRepository<User>().Save(
                 this.currentUserId,
-                this.PageContext.PageBoardID,
-                null,
-                this.UserData.DisplayName,
-                null,
                 this.TimeZones.SelectedValue,
                 language,
                 culture,
                 theme,
-                editor,
-                null,
-                null,
-                null,
-                false,
                 this.HideMe.Checked,
-                null);
+                this.Activity.Checked,
+                pageSize);
 
-            this.GetRepository<User>().UpdateOnly(
-                () => new User { Activity = this.Activity.Checked },
-                u => u.ID == this.currentUserId);
-
-            // vzrus: If it's a guest edited by an admin registry value should be changed
-            var dt = this.GetRepository<User>().ListAsDataTable(
-                this.PageContext.PageBoardID,
-                this.currentUserId,
-                true,
-                null,
-                null,
-                false);
-
-            if (dt.HasRows() && dt.Rows[0]["IsGuest"].ToType<bool>())
+            if (this.User.UserFlags.IsGuest)
             {
                 this.GetRepository<Registry>().Save(
                     "timezone",
@@ -299,11 +235,10 @@ namespace YAF.Controls
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                BuildLink.Redirect(ForumPages.Account);
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
             }
             else
             {
-                this.userData = null;
                 this.BindData();
             }
         }
@@ -315,45 +250,46 @@ namespace YAF.Controls
         {
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
-            if (this.Get<BoardSettings>().AllowUserTheme)
+            if (this.PageContext.BoardSettings.AllowUserTheme)
             {
                 this.Theme.DataSource = StaticDataHelper.Themes();
             }
 
-            if (this.Get<BoardSettings>().AllowUserLanguage)
+            if (this.PageContext.BoardSettings.AllowUserLanguage)
             {
                 this.Culture.DataSource = StaticDataHelper.Cultures();
                 this.Culture.DataValueField = "CultureTag";
                 this.Culture.DataTextField = "CultureNativeName";
             }
 
-            if (this.Get<BoardSettings>().AllowUsersTextEditor)
-            {
-                this.ForumEditor.DataSource = ForumEditorHelper.GetFilteredEditorList();
-                this.ForumEditor.DataValueField = "Value";
-                this.ForumEditor.DataTextField = "Name";
-            }
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.DataBind();
 
-            this.Email.Text = this.UserData.Email;
+            this.PageSize.SelectedValue = this.User.PageSize.ToString();
 
-            var timeZoneItem = this.TimeZones.Items.FindByValue(this.UserData.TimeZoneInfo.Id);
+            this.Email.Text = this.User.Email;
+
+            var timeZoneItem = this.TimeZones.Items.FindByValue(this.User.TimeZoneInfo.Id);
 
             if (timeZoneItem != null)
             {
                 timeZoneItem.Selected = true;
             }
 
-            if (this.Get<BoardSettings>().AllowUserTheme && this.Theme.Items.Count > 0)
+            if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
             {
                 // Allows to use different per-forum themes,
                 // While "Allow User Change Theme" option in the host settings is true
-                var themeFile = this.Get<BoardSettings>().Theme;
+                var themeFile = this.PageContext.BoardSettings.Theme;
 
-                if (this.UserData.ThemeFile.IsSet())
+                if (this.User.ThemeFile.IsSet())
                 {
-                    themeFile = this.UserData.ThemeFile;
+                    themeFile = this.User.ThemeFile;
                 }
 
                 var themeItem = this.Theme.Items.FindByValue(themeFile);
@@ -373,31 +309,12 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.Get<BoardSettings>().AllowUsersTextEditor && this.ForumEditor.Items.Count > 0)
-            {
-                // Text editor
-                var textEditor = this.UserData.TextEditor.IsSet()
-                                     ? this.UserData.TextEditor
-                                     : this.Get<BoardSettings>().ForumEditor;
+            this.HideMe.Checked = this.User.UserFlags.IsActiveExcluded
+                                  && (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin);
 
-                var editorItem = this.ForumEditor.Items.FindByValue(textEditor);
-                if (editorItem != null)
-                {
-                    editorItem.Selected = true;
-                }
-                else
-                {
-                    editorItem = this.ForumEditor.Items.FindByValue("1");
-                    editorItem.Selected = true;
-                }
-            }
+            this.Activity.Checked = this.User.Activity;
 
-            this.HideMe.Checked = this.UserData.IsActiveExcluded
-                                  && (this.Get<BoardSettings>().AllowUserHideHimself || this.PageContext.IsAdmin);
-
-            this.Activity.Checked = this.UserData.Activity;
-
-            if (!this.Get<BoardSettings>().AllowUserLanguage || this.Culture.Items.Count <= 0)
+            if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
             {
                 return;
             }
@@ -423,31 +340,31 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.Get<BoardSettings>().Language;
-            var culture4Tag = this.Get<BoardSettings>().Culture;
+            var languageFile = this.PageContext.BoardSettings.Language;
+            var culture4Tag = this.PageContext.BoardSettings.Culture;
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.CurrentUserData.LanguageFile.IsSet())
+                if (this.PageContext.User.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.CurrentUserData.LanguageFile;
+                    languageFile = this.PageContext.User.LanguageFile;
                 }
 
-                if (this.PageContext.CurrentUserData.CultureUser.IsSet())
+                if (this.PageContext.User.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.CurrentUserData.CultureUser;
+                    culture4Tag = this.PageContext.User.Culture;
                 }
             }
             else
             {
-                if (this.UserData.LanguageFile.IsSet())
+                if (this.User.LanguageFile.IsSet())
                 {
-                    languageFile = this.UserData.LanguageFile;
+                    languageFile = this.User.LanguageFile;
                 }
 
-                if (this.UserData.CultureUser.IsSet())
+                if (this.User.Culture.IsSet())
                 {
-                    culture4Tag = this.UserData.CultureUser;
+                    culture4Tag = this.User.Culture;
                 }
             }
 

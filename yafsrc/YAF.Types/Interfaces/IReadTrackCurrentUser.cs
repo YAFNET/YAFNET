@@ -48,38 +48,38 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Returns the last time that the forum was read or marked as Read.
         /// </summary>
-        /// <param name="forumID">The forum ID of the Forum</param>
+        /// <param name="forumId">The forum Id of the Forum</param>
         /// <param name="readTimeOverride">The read time override.</param>
         /// <returns>
-        /// Returns the DateTime object from the Forum ID.
+        /// Returns the DateTime object from the Forum Id.
         /// </returns>
-        DateTime GetForumRead(int forumID, DateTime? readTimeOverride);
+        DateTime GetForumRead(int forumId, DateTime? readTimeOverride);
 
         /// <summary>
         /// Returns the last time that the Topic was read.
         /// </summary>
-        /// <param name="topicID">The topicID you wish to find the DateTime object for.</param>
+        /// <param name="topicId">The topic Id you wish to find the DateTime object for.</param>
         /// <param name="readTimeOverride">The read time override.</param>
         /// <returns>
-        /// Returns the DateTime object from the topicID.
+        /// Returns the DateTime object from the topic Id.
         /// </returns>
-        DateTime GetTopicRead(int topicID, DateTime? readTimeOverride);
+        DateTime GetTopicRead(int topicId, DateTime? readTimeOverride);
 
         /// <summary>
         /// Add Or Update The Forum Read DateTime
         /// </summary>
-        /// <param name="forumID">
-        /// The forum ID of the Forum 
+        /// <param name="forumId">
+        /// The forum Id of the Forum 
         /// </param>
-        void SetForumRead(int forumID);
+        void SetForumRead(int forumId);
 
         /// <summary>
         /// Add Or Update The topic Read DateTime
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id to mark read.
         /// </param>
-        void SetTopicRead(int topicID);
+        void SetTopicRead(int topicId);
 
         #endregion
     }

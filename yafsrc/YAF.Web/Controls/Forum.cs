@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -35,18 +35,12 @@ namespace YAF.Web.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
-    using YAF.Core.BaseControls;
     using YAF.Core.BasePages;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Constants;
-#if DEBUG
-    using YAF.Types.Exceptions;
-#endif
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.EventsArgs;
 
     #endregion
@@ -60,19 +54,14 @@ namespace YAF.Web.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The _current forum page.
+        ///   The current forum page.
         /// </summary>
         private ForumPage currentForumPage;
 
         /// <summary>
-        ///   The _page.
+        ///   The page.
         /// </summary>
         private ILocatablePage page;
-
-        /// <summary>
-        ///   The _topControl.
-        /// </summary>
-        private PlaceHolder topControl;
 
         #endregion
 
@@ -83,18 +72,15 @@ namespace YAF.Web.Controls
         /// </summary>
         public Forum()
         {
-            // validate TaskModule is running...
-            TaskModuleRunning();
-
             // init the modules and run them immediately...
             var baseModules = this.Get<IModuleManager<IBaseForumModule>>();
 
             baseModules.GetAll().ForEach(
                 module =>
-                    {
-                        module.ForumControlObj = this;
-                        module.Init();
-                    });
+                {
+                    module.ForumControlObj = this;
+                    module.Init();
+                });
         }
 
         #endregion
@@ -125,9 +111,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public int BoardID
         {
-            get => ControlSettings.Current.BoardID;
+            get => this.Get<ControlSettings>().BoardID;
 
-            set => ControlSettings.Current.BoardID = value;
+            set => this.Get<ControlSettings>().BoardID = value;
         }
 
         /// <summary>
@@ -135,9 +121,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public int CategoryID
         {
-            get => ControlSettings.Current.CategoryID;
+            get => this.Get<ControlSettings>().CategoryID;
 
-            set => ControlSettings.Current.CategoryID = value;
+            set => this.Get<ControlSettings>().CategoryID = value;
         }
 
         /// <summary>
@@ -155,15 +141,10 @@ namespace YAF.Web.Controls
         /// </summary>
         public int LockedForum
         {
-            get => ControlSettings.Current.LockedForum;
+            get => this.Get<ControlSettings>().LockedForum;
 
-            set => ControlSettings.Current.LockedForum = value;
+            set => this.Get<ControlSettings>().LockedForum = value;
         }
-
-        /// <summary>
-        ///   Gets or sets The forum header control
-        /// </summary>
-        public BaseUserControl NotificationBox { get; set; }
 
         /// <summary>
         ///   Gets UserID for the current User (Read Only)
@@ -173,7 +154,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   Gets UserName for the current User (Read Only)
         /// </summary>
-        public string PageUserName => BoardContext.Current.User == null ? "Guest" : BoardContext.Current.User.UserName;
+        public string PageUserName => BoardContext.Current.MembershipUser == null ? "Guest" : BoardContext.Current.MembershipUser.UserName;
 
         /// <summary>
         ///   Gets ServiceLocator.
@@ -243,9 +224,6 @@ namespace YAF.Web.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit(EventArgs e)
         {
-            // run startup services -- should already be called except when running inside a CMS.
-            this.RunStartupServices();
-
             // handle script manager first...
             var yafScriptManager = ScriptManager.GetCurrent(this.Page);
 
@@ -260,19 +238,21 @@ namespace YAF.Web.Controls
 
             // add a script manager since one doesn't exist...
             yafScriptManager = new ScriptManager
-                                   {
-                                       ID = "YafScriptManager",
-                                       EnablePartialRendering = true,
-                                       EnableCdn = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
-                                       EnableCdnFallback = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
-                                       EnableScriptLocalization =
+            {
+                ID = "YafScriptManager",
+                EnablePartialRendering = true,
+                EnableCdn = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
+                EnableCdnFallback = this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted,
+                EnableScriptLocalization =
                                            !this.Get<BoardSettings>().ScriptManagerScriptsCDNHosted
-                                   };
+            };
 
             this.Controls.Add(yafScriptManager);
 
             base.OnInit(e);
         }
+
+
 
         /// <summary>
         /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
@@ -284,8 +264,8 @@ namespace YAF.Web.Controls
             this.BeforeForumPageLoad?.Invoke(this, new BeforeForumPageLoad());
 
             // add the forum header control...
-            this.topControl = new PlaceHolder();
-            this.Controls.AddAt(0, this.topControl);
+            var topControl = new PlaceHolder();
+            this.Controls.AddAt(0, topControl);
 
             // get the current page...
             var src = this.GetPageSource();
@@ -303,7 +283,7 @@ namespace YAF.Web.Controls
                 throw new ApplicationException($"Failed to load {src}.");
             }
 
-            this.currentForumPage.ForumTopControl = this.topControl;
+            this.currentForumPage.ForumTopControl = topControl;
             this.currentForumPage.ForumFooter = this.Footer;
 
             this.currentForumPage.ForumHeader = this.Header;
@@ -321,17 +301,10 @@ namespace YAF.Web.Controls
             }
 
             // Add the LoginBox to Control, if used and User is Guest
-            if (BoardContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+            if (BoardContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff && !this.page.IsAccountPage)
             {
                 this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/LoginBox.ascx"));
             }
-
-            this.NotificationBox = (BaseUserControl)this.LoadControl(
-                $"{BoardInfo.ForumServerFileRoot}Dialogs/DialogBox.ascx");
-
-            this.currentForumPage.Notification = this.NotificationBox;
-
-            this.Controls.Add(this.NotificationBox);
 
             this.Controls.Add(this.currentForumPage);
 
@@ -353,12 +326,6 @@ namespace YAF.Web.Controls
                 this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/CookieConsent.ascx"));
             }
 
-            // Add smart Scroll
-            if (Config.IsAnyPortal)
-            {
-                this.Controls.Add(new SmartScroller());
-            }
-
             if (this.Get<BoardSettings>().ShowScrollBackToTopButton)
             {
                 // Add Scroll top button
@@ -369,31 +336,6 @@ namespace YAF.Web.Controls
             this.AfterForumPageLoad?.Invoke(this, new AfterForumPageLoad());
 
             base.OnLoad(e);
-        }
-
-        /// <summary>
-        /// The task module running.
-        /// </summary>
-        private static void TaskModuleRunning()
-        {
-            if (HttpContext.Current.Application[Constants.Cache.TaskModule] != null)
-            {
-                return;
-            }
-
-#if DEBUG
-            throw new TaskModuleNotRegisteredException(
-                @"YAF.NET is not setup properly. Please add the <add name=""TaskModule"" type=""YAF.Core.TaskModule, YAF.Core"" /> to the <modules> section of your web.config file.");
-#else
-
-            // YAF is not setup properly...
-            HttpContext.Current.Session["StartupException"] =
-                @"YAF.NET is not setup properly. Please add the <add name=""TaskModule"" type=""YAF.Core.TaskModule, YAF.Core"" /> to the <modules> section of your web.config file.";
-
-            // go immediately to the error page.
-            HttpContext.Current.Response.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
-
-#endif
         }
 
         /// <summary>
@@ -414,17 +356,14 @@ namespace YAF.Web.Controls
                 this.page = pages.GetPage(pageQuery);
             }
 
-            if (this.page == null)
-            {
-                this.page = pages.GetPage("forum");
-            }
+            this.page ??= pages.GetPage("Board");
 
             var src = $"{BoardInfo.ForumServerFileRoot}pages/{this.page.PageName}.ascx";
 
-            var replacementPaths = new List<string> { "moderate", "admin", "help" };
+            var replacementPaths = new List<string> { "Profile", "Account", "moderate", "admin", "help" };
 
             replacementPaths.Where(path => src.IndexOf($"/{path}_", StringComparison.Ordinal) >= 0)
-                .ForEach(path => { src = src.Replace($"/{path}_", $"/{path}/"); });
+                .ForEach(path => src = src.Replace($"/{path}_", $"/{path}/"));
 
             return src;
         }

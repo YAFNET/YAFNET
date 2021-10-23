@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,56 +23,47 @@
  */
 namespace YAF.Types.Interfaces
 {
+    using YAF.Types.Models;
+
+    /// <summary>
+    /// The Avatars interface.
+    /// </summary>
     public interface IAvatars
-	{
-		/// <summary>
-		/// The get avatar url for current user.
-		/// </summary>
-		/// <returns>
-			/// Returns the Avatar Url
-		/// </returns>
-		string GetAvatarUrlForCurrentUser();
+    {
+        /// <summary>
+        /// The get avatar url for current user.
+        /// </summary>
+        /// <returns>
+        /// Returns the Avatar Url
+        /// </returns>
+        string GetAvatarUrlForCurrentUser();
 
-		/// <summary>
-		/// The get avatar url for user.
-		/// </summary>
-		/// <param name="userId">
-		/// The user id.
-		/// </param>
-		/// <returns>
-		/// Returns the Avatar Url
-		/// </returns>
-		string GetAvatarUrlForUser(int userId);
+        /// <summary>
+        /// The get avatar url for user.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <returns>
+        /// Returns the Avatar Url
+        /// </returns>
+        string GetAvatarUrlForUser([NotNull] User user);
 
-		/// <summary>
-		/// The get avatar url for user.
-		/// </summary>
-		/// <param name="userData">
-		/// The user data.
-		/// </param>
-		/// <returns>
-		/// Returns the Avatar Url
-		/// </returns>
-		string GetAvatarUrlForUser([NotNull] IUserData userData);
-
-		/// <summary>
-		/// The get avatar url for user.
-		/// </summary>
-		/// <param name="userId">
-		/// The user Id.
-		/// </param>
-		/// <param name="avatarString">
-		/// The avatarString.
-		/// </param>
-		/// <param name="hasAvatarImage">
-		/// The hasAvatarImage.
-		/// </param>
-		/// <param name="email">
-		/// The email.
-		/// </param>
-		/// <returns>
-		/// Returns the Avatar Url
-		/// </returns>
-		string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage, string email);
-	}
+        /// <summary>
+        /// The get avatar url for user.
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="avatarString">
+        /// The avatarString.
+        /// </param>
+        /// <param name="hasAvatarImage">
+        /// The hasAvatarImage.
+        /// </param>
+        /// <returns>
+        /// Returns the Avatar Url
+        /// </returns>
+        string GetAvatarUrlForUser(int userId, string avatarString, bool hasAvatarImage);
+    }
 }

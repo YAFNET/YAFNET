@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Controls {
-    
-    
-    public partial class ForumIconLegend {
-        
+namespace YAF.Controls
+{
+
+
+    public partial class ForumIconLegend
+    {
+
         /// <summary>
         /// NewPostsLabel control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel NewPostsLabel;
-        
+
         /// <summary>
         /// NoNewPostsLabel control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace YAF.Controls {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.LocalizedLabel NoNewPostsLabel;
-        
+
         /// <summary>
         /// ForumLockedLabel control.
         /// </summary>

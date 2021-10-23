@@ -23,50 +23,50 @@
  */
 namespace YAF.Types.Objects
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces;
 
-  #endregion
-
-  /// <summary>
-  /// The typed parameter.
-  /// </summary>
-  public class TypedParameter : IServiceLocationParameter
-  {
-    #region Constructors and Destructors
+    #endregion
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypedParameter"/> class.
+    /// The typed parameter.
     /// </summary>
-    /// <param name="type">
-    /// The type.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    public TypedParameter([NotNull] Type type, [NotNull] object value)
+    public class TypedParameter : IServiceLocationParameter
     {
-      this.Type = type;
-      this.Value = value;
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TypedParameter"/> class.
+        /// </summary>
+        /// <param name="type">
+        /// The type.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public TypedParameter([NotNull] Type type, [NotNull] object value)
+        {
+            this.Type = type;
+            this.Value = value;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets Type.
+        /// </summary>
+        public Type Type { get; set; }
+
+        /// <summary>
+        /// Gets or sets Value.
+        /// </summary>
+        public object Value { get; set; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    /// Gets or sets Type.
-    /// </summary>
-    public Type Type { get; set; }
-
-    /// <summary>
-    /// Gets or sets Value.
-    /// </summary>
-    public object Value { get; set; }
-
-    #endregion
-  }
 }

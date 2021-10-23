@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class attachments
+    public partial class Attachments
     {
 
         /// <summary>

@@ -1,7 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" EnableViewState="false"
     Inherits="YAF.Controls.ForumWelcome" Codebehind="ForumWelcome.ascx.cs" %>
 
-<YAF:Alert runat="server" Type="light" CssClass="float-right d-none d-md-block py-0">
+<YAF:Alert runat="server" Type="light" CssClass="float-end d-none d-md-block py-0">
     <YAF:Icon runat="server" 
               IconName="clock"></YAF:Icon>
     <asp:Label ID="TimeNow" runat="server" />

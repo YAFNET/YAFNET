@@ -1,6 +1,5 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -48,7 +47,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 
         private ProximityQueryNode.Type proximityType = ProximityQueryNode.Type.SENTENCE;
         private int distance = -1;
-        private bool inorder = false;
+        private readonly bool inorder = false; // LUCENENET: marked readonly
         private string field = null;
 
         /// <summary>
@@ -71,9 +70,10 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             {
                 if (distance <= 0)
                 {
-                    throw new QueryNodeError(new Message(
-                        QueryParserMessages.PARAMETER_VALUE_NOT_SUPPORTED, "distance",
-                        distance));
+                    // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                    // LUCENENET: Added paramName parameter and changed the error message.
+                    // However, we still need this to be an error type so it is not caught in StandardSyntaxParser.
+                    throw new QueryNodeError(QueryParserMessages.NUMBER_CANNOT_BE_NEGATIVE, nameof(distance));
                 }
                 else
                 {
@@ -103,10 +103,10 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 
             foreach (IQueryNode clause in nodes)
             {
-                if (clause is FieldQueryNode)
+                if (clause is FieldQueryNode fieldQueryNode)
                 {
-                    ((FieldQueryNode)clause).m_toQueryStringIgnoreFields = true;
-                    ((FieldQueryNode)clause).Field = field;
+                    fieldQueryNode.m_toQueryStringIgnoreFields = true;
+                    fieldQueryNode.Field = field;
                 }
             }
         }
@@ -218,7 +218,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
     {
         internal int pDistance = 0;
 
-        ProximityQueryNode.Type pType/* = null*/;
+#pragma warning disable IDE0052 // Assigned never read
+        internal ProximityQueryNode.Type pType/* = null*/; // LUCENENET: Not nullable
+#pragma warning restore IDE0052 // Assigned never read
 
         public ProximityType(ProximityQueryNode.Type type)
                 : this(type, 0)

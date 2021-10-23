@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -30,8 +30,7 @@ namespace YAF.Pages
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -71,7 +70,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "dropDownToggleJs",
                 JavaScriptBlocks.DropDownToggleJs());
 
@@ -96,10 +95,7 @@ namespace YAF.Pages
 
             var doSearch = false;
 
-            this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
-
-            this.txtSearchStringFromWho.Attributes.Add("data-display", this.Get<BoardSettings>().EnableDisplayName.ToString());
+            this.txtSearchStringFromWho.Attributes.Add("data-display", this.PageContext.BoardSettings.EnableDisplayName.ToString());
 
             // Load result dropdown
             this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));
@@ -119,14 +115,14 @@ namespace YAF.Pages
             this.listSearchWhat.SelectedIndex = 2;
 
             // Load forum's combo
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
             this.listForum.AddForumAndCategoryIcons(forumList);
 
             this.listForum.DataValueField = "ForumID";
-            this.listForum.DataTextField = "Title";
+            this.listForum.DataTextField = "Forum";
 
             this.listForum.DataBind();
 
@@ -163,13 +159,6 @@ namespace YAF.Pages
                 doSearch = true;
             }
 
-            if (doSearch)
-            {
-                BoardContext.Current.PageElements.RegisterJsBlockStartup(
-                    "openModalJs",
-                    JavaScriptBlocks.DoSearchJs());
-            }
-
             var tag = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("tag");
 
             if (tag.IsSet())
@@ -180,10 +169,19 @@ namespace YAF.Pages
 
             if (doSearch)
             {
-                BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                this.PageContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.DoSearchJs());
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
         #endregion

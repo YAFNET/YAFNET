@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -34,24 +33,35 @@ namespace YAF.Types.Models
     /// A class which represents the yaf_MessageReported table.
     /// </summary>
     [Serializable]
-    [Table(Name = "MessageReported")]
-    public partial class MessageReported : IEntity, IHaveID
+    public class MessageReported : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public MessageReported()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("MessageID")]
         [Required]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message.
+        /// </summary>
         public string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resolved.
+        /// </summary>
         public bool? Resolved { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resolved by.
+        /// </summary>
         public int? ResolvedBy { get; set; }
+
+        /// <summary>
+        /// Gets or sets the resolved date.
+        /// </summary>
         public DateTime? ResolvedDate { get; set; }
 
         #endregion

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,20 +33,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_vaccess views.
     /// </summary>
     [Serializable]
-    public partial class vaccess : IEntity
+    public class vaccess : IEntity
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="vaccess"/> class.
-        /// </summary>
-        public vaccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -63,82 +51,72 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets a value indicating whether is admin.
         /// </summary>
-        public bool IsAdmin { get; set; }
+        public int? IsAdmin { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is forum moderator.
         /// </summary>
-        public bool IsForumModerator { get; set; }
+        public int? IsForumModerator { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether is moderator.
         /// </summary>
-        public bool IsModerator { get; set; }
+        public int? IsModerator { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether read access.
         /// </summary>
-        public bool ReadAccess { get; set; }
+        public int? ReadAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether post access.
         /// </summary>
-        public bool PostAccess { get; set; }
+        public int? PostAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether reply access.
         /// </summary>
-        public bool ReplyAccess { get; set; }
+        public int? ReplyAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether priority access.
         /// </summary>
-        public bool PriorityAccess { get; set; }
+        public int? PriorityAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether poll access.
         /// </summary>
-        public bool PollAccess { get; set; }
+        public int? PollAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether vote access.
         /// </summary>
-        public bool VoteAccess { get; set; }
+        public int? VoteAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether moderator access.
         /// </summary>
-        public bool ModeratorAccess { get; set; }
+        public int? ModeratorAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether edit access.
         /// </summary>
-        public bool EditAccess { get; set; }
-        
+        public int? EditAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether delete access.
         /// </summary>
-        public bool DeleteAccess { get; set; }
+        public int? DeleteAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether upload access.
         /// </summary>
-        public bool UploadAccess { get; set; }
+        public int? UploadAccess { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether download access.
         /// </summary>
-        public bool DownloadAccess { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
+        public int? DownloadAccess { get; set; }
 
         #endregion
     }

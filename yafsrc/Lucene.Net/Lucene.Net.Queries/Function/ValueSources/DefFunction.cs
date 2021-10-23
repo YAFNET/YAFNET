@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System.Collections;
 using System.Collections.Generic;
@@ -39,17 +40,14 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         public override FunctionValues GetValues(IDictionary fcontext, AtomicReaderContext readerContext)
         {
-            return new ValuesAnonymousInnerClassHelper(this, ValsArr(m_sources, fcontext, readerContext));
+            return new ValuesAnonymousClass(this, ValsArr(m_sources, fcontext, readerContext));
         }
 
-        private class ValuesAnonymousInnerClassHelper : Values
+        private class ValuesAnonymousClass : Values
         {
-            private readonly DefFunction outerInstance;
-
-            public ValuesAnonymousInnerClassHelper(DefFunction outerInstance, FunctionValues[] valsArr)
+            public ValuesAnonymousClass(DefFunction outerInstance, FunctionValues[] valsArr)
                 : base(outerInstance, valsArr)
             {
-                this.outerInstance = outerInstance;
                 upto = valsArr.Length - 1;
             }
 

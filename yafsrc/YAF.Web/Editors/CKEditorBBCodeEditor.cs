@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,7 +24,9 @@
 namespace YAF.Web.Editors
 {
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -40,7 +42,7 @@ namespace YAF.Web.Editors
         ///   Gets Description.
         /// </summary>
         [NotNull]
-        public override string Description => "CKEditor (BBCode)";
+        public override string Description => "CKEditor (BBCode) - Full";
 
         /// <summary>
         ///   Gets ModuleId.
@@ -57,6 +59,11 @@ namespace YAF.Web.Editors
         /// </summary>
         public override bool UsesHTML => false;
 
+        /// <summary>
+        /// The allows uploads.
+        /// </summary>
+        public override bool AllowsUploads => true;
+
         #endregion
 
         #region Methods
@@ -66,16 +73,32 @@ namespace YAF.Web.Editors
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
-            BoardContext.Current.PageElements.RegisterJsBlock(
-                "editorlang",
-                $@"var editorLanguage = ""{(BoardContext.Current.CultureUser.IsSet()
-                                                ? BoardContext.Current.CultureUser.Substring(0, 2)
-                                                : this.Get<BoardSettings>().Culture.Substring(0, 2))}"";
-                        var editorMaxChar = {BoardContext.Current.BoardSettings.MaxPostSize};");
+            var toolbar = this.PageContext.BoardSettings.EditorToolbarFull;
 
-            BoardContext.Current.PageElements.AddScriptReference(
+            if (!(this.PageContext.BoardSettings.EnableAlbum && this.PageContext.NumAlbums > 0))
+            {
+                // remove albums
+                toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
+            }
+
+            var language = BoardContext.Current.User.Culture.IsSet()
+                ? BoardContext.Current.User.Culture.Substring(0, 2)
+                : this.PageContext.BoardSettings.Culture.Substring(0, 2);
+
+            if (ValidationHelper.IsNumeric(language))
+            {
+                language = this.PageContext.BoardSettings.Culture; //.Substring(0, 2);
+            }
+
+            BoardContext.Current.PageElements.RegisterJsBlock(
                 "ckeditorinitbbcode",
-                "ckeditor/ckeditor_initbbcode.js");
+                JavaScriptBlocks.CKEditorLoadJs(
+                    this.TextAreaControl.ClientID,
+                    language,
+                    this.MaxCharacters,
+                    this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
+                    BoardInfo.GetURLToContent("forum.min.css"),
+                    toolbar));
         }
 
         #endregion

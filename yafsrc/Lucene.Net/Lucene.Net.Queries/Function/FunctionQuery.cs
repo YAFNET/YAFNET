@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System.Collections;
@@ -199,11 +200,8 @@ namespace YAF.Lucene.Net.Queries.Function
         /// </summary>
         public override bool Equals(object o)
         {
-            var other = o as FunctionQuery;
-            if (other == null)
-            {
-                return false;
-            }
+            if (o is null) return false;
+            if (!(o is FunctionQuery other)) return false;
             return Boost == other.Boost 
                 && func.Equals(other.func);
         }

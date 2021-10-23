@@ -1,9 +1,10 @@
-using J2N.Runtime.CompilerServices;
+﻿using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.ExceptionServices;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
@@ -141,7 +142,7 @@ namespace YAF.Lucene.Net.Index
                         }
                         // We pass true for closeSubs and we prevent closing of subreaders in doClose():
                         // By this the synthetic throw-away readers used here are completely invisible to ref-counting
-                        subReaders[i] = new ParallelAtomicReaderAnonymousInnerClassHelper(atomicSubs, storedSubs);
+                        subReaders[i] = new ParallelAtomicReaderAnonymousClass(atomicSubs, storedSubs);
                     }
                     else
                     {
@@ -158,16 +159,16 @@ namespace YAF.Lucene.Net.Index
                         }
                         // We pass true for closeSubs and we prevent closing of subreaders in doClose():
                         // By this the synthetic throw-away readers used here are completely invisible to ref-counting
-                        subReaders[i] = new ParallelCompositeReaderAnonymousInnerClassHelper(compositeSubs, storedSubs);
+                        subReaders[i] = new ParallelCompositeReaderAnonymousClass(compositeSubs, storedSubs);
                     }
                 }
                 return subReaders;
             }
         }
 
-        private class ParallelAtomicReaderAnonymousInnerClassHelper : ParallelAtomicReader
+        private class ParallelAtomicReaderAnonymousClass : ParallelAtomicReader
         {
-            public ParallelAtomicReaderAnonymousInnerClassHelper(Lucene.Net.Index.AtomicReader[] atomicSubs, Lucene.Net.Index.AtomicReader[] storedSubs)
+            public ParallelAtomicReaderAnonymousClass(Lucene.Net.Index.AtomicReader[] atomicSubs, Lucene.Net.Index.AtomicReader[] storedSubs)
                 : base(true, atomicSubs, storedSubs)
             {
             }
@@ -177,9 +178,9 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        private class ParallelCompositeReaderAnonymousInnerClassHelper : ParallelCompositeReader
+        private class ParallelCompositeReaderAnonymousClass : ParallelCompositeReader
         {
-            public ParallelCompositeReaderAnonymousInnerClassHelper(Lucene.Net.Index.CompositeReader[] compositeSubs, Lucene.Net.Index.CompositeReader[] storedSubs)
+            public ParallelCompositeReaderAnonymousClass(Lucene.Net.Index.CompositeReader[] compositeSubs, Lucene.Net.Index.CompositeReader[] storedSubs)
                 : base(true, compositeSubs, storedSubs)
             {
             }
@@ -223,7 +224,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                IOException ioe = null;
+                Exception ioe = null; // LUCENENET: No need to cast to IOExcpetion
                 foreach (IndexReader reader in completeReaderSet)
                 {
                     try
@@ -237,7 +238,7 @@ namespace YAF.Lucene.Net.Index
                             reader.DecRef();
                         }
                     }
-                    catch (IOException e)
+                    catch (Exception e) when (e.IsIOException())
                     {
                         if (ioe == null)
                         {
@@ -248,7 +249,7 @@ namespace YAF.Lucene.Net.Index
                 // throw the first exception
                 if (ioe != null)
                 {
-                    throw ioe;
+                    ExceptionDispatchInfo.Capture(ioe).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
                 }
             }
         }

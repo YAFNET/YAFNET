@@ -31,9 +31,10 @@ namespace YAF.Pages.Admin
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -41,7 +42,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -49,7 +49,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Administrative Page for the deleting of forum properties.
     /// </summary>
-    public partial class deleteforum : AdminPage
+    public partial class DeleteForum : AdminPage
     {
         #region Methods
 
@@ -74,7 +74,7 @@ namespace YAF.Pages.Admin
         {
             this.MoveTopics.CheckedChanged += this.MoveTopicsCheckedChanged;
             this.Delete.Click += this.SaveClick;
-            this.Cancel.Click += Cancel_Click;
+            this.Cancel.Click += this.Cancel_Click;
 
             this.Delete.ReturnConfirmText = this.GetText("ADMIN_FORUMS", "CONFIRM_DELETE");
             this.Delete.ReturnConfirmEvent = "blockUIMessage";
@@ -98,7 +98,7 @@ namespace YAF.Pages.Admin
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("fa"))
             {
-                BuildLink.Redirect(ForumPages.admin_forums);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
             }
 
             var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
@@ -107,11 +107,11 @@ namespace YAF.Pages.Admin
 
             if (forum == null)
             {
-                BuildLink.Redirect(ForumPages.admin_forums);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
             }
             else
             {
-                this.ForumNameTitle.Text = forum.Name;
+                this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{forum.Name}</strong>";
 
                 // populate parent forums list with forums according to selected category
                 this.BindParentList();
@@ -124,15 +124,10 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), BuildLink.GetLink(ForumPages.admin_forums));
+            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_DELETEFORUM", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")} - {this.GetText("ADMIN_DELETEFORUM", "TITLE")}";
         }
 
         /// <summary>
@@ -154,10 +149,7 @@ namespace YAF.Pages.Admin
             // rebind...
             this.BindData();
 
-            // clear caches...
-            this.ClearCaches();
-
-            BuildLink.Redirect(ForumPages.admin_forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         /// <summary>
@@ -165,9 +157,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private static void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         /// <summary>
@@ -206,21 +198,6 @@ namespace YAF.Pages.Admin
             this.ForumList.Enabled = this.MoveTopics.Checked;
 
             this.BindParentList();
-        }
-
-        /// <summary>
-        /// Clears the caches.
-        /// </summary>
-        private void ClearCaches()
-        {
-            // clear moderators cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
-            // clear category cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
-
-            // clear active discussions cache..
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumActiveDiscussions);
         }
 
         /// <summary>

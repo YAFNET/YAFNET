@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2021 Ingo Herbote
+ * Copyright (C) 2014-2020 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
   #region Using
 
@@ -40,9 +40,9 @@ namespace YAF.Core
     #region Constants and Fields
 
     /// <summary>
-    /// The _application.
+    /// The application state base.
     /// </summary>
-    protected HttpApplicationStateBase _application;
+    private HttpApplicationStateBase applicationStateBase;
 
     #endregion
 
@@ -56,19 +56,19 @@ namespace YAF.Core
     {
       get
       {
-        if (this._application == null && HttpContext.Current != null)
+        if (this.applicationStateBase == null && HttpContext.Current != null)
         {
-          this._application = new HttpApplicationStateWrapper(HttpContext.Current.Application);
+          this.applicationStateBase = new HttpApplicationStateWrapper(HttpContext.Current.Application);
         }
 
-        return this._application;
+        return this.applicationStateBase;
       }
 
       set
       {
         CodeContracts.VerifyNotNull(value, "value");
 
-        this._application = value;
+        this.applicationStateBase = value;
       }
     }
 

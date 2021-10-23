@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,18 +34,8 @@ namespace YAF.Types.Models
     /// A class which represents the Replace_Words table.
     /// </summary>
     [Serializable]
-    public partial class Replace_Words : IEntity, IHaveBoardID, IHaveID
+    public class Replace_Words : IEntity, IHaveBoardID, IHaveID
     {
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Replace_Words"/> class.
-        /// </summary>
-        public Replace_Words()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -54,13 +44,22 @@ namespace YAF.Types.Models
         [AutoIncrement]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [Required]
         [Default(1)]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the bad word.
+        /// </summary>
         [StringLength(255)]
         public string BadWord { get; set; }
 
+        /// <summary>
+        /// Gets or sets the good word.
+        /// </summary>
         [StringLength(255)]
         public string GoodWord { get; set; }
 

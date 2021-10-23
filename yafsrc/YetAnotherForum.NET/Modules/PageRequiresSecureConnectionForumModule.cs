@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,15 +30,13 @@ namespace YAF.Modules
 
     using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Types.Constants;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
     /// The page requires secure connection module.
     /// </summary>
-    [YafModule("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
+    [Module("Page Requires Secure Connection Module", "Tiny Gecko", 1)]
     public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -66,32 +64,14 @@ namespace YAF.Modules
         /// </param>
         private void ForumControl_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var accessDenied = false;
-
-            switch (this.ForumPageType)
+            if (HttpContext.Current.Request.IsLocal || HttpContext.Current.Request.IsSecureConnection ||
+                !this.PageContext.BoardSettings.RequireSSL)
             {
-                case ForumPages.Login:
-                    if (!HttpContext.Current.Request.IsSecureConnection & this.PageContext.BoardSettings.UseSSLToLogIn)
-                    {
-                        accessDenied = true;
-                    }
-
-                    break;
-
-                case ForumPages.Register:
-                    if (!HttpContext.Current.Request.IsSecureConnection
-                        & this.PageContext.BoardSettings.UseSSLToRegister)
-                    {
-                        accessDenied = true;
-                    }
-
-                    break;
+                return;
             }
 
-            if (accessDenied)
-            {
-                BuildLink.RedirectInfoPage(InfoMessage.AccessDenied);
-            }
+            var redirectUrl = HttpContext.Current.Request.Url.ToString().Replace("http:", "https:");
+            HttpContext.Current.Response.Redirect(redirectUrl, false);
         }
 
         #endregion

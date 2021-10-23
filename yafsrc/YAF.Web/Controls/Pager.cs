@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -30,14 +30,11 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Web.EventsArgs;
 
     #endregion
 
@@ -49,12 +46,7 @@ namespace YAF.Web.Controls
         #region Constants and Fields
 
         /// <summary>
-        ///   The _goto page form.
-        /// </summary>
-        private readonly GotoPageForm gotoPageForm = new GotoPageForm();
-
-        /// <summary>
-        ///   The _ignore page index.
+        ///   The ignore page index.
         /// </summary>
         private bool ignorePageIndex;
 
@@ -88,16 +80,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets LinkedPager.
-        /// </summary>
-        public string LinkedPager
-        {
-            get => (string)this.ViewState["LinkedPager"];
-
-            set => this.ViewState["LinkedPager"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets PageSize.
         /// </summary>
         public int PageSize
@@ -111,30 +93,6 @@ namespace YAF.Web.Controls
         ///   Gets or sets a value indicating whether UsePostBack.
         /// </summary>
         public bool UsePostBack { get; set; } = true;
-
-        /// <summary>
-        ///   Gets the Current Linked Pager.
-        /// </summary>
-        [CanBeNull]
-        protected Pager CurrentLinkedPager
-        {
-            get
-            {
-                if (this.LinkedPager == null)
-                {
-                    return null;
-                }
-
-                var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager);
-
-                if (linkedPager == null)
-                {
-                    throw new Exception($"Failed to link pager to '{this.LinkedPager}'.");
-                }
-
-                return linkedPager;
-            }
-        }
 
         #endregion
 
@@ -150,17 +108,14 @@ namespace YAF.Web.Controls
         /// </param>
         public void RaisePostBackEvent([NotNull] string eventArgument)
         {
-            if (this.LinkedPager != null)
+            if (this.PageChange == null)
             {
-                // raise post back event on the linked pager...
-                this.CurrentLinkedPager.RaisePostBackEvent(eventArgument);
+                return;
             }
-            else if (this.PageChange != null)
-            {
-                this.CurrentPageIndex = int.Parse(eventArgument) - 1;
-                this.ignorePageIndex = true;
-                this.PageChange(this, new EventArgs());
-            }
+
+            this.CurrentPageIndex = int.Parse(eventArgument) - 1;
+            this.ignorePageIndex = true;
+            this.PageChange(this, EventArgs.Empty);
         }
 
         #endregion
@@ -168,17 +123,6 @@ namespace YAF.Web.Controls
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Copies the pager settings.
-        /// </summary>
-        /// <param name="toPager">To pager.</param>
-        protected void CopyPagerSettings([NotNull] Pager toPager)
-        {
-            toPager.Count = this.Count;
-            toPager.CurrentPageIndex = this.CurrentPageIndex;
-            toPager.PageSize = this.PageSize;
-        }
 
         /// <summary>
         /// Gets the page URL.
@@ -189,34 +133,28 @@ namespace YAF.Web.Controls
         /// </returns>
         protected string GetPageUrl(int page)
         {
-            var url = string.Empty;
-
-            switch (this.PageContext.ForumPageType)
+            var url = this.PageContext.ForumPageType switch
             {
-                case ForumPages.topics:
-                    url = page > 1
-                              ? BuildLink.GetLinkNotEscaped(
-                                  ForumPages.topics,
-                                  "f={0}&p={1}",
-                                  this.PageContext.PageForumID,
-                                  page)
-                              : BuildLink.GetLinkNotEscaped(
-                                  ForumPages.topics,
-                                  "f={0}",
-                                  this.PageContext.PageForumID);
-
-                    break;
-                case ForumPages.Posts:
-                    url = page > 1
-                              ? BuildLink.GetLinkNotEscaped(
-                                  ForumPages.Posts,
-                                  "t={0}&p={1}",
-                                  this.PageContext.PageTopicID,
-                                  page)
-                              : BuildLink.GetLinkNotEscaped(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID);
-
-                    break;
-            }
+                ForumPages.Topics => page > 1
+                    ? this.Get<LinkBuilder>().GetLink(
+                        ForumPages.Topics,
+                        "f={0}&p={1}&name={2}",
+                        this.PageContext.PageForumID,
+                        page,
+                        this.PageContext.PageForum.Name)
+                    : this.Get<LinkBuilder>().GetLink(
+                        ForumPages.Topics,
+                        "f={0}&name={1}",
+                        this.PageContext.PageForumID,
+                        this.PageContext.PageForum.Name),
+                ForumPages.Posts => this.Get<LinkBuilder>().GetLink(
+                    ForumPages.Posts,
+                    "t={0}&p={1}&name={2}",
+                    this.PageContext.PageTopicID,
+                    page,
+                    this.PageContext.PageTopic.TopicName),
+                _ => string.Empty
+            };
 
             return url;
         }
@@ -233,41 +171,29 @@ namespace YAF.Web.Controls
             {
                 // set a new page...
                 this.CurrentPageIndex =
-                    Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")) - 1;
             }
-
-            this.gotoPageForm.ID = this.GetExtendedID("GotoPageForm");
-
-            this.Controls.Add(this.gotoPageForm);
-
-            // hook up events...
-            this.gotoPageForm.GotoPageClick += this.GotoPageClick;
         }
 
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            if (this.LinkedPager != null)
-            {
-                // just copy the linked pager settings but still render in this function...
-                this.CurrentLinkedPager.CopyPagerSettings(this);
-            }
-
             if (this.PageCount() < 2)
             {
                 return;
             }
 
-            output.Write(@"<div class=""btn-toolbar pagination mt-1"" role=""toolbar"">");
+            writer.Write(@"<div class=""btn-toolbar pagination"" role=""toolbar"">");
 
-            output.WriteLine(
-                @"<div class=""btn-group mt-1"" role=""group"">
-                      <button type=""button"" title=""{0}"" class=""btn btn-secondary dropdown-toggle mb-1"" data-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
+            writer.Write(@"<div class=""btn-group mb-1 d-none d-lg-inline-block me-2"" role=""group"">");
+
+            writer.WriteLine(
+                @"<button type=""button"" title=""{0}"" class=""btn btn-secondary disabled"" aria-disabled=""true"">
                           <i class=""fas fa-copy""></i>&nbsp;{1:N0} {2}
                       </button>",
                 this.Get<ILocalization>().TransPage.IsSet()
@@ -276,23 +202,11 @@ namespace YAF.Web.Controls
                 this.PageCount(),
                 this.GetText("COMMON", "PAGES"));
 
-            output.Write(@"<div class=""dropdown-menu"">");
+            writer.Write(@"</div><div class=""btn-group mb-1"" role=""group"">");
 
-            output.Write(@"<div class=""px-3 py-1"">");
-            output.Write(@"<div class=""form-group"">");
+            this.OutputLinks(writer, this.UsePostBack);
 
-            this.gotoPageForm.RenderControl(output);
-
-            output.Write("</div></div>");
-
-            output.Write("</div>");
-            output.Write("</div>");
-
-            output.Write(@"<div class=""btn-group mt-1"" role=""group"">");
-
-            this.OutputLinks(output, this.UsePostBack);
-
-            output.WriteLine("</div></div>");
+            writer.WriteLine("</div></div>");
         }
 
         /// <summary>
@@ -306,8 +220,8 @@ namespace YAF.Web.Controls
         private string GetLinkUrl(int pageNum, bool postBack)
         {
             return postBack
-                       ? this.Page.ClientScript.GetPostBackClientHyperlink(this, pageNum.ToString())
-                       : this.GetPageUrl(pageNum);
+                ? this.Page.ClientScript.GetPostBackClientHyperlink(this, pageNum.ToString())
+                : this.GetPageUrl(pageNum);
         }
 
         /// <summary>
@@ -337,13 +251,14 @@ namespace YAF.Web.Controls
             if (start > 0)
             {
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(1, postBack),
-                                   Type = ButtonAction.Secondary,
-                                   TextLocalizedPage = "COMMON",
-                                   TextLocalizedTag = "GOTOFIRSTPAGE_TT",
-                                   Icon = "angle-double-left"
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(1, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTOFIRSTPAGE_TT",
+                    DataToggle = "tooltip",
+                    Icon = "angle-double-left"
+                };
 
                 link.RenderControl(output);
             }
@@ -351,13 +266,14 @@ namespace YAF.Web.Controls
             if (this.CurrentPageIndex > start)
             {
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex, postBack),
-                                   Type = ButtonAction.Secondary,
-                                   TextLocalizedPage = "COMMON",
-                                   TextLocalizedTag = "GOTOPREVPAGE_TT",
-                                   Icon = "angle-left"
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTOPREVPAGE_TT",
+                    DataToggle = "tooltip",
+                    Icon = "angle-left"
+                };
 
                 link.RenderControl(output);
             }
@@ -367,11 +283,14 @@ namespace YAF.Web.Controls
                 var page = (i + 1).ToString();
 
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(i + 1, postBack),
-                                   Type = ButtonAction.Secondary,
-                                   Text = page
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(i + 1, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTOPAGE_HEADER",
+                    Text = page,
+                    DataToggle = "tooltip"
+                };
 
                 if (i == this.CurrentPageIndex)
                 {
@@ -384,13 +303,14 @@ namespace YAF.Web.Controls
             if (this.CurrentPageIndex < this.PageCount() - 1)
             {
                 var link = new ThemeButton
-                               {
-                                   NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
-                                   Type = ButtonAction.Secondary,
-                                   TextLocalizedPage = "COMMON",
-                                   TextLocalizedTag = "GOTONEXTPAGE_TT",
-                                   Icon = "angle-right"
-                               };
+                {
+                    NavigateUrl = this.GetLinkUrl(this.CurrentPageIndex + 2, postBack),
+                    Type = ButtonStyle.Secondary,
+                    TitleLocalizedPage = "COMMON",
+                    TitleLocalizedTag = "GOTONEXTPAGE_TT",
+                    DataToggle = "tooltip",
+                    Icon = "angle-right"
+                };
 
                 link.RenderControl(output);
             }
@@ -401,40 +321,14 @@ namespace YAF.Web.Controls
             }
 
             new ThemeButton
-                {
-                    NavigateUrl = this.GetLinkUrl(this.PageCount(), postBack),
-                    Type = ButtonAction.Secondary,
-                    TextLocalizedPage = "COMMON",
-                    TextLocalizedTag = "GOTOLASTPAGE_TT",
-                    Icon = "angle-double-right"
-                }.RenderControl(output);
-        }
-
-        /// <summary>
-        /// Handles the GotoPageClick event of the _gotoPageForm control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="GotoPageForumEventArgs"/> instance containing the event data.</param>
-        private void GotoPageClick([NotNull] object sender, [NotNull] GotoPageForumEventArgs e)
-        {
-            var newPage = e.GotoPage - 1;
-
-            if (newPage >= 0 && newPage < this.PageCount())
             {
-                // set a new page index...
-                this.CurrentPageIndex = newPage;
-                this.ignorePageIndex = true;
-            }
-
-            if (this.LinkedPager != null)
-            {
-                // raise post back event on the linked pager...
-                this.CurrentLinkedPager.GotoPageClick(sender, e);
-            }
-            else
-            {
-                this.PageChange?.Invoke(this, new EventArgs());
-            }
+                NavigateUrl = this.GetLinkUrl(this.PageCount(), postBack),
+                Type = ButtonStyle.Secondary,
+                TitleLocalizedPage = "COMMON",
+                TitleLocalizedTag = "GOTOLASTPAGE_TT",
+                DataToggle = "tooltip",
+                Icon = "angle-double-right"
+            }.RenderControl(output);
         }
 
         #endregion

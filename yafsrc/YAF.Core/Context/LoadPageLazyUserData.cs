@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -21,15 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Context
 {
-    using System.Data;
-
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
 
@@ -42,9 +39,9 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The _db broker.
+        ///   The data broker.
         /// </summary>
-        private readonly DataBroker _dbBroker;
+        private readonly DataBroker dataBroker;
 
         #endregion
 
@@ -56,12 +53,12 @@ namespace YAF.Core
         /// <param name="serviceLocator">
         /// The service locator.
         /// </param>
-        /// <param name="dbBroker">
-        /// The db broker.
+        /// <param name="dataBroker">
+        /// The data Broker.
         /// </param>
-        public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dbBroker)
+        public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dataBroker)
         {
-            this._dbBroker = dbBroker;
+            this.dataBroker = dataBroker;
             this.ServiceLocator = serviceLocator;
         }
 
@@ -90,13 +87,13 @@ namespace YAF.Core
         /// </summary>
         /// <param name="event">The @event.</param>
         public void Handle([NotNull] InitPageLoadEvent @event)
-        {
-            DataRow activeUserLazyData = this._dbBroker.ActiveUserLazyData(@event.Data.UserID);
+        { 
+            var activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.PageLoadData.Item1.UserID);
 
             if (activeUserLazyData != null)
             {
                 // add the lazy user data to this page data...
-                @event.DataDictionary.AddRange(activeUserLazyData.ToDictionary());
+                @event.UserLazyData = activeUserLazyData;
             }
         }
 

@@ -99,7 +99,7 @@ namespace YAF.Web.Controls
         /// Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
         /// </summary>
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
-        public override void RenderControl(HtmlTextWriter writer)
+        public override void RenderControl([NotNull] HtmlTextWriter writer)
         {
             if (!this.Visible)
             {
@@ -130,7 +130,7 @@ namespace YAF.Web.Controls
         {
             writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
 
-            var className = this.IconType.IsSet() ? $"fa-fw {this.IconType} mr-1" : "fa-fw mr-1";
+            var className = this.IconType.IsSet() ? $"fa-fw {this.IconType} me-1" : "fa-fw me-1";
 
             if (this.IconSize.IsSet())
             {
@@ -162,7 +162,7 @@ namespace YAF.Web.Controls
             // Render Stack Icons
             writer.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
 
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "fa-stack mr-1");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "fa-stack me-1");
 
             writer.Write(HtmlTextWriter.TagRightChar);
 
@@ -183,7 +183,7 @@ namespace YAF.Web.Controls
 
             writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
 
-            writer.Write(@"<i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>");
+            writer.Write(@"<i class=""fa fa-circle fa-badge-bg fa-inverse text-light""></i>");
             writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
 
             writer.WriteAttribute(
@@ -212,7 +212,7 @@ namespace YAF.Web.Controls
                 this.IconStackSize = "fa-2x";
             }
 
-            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), $"fa-stack {this.IconStackSize} mr-1");
+            writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), $"fa-stack {this.IconStackSize} me-1");
 
             writer.Write(HtmlTextWriter.TagRightChar);
 

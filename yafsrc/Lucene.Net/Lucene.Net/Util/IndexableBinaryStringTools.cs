@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -63,7 +65,11 @@ namespace YAF.Lucene.Net.Util
         /// <param name="inputLength"> Number of bytes in <paramref name="inputArray"/> </param>
         /// <returns> The number of chars required to encode the number of <see cref="byte"/>s. </returns>
         // LUCENENET specific overload for CLS compliance
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#pragma warning disable IDE0060 // Remove unused parameter
         public static int GetEncodedLength(byte[] inputArray, int inputOffset, int inputLength)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             // Use long for intermediaries to protect against overflow
             return (int)((8L * inputLength + 14L) / 15L) + 1;
@@ -77,7 +83,10 @@ namespace YAF.Lucene.Net.Util
         /// <param name="inputLength"> Number of sbytes in <paramref name="inputArray"/> </param>
         /// <returns> The number of chars required to encode the number of <see cref="sbyte"/>s. </returns>
         [CLSCompliant(false)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+#pragma warning disable IDE0060 // Remove unused parameter
         public static int GetEncodedLength(sbyte[] inputArray, int inputOffset, int inputLength)
+#pragma warning restore IDE0060 // Remove unused parameter
         {
             // Use long for intermediaries to protect against overflow
             return (int)((8L * inputLength + 14L) / 15L) + 1;
@@ -118,6 +127,7 @@ namespace YAF.Lucene.Net.Util
         /// <param name="outputOffset"> Initial offset into outputArray </param>
         /// <param name="outputLength"> Length of output, must be GetEncodedLength(inputArray, inputOffset, inputLength) </param>
         // LUCENENET specific overload for CLS compliance
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Encode(byte[] inputArray, int inputOffset, int inputLength, char[] outputArray, int outputOffset, int outputLength)
         {
             Encode((sbyte[])(Array)inputArray, inputOffset, inputLength, outputArray, outputOffset, outputLength);
@@ -149,11 +159,14 @@ namespace YAF.Lucene.Net.Util
                     codingCase = CODING_CASES[caseNum];
                     if (2 == codingCase.numBytes)
                     {
-                        outputArray[outputCharNum] = (char)(((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift) + (((int)((uint)(inputArray[inputByteNum + 1] & 0xFF) >> codingCase.finalShift)) & codingCase.finalMask) & (short)0x7FFF);
+                        outputArray[outputCharNum] = (char)(((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift)
+                            + (((inputArray[inputByteNum + 1] & 0xFF).TripleShift(codingCase.finalShift)) & codingCase.finalMask) & /*(short)*/0x7FFF); // LUCENENET: Removed unnecessary cast
                     } // numBytes is 3
                     else
                     {
-                        outputArray[outputCharNum] = (char)(((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift) + ((inputArray[inputByteNum + 1] & 0xFF) << codingCase.middleShift) + (((int)((uint)(inputArray[inputByteNum + 2] & 0xFF) >> codingCase.finalShift)) & codingCase.finalMask) & (short)0x7FFF);
+                        outputArray[outputCharNum] = (char)(((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift)
+                            + ((inputArray[inputByteNum + 1] & 0xFF) << codingCase.middleShift)
+                            + (((inputArray[inputByteNum + 2] & 0xFF).TripleShift(codingCase.finalShift)) & codingCase.finalMask) & /*(short)*/0x7FFF); // LUCENENET: Removed unnecessary cast
                     }
                     inputByteNum += codingCase.advanceBytes;
                     if (++caseNum == CODING_CASES.Length)
@@ -166,13 +179,14 @@ namespace YAF.Lucene.Net.Util
 
                 if (inputByteNum + 1 < inputLength) // codingCase.numBytes must be 3
                 {
-                    outputArray[outputCharNum++] = (char)((((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift) + ((inputArray[inputByteNum + 1] & 0xFF) << codingCase.middleShift)) & (short)0x7FFF);
+                    outputArray[outputCharNum++] = (char)((((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift) + ((inputArray[inputByteNum + 1] & 0xFF) <<
+                        codingCase.middleShift)) & /*(short)*/0x7FFF); // LUCENENET: Removed unnecessary cast
                     // Add trailing char containing the number of full bytes in final char
                     outputArray[outputCharNum++] = (char)1;
                 }
                 else if (inputByteNum < inputLength)
                 {
-                    outputArray[outputCharNum++] = (char)(((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift) & (short)0x7FFF);
+                    outputArray[outputCharNum++] = (char)(((inputArray[inputByteNum] & 0xFF) << codingCase.initialShift) & /*(short)*/0x7FFF); // LUCENENET: Removed unnecessary cast
                     // Add trailing char containing the number of full bytes in final char
                     outputArray[outputCharNum++] = caseNum == 0 ? (char)1 : (char)0;
                 } // No left over bits - last char is completely filled.
@@ -197,6 +211,7 @@ namespace YAF.Lucene.Net.Util
         /// <param name="outputLength"> Length of output, must be
         ///        GetDecodedLength(inputArray, inputOffset, inputLength) </param>
         // LUCENENET specific overload for CLS compliance
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void Decode(char[] inputArray, int inputOffset, int inputLength, byte[] outputArray, int outputOffset, int outputLength)
         {
             Decode(inputArray, inputOffset, inputLength, (sbyte[])(Array)outputArray, outputOffset, outputLength);
@@ -236,18 +251,18 @@ namespace YAF.Lucene.Net.Util
                     {
                         if (0 == caseNum)
                         {
-                            outputArray[outputByteNum] = (sbyte)((short)((ushort)inputChar >> codingCase.initialShift));
+                            outputArray[outputByteNum] = (sbyte)(inputChar.TripleShift(codingCase.initialShift));
                         }
                         else
                         {
-                            outputArray[outputByteNum] += (sbyte)((short)((ushort)inputChar >> codingCase.initialShift));
+                            outputArray[outputByteNum] += (sbyte)(inputChar.TripleShift(codingCase.initialShift));
                         }
                         outputArray[outputByteNum + 1] = (sbyte)((inputChar & codingCase.finalMask) << codingCase.finalShift);
                     } // numBytes is 3
                     else
                     {
-                        outputArray[outputByteNum] += (sbyte)((short)((ushort)inputChar >> codingCase.initialShift));
-                        outputArray[outputByteNum + 1] = (sbyte)((int)((uint)(inputChar & codingCase.middleMask) >> codingCase.middleShift));
+                        outputArray[outputByteNum] += (sbyte)(inputChar.TripleShift(codingCase.initialShift));
+                        outputArray[outputByteNum + 1] = (sbyte)((inputChar & codingCase.middleMask).TripleShift(codingCase.middleShift));
                         outputArray[outputByteNum + 2] = (sbyte)((inputChar & codingCase.finalMask) << codingCase.finalShift);
                     }
                     outputByteNum += codingCase.advanceBytes;
@@ -263,17 +278,17 @@ namespace YAF.Lucene.Net.Util
                 {
                     outputArray[outputByteNum] = 0;
                 }
-                outputArray[outputByteNum] += (sbyte)((short)((ushort)inputChar >> codingCase.initialShift));
+                outputArray[outputByteNum] += (sbyte)(inputChar.TripleShift(codingCase.initialShift));
                 int bytesLeft = numOutputBytes - outputByteNum;
                 if (bytesLeft > 1)
                 {
                     if (2 == codingCase.numBytes)
                     {
-                        outputArray[outputByteNum + 1] = (sbyte)((int)((uint)(inputChar & codingCase.finalMask) >> codingCase.finalShift));
+                        outputArray[outputByteNum + 1] = (sbyte)((inputChar & codingCase.finalMask).TripleShift(codingCase.finalShift));
                     } // numBytes is 3
                     else
                     {
-                        outputArray[outputByteNum + 1] = (sbyte)((int)((uint)(inputChar & codingCase.middleMask) >> codingCase.middleShift));
+                        outputArray[outputByteNum + 1] = (sbyte)((inputChar & codingCase.middleMask).TripleShift(codingCase.middleShift));
                         if (bytesLeft > 2)
                         {
                             outputArray[outputByteNum + 2] = (sbyte)((inputChar & codingCase.finalMask) << codingCase.finalShift);
@@ -294,8 +309,8 @@ namespace YAF.Lucene.Net.Util
                 this.initialShift = initialShift;
                 this.middleShift = middleShift;
                 this.finalShift = finalShift;
-                this.finalMask = (short)((int)((uint)(short)0xFF >> finalShift));
-                this.middleMask = (short)((short)0xFF << middleShift);
+                this.finalMask = /*(short)*/((short)0xFF.TripleShift(finalShift)); // LUCENENET: Removed unnecessary cast
+                this.middleMask = (short)(/*(short)*/0xFF << middleShift); // LUCENENET: Removed unnecessary cast
             }
 
             internal CodingCase(int initialShift, int finalShift)
@@ -303,7 +318,7 @@ namespace YAF.Lucene.Net.Util
                 this.numBytes = 2;
                 this.initialShift = initialShift;
                 this.finalShift = finalShift;
-                this.finalMask = (short)((int)((uint)(short)0xFF >> finalShift));
+                this.finalMask = /*(short)*/((short)0xFF.TripleShift(finalShift)); // LUCENENET: Removed unnecessary cast
                 if (finalShift != 0)
                 {
                     advanceBytes = 1;

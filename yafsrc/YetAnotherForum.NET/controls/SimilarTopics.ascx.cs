@@ -29,10 +29,10 @@ namespace YAF.Controls
     using System;
     using System.Linq;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -50,7 +50,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<BoardSettings>().ShowSimilarTopics)
+            if (!this.PageContext.BoardSettings.ShowSimilarTopics)
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;
@@ -69,7 +69,7 @@ namespace YAF.Controls
                 var topicsList = this.Get<ISearch>().SearchSimilar(
                     this.PageContext.PageUserID,
                     this.PageContext.PageTopicID.ToString(),
-                    this.PageContext.PageTopicName,
+                    this.PageContext.PageTopic.TopicName,
                     "Topic").Take(5).ToList();
 
                 if (!topicsList.Any())

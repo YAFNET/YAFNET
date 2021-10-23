@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Collections.Generic;
@@ -29,8 +29,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants = YAF.Lucene.Net.Util.Constants;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Constants  = YAF.Lucene.Net.Util.Constants;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Base class for <see cref="Directory"/> implementations that store index
@@ -210,10 +210,9 @@ namespace YAF.Lucene.Net.Store
 
             // for filesystem based LockFactory, delete the lockPrefix, if the locks are placed
             // in index dir. If no index dir is given, set ourselves
-            if (lockFactory is FSLockFactory)
+            if (lockFactory is FSLockFactory lf)
             {
-                FSLockFactory lf = (FSLockFactory)lockFactory;
-                DirectoryInfo dir = lf.LockDir;
+                var dir = lf.LockDir;
                 // if the lock factory has no lockDir set, use the this directory as lockDir
                 if (dir == null)
                 {
@@ -409,9 +408,9 @@ namespace YAF.Lucene.Net.Store
             {
                 dirName = m_directory.GetCanonicalPath();
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
-                throw new Exception(e.ToString(), e);
+                throw RuntimeException.Create(e);
             }
 
             int digest = 0;
@@ -459,7 +458,7 @@ namespace YAF.Lucene.Net.Store
             set
             {
                 if (value <= 0)
-                    throw new ArgumentException("chunkSize must be positive");
+                    throw new ArgumentOutOfRangeException(nameof(ReadChunkSize), "chunkSize must be positive"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
 
                 this.chunkSize = value;
             }
@@ -477,7 +476,9 @@ namespace YAF.Lucene.Net.Store
 
             private readonly FSDirectory parent;
             internal readonly string name;
+#pragma warning disable CA2213 // Disposable fields should be disposed
             private readonly FileStream file;
+#pragma warning restore CA2213 // Disposable fields should be disposed
             private volatile bool isOpen; // remember if the file is open, so that we don't try to close it more than once
             private readonly CRC32 crc = new CRC32();
 
@@ -498,8 +499,9 @@ namespace YAF.Lucene.Net.Store
             /// <inheritdoc/>
             public override void WriteByte(byte b)
             {
+                // LUCENENET specific: Guard to ensure we aren't disposed.
                 if (!isOpen)
-                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+                    throw AlreadyClosedException.Create(this.GetType().FullName, "This FSIndexOutput is disposed.");
 
                 crc.Update(b);
                 file.WriteByte(b);
@@ -508,8 +510,9 @@ namespace YAF.Lucene.Net.Store
             /// <inheritdoc/>
             public override void WriteBytes(byte[] b, int offset, int length)
             {
+                // LUCENENET specific: Guard to ensure we aren't disposed.
                 if (!isOpen)
-                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+                    throw AlreadyClosedException.Create(this.GetType().FullName, "This FSIndexOutput is disposed.");
 
                 crc.Update(b, offset, length);
                 file.Write(b, offset, length);
@@ -518,8 +521,9 @@ namespace YAF.Lucene.Net.Store
             /// <inheritdoc/>
             protected internal override void FlushBuffer(byte[] b, int offset, int size)
             {
+                // LUCENENET specific: Guard to ensure we aren't disposed.
                 if (!isOpen)
-                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+                    throw AlreadyClosedException.Create(this.GetType().FullName, "This FSIndexOutput is disposed.");
 
                 crc.Update(b, offset, size);
                 file.Write(b, offset, size);
@@ -529,8 +533,9 @@ namespace YAF.Lucene.Net.Store
             [MethodImpl(MethodImplOptions.NoInlining)]
             public override void Flush()
             {
+                // LUCENENET specific: Guard to ensure we aren't disposed.
                 if (!isOpen)
-                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+                    throw AlreadyClosedException.Create(this.GetType().FullName, "This FSIndexOutput is disposed.");
 
                 file.Flush();
             }
@@ -544,12 +549,12 @@ namespace YAF.Lucene.Net.Store
                     // only close the file if it has not been closed yet
                     if (isOpen)
                     {
-                        IOException priorE = null;
+                        Exception priorE = null; // LUCENENET: No need to cast to IOExcpetion
                         try
                         {
                             file.Flush(flushToDisk: true);
                         }
-                        catch (IOException ioe)
+                        catch (Exception ioe) when (ioe.IsIOException())
                         {
                             priorE = ioe;
                         }
@@ -567,8 +572,9 @@ namespace YAF.Lucene.Net.Store
             [Obsolete("(4.1) this method will be removed in Lucene 5.0")]
             public override void Seek(long pos)
             {
+                // LUCENENET specific: Guard to ensure we aren't disposed.
                 if (!isOpen)
-                    throw new ObjectDisposedException(nameof(FSIndexOutput));
+                    throw AlreadyClosedException.Create(this.GetType().FullName, "This FSIndexOutput is disposed.");
 
                 file.Seek(pos, SeekOrigin.Begin);
             }
@@ -582,10 +588,7 @@ namespace YAF.Lucene.Net.Store
             public override long Checksum => crc.Value; // LUCENENET specific - need to override, since we are buffering locally
 
             /// <inheritdoc/>
-            public override long GetFilePointer() // LUCENENET specific - need to override, since we are buffering locally
-            {
-                return file.Position;
-            }
+            public override long Position => file.Position; // LUCENENET specific - need to override, since we are buffering locally, renamed from getFilePointer() to match FileStream
         }
 
         // LUCENENET specific: Fsync is pointless in .NET, since we are 

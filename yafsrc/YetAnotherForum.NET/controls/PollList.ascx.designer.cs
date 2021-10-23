@@ -24,13 +24,94 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.PlaceHolder PollListHolder;
 
         /// <summary>
-        /// PollGroup control.
+        /// QuestionLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater PollGroup;
+        protected global::System.Web.UI.WebControls.Label QuestionLabel;
+
+        /// <summary>
+        /// PollClosed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PollClosed;
+
+        /// <summary>
+        /// Alert control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert Alert;
+
+        /// <summary>
+        /// PollNotification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PollNotification;
+
+        /// <summary>
+        /// QuestionImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image QuestionImage;
+
+        /// <summary>
+        /// PollChoiceList1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Controls.PollChoiceList PollChoiceList1;
+
+        /// <summary>
+        /// TotalVotes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label TotalVotes;
+
+        /// <summary>
+        /// PollCommandRow control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PollCommandRow;
+
+        /// <summary>
+        /// EditPoll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton EditPoll;
+
+        /// <summary>
+        /// RemovePoll control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton RemovePoll;
 
         /// <summary>
         /// NewPollRow control.
@@ -42,12 +123,12 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.PlaceHolder NewPollRow;
 
         /// <summary>
-        /// CreatePoll1 control.
+        /// CreatePoll control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton CreatePoll1;
+        protected global::YAF.Web.Controls.ThemeButton CreatePoll;
     }
 }

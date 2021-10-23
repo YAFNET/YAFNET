@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml
     /// <summary>
     /// Helper methods for parsing XML
     /// </summary>
-    public class DOMUtils
+    public static class DOMUtils // LUCENENET specific: CA1052 Static holder types should be Static or NotInheritable
     {
         public static XmlElement GetChildByTagOrFail(XmlElement e, string name)
         {
@@ -113,9 +113,8 @@ namespace YAF.Lucene.Net.QueryParsers.Xml
                 {
                     return null;
                 }
-                if (n is XmlElement)
+                if (n is XmlElement parent)
                 {
-                    XmlElement parent = (XmlElement)n;
                     return GetAttributeWithInheritance(parent, attributeName);
                 }
                 return null; //we reached the top level of the document without finding attribute
@@ -227,9 +226,9 @@ namespace YAF.Lucene.Net.QueryParsers.Xml
             {
                 result.Load(input);
             }
-            catch (Exception se)
+            catch (Exception se) // LUCENENET: No need to call the IsException() extension method here because we are dealing only with a .NET platform method
             {
-                throw new Exception("Error parsing file:" + se, se);
+                throw RuntimeException.Create("Error parsing file:" + se, se);
             }
             return result;
         }
@@ -247,9 +246,9 @@ namespace YAF.Lucene.Net.QueryParsers.Xml
             {
                 result.Load(input);
             }
-            catch (Exception se)
+            catch (Exception se) // LUCENENET: No need to call the IsException() extension method here because we are dealing only with a .NET platform method
             {
-                throw new Exception("Error parsing file:" + se, se);
+                throw RuntimeException.Create("Error parsing file:" + se, se);
             }
             return result;
         }
@@ -267,9 +266,9 @@ namespace YAF.Lucene.Net.QueryParsers.Xml
             {
                 result.Load(input);
             }
-            catch (Exception se)
+            catch (Exception se) // LUCENENET: No need to call the IsException() extension method here because we are dealing only with a .NET platform method
             {
-                throw new Exception("Error parsing file:" + se, se);
+                throw RuntimeException.Create("Error parsing file:" + se, se);
             }
             return result;
         }

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -32,12 +32,13 @@ namespace YAF.Dialogs
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -73,14 +74,14 @@ namespace YAF.Dialogs
             this.NntpServerID.DataTextField = "Name";
             this.NntpServerID.DataBind();
 
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
             this.ForumID.AddForumAndCategoryIcons(forumList);
 
             this.ForumID.DataValueField = "ForumID";
-            this.ForumID.DataTextField = "Title";
+            this.ForumID.DataTextField = "Forum";
             this.ForumID.DataBind();
 
             this.ForumId = forumId;
@@ -118,22 +119,46 @@ namespace YAF.Dialogs
         }
 
         /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+        }
+
+        /// <summary>
         /// Handles the Click event of the Add control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.GroupName.Text.Trim().IsNotSet())
+            if (!this.Page.IsValid)
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITNNTPFORUM", "MSG_VALID_GROUP"), MessageTypes.warning);
                 return;
             }
 
             if (this.ForumID.SelectedValue.ToType<int>() <= 0)
             {
                 this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"), MessageTypes.warning);
+
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
+
                 return;
             }
 
@@ -150,7 +175,7 @@ namespace YAF.Dialogs
                 this.Active.Checked,
                 dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
 
-            BuildLink.Redirect(ForumPages.admin_nntpforums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpForums);
         }
 
         #endregion

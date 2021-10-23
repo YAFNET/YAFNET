@@ -1,9 +1,10 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util.Fst;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene42
 {
@@ -24,34 +25,34 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BlockPackedReader = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
-    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using DocValues = YAF.Lucene.Net.Index.DocValues;
-    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MonotonicBlockPackedReader = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using PositiveInt32Outputs = YAF.Lucene.Net.Util.Fst.PositiveInt32Outputs;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using Util = YAF.Lucene.Net.Util.Fst.Util;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using BlockPackedReader  = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
+    using ByteArrayDataInput  = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using DocValues  = YAF.Lucene.Net.Index.DocValues;
+    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using Int32sRef  = YAF.Lucene.Net.Util.Int32sRef;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using MonotonicBlockPackedReader  = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
+    using PositiveInt32Outputs  = YAF.Lucene.Net.Util.Fst.PositiveInt32Outputs;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using Util  = YAF.Lucene.Net.Util.Fst.Util;
 
     /// <summary>
     /// Reader for <see cref="Lucene42DocValuesFormat"/>.
@@ -105,7 +106,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 numerics = new Dictionary<int, NumericEntry>();
                 binaries = new Dictionary<int, BinaryEntry>();
                 fsts = new Dictionary<int, FSTEntry>();
-                ReadFields(@in, state.FieldInfos);
+                ReadFields(@in /*, state.FieldInfos // LUCENENET: Never read */);
 
                 if (version >= VERSION_CHECKSUM)
                 {
@@ -154,7 +155,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             }
         }
 
-        private void ReadFields(IndexInput meta, FieldInfos infos)
+        private void ReadFields(IndexInput meta /*, FieldInfos infos // LUCENENET: Never read */)
         {
             int fieldNumber = meta.ReadVInt32();
             while (fieldNumber != -1)
@@ -223,8 +224,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
         {
             lock (this)
             {
-                NumericDocValues instance;
-                if (!numericInstances.TryGetValue(field.Number, out instance) || instance == null)
+                if (!numericInstances.TryGetValue(field.Number, out NumericDocValues instance) || instance == null)
                 {
                     instance = LoadNumeric(field);
                     numericInstances[field.Number] = instance;
@@ -235,6 +235,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
         public override long RamBytesUsed() => ramBytesUsed;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void CheckIntegrity()
         {
             if (version >= VERSION_CHECKSUM)
@@ -264,7 +265,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     int bitsPerValue = data.ReadVInt32();
                     PackedInt32s.Reader ordsReader = PackedInt32s.GetReaderNoHeader(data, PackedInt32s.Format.ById(formatID), entry.PackedInt32sVersion, maxDoc, bitsPerValue);
                     ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(decode) + ordsReader.RamBytesUsed());
-                    return new NumericDocValuesAnonymousInnerClassHelper(decode, ordsReader);
+                    return new NumericDocValuesAnonymousClass(decode, ordsReader);
 
                 case DELTA_COMPRESSED:
                     int blockSize = data.ReadVInt32();
@@ -276,7 +277,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     byte[] bytes = new byte[maxDoc];
                     data.ReadBytes(bytes, 0, bytes.Length);
                     ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(bytes));
-                    return new NumericDocValuesAnonymousInnerClassHelper2(this, bytes);
+                    return new NumericDocValuesAnonymousClass2(bytes);
 
                 case GCD_COMPRESSED:
                     long min = data.ReadInt64();
@@ -284,58 +285,61 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     int quotientBlockSize = data.ReadVInt32();
                     BlockPackedReader quotientReader = new BlockPackedReader(data, entry.PackedInt32sVersion, quotientBlockSize, maxDoc, false);
                     ramBytesUsed.AddAndGet(quotientReader.RamBytesUsed());
-                    return new NumericDocValuesAnonymousInnerClassHelper3(min, mult, quotientReader);
+                    return new NumericDocValuesAnonymousClass3(min, mult, quotientReader);
 
                 default:
-                    throw new InvalidOperationException();
+                    throw AssertionError.Create();
             }
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper : NumericDocValues
+        private class NumericDocValuesAnonymousClass : NumericDocValues
         {
             private readonly long[] decode;
             private readonly PackedInt32s.Reader ordsReader;
 
-            public NumericDocValuesAnonymousInnerClassHelper(long[] decode, PackedInt32s.Reader ordsReader)
+            public NumericDocValuesAnonymousClass(long[] decode, PackedInt32s.Reader ordsReader)
             {
                 this.decode = decode;
                 this.ordsReader = ordsReader;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return decode[(int)ordsReader.Get(docID)];
             }
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper2 : NumericDocValues
+        private class NumericDocValuesAnonymousClass2 : NumericDocValues
         {
             private readonly byte[] bytes;
 
-            public NumericDocValuesAnonymousInnerClassHelper2(Lucene42DocValuesProducer outerInstance, byte[] bytes)
+            public NumericDocValuesAnonymousClass2(byte[] bytes)
             {
                 this.bytes = bytes;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return (sbyte)bytes[docID];
             }
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper3 : NumericDocValues
+        private class NumericDocValuesAnonymousClass3 : NumericDocValues
         {
             private readonly long min;
             private readonly long mult;
             private readonly BlockPackedReader quotientReader;
 
-            public NumericDocValuesAnonymousInnerClassHelper3(long min, long mult, BlockPackedReader quotientReader)
+            public NumericDocValuesAnonymousClass3(long min, long mult, BlockPackedReader quotientReader)
             {
                 this.min = min;
                 this.mult = mult;
                 this.quotientReader = quotientReader;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return min + mult * quotientReader.Get(docID);
@@ -346,8 +350,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
         {
             lock (this)
             {
-                BinaryDocValues instance;
-                if (!binaryInstances.TryGetValue(field.Number, out instance) || instance == null)
+                if (!binaryInstances.TryGetValue(field.Number, out BinaryDocValues instance) || instance == null)
                 {
                     instance = LoadBinary(field);
                     binaryInstances[field.Number] = instance;
@@ -367,44 +370,46 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             {
                 int fixedLength = entry.MinLength;
                 ramBytesUsed.AddAndGet(bytes.RamBytesUsed());
-                return new BinaryDocValuesAnonymousInnerClassHelper(bytesReader, fixedLength);
+                return new BinaryDocValuesAnonymousClass(bytesReader, fixedLength);
             }
             else
             {
                 MonotonicBlockPackedReader addresses = new MonotonicBlockPackedReader(data, entry.PackedInt32sVersion, entry.BlockSize, maxDoc, false);
                 ramBytesUsed.AddAndGet(bytes.RamBytesUsed() + addresses.RamBytesUsed());
-                return new BinaryDocValuesAnonymousInnerClassHelper2(bytesReader, addresses);
+                return new BinaryDocValuesAnonymousClass2(bytesReader, addresses);
             }
         }
 
-        private class BinaryDocValuesAnonymousInnerClassHelper : BinaryDocValues
+        private class BinaryDocValuesAnonymousClass : BinaryDocValues
         {
             private readonly PagedBytes.Reader bytesReader;
             private readonly int fixedLength;
 
-            public BinaryDocValuesAnonymousInnerClassHelper(PagedBytes.Reader bytesReader, int fixedLength)
+            public BinaryDocValuesAnonymousClass(PagedBytes.Reader bytesReader, int fixedLength)
             {
                 this.bytesReader = bytesReader;
                 this.fixedLength = fixedLength;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Get(int docID, BytesRef result)
             {
                 bytesReader.FillSlice(result, fixedLength * (long)docID, fixedLength);
             }
         }
 
-        private class BinaryDocValuesAnonymousInnerClassHelper2 : BinaryDocValues
+        private class BinaryDocValuesAnonymousClass2 : BinaryDocValues
         {
             private readonly PagedBytes.Reader bytesReader;
             private readonly MonotonicBlockPackedReader addresses;
 
-            public BinaryDocValuesAnonymousInnerClassHelper2(PagedBytes.Reader bytesReader, MonotonicBlockPackedReader addresses)
+            public BinaryDocValuesAnonymousClass2(PagedBytes.Reader bytesReader, MonotonicBlockPackedReader addresses)
             {
                 this.bytesReader = bytesReader;
                 this.addresses = addresses;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Get(int docID, BytesRef result)
             {
                 long startAddress = docID == 0 ? 0 : addresses.Get(docID - 1);
@@ -437,10 +442,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             var scratchInts = new Int32sRef();
             var fstEnum = new BytesRefFSTEnum<long?>(fst);
 
-            return new SortedDocValuesAnonymousInnerClassHelper(entry, docToOrd, fst, @in, firstArc, scratchArc, scratchInts, fstEnum);
+            return new SortedDocValuesAnonymousClass(entry, docToOrd, fst, @in, firstArc, scratchArc, scratchInts, fstEnum);
         }
 
-        private class SortedDocValuesAnonymousInnerClassHelper : SortedDocValues
+        private class SortedDocValuesAnonymousClass : SortedDocValues
         {
             private readonly FSTEntry entry;
             private readonly NumericDocValues docToOrd;
@@ -451,7 +456,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             private readonly Int32sRef scratchInts;
             private readonly BytesRefFSTEnum<long?> fstEnum;
 
-            public SortedDocValuesAnonymousInnerClassHelper(FSTEntry entry, NumericDocValues docToOrd, FST<long?> fst, FST.BytesReader @in, FST.Arc<long?> firstArc, FST.Arc<long?> scratchArc, Int32sRef scratchInts, BytesRefFSTEnum<long?> fstEnum)
+            public SortedDocValuesAnonymousClass(FSTEntry entry, NumericDocValues docToOrd, FST<long?> fst, FST.BytesReader @in, FST.Arc<long?> firstArc, FST.Arc<long?> scratchArc, Int32sRef scratchInts, BytesRefFSTEnum<long?> fstEnum)
             {
                 this.entry = entry;
                 this.docToOrd = docToOrd;
@@ -463,6 +468,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 this.fstEnum = fstEnum;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int GetOrd(int docID)
             {
                 return (int)docToOrd.Get(docID);
@@ -474,15 +480,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 {
                     @in.Position = 0;
                     fst.GetFirstArc(firstArc);
-                    Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
+                    Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
                     result.Bytes = new byte[output.Length];
                     result.Offset = 0;
                     result.Length = 0;
                     Util.ToBytesRef(output, result);
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
@@ -504,14 +510,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                         return (int)-o.Output.GetValueOrDefault() - 1;
                     }
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
             public override int ValueCount => (int)entry.NumOrds;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override TermsEnum GetTermsEnum()
             {
                 return new FSTTermsEnum(fst);
@@ -547,10 +554,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             var fstEnum = new BytesRefFSTEnum<long?>(fst);
             var @ref = new BytesRef();
             var input = new ByteArrayDataInput();
-            return new SortedSetDocValuesAnonymousInnerClassHelper(entry, docToOrds, fst, @in, firstArc, scratchArc, scratchInts, fstEnum, @ref, input);
+            return new SortedSetDocValuesAnonymousClass(entry, docToOrds, fst, @in, firstArc, scratchArc, scratchInts, fstEnum, @ref, input);
         }
 
-        private class SortedSetDocValuesAnonymousInnerClassHelper : SortedSetDocValues
+        private class SortedSetDocValuesAnonymousClass : SortedSetDocValues
         {
             private readonly FSTEntry entry;
             private readonly BinaryDocValues docToOrds;
@@ -563,7 +570,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             private readonly BytesRef @ref;
             private readonly ByteArrayDataInput input;
 
-            public SortedSetDocValuesAnonymousInnerClassHelper(FSTEntry entry, BinaryDocValues docToOrds, FST<long?> fst, FST.BytesReader @in, FST.Arc<long?> firstArc, FST.Arc<long?> scratchArc, Int32sRef scratchInts, BytesRefFSTEnum<long?> fstEnum, BytesRef @ref, ByteArrayDataInput input)
+            public SortedSetDocValuesAnonymousClass(FSTEntry entry, BinaryDocValues docToOrds, FST<long?> fst, FST.BytesReader @in, FST.Arc<long?> firstArc, FST.Arc<long?> scratchArc, Int32sRef scratchInts, BytesRefFSTEnum<long?> fstEnum, BytesRef @ref, ByteArrayDataInput input)
             {
                 this.entry = entry;
                 this.docToOrds = docToOrds;
@@ -579,6 +586,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
             private long currentOrd;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long NextOrd()
             {
                 if (input.Eof)
@@ -592,6 +600,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void SetDocument(int docID)
             {
                 docToOrds.Get(docID, @ref);
@@ -605,15 +614,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 {
                     @in.Position = 0;
                     fst.GetFirstArc(firstArc);
-                    Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
+                    Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
                     result.Bytes = new byte[output.Length];
                     result.Offset = 0;
                     result.Length = 0;
                     Lucene.Net.Util.Fst.Util.ToBytesRef(output, result);
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
@@ -635,20 +644,22 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                         return -o.Output.GetValueOrDefault() - 1;
                     }
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.ToString(), bogus);
+                    throw RuntimeException.Create(bogus);
                 }
             }
 
             public override long ValueCount => entry.NumOrds;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override TermsEnum GetTermsEnum()
             {
                 return new FSTTermsEnum(fst);
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override IBits GetDocsWithField(FieldInfo field)
         {
             if (field.DocValuesType == DocValuesType.SORTED_SET)
@@ -661,6 +672,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -752,6 +764,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override bool SeekExact(BytesRef text)
             {
                 if (@in.SeekExact(text) == null)
@@ -770,7 +783,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 // but we dont want to introduce a bug that corrupts our enum state!
                 bytesReader.Position = 0;
                 fst.GetFirstArc(firstArc);
-                Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, bytesReader, firstArc, scratchArc, scratchInts);
+                Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, bytesReader, firstArc, scratchArc, scratchInts);
                 scratchBytes.Bytes = new byte[output.Length];
                 scratchBytes.Offset = 0;
                 scratchBytes.Length = 0;
@@ -783,18 +796,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
             public override long Ord => @in.Current.Output.GetValueOrDefault();
 
-            public override int DocFreq => throw new NotSupportedException();
+            public override int DocFreq => throw UnsupportedOperationException.Create();
 
-            public override long TotalTermFreq => throw new NotSupportedException();
+            public override long TotalTermFreq => throw UnsupportedOperationException.Create();
 
             public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
         }
     }

@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     internal sealed class ExactPhraseScorer : Scorer
     {

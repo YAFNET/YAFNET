@@ -45,20 +45,20 @@ namespace YAF.Core.Model
         /// <param name="boardId">The board identifier.</param>
         public static void Save(
             this IRepository<Replace_Words> repository,
-            int? replaceWordId,
-            string badWord,
-            string goodWord,
-            int? boardId = null)
+            [CanBeNull] int? replaceWordId,
+            [NotNull] string badWord,
+            [NotNull] string goodWord,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new Replace_Words
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = replaceWordId ?? 0,
-                        BadWord = badWord,
-                        GoodWord = goodWord
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = replaceWordId ?? 0,
+                    BadWord = badWord,
+                    GoodWord = goodWord
                 });
         }
 

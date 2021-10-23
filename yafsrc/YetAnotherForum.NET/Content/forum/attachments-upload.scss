@@ -1,16 +1,6 @@
 ﻿/* Attachments List Drop Down */
 
-.AttachmentListMenu {
-  width: 300px;
-  padding:0;
-  li {
-   list-style: none;
-    span {
-      padding: 0 0 0 10px;
-      vertical-align: super;
-    }
-  }
-}
+
 #AttachmentsListPager {
     padding: 0 5px 0 5px;
 }
@@ -19,7 +9,7 @@
     margin: -5px 0px 26px 0px;
 
     span {
-        width: 210px;
+        width: 200px;
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
@@ -30,46 +20,14 @@
 
     .attachment-icon {
         vertical-align: top;
-        padding-left: 5px;
+        padding-right: 5px;
     }
-}
 
-.AttachmentList li img,
-.PostAttachmentList li img {
-    width: 24px;
-    height: 24px;
-    vertical-align: top;
-    padding-left: 5px;
-}
-
-
-
-.PostAttachmentList {
-    padding: 0;
-    list-style: none;
-
-
-    .attachment-icon {
+    img {
+        width: 24px;
+        height: 24px;
         vertical-align: top;
-        padding-left: 5px;
-    }
-
-    li {
-        border-bottom: 1px dotted black;
-        padding: 5px 0 5px 0;
-
-        span {
-            text-decoration: underline;
-            padding: 0 0 0 5px;
-            vertical-align: super;
-            width: 400px;
-            display: inline-block;
-            white-space: nowrap;
-            overflow: hidden;
-            -ms-text-overflow: ellipsis;
-            -o-text-overflow: ellipsis;
-            text-overflow: ellipsis;
-        }
+        padding-right: 5px;
     }
 }
 
@@ -88,6 +46,9 @@
 }
 
 /* Attachments Upload Dialog */
+div#UploadDialog {
+    z-index: 50000!important;
+}
 
 #UploadFilesBox {
   min-width: 480px;
@@ -111,9 +72,6 @@
   }
   .name {
     width: 288px;
-    -ms-word-break: break-all;
-    -moz-word-break: break-all;
-    -o-word-break: break-all;
     word-break: break-all;
     font-weight: bold;
   }

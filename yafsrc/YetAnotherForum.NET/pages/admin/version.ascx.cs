@@ -28,11 +28,12 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BasePages;
+    using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
 
     #endregion
@@ -40,7 +41,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     ///    The version info page.
     /// </summary>
-    public partial class version : AdminPage
+    public partial class Version : AdminPage
     {
         #region Methods
 
@@ -56,14 +57,14 @@ namespace YAF.Pages.Admin
                 try
                 {
                     var version = this.Get<IDataCache>().GetOrSet(
-                        "LatestVersion",
-                        () => this.Get<ILatestInformation>().GetLatestVersion(),
-                        TimeSpan.FromDays(1));
+                          "LatestVersion",
+                          () => this.Get<ILatestInformation>().GetLatestVersion(),
+                          TimeSpan.FromDays(1));
 
                     string lastVersion = version.Version;
                     var lastVersionDate = (DateTime)version.VersionDate;
 
-                    this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTime>().FormatDateShort(lastVersionDate));
+                    this.LatestVersion.Text = this.GetTextFormatted("LATEST_VERSION", lastVersion, this.Get<IDateTimeService>().FormatDateShort(lastVersionDate));
 
                     this.UpgradeVersionHolder.Visible = lastVersionDate.ToUniversalTime() > BoardInfo.AppVersionDate.ToUniversalTime();
 
@@ -78,7 +79,7 @@ namespace YAF.Pages.Admin
                 this.RunningVersion.Text = this.GetTextFormatted(
                     "RUNNING_VERSION",
                     BoardInfo.AppVersionName,
-                    this.Get<IDateTime>().FormatDateShort(BoardInfo.AppVersionDate));
+                    this.Get<IDateTimeService>().FormatDateShort(BoardInfo.AppVersionDate));
             }
 
             this.DataBind();
@@ -89,13 +90,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_VERSION", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = this.GetText("ADMIN_VERSION", "TITLE");
         }
 
         #endregion

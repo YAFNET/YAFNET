@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -19,8 +20,8 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// A DocIdSet in Elias-Fano encoding.
@@ -46,6 +47,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <param name="numValues"> The number of document identifiers that is to be encoded. Should be non negative. </param>
         /// <param name="upperBound"> The maximum possible value for a document identifier. Should be at least <paramref name="numValues"/>. </param>
         /// <returns> See <see cref="EliasFanoEncoder.SufficientlySmallerThanBitSet(long, long)"/> </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool SufficientlySmallerThanBitSet(long numValues, long upperBound)
         {
             return EliasFanoEncoder.SufficientlySmallerThanBitSet(numValues, upperBound);
@@ -75,14 +77,14 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (efEncoder.lastEncoded >= DocIdSetIterator.NO_MORE_DOCS)
             {
-                throw new NotSupportedException("Highest encoded value too high for DocIdSetIterator.NO_MORE_DOCS: " + efEncoder.lastEncoded);
+                throw UnsupportedOperationException.Create("Highest encoded value too high for DocIdSetIterator.NO_MORE_DOCS: " + efEncoder.lastEncoded);
             }
-            return new DocIdSetIteratorAnonymousInnerClassHelper(this);
+            return new DocIdSetIteratorAnonymousClass(this);
         }
 
-        private class DocIdSetIteratorAnonymousInnerClassHelper : DocIdSetIterator
+        private class DocIdSetIteratorAnonymousClass : DocIdSetIterator
         {
-            public DocIdSetIteratorAnonymousInnerClassHelper(EliasFanoDocIdSet outerInstance)
+            public DocIdSetIteratorAnonymousClass(EliasFanoDocIdSet outerInstance)
             {
                 curDocId = -1;
                 efDecoder = outerInstance.efEncoder.GetDecoder();
@@ -93,22 +95,26 @@ namespace YAF.Lucene.Net.Util.Packed
 
             public override int DocID => curDocId;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private int SetCurDocID(long value)
             {
                 curDocId = (value == EliasFanoDecoder.NO_MORE_VALUES) ? NO_MORE_DOCS : (int)value;
                 return curDocId;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int NextDoc()
             {
                 return SetCurDocID(efDecoder.NextValue());
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int Advance(int target)
             {
                 return SetCurDocID(efDecoder.AdvanceToValue(target));
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return efDecoder.NumEncoded;
@@ -120,11 +126,13 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <returns> <c>true</c> </returns>
         public override bool IsCacheable => true;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool Equals(object other)
         {
             return (other is EliasFanoDocIdSet otherEncoder) && efEncoder.Equals(otherEncoder.efEncoder);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override int GetHashCode()
         {
             return efEncoder.GetHashCode() ^ this.GetType().GetHashCode();

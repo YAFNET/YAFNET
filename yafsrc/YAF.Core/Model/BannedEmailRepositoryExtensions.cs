@@ -27,7 +27,6 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -56,45 +55,47 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        public static void Save(
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Save(
             this IRepository<BannedEmail> repository,
-            int? id,
-            string mask,
-            string reason,
-            int? boardId = null)
+            [CanBeNull] int? id,
+            [NotNull] string mask,
+            [NotNull] string reason,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (id.HasValue)
             {
                 repository.Upsert(
                     new BannedEmail
-                        {
-                            BoardID = boardId ?? repository.BoardID,
-                            ID = id.Value,
-                            Mask = mask,
-                            Reason = reason,
-                            Since = DateTime.Now
-                        });
-
-                repository.FireUpdated(id.Value);
+                    {
+                        BoardID = boardId ?? repository.BoardID,
+                        ID = id.Value,
+                        Mask = mask,
+                        Reason = reason,
+                        Since = DateTime.Now
+                    });
+                return true;
             }
-            else
+
+            if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
             {
-                var banned = repository.GetSingle(b => b.BoardID == repository.BoardID && b.Mask == mask);
-
-                if (banned == null)
-                {
-                    repository.Upsert(
-                        new BannedEmail
-                            {
-                                BoardID = boardId ?? repository.BoardID,
-                                Mask = mask,
-                                Reason = reason,
-                                Since = DateTime.Now
-                            });
-                }
+                return false;
             }
+
+            repository.Insert(
+                new BannedEmail
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    Mask = mask,
+                    Reason = reason,
+                    Since = DateTime.Now
+                });
+
+            return true;
         }
 
         #endregion

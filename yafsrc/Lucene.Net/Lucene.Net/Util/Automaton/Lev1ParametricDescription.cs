@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Util.Automaton
     // this package is available under the MIT License, see NOTICE.txt
     // for more details.
 
-    using ParametricDescription = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata.ParametricDescription;
+    using ParametricDescription  = YAF.Lucene.Net.Util.Automaton.LevenshteinAutomata.ParametricDescription;
 
     /// <summary>
     /// Parametric description for generating a Levenshtein automaton of degree 1 </summary>

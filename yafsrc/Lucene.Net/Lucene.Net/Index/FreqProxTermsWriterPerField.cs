@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using J2N.Text;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
@@ -25,13 +26,13 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PostingsConsumer = YAF.Lucene.Net.Codecs.PostingsConsumer;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using TermsConsumer = YAF.Lucene.Net.Codecs.TermsConsumer;
-    using TermStats = YAF.Lucene.Net.Codecs.TermStats;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldsConsumer  = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using PostingsConsumer  = YAF.Lucene.Net.Codecs.PostingsConsumer;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using TermsConsumer  = YAF.Lucene.Net.Codecs.TermsConsumer;
+    using TermStats  = YAF.Lucene.Net.Codecs.TermStats;
 
     // TODO: break into separate freq and prox writers as
     // codecs; make separate container (tii/tis/skip/*) that can
@@ -487,9 +488,7 @@ namespace YAF.Lucene.Net.Index
                 if (segDeletes != null)
                 {
                     protoTerm.Bytes = text;
-                    int? docIDUpto;
-                    segDeletes.TryGetValue(protoTerm, out docIDUpto);
-                    if (docIDUpto != null)
+                    if (segDeletes.TryGetValue(protoTerm, out int? docIDUpto) && docIDUpto != null)
                     {
                         delDocLimit = docIDUpto;
                     }
@@ -546,7 +545,7 @@ namespace YAF.Lucene.Net.Index
                         }
                         else
                         {
-                            docID += (int)((uint)code >> 1);
+                            docID += code.TripleShift(1);
                             if ((code & 1) != 0)
                             {
                                 termFreq = 1;
@@ -612,7 +611,7 @@ namespace YAF.Lucene.Net.Index
                             if (readPositions)
                             {
                                 int code = prox.ReadVInt32();
-                                position += (int)((uint)code >> 1);
+                                position += code.TripleShift(1);
 
                                 if ((code & 1) != 0)
                                 {
@@ -670,7 +669,7 @@ namespace YAF.Lucene.Net.Index
                 sumDocFreq += docFreq;
             }
 
-            termsConsumer.Finish(writeTermFreq ? sumTotalTermFreq : -1, sumDocFreq, visitedDocs.Cardinality());
+            termsConsumer.Finish(writeTermFreq ? sumTotalTermFreq : -1, sumDocFreq, visitedDocs.Cardinality);
         }
     }
 }

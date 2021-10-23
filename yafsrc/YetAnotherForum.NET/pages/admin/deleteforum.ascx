@@ -1,55 +1,46 @@
-﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.deleteforum"
-    CodeBehind="deleteforum.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.DeleteForum"
+    CodeBehind="DeleteForum.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
-    <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                LocalizedTag="TITLE" 
-                                LocalizedPage="ADMIN_DELETEFORUM" /></h1>
-    </div>
-    </div>
-    <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-comments fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                                                                 LocalizedTag="HEADER1" 
-                                                                                                 LocalizedPage="ADMIN_DELETEFORUM" />
-                    <asp:Label ID="ForumNameTitle" runat="server" CssClass="font-weight-bold"></asp:Label>
+                    <YAF:IconHeader runat="server" ID="IconHeader"
+                                    IconName="comments"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
-                        <YAF:HelpLabel ID="HelpLabel11" runat="server" 
+                    <div class="mb-3">
+                        <YAF:HelpLabel ID="HelpLabel11" runat="server"
                                        AssociatedControlID="MoveTopics"
                                        LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
-                        <div class="custom-control custom-switch">
-                            <asp:CheckBox ID="MoveTopics" runat="server" 
-                                          AutoPostBack="True" 
+                        <div class="form-check form-switch">
+                            <asp:CheckBox ID="MoveTopics" runat="server"
+                                          AutoPostBack="True"
                                           Text="&nbsp;"></asp:CheckBox>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <YAF:HelpLabel ID="HelpLabel2" runat="server" 
+                    <div class="mb-3">
+                        <YAF:HelpLabel ID="HelpLabel2" runat="server"
                                        AssociatedControlID="ForumList"
                                        LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
-                        <asp:DropDownList ID="ForumList" runat="server" 
-                                          Enabled="false" 
+                        <asp:DropDownList ID="ForumList" runat="server"
+                                          Enabled="false"
                                           CssClass="select2-image-select">
                         </asp:DropDownList>
                     </div>
                 </div>
                 <div class="card-footer text-center">
-                    <YAF:ThemeButton ID="Delete" runat="server" 
+                    <YAF:ThemeButton ID="Delete" runat="server"
                                      CssClass="btn btn-danger"
-                                     Icon="trash" 
+                                     Icon="trash"
                                      TextLocalizedTag="DELETE_FORUM" TextLocalizedPage="ADMIN_DELETEFORUM">
                     </YAF:ThemeButton>
-                    <YAF:ThemeButton ID="Cancel" runat="server" 
+                    <YAF:ThemeButton ID="Cancel" runat="server"
                                      Type="Secondary"
-                                     Icon="times" 
+                                     Icon="times"
                                      TextLocalizedTag="CANCEL"></YAF:ThemeButton>
                 </div>
             </div>
@@ -58,29 +49,21 @@
 
 
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-	<ContentTemplate>
-		<asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimerTick" />
-	</ContentTemplate>
+    <ContentTemplate>
+        <asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000" OnTick="UpdateStatusTimerTick" />
+    </ContentTemplate>
 </asp:UpdatePanel>
 
-<div>
-	<div id="DeleteForumMessage" style="display:none">
-		<div class="card text-white text-center bg-danger mb-3">
-		    <div class="card-body">
-		        <blockquote class="blockquote">
-                    <p>
-                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />
-                    </p>
-                    <p>
-                        <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_DELETEFORUM" />
-                    </p>
-                    <footer>
-                        <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
-                    </footer>
-                </blockquote>
+<div class="modal fade" id="DeleteForumMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DELETE_TITLE" LocalizedPage="ADMIN_DELETEFORUM" />
+            </div>
+            <div class="modal-body text-center">
+                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="DELETE_MSG" LocalizedPage="ADMIN_DELETEFORUM" />
+                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
             </div>
         </div>
     </div>
 </div>
-
-

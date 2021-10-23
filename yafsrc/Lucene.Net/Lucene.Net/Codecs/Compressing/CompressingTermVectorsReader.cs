@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Store;
@@ -6,6 +7,7 @@ using YAF.Lucene.Net.Util.Packed;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -31,11 +33,13 @@ namespace YAF.Lucene.Net.Codecs.Compressing
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-    public sealed class CompressingTermVectorsReader : TermVectorsReader, IDisposable
+    public sealed class CompressingTermVectorsReader : TermVectorsReader // LUCENENET specific - removed IDisposable, it is already implemented in base class
     {
         private readonly FieldInfos fieldInfos;
         internal readonly CompressingStoredFieldsIndexReader indexReader;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         internal readonly IndexInput vectorsStream;
+#pragma warning restore CA2213 // Disposable fields should be disposed
         private readonly int version;
         private readonly int packedIntsVersion;
         private readonly CompressionMode compressionMode;
@@ -78,7 +82,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 indexStream = d.OpenChecksumInput(indexStreamFN, context);
                 string codecNameIdx = formatName + CompressingTermVectorsWriter.CODEC_SFX_IDX;
                 version = CodecUtil.CheckHeader(indexStream, codecNameIdx, CompressingTermVectorsWriter.VERSION_START, CompressingTermVectorsWriter.VERSION_CURRENT);
-                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.GetFilePointer());
+                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 indexReader = new CompressingStoredFieldsIndexReader(indexStream, si);
 
                 if (version >= CompressingTermVectorsWriter.VERSION_CHECKSUM)
@@ -102,9 +106,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 int version2 = CodecUtil.CheckHeader(vectorsStream, codecNameDat, CompressingTermVectorsWriter.VERSION_START, CompressingTermVectorsWriter.VERSION_CURRENT);
                 if (version != version2)
                 {
-                    throw new Exception("Version mismatch between stored fields index and data: " + version + " != " + version2);
+                    throw RuntimeException.Create("Version mismatch between stored fields index and data: " + version + " != " + version2);
                 }
-                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == vectorsStream.GetFilePointer());
+                if (Debugging.AssertsEnabled) Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == vectorsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                 packedIntsVersion = vectorsStream.ReadVInt32();
                 chunkSize = vectorsStream.ReadVInt32();
@@ -138,14 +142,16 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         internal IndexInput VectorsStream => vectorsStream;
 
         /// <exception cref="ObjectDisposedException"> if this <see cref="TermVectorsReader"/> is disposed. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnsureOpen()
         {
             if (closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this FieldsReader is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this FieldsReader is disposed.");
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (!closed)
@@ -155,6 +161,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override object Clone()
         {
             return new CompressingTermVectorsReader(this);
@@ -218,7 +225,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 int token = vectorsStream.ReadByte() & 0xFF;
                 if (Debugging.AssertsEnabled) Debugging.Assert(token != 0); // means no term vectors, cannot happen since we checked for numFields == 0
                 int bitsPerFieldNum = token & 0x1F;
-                int totalDistinctFields = (int)((uint)token >> 5);
+                int totalDistinctFields = token.TripleShift(5);
                 if (totalDistinctFields == 0x07)
                 {
                     totalDistinctFields += vectorsStream.ReadVInt32();
@@ -258,7 +265,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                         break;
 
                     default:
-                        throw new Exception();
+                        throw AssertionError.Create();
                 }
                 for (int i = 0; i < numFields; ++i)
                 {
@@ -313,7 +320,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
                 reader.Reset(vectorsStream, totalTerms);
                 // skip
-                toSkip = 0;
+                //toSkip = 0; // LUCENENET: IDE0059: Remove unnecessary value assignment
                 for (int i = 0; i < skip; ++i)
                 {
                     for (int j = 0; j < numTerms.Get(i); ++j)
@@ -681,6 +688,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 this.suffixBytes = suffixBytes;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override IEnumerator<string> GetEnumerator()
             {
                 return GetFieldInfoNameEnumerable().GetEnumerator();
@@ -733,7 +741,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                     }
                 }
                 if (Debugging.AssertsEnabled) Debugging.Assert(fieldLen >= 0);
-                return new TVTerms(outerInstance, numTerms[idx], fieldFlags[idx], prefixLengths[idx], suffixLengths[idx], termFreqs[idx], positionIndex[idx], positions[idx], startOffsets[idx], lengths[idx], payloadIndex[idx], payloadBytes, new BytesRef(suffixBytes.Bytes, suffixBytes.Offset + fieldOff, fieldLen));
+                return new TVTerms(numTerms[idx], fieldFlags[idx], prefixLengths[idx], suffixLengths[idx], termFreqs[idx], positionIndex[idx], positions[idx], startOffsets[idx], lengths[idx], payloadIndex[idx], payloadBytes, new BytesRef(suffixBytes.Bytes, suffixBytes.Offset + fieldOff, fieldLen));
             }
 
             public override int Count => fieldNumOffs.Length;
@@ -741,15 +749,12 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
         private class TVTerms : Terms
         {
-            private readonly CompressingTermVectorsReader outerInstance;
-
             private readonly int numTerms, flags;
             private readonly int[] prefixLengths, suffixLengths, termFreqs, positionIndex, positions, startOffsets, lengths, payloadIndex;
             private readonly BytesRef termBytes, payloadBytes;
 
-            internal TVTerms(CompressingTermVectorsReader outerInstance, int numTerms, int flags, int[] prefixLengths, int[] suffixLengths, int[] termFreqs, int[] positionIndex, int[] positions, int[] startOffsets, int[] lengths, int[] payloadIndex, BytesRef payloadBytes, BytesRef termBytes)
+            internal TVTerms(int numTerms, int flags, int[] prefixLengths, int[] suffixLengths, int[] termFreqs, int[] positionIndex, int[] positions, int[] startOffsets, int[] lengths, int[] payloadIndex, BytesRef payloadBytes, BytesRef termBytes)
             {
-                this.outerInstance = outerInstance;
                 this.numTerms = numTerms;
                 this.flags = flags;
                 this.prefixLengths = prefixLengths;
@@ -764,6 +769,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 this.termBytes = termBytes;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override TermsEnum GetEnumerator()
             {
                 var termsEnum = new TVTermsEnum();
@@ -771,12 +777,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 return termsEnum;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override TermsEnum GetEnumerator(TermsEnum reuse)
             {
-                TVTermsEnum termsEnum;
-                if (!(reuse is null) && reuse is TVTermsEnum)
-                    termsEnum = (TVTermsEnum)reuse;
-                else
+                if (reuse is null || !(reuse is TVTermsEnum termsEnum))
                     termsEnum = new TVTermsEnum();
 
                 termsEnum.Reset(numTerms, flags, prefixLengths, suffixLengths, termFreqs, positionIndex, positions, startOffsets, lengths, payloadIndex, payloadBytes, new ByteArrayDataInput(termBytes.Bytes, termBytes.Offset, termBytes.Length));
@@ -832,6 +836,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 Reset();
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void Reset()
             {
                 term.Length = 0;
@@ -905,33 +910,28 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
             public override void SeekExact(long ord)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public override BytesRef Term => term;
 
-            public override long Ord => throw new NotSupportedException();
+            public override long Ord => throw UnsupportedOperationException.Create();
 
             public override int DocFreq => 1;
 
             public override long TotalTermFreq => termFreqs[ord];
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override sealed DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
-                TVDocsEnum docsEnum;
-                if (reuse != null && reuse is TVDocsEnum)
-                {
-                    docsEnum = (TVDocsEnum)reuse;
-                }
-                else
-                {
+                if (reuse is null || !(reuse is TVDocsEnum docsEnum))
                     docsEnum = new TVDocsEnum();
-                }
 
                 docsEnum.Reset(liveDocs, termFreqs[ord], positionIndex[ord], positions, startOffsets, lengths, payloads, payloadIndex);
                 return docsEnum;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
             {
                 if (positions == null && startOffsets == null)
@@ -978,28 +978,30 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 doc = i = -1;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void CheckDoc()
             {
                 if (doc == NO_MORE_DOCS)
                 {
-                    throw new InvalidOperationException("DocsEnum exhausted");
+                    throw IllegalStateException.Create("DocsEnum exhausted");
                 }
                 else if (doc == -1)
                 {
-                    throw new InvalidOperationException("DocsEnum not started");
+                    throw IllegalStateException.Create("DocsEnum not started");
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             private void CheckPosition()
             {
                 CheckDoc();
                 if (i < 0)
                 {
-                    throw new InvalidOperationException("Position enum not started");
+                    throw IllegalStateException.Create("Position enum not started");
                 }
                 else if (i >= termFreq)
                 {
-                    throw new InvalidOperationException("Read past last position");
+                    throw IllegalStateException.Create("Read past last position");
                 }
             }
 
@@ -1007,11 +1009,11 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             {
                 if (doc != 0)
                 {
-                    throw new InvalidOperationException();
+                    throw IllegalStateException.Create();
                 }
                 else if (i >= termFreq - 1)
                 {
-                    throw new InvalidOperationException("Read past last position");
+                    throw IllegalStateException.Create("Read past last position");
                 }
 
                 ++i;
@@ -1100,17 +1102,20 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int Advance(int target)
             {
                 return SlowAdvance(target);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return 1;
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int Sum(int[] arr)
         {
             int sum = 0;
@@ -1119,11 +1124,13 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             return sum;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed()
         {
             return indexReader.RamBytesUsed();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void CheckIntegrity()
         {
             if (version >= CompressingTermVectorsWriter.VERSION_CHECKSUM)

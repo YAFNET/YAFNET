@@ -35,18 +35,8 @@ namespace YAF.Types.Models
     /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(BoardID), nameof(Mask))]
-    public partial class BannedEmail : IEntity, IHaveID, IHaveBoardID
+    public class BannedEmail : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BannedEmail"/> class.
-        /// </summary>
-        public BannedEmail()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -57,12 +47,15 @@ namespace YAF.Types.Models
         public int ID { get; set; }
 
         /// <summary>
-        /// Gets BoardId.
+        /// Gets or sets the board id.
         /// </summary>
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the mask.
+        /// </summary>
         [Required]
         [StringLength(255)]
         public string Mask { get; set; }

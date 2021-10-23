@@ -29,16 +29,16 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -47,14 +47,14 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Manage User Attachments Page.
     /// </summary>
-    public partial class attachments : AdminPage
+    public partial class Attachments : AdminPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "attachments" /> class.
+        ///   Initializes a new instance of the <see cref = "Attachments" /> class.
         /// </summary>
-        public attachments()
+        public Attachments()
             : base("ADMIN_ATTACHMENTS")
         {
         }
@@ -76,6 +76,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             // bind data to controls
             this.BindData();
         }
@@ -87,9 +94,8 @@ namespace YAF.Pages.Admin
         {
             this.PageLinks.AddRoot();
 
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            // administration index second
+            this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_ATTACHMENTS", "TITLE"), string.Empty);
         }
@@ -102,6 +108,20 @@ namespace YAF.Pages.Admin
         protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
             // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -161,7 +181,7 @@ namespace YAF.Pages.Admin
                 UserID = item.ID,
                 Suspended = item.Suspended,
                 Style = item.UserStyle,
-                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
+                ReplaceName = item.DisplayOrUserName()
             };
 
             return userLink.RenderToString();
@@ -172,19 +192,20 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
-            this.PagerTop.PageSize = 10;
+            this.PagerTop.PageSize = baseSize;
 
             // list event for this board
             var list = this.GetRepository<Attachment>().GetByBoardPaged(
                 out var count,
                 this.PageContext.PageBoardID,
                 currentPageIndex,
-                10);
+                baseSize);
 
             this.List.DataSource = list;
 
-            this.PagerTop.Count = list != null && list.Any() ? count : 0;
+            this.PagerTop.Count = !list.NullOrEmpty() ? count : 0;
 
             // bind data to controls
             this.DataBind();

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,7 +29,6 @@ namespace YAF.Web.BBCodes
     using YAF.Core.BBCode;
     using YAF.Types;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     /// <summary>
     /// The Album Image BB Code Module.
@@ -46,7 +45,7 @@ namespace YAF.Web.BBCodes
         {
             writer.Write(
                 @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-                this.Get<BoardSettings>().ImageThumbnailMaxWidth);
+                this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
             writer.Write(
                 @"<a href=""{0}resource.ashx?image={1}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
@@ -58,7 +57,7 @@ namespace YAF.Web.BBCodes
                 @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"" alt=""{1}"">",
                 BoardInfo.ForumClientFileRoot,
                 this.Parameters["inner"],
-                this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+                this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
             writer.Write("</a>");
 

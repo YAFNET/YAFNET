@@ -1,4 +1,4 @@
-using J2N.Runtime.CompilerServices;
+﻿using J2N.Runtime.CompilerServices;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using System;
@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using ThreadState  = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// This class controls <see cref="DocumentsWriterPerThread"/> flushing during
@@ -274,7 +274,7 @@ namespace YAF.Lucene.Net.Index
                     long? bytes = flushingWriters[dwpt];
                     flushingWriters.Remove(dwpt);
                     flushBytes -= (long)bytes;
-                    perThreadPool.Recycle(dwpt);
+                    //perThreadPool.Recycle(dwpt); // LUCENENET: This is a no-op method in Lucene and it cannot be overridden
                     if (Debugging.AssertsEnabled) Debugging.Assert(AssertMemory());
                 }
                 finally
@@ -313,18 +313,8 @@ namespace YAF.Lucene.Net.Index
             {
                 while (flushingWriters.Count != 0)
                 {
-//#if FEATURE_THREAD_INTERRUPT
-//                    try
-//                    {
-//#endif
                     Monitor.Wait(this);
-//#if FEATURE_THREAD_INTERRUPT // LUCENENET NOTE: Senseless to catch and rethrow the same exception type
-//                    }
-//                    catch (ThreadInterruptedException e)
-//                    {
-//                        throw new ThreadInterruptedException("Thread Interrupted Exception", e);
-//                    }
-//#endif
+                    // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException 
                 }
             }
         }
@@ -367,7 +357,7 @@ namespace YAF.Lucene.Net.Index
                     }
                     if (Debugging.AssertsEnabled) Debugging.Assert(AssertMemory());
                     // Take it out of the loop this DWPT is stale
-                    perThreadPool.Reset(state, closed);
+                    DocumentsWriterPerThreadPool.Reset(state, closed); // LUCENENET specific - made static per CA1822
                 }
                 finally
                 {
@@ -397,7 +387,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 DocumentsWriterPerThread dwpt;
                 long bytes = perThread.bytesUsed;
-                dwpt = perThreadPool.Reset(perThread, closed);
+                dwpt = DocumentsWriterPerThreadPool.Reset(perThread, closed); // LUCENENET specific - made method static per CA1822
                 numPending--;
                 blockedFlushes.AddLast(new BlockedFlush(dwpt, bytes));
             }
@@ -427,7 +417,7 @@ namespace YAF.Lucene.Net.Index
                     DocumentsWriterPerThread dwpt;
                     long bytes = perThread.bytesUsed; // do that before
                     // replace!
-                    dwpt = perThreadPool.Reset(perThread, closed);
+                    dwpt = DocumentsWriterPerThreadPool.Reset(perThread, closed); // LUCENENET specific - made method static per CA1822
                     if (Debugging.AssertsEnabled) Debugging.Assert(!flushingWriters.ContainsKey(dwpt), "DWPT is already flushing");
                     // Record the flushing DWPT to reduce flushBytes in doAfterFlush
                     flushingWriters[dwpt] = bytes;
@@ -511,17 +501,17 @@ namespace YAF.Lucene.Net.Index
 
         private IEnumerator<ThreadState> GetPerThreadsIterator(int upto)
         {
-            return new IteratorAnonymousInnerClassHelper(this, upto);
+            return new IteratorAnonymousClass(this, upto);
         }
 
-        private class IteratorAnonymousInnerClassHelper : IEnumerator<ThreadState>
+        private class IteratorAnonymousClass : IEnumerator<ThreadState>
         {
             private readonly DocumentsWriterFlushControl outerInstance;
             private ThreadState current;
-            private int upto;
+            private readonly int upto;
             private int i;
 
-            public IteratorAnonymousInnerClassHelper(DocumentsWriterFlushControl outerInstance, int upto)
+            public IteratorAnonymousClass(DocumentsWriterFlushControl outerInstance, int upto)
             {
                 this.outerInstance = outerInstance;
                 this.upto = upto;
@@ -549,7 +539,7 @@ namespace YAF.Lucene.Net.Index
 
             public void Reset()
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
         }
 
@@ -594,7 +584,7 @@ namespace YAF.Lucene.Net.Index
 
         internal ThreadState ObtainAndLock()
         {
-            ThreadState perThread = perThreadPool.GetAndLock(Thread.CurrentThread, documentsWriter);
+            ThreadState perThread = perThreadPool.GetAndLock(/* Thread.CurrentThread, documentsWriter // LUCENENET: Not used */);
             bool success = false;
             try
             {
@@ -646,7 +636,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         if (closed && next.IsActive)
                         {
-                            perThreadPool.DeactivateThreadState(next);
+                            DocumentsWriterPerThreadPool.DeactivateThreadState(next); // LUCENENET specific - made method static per CA1822
                         }
                         continue;
                     }
@@ -739,7 +729,7 @@ namespace YAF.Lucene.Net.Index
             }
             else
             {
-                perThreadPool.Reset(perThread, closed); // make this state inactive
+                DocumentsWriterPerThreadPool.Reset(perThread, closed); // make this state inactive // LUCENENET specific - made method static per CA1822
             }
         }
 
@@ -830,7 +820,7 @@ namespace YAF.Lucene.Net.Index
                             documentsWriter.SubtractFlushedNumDocs(dwpt.NumDocsInRAM);
                             dwpt.Abort(newFiles);
                         }
-                        catch (Exception)
+                        catch (Exception ex) when (ex.IsThrowable())
                         {
                             // ignore - keep on aborting the flush queue
                         }
@@ -847,7 +837,7 @@ namespace YAF.Lucene.Net.Index
                             documentsWriter.SubtractFlushedNumDocs(blockedFlush.Dwpt.NumDocsInRAM);
                             blockedFlush.Dwpt.Abort(newFiles);
                         }
-                        catch (Exception)
+                        catch (Exception ex) when (ex.IsThrowable())
                         {
                             // ignore - keep on aborting the blocked queue
                         }

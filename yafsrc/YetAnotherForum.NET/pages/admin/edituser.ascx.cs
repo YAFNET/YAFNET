@@ -27,21 +27,18 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Web;
 
-    using YAF.Configuration;
-    using YAF.Core;
-    using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -49,36 +46,24 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin edit user page.
     /// </summary>
-    public partial class edituser : AdminPage
+    public partial class EditUser : AdminPage
     {
         #region Properties
 
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserId => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserId =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         ///   Gets a value indicating whether Is Guest User.
         /// </summary>
-        protected bool IsGuestUser => UserMembershipHelper.IsGuestUser(this.CurrentUserId);
+        protected bool IsGuestUser => this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentUserId);
 
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Determines whether [is user host admin]
-        /// </summary>
-        /// <param name="userRow">The user row.</param>
-        /// <returns>
-        /// The is user host admin.
-        /// </returns>
-        protected bool IsUserHostAdmin([NotNull] DataRow userRow)
-        {
-            var userFlags = new UserFlags(userRow["Flags"]);
-            return userFlags.IsHostAdmin;
-        }
 
         /// <summary>
         /// Registers the java scripts
@@ -87,7 +72,7 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "EditUserTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -101,22 +86,18 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
+            var user = this.GetRepository<User>().GetById(this.CurrentUserId);
 
-            var dt = this.GetRepository<User>().ListAsDataTable(this.PageContext.PageBoardID, this.CurrentUserId, null);
-
-            if (dt.Rows.Count != 1)
+            if (user == null)
             {
-                return;
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
-            var userRow = dt.Rows[0];
-
             // do admin permission check...
-            if (!this.PageContext.IsHostAdmin && this.IsUserHostAdmin(userRow))
+            if (!this.PageContext.User.UserFlags.IsHostAdmin && user.UserFlags.IsHostAdmin)
             {
                 // user is not host admin and is attempted to edit host admin account...
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -124,29 +105,24 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var userName = this.HtmlEncode(this.Get<BoardSettings>().EnableDisplayName
-                               ? userRow["DisplayName"].ToString()
-                               : userRow["Name"].ToString());
+            var userName = this.HtmlEncode(user.DisplayOrUserName());
 
             var header = string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName);
 
-            this.Header.Text = header;
+            this.IconHeader.Text = header;
 
             // current page label (no link)
             this.PageLinks.AddLink(
                 header,
                 string.Empty);
 
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_USERS", "TITLE")} - {string.Format(this.GetText("ADMIN_EDITUSER", "TITLE"), userName)}";
-
             // do a quick user membership sync...
-            var user = UserMembershipHelper.GetMembershipUserById(this.CurrentUserId);
+            var aspNetUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserId);
 
             // update if the user is not Guest
             if (!this.IsGuestUser)
             {
-                RoleMembershipHelper.UpdateForumUser(user, this.PageContext.PageBoardID);
+                this.Get<IAspNetRolesHelper>().UpdateForumUser(aspNetUser, this.PageContext.PageBoardID);
             }
 
             this.EditUserTabs.DataBind();
@@ -158,10 +134,9 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), BuildLink.GetLink(ForumPages.admin_users));
+            this.PageLinks.AddLink(this.GetText("ADMIN_USERS", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users));
         }
 
         #endregion

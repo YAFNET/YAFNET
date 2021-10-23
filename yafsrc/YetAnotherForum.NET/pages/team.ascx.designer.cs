@@ -24,15 +24,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-
-        /// <summary>
         /// AdminsList control.
         /// </summary>
         /// <remarks>
@@ -49,15 +40,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl ModsTable;
-
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
         /// ModeratorsList control.

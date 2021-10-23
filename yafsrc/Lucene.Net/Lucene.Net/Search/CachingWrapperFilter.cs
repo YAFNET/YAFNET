@@ -22,11 +22,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using WAH8DocIdSet = YAF.Lucene.Net.Util.WAH8DocIdSet;
+    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using WAH8DocIdSet  = YAF.Lucene.Net.Util.WAH8DocIdSet;
 
     /// <summary>
     /// Wraps another <see cref="Search.Filter"/>'s result and caches it.  The purpose is to allow
@@ -138,11 +138,8 @@ namespace YAF.Lucene.Net.Search
 
         public override bool Equals(object o)
         {
-            var other = o as CachingWrapperFilter;
-            if (other == null)
-            {
-                return false;
-            }
+            if (o is null) return false;
+            if (!(o is CachingWrapperFilter other)) return false;
             return _filter.Equals(other._filter);
         }
 
@@ -153,9 +150,9 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// An empty <see cref="DocIdSet"/> instance </summary>
-        protected static readonly DocIdSet EMPTY_DOCIDSET = new DocIdSetAnonymousInnerClassHelper();
+        protected static readonly DocIdSet EMPTY_DOCIDSET = new DocIdSetAnonymousClass();
 
-        private class DocIdSetAnonymousInnerClassHelper : DocIdSet
+        private class DocIdSetAnonymousClass : DocIdSet
         {
             public override DocIdSetIterator GetIterator()
             {

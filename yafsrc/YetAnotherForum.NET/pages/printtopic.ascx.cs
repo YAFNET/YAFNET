@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,25 +24,23 @@
 
 namespace YAF.Pages
 {
-    // YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
     using System.Web;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -75,11 +73,11 @@ namespace YAF.Pages
         /// </returns>
         protected string GetPrintBody([NotNull] object o)
         {
-            var row = (DataRow)o;
+            var row = (PagedMessage)o;
 
-            var message = row["Message"].ToString();
+            var message = row.Message;
 
-            message = this.Get<IFormatMessage>().Format(message, new MessageFlags(row["Flags"].ToType<int>()));
+            message = this.Get<IFormatMessage>().Format(row.MessageID, message, new MessageFlags(row.Flags));
 
             // Remove HIDDEN Text
             message = this.Get<IFormatMessage>().RemoveHiddenBBCodeContent(message);
@@ -98,9 +96,9 @@ namespace YAF.Pages
         /// </returns>
         protected string GetPrintHeader([NotNull] object o)
         {
-            var row = (DataRow)o;
+            var row = (PagedMessage)o;
             return
-                $"<strong>{this.GetText("postedby")}: {(this.Get<BoardSettings>().EnableDisplayName ? row["DisplayName"] : row["UserName"])}</strong> - {this.Get<IDateTime>().FormatDateTime((DateTime)row["Posted"])}";
+                $"<strong>{this.GetText("postedby")}: {(this.PageContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTimeService>().FormatDateTime(row.Posted)}";
         }
 
         /// <summary>
@@ -116,7 +114,7 @@ namespace YAF.Pages
         {
             if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             this.ShowToolBar = false;
@@ -126,55 +124,37 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.PageContext.Settings.LockedForum == 0)
-            {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.PageCategoryName,
-                    BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-            }
+            var showDeleted = this.PageContext.BoardSettings.ShowDeletedMessagesToAll;
 
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddLink(
-                this.PageContext.PageTopicName, BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
-            var showDeleted = false;
-            var userId = 0;
-            if (this.Get<BoardSettings>().ShowDeletedMessagesToAll)
-            {
-                showDeleted = true;
-            }
-
-            if (!showDeleted && (this.Get<BoardSettings>().ShowDeletedMessages &&
-                                 !this.Get<BoardSettings>().ShowDeletedMessagesToAll
-                                 || this.PageContext.IsAdmin ||
-                                 this.PageContext.ForumModeratorAccess))
-            {
-                userId = this.PageContext.PageUserID;
-            }
-
-            var dt = this.GetRepository<Message>().PostListAsDataTable(
+            var posts = this.GetRepository<Message>().PostListPaged(
                 this.PageContext.PageTopicID,
                 this.PageContext.PageUserID,
-                userId,
-                !this.PageContext.IsCrawler ? 1 : 0,
+                !this.PageContext.IsCrawler,
                 showDeleted,
-                false,
-                false,
-                DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 0,
                 500,
-                2,
-                0,
-                0,
-                false,
                 -1);
 
-            this.Posts.DataSource = dt.AsEnumerable();
+            this.Posts.DataSource = posts;
 
             this.DataBind();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            if (this.PageContext.Settings.LockedForum == 0)
+            {
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+            }
+
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddTopic(this.PageContext.PageTopic.TopicName, this.PageContext.PageTopicID);
         }
 
         #endregion

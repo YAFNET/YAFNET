@@ -96,6 +96,15 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.CheckBox EraseMessage;
 
         /// <summary>
+        /// DeleteUndelete control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton DeleteUndelete;
+
+        /// <summary>
         /// Delete control.
         /// </summary>
         /// <remarks>

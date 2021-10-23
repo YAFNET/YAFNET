@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
 
     /// <summary>
     /// A <see cref="Rescorer"/> that uses a provided <see cref="Query"/> to assign
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Search
         /// Sole constructor, passing the 2nd pass query to
         /// assign scores to the 1st pass hits.
         /// </summary>
-        public QueryRescorer(Query query)
+        protected QueryRescorer(Query query) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
             this.query = query;
         }
@@ -183,14 +183,14 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public static TopDocs Rescore(IndexSearcher searcher, TopDocs topDocs, Query query, double weight, int topN)
         {
-            return new QueryRescorerAnonymousInnerClassHelper(query, weight).Rescore(searcher, topDocs, topN);
+            return new QueryRescorerAnonymousClass(query, weight).Rescore(searcher, topDocs, topN);
         }
 
-        private class QueryRescorerAnonymousInnerClassHelper : QueryRescorer
+        private class QueryRescorerAnonymousClass : QueryRescorer
         {
-            private double weight;
+            private readonly double weight;
 
-            public QueryRescorerAnonymousInnerClassHelper(Lucene.Net.Search.Query query, double weight)
+            public QueryRescorerAnonymousClass(Lucene.Net.Search.Query query, double weight)
                 : base(query)
             {
                 this.weight = weight;

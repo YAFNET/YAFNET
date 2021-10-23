@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -20,7 +22,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
 
     /// <summary>
     /// Implements the skip list reader for the 4.0 posting list format
@@ -32,10 +34,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     {
         private bool currentFieldStoresPayloads;
         private bool currentFieldStoresOffsets;
-        private long[] freqPointer;
-        private long[] proxPointer;
-        private int[] payloadLength;
-        private int[] offsetLength;
+        private readonly long[] freqPointer; // LUCENENET: marked readonly
+        private readonly long[] proxPointer; // LUCENENET: marked readonly
+        private readonly int[] payloadLength; // LUCENENET: marked readonly
+        private readonly int[] offsetLength; // LUCENENET: marked readonly
 
         private long lastFreqPointer;
         private long lastProxPointer;
@@ -95,6 +97,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// </summary>
         public virtual int OffsetLength => lastOffsetLength;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void SeekChild(int level)
         {
             base.SeekChild(level);
@@ -104,6 +107,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             offsetLength[level] = lastOffsetLength;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void SetLastSkipData(int level)
         {
             base.SetLastSkipData(level);
@@ -135,7 +139,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                         offsetLength[level] = skipStream.ReadVInt32();
                     }
                 }
-                delta = (int)((uint)delta >> 1);
+                delta = delta.TripleShift(1);
             }
             else
             {

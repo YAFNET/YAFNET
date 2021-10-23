@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,17 +29,17 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -47,7 +47,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Admin Page for Editing or Creating an Forum Access Mask
     /// </summary>
-    public partial class editaccessmask : AdminPage
+    public partial class EditAccessMask : AdminPage
     {
         #region Methods
 
@@ -59,7 +59,7 @@ namespace YAF.Pages.Admin
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // get back to access masks administration
-            BuildLink.Redirect(ForumPages.admin_accessmasks);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
         }
 
         /// <summary>
@@ -71,19 +71,14 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             // administration index
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ACCESSMASKS", "TITLE"),
-                BuildLink.GetLink(ForumPages.admin_accessmasks));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_AccessMasks));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITACCESSMASKS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_ACCESSMASKS", "TITLE")} - {this.GetText("ADMIN_EDITACCESSMASKS", "TITLE")}";
         }
 
         /// <summary>
@@ -97,6 +92,10 @@ namespace YAF.Pages.Admin
             {
                 return;
             }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
             // bind data
             this.BindData();
@@ -115,14 +114,6 @@ namespace YAF.Pages.Admin
             if (this.Get<HttpRequestBase>().QueryString.Exists("i"))
             {
                 accessMaskId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("i");
-            }
-
-            if (this.Name.Text.Trim().Length <= 0)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITACCESSMASKS", "MSG_MASK_NAME"),
-                    MessageTypes.warning);
-                return;
             }
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
@@ -159,15 +150,8 @@ namespace YAF.Pages.Admin
                     this.DownloadAccess.Checked,
                     sortOrder);
 
-            // empty out access table(s)
-            this.GetRepository<Active>().DeleteAll();
-            this.GetRepository<ActiveAccess>().DeleteAll();
-
-            // clear cache
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
             // get back to access masks administration
-            BuildLink.Redirect(ForumPages.admin_accessmasks);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
         }
 
         /// <summary>
@@ -187,18 +171,21 @@ namespace YAF.Pages.Admin
                     this.SortOrder.Text = accessMask.SortOrder.ToString();
 
                     // get flags
-                    var flags = new AccessFlags(accessMask.Flags);
-                    this.ReadAccess.Checked = flags.ReadAccess;
-                    this.PostAccess.Checked = flags.PostAccess;
-                    this.ReplyAccess.Checked = flags.ReplyAccess;
-                    this.PriorityAccess.Checked = flags.PriorityAccess;
-                    this.PollAccess.Checked = flags.PollAccess;
-                    this.VoteAccess.Checked = flags.VoteAccess;
-                    this.ModeratorAccess.Checked = flags.ModeratorAccess;
-                    this.EditAccess.Checked = flags.EditAccess;
-                    this.DeleteAccess.Checked = flags.DeleteAccess;
-                    this.UploadAccess.Checked = flags.UploadAccess;
-                    this.DownloadAccess.Checked = flags.DownloadAccess;
+                    this.ReadAccess.Checked = accessMask.AccessFlags.ReadAccess;
+                    this.PostAccess.Checked = accessMask.AccessFlags.PostAccess;
+                    this.ReplyAccess.Checked = accessMask.AccessFlags.ReplyAccess;
+                    this.PriorityAccess.Checked = accessMask.AccessFlags.PriorityAccess;
+                    this.PollAccess.Checked = accessMask.AccessFlags.PollAccess;
+                    this.VoteAccess.Checked = accessMask.AccessFlags.VoteAccess;
+                    this.ModeratorAccess.Checked = accessMask.AccessFlags.ModeratorAccess;
+                    this.EditAccess.Checked = accessMask.AccessFlags.EditAccess;
+                    this.DeleteAccess.Checked = accessMask.AccessFlags.DeleteAccess;
+                    this.UploadAccess.Checked = accessMask.AccessFlags.UploadAccess;
+                    this.DownloadAccess.Checked = accessMask.AccessFlags.DownloadAccess;
+                }
+                else
+                {
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
                 }
             }
             else

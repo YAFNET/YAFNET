@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,33 +27,26 @@ namespace YAF.Modules
 
     using System;
 
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
     /// Suspend Check Forum Module
     /// </summary>
-    [YafModule("Suspend Check Module", "Tiny Gecko", 1)]
+    [Module("Suspend Check Module", "Tiny Gecko", 1)]
     public class SuspendCheckForumModule : SimpleBaseForumModule
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The _pre load page.
-        /// </summary>
-        private readonly IFireEvent<ForumPagePreLoadEvent> _preLoadPage;
-
-        #endregion
-
         #region Constructors and Destructors
 
         /// <summary>
@@ -64,8 +57,7 @@ namespace YAF.Modules
         /// </param>
         public SuspendCheckForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> preLoadPage)
         {
-            this._preLoadPage = preLoadPage;
-            this._preLoadPage.HandleEvent += this._preLoadPage_HandleEvent;
+            preLoadPage.HandleEvent += this._preLoadPage_HandleEvent;
         }
 
         #endregion
@@ -73,7 +65,7 @@ namespace YAF.Modules
         #region Methods
 
         /// <summary>
-        /// Check if the user needs to be unsuspended or redirected to the info page
+        /// Check if the user needs to be un-suspended or redirected to the info page
         /// </summary>
         /// <param name="sender">The sender.</param>
         /// <param name="e">The e.</param>
@@ -92,23 +84,20 @@ namespace YAF.Modules
                 return;
             }
 
-            if (this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil)
-                <= this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow))
+            if (this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil)
+                <= this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow))
             {
                 this.GetRepository<User>().Suspend(this.PageContext.PageUserID);
 
-                this.Get<ISendNotification>()
-                    .SendUserSuspensionEndedNotification(
-                        this.PageContext.CurrentUserData.Email,
-                        this.PageContext.BoardSettings.EnableDisplayName
-                            ? this.PageContext.CurrentUserData.DisplayName
-                            : this.PageContext.CurrentUserData.UserName);
+                this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+                    this.PageContext.User.Email,
+                    this.PageContext.User.DisplayOrUserName());
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
             }
             else
             {
-                BuildLink.RedirectInfoPage(InfoMessage.Suspended);
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Suspended);
             }
         }
 

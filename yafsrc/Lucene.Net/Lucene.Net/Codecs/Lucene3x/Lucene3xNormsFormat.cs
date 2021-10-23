@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -19,8 +20,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Lucene3x ReadOnly <see cref="NormsFormat"/> implementation.
@@ -32,9 +33,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     {
         public override DocValuesConsumer NormsConsumer(SegmentWriteState state)
         {
-            throw new NotSupportedException("this codec can only be used for reading");
+            throw UnsupportedOperationException.Create("this codec can only be used for reading");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override DocValuesProducer NormsProducer(SegmentReadState state)
         {
             return new Lucene3xNormsProducer(state.Directory, state.SegmentInfo, state.FieldInfos, state.Context);

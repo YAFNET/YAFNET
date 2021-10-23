@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,10 +26,7 @@ namespace YAF.Types.Extensions
 {
     #region Using
 
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Runtime.InteropServices;
     using System.Text;
 
     using YAF.Types;
@@ -47,13 +44,13 @@ namespace YAF.Types.Extensions
         /// Gets boolean indicating whether bit on bitShift position in bitValue integer is set or not.
         /// </summary>
         /// <param name="bitValue">
-        /// Integer value. 
+        /// Integer value.
         /// </param>
         /// <param name="bitShift">
-        /// Zero-based position of bit to get. 
+        /// Zero-based position of bit to get.
         /// </param>
         /// <returns>
-        /// Returns boolean indicating whether bit at bitShift position is set or not. 
+        /// Returns boolean indicating whether bit at bitShift position is set or not.
         /// </returns>
         public static bool GetBitAsBool(int bitValue, int bitShift)
         {
@@ -69,16 +66,16 @@ namespace YAF.Types.Extensions
         /// Sets or un-sets bit of bitValue integer at position specified by bitShift, depending on value parameter.
         /// </summary>
         /// <param name="bitValue">
-        /// Integer value. 
+        /// Integer value.
         /// </param>
         /// <param name="bitShift">
-        /// Zero-based position of bit to set. 
+        /// Zero-based position of bit to set.
         /// </param>
         /// <param name="value">
-        /// New boolean value of bit. 
+        /// New boolean value of bit.
         /// </param>
         /// <returns>
-        /// Returns new integer value with bit at position specified by bitShift parameter set to value. 
+        /// Returns new integer value with bit at position specified by bitShift parameter set to value.
         /// </returns>
         public static int SetBitFromBool(int bitValue, int bitShift, bool value)
         {
@@ -103,19 +100,19 @@ namespace YAF.Types.Extensions
         /// The to hex string.
         /// </summary>
         /// <param name="hashedBytes">
-        /// The hashed bytes. 
+        /// The hashed bytes.
         /// </param>
         /// <returns>
-        /// The to hex string. 
+        /// The to hex string.
         /// </returns>
         [NotNull]
         public static string ToHexString([NotNull] this byte[] hashedBytes)
         {
-            CodeContracts.VerifyNotNull(hashedBytes, "hashedBytes");
+            CodeContracts.VerifyNotNull(hashedBytes);
 
             var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
 
-            hashedBytes.ForEach(b => { builder.AppendFormat("{0:X2}", b); });
+            hashedBytes.ForEach(b => builder.AppendFormat("{0:X2}", b));
 
             return builder.ToString();
         }
@@ -124,10 +121,10 @@ namespace YAF.Types.Extensions
         /// Creates an integer value from an array of booleans.
         /// </summary>
         /// <param name="arrayBool">
-        /// array of boolean 
+        /// array of boolean
         /// </param>
         /// <returns>
-        /// bit field of the array 
+        /// bit field of the array
         /// </returns>
         public static int ToIntOfBits(this IEnumerable<bool> arrayBool)
         {
@@ -135,14 +132,6 @@ namespace YAF.Types.Extensions
             arrayBool.ForEachIndex((b, i) => finalValue = SetBitFromBool(finalValue, i, b));
 
             return finalValue;
-        }
-
-        public static List<T> ToListOf<T>(this byte[] array, Func<byte[], int, T> bitConverter)
-        {
-            var size = Marshal.SizeOf(typeof(T));
-            return Enumerable.Range(0, array.Length / size)
-                .Select(i => bitConverter(array, i * size))
-                .ToList();
         }
 
         #endregion

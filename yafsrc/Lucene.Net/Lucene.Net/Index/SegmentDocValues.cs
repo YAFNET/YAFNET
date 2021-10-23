@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocValuesFormat  = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer  = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Manages the <see cref="DocValuesProducer"/> held by <see cref="SegmentReader"/> and
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Index
         private class RefCountHelper : RefCount<DocValuesProducer>
         {
             private readonly SegmentDocValues outerInstance;
-            private long? gen;
+            private readonly long? gen; // LUCENENET: marked readonly
 
             public RefCountHelper(SegmentDocValues outerInstance, DocValuesProducer fieldsProducer, long? gen)
                 : base(fieldsProducer)
@@ -81,8 +81,7 @@ namespace YAF.Lucene.Net.Index
         {
             lock (this)
             {
-                RefCount<DocValuesProducer> dvp;
-                if (!(genDVProducers.TryGetValue(gen, out dvp)))
+                if (!genDVProducers.TryGetValue(gen, out RefCount<DocValuesProducer> dvp))
                 {
                     dvp = NewDocValuesProducer(si, context, dir, dvFormat, gen, infos, termsIndexDivisor);
                     if (Debugging.AssertsEnabled) Debugging.Assert(dvp != null);
@@ -113,7 +112,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         dvp.DecRef();
                     }
-                    catch (Exception th)
+                    catch (Exception th) when (th.IsThrowable())
                     {
                         if (t != null)
                         {

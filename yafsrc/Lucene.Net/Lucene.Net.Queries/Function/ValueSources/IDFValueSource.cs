@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
 using YAF.Lucene.Net.Support;
@@ -49,7 +50,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             TFIDFSimilarity sim = AsTFIDF(searcher.Similarity, m_field);
             if (sim == null)
             {
-                throw new NotSupportedException("requires a TFIDFSimilarity (such as DefaultSimilarity)");
+                throw UnsupportedOperationException.Create("requires a TFIDFSimilarity (such as DefaultSimilarity)");
             }
             int docfreq = searcher.IndexReader.DocFreq(new Term(m_indexedField, m_indexedBytes));
             float idf = sim.Idf(docfreq, searcher.IndexReader.MaxDoc);
@@ -59,13 +60,13 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         // tries extra hard to cast the sim to TFIDFSimilarity
         internal static TFIDFSimilarity AsTFIDF(Similarity sim, string field)
         {
-            while (sim is PerFieldSimilarityWrapper)
+            while (sim is PerFieldSimilarityWrapper perFieldSimilarityWrapper)
             {
-                sim = ((PerFieldSimilarityWrapper)sim).Get(field);
+                sim = perFieldSimilarityWrapper.Get(field);
             }
-            if (sim is TFIDFSimilarity)
+            if (sim is TFIDFSimilarity similarity)
             {
-                return (TFIDFSimilarity)sim;
+                return similarity;
             }
             else
             {

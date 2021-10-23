@@ -29,16 +29,14 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -46,7 +44,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Admin Page to Edit NNTP Forums
     /// </summary>
-    public partial class nntpforums : AdminPage
+    public partial class NntpForums : AdminPage
     {
         #region Methods
 
@@ -59,7 +57,7 @@ namespace YAF.Pages.Admin
         {
             this.EditDialog.BindData(null);
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
         }
@@ -82,15 +80,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_NNTPFORUMS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_NNTPFORUMS", "TITLE")}";
         }
 
         /// <summary>
@@ -105,7 +98,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
                     break;
@@ -125,7 +118,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.RankList.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageContext.PageBoardID, null, null, null);
+            this.RankList.DataSource = this.GetRepository<NntpForum>()
+                .NntpForumList(this.PageContext.PageBoardID, null);
             this.DataBind();
         }
 

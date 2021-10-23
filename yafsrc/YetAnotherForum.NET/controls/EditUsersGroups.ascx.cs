@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,21 +29,22 @@ namespace YAF.Controls
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -57,7 +58,8 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets user ID of edited user.
         /// </summary>
-        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserID =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -75,21 +77,7 @@ namespace YAF.Controls
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to user admin page.
-            BuildLink.Redirect(ForumPages.admin_users);
-        }
-
-        /// <summary>
-        /// Checks if user is member of role or not depending on value of parameter.
-        /// </summary>
-        /// <param name="o">
-        /// Parameter if 0, user is not member of a role.
-        /// </param>
-        /// <returns>
-        /// True if user is member of role (o &gt; 0), false otherwise.
-        /// </returns>
-        protected bool IsMember([NotNull] object o)
-        {
-            return long.Parse(o.ToString()) > 0;
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>
@@ -103,8 +91,6 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             // this needs to be done just once, not during post-backs
             if (this.IsPostBack)
             {
@@ -132,9 +118,8 @@ namespace YAF.Controls
             var removedRoles = new List<string>();
 
             // get user's name
-            var userName = UserMembershipHelper.GetUserNameFromID(this.CurrentUserID);
-            var user = UserMembershipHelper.GetUser(userName);
-            
+            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserID);
+
             // go through all roles displayed on page
             for (var i = 0; i < this.UserGroups.Items.Count; i++)
             {
@@ -151,35 +136,30 @@ namespace YAF.Controls
                 var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;
 
                 // save user in role
-                this.GetRepository<UserGroup>().Save(this.CurrentUserID, roleID, isChecked);
-
-                // empty out access table(s)
-                this.GetRepository<Active>().DeleteAll();
-                this.GetRepository<ActiveAccess>().DeleteAll();
+                this.GetRepository<UserGroup>().AddOrRemove(this.CurrentUserID, roleID, isChecked);
 
                 // update roles if this user isn't the guest
-                if (UserMembershipHelper.IsGuestUser(this.CurrentUserID))
+                if (this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentUserID))
                 {
                     continue;
                 }
 
                 // add/remove user from roles in membership provider
-                if (isChecked && !RoleMembershipHelper.IsUserInRole(userName, roleName))
+                if (isChecked && !this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName))
                 {
-                    RoleMembershipHelper.AddUserToRole(userName, roleName);
+                    this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName);
 
                     addedRoles.Add(roleName);
                 }
-                else if (!isChecked && RoleMembershipHelper.IsUserInRole(userName, roleName))
+                else if (!isChecked && this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName))
                 {
-                    RoleMembershipHelper.RemoveUserFromRole(userName, roleName);
+                    this.Get<IAspNetRolesHelper>().RemoveUserFromRole(user.Id, roleName);
 
                     removedRoles.Add(roleName);
                 }
-
-                // Clearing cache with old permissions data...
-                this.Get<IDataCache>().Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.CurrentUserID));
             }
+
+            this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(this.CurrentUserID));
 
             if (this.SendEmail.Checked)
             {
@@ -195,9 +175,6 @@ namespace YAF.Controls
                 }
             }
 
-            // update forum moderators cache just in case something was changed...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
-
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
@@ -210,7 +187,9 @@ namespace YAF.Controls
         private void BindData()
         {
             // get user roles
-            this.UserGroups.DataSource = this.GetRepository<Group>().MemberAsDataTable(this.PageContext.PageBoardID, this.CurrentUserID);
+            this.UserGroups.DataSource = this.GetRepository<Group>().Member(
+                this.PageContext.PageBoardID,
+                this.CurrentUserID);
 
             // bind data to controls
             this.DataBind();

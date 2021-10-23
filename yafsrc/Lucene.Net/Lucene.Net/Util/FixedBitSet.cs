@@ -1,7 +1,8 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -22,8 +23,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// BitSet of fixed length (numBits), backed by accessible (<see cref="GetBits()"/>)
@@ -90,6 +91,7 @@ namespace YAF.Lucene.Net.Util
 
             public override int DocID => doc;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return numBits;
@@ -155,7 +157,7 @@ namespace YAF.Lucene.Net.Util
         /// Returns the number of 64 bit words it would take to hold <paramref name="numBits"/> </summary>
         public static int Bits2words(int numBits)
         {
-            int numLong = (int)((uint)numBits >> 6);
+            int numLong = numBits.TripleShift(6);
             if ((numBits & 63) != 0)
             {
                 numLong++;
@@ -167,6 +169,7 @@ namespace YAF.Lucene.Net.Util
         /// Returns the popcount or cardinality of the intersection of the two sets.
         /// Neither set is modified.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long IntersectionCount(FixedBitSet a, FixedBitSet b)
         {
             return BitUtil.Pop_Intersect(a.bits, b.bits, 0, Math.Min(a.numWords, b.numWords));
@@ -242,19 +245,21 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Expert. </summary>
         [WritableArray]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long[] GetBits()
         {
             return bits;
         }
 
         /// <summary>
-        /// Returns number of set bits.  NOTE: this visits every
+        /// Gets the number of set bits.  NOTE: this visits every
         /// <see cref="long"/> in the backing bits array, and the result is not
         /// internally cached!
         /// </summary>
-        public int Cardinality()
+        public int Cardinality
         {
-            return (int)BitUtil.Pop_Array(bits, 0, bits.Length);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => (int)BitUtil.Pop_Array(bits, 0, bits.Length);
         }
 
         public bool Get(int index)
@@ -370,17 +375,15 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public void Or(DocIdSetIterator iter)
         {
-            if (iter is OpenBitSetIterator && iter.DocID == -1)
+            if (iter.DocID == -1 && iter is OpenBitSetIterator obs)
             {
-                OpenBitSetIterator obs = (OpenBitSetIterator)iter;
                 Or(obs.arr, obs.words);
                 // advance after last doc that would be accepted if standard
                 // iteration is used (to exhaust it):
                 obs.Advance(numBits);
             }
-            else if (iter is FixedBitSetIterator && iter.DocID == -1)
+            else if (iter.DocID == -1 && iter is FixedBitSetIterator fbs)
             {
-                FixedBitSetIterator fbs = (FixedBitSetIterator)iter;
                 Or(fbs.bits, fbs.numWords);
                 // advance after last doc that would be accepted if standard
                 // iteration is used (to exhaust it):
@@ -398,6 +401,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// this = this OR other </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Or(FixedBitSet other)
         {
             Or(other.bits, other.numWords);
@@ -445,17 +449,15 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public void And(DocIdSetIterator iter)
         {
-            if (iter is OpenBitSetIterator && iter.DocID == -1)
+            if (iter.DocID == -1 && iter is OpenBitSetIterator obs)
             {
-                OpenBitSetIterator obs = (OpenBitSetIterator)iter;
                 And(obs.arr, obs.words);
                 // advance after last doc that would be accepted if standard
                 // iteration is used (to exhaust it):
                 obs.Advance(numBits);
             }
-            else if (iter is FixedBitSetIterator && iter.DocID == -1)
+            else if (iter.DocID == -1 && iter is FixedBitSetIterator fbs)
             {
-                FixedBitSetIterator fbs = (FixedBitSetIterator)iter;
                 And(fbs.bits, fbs.numWords);
                 // advance after last doc that would be accepted if standard
                 // iteration is used (to exhaust it):
@@ -498,6 +500,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// this = this AND other </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void And(FixedBitSet other)
         {
             And(other.bits, other.numWords);
@@ -523,17 +526,15 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public void AndNot(DocIdSetIterator iter)
         {
-            if (iter is OpenBitSetIterator && iter.DocID == -1)
+            if (iter.DocID == -1 && iter is OpenBitSetIterator obs)
             {
-                OpenBitSetIterator obs = (OpenBitSetIterator)iter;
                 AndNot(obs.arr, obs.words);
                 // advance after last doc that would be accepted if standard
                 // iteration is used (to exhaust it):
                 obs.Advance(numBits);
             }
-            else if (iter is FixedBitSetIterator && iter.DocID == -1)
+            else if (iter.DocID == -1 && iter is FixedBitSetIterator fbs)
             {
-                FixedBitSetIterator fbs = (FixedBitSetIterator)iter;
                 AndNot(fbs.bits, fbs.numWords);
                 // advance after last doc that would be accepted if standard
                 // iteration is used (to exhaust it):
@@ -551,6 +552,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// this = this AND NOT other </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void AndNot(FixedBitSet other)
         {
             AndNot(other.bits, other.bits.Length);
@@ -600,8 +602,7 @@ namespace YAF.Lucene.Net.Util
             */
 
             long startmask = -1L << startIndex;
-            long endmask = (long)(unchecked((ulong)-1) >> -endIndex);
-            //long endmask = -(int)((uint)1L >> -endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
+            long endmask = (-1L).TripleShift(-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
 
             if (startWord == endWord)
             {
@@ -640,8 +641,7 @@ namespace YAF.Lucene.Net.Util
             int endWord = (endIndex - 1) >> 6;
 
             long startmask = -1L << startIndex;
-            long endmask = (long)(unchecked((ulong)-1) >> -endIndex);
-            //long endmask = -(int)((uint)1UL >> -endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
+            long endmask = (-1L).TripleShift(-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
 
             if (startWord == endWord)
             {
@@ -694,6 +694,7 @@ namespace YAF.Lucene.Net.Util
             bits[endWord] &= endmask;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public FixedBitSet Clone()
         {
             long[] bits = new long[this.bits.Length];
@@ -727,7 +728,7 @@ namespace YAF.Lucene.Net.Util
             for (int i = numWords; --i >= 0; )
             {
                 h ^= bits[i];
-                h = (h << 1) | ((long)((ulong)h >> 63)); // rotate left
+                h = (h << 1) | (h.TripleShift(63)); // rotate left
             }
             // fold leftmost bits into right and add a constant to prevent
             // empty sets from returning 0, which is too common.

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,16 +27,16 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
+    using System.Linq;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -87,7 +87,6 @@ namespace YAF.Dialogs
             // clear controls
             this.AvailableGroupList.SelectedIndex = -1;
             this.GroupMessage.Text = null;
-            this.GroupOnlyRibbon.Checked = false;
             this.GroupHide.Checked = false;
             this.GroupSortOrder.Text = "1";
 
@@ -110,8 +109,7 @@ namespace YAF.Dialogs
             {
                 // Edit
                 // load group-medal to the controls
-                var row = this.GetRepository<Medal>().GroupMedalListAsDataTable(this.GroupId, this.MedalId)
-                    .GetFirstRow();
+                var row = this.GetRepository<GroupMedal>().List(this.GroupId.Value, this.MedalId.Value).FirstOrDefault();
 
                 // tweak it for editing
                 this.GroupMedalEditTitle.Text = this.GetText("ADMIN_EDITMEDAL", "EDIT_MEDAL_GROUP");
@@ -119,11 +117,11 @@ namespace YAF.Dialogs
 
                 // load data to controls
                 this.AvailableGroupList.SelectedIndex = -1;
-                this.AvailableGroupList.Items.FindByValue(row["GroupID"].ToString()).Selected = true;
-                this.GroupMessage.Text = row["Message"].ToString();
-                this.GroupSortOrder.Text = row["SortOrder"].ToString();
-                this.GroupOnlyRibbon.Checked = row["OnlyRibbon"].ToType<bool>();
-                this.GroupHide.Checked = row["Hide"].ToType<bool>();
+                this.AvailableGroupList.Items.FindByValue(row.Item2.GroupID.ToString()).Selected = true;
+
+                this.GroupMessage.Text = row.Item2.Message.IsSet() ? row.Item2.Message : row.Item1.Message;
+                this.GroupSortOrder.Text = row.Item2.SortOrder.ToString();
+                this.GroupHide.Checked = row.Item2.Hide;
 
                 // remove all user medals...
                 this.Get<IDataCache>().Remove(
@@ -144,14 +142,6 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // test if there is specified user name/id
-            if (this.AvailableGroupList.SelectedIndex < 0)
-            {
-                // no group selected
-                this.PageContext.AddLoadMessage("Please select user group!", MessageTypes.warning);
-                return;
-            }
-
             if (this.GroupId.HasValue)
             {
                 // save group, if there is no message specified, pass null
@@ -160,7 +150,6 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                     this.GroupHide.Checked,
-                    this.GroupOnlyRibbon.Checked,
                     this.GroupSortOrder.Text.ToType<byte>());
             }
             else
@@ -170,12 +159,11 @@ namespace YAF.Dialogs
                     this.MedalId.Value,
                     this.GroupMessage.Text.IsNotSet() ? null : this.GroupMessage.Text,
                     this.GroupHide.Checked,
-                    this.GroupOnlyRibbon.Checked,
                     this.GroupSortOrder.Text.ToType<byte>());
             }
 
             // re-bind data
-            BuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", this.MedalId.Value);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, "medalid={0}", this.MedalId.Value);
         }
 
         #endregion

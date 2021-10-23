@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,28 +33,41 @@ namespace YAF.Types.Models
     /// A class which represents the WatchForum table.
     /// </summary>
     [Serializable]
-    public partial class UserForum : IEntity
+    [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
+    public class UserForum : IEntity
     {
-        partial void OnCreated();
-
-        public UserForum()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the access mask id.
+        /// </summary>
         [References(typeof(AccessMask))]
         [Required]
         public int AccessMaskID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the invited.
+        /// </summary>
         [Required]
         public DateTime Invited { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether accepted.
+        /// </summary>
         [Required]
         public bool Accepted { get; set; }
 

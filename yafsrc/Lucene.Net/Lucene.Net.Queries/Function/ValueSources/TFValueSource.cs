@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
@@ -51,20 +52,20 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             var similarity = IDFValueSource.AsTFIDF(searcher.Similarity, m_indexedField);
             if (similarity == null)
             {
-                throw new NotSupportedException("requires a TFIDFSimilarity (such as DefaultSimilarity)");
+                throw UnsupportedOperationException.Create("requires a TFIDFSimilarity (such as DefaultSimilarity)");
             }
 
-            return new SingleDocValuesAnonymousInnerClassHelper(this, this, terms, similarity);
+            return new SingleDocValuesAnonymousClass(this, this, terms, similarity);
         }
 
-        private class SingleDocValuesAnonymousInnerClassHelper : SingleDocValues
+        private class SingleDocValuesAnonymousClass : SingleDocValues
         {
             private readonly TFValueSource outerInstance;
 
             private readonly Terms terms;
             private readonly TFIDFSimilarity similarity;
 
-            public SingleDocValuesAnonymousInnerClassHelper(TFValueSource outerInstance, TFValueSource @this, Terms terms, TFIDFSimilarity similarity)
+            public SingleDocValuesAnonymousClass(TFValueSource outerInstance, TFValueSource @this, Terms terms, TFIDFSimilarity similarity)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;
@@ -84,7 +85,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
                 if (terms != null)
                 {
-                    TermsEnum termsEnum = terms.GetIterator(null);
+                    TermsEnum termsEnum = terms.GetEnumerator();
                     if (termsEnum.SeekExact(outerInstance.m_indexedBytes))
                     {
                         docs = termsEnum.Docs(null, null);
@@ -101,20 +102,13 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
                 if (docs == null)
                 {
-                    docs = new DocsEnumAnonymousInnerClassHelper(this);
+                    docs = new DocsEnumAnonymousClass();
                 }
                 atDoc = -1;
             }
 
-            private class DocsEnumAnonymousInnerClassHelper : DocsEnum
+            private class DocsEnumAnonymousClass : DocsEnum
             {
-                private readonly SingleDocValuesAnonymousInnerClassHelper outerInstance;
-
-                public DocsEnumAnonymousInnerClassHelper(SingleDocValuesAnonymousInnerClassHelper outerInstance)
-                {
-                    this.outerInstance = outerInstance;
-                }
-
                 public override int Freq => 0;
 
                 public override int DocID => DocIdSetIterator.NO_MORE_DOCS;
@@ -164,9 +158,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                     // a match!
                     return similarity.Tf(docs.Freq);
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception("caught exception in function " + outerInstance.GetDescription() + " : doc=" + doc, e);
+                    throw RuntimeException.Create("caught exception in function " + outerInstance.GetDescription() + " : doc=" + doc, e);
                 }
             }
         }

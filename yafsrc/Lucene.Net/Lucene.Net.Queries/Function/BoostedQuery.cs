@@ -1,4 +1,6 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using J2N.Numerics;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System.Collections;
@@ -70,14 +72,14 @@ namespace YAF.Lucene.Net.Queries.Function
         {
             private readonly BoostedQuery outerInstance;
 
-            private readonly IndexSearcher searcher;
+            //private readonly IndexSearcher searcher; // LUCENENET: Never read
             internal readonly Weight qWeight;
             internal readonly IDictionary fcontext;
 
             public BoostedWeight(BoostedQuery outerInstance, IndexSearcher searcher)
             {
                 this.outerInstance = outerInstance;
-                this.searcher = searcher;
+                //this.searcher = searcher; // LUCENENET: Never read
                 this.qWeight = outerInstance.q.CreateWeight(searcher);
                 this.fcontext = ValueSource.NewContext(searcher);
                 outerInstance.boostVal.CreateWeight(fcontext, searcher);
@@ -216,9 +218,9 @@ namespace YAF.Lucene.Net.Queries.Function
         public override int GetHashCode()
         {
             int h = q.GetHashCode();
-            h ^= (h << 17) | ((int)((uint)h >> 16));
+            h ^= (h << 17) | (h.TripleShift(16));
             h += boostVal.GetHashCode();
-            h ^= (h << 8) | ((int)((uint)h >> 25));
+            h ^= (h << 8) | (h.TripleShift(25));
             h += J2N.BitConversion.SingleToInt32Bits(Boost);
             return h;
         }

@@ -23,22 +23,22 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// The read only provider interface.
-  /// </summary>
-  /// <typeparam name="T">
-  /// </typeparam>
-  public interface IReadOnlyProvider<out T>
-  {
-    #region Public Methods
-
     /// <summary>
-    /// The create.
+    /// The read only provider interface.
     /// </summary>
-    /// <returns>
-    /// </returns>
-    T Instance { get; }
+    /// <typeparam name="T">
+    /// </typeparam>
+    public interface IReadOnlyProvider<out T>
+    {
+        #region Public Methods
 
-    #endregion
-  }
+        /// <summary>
+        /// The create.
+        /// </summary>
+        /// <returns>
+        /// </returns>
+        T Instance { get; }
+
+        #endregion
+    }
 }

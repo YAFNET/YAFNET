@@ -29,15 +29,14 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -45,7 +44,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Admin Ranks Page
     /// </summary>
-    public partial class ranks : AdminPage
+    public partial class Ranks : AdminPage
     {
         #region Methods
 
@@ -61,7 +60,7 @@ namespace YAF.Pages.Admin
         protected string GetItemColorString(string item)
         {
             // show enabled flag red
-            return item.IsSet() ? "badge badge-success" : "badge badge-danger";
+            return item.IsSet() ? "badge bg-success" : "badge bg-danger";
         }
 
         /// <summary>
@@ -76,7 +75,7 @@ namespace YAF.Pages.Admin
         protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? "badge badge-success" : "badge badge-danger";
+            return enabled ? "badge bg-success" : "badge bg-danger";
         }
 
         /// <summary>
@@ -96,37 +95,35 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The bit set.
         /// </summary>
-        /// <param name="_o">
-        /// The _o.
+        /// <param name="flags">
+        /// The flags.
         /// </param>
         /// <param name="bitmask">
         /// The bitmask.
         /// </param>
         /// <returns>
-        /// The bit set.
+        /// The <see cref="bool"/>.
         /// </returns>
-        protected bool BitSet([NotNull] object _o, int bitmask)
+        protected bool BitSet([NotNull] object flags, int bitmask)
         {
-            var i = (int)_o;
+            var i = (int)flags;
             return (i & bitmask) != 0;
         }
 
         /// <summary>
-        /// The ladder info.
+        /// Is Rank Ladder?
         /// </summary>
-        /// <param name="_o">
-        /// The _o.
+        /// <param name="rank">
+        /// The rank.
         /// </param>
         /// <returns>
-        /// The ladder info.
+        /// The <see cref="string"/>.
         /// </returns>
-        protected string LadderInfo([NotNull] object _o)
+        protected string LadderInfo([NotNull] object rank)
         {
-            var dr = (Rank)_o;
+            var dr = (Rank)rank;
 
-            // object IsLadder,object MinPosts
-            // this.Eval( "IsLadder"),Eval( "MinPosts")
-            var isLadder = dr.Flags.BinaryAnd(RankFlags.Flags.IsLadder);
+            var isLadder = dr.RankFlags.IsLadder;
 
             return isLadder
                        ? $"{this.GetItemName(true)} ({dr.MinPosts} {this.GetText("ADMIN_RANKS", "POSTS")})"
@@ -140,7 +137,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewRankClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_editrank);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank);
         }
 
         /// <summary>
@@ -163,13 +160,10 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"));
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RANKS", "TITLE")}";
         }
 
         /// <summary>
@@ -186,7 +180,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.admin_editrank, "r={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank, "r={0}", e.CommandArgument);
                     break;
                 case "delete":
                     this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());

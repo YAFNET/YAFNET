@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -37,21 +37,8 @@ namespace YAF.Types.Models
     ///     A class which represents the YAF_Registry table in the YAF Database.
     /// </summary>
     [Serializable]
-    public partial class Registry : IEntity, IHaveID
+    public class Registry : IEntity, IHaveID
     {
-        // , IHaveBoardID
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Registry" /> class.
-        /// </summary>
-        public Registry()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -66,12 +53,13 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         [Index]
-        [StringLength(255)]
+        [StringLength(4000)]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
+        [StringLength(4000)]
         public string Value { get; set; }
 
         /// <summary>
@@ -80,15 +68,6 @@ namespace YAF.Types.Models
         [References(typeof(Board))]
         [Index]
         public int? BoardID { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

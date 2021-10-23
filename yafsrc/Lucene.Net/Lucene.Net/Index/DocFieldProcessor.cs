@@ -1,8 +1,9 @@
-using J2N.Text;
+﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
@@ -24,11 +25,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using Codec  = YAF.Lucene.Net.Codecs.Codec;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using FieldInfosWriter  = YAF.Lucene.Net.Codecs.FieldInfosWriter;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
 
     /// <summary>
     /// This is a <see cref="DocConsumer"/> that gathers all fields under the
@@ -107,7 +108,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         fieldNext.Abort();
                     }
-                    catch (Exception t)
+                    catch (Exception t) when (t.IsThrowable())
                     {
                         if (th == null)
                         {
@@ -122,7 +123,7 @@ namespace YAF.Lucene.Net.Index
             {
                 storedConsumer.Abort();
             }
-            catch (Exception t)
+            catch (Exception t) when (t.IsThrowable())
             {
                 if (th == null)
                 {
@@ -134,7 +135,7 @@ namespace YAF.Lucene.Net.Index
             {
                 consumer.Abort();
             }
-            catch (Exception t)
+            catch (Exception t) when (t.IsThrowable())
             {
                 if (th == null)
                 {
@@ -145,12 +146,10 @@ namespace YAF.Lucene.Net.Index
             // If any errors occured, throw it.
             if (th != null)
             {
-                if (th is Exception)
-                {
-                    throw (Exception)th;
-                }
+                if (th.IsRuntimeException()) ExceptionDispatchInfo.Capture(th).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
+                if (th.IsError()) ExceptionDispatchInfo.Capture(th).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
                 // defensive code - we should not hit unchecked exceptions
-                throw new Exception(th.Message, th);
+                throw RuntimeException.Create(th);
             }
         }
 

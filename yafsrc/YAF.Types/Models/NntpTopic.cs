@@ -24,39 +24,42 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_NntpTopic table.
+    /// A class which represents the NntpTopic table.
     /// </summary>
     [Serializable]
-    [Table(Name = "NntpTopic")]
-    public partial class NntpTopic : IEntity, IHaveID
+    public class NntpTopic : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public NntpTopic()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("NntpTopicID")]
         [AutoIncrement]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the nntp forum id.
+        /// </summary>
         [References(typeof(NntpForum))]
         [Required]
         public int NntpForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the thread.
+        /// </summary>
         [StringLength(64)]
         public string Thread { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
         [References(typeof(Topic))]
         [Required]
         public int TopicID { get; set; }

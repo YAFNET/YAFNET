@@ -10,8 +10,7 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" 
                                 LocalizedPage="ADMIN_BBCODE_IMPORT" />
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">
@@ -19,13 +18,13 @@
                         <YAF:HelpLabel ID="LocalizedLabel2" runat="server" 
                                        AssociatedControlID="importFile"
                                        LocalizedTag="SELECT_IMPORT" LocalizedPage="ADMIN_EXTENSIONS_IMPORT" />
-                        <div class="custom-file">
-                            <input type="file" id="importFile" class="custom-file-input" runat="server" />
-                            <asp:Label runat="server" CssClass="custom-file-label" AssociatedControlID="importFile">
+                        <div class="mb-3">
+                            <label for="<%# this.importFile.ClientID %>" class="form-label">
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="SELECT_IMPORT" 
-                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"></YAF:LocalizedLabel>
-                            </asp:Label>
+                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"/>
+                            </label>
+                            <input type="file" id="importFile" class="form-control" runat="server" />
                         </div>
                         <!-- Modal Content END !-->
                     </div>

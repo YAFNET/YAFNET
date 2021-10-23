@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -19,19 +19,16 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum; // javadocs
-    using Fields = YAF.Lucene.Net.Index.Fields;
-    using OffsetAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute; // javadocs
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum; // javadocs
+    using Fields  = YAF.Lucene.Net.Index.Fields;
+    using OffsetAttribute  = YAF.Lucene.Net.Analysis.TokenAttributes.OffsetAttribute; // javadocs
 
     /// <summary>
     /// Codec API for reading term vectors:
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-    public abstract class TermVectorsReader : IDisposable
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public abstract class TermVectorsReader : IDisposable // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// Sole constructor. (For invocation by subclass

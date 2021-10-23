@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum; // javadocs
-    using OrdTermState = YAF.Lucene.Net.Index.OrdTermState;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum; // javadocs
+    using OrdTermState  = YAF.Lucene.Net.Index.OrdTermState;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
 
     /// <summary>
     /// Holds all state required for <see cref="PostingsReaderBase"/>

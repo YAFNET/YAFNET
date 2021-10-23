@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
@@ -30,11 +30,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using MergeInfo = YAF.Lucene.Net.Store.MergeInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using MergeInfo  = YAF.Lucene.Net.Store.MergeInfo;
 
-    //using AlreadySetException = YAF.Lucene.Net.Util.SetOnce.AlreadySetException;
+    //using AlreadySetException  = YAF.Lucene.Net.Util.SetOnce.AlreadySetException;
 
     /// <summary>
     /// <para>Expert: a <see cref="MergePolicy"/> determines the sequence of
@@ -64,10 +64,7 @@ namespace YAF.Lucene.Net.Index
     ///
     /// @lucene.experimental
     /// </summary>
-    public abstract class MergePolicy : IDisposable
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public abstract class MergePolicy : IDisposable // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// A map of doc IDs. </summary>
@@ -157,7 +154,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (0 == segments.Count)
                 {
-                    throw new Exception("segments must include at least one segment");
+                    throw RuntimeException.Create("segments must include at least one segment");
                 }
                 // clone the list, as the in list may be based off original SegmentInfos and may be modified
                 this.Segments = new List<SegmentCommitInfo>(segments);
@@ -181,7 +178,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (this.readers == null)
                 {
-                    throw new InvalidOperationException("IndexWriter has not initialized readers from the segment infos yet");
+                    throw IllegalStateException.Create("IndexWriter has not initialized readers from the segment infos yet");
                 }
                 IList<AtomicReader> readers = new List<AtomicReader>(this.readers.Count);
                 foreach (AtomicReader reader in this.readers)
@@ -213,18 +210,11 @@ namespace YAF.Lucene.Net.Index
             /// </summary>
             public virtual DocMap GetDocMap(MergeState mergeState)
             {
-                return new DocMapAnonymousInnerClassHelper(this);
+                return new DocMapAnonymousClass();
             }
 
-            private class DocMapAnonymousInnerClassHelper : DocMap
+            private class DocMapAnonymousClass : DocMap
             {
-                private readonly OneMerge outerInstance;
-
-                public DocMapAnonymousInnerClassHelper(OneMerge outerInstance)
-                {
-                    this.outerInstance = outerInstance;
-                }
-
                 public override int Map(int docID)
                 {
                     return docID;
@@ -296,20 +286,17 @@ namespace YAF.Lucene.Net.Index
 
                     while (paused)
                     {
-//#if FEATURE_THREAD_INTERRUPT
-//                        try
-//                        {
-//#endif
-                            // In theory we could wait() indefinitely, but we
+                        try
+                        {
+                            //In theory we could wait() indefinitely, but we
                             // do 1000 msec, defensively
                             Monitor.Wait(this, TimeSpan.FromMilliseconds(1000));
-//#if FEATURE_THREAD_INTERRUPT // LUCENENET NOTE: Senseless to catch and rethrow the same exception type
-//                        }
-//                        catch (ThreadInterruptedException ie)
-//                        {
-//                            throw new Exception(ie.ToString(), ie);
-//                        }
-//#endif
+                        }
+                        catch (Exception ie) when (ie.IsInterruptedException())
+                        {
+                            throw RuntimeException.Create(ie);
+                        }
+
                         if (aborted)
                         {
                             throw new MergeAbortedException("merge is aborted: " + SegString(dir));
@@ -469,9 +456,9 @@ namespace YAF.Lucene.Net.Index
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
         [Serializable]
 #endif
-        public class MergeException : Exception
+        public class MergeException : Exception, IRuntimeException // LUCENENET specific: Added IRuntimeException for identification of the Java superclass in .NET
         {
-            private Directory dir;
+            private readonly Directory dir; // LUCENENET: marked readonly
 
             /// <summary>
             /// Create a <see cref="MergeException"/>. </summary>
@@ -489,13 +476,13 @@ namespace YAF.Lucene.Net.Index
                 this.dir = dir;
             }
 
-#if FEATURE_SERIALIZABLE_EXCEPTIONS
-            // For testing purposes
-            public MergeException(string message)
+            // LUCENENET: For testing purposes
+            internal MergeException(string message)
                 : base(message)
             {
             }
 
+#if FEATURE_SERIALIZABLE_EXCEPTIONS
             /// <summary>
             /// Initializes a new instance of this class with serialized data.
             /// </summary>
@@ -598,7 +585,7 @@ namespace YAF.Lucene.Net.Index
         /// without passing it to <see cref="IndexWriter"/>, you should call
         /// <see cref="SetIndexWriter(IndexWriter)"/>.
         /// </summary>
-        public MergePolicy()
+        protected MergePolicy() // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             : this(DEFAULT_NO_CFS_RATIO, DEFAULT_MAX_CFS_SEGMENT_SIZE)
         {
         }
@@ -759,7 +746,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (value < 0.0 || value > 1.0)
                 {
-                    throw new ArgumentException("noCFSRatio must be 0.0 to 1.0 inclusive; got " + value);
+                    throw new ArgumentOutOfRangeException(nameof(NoCFSRatio), "noCFSRatio must be 0.0 to 1.0 inclusive; got " + value); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.m_noCFSRatio = value;
             }
@@ -781,7 +768,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (value < 0.0)
                 {
-                    throw new ArgumentException("maxCFSSegmentSizeMB must be >=0 (got " + value + ")");
+                    throw new ArgumentOutOfRangeException(nameof(MaxCFSSegmentSizeMB), "maxCFSSegmentSizeMB must be >=0 (got " + value + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 value *= 1024 * 1024;
                 this.m_maxCFSSegmentSize = (value > long.MaxValue) ? long.MaxValue : (long)value;

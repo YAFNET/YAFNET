@@ -25,7 +25,6 @@ namespace YAF.Modules
 {
     #region Using
 
-    using YAF.Core;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Types;
@@ -39,15 +38,6 @@ namespace YAF.Modules
     /// </summary>
     public class SimpleBaseForumModule : BaseForumModule
     {
-        #region Constants and Fields
-
-        /// <summary>
-        ///   The _forum page type.
-        /// </summary>
-        protected ForumPages _forumPageType;
-
-        #endregion
-
         #region Properties
 
         /// <summary>

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,34 +24,37 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_ReputationVote table.
+    /// A class which represents the ReputationVote table.
     /// </summary>
     [Serializable]
-    [Table(Name = "ReputationVote")]
-    public partial class ReputationVote : IEntity
+    [CompositePrimaryKey(nameof(ReputationFromUserID), nameof(ReputationToUserID))]
+    public class ReputationVote : IEntity
     {
-        partial void OnCreated();
-
-        public ReputationVote()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the reputation from user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int ReputationFromUserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reputation to user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int ReputationToUserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vote date.
+        /// </summary>
         [Required]
         public DateTime VoteDate { get; set; }
 

@@ -64,16 +64,14 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 
         protected override IQueryNode PreProcessNode(IQueryNode node)
         {
-            if (node is IFieldableNode)
+            if (node is IFieldableNode fieldNode)
             {
                 this.processChildren = false;
-                IFieldableNode fieldNode = (IFieldableNode)node;
-
                 if (fieldNode.Field == null)
                 {
                     string[] fields = GetQueryConfigHandler().Get(ConfigurationKeys.MULTI_FIELDS);
 
-                    if (fields == null)
+                    if (fields is null)
                     {
                         throw new ArgumentException(
                             "StandardQueryConfigHandler.ConfigurationKeys.MULTI_FIELDS should be set on the QueryConfigHandler");
@@ -89,8 +87,10 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                         }
                         else
                         {
-                            List<IQueryNode> children = new List<IQueryNode>();
-                            children.Add(fieldNode);
+                            List<IQueryNode> children = new List<IQueryNode>
+                            {
+                                fieldNode
+                            };
 
                             for (int i = 1; i < fields.Length; i++)
                             {

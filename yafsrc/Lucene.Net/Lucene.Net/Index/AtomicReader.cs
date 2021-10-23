@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// <see cref="AtomicReader"/> is an abstract class, providing an interface for accessing an
@@ -49,12 +49,7 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     public abstract class AtomicReader : IndexReader
     {
-        private void InitializeInstanceFields()
-        {
-            readerContext = new AtomicReaderContext(this);
-        }
-
-        private AtomicReaderContext readerContext;
+        private readonly AtomicReaderContext readerContext; // LUCENENET: marked readonly
 
         /// <summary>
         /// Sole constructor. (For invocation by subclass
@@ -63,7 +58,7 @@ namespace YAF.Lucene.Net.Index
         protected AtomicReader()
             : base()
         {
-            InitializeInstanceFields();
+            readerContext = new AtomicReaderContext(this);
         }
 
         public sealed override IndexReaderContext Context

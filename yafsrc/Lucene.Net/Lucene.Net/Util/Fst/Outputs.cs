@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// Represents the outputs for an FST, providing the basic
@@ -65,6 +65,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// <see cref="DataOutput"/>.  By default this just calls 
         /// <see cref="Write(T, DataOutput)"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void WriteFinalOutput(T output, DataOutput @out)
         {
             Write(output, @out);
@@ -81,6 +82,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// <see cref="WriteFinalOutput(T, DataOutput)"/>.  By default this
         /// just calls <see cref="Read(DataInput)"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual T ReadFinalOutput(DataInput @in)
         {
             return Read(@in);
@@ -100,7 +102,7 @@ namespace YAF.Lucene.Net.Util.Fst
         [MethodImpl(MethodImplOptions.NoInlining)]
         public virtual T Merge(T first, T second)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
     }
 }

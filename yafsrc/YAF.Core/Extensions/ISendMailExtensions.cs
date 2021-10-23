@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,7 +29,7 @@ namespace YAF.Core.Extensions
     using System.Net.Mail;
 
     using YAF.Types;
-    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -50,7 +50,7 @@ namespace YAF.Core.Extensions
         /// <param name="subject">The subject.</param>
         /// <param name="body">The body.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] string fromEmail,
             [NotNull] string toEmail,
             [NotNull] string senderEmail,
@@ -71,40 +71,6 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// The send.
         /// </summary>
-        /// <param name="sendMail">The send mail.</param>
-        /// <param name="fromEmail">The from email.</param>
-        /// <param name="fromName">The from name.</param>
-        /// <param name="toEmail">The to email.</param>
-        /// <param name="toName">The to name.</param>
-        /// <param name="senderEmail">The sender email.</param>
-        /// <param name="senderName">Name of the sender.</param>
-        /// <param name="subject">The subject.</param>
-        /// <param name="bodyText">The body text.</param>
-        /// <param name="bodyHtml">The body html.</param>
-        public static void Send(
-            [NotNull] this ISendMail sendMail,
-            [NotNull] string fromEmail,
-            [CanBeNull] string fromName,
-            [NotNull] string toEmail,
-            [CanBeNull] string toName,
-            [NotNull] string senderEmail,
-            [CanBeNull] string senderName,
-            [CanBeNull] string subject,
-            [CanBeNull] string bodyText,
-            [CanBeNull] string bodyHtml)
-        {
-            sendMail.Send(
-                new MailAddress(fromEmail, fromName),
-                new MailAddress(toEmail, toName),
-                new MailAddress(senderEmail, senderName),
-                subject,
-                bodyText,
-                bodyHtml);
-        }
-
-        /// <summary>
-        /// The send.
-        /// </summary>
         /// <param name="sendMail">The send Mail.</param>
         /// <param name="fromAddress">The from address.</param>
         /// <param name="toAddress">The to address.</param>
@@ -112,7 +78,7 @@ namespace YAF.Core.Extensions
         /// <param name="subject">The subject.</param>
         /// <param name="bodyText">The body text.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] MailAddress fromAddress,
             [NotNull] MailAddress toAddress,
             [NotNull] MailAddress senderAddress,
@@ -133,7 +99,7 @@ namespace YAF.Core.Extensions
         /// <param name="bodyText">The body text.</param>
         /// <param name="bodyHtml">The body html.</param>
         public static void Send(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] MailAddress fromAddress,
             [NotNull] MailAddress toAddress,
             [NotNull] MailAddress senderAddress,
@@ -146,7 +112,7 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(toAddress, "toAddress");
 
             var mailMessage = new MailMessage();
-            
+
             mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
 
             sendMail.SendAll(new List<MailMessage> { mailMessage });
@@ -180,7 +146,7 @@ namespace YAF.Core.Extensions
         /// The <see cref="MailMessage"/>.
         /// </returns>
         public static MailMessage CreateMessage(
-            [NotNull] this ISendMail sendMail,
+            [NotNull] this IMailService sendMail,
             [NotNull] MailAddress fromAddress,
             [NotNull] MailAddress toAddress,
             [NotNull] MailAddress senderAddress,

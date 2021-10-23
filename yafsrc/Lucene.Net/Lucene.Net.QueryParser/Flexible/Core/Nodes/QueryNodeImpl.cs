@@ -1,11 +1,10 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Util;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Resources;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 {
@@ -30,10 +29,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
     /// A <see cref="QueryNode"/> is the default implementation of the interface
     /// <see cref="IQueryNode"/>
     /// </summary>
-    public abstract class QueryNode : IQueryNode
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public abstract class QueryNode : IQueryNode // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// index default field
@@ -45,13 +41,13 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 
         private Dictionary<string, object> tags = new Dictionary<string, object>();
 
-        private List<IQueryNode> clauses = null;
+        private JCG.List<IQueryNode> clauses = null;
 
         protected virtual void Allocate()
         {
             if (this.clauses == null)
             {
-                this.clauses = new List<IQueryNode>();
+                this.clauses = new JCG.List<IQueryNode>();
             }
             else
             {
@@ -63,8 +59,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         {
             if (IsLeaf || this.clauses == null || child == null)
             {
-                throw new ArgumentException(NLS
-                    .GetLocalizedMessage(QueryParserMessages.NODE_ACTION_NOT_SUPPORTED));
+                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                throw new ArgumentException(
+                    QueryParserMessages.NODE_ACTION_NOT_SUPPORTED);
             }
 
             this.clauses.Add(child);
@@ -75,8 +72,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         {
             if (IsLeaf || this.clauses == null)
             {
-                throw new ArgumentException(NLS
-                    .GetLocalizedMessage(QueryParserMessages.NODE_ACTION_NOT_SUPPORTED));
+                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                throw new ArgumentException(
+                    QueryParserMessages.NODE_ACTION_NOT_SUPPORTED);
             }
 
             foreach (IQueryNode child in children)
@@ -95,19 +93,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         {
             if (IsLeaf || this.clauses == null)
             {
-                var factory = NLS.GetResourceManagerFactory();
-                ResourceManager bundle = factory.Create(typeof(QueryParserMessages));
-                string message;
-                try
-                {
-                    message = bundle.GetString(QueryParserMessages.NODE_ACTION_NOT_SUPPORTED);
-                }
-                finally
-                {
-                    factory.Release(bundle);
-                }
-
-                throw new ArgumentException(message);
+                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                throw new ArgumentException(QueryParserMessages.NODE_ACTION_NOT_SUPPORTED);
             }
 
             // reset parent value
@@ -142,7 +129,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             // copy children
             if (this.clauses != null)
             {
-                List<IQueryNode> localClauses = new List<IQueryNode>();
+                JCG.List<IQueryNode> localClauses = new JCG.List<IQueryNode>();
                 foreach (IQueryNode clause in this.clauses)
                 {
                     localClauses.Add(clause.CloneTree());
@@ -168,7 +155,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             {
                 return null;
             }
-            return new List<IQueryNode>(this.clauses);
+            return new JCG.List<IQueryNode>(this.clauses);
         }
 
         public virtual void SetTag(string tagName, object value)
@@ -194,7 +181,11 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             return this.tags[CultureInfo.InvariantCulture.TextInfo.ToLower(tagName)];
         }
 
-        // LUCENENET TODO: API - Create TryGetTag method to combine the above 2 operations
+        /// <inheritdoc/>
+        public virtual bool TryGetTag(string tagName, out object tag)
+        {
+            return this.tags.TryGetValue(tagName, out tag);
+        }
 
         private IQueryNode parent = null;
 
@@ -253,23 +244,24 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         /// </summary>
         public virtual IDictionary<string, object> TagMap => new Dictionary<string, object>(this.tags);
 
+        // LUCENENET NOTE: There was a bug in 4.8.1 here because parent.GetChildren() returns a copy of the
+        // children, so removing items from it is pointless. We therefore diverge to the version 8.8.1 source of Lucene
+        // from this point. Not sure when this patch was applied.
+
+        public virtual void RemoveChildren(IQueryNode childNode)
+        {
+            // LUCENENET: Use RemoveAll() method for optimal performance.
+            clauses.RemoveAll((value) => value == childNode);
+            childNode.RemoveFromParent();
+        }
+
         public virtual void RemoveFromParent()
         {
             if (this.parent != null)
             {
-                IList<IQueryNode> parentChildren = this.parent.GetChildren();
-
-                // LUCENENET NOTE: Loop in reverse so we can remove items
-                // without screwing up our iterator.
-                for (int i = parentChildren.Count - 1; i >= 0; i--)
-                {
-                    if (parentChildren[i] == this)
-                    {
-                        parentChildren.RemoveAt(i);
-                    }
-                }
-
+                IQueryNode parent = this.parent;
                 this.parent = null;
+                parent.RemoveChildren(this);
             }
         }
 

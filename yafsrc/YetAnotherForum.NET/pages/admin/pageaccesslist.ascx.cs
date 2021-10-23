@@ -27,15 +27,16 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -43,7 +44,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Page Admin Access list page
     /// </summary>
-    public partial class pageaccesslist : AdminPage
+    public partial class PageAccessList : AdminPage
     {
         #region Methods
 
@@ -53,18 +54,13 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             // board index
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             // administration index
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_PAGEACCESSLIST", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_PAGEACCESSLIST", "TITLE")}";
         }
 
         /// <summary>
@@ -79,7 +75,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // redirect to editing page
-                    BuildLink.Redirect(ForumPages.admin_pageaccessedit, "u={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessEdit, "u={0}", e.CommandArgument);
                     break;
             }
         }
@@ -105,7 +101,8 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list admins but not host admins
-            this.List.DataSource = this.GetRepository<vaccess>().List(null, true);
+            this.List.DataSource = this.GetRepository<User>().ListAdmins(false, this.PageContext.PageBoardID)
+                .Where(u => !u.UserFlags.IsHostAdmin);
             this.DataBind();
         }
 

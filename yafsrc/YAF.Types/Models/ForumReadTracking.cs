@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,28 +33,30 @@ namespace YAF.Types.Models
     /// A class which represents the ForumReadTracking table.
     /// </summary>
     [Serializable]
-    public partial class ForumReadTracking : IEntity
+    [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
+    public class ForumReadTracking : IEntity
     {
-        partial void OnCreated();
-
-        public ForumReadTracking()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the last access date.
+        /// </summary>
         [Required]
         public DateTime LastAccessDate { get; set; }
-
 
         #endregion
     }

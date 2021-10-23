@@ -26,11 +26,12 @@ namespace YAF.Core.Extensions
     using System;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     ///     The Logger extensions.
@@ -46,50 +47,7 @@ namespace YAF.Core.Extensions
         /// The logger.
         /// </param>
         /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="eventType">
-        /// The event type.
-        /// </param>
-        public static void Log(
-            [NotNull] this ILogger logger, 
-            int userId, 
-            [CanBeNull] object source, 
-            [NotNull] string description, 
-            EventLogTypes eventType = EventLogTypes.Error)
-        {
-            CodeContracts.VerifyNotNull(logger, "logger");
-
-            var username = BoardContext.Current.Get<IUserDisplayName>().GetName(userId);
-
-            var sourceDescription = "unknown";
-
-            if (source is Type)
-            {
-                sourceDescription = source.GetType().FullName;
-            }
-            else if (source != null)
-            {
-                sourceDescription = source.ToString().Truncate(50);
-            }
-
-            logger.Log(description, eventType, username.IsNotSet() ? "N/A" : username, sourceDescription);
-        }
-
-        /// <summary>
-        /// The log.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
+        /// The user Id.
         /// </param>
         /// <param name="source">
         /// The source.
@@ -101,20 +59,13 @@ namespace YAF.Core.Extensions
         /// The event type.
         /// </param>
         public static void Log(
-            [NotNull] this ILogger logger, 
+            [NotNull] this ILoggerService logger, 
             [CanBeNull] int? userId, 
             [CanBeNull] object source, 
             [NotNull] Exception exception, 
             EventLogTypes eventType = EventLogTypes.Error)
         {
             CodeContracts.VerifyNotNull(logger, "logger");
-
-            string username = null;
-
-            if (userId.HasValue && userId > 0)
-            {
-                username = BoardContext.Current.Get<IUserDisplayName>().GetName(userId.Value);
-            }
 
             var sourceDescription = "unknown";
 
@@ -131,9 +82,9 @@ namespace YAF.Core.Extensions
 
             try
             {
-                message = $"Exception at URL: {BoardContext.Current.Get<HttpRequestBase>().Url}; IP:'{BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress()}'";
+                message = $"Exception at URL: {BoardContext.Current.Get<HttpRequestBase>().Url}";
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 message = "Exception";
             }
@@ -141,7 +92,7 @@ namespace YAF.Core.Extensions
             logger.Log(
                 message,
                 eventType,
-                username,
+                userId,
                 sourceDescription,
                 exception);
         }

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using J2N;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -139,13 +139,14 @@ namespace YAF.Lucene.Net.Search
         // TODO: we could get by w/ just a "set"; need to have
         // Tracker hash by its version and have compareTo(Long)
         // compare to its version
+        // LUCENENET specific - use Lazy<T> to make the create operation atomic. See #417.
         private readonly ConcurrentDictionary<long, Lazy<SearcherTracker>> _searchers = new ConcurrentDictionary<long, Lazy<SearcherTracker>>();
 
         private void EnsureOpen()
         {
             if (_closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this SearcherLifetimeManager instance is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this SearcherLifetimeManager instance is disposed.");
             }
         }
 
@@ -197,8 +198,7 @@ namespace YAF.Lucene.Net.Search
         public virtual IndexSearcher Acquire(long version)
         {
             EnsureOpen();
-            Lazy<SearcherTracker> tracker;
-            if (_searchers.TryGetValue(version, out tracker) && tracker.IsValueCreated && tracker.Value.Searcher.IndexReader.TryIncRef())
+            if (_searchers.TryGetValue(version, out Lazy<SearcherTracker> tracker) && tracker.IsValueCreated && tracker.Value.Searcher.IndexReader.TryIncRef())
             {
                 return tracker.Value.Searcher;
             }
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Search
             {
                 if (maxAgeSec < 0)
                 {
-                    throw new ArgumentException("maxAgeSec must be > 0 (got " + maxAgeSec + ")");
+                    throw new ArgumentOutOfRangeException("maxAgeSec must be > 0 (got " + maxAgeSec + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.maxAgeSec = maxAgeSec;
             }
@@ -291,7 +291,7 @@ namespace YAF.Lucene.Net.Search
                     // recordTime, etc:
                     if (pruner.DoPrune(ageSec, tracker.Searcher))
                     {
-                        //System.out.println("PRUNE version=" + tracker.version + " age=" + ageSec + " ms=" + System.currentTimeMillis());
+                        //System.out.println("PRUNE version=" + tracker.version + " age=" + ageSec + " ms=" + Time.CurrentTimeMilliseconds());
                         Lazy<SearcherTracker> _;
                         _searchers.TryRemove(tracker.Version, out _);
                         tracker.Dispose();
@@ -312,27 +312,43 @@ namespace YAF.Lucene.Net.Search
         /// otherwise it's possible not all searcher references
         /// will be freed.
         /// </summary>
-        public virtual void Dispose()
+        public void Dispose()
         {
-            lock (this)
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases resources used by the <see cref="SearcherLifetimeManager"/> and
+        /// if overridden in a derived class, optionally releases unmanaged resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources;
+        /// <c>false</c> to release only unmanaged resources.</param>
+
+        // LUCENENET specific - implemented proper dispose pattern
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                _closed = true;
-                IList<SearcherTracker> toClose = new List<SearcherTracker>(_searchers.Values.Select(item => item.Value));
-
-                // Remove up front in case exc below, so we don't
-                // over-decRef on double-close:
-                foreach (var tracker in toClose)
+                lock (this)
                 {
-                    Lazy<SearcherTracker> _;
-                    _searchers.TryRemove(tracker.Version, out _);
-                }
+                    _closed = true;
+                    IList<SearcherTracker> toClose = new List<SearcherTracker>(_searchers.Values.Select(item => item.Value));
 
-                IOUtils.Dispose(toClose);
+                    // Remove up front in case exc below, so we don't
+                    // over-decRef on double-close:
+                    foreach (var tracker in toClose)
+                    {
+                        _searchers.TryRemove(tracker.Version, out Lazy<SearcherTracker> _);
+                    }
 
-                // Make some effort to catch mis-use:
-                if (_searchers.Count != 0)
-                {
-                    throw new InvalidOperationException("another thread called record while this SearcherLifetimeManager instance was being closed; not all searchers were closed");
+                    IOUtils.Dispose(toClose);
+
+                    // Make some effort to catch mis-use:
+                    if (_searchers.Count != 0)
+                    {
+                        throw IllegalStateException.Create("another thread called record while this SearcherLifetimeManager instance was being disposed; not all searchers were disposed");
+                    }
                 }
             }
         }

@@ -44,10 +44,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         /// <summary>
         /// Term text with a beginning and end position
         /// </summary>
-        public class QueryText
-#if FEATURE_CLONEABLE
-            : System.ICloneable
-#endif
+        public class QueryText // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
         {
             private string value = null;
 
@@ -118,7 +115,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             if (pathElements.Count <= 1)
             {
                 // this should not happen
-                throw new Exception(
+                throw RuntimeException.Create(
                     "PathQuerynode requires more 2 or more path elements.");
             }
         }

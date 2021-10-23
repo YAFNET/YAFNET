@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WeightedPhraseInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
+using WeightedPhraseInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {
@@ -38,21 +38,19 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             FieldFragList ffl = new SimpleFieldFragList(fragCharSize);
 
             List<WeightedPhraseInfo> wpil = new List<WeightedPhraseInfo>();
-            using (IEnumerator<WeightedPhraseInfo> ite = fieldPhraseList.PhraseList.GetEnumerator())
+            using IEnumerator<WeightedPhraseInfo> ite = fieldPhraseList.PhraseList.GetEnumerator();
+            WeightedPhraseInfo phraseInfo = null;
+            while (true)
             {
-                WeightedPhraseInfo phraseInfo = null;
-                while (true)
-                {
-                    if (!ite.MoveNext()) break;
-                    phraseInfo = ite.Current;
-                    if (phraseInfo == null) break;
+                if (!ite.MoveNext()) break;
+                phraseInfo = ite.Current;
+                if (phraseInfo == null) break;
 
-                    wpil.Add(phraseInfo);
-                }
-                if (wpil.Count > 0)
-                    ffl.Add(0, int.MaxValue, wpil);
-                return ffl;
+                wpil.Add(phraseInfo);
             }
+            if (wpil.Count > 0)
+                ffl.Add(0, int.MaxValue, wpil);
+            return ffl;
         }
     }
 }

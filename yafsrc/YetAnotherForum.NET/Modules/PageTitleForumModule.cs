@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,9 +28,9 @@ namespace YAF.Modules
     using System;
     using System.Web.UI.HtmlControls;
 
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Utils.Helpers;
     using YAF.Web.EventsArgs;
     using YAF.Web.Extensions;
 
@@ -39,7 +39,7 @@ namespace YAF.Modules
     /// <summary>
     /// Page Title Module
     /// </summary>
-    [YafModule("Page Title Module", "Tiny Gecko", 1)]
+    [Module("Page Title Module", "Tiny Gecko", 1)]
     public class PageTitleForumModule : SimpleBaseForumModule
     {
         #region Public Methods

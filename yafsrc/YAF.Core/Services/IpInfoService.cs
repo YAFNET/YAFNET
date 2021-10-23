@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,15 +26,21 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System.Collections.Generic;
+    using System;
+    using System.IO;
+    using System.Net;
     using System.Web;
 
-    using YAF.Core;
+    using ServiceStack.Text;
+
+    using YAF.Configuration;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Interfaces.Services;
+    using YAF.Types.Objects;
 
     #endregion
 
@@ -69,7 +75,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="IDictionary"/>.
         /// </returns>
-        public IDictionary<string, string> GetUserIpLocator()
+        public IpLocator GetUserIpLocator()
         {
             return this.GetUserIpLocator(this.Get<HttpRequestBase>().GetUserRealIPAddress());
         }
@@ -83,38 +89,75 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="IDictionary"/>.
         /// </returns>
-        public IDictionary<string, string> GetUserIpLocator(string ipAddress)
+        public IpLocator GetUserIpLocator(string ipAddress)
         {
             if (ipAddress.IsNotSet())
             {
                 return null;
             }
 
-            var userIpLocator = new IPDetails().GetData(
-                ipAddress,
-                "text",
-                false,
-                BoardContext.Current.CurrentForumPage.Localization.Culture.Name,
-                string.Empty,
-                string.Empty);
+            var userIpLocator = this.GetData(
+                ipAddress);
 
             if (userIpLocator == null)
             {
                 return null;
             }
 
-            if (userIpLocator["StatusCode"] == "OK")
+            if (userIpLocator.StatusCode.Equals("OK"))
             {
                 return userIpLocator;
             }
 
-            this.Get<ILogger>().Log(
+            this.Get<ILoggerService>().Log(
                 null,
                 this,
-                $"Geolocation Service reports: {userIpLocator["StatusMessage"]}",
+                $"Geolocation Service reports: {userIpLocator.StatusMessage}",
                 EventLogTypes.Information);
 
             return null;
+        }
+
+        /// <summary>
+        /// IP Details From IP Address
+        /// </summary>
+        /// <param name="ip">
+        /// The IP Address.
+        /// </param>
+        /// <returns>
+        /// The <see cref="IDictionary"/>.
+        /// </returns>
+        private IpLocator GetData([CanBeNull] string ip)
+        {
+            CodeContracts.VerifyNotNull(ip, "ip");
+
+            if (this.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
+                this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
+            {
+                return null;
+            }
+
+            if (!this.Get<BoardSettings>().EnableIPInfoService)
+            {
+                return null;
+            }
+
+            try
+            {
+                var url = $"{this.Get<BoardSettings>().IPLocatorUrlPath}&format=json";
+                var path = string.Format(url, IPHelper.GetIpAddressAsString(ip));
+
+                var webRequest = (HttpWebRequest)WebRequest.Create(path);
+                var response = (HttpWebResponse)webRequest.GetResponse();
+                var streamReader = new StreamReader(response.GetResponseStream());
+                var responseText = streamReader.ReadToEnd();
+
+                return responseText.FromJson<IpLocator>();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

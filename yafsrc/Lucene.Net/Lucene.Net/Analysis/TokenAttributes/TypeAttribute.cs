@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Analysis.TokenAttributes
 {
@@ -19,15 +19,12 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
      * limitations under the License.
      */
 
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+    using Attribute  = YAF.Lucene.Net.Util.Attribute;
+    using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
 
     /// <summary>
     /// Default implementation of <see cref="ITypeAttribute"/>. </summary>
-    public partial class TypeAttribute : Attribute, ITypeAttribute
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public partial class TypeAttribute : Attribute, ITypeAttribute // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private string type;
 
@@ -63,9 +60,8 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
                 return true;
             }
 
-            if (other is TypeAttribute)
+            if (other is TypeAttribute o)
             {
-                TypeAttribute o = (TypeAttribute)other;
                 return (this.type == null ? o.type == null : this.type.Equals(o.type, StringComparison.Ordinal));
             }
 

@@ -1,9 +1,10 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util.Packed
@@ -80,7 +81,7 @@ namespace YAF.Lucene.Net.Util.Packed
     ///
     /// <para/>The articles originally describing the Elias-Fano representation are:
     /// <para/>Peter Elias, "Efficient storage and retrieval by content and address of static files",
-    /// J. Assoc. Comput. Mach., 21(2):246�"260, 1974.
+    /// J. Assoc. Comput. Mach., 21(2):246â€"260, 1974.
     /// <para/>Robert M. Fano, "On the number of bits required to implement an associative memory",
     ///  Memorandum 61, Computer Structures Group, Project MAC, MIT, Cambridge, Mass., 1971.
     /// <para/>
@@ -150,12 +151,12 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (numValues < 0L)
             {
-                throw new ArgumentException("numValues should not be negative: " + numValues);
+                throw new ArgumentOutOfRangeException(nameof(numValues), "numValues should not be negative: " + numValues); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.numValues = numValues;
             if ((numValues > 0L) && (upperBound < 0L))
             {
-                throw new ArgumentException("upperBound should not be negative: " + upperBound + " when numValues > 0");
+                throw new ArgumentOutOfRangeException(nameof(upperBound), "upperBound should not be negative: " + upperBound + " when numValues > 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.upperBound = numValues > 0 ? upperBound : -1L; // if there is no value, -1 is the best upper bound
             int nLowBits = 0;
@@ -168,7 +169,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 }
             }
             this.numLowBits = nLowBits;
-            this.lowerBitsMask = (long)(unchecked((ulong)long.MaxValue) >> (sizeof(long) * 8 - 1 - this.numLowBits));
+            this.lowerBitsMask = long.MaxValue.TripleShift(sizeof(long) * 8 - 1 - this.numLowBits);
 
             long numLongsForLowBits = NumInt64sForBits(numValues * numLowBits);
             if (numLongsForLowBits > int.MaxValue)
@@ -177,7 +178,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             this.lowerLongs = new long[(int)numLongsForLowBits];
 
-            long numHighBitsClear = (long)((ulong)((this.upperBound > 0) ? this.upperBound : 0) >> this.numLowBits);
+            long numHighBitsClear = ((this.upperBound > 0) ? this.upperBound : 0).TripleShift(this.numLowBits);
             if (Debugging.AssertsEnabled) Debugging.Assert(numHighBitsClear <= (2 * this.numValues));
             long numHighBitsSet = this.numValues;
 
@@ -189,10 +190,10 @@ namespace YAF.Lucene.Net.Util.Packed
             this.upperLongs = new long[(int)numLongsForHighBits];
             if (indexInterval < 2)
             {
-                throw new ArgumentException("indexInterval should at least 2: " + indexInterval);
+                throw new ArgumentOutOfRangeException(nameof(indexInterval), "indexInterval should at least 2: " + indexInterval); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             // For the index:
-            long maxHighValue = (long)((ulong)upperBound >> this.numLowBits);
+            long maxHighValue = upperBound.TripleShift(this.numLowBits);
             long nIndexEntries = maxHighValue / indexInterval; // no zero value index entry
             this.numIndexEntries = (nIndexEntries >= 0) ? nIndexEntries : 0;
             long maxIndexEntry = maxHighValue + numValues - 1; // clear upper bits, set upper bits, start at zero
@@ -218,17 +219,18 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// NOTE: This was numLongsForBits() in Lucene.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static long NumInt64sForBits(long numBits) // Note: int version in FixedBitSet.bits2words()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(numBits >= 0, "{0}", numBits);
-            return (long)((ulong)(numBits + (sizeof(long) * 8 - 1)) >> LOG2_INT64_SIZE);
+            return (numBits + (sizeof(long) * 8 - 1)).TripleShift(LOG2_INT64_SIZE);
         }
 
         /// <summary>
         /// Call at most <see cref="numValues"/> times to encode a non decreasing sequence of non negative numbers. </summary>
         /// <param name="x"> The next number to be encoded. </param>
         /// <exception cref="InvalidOperationException"> when called more than <see cref="numValues"/> times. </exception>
-        /// <exception cref="ArgumentException"> when:
+        /// <exception cref="ArgumentOutOfRangeException"> when:
         ///         <list type="bullet">
         ///         <item><description><paramref name="x"/> is smaller than an earlier encoded value, or</description></item>
         ///         <item><description><paramref name="x"/> is larger than <see cref="upperBound"/>.</description></item>
@@ -237,17 +239,17 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (numEncoded >= numValues)
             {
-                throw new InvalidOperationException("encodeNext called more than " + numValues + " times.");
+                throw IllegalStateException.Create("EncodeNext() called more than " + numValues + " times.");
             }
             if (lastEncoded > x)
             {
-                throw new ArgumentException(x + " smaller than previous " + lastEncoded);
+                throw new ArgumentOutOfRangeException(nameof(x), x + " smaller than previous " + lastEncoded); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (x > upperBound)
             {
-                throw new ArgumentException(x + " larger than upperBound " + upperBound);
+                throw new ArgumentOutOfRangeException(nameof(x), x + " larger than upperBound " + upperBound); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
-            long highValue = (long)((ulong)x >> numLowBits);
+            long highValue = x.TripleShift(numLowBits);
             EncodeUpperBits(highValue);
             EncodeLowerBits(x & lowerBitsMask);
             lastEncoded = x;
@@ -263,28 +265,31 @@ namespace YAF.Lucene.Net.Util.Packed
             numEncoded++;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EncodeUpperBits(long highValue)
         {
             long nextHighBitNum = numEncoded + highValue; // sequence of unary gaps
-            upperLongs[(int)((long)((ulong)nextHighBitNum >> LOG2_INT64_SIZE))] |= (1L << (int)(nextHighBitNum & ((sizeof(long) * 8) - 1)));
+            upperLongs[(int)(nextHighBitNum.TripleShift(LOG2_INT64_SIZE))] |= (1L << (int)(nextHighBitNum & ((sizeof(long) * 8) - 1)));
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EncodeLowerBits(long lowValue)
         {
             PackValue(lowValue, lowerLongs, numLowBits, numEncoded);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void PackValue(long value, long[] longArray, int numBits, long packIndex)
         {
             if (numBits != 0)
             {
                 long bitPos = numBits * packIndex;
-                int index = (int)((long)((ulong)bitPos >> LOG2_INT64_SIZE));
+                int index = (int)(bitPos.TripleShift(LOG2_INT64_SIZE));
                 int bitPosAtIndex = (int)(bitPos & ((sizeof(long) * 8) - 1));
                 longArray[index] |= (value << bitPosAtIndex);
                 if ((bitPosAtIndex + numBits) > (sizeof(long) * 8))
                 {
-                    longArray[index + 1] = ((long)((ulong)value >> ((sizeof(long) * 8) - bitPosAtIndex)));
+                    longArray[index + 1] = value.TripleShift((sizeof(long) * 8) - bitPosAtIndex);
                 }
             }
         }
@@ -318,6 +323,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Returns an <see cref="EliasFanoDecoder"/> to access the encoded values.
         /// Perform all calls to <see cref="EncodeNext(long)"/> before calling <see cref="GetDecoder()"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual EliasFanoDecoder GetDecoder()
         {
             // decode as far as currently encoded as determined by numEncoded.

@@ -1,7 +1,8 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -22,10 +23,10 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using MonotonicAppendingInt64Buffer  = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// <see cref="DocIdSet"/> implementation based on pfor-delta encoding.
@@ -57,6 +58,7 @@ namespace YAF.Lucene.Net.Util
             return buffer;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline", Justification = "Complexity")]
         static PForDeltaDocIdSet()
         {
             int maxByteBLockCount = 0;
@@ -112,7 +114,7 @@ namespace YAF.Lucene.Net.Util
             {
                 if (indexInterval < 1)
                 {
-                    throw new ArgumentException("indexInterval must be >= 1");
+                    throw new ArgumentOutOfRangeException(nameof(indexInterval), "indexInterval must be >= 1"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.indexInterval = indexInterval;
                 return this;
@@ -148,6 +150,7 @@ namespace YAF.Lucene.Net.Util
                 return this;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void ComputeFreqs()
             {
                 Arrays.Fill(freqs, 0);
@@ -172,6 +175,7 @@ namespace YAF.Lucene.Net.Util
                 return (int)blockSize;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual int UnaryBlockSize()
             {
                 int deltaSum = 0;
@@ -179,7 +183,7 @@ namespace YAF.Lucene.Net.Util
                 {
                     deltaSum += 1 + buffer[i];
                 }
-                int blockSize = (int)((uint)(deltaSum + 0x07) >> 3); // round to the next byte
+                int blockSize = (deltaSum + 0x07).TripleShift(3); // round to the next byte
                 ++blockSize; // header
                 if (bufferSize < BLOCK_SIZE)
                 {
@@ -188,6 +192,7 @@ namespace YAF.Lucene.Net.Util
                 return blockSize;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual int ComputeOptimalNumberOfBits()
             {
                 ComputeFreqs();
@@ -216,6 +221,7 @@ namespace YAF.Lucene.Net.Util
                 return blockSize;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void PforEncode()
             {
                 if (numExceptions > 0)
@@ -227,7 +233,7 @@ namespace YAF.Lucene.Net.Util
                         if (buffer[i] > mask)
                         {
                             exceptionIndices[ex] = i;
-                            exceptions[ex++] = (int)((uint)buffer[i] >> bitsPerValue);
+                            exceptions[ex++] = buffer[i].TripleShift(bitsPerValue);
                             buffer[i] &= mask;
                         }
                     }
@@ -246,19 +252,20 @@ namespace YAF.Lucene.Net.Util
                 if (numExceptions > 0)
                 {
                     if (Debugging.AssertsEnabled) Debugging.Assert(bitsPerException > 0);
-                    data.WriteByte((byte)(sbyte)numExceptions);
-                    data.WriteByte((byte)(sbyte)bitsPerException);
+                    data.WriteByte((byte)numExceptions);
+                    data.WriteByte((byte)bitsPerException);
                     PackedInt32s.IEncoder encoder = PackedInt32s.GetEncoder(PackedInt32s.Format.PACKED, PackedInt32s.VERSION_CURRENT, bitsPerException);
                     int numIterations = (numExceptions + encoder.ByteValueCount - 1) / encoder.ByteValueCount;
                     encoder.Encode(exceptions, 0, data.Bytes, data.Length, numIterations);
                     data.Length += (int)PackedInt32s.Format.PACKED.ByteCount(PackedInt32s.VERSION_CURRENT, numExceptions, bitsPerException);
                     for (int i = 0; i < numExceptions; ++i)
                     {
-                        data.WriteByte((byte)(sbyte)exceptionIndices[i]);
+                        data.WriteByte((byte)exceptionIndices[i]);
                     }
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void UnaryEncode()
             {
                 int current = 0;
@@ -267,7 +274,7 @@ namespace YAF.Lucene.Net.Util
                     doc += 1 + buffer[i];
                     while (doc >= 8)
                     {
-                        data.WriteByte((byte)(sbyte)current);
+                        data.WriteByte((byte)current);
                         current = 0;
                         doc -= 8;
                     }
@@ -275,10 +282,11 @@ namespace YAF.Lucene.Net.Util
                 }
                 if (current != 0)
                 {
-                    data.WriteByte((byte)(sbyte)current);
+                    data.WriteByte((byte)current);
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void EncodeBlock()
             {
                 int originalLength = data.Length;
@@ -297,7 +305,7 @@ namespace YAF.Lucene.Net.Util
                     {
                         token |= HAS_EXCEPTIONS;
                     }
-                    data.WriteByte((byte)(sbyte)token);
+                    data.WriteByte((byte)token);
                     PforEncode();
                 }
                 else
@@ -305,13 +313,13 @@ namespace YAF.Lucene.Net.Util
                     // use unary
                     blockSize = unaryBlockSize;
                     int token = UNARY | (bufferSize < BLOCK_SIZE ? LAST_BLOCK : 0);
-                    data.WriteByte((byte)(sbyte)token);
+                    data.WriteByte((byte)token);
                     UnaryEncode();
                 }
 
                 if (bufferSize < BLOCK_SIZE)
                 {
-                    data.WriteByte((byte)(sbyte)bufferSize);
+                    data.WriteByte((byte)bufferSize);
                 }
 
                 ++numBlocks;
@@ -467,6 +475,7 @@ namespace YAF.Lucene.Net.Util
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void UnaryDecompress(byte token)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert((token & HAS_EXCEPTIONS) == 0);
@@ -474,7 +483,7 @@ namespace YAF.Lucene.Net.Util
                 for (int i = 0; i < BLOCK_SIZE; )
                 {
                     var b = data[offset++];
-                    for (int bitList = BitUtil.BitList(b); bitList != 0; ++i, bitList = (int)((uint)bitList >> 4))
+                    for (int bitList = BitUtil.BitList(b); bitList != 0; ++i, bitList = bitList.TripleShift(4))
                     {
                         nextDocs[i] = docID + (bitList & 0x0F);
                     }
@@ -482,6 +491,7 @@ namespace YAF.Lucene.Net.Util
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void DecompressBlock()
             {
                 var token = data[offset++];
@@ -503,6 +513,7 @@ namespace YAF.Lucene.Net.Util
                 ++blockIdx;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual void SkipBlock()
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(i == BLOCK_SIZE);
@@ -520,6 +531,7 @@ namespace YAF.Lucene.Net.Util
                 return docID = nextDocs[i++];
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual int ForwardBinarySearch(int target)
             {
                 // advance forward and double the window at each step
@@ -549,7 +561,7 @@ namespace YAF.Lucene.Net.Util
                 // we found a window containing our target, let's binary search now
                 while (lo <= hi)
                 {
-                    int mid = (int)((uint)(lo + hi) >> 1);
+                    int mid = (lo + hi).TripleShift(1);
                     int midDocID = (int)docIDs.Get(mid);
                     if (midDocID <= target)
                     {
@@ -596,6 +608,7 @@ namespace YAF.Lucene.Net.Util
                 return SlowAdvance(target);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 return cardinality;
@@ -603,14 +616,12 @@ namespace YAF.Lucene.Net.Util
         }
 
         /// <summary>
-        /// Return the number of documents in this <see cref="DocIdSet"/> in constant time. </summary>
-        public int Cardinality()
-        {
-            return cardinality;
-        }
+        /// Gets the number of documents in this <see cref="DocIdSet"/> in constant time. </summary>
+        public int Cardinality => cardinality;
 
         /// <summary>
         /// Return the memory usage of this instance. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long RamBytesUsed()
         {
             return RamUsageEstimator.AlignObjectSize(3 * RamUsageEstimator.NUM_BYTES_OBJECT_REF) + docIDs.RamBytesUsed() + offsets.RamBytesUsed();

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Analysis;
+﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
@@ -138,13 +138,13 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
 
         private void ApplySlop(Query q, int slop)
         {
-            if (q is PhraseQuery)
+            if (q is PhraseQuery phraseQuery)
             {
-                ((PhraseQuery)q).Slop = slop;
+                phraseQuery.Slop = slop;
             }
-            else if (q is MultiPhraseQuery)
+            else if (q is MultiPhraseQuery multiPhraseQuery)
             {
-                ((MultiPhraseQuery)q).Slop = slop;
+                multiPhraseQuery.Slop = slop;
             }
         }
 
@@ -270,14 +270,20 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         /// </exception>
         public static Query Parse(LuceneVersion matchVersion, string[] queries, string[] fields, Analyzer analyzer)
         {
+            // LUCENENET: Added null guard clauses
+            if (queries is null)
+                throw new ArgumentNullException(nameof(queries));
+            if (fields is null)
+                throw new ArgumentNullException(nameof(fields));
+
             if (queries.Length != fields.Length)
-                throw new ArgumentException("queries.length != fields.length");
+                throw new ArgumentException("queries.Length != fields.Length");
             BooleanQuery bQuery = new BooleanQuery();
             for (int i = 0; i < fields.Length; i++)
             {
                 QueryParser qp = new QueryParser(matchVersion, fields[i], analyzer);
                 Query q = qp.Parse(queries[i]);
-                if (q != null && (!(q is BooleanQuery) || ((BooleanQuery)q).Clauses.Count > 0))
+                if (q != null && (!(q is BooleanQuery booleanQuery) || booleanQuery.Clauses.Count > 0))
                 {
                     bQuery.Add(q, Occur.SHOULD);
                 }
@@ -318,14 +324,22 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         /// </exception>
         public static Query Parse(LuceneVersion matchVersion, string query, string[] fields, Occur[] flags, Analyzer analyzer)
         {
+            // LUCENENET: Added null guard clauses
+            if (query is null)
+                throw new ArgumentNullException(nameof(query));
+            if (fields is null)
+                throw new ArgumentNullException(nameof(fields));
+            if (flags is null)
+                throw new ArgumentNullException(nameof(flags));
+
             if (fields.Length != flags.Length)
-                throw new ArgumentException("fields.length != flags.length");
+                throw new ArgumentException("fields.Length != flags.Length");
             BooleanQuery bQuery = new BooleanQuery();
             for (int i = 0; i < fields.Length; i++)
             {
                 QueryParser qp = new QueryParser(matchVersion, fields[i], analyzer);
                 Query q = qp.Parse(query);
-                if (q != null && (!(q is BooleanQuery) || ((BooleanQuery)q).Clauses.Count > 0))
+                if (q != null && (!(q is BooleanQuery booleanQuery) || booleanQuery.Clauses.Count > 0))
                 {
                     bQuery.Add(q, flags[i]);
                 }
@@ -364,6 +378,14 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         /// <exception cref="ArgumentException">if the length of the queries, fields, and flags array differ</exception>
         public static Query Parse(LuceneVersion matchVersion, string[] queries, string[] fields, Occur[] flags, Analyzer analyzer)
         {
+            // LUCENENET: Added null guard clauses
+            if (queries is null)
+                throw new ArgumentNullException(nameof(queries));
+            if (fields is null)
+                throw new ArgumentNullException(nameof(fields));
+            if (flags is null)
+                throw new ArgumentNullException(nameof(flags));
+
             if (!(queries.Length == fields.Length && queries.Length == flags.Length))
                 throw new ArgumentException("queries, fields, and flags array have have different length");
             BooleanQuery bQuery = new BooleanQuery();
@@ -371,7 +393,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             {
                 QueryParser qp = new QueryParser(matchVersion, fields[i], analyzer);
                 Query q = qp.Parse(queries[i]);
-                if (q != null && (!(q is BooleanQuery) || ((BooleanQuery)q).Clauses.Count > 0))
+                if (q != null && (!(q is BooleanQuery booleanQuery) || booleanQuery.Clauses.Count > 0))
                 {
                     bQuery.Add(q, flags[i]);
                 }

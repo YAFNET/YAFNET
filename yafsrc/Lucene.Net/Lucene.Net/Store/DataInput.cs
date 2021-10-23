@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,10 +35,7 @@ namespace YAF.Lucene.Net.Store
     /// returning a new <see cref="DataInput"/> which operates on the same underlying
     /// resource, but positioned independently.
     /// </summary>
-    public abstract class DataInput
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    public abstract class DataInput // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private const int SKIP_BUFFER_SIZE = 1024;
 
@@ -95,7 +92,7 @@ namespace YAF.Lucene.Net.Store
         /// <seealso cref="DataOutput.WriteInt16(short)"/>
         public virtual short ReadInt16()
         {
-            return (short)(ushort)(((ReadByte() & 0xFF) << 8) | (ReadByte() & 0xFF));
+            return (short)(((ReadByte() & 0xFF) << 8) | (ReadByte() & 0xFF));
         }
 
         /// <summary>
@@ -123,26 +120,26 @@ namespace YAF.Lucene.Net.Store
         public virtual int ReadVInt32()
         {
             byte b = ReadByte();
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return b;
             }
             int i = b & 0x7F;
             b = ReadByte();
             i |= (b & 0x7F) << 7;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7F) << 14;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7F) << 21;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
@@ -191,56 +188,56 @@ namespace YAF.Lucene.Net.Store
             return i;
             */
             byte b = ReadByte();
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return b;
             }
             long i = b & 0x7FL;
             b = ReadByte();
             i |= (b & 0x7FL) << 7;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7FL) << 14;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7FL) << 21;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7FL) << 28;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7FL) << 35;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7FL) << 42;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7FL) << 49;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
             b = ReadByte();
             i |= (b & 0x7FL) << 56;
-            if ((sbyte)b >= 0)
+            if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
             {
                 return i;
             }
@@ -318,7 +315,7 @@ namespace YAF.Lucene.Net.Store
         {
             if (numBytes < 0)
             {
-                throw new ArgumentException("numBytes must be >= 0, got " + numBytes);
+                throw new ArgumentOutOfRangeException("numBytes must be >= 0, got " + numBytes); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (skipBuffer == null)
             {

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene41
 {
@@ -19,18 +20,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * limitations under the License.
      */
 
-    using CompressingStoredFieldsFormat = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsFormat;
-    using CompressionMode = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using Lucene40DocValuesFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40DocValuesFormat;
-    using Lucene40FieldInfosFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40FieldInfosFormat;
-    using Lucene40LiveDocsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
-    using Lucene40NormsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40NormsFormat;
-    using Lucene40SegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
-    using Lucene40TermVectorsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40TermVectorsFormat;
-    using PerFieldPostingsFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using CompressingStoredFieldsFormat  = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsFormat;
+    using CompressionMode  = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using Lucene40DocValuesFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40DocValuesFormat;
+    using Lucene40FieldInfosFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40FieldInfosFormat;
+    using Lucene40LiveDocsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
+    using Lucene40NormsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40NormsFormat;
+    using Lucene40SegmentInfoFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
+    using Lucene40TermVectorsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40TermVectorsFormat;
+    using PerFieldPostingsFormat  = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Implements the Lucene 4.1 index format, with configurable per-field postings formats.
@@ -47,18 +48,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
     public class Lucene41Codec : Codec
     {
         // TODO: slightly evil
-        private readonly StoredFieldsFormat fieldsFormat = new CompressingStoredFieldsFormatAnonymousInnerClassHelper("Lucene41StoredFields", CompressionMode.FAST, 1 << 14);
+        private readonly StoredFieldsFormat fieldsFormat = new CompressingStoredFieldsFormatAnonymousClass("Lucene41StoredFields", CompressionMode.FAST, 1 << 14);
 
-        private class CompressingStoredFieldsFormatAnonymousInnerClassHelper : CompressingStoredFieldsFormat
+        private class CompressingStoredFieldsFormatAnonymousClass : CompressingStoredFieldsFormat
         {
-            public CompressingStoredFieldsFormatAnonymousInnerClassHelper(string formatName, CompressionMode compressionMode, int chunkSize)
+            public CompressingStoredFieldsFormatAnonymousClass(string formatName, CompressionMode compressionMode, int chunkSize)
                 : base(formatName, compressionMode, chunkSize)
             {
             }
 
             public override StoredFieldsWriter FieldsWriter(Directory directory, SegmentInfo si, IOContext context)
             {
-                throw new NotSupportedException("this codec can only be used for reading");
+                throw UnsupportedOperationException.Create("this codec can only be used for reading");
             }
         }
 
@@ -69,15 +70,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
         private readonly PostingsFormat postingsFormat;
 
-        private class PerFieldPostingsFormatAnonymousInnerClassHelper : PerFieldPostingsFormat
+        private class PerFieldPostingsFormatAnonymousClass : PerFieldPostingsFormat
         {
             private readonly Lucene41Codec outerInstance;
 
-            public PerFieldPostingsFormatAnonymousInnerClassHelper(Lucene41Codec outerInstance)
+            public PerFieldPostingsFormatAnonymousClass(Lucene41Codec outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override PostingsFormat GetPostingsFormatForField(string field)
             {
                 return outerInstance.GetPostingsFormatForField(field);
@@ -89,7 +91,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         public Lucene41Codec()
             : base()
         {
-            postingsFormat = new PerFieldPostingsFormatAnonymousInnerClassHelper(this);
+            postingsFormat = new PerFieldPostingsFormatAnonymousClass(this);
         }
 
         // TODO: slightly evil
@@ -111,6 +113,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// <para/>
         /// The default implementation always returns "Lucene41"
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual PostingsFormat GetPostingsFormatForField(string field)
         {
             // LUCENENET specific - lazy initialize the codec to ensure we get the correct type if overridden.

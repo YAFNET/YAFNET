@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,6 +29,7 @@ namespace YAF.Core.Services.Startup
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
@@ -37,54 +38,59 @@ namespace YAF.Core.Services.Startup
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Tasks;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
     /// <summary>
-    /// The startup initialize db.
+    /// The startup initialize Database.
     /// </summary>
     public class StartupInitializeDb : BaseStartupService, ICriticalStartupService
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StartupInitializeDb" /> class.
+        /// </summary>
+        /// <param name="httpResponseBase">The http response base.</param>
+        public StartupInitializeDb(
+            [NotNull] HttpResponseBase httpResponseBase)
+        {
+            this.HttpResponseBase = httpResponseBase;
+        }
+
         #region Properties
 
         /// <summary>
-        ///     Gets the initialize var. Name.
+        ///   Gets or sets HttpResponseBase.
+        /// </summary>
+        public HttpResponseBase HttpResponseBase { get; set; }
+
+        /// <summary>
+        ///     Gets the service name.
         /// </summary>
         [NotNull]
-        protected override string InitVarName => "YafInitializeDb_Init";
+        protected override string ServiceName => "YafInitializeDb_Init";
 
         #endregion
 
         #region Methods
 
         /// <summary>
-        ///     The run service.
+        /// The run service.
         /// </summary>
         /// <returns>
-        ///     The run service.
+        /// The <see cref="bool"/>.
         /// </returns>
         protected override bool RunService()
         {
-            // init the db...
-            var debugging = false;
-
-#if DEBUG
-            debugging = true;
-#endif
-
             if (HttpContext.Current == null)
             {
                 return true;
             }
 
-            var response = BoardContext.Current.Get<HttpResponseBase>();
-
             if (Config.ConnectionString == null)
             {
                 // attempt to create a connection string...
-                response.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx");
-                
+                this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx");
+
                 return false;
             }
 
@@ -93,9 +99,9 @@ namespace YAF.Core.Services.Startup
             {
                 // unable to connect to the DB...
                 BoardContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
-               
-                response.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
-                
+
+                this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
+
                 return false;
             }
 
@@ -107,7 +113,8 @@ namespace YAF.Core.Services.Startup
                 return true;
             }
 
-            response.Redirect($"{BoardInfo.ForumClientFileRoot}{redirectString}");
+            this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}{redirectString}", true);
+
             return false;
         }
 

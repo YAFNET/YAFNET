@@ -1,5 +1,5 @@
-using System;
-using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+﻿using System;
+using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -20,15 +20,12 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// A decompressor.
     /// </summary>
-    public abstract class Decompressor
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    public abstract class Decompressor // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// Sole constructor, typically called from sub-classes. </summary>

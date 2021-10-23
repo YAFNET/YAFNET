@@ -1,5 +1,6 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
 using System;
+using System.Runtime.CompilerServices;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;
 #endif
@@ -32,10 +33,7 @@ namespace YAF.Lucene.Net.Util
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-    public sealed class SetOnce<T>
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    public sealed class SetOnce<T> // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
         where T : class // LUCENENET specific - added class constraint so we don't accept value types (which cannot be volatile)
     {
         private volatile T obj = default;
@@ -79,11 +77,13 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Returns the object set by <see cref="Set(T)"/>. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Get()
         {
             return obj;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Clone()
         {
             return obj == null ? new SetOnce<T>() : new SetOnce<T>(obj);

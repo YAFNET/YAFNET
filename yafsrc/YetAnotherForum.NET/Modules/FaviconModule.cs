@@ -28,15 +28,15 @@ namespace YAF.Modules
     using System.Web.UI.HtmlControls;
 
     using YAF.Configuration;
+    using YAF.Core.Helpers;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Attributes;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     Generates the Favicon code inside the head section
     /// </summary>
-    [YafModule("Favicon Module", "Ingo Herbote", 1)]
+    [Module("Favicon Module", "Ingo Herbote", 1)]
     public class FaviconModule : SimpleBaseForumModule
     {
         /// <summary>
@@ -54,8 +54,8 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var head = this.ForumControl.Page.Header ??
-                       this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
+            var head = this.ForumControl.Page.Header
+                       ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
             if (head == null || Config.IsAnyPortal)
             {
@@ -96,7 +96,8 @@ namespace YAF.Modules
             head.Controls.Add(
                 new HtmlMeta
                 {
-                    Name = "msapplication-config", Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
+                    Name = "msapplication-config",
+                    Content = BoardInfo.GetURLToContent("favicons/browserconfig.xml")
                 });
             head.Controls.Add(new HtmlMeta { Name = "theme-color", Content = "#ffffff" });
         }

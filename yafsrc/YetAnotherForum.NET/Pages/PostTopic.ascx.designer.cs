@@ -33,33 +33,6 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Label Title;
 
         /// <summary>
-        /// PreviewRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PreviewRow;
-
-        /// <summary>
-        /// PreviewCell control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PreviewCell;
-
-        /// <summary>
-        /// PreviewMessagePost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.MessagePost PreviewMessagePost;
-
-        /// <summary>
         /// SubjectRow control.
         /// </summary>
         /// <remarks>
@@ -85,15 +58,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TopicSubjectTextBox;
-
-        /// <summary>
-        /// DescriptionRow control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder DescriptionRow;
 
         /// <summary>
         /// TopicDescriptionLabel control.
@@ -195,31 +159,31 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
 
         /// <summary>
-        /// maxCharRow control.
+        /// PreviewRow control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder maxCharRow;
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewRow;
 
         /// <summary>
-        /// LocalizedLabel3 control.
+        /// PreviewCell control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
+        protected global::System.Web.UI.WebControls.PlaceHolder PreviewCell;
 
         /// <summary>
-        /// LocalizedLblMaxNumberOfPost control.
+        /// PreviewMessagePost control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLblMaxNumberOfPost;
+        protected global::YAF.Web.Controls.MessagePost PreviewMessagePost;
 
         /// <summary>
         /// PostOptions1 control.
@@ -229,15 +193,6 @@ namespace YAF.Pages
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Controls.PostOptions PostOptions1;
-
-        /// <summary>
-        /// PostAttachments1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Controls.PostAttachments PostAttachments1;
 
         /// <summary>
         /// tr_captcha1 control.

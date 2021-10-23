@@ -29,29 +29,18 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
     #endregion
 
     /// <summary>
-    ///     A class which represents the yaf_AccessMask table in the Yaf Database.
+    ///     A class which represents the AccessMask table
     /// </summary>
     [Serializable]
-    public partial class AccessMask : IEntity, IHaveBoardID, IHaveID
+    public class AccessMask : IEntity, IHaveBoardID, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AccessMask" /> class.
-        /// </summary>
-        public AccessMask()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -76,6 +65,17 @@ namespace YAF.Types.Models
         public int Flags { get; set; }
 
         /// <summary>
+        /// Gets or sets the access flags.
+        /// </summary>
+        [Ignore]
+        public AccessFlags AccessFlags
+        {
+            get => new(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
+
+        /// <summary>
         ///     Gets or sets the name.
         /// </summary>
         [Required]
@@ -88,15 +88,6 @@ namespace YAF.Types.Models
         [Required]
         [Default(0)]
         public short SortOrder { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

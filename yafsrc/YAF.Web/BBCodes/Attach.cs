@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,13 +28,12 @@ namespace YAF.Web.BBCodes
     using YAF.Configuration;
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The Attachment BB Code Module.
@@ -59,8 +58,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            if (this.PageContext.ForumPageType == ForumPages.Profile
-                || this.PageContext.ForumPageType == ForumPages.forum)
+            if (this.PageContext.ForumPageType is ForumPages.UserProfile or ForumPages.Board)
             {
                 writer.Write(@"<i class=""fa fa-file fa-fw""></i>&nbsp;{0}", attachment.FileName);
 
@@ -72,7 +70,7 @@ namespace YAF.Web.BBCodes
 
             // verify it's not too large to display
             // Ederon : 02/17/2009 - made it board setting
-            if (attachment.Bytes.ToType<int>() <= this.Get<BoardSettings>().PictureAttachmentDisplayTreshold)
+            if (attachment.Bytes.ToType<int>() <= this.PageContext.BoardSettings.PictureAttachmentDisplayTreshold)
             {
                 // is it an image file?
                 showImage = filename.IsImageName();
@@ -92,11 +90,11 @@ namespace YAF.Web.BBCodes
             if (showImage)
             {
                 // user has rights to download, show him image
-                if (this.Get<BoardSettings>().EnableImageAttachmentResize)
+                if (this.PageContext.BoardSettings.EnableImageAttachmentResize)
                 {
                     writer.Write(
                         @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-                        this.Get<BoardSettings>().ImageThumbnailMaxWidth);
+                        this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
                     writer.Write(
                         @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-gallery=""#blueimp-gallery-{4}"">",
@@ -112,7 +110,7 @@ namespace YAF.Web.BBCodes
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),
                         this.PageContext.PageBoardID,
-                        this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+                        this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
                     writer.Write(@"</a>");
 
@@ -121,7 +119,7 @@ namespace YAF.Web.BBCodes
                         this.GetText("IMAGE_RESIZE_ENLARGE"));
 
                     writer.Write(
-                        @"<span class=""text-muted float-right"">{0}</span></p>",
+                        @"<span class=""text-muted float-end"">{0}</span></p>",
                         this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads));
 
                     writer.Write(@"</div></div>");
@@ -134,7 +132,7 @@ namespace YAF.Web.BBCodes
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),
                         this.PageContext.PageBoardID,
-                        this.Get<BoardSettings>().ImageThumbnailMaxHeight);
+                        this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
                 }
             }
             else
@@ -144,7 +142,7 @@ namespace YAF.Web.BBCodes
 
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;
-                         <a href=""{0}resource.ashx?a={1}&b={4}"">{2}</a> 
+                         <a href=""{0}resource.ashx?a={1}&b={4}"">{2}</a>
                          <span>{3}</span>",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
@@ -162,12 +160,8 @@ namespace YAF.Web.BBCodes
         /// </returns>
         private bool UserHasDownloadAccess()
         {
-            if (this.PageContext.ForumPageType == ForumPages.PrivateMessage || this.PageContext.ForumPageType == ForumPages.PostPrivateMessage)
-            {
-                return true;
-            }
-
-            return this.PageContext.ForumDownloadAccess;
+            return this.PageContext.ForumPageType is ForumPages.PrivateMessage or ForumPages.PostPrivateMessage ||
+                   this.PageContext.ForumDownloadAccess;
         }
     }
 }

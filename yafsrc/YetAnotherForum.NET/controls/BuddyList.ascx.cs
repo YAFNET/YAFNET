@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,15 +27,18 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -66,6 +69,11 @@ namespace YAF.Controls
         /// </summary>
         public int Count { get; set; }
 
+        /// <summary>
+        /// Gets or sets the Friends Table.
+        /// </summary>
+        public List<BuddyUser> FriendsList { get; set; }
+
         #endregion
 
         #region Methods
@@ -84,6 +92,27 @@ namespace YAF.Controls
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -118,7 +147,7 @@ namespace YAF.Controls
                     this.PageContext.AddLoadMessage(
                         string.Format(
                             this.GetText("REMOVEBUDDY_NOTIFICATION"),
-                            this.Get<IBuddy>().Remove(e.CommandArgument.ToType<int>())),
+                            this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>())),
                         MessageTypes.success);
                     this.CurrentUserID = this.PageContext.PageUserID;
                     break;
@@ -126,35 +155,35 @@ namespace YAF.Controls
                     this.PageContext.AddLoadMessage(
                         string.Format(
                             this.GetText("NOTIFICATION_BUDDYAPPROVED"),
-                            this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
+                            this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
                         MessageTypes.success);
                     break;
                 case "approveadd":
                     this.PageContext.AddLoadMessage(
                         string.Format(
                             this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
-                            this.Get<IBuddy>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
+                            this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
                         MessageTypes.success);
                     break;
                 case "approveall":
-                    this.Get<IBuddy>().ApproveAllRequests(false);
+                    this.Get<IFriends>().ApproveAllRequests(false);
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
                     break;
                 case "approveaddall":
-                    this.Get<IBuddy>().ApproveAllRequests(true);
+                    this.Get<IFriends>().ApproveAllRequests(true);
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
                     break;
                 case "deny":
-                    this.Get<IBuddy>().DenyRequest(e.CommandArgument.ToType<int>());
+                    this.Get<IFriends>().DenyRequest(e.CommandArgument.ToType<int>());
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
                     break;
                 case "denyall":
-                    this.Get<IBuddy>().DenyAllRequests();
+                    this.Get<IFriends>().DenyAllRequests();
                     this.PageContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
                     break;
             }
 
-            // Update all buddy list controls in cp_editbuddies.ascx page.
+            // Update all buddy list controls in Friends.ascx page.
             this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyList1"), 2);
             this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("PendingBuddyList"), 3);
             this.UpdateBuddyList(this.Container.FindControlRecursiveAs<BuddyList>("BuddyRequested"), 4);
@@ -179,14 +208,14 @@ namespace YAF.Controls
             switch (this.Mode)
             {
                 case 2:
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                     {
                         e.Item.FindControlAs<PlaceHolder>("pnlRemove").Visible = true;
                     }
 
                     break;
                 case 3:
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                     {
                         e.Item.FindControlAs<PlaceHolder>("pnlPending").Visible = true;
                     }
@@ -201,7 +230,7 @@ namespace YAF.Controls
 
                     break;
                 case 4:
-                    if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+                    if (e.Item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
                     {
                         e.Item.FindControlAs<PlaceHolder>("pnlRequests").Visible = true;
                     }
@@ -211,45 +240,58 @@ namespace YAF.Controls
         }
 
         /// <summary>
+        /// Renders the Icon Header Text
+        /// </summary>
+        protected string GetHeaderText()
+        {
+            return this.Mode switch
+            {
+                1 => this.GetText("FRIENDS", "BUDDYLIST"),
+                2 => this.GetText("FRIENDS", "BUDDYLIST"),
+                3 => this.GetText("FRIENDS", "PENDING_REQUESTS"),
+                4 => this.GetText("FRIENDS", "YOUR_REQUESTS"),
+                _ => this.GetText("FRIENDS", "BUDDYLIST")
+            };
+        }
+
+        /// <summary>
         /// The bind data.
         /// </summary>
         private void BindData()
         {
-            this.Pager.PageSize = 20;
+            this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             // set the Data table
-            var buddyListDataTable = this.Get<IBuddy>().GetForUser(this.CurrentUserID);
+            var buddyList = this.FriendsList;
 
-            if (buddyListDataTable != null && buddyListDataTable.HasRows())
+            if (!buddyList.NullOrEmpty())
             {
-                // get the view from the data table
-                var buddyListDataView = buddyListDataTable.DefaultView;
-
+                var buddyListView = buddyList;
                 // In what mode should this control work?
                 // Refer to "rptBuddy_ItemCreate" event for more info.
                 switch (this.Mode)
                 {
                     case 1:
                     case 2:
-                        buddyListDataView.RowFilter = "Approved = 1";
+                        buddyListView = buddyList.Where(x => x.Approved == true).ToList();
                         break;
                     case 3:
-                        buddyListDataView.RowFilter = $"Approved = 0 AND FromUserID <> {this.CurrentUserID}";
+                        buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID != this.CurrentUserID).ToList();
                         break;
                     case 4:
-                        buddyListDataView.RowFilter = $"Approved = 0 AND FromUserID = {this.CurrentUserID}";
+                        buddyListView = buddyList.Where(x => x.Approved == false && x.FromUserID == this.CurrentUserID).ToList();
                         break;
                 }
 
-                this.Pager.Count = buddyListDataView.Count;
+                this.Pager.Count = buddyListView.Count;
 
                 var pds = new PagedDataSource
-                              {
-                                  DataSource = buddyListDataView,
-                                  AllowPaging = true,
-                                  CurrentPageIndex = this.Pager.CurrentPageIndex,
-                                  PageSize = this.Pager.PageSize
-                              };
+                {
+                    DataSource = buddyListView,
+                    AllowPaging = true,
+                    CurrentPageIndex = this.Pager.CurrentPageIndex,
+                    PageSize = this.Pager.PageSize
+                };
 
                 this.rptBuddy.DataSource = pds;
             }
@@ -262,17 +304,17 @@ namespace YAF.Controls
             {
                 case 1:
                 case 2:
-                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pr-1\"></i>{this.GetText("INFO_NO")}" });
+                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-info text-info pe-1\"></i>{this.GetText("INFO_NO")}" });
                     break;
                 case 3:
                 case 4:
-                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pr-1\"></i>{this.GetText("INFO_PENDING")}" });
+                    this.Info.Controls.Add(new Literal { Text = $"<i class=\"fas fa-check text-success pe-1\"></i>{this.GetText("INFO_PENDING")}" });
                     break;
             }
         }
 
         /// <summary>
-        /// Initializes the values of BuddyList control's properties and calls the BindData() 
+        /// Initializes the values of BuddyList control's properties and calls the BindData()
         ///   method of the control.
         /// </summary>
         /// <param name="customBuddyList">

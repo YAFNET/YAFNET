@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -34,24 +33,22 @@ namespace YAF.Types.Models
     /// A class which represents the IgnoreUser table.
     /// </summary>
     [Serializable]
-    [Table(Name = "IgnoreUser")]
-    public partial class IgnoreUser : IEntity
+    [CompositePrimaryKey(nameof(UserID), nameof(IgnoredUserID))]
+    public class IgnoreUser : IEntity
     {
-        partial void OnCreated();
-
-        public IgnoreUser()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [Required]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the ignored user id.
+        /// </summary>
         [Required]
         public int IgnoredUserID { get; set; }
-
 
         #endregion
     }

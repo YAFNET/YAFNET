@@ -23,7 +23,6 @@
  */
 namespace YAF.Web.BBCodes
 {
-    using System.Text;
     using System.Web.UI;
 
     using YAF.Core.BBCode;
@@ -42,26 +41,23 @@ namespace YAF.Web.BBCodes
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
-            var sb = new StringBuilder();
-
             var spoilerTitle = this.HtmlEncode(
                 this.LocalizedString(
                     "SPOILERMOD_TOOLTIP",
                     "Click here to show or hide the hidden text (also known as a spoiler)"));
 
-            sb.AppendLine("<!-- BEGIN spoiler -->");
-            sb.AppendLine(@"<div class=""mb-3"">");
-            sb.AppendFormat(
-                @"<input type=""button"" value=""{2}"" class=""btn btn-secondary btn-sm"" name=""{0}"" onclick='toggleSpoiler(this,""{1}"");' title=""{3}"" /></div><div class=""card card-body"" id=""{1}"" style=""display:none"">",
-                this.GetUniqueID("spoilerBtn"),
+            writer.Write("<!-- BEGIN spoiler -->");
+            writer.Write(
+                @"<p>
+                      <a class=""btn btn-secondary btn-sm"" data-bs-toggle=""collapse"" href=""#{0}"" role=""button"" aria-expanded=""false"" title=""{2}"">{1}</a>
+                  </p>
+                  <div class=""collapse"" id=""{0}""><div class=""card card-body"">",
                 this.GetUniqueID("spoil_"),
                 this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
                 spoilerTitle);
-            sb.AppendLine(this.Parameters["inner"]);
-            sb.AppendLine("</div>");
-            sb.AppendLine("<!-- END spoiler -->");
-
-            writer.Write(sb.ToString());
+            writer.Write(this.Parameters["inner"]);
+            writer.Write("</div></div>");
+            writer.Write("<!-- END spoiler -->");
         }
     }
 }

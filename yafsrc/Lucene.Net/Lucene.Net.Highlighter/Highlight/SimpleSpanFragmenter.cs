@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis;
+﻿using J2N.Numerics;
+using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System.Collections.Generic;
 
@@ -27,11 +28,11 @@ namespace YAF.Lucene.Net.Search.Highlight
     /// </summary>
     public class SimpleSpanFragmenter : IFragmenter
     {
-        private static int DEFAULT_FRAGMENT_SIZE = 100;
-        private int fragmentSize;
+        private const int DEFAULT_FRAGMENT_SIZE = 100;
+        private readonly int fragmentSize; // LUCENENET: marked readonly
         private int currentNumFrags;
         private int position = -1;
-        private QueryScorer queryScorer;
+        private readonly QueryScorer queryScorer; // LUCENENET: marked readonly
         private int waitForPos = -1;
         private int textSize;
         private ICharTermAttribute termAtt;
@@ -83,7 +84,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             }
 
             bool isNewFrag = offsetAtt.EndOffset >= (fragmentSize * currentNumFrags)
-                && (textSize - offsetAtt.EndOffset) >= (int)((uint)fragmentSize >> 1);
+                && (textSize - offsetAtt.EndOffset) >= fragmentSize.TripleShift(1);
 
 
             if (isNewFrag)

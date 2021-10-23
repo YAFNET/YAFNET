@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,24 +29,24 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
 
     /// <summary>
-    /// The bbcode_edit.
+    /// The BBCode Admin Edit Page.
     /// </summary>
-    public partial class bbcode_edit : AdminPage
+    public partial class BBCode_Edit : AdminPage
     {
         #region Properties
 
@@ -77,13 +77,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (!short.TryParse(this.txtExecOrder.Text.Trim(), out var sortOrder))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_BBCODE_EDIT", "MSG_NUMBER"), MessageTypes.warning);
-                return;
-            }
-
-            this.GetRepository<BBCode>().Save(
+            this.GetRepository<Types.Models.BBCode>().Save(
                 this.BBCodeID,
                 this.txtName.Text.Trim(),
                 this.txtDescription.Text,
@@ -97,12 +91,9 @@ namespace YAF.Pages.Admin
                 this.chkUseModule.Checked,
                 this.UseToolbar.Checked,
                 this.txtModuleClass.Text,
-                sortOrder);
+                this.txtExecOrder.Text.ToType<short>());
 
-            this.Get<IDataCache>().Remove(Constants.Cache.CustomBBCode);
-            this.Get<IObjectStore>().RemoveOf<IProcessReplaceRules>();
-
-            BuildLink.Redirect(ForumPages.admin_bbcode);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
         }
 
         /// <summary>
@@ -115,7 +106,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            var code = this.GetRepository<BBCode>().GetById(this.BBCodeID.Value);
+            var code = this.GetRepository<Types.Models.BBCode>().GetById(this.BBCodeID.Value);
 
             // fill the control values...
             this.txtName.Text = code.Name;
@@ -140,7 +131,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_bbcode);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
         }
 
         /// <summary>
@@ -150,25 +141,31 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             var strAddEdit = this.BBCodeID == null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
 
-            if (!this.IsPostBack)
-            {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_ADMIN", "Administration"),
-                    BuildLink.GetLink(ForumPages.admin_admin));
-                this.PageLinks.AddLink(
-                    this.GetText("ADMIN_BBCODE", "TITLE"),
-                    BuildLink.GetLink(ForumPages.admin_bbcode));
-                this.PageLinks.AddLink(
-                    string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit),
-                    string.Empty);
-
-                this.Page.Header.Title =
-                    $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BBCODE", "TITLE")} - {string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit)}";
-                this.BindData();
-            }
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddAdminIndex();
+            this.PageLinks.AddLink(
+                this.GetText("ADMIN_BBCODE", "TITLE"),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes));
+            this.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
         }
 
         #endregion

@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Info" Codebehind="Info.ascx.cs" %>
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<div class="card text-white bg-secondary mb-3 text-center mx-auto w-50">
+<div class="card link-light bg-secondary mb-3 text-center mx-auto w-50">
     <h5 class="card-header">
         <asp:Label runat="server" ID="Title" Text="Information" />
     </h5>

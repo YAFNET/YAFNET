@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,20 +26,20 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
-    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -64,14 +64,14 @@ namespace YAF.Pages
         /// <summary>
         ///   To save originalRow value.
         /// </summary>
-        private DataTable originalRow;
+        private Tuple<Topic, Message, User, Forum> originalMessage;
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "MessageHistory" /> class. 
+        ///   Initializes a new instance of the <see cref = "MessageHistory" /> class.
         /// </summary>
         public MessageHistory()
             : base("MESSAGEHISTORY")
@@ -99,43 +99,36 @@ namespace YAF.Pages
         {
             if (this.PageContext.IsGuest)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"), out this.messageID))
-                {
-                    this.Get<HttpResponseBase>().Redirect(
-                        BuildLink.GetLink(ForumPages.Error, "Incorrect message value: {0}", this.messageID));
-                }
+                this.messageID =
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
                 this.ReturnBtn.Visible = true;
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f").IsSet())
+            if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
                 {
-                    this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.Info, "i=4"));
+                    this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(ForumPages.Info, "i=4"));
                 }
 
-                if (!int.TryParse(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"), out this.forumID))
-                {
-                    this.Get<HttpResponseBase>().Redirect(
-                        BuildLink.GetLink(ForumPages.Error, "Incorrect forum value: {0}", this.forumID));
-                }
+                this.forumID =
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
 
                 this.ReturnModBtn.Visible = true;
             }
 
-            this.originalRow = this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID);
+            this.originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.messageID, this.PageContext.PageUserID);
 
-            if (this.originalRow.Rows.Count <= 0)
+            if (this.originalMessage == null)
             {
-                this.Get<HttpResponseBase>().Redirect(
-                    BuildLink.GetLink(ForumPages.Error, "Incorrect message value: {0}", this.messageID));
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             if (this.IsPostBack)
@@ -143,10 +136,20 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddForum(this.originalMessage.Item4.ID);
+            this.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
+
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             this.BindData();
+        }
+
+        /// <summary>
+        /// The create page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
         }
 
         /// <summary>
@@ -156,7 +159,11 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<HttpResponseBase>().Redirect(BuildLink.GetLinkNotEscaped(ForumPages.Posts, "m={0}#post{0}", this.messageID));
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.Posts,
+                "m={0}&name={1}",
+                this.messageID,
+                this.originalMessage.Item1.TopicName);
         }
 
         /// <summary>
@@ -166,8 +173,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<HttpResponseBase>().Redirect(
-                BuildLink.GetLinkNotEscaped(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID));
+            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID);
         }
 
         /// <summary>
@@ -180,50 +186,51 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
-                    var currentMessage = this.GetRepository<Message>().MessageList(this.messageID).FirstOrDefault();
+                    var currentMessage = this.GetRepository<Message>().GetMessage(this.messageID);
 
-                    DataRow restoreMessage = null;
+                    var edited = e.CommandArgument.ToType<DateTime>();
 
-                    var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
-                        this.messageID,
-                        this.PageContext.BoardSettings.MessageHistoryDaysToLog).AsEnumerable();
+                    var messageToRestore = this.GetRepository<Types.Models.MessageHistory>().GetSingle(
+                        m => m.MessageID == this.messageID && m.Edited == edited);
 
-                    Enumerable.Where(
-                            revisionsTable,
-                            row => row["Edited"].ToType<string>().Equals(e.CommandArgument.ToType<string>()))
-                        .ForEach(row => restoreMessage = row);
-
-                    if (restoreMessage != null)
+                    if (messageToRestore != null)
                     {
                         this.GetRepository<Message>().Update(
-                            this.messageID,
-                            currentMessage.Priority.Value,
-                            restoreMessage["Message"].ToString(),
-                            currentMessage.Description,
-                            currentMessage.Status,
-                            currentMessage.Styles,
-                            currentMessage.Topic,
-                            currentMessage.Flags.BitValue,
-                            restoreMessage["EditReason"].ToString(),
-                            this.PageContext.PageUserID != currentMessage.UserID,
+                            null,
+                            messageToRestore.Message,
+                            null,
+                            null,
+                            null,
+                            null,
+                            messageToRestore.EditReason,
+                            this.PageContext.PageUserID != currentMessage.Item1.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                             currentMessage,
                             this.PageContext.PageUserID);
 
                         this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
+
+                        this.BindData();
                     }
 
                     break;
             }
         }
 
-        protected string GetIpAddress(object dataItem)
+        /// <summary>
+        /// The get IP address.
+        /// </summary>
+        /// <param name="dataItem">
+        /// The data item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string GetIpAddress(MessageHistoryTopic dataItem)
         {
-            var row = (DataRow)dataItem;
+            var ip = IPHelper.GetIpAddressAsString(dataItem.IP);
 
-            var ip = IPHelper.GetIp4Address(row["IP"].ToString());
-
-            return ip.IsSet() ? ip : IPHelper.GetIp4Address(row["MessageIP"].ToString());
+            return ip.IsSet() ? ip : IPHelper.GetIpAddressAsString(dataItem.MessageIP);
         }
 
         /// <summary>
@@ -232,17 +239,13 @@ namespace YAF.Pages
         private void BindData()
         {
             // Fill revisions list repeater.
-            var revisionsTable = this.GetRepository<Message>().HistoryListAsDataTable(
+            var revisionsTable = this.GetRepository<Types.Models.MessageHistory>().List(
                 this.messageID,
                 this.PageContext.BoardSettings.MessageHistoryDaysToLog);
 
-            revisionsTable.AcceptChanges();
+            this.RevisionsCount = revisionsTable.Count;
 
-            revisionsTable.Merge(this.GetRepository<Message>().SecAsDataTable(this.messageID, this.PageContext.PageUserID));
-
-            this.RevisionsCount = revisionsTable.Rows.Count;
-
-            this.RevisionsList.DataSource = revisionsTable.AsEnumerable();
+            this.RevisionsList.DataSource = revisionsTable;
 
             this.DataBind();
         }

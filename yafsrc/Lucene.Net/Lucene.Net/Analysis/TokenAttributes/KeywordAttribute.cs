@@ -17,8 +17,8 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
      * limitations under the License.
      */
 
-    using Attribute = YAF.Lucene.Net.Util.Attribute;
-    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
+    using Attribute  = YAF.Lucene.Net.Util.Attribute;
+    using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
 
     /// <summary>
     /// Default implementation of <see cref="IKeywordAttribute"/>. </summary>

@@ -20,12 +20,12 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents within an range of terms.
@@ -44,10 +44,10 @@ namespace YAF.Lucene.Net.Search
 
     public class TermRangeQuery : MultiTermQuery
     {
-        private BytesRef lowerTerm;
-        private BytesRef upperTerm;
-        private bool includeLower;
-        private bool includeUpper;
+        private readonly BytesRef lowerTerm; // LUCENENET: marked readonly
+        private readonly BytesRef upperTerm; // LUCENENET: marked readonly
+        private readonly bool includeLower; // LUCENENET: marked readonly
+        private readonly bool includeUpper; // LUCENENET: marked readonly
 
         /// <summary>
         /// Constructs a query selecting all terms greater/equal than <paramref name="lowerTerm"/>

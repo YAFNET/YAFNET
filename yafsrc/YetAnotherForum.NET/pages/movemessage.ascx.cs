@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,16 +29,16 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -60,6 +60,12 @@ namespace YAF.Pages
 
         #endregion
 
+        /// <summary>
+        /// The move message id.
+        /// </summary>
+        protected int MoveMessageId =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
+
         #region Methods
 
         /// <summary>
@@ -71,8 +77,8 @@ namespace YAF.Pages
             base.OnPreRender(e);
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
-                "fileUploadjs",
-                JavaScriptBlocks.SelectTopicsLoadJs(this.ForumList.ClientID));
+                nameof(JavaScriptBlocks.SelectTopicsLoadJs),
+                JavaScriptBlocks.SelectTopicsLoadJs(this.TopicsList.ClientID, this.ForumList.ClientID));
         }
 
         /// <summary>
@@ -85,16 +91,20 @@ namespace YAF.Pages
             if (this.TopicSubject.Text.IsSet())
             {
                 var topicId = this.GetRepository<Topic>().CreateByMessage(
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.MoveMessageId,
                     this.ForumList.SelectedValue.ToType<int>(),
                     this.TopicSubject.Text);
 
                 this.GetRepository<Message>().Move(
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.MoveMessageId,
                     topicId.ToType<int>(),
                     true);
 
-                BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+                this.Get<LinkBuilder>().Redirect(
+                    ForumPages.Topics,
+                    "f={0}&name={1}",
+                    this.PageContext.PageForumID,
+                    this.PageContext.PageForum.Name);
             }
             else
             {
@@ -109,14 +119,13 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.TopicsList.DataSource = this.GetRepository<Topic>().ListAsDataTable(
+            this.TopicsList.DataSource = this.GetRepository<Topic>().ListPaged(
                 this.ForumList.SelectedValue.ToType<int>(),
-                null,
+                this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
                 0,
                 100,
-                false,
                 false,
                 false);
 
@@ -139,12 +148,16 @@ namespace YAF.Pages
             if (this.TopicsList.SelectedValue.ToType<int>() != this.PageContext.PageTopicID)
             {
                 this.GetRepository<Message>().Move(
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("m"),
+                    this.MoveMessageId,
                     this.TopicsList.SelectedValue.ToType<int>(),
                     true);
             }
 
-            BuildLink.Redirect(ForumPages.topics, "f={0}", this.PageContext.PageForumID);
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.Topics,
+                "f={0}&name={1}",
+                this.PageContext.PageForumID,
+                this.PageContext.PageForum.Name);
         }
 
         /// <summary>
@@ -156,7 +169,7 @@ namespace YAF.Pages
         {
             if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageContext.ForumModeratorAccess)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -164,30 +177,31 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddRoot();
-
-            this.PageLinks.AddLink(
-                this.PageContext.PageCategoryName,
-                BuildLink.GetLink(ForumPages.forum, "c={0}", this.PageContext.PageCategoryID));
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddLink(
-                this.PageContext.PageTopicName,
-                BuildLink.GetLink(ForumPages.Posts, "t={0}", this.PageContext.PageTopicID));
-
-            this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
-
-            var forumList = this.GetRepository<Forum>().ListAllSortedAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
                 this.PageContext.PageUserID);
 
             this.ForumList.AddForumAndCategoryIcons(forumList);
 
-            this.ForumList.DataTextField = "Title";
+            this.ForumList.DataTextField = "Forum";
             this.ForumList.DataValueField = "ForumID";
             this.DataBind();
 
             this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString()).Selected = true;
             this.ForumList_SelectedIndexChanged(this.ForumList, e);
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddTopic(this.PageContext.PageTopic.TopicName, this.PageContext.PageTopicID);
+
+            this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
         }
 
         /// <summary>

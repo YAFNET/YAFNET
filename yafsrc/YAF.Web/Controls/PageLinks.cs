@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,14 +29,14 @@ namespace YAF.Web.Controls
     using System.Linq;
     using System.Web.UI;
 
+    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -87,7 +87,7 @@ namespace YAF.Web.Controls
         /// <param name="item">The item.</param>
         public void Add([NotNull] PageLink item)
         {
-            CodeContracts.VerifyNotNull(item, "item");
+            CodeContracts.VerifyNotNull(item);
 
             var list = this.PageLinkList ?? new List<PageLink>();
 
@@ -128,7 +128,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            writer.Write("<div class=\"navbar-header\"><ol class=\"breadcrumb\">");
+            writer.Write("<nav aria-label=\"breadcrump\"><ol class=\"breadcrumb\">");
 
             linkedPageList.ForEach(
                 link =>
@@ -142,7 +142,7 @@ namespace YAF.Web.Controls
                                 : $@"<li class=""breadcrumb-item""><a href=""{url}"">{encodedTitle}</a></li>");
                     });
 
-            writer.Write("</ol></div>");
+            writer.Write("</ol></nav>");
 
             // Inject Board Announcement
             var boardAnnounceControl =

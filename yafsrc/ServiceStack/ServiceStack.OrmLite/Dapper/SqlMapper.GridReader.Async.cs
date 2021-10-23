@@ -1,3 +1,9 @@
+﻿// ***********************************************************************
+// <copyright file="SqlMapper.GridReader.Async.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,11 +14,31 @@ using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    /// <summary>
+    /// Class SqlMapper.
+    /// </summary>
     public static partial class SqlMapper
     {
+        /// <summary>
+        /// Class GridReader.
+        /// Implements the <see cref="System.IDisposable" />
+        /// </summary>
+        /// <seealso cref="System.IDisposable" />
         public partial class GridReader
         {
+            /// <summary>
+            /// The cancel
+            /// </summary>
             private readonly CancellationToken cancel;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="GridReader"/> class.
+            /// </summary>
+            /// <param name="command">The command.</param>
+            /// <param name="reader">The reader.</param>
+            /// <param name="identity">The identity.</param>
+            /// <param name="dynamicParams">The dynamic parameters.</param>
+            /// <param name="addToCache">if set to <c>true</c> [add to cache].</param>
+            /// <param name="cancel">The cancel.</param>
             internal GridReader(IDbCommand command, IDataReader reader, Identity identity, DynamicParameters dynamicParams, bool addToCache, CancellationToken cancel)
                 : this(command, reader, identity, dynamicParams, addToCache)
             {
@@ -22,31 +48,36 @@ namespace ServiceStack.OrmLite.Dapper
             /// <summary>
             /// Read the next grid of results, returned as a dynamic object
             /// </summary>
-            /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
             /// <param name="buffered">Whether to buffer the results.</param>
+            /// <returns>Task&lt;IEnumerable&lt;dynamic&gt;&gt;.</returns>
+            /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
             public Task<IEnumerable<dynamic>> ReadAsync(bool buffered = true) => ReadAsyncImpl<dynamic>(typeof(DapperRow), buffered);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object
             /// </summary>
+            /// <returns>Task&lt;dynamic&gt;.</returns>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
             public Task<dynamic> ReadFirstAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.First);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object
             /// </summary>
+            /// <returns>Task&lt;dynamic&gt;.</returns>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
             public Task<dynamic> ReadFirstOrDefaultAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object
             /// </summary>
+            /// <returns>Task&lt;dynamic&gt;.</returns>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
             public Task<dynamic> ReadSingleAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.Single);
 
             /// <summary>
             /// Read an individual row of the next grid of results, returned as a dynamic object
             /// </summary>
+            /// <returns>Task&lt;dynamic&gt;.</returns>
             /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
             public Task<dynamic> ReadSingleOrDefaultAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
 
@@ -55,7 +86,9 @@ namespace ServiceStack.OrmLite.Dapper
             /// </summary>
             /// <param name="type">The type to read.</param>
             /// <param name="buffered">Whether to buffer the results.</param>
-            /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns>Task&lt;IEnumerable&lt;System.Object&gt;&gt;.</returns>
+            /// <exception cref="System.ArgumentNullException">type</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
             public Task<IEnumerable<object>> ReadAsync(Type type, bool buffered = true)
             {
                 if (type == null) throw new ArgumentNullException(nameof(type));
@@ -66,7 +99,9 @@ namespace ServiceStack.OrmLite.Dapper
             /// Read an individual row of the next grid of results
             /// </summary>
             /// <param name="type">The type to read.</param>
-            /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns>Task&lt;System.Object&gt;.</returns>
+            /// <exception cref="System.ArgumentNullException">type</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
             public Task<object> ReadFirstAsync(Type type)
             {
                 if (type == null) throw new ArgumentNullException(nameof(type));
@@ -77,7 +112,9 @@ namespace ServiceStack.OrmLite.Dapper
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <param name="type">The type to read.</param>
-            /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns>Task&lt;System.Object&gt;.</returns>
+            /// <exception cref="System.ArgumentNullException">type</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
             public Task<object> ReadFirstOrDefaultAsync(Type type)
             {
                 if (type == null) throw new ArgumentNullException(nameof(type));
@@ -88,7 +125,9 @@ namespace ServiceStack.OrmLite.Dapper
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <param name="type">The type to read.</param>
-            /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns>Task&lt;System.Object&gt;.</returns>
+            /// <exception cref="System.ArgumentNullException">type</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
             public Task<object> ReadSingleAsync(Type type)
             {
                 if (type == null) throw new ArgumentNullException(nameof(type));
@@ -99,7 +138,9 @@ namespace ServiceStack.OrmLite.Dapper
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <param name="type">The type to read.</param>
-            /// <exception cref="ArgumentNullException"><paramref name="type"/> is <c>null</c>.</exception>
+            /// <returns>Task&lt;System.Object&gt;.</returns>
+            /// <exception cref="System.ArgumentNullException">type</exception>
+            /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
             public Task<object> ReadSingleOrDefaultAsync(Type type)
             {
                 if (type == null) throw new ArgumentNullException(nameof(type));
@@ -111,32 +152,41 @@ namespace ServiceStack.OrmLite.Dapper
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
             /// <param name="buffered">Whether the results should be buffered in memory.</param>
+            /// <returns>Task&lt;IEnumerable&lt;T&gt;&gt;.</returns>
             public Task<IEnumerable<T>> ReadAsync<T>(bool buffered = true) => ReadAsyncImpl<T>(typeof(T), buffered);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns>Task&lt;T&gt;.</returns>
             public Task<T> ReadFirstAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.First);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns>Task&lt;T&gt;.</returns>
             public Task<T> ReadFirstOrDefaultAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.FirstOrDefault);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns>Task&lt;T&gt;.</returns>
             public Task<T> ReadSingleAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.Single);
 
             /// <summary>
             /// Read an individual row of the next grid of results.
             /// </summary>
             /// <typeparam name="T">The type to read.</typeparam>
+            /// <returns>Task&lt;T&gt;.</returns>
             public Task<T> ReadSingleOrDefaultAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.SingleOrDefault);
 
+            /// <summary>
+            /// Next result as an asynchronous operation.
+            /// </summary>
+            /// <returns>A Task representing the asynchronous operation.</returns>
             private async Task NextResultAsync()
             {
                 if (await ((DbDataReader)reader).NextResultAsync(cancel).ConfigureAwait(false))
@@ -156,6 +206,15 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
 
+            /// <summary>
+            /// Reads the asynchronous implementation.
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="type">The type.</param>
+            /// <param name="buffered">if set to <c>true</c> [buffered].</param>
+            /// <returns>Task&lt;IEnumerable&lt;T&gt;&gt;.</returns>
+            /// <exception cref="System.ObjectDisposedException">The reader has been disposed; this can happen after all data has been consumed</exception>
+            /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
             private Task<IEnumerable<T>> ReadAsyncImpl<T>(Type type, bool buffered)
             {
                 if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
@@ -183,6 +242,13 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
 
+            /// <summary>
+            /// Reads the row asynchronous implementation.
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="type">The type.</param>
+            /// <param name="row">The row.</param>
+            /// <returns>Task&lt;T&gt;.</returns>
             private Task<T> ReadRowAsyncImpl<T>(Type type, Row row)
             {
                 if (reader is DbDataReader dbReader) return ReadRowAsyncImplViaDbReader<T>(dbReader, type, row);
@@ -191,6 +257,16 @@ namespace ServiceStack.OrmLite.Dapper
                 return Task.FromResult(ReadRow<T>(type, row));
             }
 
+            /// <summary>
+            /// Reads the row asynchronous implementation via database reader.
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="reader">The reader.</param>
+            /// <param name="type">The type.</param>
+            /// <param name="row">The row.</param>
+            /// <returns>T.</returns>
+            /// <exception cref="System.ObjectDisposedException">The reader has been disposed; this can happen after all data has been consumed</exception>
+            /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
             private async Task<T> ReadRowAsyncImplViaDbReader<T>(DbDataReader reader, Type type, Row row)
             {
                 if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
@@ -222,6 +298,13 @@ namespace ServiceStack.OrmLite.Dapper
                 return result;
             }
 
+            /// <summary>
+            /// Read buffered as an asynchronous operation.
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="index">The index.</param>
+            /// <param name="deserializer">The deserializer.</param>
+            /// <returns>A Task&lt;IEnumerable`1&gt; representing the asynchronous operation.</returns>
             private async Task<IEnumerable<T>> ReadBufferedAsync<T>(int index, Func<IDataReader, object> deserializer)
             {
                 try

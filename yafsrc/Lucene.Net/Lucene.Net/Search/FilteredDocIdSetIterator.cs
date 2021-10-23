@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -33,9 +33,9 @@ namespace YAF.Lucene.Net.Search
         /// <summary>
         /// Constructor. </summary>
         /// <param name="innerIter"> Underlying <see cref="DocIdSetIterator"/>. </param>
-        public FilteredDocIdSetIterator(DocIdSetIterator innerIter)
+        protected FilteredDocIdSetIterator(DocIdSetIterator innerIter) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
-            m_innerIter = innerIter ?? throw new ArgumentNullException(nameof(innerIter), "null iterator");
+            m_innerIter = innerIter ?? throw new ArgumentNullException(nameof(innerIter), "null iterator"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             doc = -1;
         }
 

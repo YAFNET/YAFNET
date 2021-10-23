@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Constrains search results to only match those which also match a provided
@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public QueryWrapperFilter(Query query)
         {
-            this.query = query ?? throw new ArgumentNullException(nameof(query), "Query may not be null");
+            this.query = query ?? throw new ArgumentNullException(nameof(query), "Query may not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -53,20 +53,17 @@ namespace YAF.Lucene.Net.Search
             // get a private context that is used to rewrite, createWeight and score eventually
             AtomicReaderContext privateContext = context.AtomicReader.AtomicContext;
             Weight weight = (new IndexSearcher(privateContext)).CreateNormalizedWeight(query);
-            return new DocIdSetAnonymousInnerClassHelper(this, acceptDocs, privateContext, weight);
+            return new DocIdSetAnonymousClass(acceptDocs, privateContext, weight);
         }
 
-        private class DocIdSetAnonymousInnerClassHelper : DocIdSet
+        private class DocIdSetAnonymousClass : DocIdSet
         {
-            private readonly QueryWrapperFilter outerInstance;
+            private readonly IBits acceptDocs;
+            private readonly AtomicReaderContext privateContext;
+            private readonly Weight weight;
 
-            private IBits acceptDocs;
-            private AtomicReaderContext privateContext;
-            private Lucene.Net.Search.Weight weight;
-
-            public DocIdSetAnonymousInnerClassHelper(QueryWrapperFilter outerInstance, IBits acceptDocs, AtomicReaderContext privateContext, Lucene.Net.Search.Weight weight)
+            public DocIdSetAnonymousClass(IBits acceptDocs, AtomicReaderContext privateContext, Weight weight)
             {
-                this.outerInstance = outerInstance;
                 this.acceptDocs = acceptDocs;
                 this.privateContext = privateContext;
                 this.weight = weight;

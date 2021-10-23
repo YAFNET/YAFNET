@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -32,15 +32,14 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -48,15 +47,15 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Administration Page for managing medals.
     /// </summary>
-    public partial class medals : AdminPage
+    public partial class Medals : AdminPage
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "medals" /> class. 
+        ///   Initializes a new instance of the <see cref = "Medals" /> class.
         ///   Default constructor.
         /// </summary>
-        public medals()
+        public Medals()
             : base("ADMIN_MEDALS")
         {
         }
@@ -74,14 +73,10 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             // administration index
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_MEDALS", "TITLE")}";
         }
 
         /// <summary>
@@ -91,26 +86,23 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void MedalListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
+            var medalId = e.CommandArgument.ToType<int>();
+
             switch (e.CommandName)
             {
                 case "edit":
 
                     // edit medal
-                    BuildLink.Redirect(ForumPages.admin_editmedal, "medalid={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, "medalid={0}", medalId);
                     break;
                 case "delete":
                     // delete medal
-                    this.GetRepository<Medal>().Delete(e.CommandArgument.ToType<int>());
+                    this.GetRepository<UserMedal>().Delete(m => m.MedalID == medalId);
+                    this.GetRepository<GroupMedal>().Delete(m => m.MedalID == medalId);
+
+                    this.GetRepository<Medal>().Delete(m => m.ID == medalId);
 
                     // re-bind data
-                    this.BindData();
-                    break;
-                case "moveup":
-                    this.GetRepository<Medal>().Resort(e.CommandArgument.ToType<int>(), -1);
-                    this.BindData();
-                    break;
-                case "movedown":
-                    this.GetRepository<Medal>().Resort(e.CommandArgument.ToType<int>(), 1);
                     this.BindData();
                     break;
             }
@@ -124,7 +116,7 @@ namespace YAF.Pages.Admin
         protected void NewMedalClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to medal edit page
-            BuildLink.Redirect(ForumPages.admin_editmedal);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal);
         }
 
         /// <summary>
@@ -156,32 +148,17 @@ namespace YAF.Pages.Admin
         [NotNull]
         protected string RenderImages([NotNull] object data)
         {
-            var output = new StringBuilder(250);
+            var output = new StringBuilder();
 
             var medal = (Medal)data;
 
             // image of medal
             output.AppendFormat(
-                "<img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
+                "<img src=\"{0}{3}/{1}\" width=\"{2}\" />",
                 BoardInfo.ForumClientFileRoot,
-                medal.SmallMedalURL,
-                medal.SmallMedalWidth,
-                medal.SmallMedalHeight,
+                medal.MedalURL,
                 this.GetText("ADMIN_MEDALS", "DISPLAY_BOX"),
-                BoardFolders.Current.Medals);
-
-            // if available, create also ribbon bar image of medal
-            if (medal.SmallRibbonURL.IsSet())
-            {
-                output.AppendFormat(
-                    " &nbsp; <img src=\"{0}{5}/{1}\" width=\"{2}\" height=\"{3}\" alt=\"{4}\" align=\"top\" />",
-                    BoardInfo.ForumClientFileRoot,
-                    medal.SmallRibbonURL,
-                    medal.SmallRibbonWidth,
-                    medal.SmallRibbonHeight,
-                    this.GetText("ADMIN_MEDALS", "DISPLAY_RIBBON"),
-                    BoardFolders.Current.Medals);
-            }
+                this.Get<BoardFolders>().Medals);
 
             return output.ToString();
         }
@@ -193,7 +170,7 @@ namespace YAF.Pages.Admin
         {
             // list medals for this board
             this.MedalList.DataSource = this.GetRepository<Medal>().Get(m => m.BoardID == this.PageContext.PageBoardID)
-                .OrderBy(m => m.Category).ThenBy(m => m.SortOrder);
+                .OrderBy(m => m.Category);
 
             // bind data to controls
             this.DataBind();

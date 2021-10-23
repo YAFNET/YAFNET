@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,7 +29,7 @@ namespace YAF.Core.Extensions
     using ServiceStack.OrmLite;
 
     /// <summary>
-    /// The  SqlExpression Extensions
+    /// The SQL Expression Extensions
     /// </summary>
     public static class SqlExpressionExtensions
     {
@@ -67,33 +67,6 @@ namespace YAF.Core.Extensions
             var take = pageSize.Value;
 
             return expression.Limit(skip, take);
-        }
-
-        /// <summary>
-        /// Limits to range.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="inclusiveMinimum">The inclusive minimum.</param>
-        /// <param name="inclusiveMaximum">The inclusive maximum.</param>
-        /// <returns>Returns the Limited value</returns>
-        public static int? LimitToRange(this int? value, int? inclusiveMinimum, int? inclusiveMaximum)
-        {
-            if (!value.HasValue)
-            {
-                return null;
-            }
-
-            if (inclusiveMinimum.HasValue && value < inclusiveMinimum)
-            {
-                return inclusiveMinimum;
-            }
-
-            if (inclusiveMaximum.HasValue && value > inclusiveMaximum)
-            {
-                return inclusiveMaximum;
-            }
-
-            return value;
         }
     }
 }

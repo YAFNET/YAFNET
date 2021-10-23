@@ -1,10 +1,10 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Console  = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Store
     /// </summary>
     /// <seealso cref="VerifyingLockFactory"/>
     /// <seealso cref="LockVerifyServer"/>
-    public class LockStressTest
+    public static class LockStressTest // LUCENENET specific: CA1052 Static holder types should be Static or NotInheritable
     {
         [STAThread]
         public static void Main(string[] args)
@@ -64,7 +64,7 @@ namespace YAF.Lucene.Net.Store
 
             if (myID < 0 || myID > 255)
             {
-                throw new ArgumentException("ID must be a unique int 0..255");
+                throw new ArgumentOutOfRangeException("ID", "ID must be a unique int 0..255"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 //Console.WriteLine("myID must be a unique int 0..255");
                 //Environment.Exit(1);
             }
@@ -83,15 +83,15 @@ namespace YAF.Lucene.Net.Store
             try
             {
                 c = Type.GetType(lockFactoryClassName);
-                if (c == null)
+                if (c is null)
                 {
                     // LUCENENET: try again, this time with the Store namespace
                     c = Type.GetType("Lucene.Net.Store." + lockFactoryClassName);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new IOException("unable to find LockClass " + lockFactoryClassName);
+                throw new IOException("unable to find LockClass " + lockFactoryClassName, e);
             }
 
             LockFactory lockFactory;
@@ -99,81 +99,73 @@ namespace YAF.Lucene.Net.Store
             {
                 lockFactory = (LockFactory)Activator.CreateInstance(c);
             }
-            catch (UnauthorizedAccessException e)
+            catch (Exception e) when (e.IsIllegalAccessException() || e.IsInstantiationException() || e.IsClassNotFoundException())
             {
                 throw new IOException("Cannot instantiate lock factory " + lockFactoryClassName, e);
             }
-            catch (InvalidCastException e)
+            // LUCENENET specific - added more explicit exception message in this case
+            catch (Exception e) when (e.IsClassCastException())
             {
                 throw new IOException("unable to cast LockClass " + lockFactoryClassName + " instance to a LockFactory", e);
-            }
-            catch (Exception e)
-            {
-                throw new IOException("InstantiationException when instantiating LockClass " + lockFactoryClassName, e);
             }
 
             DirectoryInfo lockDir = new DirectoryInfo(lockDirName);
 
-            if (lockFactory is FSLockFactory)
+            if (lockFactory is FSLockFactory fsLockFactory)
             {
-                ((FSLockFactory)lockFactory).SetLockDir(lockDir);
+                fsLockFactory.SetLockDir(lockDir);
             }
 
             Console.WriteLine("Connecting to server " + addr + " and registering as client " + myID + "...");
-            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+            using Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+            socket.Connect(verifierHost, verifierPort);
+
+            using Stream stream = new NetworkStream(socket);
+            BinaryReader intReader = new BinaryReader(stream);
+            BinaryWriter intWriter = new BinaryWriter(stream);
+
+            intWriter.Write(myID);
+            stream.Flush();
+
+            lockFactory.LockPrefix = "test";
+            LockFactory verifyLF = new VerifyingLockFactory(lockFactory, stream);
+            Lock l = verifyLF.MakeLock("test.lock");
+            Random rnd = new Random();
+
+            // wait for starting gun
+            if (intReader.ReadInt32() != 43)
             {
-                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
-                socket.Connect(verifierHost, verifierPort);
-
-                using (Stream stream = new NetworkStream(socket))
-                {
-                    BinaryReader intReader = new BinaryReader(stream);
-                    BinaryWriter intWriter = new BinaryWriter(stream);
-
-                    intWriter.Write(myID);
-                    stream.Flush();
-
-                    lockFactory.LockPrefix = "test";
-                    LockFactory verifyLF = new VerifyingLockFactory(lockFactory, stream);
-                    Lock l = verifyLF.MakeLock("test.lock");
-                    Random rnd = new Random();
-
-                    // wait for starting gun
-                    if (intReader.ReadInt32() != 43)
-                    {
-                        throw new IOException("Protocol violation");
-                    }
-
-                    for (int i = 0; i < count; i++)
-                    {
-                        bool obtained = false;
-
-                        try
-                        {
-                            obtained = l.Obtain(rnd.Next(100) + 10);
-                        }
-#pragma warning disable 168
-                        catch (LockObtainFailedException e)
-#pragma warning restore 168
-                        {
-                        }
-
-                        if (obtained)
-                        {
-                            Thread.Sleep(sleepTimeMS);
-                            l.Dispose();
-                        }
-
-                        if (i % 500 == 0)
-                        {
-                            Console.WriteLine((i * 100.0 / count) + "% done.");
-                        }
-
-                        Thread.Sleep(sleepTimeMS);
-                    }
-                }
+                throw new IOException("Protocol violation");
             }
 
+            for (int i = 0; i < count; i++)
+            {
+                bool obtained = false;
+
+                try
+                {
+                    obtained = l.Obtain(rnd.Next(100) + 10);
+                }
+#pragma warning disable 168
+                catch (LockObtainFailedException e)
+#pragma warning restore 168
+                {
+                }
+
+                if (obtained)
+                {
+                    Thread.Sleep(sleepTimeMS);
+                    l.Dispose();
+                }
+
+                if (i % 500 == 0)
+                {
+                    Console.WriteLine((i * 100.0 / count) + "% done.");
+                }
+
+                Thread.Sleep(sleepTimeMS);
+            }
             Console.WriteLine("Finished " + count + " tries.");
         }
     }

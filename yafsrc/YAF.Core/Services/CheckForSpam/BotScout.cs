@@ -30,10 +30,12 @@ namespace YAF.Core.Services.CheckForSpam
     using System.IO;
     using System.Net;
 
-    using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.CheckForSpam;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -74,10 +76,10 @@ namespace YAF.Core.Services.CheckForSpam
         {
             try
             {
-                const string BotScoutUrl = "http://www.botscout.com/test/?multi";
+                const string BotScoutUrl = "https://www.botscout.com/test/?multi";
 
                 var url =
-                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.Get<BoardSettings>().BotScoutApiKey}" : string.Empty)}";
+                    $"{BotScoutUrl}{(ipAddress.IsSet() ? $"&ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&mail={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&name={userName}" : string.Empty)}{(BoardContext.Current.BoardSettings.BotScoutApiKey.IsSet() ? $"&key={BoardContext.Current.BoardSettings.BotScoutApiKey}" : string.Empty)}";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -110,7 +112,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
 
                 responseText = ex.Message;
 

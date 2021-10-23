@@ -27,10 +27,11 @@ namespace YAF.Web.BBCodes
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Core;
     using YAF.Core.BBCode;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Context;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
 
     /// <summary>
     /// Hide Group BBCode Module
@@ -105,8 +106,8 @@ namespace YAF.Web.BBCodes
                 }*/
 
                 // Check For Role Hiding
-                if (RoleMembershipHelper.GetRolesForUser(
-                            BoardContext.Current.User.UserName).Any(role => !groups.Any(role.Equals)))
+                if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
+                            BoardContext.Current.MembershipUser).Any(role => !groups.Any(role.Equals)))
                 {
                     shownContentGuest = hiddenContent;
                 }
@@ -114,7 +115,7 @@ namespace YAF.Web.BBCodes
                 // TODO : Check for Rank Hiding 
                 /*if (ranks.Any())
                 {
-                    var yafUserData = new CombinedUserDataHelper(BoardContext.Current.CurrentUserData.PageUserID);
+                    var yafUserData = new CombinedUserDataHelper(BoardContext.Current.UserData.PageUserID);
 
                     if (!ranks.Where(rank => yafUserData.RankName.Equals(rank)).Any())
                     {
@@ -124,7 +125,7 @@ namespace YAF.Web.BBCodes
             }
 
             // Override Admin, or User is Post Author
-            if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.CurrentUserData.UserID)
+            if (BoardContext.Current.IsAdmin || this.DisplayUserID == BoardContext.Current.PageUserID)
             {
                 shownContentGuest = hiddenContent;
             }

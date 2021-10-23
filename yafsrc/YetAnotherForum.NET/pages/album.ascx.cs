@@ -29,15 +29,14 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Configuration;
-    using YAF.Core;
-    using YAF.Core.Model;
+    using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -59,6 +58,18 @@ namespace YAF.Pages
 
         #endregion
 
+        /// <summary>
+        ///   Gets user ID of edited user.
+        /// </summary>
+        protected int CurrentUserID =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+
+        /// <summary>
+        /// The album id.
+        /// </summary>
+        protected int AlbumID =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+
         #region Methods
 
         /// <summary>
@@ -68,41 +79,45 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<BoardSettings>().EnableAlbum)
+            if (!this.PageContext.BoardSettings.EnableAlbum)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("u")
                 || !this.Get<HttpRequestBase>().QueryString.Exists("a"))
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
-            var userId =
-                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-            var albumId = Security.StringToLongOrRedirect(
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+            var displayName = this.Get<IUserDisplayName>().GetNameById(this.CurrentUserID);
 
-            var displayName = this.Get<IUserDisplayName>().GetName((int)userId);
+            var album = this.GetRepository<UserAlbum>().GetById(this.AlbumID);
 
             // Generate the page links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                displayName,
-                BuildLink.GetLink(ForumPages.Profile, "u={0}&name={1}", userId, displayName));
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), BuildLink.GetLink(ForumPages.Albums, "u={0}", userId));
+            this.PageLinks.AddUser(this.CurrentUserID, displayName);
+            this.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, "u={0}", this.CurrentUserID));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             // Set the title text.
             this.LocalizedLabel1.Param0 = this.Server.HtmlEncode(displayName);
             this.LocalizedLabel1.Param1 =
-                this.Server.HtmlEncode(this.GetRepository<UserAlbum>().GetTitle(albumId.ToType<int>()));
+                this.Server.HtmlEncode(album.Title);
 
             // Initialize the Album Image List control.
-            this.AlbumImageList1.UserID = (int)userId;
-            this.AlbumImageList1.AlbumID = (int)albumId;
+            this.AlbumImageList1.UserID = this.CurrentUserID;
+            this.AlbumImageList1.UserAlbum = album;
+
+            this.EditAlbums.Visible = this.PageContext.PageUserID == this.CurrentUserID;
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
         }
 
         /// <summary>
@@ -112,10 +127,23 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Back_Click(object sender, EventArgs e)
         {
-            BuildLink.Redirect(
+            this.Get<LinkBuilder>().Redirect(
                 ForumPages.Albums,
                 "u={0}",
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+        }
+
+        /// <summary>
+        /// Redirect to the edit album page.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void EditAlbums_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.EditAlbumImages,
+                "a={0}",
+                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
         }
 
         #endregion

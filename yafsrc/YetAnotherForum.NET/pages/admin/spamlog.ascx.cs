@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,24 +27,22 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
     using System.Globalization;
     using System.Linq;
     using System.Web.UI.WebControls;
 
     using FarsiLibrary.Utils;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils;
+    using YAF.Types.Objects.Model;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -52,7 +50,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The SPAM Event Log Page.
     /// </summary>
-    public partial class spamlog : AdminPage
+    public partial class SpamLog : AdminPage
     {
         #region Methods
 
@@ -63,56 +61,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void DeleteAllClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.GetRepository<EventLog>()
-                .DeleteByUser(this.PageContext.PageUserID, this.PageContext.PageBoardID);
+            this.GetRepository<Types.Models.EventLog>().DeleteAll();
 
             // re-bind controls
             this.BindData();
-        }
-
-        /// <summary>
-        /// Gets HTML IMG code representing given log event icon.
-        /// </summary>
-        /// <param name="dataRow">
-        /// Data row containing event log entry data.
-        /// </param>
-        /// <returns>
-        /// return HTML code of event log entry image
-        /// </returns>
-        protected string EventCssClass([NotNull] object dataRow)
-        {
-            // cast object to the DataRowView
-            var row = (DataRowView)dataRow;
-
-            string cssClass;
-
-            try
-            {
-                // find out of what type event log entry is
-                var eventType = row["Type"].ToEnum<EventLogTypes>();
-
-                switch (eventType)
-                {
-                    case EventLogTypes.Error:
-                        cssClass = "danger";
-                        break;
-                    case EventLogTypes.Warning:
-                        cssClass = "warning";
-                        break;
-                    case EventLogTypes.Information:
-                        cssClass = "info";
-                        break;
-                    default:
-                        cssClass = "active";
-                        break;
-                }
-            }
-            catch (Exception)
-            {
-                return "active";
-            }
-
-            return cssClass;
         }
 
         /// <summary>
@@ -134,12 +86,6 @@ namespace YAF.Pages.Admin
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-               "DatePickerJs",
-               JavaScriptBlocks.DatePickerLoadJs(
-                   this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                   this.GetText("COMMON", "CAL_JQ_CULTURE")));
-
             this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             this.PageContext.PageElements.RegisterJsBlock(
@@ -164,24 +110,28 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PagerTop.PageSize = 25;
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             var ci = this.Get<ILocalization>().Culture;
 
-            if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+            if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
                 this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
                 this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
             }
             else
             {
-                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.Get<BoardSettings>().EventLogMaxDays).ToString(
-                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-                this.ToDate.Text = DateTime.UtcNow.Date.ToString(
-                                             ci.DateTimeFormat.ShortDatePattern, CultureInfo.InvariantCulture);
-            }
+                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
+                this.SinceDate.TextMode = TextBoxMode.Date;
 
-            this.ToDate.ToolTip = this.SinceDate.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
+                this.ToDate.Text = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
+                this.ToDate.TextMode = TextBoxMode.Date;
+            }
 
             // bind data to controls
             this.BindData();
@@ -195,12 +145,9 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             // administration index second
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_SPAMLOG", "TITLE"), string.Empty);
-
-            this.Page.Header.Title = this.GetText("ADMIN_SPAMLOG", "TITLE");
         }
 
         /// <summary>
@@ -225,22 +172,63 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Renders the UserLink
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string UserLink([NotNull] PagedEventLog item)
+        {
+            if (item.UserID == 0 || item.UserID == this.PageContext.GuestUserID)
+            {
+                return string.Empty;
+            }
+
+            var userLink = new UserLink
+            {
+                UserID = item.UserID,
+                Suspended = item.Suspended,
+                Style = item.UserStyle,
+                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
+            };
+
+            return userLink.RenderToString();
+        }
+
+        /// <summary>
         /// Populates data source and binds data to controls.
         /// </summary>
         private void BindData()
         {
-            var baseSize = this.Get<BoardSettings>().MemberListPageSize;
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 
-            var sinceDate = DateTime.UtcNow.AddDays(-this.Get<BoardSettings>().EventLogMaxDays);
+            var sinceDate = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays);
             var toDate = DateTime.UtcNow;
 
             var ci = this.Get<ILocalization>().Culture;
 
             if (this.SinceDate.Text.IsSet())
             {
-                if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.SinceDate.Text.PersianNumberToEnglish());
 
@@ -254,7 +242,7 @@ namespace YAF.Pages.Admin
 
             if (this.ToDate.Text.IsSet())
             {
-                if (this.Get<BoardSettings>().UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.ToDate.Text.PersianNumberToEnglish());
 
@@ -267,21 +255,22 @@ namespace YAF.Pages.Admin
             }
 
             // list event for this board
-            var dt = this.GetRepository<EventLog>()
-                               .List(
-                                   this.PageContext.PageUserID,
-                                   this.Get<BoardSettings>().EventLogMaxMessages,
-                                   this.Get<BoardSettings>().EventLogMaxDays,
+            var list = this.GetRepository<Types.Models.EventLog>()
+                               .ListPaged(
+                                   this.PageContext.PageBoardID,
+                                   this.PageContext.BoardSettings.EventLogMaxMessages,
+                                   this.PageContext.BoardSettings.EventLogMaxDays,
                                    currentPageIndex,
                                    baseSize,
                                    sinceDate,
                                    toDate.AddDays(1).AddMinutes(-1),
-                                   "1003,1004,1005,2000,2001,2002,2003");
+                                   null,
+                                   true);
 
-            this.List.DataSource = dt;
+            this.List.DataSource = list;
 
-            this.PagerTop.Count = dt != null && dt.HasRows()
-                                      ? dt.AsEnumerable().First().Field<int>("TotalRows")
+            this.PagerTop.Count = !list.NullOrEmpty()
+                                      ? list.FirstOrDefault().TotalRows
                                       : 0;
 
             // bind data to controls
@@ -307,7 +296,7 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // delete just this particular log entry
-                    this.GetRepository<EventLog>().DeleteById(e.CommandArgument.ToType<int>());
+                    this.GetRepository<Types.Models.EventLog>().DeleteById(e.CommandArgument.ToType<int>());
 
                     // re-bind controls
                     this.BindData();

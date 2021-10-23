@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,13 +25,21 @@
 namespace YAF.Core.Model
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
 
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
+    using YAF.Types.Flags;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The group repository extensions.
@@ -55,89 +63,76 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="IList"/>.
         /// </returns>
-        public static IList<Group> List(this IRepository<Group> repository, int? groupId = null, int? boardId = null)
+        public static IList<Group> List(
+            this IRepository<Group> repository,
+            [CanBeNull] int? groupId = null,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return groupId.HasValue
-                       ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
-                       : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
+                ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
+                : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
         }
 
         /// <summary>
-        /// The group_member.
+        /// Gets All Roles by User indicating if User is Member or not
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
-        /// <param name="userID">
-        /// The user id.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable MemberAsDataTable(
+        public static List<GroupMember> Member(
             this IRepository<Group> repository,
-            [NotNull] object boardID,
-            [NotNull] object userID)
+            [NotNull] int boardId,
+            [NotNull] int userId)
         {
-            return repository.DbFunction.GetData.group_member(BoardID: boardID, UserID: userID);
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<Group>();
+
+                    expression.LeftJoin<UserGroup>((g, u) => u.UserID == userId && u.GroupID == g.ID)
+                        .Where(g => g.BoardID == boardId).OrderBy<Group>(a => a.Name).Select<Group, UserGroup>(
+                            (g, u) => new { GroupID = g.ID, g.Name, u.UserID });
+
+                    return db.Connection.Select<GroupMember>(expression);
+                });
         }
 
         /// <summary>
-        /// Returns info about all Groups and Rank styles.
-        ///   Used in GroupRankStyles cache.
-        ///   Usage: LegendID = 1 - Select Groups, LegendID = 2 - select Ranks by Name
+        /// Save or Add new Group
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
-        /// The board ID.
+        /// <param name="groupId">
+        /// The group Id.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable RankStyleAsDataTable(this IRepository<Group> repository, [NotNull] object boardID)
-        {
-            return repository.DbFunction.GetData.group_rank_style(BoardID: boardID);
-        }
-
-        /// <summary>
-        /// The group_save.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="groupID">
-        /// The group id.
-        /// </param>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="name">
         /// The name.
         /// </param>
-        /// <param name="isAdmin">
-        /// The is admin.
+        /// <param name="flags">
+        /// The flags.
         /// </param>
-        /// <param name="isGuest">
-        /// The is guest.
-        /// </param>
-        /// <param name="isStart">
-        /// The is start.
-        /// </param>
-        /// <param name="isModerator">
-        /// The is moderator.
-        /// </param>
-        /// <param name="accessMaskID">
+        /// <param name="accessMaskId">
         /// The access mask id.
         /// </param>
-        /// <param name="pmLimit">
-        /// The pm limit.
+        /// <param name="messagesLimit">
+        /// The messages Limit.
         /// </param>
         /// <param name="style">
         /// The style.
@@ -148,202 +143,89 @@ namespace YAF.Core.Model
         /// <param name="description">
         /// The description.
         /// </param>
-        /// <param name="usrSigChars">
-        /// The usrSigChars defines number of allowed characters in user signature.
+        /// <param name="signatureChars">
+        /// Defines number of allowed characters in user signature.
         /// </param>
-        /// <param name="usrSigBBCodes">
-        /// The UsrSigBBCodes.defines comma separated bbcodes allowed for a rank, i.e in a user signature
+        /// <param name="signatureBBCodes">
+        /// The signature BBCodes.
         /// </param>
-        /// <param name="usrSigHTMLTags">
-        /// The UsrSigHTMLTags defines comma separated tags allowed for a rank, i.e in a user signature
+        /// <param name="userAlbums">
+        /// Defines allowed number of albums.
         /// </param>
-        /// <param name="usrAlbums">
-        /// The UsrAlbums defines allowed number of albums.
-        /// </param>
-        /// <param name="usrAlbumImages">
-        /// The UsrAlbumImages defines number of images allowed for an album.
+        /// <param name="userAlbumImages">
+        /// Defines number of images allowed for an album.
         /// </param>
         /// <returns>
-        /// The group_save.
+        /// Returns the group Id
         /// </returns>
-        public static long Save(
+        public static int Save(
             this IRepository<Group> repository,
-            [NotNull] object groupID,
-            [NotNull] object boardID,
-            [NotNull] object name,
-            [NotNull] object isAdmin,
-            [NotNull] object isGuest,
-            [NotNull] object isStart,
-            [NotNull] object isModerator,
-            [NotNull] object accessMaskID,
-            [NotNull] object pmLimit,
-            [NotNull] object style,
-            [NotNull] object sortOrder,
-            [NotNull] object description,
-            [NotNull] object usrSigChars,
-            [NotNull] object usrSigBBCodes,
-            [NotNull] object usrSigHTMLTags,
-            [NotNull] object usrAlbums,
-            [NotNull] object usrAlbumImages)
+            [CanBeNull] int? groupId,
+            [NotNull] int boardId,
+            [NotNull] string name,
+            [NotNull] GroupFlags flags,
+            [NotNull] int accessMaskId,
+            [NotNull] int messagesLimit,
+            [CanBeNull] string style,
+            [NotNull] short sortOrder,
+            [CanBeNull] string description,
+            [NotNull] int signatureChars,
+            [CanBeNull] string signatureBBCodes,
+            [CanBeNull] int userAlbums,
+            [CanBeNull] int userAlbumImages)
         {
-            return repository.DbFunction.Scalar.group_save(
-                GroupID: groupID,
-                BoardID: boardID,
-                Name: name,
-                IsAdmin: isAdmin,
-                IsGuest: isGuest,
-                IsStart: isStart,
-                IsModerator: isModerator,
-                AccessMaskID: accessMaskID,
-                PMLimit: pmLimit,
-                Style: style,
-                SortOrder: sortOrder,
-                Description: description,
-                UsrSigChars: usrSigChars,
-                UsrSigBBCodes: usrSigBBCodes,
-                UsrSigHTMLTags: usrSigHTMLTags,
-                UsrAlbums: usrAlbums,
-                UsrAlbumImages: usrAlbumImages);
-        }
+            CodeContracts.VerifyNotNull(repository);
 
-        /// <summary>
-        /// The member.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userID">
-        /// The user id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable Member(this IRepository<Group> repository, int userID, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            if (groupId.HasValue)
+            {
+                repository.UpdateOnly(
+                    () => new Group
+                    {
+                        Name = name,
+                        Flags = flags.BitValue,
+                        PMLimit = messagesLimit,
+                        Style = style,
+                        SortOrder = sortOrder,
+                        Description = description,
+                        UsrSigChars = signatureChars,
+                        UsrSigBBCodes = signatureBBCodes,
+                        UsrAlbums = userAlbums,
+                        UsrAlbumImages = userAlbumImages
+                    },
+                    g => g.ID == groupId.Value);
 
-            return repository.DbFunction.GetData.group_member(BoardID: boardId ?? repository.BoardID, UserID: userID);
-        }
+                repository.FireUpdated(groupId);
+            }
+            else
+            {
+                groupId = repository.Insert(
+                    new Group
+                    {
+                        Name = name,
+                        BoardID = boardId,
+                        Flags = flags.BitValue,
+                        PMLimit = messagesLimit,
+                        Style = style,
+                        SortOrder = sortOrder,
+                        Description = description,
+                        UsrSigChars = signatureChars,
+                        UsrSigBBCodes = signatureBBCodes,
+                        UsrAlbums = userAlbums,
+                        UsrAlbumImages = userAlbumImages
+                    });
 
-        /// <summary>
-        /// The rank style.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable RankStyle(this IRepository<Group> repository, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
+                repository.FireNew(groupId);
 
-            return repository.DbFunction.GetData.group_rank_style(BoardID: boardId ?? repository.BoardID);
-        }
+                BoardContext.Current.GetRepository<ForumAccess>().InitialAssignGroup(groupId.Value, accessMaskId);
+            }
 
-        /// <summary>
-        /// The save.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="groupID">
-        /// The group id.
-        /// </param>
-        /// <param name="name">
-        /// The name.
-        /// </param>
-        /// <param name="isAdmin">
-        /// The is admin.
-        /// </param>
-        /// <param name="isStart">
-        /// The is start.
-        /// </param>
-        /// <param name="isModerator">
-        /// The is moderator.
-        /// </param>
-        /// <param name="isGuest">
-        /// The is guest.
-        /// </param>
-        /// <param name="accessMaskID">
-        /// The access mask id.
-        /// </param>
-        /// <param name="pMLimit">
-        /// The p m limit.
-        /// </param>
-        /// <param name="style">
-        /// The style.
-        /// </param>
-        /// <param name="sortOrder">
-        /// The sort order.
-        /// </param>
-        /// <param name="description">
-        /// The description.
-        /// </param>
-        /// <param name="usrSigChars">
-        /// The usr sig chars.
-        /// </param>
-        /// <param name="usrSigBBCodes">
-        /// The usr sig bb codes.
-        /// </param>
-        /// <param name="usrSigHTMLTags">
-        /// The usr sig html tags.
-        /// </param>
-        /// <param name="usrAlbums">
-        /// The usr albums.
-        /// </param>
-        /// <param name="usrAlbumImages">
-        /// The usr album images.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        public static void Save(
-            this IRepository<Group> repository,
-            int groupID,
-            string name,
-            bool isAdmin,
-            bool isStart,
-            bool isModerator,
-            bool isGuest,
-            int accessMaskID,
-            int pMLimit,
-            string style,
-            short sortOrder,
-            string description,
-            int usrSigChars,
-            string usrSigBBCodes,
-            string usrSigHTMLTags,
-            int usrAlbums,
-            int usrAlbumImages,
-            int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            if (style.IsSet())
+            {
+                // -- group styles override rank styles
+                BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(boardId));
+            }
 
-            repository.DbFunction.Query.group_save(
-                GroupID: groupID,
-                BoardID: boardId ?? repository.BoardID,
-                Name: name,
-                IsAdmin: isAdmin,
-                IsStart: isStart,
-                IsModerator: isModerator,
-                IsGuest: isGuest,
-                AccessMaskID: accessMaskID,
-                PMLimit: pMLimit,
-                Style: style,
-                SortOrder: sortOrder,
-                Description: description,
-                UsrSigChars: usrSigChars,
-                UsrSigBBCodes: usrSigBBCodes,
-                UsrSigHTMLTags: usrSigHTMLTags,
-                UsrAlbums: usrAlbums,
-                UsrAlbumImages: usrAlbumImages);
+            return groupId.Value;
         }
 
         #endregion

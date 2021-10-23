@@ -1,7 +1,8 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -72,7 +73,7 @@ namespace YAF.Lucene.Net.Util
         /// Returns the number of 64 bit words it would take to hold <paramref name="numBits"/>. </summary>
         public static int Bits2words(long numBits)
         {
-            int numLong = (int)((long)((ulong)numBits >> 6));
+            int numLong = (int)numBits.TripleShift(6);
             if ((numBits & 63) != 0)
             {
                 numLong++;
@@ -105,19 +106,21 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Expert. </summary>
         [WritableArray]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long[] GetBits()
         {
             return bits;
         }
 
         /// <summary>
-        /// Returns number of set bits.  NOTE: this visits every
+        /// Gets the number of set bits.  NOTE: this visits every
         /// long in the backing bits array, and the result is not
         /// internally cached!
         /// </summary>
-        public long Cardinality()
+        public long Cardinality
         {
-            return BitUtil.Pop_Array(bits, 0, bits.Length);
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => BitUtil.Pop_Array(bits, 0, bits.Length);
         }
 
         public bool Get(long index)
@@ -326,7 +329,7 @@ namespace YAF.Lucene.Net.Util
             */
 
             long startmask = -1L << (int)startIndex;
-            long endmask = (long)(unchecked(((ulong)-1L)) >> (int)-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
+            long endmask = (-1L).TripleShift((int)-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
 
             if (startWord == endWord)
             {
@@ -365,7 +368,7 @@ namespace YAF.Lucene.Net.Util
             int endWord = (int)((endIndex - 1) >> 6);
 
             long startmask = -1L << (int)startIndex;
-            long endmask = (long)(0xffffffffffffffffUL >> (int)-endIndex);//-(int)((uint)1L >> (int)-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
+            long endmask = (-1L).TripleShift((int)-endIndex); // 64-(endIndex&0x3f) is the same as -endIndex due to wrap
 
             if (startWord == endWord)
             {
@@ -419,6 +422,7 @@ namespace YAF.Lucene.Net.Util
             bits[endWord] &= endmask;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public Int64BitSet Clone()
         {
             long[] bits = new long[this.bits.Length];
@@ -452,7 +456,7 @@ namespace YAF.Lucene.Net.Util
             for (int i = numWords; --i >= 0; )
             {
                 h ^= bits[i];
-                h = (h << 1) | ((long)((ulong)h >> 63)); // rotate left
+                h = (h << 1) | (h.TripleShift(63)); // rotate left
             }
             // fold leftmost bits into right and add a constant to prevent
             // empty sets from returning 0, which is too common.

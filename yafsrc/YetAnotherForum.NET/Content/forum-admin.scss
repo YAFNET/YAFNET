@@ -1,28 +1,23 @@
-﻿@import "jquery.hovercard.scss";
+﻿@import "prism";
+@import "jquery.hovercard.scss";
 @import "bootstrap-notify";
 
 @import "fontawesome/fontawesome-all";
 @import "flag-icons/flag-icon.scss";
 
-@import "jquery.emojipicker";
-
-// -- TableSorter Plugin
-@import "tablesorter/theme.bootstrap_4.min";
-
 // --Bootstrap extensions
 @import "select2/select2";
-@import "select2/select2-bootstrap";
 @import "bootstrap-datetimepicker";
 
 // --Forum imports
 @import "forum/attachments-upload.scss";
 @import "forum/dropdowns.scss";
-@import "forum/editor.scss";
 @import "forum/user-albums.scss";
 @import "forum/cookie-alert.scss";
 @import "forum/button-scroll.scss";
+@import "forum/editor.scss";
 
-// -- Main
+// Main
 #YafBody {
     padding-right: 15px;
     padding-left: 15px;
@@ -30,50 +25,21 @@
     margin-left: auto;
 }
 
-// -- Main Menu
-.dropdown-submenu {
-    position: relative;
-}
-
-.dropdown-submenu .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -1px;
-}
-
-
 .list-inline {
     margin: 0;
 }
 
-// --Pager
+// Pager
 .gotoPageForm {
     z-index: 99999;
 }
 
-// --Spinner Input
+// Spinner Input
 .bootstrap-touchspin {
     width: 250px;
 }
 
-// user search
-.user-search-dropdown {
-    .form-control {
-        width: inherit;
-    }
-}
-
-// pagination
-.pagination {
-    margin-bottom: 0.30rem;
-}
-
-// menu dropdown
-.dropdown-menu > li > span > a {
-    color: #333;
-}
-
-// --Event log
+// Event log
 .pre-scrollable {
     overflow: auto;
     white-space: pre-line;
@@ -95,4 +61,9 @@
     position: absolute;
     top: 8px;
     left: 16px;
+}
+
+// Tabs
+.tab-content {
+    padding-top: 10px;
 }

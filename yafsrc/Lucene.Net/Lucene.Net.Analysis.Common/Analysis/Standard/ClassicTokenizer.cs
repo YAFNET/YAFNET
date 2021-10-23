@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 using System;
 using Reader = System.IO.TextReader;
@@ -90,7 +91,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
             set
             {
                 if (value < 1)
-                    throw new ArgumentException("maxTokenLength must be greater than zero");
+                    throw new ArgumentOutOfRangeException(nameof(MaxTokenLength), "maxTokenLength must be greater than zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
 
                 this.maxTokenLength = value;
             }

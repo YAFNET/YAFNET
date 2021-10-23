@@ -1,7 +1,6 @@
+﻿using J2N;
 using J2N.Threading;
-using YAF.Lucene.Net.Support;
 using System;
-using System.IO;
 using System.Threading;
 
 namespace YAF.Lucene.Net.Search
@@ -52,8 +51,8 @@ namespace YAF.Lucene.Net.Search
         private long searchingGen;
         private long refreshStartGen;
 
-        private EventWaitHandle reopenCond = new AutoResetEvent(false);
-        private EventWaitHandle available = new AutoResetEvent(false);
+        private readonly EventWaitHandle reopenCond = new AutoResetEvent(false); // LUCENENET: marked readonly
+        private readonly EventWaitHandle available = new AutoResetEvent(false); // LUCENENET: marked readonly
 
         /// <summary>
         /// Create <see cref="ControlledRealTimeReopenThread{T}"/>, to periodically
@@ -113,25 +112,37 @@ namespace YAF.Lucene.Net.Search
             reopenCond.Reset();
         }
 
+        /// <summary>
+        /// Releases all resources used by the <see cref="ControlledRealTimeReopenThread{T}"/>.
+        /// </summary>
         public void Dispose()
         {
-            finish = true;
-            reopenCond.Set();
-//#if FEATURE_THREAD_INTERRUPT
-//            try
-//            {
-//#endif
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases resources used by the <see cref="ControlledRealTimeReopenThread{T}"/> and
+        /// if overridden in a derived class, optionally releases unmanaged resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources;
+        /// <c>false</c> to release only unmanaged resources.</param>
+
+        // LUCENENET specific - implemented proper dispose pattern
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                finish = true;
+                reopenCond.Set();
+                
                 Join();
-//#if FEATURE_THREAD_INTERRUPT // LUCENENET NOTE: Senseless to catch and rethrow the same exception type
-//            }
-//            catch (ThreadInterruptedException ie)
-//            {
-//                throw new ThreadInterruptedException(ie.ToString(), ie);
-//            }
-//#endif
-            // LUCENENET specific: dispose reset event
-            reopenCond.Dispose();
-            available.Dispose();
+                // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException
+
+                // LUCENENET specific: dispose reset event
+                reopenCond.Dispose();
+                available.Dispose();
+            }
         }
 
         /// <summary>
@@ -213,7 +224,7 @@ namespace YAF.Lucene.Net.Search
         {
             // TODO: maybe use private thread ticktock timer, in
             // case clock shift messes up nanoTime?
-            long lastReopenStartNS = DateTime.UtcNow.Ticks * 100;
+            long lastReopenStartNS = Time.NanoTime();
 
             //System.out.println("reopen: start");
             while (!finish)
@@ -227,21 +238,15 @@ namespace YAF.Lucene.Net.Search
                 long sleepNS = nextReopenStartNS - Time.NanoTime();
 
                 if (sleepNS > 0)
-#if FEATURE_THREAD_INTERRUPT
                     try
                     {
-#endif
-                        reopenCond.WaitOne(TimeSpan.FromMilliseconds(sleepNS / Time.MILLISECONDS_PER_NANOSECOND));//Convert NS to Ticks
-#if FEATURE_THREAD_INTERRUPT
+                        reopenCond.WaitOne(TimeSpan.FromMilliseconds(sleepNS / Time.MillisecondsPerNanosecond));//Convert NS to MS
                     }
-#pragma warning disable 168
-                    catch (ThreadInterruptedException ie)
-#pragma warning restore 168
+                    catch (Exception ie) when (ie.IsInterruptedException())
                     {
                         Thread.CurrentThread.Interrupt();
                         return;
                     }
-#endif
 
                 if (finish)
                 {
@@ -257,9 +262,9 @@ namespace YAF.Lucene.Net.Search
                 {
                     manager.MaybeRefreshBlocking();
                 }
-                catch (IOException ioe)
+                catch (Exception ioe) when (ioe.IsIOException())
                 {
-                    throw new Exception(ioe.ToString(), ioe);
+                    throw RuntimeException.Create(ioe);
                 }
             }
             // this will set the searchingGen so that all waiting threads will exit

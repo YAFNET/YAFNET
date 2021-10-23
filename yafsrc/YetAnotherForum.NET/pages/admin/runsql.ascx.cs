@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,13 +28,17 @@ namespace YAF.Pages.Admin
 
     using System;
 
-    using YAF.Core;
-    using YAF.Core.Helpers;
+    using YAF.Core.BaseModules;
+    using YAF.Core.BasePages;
+    using YAF.Core.Data;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utils;
+    using YAF.Web.Editors;
     using YAF.Web.Extensions;
 
     #endregion
@@ -42,8 +46,13 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The run SQL Query Page.
     /// </summary>
-    public partial class runsql : AdminPage
+    public partial class RunSql : AdminPage
     {
+        /// <summary>
+        ///   The editor.
+        /// </summary>
+        private ForumEditor editor;
+
         #region Methods
 
         /// <summary>
@@ -53,14 +62,33 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.RunQuery.ClientID));
+
             if (this.IsPostBack)
             {
                 return;
             }
 
-            this.chkRunInTransaction.Text = this.GetText("ADMIN_RUNSQL", "RUN_TRANSCATION");
-
             this.BindData();
+        }
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            this.editor = new CKEditorBBCodeEditorSql
+            {
+                UserCanUpload = false,
+                MaxCharacters = int.MaxValue
+            };
+
+            this.EditorLine.Controls.Add(this.editor);
+
+            base.OnInit(e);
         }
 
         /// <summary>
@@ -68,15 +96,12 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
+            this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(
                 this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
             this.PageLinks.AddLink(this.GetText("ADMIN_RUNSQL", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RUNSQL", "TITLE")}";
         }
 
         /// <summary>
@@ -89,7 +114,9 @@ namespace YAF.Pages.Admin
             this.txtResult.Text = string.Empty;
             this.ResultHolder.Visible = true;
 
-            this.txtResult.Text = this.Get<IDbFunction>().RunSQL(this.txtQuery.Text.Trim(), this.chkRunInTransaction.Checked);
+            this.txtResult.Text = this.Get<IDbAccess>().RunSQL(
+                CommandTextHelpers.GetCommandTextReplaced(this.editor.Text.Trim()),
+                Configuration.Config.SqlCommandTimeout);
         }
 
         /// <summary>

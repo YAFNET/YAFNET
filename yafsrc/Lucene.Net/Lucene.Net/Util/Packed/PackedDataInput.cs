@@ -1,6 +1,7 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -21,7 +22,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// A <see cref="DataInput"/> wrapper to read unaligned, variable-length packed
@@ -63,7 +64,7 @@ namespace YAF.Lucene.Net.Util.Packed
                     remainingBits = 8;
                 }
                 int bits = Math.Min(bitsPerValue, remainingBits);
-                r = (r << bits) | (((long)((ulong)current >> (remainingBits - bits))) & ((1L << bits) - 1));
+                r = (r << bits) | ((current.TripleShift((remainingBits - bits))) & ((1L << bits) - 1));
                 bitsPerValue -= bits;
                 remainingBits -= bits;
             }
@@ -74,6 +75,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// If there are pending bits (at most 7), they will be ignored and the next
         /// value will be read starting at the next byte.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void SkipToNextByte()
         {
             remainingBits = 0;

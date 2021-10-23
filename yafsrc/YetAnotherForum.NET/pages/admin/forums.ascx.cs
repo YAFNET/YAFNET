@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -30,16 +30,16 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -50,7 +50,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Manage Forums and Categories Page.
     /// </summary>
-    public partial class forums : AdminPage
+    public partial class Forums : AdminPage
     {
         #region Methods
 
@@ -64,13 +64,13 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.admin_editforum, "fa={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, "fa={0}", e.CommandArgument);
                     break;
                 case "copy":
-                    BuildLink.Redirect(ForumPages.admin_editforum, "copy={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, "copy={0}", e.CommandArgument);
                     break;
                 case "delete":
-                    BuildLink.Redirect(ForumPages.admin_deleteforum, "fa={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_DeleteForum, "fa={0}", e.CommandArgument);
                     break;
             }
         }
@@ -85,7 +85,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.admin_editcategory, "c={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditCategory, "c={0}", e.CommandArgument);
                     break;
                 case "delete":
                     if (this.GetRepository<Category>().DeleteById(e.CommandArgument.ToType<int>()))
@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewCategory_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_editcategory);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditCategory);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void NewForum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_editforum);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum);
         }
 
         /// <summary>
@@ -179,13 +179,8 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMINMENU", "admin_forums"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMINMENU", "admin_forums")}";
         }
 
         /// <summary>

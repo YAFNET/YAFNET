@@ -20,16 +20,16 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRefHash  = YAF.Lucene.Net.Util.BytesRefHash;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
 
     /// <summary>
     /// A rewrite method that tries to pick the best
@@ -135,14 +135,9 @@ namespace YAF.Lucene.Net.Search
 
         internal sealed class CutOffTermCollector : TermCollector
         {
-            private void InitializeInstanceFields()
-            {
-                pendingTerms = new BytesRefHash(new ByteBlockPool(new ByteBlockPool.DirectAllocator()), 16, array);
-            }
-
             internal CutOffTermCollector(int docCountCutoff, int termCountLimit)
             {
-                InitializeInstanceFields();
+                pendingTerms = new BytesRefHash(new ByteBlockPool(new ByteBlockPool.DirectAllocator()), 16, array);
                 this.docCountCutoff = docCountCutoff;
                 this.termCountLimit = termCountLimit;
             }

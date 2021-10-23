@@ -1,8 +1,9 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using J2N.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -23,15 +24,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
-    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using PagedBytesDataInput = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataInput;
-    using PagedBytesDataOutput = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataOutput;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using Term = YAF.Lucene.Net.Index.Term;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using GrowableWriter  = YAF.Lucene.Net.Util.Packed.GrowableWriter;
+    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
+    using PagedBytesDataInput  = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataInput;
+    using PagedBytesDataOutput  = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataOutput;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using Term  = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// This stores a monotonically increasing set of <c>Term, TermInfo</c> pairs in an
@@ -42,9 +43,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     internal class TermInfosReaderIndex
     {
         private const int MAX_PAGE_BITS = 18; // 256 KB block
-        private Term[] fields;
-        private int totalIndexInterval;
-        private IComparer<BytesRef> comparer = BytesRef.UTF8SortedAsUTF16Comparer;
+        private readonly Term[] fields; // LUCENENET: marked readonly
+        private readonly int totalIndexInterval; // LUCENENET: marked readonly
+        private readonly IComparer<BytesRef> comparer = BytesRef.UTF8SortedAsUTF16Comparer; // LUCENENET: marked readonly
         private readonly PagedBytesDataInput dataInput;
         private readonly PackedInt32s.Reader indexToDataOffset;
         private readonly int indexSize;
@@ -91,7 +92,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 TermInfo termInfo = indexEnum.TermInfo();
                 indexToTerms.Set(i, dataOutput.GetPosition());
                 dataOutput.WriteVInt32(fieldCounter);
-                dataOutput.WriteString(term.Text());
+                dataOutput.WriteString(term.Text);
                 dataOutput.WriteVInt32(termInfo.DocFreq);
                 if (termInfo.DocFreq >= skipInterval)
                 {
@@ -122,6 +123,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             ramBytesUsed = fields.Length * (RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.ShallowSizeOfInstance(typeof(Term))) + dataPagedBytes.RamBytesUsed() + indexToDataOffset.RamBytesUsed();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int EstimatePageBits(long estSize)
         {
             return Math.Max(Math.Min(64 - estSize.LeadingZeroCount(), MAX_PAGE_BITS), 4);
@@ -172,7 +174,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             BytesRef scratch = new BytesRef();
             while (hi >= lo)
             {
-                int mid = (int)((uint)(lo + hi) >> 1);
+                int mid = (lo + hi).TripleShift(1);
                 int delta = CompareTo(term, mid, input, scratch);
                 if (delta < 0)
                 {
@@ -224,6 +226,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         ///          The index of the of term to compare. </param>
         /// <returns> int. </returns>
         /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual int CompareTo(Term term, int termIndex)
         {
             return CompareTo(term, termIndex, (PagedBytesDataInput)dataInput.Clone(), new BytesRef());
@@ -267,12 +270,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         ///          The data block. </param>
         /// <returns> int. </returns>
         /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int CompareField(Term term, int termIndex, PagedBytesDataInput input)
         {
             input.SetPosition(indexToDataOffset.Get(termIndex));
             return term.Field.CompareToOrdinal(fields[input.ReadVInt32()].Field);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual long RamBytesUsed()
         {
             return ramBytesUsed;

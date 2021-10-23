@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;
@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// This exception is thrown when Lucene detects
@@ -65,13 +65,13 @@ namespace YAF.Lucene.Net.Index
         {
         }
 
-#if FEATURE_SERIALIZABLE_EXCEPTIONS
-        // For testing purposes
-        public IndexFormatTooNewException(string message)
+        // LUCENENET: For testing purposes
+        internal IndexFormatTooNewException(string message)
             : base(message)
         {
         }
 
+#if FEATURE_SERIALIZABLE_EXCEPTIONS
         /// <summary>
         /// Initializes a new instance of this class with serialized data.
         /// </summary>

@@ -28,19 +28,19 @@ namespace YAF.Web.BBCodes
     using YAF.Core.BBCode;
 
     /// <summary>
-  /// The example bb code module.
-  /// </summary>
-  public class ExampleBBCodeModule : BBCodeControl
-  {
-      /// <summary>
-    /// The render.
+    /// The example bb code module.
     /// </summary>
-    /// <param name="writer">
-    /// The writer.
-    /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    public class ExampleBBCodeModule : BBCodeControl
     {
-      writer.Write($"Hello, you wrote this: {this.Parameters["inner"]}");
+        /// <summary>
+        /// The render.
+        /// </summary>
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        protected override void Render(HtmlTextWriter writer)
+        {
+            writer.Write($"Hello, you wrote this: {this.Parameters["inner"]}");
+        }
     }
-  }
 }

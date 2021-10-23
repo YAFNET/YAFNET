@@ -31,12 +31,13 @@ namespace YAF.Dialogs
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -100,25 +101,35 @@ namespace YAF.Dialogs
         }
 
         /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender. 
+        /// </param>
+        /// <param name="e">
+        /// The e. 
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+        }
+
+        /// <summary>
         /// Handles the Click event of the Add control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.Name.Text.Trim().Length == 0)
+            if (!this.Page.IsValid)
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_NAME"),
-                    MessageTypes.danger);
-                return;
-            }
-
-            if (this.Address.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("ADMIN_EDITNNTPSERVER", "MSG_SERVER_ADR"),
-                    MessageTypes.danger);
                 return;
             }
 
@@ -131,7 +142,7 @@ namespace YAF.Dialogs
                 this.UserName.Text.Length > 0 ? this.UserName.Text : null,
                 this.UserPass.Text.Length > 0 ? this.UserPass.Text : null);
 
-            BuildLink.Redirect(ForumPages.admin_nntpservers);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpServers);
         }
 
         #endregion

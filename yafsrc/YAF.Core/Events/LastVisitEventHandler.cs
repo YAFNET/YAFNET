@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,13 +29,13 @@ namespace YAF.Core.Events
     using System.Globalization;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -46,14 +46,14 @@ namespace YAF.Core.Events
     public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandleEvent<ForumPageUnloadEvent>
     {
         /// <summary>
-        /// The _request base
+        /// The request base
         /// </summary>
-        private readonly HttpRequestBase _requestBase;
+        private readonly HttpRequestBase request;
 
         /// <summary>
-        /// The _response base
+        /// The response base
         /// </summary>
-        private readonly HttpResponseBase _responseBase;
+        private readonly HttpResponseBase response;
 
         #region Constructors and Destructors
 
@@ -66,8 +66,8 @@ namespace YAF.Core.Events
         public LastVisitEventHandler(
             [NotNull] ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
         {
-            this._requestBase = requestBase;
-            this._responseBase = responseBase;
+            this.request = requestBase;
+            this.response = responseBase;
             this.YafSession = yafSession;
         }
 
@@ -81,7 +81,7 @@ namespace YAF.Core.Events
         public int Order => 1000;
 
         /// <summary>
-        /// Gets or sets YafSession.
+        /// Gets or sets YAF Session.
         /// </summary>
         public ISession YafSession { get; set; }
 
@@ -91,11 +91,6 @@ namespace YAF.Core.Events
         /// <param name="event">The @event.</param>
         public void Handle(ForumPageUnloadEvent @event)
         {
-            /*/if (BoardContext.Current.IsGuest && (!this.YafSession.LastVisit.HasValue || this.YafSession.LastVisit.Value == DateTimeHelper.SqlDbMinTime()))
-            //{
-            //  // update last visit going forward...
-            //  this.YafSession.LastVisit = DateTime.UtcNow;
-            //}*/
         }
 
         #endregion
@@ -114,21 +109,25 @@ namespace YAF.Core.Events
         {
             var previousVisitKey = "PreviousVisit";
 
-            if (!BoardContext.Current.IsGuest && BoardContext.Current.Page[previousVisitKey] != DBNull.Value
+            if (!BoardContext.Current.IsGuest && BoardContext.Current.PageData.Item2.Item1.PreviousVisit.HasValue
                 && !this.YafSession.LastVisit.HasValue)
             {
-                this.YafSession.LastVisit = Convert.ToDateTime(BoardContext.Current.Page[previousVisitKey]);
+                this.YafSession.LastVisit = BoardContext.Current.PageData.Item2.Item1.PreviousVisit.Value;
             }
             else if (BoardContext.Current.IsGuest && !this.YafSession.LastVisit.HasValue)
             {
-                if (this._requestBase.Cookies.Get(previousVisitKey) != null)
+                if (this.request.Cookies.Get(previousVisitKey) != null)
                 {
                     // have previous visit cookie...
-                    var previousVisitInsecure = this._requestBase.Cookies.Get(previousVisitKey).Value;
+                    var previousVisitInsecure = this.request.Cookies.Get(previousVisitKey).Value;
 
-                    if (DateTime.TryParse(previousVisitInsecure, out var previousVisit))
+                    try
                     {
-                        this.YafSession.LastVisit = previousVisit;
+                        this.YafSession.LastVisit = DateTime.Parse(previousVisitInsecure, CultureInfo.InvariantCulture);
+                    }
+                    catch
+                    {
+                        this.YafSession.LastVisit = DateTimeHelper.SqlDbMinTime();
                     }
                 }
                 else
@@ -139,9 +138,11 @@ namespace YAF.Core.Events
                 // set the last visit cookie...
                 var httpCookie = new HttpCookie(previousVisitKey, DateTime.UtcNow.ToString(CultureInfo.InvariantCulture))
                     {
-                       Expires = DateTime.Now.AddMonths(6) 
+                       Expires = DateTime.Now.AddMonths(6),
+                       HttpOnly = true,
+                       Secure = this.request.IsSecureConnection
                     };
-                this._responseBase.Cookies.Add(httpCookie);
+                this.response.Cookies.Add(httpCookie);
             }
         }
 

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Text;
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Documents
         {
             if (frozen)
             {
-                throw new InvalidOperationException("this FieldType is already frozen and cannot be changed");
+                throw IllegalStateException.Create("this FieldType is already frozen and cannot be changed");
             }
         }
 
@@ -82,9 +82,13 @@ namespace YAF.Lucene.Net.Documents
         /// the <see cref="FieldType"/>'s properties have been set, to prevent unintentional state
         /// changes.
         /// </summary>
-        public virtual void Freeze()
+        /// <returns><c>this</c></returns>
+        // LUCENENET specific - returing self to make it possible to chain this to newing up the class so we can set and freeze on a single line.
+        // This is especially important for static field initializers.
+        public virtual FieldType Freeze()
         {
             this.frozen = true;
+            return this;
         }
 
         /// <summary>
@@ -119,7 +123,7 @@ namespace YAF.Lucene.Net.Documents
 
         /// <summary>
         /// Set to <c>true</c> to tokenize this field's contents via the
-        /// configured <see cref="Analysis.Analyzer"/>. The default is <c>false</c>.
+        /// configured <see cref="Analysis.Analyzer"/>. The default is <c>true</c>.
         /// </summary>
         /// <exception cref="InvalidOperationException"> if this <see cref="FieldType"/> is frozen against
         ///         future modifications. </exception>
@@ -231,9 +235,11 @@ namespace YAF.Lucene.Net.Documents
         }
 
         /// <summary>
-        /// Specifies the field's numeric type, or set to <c>null</c> if the field has no numeric type.
-        /// If non-null then the field's value will be indexed numerically so that 
+        /// Specifies the field's numeric type, or set to <see cref="NumericType.NONE"/> if the field has no numeric type.
+        /// If not <see cref="NumericType.NONE"/> then the field's value will be indexed numerically so that 
         /// <see cref="Search.NumericRangeQuery"/> can be used at search time.
+        /// <para/>
+        /// The default is <see cref="NumericType.NONE"/>.
         /// </summary>
         /// <exception cref="InvalidOperationException"> if this <see cref="FieldType"/> is frozen against
         ///         future modifications. </exception>
@@ -250,7 +256,7 @@ namespace YAF.Lucene.Net.Documents
         /// <summary>
         /// Sets the numeric precision step for the field.
         /// <para/>
-        /// This has no effect if <see cref="NumericType"/> returns <see cref="NumericType.NONE"/>.
+        /// This has no effect if <see cref="NumericType"/> is <see cref="NumericType.NONE"/>.
         /// <para/>
         /// The default is <see cref="NumericUtils.PRECISION_STEP_DEFAULT"/>.
         /// </summary>
@@ -265,7 +271,7 @@ namespace YAF.Lucene.Net.Documents
                 CheckIfFrozen();
                 if (value < 1)
                 {
-                    throw new ArgumentException("precisionStep must be >= 1 (got " + value + ")");
+                    throw new ArgumentOutOfRangeException(nameof(NumericPrecisionStep), "precisionStep must be >= 1 (got " + value + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 this.numericPrecisionStep = value;
             }

@@ -1,129 +1,119 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.ActiveUsers" Codebehind="ActiveUsers.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.ActiveUsers" Codebehind="ActiveUsers.ascx.cs" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
-<%@ Import Namespace="YAF.Utils.Helpers" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
+<%@ Import Namespace="YAF.Core.Helpers" %>
+
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<asp:Repeater ID="UserList" runat="server">
-	<HeaderTemplate>
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-users fa-fw text-secondary"></i> <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="title" />
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card mb-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server"
+                                        IconName="users"></YAF:IconHeader>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-	                        <table class="table tablesorter table-bordered table-striped" id="ActiveUsers">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th>
-                                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                                LocalizedTag="username" />
-                                        </th>
-                                        <th>
-                                            <YAF:LocalizedLabel ID="LocalizedLabelLatestActions" runat="server" 
-                                                                LocalizedTag="latest_action" />
-                                        </th>
-                                        <th>
-                                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
-                                                                LocalizedTag="logged_in" />
-                                        </th>
-                                        <th>
-                                            <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                LocalizedTag="last_active" />
-                                        </th>
-                                        <th>
-                                            <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
-                                                                LocalizedTag="active" />
-                                        </th>
-                                        <th>
-                                            <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" 
-                                                                LocalizedTag="browser" />
-		                                </th>
-                                        <th>
-                                            <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
-                                                                LocalizedTag="platform" />
-		                                </th>
-                                        <th id="Iptd_header1" runat="server" 
-                                            visible='<%# this.PageContext.IsAdmin %>'>
-                                            IP
-		                                </th>
-                                    </tr>
-                                </thead>
-                            <tbody>
-	                    </HeaderTemplate>
-		                <ItemTemplate>
-                        <tr>
-				        <td>		
-					        <YAF:UserLink ID="NameLink" runat="server" 
-                                          ReplaceName='<%# this.Eval(this.Get<BoardSettings>().EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
-                                          CrawlerName='<%# this.Eval("IsCrawler").ToType<int>() > 0 ? this.Eval("Browser").ToString() : string.Empty %>'
-                                          UserID='<%# this.Eval("UserID").ToType<int>() %>' 
-                                          Style='<%# this.Eval("Style").ToString() %>' />
-                            <asp:PlaceHolder ID="HiddenPlaceHolder" runat="server" Visible='<%# Convert.ToBoolean(this.Eval("IsHidden"))%>' >
-                                (<YAF:LocalizedLabel ID="Hidden" LocalizedTag="HIDDEN" runat="server" />)
-                            </asp:PlaceHolder>				    
-				        </td>
-				        <td>				
-					        <YAF:ActiveLocation ID="ActiveLocation2" 
-                                                UserID='<%# (this.Eval("UserID") == DBNull.Value ? 0 : this.Eval("UserID")).ToType<int>() %>'
-                                                UserName='<%# this.Eval("UserName") %>' 
-                                                HasForumAccess='<%# Convert.ToBoolean(this.Eval("HasForumAccess")) %>' 
-                                                ForumPage='<%# this.Eval("ForumPage") %>'
-                                                ForumID='<%# (this.Eval("ForumID") == DBNull.Value ? 0 : this.Eval("ForumID")).ToType<int>() %>' 
-                                                ForumName='<%# this.Eval("ForumName") %>'
-                                                TopicID='<%# (this.Eval("TopicID") == DBNull.Value ? 0 : this.Eval("TopicID")).ToType<int>() %>' 
-                                                TopicName='<%# this.Eval("TopicName") %>'
-                                                LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>     
-				        </td>
-				        <td>
-					        <%# this.Get<IDateTime>().FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["Login"]) %>
-				        </td>				
-				        <td>
-					        <%# this.Get<IDateTime>().FormatTime((DateTime)((System.Data.DataRowView)Container.DataItem)["LastActive"]) %>
-				        </td>
-				        <td>
-					        <%# this.Get<ILocalization>().GetTextFormatted("minutes", ((System.Data.DataRowView)Container.DataItem)["Active"])%>
-				        </td>
-				        <td>
-					        <%# this.Eval("Browser") %>
-				        </td>
-				        <td>
-					        <%# this.Eval("Platform") %>
-				        </td>
-                        <td id="Iptd1" runat="server" visible='<%# this.PageContext.IsAdmin %>'>
-					         <a id="Iplink1" href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIp4Address(this.Eval("IP").ToString())) %>'
-                                title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
-                             <%# IPHelper.GetIp4Address(this.Eval("IP").ToString())%></a>
-				        </td>
-                    </tr>	
+                    <div class="col-auto">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="input-group input-group-sm me-2" role="group">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                                </div>
+                                <asp:DropDownList runat="server" ID="PageSize"
+                                                  AutoPostBack="True"
+                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                  CssClass="form-select">
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <asp:Repeater ID="UserList" runat="server">
+                    <HeaderTemplate>
+                        <ul class="list-group">
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <li class="list-group-item list-group-item-action list-group-item-menu">
+                                <div class="d-flex w-100 justify-content-between text-break">
+                                    <h5 class="mb-1">
+                                        <YAF:UserLink ID="NameLink" runat="server"
+                                                      Suspended="<%# (Container.DataItem as ActiveUser).Suspended %>"
+                                                      ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
+                                                      CrawlerName="<%# (Container.DataItem as ActiveUser).IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
+                                                      UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
+                                                      Style="<%# (Container.DataItem as ActiveUser).UserStyle %>"
+                                                      PostfixText='<%# (Container.DataItem as ActiveUser).IsActiveExcluded ? new Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
+                                    </h5>
+                                    <asp:PlaceHolder runat="server" ID="IPContent" Visible="<%# this.PageContext.IsAdmin %>">
+                                        <small class="d-none d-md-block">
+                                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="IP" />:
+                                            <span class="badge bg-secondary">
+                                                <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
+                                                   title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
+                                                    <%# IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)%></a>
+                                            </span>
+                                        </small>
+                                    </asp:PlaceHolder>
+                                    
+                                </div>
+                                <p><strong><YAF:LocalizedLabel ID="LocalizedLabelLatestActions" runat="server"
+                                                               LocalizedTag="latest_action" />:</strong>
+                                    <YAF:ActiveLocation ID="ActiveLocation2"
+                                                        UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
+                                                        HasForumAccess="<%# (Container.DataItem as ActiveUser).HasForumAccess %>"
+                                                        ForumPage="<%#(Container.DataItem as ActiveUser).ForumPage %>"
+                                                        Location="<%#(Container.DataItem as ActiveUser).Location %>"
+                                                        ForumID="<%# (Container.DataItem as ActiveUser).ForumID ?? 0  %>"
+                                                        ForumName="<%# (Container.DataItem as ActiveUser).ForumName %>"
+                                                        TopicID="<%# (Container.DataItem as ActiveUser).TopicID ?? 0  %>"
+                                                        TopicName="<%# (Container.DataItem as ActiveUser).TopicName %>"
+                                                        LastLinkOnly="false"  runat="server"></YAF:ActiveLocation>
+                                </p>
+                                <small>
+                                    <span>
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
+                                                                   LocalizedTag="logged_in" />:</strong>
+                                        <%# this.Get<IDateTimeService>().FormatTime((Container.DataItem as ActiveUser).Login) %>
+                                    </span>
+                                    <span>
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server"
+                                                                    LocalizedTag="last_active" />:</strong>
+                                        <%# this.Get<IDateTimeService>().FormatTime((Container.DataItem as ActiveUser).LastActive) %>
+                                    </span>
+                                    <span>
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
+                                                                    LocalizedTag="active" />:</strong>
+                                        <%# this.Get<ILocalization>().GetTextFormatted("minutes", (Container.DataItem as ActiveUser).Active)%>
+                                    </span>
+                                    <span>
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
+                                                                    LocalizedTag="browser" />:</strong>
+                                        <%# (Container.DataItem as ActiveUser).Browser %>
+                                    </span>
+                                    <span>
+                                        <strong><YAF:LocalizedLabel ID="LocalizedLabel7" runat="server"
+                                                                    LocalizedTag="platform" />:</strong>
+                                        <%#(Container.DataItem as ActiveUser).Platform %>
+                                    </span>
+                                </small>
+                            </li>
                         </ItemTemplate>
                         <FooterTemplate>
-                            </table>
-                        </div>
-                        </div>
-            <div class="card-footer">
-            <div id="ActiveUsersPager" class="tableSorterPager form-inline">
-                <select class="pagesize custom-select custom-select-sm">
-                    <option selected="selected"  value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option  value="40">40</option>
-                </select>
-                &nbsp;
-                <div class="btn-group"  role="group">
-                    <a href="#" class="first btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-left"></i></span></a>
-                    <a href="#" class="prev btn btn-secondary btn-sm"><span><i class="fas fa-angle-left"></i></span></a>
-                    <input type="button" class="pagedisplay  btn btn-secondary btn-sm disabled"  style="width:150px" />
-                    <a href="#" class="next btn btn-secondary btn-sm"><span><i class="fas fa-angle-right"></i></span></a>
-                    <a href="#" class="last btn btn-secondary btn-sm"><span><i class="fas fa-angle-double-right"></i></span></a>
-                </div>
-            </div>
-                </div>
+                            </ul>
+    </FooterTemplate>
+                </asp:Repeater>
             </div>
         </div>
-                            </div>
-    </FooterTemplate>
-</asp:Repeater>
+    </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager ID="PagerTop" runat="server"
+                   OnPageChange="PagerTopPageChange"/>
+    </div>
+</div>

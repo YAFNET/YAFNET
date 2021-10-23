@@ -20,10 +20,10 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using MatchAllBits = YAF.Lucene.Net.Util.Bits.MatchAllBits;
-    using MatchNoBits = YAF.Lucene.Net.Util.Bits.MatchNoBits;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using MatchAllBits  = YAF.Lucene.Net.Util.Bits.MatchAllBits;
+    using MatchNoBits  = YAF.Lucene.Net.Util.Bits.MatchNoBits;
 
     /// <summary>
     /// A <see cref="Filter"/> that accepts all documents that have one or more values in a
@@ -87,11 +87,11 @@ namespace YAF.Lucene.Net.Search
                 {
                     return null;
                 }
-                if (docsWithField is DocIdSet)
+                if (docsWithField is DocIdSet docIdSetWithField)
                 {
                     // UweSays: this is always the case for our current impl - but who knows
                     // :-)
-                    return BitsFilteredDocIdSet.Wrap((DocIdSet)docsWithField, acceptDocs);
+                    return BitsFilteredDocIdSet.Wrap(docIdSetWithField, acceptDocs);
                 }
                 return new FieldCacheDocIdSet(context.AtomicReader.MaxDoc, acceptDocs, (doc) => docsWithField.Get(doc));
             }

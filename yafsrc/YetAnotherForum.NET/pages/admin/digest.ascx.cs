@@ -29,14 +29,14 @@ namespace YAF.Pages.Admin
     using System.Collections.Generic;
     using System.Globalization;
     using System.Net.Mail;
-    
-    using YAF.Configuration;
-    using YAF.Core;
+
+    using YAF.Core.BasePages;
+    using YAF.Core.BoardSettings;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
 
     #endregion
@@ -44,12 +44,12 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Manage Forum Digest Sending
     /// </summary>
-    public partial class digest : AdminPage
+    public partial class Digest : AdminPage
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="digest"/> class.
+        /// Initializes a new instance of the <see cref="Digest"/> class.
         /// </summary>
-        public digest()
+        public Digest()
             : base("ADMIN_DIGEST")
         {
         }
@@ -63,8 +63,8 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<BoardSettings>().ForceDigestSend = true;
-            ((LoadBoardSettings)BoardContext.Current.BoardSettings).SaveRegistry();
+            this.PageContext.BoardSettings.ForceDigestSend = true;
+            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
             this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
         }
@@ -93,13 +93,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.LastDigestSendLabel.Text = this.Get<BoardSettings>().LastDigestSend.IsNotSet()
+            this.LastDigestSendLabel.Text = this.PageContext.BoardSettings.LastDigestSend.IsNotSet()
                                                 ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
                                                 : Convert.ToDateTime(
-                                                    this.Get<BoardSettings>().LastDigestSend,
+                                                    this.PageContext.BoardSettings.LastDigestSend,
                                                     CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
 
-            this.DigestEnabled.Text = this.Get<BoardSettings>().AllowDigestEmail
+            this.DigestEnabled.Text = this.PageContext.BoardSettings.AllowDigestEmail
                                           ? this.GetText("COMMON", "YES")
                                           : this.GetText("COMMON", "NO");
         }
@@ -112,12 +112,8 @@ namespace YAF.Pages.Admin
             // forum index
             this.PageLinks.AddRoot();
 
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_DIGEST", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_DIGEST", "TITLE")}";
         }
 
         /// <summary>
@@ -143,7 +139,7 @@ namespace YAF.Pages.Admin
                         this.TextSendEmail.Text.Trim(),
                         "Digest Send Test");
 
-                    this.Get<ISendMail>().SendAll(new List<MailMessage> { message });
+                    this.Get<IMailService>().SendAll(new List<MailMessage> { message });
 
                     this.PageContext.AddLoadMessage(
                         this.GetTextFormatted("MSG_SEND_SUC", "Direct"),

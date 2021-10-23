@@ -14,48 +14,30 @@
     <asp:Panel id="BuddiesTabs" runat="server" CssClass="col">
         <ul class="nav nav-tabs" role="tablist">
             <li class="nav-item">
-                <a href="#BuddyListTab" class="nav-link" data-toggle="tab" role="tab">
+                <a href="#BuddyListTab" class="nav-link" data-bs-toggle="tab" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="BUDDYLIST" LocalizedPage="FRIENDS" />
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#PendingRequestsTab" class="nav-link" data-toggle="tab" role="tab">
+                <a href="#PendingRequestsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="PENDING_REQUESTS" LocalizedPage="FRIENDS" />
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#YourRequestsTab" class="nav-link" data-toggle="tab" role="tab">
+                <a href="#YourRequestsTab" class="nav-link" data-bs-toggle="tab" role="tab">
                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="YOUR_REQUESTS" LocalizedPage="FRIENDS" />
                 </a>
             </li>
         </ul>
         <div class="tab-content">
             <div id="BuddyListTab" class="tab-pane" role="tabpanel">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
-                                                                                          LocalizedTag="BUDDYLIST" />
-                    </div>
-                    <YAF:BuddyList runat="server" ID="BuddyList1" />
-                </div>
+                <YAF:BuddyList runat="server" ID="BuddyList1" />
             </div>
             <div id="PendingRequestsTab" class="tab-pane" role="tabpanel">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
-                                                                                          LocalizedTag="PENDING_REQUESTS" />
-                    </div>
-                    <YAF:BuddyList runat="server" ID="PendingBuddyList" />
-                </div>
+                <YAF:BuddyList runat="server" ID="PendingBuddyList" />
             </div>
             <div id="YourRequestsTab" class="tab-pane" role="tabpanel">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <i class="fa fa-user-friends fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
-                                                                                          LocalizedTag="YOUR_REQUESTS" />
-                    </div>
-                    <YAF:BuddyList runat="server" ID="BuddyRequested" />
-                </div>
+                <YAF:BuddyList runat="server" ID="BuddyRequested" />
             </div>
         </div>
     </asp:Panel>

@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using JCG = J2N.Collections.Generic;
-using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-using Directory = YAF.Lucene.Net.Store.Directory;
+using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
+using Directory  = YAF.Lucene.Net.Store.Directory;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -27,15 +28,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using SegmentInfos = YAF.Lucene.Net.Index.SegmentInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentCommitInfo  = YAF.Lucene.Net.Index.SegmentCommitInfo;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentInfos  = YAF.Lucene.Net.Index.SegmentInfos;
 
     /// <summary>
     /// Lucene 3x implementation of <see cref="SegmentInfoReader"/>.
@@ -132,6 +133,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void AddIfExists(Directory dir, ISet<string> files, string fileName)
         {
             if (dir.FileExists(fileName))
@@ -213,14 +215,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             int delCount = input.ReadInt32();
             if (Debugging.AssertsEnabled) Debugging.Assert(delCount <= docCount);
 
-            bool hasProx = input.ReadByte() == 1;
+            //bool hasProx = input.ReadByte() == 1;
+            input.ReadByte(); // LUCENENET: IDE0059: Remove unnecessary value assignment
 
             IDictionary<string, string> diagnostics = input.ReadStringStringMap();
 
             if (format <= Lucene3xSegmentInfoFormat.FORMAT_HAS_VECTORS)
             {
                 // NOTE: unused
-                int hasVectors = input.ReadByte();
+                //int hasVectors = input.ReadByte();
+                input.ReadByte(); // LUCENENET: IDE0059: Remove unnecessary value assignment
             }
 
             // Replicate logic from 3.x's SegmentInfo.files():

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -78,7 +78,7 @@ namespace YAF.Lucene.Net.Index
         /// Reference count for all files in the index.
         /// Counts how many existing commits reference a file.
         /// </summary>
-        private IDictionary<string, RefCount> refCounts = new Dictionary<string, RefCount>();
+        private readonly IDictionary<string, RefCount> refCounts = new Dictionary<string, RefCount>(); // LUCENENET: marked readonly
 
         /// <summary>
         /// Holds all commits (segments_N) currently in the index.
@@ -87,7 +87,7 @@ namespace YAF.Lucene.Net.Index
         /// Other policies may leave commit points live for longer
         /// in which case this list would be longer than 1:
         /// </summary>
-        private IList<CommitPoint> commits = new List<CommitPoint>();
+        private readonly IList<CommitPoint> commits = new List<CommitPoint>(); // LUCENENET: marked readonly
 
         /// <summary>
         /// Holds files we had incref'd from the previous
@@ -98,14 +98,14 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Commits that the IndexDeletionPolicy have decided to delete:
         /// </summary>
-        private IList<CommitPoint> commitsToDelete = new List<CommitPoint>();
+        private readonly IList<CommitPoint> commitsToDelete = new List<CommitPoint>(); // LUCENENET: marked readonly
 
         private readonly InfoStream infoStream;
-        private Directory directory;
-        private IndexDeletionPolicy policy;
+        private readonly Directory directory; // LUCENENET: marked readonly
+        private readonly IndexDeletionPolicy policy; // LUCENENET: marked readonly
 
         internal readonly bool startingCommitDeleted;
-        private SegmentInfos lastSegmentInfos;
+        private readonly SegmentInfos lastSegmentInfos; // LUCENENET: marked readonly
 
         /// <summary>
         /// Change to true to see details of reference counts when
@@ -146,14 +146,12 @@ namespace YAF.Lucene.Net.Index
             long currentGen = segmentInfos.Generation;
 
             CommitPoint currentCommitPoint = null;
-            string[] files = null;
+            string[] files/* = null*/;
             try
             {
                 files = directory.ListAll();
             }
-#pragma warning disable 168
-            catch (DirectoryNotFoundException e)
-#pragma warning restore 168
+            catch (Exception e) when (e.IsNoSuchDirectoryException())
             {
                 // it means the directory is empty, so ignore it.
                 files = Arrays.Empty<string>();
@@ -184,9 +182,7 @@ namespace YAF.Lucene.Net.Index
                             {
                                 sis.Read(directory, fileName);
                             }
-#pragma warning disable 168
-                            catch (FileNotFoundException e)
-#pragma warning restore 168
+                            catch (Exception e) when (e.IsNoSuchFileExceptionOrFileNotFoundException())
                             {
                                 // LUCENE-948: on NFS (and maybe others), if
                                 // you have writers switching back and forth
@@ -201,40 +197,7 @@ namespace YAF.Lucene.Net.Index
                                 }
                                 sis = null;
                             }
-                            // LUCENENET specific - .NET (thankfully) only has one FileNotFoundException, so we don't need this
-                            //catch (NoSuchFileException)
-                            //{
-                            //    // LUCENE-948: on NFS (and maybe others), if
-                            //    // you have writers switching back and forth
-                            //    // between machines, it's very likely that the
-                            //    // dir listing will be stale and will claim a
-                            //    // file segments_X exists when in fact it
-                            //    // doesn't.  So, we catch this and handle it
-                            //    // as if the file does not exist
-                            //    if (infoStream.IsEnabled("IFD"))
-                            //    {
-                            //        infoStream.Message("IFD", "init: hit FileNotFoundException when loading commit \"" + fileName + "\"; skipping this commit point");
-                            //    }
-                            //    sis = null;
-                            //}
-                            // LUCENENET specific - since NoSuchDirectoryException subclasses FileNotFoundException
-                            // in Lucene, we need to catch it here to be on the safe side.
-                            catch (DirectoryNotFoundException)
-                            {
-                                // LUCENE-948: on NFS (and maybe others), if
-                                // you have writers switching back and forth
-                                // between machines, it's very likely that the
-                                // dir listing will be stale and will claim a
-                                // file segments_X exists when in fact it
-                                // doesn't.  So, we catch this and handle it
-                                // as if the file does not exist
-                                if (infoStream.IsEnabled("IFD"))
-                                {
-                                    infoStream.Message("IFD", "init: hit FileNotFoundException when loading commit \"" + fileName + "\"; skipping this commit point");
-                                }
-                                sis = null;
-                            }
-                            catch (IOException /*e*/)
+                            catch (Exception e) when (e.IsIOException())
                             {
                                 if (SegmentInfos.GenerationFromSegmentsFileName(fileName) <= currentGen && directory.FileLength(fileName) > 0)
                                 {
@@ -282,7 +245,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     sis.Read(directory, currentSegmentsFile);
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
                     throw new CorruptIndexException("failed to locate current segments_N file \"" + currentSegmentsFile + "\"" + e.ToString(), e);
                 }
@@ -332,7 +295,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (writer == null)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this IndexWriter is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this IndexWriter is disposed.");
             }
             else
             {
@@ -538,7 +501,7 @@ namespace YAF.Lucene.Net.Index
             long t0 = 0;
             if (infoStream.IsEnabled("IFD"))
             {
-                t0 = Time.NanoTime();
+                t0 = J2N.Time.NanoTime();
                 infoStream.Message("IFD", "now checkpoint \"" + writer.SegString(writer.ToLiveInfos(segmentInfos).Segments) + "\" [" + segmentInfos.Count + " segments " + "; isCommit = " + isCommit + "]");
             }
 
@@ -571,7 +534,7 @@ namespace YAF.Lucene.Net.Index
             }
             if (infoStream.IsEnabled("IFD"))
             {
-                long t1 = Time.NanoTime();
+                long t1 = J2N.Time.NanoTime();
                 infoStream.Message("IFD", ((t1 - t0) / 1000000) + " msec to checkpoint");
             }
         }
@@ -717,7 +680,7 @@ namespace YAF.Lucene.Net.Index
                 }
                 directory.DeleteFile(fileName);
             } // if delete fails
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
                 // Some operating systems (e.g. Windows) don't
                 // permit a file to be deleted while it is opened

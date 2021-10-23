@@ -29,18 +29,18 @@ namespace YAF.Modules
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
 
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     ///     Generates a canonical meta tag to fight the dreaded duplicate content SEO warning
     /// </summary>
-    [YafModule("Canonical Meta Tag Module", "BonzoFestoon", 1)]
+    [Module("Canonical Meta Tag Module", "BonzoFestoon", 1)]
     public class CanonicalMetaTagModule : SimpleBaseForumModule
     {
         /// <summary>
@@ -58,7 +58,7 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            const string TopicLinkParams = "t={0}";
+            const string TopicLinkParams = "t={0}&name={1}";
 
             var head = this.ForumControl.Page.Header
                        ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
@@ -75,17 +75,21 @@ namespace YAF.Modules
                     this.Get<HttpRequestBase>().QueryString.Exists("find"))
                 {
                     // add no-index tag
-                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl()); 
+                    head.Controls.Add(ControlHelper.MakeMetaNoIndexControl());
                 }
                 else
                 {
-                    var topicId = this.PageContext.PageTopicID;
-                    var topicUrl = BuildLink.GetLink(ForumPages.Posts, true, TopicLinkParams, topicId);
+                    var topicUrl = this.Get<LinkBuilder>().GetLink(
+                        ForumPages.Posts,
+                        true,
+                        TopicLinkParams,
+                        this.PageContext.PageTopicID,
+                        this.PageContext.PageTopic.TopicName);
 
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }
             }
-            else if (this.ForumPageType != ForumPages.forum && this.ForumPageType != ForumPages.topics)
+            else if (this.ForumPageType != ForumPages.Board && this.ForumPageType != ForumPages.Topics)
             {
                 // there is not much SEO value to having lists indexed
                 // because they change as soon as some adds a new topic

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,89 +30,64 @@ namespace YAF.Configuration
     using System.Reflection;
 
     /// <summary>
-  /// Gets the Board Settings as dictionary item for easy iteration.
-  /// </summary>
-  public class BoardSettingCollection
-  {
-    /// <summary>
-    /// The _settings.
+    /// Gets the Board Settings as dictionary item for easy iteration.
     /// </summary>
-    protected List<PropertyInfo> settings = new List<PropertyInfo>();
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BoardSettingCollection"/> class.
-    /// </summary>
-    /// <param name="boardSettings">
-    /// The board settings.
-    /// </param>
-    public BoardSettingCollection(BoardSettings boardSettings)
+    public class BoardSettingCollection
     {
-      // load up the settings...
-      var boardSettingsType = boardSettings.GetType();
-      this.settings = boardSettingsType.GetProperties().ToList();
-    }
+        /// <summary>
+        /// The settings.
+        /// </summary>
+        private readonly List<PropertyInfo> settings;
 
-    /// <summary>
-    /// Gets SettingsString.
-    /// </summary>
-    public Dictionary<string, PropertyInfo> SettingsString
-    {
-      get
-      {
-          return this.settings.Where(x => x.PropertyType == typeof(string)).ToDictionary(x => x.Name, x => x);
-      }
-    }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BoardSettingCollection"/> class.
+        /// </summary>
+        /// <param name="boardSettings">
+        /// The board settings.
+        /// </param>
+        public BoardSettingCollection(BoardSettings boardSettings)
+        {
+            // load up the settings...
+            var boardSettingsType = boardSettings.GetType();
+            this.settings = boardSettingsType.GetProperties().ToList();
+        }
 
-    /// <summary>
-    /// Gets SettingsBool.
-    /// </summary>
-    public Dictionary<string, PropertyInfo> SettingsBool
-    {
-      get
-      {
-        return this.settings.Where(x => x.PropertyType == typeof(bool)).ToDictionary(x => x.Name, x => x);
-      }
-    }
+        /// <summary>
+        /// Gets SettingsString.
+        /// </summary>
+        public Dictionary<string, PropertyInfo> SettingsString =>
+            this.settings.Where(x => x.PropertyType == typeof(string)).ToDictionary(x => x.Name, x => x);
 
-    /// <summary>
-    /// Gets SettingsInt.
-    /// </summary>
-    public Dictionary<string, PropertyInfo> SettingsInt
-    {
-      get
-      {
-        return this.settings.Where(x => x.PropertyType == typeof(int)).ToDictionary(x => x.Name, x => x);
-      }
-    }
+        /// <summary>
+        /// Gets Boolean Settings.
+        /// </summary>
+        public Dictionary<string, PropertyInfo> SettingsBool =>
+            this.settings.Where(x => x.PropertyType == typeof(bool)).ToDictionary(x => x.Name, x => x);
 
-    /// <summary>
-    /// Gets SettingsDouble.
-    /// </summary>
-    public Dictionary<string, PropertyInfo> SettingsDouble
-    {
-      get
-      {
-        return this.settings.Where(x => x.PropertyType == typeof(double)).ToDictionary(x => x.Name, x => x);
-      }
-    }
+        /// <summary>
+        /// Gets Integer Settings.
+        /// </summary>
+        public Dictionary<string, PropertyInfo> SettingsInt =>
+            this.settings.Where(x => x.PropertyType == typeof(int)).ToDictionary(x => x.Name, x => x);
 
-    /// <summary>
-    /// Gets SettingsOther.
-    /// </summary>
-    public Dictionary<string, PropertyInfo> SettingsOther
-    {
-      get
-      {
-        var excludeTypes = new List<Type>()
-          {
-            typeof(string), 
-            typeof(bool), 
-            typeof(int), 
-            typeof(double)
-          };
+        /// <summary>
+        /// Gets SettingsDouble.
+        /// </summary>
+        public Dictionary<string, PropertyInfo> SettingsDouble =>
+            this.settings.Where(x => x.PropertyType == typeof(double)).ToDictionary(x => x.Name, x => x);
 
-        return this.settings.Where(x => !excludeTypes.Contains(x.PropertyType)).ToDictionary(x => x.Name, x => x);
-      }
+        /// <summary>
+        /// Gets SettingsOther.
+        /// </summary>
+        public Dictionary<string, PropertyInfo> SettingsOther
+        {
+            get
+            {
+                var excludeTypes = new List<Type> { typeof(string), typeof(bool), typeof(int), typeof(double) };
+
+                return this.settings.Where(x => !excludeTypes.Contains(x.PropertyType))
+                    .ToDictionary(x => x.Name, x => x);
+            }
+        }
     }
-  }
 }

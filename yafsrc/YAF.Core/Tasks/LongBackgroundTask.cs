@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,41 +23,46 @@
  */
 namespace YAF.Core.Tasks
 {
-  using System.Threading;
-
-  /// <summary>
-  /// The long background task.
-  /// </summary>
-  public class LongBackgroundTask : IntermittentBackgroundTask
-  {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.
-    /// </summary>
-    public LongBackgroundTask()
-    {
-      this.StartDelayMs = 50;
-      this.RunPeriodMs = Timeout.Infinite;
-    }
+    using System.Threading;
 
     /// <summary>
-    /// The timer callback.
+    /// The long background task.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    protected override void TimerCallback(object sender)
+    public class LongBackgroundTask : IntermittentBackgroundTask
     {
-      lock (this)
-      {
-        // we're done with this timer...
-        this._intermittentTimer.Dispose();
+        /// <summary>
+        /// The lock object.
+        /// </summary>
+        private readonly object lockObj = new ();
 
-        // run this item once...
-        this.RunOnce();
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LongBackgroundTask"/> class.
+        /// </summary>
+        public LongBackgroundTask()
+        {
+            this.StartDelayMs = 50;
+            this.RunPeriodMs = Timeout.Infinite;
+        }
 
-        // no longer running when we get here...
-        this.IsRunning = false;
-      }
+        /// <summary>
+        /// The timer callback.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        protected override void TimerCallback(object sender)
+        {
+            lock (this.lockObj)
+            {
+                // we're done with this timer...
+                this.intermittentTimer.Dispose();
+
+                // run this item once...
+                this.RunOnce();
+
+                // no longer running when we get here...
+                this.IsRunning = false;
+            }
+        }
     }
-  }
 }

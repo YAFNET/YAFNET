@@ -1,3 +1,5 @@
+﻿using J2N.Numerics;
+
 namespace YAF.Lucene.Net.Index
 {
     /*
@@ -17,7 +19,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A per-document <see cref="T:byte[]"/> with presorted values.
@@ -87,7 +89,7 @@ namespace YAF.Lucene.Net.Index
 
             while (low <= high)
             {
-                int mid = (int)((uint)(low + high) >> 1);
+                int mid = (low + high).TripleShift(1);
                 LookupOrd(mid, spare);
                 int cmp = spare.CompareTo(key);
 

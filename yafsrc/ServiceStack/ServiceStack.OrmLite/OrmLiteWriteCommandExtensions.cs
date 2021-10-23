@@ -1,13 +1,9 @@
-//
-// ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2013 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="OrmLiteWriteCommandExtensions.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************/
 
 using System;
 using System.Collections;
@@ -22,17 +18,36 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite
 {
+    /// <summary>
+    /// Class OrmLiteWriteCommandExtensions.
+    /// </summary>
     public static class OrmLiteWriteCommandExtensions
     {
+        /// <summary>
+        /// The log
+        /// </summary>
         internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteWriteCommandExtensions));
 
+        /// <summary>
+        /// Creates the schema.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.InvalidOperationException">Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead</exception>
         internal static bool CreateSchema<T>(this IDbCommand dbCmd)
         {
             var schemaName = typeof(T).FirstAttribute<SchemaAttribute>()?.Name;
-            if(schemaName == null) throw new InvalidOperationException($"Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead"); 
+            if (schemaName == null) throw new InvalidOperationException($"Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead");
             return CreateSchema(dbCmd, schemaName);
         }
-        
+
+        /// <summary>
+        /// Creates the schema.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="schemaName">Name of the schema.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal static bool CreateSchema(this IDbCommand dbCmd, string schemaName)
         {
             schemaName.ThrowIfNullOrEmpty(nameof(schemaName));
@@ -60,6 +75,12 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Creates the tables.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+        /// <param name="tableTypes">The table types.</param>
         internal static void CreateTables(this IDbCommand dbCmd, bool overwrite, params Type[] tableTypes)
         {
             foreach (var tableType in tableTypes)
@@ -68,12 +89,26 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Creates the table.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal static bool CreateTable<T>(this IDbCommand dbCmd, bool overwrite = false)
         {
             var tableType = typeof(T);
             return CreateTable(dbCmd, overwrite, tableType);
         }
 
+        /// <summary>
+        /// Creates the table.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="overwrite">if set to <c>true</c> [overwrite].</param>
+        /// <param name="modelType">Type of the model.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal static bool CreateTable(this IDbCommand dbCmd, bool overwrite, Type modelType)
         {
             var modelDef = modelType.GetModelDefinition();
@@ -84,22 +119,12 @@ namespace ServiceStack.OrmLite
             var tableExists = dialectProvider.DoesTableExist(dbCmd, tableName, schema);
             if (overwrite && tableExists)
             {
-                if (modelDef.PreDropTableSql != null)
-                {
-                    ExecuteSql(dbCmd, modelDef.PreDropTableSql);
-                }
-
                 DropTable(dbCmd, modelDef);
 
                 var postDropTableSql = dialectProvider.ToPostDropTableStatement(modelDef);
                 if (postDropTableSql != null)
                 {
                     ExecuteSql(dbCmd, postDropTableSql);
-                }
-
-                if (modelDef.PostDropTableSql != null)
-                {
-                    ExecuteSql(dbCmd, modelDef.PostDropTableSql);
                 }
 
                 tableExists = false;
@@ -158,10 +183,10 @@ namespace ServiceStack.OrmLite
                         ExecuteSql(dbCmd, postCreateTableSql);
                     }
 
-                    if (modelDef.PostCreateTableSql != null)
+                    /*if (modelDef.PostCreateTableSql != null)
                     {
                         ExecuteSql(dbCmd, modelDef.PostCreateTableSql);
-                    }
+                    }*/
 
                     var sqlIndexes = dialectProvider.ToCreateIndexStatements(modelType);
                     foreach (var sqlIndex in sqlIndexes)
@@ -199,16 +224,51 @@ namespace ServiceStack.OrmLite
             return false;
         }
 
+        /// <summary>
+        /// Drops the table.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableName">Name of the table.</param>
+        internal static void DropTable(this IDbCommand dbCmd, string tableName)
+        {
+            try
+            {
+                var dialectProvider = dbCmd.GetDialectProvider();
+
+                dbCmd.ExecuteSql("DROP TABLE " + dialectProvider.GetQuotedTableName(tableName, string.Empty));
+            }
+            catch (Exception ex)
+            {
+                Log.DebugFormat("Could not drop table '{0}': {1}", tableName, ex.Message);
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Drops the table.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
         internal static void DropTable<T>(this IDbCommand dbCmd)
         {
             DropTable(dbCmd, ModelDefinition<T>.Definition);
         }
 
+        /// <summary>
+        /// Drops the table.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="modelType">Type of the model.</param>
         internal static void DropTable(this IDbCommand dbCmd, Type modelType)
         {
             DropTable(dbCmd, modelType.GetModelDefinition());
         }
 
+        /// <summary>
+        /// Drops the tables.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableTypes">The table types.</param>
         internal static void DropTables(this IDbCommand dbCmd, params Type[] tableTypes)
         {
             foreach (var modelDef in tableTypes.Select(type => type.GetModelDefinition()))
@@ -217,6 +277,11 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Drops the table.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="modelDef">The model definition.</param>
         private static void DropTable(IDbCommand dbCmd, ModelDefinition modelDef)
         {
             try
@@ -252,11 +317,24 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Lasts the SQL.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <returns>System.String.</returns>
         internal static string LastSql(this IDbCommand dbCmd)
         {
             return dbCmd.CommandText;
         }
 
+        /// <summary>
+        /// Executes the SQL.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int ExecuteSql(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams = null, Action<IDbCommand> commandFilter = null)
         {
             dbCmd.CommandText = sql;
@@ -276,10 +354,18 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Executes the SQL.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int ExecuteSql(this IDbCommand dbCmd, string sql, object anonType, Action<IDbCommand> commandFilter = null)
         {
             if (anonType != null)
-                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql:ref sql);
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
 
             dbCmd.CommandText = sql;
 
@@ -296,6 +382,11 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Ignores the already exists error.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool IgnoreAlreadyExistsError(Exception ex)
         {
             //ignore Sqlite table already exists error
@@ -305,6 +396,11 @@ namespace ServiceStack.OrmLite
                   || ex.Message.Contains(sqlServerAlreadyExistsError);
         }
 
+        /// <summary>
+        /// Ignores the already exists generator error.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         private static bool IgnoreAlreadyExistsGeneratorError(Exception ex)
         {
             const string fbError = "attempt to store duplicate value";
@@ -312,6 +408,14 @@ namespace ServiceStack.OrmLite
             return ex.Message.Contains(fbError) || ex.Message.Contains(fbAlreadyExistsError);
         }
 
+        /// <summary>
+        /// Populates the with SQL reader.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="reader">The reader.</param>
+        /// <returns>T.</returns>
         public static T PopulateWithSqlReader<T>(this T objWithProperties, IOrmLiteDialectProvider dialectProvider, IDataReader reader)
         {
             var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
@@ -319,6 +423,13 @@ namespace ServiceStack.OrmLite
             return PopulateWithSqlReader(objWithProperties, dialectProvider, reader, indexCache, values);
         }
 
+        /// <summary>
+        /// Gets the index of the column.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="fieldName">Name of the field.</param>
+        /// <returns>System.Int32.</returns>
         public static int GetColumnIndex(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, string fieldName)
         {
             try
@@ -331,8 +442,21 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// The not found
+        /// </summary>
         private const int NotFound = -1;
 
+        /// <summary>
+        /// Populates the with SQL reader.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="reader">The reader.</param>
+        /// <param name="indexCache">The index cache.</param>
+        /// <param name="values">The values.</param>
+        /// <returns>T.</returns>
         public static T PopulateWithSqlReader<T>(this T objWithProperties,
             IOrmLiteDialectProvider dialectProvider, IDataReader reader,
             Tuple<FieldDefinition, int, IOrmLiteConverter>[] indexCache, object[] values)
@@ -340,9 +464,18 @@ namespace ServiceStack.OrmLite
             dialectProvider.PopulateObjectWithSqlReader<T>(objWithProperties, reader, indexCache, values);
             return objWithProperties;
         }
-        
-        public static void PopulateObjectWithSqlReader<T>(this IOrmLiteDialectProvider dialectProvider, 
-            object objWithProperties, IDataReader reader, 
+
+        /// <summary>
+        /// Populates the object with SQL reader.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="objWithProperties">The object with properties.</param>
+        /// <param name="reader">The reader.</param>
+        /// <param name="indexCache">The index cache.</param>
+        /// <param name="values">The values.</param>
+        public static void PopulateObjectWithSqlReader<T>(this IOrmLiteDialectProvider dialectProvider,
+            object objWithProperties, IDataReader reader,
             Tuple<FieldDefinition, int, IOrmLiteConverter>[] indexCache, object[] values)
         {
             values = PopulateValues(reader, values, dialectProvider);
@@ -390,10 +523,17 @@ namespace ServiceStack.OrmLite
                     OrmLiteUtils.HandleException(ex);
                 }
             }
-            
+
             OrmLiteConfig.PopulatedObjectFilter?.Invoke(objWithProperties);
         }
 
+        /// <summary>
+        /// Populates the values.
+        /// </summary>
+        /// <param name="reader">The reader.</param>
+        /// <param name="values">The values.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <returns>System.Object[].</returns>
         internal static object[] PopulateValues(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
         {
             if (!OrmLiteConfig.DeoptimizeReader)
@@ -420,20 +560,44 @@ namespace ServiceStack.OrmLite
             return values;
         }
 
+        /// <summary>
+        /// Updates the specified object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Update<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter = null)
         {
             return dbCmd.UpdateInternal<T>(obj, commandFilter);
         }
 
-        internal static int Update<T>(this IDbCommand dbCmd, Dictionary<string,object> obj, Action<IDbCommand> commandFilter = null)
+        /// <summary>
+        /// Updates the specified object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
+        internal static int Update<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter = null)
         {
             return dbCmd.UpdateInternal<T>(obj, commandFilter);
         }
 
+        /// <summary>
+        /// Updates the internal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int UpdateInternal<T>(this IDbCommand dbCmd, object obj, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, obj.ToFilterType<T>());
 
             var dialectProvider = dbCmd.GetDialectProvider();
@@ -446,6 +610,15 @@ namespace ServiceStack.OrmLite
             return dbCmd.UpdateAndVerify<T>(commandFilter, hadRowVersion);
         }
 
+        /// <summary>
+        /// Updates the and verify.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="hadRowVersion">if set to <c>true</c> [had row version].</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
         internal static int UpdateAndVerify<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, bool hadRowVersion)
         {
             commandFilter?.Invoke(dbCmd);
@@ -457,11 +630,28 @@ namespace ServiceStack.OrmLite
             return rowsUpdated;
         }
 
+        /// <summary>
+        /// Updates the specified objs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Update<T>(this IDbCommand dbCmd, T[] objs, Action<IDbCommand> commandFilter = null)
         {
             return dbCmd.UpdateAll(objs: objs, commandFilter: commandFilter);
         }
 
+        /// <summary>
+        /// Updates all.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
         internal static int UpdateAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -488,12 +678,12 @@ namespace ServiceStack.OrmLite
 
                     commandFilter?.Invoke(dbCmd); //filters can augment SQL & only should be invoked once
                     commandFilter = null;
-                    
+
                     var rowsUpdated = dbCmd.ExecNonQuery();
-                    if (hadRowVersion && rowsUpdated == 0) 
+                    if (hadRowVersion && rowsUpdated == 0)
                         throw new OptimisticConcurrencyException();
 
-                    count += rowsUpdated;                
+                    count += rowsUpdated;
                 }
 
                 dbTrans?.Commit();
@@ -506,6 +696,13 @@ namespace ServiceStack.OrmLite
             return count;
         }
 
+        /// <summary>
+        /// Asserts the rows updated.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="hadRowVersion">if set to <c>true</c> [had row version].</param>
+        /// <returns>System.Int32.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
         private static int AssertRowsUpdated(IDbCommand dbCmd, bool hadRowVersion)
         {
             var rowsUpdated = dbCmd.ExecNonQuery();
@@ -515,11 +712,27 @@ namespace ServiceStack.OrmLite
             return rowsUpdated;
         }
 
+        /// <summary>
+        /// Deletes the specified anon type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Delete<T>(this IDbCommand dbCmd, T anonType, Action<IDbCommand> commandFilter = null)
         {
             return dbCmd.Delete<T>((object)anonType, commandFilter);
         }
 
+        /// <summary>
+        /// Deletes the specified anon type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Delete<T>(this IDbCommand dbCmd, object anonType, Action<IDbCommand> commandFilter = null)
         {
             var dialectProvider = dbCmd.GetDialectProvider();
@@ -534,6 +747,13 @@ namespace ServiceStack.OrmLite
             return AssertRowsUpdated(dbCmd, hadRowVersion);
         }
 
+        /// <summary>
+        /// Deletes the non defaults.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int DeleteNonDefaults<T>(this IDbCommand dbCmd, T filter)
         {
             var dialectProvider = dbCmd.GetDialectProvider();
@@ -545,6 +765,13 @@ namespace ServiceStack.OrmLite
             return AssertRowsUpdated(dbCmd, hadRowVersion);
         }
 
+        /// <summary>
+        /// Deletes the specified objs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Delete<T>(this IDbCommand dbCmd, T[] objs)
         {
             if (objs.Length == 0)
@@ -553,6 +780,13 @@ namespace ServiceStack.OrmLite
             return DeleteAll(dbCmd, objs);
         }
 
+        /// <summary>
+        /// Deletes the non defaults.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="filters">The filters.</param>
+        /// <returns>System.Int32.</returns>
         internal static int DeleteNonDefaults<T>(this IDbCommand dbCmd, T[] filters)
         {
             if (filters.Length == 0) return 0;
@@ -560,11 +794,20 @@ namespace ServiceStack.OrmLite
             return DeleteAll(dbCmd, filters, o => o.AllFieldsMap<T>().NonDefaultsOnly());
         }
 
-        private static int DeleteAll<T>(IDbCommand dbCmd, IEnumerable<T> objs, 
-            Func<object,Dictionary<string,object>> fieldValuesFn, Action<IDbCommand> commandFilter = null)
+        /// <summary>
+        /// Deletes all.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="fieldValuesFn">The field values function.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
+        private static int DeleteAll<T>(IDbCommand dbCmd, IEnumerable<T> objs,
+            Func<object, Dictionary<string, object>> fieldValuesFn, Action<IDbCommand> commandFilter = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             IDbTransaction dbTrans = null;
 
             int count = 0;
@@ -601,6 +844,14 @@ namespace ServiceStack.OrmLite
             return count;
         }
 
+        /// <summary>
+        /// Deletes the by identifier.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int32.</returns>
         internal static int DeleteById<T>(this IDbCommand dbCmd, object id, Action<IDbCommand> commandFilter = null)
         {
             var sql = DeleteByIdSql<T>(dbCmd, id);
@@ -608,6 +859,13 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteSql(sql, commandFilter: commandFilter);
         }
 
+        /// <summary>
+        /// Deletes the by identifier SQL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns>System.String.</returns>
         internal static string DeleteByIdSql<T>(this IDbCommand dbCmd, object id)
         {
             var modelDef = ModelDefinition<T>.Definition;
@@ -624,6 +882,15 @@ namespace ServiceStack.OrmLite
             return sql;
         }
 
+        /// <summary>
+        /// Deletes the by identifier.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="rowVersion">The row version.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException">The row was modified or deleted since the last read</exception>
         internal static void DeleteById<T>(this IDbCommand dbCmd, object id, ulong rowVersion, Action<IDbCommand> commandFilter = null)
         {
             var sql = DeleteByIdSql<T>(dbCmd, id, rowVersion);
@@ -633,10 +900,19 @@ namespace ServiceStack.OrmLite
                 throw new OptimisticConcurrencyException("The row was modified or deleted since the last read");
         }
 
+        /// <summary>
+        /// Deletes the by identifier SQL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="id">The identifier.</param>
+        /// <param name="rowVersion">The row version.</param>
+        /// <returns>System.String.</returns>
+        /// <exception cref="System.InvalidOperationException">Cannot use DeleteById with rowVersion for model type without a row version column</exception>
         internal static string DeleteByIdSql<T>(this IDbCommand dbCmd, object id, ulong rowVersion)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             var modelDef = ModelDefinition<T>.Definition;
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -667,10 +943,17 @@ namespace ServiceStack.OrmLite
             return sql;
         }
 
+        /// <summary>
+        /// Deletes the by ids.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="idValues">The identifier values.</param>
+        /// <returns>System.Int32.</returns>
         internal static int DeleteByIds<T>(this IDbCommand dbCmd, IEnumerable idValues)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
             if (string.IsNullOrEmpty(sqlIn))
                 return 0;
@@ -680,6 +963,13 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecuteSql(sql);
         }
 
+        /// <summary>
+        /// Gets the delete by ids SQL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sqlIn">The SQL in.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <returns>System.String.</returns>
         internal static string GetDeleteByIdsSql<T>(string sqlIn, IOrmLiteDialectProvider dialectProvider)
         {
             var modelDef = ModelDefinition<T>.Definition;
@@ -689,55 +979,108 @@ namespace ServiceStack.OrmLite
             return sql;
         }
 
+        /// <summary>
+        /// Deletes all.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <returns>System.Int32.</returns>
         internal static int DeleteAll<T>(this IDbCommand dbCmd)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             return DeleteAll(dbCmd, typeof(T));
         }
 
+        /// <summary>
+        /// Deletes all.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="rows">The rows.</param>
+        /// <returns>System.Int32.</returns>
         internal static int DeleteAll<T>(this IDbCommand dbCmd, IEnumerable<T> rows)
         {
             var ids = rows.Map(x => x.GetId());
             return dbCmd.DeleteByIds<T>(ids);
         }
 
+        /// <summary>
+        /// Deletes all.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableType">Type of the table.</param>
+        /// <returns>System.Int32.</returns>
         internal static int DeleteAll(this IDbCommand dbCmd, Type tableType)
         {
             return dbCmd.ExecuteSql(dbCmd.GetDialectProvider().ToDeleteStatement(tableType, null));
         }
 
+        /// <summary>
+        /// Deletes the specified SQL.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Delete<T>(this IDbCommand dbCmd, string sql, object anonType = null)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
             return dbCmd.ExecuteSql(dbCmd.GetDialectProvider().ToDeleteStatement(typeof(T), sql));
         }
 
+        /// <summary>
+        /// Deletes the specified table type.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="tableType">Type of the table.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Delete(this IDbCommand dbCmd, Type tableType, string sql, object anonType = null)
         {
             if (anonType != null) dbCmd.SetParameters(tableType, anonType, excludeDefaults: false, sql: ref sql);
             return dbCmd.ExecuteSql(dbCmd.GetDialectProvider().ToDeleteStatement(tableType, sql));
         }
-        
+
+        /// <summary>
+        /// Inserts the specified object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <returns>System.Int64.</returns>
         internal static long Insert<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter, bool selectIdentity = false)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
 
             var dialectProvider = dbCmd.GetDialectProvider();
-            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd, 
+            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
                 insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj));
 
             return InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity);
         }
-        
-        internal static long Insert<T>(this IDbCommand dbCmd, Dictionary<string,object> obj, Action<IDbCommand> commandFilter, bool selectIdentity = false)
+
+        /// <summary>
+        /// Inserts the specified object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <returns>System.Int64.</returns>
+        internal static long Insert<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter, bool selectIdentity = false)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
-            
+
             OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj.ToFilterType<T>());
 
             var dialectProvider = dbCmd.GetDialectProvider();
@@ -749,8 +1092,8 @@ namespace ServiceStack.OrmLite
             {
                 if (enableIdentityInsert)
                     dialectProvider.EnableIdentityInsert<T>(dbCmd);
-                
-                dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd, 
+
+                dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
                     insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj),
                     shouldInclude: f => obj.ContainsKey(f.Name));
 
@@ -765,7 +1108,12 @@ namespace ServiceStack.OrmLite
                     dialectProvider.DisableIdentityInsert<T>(dbCmd);
             }
         }
-        
+
+        /// <summary>
+        /// Removes the primary key with default value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj">The object.</param>
         internal static void RemovePrimaryKeyWithDefaultValue<T>(this Dictionary<string, object> obj)
         {
             var pkField = typeof(T).GetModelDefinition().PrimaryKey;
@@ -780,6 +1128,16 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Inserts the internal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <returns>System.Int64.</returns>
         private static long InsertInternal<T>(IOrmLiteDialectProvider dialectProvider, IDbCommand dbCmd, object obj, Action<IDbCommand> commandFilter, bool selectIdentity)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -804,6 +1162,14 @@ namespace ServiceStack.OrmLite
             return dbCmd.ExecNonQuery();
         }
 
+        /// <summary>
+        /// Populates the return values.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="reader">The reader.</param>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns>System.Int64.</returns>
         internal static long PopulateReturnValues<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, object obj)
         {
             if (reader.Read())
@@ -812,7 +1178,7 @@ namespace ServiceStack.OrmLite
                 var values = new object[reader.FieldCount];
                 var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
                 dialectProvider.PopulateObjectWithSqlReader<T>(obj, reader, indexCache, values);
-                if ((modelDef.PrimaryKey != null) && (modelDef.PrimaryKey.AutoIncrement || modelDef.PrimaryKey.ReturnOnInsert))
+                if (modelDef.PrimaryKey != null && (modelDef.PrimaryKey.AutoIncrement || modelDef.PrimaryKey.ReturnOnInsert))
                 {
                     var id = modelDef.GetPrimaryKey(obj);
                     if (modelDef.PrimaryKey.AutoId)
@@ -824,26 +1190,49 @@ namespace ServiceStack.OrmLite
             return 0;
         }
 
+        /// <summary>
+        /// Inserts the specified command filter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <param name="objs">The objs.</param>
         internal static void Insert<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, params T[] objs)
         {
             dbCmd.InsertAll(objs: objs, commandFilter: commandFilter);
         }
 
-        internal static long InsertIntoSelect<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter) => 
+        /// <summary>
+        /// Inserts the into select.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="query">The query.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>System.Int64.</returns>
+        internal static long InsertIntoSelect<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter) =>
             dbCmd.InsertIntoSelectInternal<T>(query, commandFilter).ExecNonQuery();
 
+        /// <summary>
+        /// Inserts the into select internal.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="query">The query.</param>
+        /// <param name="commandFilter">The command filter.</param>
+        /// <returns>IDbCommand.</returns>
         internal static IDbCommand InsertIntoSelectInternal<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter)
         {
             var dialectProvider = dbCmd.GetDialectProvider();
 
-            var sql = query.ToSelectStatement();
+            var sql = query.ToSelectStatement(QueryType.Select);
             var selectFields = query.GetUntypedSqlExpression()
                 .SelectExpression
                 .Substring("SELECT ".Length)
                 .ParseCommands();
 
             var fieldsOrAliases = selectFields
-                .Map(x => x.Original.ToString().LastRightPart(" AS ").Trim().StripDbQuotes());
+                .Map(x => x.Original.ToString().AliasOrColumn());
 
             dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd, insertFields: fieldsOrAliases);
 
@@ -855,6 +1244,13 @@ namespace ServiceStack.OrmLite
             return dbCmd;
         }
 
+        /// <summary>
+        /// Inserts all.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="commandFilter">The command filter.</param>
         internal static void InsertAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter)
         {
             IDbTransaction dbTrans = null;
@@ -895,6 +1291,12 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Inserts the using defaults.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
         internal static void InsertUsingDefaults<T>(this IDbCommand dbCmd, params T[] objs)
         {
             IDbTransaction dbTrans = null;
@@ -910,7 +1312,7 @@ namespace ServiceStack.OrmLite
                 var fieldsWithoutDefaults = modelDef.FieldDefinitionsArray
                     .Where(x => x.DefaultValue == null)
                     .Select(x => x.Name)
-                    .ToHashSet(); 
+                    .ToSet();
 
                 dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
                     insertFields: fieldsWithoutDefaults);
@@ -939,30 +1341,45 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Saves the specified objs.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <returns>System.Int32.</returns>
         internal static int Save<T>(this IDbCommand dbCmd, params T[] objs)
         {
             return SaveAll(dbCmd, objs);
         }
 
+        /// <summary>
+        /// Saves the specified object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException">No rows were inserted or updated</exception>
         internal static bool Save<T>(this IDbCommand dbCmd, T obj)
         {
             var modelDef = typeof(T).GetModelDefinition();
             var id = modelDef.GetPrimaryKey(obj);
-            var existingRow = id != null ? dbCmd.SingleById<T>(id) : default(T);
+            var existingRow = id != null ? dbCmd.SingleById<T>(id) : default;
 
             if (Equals(existingRow, default(T)))
             {
                 if (modelDef.HasAutoIncrementId)
                 {
                     var dialectProvider = dbCmd.GetDialectProvider();
-                    var newId = dbCmd.Insert(obj, commandFilter:null, selectIdentity: true);
+                    var newId = dbCmd.Insert(obj, commandFilter: null, selectIdentity: true);
                     var safeId = dialectProvider.FromDbValue(newId, modelDef.PrimaryKey.FieldType);
                     modelDef.PrimaryKey.SetValue(obj, safeId);
                     id = newId;
                 }
                 else
                 {
-                    dbCmd.Insert(obj, commandFilter:null);
+                    dbCmd.Insert(obj, commandFilter: null);
                 }
 
                 modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, id));
@@ -979,6 +1396,13 @@ namespace ServiceStack.OrmLite
             return false;
         }
 
+        /// <summary>
+        /// Saves all.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="objs">The objs.</param>
+        /// <returns>System.Int32.</returns>
         internal static int SaveAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs)
         {
             var saveRows = objs.ToList();
@@ -1046,6 +1470,12 @@ namespace ServiceStack.OrmLite
             return rowsAdded;
         }
 
+        /// <summary>
+        /// Saves all references.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="instance">The instance.</param>
         internal static void SaveAllReferences<T>(this IDbCommand dbCmd, T instance)
         {
             var modelDef = ModelDefinition<T>.Definition;
@@ -1089,7 +1519,7 @@ namespace ServiceStack.OrmLite
 
                     if (result != null)
                     {
-                        if (refField != null && refSelf == null) 
+                        if (refField != null && refSelf == null)
                             refField.SetValue(result, pkValue);
 
                         dbCmd.CreateTypedApi(refType).Save(result);
@@ -1111,6 +1541,14 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Saves the references.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TRef">The type of the t reference.</typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="instance">The instance.</param>
+        /// <param name="refs">The refs.</param>
         internal static void SaveReferences<T, TRef>(this IDbCommand dbCmd, T instance, params TRef[] refs)
         {
             var modelDef = ModelDefinition<T>.Definition;
@@ -1119,7 +1557,7 @@ namespace ServiceStack.OrmLite
             var refType = typeof(TRef);
             var refModelDef = ModelDefinition<TRef>.Definition;
 
-            var refSelf = modelDef.GetSelfRefFieldDefIfExists(refModelDef, null); 
+            var refSelf = modelDef.GetSelfRefFieldDefIfExists(refModelDef, null);
 
             foreach (var oRef in refs)
             {
@@ -1145,6 +1583,12 @@ namespace ServiceStack.OrmLite
         }
 
         // Procedures
+        /// <summary>
+        /// Executes the procedure.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="obj">The object.</param>
         internal static void ExecuteProcedure<T>(this IDbCommand dbCmd, T obj)
         {
             var dialectProvider = dbCmd.GetDialectProvider();
@@ -1152,6 +1596,13 @@ namespace ServiceStack.OrmLite
             dbCmd.ExecuteNonQuery();
         }
 
+        /// <summary>
+        /// Gets the row version.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns>System.Object.</returns>
         internal static object GetRowVersion(this IDbCommand dbCmd, ModelDefinition modelDef, object id)
         {
             var sql = RowVersionSql(dbCmd, modelDef, id);
@@ -1163,6 +1614,13 @@ namespace ServiceStack.OrmLite
             return to ?? modelDef.RowVersion.ColumnType.GetDefaultValue();
         }
 
+        /// <summary>
+        /// Rows the version SQL.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="id">The identifier.</param>
+        /// <returns>System.String.</returns>
         internal static string RowVersionSql(this IDbCommand dbCmd, ModelDefinition modelDef, object id)
         {
             var dialectProvider = dbCmd.GetDialectProvider();

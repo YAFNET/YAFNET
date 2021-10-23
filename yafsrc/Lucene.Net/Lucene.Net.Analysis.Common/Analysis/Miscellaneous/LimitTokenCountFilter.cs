@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Lucene version compatibility level 4.8.1
+using System;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
 {
@@ -63,7 +64,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (maxTokenCount < 1)
             {
-                throw new ArgumentOutOfRangeException("maxTokenCount must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(maxTokenCount), "maxTokenCount must be greater than zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.maxTokenCount = maxTokenCount;
             this.consumeAllTokens = consumeAllTokens;

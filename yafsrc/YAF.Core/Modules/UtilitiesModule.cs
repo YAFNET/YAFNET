@@ -29,11 +29,8 @@ namespace YAF.Core.Modules
 
     using Autofac;
 
-    using YAF.Core;
-    using YAF.Core.Data.Profiling;
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -52,8 +49,6 @@ namespace YAF.Core.Modules
         /// </param>
         protected override void Load([NotNull] ContainerBuilder builder)
         {
-            builder.RegisterType<QueryProfile>().As<IProfileQuery>().SingleInstance().PreserveExistingDefaults();
-
             RegisterWebAbstractions(builder);
         }
 
@@ -66,6 +61,7 @@ namespace YAF.Core.Modules
         private static void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
         {
             CodeContracts.VerifyNotNull(builder, "builder");
+
 
             builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>()
                 .InstancePerBoardContext();

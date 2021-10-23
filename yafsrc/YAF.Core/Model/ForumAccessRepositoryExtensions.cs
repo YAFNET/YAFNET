@@ -26,7 +26,6 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Data;
 
     using ServiceStack.OrmLite;
 
@@ -43,31 +42,77 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The group as data table.
+        /// Assign New Role with Initial Access Mask for all forums.
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
         /// <param name="groupId">
-        /// The group id.
+        /// The group identifier.
+        /// </param>
+        /// <param name="accessMaskId">
+        /// The access mask identifier.
+        /// </param>
+        public static void InitialAssignGroup(
+            this IRepository<ForumAccess> repository,
+            [NotNull] int groupId,
+            [NotNull] int accessMaskId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+            expression.Join<Category>((f, c) => c.ID == f.CategoryID)
+                .Where<Category>(c => c.BoardID == repository.BoardID);
+
+            var forums = repository.DbAccess.Execute(
+                db => db.Connection.Select(expression));
+
+            forums.ForEach(
+                f => repository.Insert(new ForumAccess
+                {
+                    GroupID = groupId,
+                    ForumID = f.ID,
+                    AccessMaskID = accessMaskId
+                }));
+        }
+
+        /// <summary>
+        /// Lists the by groups.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="groupId">
+        /// The group identifier.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable GroupAsDataTable(this IRepository<ForumAccess> repository, [NotNull] int groupId)
+        public static List<(int ForumID, string ForumName, int? ParentID, int AccessMaskID)> ListByGroups(
+            this IRepository<ForumAccess> repository,
+            [NotNull] int groupId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
             expression.Join<Forum>((access, forum) => forum.ID == access.ForumID)
                 .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Join<Category, Board>((category, board) => board.ID == category.BoardID)
                 .Where<ForumAccess>(access => access.GroupID == groupId).OrderBy<Board>(board => board.Name)
-                .OrderBy<Category>(category => category.SortOrder).OrderBy<Forum>(forum => forum.SortOrder);
+                .OrderBy<Category>(category => category.SortOrder).OrderBy<Forum>(forum => forum.SortOrder)
+                .Select<Forum, ForumAccess>(
+                    (f, a) => new
+                    {
+                        ForumID = f.ID, ForumName = f.Name, f.ParentID, AccesMaskID = a.AccessMaskID
+                    });
 
             var list = repository.DbAccess.Execute(
-                db => db.Connection.SelectMulti<ForumAccess, Forum, Board, Category>(expression));
+                db => db.Connection
+                    .Select<(int ForumID, string ForumName, int? ParentID, int AccessMaskID)>(expression));
 
-            return repository.SortList(list, 0, 0);
+            return list;
         }
 
         /// <summary>
@@ -83,7 +128,7 @@ namespace YAF.Core.Model
             [NotNull] int groupId,
             [NotNull] int accessMaskId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(
                 () => new ForumAccess { AccessMaskID = accessMaskId },
@@ -111,7 +156,7 @@ namespace YAF.Core.Model
             [NotNull] int groupId,
             [NotNull] int accessMaskId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Insert(new ForumAccess { AccessMaskID = accessMaskId, GroupID = groupId, ForumID = forumId });
         }
@@ -132,7 +177,7 @@ namespace YAF.Core.Model
             [NotNull] this IRepository<ForumAccess> repository,
             [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
@@ -143,110 +188,33 @@ namespace YAF.Core.Model
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, Group>(expression));
         }
 
-        #endregion
-
         /// <summary>
-        /// The sort list.
+        /// Gets the forum Read Access 
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="parentID">
-        /// The parent id.
-        /// </param>
-        /// <param name="startingIndent">
-        /// The starting indent.
+        /// <param name="forumId">
+        /// The forum id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        [NotNull]
-        private static DataTable SortList(
+        public static List<Tuple<ForumAccess, AccessMask, Group>> GetReadAccessList(
             [NotNull] this IRepository<ForumAccess> repository,
-            [NotNull] List<Tuple<ForumAccess, Forum, Board, Category>> listSource,
-            int parentID,
-            int startingIndent)
+            [NotNull] int forumId)
         {
-            var listDestination = new DataTable();
+            CodeContracts.VerifyNotNull(repository);
 
-            listDestination.Columns.Add("ForumID", typeof(string));
-            listDestination.Columns.Add("ForumName", typeof(string));
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
-            listDestination.Columns.Add("BoardName", typeof(string));
-            listDestination.Columns.Add("CategoryName", typeof(string));
-            listDestination.Columns.Add("AccessMaskId", typeof(int));
+            expression.Join<AccessMask>((fa, am) => am.ID == fa.AccessMaskID)
+                .Join<Group>((fa, group) => group.ID == fa.GroupID)
+                .Where(fa => fa.ForumID == forumId);
 
-            repository.SortListRecursive(listSource, listDestination, parentID, startingIndent);
-            return listDestination;
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, AccessMask, Group>(expression));
         }
 
-        /// <summary>
-        /// The sort list recursive.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="listDestination">
-        /// The list destination.
-        /// </param>
-        /// <param name="parentID">
-        /// The parent id.
-        /// </param>
-        /// <param name="currentIndent">
-        /// The current indent.
-        /// </param>
-        private static void SortListRecursive(
-            [NotNull] this IRepository<ForumAccess> repository,
-            [NotNull] List<Tuple<ForumAccess, Forum, Board, Category>> listSource,
-            [NotNull] DataTable listDestination,
-            int parentID,
-            int currentIndent)
-        {
-            listSource.ForEach(
-                row =>
-                    {
-                        // see if this is a root-forum
-                        if (!row.Item2.ParentID.HasValue)
-                        {
-                            row.Item2.ParentID = 0;
-                        }
-
-                        if (row.Item2.ParentID.Value != parentID)
-                        {
-                            return;
-                        }
-
-                        var sIndent = string.Empty;
-
-                        for (var j = 0; j < currentIndent; j++)
-                        {
-                            sIndent += "--";
-                        }
-
-                        // import the row into the destination
-                        var newRow = listDestination.NewRow();
-
-                        newRow["ForumID"] = row.Item2.ID;
-                        newRow["ForumName"] = $"{sIndent} {row.Item2.Name}";
-                        newRow["BoardName"] = row.Item3.Name;
-                        newRow["CategoryName"] = row.Item4.Name;
-                        newRow["AccessMaskId"] = row.Item1.AccessMaskID;
-
-                        listDestination.Rows.Add(newRow);
-
-                        // recurse through the list...
-                        repository.SortListRecursive(
-                            listSource,
-                            listDestination,
-                            row.Item2.ID,
-                            currentIndent + 1);
-                    });
-        }
+        #endregion
     }
 }

@@ -1,7 +1,9 @@
 ﻿using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Globalization;
 using System.Text;
+using Float = J2N.Numerics.Single;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Query
 {
@@ -25,10 +27,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
     /// <summary>
     /// Lowest level base class for surround queries 
     /// </summary>
-    public abstract class SrndQuery
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    public abstract class SrndQuery // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         //public SrndQuery() { }
 
@@ -47,7 +46,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
             }
         }
 
-        public virtual string WeightString => Number.ToString(Weight);
+        public virtual string WeightString => Float.ToString(Weight, NumberFormatInfo.InvariantInfo);
 
         public virtual string WeightOperator => "^";
 
@@ -86,16 +85,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         /// </summary>
         public virtual object Clone()
         {
-            object clone = null;
-            try
-            {
-                clone = base.MemberwiseClone();
-            }
-            catch (Exception e)
-            {
-                throw new InvalidOperationException(e.Message, e); // shouldn't happen
-            }
-            return clone;
+            return MemberwiseClone(); // LUCENENET: never throws in .NET
         }
 
         /// <summary>
@@ -130,17 +120,17 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
             public override float Boost
             {
                 get => base.Boost;
-                set => throw new NotSupportedException();
+                set => throw UnsupportedOperationException.Create();
             }
 
             public override void Add(BooleanClause clause)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public override void Add(Search.Query query, Occur occur)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
         }
     }

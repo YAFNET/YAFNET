@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Events
 {
   #region Using
 
@@ -35,6 +35,7 @@ namespace YAF.Core
   /// The event converter.
   /// </summary>
   /// <typeparam name="T">
+  /// The Typed Parameter
   /// </typeparam>
   public class FireEvent<T> : IFireEvent<T>
     where T : IAmEvent

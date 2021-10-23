@@ -1,4 +1,4 @@
-jQuery(document).ready(function () {
+﻿jQuery(document).ready(function () {
     $(".list-group-item-menu, .message").each(function () {
 
         var isMessageContext = !!$(this).hasClass("message");
@@ -9,7 +9,6 @@ jQuery(document).ready(function () {
 
         if (window.matchMedia("only screen and (max-width: 760px)").matches) {
             delete Hammer.defaults.cssProps.userSelect;
-
 
             Hammer($(this)[0], { prevent_default: false, stop_browser_behavior: false }).on("press",
                 function(e) {
@@ -39,13 +38,13 @@ jQuery(document).ready(function () {
                             if (contextMenu.data("url").length) {
                                 contextMenu.prepend('<a href="javascript:goToURL(\'' +
                                     messageID +
-                                    '\',\'' +
+                                    "','" +
                                     selectedText +
-                                    '\',\'' +
+                                    "','" +
                                     contextMenu.data("url") +
                                     '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
                                     contextMenu.data("quote") +
-                                    '</a>');
+                                    "</a>");
                             }
 
                             contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
@@ -93,13 +92,13 @@ jQuery(document).ready(function () {
                     if (contextMenu.data("url").length) {
                         contextMenu.prepend('<a href="javascript:goToURL(\'' +
                             messageID +
-                            '\',\'' +
+                            "','" +
                             selectedText +
-                            '\',\'' +
+                            "','" +
                             contextMenu.data("url") +
                             '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
                             contextMenu.data("quote") +
-                            '</a>');
+                            "</a>");
                     }
 
                     contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
@@ -131,9 +130,11 @@ jQuery(document).ready(function () {
 
                 var link = $(this).attr("href");
                 var text = $(this).data("title");
+                var title = $(this).html();
                 var blockUI = $(this).data("confirm-event");
                 bootbox.confirm({
                         centerVertical: true,
+                        title: title,
                         message: text,
                         buttons: {
                             confirm: {
@@ -145,7 +146,7 @@ jQuery(document).ready(function () {
                                 className: "btn-danger"
                             }
                         },
-                        callback: function (confirmed) {
+                        callback: function(confirmed) {
                             if (confirmed) {
                                 document.location.href = link;
 
@@ -157,7 +158,7 @@ jQuery(document).ready(function () {
                     }
                 );
             }
-           
+
             contextMenu.removeClass("show").hide();
         });
 
@@ -169,7 +170,7 @@ jQuery(document).ready(function () {
 });
 
 function goToURL(messageId, input, url) {
-    window.location.href = url + "test" + "&q=" + messageId + "&text=" + encodeURIComponent(input);
+    window.location.href = url + "&q=" + messageId + "&text=" + encodeURIComponent(input);
 }
 
 function searchText(input) {

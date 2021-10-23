@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,13 +25,10 @@
 namespace YAF.Core.Helpers
 {
     using System;
-    using System.Data;
 
-    using YAF.Core.UsersRoles;
-    using YAF.Types.Extensions;
+    using YAF.Core.Context;
     using YAF.Types.Flags;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The post data helper wrapper.
@@ -51,17 +48,12 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// The current data row for this post.
         /// </summary>
-        private DataRow row;
+        private PagedMessage row;
 
         /// <summary>
         /// The _topic flags.
         /// </summary>
         private TopicFlags topicFlags;
-
-        /// <summary>
-        /// The _user profile.
-        /// </summary>
-        private YafUserProfile userProfile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostDataHelperWrapper"/> class.
@@ -76,7 +68,7 @@ namespace YAF.Core.Helpers
         /// <param name="dataRow">
         /// The data row.
         /// </param>
-        public PostDataHelperWrapper(DataRow dataRow)
+        public PostDataHelperWrapper(PagedMessage dataRow)
             : this()
         {
             this.DataRow = dataRow;
@@ -85,7 +77,7 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// Gets or sets DataRow.
         /// </summary>
-        public DataRow DataRow
+        public PagedMessage DataRow
         {
             get => this.row;
 
@@ -96,9 +88,9 @@ namespace YAF.Core.Helpers
                 // get all flags for forum, topic and message
                 if (this.row != null)
                 {
-                    this.forumFlags = new ForumFlags(this.row["ForumFlags"]);
-                    this.topicFlags = new TopicFlags(this.row["TopicFlags"]);
-                    this.messageFlags = new MessageFlags(this.row["Flags"]);
+                    this.forumFlags = new ForumFlags(this.row.ForumFlags);
+                    this.topicFlags = new TopicFlags(this.row.TopicFlags);
+                    this.messageFlags = new MessageFlags(this.row.Flags);
                 }
                 else
                 {
@@ -110,31 +102,14 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// Gets UserProfile.
-        /// </summary>
-        public YafUserProfile UserProfile
-        {
-            get
-            {
-                if (this.userProfile != null)
-                {
-                    return this.userProfile;
-                }
-
-                // setup instance of the user profile...
-                if (this.DataRow != null)
-                {
-                    this.userProfile = YafUserProfile.GetProfile(UserMembershipHelper.GetUserNameFromID(this.UserId));
-                }
-
-                return this.userProfile;
-            }
-        }
-
-        /// <summary>
         /// Gets UserId.
         /// </summary>
-        public int UserId => this.DataRow?["UserID"].ToType<int>() ?? 0;
+        public int UserId => this.DataRow.UserID;
+
+        /// <summary>
+        /// The is guest.
+        /// </summary>
+        public bool IsGuest => this.DataRow.IsGuest;
 
         /// <summary>
         /// Gets the message identifier.
@@ -142,7 +117,7 @@ namespace YAF.Core.Helpers
         /// <value>
         /// The message identifier.
         /// </value>
-        public int MessageId => this.DataRow?["MessageID"].ToType<int>() ?? 0;
+        public int MessageId => this.DataRow?.MessageID ?? 0;
 
         /// <summary>
         /// Gets the topic identifier.
@@ -150,34 +125,26 @@ namespace YAF.Core.Helpers
         /// <value>
         /// The topic identifier.
         /// </value>
-        public int TopicId => this.DataRow?["TopicID"].ToType<int>() ?? 0;
+        public int TopicId => this.DataRow?.TopicID ?? 0;
 
         /// <summary>
         /// IsLocked flag should only be used for "ghost" posts such as the
         /// Sponsor post that isn't really there.
         /// </summary>
-        public bool IsLocked => this.messageFlags != null && this.messageFlags.IsLocked;
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is sponsor message.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is sponsor message; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsSponserMessage => this.DataRow["IP"].ToString() == "none";
+        public bool IsLocked => this.messageFlags is { IsLocked: true };
 
         /// <summary>
         /// Gets a value indicating whether CanThankPost.
         /// </summary>
-        public bool CanThankPost => this.DataRow["UserID"].ToType<int>() != BoardContext.Current.PageUserID;
+        public bool CanThankPost => this.DataRow.UserID != BoardContext.Current.PageUserID;
 
         /// <summary>
         /// Gets a value indicating whether CanEditPost.
         /// </summary>
         public bool CanEditPost =>
             (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-             && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
-                 || this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["IP"].ToString()
+             && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow.IsGuest
+                 || this.DataRow.IsGuest && this.DataRow.IP
                  == BoardContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
              || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumEditAccess;
 
@@ -200,7 +167,7 @@ namespace YAF.Core.Helpers
                     return false;
                 }
 
-                var edited = this.DataRow["Edited"].ToType<DateTime>();
+                var edited = this.DataRow.Edited;
 
                 // check if post is locked according to this rule
                 return edited.AddDays(BoardContext.Current.BoardSettings.LockPosts) < DateTime.UtcNow;
@@ -230,8 +197,8 @@ namespace YAF.Core.Helpers
         /// </summary>
         public bool CanDeletePost =>
             (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
-             && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow["IsGuest"].ToType<bool>()
-                 || this.DataRow["IsGuest"].ToType<bool>() && this.DataRow["IP"].ToString()
+             && (this.UserId == BoardContext.Current.PageUserID && !this.DataRow.IsGuest
+                 || this.DataRow.IsGuest && this.DataRow.IP
                  == BoardContext.Current.CurrentForumPage.Request.GetUserRealIPAddress())
              || BoardContext.Current.ForumModeratorAccess) && BoardContext.Current.ForumDeleteAccess;
 

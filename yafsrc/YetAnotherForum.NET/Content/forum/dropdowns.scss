@@ -1,8 +1,4 @@
-﻿.dropdown-toggle {
-    margin-right: 0.30rem;
-}
-
-.dropdown-menu {
+﻿.dropdown-menu {
     max-height: max-content;
     min-width: max-content;
 }
@@ -22,40 +18,12 @@
     }
 }
 
-.dropdown-menu>li>a {
-    color: #333;
-}
-.dropdown-menu > li > a:hover,
-.dropdown-menu > li > a:focus {
-  color: #262626;
-  text-decoration: none;
-  background-color: #f5f5f5;
+.select2-select,
+.select2-image-select {
+    width: 100%
 }
 
-/* TABS */
-.tab-content {
-    padding-top: 10px;
-}
-
-/* Drop Downs Editor */
-
-.fill-width.dropdown-menu {
-    left: auto;
-    position: absolute;
-    height: auto;
-    max-height: 200px;
-    overflow-x: hidden;
-}
-.fill-width.dropdown-menu > .dropdown-item {
-   white-space: normal;
-   word-break: break-all;
-   max-width: 300px;
-   min-width: 300px;
-   font-size: 10px;
-}
-
-.yafalbumlistmenu {
-    padding: 0;
-    max-width: 300px;
-    min-width: 300px;
+// -- Main Menu
+.dropdown-submenu {
+    position: relative;
 }

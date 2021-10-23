@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,22 +27,21 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
-    using System.Globalization;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
 
     #endregion
@@ -63,11 +62,6 @@ namespace YAF.Controls
         ///   default since option is "since last visit"
         /// </summary>
         private int sinceValue;
-
-        /// <summary>
-        ///   The Topic List Data Table
-        /// </summary>
-        private DataTable topics;
 
         #endregion
 
@@ -136,100 +130,75 @@ namespace YAF.Controls
                 }
             }
 
-            // filter by category
-            object categoryIdObject = null;
-
-            // is category set?
-            if (this.PageContext.Settings.CategoryID != 0)
-            {
-                categoryIdObject = this.PageContext.Settings.CategoryID;
-            }
-
             // we'll hold topics in this table
-            DataTable topicList = null;
+            List<PagedTopic> topicList = null;
 
-            // set the page size here
-            var basePageSize = this.Get<BoardSettings>().MyTopicsListPageSize;
+            var basePageSize = this.PageSize.SelectedValue.ToType<int>();
+
             this.PagerTop.PageSize = basePageSize;
 
             // page index in db which is returned back  is +1 based!
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
 
-            this.Title.LocalizedPage = "MyTopics";
+            this.IconHeader.LocalizedPage = "MyTopics";
 
             // now depending on mode fill the table
             switch (this.CurrentMode)
             {
                 case TopicListMode.Active:
-                    this.Title.LocalizedTag = "ActiveTopics";
+                    this.IconHeader.LocalizedTag = "ActiveTopics";
 
-                    topicList = this.GetRepository<Topic>().ActiveAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListActivePaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unanswered:
-                    this.Title.LocalizedTag = "UnansweredTopics";
+                    this.IconHeader.LocalizedTag = "UnansweredTopics";
 
-                    topicList = this.GetRepository<Topic>().UnansweredAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListUnansweredPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unread:
-                    this.Title.LocalizedTag = "UnreadTopics";
+                    this.IconHeader.LocalizedTag = "UnreadTopics";
 
-                    topicList = this.GetRepository<Topic>().UnreadAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListUnreadPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
-                    this.Title.LocalizedTag = "MyTopics";
+                    this.IconHeader.LocalizedTag = "MyTopics";
 
-                    topicList = this.GetRepository<Topic>().ByUserAsDataTable(
-                        this.PageContext.PageBoardID,
-                        categoryIdObject,
+                    topicList = this.GetRepository<Topic>().ListByUserPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Favorite:
-                    this.Title.LocalizedTag = "FavoriteTopics";
+                    this.IconHeader.LocalizedTag = "FavoriteTopics";
 
-                    topicList = this.GetRepository<FavoriteTopic>().Details(
-                        BoardContext.Current.Settings.CategoryID == 0
-                            ? null
-                            : (int?)BoardContext.Current.Settings.CategoryID,
+                    topicList = this.GetRepository<FavoriteTopic>().ListPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.Get<BoardSettings>().UseStyledNicks,
-                        this.Get<BoardSettings>().UseReadTrackingByDatabase);
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
             }
 
@@ -239,35 +208,7 @@ namespace YAF.Controls
                 return;
             }
 
-            if (!topicList.HasRows())
-            {
-                this.PagerTop.Count = 0;
-                this.TopicList.DataSource = null;
-                this.TopicList.DataBind();
-                return;
-            }
-
-            this.topics = topicList;
-
-            var topicsNew = topicList.Copy();
-
-            topicsNew.Rows.Cast<DataRow>()
-                .Where(
-                    thisTableRow => thisTableRow["LastPosted"] != DBNull.Value
-                                    && thisTableRow["LastPosted"].ToType<DateTime>() <= this.sinceDate)
-                .ForEach(thisTableRow => thisTableRow.Delete());
-
-            // styled nicks
-            topicsNew.AcceptChanges();
-            if (this.Get<BoardSettings>().UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByTable(
-                    topicsNew,
-                    false,
-                    new[] { "LastUserStyle", "StarterStyle" });
-            }
-
-            if (!topicsNew.HasRows())
+            if (!topicList.Any())
             {
                 this.PagerTop.Count = 0;
                 this.TopicList.DataSource = null;
@@ -276,9 +217,9 @@ namespace YAF.Controls
             }
 
             // let's page the results
-            this.PagerTop.Count = topicsNew.HasRows() ? topicsNew.AsEnumerable().First().Field<int>("TotalRows") : 0;
+            this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
 
-            this.TopicList.DataSource = topicsNew;
+            this.TopicList.DataSource = topicList;
             this.TopicList.DataBind();
 
             // Get new Feeds links
@@ -304,12 +245,10 @@ namespace YAF.Controls
                 new ListItem(
                     this.GetTextFormatted(
                         "last_visit",
-                        !this.PageContext.IsMobileDevice
-                            ? this.Get<IDateTime>().FormatDateTime(
-                                lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
-                                    ? lastVisit.Value
-                                    : DateTime.UtcNow)
-                            : string.Empty),
+                        this.Get<IDateTimeService>().FormatDateTime(
+                            lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                                ? lastVisit.Value
+                                : DateTime.UtcNow)),
                     "0"));
 
             // negative values for hours backward
@@ -334,13 +273,15 @@ namespace YAF.Controls
         {
             this.BindData();
 
-            if (this.topics == null || !this.topics.HasRows())
+            if (this.TopicList.Items.Count <= 0)
             {
                 return;
             }
 
-            this.topics.Rows.Cast<DataRow>().ForEach(
-                row => this.Get<IReadTrackCurrentUser>().SetTopicRead(row.Field<int>("TopicID")));
+            this.TopicList.Items.Cast<RepeaterItem>()
+                .Where(item => item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+                .ForEach(
+                    item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.DataItem.ToType<PagedTopic>().TopicID));
 
             // Rebind
             this.BindData();
@@ -355,11 +296,18 @@ namespace YAF.Controls
         {
             if (!this.IsPostBack)
             {
+                this.PageSize.DataSource = StaticDataHelper.PageEntries();
+                this.PageSize.DataTextField = "Name";
+                this.PageSize.DataValueField = "Value";
+                this.PageSize.DataBind();
+
+                this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
                 this.InitSinceDropdown();
 
                 int? previousSince = null;
 
-                this.Footer.Visible = true;
+                this.FilterHolder.Visible = true;
 
                 switch (this.CurrentMode)
                 {
@@ -374,7 +322,7 @@ namespace YAF.Controls
                         this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
                         this.Since.SelectedIndex = 0;
 
-                        this.Footer.Visible = false;
+                        this.FilterHolder.Visible = false;
                         break;
                     case TopicListMode.Active:
                         previousSince = this.Get<ISession>().ActiveTopicSince;
@@ -410,6 +358,20 @@ namespace YAF.Controls
             {
                 this.BindData();
             }
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>
@@ -459,15 +421,15 @@ namespace YAF.Controls
         /// <summary>
         /// The create topic line.
         /// </summary>
-        /// <param name="containerDataItem">
-        /// The container data item.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        protected string CreateTopicLine(DataRowView containerDataItem)
+        protected string CreateTopicLine(object item)
         {
-            var topicLine = new TopicContainer { DataRow = containerDataItem };
+            var topicLine = new TopicContainer { Item = item as PagedTopic };
 
             return topicLine.RenderToString();
         }
@@ -477,39 +439,22 @@ namespace YAF.Controls
         /// </summary>
         private void BindFeeds()
         {
-            var accessActive = this.Get<IPermissions>().Check(this.Get<BoardSettings>().ActiveTopicFeedAccess);
-            var accessFavorite = this.Get<IPermissions>().Check(this.Get<BoardSettings>().FavoriteTopicFeedAccess);
+            var accessFavorite = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.FavoriteTopicFeedAccess);
 
-            // RSS link setup 
-            if (!this.Get<BoardSettings>().ShowRSSLink)
+            // RSS link setup
+            if (!this.PageContext.BoardSettings.ShowAtomLink)
             {
                 return;
             }
 
-            switch (this.CurrentMode)
+            if (this.CurrentMode == TopicListMode.Favorite)
             {
-                case TopicListMode.User:
-                    this.RssFeed.Visible = false;
-                    break;
-                case TopicListMode.Unread:
-                    this.RssFeed.Visible = false;
-                    break;
-                case TopicListMode.Unanswered:
-                    this.RssFeed.Visible = false;
-                    break;
-                case TopicListMode.Active:
-                    this.RssFeed.FeedType = YafRssFeeds.Active;
-                    this.RssFeed.AdditionalParameters =
-                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
-
-                    this.RssFeed.Visible = accessActive;
-                    break;
-                case TopicListMode.Favorite:
-                    this.RssFeed.FeedType = YafRssFeeds.Favorite;
-                    this.RssFeed.AdditionalParameters =
-                        $"txt={this.Server.UrlEncode(this.HtmlEncode(this.Since.Items[this.Since.SelectedIndex].Text))}&d={this.Server.UrlEncode(this.HtmlEncode(this.sinceDate.ToString(CultureInfo.InvariantCulture)))}";
-                    this.RssFeed.Visible = accessFavorite;
-                    break;
+                this.RssFeed.FeedType = RssFeeds.Favorite;
+                this.RssFeed.Visible = accessFavorite;
+            }
+            else
+            {
+                this.RssFeed.Visible = false;
             }
         }
 

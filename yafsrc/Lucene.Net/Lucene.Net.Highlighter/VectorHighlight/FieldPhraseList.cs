@@ -1,8 +1,9 @@
-﻿using YAF.Lucene.Net.Support;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Float = J2N.Numerics.Single;
 using QueryPhraseMap = YAF.Lucene.Net.Search.VectorHighlight.FieldQuery.QueryPhraseMap;
 using TermInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
 
@@ -62,14 +63,14 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             string field = fieldTermStack.FieldName;
 
             List<TermInfo> phraseCandidate = new List<TermInfo>();
-            QueryPhraseMap currMap = null;
-            QueryPhraseMap nextMap = null;
+            QueryPhraseMap currMap; // LUCENENET: IDE0059: Remove unnecessary value assignment
+            QueryPhraseMap nextMap; // LUCENENET: IDE0059: Remove unnecessary value assignment
             while (!fieldTermStack.IsEmpty && (phraseList.Count < phraseLimit))
             {
                 phraseCandidate.Clear();
 
-                TermInfo ti = null;
-                TermInfo first = null;
+                TermInfo ti; // LUCENENET: IDE0059: Remove unnecessary value assignment
+                TermInfo first; // LUCENENET: IDE0059: Remove unnecessary value assignment
 
                 first = ti = fieldTermStack.Pop();
                 currMap = fieldQuery.GetFieldTermMap(field, ti.Text);
@@ -153,51 +154,49 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 {
                     allInfos[index++] = fplToMerge.phraseList.GetEnumerator();
                 }
-                using (MergedEnumerator<WeightedPhraseInfo> itr = new MergedEnumerator<WeightedPhraseInfo>(false, allInfos))
+                using MergedEnumerator<WeightedPhraseInfo> itr = new MergedEnumerator<WeightedPhraseInfo>(false, allInfos);
+                // Step 2.  Walk the sorted list merging infos that overlap
+                phraseList = new List<WeightedPhraseInfo>();
+                if (!itr.MoveNext())
                 {
-                    // Step 2.  Walk the sorted list merging infos that overlap
-                    phraseList = new List<WeightedPhraseInfo>();
-                    if (!itr.MoveNext())
+                    return;
+                }
+                List<WeightedPhraseInfo> work = new List<WeightedPhraseInfo>();
+                WeightedPhraseInfo first = itr.Current;
+                work.Add(first);
+                int workEndOffset = first.EndOffset;
+                while (itr.MoveNext())
+                {
+                    WeightedPhraseInfo current = itr.Current;
+                    if (current.StartOffset <= workEndOffset)
                     {
-                        return;
-                    }
-                    List<WeightedPhraseInfo> work = new List<WeightedPhraseInfo>();
-                    WeightedPhraseInfo first = itr.Current;
-                    work.Add(first);
-                    int workEndOffset = first.EndOffset;
-                    while (itr.MoveNext())
-                    {
-                        WeightedPhraseInfo current = itr.Current;
-                        if (current.StartOffset <= workEndOffset)
-                        {
-                            workEndOffset = Math.Max(workEndOffset, current.EndOffset);
-                            work.Add(current);
-                        }
-                        else
-                        {
-                            if (work.Count == 1)
-                            {
-                                phraseList.Add(work[0]);
-                                work[0] = current;
-                            }
-                            else
-                            {
-                                phraseList.Add(new WeightedPhraseInfo(work));
-                                work.Clear();
-                                work.Add(current);
-                            }
-                            workEndOffset = current.EndOffset;
-                        }
-                    }
-                    if (work.Count == 1)
-                    {
-                        phraseList.Add(work[0]);
+                        workEndOffset = Math.Max(workEndOffset, current.EndOffset);
+                        work.Add(current);
                     }
                     else
                     {
-                        phraseList.Add(new WeightedPhraseInfo(work));
-                        work.Clear();
+                        if (work.Count == 1)
+                        {
+                            phraseList.Add(work[0]);
+                            work[0] = current;
+                        }
+                        else
+                        {
+                            phraseList.Add(new WeightedPhraseInfo(work));
+                            work.Clear();
+                            work.Add(current);
+                        }
+                        workEndOffset = current.EndOffset;
                     }
+                }
+                if (work.Count == 1)
+                {
+                    phraseList.Add(work[0]);
+                }
+                else
+                {
+                    phraseList.Add(new WeightedPhraseInfo(work));
+                    work.Clear();
                 }
             }
             finally
@@ -224,14 +223,14 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
         /// <summary>
         /// Represents the list of term offsets and boost for some text
         /// </summary>
-        public class WeightedPhraseInfo : IComparable<WeightedPhraseInfo>
+        public class WeightedPhraseInfo : IComparable<WeightedPhraseInfo>, IFormattable // LUCENENET specific - implemented IFormattable for floating point representations
         {
-            private List<Toffs> termsOffsets;   // usually termsOffsets.size() == 1,
-                                                // but if position-gap > 1 and slop > 0 then size() could be greater than 1
-            private float boost;  // query boost
-            private int seqnum;
+            private readonly List<Toffs> termsOffsets;   // usually termsOffsets.size() == 1, // LUCENENET: marked readonly
+                                                         // but if position-gap > 1 and slop > 0 then size() could be greater than 1
+            private readonly float boost;  // query boost // LUCENENET: marked readonly
+            private readonly int seqnum; // LUCENENET: marked readonly
 
-            private List<TermInfo> termsInfos;
+            private readonly List<TermInfo> termsInfos; // LUCENENET: marked readonly
 
             /// <summary>
             /// Text of the match, calculated on the fly.  Use for debugging only.
@@ -311,52 +310,48 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                     // Pretty much the same idea as merging FieldPhraseLists:
                     // Step 1.  Sort by startOffset, endOffset
                     //          While we are here merge the boosts and termInfos
-                    using (IEnumerator<WeightedPhraseInfo> toMergeItr = toMerge.GetEnumerator())
+                    using IEnumerator<WeightedPhraseInfo> toMergeItr = toMerge.GetEnumerator();
+                    if (!toMergeItr.MoveNext())
                     {
-                        if (!toMergeItr.MoveNext())
-                        {
-                            throw new ArgumentException("toMerge must contain at least one WeightedPhraseInfo.");
-                        }
-                        WeightedPhraseInfo first = toMergeItr.Current;
+                        throw new ArgumentException("toMerge must contain at least one WeightedPhraseInfo.");
+                    }
+                    WeightedPhraseInfo first = toMergeItr.Current;
 
-                        termsInfos = new List<TermInfo>();
-                        seqnum = first.seqnum;
-                        boost = first.boost;
-                        allToffs[0] = first.termsOffsets.GetEnumerator();
-                        int index = 1;
-                        while (toMergeItr.MoveNext())
-                        {
-                            WeightedPhraseInfo info = toMergeItr.Current;
-                            boost += info.boost;
-                            termsInfos.AddRange(info.termsInfos);
-                            allToffs[index++] = info.termsOffsets.GetEnumerator();
-                        }
+                    termsInfos = new List<TermInfo>();
+                    seqnum = first.seqnum;
+                    boost = first.boost;
+                    allToffs[0] = first.termsOffsets.GetEnumerator();
+                    int index = 1;
+                    while (toMergeItr.MoveNext())
+                    {
+                        WeightedPhraseInfo info = toMergeItr.Current;
+                        boost += info.boost;
+                        termsInfos.AddRange(info.termsInfos);
+                        allToffs[index++] = info.termsOffsets.GetEnumerator();
+                    }
 
-                        // Step 2.  Walk the sorted list merging overlaps
-                        using (MergedEnumerator<Toffs> itr = new MergedEnumerator<Toffs>(false, allToffs))
+                    // Step 2.  Walk the sorted list merging overlaps
+                    using MergedEnumerator<Toffs> itr = new MergedEnumerator<Toffs>(false, allToffs);
+                    termsOffsets = new List<Toffs>();
+                    if (!itr.MoveNext())
+                    {
+                        return;
+                    }
+                    Toffs work = itr.Current;
+                    while (itr.MoveNext())
+                    {
+                        Toffs current = itr.Current;
+                        if (current.StartOffset <= work.EndOffset)
                         {
-                            termsOffsets = new List<Toffs>();
-                            if (!itr.MoveNext())
-                            {
-                                return;
-                            }
-                            Toffs work = itr.Current;
-                            while (itr.MoveNext())
-                            {
-                                Toffs current = itr.Current;
-                                if (current.StartOffset <= work.EndOffset)
-                                {
-                                    work.EndOffset = Math.Max(work.EndOffset, current.EndOffset);
-                                }
-                                else
-                                {
-                                    termsOffsets.Add(work);
-                                    work = current;
-                                }
-                            }
+                            work.EndOffset = Math.Max(work.EndOffset, current.EndOffset);
+                        }
+                        else
+                        {
                             termsOffsets.Add(work);
+                            work = current;
                         }
                     }
+                    termsOffsets.Add(work);
                 }
                 finally
                 {
@@ -383,8 +378,14 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
             public override string ToString()
             {
+                return ToString(null);
+            }
+
+            public virtual string ToString(IFormatProvider provider)
+            {
                 StringBuilder sb = new StringBuilder();
-                sb.Append(GetText()).Append('(').Append(Number.ToString(boost)).Append(")(");
+                // LUCENENET: allow passing culture
+                sb.Append(GetText()).Append('(').Append(Float.ToString(boost, provider)).Append(")(");
                 foreach (Toffs to in termsOffsets)
                 {
                     sb.Append(to);
@@ -392,6 +393,8 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 sb.Append(')');
                 return sb.ToString();
             }
+
+            string IFormattable.ToString(string format, IFormatProvider provider) => ToString(provider);
 
             /// <summary>
             /// the seqnum
@@ -421,18 +424,8 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
                 result = prime * result + StartOffset;
                 result = prime * result + EndOffset;
                 long b = J2N.BitConversion.DoubleToInt64Bits(Boost);
-                result = prime * result + (int)(b ^ TripleShift(b, 32));
+                result = prime * result + (int)(b ^ b.TripleShift(32));
                 return result;
-            }
-
-            // LUCENENET NOTE: For some reason the standard way of correcting the >>>
-            // operator (int)((uint)b >> 32) didn't work here. Got this solution from http://stackoverflow.com/a/6625912
-            // and it works just like in Java.
-            private static long TripleShift(long n, int s)
-            {
-                if (n >= 0)
-                    return n >> s;
-                return (n >> s) + (2 << ~s);
             }
 
             public override bool Equals(object obj)
@@ -470,7 +463,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             /// </summary>
             public class Toffs : IComparable<Toffs>
             {
-                private int startOffset;
+                private readonly int startOffset; // LUCENENET: marked readonly
                 private int endOffset;
                 public Toffs(int startOffset, int endOffset)
                 {

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,43 +30,33 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_AdminPageUserAccess table.
+    ///     A class which represents the AdminPageUserAccess table.
     /// </summary>
     [Serializable]
-    public partial class AdminPageUserAccess : IEntity
+    [CompositePrimaryKey(nameof(UserID), nameof(PageName))]
+    public class AdminPageUserAccess : IEntity
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AdminPageUserAccess"/> class.
-        /// </summary>
-        public AdminPageUserAccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
         /// Gets or sets the user id.
         /// </summary>
         [Required]
+        [References(typeof(User))]
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the page name.
+        /// </summary>
         [Required]
         [StringLength(128)]
         public string PageName { get; set; }
 
-        #endregion
-
-        #region Methods
-
         /// <summary>
-        /// The on created.
+        /// Gets or sets a value indicating whether read access.
         /// </summary>
-        partial void OnCreated();
+        [Ignore]
+        public bool ReadAccess { get; set; }
 
         #endregion
     }

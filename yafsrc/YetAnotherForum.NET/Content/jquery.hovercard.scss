@@ -40,52 +40,6 @@
       cursor: hand;
     }
   }
-  .s-card-pad {
-    border-top: solid 1px #eee;
-    margin-top: 10px;
-    padding-top: 10px;
-    overflow: hidden;
-  }
-  .s-card .s-strong {
-    font-weight: bold;
-    color: #555;
-  }
-  .s-img {
-    float: left;
-    margin-right: 10px;
-    max-width: 70px;
-  }
-  .s-name {
-    color: #222;
-    font-weight: bold;
-    float: left;
-  }
-  .s-href {
-    clear: both;
-    float: left;
-  }
-  .s-username {
-    text-decoration: none;
-  }
-  .s-stats {
-    display: block;
-    float: left;
-    margin-top: 5px;
-    clear: both;
-    padding: 0;
-  }
-  ul.s-stats li {
-    list-style: none;
-    float: left;
-    display: block;
-    padding: 0px 10px !important;
-    margin: 0;
-    border-left: solid 1px #eaeaea;
-    &:first-child {
-      border: none;
-      padding-left: 0px !important;
-    }
-  }
 }
 
 .hc-pic {
@@ -129,7 +83,7 @@
   }
   .s-close {
     top: auto;
-    bottom: 11px;
+    bottom: 14px;
     right: 9px;
   }
   .s-card-pad {
@@ -139,21 +93,5 @@
     padding-top: 0;
     margin-bottom: 10px;
     padding-bottom: 10px;
-  }
-}
-
-.hc-details {
-  .s-loc, .s-rank {
-    float: left;
-  }
-  .s-desc, .s-interests, .s-joined {
-    float: left;
-    font-family: Georgia;
-    font-style: italic;
-    margin-top: 5px;
-    width: 100%;
-  }
-  .s-count, .s-posts, .s-points {
-    font-weight: bold;
   }
 }

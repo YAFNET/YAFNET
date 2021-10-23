@@ -59,15 +59,18 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board Id.
         /// </param>
-        public static void Save(
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool Save(
             this IRepository<BannedIP> repository,
-            int? id,
-            string mask,
-            string reason,
-            int userId,
-            int? boardId = null)
+            [CanBeNull] int? id,
+            [NotNull] string mask,
+            [NotNull] string reason,
+            [NotNull] int userId,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             if (id.HasValue)
             {
@@ -82,25 +85,27 @@ namespace YAF.Core.Model
                             Since = DateTime.Now
                         });
 
-                repository.FireUpdated(id.Value);
+                return true;
             }
-            else
-            {
-                var banned = repository.GetSingle(b => b.BoardID == repository.BoardID && b.Mask == mask);
 
-                if (banned == null)
-                {
-                    repository.Upsert(
-                        new BannedIP
-                            {
-                                BoardID = boardId ?? repository.BoardID,
-                                Mask = mask,
-                                Reason = reason,
-                                UserID = userId,
-                                Since = DateTime.Now
-                            });
-                }
+            if (repository.Exists(b => b.BoardID == repository.BoardID && b.Mask == mask))
+            {
+                return false;
             }
+
+            var newId = repository.Upsert(
+                new BannedIP
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    Mask = mask,
+                    Reason = reason,
+                    UserID = userId,
+                    Since = DateTime.Now
+                });
+
+            repository.FireNew(newId);
+
+            return true;
         }
 
         #endregion

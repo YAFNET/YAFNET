@@ -1,4 +1,4 @@
-using J2N.IO;
+﻿using J2N.IO;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.IO;
 using System;
@@ -113,16 +113,16 @@ namespace YAF.Lucene.Net.Store
             EnsureOpen();
             var path = new FileInfo(Path.Combine(Directory.FullName, name));
             var fc = new FileStream(path.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite | FileShare.Delete);
-            return new IndexInputSlicerAnonymousInnerClassHelper(context, path, fc);
+            return new IndexInputSlicerAnonymousClass(context, path, fc);
         }
 
-        private class IndexInputSlicerAnonymousInnerClassHelper : IndexInputSlicer
+        private class IndexInputSlicerAnonymousClass : IndexInputSlicer
         {
             private readonly IOContext context;
             private readonly FileInfo path;
             private readonly FileStream descriptor;
 
-            public IndexInputSlicerAnonymousInnerClassHelper(IOContext context, FileInfo path, FileStream descriptor)
+            public IndexInputSlicerAnonymousClass(IOContext context, FileInfo path, FileStream descriptor)
             {
                 this.context = context;
                 this.path = path;
@@ -150,9 +150,9 @@ namespace YAF.Lucene.Net.Store
                 {
                     return OpenSlice("full-slice", 0, descriptor.Length);
                 }
-                catch (IOException ex)
+                catch (Exception ex) when (ex.IsIOException())
                 {
-                    throw new Exception(ex.ToString(), ex);
+                    throw RuntimeException.Create(ex);
                 }
             }
         }
@@ -246,11 +246,11 @@ namespace YAF.Lucene.Net.Store
 
                 int readOffset = bb.Position;
                 int readLength = bb.Limit - readOffset;
-                long pos = GetFilePointer() + m_off;
+                long pos = Position + m_off; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                 if (pos + len > m_end)
                 {
-                    throw new EndOfStreamException("read past EOF: " + this);
+                    throw EOFException.Create("read past EOF: " + this);
                 }
 
                 try
@@ -263,7 +263,7 @@ namespace YAF.Lucene.Net.Store
                         int i = m_channel.Read(bb, pos);
                         if (i <= 0) // be defensive here, even though we checked before hand, something could have changed
                         {
-                            throw new Exception("read past EOF: " + this + " off: " + offset + " len: " + len + " pos: " + pos + " chunkLen: " + readLength + " end: " + m_end);
+                            throw EOFException.Create("read past EOF: " + this + " off: " + offset + " len: " + len + " pos: " + pos + " chunkLen: " + readLength + " end: " + m_end);
                         }
                         pos += i;
                         readOffset += i;
@@ -271,7 +271,7 @@ namespace YAF.Lucene.Net.Store
                     }
                     if (Debugging.AssertsEnabled) Debugging.Assert(readLength == 0);
                 }
-                catch (IOException ioe)
+                catch (Exception ioe) when (ioe.IsIOException())
                 {
                     throw new IOException(ioe.ToString() + ": " + this, ioe);
                 }

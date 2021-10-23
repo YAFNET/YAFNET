@@ -28,7 +28,7 @@ namespace YAF.Web.Editors
     using System;
     using System.Web.UI.HtmlControls;
 
-    using YAF.Core;
+    using YAF.Core.BaseModules;
     using YAF.Types;
 
     #endregion
@@ -89,12 +89,6 @@ namespace YAF.Web.Editors
         /// </value>
         public override bool AllowsUploads => false;
 
-        /// <summary>
-        ///   Gets the Safe ID.
-        /// </summary>
-        [NotNull]
-        protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
-
         #endregion
 
         #region Methods
@@ -117,7 +111,7 @@ namespace YAF.Web.Editors
             this.PreRender += this.Editor_PreRender;
 
             this.TextAreaControl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
-            this.TextAreaControl.Attributes.Add("class", "YafTextEditor form-control");
+            this.TextAreaControl.Attributes.Add("class", "form-control");
 
             this.AddEditorControl(this.TextAreaControl);
 

@@ -30,15 +30,17 @@ namespace YAF.Pages
     using System.Net.Mail;
     using System.Web;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models;
     using YAF.Web.Extensions;
 
     #endregion
@@ -66,7 +68,7 @@ namespace YAF.Pages
         ///   Gets UserID.
         /// </summary>
         public int UserId =>
-            Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #endregion
 
@@ -79,9 +81,9 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.User == null || !this.Get<BoardSettings>().AllowEmailSending)
+            if (this.User == null || !this.PageContext.BoardSettings.AllowEmailSending)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -89,33 +91,39 @@ namespace YAF.Pages
                 return;
             }
 
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
+
             // get user data...
-            var user = UserMembershipHelper.GetMembershipUserById(this.UserId);
+            var user = this.GetRepository<User>().GetById(this.UserId);
 
             if (user == null)
             {
                 // No such user exists
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
             else
             {
-                if (user.IsApproved == false)
+                if (!user.UserFlags.IsApproved)
                 {
-                    BuildLink.AccessDenied();
+                    this.Get<LinkBuilder>().AccessDenied();
                 }
 
-                var displayName = UserMembershipHelper.GetDisplayNameFromID(this.UserId);
-
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName,
-                    BuildLink.GetLink(
-                        ForumPages.Profile,
-                        "u={0}&name={1}",
-                        this.UserId,
-                        this.PageContext.BoardSettings.EnableDisplayName ? displayName : user.UserName));
+                this.PageLinks.AddUser(this.UserId, user.DisplayOrUserName());
                 this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+
+                this.LocalizedLabel6.Param0 = user.DisplayOrUserName();
+                this.IconHeader.Param0 = user.DisplayOrUserName();
             }
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
         }
 
         /// <summary>
@@ -128,18 +136,23 @@ namespace YAF.Pages
             try
             {
                 // get "to" user...
-                var toUser = UserMembershipHelper.GetMembershipUserById(this.UserId);
+                var toUser = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.UserId);
 
                 // send it...
-                this.Get<ISendMail>().Send(
-                    new MailAddress(this.PageContext.User.Email, this.PageContext.User.UserName),
+                this.Get<IMailService>().Send(
+                    new MailAddress(this.PageContext.MembershipUser.Email, this.PageContext.MembershipUser.UserName),
                     new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
                     new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),
                     this.Subject.Text.Trim(),
                     this.Body.Text.Trim());
 
                 // redirect to profile page...
-                BuildLink.Redirect(ForumPages.Profile, false, "u={0}", this.UserId);
+                this.Get<LinkBuilder>().Redirect(
+                    ForumPages.UserProfile,
+                    false,
+                    "u={0}&name={1}",
+                    this.UserId,
+                    this.Get<IUserDisplayName>().GetNameById(this.UserId));
             }
             catch (Exception x)
             {

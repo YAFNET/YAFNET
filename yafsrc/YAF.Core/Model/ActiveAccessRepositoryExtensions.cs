@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,14 +24,15 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
-    using System.Data.SqlClient;
 
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The active access repository extensions.
@@ -39,122 +40,6 @@ namespace YAF.Core.Model
     public static class ActiveAccessRepositoryExtensions
     {
         #region Public Methods and Operators
-
-        /// <summary>
-        /// The Page Load as Data Row
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="sessionID">
-        /// The session id.
-        /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="userKey">
-        /// The user key.
-        /// </param>
-        /// <param name="ip">
-        /// The IP Address.
-        /// </param>
-        /// <param name="location">
-        /// The location.
-        /// </param>
-        /// <param name="forumPage">
-        /// The forum page name.
-        /// </param>
-        /// <param name="browser">
-        /// The browser.
-        /// </param>
-        /// <param name="platform">
-        /// The platform.
-        /// </param>
-        /// <param name="categoryID">
-        /// The category id.
-        /// </param>
-        /// <param name="forumID">
-        /// The forum id.
-        /// </param>
-        /// <param name="topicID">
-        /// The topic id.
-        /// </param>
-        /// <param name="messageID">
-        /// The message id.
-        /// </param>
-        /// <param name="isCrawler">
-        /// The is Crawler.
-        /// </param>
-        /// <param name="isMobileDevice">
-        /// The browser is a mobile device.
-        /// </param>
-        /// <param name="dontTrack">
-        /// The don't track.
-        /// </param>
-        /// <returns>
-        /// Common User Info DataRow
-        /// </returns>
-        public static DataRow PageLoadAsDataRow(
-            this IRepository<ActiveAccess> repository,
-            [NotNull] object sessionID,
-            [NotNull] object boardId,
-            [NotNull] object userKey,
-            [NotNull] object ip,
-            [NotNull] object location,
-            [NotNull] object forumPage,
-            [NotNull] object browser,
-            [NotNull] object platform,
-            [NotNull] object categoryID,
-            [NotNull] object forumID,
-            [NotNull] object topicID,
-            [NotNull] object messageID,
-            [NotNull] object isCrawler,
-            [NotNull] object isMobileDevice,
-            [NotNull] object dontTrack)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            var tries = 0;
-            while (true)
-            {
-                try
-                {
-                   return repository.DbFunction.GetAsDataTable(
-                        cdb => cdb.pageload(
-                            SessionID: sessionID,
-                            BoardID: boardId ?? repository.BoardID,
-                            UserKey: userKey ?? DBNull.Value,
-                            IP: ip,
-                            Location: location,
-                            ForumPage: forumPage,
-                            Browser: browser,
-                            Platform: platform,
-                            CategoryID: categoryID,
-                            ForumID: forumID,
-                            TopicID: topicID,
-                            MessageID: messageID,
-                            IsCrawler: isCrawler,
-                            IsMobileDevice: isMobileDevice,
-                            DontTrack: dontTrack,
-                            UTCTIMESTAMP: DateTime.UtcNow)).GetFirstRow();
-                }
-                catch (SqlException x)
-                {
-                    if (x.Number == 1205 && tries < 3)
-                    {
-                        // Transaction (Process ID XXX) was deadlocked on lock resources with another process and has been chosen as the deadlock victim. Rerun the transaction.
-                    }
-                    else
-                    {
-                        throw new ApplicationException(
-                            $"Sql Exception with error number {x.Number} (Tries={tries})",
-                            x);
-                    }
-                }
-
-                ++tries;
-            }
-        }
 
         /// <summary>
         /// Sets the Page Access for the specified user
@@ -171,23 +56,77 @@ namespace YAF.Core.Model
         /// <param name="isGuest">
         /// The is guest.
         /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static DataTable PageAccessAsDataTable(
+        public static void InsertPageAccess(
             this IRepository<ActiveAccess> repository,
-            object boardId,
-            [NotNull] object userId,
-            [NotNull] object isGuest)
+            [CanBeNull] int? boardId,
+            [NotNull] int userId,
+            [NotNull] bool isGuest)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetAsDataTable(
-                cdb => cdb.pageaccess(
-                    BoardID: boardId ?? repository.BoardID,
-                    UserID: userId,
-                    IsGuest: isGuest,
-                    UTCTIMESTAMP: DateTime.UtcNow));
+            if (repository.Exists(x => x.UserID == userId))
+            {
+                return;
+            }
+
+            var access = BoardContext.Current.GetRepository<vaccess>().GetSingle(x => x.UserID == userId);
+
+            if (access != null)
+            {
+                repository.Insert(
+                    new ActiveAccess
+                    {
+                        UserID = userId,
+                        BoardID = boardId ?? repository.BoardID,
+                        ForumID = access.ForumID,
+                        IsAdmin = access.IsAdmin > 0,
+                        IsForumModerator = access.IsForumModerator > 0,
+                        IsModerator = access.IsModerator > 0,
+                        IsGuestX = isGuest,
+                        LastActive = DateTime.UtcNow,
+                        ReadAccess = access.ReadAccess > 0,
+                        PostAccess = access.PostAccess > 0,
+                        ReplyAccess = access.ReplyAccess > 0,
+                        PriorityAccess = access.PriorityAccess > 0,
+                        PollAccess = access.PollAccess > 0,
+                        VoteAccess = access.VoteAccess > 0,
+                        ModeratorAccess = access.ModeratorAccess > 0,
+                        EditAccess = access.EditAccess > 0,
+                        DeleteAccess = access.DeleteAccess > 0,
+                        UploadAccess = access.UploadAccess > 0,
+                        DownloadAccess = access.DownloadAccess > 0
+                    });
+            }
+        }
+
+        /// <summary>
+        /// Delete all old
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="activeTime">
+        /// The active Time.
+        /// </param>
+        public static void Delete(this IRepository<ActiveAccess> repository, [NotNull] int activeTime)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
+
+                    expression.Where(
+                        $@"{OrmLiteConfig.DialectProvider.DateDiffFunction(
+                                             "minute",
+                                             expression.Column<ActiveAccess>(x => x.LastActive, true),
+                                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} ");
+
+                    expression.And(x => x.IsGuestX == false);
+
+                    return db.Connection.Delete(expression);
+                });
         }
 
         #endregion

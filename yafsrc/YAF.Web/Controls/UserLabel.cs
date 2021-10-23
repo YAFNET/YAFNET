@@ -54,28 +54,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets or sets the OnClick value for the profile link
-        /// </summary>
-        [NotNull]
-        public string OnClick
-        {
-            get => this.ViewState["OnClick"] != null ? this.ViewState["OnClick"].ToString() : string.Empty;
-
-            set => this.ViewState["OnClick"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets The OnMouseOver value for the profile link
-        /// </summary>
-        [NotNull]
-        public string OnMouseOver
-        {
-            get => this.ViewState["OnMouseOver"] != null ? this.ViewState["OnMouseOver"].ToString() : string.Empty;
-
-            set => this.ViewState["OnMouseOver"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets The name of the user for this profile link
         /// </summary>
         [NotNull]
@@ -144,44 +122,42 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var displayName = this.ReplaceName.IsNotSet()
-                              ? this.Get<IUserDisplayName>().GetName(this.UserID)
-                              : this.ReplaceName;
+            var displayName = this.ReplaceName;
 
-            if (this.UserID == -1 || displayName.IsNotSet())
+            if (this.UserID == -1)
             {
                 return;
             }
 
-            output.BeginRender();
+            writer.BeginRender();
 
-            output.WriteBeginTag("span");
+            writer.WriteBeginTag("span");
 
-            this.RenderMainTagAttributes(output);
+            this.RenderMainTagAttributes(writer);
 
-            output.Write(HtmlTextWriter.TagRightChar);
+            writer.Write(HtmlTextWriter.TagRightChar);
 
             displayName = this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName;
 
-            output.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
+            writer.WriteEncodedText(this.CrawlerName.IsNotSet() ? displayName : this.CrawlerName);
 
-            output.WriteEndTag("span");
+            writer.WriteEndTag("span");
 
             if (this.PostfixText.IsSet())
             {
-                output.Write(this.PostfixText);
+                writer.Write(this.PostfixText);
             }
 
-            output.EndRender();
+            writer.EndRender();
         }
 
         /// <summary>
-        /// Renders "id", "style", "onclick", "onmouseover" and "class"
+        /// Renders "id", "style" and "class"
         /// </summary>
         /// <param name="output">
         /// The output.
@@ -190,27 +166,19 @@ namespace YAF.Web.Controls
         {
             if (this.ClientID.IsSet())
             {
-                output.WriteAttribute("id", this.ClientID);
+                output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
             }
 
-            if (this.Style.IsSet())
+            if (this.Style.IsSet() && this.PageContext.BoardSettings.UseStyledNicks)
             {
-                output.WriteAttribute("style", this.HtmlEncode(this.Style));
-            }
+                var style = this.Get<IStyleTransform>().Decode(this.Style);
 
-            if (this.OnClick.IsSet())
-            {
-                output.WriteAttribute("onclick", this.OnClick);
-            }
-
-            if (this.OnMouseOver.IsSet())
-            {
-                output.WriteAttribute("onmouseover", this.OnMouseOver);
+                output.WriteAttribute(HtmlTextWriterAttribute.Style.ToString(), this.HtmlEncode(style));
             }
 
             if (this.CssClass.IsSet())
             {
-                output.WriteAttribute("class", this.CssClass);
+                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), this.CssClass);
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using YAF.Lucene.Net.Util;
+﻿// Lucene version compatibility level 4.8.1
+using J2N.Text;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -133,9 +135,9 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                     }
                 }
             }
-            catch (ArgumentException e)
+            catch (Exception e) when (e.IsIllegalArgumentException())
             {
-                throw new Exception("Invalid synonym rule at line " + lineNumber, e);
+                throw new ParseException("Invalid synonym rule at line " + lineNumber, 0, e);
                 //ex.initCause(e);
                 //throw ex;
             }

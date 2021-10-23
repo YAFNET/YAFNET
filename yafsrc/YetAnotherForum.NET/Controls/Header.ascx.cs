@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,7 +27,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Web;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
@@ -35,11 +34,12 @@ namespace YAF.Controls
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Controls;
 
     #endregion
@@ -90,7 +90,7 @@ namespace YAF.Controls
                 return;
             }
 
-            BuildLink.Redirect(ForumPages.Search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
+            this.Get<LinkBuilder>().Redirect(ForumPages.Search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
         }
 
         /// <summary>
@@ -160,16 +160,16 @@ namespace YAF.Controls
             }
 
             var link = new ThemeButton
-                           {
-                               TitleLocalizedTag = linkToolTip,
-                               Type = ButtonAction.None,
-                               TitleLocalizedPage = "TOOLBAR",
-                               NavigateUrl = linkUrl,
-                               Text = icon.IsSet()
+            {
+                TitleLocalizedTag = linkToolTip,
+                Type = ButtonStyle.None,
+                TitleLocalizedPage = "TOOLBAR",
+                NavigateUrl = linkUrl,
+                Text = icon.IsSet()
                                           ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}"
                                           : linkText,
-                               CssClass = cssClass
-                           };
+                CssClass = cssClass
+            };
 
             if (noFollow)
             {
@@ -184,11 +184,11 @@ namespace YAF.Controls
                                                          ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}&nbsp;"
                                                          : $"{linkText}&nbsp;"));*/
 
-                var unreadLabel = new Label { CssClass = "badge badge-danger ml-1", ToolTip = unreadText, Text = unread };
+                var unreadLabel = new Label { CssClass = "badge bg-danger ms-1", ToolTip = unreadText, Text = unread };
 
-                unreadLabel.Attributes.Add("data-toggle", "tooltip");
+                unreadLabel.Attributes.Add("data-bs-toggle", "tooltip");
 
-                var unreadLabelText = new Label { CssClass = "sr-only", Text = unreadText };
+                var unreadLabelText = new Label { CssClass = "visually-hidden", Text = unreadText };
 
                 link.Controls.Add(unreadLabel);
 
@@ -211,16 +211,18 @@ namespace YAF.Controls
         /// </summary>
         private void RenderQuickSearch()
         {
-            if (!this.Get<BoardSettings>().ShowQuickSearch
-                || !this.Get<IPermissions>().Check(this.Get<BoardSettings>().SearchPermissions))
+            if (!this.PageContext.BoardSettings.ShowQuickSearch
+                || !this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
             {
                 return;
             }
 
             this.quickSearch.Visible = true;
 
-            this.searchInput.Attributes["onkeydown"] =
-                $"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{document.getElementById('{this.doQuickSearch.ClientID}').click();return false;}}}} else {{return true}}; ";
+            this.searchInput.Attributes.Add(
+                "onkeydown",
+                JavaScriptBlocks.ClickOnEnterJs(this.doQuickSearch.ClientID));
+
             this.searchInput.Attributes["onfocus"] =
                 $"if (this.value == '{this.GetText("TOOLBAR", "SEARCHKEYWORD")}') {{this.value = '';}}";
             this.searchInput.Attributes["onblur"] =
@@ -243,7 +245,7 @@ namespace YAF.Controls
             }
 
             // Host
-            if (this.PageContext.IsHostAdmin)
+            if (this.PageContext.User.UserFlags.IsHostAdmin)
             {
                 this.AdminModHolder.Visible = true;
                 this.HostMenuHolder.Visible = true;
@@ -259,28 +261,22 @@ namespace YAF.Controls
 
             // Admin
             RenderMenuItem(
-                this.menuAdminItems,
+                this.menuModerateItems,
                 "nav-link",
                 this.GetText("TOOLBAR", "MODERATE"),
                 "MODERATE_TITLE",
-                BuildLink.GetLink(ForumPages.Moderate_Index),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index),
                 false,
                 this.PageContext.ModeratePosts > 0,
                 this.PageContext.ModeratePosts.ToString(),
                 this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts),
                 this.PageContext.ForumPageType == ForumPages.Moderate_Index);
 
-            if (this.PageContext.ForumPageType == ForumPages.admin_hostsettings || this.PageContext.ForumPageType == ForumPages.admin_boards
-                                                                                || this.PageContext.ForumPageType == ForumPages.admin_editboard
-                                                                                || this.PageContext.ForumPageType == ForumPages.admin_pageaccessedit
-                                                                                || this.PageContext.ForumPageType == ForumPages.admin_pageaccesslist)
-            {
-                this.hostDropdown.CssClass = "nav-link dropdown-toggle active";
-            }
-            else
-            {
-                this.hostDropdown.CssClass = "nav-link dropdown-toggle";
-            }
+            this.hostDropdown.CssClass =
+                this.PageContext.ForumPageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
+                    ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList
+                    ? "nav-link dropdown-toggle active"
+                    : "nav-link dropdown-toggle";
         }
 
         /// <summary>
@@ -289,14 +285,14 @@ namespace YAF.Controls
         private void RenderMainHeaderMenu()
         {
             // Search
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().SearchPermissions))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "SEARCH"),
                     "SEARCH_TITLE",
-                    BuildLink.GetLink(ForumPages.Search),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Search),
                     false,
                     false,
                     null,
@@ -306,14 +302,14 @@ namespace YAF.Controls
             }
 
             // Members
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().MembersListViewPermissions))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "MEMBERS"),
                     "MEMBERS_TITLE",
-                    BuildLink.GetLink(ForumPages.Members),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Members),
                     false,
                     false,
                     null,
@@ -323,14 +319,14 @@ namespace YAF.Controls
             }
 
             // Team
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowTeamTo))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowTeamTo))
             {
                 RenderMenuItem(
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "TEAM"),
                     "TEAM_TITLE",
-                    BuildLink.GetLink(ForumPages.Team),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Team),
                     false,
                     false,
                     null,
@@ -340,14 +336,14 @@ namespace YAF.Controls
             }
 
             // Help
-            if (this.Get<IPermissions>().Check(this.Get<BoardSettings>().ShowHelpTo))
+            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
             {
                 RenderMenuItem(
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "HELP"),
                     "HELP_TITLE",
-                    BuildLink.GetLink(ForumPages.Help),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Help),
                     false,
                     false,
                     null,
@@ -364,12 +360,19 @@ namespace YAF.Controls
             // Login
             if (Config.AllowLoginAndLogoff)
             {
+                var navigateUrl = "javascript:void(0);";
+
+                if (this.PageContext.CurrentForumPage.IsAccountPage)
+                {
+                    navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
+                }
+
                 RenderMenuItem(
                     this.menuListItems,
-                    "nav-link  LoginLink",
+                    "nav-link LoginLink",
                     this.GetText("TOOLBAR", "LOGIN"),
                     "LOGIN_TITLE",
-                    "javascript:void(0);",
+                    navigateUrl,
                     true,
                     false,
                     null,
@@ -379,23 +382,22 @@ namespace YAF.Controls
             }
 
             // Register
-            if (!this.Get<BoardSettings>().DisableRegistrations)
+            if (!this.PageContext.BoardSettings.DisableRegistrations)
             {
                 RenderMenuItem(
                     this.menuListItems,
                     "nav-link",
                     this.GetText("TOOLBAR", "REGISTER"),
                     "REGISTER_TITLE",
-                    this.Get<BoardSettings>().ShowRulesForRegistration
-                        ? BuildLink.GetLink(ForumPages.Rules)
-                        : !this.Get<BoardSettings>().UseSSLToRegister
-                            ? BuildLink.GetLink(ForumPages.Register)
-                            : BuildLink.GetLink(ForumPages.Register, true).Replace("http:", "https:"),
+                    this.Get<LinkBuilder>().GetLink(
+                        this.PageContext.BoardSettings.ShowRulesForRegistration
+                            ? ForumPages.RulesAndPrivacy
+                            : ForumPages.Account_Register),
                     true,
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Register,
+                    this.PageContext.ForumPageType == ForumPages.Account_Register,
                     string.Empty);
             }
         }
@@ -429,13 +431,20 @@ namespace YAF.Controls
             {
                 if (Config.AllowLoginAndLogoff)
                 {
+                    var navigateUrl = "javascript:void(0);";
+
+                    if (this.PageContext.CurrentForumPage.IsAccountPage)
+                    {
+                        navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
+                    }
+
                     // show login
                     var loginLink = new HyperLink
-                                        {
-                                            Text = this.GetText("TOOLBAR", "LOGIN"),
-                                            ToolTip = this.GetText("TOOLBAR", "LOGIN"),
-                                            NavigateUrl = "javascript:void(0);",
-                                            CssClass = "alert-link LoginLink"
+                    {
+                        Text = this.GetText("TOOLBAR", "LOGIN"),
+                        ToolTip = this.GetText("TOOLBAR", "LOGIN"),
+                        NavigateUrl = navigateUrl,
+                        CssClass = "alert-link LoginLink"
                     };
 
                     this.GuestUserMessage.Controls.Add(loginLink);
@@ -443,7 +452,7 @@ namespace YAF.Controls
                     isLoginAllowed = true;
                 }
 
-                if (!this.Get<BoardSettings>().DisableRegistrations)
+                if (!this.PageContext.BoardSettings.DisableRegistrations)
                 {
                     if (isLoginAllowed)
                     {
@@ -452,19 +461,13 @@ namespace YAF.Controls
                     }
 
                     // show register link
-                    var registerLink = new HyperLink
-                                           {
-                                               Text = this.GetText("TOOLBAR", "REGISTER"),
-                                               NavigateUrl =
-                                                   this.Get<BoardSettings>().ShowRulesForRegistration
-                                                       ? BuildLink.GetLink(ForumPages.Rules)
-                                                       : !this.Get<BoardSettings>().UseSSLToRegister
-                                                           ? BuildLink.GetLink(ForumPages.Register)
-                                                           : BuildLink.GetLink(
-                                                               ForumPages.Register,
-                                                               true).Replace("http:", "https:"),
-                                               CssClass = "alert-link"
-                                           };
+                    var registerLink = new HyperLink {
+                        Text = this.GetText("TOOLBAR", "REGISTER"),
+                        NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
+                            ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
+                            : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
+                        CssClass = "alert-link"
+                    };
 
                     this.GuestUserMessage.Controls.Add(registerLink);
 
@@ -491,6 +494,6 @@ namespace YAF.Controls
             }
         }
 
-#endregion
+        #endregion
     }
 }

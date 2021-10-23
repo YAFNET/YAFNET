@@ -149,13 +149,13 @@ namespace YAF.Lucene.Net.Codecs
         {
             get
             {
-                if (postingsFormatFactory is IServiceListable)
+                if (postingsFormatFactory is IServiceListable serviceListable)
                 {
-                    return ((IServiceListable)postingsFormatFactory).AvailableServices;
+                    return serviceListable.AvailableServices;
                 }
                 else
                 {
-                    throw new NotSupportedException("The current PostingsFormat factory class does not implement IServiceListable.");
+                    throw UnsupportedOperationException.Create("The current PostingsFormat factory class does not implement IServiceListable.");
                 }
             }
         }

@@ -15,42 +15,6 @@ namespace YAF.Controls
     {
 
         /// <summary>
-        /// ltrTitleOnly control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltrTitleOnly;
-
-        /// <summary>
-        /// ltrTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal ltrTitle;
-
-        /// <summary>
-        /// EditAlbums control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton EditAlbums;
-
-        /// <summary>
-        /// PagerTop control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerTop;
-
-        /// <summary>
         /// AlbumImages control.
         /// </summary>
         /// <remarks>
@@ -60,12 +24,12 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Repeater AlbumImages;
 
         /// <summary>
-        /// PagerBottom control.
+        /// PagerTop control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.Pager PagerBottom;
+        protected global::YAF.Web.Controls.Pager PagerTop;
     }
 }

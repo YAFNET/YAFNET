@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// This is a <see cref="PhraseQuery"/> which is optimized for n-gram phrase query.

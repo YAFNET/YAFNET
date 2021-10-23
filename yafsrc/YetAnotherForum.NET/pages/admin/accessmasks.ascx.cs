@@ -29,14 +29,14 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -44,25 +44,25 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Access Masks Page.
     /// </summary>
-    public partial class accessmasks : AdminPage
+    public partial class AccessMasks : AdminPage
     {
         #region Methods
 
         /// <summary>
         /// The bit set.
         /// </summary>
-        /// <param name="_o">
-        /// The _o.
+        /// <param name="flag">
+        /// The flag.
         /// </param>
         /// <param name="bitmask">
         /// The bitmask.
         /// </param>
         /// <returns>
-        /// The bit set.
+        /// The <see cref="bool"/>.
         /// </returns>
-        protected bool BitSet([NotNull] object _o, int bitmask)
+        protected bool BitSet([NotNull] object flag, int bitmask)
         {
-            var i = (int)_o;
+            var i = (int)flag;
             return (i & bitmask) != 0;
         }
 
@@ -75,13 +75,10 @@ namespace YAF.Pages.Admin
             this.PageLinks.AddRoot();
 
             // administration index
-            this.PageLinks.AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_ACCESSMASKS", "TITLE"));
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_ACCESSMASKS", "TITLE")}";
         }
 
         /// <summary>
@@ -96,7 +93,7 @@ namespace YAF.Pages.Admin
         protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? "badge badge-success" : "badge badge-danger";
+            return enabled ? "badge bg-success" : "badge bg-danger";
         }
 
         /// <summary>
@@ -127,7 +124,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // redirect to editing page
-                    BuildLink.Redirect(ForumPages.admin_editaccessmask, "i={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditAccessMask, "i={0}", e.CommandArgument);
                     break;
                 case "delete":
 
@@ -146,8 +143,6 @@ namespace YAF.Pages.Admin
                     {
                         this.GetRepository<AccessMask>().DeleteById(maskId);
 
-                        // remove cache of forum moderators
-                        this.Get<IDataCache>().Remove(Constants.Cache.ForumModerators);
                         this.BindData();
                     }
 
@@ -164,7 +159,7 @@ namespace YAF.Pages.Admin
         protected void NewClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             // redirect to page for access mask creation
-            BuildLink.Redirect(ForumPages.admin_editaccessmask);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditAccessMask);
         }
 
         /// <summary>

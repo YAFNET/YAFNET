@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,23 +27,23 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects;
+    using YAF.Types.Objects.Model;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -57,7 +57,7 @@ namespace YAF.Controls
         /// <summary>
         /// The Data Source
         /// </summary>
-        private IEnumerable dataSource;
+        private Tuple<List<SimpleModerator>, List<ForumRead>> dataSource;
 
         #endregion
 
@@ -66,94 +66,19 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets DataSource.
         /// </summary>
-        public IEnumerable DataSource
+        public Tuple<List<SimpleModerator>, List<ForumRead>> DataSource
         {
             get => this.dataSource;
 
             set
             {
                 this.dataSource = value;
-                DataRow[] arr;
-                var t = this.dataSource.GetType();
-                var dataRows = new List<DataRow>();
-                var parents = new List<int>();
-                if (t.Name == "DataRowCollection")
-                {
-                    arr = new DataRow[((DataRowCollection)this.dataSource).Count];
-                    ((DataRowCollection)this.dataSource).CopyTo(arr, 0);
 
-                    arr.ForEach(
-                        t1 =>
-                            {
-                                // these are all sub forums related to start page forums
-                                if (!t1["ParentID"].IsNullOrEmptyDBField())
-                                {
-                                    if (this.SubDataSource == null)
-                                    {
-                                        this.SubDataSource = t1.Table.Clone();
-                                    }
-
-                                    var newRow = this.SubDataSource.NewRow();
-                                    newRow.ItemArray = t1.ItemArray;
-
-                                    parents.Add(newRow["ForumID"].ToType<int>());
-
-                                    if (parents.Contains(newRow["ParentID"].ToType<int>()))
-                                    {
-                                        this.SubDataSource.Rows.Add(newRow);
-                                    }
-                                    else
-                                    {
-                                        dataRows.Add(t1);
-                                    }
-                                }
-                                else
-                                {
-                                    dataRows.Add(t1);
-                                }
-                            });
-                }
-                else
-                {
-                    arr = (DataRow[])this.dataSource;
-
-                    arr.ForEach(
-                        t1 =>
-                            {
-                                if (!t1["ParentID"].IsNullOrEmptyDBField())
-                                {
-                                    if (this.SubDataSource == null)
-                                    {
-                                        this.SubDataSource = t1.Table.Clone();
-                                    }
-
-                                    var newRow = this.SubDataSource.NewRow();
-                                    newRow.ItemArray = t1.ItemArray;
-
-                                    this.SubDataSource.Rows.Add(newRow);
-                                }
-                                else
-                                {
-                                    dataRows.Add(t1);
-                                }
-                            });
-                }
-
-                this.SubDataSource?.AcceptChanges();
-
-                this.dataSource = dataRows;
-
-                this.ForumList1.DataSource = this.dataSource;
+                this.ForumList1.DataSource = this.PageContext.PageForumID > 0
+                    ? this.dataSource.Item2
+                    : this.dataSource.Item2.Where(x => !x.ParentID.HasValue);
             }
         }
-
-        /// <summary>
-        /// Gets or sets the sub data source.
-        /// </summary>
-        /// <value>
-        /// The sub data source.
-        /// </value>
-        private DataTable SubDataSource { get; set; }
 
         #endregion
 
@@ -164,28 +89,28 @@ namespace YAF.Controls
         ///   Automatically disables the link if the current user doesn't
         ///   have proper permissions.
         /// </summary>
-        /// <param name="row">
-        /// Current data row
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// Forum link text
         /// </returns>
-        public string GetForumLink([NotNull] DataRow row)
+        public string GetForumLink([NotNull] ForumRead item)
         {
-            var forumID = row["ForumID"].ToType<int>();
+            var forumID = item.ForumID;
 
             // get the Forum Description
-            var output = row["Forum"].ToString();
+            var output = item.Forum;
 
-            if (row["ReadAccess"].ToType<int>() > 0)
+            if (item.ReadAccess)
             {
-                var title = row["Description"].ToString().IsSet()
-                                ? row["Description"].ToString()
+                var title = item.Description.IsSet()
+                                ? item.Description
                                 : this.GetText("COMMON", "VIEW_FORUM");
 
-                output = !row["RemoteURL"].IsNullOrEmptyDBField()
-                             ? $"<a href=\"{row["RemoteURL"]}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
-                             : $"<a href=\"{BuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" data-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
+                output = item.RemoteURL.IsSet()
+                             ? $"<a href=\"{item.RemoteURL}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" target=\"_blank\">{this.Page.HtmlEncode(output)}&nbsp;<i class=\"fas fa-external-link-alt fa-fw\"></i></a>"
+                             : $"<a href=\"{this.Get<LinkBuilder>().GetForumLink(forumID, output)}\" data-bs-toggle=\"tooltip\" title=\"{title}\">{this.Page.HtmlEncode(output)}</a>";
             }
             else
             {
@@ -212,53 +137,63 @@ namespace YAF.Controls
                 return;
             }
 
-            var row = (DataRow)e.Item.DataItem;
-            var flags = new ForumFlags(row["Flags"]);
+            var item = (ForumRead)e.Item.DataItem;
+            var flags = new ForumFlags(item.Flags);
 
             var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                row["ForumID"].ToType<int>(),
-                row["LastTopicID"].ToType<int>(),
-                row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime(),
-                row["LastTopicAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
+                item.ForumID,
+                item.LastTopicID,
+                item.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                item.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-            var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
+            var lastPosted = item.LastPosted ?? lastRead;
 
-            if (row["ImageUrl"].ToString().IsNotSet())
+            if (item.ImageURL.IsNotSet())
             {
                 var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
 
+                var forumIconNew = new Icon { IconName = "comments", IconSize = "fa-2x", IconType = "text-success" };
+                var forumIconNormal =
+                    new Icon { IconName = "comments", IconSize = "fa-2x", IconType = "text-secondary" };
+                var forumIconLocked = new Icon
+                {
+                    IconName = "comments",
+                    IconStackName = "lock",
+                    IconStackType = "text-warning",
+                    IconStackSize = "fa-1x",
+                    IconType = "text-secondary"
+                };
+
                 var icon = new Literal
-                               {
-                                   Text =
-                                       @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
-                                                      <i class=""fas fa-comments fa-1x text-success""></i>
+                {
+                    Text =
+                                       $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
+                                                      {forumIconNew.RenderToString()}
                                                   </a>"
-                               };
+                };
 
                 try
                 {
                     if (flags.IsLocked)
                     {
                         icon.Text =
-                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
-                                   <span class=""fa-stack"">
-                                       <i class=""fas fa-comments fa-stack-2x text-secondary""></i>
-                                       <i class=""fas fa-lock fa-stack-1x text-warning"" style=""position:absolute; bottom:0px !important;text-align:right;line-height: 1em;""></i>
-                                   </span></a>";
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
+                                   {forumIconLocked}
+                               </a>";
                     }
-                    else if (lastPosted > lastRead && row.Field<int>("ReadAccess") > 0)
+                    else if (lastPosted > lastRead && item.ReadAccess)
                     {
                         icon.Text =
-                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
-                                   <span class=""fa-stack""><i class=""fas fa-comments fa-2x text-success""></i></span>
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
+                                    {forumIconNew.RenderToString()}
                                </a>";
                     }
                     else
                     {
                         icon.Text =
-                            @"<a tabindex=""0"" class=""forum-icon-legend-popvover"" role=""button"" data-toggle=""popover"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
                                   <span class=""fa-stack"">
-                                      <i class=""fas fa-comments fa-2x text-secondary""></i>
+                                       {forumIconNormal.RenderToString()}
                                   </span>
                               </a>";
                     }
@@ -274,7 +209,7 @@ namespace YAF.Controls
                 if (forumImage != null)
                 {
                     forumImage.ImageUrl =
-                        $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Forums}/{row["ImageUrl"]}";
+                        $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Forums}/{item.ImageURL}";
 
                     // Highlight custom icon images and add tool tips to them. 
                     try
@@ -307,26 +242,26 @@ namespace YAF.Controls
                 }
             }
 
-            if (!this.Get<BoardSettings>().ShowModeratorList)
+            if (!this.PageContext.BoardSettings.ShowModeratorList)
             {
                 return;
             }
 
-            if (!row["RemoteURL"].IsNullOrEmptyDBField())
+            if (item.RemoteURL.IsSet())
             {
                 return;
             }
 
             var modList = e.Item.FindControlAs<ForumModeratorList>("ForumModeratorListMob");
 
-            var dra = row.GetChildRows("FK_Moderator_Forum");
+            var mods = this.DataSource.Item1.Where(x => x.ForumID == item.ForumID).ToList();
 
-            if (dra.GetLength(0) <= 0)
+            if (!mods.Any())
             {
                 return;
             }
 
-            modList.DataSource = dra;
+            modList.DataSource = mods;
             modList.Visible = true;
             modList.DataBind();
         }
@@ -334,71 +269,51 @@ namespace YAF.Controls
         /// <summary>
         /// Gets the moderated.
         /// </summary>
-        /// <param name="row">The Data row.</param>
+        /// <param name="item">
+        /// The item.
+        /// </param>
         /// <returns>
         /// The get moderated.
         /// </returns>
-        protected bool GetModerated([NotNull] object row)
+        protected bool GetModerated([NotNull] ForumRead item)
         {
-            return ((DataRow)row)["Flags"].BinaryAnd(ForumFlags.Flags.IsModerated);
-        }
-
-        // Suppress rendering of footer if there is one or more 
-
-        /// <summary>
-        /// Gets the moderators footer.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <returns>
-        /// The get moderators footer.
-        /// </returns>
-        [NotNull]
-        protected string GetModeratorsFooter([NotNull] Repeater sender)
-        {
-            if (sender.DataSource is DataRow[] rows && rows.Length < 1)
-            {
-                return "-";
-            }
-
-            return string.Empty;
+            return item.ForumFlags.IsModerated;
         }
 
         /// <summary>
         /// Gets the sub Forums.
         /// </summary>
-        /// <param name="row">The row.</param>
-        /// <returns>Returns the Sub Forums</returns>
-        protected IEnumerable GetSubForums([NotNull] DataRow row)
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Returns the Sub Forums
+        /// </returns>
+        protected IEnumerable<ForumRead> GetSubForums([NotNull] ForumRead item)
         {
-            if (!this.HasSubForums(row))
+            if (!this.HasSubForums(item))
             {
                 return null;
             }
 
-            var arrayList = new ArrayList();
+            var subForums = this.DataSource;
 
-            this.SubDataSource.Rows.Cast<DataRow>()
-                .Where(dataRow => row.Field<int>("ForumID") == dataRow.Field<int>("ParentID"))
-                .Where(subRow => arrayList.Count < this.Get<BoardSettings>().SubForumsInForumList)
-                .ForEach(value => arrayList.Add(value));
-
-            this.SubDataSource.AcceptChanges();
-
-            return arrayList;
+            return subForums.Item2.Where(forum => forum.ParentID == item.ForumID)
+                .Take(this.PageContext.BoardSettings.SubForumsInForumList);
         }
 
         /// <summary>
         /// Gets the viewing.
         /// </summary>
-        /// <param name="row">
-        /// The row.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// The get viewing.
         /// </returns>
-        protected string GetViewing([NotNull] DataRow row)
+        protected string GetViewing([NotNull] ForumRead item)
         {
-            var viewing = row.Field<int>("Viewing");
+            var viewing = item.Viewing;
 
             return viewing > 0
                        ? $"<i class=\"far fa-eye\" title=\"{this.GetTextFormatted("VIEWING", viewing)}\"></i> {viewing}"
@@ -408,14 +323,15 @@ namespace YAF.Controls
         /// <summary>
         /// Determines whether the specified row has sub forums.
         /// </summary>
-        /// <param name="row">The row.</param>
+        /// <param name="item">
+        /// The item.
+        /// </param>
         /// <returns>
         /// The has sub forums.
         /// </returns>
-        protected bool HasSubForums([NotNull] DataRow row)
+        protected bool HasSubForums([NotNull] ForumRead item)
         {
-            return this.SubDataSource != null && this.SubDataSource.Rows.Cast<DataRow>().Any(
-                       dataRow => row.Field<int>("ForumID") == dataRow.Field<int>("ParentID"));
+            return this.DataSource.Item2.Any(forum => forum.ParentID == item.ForumID);
         }
 
         /// <summary>
@@ -442,29 +358,29 @@ namespace YAF.Controls
         /// <summary>
         /// Gets the Posts string
         /// </summary>
-        /// <param name="row">
-        /// The row.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// Returns the Posts string
         /// </returns>
-        protected string Posts([NotNull] DataRow row)
+        protected string Posts([NotNull] ForumRead item)
         {
-            return row["RemoteURL"].IsNullOrEmptyDBField() ? $"{row["Posts"]:N0}" : "-";
+            return item.RemoteURL.IsNotSet() ? $"{item.Posts:N0}" : "-";
         }
 
         /// <summary>
         /// Gets the Topics string
         /// </summary>
-        /// <param name="row">
-        /// The row.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// Returns the Topics string
         /// </returns>
-        protected string Topics([NotNull] DataRow row)
+        protected string Topics([NotNull] ForumRead item)
         {
-            return row["RemoteURL"].IsNullOrEmptyDBField()  ? $"{row["Topics"]:N0}" : "-";
+            return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
         }
 
         #endregion

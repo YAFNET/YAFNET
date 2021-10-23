@@ -1,5 +1,7 @@
-﻿using J2N;
+﻿// Lucene version compatibility level 4.10.4
+using J2N;
 using J2N.Collections.Generic.Extensions;
+using J2N.Numerics;
 using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
@@ -15,6 +17,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using JCG = J2N.Collections.Generic;
+using Integer = J2N.Numerics.Int32;
 
 namespace YAF.Lucene.Net.Analysis.Hunspell
 {
@@ -41,9 +44,10 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
     /// </summary>
     public class Dictionary
     {
-        private static readonly char[] NOFLAGS = new char[0];
+        private static readonly char[] NOFLAGS = Arrays.Empty<char>();
 
         private const string ALIAS_KEY = "AF";
+        private const string MORPH_ALIAS_KEY = "AM";
         private const string PREFIX_KEY = "PFX";
         private const string SUFFIX_KEY = "SFX";
         private const string FLAG_KEY = "FLAG";
@@ -52,6 +56,12 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         private const string IGNORE_KEY = "IGNORE";
         private const string ICONV_KEY = "ICONV";
         private const string OCONV_KEY = "OCONV";
+        private const string FULLSTRIP_KEY = "FULLSTRIP";
+        private const string LANG_KEY = "LANG";
+        private const string KEEPCASE_KEY = "KEEPCASE";
+        private const string NEEDAFFIX_KEY = "NEEDAFFIX";
+        private const string PSEUDOROOT_KEY = "PSEUDOROOT";
+        private const string ONLYINCOMPOUND_KEY = "ONLYINCOMPOUND";
 
         private const string NUM_FLAG_TYPE = "num";
         private const string UTF8_FLAG_TYPE = "UTF-8";
@@ -85,8 +95,20 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
         private FlagParsingStrategy flagParsingStrategy = new SimpleFlagParsingStrategy(); // Default flag parsing strategy
 
+        // AF entries
         private string[] aliases;
         private int aliasCount = 0;
+
+        // AM entries
+        private string[] morphAliases;
+        private int morphAliasCount = 0;
+
+        // st: morphological entries (either directly, or aliased from AM)
+        private string[] stemExceptions = new string[8];
+        private int stemExceptionCount = 0;
+        // we set this during sorting, so we know to add an extra FST output.
+        // when set, some words have exceptional stems, and the last entry is a pointer to stemExceptions
+        internal bool hasStemExceptions;
 
         private readonly DirectoryInfo tempDir = OfflineSorter.DefaultTempDir(); // TODO: make this configurable?
 
@@ -95,6 +117,9 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         internal bool twoStageAffix; // if no affixes have continuation classes, no need to do 2-level affix stripping
 
         internal int circumfix = -1; // circumfix flag, or -1 if one is not defined
+        internal int keepcase = -1;  // keepcase flag, or -1 if one is not defined
+        internal int needaffix = -1; // needaffix flag, or -1 if one is not defined
+        internal int onlyincompound = -1; // onlyincompound flag, or -1 if one is not defined
 
         // ignored characters (dictionary, affix, inputs)
         private char[] ignore;
@@ -105,6 +130,14 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
         internal bool needsInputCleaning;
         internal bool needsOutputCleaning;
+
+        // true if we can strip suffixes "down to nothing"
+        internal bool fullStrip;
+
+        // language declaration of the dictionary
+        internal string language;
+        // true if case algorithms should use alternate (Turkish/Azeri) mapping
+        internal bool alternateCasing;
 
         // LUCENENET: Added so we can get better performance than creating the regex in every tight loop.
         private static readonly Regex whitespacePattern = new Regex("\\s+", RegexOptions.Compiled);
@@ -142,58 +175,56 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             flagLookup.Add(new BytesRef()); // no flags -> ord 0
 
             FileInfo aff = FileSupport.CreateTempFile("affix", "aff", tempDir);
-            using (Stream @out = aff.Open(FileMode.Open, FileAccess.ReadWrite))
-            {
-                // copy contents of affix stream to temp file
-                affix.CopyTo(@out);
-            }
-
-            // pass 1: get encoding
-            string encoding;
-            using (Stream aff1 = aff.Open(FileMode.Open, FileAccess.Read))
-            {
-                encoding = GetDictionaryEncoding(aff1);
-            }
-
-            // pass 2: parse affixes
-            Encoding decoder = GetSystemEncoding(encoding);
-            using (Stream aff2 = aff.Open(FileMode.Open, FileAccess.Read))
-            {
-                ReadAffixFile(aff2, decoder);
-            }
-
-            // read dictionary entries
-            Int32SequenceOutputs o = Int32SequenceOutputs.Singleton;
-            Builder<Int32sRef> b = new Builder<Int32sRef>(FST.INPUT_TYPE.BYTE4, o);
-            ReadDictionaryFiles(dictionaries, decoder, b);
-            words = b.Finish();
-            aliases = null; // no longer needed
-
             try
             {
-                aff.Delete();
+                using (Stream @out = aff.Open(FileMode.Open, FileAccess.ReadWrite))
+                {
+                    // copy contents of affix stream to temp file
+                    affix.CopyTo(@out);
+                }
+
+                // pass 1: get encoding
+                string encoding;
+                using (Stream aff1 = aff.Open(FileMode.Open, FileAccess.Read))
+                {
+                    encoding = GetDictionaryEncoding(aff1);
+                }
+
+                // pass 2: parse affixes
+                Encoding decoder = GetSystemEncoding(encoding);
+                using (Stream aff2 = aff.Open(FileMode.Open, FileAccess.Read))
+                {
+                    ReadAffixFile(aff2, decoder);
+                }
+
+                // read dictionary entries
+                Int32SequenceOutputs o = Int32SequenceOutputs.Singleton;
+                Builder<Int32sRef> b = new Builder<Int32sRef>(FST.INPUT_TYPE.BYTE4, o);
+                ReadDictionaryFiles(dictionaries, decoder, b);
+                words = b.Finish();
+                aliases = null; // no longer needed
+                morphAliases = null; // no longer needed
             }
-            catch
+            finally
             {
-                // ignore
+                try
+                {
+                    aff.Delete();
+                }
+                catch
+                {
+                    // ignore
+                }
             }
         }
 
-        /// <summary>
-        /// Looks up Hunspell word forms from the dictionary
-        /// </summary>
+        // only for testing
         internal virtual Int32sRef LookupWord(char[] word, int offset, int length)
         {
             return Lookup(words, word, offset, length);
         }
 
-        /// <summary>
-        /// Looks up HunspellAffix prefixes that have an append that matches the <see cref="string"/> created from the given <see cref="char"/> array, offset and length
-        /// </summary>
-        /// <param name="word"> <see cref="char"/> array to generate the <see cref="string"/> from </param>
-        /// <param name="offset"> Offset in the <see cref="char"/> array that the <see cref="string"/> starts at </param>
-        /// <param name="length"> Length from the offset that the <see cref="string"/> is </param>
-        /// <returns> List of HunspellAffix prefixes with an append that matches the <see cref="string"/>, or <c>null</c> if none are found </returns>
+        // only for testing
         internal virtual Int32sRef LookupPrefix(char[] word, int offset, int length)
         {
             return Lookup(prefixes, word, offset, length);
@@ -211,8 +242,6 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             return Lookup(suffixes, word, offset, length);
         }
 
-        // TODO: this is pretty stupid, considering how the stemming algorithm works
-        // we can speed it up to be significantly faster!
         internal virtual Int32sRef Lookup(FST<Int32sRef> fst, char[] word, int offset, int length)
         {
             if (fst == null)
@@ -253,9 +282,9 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     return output;
                 }
             }
-            catch (IOException bogus)
+            catch (Exception bogus) when (bogus.IsIOException())
             {
-                throw new Exception(bogus.Message, bogus);
+                throw RuntimeException.Create(bogus);
             }
         }
 
@@ -267,12 +296,13 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// <exception cref="IOException"> Can be thrown while reading from the InputStream </exception>
         private void ReadAffixFile(Stream affixStream, Encoding decoder)
         {
-            JCG.SortedDictionary<string, IList<char?>> prefixes = new JCG.SortedDictionary<string, IList<char?>>(StringComparer.Ordinal);
-            JCG.SortedDictionary<string, IList<char?>> suffixes = new JCG.SortedDictionary<string, IList<char?>>(StringComparer.Ordinal);
-            IDictionary<string, int?> seenPatterns = new JCG.Dictionary<string, int?>();
-
-            // zero condition -> 0 ord
-            seenPatterns[".*"] = 0;
+            var prefixes = new JCG.SortedDictionary<string, IList<int>>(StringComparer.Ordinal);
+            var suffixes = new JCG.SortedDictionary<string, IList<int>>(StringComparer.Ordinal);
+            IDictionary<string, int?> seenPatterns = new JCG.Dictionary<string, int?>
+            {
+                // zero condition -> 0 ord
+                [".*"] = 0
+            };
             patterns.Add(null);
 
             // zero strip -> 0 ord
@@ -282,7 +312,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             };
 
             var reader = new StreamReader(affixStream, decoder);
-            string line = null;
+            string line; // LUCENENET: Removed unnecessary null assignment
             int lineNumber = 0;
             while ((line = reader.ReadLine()) != null)
             {
@@ -295,6 +325,10 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 if (line.StartsWith(ALIAS_KEY, StringComparison.Ordinal))
                 {
                     ParseAlias(line);
+                }
+                else if (line.StartsWith(MORPH_ALIAS_KEY, StringComparison.Ordinal))
+                {
+                    ParseMorphAlias(line);
                 }
                 else if (line.StartsWith(PREFIX_KEY, StringComparison.Ordinal))
                 {
@@ -319,16 +353,43 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     string[] parts = whitespacePattern.Split(line).TrimEnd();
                     if (parts.Length != 2)
                     {
-                        throw new Exception(string.Format("Illegal CIRCUMFIX declaration, line {0}", lineNumber));
+                        throw new ParseException("Illegal CIRCUMFIX declaration", lineNumber);
                     }
                     circumfix = flagParsingStrategy.ParseFlag(parts[1]);
+                }
+                else if (line.StartsWith(KEEPCASE_KEY, StringComparison.Ordinal))
+                {
+                    string[] parts = whitespacePattern.Split(line).TrimEnd();
+                    if (parts.Length != 2)
+                    {
+                        throw new ParseException("Illegal KEEPCASE declaration", lineNumber);
+                    }
+                    keepcase = flagParsingStrategy.ParseFlag(parts[1]);
+                }
+                else if (line.StartsWith(NEEDAFFIX_KEY, StringComparison.Ordinal) || line.StartsWith(PSEUDOROOT_KEY, StringComparison.Ordinal))
+                {
+                    string[] parts = whitespacePattern.Split(line).TrimEnd();
+                    if (parts.Length != 2)
+                    {
+                        throw new ParseException("Illegal NEEDAFFIX declaration", lineNumber);
+                    }
+                    needaffix = flagParsingStrategy.ParseFlag(parts[1]);
+                }
+                else if (line.StartsWith(ONLYINCOMPOUND_KEY, StringComparison.Ordinal))
+                {
+                    string[] parts = whitespacePattern.Split(line).TrimEnd();
+                    if (parts.Length != 2)
+                    {
+                        throw new ParseException("Illegal ONLYINCOMPOUND declaration", lineNumber);
+                    }
+                    onlyincompound = flagParsingStrategy.ParseFlag(parts[1]);
                 }
                 else if (line.StartsWith(IGNORE_KEY, StringComparison.Ordinal))
                 {
                     string[] parts = whitespacePattern.Split(line).TrimEnd();
                     if (parts.Length != 2)
                     {
-                        throw new Exception(string.Format("Illegal IGNORE declaration, line {0}", lineNumber));
+                        throw new ParseException("Illegal IGNORE declaration", lineNumber);
                     }
                     ignore = parts[1].ToCharArray();
                     Array.Sort(ignore);
@@ -340,10 +401,10 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     string type = parts[0];
                     if (parts.Length != 2)
                     {
-                        throw new Exception(string.Format("Illegal {0} declaration, line {1}", type, lineNumber));
+                        throw new ParseException(string.Format("Illegal {0} declaration", type), lineNumber);
                     }
-                    int num = int.Parse(parts[1], CultureInfo.InvariantCulture);
-                    FST<CharsRef> res = ParseConversions(reader, num);
+                    int num = Integer.Parse(parts[1], radix: 10); // LUCENENET: specify radix 10 to make this culture invariant
+                    FST<CharsRef> res = ParseConversions(reader, num, lineNumber); // LUCENENET: Pass linenumber so we can throw it
                     if (type.Equals("ICONV", StringComparison.Ordinal))
                     {
                         iconv = res;
@@ -354,6 +415,15 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                         oconv = res;
                         needsOutputCleaning |= oconv != null;
                     }
+                }
+                else if (line.StartsWith(FULLSTRIP_KEY, StringComparison.Ordinal))
+                {
+                    fullStrip = true;
+                }
+                else if (line.StartsWith(LANG_KEY, StringComparison.Ordinal))
+                {
+                    language = line.Substring(LANG_KEY.Length).Trim();
+                    alternateCasing = "tr_TR".Equals(language, StringComparison.Ordinal) || "az_AZ".Equals(language, StringComparison.Ordinal);
                 }
             }
 
@@ -379,24 +449,49 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             stripOffsets[currentIndex] = currentOffset;
         }
 
-        private FST<Int32sRef> AffixFST(JCG.SortedDictionary<string, IList<char?>> affixes)
+        private FST<Int32sRef> AffixFST(JCG.SortedDictionary<string, IList<int>> affixes)
         {
             Int32SequenceOutputs outputs = Int32SequenceOutputs.Singleton;
             Builder<Int32sRef> builder = new Builder<Int32sRef>(FST.INPUT_TYPE.BYTE4, outputs);
 
             Int32sRef scratch = new Int32sRef();
-            foreach (KeyValuePair<string, IList<char?>> entry in affixes)
+            foreach (KeyValuePair<string, IList<int>> entry in affixes)
             {
                 Lucene.Net.Util.Fst.Util.ToUTF32(entry.Key, scratch);
-                IList<char?> entries = entry.Value;
+                IList<int> entries = entry.Value;
                 Int32sRef output = new Int32sRef(entries.Count);
-                foreach (char? c in entries)
+                foreach (int c in entries)
                 {
-                    output.Int32s[output.Length++] = c.HasValue ? c.Value : 0;
+                    output.Int32s[output.Length++] = c;
                 }
                 builder.Add(scratch, output);
             }
             return builder.Finish();
+        }
+
+        internal static string EscapeDash(string re)
+        {
+            // we have to be careful, even though dash doesn't have a special meaning,
+            // some dictionaries already escape it (e.g. pt_PT), so we don't want to nullify it
+            StringBuilder escaped = new StringBuilder();
+            for (int i = 0; i < re.Length; i++)
+            {
+                char c = re[i];
+                if (c == '-')
+                {
+                    escaped.Append("\\-");
+                }
+                else
+                {
+                    escaped.Append(c);
+                    if (c == '\\' && i + 1 < re.Length)
+                    {
+                        escaped.Append(re[i + 1]);
+                        i++;
+                    }
+                }
+            }
+            return escaped.ToString();
         }
 
         /// <summary>
@@ -410,15 +505,21 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// <param name="seenPatterns"> map from condition -> index of patterns, for deduplication. </param>
         /// <param name="seenStrips"></param>
         /// <exception cref="IOException"> Can be thrown while reading the rule </exception>
-        private void ParseAffix(JCG.SortedDictionary<string, IList<char?>> affixes, string header, TextReader reader, string conditionPattern, IDictionary<string, int?> seenPatterns, IDictionary<string, int?> seenStrips)
+        private void ParseAffix(JCG.SortedDictionary<string, IList<int>> affixes,
+                    string header,
+                    TextReader reader,
+                    string conditionPattern,
+                    IDictionary<string, int?> seenPatterns,
+                    IDictionary<string, int?> seenStrips)
         {
             BytesRef scratch = new BytesRef();
             StringBuilder sb = new StringBuilder();
             string[] args = whitespacePattern.Split(header).TrimEnd();
 
             bool crossProduct = args[2].Equals("Y", StringComparison.Ordinal);
+            bool isSuffix = conditionPattern == SUFFIX_CONDITION_REGEX_PATTERN;
 
-            int numLines = int.Parse(args[3], CultureInfo.InvariantCulture);
+            int numLines = Integer.Parse(args[3], radix: 10); // LUCENENET: specify radix 10 to make this culture invariant
             affixData = ArrayUtil.Grow(affixData, (currentAffix << 3) + (numLines << 3));
             ByteArrayDataOutput affixWriter = new ByteArrayDataOutput(affixData, currentAffix << 3, numLines << 3);
 
@@ -432,7 +533,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 // condition is optional
                 if (ruleArgs.Length < 4)
                 {
-                    throw new Exception("The affix file contains a rule with less than four elements: " + line /*, reader.LineNumber */);// LUCENENET TODO: LineNumberReader
+                    throw new ParseException("The affix file contains a rule with less than four elements: " + line, 0  /*, reader.LineNumber */);// LUCENENET TODO: LineNumberReader
                 }
 
                 char flag = flagParsingStrategy.ParseFlag(ruleArgs[1]);
@@ -440,6 +541,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 string affixArg = ruleArgs[3];
                 char[] appendFlags = null;
 
+                // first: parse continuation classes out of affix
                 int flagSep = affixArg.LastIndexOf('/');
                 if (flagSep != -1)
                 {
@@ -448,26 +550,29 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
                     if (aliasCount > 0)
                     {
-                        flagPart = GetAliasValue(int.Parse(flagPart, CultureInfo.InvariantCulture));
+                        flagPart = GetAliasValue(Integer.Parse(flagPart, radix: 10)); // LUCENENET: specify radix 10 to make this culture invariant
                     }
 
                     appendFlags = flagParsingStrategy.ParseFlags(flagPart);
                     Array.Sort(appendFlags);
                     twoStageAffix = true;
                 }
-
-                // TODO: add test and fix zero-affix handling!
+                // zero affix -> empty string
+                if ("0".Equals(affixArg, StringComparison.Ordinal))
+                {
+                    affixArg = "";
+                }
 
                 string condition = ruleArgs.Length > 4 ? ruleArgs[4] : ".";
                 // at least the gascon affix file has this issue
-                if (condition.StartsWith("[", StringComparison.Ordinal) && !condition.EndsWith("]", StringComparison.Ordinal))
+                if (condition.StartsWith("[", StringComparison.Ordinal) && condition.IndexOf(']') == -1)
                 {
                     condition = condition + "]";
                 }
                 // "dash hasn't got special meaning" (we must escape it)
                 if (condition.IndexOf('-') >= 0)
                 {
-                    condition = condition.Replace("-", "\\-");
+                    condition = EscapeDash(condition);
                 }
 
                 string regex;
@@ -492,7 +597,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     patternIndex = patterns.Count;
                     if (patternIndex > short.MaxValue)
                     {
-                        throw new NotSupportedException("Too many patterns, please report this to dev@lucene.apache.org");
+                        throw UnsupportedOperationException.Create("Too many patterns, please report this to dev@lucene.apache.org");
                     }
                     seenPatterns[regex] = patternIndex;
                     CharacterRunAutomaton pattern = new CharacterRunAutomaton((new RegExp(regex, RegExpSyntax.NONE)).ToAutomaton());
@@ -505,7 +610,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     seenStrips[strip] = stripOrd;
                     if (stripOrd > char.MaxValue)
                     {
-                        throw new NotSupportedException("Too many unique strips, please report this to dev@lucene.apache.org");
+                        throw UnsupportedOperationException.Create("Too many unique strips, please report this to dev@lucene.apache.org");
                     }
                 }
 
@@ -524,7 +629,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 else if (appendFlagsOrd > short.MaxValue)
                 {
                     // this limit is probably flexible, but its a good sanity check too
-                    throw new NotSupportedException("Too many unique append flags, please report this to dev@lucene.apache.org");
+                    throw UnsupportedOperationException.Create("Too many unique append flags, please report this to dev@lucene.apache.org");
                 }
 
                 affixWriter.WriteInt16((short)flag);
@@ -540,17 +645,22 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     affixArg = cleaned.ToString();
                 }
 
-                if (!affixes.TryGetValue(affixArg, out IList<char?> list) || list == null)
+                if (isSuffix)
                 {
-                    affixes[affixArg] = list = new List<char?>();
+                    affixArg = new StringBuilder(affixArg).Reverse().ToString();
                 }
 
-                list.Add((char)currentAffix);
+                if (!affixes.TryGetValue(affixArg, out IList<int> list) || list == null)
+                {
+                    affixes[affixArg] = list = new List<int>();
+                }
+
+                list.Add(currentAffix);
                 currentAffix++;
             }
         }
 
-        private FST<CharsRef> ParseConversions(TextReader reader, int num)
+        private FST<CharsRef> ParseConversions(TextReader reader, int num, int lineNumber)
         {
             IDictionary<string, string> mappings = new JCG.SortedDictionary<string, string>(StringComparer.Ordinal);
 
@@ -560,11 +670,11 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 string[] parts = whitespacePattern.Split(line).TrimEnd();
                 if (parts.Length != 3)
                 {
-                    throw new Exception("invalid syntax: " + line /*, reader.LineNumber */); // LUCENENET TODO: LineNumberReader
+                    throw new ParseException("invalid syntax: " + line, lineNumber /*, reader.LineNumber */); // LUCENENET TODO: LineNumberReader
                 }
                 if (mappings.Put(parts[1], parts[2]) != null)
                 {
-                    throw new InvalidOperationException("duplicate mapping specified for: " + parts[1]);
+                    throw IllegalStateException.Create("duplicate mapping specified for: " + parts[1]);
                 }
             }
 
@@ -614,7 +724,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     // this test only at the end as ineffective but would allow lines only containing spaces:
                     if (ch < 0)
                     {
-                        throw new Exception("Unexpected end of affix file." /*, 0*/);
+                        throw new ParseException("Unexpected end of affix file.", 0);
                     }
                     continue;
                 }
@@ -643,7 +753,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// </summary>
         /// <param name="encoding"> Encoding to retrieve the <see cref="Encoding"/> instance for </param>
         /// <returns> <see cref="Encoding"/> for the given encoding <see cref="string"/> </returns>
-        // LUCENENET NOTE: This was getJavaEncoding in the original
+        // LUCENENET NOTE: This was getJavaEncoding in Lucene
         private Encoding GetSystemEncoding(string encoding)
         {
             if (string.IsNullOrEmpty(encoding))
@@ -710,12 +820,14 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             throw new ArgumentException("Unknown flag type: " + flagType);
         }
 
-        internal readonly char FLAG_SEPARATOR = (char)0x1f; // flag separator after escaping
+        internal const char FLAG_SEPARATOR = (char)0x1f; // flag separator after escaping
+        internal const char MORPH_SEPARATOR = (char)0x1e; // separator for boundary of entry (may be followed by morph data)
 
         internal virtual string UnescapeEntry(string entry)
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < entry.Length; i++)
+            int end = MorphBoundary(entry);
+            for (int i = 0; i < end; i++)
             {
                 char ch = entry[i];
                 if (ch == '\\' && i + 1 < entry.Length)
@@ -727,12 +839,72 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 {
                     sb.Append(FLAG_SEPARATOR);
                 }
+                else if (ch == MORPH_SEPARATOR || ch == FLAG_SEPARATOR)
+                {
+                    // BINARY EXECUTABLES EMBEDDED IN ZULU DICTIONARIES!!!!!!!
+                }
                 else
                 {
                     sb.Append(ch);
                 }
             }
+            sb.Append(MORPH_SEPARATOR);
+            if (end < entry.Length)
+            {
+                for (int i = end; i < entry.Length; i++)
+                {
+                    char c = entry[i];
+                    if (c == FLAG_SEPARATOR || c == MORPH_SEPARATOR)
+                    {
+                        // BINARY EXECUTABLES EMBEDDED IN ZULU DICTIONARIES!!!!!!!
+                    }
+                    else
+                    {
+                        sb.Append(c);
+                    }
+                }
+            }
             return sb.ToString();
+        }
+
+        internal static int MorphBoundary(string line)
+        {
+            int end = IndexOfSpaceOrTab(line, 0);
+            if (end == -1)
+            {
+                return line.Length;
+            }
+            while (end >= 0 && end < line.Length)
+            {
+                if (line[end] == '\t' ||
+                    end + 3 < line.Length &&
+                    Character.IsLetter(line[end + 1]) &&
+                    Character.IsLetter(line[end + 2]) &&
+                    line[end + 3] == ':')
+                {
+                    break;
+                }
+                end = IndexOfSpaceOrTab(line, end + 1);
+            }
+            if (end == -1)
+            {
+                return line.Length;
+            }
+            return end;
+        }
+
+        internal static int IndexOfSpaceOrTab(string text, int start)
+        {
+            int pos1 = text.IndexOf('\t', start);
+            int pos2 = text.IndexOf(' ', start);
+            if (pos1 >= 0 && pos2 >= 0)
+            {
+                return Math.Min(pos1, pos2);
+            }
+            else
+            {
+                return Math.Max(pos1, pos2);
+            }
         }
 
         /// <summary>
@@ -759,10 +931,28 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
                     while ((line = lines.ReadLine()) != null)
                     {
+                        // wild and unpredictable code comment rules
+                        if (line == string.Empty || line[0] == '/' || line[0] == '#' || line[0] == '\t')
+                        {
+                            continue;
+                        }
                         line = UnescapeEntry(line);
+                        // if we havent seen any stem exceptions, try to parse one
+                        if (hasStemExceptions == false)
+                        {
+                            int morphStart = line.IndexOf(MORPH_SEPARATOR);
+                            if (morphStart >= 0 && morphStart < line.Length)
+                            {
+                                hasStemExceptions = ParseStemException(line.Substring(morphStart + 1)) != null;
+                            }
+                        }
                         if (needsInputCleaning)
                         {
                             int flagSep = line.LastIndexOf(FLAG_SEPARATOR);
+                            if (flagSep == -1)
+                            {
+                                flagSep = line.IndexOf(MORPH_SEPARATOR);
+                            }
                             if (flagSep == -1)
                             {
                                 string cleansed = CleanInput(line, sb);
@@ -802,7 +992,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
                 for (int i = scratch1.Length - 1; i >= 0; i--)
                 {
-                    if (scratch1.Bytes[scratch1.Offset + i] == this.FLAG_SEPARATOR)
+                    if (scratch1.Bytes[scratch1.Offset + i] == FLAG_SEPARATOR || scratch1.Bytes[scratch1.Offset + i] == MORPH_SEPARATOR)
                     {
                         scratch1.Length = i;
                         break;
@@ -815,7 +1005,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
                 for (int i = scratch2.Length - 1; i >= 0; i--)
                 {
-                    if (scratch2.Bytes[scratch2.Offset + i] == this.FLAG_SEPARATOR)
+                    if (scratch2.Bytes[scratch2.Offset + i] == FLAG_SEPARATOR || scratch2.Bytes[scratch2.Offset + i] == MORPH_SEPARATOR)
                     {
                         scratch2.Length = i;
                         break;
@@ -859,39 +1049,45 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     line2 = scratchLine.Utf8ToString();
                     string entry;
                     char[] wordForm;
+                    int end;
 
-                    int flagSep = line2.LastIndexOf(FLAG_SEPARATOR);
+                    int flagSep = line2.IndexOf(FLAG_SEPARATOR);
                     if (flagSep == -1)
                     {
                         wordForm = NOFLAGS;
-                        entry = line2;
+                        end = line2.IndexOf(MORPH_SEPARATOR);
+                        entry = line2.Substring(0, end);
                     }
                     else
                     {
-                        // note, there can be comments (morph description) after a flag.
-                        // we should really look for any whitespace: currently just tab and space
-                        int end = line2.IndexOf('\t', flagSep);
-                        if (end == -1)
-                        {
-                            end = line2.Length;
-                        }
-                        int end2 = line2.IndexOf(' ', flagSep);
-                        if (end2 == -1)
-                        {
-                            end2 = line2.Length;
-                        }
-                        end = Math.Min(end, end2);
-
+                        end = line2.IndexOf(MORPH_SEPARATOR);
                         string flagPart = line2.Substring(flagSep + 1, end - (flagSep + 1));
                         if (aliasCount > 0)
                         {
-                            flagPart = GetAliasValue(int.Parse(flagPart, CultureInfo.InvariantCulture));
+                            flagPart = GetAliasValue(Integer.Parse(flagPart, radix: 10)); // LUCENENET: specify radix 10 to make this culture invariant
                         }
 
                         wordForm = flagParsingStrategy.ParseFlags(flagPart);
                         Array.Sort(wordForm);
                         entry = line2.Substring(0, flagSep - 0);
                     }
+                    // we possibly have morphological data
+                    int stemExceptionID = 0;
+                    if (hasStemExceptions && end + 1 < line2.Length)
+                    {
+                        string stemException = ParseStemException(line2.Substring(end + 1));
+                        if (stemException != null)
+                        {
+                            if (stemExceptionCount == stemExceptions.Length)
+                            {
+                                int newSize = ArrayUtil.Oversize(stemExceptionCount + 1, RamUsageEstimator.NUM_BYTES_OBJECT_REF);
+                                stemExceptions = Arrays.CopyOf(stemExceptions, newSize);
+                            }
+                            stemExceptionID = stemExceptionCount + 1; // we use '0' to indicate no exception for the form
+                            stemExceptions[stemExceptionCount++] = stemException;
+                        }
+                    }
+
                     // LUCENENET NOTE: CompareToOrdinal is an extension method that works similarly to
                     // Java's String.compareTo method.
                     int cmp = currentEntry == null ? 1 : entry.CompareToOrdinal(currentEntry);
@@ -920,8 +1116,17 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                             currentEntry = entry;
                             currentOrds = new Int32sRef(); // must be this way
                         }
-                        currentOrds.Grow(currentOrds.Length + 1);
-                        currentOrds.Int32s[currentOrds.Length++] = ord;
+                        if (hasStemExceptions)
+                        {
+                            currentOrds.Grow(currentOrds.Length + 2);
+                            currentOrds.Int32s[currentOrds.Length++] = ord;
+                            currentOrds.Int32s[currentOrds.Length++] = stemExceptionID;
+                        }
+                        else
+                        {
+                            currentOrds.Grow(currentOrds.Length + 1);
+                            currentOrds.Int32s[currentOrds.Length++] = ord;
+                        }
                     }
                 }
 
@@ -945,7 +1150,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             {
                 return CharsRef.EMPTY_CHARS;
             }
-            int len = (int)((uint)b.Length >> 1);
+            int len = b.Length.TripleShift(1);
             char[] flags = new char[len];
             int upto = 0;
             int end = b.Offset + b.Length;
@@ -976,7 +1181,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             if (aliases == null)
             {
                 //first line should be the aliases count
-                int count = int.Parse(ruleArgs[1], CultureInfo.InvariantCulture);
+                int count = Integer.Parse(ruleArgs[1], radix: 10); // LUCENENET: specify radix 10 to make this culture invariant
                 aliases = new string[count];
             }
             else
@@ -993,10 +1198,58 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             {
                 return aliases[id - 1];
             }
-            catch (IndexOutOfRangeException ex)
+            catch (Exception ex) when (ex.IsIndexOutOfBoundsException())
             {
                 throw new ArgumentException("Bad flag alias number:" + id, ex);
             }
+        }
+
+        internal string GetStemException(int id)
+        {
+            return stemExceptions[id - 1];
+        }
+
+        private void ParseMorphAlias(string line)
+        {
+            if (morphAliases == null)
+            {
+                //first line should be the aliases count
+                int count = Integer.Parse(line.Substring(3), radix: 10); // LUCENENET: specify radix 10 to make this culture invariant
+                morphAliases = new string[count];
+            }
+            else
+            {
+                string arg = line.Substring(2); // leave the space
+                morphAliases[morphAliasCount++] = arg;
+            }
+        }
+
+        private string ParseStemException(string morphData)
+        {
+            // first see if its an alias
+            if (morphAliasCount > 0)
+            {
+                if (int.TryParse(morphData.Trim(), NumberStyles.Integer, CultureInfo.InvariantCulture, out int alias))
+                {
+                    morphData = morphAliases[alias - 1];
+                } // else fine
+            }
+            // try to parse morph entry
+            int index = morphData.IndexOf(" st:", StringComparison.Ordinal);
+            if (index < 0)
+            {
+                index = morphData.IndexOf("\tst:", StringComparison.Ordinal);
+            }
+            if (index >= 0)
+            {
+                int endIndex = IndexOfSpaceOrTab(morphData, index + 1);
+                if (endIndex < 0)
+                {
+                    endIndex = morphData.Length;
+                }
+                return morphData.Substring(index + 4, endIndex - (index + 4));
+            }
+            return null;
         }
 
         /// <summary>
@@ -1060,7 +1313,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                     {
                         continue;
                     }
-                    flags[upto++] = (char)int.Parse(replacement, CultureInfo.InvariantCulture);
+                    flags[upto++] = (char)Integer.Parse(replacement, radix: 10); // LUCENENET: specify radix 10 to make this culture invariant
                 }
 
                 if (upto < flags.Length)
@@ -1074,8 +1327,6 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// <summary>
         /// Implementation of <see cref="FlagParsingStrategy"/> that assumes each flag is encoded as two ASCII characters whose codes
         /// must be combined into a single character.
-        /// 
-        /// TODO (rmuir) test
         /// </summary>
         private class DoubleASCIIFlagParsingStrategy : FlagParsingStrategy
         {
@@ -1093,8 +1344,14 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 }
                 for (int i = 0; i < rawFlags.Length; i += 2)
                 {
-                    char cookedFlag = (char)((int)rawFlags[i] + (int)rawFlags[i + 1]);
-                    builder.Append(cookedFlag);
+                    char f1 = rawFlags[i];
+                    char f2 = rawFlags[i + 1];
+                    if (f1 >= 256 || f2 >= 256)
+                    {
+                        throw new ArgumentException("Invalid flags (LONG flags must be double ASCII): " + rawFlags);
+                    }
+                    char combined = (char)(f1 << 8 | f2);
+                    builder.Append(combined);
                 }
 
                 char[] flags = new char[builder.Length];
@@ -1124,7 +1381,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 if (ignoreCase && iconv == null)
                 {
                     // if we have no input conversion mappings, do this on-the-fly
-                    ch = char.ToLowerInvariant(ch);
+                    ch = CaseFold(ch);
                 }
 
                 reuse.Append(ch);
@@ -1136,20 +1393,44 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
                 {
                     ApplyMappings(iconv, reuse);
                 }
-                catch (IOException bogus)
+                catch (Exception bogus) when (bogus.IsIOException())
                 {
-                    throw new Exception(bogus.Message, bogus);
+                    throw RuntimeException.Create(bogus);
                 }
                 if (ignoreCase)
                 {
                     for (int i = 0; i < reuse.Length; i++)
                     {
-                        reuse[i] = char.ToLowerInvariant(reuse[i]);
+                        reuse[i] = CaseFold(reuse[i]);
                     }
                 }
             }
 
             return reuse.ToString();
+        }
+
+        // folds single character (according to LANG if present)
+        internal char CaseFold(char c)
+        {
+            if (alternateCasing)
+            {
+                if (c == 'I')
+                {
+                    return 'ı';
+                }
+                else if (c == 'İ')
+                {
+                    return 'i';
+                }
+                else
+                {
+                    return char.ToLowerInvariant(c);
+                }
+            }
+            else
+            {
+                return char.ToLowerInvariant(c);
+            }
         }
 
         // TODO: this could be more efficient!

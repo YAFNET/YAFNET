@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,11 +33,11 @@ namespace YAF.Web.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -99,6 +99,8 @@ namespace YAF.Web.Controls
             // get the localized character set
             var charSet = this.GetText("LANGUAGE", "CHARSET").Split('/');
 
+            //var users = this.Get<IAspNetUsersHelper>().Users;
+
             charSet.ForEach(
                 t =>
                     {
@@ -108,33 +110,38 @@ namespace YAF.Web.Controls
                         // go through all letters in a set
                         t.ForEach(
                             letter =>
+                            {
+                                /*if (!users.Any(x => x.UserName.StartsWith(letter.ToString())))
                                 {
-                                    // create a link to this letter
-                                    var link = new HyperLink
-                                                   {
-                                                       ToolTip =
-                                                           this.GetTextFormatted(
-                                                               "ALPHABET_FILTER_BY",
-                                                               letter.ToString()),
-                                                       Text = letter.ToString(),
-                                                       NavigateUrl = BuildLink.GetLinkNotEscaped(
-                                                           ForumPages.Members,
-                                                           "letter={0}",
-                                                           letter == '#' ? '_' : letter)
-                                                   };
+                                    return;
+                                }*/
 
-                                    if (selectedLetter != char.MinValue && selectedLetter == letter)
-                                    {
-                                        // current letter is selected, use specified style
-                                        link.CssClass = "btn btn-secondary active";
-                                    }
-                                    else
-                                    {
-                                        link.CssClass = "btn btn-secondary";
-                                    }
+                                // create a link to this letter
+                                var link = new HyperLink
+                                {
+                                    ToolTip =
+                                        this.GetTextFormatted(
+                                            "ALPHABET_FILTER_BY",
+                                            letter.ToString()),
+                                    Text = letter.ToString(),
+                                    NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                                        ForumPages.Members,
+                                        "letter={0}",
+                                        letter == '#' ? '_' : letter)
+                                };
 
-                                    buttonGroup.Controls.Add(link);
-                                });
+                                if (selectedLetter != char.MinValue && selectedLetter == letter)
+                                {
+                                    // current letter is selected, use specified style
+                                    link.CssClass = "btn btn-secondary active";
+                                }
+                                else
+                                {
+                                    link.CssClass = "btn btn-secondary";
+                                }
+
+                                buttonGroup.Controls.Add(link);
+                            });
                     });
         }
 

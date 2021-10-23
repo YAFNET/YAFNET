@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,10 +24,13 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
+    using System.Collections.Generic;
+
+    using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -39,26 +42,44 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// Lists medal(s) assigned to the group
+        /// Lists users assigned to the medal
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
-        /// ID of user who was given medal.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
-        /// <param name="medalID">
-        /// ID of medal to list.
+        /// <param name="medalId">
+        /// The medal Id.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// The <see cref="List"/>.
         /// </returns>
-        public static DataTable ListAsDataTable(
+        public static List<Tuple<Medal, UserMedal, User>> List(
             this IRepository<UserMedal> repository,
-            [NotNull] int? userID,
-            [NotNull] int? medalID)
+            [NotNull] int? userId,
+            [NotNull] int medalId)
         {
-            return repository.DbFunction.GetData.user_medal_list(UserID: userID, MedalID: medalID);
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
+
+            if (userId.HasValue)
+            {
+                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID)
+                    .Where<UserMedal>(b => b.MedalID == medalId && b.UserID == userId.Value).OrderBy<User>(x => x.Name)
+                    .ThenBy<UserMedal>(x => x.SortOrder);
+            }
+            else
+            {
+                expression.Join<UserMedal>((a, b) => b.MedalID == a.ID)
+                    .Join<UserMedal, User>((b, c) => c.ID == b.UserID).Where(a => a.ID == medalId)
+                    .OrderBy<User>(x => x.Name).ThenBy<UserMedal>(x => x.SortOrder);
+            }
+
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Medal, UserMedal, User>(expression));
         }
 
         /// <summary>
@@ -79,9 +100,6 @@ namespace YAF.Core.Model
         /// <param name="hide">
         /// Hide medal in user box.
         /// </param>
-        /// <param name="onlyRibbon">
-        /// Show only ribbon bar in user box.
-        /// </param>
         /// <param name="sortOrder">
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
@@ -91,18 +109,15 @@ namespace YAF.Core.Model
             [NotNull] int medalID,
             [NotNull] string message,
             [NotNull] bool hide,
-            [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
-                () => new UserMedal
-                          {
-                              Message = message,
-                              Hide = hide,
-                              OnlyRibbon = onlyRibbon,
-                              SortOrder = sortOrder
-                          },
+                () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
                 m => m.UserID == userID && m.MedalID == medalID);
+
+            repository.FireUpdated(medalID);
         }
 
         /// <summary>
@@ -123,9 +138,6 @@ namespace YAF.Core.Model
         /// <param name="hide">
         /// Hide medal in user box.
         /// </param>
-        /// <param name="onlyRibbon">
-        /// Show only ribbon bar in user box.
-        /// </param>
         /// <param name="sortOrder">
         /// Sort order in user box. Overrides medal's default sort order.
         /// </param>
@@ -135,20 +147,22 @@ namespace YAF.Core.Model
             [NotNull] int medalID,
             [NotNull] string message,
             [NotNull] bool hide,
-            [NotNull] bool onlyRibbon,
             [NotNull] byte sortOrder)
         {
-            repository.Insert(
+            CodeContracts.VerifyNotNull(repository);
+
+            var newId = repository.Insert(
                 new UserMedal
-                    {
-                        UserID = userID,
-                        MedalID = medalID,
-                        Message = message,
-                        Hide = hide,
-                        OnlyRibbon = onlyRibbon,
-                        SortOrder = sortOrder,
-                        DateAwarded = DateTime.UtcNow
-                    });
+                {
+                    UserID = userID,
+                    MedalID = medalID,
+                    Message = message,
+                    Hide = hide,
+                    SortOrder = sortOrder,
+                    DateAwarded = DateTime.UtcNow
+                });
+
+            repository.FireNew(newId);
         }
 
         #endregion

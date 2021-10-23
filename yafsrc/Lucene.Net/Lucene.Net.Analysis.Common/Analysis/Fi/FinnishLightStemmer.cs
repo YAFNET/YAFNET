@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Util;
 
 namespace YAF.Lucene.Net.Analysis.Fi
 {

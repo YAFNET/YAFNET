@@ -5,7 +5,7 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
 using System;
 using System.Collections.Generic;
-using Operator = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
+using Operator  = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 {
@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
         {
             Operator? defaultOperator = GetQueryConfigHandler().Get(ConfigurationKeys.DEFAULT_OPERATOR);
 
-            if (defaultOperator == null)
+            if (defaultOperator is null)
             {
                 throw new ArgumentException(
                     "DEFAULT_OPERATOR should be set on the QueryConfigHandler");
@@ -67,9 +67,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 
             this.usingAnd = Operator.AND == defaultOperator;
 
-            if (queryTree is GroupQueryNode)
+            if (queryTree is GroupQueryNode groupQueryNode)
             {
-                queryTree = ((GroupQueryNode)queryTree).GetChild();
+                queryTree = groupQueryNode.GetChild();
             }
 
             this.queryNodeList = new List<IQueryNode>();
@@ -108,10 +108,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             {
                 if (parent is OrQueryNode)
                 {
-                    if (node is ModifierQueryNode)
+                    if (node is ModifierQueryNode modNode)
                     {
-                        ModifierQueryNode modNode = (ModifierQueryNode)node;
-
                         if (modNode.Modifier == Modifier.MOD_REQ)
                         {
                             return modNode.GetChild();
@@ -120,10 +118,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                 }
                 else
                 {
-                    if (node is ModifierQueryNode)
+                    if (node is ModifierQueryNode modNode)
                     {
-                        ModifierQueryNode modNode = (ModifierQueryNode)node;
-
                         if (modNode.Modifier == Modifier.MOD_NONE)
                         {
                             return new BooleanModifierNode(modNode.GetChild(), Modifier.MOD_REQ);
@@ -139,10 +135,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             {
                 if (node.Parent is AndQueryNode)
                 {
-                    if (node is ModifierQueryNode)
+                    if (node is ModifierQueryNode modNode)
                     {
-                        ModifierQueryNode modNode = (ModifierQueryNode)node;
-
                         if (modNode.Modifier == Modifier.MOD_NONE)
                         {
                             return new BooleanModifierNode(modNode.GetChild(), Modifier.MOD_REQ);

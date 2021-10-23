@@ -1,9 +1,11 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using Integer = J2N.Numerics.Int32;
 
 namespace YAF.Lucene.Net.Analysis.CharFilters
 {
@@ -49,7 +51,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
             mapping = Get(args, "mapping");
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 
@@ -108,7 +110,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
             }
         }
 
-        private char[] @out = new char[256];
+        private readonly char[] @out = new char[256]; // LUCENENET: marked readonly
 
         protected internal virtual string ParseString(string s)
         {
@@ -153,8 +155,8 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
                             {
                                 throw new ArgumentException("Invalid escaped char in [" + s + "]");
                             }
-                            //c = (char)int.Parse(s.Substring(readPos, 4), 16);
-                            c = (char)int.Parse(s.Substring(readPos, 4), System.Globalization.NumberStyles.HexNumber);
+                            // LUCENENET: Optimized parse so we don't allocate a substring.
+                            c = (char)Integer.Parse(s, readPos, 4, 16);
                             readPos += 4;
                             break;
                     }

@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Util;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 
@@ -202,7 +203,7 @@ namespace YAF.Lucene.Net.Analysis.Sinks
             private readonly IList<AttributeSource.State> cachedStates = new List<AttributeSource.State>();
             private AttributeSource.State finalState;
             private IEnumerator<AttributeSource.State> it = null;
-            private SinkFilter filter;
+            private readonly SinkFilter filter; // LUCENENET: marked readonly
 
             internal SinkTokenStream(AttributeSource source, SinkFilter filter)
                 : base(source)
@@ -219,7 +220,7 @@ namespace YAF.Lucene.Net.Analysis.Sinks
             {
                 if (it != null)
                 {
-                    throw new InvalidOperationException("The tee must be consumed before sinks are consumed.");
+                    throw IllegalStateException.Create("The tee must be consumed before sinks are consumed.");
                 }
                 cachedStates.Add(state);
             }
@@ -259,9 +260,9 @@ namespace YAF.Lucene.Net.Analysis.Sinks
             }
         }
 
-        private static readonly SinkFilter ACCEPT_ALL_FILTER = new SinkFilterAnonymousInnerClassHelper();
+        private static readonly SinkFilter ACCEPT_ALL_FILTER = new SinkFilterAnonymousClass();
 
-        private class SinkFilterAnonymousInnerClassHelper : SinkFilter
+        private class SinkFilterAnonymousClass : SinkFilter
         {
             public override bool Accept(AttributeSource source)
             {

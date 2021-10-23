@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Abstract decorator class for a <see cref="DocIdSet"/> implementation
@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Search
         /// <summary>
         /// Constructor. </summary>
         /// <param name="innerSet"> Underlying <see cref="DocIdSet"/> </param>
-        public FilteredDocIdSet(DocIdSet innerSet)
+        protected FilteredDocIdSet(DocIdSet innerSet) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
             this.innerSet = innerSet;
         }
@@ -57,17 +57,17 @@ namespace YAF.Lucene.Net.Search
             get
             {
                 IBits bits = innerSet.Bits;
-                return (bits == null) ? null : new BitsAnonymousInnerClassHelper(this, bits);
+                return (bits == null) ? null : new BitsAnonymousClass(this, bits);
             }
         }
 
-        private class BitsAnonymousInnerClassHelper : IBits
+        private class BitsAnonymousClass : IBits
         {
             private readonly FilteredDocIdSet outerInstance;
 
-            private IBits bits;
+            private readonly IBits bits;
 
-            public BitsAnonymousInnerClassHelper(FilteredDocIdSet outerInstance, IBits bits)
+            public BitsAnonymousClass(FilteredDocIdSet outerInstance, IBits bits)
             {
                 this.outerInstance = outerInstance;
                 this.bits = bits;
@@ -98,14 +98,14 @@ namespace YAF.Lucene.Net.Search
             {
                 return null;
             }
-            return new FilteredDocIdSetIteratorAnonymousInnerClassHelper(this, iterator);
+            return new FilteredDocIdSetIteratorAnonymousClass(this, iterator);
         }
 
-        private class FilteredDocIdSetIteratorAnonymousInnerClassHelper : FilteredDocIdSetIterator
+        private class FilteredDocIdSetIteratorAnonymousClass : FilteredDocIdSetIterator
         {
             private readonly FilteredDocIdSet outerInstance;
 
-            public FilteredDocIdSetIteratorAnonymousInnerClassHelper(FilteredDocIdSet outerInstance, Lucene.Net.Search.DocIdSetIterator iterator)
+            public FilteredDocIdSetIteratorAnonymousClass(FilteredDocIdSet outerInstance, Lucene.Net.Search.DocIdSetIterator iterator)
                 : base(iterator)
             {
                 this.outerInstance = outerInstance;

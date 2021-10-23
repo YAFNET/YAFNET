@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,12 +28,12 @@ namespace YAF.Controls
     using System;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -49,9 +49,9 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Label1.Param0 = this.Get<BoardSettings>().Name;
+            this.Label1.Param0 = this.PageContext.BoardSettings.Name;
 
-            this.MoreDetails.NavigateUrl = BuildLink.GetLinkNotEscaped(ForumPages.Cookies);
+            this.MoreDetails.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Cookies);
         }
 
         /// <summary>
@@ -66,9 +66,15 @@ namespace YAF.Controls
         protected void AcceptClick(object sender, EventArgs e)
         {
             this.PageContext.Get<HttpResponseBase>().SetCookie(
-                new HttpCookie("YAF-AcceptCookies", "true") { Expires = DateTime.UtcNow.AddYears(1) });
+                new HttpCookie("YAF-AcceptCookies", "true")
+                {
+                    Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,
+                    Secure = this.Request.IsSecureConnection
+                });
 
-            this.Response.Redirect(this.Request.RawUrl);
+            this.Response.Redirect(this.HtmlEncode(this.Request.RawUrl));
+
+            this.DataBind();
         }
     }
 }

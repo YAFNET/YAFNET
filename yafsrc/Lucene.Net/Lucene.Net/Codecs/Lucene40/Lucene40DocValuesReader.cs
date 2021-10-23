@@ -1,7 +1,9 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
+using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -22,24 +24,24 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    //using LegacyDocValuesType = YAF.Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    //using LegacyDocValuesType  = YAF.Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
     /// Reads the 4.0 format of norms/docvalues.
@@ -52,7 +54,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         private readonly Directory dir;
         private readonly SegmentReadState state;
         private readonly string legacyKey;
-        private static readonly string segmentSuffix = "dv";
+        private const string segmentSuffix = "dv";
 
         // ram instances we have already loaded
         private readonly IDictionary<int, NumericDocValues> numericInstances = new Dictionary<int, NumericDocValues>();
@@ -74,8 +76,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             lock (this)
             {
-                NumericDocValues instance;
-                if (!numericInstances.TryGetValue(field.Number, out instance))
+                if (!numericInstances.TryGetValue(field.Number, out NumericDocValues instance))
                 {
                     string fileName = IndexFileNames.SegmentFileName(state.SegmentInfo.Name + "_" + Convert.ToString(field.Number, CultureInfo.InvariantCulture), segmentSuffix, "dat");
                     IndexInput input = dir.OpenInput(fileName, state.Context);
@@ -88,35 +89,35 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                         //{
                         if (type == LegacyDocValuesType.VAR_INTS)
                         {
-                            instance = LoadVarInt32sField(field, input);
+                            instance = LoadVarInt32sField(/* field, // LUCENENET: Never read */ input);
                         }
                         else if (type == LegacyDocValuesType.FIXED_INTS_8)
                         {
-                            instance = LoadByteField(field, input);
+                            instance = LoadByteField(/* field, // LUCENENET: Never read */ input);
                         }
                         else if (type == LegacyDocValuesType.FIXED_INTS_16)
                         {
-                            instance = LoadInt16Field(field, input);
+                            instance = LoadInt16Field(/* field, // LUCENENET: Never read */ input);
                         }
                         else if (type == LegacyDocValuesType.FIXED_INTS_32)
                         {
-                            instance = LoadInt32Field(field, input);
+                            instance = LoadInt32Field(/* field, // LUCENENET: Never read */ input);
                         }
                         else if (type == LegacyDocValuesType.FIXED_INTS_64)
                         {
-                            instance = LoadInt64Field(field, input);
+                            instance = LoadInt64Field(/* field, // LUCENENET: Never read */ input);
                         }
                         else if (type == LegacyDocValuesType.FLOAT_32)
                         {
-                            instance = LoadSingleField(field, input);
+                            instance = LoadSingleField(/* field, // LUCENENET: Never read */ input);
                         }
                         else if (type == LegacyDocValuesType.FLOAT_64)
                         {
-                            instance = LoadDoubleField(field, input);
+                            instance = LoadDoubleField(/* field, // LUCENENET: Never read */ input);
                         }
                         else
                         {
-                            throw new InvalidOperationException();
+                            throw AssertionError.Create();
                         }
 
                         CodecUtil.CheckEOF(input);
@@ -142,7 +143,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// <summary>
         /// NOTE: This was loadVarIntsField() in Lucene.
         /// </summary>
-        private NumericDocValues LoadVarInt32sField(FieldInfo field, IndexInput input)
+        private NumericDocValues LoadVarInt32sField(/*FieldInfo field, // LUCENENET: Never read */ IndexInput input)
         {
             CodecUtil.CheckHeader(input, Lucene40DocValuesFormat.VAR_INTS_CODEC_NAME, Lucene40DocValuesFormat.VAR_INTS_VERSION_START, Lucene40DocValuesFormat.VAR_INTS_VERSION_CURRENT);
             var header = (sbyte)input.ReadByte();
@@ -155,7 +156,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     values[i] = input.ReadInt64();
                 }
                 ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(values));
-                return new NumericDocValuesAnonymousInnerClassHelper(values);
+                return new NumericDocValuesAnonymousClass(values);
             }
             else if (header == Lucene40DocValuesFormat.VAR_INTS_PACKED)
             {
@@ -163,7 +164,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 long defaultValue = input.ReadInt64();
                 PackedInt32s.Reader reader = PackedInt32s.GetReader(input);
                 ramBytesUsed.AddAndGet(reader.RamBytesUsed());
-                return new NumericDocValuesAnonymousInnerClassHelper2(minValue, defaultValue, reader);
+                return new NumericDocValuesAnonymousClass2(minValue, defaultValue, reader);
             }
             else
             {
@@ -171,34 +172,36 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper : NumericDocValues
+        private class NumericDocValuesAnonymousClass : NumericDocValues
         {
             private readonly long[] values;
 
-            public NumericDocValuesAnonymousInnerClassHelper(long[] values)
+            public NumericDocValuesAnonymousClass(long[] values)
             {
                 this.values = values;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return values[docID];
             }
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper2 : NumericDocValues
+        private class NumericDocValuesAnonymousClass2 : NumericDocValues
         {
             private readonly long minValue;
             private readonly long defaultValue;
             private readonly PackedInt32s.Reader reader;
 
-            public NumericDocValuesAnonymousInnerClassHelper2(long minValue, long defaultValue, PackedInt32s.Reader reader)
+            public NumericDocValuesAnonymousClass2(long minValue, long defaultValue, PackedInt32s.Reader reader)
             {
                 this.minValue = minValue;
                 this.defaultValue = defaultValue;
                 this.reader = reader;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 long value = reader.Get(docID);
@@ -213,7 +216,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        private NumericDocValues LoadByteField(FieldInfo field, IndexInput input)
+        private NumericDocValues LoadByteField(/*FieldInfo field, // LUCENENET: Never read */ IndexInput input)
         {
             CodecUtil.CheckHeader(input, Lucene40DocValuesFormat.INTS_CODEC_NAME, Lucene40DocValuesFormat.INTS_VERSION_START, Lucene40DocValuesFormat.INTS_VERSION_CURRENT);
             int valueSize = input.ReadInt32();
@@ -225,18 +228,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             var values = new byte[maxDoc];
             input.ReadBytes(values, 0, values.Length);
             ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(values));
-            return new NumericDocValuesAnonymousInnerClassHelper3(values);
+            return new NumericDocValuesAnonymousClass3(values);
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper3 : NumericDocValues
+        private class NumericDocValuesAnonymousClass3 : NumericDocValues
         {
             private readonly byte[] values;
 
-            public NumericDocValuesAnonymousInnerClassHelper3(byte[] values)
+            public NumericDocValuesAnonymousClass3(byte[] values)
             {
                 this.values = values;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return (sbyte)values[docID];
@@ -246,7 +250,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// <summary>
         /// NOTE: This was loadShortField() in Lucene.
         /// </summary>
-        private NumericDocValues LoadInt16Field(FieldInfo field, IndexInput input)
+        private NumericDocValues LoadInt16Field(/*FieldInfo field, // LUCENENET: Never read */ IndexInput input)
         {
             CodecUtil.CheckHeader(input, Lucene40DocValuesFormat.INTS_CODEC_NAME, Lucene40DocValuesFormat.INTS_VERSION_START, Lucene40DocValuesFormat.INTS_VERSION_CURRENT);
             int valueSize = input.ReadInt32();
@@ -261,18 +265,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 values[i] = input.ReadInt16();
             }
             ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(values));
-            return new NumericDocValuesAnonymousInnerClassHelper4(values);
+            return new NumericDocValuesAnonymousClass4(values);
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper4 : NumericDocValues
+        private class NumericDocValuesAnonymousClass4 : NumericDocValues
         {
             private readonly short[] values;
 
-            public NumericDocValuesAnonymousInnerClassHelper4(short[] values)
+            public NumericDocValuesAnonymousClass4(short[] values)
             {
                 this.values = values;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return values[docID];
@@ -282,7 +287,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// <summary>
         /// NOTE: This was loadIntField() in Lucene.
         /// </summary>
-        private NumericDocValues LoadInt32Field(FieldInfo field, IndexInput input)
+        private NumericDocValues LoadInt32Field(/*FieldInfo field, // LUCENENET: Never read */ IndexInput input)
         {
             CodecUtil.CheckHeader(input, Lucene40DocValuesFormat.INTS_CODEC_NAME, Lucene40DocValuesFormat.INTS_VERSION_START, Lucene40DocValuesFormat.INTS_VERSION_CURRENT);
             int valueSize = input.ReadInt32();
@@ -297,18 +302,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 values[i] = input.ReadInt32();
             }
             ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(values));
-            return new NumericDocValuesAnonymousInnerClassHelper5(values);
+            return new NumericDocValuesAnonymousClass5(values);
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper5 : NumericDocValues
+        private class NumericDocValuesAnonymousClass5 : NumericDocValues
         {
             private readonly int[] values;
 
-            public NumericDocValuesAnonymousInnerClassHelper5(int[] values)
+            public NumericDocValuesAnonymousClass5(int[] values)
             {
                 this.values = values;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return values[docID];
@@ -318,7 +324,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// <summary>
         /// NOTE: This was loadLongField() in Lucene.
         /// </summary>
-        private NumericDocValues LoadInt64Field(FieldInfo field, IndexInput input)
+        private NumericDocValues LoadInt64Field(/*FieldInfo field, // LUCENENET: Never read */ IndexInput input)
         {
             CodecUtil.CheckHeader(input, Lucene40DocValuesFormat.INTS_CODEC_NAME, Lucene40DocValuesFormat.INTS_VERSION_START, Lucene40DocValuesFormat.INTS_VERSION_CURRENT);
             int valueSize = input.ReadInt32();
@@ -333,18 +339,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 values[i] = input.ReadInt64();
             }
             ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(values));
-            return new NumericDocValuesAnonymousInnerClassHelper6(values);
+            return new NumericDocValuesAnonymousClass6(values);
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper6 : NumericDocValues
+        private class NumericDocValuesAnonymousClass6 : NumericDocValues
         {
             private readonly long[] values;
 
-            public NumericDocValuesAnonymousInnerClassHelper6(long[] values)
+            public NumericDocValuesAnonymousClass6(long[] values)
             {
                 this.values = values;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return values[docID];
@@ -354,7 +361,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// <summary>
         /// NOTE: This was loadFloatField() in Lucene.
         /// </summary>
-        private NumericDocValues LoadSingleField(FieldInfo field, IndexInput input)
+        private NumericDocValues LoadSingleField(/*FieldInfo field, // LUCENENET: Never read */ IndexInput input)
         {
             CodecUtil.CheckHeader(input, Lucene40DocValuesFormat.FLOATS_CODEC_NAME, Lucene40DocValuesFormat.FLOATS_VERSION_START, Lucene40DocValuesFormat.FLOATS_VERSION_CURRENT);
             int valueSize = input.ReadInt32();
@@ -369,25 +376,26 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 values[i] = input.ReadInt32();
             }
             ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(values));
-            return new NumericDocValuesAnonymousInnerClassHelper7(values);
+            return new NumericDocValuesAnonymousClass7(values);
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper7 : NumericDocValues
+        private class NumericDocValuesAnonymousClass7 : NumericDocValues
         {
             private readonly int[] values;
 
-            public NumericDocValuesAnonymousInnerClassHelper7(int[] values)
+            public NumericDocValuesAnonymousClass7(int[] values)
             {
                 this.values = values;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return values[docID];
             }
         }
 
-        private NumericDocValues LoadDoubleField(FieldInfo field, IndexInput input)
+        private NumericDocValues LoadDoubleField(/*FieldInfo field, // LUCENENET: Never read */ IndexInput input)
         {
             CodecUtil.CheckHeader(input, Lucene40DocValuesFormat.FLOATS_CODEC_NAME, Lucene40DocValuesFormat.FLOATS_VERSION_START, Lucene40DocValuesFormat.FLOATS_VERSION_CURRENT);
             int valueSize = input.ReadInt32();
@@ -402,18 +410,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 values[i] = input.ReadInt64();
             }
             ramBytesUsed.AddAndGet(RamUsageEstimator.SizeOf(values));
-            return new NumericDocValuesAnonymousInnerClassHelper8(values);
+            return new NumericDocValuesAnonymousClass8(values);
         }
 
-        private class NumericDocValuesAnonymousInnerClassHelper8 : NumericDocValues
+        private class NumericDocValuesAnonymousClass8 : NumericDocValues
         {
             private readonly long[] values;
 
-            public NumericDocValuesAnonymousInnerClassHelper8(long[] values)
+            public NumericDocValuesAnonymousClass8(long[] values)
             {
                 this.values = values;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int docID)
             {
                 return values[docID];
@@ -424,8 +433,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             lock (this)
             {
-                BinaryDocValues instance;
-                if (!binaryInstances.TryGetValue(field.Number, out instance))
+                if (!binaryInstances.TryGetValue(field.Number, out BinaryDocValues instance))
                 {
                     var type = field.GetAttribute(legacyKey).ToLegacyDocValuesType();
 
@@ -447,7 +455,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     }
                     else
                     {
-                        throw new InvalidOperationException();
+                        throw AssertionError.Create();
                     }
                     binaryInstances[field.Number] = instance;
                 }
@@ -470,7 +478,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 CodecUtil.CheckEOF(input);
                 success = true;
                 ramBytesUsed.AddAndGet(bytes.RamBytesUsed());
-                return new BinaryDocValuesAnonymousInnerClassHelper(fixedLength, bytesReader);
+                return new BinaryDocValuesAnonymousClass(fixedLength, bytesReader);
             }
             finally
             {
@@ -485,17 +493,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        private class BinaryDocValuesAnonymousInnerClassHelper : BinaryDocValues
+        private class BinaryDocValuesAnonymousClass : BinaryDocValues
         {
             private readonly int fixedLength;
             private readonly PagedBytes.Reader bytesReader;
 
-            public BinaryDocValuesAnonymousInnerClassHelper(int fixedLength, PagedBytes.Reader bytesReader)
+            public BinaryDocValuesAnonymousClass(int fixedLength, PagedBytes.Reader bytesReader)
             {
                 this.fixedLength = fixedLength;
                 this.bytesReader = bytesReader;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Get(int docID, BytesRef result)
             {
                 bytesReader.FillSlice(result, fixedLength * (long)docID, fixedLength);
@@ -524,7 +533,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 CodecUtil.CheckEOF(index);
                 success = true;
                 ramBytesUsed.AddAndGet(bytes.RamBytesUsed() + reader.RamBytesUsed());
-                return new BinaryDocValuesAnonymousInnerClassHelper2(bytesReader, reader);
+                return new BinaryDocValuesAnonymousClass2(bytesReader, reader);
             }
             finally
             {
@@ -539,17 +548,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        private class BinaryDocValuesAnonymousInnerClassHelper2 : BinaryDocValues
+        private class BinaryDocValuesAnonymousClass2 : BinaryDocValues
         {
             private readonly PagedBytes.Reader bytesReader;
             private readonly PackedInt32s.Reader reader;
 
-            public BinaryDocValuesAnonymousInnerClassHelper2(PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
+            public BinaryDocValuesAnonymousClass2(PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
             {
                 this.bytesReader = bytesReader;
                 this.reader = reader;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Get(int docID, BytesRef result)
             {
                 long startAddress = reader.Get(docID);
@@ -582,7 +592,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 CodecUtil.CheckEOF(index);
                 ramBytesUsed.AddAndGet(bytes.RamBytesUsed() + reader.RamBytesUsed());
                 success = true;
-                return new BinaryDocValuesAnonymousInnerClassHelper3(fixedLength, bytesReader, reader);
+                return new BinaryDocValuesAnonymousClass3(fixedLength, bytesReader, reader);
             }
             finally
             {
@@ -597,19 +607,20 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        private class BinaryDocValuesAnonymousInnerClassHelper3 : BinaryDocValues
+        private class BinaryDocValuesAnonymousClass3 : BinaryDocValues
         {
             private readonly int fixedLength;
             private readonly PagedBytes.Reader bytesReader;
             private readonly PackedInt32s.Reader reader;
 
-            public BinaryDocValuesAnonymousInnerClassHelper3(int fixedLength, PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
+            public BinaryDocValuesAnonymousClass3(int fixedLength, PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
             {
                 this.fixedLength = fixedLength;
                 this.bytesReader = bytesReader;
                 this.reader = reader;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Get(int docID, BytesRef result)
             {
                 long offset = fixedLength * reader.Get(docID);
@@ -640,7 +651,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 CodecUtil.CheckEOF(index);
                 ramBytesUsed.AddAndGet(bytes.RamBytesUsed() + reader.RamBytesUsed());
                 success = true;
-                return new BinaryDocValuesAnonymousInnerClassHelper4(bytesReader, reader);
+                return new BinaryDocValuesAnonymousClass4(bytesReader, reader);
             }
             finally
             {
@@ -655,12 +666,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        private class BinaryDocValuesAnonymousInnerClassHelper4 : BinaryDocValues
+        private class BinaryDocValuesAnonymousClass4 : BinaryDocValues
         {
             private readonly PagedBytes.Reader bytesReader;
             private readonly PackedInt32s.Reader reader;
 
-            public BinaryDocValuesAnonymousInnerClassHelper4(PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
+            public BinaryDocValuesAnonymousClass4(PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
             {
                 this.bytesReader = bytesReader;
                 this.reader = reader;
@@ -690,8 +701,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
             lock (this)
             {
-                SortedDocValues instance;
-                if (!sortedInstances.TryGetValue(field.Number, out instance))
+                if (!sortedInstances.TryGetValue(field.Number, out SortedDocValues instance))
                 {
                     string dataName = IndexFileNames.SegmentFileName(state.SegmentInfo.Name + "_" + Convert.ToString(field.Number, CultureInfo.InvariantCulture), segmentSuffix, "dat");
                     string indexName = IndexFileNames.SegmentFileName(state.SegmentInfo.Name + "_" + Convert.ToString(field.Number, CultureInfo.InvariantCulture), segmentSuffix, "idx");
@@ -707,15 +717,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
                         if (type == LegacyDocValuesType.BYTES_FIXED_SORTED)
                         {
-                            instance = LoadBytesFixedSorted(field, data, index);
+                            instance = LoadBytesFixedSorted(/* field, // LUCENENET: Never read */ data, index);
                         }
                         else if (type == LegacyDocValuesType.BYTES_VAR_SORTED)
                         {
-                            instance = LoadBytesVarSorted(field, data, index);
+                            instance = LoadBytesVarSorted(/* field, // LUCENENET: Never read */ data, index);
                         }
                         else
                         {
-                            throw new InvalidOperationException();
+                            throw AssertionError.Create();
                         }
 
                         CodecUtil.CheckEOF(data);
@@ -739,7 +749,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        private SortedDocValues LoadBytesFixedSorted(FieldInfo field, IndexInput data, IndexInput index)
+        private SortedDocValues LoadBytesFixedSorted(/*FieldInfo field, // LUCENENET: Never read */ IndexInput data, IndexInput index)
         {
             CodecUtil.CheckHeader(data, Lucene40DocValuesFormat.BYTES_FIXED_SORTED_CODEC_NAME_DAT, Lucene40DocValuesFormat.BYTES_FIXED_SORTED_VERSION_START, Lucene40DocValuesFormat.BYTES_FIXED_SORTED_VERSION_CURRENT);
             CodecUtil.CheckHeader(index, Lucene40DocValuesFormat.BYTES_FIXED_SORTED_CODEC_NAME_IDX, Lucene40DocValuesFormat.BYTES_FIXED_SORTED_VERSION_START, Lucene40DocValuesFormat.BYTES_FIXED_SORTED_VERSION_CURRENT);
@@ -753,17 +763,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             PackedInt32s.Reader reader = PackedInt32s.GetReader(index);
             ramBytesUsed.AddAndGet(bytes.RamBytesUsed() + reader.RamBytesUsed());
 
-            return CorrectBuggyOrds(new SortedDocValuesAnonymousInnerClassHelper(fixedLength, valueCount, bytesReader, reader));
+            return CorrectBuggyOrds(new SortedDocValuesAnonymousClass(fixedLength, valueCount, bytesReader, reader));
         }
 
-        private class SortedDocValuesAnonymousInnerClassHelper : SortedDocValues
+        private class SortedDocValuesAnonymousClass : SortedDocValues
         {
             private readonly int fixedLength;
             private readonly int valueCount;
             private readonly PagedBytes.Reader bytesReader;
             private readonly PackedInt32s.Reader reader;
 
-            public SortedDocValuesAnonymousInnerClassHelper(int fixedLength, int valueCount, PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
+            public SortedDocValuesAnonymousClass(int fixedLength, int valueCount, PagedBytes.Reader bytesReader, PackedInt32s.Reader reader)
             {
                 this.fixedLength = fixedLength;
                 this.valueCount = valueCount;
@@ -771,11 +781,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 this.reader = reader;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int GetOrd(int docID)
             {
                 return (int)reader.Get(docID);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void LookupOrd(int ord, BytesRef result)
             {
                 bytesReader.FillSlice(result, fixedLength * (long)ord, fixedLength);
@@ -784,7 +796,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             public override int ValueCount => valueCount;
         }
 
-        private SortedDocValues LoadBytesVarSorted(FieldInfo field, IndexInput data, IndexInput index)
+        private SortedDocValues LoadBytesVarSorted(/*FieldInfo field, // LUCENENET: Never read */ IndexInput data, IndexInput index)
         {
             CodecUtil.CheckHeader(data, Lucene40DocValuesFormat.BYTES_VAR_SORTED_CODEC_NAME_DAT, Lucene40DocValuesFormat.BYTES_VAR_SORTED_VERSION_START, Lucene40DocValuesFormat.BYTES_VAR_SORTED_VERSION_CURRENT);
             CodecUtil.CheckHeader(index, Lucene40DocValuesFormat.BYTES_VAR_SORTED_CODEC_NAME_IDX, Lucene40DocValuesFormat.BYTES_VAR_SORTED_VERSION_START, Lucene40DocValuesFormat.BYTES_VAR_SORTED_VERSION_CURRENT);
@@ -799,17 +811,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             int valueCount = addressReader.Count - 1;
             ramBytesUsed.AddAndGet(bytes.RamBytesUsed() + addressReader.RamBytesUsed() + ordsReader.RamBytesUsed());
 
-            return CorrectBuggyOrds(new SortedDocValuesAnonymousInnerClassHelper2(bytesReader, addressReader, ordsReader, valueCount));
+            return CorrectBuggyOrds(new SortedDocValuesAnonymousClass2(bytesReader, addressReader, ordsReader, valueCount));
         }
 
-        private class SortedDocValuesAnonymousInnerClassHelper2 : SortedDocValues
+        private class SortedDocValuesAnonymousClass2 : SortedDocValues
         {
             private readonly PagedBytes.Reader bytesReader;
             private readonly PackedInt32s.Reader addressReader;
             private readonly PackedInt32s.Reader ordsReader;
             private readonly int valueCount;
 
-            public SortedDocValuesAnonymousInnerClassHelper2(PagedBytes.Reader bytesReader, PackedInt32s.Reader addressReader, PackedInt32s.Reader ordsReader, int valueCount)
+            public SortedDocValuesAnonymousClass2(PagedBytes.Reader bytesReader, PackedInt32s.Reader addressReader, PackedInt32s.Reader ordsReader, int valueCount)
             {
                 this.bytesReader = bytesReader;
                 this.addressReader = addressReader;
@@ -817,11 +829,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 this.valueCount = valueCount;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int GetOrd(int docID)
             {
                 return (int)ordsReader.Get(docID);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void LookupOrd(int ord, BytesRef result)
             {
                 long startAddress = addressReader.Get(ord);
@@ -845,23 +859,25 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
 
             // we had ord holes, return an ord-shifting-impl that corrects the bug
-            return new SortedDocValuesAnonymousInnerClassHelper3(@in);
+            return new SortedDocValuesAnonymousClass3(@in);
         }
 
-        private class SortedDocValuesAnonymousInnerClassHelper3 : SortedDocValues
+        private class SortedDocValuesAnonymousClass3 : SortedDocValues
         {
             private readonly SortedDocValues @in;
 
-            public SortedDocValuesAnonymousInnerClassHelper3(SortedDocValues @in)
+            public SortedDocValuesAnonymousClass3(SortedDocValues @in)
             {
                 this.@in = @in;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int GetOrd(int docID)
             {
                 return @in.GetOrd(docID) - 1;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void LookupOrd(int ord, BytesRef result)
             {
                 @in.LookupOrd(ord + 1, result);
@@ -872,14 +888,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override SortedSetDocValues GetSortedSet(FieldInfo field)
         {
-            throw new InvalidOperationException("Lucene 4.0 does not support SortedSet: how did you pull this off?");
+            throw IllegalStateException.Create("Lucene 4.0 does not support SortedSet: how did you pull this off?");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override IBits GetDocsWithField(FieldInfo field)
         {
             return new Lucene.Net.Util.Bits.MatchAllBits(state.SegmentInfo.DocCount);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -890,6 +908,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override long RamBytesUsed() => ramBytesUsed;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void CheckIntegrity() { }
     }
 }

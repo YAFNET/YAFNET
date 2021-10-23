@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>8.0.30703</ProductVersion>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFrameworks>net48</TargetFrameworks>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PreBuildEvent />
@@ -30,16 +30,22 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent />
-    <LangVersion>latest</LangVersion>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.WebHost" Version="5.2.7" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin.Security" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Cookies" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Facebook" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Google" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.0" />
+    <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.ComponentModel.Composition" Version="5.0.0" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.6.0-preview3.19128.7" />
+    <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
@@ -48,25 +54,17 @@
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-    <Compile Update="BaseControls\BaseUserControl.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ModerateForumPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\AdminPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ForumPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="BasePages\ForumPageRegistered.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+    <Compile Update="BaseControls\BaseUserControl.cs" />
+    <Compile Update="BasePages\AccountPage.cs" />
+    <Compile Update="BasePages\ForumPageBase.cs" />
+    <Compile Update="BasePages\ProfilePage.cs" />
+    <Compile Update="BasePages\ModerateForumPage.cs" />
+    <Compile Update="BasePages\AdminPage.cs" />
+    <Compile Update="BasePages\ForumPage.cs" />
+    <Compile Update="BasePages\ForumPageRegistered.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lucene.Net\Lucene.Net.Analysis.Common\YAF.Lucene.Net.Analysis.Common.csproj" />
@@ -77,10 +75,9 @@
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
-    <ProjectReference Include="..\YAF.Utils\YAF.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="6.2.0" />
+    <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Farsi.Library" Version="2.7.0" />
   </ItemGroup>
 </Project>

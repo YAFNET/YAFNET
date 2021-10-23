@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Similarities;
@@ -59,7 +60,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             TFIDFSimilarity similarity = IDFValueSource.AsTFIDF(searcher.Similarity, m_field);
             if (similarity == null)
             {
-                throw new NotSupportedException("requires a TFIDFSimilarity (such as DefaultSimilarity)");
+                throw UnsupportedOperationException.Create("requires a TFIDFSimilarity (such as DefaultSimilarity)");
             }
 
             NumericDocValues norms = readerContext.AtomicReader.GetNormValues(m_field);
@@ -68,20 +69,17 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                 return new ConstDoubleDocValues(0.0, this);
             }
 
-            return new SingleDocValuesAnonymousInnerClassHelper(this, this, similarity, norms);
+            return new SingleDocValuesAnonymousClass(this, similarity, norms);
         }
 
-        private class SingleDocValuesAnonymousInnerClassHelper : SingleDocValues
+        private class SingleDocValuesAnonymousClass : SingleDocValues
         {
-            private readonly NormValueSource outerInstance;
-
             private readonly TFIDFSimilarity similarity;
             private readonly NumericDocValues norms;
 
-            public SingleDocValuesAnonymousInnerClassHelper(NormValueSource outerInstance, NormValueSource @this, TFIDFSimilarity similarity, NumericDocValues norms)
+            public SingleDocValuesAnonymousClass(NormValueSource @this, TFIDFSimilarity similarity, NumericDocValues norms)
                 : base(@this)
             {
-                this.outerInstance = outerInstance;
                 this.similarity = similarity;
                 this.norms = norms;
             }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,6 +26,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -34,55 +35,98 @@ namespace YAF.Types.Models
     /// A class which represents the BBCode table.
     /// </summary>
     [Serializable]
-    public partial class BBCode : IEntity, IHaveBoardID, IHaveID
+    public class BBCode : IEntity, IHaveBoardID, IHaveID
     {
-        partial void OnCreated();
-
-        public BBCode()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("BBCodeID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
         [StringLength(4000)]
         public string Description { get; set; }
 
+        /// <summary>
+        /// Gets or sets the on click JS.
+        /// </summary>
         [StringLength(1000)]
         public string OnClickJS { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display JS.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string DisplayJS { get; set; }
 
+        /// <summary>
+        /// Gets or sets the edit JS.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string EditJS { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display CSS.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string DisplayCSS { get; set; }
 
+        /// <summary>
+        /// Gets or sets the search regex.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string SearchRegex { get; set; }
 
+        /// <summary>
+        /// Gets or sets the replace regex.
+        /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string ReplaceRegex { get; set; }
 
+        /// <summary>
+        /// Gets or sets the variables.
+        /// </summary>
         [StringLength(1000)]
         public string Variables { get; set; }
 
+        /// <summary>
+        /// Gets or sets the use module.
+        /// </summary>
         public bool? UseModule { get; set; }
 
+        /// <summary>
+        /// Gets or sets the use toolbar.
+        /// </summary>
         public bool? UseToolbar { get; set; }
 
+        /// <summary>
+        /// Gets or sets the module class.
+        /// </summary>
         [StringLength(255)]
         public string ModuleClass { get; set; }
 
+        /// <summary>
+        /// Gets or sets the exec order.
+        /// </summary>
         [Required]
         public int ExecOrder { get; set; }
 

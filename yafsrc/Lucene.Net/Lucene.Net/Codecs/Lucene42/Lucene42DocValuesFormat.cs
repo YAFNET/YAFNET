@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene42
 {
@@ -19,9 +20,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Lucene 4.2 DocValues format.
@@ -152,9 +153,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
         public override DocValuesConsumer FieldsConsumer(SegmentWriteState state)
         {
-            throw new NotSupportedException("this codec can only be used for reading");
+            throw UnsupportedOperationException.Create("this codec can only be used for reading");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override DocValuesProducer FieldsProducer(SegmentReadState state)
         {
             return new Lucene42DocValuesProducer(state, DATA_CODEC, DATA_EXTENSION, METADATA_CODEC, METADATA_EXTENSION);

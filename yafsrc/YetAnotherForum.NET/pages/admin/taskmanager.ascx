@@ -1,20 +1,19 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.taskmanager"
-    CodeBehind="taskmanager.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.TaskManager"
+    CodeBehind="TaskManager.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 
 <YAF:PageLinks ID="PageLinks" runat="server" />
 
-<div class="row">
-    <div class="col-xl-12">
-        <h1><YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="TITLE" LocalizedPage="ADMIN_TASKMANAGER" /></h1>
-    </div>
-    </div>
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-tasks fa-fw text-secondary"></i>&nbsp;<asp:Label ID="lblTaskCount" runat="server"></asp:Label>
+                    <YAF:IconHeader runat="server"
+                                    IconName="tasks"
+                                    LocalizedTag="HEADER"
+                                    LocalizedPage="ADMIN_TASKMANAGER"
+                                    Param0="<%# this.Get<ITaskModuleManager>().TaskCount.ToString() %>"></YAF:IconHeader>
                     </div>
                 <div class="card-body">
         <asp:Repeater ID="taskRepeater" runat="server" OnItemCommand="TaskRepeaterItemCommand">
@@ -34,7 +33,7 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                 LocalizedTag="DURATION" 
                                                 LocalizedPage="ADMIN_TASKMANAGER" />:
-                            <%# this.FormatTimeSpan(Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.Started)%>
+                            <%# this.FormatTimeSpan(((KeyValuePair<string, IBackgroundTask>)Container.DataItem).Value.Started)%>
                         </small>
                     </div>
                     <p class="mb-1">
@@ -45,7 +44,7 @@
                                    CssClass='<%# this.GetItemColor(this.Eval("Value.IsRunning").ToType<bool>()) %>'><%# this.GetItemName(this.Eval("Value.IsRunning").ToType<bool>())%></asp:Label>
                     </p>
                     <asp:PlaceHolder ID="StopTaskHolder" runat="server" 
-                                     Visible="<%# Container.ToDataItemType<KeyValuePair<string, IBackgroundTask>>().Value.IsStoppable() %>">
+                                     Visible="<%# ((KeyValuePair<string, IBackgroundTask>)Container.DataItem).Value.IsStoppable() %>">
                         <small>
                             <YAF:ThemeButton ID="stop" runat="server"
                                              CommandName="stop" 

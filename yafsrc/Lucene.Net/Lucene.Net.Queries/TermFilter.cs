@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
@@ -32,13 +33,13 @@ namespace YAF.Lucene.Net.Queries
         /// <param name="term"> The term documents need to have in order to be a match for this filter. </param>
         public TermFilter(Term term)
         {
-            if (term == null)
+            if (term is null)
             {
-                throw new ArgumentException("Term must not be null");
+                throw new ArgumentNullException(nameof(term), "Term must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
-            else if (term.Field == null)
+            else if (term.Field is null)
             {
-                throw new ArgumentException("Field must not be null");
+                throw new ArgumentNullException(nameof(term.Field), "term.Field must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             this.term = term;
         }
@@ -59,15 +60,15 @@ namespace YAF.Lucene.Net.Queries
             {
                 return null;
             }
-            return new DocIdSetAnonymousInnerClassHelper(acceptDocs, termsEnum);
+            return new DocIdSetAnonymousClass(acceptDocs, termsEnum);
         }
 
-        private class DocIdSetAnonymousInnerClassHelper : DocIdSet
+        private class DocIdSetAnonymousClass : DocIdSet
         {
             private readonly IBits acceptDocs;
             private readonly TermsEnum termsEnum;
 
-            public DocIdSetAnonymousInnerClassHelper(IBits acceptDocs, TermsEnum termsEnum)
+            public DocIdSetAnonymousClass(IBits acceptDocs, TermsEnum termsEnum)
             {
                 this.acceptDocs = acceptDocs;
                 this.termsEnum = termsEnum;
@@ -107,7 +108,7 @@ namespace YAF.Lucene.Net.Queries
 
         public override string ToString()
         {
-            return term.Field + ":" + term.Text();
+            return term.Field + ":" + term.Text;
         }
     }
 }

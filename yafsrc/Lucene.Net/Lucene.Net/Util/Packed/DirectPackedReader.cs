@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -20,7 +22,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
 
     /* Reads directly from disk on each get */
 
@@ -35,7 +37,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             this.@in = @in;
 
-            startPointer = @in.GetFilePointer();
+            startPointer = @in.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             if (bitsPerValue == 64)
             {
                 valueMask = -1L;
@@ -49,7 +51,7 @@ namespace YAF.Lucene.Net.Util.Packed
         public override long Get(int index)
         {
             long majorBitPos = (long)index * m_bitsPerValue;
-            long elementPos = (long)((ulong)majorBitPos >> 3);
+            long elementPos = majorBitPos.TripleShift(3);
             try
             {
                 @in.Seek(startPointer + elementPos);
@@ -61,7 +63,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 int shiftRightBits = roundedBits - bitPos - m_bitsPerValue;
 
                 long rawValue;
-                switch ((int)((uint)roundedBits >> 3))
+                switch (roundedBits.TripleShift(3))
                 {
                     case 1:
                         rawValue = @in.ReadByte();
@@ -103,16 +105,17 @@ namespace YAF.Lucene.Net.Util.Packed
                         break;
 
                     default:
-                        throw new InvalidOperationException("bitsPerValue too large: " + m_bitsPerValue);
+                        throw AssertionError.Create("bitsPerValue too large: " + m_bitsPerValue);
                 }
-                return ((long)((ulong)rawValue >> shiftRightBits)) & valueMask;
+                return (rawValue.TripleShift(shiftRightBits)) & valueMask;
             }
-            catch (IOException ioe)
+            catch (Exception ioe) when (ioe.IsIOException())
             {
-                throw new InvalidOperationException("failed", ioe);
+                throw IllegalStateException.Create("failed", ioe);
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed()
         {
             return 0;

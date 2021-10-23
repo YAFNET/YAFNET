@@ -29,15 +29,15 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -45,7 +45,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Admin Page for managing Boards
     /// </summary>
-    public partial class boards : AdminPage
+    public partial class Boards : AdminPage
     {
         #region Methods
 
@@ -56,7 +56,7 @@ namespace YAF.Pages.Admin
         protected override void OnInit([NotNull] EventArgs e)
         {
             this.List.ItemCommand += this.ListItemCommand;
-            this.New.Click += New_Click;
+            this.New.Click += this.New_Click;
 
             base.OnInit(e);
         }
@@ -68,9 +68,9 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.IsHostAdmin)
+            if (!this.PageContext.User.UserFlags.IsHostAdmin)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.IsPostBack)
@@ -86,14 +86,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDS", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_BOARDS", "TITLE")}";
         }
 
         /// <summary>
@@ -101,9 +96,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        private static void New_Click([NotNull] object sender, [NotNull] EventArgs e)
+        private void New_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_editboard);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditBoard);
         }
 
         /// <summary>
@@ -125,7 +120,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.admin_editboard, "b={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditBoard, "b={0}", e.CommandArgument);
                     break;
                 case "delete":
                     this.GetRepository<Board>().DeleteBoard(e.CommandArgument.ToType<int>());

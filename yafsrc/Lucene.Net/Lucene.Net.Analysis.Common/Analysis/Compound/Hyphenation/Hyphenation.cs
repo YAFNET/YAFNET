@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Support;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Support;
 using System.Diagnostics.CodeAnalysis;
 
 namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation

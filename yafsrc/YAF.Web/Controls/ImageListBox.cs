@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -26,6 +26,7 @@ namespace YAF.Web.Controls
 {
     #region Using
 
+    using System.ComponentModel;
     using System.Linq;
     using System.Web.UI;
     using System.Web.UI.WebControls;
@@ -39,6 +40,9 @@ namespace YAF.Web.Controls
     /// </summary>
     public class ImageListBox : DropDownList
     {
+        [DefaultValue("")]
+        public string PlaceHolder { get; set; }
+
         #region Methods
 
         /// <summary>
@@ -49,11 +53,16 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render(HtmlTextWriter writer)
         {
+            if (this.PlaceHolder.IsSet())
+            {
+                this.Attributes.Add("placeholder", this.PlaceHolder);
+            }
+
             this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
                 item => item.Attributes.Add(
                     "data-content",
-                    $"<span class=\"select2-image-select-icon\"><img src=\"{item.Value.ToLower()}\" /><span><span>&nbsp;{item.Text}</span>"));
-            
+                    $"<span class=\"select2-image-select-icon\"><img src=\"{item.Value.ToLower()}\" />&nbsp;{item.Text}</span>"));
+
             base.Render(writer);
         }
 

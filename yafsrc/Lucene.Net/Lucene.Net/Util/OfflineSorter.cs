@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Support.IO;
 using System;
@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util
@@ -73,12 +74,12 @@ namespace YAF.Lucene.Net.Util
             {
                 if (bytes > int.MaxValue)
                 {
-                    throw new ArgumentException("Buffer too large for Java (" + (int.MaxValue / MB) + "mb max): " + bytes);
+                    throw new ArgumentOutOfRangeException(nameof(bytes), "Buffer too large for .NET (" + (int.MaxValue / MB) + "mb max): " + bytes); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
 
                 if (bytes < ABSOLUTE_MIN_SORT_BUFFER_SIZE)
                 {
-                    throw new ArgumentException(MIN_BUFFER_SIZE_MSG + ": " + bytes);
+                    throw new ArgumentOutOfRangeException(nameof(bytes), MIN_BUFFER_SIZE_MSG + ": " + bytes); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
 
                 this.bytes = (int)bytes;
@@ -227,7 +228,7 @@ namespace YAF.Lucene.Net.Util
 
             if (maxTempfiles < 2)
             {
-                throw new ArgumentException("maxTempFiles must be >= 2");
+                throw new ArgumentOutOfRangeException(nameof(maxTempfiles), "maxTempFiles must be >= 2"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
 
             this.ramBufferSize = ramBufferSize;
@@ -241,7 +242,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public SortInfo Sort(FileInfo input, FileInfo output)
         {
-            sortInfo = new SortInfo(this) { TotalTime = Environment.TickCount };
+            sortInfo = new SortInfo(this) { TotalTime = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond }; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             output.Delete();
 
@@ -329,7 +330,7 @@ namespace YAF.Lucene.Net.Util
                 }
             }
 
-            sortInfo.TotalTime = (Environment.TickCount - sortInfo.TotalTime);
+            sortInfo.TotalTime = ((J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond) - sortInfo.TotalTime); // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
             return sortInfo;
         }
 
@@ -337,6 +338,7 @@ namespace YAF.Lucene.Net.Util
         /// Returns the default temporary directory. By default, the System's temp folder. If not accessible
         /// or not available, an <see cref="IOException"/> is thrown.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DirectoryInfo DefaultTempDir()
         {
             return new DirectoryInfo(Path.GetTempPath());
@@ -345,6 +347,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Copies one file to another.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void Copy(FileInfo file, FileInfo output)
         {
             using Stream inputStream = file.OpenRead();
@@ -359,8 +362,8 @@ namespace YAF.Lucene.Net.Util
             var data = this.buffer;
             FileInfo tempFile = FileSupport.CreateTempFile("sort", "partition", DefaultTempDir());
 
-            long start = Environment.TickCount;
-            sortInfo.SortTime += (Environment.TickCount - start);
+            long start = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
+            sortInfo.SortTime += ((J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond) - start); // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             using (var @out = new ByteSequencesWriter(tempFile))
             {
@@ -381,11 +384,11 @@ namespace YAF.Lucene.Net.Util
         /// Merge a list of sorted temporary files (partitions) into an output file. </summary>
         internal void MergePartitions(IList<FileInfo> merges, FileInfo outputFile)
         {
-            long start = Environment.TickCount;
+            long start = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             var @out = new ByteSequencesWriter(outputFile);
 
-            PriorityQueue<FileAndTop> queue = new PriorityQueueAnonymousInnerClassHelper(this, merges.Count);
+            PriorityQueue<FileAndTop> queue = new PriorityQueueAnonymousClass(this, merges.Count);
 
             var streams = new ByteSequencesReader[merges.Count];
             try
@@ -419,7 +422,7 @@ namespace YAF.Lucene.Net.Util
                     }
                 }
 
-                sortInfo.MergeTime += Environment.TickCount - start;
+                sortInfo.MergeTime += (J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond) - start; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
                 sortInfo.MergeRounds++;
             }
             finally
@@ -437,16 +440,17 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
-        private class PriorityQueueAnonymousInnerClassHelper : PriorityQueue<FileAndTop>
+        private class PriorityQueueAnonymousClass : PriorityQueue<FileAndTop>
         {
             private readonly OfflineSorter outerInstance;
 
-            public PriorityQueueAnonymousInnerClassHelper(OfflineSorter outerInstance, int size)
+            public PriorityQueueAnonymousClass(OfflineSorter outerInstance, int size)
                 : base(size)
             {
                 this.outerInstance = outerInstance;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected internal override bool LessThan(FileAndTop a, FileAndTop b)
             {
                 return outerInstance.comparer.Compare(a.Current, b.Current) < 0;
@@ -457,7 +461,7 @@ namespace YAF.Lucene.Net.Util
         /// Read in a single partition of data. </summary>
         internal int ReadPartition(ByteSequencesReader reader)
         {
-            long start = Environment.TickCount;
+            long start = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
             var scratch = new BytesRef();
             while ((scratch.Bytes = reader.Read()) != null)
             {
@@ -470,7 +474,7 @@ namespace YAF.Lucene.Net.Util
                     break;
                 }
             }
-            sortInfo.ReadTime += (Environment.TickCount - start);
+            sortInfo.ReadTime += ((J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond) - start); // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
             return buffer.Length;
         }
 
@@ -539,6 +543,7 @@ namespace YAF.Lucene.Net.Util
             /// <summary>
             /// Writes a byte array. </summary>
             /// <seealso cref="Write(byte[], int, int)"/>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual void Write(byte[] bytes)
             {
                 Write(bytes, 0, bytes.Length);
@@ -617,12 +622,10 @@ namespace YAF.Lucene.Net.Util
                 {
                     length = (ushort)inputStream.ReadInt16();
                 }
-#pragma warning disable CA1031 // Do not catch general exception types
-                catch (EndOfStreamException)
+                catch (Exception e) when (e.IsEOFException())
                 {
                     return false;
                 }
-#pragma warning restore CA1031 // Do not catch general exception types
 
                 @ref.Grow(length);
                 @ref.Offset = 0;
@@ -645,12 +648,10 @@ namespace YAF.Lucene.Net.Util
                 {
                     length = (ushort)inputStream.ReadInt16();
                 }
-#pragma warning disable CA1031 // Do not catch general exception types
-                catch (EndOfStreamException)
+                catch (Exception e) when (e.IsEOFException())
                 {
                     return null;
                 }
-#pragma warning restore CA1031 // Do not catch general exception types
 
                 if (Debugging.AssertsEnabled) Debugging.Assert(length >= 0, "Sanity: sequence length < 0: {0}", length);
                 byte[] result = new byte[length];

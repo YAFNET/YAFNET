@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,8 +26,10 @@ namespace YAF.Core.Tasks
     using System;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// The base background task.
@@ -35,24 +37,40 @@ namespace YAF.Core.Tasks
     public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     {
         /// <summary>
-        /// The _board id.
+        /// The board id.
         /// </summary>
-        protected int _boardId = ControlSettings.Current.BoardID;
+        protected int boardId = BoardContext.Current.Get<ControlSettings>().BoardID;
 
         /// <summary>
-        /// The _is running.
+        /// The is running.
         /// </summary>
-        protected bool _isRunning;
+        protected bool isRunning;
 
         /// <summary>
-        /// The _lock object.
+        /// The lock object.
         /// </summary>
-        protected object _lockObject = new object();
+        protected object lockObject = new();
 
         /// <summary>
-        /// The _started.
+        /// The started.
         /// </summary>
-        protected DateTime _started;
+        protected DateTime started;
+
+        #region Implementation of IHaveServiceLocator
+
+        /// <summary>
+        /// Gets or sets the ServiceLocator.
+        /// </summary>
+        [Inject]
+        public IServiceLocator ServiceLocator { get; set; }
+
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        [Inject]
+        public ILoggerService Logger { get; set; }
+
+        #endregion
 
         #region IBackgroundTask Members
 
@@ -63,12 +81,12 @@ namespace YAF.Core.Tasks
         {
             protected get
             {
-                return this._boardId;
+                return this.boardId;
             }
 
             set
             {
-                this._boardId = (int)value;
+                this.boardId = (int)value;
             }
         }
 
@@ -79,22 +97,22 @@ namespace YAF.Core.Tasks
         {
             get
             {
-                lock (this._lockObject)
+                lock (this.lockObject)
                 {
-                    return this._isRunning;
+                    return this.isRunning;
                 }
             }
 
             protected set
             {
-                lock (this._lockObject)
+                lock (this.lockObject)
                 {
-                    if (!this._isRunning && value)
+                    if (!this.isRunning && value)
                     {
-                        this._started = DateTime.UtcNow;
+                        this.started = DateTime.UtcNow;
                     }
 
-                    this._isRunning = value;
+                    this.isRunning = value;
                 }
             }
         }
@@ -102,7 +120,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets Started.
         /// </summary>
-        public virtual DateTime Started => this._started;
+        public virtual DateTime Started => this.started;
 
         /// <summary>
         /// The run.
@@ -130,18 +148,5 @@ namespace YAF.Core.Tasks
         /// The run once.
         /// </summary>
         public abstract void RunOnce();
-
-        #region Implementation of IHaveServiceLocator
-
-        /// <summary>
-        /// Gets ServiceLocator.
-        /// </summary>
-        [Inject]
-        public IServiceLocator ServiceLocator { get; set; }
-
-        [Inject]
-        public ILogger Logger { get; set; }
-
-        #endregion
     }
 }

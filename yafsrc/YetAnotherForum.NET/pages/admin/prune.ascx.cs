@@ -29,7 +29,7 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Model;
     using YAF.Core.Tasks;
     using YAF.Types;
@@ -37,7 +37,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -45,7 +44,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Prune Topics Page
     /// </summary>
-    public partial class prune : AdminPage
+    public partial class Prune : AdminPage
     {
         #region Methods
 
@@ -79,13 +78,8 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_PRUNE", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_PRUNE", "TITLE")}";
         }
 
         /// <summary>
@@ -109,16 +103,14 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.forumlist.DataSource = this.GetRepository<Forum>().ListReadAsDataTable(
+            var forumList = this.GetRepository<Forum>().ListAllSorted(
                 this.PageContext.PageBoardID,
-                this.PageContext.PageUserID,
-                null,
-                null,
-                false,
-                false);
+                this.PageContext.PageUserID);
 
-            this.forumlist.DataValueField = "ForumID";
+            this.forumlist.AddForumAndCategoryIcons(forumList);
+
             this.forumlist.DataTextField = "Forum";
+            this.forumlist.DataValueField = "ForumID";
 
             this.DataBind();
 

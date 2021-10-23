@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,18 +22,19 @@
  * under the License.
  */
 
-namespace YAF.Core
+namespace YAF.Core.Context
 {
     #region
 
     using System;
-    using System.Collections.Generic;
     using System.Threading;
 
     using YAF.Configuration;
-    using YAF.Types.Extensions;
-    using YAF.Types.Flags;
-    using YAF.Utils.Helpers;
+    using YAF.Core.Helpers;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Models;
+    using YAF.Types.Objects;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -45,198 +46,128 @@ namespace YAF.Core
         #region Constants and Fields
 
         /// <summary>
-        ///   The init. user page.
+        /// Check if data is loaded.
         /// </summary>
-        protected bool InitUserPage;
+        public bool UserPageDataLoaded { get; set; }
 
         /// <summary>
         /// The page
         /// </summary>
-        private IDictionary<string, object> page;
-
-        /// <summary>
-        ///   The user flags.
-        /// </summary>
-        private UserFlags userFlags;
+        private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic>, UserLazyData, PageQueryData> page;
 
         #endregion
 
         #region Properties
 
         /// <summary>
-        ///   Gets a value indicating whether the current user has access to vote on polls in the current BoardVoteAccess (True).
-        /// </summary>
-        public bool BoardVoteAccess => this.AccessNotNull("BoardVoteAccess");
-
-        /// <summary>
-        ///   Gets the culture code for the user
-        /// </summary>
-        public string CultureUser =>
-            this.PageValueAsString("CultureUser") == "10" ? string.Empty : this.PageValueAsString("CultureUser");
-
-        /// <summary>
-        ///   Gets a value indicating whether the time zone offset for the user
-        /// </summary>
-        public bool DSTUser => this.userFlags != null && this.userFlags.IsDST;
-
-        /// <summary>
         ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
         /// </summary>
-        public bool ForumDeleteAccess => this.AccessNotNull("DeleteAccess");
+        public bool ForumDeleteAccess => this.PageData.Item2.Item1.DeleteAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user can download attachments (True).
         /// </summary>
-        public bool ForumDownloadAccess => this.AccessNotNull("DownloadAccess");
+        public bool ForumDownloadAccess => this.PageData.Item2.Item1.DownloadAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user can edit own messages in the current forum (True).
         /// </summary>
-        public bool ForumEditAccess => this.AccessNotNull("EditAccess");
+        public bool ForumEditAccess => this.PageData.Item2.Item1.EditAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a moderator of the current forum (True).
         /// </summary>
-        public bool ForumModeratorAccess => this.AccessNotNull("ModeratorAccess");
+        public bool ForumModeratorAccess => this.PageData.Item2.Item1.ModeratorAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user has access to create polls in the current forum (True).
         /// </summary>
-        public bool ForumPollAccess => this.AccessNotNull("PollAccess");
+        public bool ForumPollAccess => this.PageData.Item2.Item1.PollAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user has post access in the current forum (True).
         /// </summary>
-        public bool ForumPostAccess => this.AccessNotNull("PostAccess");
+        public bool ForumPostAccess => this.PageData.Item2.Item1.PostAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user has access to create priority topics in the current forum (True).
         /// </summary>
-        public bool ForumPriorityAccess => this.AccessNotNull("PriorityAccess");
+        public bool ForumPriorityAccess => this.PageData.Item2.Item1.PriorityAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user has read access in the current forum (True)
         /// </summary>
-        public bool ForumReadAccess => this.AccessNotNull("ReadAccess");
+        public bool ForumReadAccess => this.PageData.Item2.Item1.ReadAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user has reply access in the current forum (True)
         /// </summary>
-        public bool ForumReplyAccess => this.AccessNotNull("ReplyAccess");
+        public bool ForumReplyAccess => this.PageData.Item2.Item1.ReplyAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user can upload attachments (True).
         /// </summary>
-        public bool ForumUploadAccess => this.AccessNotNull("UploadAccess");
+        public bool ForumUploadAccess => this.PageData.Item2.Item1.UploadAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user has access to vote on polls in the current forum (True).
         /// </summary>
-        public bool ForumVoteAccess => this.AccessNotNull("VoteAccess");
+        public bool ForumVoteAccess => this.PageData.Item2.Item1.VoteAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the  current user is an administrator (True).
         /// </summary>
-        public bool IsAdmin => this.IsHostAdmin || this.PageValueAsBool("IsAdmin");
-
-        /// <summary>
-        ///   Gets a value indicating whether the user is excluded from CAPTCHA check (True).
-        /// </summary>
-        public bool IsCaptchaExcluded => this.userFlags != null && this.userFlags.IsCaptchaExcluded;
-
-        /// <summary>
-        /// The moderated.
-        /// </summary>
-        public bool Moderated => this.userFlags != null && this.userFlags.Moderated;
+        public bool IsForumAdmin => this.PageData.Item2.Item1.IsAdmin;
 
         /// <summary>
         ///   Gets a value indicating whether the current user IsCrawler (True).
         /// </summary>
-        public bool IsCrawler => this.AccessNotNull("IsCrawler");
+        public bool IsCrawler => this.PageData.Item2.Item1.IsCrawler;
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a forum moderator (mini-admin) (True).
         /// </summary>
-        public bool IsForumModerator => this.PageValueAsBool("IsForumModerator");
+        public bool IsForumModerator => this.PageData.Item2.Item1.IsForumModerator;
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a guest (True).
         /// </summary>
-        public bool IsGuest => this.PageValueAsBool("IsGuest");
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user host admin (True).
-        /// </summary>
-        public bool IsHostAdmin => this.userFlags != null && this.userFlags.IsHostAdmin;
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user uses a mobile device (True).
-        /// </summary>
-        public bool IsMobileDevice => this.AccessNotNull("IsMobileDevice");
+        public bool IsGuest => this.PageData.Item3.IsGuest;
 
         /// <summary>
         ///   Gets a value indicating whether the current user is a moderator for at least one forum (True);
         /// </summary>
         public bool IsModeratorInAnyForum =>
-            this.PageValueAsBool("IsModerator") || this.PageValueAsBool("IsModeratorAny");
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user personal data was changed and not handled by a code;
-        /// </summary>
-        public bool IsDirty => this.PageValueAsBool("IsDirty");
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is logged in via Facebook
-        /// </summary>
-        public bool IsFacebookUser => this.PageValueAsBool("IsFacebookUser");
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is logged in via Twitter
-        /// </summary>
-        public bool IsTwitterUser => this.PageValueAsBool("IsTwitterUser");
-
-        /// <summary>
-        ///   Gets a value indicating whether the current user is logged in via Google
-        /// </summary>
-        public bool IsGoogleUser => this.PageValueAsBool("IsGoogleUser");
+            this.PageData.Item2.Item1.IsModerator || this.PageData.Item2.Item1.IsModeratorAny;
 
         /// <summary>
         ///   Gets a value indicating whether the current user is suspended (True).
         /// </summary>
-        public bool IsSuspended => this.Page?["Suspended"] is DateTime;
-
-        /// <summary>
-        ///   Gets the language file name for the user
-        /// </summary>
-        public string LanguageFile => this.PageValueAsString("LanguageFile");
+        public bool IsSuspended => this.PageData.Item3.Suspended.HasValue;
 
         /// <summary>
         ///   Gets the number of pending buddy requests.
         /// </summary>
-        public DateTime LastPendingBuddies => this.Page["LastPendingBuddies"].ToString().IsNotSet()
-                                                  ? DateTimeHelper.SqlDbMinTime()
-                                                  : Convert.ToDateTime(this.Page["LastPendingBuddies"]);
+        public DateTime LastPendingBuddies => this.PageData.Item3.LastPendingBuddies;
 
         /// <summary>
         ///   Gets LastUnreadPm.
         /// </summary>
-        public DateTime LastUnreadPm => this.Page["LastUnreadPm"].ToString().IsNotSet()
-                                            ? DateTimeHelper.SqlDbMinTime()
-                                            : Convert.ToDateTime(this.Page["LastUnreadPm"]);
+        public DateTime LastUnreadPm => this.PageData.Item3.LastUnreadPm ?? DateTimeHelper.SqlDbMinTime();
 
         /// <summary>
         ///   Gets the number of albums which a user already has
         /// </summary>
-        public int NumAlbums => this.Page["NumAlbums"].ToType<int>();
+        public int NumAlbums => this.PageData.Item3.NumAlbums;
 
         /// <summary>
         ///   Gets or sets Page.
         /// </summary>
-        public virtual IDictionary<string, object> Page
+        public virtual Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic>, UserLazyData, PageQueryData> PageData
         {
             get
             {
-                if (this.InitUserPage)
+                if (this.UserPageDataLoaded)
                 {
                     return this.page;
                 }
@@ -248,7 +179,7 @@ namespace YAF.Core
 
                 try
                 {
-                    if (!this.InitUserPage)
+                    if (!this.UserPageDataLoaded)
                     {
                         this.InitUserAndPage();
                     }
@@ -264,29 +195,39 @@ namespace YAF.Core
             set
             {
                 this.page = value;
-                this.InitUserPage = value != null;
-
-                // get user flags
-                this.userFlags = this.page != null ? new UserFlags(this.page["UserFlags"]) : null;
+                this.UserPageDataLoaded = value != null;
             }
         }
 
         /// <summary>
         ///   Gets PageBoardID.
         /// </summary>
-        public int PageBoardID => ControlSettings.Current == null ? 1 : ControlSettings.Current.BoardID;
+        public int PageBoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
 
         /// <summary>
         ///   Gets the CategoryID for the current page, or 0 if not in any category
         /// </summary>
         public int PageCategoryID => BoardContext.Current.Settings.CategoryID != 0
                                          ? BoardContext.Current.Settings.CategoryID
-                                         : this.PageValueAsInt("CategoryID");
+                                         : this.PageData.Item4.CategoryID;
 
         /// <summary>
-        ///   Gets the Name of category for the current page, or an empty string if not in any category
+        /// The page category.
         /// </summary>
-        public string PageCategoryName => this.PageValueAsString("CategoryName");
+        public Category PageCategory => this.PageData.Item2.Item3;
+
+        /// <summary>
+        ///   Gets the Parent ForumID for the current page, or 0 if not in any forum
+        /// </summary>
+        public int? PageParentForumID
+        {
+            get
+            {
+                var isLockedForum = BoardContext.Current.Settings.LockedForum;
+
+                return isLockedForum != 0 ? isLockedForum : this.PageData.Item2.Item4.ParentID;
+            }
+        }
 
         /// <summary>
         ///   Gets the ForumID for the current page, or 0 if not in any forum
@@ -297,65 +238,55 @@ namespace YAF.Core
             {
                 var isLockedForum = BoardContext.Current.Settings.LockedForum;
 
-                return isLockedForum != 0 ? isLockedForum : this.PageValueAsInt("ForumID");
+                return isLockedForum != 0 ? isLockedForum : this.PageData.Item4.ForumID;
             }
         }
 
         /// <summary>
         ///   Gets the Name of forum for the current page, or an empty string if not in any forum
         /// </summary>
-        public string PageForumName => this.PageValueAsString("ForumName");
+        public Forum PageForum => this.PageData.Item2.Item4;
 
         /// <summary>
         ///   Gets the  TopicID of the current page, or 0 if not in any topic
         /// </summary>
-        public int PageTopicID => this.PageValueAsInt("TopicID");
+        public int PageTopicID => this.PageData.Item4.TopicID;
 
         /// <summary>
         ///   Gets the Name of topic for the current page, or an empty string if not in any topic
         /// </summary>
-        public string PageTopicName => this.PageValueAsString("TopicName");
+        public Topic PageTopic => this.PageData.Item2.Item5;
 
         /// <summary>
         ///   Gets the UserID of the current user.
         /// </summary>
-        public int PageUserID => this.PageValueAsInt("UserID");
+        public int PageUserID => this.PageData.Item2.Item2.ID;
 
         /// <summary>
-        ///   Gets PageUserName.
+        /// The guest user id.
         /// </summary>
-        public string PageUserName => this.PageValueAsString("UserName");
+        public int GuestUserID => this.PageData.Item2.Item1.GuestUserID;
 
         /// <summary>
         ///   Gets the number of pending buddy requests
         /// </summary>
-        public int PendingBuddies => this.Page["PendingBuddies"].ToType<int>();
-
-        /// <summary>
-        ///   Gets the number of Reputation Points
-        /// </summary>
-        public int Reputation => this.Page["Reputation"].ToType<int>();
+        public int PendingBuddies => this.PageData.Item3.PendingBuddies;
 
         /// <summary>
         ///   Gets the DateTime the user is suspended until
         /// </summary>
         public DateTime SuspendedUntil =>
-            this.IsSuspended ? this.Page["Suspended"].ToType<DateTime>() : DateTime.UtcNow;
+            this.IsSuspended ? this.PageData.Item3.Suspended.Value : DateTime.UtcNow;
 
         /// <summary>
         ///   Gets the DateTime the user is suspended until
         /// </summary>
-        public string SuspendedReason => this.IsSuspended ? this.Page["SuspendedReason"].ToString() : string.Empty;
-
-        /// <summary>
-        ///   Gets the user text editor
-        /// </summary>
-        public string TextEditor => this.PageValueAsString("TextEditor");
+        public string SuspendedReason => this.IsSuspended ? this.PageData.Item3.SuspendedReason : string.Empty;
 
         /// <summary>
         ///   Gets the time zone offset for the user
         /// </summary>
-        public string TimeZoneUser => this.Page["TimeZoneUser"].ToString();
+        public string TimeZoneUser => this.PageData.Item3.TimeZoneUser;
 
         /// <summary>
         /// Gets the time zone information user.
@@ -371,47 +302,37 @@ namespace YAF.Core
         /// <value>
         /// The time zone user off set.
         /// </value>
-        public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.Page["TimeZoneUser"].ToString());
+        public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.PageData.Item3.TimeZoneUser);
 
         /// <summary>
         /// The received thanks.
         /// </summary>
-        public int ReceivedThanks => this.Page["ReceivedThanks"].ToType<int>();
+        public int ReceivedThanks => this.PageData.Item3.ReceivedThanks;
 
         /// <summary>
         /// The mention.
         /// </summary>
-        public int Mention => this.Page["Mention"].ToType<int>();
+        public int Mention => this.PageData.Item3.Mention;
 
         /// <summary>
         /// The quoted.
         /// </summary>
-        public int Quoted => this.Page["Quoted"].ToType<int>();
+        public int Quoted => this.PageData.Item3.Quoted;
 
         /// <summary>
         ///   Gets the number of private messages that are unread
         /// </summary>
-        public int UnreadPrivate => this.Page["UnreadPrivate"].ToType<int>();
+        public int UnreadPrivate => this.PageData.Item3.UnreadPrivate;
 
         /// <summary>
         ///   Gets the number of posts that needs moderating
         /// </summary>
-        public int ModeratePosts => this.Page["ModeratePosts"].ToType<int>();
+        public int ModeratePosts => this.PageData.Item3.ModeratePosts;
 
         /// <summary>
         ///   Gets a value indicating whether a user has buddies
         /// </summary>
-        public bool UserHasBuddies => this.PageValueAsBool("UserHasBuddies");
-
-        /// <summary>
-        ///   Gets the UserStyle for the user
-        /// </summary>
-        public string UserStyle => this.PageValueAsString("UserStyle");
-
-        /// <summary>
-        ///   Gets the number of albums which a user can have
-        /// </summary>
-        public int UsrAlbums => this.Page["UsrAlbums"].ToType<int>();
+        public bool UserHasBuddies => this.PageData.Item3.UserHasBuddies;
 
         #endregion
 
@@ -425,7 +346,7 @@ namespace YAF.Core
         /// </returns>
         public bool PageIsNull()
         {
-            return this.Page == null;
+            return this.PageData == null;
         }
 
         #endregion
@@ -437,77 +358,6 @@ namespace YAF.Core
         /// </summary>
         protected virtual void InitUserAndPage()
         {
-        }
-
-        /// <summary>
-        /// Helper function used for redundant "access" fields internally
-        /// </summary>
-        /// <param name="field">
-        /// The field.
-        /// </param>
-        /// <returns>
-        /// The access not null.
-        /// </returns>
-        private bool AccessNotNull(string field)
-        {
-            if (this.Page[field] == null)
-            {
-                return false;
-            }
-
-            return this.Page[field].ToType<int>() > 0;
-        }
-
-        /// <summary>
-        /// Internal helper function used for redundant page variable access (boolean)
-        /// </summary>
-        /// <param name="field">
-        /// The field.
-        /// </param>
-        /// <returns>
-        /// The page value as boolean.
-        /// </returns>
-        private bool PageValueAsBool(string field)
-        {
-            if (this.Page?[field] != null)
-            {
-                return this.Page[field].ToType<int>() != 0;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// Internal helper function used for redundant page variable access (integer)
-        /// </summary>
-        /// <param name="field">
-        /// The field.
-        /// </param>
-        /// <returns>
-        /// The page value as integer.
-        /// </returns>
-        private int PageValueAsInt(string field)
-        {
-            if (this.Page?[field] != null)
-            {
-                return this.Page[field].ToType<int>();
-            }
-
-            return 0;
-        }
-
-        /// <summary>
-        /// Internal helper function used for redundant page variable access (string)
-        /// </summary>
-        /// <param name="field">
-        /// The field.
-        /// </param>
-        /// <returns>
-        /// The page value as string.
-        /// </returns>
-        private string PageValueAsString(string field)
-        {
-            return this.Page?[field] != null ? this.Page[field].ToString() : string.Empty;
         }
 
         #endregion

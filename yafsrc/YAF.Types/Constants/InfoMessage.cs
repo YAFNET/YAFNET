@@ -49,7 +49,7 @@ namespace YAF.Types.Constants
         AccessDenied = 4,
 
         /// <summary>
-        /// informs user about feature being disabled by admin 
+        /// informs user about feature being disabled by admin
         /// </summary>
         Disabled = 5,
 
@@ -67,16 +67,6 @@ namespace YAF.Types.Constants
         /// requires cookies
         /// </summary>
         RequiresCookies = 8,
-
-        /// <summary>
-        /// requires JS
-        /// </summary>
-        RequiresEcmaScript = 9,
-
-        /// <summary>
-        /// unsupported JS version
-        /// </summary>
-        EcmaScriptVersionUnsupported = 10,
 
         /// <summary>
         /// The message for admin to ask access for admin pages viewing.

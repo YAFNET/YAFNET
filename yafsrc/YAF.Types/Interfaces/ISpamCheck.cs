@@ -61,5 +61,19 @@ namespace YAF.Types.Interfaces
             [CanBeNull] string emailAddress,
             [NotNull] string ipAddress,
             out string result);
+
+        /// <summary>
+        /// Check Content for Spam URLs (Count URLs inside Messages)
+        /// </summary>
+        /// <param name="message">
+        /// The message to check for URLs.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        bool ContainsSpamUrls(string message, out string result);
     }
 }

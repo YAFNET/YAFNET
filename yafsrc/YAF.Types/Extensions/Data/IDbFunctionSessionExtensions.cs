@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,56 +27,28 @@ namespace YAF.Types.Extensions.Data
 
     using System.Data;
 
-    using YAF.Types.Interfaces.Data;
-
     #endregion
 
     /// <summary>
-    /// The i db function session extensions.
+    /// The function session extensions.
     /// </summary>
     public static class IDbFunctionSessionExtensions
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// The commit.
-        /// </summary>
-        /// <param name="dbFunctionSession">
-        /// The db function session.
-        /// </param>
-        public static void Commit([NotNull] this IDbFunctionSession dbFunctionSession)
-        {
-            CodeContracts.VerifyNotNull(dbFunctionSession, "dbFunctionSession");
-
-            dbFunctionSession.DbTransaction?.Commit();
-        }
-
-        /// <summary>
-        /// The rollback.
-        /// </summary>
-        /// <param name="dbFunctionSession">
-        /// The db function session.
-        /// </param>
-        public static void Rollback([NotNull] this IDbFunctionSession dbFunctionSession)
-        {
-            CodeContracts.VerifyNotNull(dbFunctionSession, "dbFunctionSession");
-
-            dbFunctionSession.DbTransaction?.Rollback();
-        }
-
-        /// <summary>
         /// The setup.
         /// </summary>
         /// <param name="command">
-        /// The command. 
+        /// The command.
         /// </param>
         /// <param name="dbTransaction">
-        /// The db transaction. 
+        /// The transaction.
         /// </param>
         public static void Populate([NotNull] this IDbCommand command, IDbTransaction dbTransaction)
         {
-            CodeContracts.VerifyNotNull(dbTransaction, "dbTransaction");
-            CodeContracts.VerifyNotNull(command, "command");
+            CodeContracts.VerifyNotNull(dbTransaction);
+            CodeContracts.VerifyNotNull(command);
 
             command.Connection = dbTransaction.Connection;
             command.Transaction = dbTransaction;

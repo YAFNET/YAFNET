@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -33,7 +33,6 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// Class to Generate The Reputation Bar
@@ -69,14 +68,14 @@ namespace YAF.Core.Services
         /// </returns>
         public bool CheckIfAllowReputationVoting(object voteDateToCheck)
         {
-            if (voteDateToCheck.IsNullOrEmptyDBField())
+            if (voteDateToCheck.IsNullOrEmptyField())
             {
                 return true;
             }
 
-            var reputationVoteDate = voteDateToCheck.ToType<System.DateTime>();
+            var reputationVoteDate = voteDateToCheck.ToType<DateTime>();
 
-            return reputationVoteDate < System.DateTime.UtcNow.AddHours(-24);
+            return reputationVoteDate < DateTime.UtcNow.AddHours(-24);
         }
 
         /// <summary>
@@ -98,12 +97,12 @@ namespace YAF.Core.Services
             var percentage = this.Get<IReputation>().ConvertPointsToPercentage(points);
 
             return $@"<div class=""progress"">
-                      <div class=""progress-bar progress-bar-striped{this.Get<IReputation>().GetReputationBarColor(percentage)}"" 
+                      <div class=""progress-bar progress-bar-striped{this.Get<IReputation>().GetReputationBarColor(percentage)}""
                            role=""progressbar""
-                           style=""width:{percentage.ToString(formatInfo)}%;"" 
-                           aria-valuenow=""{percentage.ToString(formatInfo)}"" 
+                           style=""width:{percentage.ToString(formatInfo)}%;""
+                           aria-valuenow=""{percentage.ToString(formatInfo)}""
                            aria-valuemax=""100"">
-                      {percentage.ToString(formatInfo)}% ({GetReputationBarText(percentage)})
+                      {percentage.ToString(formatInfo)}% ({this.GetReputationBarText(percentage)})
                       </div>
                   </div>";
         }
@@ -137,7 +136,7 @@ namespace YAF.Core.Services
                     lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
             }
 
-            return BoardContext.Current.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);
+            return this.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);
         }
 
         /// <summary>
@@ -182,11 +181,11 @@ namespace YAF.Core.Services
         {
             var percentage = points;
 
-            var minValue = BoardContext.Current.Get<BoardSettings>().ReputationMaxNegative;
+            var minValue = this.Get<BoardSettings>().ReputationMaxNegative;
 
-            var maxValue = BoardContext.Current.Get<BoardSettings>().ReputationMaxPositive;
+            var maxValue = this.Get<BoardSettings>().ReputationMaxPositive;
 
-            if (!BoardContext.Current.Get<BoardSettings>().ReputationAllowNegative)
+            if (!this.Get<BoardSettings>().ReputationAllowNegative)
             {
                 minValue = 0;
             }

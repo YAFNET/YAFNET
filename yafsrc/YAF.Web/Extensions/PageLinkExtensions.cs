@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -24,18 +24,13 @@
 
 namespace YAF.Web.Extensions
 {
-    using System.Data;
-    using System.Linq;
-
-    using YAF.Configuration;
-    using YAF.Core;
-    using YAF.Core.Model;
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects;
-    using YAF.Utils;
     using YAF.Web.Controls;
 
     using Forum = YAF.Types.Models.Forum;
@@ -52,9 +47,80 @@ namespace YAF.Web.Extensions
         /// <returns>returns the Page links including the root</returns>
         public static PageLinks AddRoot(this PageLinks pageLinks)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(pageLinks);
 
-            pageLinks.AddLink(pageLinks.Get<BoardSettings>().Name, BuildLink.GetLink(ForumPages.forum));
+            pageLinks.AddLink(
+                pageLinks.PageContext.BoardSettings.Name,
+                BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Board));
+
+            return pageLinks;
+        }
+
+        /// <summary>
+        /// The add admin index.
+        /// </summary>
+        /// <param name="pageLinks">
+        /// The page links.
+        /// </param>
+        /// <returns>
+        /// The <see cref="PageLinks"/>.
+        /// </returns>
+        public static PageLinks AddAdminIndex(this PageLinks pageLinks)
+        {
+            CodeContracts.VerifyNotNull(pageLinks);
+
+            pageLinks.AddLink(
+                pageLinks.GetText("ADMIN_ADMIN", "Administration"),
+                BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
+
+            return pageLinks;
+        }
+
+        /// <summary>
+        /// The add user.
+        /// </summary>
+        /// <param name="pageLinks">
+        /// The page links.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="PageLinks"/>.
+        /// </returns>
+        public static PageLinks AddUser(this PageLinks pageLinks, [NotNull] int userId, [NotNull] string name)
+        {
+            CodeContracts.VerifyNotNull(pageLinks);
+            CodeContracts.VerifyNotNull(name);
+
+            pageLinks.AddLink(name, BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, name));
+
+            return pageLinks;
+        }
+
+        /// <summary>
+        /// The add topic.
+        /// </summary>
+        /// <param name="pageLinks">
+        /// The page links.
+        /// </param>
+        /// <param name="topicName">
+        /// The topic name.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="PageLinks"/>.
+        /// </returns>
+        public static PageLinks AddTopic(this PageLinks pageLinks, [NotNull] string topicName, [NotNull] int topicId)
+        {
+            CodeContracts.VerifyNotNull(pageLinks);
+
+            pageLinks.AddLink(topicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topicId, topicName));
 
             return pageLinks;
         }
@@ -71,27 +137,12 @@ namespace YAF.Web.Extensions
             [NotNull] string categoryName,
             [NotNull] int categoryId)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
-            CodeContracts.VerifyNotNull(categoryName, "categoryName");
+            CodeContracts.VerifyNotNull(pageLinks);
+            CodeContracts.VerifyNotNull(categoryName);
 
-            pageLinks.AddLink(categoryName, BuildLink.GetLink(ForumPages.forum, "c={0}", categoryId));
-
-            return pageLinks;
-        }
-
-        /// <summary>
-        /// Adds the link.
-        /// </summary>
-        /// <param name="pageLinks">The page links.</param>
-        /// <param name="title">The title.</param>
-        /// <param name="url">The URL.</param>
-        /// <returns>Returns the page links</returns>
-        public static PageLinks AddLink(this PageLinks pageLinks, [NotNull] string title, [CanBeNull] string url = "")
-        {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
-            CodeContracts.VerifyNotNull(title, "title");
-
-            pageLinks.Add(new PageLink() { Title = title.Trim(), URL = url?.Trim() });
+            pageLinks.AddLink(
+                categoryName,
+                BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(categoryId, categoryName));
 
             return pageLinks;
         }
@@ -105,25 +156,48 @@ namespace YAF.Web.Extensions
         /// <returns>Returns the page links</returns>
         public static PageLinks AddForum(this PageLinks pageLinks, int forumId, bool noForumLink = false)
         {
-            CodeContracts.VerifyNotNull(pageLinks, "pageLinks");
+            CodeContracts.VerifyNotNull(pageLinks);
 
-            using (var links = BoardContext.Current.GetRepository<Forum>().ListPathAsDataTable(forumId))
+            if (BoardContext.Current.PageParentForumID.HasValue)
             {
-                links.Rows.Cast<DataRow>().ForEach(
-                    row =>
-                        {
-                            if (noForumLink && row["ForumID"].ToType<int>() == forumId)
-                            {
-                                pageLinks.AddLink(row["Name"].ToString(), string.Empty);
-                            }
-                            else
-                            {
-                                pageLinks.AddLink(
-                                    row["Name"].ToString(),
-                                    BuildLink.GetLink(ForumPages.topics, "f={0}", row["ForumID"]));
-                            }
-                        });
+                var parent = BoardContext.Current.GetRepository<Forum>()
+                    .GetById(BoardContext.Current.PageParentForumID.Value);
+
+                if (parent != null)
+                {
+                    pageLinks.AddLink(
+                        parent.Name,
+                        BoardContext.Current.Get<LinkBuilder>().GetForumLink(parent.ID, parent.Name));
+                }
             }
+
+            if (BoardContext.Current.PageForumID == forumId)
+            {
+                pageLinks.AddLink(
+                    BoardContext.Current.PageForum.Name,
+                    noForumLink
+                        ? string.Empty
+                        : BoardContext.Current.Get<LinkBuilder>().GetForumLink(
+                            forumId,
+                            BoardContext.Current.PageForum.Name));
+            }
+
+            return pageLinks;
+        }
+
+        /// <summary>
+        /// Adds the link.
+        /// </summary>
+        /// <param name="pageLinks">The page links.</param>
+        /// <param name="title">The title.</param>
+        /// <param name="url">The URL.</param>
+        /// <returns>Returns the page links</returns>
+        public static PageLinks AddLink(this PageLinks pageLinks, [NotNull] string title, [CanBeNull] string url = "")
+        {
+            CodeContracts.VerifyNotNull(pageLinks);
+            CodeContracts.VerifyNotNull(title);
+
+            pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
 
             return pageLinks;
         }

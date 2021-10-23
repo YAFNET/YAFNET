@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,6 +27,7 @@ namespace YAF.Core.Services.Startup
 
     using System;
 
+    using YAF.Core.Context;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -43,17 +44,11 @@ namespace YAF.Core.Services.Startup
     /// </summary>
     public virtual bool Initialized
     {
-      get
-      {
-        if (BoardContext.Current[this.InitVarName] == null)
-        {
-          return false;
-        }
+      get =>
+          BoardContext.Current[this.ServiceName] != null &&
+          Convert.ToBoolean(BoardContext.Current[this.ServiceName]);
 
-        return Convert.ToBoolean(BoardContext.Current[this.InitVarName]);
-      }
-
-      private set => BoardContext.Current[this.InitVarName] = value;
+      private set => BoardContext.Current[this.ServiceName] = value;
     }
 
     /// <summary>
@@ -62,9 +57,9 @@ namespace YAF.Core.Services.Startup
     public virtual int Priority => 1000;
 
     /// <summary>
-    ///   Gets InitVarName.
+    /// Gets the service name.
     /// </summary>
-    protected abstract string InitVarName { get; }
+    protected abstract string ServiceName { get; }
 
     #endregion
 
@@ -93,7 +88,7 @@ namespace YAF.Core.Services.Startup
     /// The run service.
     /// </summary>
     /// <returns>
-    /// The run service.
+    /// The <see cref="bool"/>.
     /// </returns>
     protected abstract bool RunService();
 

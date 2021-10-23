@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
 {
@@ -29,15 +30,15 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
     /// </summary>
     public sealed class FastCharStream : ICharStream
     {
-        char[] buffer = null;
+        private char[] buffer = null;
 
-        int bufferLength = 0;          // end of valid chars
-        int bufferPosition = 0;        // next char to read
+        private int bufferLength = 0;          // end of valid chars
+        private int bufferPosition = 0;        // next char to read
 
-        int tokenStart = 0;          // offset in buffer
-        int bufferStart = 0;          // position in file of buffer
+        private int tokenStart = 0;          // offset in buffer
+        private int bufferStart = 0;          // position in file of buffer
 
-        TextReader input;            // source of chars
+        private readonly TextReader input;            // source of chars // LUCENENET: marked readonly
 
         /// <summary>
         /// Constructs from a <see cref="TextReader"/>.
@@ -118,10 +119,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             {
                 input.Dispose();
             }
-#pragma warning disable 168
-            catch (IOException e)
-#pragma warning restore 168
+            catch (Exception e) when (e.IsIOException())
             {
+                // ignore
             }
         }
 

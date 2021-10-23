@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,17 +27,22 @@ namespace YAF.Pages.Moderate
     #region Using
 
     using System;
-    using System.Web;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
+    using YAF.Types.Objects.Model;
+    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -50,7 +55,7 @@ namespace YAF.Pages.Moderate
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "ReportedPosts" /> class. 
+        ///   Initializes a new instance of the <see cref = "ReportedPosts" /> class.
         ///   Default constructor.
         /// </summary>
         public ReportedPosts()
@@ -71,10 +76,10 @@ namespace YAF.Pages.Moderate
             this.PageLinks.AddRoot();
 
             // moderation index
-            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), BuildLink.GetLink(ForumPages.Moderate_Index));
+            this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
             // current page
-            this.PageLinks.AddLink(this.PageContext.PageForumName);
+            this.PageLinks.AddLink(this.PageContext.PageForum.Name);
         }
 
         /// <summary>
@@ -101,11 +106,37 @@ namespace YAF.Pages.Moderate
                 return;
             }
 
-            // create page links
-            this.CreatePageLinks();
-
             // bind data
             this.BindData();
+        }
+
+        /// <summary>
+        /// The list_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void List_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
+
+            var message = (ReportedMessage)e.Item.DataItem;
+
+            var messagePostData = e.Item.FindControlAs<MessagePostData>("MessagePostPrimary");
+
+            messagePostData.MessageID = message.MessageID;
+
+            messagePostData.CurrentMessage = new Message
+            {
+                MessageFlags = new MessageFlags(message.Flags),
+                MessageText = message.OriginalMessage
+            };
         }
 
         /// <summary>
@@ -114,7 +145,15 @@ namespace YAF.Pages.Moderate
         private void BindData()
         {
             // get reported posts for this forum
-            this.List.DataSource = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
+            var dt = this.GetRepository<MessageReported>().ListReported(this.PageContext.PageForumID);
+
+            if (!dt.Any())
+            {
+                // nope -- redirect back to the moderate main...
+                this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Index);
+            }
+
+            this.List.DataSource = dt;
 
             // bind data to controls
             this.DataBind();
@@ -132,59 +171,56 @@ namespace YAF.Pages.Moderate
             {
                 case "delete":
 
+                    var commandArgs = e.CommandArgument.ToString().Split(';');
+
+                    var topicId = commandArgs[1].ToType<int>();
+                    var messageId = commandArgs[0].ToType<int>();
+
                     // delete message
-                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
-
-                    // Update statistics
-                    this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
-
-                    // re-bind data
-                    this.BindData();
+                    this.GetRepository<Message>().Delete(
+                        this.PageContext.PageForumID,
+                        topicId,
+                        messageId,
+                        true,
+                        string.Empty,
+                        true,
+                        true);
 
                     // tell user message was deleted
-                    this.PageContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
+                    this.PageContext.LoadMessage.AddSession(this.GetText("DELETED"), MessageTypes.info);
                     break;
                 case "view":
 
                     // go to the message
-                    BuildLink.Redirect(ForumPages.Posts, "m={0}#post{0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(
+                        ForumPages.Posts,
+                        "m={0}&name={1}",
+                        e.CommandArgument,
+                        this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>()));
                     break;
                 case "copyover":
 
-                    // re-bind data
-                    this.BindData();
+                    var message = this.GetRepository<Message>().GetById(e.CommandArgument.ToType<int>());
 
                     // update message text
-                    this.GetRepository<Message>().ReportCopyOver(e.CommandArgument.ToType<int>());
+                    this.GetRepository<MessageReported>().ReportCopyOver(message);
                     break;
                 case "viewhistory":
 
                     // go to history page
-                    var ff = e.CommandArgument.ToString().Split(',');
-                    BoardContext.Current.Get<HttpResponseBase>().Redirect(
-                      BuildLink.GetLinkNotEscaped(ForumPages.MessageHistory, "f={0}&m={1}", ff[0], ff[1]));
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MessageHistory, "f={0}&m={1}", this.PageContext.PageForumID, e.CommandArgument.ToType<int>());
                     break;
                 case "resolved":
 
                     // mark message as resolved
                     this.GetRepository<Message>().ReportResolve(7, e.CommandArgument.ToType<int>(), this.PageContext.PageUserID);
 
-                    // re-bind data
-                    this.BindData();
-
                     // tell user message was flagged as resolved
-                    this.PageContext.AddLoadMessage(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
+                    this.PageContext.LoadMessage.AddSession(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
                     break;
             }
 
-            // see if there are any items left...
-            var dt = this.GetRepository<Message>().ListReportedAsDataTable(this.PageContext.PageForumID);
-
-            if (!dt.HasRows())
-            {
-                // nope -- redirect back to the moderate main...
-                BuildLink.Redirect(ForumPages.Moderate_Index);
-            }
+            this.BindData();
         }
 
         #endregion

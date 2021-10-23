@@ -1,6 +1,5 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 {
@@ -36,11 +35,11 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
         /// <exception cref="QueryNodeError">throw in overridden method to disallow</exception>
         public PhraseSlopQueryNode(IQueryNode query, int value)
         {
-            if (query == null)
-            {
-                throw new QueryNodeError(new Message(
-                    QueryParserMessages.NODE_ACTION_NOT_SUPPORTED, "query", "null"));
-            }
+            // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+            // LUCENENET: Added paramName parameter and changed to the same error message as the default of ArgumentNullException.
+            // However, we still need this to be an error type so it is not caught in StandardSyntaxParser.
+            if (query is null)
+                throw new QueryNodeError(QueryParserMessages.ARGUMENT_CANNOT_BE_NULL, nameof(query));
 
             this.value = value;
             IsLeaf = false;
@@ -93,9 +92,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             {
                 IQueryNode child = GetChild();
 
-                if (child is IFieldableNode)
+                if (child is IFieldableNode fieldableNode)
                 {
-                    return ((IFieldableNode)child).Field;
+                    return fieldableNode.Field;
                 }
 
                 return null;
@@ -104,9 +103,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
             {
                 IQueryNode child = GetChild();
 
-                if (child is IFieldableNode)
+                if (child is IFieldableNode fieldableNode)
                 {
-                    ((IFieldableNode)child).Field = value;
+                    fieldableNode.Field = value;
                 }
             }
         }

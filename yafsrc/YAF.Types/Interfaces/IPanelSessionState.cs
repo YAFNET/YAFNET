@@ -23,26 +23,26 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using YAF.Types.Constants;
+    using YAF.Types.Constants;
 
-  public interface IPanelSessionState
-  {
-    /// <summary>
-    ///   Gets panel session state.
-    /// </summary>
-    /// <param name = "panelID">panelID</param>
-    /// <returns></returns>
-    CollapsiblePanelState this[[NotNull] string panelID] { get; set; }
+    public interface IPanelSessionState
+    {
+        /// <summary>
+        ///   Gets panel session state.
+        /// </summary>
+        /// <param name = "panelID">panelID</param>
+        /// <returns></returns>
+        CollapsiblePanelState this[[NotNull] string panelID] { get; set; }
 
-    /// <summary>
-    /// The toggle panel state.
-    /// </summary>
-    /// <param name="panelID">
-    /// The panel id.
-    /// </param>
-    /// <param name="defaultState">
-    /// The default state.
-    /// </param>
-    void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState);
-  }
+        /// <summary>
+        /// The toggle panel state.
+        /// </summary>
+        /// <param name="panelID">
+        /// The panel id.
+        /// </param>
+        /// <param name="defaultState">
+        /// The default state.
+        /// </param>
+        void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState);
+    }
 }

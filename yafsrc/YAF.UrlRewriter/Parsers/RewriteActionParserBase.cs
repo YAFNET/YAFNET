@@ -69,19 +69,22 @@ namespace YAF.UrlRewriter.Parsers
             }
 
             // Parse attribute-based conditions.
-            foreach (var parser in config.ConditionParserPipeline)
+            config.ConditionParserPipeline.ForEach(parser =>
             {
                 var condition = parser.Parse(node);
-                if (condition != null)
-                {
-                    if (negative)
-                    {
-                        condition = new NegativeCondition(condition);
-                    }
 
-                    conditions.Add(condition);
+                if (condition == null)
+                {
+                    return;
                 }
-            }
+
+                if (negative)
+                {
+                    condition = new NegativeCondition(condition);
+                }
+
+                conditions.Add(condition);
+            });
 
             // Now, process the nested <and> conditions.
             var childNode = node.FirstChild;

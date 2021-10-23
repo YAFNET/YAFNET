@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,14 +27,13 @@ namespace YAF.Pages
 
     using System;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Helpers;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -63,7 +62,7 @@ namespace YAF.Pages
         /// <summary>
         /// Indicates if the My Topics Tab was loaded
         /// </summary>
-        private bool mytopicsLoaded;
+        private bool myTopicsLoaded;
 
         /// <summary>
         /// Indicates if the Favorite Tab was loaded
@@ -163,9 +162,15 @@ namespace YAF.Pages
                 return;
             }
 
-            this.UnreadTopicsTabTitle.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
-            this.UnreadTopicsTabContent.Visible = this.Get<BoardSettings>().UseReadTrackingByDatabase;
+            this.UnreadTopicsTabTitle.Visible = this.PageContext.BoardSettings.UseReadTrackingByDatabase;
+            this.UnreadTopicsTabContent.Visible = this.PageContext.BoardSettings.UseReadTrackingByDatabase;
+        }
 
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
             this.PageLinks.AddRoot();
 
             this.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);
@@ -180,24 +185,14 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ChangeTabClick(object sender, EventArgs e)
         {
-            switch (this.hidLastTab.Value)
+            this.CurrentTab = this.hidLastTab.Value switch
             {
-                case "UnansweredTopicsTab":
-                    this.CurrentTab = TopicListMode.Unanswered;
-                    break;
-                case "UnreadTopicsTab":
-                    this.CurrentTab = TopicListMode.Unread;
-                    break;
-                case "MyTopicsTab":
-                    this.CurrentTab = TopicListMode.User;
-                    break;
-                case "FavoriteTopicsTab":
-                    this.CurrentTab = TopicListMode.Favorite;
-                    break;
-                default:
-                    this.CurrentTab = TopicListMode.Active;
-                    break;
-            }
+                "UnansweredTopicsTab" => TopicListMode.Unanswered,
+                "UnreadTopicsTab" => TopicListMode.Unread,
+                "MyTopicsTab" => TopicListMode.User,
+                "FavoriteTopicsTab" => TopicListMode.Favorite,
+                _ => TopicListMode.Active
+            };
 
             this.RefreshTab();
         }
@@ -252,7 +247,7 @@ namespace YAF.Pages
                     break;
                 case TopicListMode.User:
 
-                    if (!this.mytopicsLoaded)
+                    if (!this.myTopicsLoaded)
                     {
                         this.MyTopicsTopics.BindData();
 
@@ -268,7 +263,7 @@ namespace YAF.Pages
                             this.FavoriteTopics.DataBind();
                         }
 
-                        this.mytopicsLoaded = true;
+                        this.myTopicsLoaded = true;
                     }
                     else
                     {

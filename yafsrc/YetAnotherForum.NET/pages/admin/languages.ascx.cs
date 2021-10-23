@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,16 +27,16 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Helpers;
-    using YAF.Core.Utilities;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -44,7 +44,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Admin Page that Shows the List of available Language Files
     /// </summary>
-    public partial class languages : AdminPage
+    public partial class Languages : AdminPage
     {
         #region Methods
 
@@ -80,6 +80,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
             this.BindData();
         }
 
@@ -89,30 +96,33 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_LANGUAGES", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_LANGUAGES", "TITLE")}";
         }
 
         /// <summary>
-        /// Binds the data.
+        /// The pager top_ page change.
         /// </summary>
-        private void BindData()
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var cultureTable = StaticDataHelper.Cultures();
+            // rebind
+            this.BindData();
+        }
 
-            this.List.DataSource = cultureTable;
-
-            BoardContext.Current.PageElements.RegisterJsBlock(
-               "tablesorterLoadJs",
-               JavaScriptBlocks.LoadTableSorter(
-                   "#language-table",
-                   cultureTable.HasRows() ? "headers: { 4: { sorter: false }}" : null));
-
-            this.DataBind();
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
         }
 
         /// <summary>
@@ -125,9 +135,24 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    BuildLink.Redirect(ForumPages.admin_editlanguage, "x={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditLanguage, "x={0}", e.CommandArgument);
                     break;
             }
+        }
+
+        /// <summary>
+        /// Binds the data.
+        /// </summary>
+        private void BindData()
+        {
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
+            this.PagerTop.PageSize = baseSize;
+
+            var cultures = StaticDataHelper.Cultures().ToList().GetPaged(this.PagerTop);
+
+            this.List.DataSource = cultures;
+
+            this.DataBind();
         }
 
         #endregion

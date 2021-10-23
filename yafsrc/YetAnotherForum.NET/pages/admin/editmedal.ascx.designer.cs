@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class editmedal
+    public partial class EditMedal
     {
 
         /// <summary>
@@ -22,24 +22,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-
-        /// <summary>
-        /// LocalizedLabel1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-
-        /// <summary>
-        /// LocalizedLabel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
 
         /// <summary>
         /// HelpLabel1 control.
@@ -96,24 +78,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox Description;
 
         /// <summary>
-        /// HelpLabel9 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel9;
-
-        /// <summary>
-        /// SortOrder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox SortOrder;
-
-        /// <summary>
         /// HelpLabel3 control.
         /// </summary>
         /// <remarks>
@@ -159,121 +123,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel5;
 
         /// <summary>
-        /// MedalPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage MedalPreview;
-
-        /// <summary>
         /// MedalImage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MedalImage;
-
-        /// <summary>
-        /// HelpLabel6 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel6;
-
-        /// <summary>
-        /// RibbonPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage RibbonPreview;
-
-        /// <summary>
-        /// RibbonImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList RibbonImage;
-
-        /// <summary>
-        /// HelpLabel7 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel7;
-
-        /// <summary>
-        /// SmallMedalPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SmallMedalPreview;
-
-        /// <summary>
-        /// SmallMedalImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SmallMedalImage;
-
-        /// <summary>
-        /// HelpLabel8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel8;
-
-        /// <summary>
-        /// SmallRibbonPreview control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage SmallRibbonPreview;
-
-        /// <summary>
-        /// SmallRibbonImage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList SmallRibbonImage;
-
-        /// <summary>
-        /// HelpLabel11 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel11;
-
-        /// <summary>
-        /// AllowRibbon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowRibbon;
+        protected global::YAF.Web.Controls.ImageListBox MedalImage;
 
         /// <summary>
         /// HelpLabel12 control.
@@ -294,24 +150,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.CheckBox AllowHiding;
 
         /// <summary>
-        /// HelpLabel13 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel13;
-
-        /// <summary>
-        /// AllowReOrdering control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox AllowReOrdering;
-
-        /// <summary>
         /// Save control.
         /// </summary>
         /// <remarks>
@@ -330,13 +168,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton Cancel;
 
         /// <summary>
-        /// LocalizedLabel11 control.
+        /// UserAndGroupsHolder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel11;
+        protected global::System.Web.UI.WebControls.PlaceHolder UserAndGroupsHolder;
 
         /// <summary>
         /// GroupList control.
@@ -355,15 +193,6 @@ namespace YAF.Pages.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton AddGroup;
-
-        /// <summary>
-        /// LocalizedLabel12 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel12;
 
         /// <summary>
         /// UserList control.

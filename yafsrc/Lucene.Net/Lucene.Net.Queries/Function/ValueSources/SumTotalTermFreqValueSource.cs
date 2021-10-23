@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using System;
@@ -78,19 +79,16 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                 }
             }
             long ttf = sumTotalTermFreq;
-            context[this] = new Int64DocValuesAnonymousInnerClassHelper(this, this, ttf);
+            context[this] = new Int64DocValuesAnonymousClass(this, ttf);
         }
 
-        private class Int64DocValuesAnonymousInnerClassHelper : Int64DocValues
+        private class Int64DocValuesAnonymousClass : Int64DocValues
         {
-            private readonly SumTotalTermFreqValueSource outerInstance;
+            private readonly long ttf;
 
-            private long ttf;
-
-            public Int64DocValuesAnonymousInnerClassHelper(SumTotalTermFreqValueSource outerInstance, SumTotalTermFreqValueSource @this, long ttf)
+            public Int64DocValuesAnonymousClass(SumTotalTermFreqValueSource @this, long ttf)
                 : base(@this)
             {
-                this.outerInstance = outerInstance;
                 this.ttf = ttf;
             }
 

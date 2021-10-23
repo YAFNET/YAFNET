@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 using System;
 
@@ -37,7 +38,7 @@ namespace YAF.Lucene.Net.Analysis.Payloads
         {
             if (typeMatch == null)
             {
-                throw new ArgumentException("typeMatch cannot be null");
+                throw new ArgumentNullException(nameof(typeMatch), "typeMatch cannot be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             //Need to encode the payload
             thePayload = new BytesRef(PayloadHelper.EncodeSingle(payload));

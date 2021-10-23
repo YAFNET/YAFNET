@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Core;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Core;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System;
@@ -66,7 +67,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
             }
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 
@@ -104,7 +105,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
                 // TODO: expose dedup as a parameter?
                 map = LoadSynonyms(loader, formatClass, true, analyzer);
             }
-            catch (Exception e)
+            catch (Exception e) when (e.IsParseException())
             {
                 throw new IOException("Error parsing synonyms file:", e);
             }
@@ -123,7 +124,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
             {
                 parser = (SynonymMap.Parser)Activator.CreateInstance(clazz, new object[] { dedup, expand, analyzer });
             }
-            catch (Exception /*e*/)
+            catch (Exception e) when (e.IsException())
             {
                 throw; // LUCENENET: CA2200: Rethrow to preserve stack details (https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2200-rethrow-to-preserve-stack-details)
             }
@@ -151,13 +152,13 @@ namespace YAF.Lucene.Net.Analysis.Synonym
             {
                 TokenizerFactory tokFactory = (TokenizerFactory)Activator.CreateInstance(clazz, new object[] { tokArgs });
 
-                if (tokFactory is IResourceLoaderAware)
+                if (tokFactory is IResourceLoaderAware resourceLoaderAware)
                 {
-                    ((IResourceLoaderAware)tokFactory).Inform(loader);
+                    resourceLoaderAware.Inform(loader);
                 }
                 return tokFactory;
             }
-            catch (Exception /*e*/)
+            catch (Exception e) when (e.IsException())
             {
                 throw; // LUCENENET: CA2200: Rethrow to preserve stack details (https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2200-rethrow-to-preserve-stack-details)
             }

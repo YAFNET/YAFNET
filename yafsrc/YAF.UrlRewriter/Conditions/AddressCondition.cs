@@ -48,6 +48,6 @@ namespace YAF.UrlRewriter.Conditions
             return ipAddress != null && this._range.InRange(IPAddress.Parse(ipAddress));
         }
 
-        private IPRange _range;
+        private readonly IPRange _range;
     }
 }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,6 +27,7 @@ namespace YAF.Types.Models
     using System;
 
     using ServiceStack.DataAnnotations;
+    using ServiceStack.OrmLite;
 
     using YAF.Types.Interfaces.Data;
 
@@ -34,21 +35,8 @@ namespace YAF.Types.Models
     /// The attachment.
     /// </summary>
     [Serializable]
-    public partial class Attachment : IEntity, IHaveID
+    public class Attachment : IEntity, IHaveID
     {
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Attachment"/> class.
-        /// </summary>
-        public Attachment()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>
@@ -61,8 +49,6 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the message id.
         /// </summary>
-
-        // [Default(0)]
         public int MessageID { get; set; }
 
         /// <summary>
@@ -89,6 +75,7 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets the content type.
         /// </summary>
+        [CustomField(OrmLiteVariables.MaxText)]
         public string ContentType { get; set; }
 
         /// <summary>
@@ -101,6 +88,13 @@ namespace YAF.Types.Models
         /// Gets or sets the file data.
         /// </summary>
         public byte[] FileData { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether
+        /// selected for editing.
+        /// </summary>
+        [Ignore]
+        public bool Selected { get; set; }
 
         #endregion
     }

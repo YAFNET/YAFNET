@@ -49,13 +49,12 @@ namespace YAF.Core.Model
         /// <param name="userId">The user identifier.</param>
         /// <param name="forumId">The forum identifier.</param>
         /// <returns>Returns if deleting was successful or not</returns>
-        public static bool Delete(this IRepository<UserForum> repository, int? userId, int? forumId)
+        public static bool Delete(this IRepository<UserForum> repository, [NotNull] int userId, [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var success = repository.DbAccess.Execute(
-                              db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId))
-                          == 1;
+                db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId)) == 1;
 
             if (success)
             {
@@ -82,10 +81,10 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<Tuple<User, UserForum, AccessMask>> List(
             this IRepository<UserForum> repository,
-            [NotNull] int? userId,
+            [CanBeNull] int? userId,
             [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -136,6 +135,8 @@ namespace YAF.Core.Model
                 repository.UpdateOnly(
                     () => new UserForum { AccessMaskID = accessMaskId },
                     x => x.UserID == userId && x.ForumID == forumId);
+
+                repository.FireUpdated(forumId);
             }
             else
             {
@@ -149,6 +150,8 @@ namespace YAF.Core.Model
                             Invited = DateTime.UtcNow,
                             Accepted = true
                         });
+
+                repository.FireNew(forumId);
             }
         }
 

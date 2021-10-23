@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using Term = YAF.Lucene.Net.Index.Term;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using Term  = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// Expert:

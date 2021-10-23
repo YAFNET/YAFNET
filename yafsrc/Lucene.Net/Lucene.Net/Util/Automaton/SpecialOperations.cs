@@ -1,7 +1,9 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
+using J2N.Numerics;
 using J2N.Text;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using JCG = J2N.Collections.Generic;
 
@@ -36,7 +38,7 @@ using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Automaton
 {
-    using Util = YAF.Lucene.Net.Util.Fst.Util;
+    using Util  = YAF.Lucene.Net.Util.Fst.Util;
 
     /// <summary>
     /// Special automata operations.
@@ -49,13 +51,14 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// Finds the largest entry whose value is less than or equal to <paramref name="c"/>, or 0 if
         /// there is no such entry.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int FindIndex(int c, int[] points)
         {
             int a = 0;
             int b = points.Length;
             while (b - a > 1)
             {
-                int d = (int)((uint)(a + b) >> 1);
+                int d = (a + b).TripleShift(1);
                 if (points[d] > c)
                 {
                     b = d;
@@ -90,6 +93,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// </summary>
         // TODO: not great that this is recursive... in theory a
         // large automata could exceed java's stack
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool IsFinite(State s, OpenBitSet path, OpenBitSet visited)
         {
             path.Set(s.number);
@@ -206,6 +210,7 @@ namespace YAF.Lucene.Net.Util.Automaton
             return @ref;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void ReverseBytes(BytesRef @ref)
         {
             if (@ref.Length <= 1)
@@ -300,6 +305,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// <c>false</c> if more than <paramref name="limit"/> strings are found.
         /// <paramref name="limit"/>&lt;0 means "infinite".
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool GetFiniteStrings(State s, JCG.HashSet<State> pathstates, JCG.HashSet<Int32sRef> strings, Int32sRef path, int limit)
         {
             pathstates.Add(s);

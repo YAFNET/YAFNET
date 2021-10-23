@@ -30,10 +30,9 @@ namespace YAF.Web.Controls
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
-    using ServiceStack;
-
     using YAF.Core.BaseControls;
     using YAF.Types;
+    using YAF.Types.Interfaces;
 
     #endregion
 
@@ -56,70 +55,55 @@ namespace YAF.Web.Controls
 
         #region Methods
 
-        /// <summary>
-        /// The render.
-        /// </summary>
-        /// <param name="writer">
-        /// The writer.
-        /// </param>
-        protected override void Render([NotNull] HtmlTextWriter writer)
-        {
-            base.Render(writer);
-        }
-
         /// <summary>Gets the topic icon.</summary>
         /// <param name="themeImageTag">The theme image tag.</param>
         /// <returns>Returns the topic icon.</returns>
-        private static string GetTopicIcon(string themeImageTag)
+        private static Icon GetTopicIcon(string themeImageTag)
         {
-            var iconNew =
-                "<i class=\"fas fa-comment fa-stack-2x text-success\"></i><i class=\"fas fa-{0} fa-stack-1x fa-inverse\"></i>";
+            var iconNew = new Icon
+            {
+                IconName = "comment",
+                IconStackName = "comment",
+                IconStackType = "fa-inverse",
+                IconStackSize = "fa-1x",
+                IconType = "text-success"
+            };
 
-            var icon = "<i class=\"fas fa-comment fa-stack-2x text-secondary\"></i><i class=\"fas fa-{0} fa-stack-1x fa-inverse\"></i>";
+            var icon = new Icon
+            {
+                IconName = "comment",
+                IconStackName = "comment",
+                IconStackType = "fa-inverse",
+                IconStackSize = "fa-1x",
+                IconType = "text-secondary"
+            };
 
             switch (themeImageTag)
             {
-                case "POLL_NEW":
-                    return
-                        iconNew.Fmt("poll-h");
-                case "STICKY_NEW":
-                    return
-                        iconNew.Fmt("sticky-note");
-                case "ANNOUNCEMENT_NEW":
-                    return
-                        iconNew.Fmt("bullhorn");
                 case "NEW_POSTS_LOCKED":
-                    return
-                        iconNew.Fmt("lock");
+                    iconNew.IconStackName = "lock";
+                    return iconNew;
                 case "HOT_NEW_POSTS":
-                    return
-                        iconNew.Fmt("fire");
+                    iconNew.IconStackName = "fire";
+                    return iconNew;
                 case "NEW_POSTS":
-                    return
-                        iconNew.Fmt("comment");
-                case "POLL":
-                    return icon.Fmt("poll-h");
-                case "STICKY":
-                    return
-                        icon.Fmt("sticky-note");
-                case "ANNOUNCEMENT":
-                    return
-                        icon.Fmt("bullhorn");
+                    iconNew.IconStackName = "comment";
+                    return iconNew;
                 case "NO_NEW_POSTS_LOCKED":
-                    return
-                        icon.Fmt("lock");
+                    icon.IconStackName = "lock";
+                    return icon;
                 case "HOT_NO_NEW_POSTS":
-                    return
-                        icon.Fmt("fire");
+                    icon.IconStackName = "fire";
+                    return icon;
                 case "NO_NEW_POSTS":
-                    return
-                        icon.Fmt("comment");
+                    icon.IconStackName = "comment";
+                    return icon;
                 case "MOVED":
-                    return
-                        icon.Fmt("arrows-alt");
+                    icon.IconStackName = "arrows-alt";
+                    return icon;
                 default:
-                    return
-                        icon.Fmt("comment");
+                    icon.IconStackName = "comment";
+                    return icon;
             }
         }
 
@@ -133,15 +117,13 @@ namespace YAF.Web.Controls
             string[] themeImageTags =
                 {
                     "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
-                    "TOPIC_ANNOUNCEMENT_NEW", "TOPIC_ANNOUNCEMENT", "TOPIC_STICKY_NEW", "TOPIC_STICKY",
-                    "TOPIC_POLL_NEW", "TOPIC_POLL", "TOPIC_MOVED"
+                    "TOPIC_MOVED"
                 };
 
             string[] localizedTags =
                 {
                     "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED",
-                    "NO_NEW_POSTS_LOCKED", "ANNOUNCEMENT_NEW", "ANNOUNCEMENT", "STICKY_NEW", "STICKY", "POLL_NEW",
-                    "POLL", "MOVED"
+                    "NO_NEW_POSTS_LOCKED", "MOVED"
                 };
 
             HtmlGenericControl row = null;
@@ -149,7 +131,6 @@ namespace YAF.Web.Controls
             // add a table control
             var table = new HtmlGenericControl("div");
 
-            // table.Attributes.Add(HtmlTextWriterAttribute.Class.ToString(), "container");
             this.Controls.Add(table);
 
             for (var i = 0; i < themeImageTags.Length; i++)
@@ -168,16 +149,16 @@ namespace YAF.Web.Controls
                 row.Controls.Add(col);
 
                 // add the themed icons
-                var icon = new Label
-                               {
-                                   Text = GetTopicIcon(localizedTags[i]),
-                                   CssClass = "fa-stack pr-1"
-                               };
-                col.Controls.Add(icon);
+                col.Controls.Add(GetTopicIcon(localizedTags[i]));
+
+                var descriptionText = new Label
+                {
+                    Text = this.GetText(localizedTags[i]),
+                    CssClass = "small"
+                };
 
                 // localized text describing the image
-                var localLabel = new LocalizedLabel { LocalizedTag = localizedTags[i] };
-                col.Controls.Add(localLabel);
+                col.Controls.Add(descriptionText);
             }
         }
 

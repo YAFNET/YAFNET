@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,20 +31,18 @@ namespace YAF.Dialogs
     using System.IO;
     using System.Linq;
     using System.Text.RegularExpressions;
-    using System.Web.Security;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Models.Identity;
 
     #endregion
 
@@ -126,7 +124,7 @@ namespace YAF.Dialogs
                     string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
             }
 
-            BuildLink.Redirect(ForumPages.admin_users);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>
@@ -157,7 +155,7 @@ namespace YAF.Dialogs
                 {
                     importedCount =
                         usersDataSet.Tables["YafUser"].Rows.Cast<DataRow>().Where(
-                            row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null)
+                            row => this.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null)
                                                       .Aggregate(
                                                           importedCount, (current, row) => this.ImportUser(row, current));
                 }
@@ -189,7 +187,7 @@ namespace YAF.Dialogs
 
                 importedCount =
                     usersTable.Rows.Cast<DataRow>().Where(
-                        row => this.Get<MembershipProvider>().GetUser((string)row["Name"], false) == null).Aggregate(
+                        row => this.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null).Aggregate(
                             importedCount, (current, row) => this.ImportUser(row, current));
             }
 
@@ -211,47 +209,15 @@ namespace YAF.Dialogs
         private int ImportUser(DataRow row, int importCount)
         {
             // Also Check if the Email is unique and exists
-            if (this.Get<MembershipProvider>().RequiresUniqueEmail)
+            if (this.Get<IAspNetUsersHelper>().GetUserByEmail((string)row["Email"]) != null)
             {
-                if (this.Get<MembershipProvider>().GetUserNameByEmail((string)row["Email"]) != null)
-                {
-                    return importCount;
-                }
+                return importCount;
             }
 
-            var pass = Membership.GeneratePassword(32, 16);
-            var securityAnswer = Membership.GeneratePassword(64, 30);
-            var securityQuestion = "Answer is a generated Pass";
-
-            if (row.Table.Columns.Contains("Password") && ((string)row["Password"]).IsSet()
-                && row.Table.Columns.Contains("SecurityQuestion")
-                && ((string)row["SecurityQuestion"]).IsSet()
-                && row.Table.Columns.Contains("SecurityAnswer") && ((string)row["SecurityAnswer"]).IsSet())
-            {
-                pass = (string)row["Password"];
-
-                securityAnswer = (string)row["SecurityAnswer"];
-                securityQuestion = (string)row["SecurityQuestion"];
-            }
-
-            var user = BoardContext.Current.Get<MembershipProvider>().CreateUser(
-                (string)row["Name"],
-                pass,
-                (string)row["Email"],
-                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityQuestion : null,
-                this.Get<MembershipProvider>().RequiresQuestionAndAnswer ? securityAnswer : null,
-                true,
-                null,
-                out _);
-
-            // setup initial roles (if any) for this user
-            RoleMembershipHelper.SetupUserRoles(BoardContext.Current.PageBoardID, (string)row["Name"]);
-
-            // create the user in the YAF DB as well as sync roles...
-            var userID = RoleMembershipHelper.CreateForumUser(user, BoardContext.Current.PageBoardID);
+            var pass = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
 
             // create empty profile just so they have one
-            var userProfile = YafUserProfile.GetProfile((string)row["Name"]);
+            var userProfile = new ProfileInfo();
 
             // Add Profile Fields to User List Table.
             if (row.Table.Columns.Contains("RealName") && ((string)row["RealName"]).IsSet())
@@ -279,18 +245,6 @@ namespace YAF.Dialogs
                 {
                     userProfile.Birthday = userBirthdate;
                 }
-            }
-
-            if (row.Table.Columns.Contains("BlogServiceUsername")
-                && ((string)row["BlogServiceUsername"]).IsSet())
-            {
-                userProfile.BlogServiceUsername = (string)row["BlogServiceUsername"];
-            }
-
-            if (row.Table.Columns.Contains("BlogServicePassword")
-                && ((string)row["BlogServicePassword"]).IsSet())
-            {
-                userProfile.BlogServicePassword = (string)row["BlogServicePassword"];
             }
 
             if (row.Table.Columns.Contains("GoogleId") && ((string)row["GoogleId"]).IsSet())
@@ -368,7 +322,43 @@ namespace YAF.Dialogs
                 userProfile.FacebookId = (string)row["FacebookId"];
             }
 
-            userProfile.Save();
+            var user = new AspNetUsers
+            {
+                Id = Guid.NewGuid().ToString(),
+                ApplicationId = this.PageContext.BoardSettings.ApplicationId,
+                UserName = (string)row["Name"],
+                LoweredUserName = (string)row["Name"],
+                Email = (string)row["Email"],
+                IsApproved = true,
+
+                Profile_Birthday = userProfile.Birthday,
+                Profile_Blog = userProfile.Blog,
+                Profile_Gender = userProfile.Gender,
+                Profile_GoogleId = userProfile.GoogleId,
+                Profile_Homepage = userProfile.Homepage,
+                Profile_ICQ = userProfile.ICQ,
+                Profile_Facebook = userProfile.Facebook,
+                Profile_FacebookId = userProfile.FacebookId,
+                Profile_Twitter = userProfile.Twitter,
+                Profile_TwitterId = userProfile.TwitterId,
+                Profile_Interests = userProfile.Interests,
+                Profile_Location = userProfile.Location,
+                Profile_Country = userProfile.Country,
+                Profile_Region = userProfile.Region,
+                Profile_City = userProfile.City,
+                Profile_Occupation = userProfile.Occupation,
+                Profile_RealName = userProfile.RealName,
+                Profile_Skype = userProfile.Skype,
+                Profile_XMPP = userProfile.XMPP
+            };
+
+            this.Get<IAspNetUsersHelper>().Create(user, pass);
+
+            // setup initial roles (if any) for this user
+            this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageContext.PageBoardID, user);
+
+            // create the user in the YAF DB as well as sync roles...
+            var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageContext.PageBoardID);
 
             if (userID == null)
             {
@@ -378,17 +368,10 @@ namespace YAF.Dialogs
 
             // send user register notification to the new users
             this.Get<ISendNotification>().SendRegistrationNotificationToUser(
-                user, pass, securityAnswer, "NOTIFICATION_ON_REGISTER");
+                user, pass, "NOTIFICATION_ON_REGISTER");
 
             // save the time zone...
-            var userId = UserMembershipHelper.GetUserIDFromProviderUserKey(user.ProviderUserKey);
-
-            var isDst = false;
-
-            if (row.Table.Columns.Contains("IsDST") && ((string)row["IsDST"]).IsSet())
-            {
-                bool.TryParse((string)row["IsDST"], out isDst);
-            }
+            var userId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID;
 
             var timeZone = 0;
 
@@ -397,34 +380,26 @@ namespace YAF.Dialogs
                 int.TryParse((string)row["Timezone"], out timeZone);
             }
 
-            var autoWatchTopicsEnabled = this.Get<BoardSettings>().DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             this.GetRepository<User>().Save(
                 userId,
-                BoardContext.Current.PageBoardID,
-                row["Name"],
-                row.Table.Columns.Contains("DisplayName") ? row["DisplayName"] : null,
-                row["Email"],
-                timeZone,
-                row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"] : null,
-                row.Table.Columns.Contains("Culture") ? row["Culture"] : null,
-                row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"] : null,
-                row.Table.Columns.Contains("TextEditor") ? row["TextEditor"] : null,
-                null,
-                null,
-                this.Get<BoardSettings>().DefaultNotificationSetting,
-                autoWatchTopicsEnabled,
-                isDst,
-                null);
+                timeZone.ToString(),
+                row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
+                row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
+                row.Table.Columns.Contains("ThemeFile") ? row["ThemeFile"].ToString() : null,
+                false,
+                true,
+                5);
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(
                 userId,
                 true,
                 autoWatchTopicsEnabled,
-                this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
-                this.Get<BoardSettings>().DefaultSendDigestEmail);
+                this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt(),
+                this.PageContext.BoardSettings.DefaultSendDigestEmail);
 
             importCount++;
 

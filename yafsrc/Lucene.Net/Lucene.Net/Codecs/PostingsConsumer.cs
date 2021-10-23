@@ -22,12 +22,12 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
-    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using MergeState  = YAF.Lucene.Net.Index.MergeState;
 
     /// <summary>
     /// Abstract API that consumes postings for an individual term.

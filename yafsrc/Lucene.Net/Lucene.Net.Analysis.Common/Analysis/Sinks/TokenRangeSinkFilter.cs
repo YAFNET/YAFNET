@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Util;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Util;
 using System;
 
 namespace YAF.Lucene.Net.Analysis.Sinks
@@ -33,11 +34,11 @@ namespace YAF.Lucene.Net.Analysis.Sinks
         {
             if (lower < 1)
             {
-                throw new ArgumentOutOfRangeException("lower must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(lower), "lower must be greater than zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (lower > upper)
             {
-                throw new ArgumentOutOfRangeException("lower must not be greater than upper");
+                throw new ArgumentException("lower must not be greater than upper");
             }
             this.lower = lower;
             this.upper = upper;

@@ -1,9 +1,11 @@
-using J2N.Collections;
+﻿using J2N.Collections;
+using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
 using JCG = J2N.Collections.Generic;
 
@@ -26,15 +28,15 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using ByteArrayDataOutput = YAF.Lucene.Net.Store.ByteArrayDataOutput;
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
-    using InputStreamDataInput = YAF.Lucene.Net.Store.InputStreamDataInput;
-    using OutputStreamDataOutput = YAF.Lucene.Net.Store.OutputStreamDataOutput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using ByteArrayDataOutput  = YAF.Lucene.Net.Store.ByteArrayDataOutput;
+    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using GrowableWriter  = YAF.Lucene.Net.Util.Packed.GrowableWriter;
+    using InputStreamDataInput  = YAF.Lucene.Net.Store.InputStreamDataInput;
+    using OutputStreamDataOutput  = YAF.Lucene.Net.Store.OutputStreamDataOutput;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
 
     // TODO: break this into WritableFST and ReadOnlyFST.. then
     // we can have subclasses of ReadOnlyFST to handle the
@@ -240,7 +242,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
             if (maxBlockBits < 1 || maxBlockBits > 30)
             {
-                throw new ArgumentException("maxBlockBits should be 1 .. 30; got " + maxBlockBits);
+                throw new ArgumentOutOfRangeException(nameof(maxBlockBits), "maxBlockBits should be 1 .. 30; got " + maxBlockBits); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
 
             // NOTE: only reads most recent format; we don't have
@@ -284,7 +286,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 0 => FST.INPUT_TYPE.BYTE1,
                 1 => FST.INPUT_TYPE.BYTE2,
                 2 => FST.INPUT_TYPE.BYTE4,
-                _ => throw new InvalidOperationException("invalid input type " + t),
+                _ => throw IllegalStateException.Create("invalid input type " + t),
             };
             if (packed)
             {
@@ -340,11 +342,12 @@ namespace YAF.Lucene.Net.Util.Fst
             return size;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void Finish(long newStartNode)
         {
             if (startNode != -1)
             {
-                throw new InvalidOperationException("already finished");
+                throw IllegalStateException.Create("already finished");
             }
             if (newStartNode == FST.FINAL_END_NODE && !EqualityComparer<T>.Default.Equals(emptyOutput, default))
             {
@@ -356,6 +359,7 @@ namespace YAF.Lucene.Net.Util.Fst
             CacheRootArcs();
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private long GetNodeAddress(long node)
         {
             if (nodeAddress != null)
@@ -371,6 +375,7 @@ namespace YAF.Lucene.Net.Util.Fst
         }
 
         // Caches first 128 labels
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CacheRootArcs()
         {
             cachedRootArcs = (FST.Arc<T>[])new FST.Arc<T>[0x80];
@@ -383,6 +388,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ReadRootArcs(FST.Arc<T>[] arcs)
         {
             FST.Arc<T> arc = new FST.Arc<T>();
@@ -476,15 +482,15 @@ namespace YAF.Lucene.Net.Util.Fst
         {
             if (startNode == -1)
             {
-                throw new InvalidOperationException("call finish first");
+                throw IllegalStateException.Create("call finish first");
             }
             if (nodeAddress != null)
             {
-                throw new InvalidOperationException("cannot save an FST pre-packed FST; it must first be packed");
+                throw IllegalStateException.Create("cannot save an FST pre-packed FST; it must first be packed");
             }
             if (packed && !(nodeRefToAddress is PackedInt32s.Mutable))
             {
-                throw new InvalidOperationException("cannot save a FST which has been loaded from disk ");
+                throw IllegalStateException.Create("cannot save a FST which has been loaded from disk ");
             }
             CodecUtil.WriteHeader(@out, FST.FILE_FORMAT_NAME, FST.VERSION_CURRENT);
             if (packed)
@@ -506,7 +512,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 var ros = new RAMOutputStream();
                 Outputs.WriteFinalOutput(emptyOutput, ros);
 
-                var emptyOutputBytes = new byte[(int)ros.GetFilePointer()];
+                var emptyOutputBytes = new byte[(int)ros.Position]; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 ros.WriteTo(emptyOutputBytes, 0);
 
                 if (!packed)
@@ -582,13 +588,14 @@ namespace YAF.Lucene.Net.Util.Fst
         }
 
         // LUCENENET NOTE: static Read<T>() was moved into the FST class
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void WriteLabel(DataOutput @out, int v)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(v >= 0,"v={0}", v);
             if (inputType == FST.INPUT_TYPE.BYTE1)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(v <= 255,"v={0}", v);
-                @out.WriteByte((byte)(sbyte)v);
+                @out.WriteByte((byte)v);
             }
             else if (inputType == FST.INPUT_TYPE.BYTE2)
             {
@@ -601,6 +608,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal int ReadLabel(DataInput @in)
         {
             int v;
@@ -625,6 +633,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// returns <c>true</c> if the node at this address has any
         /// outgoing arcs
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool TargetHasArcs(FST.Arc<T> arc)
         {
             return arc.Target > 0;
@@ -715,7 +724,7 @@ namespace YAF.Lucene.Net.Util.Fst
                     flags += FST.BIT_ARC_HAS_OUTPUT;
                 }
 
-                bytes.WriteByte((byte)(sbyte)flags);
+                bytes.WriteByte((byte)flags);
                 WriteLabel(bytes, arc.Label);
 
                 // System.out.println("  write arc: label=" + (char) arc.Label + " flags=" + flags + " target=" + target.Node + " pos=" + bytes.getPosition() + " output=" + outputs.outputToString(arc.Output));
@@ -825,7 +834,7 @@ namespace YAF.Lucene.Net.Util.Fst
             // > 2.1B nodes when packing:
             if (nodeAddress != null && nodeCount == int.MaxValue)
             {
-                throw new InvalidOperationException("cannot create a packed FST with more than 2.1 billion nodes");
+                throw IllegalStateException.Create("cannot create a packed FST with more than 2.1 billion nodes");
             }
 
             nodeCount++;
@@ -965,6 +974,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private long ReadUnpackedNodeTarget(FST.BytesReader @in)
         {
             long target;
@@ -1056,6 +1066,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// </summary>
         /// <returns> Returns <c>true</c> if arc points to a state in an
         /// expanded array format. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal bool IsExpandedTarget(FST.Arc<T> follow, FST.BytesReader @in)
         {
             if (!TargetHasArcs(follow))
@@ -1078,7 +1089,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 // this was a fake inserted "final" arc
                 if (arc.NextArc <= 0)
                 {
-                    throw new ArgumentException("cannot readNextArc when arc.isLast()=true");
+                    throw new ArgumentException("cannot readNextArc when arc.IsLast=true");
                 }
                 return ReadFirstRealTargetArc(arc.NextArc, arc, @in);
             }
@@ -1344,7 +1355,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 while (low <= high)
                 {
                     //System.out.println("    cycle");
-                    int mid = (int)((uint)(low + high) >> 1);
+                    int mid = (low + high).TripleShift(1);
                     @in.Position = arc.PosArcsStart;
                     @in.SkipBytes(arc.BytesPerArc * mid + 1);
                     int midLabel = ReadLabel(@in);
@@ -1397,6 +1408,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SeekToNextNode(FST.BytesReader @in)
         {
             while (true)
@@ -1455,6 +1467,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// </returns>
         /// <seealso cref="FST.FIXED_ARRAY_NUM_ARCS_DEEP"/>
         /// <seealso cref="Builder.UnCompiledNode{S}.Depth"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool ShouldExpand(Builder.UnCompiledNode<T> node)
         {
             return allowArrayArcs && ((node.Depth <= FST.FIXED_ARRAY_SHALLOW_DISTANCE && node.NumArcs >= FST.FIXED_ARRAY_NUM_ARCS_SHALLOW) || node.NumArcs >= FST.FIXED_ARRAY_NUM_ARCS_DEEP);
@@ -1610,6 +1623,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// <summary>
         /// Creates a packed FST
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private FST(FST.INPUT_TYPE inputType, Outputs<T> outputs, int bytesPageBits)
         {
             version = FST.VERSION_CURRENT;
@@ -1654,7 +1668,7 @@ namespace YAF.Lucene.Net.Util.Fst
             //   - use spare bits in flags.... for top few labels /
             //     outputs / targets
 
-            if (nodeAddress == null)
+            if (nodeAddress is null)
             {
                 throw new ArgumentException("this FST was not built with willPackFST=true");
             }
@@ -1873,7 +1887,7 @@ namespace YAF.Lucene.Net.Util.Fst
                             }
 
                             if (Debugging.AssertsEnabled) Debugging.Assert(flags != FST.ARCS_AS_FIXED_ARRAY);
-                            writer.WriteByte((byte)(sbyte)flags);
+                            writer.WriteByte((byte)flags);
 
                             fst.WriteLabel(writer, arc.Label);
 
@@ -2267,6 +2281,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 return this;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal virtual bool Flag(int flag)
             {
                 return FST<T>.Flag(Flags, flag);
@@ -2340,6 +2355,7 @@ namespace YAF.Lucene.Net.Util.Fst
             {
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected internal override bool LessThan(NodeAndInCount a, NodeAndInCount b)
             {
                 int cmp = a.CompareTo(b);

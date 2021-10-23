@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
     /*
@@ -17,10 +19,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene 4.0 Stored Fields Format.
@@ -82,11 +84,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         {
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override StoredFieldsReader FieldsReader(Directory directory, SegmentInfo si, FieldInfos fn, IOContext context)
         {
             return new Lucene40StoredFieldsReader(directory, si, fn, context);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override StoredFieldsWriter FieldsWriter(Directory directory, SegmentInfo si, IOContext context)
         {
             return new Lucene40StoredFieldsWriter(directory, si.Name, context);

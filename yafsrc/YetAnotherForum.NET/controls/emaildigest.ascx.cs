@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,29 +27,24 @@ namespace YAF.Controls
 
     using System;
     using System.Collections.Generic;
-
+    using System.IO;
     using System.Linq;
     using System.Text;
     using System.Web;
 
-    using ServiceStack;
-
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
-#if DEBUG
-    using YAF.Core.Data.Profiling;
-#endif
+    using YAF.Core.BoardSettings;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Core.Services.Localization;
     using YAF.Core.Services.Startup;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -59,11 +54,6 @@ namespace YAF.Controls
     public partial class EmailDigest : BaseUserControl
     {
         #region Constants and Fields
-
-        /// <summary>
-        ///   The combined user data.
-        /// </summary>
-        private CombinedUserDataHelper combinedUserData;
 
         /// <summary>
         ///   The forum data.
@@ -106,8 +96,8 @@ namespace YAF.Controls
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
                 return topicsFlattened.Where(
-                    t => t.LastPostDate > System.DateTime.Now.AddHours(this.topicHours)
-                         && t.CreatedDate < System.DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
+                    t => t.LastPostDate > DateTime.Now.AddHours(this.topicHours)
+                         && t.CreatedDate < DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
             }
         }
 
@@ -140,17 +130,10 @@ namespace YAF.Controls
                 // flatten...
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
-                return topicsFlattened.Where(t => t.CreatedDate > System.DateTime.Now.AddHours(this.topicHours)).OrderByDescending(x => x.LastPostDate)
+                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours)).OrderByDescending(x => x.LastPostDate)
                     .GroupBy(x => x.Forum);
             }
         }
-
-        /// <summary>
-        ///   Gets UserData.
-        /// </summary>
-        [NotNull]
-        public CombinedUserDataHelper UserData =>
-            this.combinedUserData ?? (this.combinedUserData = new CombinedUserDataHelper(this.CurrentUserID));
 
         /// <summary>
         /// Gets a value indicating whether [show errors].
@@ -249,8 +232,8 @@ namespace YAF.Controls
 
             if (HttpContext.Current != null)
             {
-                this.BoardSettings = BoardContext.Current.BoardSettings.BoardID.Equals(this.BoardID)
-                                         ? BoardContext.Current.BoardSettings
+                this.BoardSettings = this.PageContext.BoardSettings.BoardID.Equals(this.BoardID)
+                                         ? this.PageContext.BoardSettings
                                          : new LoadBoardSettings(this.BoardID);
             }
             else
@@ -289,8 +272,10 @@ namespace YAF.Controls
 
             if (this.CurrentUserID == 0)
             {
-                this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("UserID").ToType<int>();
+                this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("UserID").Value;
             }
+
+            var currentUser = this.GetRepository<User>().GetById(this.CurrentUserID);
 
             // get topic hours...
             this.topicHours = -this.BoardSettings.DigestSendEveryXHours;
@@ -298,7 +283,7 @@ namespace YAF.Controls
             this.forumData = this.Get<DataBroker>().GetSimpleForumTopic(
                 this.BoardID,
                 this.CurrentUserID,
-                System.DateTime.Now.AddHours(this.topicHours),
+                DateTime.Now.AddHours(this.topicHours),
                 9999);
 
             if (!this.NewTopics.Any() && !this.ActiveTopics.Any())
@@ -315,13 +300,10 @@ namespace YAF.Controls
             }
 
             this.languageFile = UserHelper.GetUserLanguageFile(
-                this.CurrentUserID,
-                this.BoardID,
-                this.BoardSettings.AllowUserLanguage);
+                currentUser);
 
             var theme = UserHelper.GetUserThemeFile(
-                this.CurrentUserID,
-                this.BoardID,
+                currentUser,
                 this.BoardSettings.AllowUserTheme,
                 this.BoardSettings.Theme);
 
@@ -329,7 +311,7 @@ namespace YAF.Controls
 
             this.YafHead.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
-                    BoardInfo.GetURLToContentThemes(theme.CombineWith("bootstrap-forum.min.css"))));
+                    BoardInfo.GetURLToContentThemes(Path.Combine(theme, "bootstrap-forum.min.css"))));
 
             if (subject.IsSet())
             {
@@ -352,16 +334,6 @@ namespace YAF.Controls
             {
                 return debugInfo.ToString();
             }
-
-            debugInfo.Append(@"<div class=""small"">");
-            debugInfo.AppendFormat(
-                @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
-                QueryCounter.Count,
-                QueryCounter.Duration,
-                100 * QueryCounter.Duration / this.Get<IStopWatch>().Duration,
-                QueryCounter.Commands);
-
-            debugInfo.Append(@"</div>");
 #endif
 
             return debugInfo.ToString();

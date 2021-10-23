@@ -37,21 +37,33 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Add new Choice to the Poll
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="pollId">
+        /// The poll id.
+        /// </param>
+        /// <param name="choice">
+        /// The choice.
+        /// </param>
+        /// <param name="objectPath">
+        /// The object path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="int"/>.
+        /// </returns>
         public static int AddChoice(
             this IRepository<Choice> repository,
             [NotNull] int pollId,
             [NotNull] string choice,
-            [NotNull] string objectPath,
-            [NotNull] string mimeType)
+            [CanBeNull] string objectPath)
         {
-            var entity = new Choice
-                             {
-                                 PollID = pollId,
-                                 ChoiceName = choice,
-                                 Votes = 0,
-                                 ObjectPath = objectPath,
-                                 MimeType = mimeType
-                             };
+            CodeContracts.VerifyNotNull(repository);
+
+            var entity = new Choice { PollID = pollId, ChoiceName = choice, Votes = 0, ObjectPath = objectPath };
 
             var newId = repository.Insert(entity);
 
@@ -60,20 +72,47 @@ namespace YAF.Core.Model
             return newId;
         }
 
-        public static void UpdateChoice(this IRepository<Choice> repository,
-                                        [NotNull] int choiceId,
-                                        [NotNull] string choice,
-                                        [NotNull] string objectPath,
-                                        [NotNull] string mimeType)
+        /// <summary>
+        /// Update Choice
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="choiceId">
+        /// The choice id.
+        /// </param>
+        /// <param name="choice">
+        /// The choice.
+        /// </param>
+        /// <param name="objectPath">
+        /// The object path.
+        /// </param>
+        public static void UpdateChoice(
+            this IRepository<Choice> repository,
+            [NotNull] int choiceId,
+            [NotNull] string choice,
+            [CanBeNull] string objectPath)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateOnly(
-                () => new Choice { ChoiceName = choice, ObjectPath = objectPath, MimeType = mimeType },
+                () => new Choice { ChoiceName = choice, ObjectPath = objectPath },
                 c => c.ID == choiceId);
         }
 
-        public static void Vote(this IRepository<Choice> repository,
-                                        [NotNull] int choiceId)
+        /// <summary>
+        /// Ads A Vote to the Choice
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="choiceId">
+        /// The choice id.
+        /// </param>
+        public static void Vote(this IRepository<Choice> repository, [NotNull] int choiceId)
         {
+            CodeContracts.VerifyNotNull(repository);
+
             repository.UpdateAdd(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
         }
 

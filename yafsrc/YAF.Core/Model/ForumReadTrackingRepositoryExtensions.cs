@@ -25,7 +25,7 @@
 namespace YAF.Core.Model
 {
     using System;
-    
+
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
@@ -45,17 +45,36 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum id.
         /// </param>
-        public static void AddOrUpdate(this IRepository<ForumReadTracking> repository, int userID, int forumID)
+        public static void AddOrUpdate(
+            this IRepository<ForumReadTracking> repository,
+            [NotNull] int userId,
+            [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            repository.DbFunction.Query.readforum_addorupdate(UserID: userID, ForumID: forumID, UTCTIMESTAMP: DateTime.UtcNow);
+            var item = repository.GetSingle(x => x.ForumID == forumId && x.UserID == userId);
+
+            if (item != null)
+            {
+                repository.UpdateOnly(
+                    () => new ForumReadTracking { LastAccessDate = DateTime.UtcNow },
+                    x => x.LastAccessDate == item.LastAccessDate && x.ForumID == userId && x.UserID == userId);
+            }
+            else
+            {
+                repository.Insert(
+                    new ForumReadTracking { UserID = userId, ForumID = forumId, LastAccessDate = DateTime.UtcNow });
+            }
+
+            // -- Delete TopicReadTracking for forum... 
+            // Remark : not needed ?!
+           // BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == userId)
         }
 
         /// <summary>
@@ -64,17 +83,17 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool Delete(this IRepository<ForumReadTracking> repository, int userID)
+        public static bool Delete(this IRepository<ForumReadTracking> repository, [NotNull] int userId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            var success = repository.Delete(x => x.UserID == userID) == 1;
+            var success = repository.Delete(x => x.UserID == userId) == 1;
 
             if (success)
             {
@@ -99,9 +118,12 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="DateTime?"/>.
         /// </returns>
-        public static DateTime? LastRead(this IRepository<ForumReadTracking> repository, int userId, int forumId)
+        public static DateTime? LastRead(
+            this IRepository<ForumReadTracking> repository,
+            [NotNull] int userId,
+            [NotNull] int forumId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var forum = repository.GetSingle(t => t.UserID == userId && t.ForumID == forumId);
 

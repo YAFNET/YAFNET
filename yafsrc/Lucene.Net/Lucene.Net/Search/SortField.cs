@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Stores information about how to sort documents by terms in an individual
@@ -49,15 +49,15 @@ namespace YAF.Lucene.Net.Search
         private string field;
         private SortFieldType type; // defaults to determining type dynamically
         internal bool reverse = false; // defaults to natural order
-        private FieldCache.IParser parser;
+        private readonly FieldCache.IParser parser; // LUCENENET: marked readonly
 
         // Used for CUSTOM sort
-        private FieldComparerSource comparerSource;
+        private readonly FieldComparerSource comparerSource; // LUCENENET: marked readonly
 
         // Used for 'sortMissingFirst/Last'
         public virtual object MissingValue
         {
-            get { return m_missingValue; }
+            get => m_missingValue;
             set
             {
                 if (type == SortFieldType.STRING)
@@ -170,11 +170,11 @@ namespace YAF.Lucene.Net.Search
         /// Pass this to <see cref="MissingValue"/> to have missing
         /// string values sort first.
         /// </summary>
-        public static readonly object STRING_FIRST = new ObjectAnonymousInnerClassHelper();
+        public static readonly object STRING_FIRST = new ObjectAnonymousClass();
 
-        private class ObjectAnonymousInnerClassHelper : object
+        private class ObjectAnonymousClass : object
         {
-            public ObjectAnonymousInnerClassHelper()
+            public ObjectAnonymousClass()
             {
             }
 
@@ -188,11 +188,11 @@ namespace YAF.Lucene.Net.Search
         /// Pass this to <see cref="MissingValue"/> to have missing
         /// string values sort last.
         /// </summary>
-        public static readonly object STRING_LAST = new ObjectAnonymousInnerClassHelper2();
+        public static readonly object STRING_LAST = new ObjectAnonymousClass2();
 
-        private class ObjectAnonymousInnerClassHelper2 : object
+        private class ObjectAnonymousClass2 : object
         {
-            public ObjectAnonymousInnerClassHelper2()
+            public ObjectAnonymousClass2()
             {
             }
 
@@ -467,10 +467,10 @@ namespace YAF.Lucene.Net.Search
                     return new FieldComparer.TermValComparer(numHits, field);
 
                 case SortFieldType.REWRITEABLE:
-                    throw new InvalidOperationException("SortField needs to be rewritten through Sort.rewrite(..) and SortField.rewrite(..)");
+                    throw IllegalStateException.Create("SortField needs to be rewritten through Sort.Rewrite(..) and SortField.Rewrite(..)");
 
                 default:
-                    throw new InvalidOperationException("Illegal sort type: " + type);
+                    throw IllegalStateException.Create("Illegal sort type: " + type);
             }
         }
 

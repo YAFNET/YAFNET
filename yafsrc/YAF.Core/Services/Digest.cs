@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -123,8 +124,8 @@ namespace YAF.Core.Services
         /// <param name="digestHtml">
         /// The digest html.
         /// </param>
-        /// <param name="boardMessage">
-        /// The board Message.
+        /// <param name="boardAddress">
+        /// The board Address.
         /// </param>
         /// <param name="toEmail">
         /// The to email.
@@ -132,21 +133,24 @@ namespace YAF.Core.Services
         /// <param name="toName">
         /// The to name.
         /// </param>
+        /// <returns>
+        /// The <see cref="MailMessage"/>.
+        /// </returns>
         public MailMessage CreateDigestMessage(
             [NotNull] string subject,
             [NotNull] string digestHtml,
-            [NotNull] MailAddress boardMessage,
+            [NotNull] MailAddress boardAddress,
             [NotNull] string toEmail,
             [CanBeNull] string toName)
         {
             CodeContracts.VerifyNotNull(digestHtml, "digestHtml");
-            CodeContracts.VerifyNotNull(boardMessage, "boardMessage");
+            CodeContracts.VerifyNotNull(boardAddress);
             CodeContracts.VerifyNotNull(toEmail, "toEmail");
 
-            return this.Get<ISendMail>().CreateMessage(
-                boardMessage,
+            return this.Get<IMailService>().CreateMessage(
+                boardAddress,
                 new MailAddress(toEmail, toName),
-                boardMessage,
+                boardAddress,
                 subject,
                 "You must have HTML Email Viewer to View.",
                 digestHtml);

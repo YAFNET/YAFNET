@@ -27,7 +27,9 @@ namespace YAF.Web.Editors
 
     using System;
 
-    using YAF.Core;
+    using YAF.Configuration;
+    using YAF.Core.Context;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
 
@@ -54,7 +56,7 @@ namespace YAF.Web.Editors
         ///   Gets SafeID.
         /// </summary>
         [NotNull]
-        protected new string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
+        protected string SafeID => this.TextAreaControl.ClientID.Replace("$", "_");
 
         #endregion
 
@@ -73,11 +75,24 @@ namespace YAF.Web.Editors
                 "ckeditor-jQuery-Adapter",
                 "ckeditor/adapters/jquery.js");
 
-            this.RegisterAttachScript();
+            if (this.UserCanUpload && this.AllowsUploads)
+            {
+                BoardContext.Current.PageElements.RegisterJsBlock(
+                    "autoUpload",
+                    JavaScriptBlocks.FileAutoUploadLoadJs(
+                        this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                        this.PageContext.BoardSettings.MaxFileSize,
+                        $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
+                        this.PageContext.PageForumID,
+                        this.PageContext.PageBoardID,
+                        this.PageContext.BoardSettings.ImageAttachmentResizeWidth,
+                        this.PageContext.BoardSettings.ImageAttachmentResizeHeight,
+                        this.TextAreaControl.ClientID));
+            }
 
             this.RegisterCKEditorCustomJS();
 
-            // register custom YafBBCode javascript (if there is any)
+            // register custom BBCode javascript (if there is any)
             // this call is supposed to be after editor load since it may use
             // JS variables created in editor_load...
             this.Get<IBBCode>().RegisterCustomBBCodePageElements(this.Page, this.GetType(), this.SafeID);
@@ -90,21 +105,6 @@ namespace YAF.Web.Editors
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
-
-            this.TextAreaControl.Attributes.CssStyle.Add("width", "100%");
-            this.TextAreaControl.Attributes.CssStyle.Add("height", "350px");
-        }
-
-        /// <summary>
-        /// Inserts the Attachment Script
-        /// </summary>
-        protected virtual void RegisterAttachScript()
-        {
-            BoardContext.Current.PageElements.RegisterJsBlock(
-                "insertsmiley",
-                $@"function insertAttachment(id,url) {{
-                                   var ckEditor = CKEDITOR.instances.{this.TextAreaControl.ClientID}; ckEditor.insertHtml( '[attach]' + id + '[/attach]' );
-                         }};");
         }
 
         /// <summary>

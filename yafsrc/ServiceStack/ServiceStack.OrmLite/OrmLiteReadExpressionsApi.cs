@@ -1,46 +1,99 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using ServiceStack.Text;
-
+﻿// ***********************************************************************
+// <copyright file="OrmLiteReadExpressionsApi.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.Threading.Tasks;
+
+    using ServiceStack.Text;
+
+    /// <summary>
+    /// Class OrmLiteReadExpressionsApi.
+    /// </summary>
     public static class OrmLiteReadExpressionsApi
     {
+        /// <summary>
+        /// Executes the specified filter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>T.</returns>
         public static T Exec<T>(this IDbConnection dbConn, Func<IDbCommand, T> filter)
         {
             return dbConn.GetExecFilter().Exec(dbConn, filter);
         }
 
+        /// <summary>
+        /// Executes the specified filter.
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="filter">The filter.</param>
         public static void Exec(this IDbConnection dbConn, Action<IDbCommand> filter)
         {
             dbConn.GetExecFilter().Exec(dbConn, filter);
         }
 
+        /// <summary>
+        /// Executes the specified filter.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>Task&lt;T&gt;.</returns>
         public static Task<T> Exec<T>(this IDbConnection dbConn, Func<IDbCommand, Task<T>> filter)
         {
             return dbConn.GetExecFilter().Exec(dbConn, filter);
         }
 
+        /// <summary>
+        /// Executes the specified filter.
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>Task.</returns>
         public static Task Exec(this IDbConnection dbConn, Func<IDbCommand, Task> filter)
         {
             return dbConn.GetExecFilter().Exec(dbConn, filter);
         }
 
+        /// <summary>
+        /// Executes the lazy.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>IEnumerable&lt;T&gt;.</returns>
         public static IEnumerable<T> ExecLazy<T>(this IDbConnection dbConn, Func<IDbCommand, IEnumerable<T>> filter)
         {
             return dbConn.GetExecFilter().ExecLazy(dbConn, filter);
         }
 
+        /// <summary>
+        /// Executes the specified filter.
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>IDbCommand.</returns>
         public static IDbCommand Exec(this IDbConnection dbConn, Func<IDbCommand, IDbCommand> filter)
         {
             return dbConn.GetExecFilter().Exec(dbConn, filter);
         }
 
+        /// <summary>
+        /// Executes the specified filter.
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="filter">The filter.</param>
+        /// <returns>Task&lt;IDbCommand&gt;.</returns>
         public static Task<IDbCommand> Exec(this IDbConnection dbConn, Func<IDbCommand, Task<IDbCommand>> filter)
         {
             return dbConn.GetExecFilter().Exec(dbConn, filter);
@@ -50,11 +103,21 @@ namespace ServiceStack.OrmLite
         /// Creates a new SqlExpression builder allowing typed LINQ-like queries.
         /// Alias for SqlExpression.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
         public static SqlExpression<T> From<T>(this IDbConnection dbConn)
         {
             return dbConn.GetExecFilter().SqlExpression<T>(dbConn);
         }
 
+        /// <summary>
+        /// Froms the specified options.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
         public static SqlExpression<T> From<T>(this IDbConnection dbConn, Action<SqlExpression<T>> options)
         {
             var q = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
@@ -62,23 +125,44 @@ namespace ServiceStack.OrmLite
             return q;
         }
 
-        public static SqlExpression<T> From<T, JoinWith>(this IDbConnection dbConn, Expression<Func<T, JoinWith, bool>> joinExpr=null)
+        /// <summary>
+        /// Froms the specified join expr.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="JoinWith">The type of the join with.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="joinExpr">The join expr.</param>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
+        public static SqlExpression<T> From<T, JoinWith>(
+            this IDbConnection dbConn,
+            Expression<Func<T, JoinWith, bool>> joinExpr = null)
         {
             var sql = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
-            sql.Join<T,JoinWith>(joinExpr);
+            sql.Join<T, JoinWith>(joinExpr);
             return sql;
         }
 
         /// <summary>
         /// Creates a new SqlExpression builder for the specified type using a user-defined FROM sql expression.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="fromExpression">From expression.</param>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
         public static SqlExpression<T> From<T>(this IDbConnection dbConn, string fromExpression)
         {
             var expr = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
             expr.From(fromExpression);
             return expr;
         }
-                
+
+        /// <summary>
+        /// Froms the specified table options.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="tableOptions">The table options.</param>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
         public static SqlExpression<T> From<T>(this IDbConnection dbConn, TableOptions tableOptions)
         {
             var expr = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
@@ -89,7 +173,17 @@ namespace ServiceStack.OrmLite
             return expr;
         }
 
-        public static SqlExpression<T> From<T>(this IDbConnection dbConn, TableOptions tableOptions,
+        /// <summary>
+        /// Froms the specified table options.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="tableOptions">The table options.</param>
+        /// <param name="options">The options.</param>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
+        public static SqlExpression<T> From<T>(
+            this IDbConnection dbConn,
+            TableOptions tableOptions,
             Action<SqlExpression<T>> options)
         {
             var q = dbConn.From<T>(tableOptions);
@@ -97,20 +191,77 @@ namespace ServiceStack.OrmLite
             return q;
         }
 
+        /// <summary>
+        /// Joins the alias.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="alias">The alias.</param>
+        /// <returns>JoinFormatDelegate.</returns>
         [Obsolete("Use TableAlias")]
-        public static JoinFormatDelegate JoinAlias(this IDbConnection db, string alias) => OrmLiteUtils.JoinAlias(alias);
+        public static JoinFormatDelegate JoinAlias(this IDbConnection db, string alias) =>
+            OrmLiteUtils.JoinAlias(alias);
 
-        public static TableOptions TableAlias(this IDbConnection db, string alias) => new TableOptions { Alias = alias };
+        /// <summary>
+        /// Tables the alias.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="alias">The alias.</param>
+        /// <returns>TableOptions.</returns>
+        public static TableOptions TableAlias(this IDbConnection db, string alias) =>
+            new TableOptions { Alias = alias };
 
-        public static string GetTableName<T>(this IDbConnection db) => db.GetDialectProvider().GetTableName(ModelDefinition<T>.Definition);
+        /// <summary>
+        /// Gets the name of the table.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="db">The database.</param>
+        /// <returns>System.String.</returns>
+        public static string GetTableName<T>(this IDbConnection db) =>
+            db.GetDialectProvider().GetTableName(ModelDefinition<T>.Definition);
 
+        /// <summary>
+        /// Gets the table names.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public static List<string> GetTableNames(this IDbConnection db) => GetTableNames(db, null);
-        public static List<string> GetTableNames(this IDbConnection db, string schema) => db.Column<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
 
+        /// <summary>
+        /// Gets the table names.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
+        public static List<string> GetTableNames(this IDbConnection db, string schema) =>
+            db.Column<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
+
+        /// <summary>
+        /// Gets the table names asynchronous.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
         public static Task<List<string>> GetTableNamesAsync(this IDbConnection db) => GetTableNamesAsync(db, null);
-        public static Task<List<string>> GetTableNamesAsync(this IDbConnection db, string schema) => db.ColumnAsync<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
 
-        public static List<KeyValuePair<string,long>> GetTableNamesWithRowCounts(this IDbConnection db, bool live=false, string schema=null)
+        /// <summary>
+        /// Gets the table names asynchronous.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
+        public static Task<List<string>> GetTableNamesAsync(this IDbConnection db, string schema) =>
+            db.ColumnAsync<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
+
+        /// <summary>
+        /// Gets the table names with row counts.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="live">if set to <c>true</c> [live].</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>List&lt;KeyValuePair&lt;System.String, System.Int64&gt;&gt;.</returns>
+        public static List<KeyValuePair<string, long>> GetTableNamesWithRowCounts(
+            this IDbConnection db,
+            bool live = false,
+            string schema = null)
         {
             List<KeyValuePair<string, long>> GetResults()
             {
@@ -123,11 +274,21 @@ namespace ServiceStack.OrmLite
             }
 
             var results = GetResults();
-            results.Sort((x,y) => y.Value.CompareTo(x.Value)); //sort desc
+            results.Sort((x, y) => y.Value.CompareTo(x.Value)); //sort desc
             return results;
         }
 
-        public static async Task<List<KeyValuePair<string,long>>> GetTableNamesWithRowCountsAsync(this IDbConnection db, bool live = false, string schema = null)
+        /// <summary>
+        /// Get table names with row counts as an asynchronous operation.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="live">if set to <c>true</c> [live].</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
+        public static async Task<List<KeyValuePair<string, long>>> GetTableNamesWithRowCountsAsync(
+            this IDbConnection db,
+            bool live = false,
+            string schema = null)
         {
             Task<List<KeyValuePair<string, long>>> GetResultsAsync()
             {
@@ -139,11 +300,17 @@ namespace ServiceStack.OrmLite
                 return db.KeyValuePairsAsync<string, long>(sql);
             }
 
-            var results = await GetResultsAsync();
-            results.Sort((x,y) => y.Value.CompareTo(x.Value)); //sort desc
+            var results = await GetResultsAsync().ConfigAwait();
+            results.Sort((x, y) => y.Value.CompareTo(x.Value)); //sort desc
             return results;
         }
 
+        /// <summary>
+        /// Creates the table row count union SQL.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="schema">The schema.</param>
+        /// <returns>System.String.</returns>
         private static string CreateTableRowCountUnionSql(IDbConnection db, string schema)
         {
             var sb = StringBuilderCache.Allocate();
@@ -156,15 +323,22 @@ namespace ServiceStack.OrmLite
             {
                 if (sb.Length > 0)
                     sb.Append(" UNION ");
-                
+
                 // retain *real* table names and skip using naming strategy
-                sb.AppendLine($"SELECT {OrmLiteUtils.QuotedLiteral(tableName)}, COUNT(*) FROM {dialect.GetQuotedTableName(tableName, schemaName, useStrategy:false)}");
+                sb.AppendLine(
+                    $"SELECT {OrmLiteUtils.QuotedLiteral(tableName)}, COUNT(*) FROM {dialect.GetQuotedTableName(tableName, schemaName, useStrategy: false)}");
             }
 
             var sql = StringBuilderCache.ReturnAndFree(sb);
             return sql;
         }
 
+        /// <summary>
+        /// Gets the name of the quoted table.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="db">The database.</param>
+        /// <returns>System.String.</returns>
         public static string GetQuotedTableName<T>(this IDbConnection db)
         {
             return db.GetDialectProvider().GetQuotedTableName(ModelDefinition<T>.Definition);
@@ -173,22 +347,54 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Open a Transaction in OrmLite
         /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <returns>IDbTransaction.</returns>
         public static IDbTransaction OpenTransaction(this IDbConnection dbConn)
         {
             return new OrmLiteTransaction(dbConn, dbConn.BeginTransaction());
         }
 
         /// <summary>
+        /// Returns a new transaction if not yet exists, otherwise null
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <returns>IDbTransaction.</returns>
+        public static IDbTransaction OpenTransactionIfNotExists(this IDbConnection dbConn)
+        {
+            return !dbConn.InTransaction() ? new OrmLiteTransaction(dbConn, dbConn.BeginTransaction()) : null;
+        }
+
+        /// <summary>
         /// Open a Transaction in OrmLite
         /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="isolationLevel">The isolation level.</param>
+        /// <returns>IDbTransaction.</returns>
         public static IDbTransaction OpenTransaction(this IDbConnection dbConn, IsolationLevel isolationLevel)
         {
             return new OrmLiteTransaction(dbConn, dbConn.BeginTransaction(isolationLevel));
         }
 
         /// <summary>
+        /// Returns a new transaction if not yet exists, otherwise null
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="isolationLevel">The isolation level.</param>
+        /// <returns>IDbTransaction.</returns>
+        public static IDbTransaction OpenTransactionIfNotExists(
+            this IDbConnection dbConn,
+            IsolationLevel isolationLevel)
+        {
+            return !dbConn.InTransaction()
+                ? new OrmLiteTransaction(dbConn, dbConn.BeginTransaction(isolationLevel))
+                : null;
+        }
+
+        /// <summary>
         /// Create a managed OrmLite IDbCommand
         /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <returns>IDbCommand.</returns>
         public static IDbCommand OpenCommand(this IDbConnection dbConn)
         {
             return dbConn.GetExecFilter().CreateCommand(dbConn);
@@ -198,6 +404,10 @@ namespace ServiceStack.OrmLite
         /// Returns results from using a LINQ Expression. E.g:
         /// <para>db.Select&lt;Person&gt;(x =&gt; x.Age &gt; 40)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> Select<T>(this IDbConnection dbConn, Expression<Func<T, bool>> predicate)
         {
             return dbConn.Exec(dbCmd => dbCmd.Select(predicate));
@@ -207,6 +417,10 @@ namespace ServiceStack.OrmLite
         /// Returns results from using an SqlExpression lambda. E.g:
         /// <para>db.Select(db.From&lt;Person&gt;().Where(x =&gt; x.Age &gt; 40))</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> Select<T>(this IDbConnection dbConn, SqlExpression<T> expression)
         {
             return dbConn.Exec(dbCmd => dbCmd.Select(expression));
@@ -216,46 +430,231 @@ namespace ServiceStack.OrmLite
         /// Returns results from using an SqlExpression lambda. E.g:
         /// <para>db.Select(db.From&lt;Person&gt;().Where(x =&gt; x.Age &gt; 40))</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <returns>List&lt;T&gt;.</returns>
         public static List<T> Select<T>(this IDbConnection dbConn, ISqlExpression expression, object anonType = null)
         {
             if (anonType != null)
-                return dbConn.Exec(dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(), anonType));
+                return dbConn.Exec(dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(QueryType.Select), anonType));
 
             if (expression.Params != null && expression.Params.Any())
-                return dbConn.Exec(dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(), expression.Params.ToDictionary(param => param.ParameterName, param => param.Value)));
+                return dbConn.Exec(
+                    dbCmd => dbCmd.SqlList<T>(
+                        expression.SelectInto<T>(QueryType.Select),
+                        expression.Params.ToDictionary(param => param.ParameterName, param => param.Value)));
 
-            return dbConn.Exec(dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(), expression.Params));
+            return dbConn.Exec(
+                dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(QueryType.Select), expression.Params));
         }
 
-        public static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2&gt;&gt;.</returns>
+        public static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression));
 
-        public static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(this IDbConnection dbConn, SqlExpression<T> expression) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression));
 
-        public static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(this IDbConnection dbConn, SqlExpression<T> expression) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression));
 
-        public static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(this IDbConnection dbConn, SqlExpression<T> expression) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <typeparam name="T5">The type of the t5.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression));
 
-        public static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(this IDbConnection dbConn, SqlExpression<T> expression) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <typeparam name="T5">The type of the t5.</typeparam>
+        /// <typeparam name="T6">The type of the t6.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression));
 
-        public static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(this IDbConnection dbConn, SqlExpression<T> expression) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <typeparam name="T5">The type of the t5.</typeparam>
+        /// <typeparam name="T6">The type of the t6.</typeparam>
+        /// <typeparam name="T7">The type of the t7.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression));
 
 
-        public static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression, tableSelects));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="tableSelects">The table selects.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2&gt;&gt;.</returns>
+        public static List<Tuple<T, T2>> SelectMulti<T, T2>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            string[] tableSelects) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression, tableSelects));
 
-        public static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression, tableSelects));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="tableSelects">The table selects.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            string[] tableSelects) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression, tableSelects));
 
-        public static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression, tableSelects));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="tableSelects">The table selects.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            string[] tableSelects) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression, tableSelects));
 
-        public static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression, tableSelects));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <typeparam name="T5">The type of the t5.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="tableSelects">The table selects.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            string[] tableSelects) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression, tableSelects));
 
-        public static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression, tableSelects));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <typeparam name="T5">The type of the t5.</typeparam>
+        /// <typeparam name="T6">The type of the t6.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="tableSelects">The table selects.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            string[] tableSelects) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression, tableSelects));
 
-        public static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects) => dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects));
+        /// <summary>
+        /// Selects the multi.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T2">The type of the t2.</typeparam>
+        /// <typeparam name="T3">The type of the t3.</typeparam>
+        /// <typeparam name="T4">The type of the t4.</typeparam>
+        /// <typeparam name="T5">The type of the t5.</typeparam>
+        /// <typeparam name="T6">The type of the t6.</typeparam>
+        /// <typeparam name="T7">The type of the t7.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="tableSelects">The table selects.</param>
+        /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7&gt;&gt;.</returns>
+        public static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            string[] tableSelects) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects));
 
         /// <summary>
         /// Returns a single result from using a LINQ Expression. E.g:
         /// <para>db.Single&lt;Person&gt;(x =&gt; x.Age == 42)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>T.</returns>
         public static T Single<T>(this IDbConnection dbConn, Expression<Func<T, bool>> predicate)
         {
             return dbConn.Exec(dbCmd => dbCmd.Single(predicate));
@@ -265,6 +664,10 @@ namespace ServiceStack.OrmLite
         /// Returns results from using an SqlExpression lambda. E.g:
         /// <para>db.Select&lt;Person&gt;(x =&gt; x.Age &gt; 40)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>T.</returns>
         public static T Single<T>(this IDbConnection dbConn, SqlExpression<T> expression)
         {
             return dbConn.Exec(dbCmd => dbCmd.Single(expression));
@@ -274,15 +677,24 @@ namespace ServiceStack.OrmLite
         /// Returns results from using an SqlExpression lambda. E.g:
         /// <para>db.Single(db.From&lt;Person&gt;().Where(x =&gt; x.Age &gt; 40))</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>T.</returns>
         public static T Single<T>(this IDbConnection dbConn, ISqlExpression expression)
         {
-            return dbConn.Exec(dbCmd => dbCmd.Single<T>(expression.SelectInto<T>(), expression.Params));
+            return dbConn.Exec(dbCmd => dbCmd.Single<T>(expression.SelectInto<T>(QueryType.Single), expression.Params));
         }
 
         /// <summary>
         /// Returns a scalar result from using an SqlExpression lambda. E.g:
         /// <para>db.Scalar&lt;Person, int&gt;(x =&gt; Sql.Max(x.Age))</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="field">The field.</param>
+        /// <returns>TKey.</returns>
         public static TKey Scalar<T, TKey>(this IDbConnection dbConn, Expression<Func<T, object>> field)
         {
             return dbConn.Exec(dbCmd => dbCmd.Scalar<T, TKey>(field));
@@ -291,9 +703,17 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Returns a scalar result from using an SqlExpression lambda. E.g:
         /// <para>db.Scalar&lt;Person, int&gt;(x =&gt; Sql.Max(x.Age), , x =&gt; x.Age &lt; 50)</para>
-        /// </summary>        
-        public static TKey Scalar<T, TKey>(this IDbConnection dbConn,
-            Expression<Func<T, object>> field, Expression<Func<T, bool>> predicate)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TKey">The type of the t key.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="field">The field.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <returns>TKey.</returns>
+        public static TKey Scalar<T, TKey>(
+            this IDbConnection dbConn,
+            Expression<Func<T, object>> field,
+            Expression<Func<T, bool>> predicate)
         {
             return dbConn.Exec(dbCmd => dbCmd.Scalar<T, TKey>(field, predicate));
         }
@@ -302,6 +722,10 @@ namespace ServiceStack.OrmLite
         /// Returns the count of rows that match the LINQ expression, E.g:
         /// <para>db.Count&lt;Person&gt;(x =&gt; x.Age &lt; 50)</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Int64.</returns>
         public static long Count<T>(this IDbConnection dbConn, Expression<Func<T, bool>> expression)
         {
             return dbConn.Exec(dbCmd => dbCmd.Count(expression));
@@ -311,11 +735,21 @@ namespace ServiceStack.OrmLite
         /// Returns the count of rows that match the supplied SqlExpression, E.g:
         /// <para>db.Count(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Int64.</returns>
         public static long Count<T>(this IDbConnection dbConn, SqlExpression<T> expression)
         {
             return dbConn.Exec(dbCmd => dbCmd.Count(expression));
         }
 
+        /// <summary>
+        /// Counts the specified database connection.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <returns>System.Int64.</returns>
         public static long Count<T>(this IDbConnection dbConn)
         {
             var expression = dbConn.GetDialectProvider().SqlExpression<T>();
@@ -325,6 +759,10 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Return the number of rows returned by the supplied expression
         /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <returns>System.Int64.</returns>
         public static long RowCount<T>(this IDbConnection dbConn, SqlExpression<T> expression)
         {
             return dbConn.Exec(dbCmd => dbCmd.RowCount(expression));
@@ -333,6 +771,10 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Return the number of rows returned by the supplied sql
         /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="anonType">Type of the anon.</param>
+        /// <returns>System.Int64.</returns>
         public static long RowCount(this IDbConnection dbConn, string sql, object anonType = null)
         {
             return dbConn.Exec(dbCmd => dbCmd.RowCount(sql, anonType));
@@ -341,6 +783,10 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Return the number of rows returned by the supplied sql and db params
         /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <param name="sqlParams">The SQL parameters.</param>
+        /// <returns>System.Int64.</returns>
         public static long RowCount(this IDbConnection dbConn, string sql, IEnumerable<IDbDataParameter> sqlParams)
         {
             return dbConn.Exec(dbCmd => dbCmd.RowCount(sql, sqlParams));
@@ -350,16 +796,32 @@ namespace ServiceStack.OrmLite
         /// Returns results with references from using a LINQ Expression. E.g:
         /// <para>db.LoadSelect&lt;Person&gt;(x =&gt; x.Age &gt; 40)</para>
         /// </summary>
-        public static List<T> LoadSelect<T>(this IDbConnection dbConn, Expression<Func<T, bool>> predicate, string[] include = null)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;T&gt;.</returns>
+        public static List<T> LoadSelect<T>(
+            this IDbConnection dbConn,
+            Expression<Func<T, bool>> predicate,
+            string[] include = null)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect(predicate, include));
         }
 
         /// <summary>
         /// Returns results with references from using a LINQ Expression. E.g:
-        /// <para>db.LoadSelect&lt;Person&gt;(x =&gt; x.Age &gt; 40, include: x => new { x.PrimaryAddress })</para>
+        /// <para>db.LoadSelect&lt;Person&gt;(x =&gt; x.Age &gt; 40, include: x =&gt; new { x.PrimaryAddress })</para>
         /// </summary>
-        public static List<T> LoadSelect<T>(this IDbConnection dbConn, Expression<Func<T, bool>> predicate, Expression<Func<T, object>> include)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="predicate">The predicate.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;T&gt;.</returns>
+        public static List<T> LoadSelect<T>(
+            this IDbConnection dbConn,
+            Expression<Func<T, bool>> predicate,
+            Expression<Func<T, object>> include)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect(predicate, include.GetFieldNames()));
         }
@@ -368,7 +830,15 @@ namespace ServiceStack.OrmLite
         /// Returns results with references from using an SqlExpression lambda. E.g:
         /// <para>db.LoadSelect(db.From&lt;Person&gt;().Where(x =&gt; x.Age &gt; 40))</para>
         /// </summary>
-        public static List<T> LoadSelect<T>(this IDbConnection dbConn, SqlExpression<T> expression = null, string[] include = null)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;T&gt;.</returns>
+        public static List<T> LoadSelect<T>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression = null,
+            string[] include = null)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect(expression, include));
         }
@@ -377,16 +847,32 @@ namespace ServiceStack.OrmLite
         /// Returns results with references from using an SqlExpression lambda. E.g:
         /// <para>db.LoadSelect(db.From&lt;Person&gt;().Where(x =&gt; x.Age &gt; 40), include:q.OnlyFields)</para>
         /// </summary>
-        public static List<T> LoadSelect<T>(this IDbConnection dbConn, SqlExpression<T> expression, IEnumerable<string> include)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;T&gt;.</returns>
+        public static List<T> LoadSelect<T>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            IEnumerable<string> include)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect(expression, include));
         }
 
         /// <summary>
         /// Returns results with references from using an SqlExpression lambda. E.g:
-        /// <para>db.LoadSelect(db.From&lt;Person&gt;().Where(x =&gt; x.Age &gt; 40), include: x => new { x.PrimaryAddress })</para>
+        /// <para>db.LoadSelect(db.From&lt;Person&gt;().Where(x =&gt; x.Age &gt; 40), include: x =&gt; new { x.PrimaryAddress })</para>
         /// </summary>
-        public static List<T> LoadSelect<T>(this IDbConnection dbConn, SqlExpression<T> expression, Expression<Func<T, object>> include)
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;T&gt;.</returns>
+        public static List<T> LoadSelect<T>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            Expression<Func<T, object>> include)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect(expression, include.GetFieldNames()));
         }
@@ -394,7 +880,16 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Project results with references from a number of joined tables into a different model
         /// </summary>
-        public static List<Into> LoadSelect<Into, From>(this IDbConnection dbConn, SqlExpression<From> expression, string[] include = null)
+        /// <typeparam name="Into">The type of the into.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;Into&gt;.</returns>
+        public static List<Into> LoadSelect<Into, From>(
+            this IDbConnection dbConn,
+            SqlExpression<From> expression,
+            string[] include = null)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect<Into, From>(expression, include));
         }
@@ -402,7 +897,16 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Project results with references from a number of joined tables into a different model
         /// </summary>
-        public static List<Into> LoadSelect<Into, From>(this IDbConnection dbConn, SqlExpression<From> expression, IEnumerable<string> include)
+        /// <typeparam name="Into">The type of the into.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;Into&gt;.</returns>
+        public static List<Into> LoadSelect<Into, From>(
+            this IDbConnection dbConn,
+            SqlExpression<From> expression,
+            IEnumerable<string> include)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect<Into, From>(expression, include));
         }
@@ -410,7 +914,16 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Project results with references from a number of joined tables into a different model
         /// </summary>
-        public static List<Into> LoadSelect<Into, From>(this IDbConnection dbConn, SqlExpression<From> expression, Expression<Func<Into, object>> include)
+        /// <typeparam name="Into">The type of the into.</typeparam>
+        /// <typeparam name="From">The type of from.</typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="expression">The expression.</param>
+        /// <param name="include">The include.</param>
+        /// <returns>List&lt;Into&gt;.</returns>
+        public static List<Into> LoadSelect<Into, From>(
+            this IDbConnection dbConn,
+            SqlExpression<From> expression,
+            Expression<Func<Into, object>> include)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSelect<Into, From>(expression, include.GetFieldNames()));
         }
@@ -418,22 +931,51 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Return ADO.NET reader.GetSchemaTable() in a DataTable
         /// </summary>
-        /// <param name="dbConn"></param>
-        /// <param name="sql"></param>
-        /// <returns></returns>
-        public static DataTable GetSchemaTable(this IDbConnection dbConn, string sql) => dbConn.Exec(dbCmd => dbCmd.GetSchemaTable(sql));
-        
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <returns>DataTable.</returns>
+        public static DataTable GetSchemaTable(this IDbConnection dbConn, string sql) =>
+            dbConn.Exec(dbCmd => dbCmd.GetSchemaTable(sql));
+
         /// <summary>
         /// Get Table Column Schemas for specified table
         /// </summary>
-        public static ColumnSchema[] GetTableColumns<T>(this IDbConnection dbConn) => dbConn.Exec(dbCmd => dbCmd.GetTableColumns(typeof(T)));
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbConn">The database connection.</param>
+        /// <returns>ColumnSchema[].</returns>
+        public static ColumnSchema[] GetTableColumns<T>(this IDbConnection dbConn) =>
+            dbConn.Exec(dbCmd => dbCmd.GetTableColumns(typeof(T)));
+
         /// <summary>
         /// Get Table Column Schemas for specified table
         /// </summary>
-        public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, Type type) => dbConn.Exec(dbCmd => dbCmd.GetTableColumns(type));
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="type">The type.</param>
+        /// <returns>ColumnSchema[].</returns>
+        public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, Type type) =>
+            dbConn.Exec(dbCmd => dbCmd.GetTableColumns(type));
+
         /// <summary>
         /// Get Table Column Schemas for result-set return from specified sql
         /// </summary>
-        public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, string sql) => dbConn.Exec(dbCmd => dbCmd.GetTableColumns(sql));
+        /// <param name="dbConn">The database connection.</param>
+        /// <param name="sql">The SQL.</param>
+        /// <returns>ColumnSchema[].</returns>
+        public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, string sql) =>
+            dbConn.Exec(dbCmd => dbCmd.GetTableColumns(sql));
+
+        /// <summary>
+        /// Enables the foreign keys check.
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        public static void EnableForeignKeysCheck(this IDbConnection dbConn) =>
+            dbConn.Exec(dbConn.GetDialectProvider().EnableForeignKeysCheck);
+
+        /// <summary>
+        /// Disables the foreign keys check.
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
+        public static void DisableForeignKeysCheck(this IDbConnection dbConn) =>
+            dbConn.Exec(dbConn.GetDialectProvider().DisableForeignKeysCheck);
     }
 }

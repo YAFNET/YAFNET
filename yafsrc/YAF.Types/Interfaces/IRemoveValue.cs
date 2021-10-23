@@ -23,21 +23,21 @@
  */
 namespace YAF.Types.Interfaces
 {
-  /// <summary>
-  /// Generic I Remove Value interface.
-  /// </summary>
-  public interface IRemoveValue
-  {
-    #region Public Methods
-
     /// <summary>
-    /// Remove a value.
+    /// Generic I Remove Value interface.
     /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    void Remove([NotNull] string key);
+    public interface IRemoveValue
+    {
+        #region Public Methods
 
-    #endregion
-  }
+        /// <summary>
+        /// Remove a value.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        void Remove([NotNull] string key);
+
+        #endregion
+    }
 }

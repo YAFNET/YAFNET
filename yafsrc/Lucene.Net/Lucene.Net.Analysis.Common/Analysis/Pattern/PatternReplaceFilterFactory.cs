@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Util;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -49,7 +50,7 @@ namespace YAF.Lucene.Net.Analysis.Pattern
             replaceAll = "all".Equals(Get(args, "replace", new string[] { "all", "first" }, "all"), StringComparison.Ordinal);
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 

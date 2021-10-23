@@ -28,12 +28,14 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
 
     #endregion
@@ -112,13 +114,13 @@ namespace YAF.Pages
                         if (this.PageContext.SuspendedReason.IsSet())
                         {
                             this.InfoLabel.Text =
-                                $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason)}";
+                                $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason)}";
                         }
                         else
                         {
                             this.InfoLabel.Text = this.GetTextFormatted(
                                 "SUSPENDED",
-                                this.Get<IDateTime>().GetUserDateTime(this.PageContext.SuspendedUntil));
+                                this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil));
                         }
 
                         break;
@@ -126,37 +128,37 @@ namespace YAF.Pages
                         this.Title.Text = this.GetText("title_registration");
                         this.InfoLabel.Text = this.GetText("registration");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.Login);
+                        this.RefreshURL = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
                         break;
                     case InfoMessage.AccessDenied: // Access Denied
                         this.Title.Text = this.GetText("title_accessdenied");
                         this.InfoLabel.Text = this.GetText("accessdenied");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.Disabled: // Disabled feature
                         this.Title.Text = this.GetText("TITLE_ACCESSDENIED");
                         this.InfoLabel.Text = this.GetText("DISABLED");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.Invalid: // Invalid argument!
                         this.Title.Text = this.GetText("TITLE_INVALID");
                         this.InfoLabel.Text = this.GetText("INVALID");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.Failure: // some sort of failure
                         this.Title.Text = this.GetText("TITLE_FAILURE");
                         this.InfoLabel.Text = this.GetText("FAILURE");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
                         break;
                     case InfoMessage.HostAdminPermissionsAreRequired: // some sort of failure
                         this.Title.Text = this.GetText("TITLE_HOSTADMINPERMISSIONSREQUIRED");
                         this.InfoLabel.Text = this.GetText("HOSTADMINPERMISSIONSREQUIRED");
                         this.RefreshTime = 10;
-                        this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                        this.RefreshURL = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
                         break;
                 }
             }
@@ -166,22 +168,16 @@ namespace YAF.Pages
                 this.Title.Text = this.GetText("title_exception");
 
                 // exception message
-                this.InfoLabel.Text = string.Format(
-                    "{1} <strong>{0}</strong>.",
-                    this.PageContext.PageUserName,
-                    this.GetText("exception"));
+                this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.PageContext.User.DisplayOrUserName()}</strong>.";
 
                 // redirect to forum main after 2 seconds
                 this.RefreshTime = 2;
-                this.RefreshURL = BuildLink.GetLink(ForumPages.forum);
+                this.RefreshURL = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
             }
 
             // set continue button URL and visibility
             this.Continue.NavigateUrl = this.RefreshURL;
             this.Continue.Visible = this.RefreshURL != null;
-
-            // create page links - must be placed after switch to display correct title (last breadcrumb trail)
-            this.CreatePageLinks();
         }
 
         #endregion

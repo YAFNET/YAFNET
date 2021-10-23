@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,7 +26,7 @@ namespace YAF.Types.Extensions
     using System;
 
     using YAF.Types.Constants;
-    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     ///     The logger extensions.
@@ -41,32 +41,12 @@ namespace YAF.Types.Extensions
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="format">
-        /// The format.
+        /// <param name="message">
+        /// The message.
         /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Debug(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
+        public static void Debug(this ILoggerService logger, [NotNull] string message)
         {
-            logger.Log(string.Format(format, args), EventLogTypes.Debug);
-        }
-
-        /// <summary>
-        /// The error.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="format">
-        /// The format.
-        /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Error(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
-        {
-            logger.Log(string.Format(format, args), EventLogTypes.Error);
+            logger.Log(message, EventLogTypes.Debug);
         }
 
         /// <summary>
@@ -78,52 +58,12 @@ namespace YAF.Types.Extensions
         /// <param name="ex">
         /// The ex.
         /// </param>
-        /// <param name="format">
-        /// The format.
+        /// <param name="message">
+        /// The message.
         /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Error(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
+        public static void Error(this ILoggerService logger, Exception ex, [NotNull] string message)
         {
-            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
-        }
-
-        /// <summary>
-        /// The fatal.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="format">
-        /// The format.
-        /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Fatal(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
-        {
-            logger.Log(string.Format(format, args), EventLogTypes.Error);
-        }
-
-        /// <summary>
-        /// The fatal.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="ex">
-        /// The ex.
-        /// </param>
-        /// <param name="format">
-        /// The format.
-        /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Fatal(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
-        {
-            logger.Log(string.Format(format, args), EventLogTypes.Error, exception: ex);
+            logger.Log(message, EventLogTypes.Error, exception: ex);
         }
 
         /// <summary>
@@ -132,15 +72,78 @@ namespace YAF.Types.Extensions
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="format">
-        /// The format.
+        /// <param name="message">
+        /// The message.
         /// </param>
-        /// <param name="args">
-        /// The args.
-        /// </param>
-        public static void Info(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
+        public static void Info(this ILoggerService logger, [NotNull] string message)
         {
-            logger.Log(string.Format(format, args), EventLogTypes.Information);
+            logger.Log(message, EventLogTypes.Information);
+        }
+
+        /// <summary>
+        /// Log user deleted.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        public static void UserDeleted(
+            [NotNull] this ILoggerService logger,
+            [CanBeNull] int? userId,
+            [NotNull] string description)
+        {
+            CodeContracts.VerifyNotNull(logger);
+
+            logger.Log(description, EventLogTypes.UserDeleted, userId, "User Deleted");
+        }
+
+        /// <summary>
+        /// Log spam message detected.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        public static void SpamMessageDetected(
+            [NotNull] this ILoggerService logger,
+            [CanBeNull] int? userId,
+            [NotNull] string description)
+        {
+            CodeContracts.VerifyNotNull(logger);
+
+            logger.Log(description, EventLogTypes.SpamMessageDetected, userId, "Spam Message Detected");
+        }
+
+        /// <summary>
+        /// Log spam bot detected.
+        /// </summary>
+        /// <param name="logger">
+        /// The logger.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="description">
+        /// The description.
+        /// </param>
+        public static void SpamBotDetected(
+            [NotNull] this ILoggerService logger,
+            [CanBeNull] int? userId,
+            [NotNull] string description)
+        {
+            CodeContracts.VerifyNotNull(logger);
+
+            logger.Log(description, EventLogTypes.SpamBotDetected, userId, "Bot Detected");
         }
 
         /// <summary>
@@ -149,8 +152,8 @@ namespace YAF.Types.Extensions
         /// <param name="logger">
         /// The logger.
         /// </param>
-        /// <param name="username">
-        /// The username.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="source">
         /// The source.
@@ -162,13 +165,13 @@ namespace YAF.Types.Extensions
         /// The event type.
         /// </param>
         public static void Log(
-            [NotNull] this ILogger logger, 
-            [CanBeNull] string username, 
-            [CanBeNull] object source, 
-            [NotNull] string description, 
+            [NotNull] this ILoggerService logger,
+            [CanBeNull] int? userId,
+            [CanBeNull] object source,
+            [NotNull] string description,
             [NotNull] EventLogTypes eventType = EventLogTypes.Error)
         {
-            CodeContracts.VerifyNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger);
 
             var sourceDescription = "unknown";
 
@@ -181,7 +184,7 @@ namespace YAF.Types.Extensions
                 sourceDescription = source.ToString();
             }
 
-            logger.Log(description, eventType, username, sourceDescription);
+            logger.Log(description, eventType, userId, sourceDescription);
         }
 
         /// <summary>
@@ -196,7 +199,7 @@ namespace YAF.Types.Extensions
         /// <param name="args">
         /// The args.
         /// </param>
-        public static void Trace(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
+        public static void Trace(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
         {
             logger.Log(string.Format(format, args), EventLogTypes.Trace);
         }
@@ -213,7 +216,7 @@ namespace YAF.Types.Extensions
         /// <param name="args">
         /// The args.
         /// </param>
-        public static void Warn(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
+        public static void Warn(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
         {
             logger.Log(string.Format(format, args), EventLogTypes.Warning);
         }
@@ -233,7 +236,7 @@ namespace YAF.Types.Extensions
         /// <param name="args">
         /// The args.
         /// </param>
-        public static void Warn(this ILogger logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
+        public static void Warn(this ILoggerService logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
         {
             logger.Log(string.Format(format, args), EventLogTypes.Warning, exception: ex);
         }

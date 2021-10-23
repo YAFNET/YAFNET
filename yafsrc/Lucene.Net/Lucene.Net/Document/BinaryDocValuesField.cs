@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System;
 
@@ -42,21 +42,21 @@ namespace YAF.Lucene.Net.Documents
         /// <summary>
         /// Type for straight bytes <see cref="DocValues"/>.
         /// </summary>
-        public static readonly FieldType fType = new FieldType();
+        [Obsolete("Use TYPE instead. This field will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
+        public static readonly FieldType fType = new FieldType() { DocValueType = DocValuesType.BINARY }.Freeze();
 
-        static BinaryDocValuesField()
-        {
-            fType.DocValueType = DocValuesType.BINARY;
-            fType.Freeze();
-        }
+        /// <summary>
+        /// Type for straight bytes <see cref="DocValues"/>.
+        /// </summary>
+        public static readonly FieldType TYPE = new FieldType() { DocValueType = DocValuesType.BINARY }.Freeze();
 
         /// <summary>
         /// Create a new binary <see cref="DocValues"/> field. </summary>
         /// <param name="name"> field name </param>
         /// <param name="value"> binary content </param>
-        /// <exception cref="ArgumentNullException"> if the field name is null </exception>
+        /// <exception cref="ArgumentNullException"> if the field <paramref name="name"/> is <c>null</c>. </exception>
         public BinaryDocValuesField(string name, BytesRef value)
-            : base(name, fType)
+            : base(name, TYPE)
         {
             FieldsData = value;
         }

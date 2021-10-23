@@ -1,6 +1,8 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 // this file has been automatically generated, DO NOT EDIT
 
@@ -23,7 +25,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// Packs integers into 3 bytes (24 bits per value).
@@ -32,7 +34,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     internal sealed class Packed8ThreeBlocks : PackedInt32s.MutableImpl
     {
-        readonly byte[] blocks;
+        private readonly byte[] blocks;
 
         public const int MAX_SIZE = int.MaxValue / 3;
 
@@ -58,6 +60,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long Get(int index)
         {
             int o = index * 3;
@@ -84,8 +87,8 @@ namespace YAF.Lucene.Net.Util.Packed
         public override void Set(int index, long value)
         {
             int o = index * 3;
-            blocks[o] = (byte)((long)((ulong)value >> 16));
-            blocks[o + 1] = (byte)((long)((ulong)value >> 8));
+            blocks[o] = (byte)(value.TripleShift(16));
+            blocks[o + 1] = (byte)(value.TripleShift(8));
             blocks[o + 2] = (byte)value;
         }
 
@@ -102,8 +105,8 @@ namespace YAF.Lucene.Net.Util.Packed
             for (int i = off, o = index * 3, end = off + sets; i < end; ++i)
             {
                 long value = arr[i];
-                blocks[o++] = (byte)((long)((ulong)value >> 16));
-                blocks[o++] = (byte)((long)((ulong)value >> 8));
+                blocks[o++] = (byte)(value.TripleShift(16));
+                blocks[o++] = (byte)(value.TripleShift(8));
                 blocks[o++] = (byte)value;
             }
             return sets;
@@ -111,8 +114,8 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public override void Fill(int fromIndex, int toIndex, long val)
         {
-            var block1 = (byte)((long)((ulong)val >> 16));
-            var block2 = (byte)((long)((ulong)val >> 8));
+            var block1 = (byte)(val.TripleShift(16));
+            var block2 = (byte)(val.TripleShift(8));
             var block3 = (byte)val;
             for (int i = fromIndex * 3, end = toIndex * 3; i < end; i += 3)
             {
@@ -122,6 +125,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Clear()
         {
             Arrays.Fill(blocks, (byte)0);

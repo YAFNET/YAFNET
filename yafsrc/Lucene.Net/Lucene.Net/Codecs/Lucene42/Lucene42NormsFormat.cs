@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace YAF.Lucene.Net.Codecs.Lucene42
 {
     /*
@@ -17,9 +19,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Lucene 4.2 score normalization format.
@@ -62,11 +64,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             this.acceptableOverheadRatio = acceptableOverheadRatio;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override DocValuesConsumer NormsConsumer(SegmentWriteState state)
         {
             return new Lucene42NormsConsumer(state, DATA_CODEC, DATA_EXTENSION, METADATA_CODEC, METADATA_EXTENSION, acceptableOverheadRatio);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override DocValuesProducer NormsProducer(SegmentReadState state)
         {
             return new Lucene42DocValuesProducer(state, DATA_CODEC, DATA_EXTENSION, METADATA_CODEC, METADATA_EXTENSION);

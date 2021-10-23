@@ -1,4 +1,5 @@
-﻿#if FEATURE_BREAKITERATOR
+// Lucene version compatibility level 4.8.1
+#if FEATURE_BREAKITERATOR
 using YAF.Lucene.Net.Analysis.Util;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace YAF.Lucene.Net.Analysis.Th
             AssureMatchVersion();
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 

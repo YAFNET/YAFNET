@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace YAF.Lucene.Net.Util
@@ -87,10 +88,11 @@ namespace YAF.Lucene.Net.Util
         /// <exception cref="ObjectDisposedException">The <see cref="DisposableThreadLocal{T}"/> instance has been disposed.</exception>
         public ICollection<T> Values
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 if (_disposed)
-                    throw new ObjectDisposedException(nameof(DisposableThreadLocal<T>));
+                    throw AlreadyClosedException.Create(nameof(DisposableThreadLocal<T>), message: null);
                 return _values.Values;
             }
         }
@@ -101,10 +103,11 @@ namespace YAF.Lucene.Net.Util
         /// <exception cref="ObjectDisposedException">The <see cref="DisposableThreadLocal{T}"/> instance has been disposed.</exception>
         public bool IsValueCreated
         {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             get
             {
                 if (_disposed)
-                    throw new ObjectDisposedException(nameof(DisposableThreadLocal<T>));
+                    throw AlreadyClosedException.Create(nameof(DisposableThreadLocal<T>), message: null);
 
                 return _state != null && _values.ContainsKey(_state.selfReference);
             }
@@ -131,7 +134,7 @@ namespace YAF.Lucene.Net.Util
             get
             {
                 if (_disposed)
-                    throw new ObjectDisposedException(nameof(DisposableThreadLocal<T>));
+                    throw AlreadyClosedException.Create(nameof(DisposableThreadLocal<T>), message: null);
                 (_state ??= new CurrentThreadState()).Register(this);
                 if (_values.TryGetValue(_state.selfReference, out var v) == false &&
                     _valueFactory != null)
@@ -145,7 +148,7 @@ namespace YAF.Lucene.Net.Util
             set
             {
                 if (_disposed)
-                    throw new ObjectDisposedException(nameof(DisposableThreadLocal<T>));
+                    throw AlreadyClosedException.Create(nameof(DisposableThreadLocal<T>), message: null);
 
                 (_state ??= new CurrentThreadState()).Register(this);
                 _values[_state.selfReference] = value;
@@ -236,6 +239,7 @@ namespace YAF.Lucene.Net.Util
             private readonly WeakReference<TK> _weak;
             private readonly int _hashCode;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public bool TryGetTarget(out TK target)
             {
                 return _weak.TryGetTarget(out target);
@@ -281,6 +285,7 @@ namespace YAF.Lucene.Net.Util
                 return Equals((WeakReferenceCompareValue<TK>)obj);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int GetHashCode()
             {
                 return _hashCode;

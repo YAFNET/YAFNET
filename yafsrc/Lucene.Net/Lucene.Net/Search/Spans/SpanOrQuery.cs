@@ -1,4 +1,5 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
+using J2N.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,19 +24,16 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches the union of its clauses. </summary>
-    public class SpanOrQuery : SpanQuery
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public class SpanOrQuery : SpanQuery // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private readonly IList<SpanQuery> clauses;
         private string field;
@@ -172,19 +170,16 @@ namespace YAF.Lucene.Net.Search.Spans
         {
             //If this doesn't work, hash all elemnts together instead. This version was used to reduce time complexity
             int h = clauses.GetHashCode();
-            h ^= (h << 10) | ((int)(((uint)h) >> 23));
+            h ^= (h << 10) | (h.TripleShift(23));
             h ^= J2N.BitConversion.SingleToRawInt32Bits(Boost);
             return h;
         }
 
         private class SpanQueue : Util.PriorityQueue<Spans>
         {
-            private readonly SpanOrQuery outerInstance;
-
-            public SpanQueue(SpanOrQuery outerInstance, int size)
+            public SpanQueue(int size)
                 : base(size)
             {
-                this.outerInstance = outerInstance;
             }
 
             protected internal override bool LessThan(Spans spans1, Spans spans2)
@@ -214,18 +209,18 @@ namespace YAF.Lucene.Net.Search.Spans
                 return (clauses[0]).GetSpans(context, acceptDocs, termContexts);
             }
 
-            return new SpansAnonymousInnerClassHelper(this, context, acceptDocs, termContexts);
+            return new SpansAnonymousClass(this, context, acceptDocs, termContexts);
         }
 
-        private class SpansAnonymousInnerClassHelper : Spans
+        private class SpansAnonymousClass : Spans
         {
             private readonly SpanOrQuery outerInstance;
 
-            private AtomicReaderContext context;
-            private IBits acceptDocs;
-            private IDictionary<Term, TermContext> termContexts;
+            private readonly AtomicReaderContext context;
+            private readonly IBits acceptDocs;
+            private readonly IDictionary<Term, TermContext> termContexts;
 
-            public SpansAnonymousInnerClassHelper(SpanOrQuery outerInstance, AtomicReaderContext context, IBits acceptDocs, IDictionary<Term, TermContext> termContexts)
+            public SpansAnonymousClass(SpanOrQuery outerInstance, AtomicReaderContext context, IBits acceptDocs, IDictionary<Term, TermContext> termContexts)
             {
                 this.outerInstance = outerInstance;
                 this.context = context;
@@ -239,7 +234,7 @@ namespace YAF.Lucene.Net.Search.Spans
 
             private bool InitSpanQueue(int target)
             {
-                queue = new SpanQueue(outerInstance, outerInstance.clauses.Count);
+                queue = new SpanQueue(outerInstance.clauses.Count);
                 foreach (var clause in outerInstance.clauses)
                 {
                     Spans spans = clause.GetSpans(context, acceptDocs, termContexts);

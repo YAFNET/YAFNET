@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -34,10 +34,7 @@ namespace YAF.Lucene.Net.Store
     /// <see cref="ObjectDisposedException"/> when the original one is closed.
     /// </summary>
     /// <seealso cref="Directory"/>
-    public abstract class IndexInput : DataInput, IDisposable
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public abstract class IndexInput : DataInput, IDisposable // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private readonly string resourceDescription;
 
@@ -48,6 +45,7 @@ namespace YAF.Lucene.Net.Store
         /// </summary>
         protected IndexInput(string resourceDescription)
         {
+            // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             this.resourceDescription = resourceDescription ?? throw new ArgumentNullException(nameof(resourceDescription), $"{nameof(resourceDescription)} must not be null");
         }
 
@@ -66,14 +64,17 @@ namespace YAF.Lucene.Net.Store
 
         /// <summary>
         /// Returns the current position in this file, where the next read will
-        /// occur. </summary>
+        /// occur.
+        /// <para/>
+        /// This was getFilePointer() in Lucene.
+        /// </summary>
         /// <seealso cref="Seek(long)"/>
-        public abstract long GetFilePointer(); // LUCENENET TODO: API - make into property
+        public abstract long Position { get; } // LUCENENET specific: Renamed Position to match FileStream
 
         /// <summary>
         /// Sets current position in this file, where the next read will occur.
         /// </summary>
-        /// <seealso cref="GetFilePointer()"/>
+        /// <seealso cref="Position"/>
         public abstract void Seek(long pos);
 
         /// <summary>

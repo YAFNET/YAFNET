@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="SqlExpressionVisitor.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
@@ -6,8 +12,17 @@ using System.Linq.Expressions;
 namespace ServiceStack.OrmLite
 {
     //http://blogs.msdn.com/b/mattwar/archive/2007/07/31/linq-building-an-iqueryable-provider-part-ii.aspx
+    /// <summary>
+    /// Class SqlExpressionVisitor.
+    /// </summary>
     public abstract class SqlExpressionVisitor
     {
+        /// <summary>
+        /// Visits the specified exp.
+        /// </summary>
+        /// <param name="exp">The exp.</param>
+        /// <returns>Expression.</returns>
+        /// <exception cref="System.Exception">Unhandled expression type: '{exp.NodeType}'</exception>
         protected virtual Expression Visit(Expression exp)
         {
             if (exp == null)
@@ -77,6 +92,12 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Visits the binding.
+        /// </summary>
+        /// <param name="binding">The binding.</param>
+        /// <returns>MemberBinding.</returns>
+        /// <exception cref="System.Exception">Unhandled binding type '{binding.BindingType}'</exception>
         protected virtual MemberBinding VisitBinding(MemberBinding binding)
         {
             switch (binding.BindingType)
@@ -92,6 +113,11 @@ namespace ServiceStack.OrmLite
             }
         }
 
+        /// <summary>
+        /// Visits the element initializer.
+        /// </summary>
+        /// <param name="initializer">The initializer.</param>
+        /// <returns>ElementInit.</returns>
         protected virtual ElementInit VisitElementInitializer(ElementInit initializer)
         {
             ReadOnlyCollection<Expression> arguments = this.VisitExpressionList(initializer.Arguments);
@@ -102,6 +128,11 @@ namespace ServiceStack.OrmLite
             return initializer;
         }
 
+        /// <summary>
+        /// Visits the unary.
+        /// </summary>
+        /// <param name="u">The u.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitUnary(UnaryExpression u)
         {
             Expression operand = this.Visit(u.Operand);
@@ -112,6 +143,11 @@ namespace ServiceStack.OrmLite
             return u;
         }
 
+        /// <summary>
+        /// Visits the binary.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitBinary(BinaryExpression b)
         {
             Expression left = this.Visit(b.Left);
@@ -127,6 +163,11 @@ namespace ServiceStack.OrmLite
             return b;
         }
 
+        /// <summary>
+        /// Visits the type is.
+        /// </summary>
+        /// <param name="b">The b.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitTypeIs(TypeBinaryExpression b)
         {
             Expression expr = this.Visit(b.Expression);
@@ -137,11 +178,21 @@ namespace ServiceStack.OrmLite
             return b;
         }
 
+        /// <summary>
+        /// Visits the constant.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitConstant(ConstantExpression c)
         {
             return c;
         }
 
+        /// <summary>
+        /// Visits the conditional.
+        /// </summary>
+        /// <param name="c">The c.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitConditional(ConditionalExpression c)
         {
             Expression test = this.Visit(c.Test);
@@ -154,11 +205,21 @@ namespace ServiceStack.OrmLite
             return c;
         }
 
+        /// <summary>
+        /// Visits the parameter.
+        /// </summary>
+        /// <param name="p">The p.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitParameter(ParameterExpression p)
         {
             return p;
         }
 
+        /// <summary>
+        /// Visits the member access.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitMemberAccess(MemberExpression m)
         {
             Expression exp = this.Visit(m.Expression);
@@ -169,6 +230,11 @@ namespace ServiceStack.OrmLite
             return m;
         }
 
+        /// <summary>
+        /// Visits the method call.
+        /// </summary>
+        /// <param name="m">The m.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitMethodCall(MethodCallExpression m)
         {
             Expression obj = this.Visit(m.Object);
@@ -180,6 +246,11 @@ namespace ServiceStack.OrmLite
             return m;
         }
 
+        /// <summary>
+        /// Visits the expression list.
+        /// </summary>
+        /// <param name="original">The original.</param>
+        /// <returns>ReadOnlyCollection&lt;Expression&gt;.</returns>
         protected virtual ReadOnlyCollection<Expression> VisitExpressionList(ReadOnlyCollection<Expression> original)
         {
             List<Expression> list = null;
@@ -207,6 +278,11 @@ namespace ServiceStack.OrmLite
             return original;
         }
 
+        /// <summary>
+        /// Visits the member assignment.
+        /// </summary>
+        /// <param name="assignment">The assignment.</param>
+        /// <returns>MemberAssignment.</returns>
         protected virtual MemberAssignment VisitMemberAssignment(MemberAssignment assignment)
         {
             Expression e = this.Visit(assignment.Expression);
@@ -217,6 +293,11 @@ namespace ServiceStack.OrmLite
             return assignment;
         }
 
+        /// <summary>
+        /// Visits the member member binding.
+        /// </summary>
+        /// <param name="binding">The binding.</param>
+        /// <returns>MemberMemberBinding.</returns>
         protected virtual MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding binding)
         {
             IEnumerable<MemberBinding> bindings = this.VisitBindingList(binding.Bindings);
@@ -227,6 +308,11 @@ namespace ServiceStack.OrmLite
             return binding;
         }
 
+        /// <summary>
+        /// Visits the member list binding.
+        /// </summary>
+        /// <param name="binding">The binding.</param>
+        /// <returns>MemberListBinding.</returns>
         protected virtual MemberListBinding VisitMemberListBinding(MemberListBinding binding)
         {
             IEnumerable<ElementInit> initializers = this.VisitElementInitializerList(binding.Initializers);
@@ -237,6 +323,11 @@ namespace ServiceStack.OrmLite
             return binding;
         }
 
+        /// <summary>
+        /// Visits the binding list.
+        /// </summary>
+        /// <param name="original">The original.</param>
+        /// <returns>IEnumerable&lt;MemberBinding&gt;.</returns>
         protected virtual IEnumerable<MemberBinding> VisitBindingList(ReadOnlyCollection<MemberBinding> original)
         {
             List<MemberBinding> list = null;
@@ -262,6 +353,11 @@ namespace ServiceStack.OrmLite
             return original;
         }
 
+        /// <summary>
+        /// Visits the element initializer list.
+        /// </summary>
+        /// <param name="original">The original.</param>
+        /// <returns>IEnumerable&lt;ElementInit&gt;.</returns>
         protected virtual IEnumerable<ElementInit> VisitElementInitializerList(ReadOnlyCollection<ElementInit> original)
         {
             List<ElementInit> list = null;
@@ -287,6 +383,11 @@ namespace ServiceStack.OrmLite
             return original;
         }
 
+        /// <summary>
+        /// Visits the lambda.
+        /// </summary>
+        /// <param name="lambda">The lambda.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitLambda(LambdaExpression lambda)
         {
             Expression body = this.Visit(lambda.Body);
@@ -297,6 +398,11 @@ namespace ServiceStack.OrmLite
             return lambda;
         }
 
+        /// <summary>
+        /// Visits the new.
+        /// </summary>
+        /// <param name="nex">The nex.</param>
+        /// <returns>NewExpression.</returns>
         protected virtual NewExpression VisitNew(NewExpression nex)
         {
             IEnumerable<Expression> args = this.VisitExpressionList(nex.Arguments);
@@ -310,6 +416,11 @@ namespace ServiceStack.OrmLite
             return nex;
         }
 
+        /// <summary>
+        /// Visits the member initialize.
+        /// </summary>
+        /// <param name="init">The initialize.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitMemberInit(MemberInitExpression init)
         {
             NewExpression n = this.VisitNew(init.NewExpression);
@@ -321,6 +432,11 @@ namespace ServiceStack.OrmLite
             return init;
         }
 
+        /// <summary>
+        /// Visits the list initialize.
+        /// </summary>
+        /// <param name="init">The initialize.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitListInit(ListInitExpression init)
         {
             NewExpression n = this.VisitNew(init.NewExpression);
@@ -332,6 +448,11 @@ namespace ServiceStack.OrmLite
             return init;
         }
 
+        /// <summary>
+        /// Visits the new array.
+        /// </summary>
+        /// <param name="na">The na.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitNewArray(NewArrayExpression na)
         {
             IEnumerable<Expression> exprs = this.VisitExpressionList(na.Expressions);
@@ -349,6 +470,11 @@ namespace ServiceStack.OrmLite
             return na;
         }
 
+        /// <summary>
+        /// Visits the invocation.
+        /// </summary>
+        /// <param name="iv">The iv.</param>
+        /// <returns>Expression.</returns>
         protected virtual Expression VisitInvocation(InvocationExpression iv)
         {
             IEnumerable<Expression> args = this.VisitExpressionList(iv.Arguments);

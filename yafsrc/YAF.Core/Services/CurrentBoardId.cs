@@ -26,6 +26,7 @@ namespace YAF.Core.Services
   #region Using
 
   using YAF.Configuration;
+  using YAF.Core.Context;
   using YAF.Types.Interfaces;
 
   #endregion
@@ -40,7 +41,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///   Gets BoardId.
     /// </summary>
-    public int BoardID => ControlSettings.Current == null ? 1 : ControlSettings.Current.BoardID;
+    public int BoardID => BoardContext.Current.Get<ControlSettings>().BoardID;
 
     #endregion
   }

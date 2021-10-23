@@ -1,10 +1,10 @@
-using J2N.Numerics;
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -25,11 +25,11 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
 
     /// <summary>
     /// Simplistic compression for array of unsigned long values.
@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// <para/>
     /// @lucene.internal
     /// </summary>
-    public class PackedInt32s
+    public static class PackedInt32s // LUCENENET specific: CA1052 Static holder types should be Static or NotInheritable
     {
         /// <summary>
         /// At most 700% memory overhead, always select a direct implementation.
@@ -80,11 +80,11 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (version < VERSION_START)
             {
-                throw new ArgumentException("Version is too old, should be at least " + VERSION_START + " (got " + version + ")");
+                throw new ArgumentOutOfRangeException(nameof(version), "Version is too old, should be at least " + VERSION_START + " (got " + version + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             else if (version > VERSION_CURRENT)
             {
-                throw new ArgumentException("Version is too new, should be at most " + VERSION_CURRENT + " (got " + version + ")");
+                throw new ArgumentOutOfRangeException(nameof(version), "Version is too new, should be at most " + VERSION_CURRENT + " (got " + version + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
         }
 
@@ -122,6 +122,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// <para/>
             /// NOTE: This was longCount() in Lucene.
             /// </summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int Int64Count(int packedIntsVersion, int valueCount, int bitsPerValue)
             {
                 int valuesPerBlock = 64 / bitsPerValue;
@@ -132,6 +133,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// Tests whether the provided number of bits per value is supported by the
             /// format.
             /// </summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override bool IsSupported(int bitsPerValue)
             {
                 return Packed64SingleBlock.IsSupported(bitsPerValue);
@@ -189,6 +191,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 throw new ArgumentException("Unknown format id: " + id);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             internal Format(int id)
             {
                 this.Id = id;
@@ -203,6 +206,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// Computes how many <see cref="byte"/> blocks are needed to store <paramref name="valueCount"/>
             /// values of size <paramref name="bitsPerValue"/>.
             /// </summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual long ByteCount(int packedIntsVersion, int valueCount, int bitsPerValue)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(bitsPerValue >= 0 && bitsPerValue <= 64, "{0}", bitsPerValue);
@@ -231,6 +235,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// Tests whether the provided number of bits per value is supported by the
             /// format.
             /// </summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual bool IsSupported(int bitsPerValue)
             {
                 return bitsPerValue >= 1 && bitsPerValue <= 64;
@@ -239,6 +244,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// <summary>
             /// Returns the overhead per value, in bits.
             /// </summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual float OverheadPerValue(int bitsPerValue)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(IsSupported(bitsPerValue));
@@ -248,6 +254,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// <summary>
             /// Returns the overhead ratio (<c>overhead per value / bits per value</c>).
             /// </summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual float OverheadRatio(int bitsPerValue)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(IsSupported(bitsPerValue));
@@ -707,6 +714,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// <summary>
             /// Sets all values to 0.
             /// </summary>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public virtual void Clear()
             {
                 Fill(0, Count, 0);
@@ -787,6 +795,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 this.valueCount = valueCount;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long Get(int index)
             {
                 return 0;
@@ -808,6 +817,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
             public override int Count => valueCount;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long RamBytesUsed()
             {
                 return RamUsageEstimator.AlignObjectSize(RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + RamUsageEstimator.NUM_BYTES_INT32);
@@ -876,6 +886,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <param name="version">        The compatibility version. </param>
         /// <param name="bitsPerValue">   The number of bits per value. </param>
         /// <returns> A decoder. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IDecoder GetDecoder(Format format, int version, int bitsPerValue)
         {
             CheckVersion(version);
@@ -889,6 +900,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <param name="version">        The compatibility version. </param>
         /// <param name="bitsPerValue">   The number of bits per value. </param>
         /// <returns> An encoder. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEncoder GetEncoder(Format format, int version, int bitsPerValue)
         {
             CheckVersion(version);
@@ -953,7 +965,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException("Unknown Writer format: " + format);
+                throw AssertionError.Create("Unknown Writer format: " + format);
             }
         }
 
@@ -969,6 +981,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <returns>             A <see cref="Reader"/>. </returns>
         /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         /// <seealso cref="ReadHeader(DataInput)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Reader GetReaderNoHeader(DataInput @in, Header header)
         {
             return GetReaderNoHeader(@in, header.format, header.version, header.valueCount, header.bitsPerValue);
@@ -1009,6 +1022,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <param name="mem">          How much memory the iterator is allowed to use to read-ahead (likely to speed up iteration). </param>
         /// <returns>             A <see cref="IReaderIterator"/>. </returns>
         /// <seealso cref="PackedInt32s.GetWriterNoHeader(DataOutput, Format, int, int, int)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IReaderIterator GetReaderIteratorNoHeader(DataInput @in, Format format, int version, int valueCount, int bitsPerValue, int mem)
         {
             CheckVersion(version);
@@ -1065,13 +1079,13 @@ namespace YAF.Lucene.Net.Util.Packed
                 if (byteCount != format.ByteCount(VERSION_CURRENT, valueCount, bitsPerValue))
                 {
                     if (Debugging.AssertsEnabled) Debugging.Assert(version == VERSION_START);
-                    long endPointer = @in.GetFilePointer() + byteCount;
+                    long endPointer = @in.Position + byteCount; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     // Some consumers of direct readers assume that reading the last value
                     // will make the underlying IndexInput go to the end of the packed
                     // stream, but this is not true because packed ints storage used to be
                     // long-aligned and is now byte-aligned, hence this additional
                     // condition when reading the last value
-                    return new DirectPackedReaderAnonymousInnerClassHelper(bitsPerValue, valueCount, @in, endPointer);
+                    return new DirectPackedReaderAnonymousClass(bitsPerValue, valueCount, @in, endPointer);
                 }
                 else
                 {
@@ -1080,17 +1094,17 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException("Unknwown format: " + format);
+                throw AssertionError.Create("Unknwown format: " + format);
             }
         }
 
-        private class DirectPackedReaderAnonymousInnerClassHelper : DirectPackedReader
+        private class DirectPackedReaderAnonymousClass : DirectPackedReader
         {
             private readonly IndexInput @in;
             private readonly int valueCount;
             private readonly long endPointer;
 
-            public DirectPackedReaderAnonymousInnerClassHelper(int bitsPerValue, int valueCount, IndexInput @in, long endPointer)
+            public DirectPackedReaderAnonymousClass(int bitsPerValue, int valueCount, IndexInput @in, long endPointer)
                 : base(bitsPerValue, valueCount, @in)
             {
                 this.@in = @in;
@@ -1107,9 +1121,9 @@ namespace YAF.Lucene.Net.Util.Packed
                     {
                         @in.Seek(endPointer);
                     }
-                    catch (IOException e)
+                    catch (Exception e) when (e.IsIOException())
                     {
-                        throw new InvalidOperationException("failed", e);
+                        throw IllegalStateException.Create("failed", e);
                     }
                 }
                 return result;
@@ -1129,6 +1143,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <returns>             A <see cref="Reader"/>. </returns>
         /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
         /// <seealso cref="ReadHeader(DataInput)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Reader GetDirectReaderNoHeader(IndexInput @in, Header header)
         {
             return GetDirectReaderNoHeader(@in, header.format, header.version, header.valueCount, header.bitsPerValue);
@@ -1176,6 +1191,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <param name="acceptableOverheadRatio"> An acceptable overhead
         ///        ratio per value. </param>
         /// <returns> A mutable packed integer array. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Mutable GetMutable(int valueCount, int bitsPerValue, float acceptableOverheadRatio)
         {
             FormatAndBits formatAndBits = FastestFormatAndBits(valueCount, bitsPerValue, acceptableOverheadRatio);
@@ -1230,7 +1246,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
             else
             {
-                throw new InvalidOperationException();
+                throw AssertionError.Create();
             }
         }
 
@@ -1277,6 +1293,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <returns>             A <see cref="Writer"/>. </returns>
         /// <seealso cref="PackedInt32s.GetReaderIteratorNoHeader(DataInput, Format, int, int, int, int)"/>
         /// <seealso cref="PackedInt32s.GetReaderNoHeader(DataInput, Format, int, int, int)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Writer GetWriterNoHeader(DataOutput @out, Format format, int valueCount, int bitsPerValue, int mem)
         {
             return new PackedWriter(format, @out, valueCount, bitsPerValue, mem);
@@ -1337,7 +1354,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
             if (maxValue < 0)
             {
-                throw new ArgumentException("maxValue must be non-negative (got: " + maxValue + ")");
+                throw new ArgumentOutOfRangeException(nameof(maxValue), "maxValue must be non-negative (got: " + maxValue + ")"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             return Math.Max(1, 64 - maxValue.LeadingZeroCount());
         }
@@ -1350,6 +1367,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// </summary>
         /// <param name="bitsPerValue"> The number of bits available for any given value. </param>
         /// <returns> The maximum value for the given bits. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long MaxValue(int bitsPerValue)
         {
             return bitsPerValue == 64 ? long.MaxValue : ~(~0L << bitsPerValue);
@@ -1367,7 +1385,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 Debugging.Assert(srcPos + len <= src.Count);
                 Debugging.Assert(destPos + len <= dest.Count);
             }
-            int capacity = (int)((uint)mem >> 3);
+            int capacity = mem.TripleShift(3);
             if (capacity == 0)
             {
                 for (int i = 0; i < len; ++i)
@@ -1385,6 +1403,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         /// <summary>
         /// Same as <see cref="Copy(Reader, int, Mutable, int, int, int)"/> but using a pre-allocated buffer. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static void Copy(Reader src, int srcPos, Mutable dest, int destPos, int len, long[] buf)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(buf.Length > 0);
@@ -1456,6 +1475,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Check that the block size is a power of 2, in the right bounds, and return
         /// its log in base 2.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int CheckBlockSize(int blockSize, int minBlockSize, int maxBlockSize)
         {
             if (blockSize < minBlockSize || blockSize > maxBlockSize)
@@ -1473,6 +1493,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Return the number of blocks required to store <paramref name="size"/> values on
         /// <paramref name="blockSize"/>.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int NumBlocks(long size, int blockSize)
         {
             int numBlocks = (int)(size / blockSize) + (size % blockSize == 0 ? 0 : 1);

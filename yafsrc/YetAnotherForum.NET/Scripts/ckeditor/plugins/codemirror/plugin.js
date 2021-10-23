@@ -174,7 +174,8 @@
                             foldGutter: true,
                             gutters: ["CodeMirror-linenumbbers", "CodeMirror-foldgutter"]
                         });
-       
+
+                        window["codemirror_" + editor.id].display.wrapper.classList.add('cke_enable_context_menu');
 
                         var holderHeight = height + "px";
                         var holderWidth = width + "px";
@@ -278,7 +279,7 @@
                                     var parts = event.sender.parts;
                                     var title = parts.title;
                                     var footer = parts.footer;
-                                    
+
                                     var holderHeight = (event.data.height - title.$.offsetHeight - footer.$.offsetHeight) + "px";
                                     var holderWidth = event.data.width + "px";
 
@@ -741,53 +742,67 @@
 
                 switch (config.mode) {
                     case "handlebars":
-                    {
-                        scriptFiles.push(rootPath + "js/codemirror.mode.handlebars.min.js");
-                    }
-                case "bbcode":
-                    {
-                        scriptFiles.push(rootPath + "js/codemirror.mode.bbcode.min.js");
-                    }
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.handlebars.min.js");
+                        }
+                    case "bbcode":
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.bbcode.min.js");
+                        }
 
-                    break;
-                case "bbcodemixed":
+                        break;
+                    case "bbcodemixed":
                         {
                             scriptFiles.push(rootPath + "js/codemirror.mode.bbcodemixed.min.js");
                         }
 
                         break;
-                case "htmlmixed":
-                    {
-                        scriptFiles.push(rootPath + "js/codemirror.mode.htmlmixed.min.js");
-                    }
+                    case "htmlmixed":
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.htmlmixed.min.js");
+                        }
 
-                    break;
-                case "text/html":
-                    {
-                        scriptFiles.push(rootPath + "js/codemirror.mode.htmlmixed.min.js");
-                    }
+                        break;
+                    case "text/html":
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.htmlmixed.min.js");
+                        }
 
-                    break;
-                case "application/x-httpd-php":
-                    {
-                        scriptFiles.push(rootPath + "js/codemirror.mode.php.min.js");
-                    }
+                        break;
+                    case "application/x-httpd-php":
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.php.min.js");
+                        }
 
-                    break;
-                case "text/javascript":
-                    {
-                        scriptFiles.push(rootPath + "js/codemirror.mode.javascript.min.js");
-                    }
+                        break;
+                    case "text/javascript":
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.javascript.min.js");
+                        }
 
-                    break;
-                case "twig":
+                        break;
+                    case "twig":
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.twig.min.js");
+                        }
+
+                        break; case "twig":
                         {
                             scriptFiles.push(rootPath + "js/codemirror.mode.twig.min.js");
                         }
 
                         break;
-                default:
-                    scriptFiles.push(rootPath + "js/codemirror.mode.htmlmixed.min.js");
+                    case "text/x-mssql":
+                    case "text/x-mysql":
+                    case "text/x-pgsql":
+                    case "text/x-sql":
+                        {
+                            scriptFiles.push(rootPath + "js/codemirror.mode.sql.min.js");
+                        }
+
+                        break;
+                    default:
+                        scriptFiles.push(rootPath + "js/codemirror.mode.htmlmixed.min.js");
                 }
 
                 if (config.useBeautifyOnStart) {
@@ -905,6 +920,8 @@
                     foldGutter: true,
                     gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
                 });
+
+                window["codemirror_" + editor.id].display.wrapper.classList.add('cke_enable_context_menu');
 
                 var holderHeight = holderElement.$.clientHeight == 0 ? editor.ui.space("contents").getStyle("height") : holderElement.$.clientHeight + "px";
                 var holderWidth = holderElement.$.clientWidth + "px";
@@ -1101,9 +1118,6 @@
             });
 
             editor.on("instanceReady", function (evt) {
-
-                //editor.container.getPrivate().events.contextmenu.listeners.splice(0, 1);
-
                 var selectAllCommand = editor.commands.selectAll;
 
                 // Replace Complete SelectAll command from the plugin, otherwise it will not work in IE10
@@ -1166,46 +1180,11 @@
                 return this.getValue();
             },
             // Insertions are not supported in source editable.
-            insertHtml: function (insert) {
-                var selection = window["codemirror_" + this.editor.id].getSelection();
-
-                if (selection.length > 0) {
-                    window["codemirror_" + this.editor.id].replaceSelection(insert);
-                }
-                else {
-
-                    var doc = window["codemirror_" + this.editor.id].getDoc();
-                    var cursor = doc.getCursor();
-
-                    var pos = {
-                        line: cursor.line,
-                        ch: cursor.ch
-                    }
-
-                    doc.replaceRange(insert, pos);
-
-                }
+            insertHtml: function() {
             },
             insertElement: function() {
             },
-            insertText: function(insert) {
-                var selection = window["codemirror_" + this.editor.id].getSelection();
-
-                if (selection.length > 0) {
-                    window["codemirror_" + this.editor.id].replaceSelection(insert);
-                } else {
-
-                    var doc = window["codemirror_" + this.editor.id].getDoc();
-                    var cursor = doc.getCursor();
-
-                    var pos = {
-                        line: cursor.line,
-                        ch: cursor.ch
-                    }
-
-                    doc.replaceRange(insert, pos);
-
-                }
+            insertText: function() {
             },
             // Read-only support for textarea.
             setReadOnly: function(isReadOnly) {

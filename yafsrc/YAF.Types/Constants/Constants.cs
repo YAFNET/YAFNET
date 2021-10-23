@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -47,7 +47,7 @@ namespace YAF.Types.Constants
             public const string ActiveUserLazyData = "ActiveUserLazyData{0}";
 
             /// <summary>
-            ///   The banned ip.
+            ///   The banned IP.
             /// </summary>
             public const string BannedIP = "BannedIP";
 
@@ -77,14 +77,19 @@ namespace YAF.Types.Constants
             public const string BoardUserStats = "BoardUserStats";
 
             /// <summary>
+            ///   The board user members.
+            /// </summary>
+            public const string BoardMembers = "BoardMembers";
+
+            /// <summary>
             ///   The custom bb code.
             /// </summary>
             public const string CustomBBCode = "CustomBBCode";
 
             /// <summary>
-            ///   The favorite topic list.
+            ///   The user data which is not refreshed too often.
             /// </summary>
-            public const string FavoriteTopicCount = "FavoriteTopicId{0}";
+            public const string UserCustomProfileData = "UserCustomProfileData{0}";
 
             /// <summary>
             ///   The favorite topic list.
@@ -97,16 +102,6 @@ namespace YAF.Types.Constants
             public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";
 
             /// <summary>
-            ///   The forum active discussions.
-            /// </summary>
-            public const string ForumActiveDiscussions = "ForumActiveDiscussions";
-
-            /// <summary>
-            ///   The forum category.
-            /// </summary>
-            public const string ForumCategory = "ForumCategory";
-
-            /// <summary>
             ///   The forum jump.
             /// </summary>
             public const string ForumJump = "ForumJump{0}";
@@ -115,16 +110,6 @@ namespace YAF.Types.Constants
             ///   The forum moderators.
             /// </summary>
             public const string ForumModerators = "ForumModerators";
-
-            /// <summary>
-            ///   The guest groups cache.
-            /// </summary>
-            public const string GuestGroupsCache = "GuestGroupsCache";
-            
-            /// <summary>
-            ///   The group rank styles.
-            /// </summary>
-            public const string GroupRankStyles = "GroupRankStyles";
 
             /// <summary>
             ///   The guest user id.
@@ -167,11 +152,6 @@ namespace YAF.Types.Constants
             public const string UserIgnoreList = "UserIgnoreList{0}";
 
             /// <summary>
-            ///   The user list for id.
-            /// </summary>
-            public const string UserListForID = "UserListForID{0}";
-
-            /// <summary>
             ///   The user medals.
             /// </summary>
             public const string UserMedals = "UserMedals{0}";
@@ -180,11 +160,6 @@ namespace YAF.Types.Constants
             ///   The user signature cache.
             /// </summary>
             public const string UserSignatureCache = "UserSignatureCache";
-
-            /// <summary>
-            ///   The users display name collection.
-            /// </summary>
-            public const string UsersDisplayNameCollection = "UsersDisplayNameCollection";
 
             /// <summary>
             ///   The users online status.
@@ -197,18 +172,31 @@ namespace YAF.Types.Constants
             public const string VisitorsInTheLast30Days = "VisitorsInTheLast30Days";
 
             /// <summary>
+            /// The YAF Cache key.
+            /// </summary>
+            public const string YafCacheKey = "YAFCACHE";
+
+            /// <summary>
             /// The version.
             /// </summary>
             public const string Version = "DBVersion";
+
+            /// <summary>
+            ///   Admin Page Access List.
+            /// </summary>
+            public const string AdminPageAccess = "AdminPageAccess{0}";
 
             #endregion
         }
 
         /// <summary>
-        /// 
+        /// The forum rebuild.
         /// </summary>
         public struct ForumRebuild
         {
+            /// <summary>
+            /// The blocking task names.
+            /// </summary>
             public static readonly string[] BlockingTaskNames =
                 {
                     "ForumDeleteTask"

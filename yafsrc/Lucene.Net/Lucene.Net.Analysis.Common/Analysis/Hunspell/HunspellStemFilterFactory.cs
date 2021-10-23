@@ -1,4 +1,5 @@
-﻿using J2N.Text;
+﻿// Lucene version compatibility level 4.10.4
+using J2N.Text;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System;
@@ -71,7 +72,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             GetInt32(args, "recursionCap", 0);
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 
@@ -93,7 +94,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
                 this.dictionary = new Dictionary(affix, dictionaries, ignoreCase);
             }
-            catch (Exception e)
+            catch (Exception e) when (e.IsParseException())
             {
                 throw new IOException("Unable to load hunspell data! [dictionary=" + dictionaries + ",affix=" + affixFile + "]", e);
             }

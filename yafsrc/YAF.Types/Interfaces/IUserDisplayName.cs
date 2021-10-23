@@ -23,51 +23,46 @@
  */
 namespace YAF.Types.Interfaces
 {
-  using System.Collections.Generic;
+    using System.Collections.Generic;
 
-  using YAF.Types.Models;
-
-  /// <summary>
-  /// User Display Name interface.
-  /// </summary>
-  public interface IUserDisplayName
-  {
-    /// <summary>
-    /// Get the Display Name from a <paramref name="userId"/>
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <returns></returns>
-    string GetName(int userId);
+    using YAF.Types.Models;
 
     /// <summary>
-    /// Get the <paramref name="userId"/> from the user name.
+    /// User Display Name interface.
     /// </summary>
-    /// <param name="name">
-    /// The name.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    int? GetId(string name);
+    public interface IUserDisplayName
+    {
+        /// <summary>
+        /// Get the Display Name from a <paramref name="userId"/>
+        /// </summary>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        string GetNameById(int userId);
 
-    /// <summary>
-    /// Find a displayName value.
-    /// </summary>
-    /// <param name="contains">
-    /// The contains.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    IList<User> Find(string contains);
+        /// <summary>
+        /// Find user
+        /// </summary>
+        /// <param name="contains">The contains.</param>
+        /// <returns>
+        /// Returns the Found User
+        /// </returns>
+        [NotNull]
+        IList<User> FindUserContainsName(string contains);
 
-    /// <summary>
-    /// Clears a user value (if there is one) for <paramref name="userId"/> from the cache
-    /// </summary>
-    /// <param name="userId"></param>
-    void Clear(int userId);
-
-    /// <summary>
-    /// Clears the display name cache (if there is one)
-    /// </summary>
-    void Clear();
-  }
+        /// <summary>
+        /// Find User By (Display) Name
+        /// </summary>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <returns>
+        /// The <see cref="User"/>.
+        /// </returns>
+        [NotNull]
+        User FindUserByName([NotNull] string name);
+    }
 }

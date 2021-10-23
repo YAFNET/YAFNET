@@ -33,7 +33,7 @@ namespace YAF.Types.Objects
     /// <summary>
     /// The site Map. XML
     /// </summary>
-    [XmlRoot("urlset", Namespace = "http://www.sitemaps.org/schemas/sitemap/0.9")]
+    [XmlRoot("urlset", Namespace = "https://www.sitemaps.org/schemas/sitemap/0.9")]
     public class SiteMap
     {
         /// <summary>
@@ -72,7 +72,7 @@ namespace YAF.Types.Objects
                 var items = value;
                 this.map.Clear();
 
-                items.ForEach(item => { this.map.Add(item); });
+                items.ForEach(item => this.map.Add(item));
             }
         }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using JCG = J2N.Collections.Generic;
+#nullable enable
 
 namespace YAF.Lucene.Net.Support
 {
@@ -31,7 +32,7 @@ namespace YAF.Lucene.Net.Support
 #if FEATURE_SERIALIZABLE
         [NonSerialized]
 #endif
-        private object syncRoot;
+        private object? syncRoot;
         private readonly ISet<T> set;
 
         public ConcurrentSet(ISet<T> set)
@@ -131,7 +132,7 @@ namespace YAF.Lucene.Net.Support
 
         void ICollection.CopyTo(Array array, int index)
         {
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
             if (array.Rank != 1)
                 throw new ArgumentException("Only single dimensional arrays are supported for the requested action.", nameof(array));
@@ -144,17 +145,21 @@ namespace YAF.Lucene.Net.Support
                 //throw new ArgumentOutOfRangeException(nameof(index), index, SR.ArgumentOutOfRange_NeedNonNegNum);
             if (array.Length - index < Count)
                 throw new ArgumentException("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
-                //throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
+            //throw new ArgumentException(SR.Arg_ArrayPlusOffTooSmall);
 
-            T[]/*?*/ tarray = array as T[];
+#pragma warning disable IDE0019 // Use pattern matching
+            T[]? tarray = array as T[];
+#pragma warning restore IDE0019 // Use pattern matching
             if (tarray != null)
             {
                 CopyTo(tarray, index);
             }
             else
             {
-                object/*?*/[]/*?*/ objects = array as object[];
-                if (objects == null)
+#pragma warning disable IDE0019 // Use pattern matching
+                object?[]? objects = array as object[];
+#pragma warning restore IDE0019 // Use pattern matching
+                if (objects is null)
                 {
                     throw new ArgumentException("Target array type is not compatible with the type of items in the collection.", nameof(array));
                     //throw new ArgumentException(SR.Argument_InvalidArrayType, nameof(array));
@@ -197,7 +202,7 @@ namespace YAF.Lucene.Net.Support
                 {
                     if (set is ICollection col)
                         syncRoot = col.SyncRoot;
-                    System.Threading.Interlocked.CompareExchange<object/*?*/>(ref syncRoot, new object(), null);
+                    System.Threading.Interlocked.CompareExchange<object?>(ref syncRoot, new object(), null);
                 }
                 return syncRoot;
             }
@@ -237,7 +242,7 @@ namespace YAF.Lucene.Net.Support
         /// <returns><c>true</c> if <paramref name="other"/> is structurally equal to the current set;
         /// otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentNullException">If <paramref name="comparer"/> is <c>null</c>.</exception>
-        public bool Equals(object other, IEqualityComparer comparer)
+        public bool Equals(object? other, IEqualityComparer comparer)
         {
             lock (SyncRoot)
                 return JCG.SetEqualityComparer<T>.Equals(set, other, comparer);
@@ -265,7 +270,7 @@ namespace YAF.Lucene.Net.Support
         /// <returns><c>true</c> if the specified object implements <see cref="ISet{T}"/>
         /// and it contains the same elements; otherwise, <c>false</c>.</returns>
         /// <seealso cref="Equals(object, IEqualityComparer)"/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
             => Equals(obj, JCG.SetEqualityComparer<T>.Default);
 
         /// <summary>
@@ -294,14 +299,14 @@ namespace YAF.Lucene.Net.Support
         /// <para/>
         /// The index of a format item is not zero.
         /// </exception>
-        public string ToString(string format, IFormatProvider formatProvider)
+        public string ToString(string? format, IFormatProvider? formatProvider)
         {
             lock (SyncRoot)
             {
                 if (set is IFormattable formattable)
-                    return formattable.ToString(format, formatProvider);
+                    return formattable.ToString(format ?? "{0}", formatProvider);
 
-                return string.Format(formatProvider, format, set);
+                return string.Format(formatProvider, format ?? "{0}", set);
             }
         }
 
@@ -322,7 +327,7 @@ namespace YAF.Lucene.Net.Support
         /// </summary>
         /// <returns>A string that represents the current set.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="formatProvider"/> is <c>null</c>.</exception>
-        public string ToString(IFormatProvider formatProvider)
+        public string ToString(IFormatProvider? formatProvider)
             => ToString("{0}", formatProvider);
 
         /// <summary>
@@ -341,7 +346,7 @@ namespace YAF.Lucene.Net.Support
         /// <para/>
         /// The index of a format item is not zero.
         /// </exception>
-        public string ToString(string format)
+        public string ToString(string? format)
             => ToString(format, StringFormatter.CurrentCulture);
 
         

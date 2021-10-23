@@ -1,6 +1,7 @@
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 // this file has been automatically generated, DO NOT EDIT
 
@@ -23,7 +24,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// Direct wrapping of 32-bits values to a backing array.
@@ -55,11 +56,13 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long Get(int index)
         {
             return values[index] & 0xFFFFFFFFL;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Set(int index, long value)
         {
             values[index] = (int)(value);
@@ -74,11 +77,13 @@ namespace YAF.Lucene.Net.Util.Packed
                 + RamUsageEstimator.SizeOf(values);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Clear()
         {
             Arrays.Fill(values, (int)0L);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override object GetArray()
         {
             return values;
@@ -120,6 +125,7 @@ namespace YAF.Lucene.Net.Util.Packed
             return sets;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Fill(int fromIndex, int toIndex, long val)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(val == (val & 0xFFFFFFFFL));

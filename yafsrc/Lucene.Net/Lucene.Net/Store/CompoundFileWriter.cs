@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using System;
@@ -26,9 +26,9 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Combines multiple files into a single compound file.
@@ -76,7 +76,9 @@ namespace YAF.Lucene.Net.Store
         // all entries that are written to a sep. file but not yet moved into CFS
         private readonly LinkedList<FileEntry> pendingEntries = new LinkedList<FileEntry>();
         private bool closed = false;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private IndexOutput dataOut;
+#pragma warning restore CA2213 // Disposable fields should be disposed
         private readonly AtomicBoolean outputTaken = new AtomicBoolean(false);
         internal readonly string entryTableName;
         internal readonly string dataFileName;
@@ -89,7 +91,8 @@ namespace YAF.Lucene.Net.Store
         ///           if <paramref name="dir"/> or <paramref name="name"/> is <c>null</c> </exception>
         internal CompoundFileWriter(Directory dir, string name)
         {
-            // LUCENENET specific - changed order to take advantage of throw expression
+            // LUCENENET specific - changed order to take advantage of throw expression and
+            // changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             directory = dir ?? throw new ArgumentNullException(nameof(directory), $"{nameof(directory)} cannot be null");
             dataFileName = name ?? throw new ArgumentNullException(nameof(name), $"{nameof(name)} cannot be null");
             entryTableName = IndexFileNames.SegmentFileName(IndexFileNames.StripExtension(name), "", IndexFileNames.COMPOUND_FILE_ENTRIES_EXTENSION);
@@ -140,7 +143,7 @@ namespace YAF.Lucene.Net.Store
             {
                 return;
             }
-            IOException priorException = null;
+            Exception priorException = null; // LUCENENET: No need to cast to IOExcpetion
             IndexOutput entryTableOut = null;
             // TODO this code should clean up after itself
             // (remove partial .cfs/.cfe)
@@ -148,7 +151,7 @@ namespace YAF.Lucene.Net.Store
             {
                 if (pendingEntries.Count > 0 || outputTaken)
                 {
-                    throw new InvalidOperationException("CFS has pending open files");
+                    throw IllegalStateException.Create("CFS has pending open files");
                 }
                 closed = true;
                 // open the compound stream
@@ -156,7 +159,7 @@ namespace YAF.Lucene.Net.Store
                 if (Debugging.AssertsEnabled) Debugging.Assert(dataOut != null);
                 CodecUtil.WriteFooter(dataOut);
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
                 priorException = e;
             }
@@ -169,7 +172,7 @@ namespace YAF.Lucene.Net.Store
                 entryTableOut = directory.CreateOutput(entryTableName, IOContext.DEFAULT);
                 WriteEntryTable(entries.Values, entryTableOut);
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
                 priorException = e;
             }
@@ -179,11 +182,12 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnsureOpen()
         {
             if (closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "CFS Directory is already closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "CFS Directory is already disposed.");
             }
         }
 
@@ -191,17 +195,17 @@ namespace YAF.Lucene.Net.Store
         /// Copy the contents of the file with specified extension into the provided
         /// output stream.
         /// </summary>
-        private long CopyFileEntry(IndexOutput dataOut, FileEntry fileEntry)
+        private static long CopyFileEntry(IndexOutput dataOut, FileEntry fileEntry) // LUCENENET: CA1822: Mark members as static
         {
             IndexInput @is = fileEntry.Dir.OpenInput(fileEntry.File, IOContext.READ_ONCE);
             bool success = false;
             try
             {
-                long startPtr = dataOut.GetFilePointer();
+                long startPtr = dataOut.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 long length = fileEntry.Length;
                 dataOut.CopyBytes(@is, length);
                 // Verify that the output length diff is equal to original file
-                long endPtr = dataOut.GetFilePointer();
+                long endPtr = dataOut.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 long diff = endPtr - startPtr;
                 if (diff != length)
                 {
@@ -285,6 +289,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void ReleaseOutputLock()
         {
             outputTaken.CompareAndSet(true, false);
@@ -323,11 +328,13 @@ namespace YAF.Lucene.Net.Store
             return fileEntry.Length;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal bool FileExists(string name)
         {
             return entries.ContainsKey(name);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal string[] ListAll()
         {
             return entries.Keys.ToArray();
@@ -340,7 +347,7 @@ namespace YAF.Lucene.Net.Store
             private readonly IndexOutput @delegate;
             private readonly long offset;
             private bool closed;
-            private FileEntry entry;
+            private readonly FileEntry entry; // LUCENENET: marked readonly
             private long writtenBytes;
             private readonly bool isSeparate;
 
@@ -350,7 +357,7 @@ namespace YAF.Lucene.Net.Store
                 this.outerInstance = outerInstance;
                 this.@delegate = @delegate;
                 this.entry = entry;
-                entry.Offset = offset = @delegate.GetFilePointer();
+                entry.Offset = offset = @delegate.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 this.isSeparate = isSeparate;
             }
 
@@ -382,12 +389,10 @@ namespace YAF.Lucene.Net.Store
                 }
             }
 
-            public override long GetFilePointer()
-            {
-                return @delegate.GetFilePointer() - offset;
-            }
+            public override long Position => @delegate.Position - offset; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
             [Obsolete("(4.1) this method will be removed in Lucene 5.0")]
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Seek(long pos)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(!closed);

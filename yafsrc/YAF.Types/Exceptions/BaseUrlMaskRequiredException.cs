@@ -29,6 +29,7 @@ namespace YAF.Types.Exceptions
     /// <summary>
     /// Base Url MaskRequired Exception Class
     /// </summary>
+    [Serializable]
     public class BaseUrlMaskRequiredException : Exception
     {
         /// <summary>

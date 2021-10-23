@@ -49,6 +49,6 @@ namespace YAF.UrlRewriter.Conditions
             }
         }
 
-        private string _location;
+        private readonly string _location;
     }
 }

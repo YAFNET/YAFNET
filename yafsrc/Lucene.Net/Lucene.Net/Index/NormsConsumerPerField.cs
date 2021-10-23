@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     internal sealed class NormsConsumerPerField : InvertedDocEndConsumerPerField, IComparable<NormsConsumerPerField>
     {
@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Index
         private readonly FieldInvertState fieldState;
         private NumericDocValuesWriter consumer;
 
-        public NormsConsumerPerField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo, NormsConsumer parent)
+        public NormsConsumerPerField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo /*, NormsConsumer parent // LUCENENET: Not referenced */)
         {
             this.fieldInfo = fieldInfo;
             docState = docInverterPerField.docState;

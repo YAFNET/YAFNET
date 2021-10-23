@@ -1,8 +1,9 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Diagnostics;
 using System.IO;
-using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+using System.Runtime.CompilerServices;
+using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -23,18 +24,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
-    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
 
     /// <summary>
     /// Class responsible for access to stored document fields.
@@ -42,10 +43,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     /// It uses &lt;segment&gt;.fdt and &lt;segment&gt;.fdx; files.
     /// </summary>
     [Obsolete("Only for reading existing 3.x indexes")]
-    internal sealed class Lucene3xStoredFieldsReader : StoredFieldsReader, IDisposable
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    internal sealed class Lucene3xStoredFieldsReader : StoredFieldsReader, IDisposable // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         private const int FORMAT_SIZE = 4;
 
@@ -72,12 +70,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         internal const int FORMAT_MINIMUM = FORMAT_LUCENE_3_0_NO_COMPRESSED_FIELDS;
 
         // NOTE: bit 0 is free here!  You can steal it!
-        public static readonly int FIELD_IS_BINARY = 1 << 1;
+        public const int FIELD_IS_BINARY = 1 << 1;
 
         // the old bit 1 << 2 was compressed, is now left out
 
         private const int _NUMERIC_BIT_SHIFT = 3;
-        internal static readonly int FIELD_IS_NUMERIC_MASK = 0x07 << _NUMERIC_BIT_SHIFT;
+        internal const int FIELD_IS_NUMERIC_MASK = 0x07 << _NUMERIC_BIT_SHIFT;
 
         public const int FIELD_IS_NUMERIC_INT = 1 << _NUMERIC_BIT_SHIFT;
         public const int FIELD_IS_NUMERIC_LONG = 2 << _NUMERIC_BIT_SHIFT;
@@ -85,20 +83,24 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         public const int FIELD_IS_NUMERIC_DOUBLE = 4 << _NUMERIC_BIT_SHIFT;
 
         private readonly FieldInfos fieldInfos;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexInput fieldsStream;
         private readonly IndexInput indexStream;
-        private int numTotalDocs;
-        private int size;
+#pragma warning restore CA2213 // Disposable fields should be disposed
+        private readonly int numTotalDocs; // LUCENENET: marked readonly
+        private readonly int size; // LUCENENET: marked readonly
         private bool closed;
         private readonly int format;
 
         // The docID offset where our docs begin in the index
         // file.  this will be 0 if we have our own private file.
-        private int docStoreOffset;
+        private readonly int docStoreOffset; // LUCENENET: marked readonly
 
         // when we are inside a compound share doc store (CFX),
         // (lucene 3.0 indexes only), we privately open our own fd.
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly CompoundFileDirectory storeCFSReader;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         /// <summary>
         /// Returns a cloned FieldsReader that shares open
@@ -107,6 +109,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// clones are called (eg, currently SegmentReader manages
         /// this logic).
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override object Clone()
         {
             EnsureOpen();
@@ -221,21 +224,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                     {
                         Dispose();
                     } // keep our original exception
-#pragma warning disable 168
-                    catch (Exception t)
-#pragma warning restore 168
+                    catch (Exception t) when (t.IsThrowable())
                     {
+                        // ignored
                     }
                 }
             }
         }
 
         /// <exception cref="ObjectDisposedException"> If this FieldsReader is disposed. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void EnsureOpen()
         {
             if (closed)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, "this FieldsReader is closed");
+                throw AlreadyClosedException.Create(this.GetType().FullName, "this FieldsReader is disposed.");
             }
         }
 
@@ -244,6 +247,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// This means that the Fields values will not be accessible.
         /// </summary>
         /// <exception cref="IOException"> If there is a low-level I/O error. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -256,6 +260,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SeekIndex(int docID)
         {
             indexStream.Seek(FORMAT_SIZE + (docID + docStoreOffset) * 8L);
@@ -358,16 +363,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             else
             {
                 int length = fieldsStream.ReadVInt32();
-                fieldsStream.Seek(fieldsStream.GetFilePointer() + length);
+                fieldsStream.Seek(fieldsStream.Position + length); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long RamBytesUsed()
         {
             // everything is stored on disk
             return 0;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void CheckIntegrity()
         {
         }

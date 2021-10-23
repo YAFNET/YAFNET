@@ -208,6 +208,10 @@
     "Type": "text/plain"
   },
   {
+    "Extension": "config",
+    "Type": "application/xml"
+  },
+  {
     "Extension": "cpio",
     "Type": "application/x-cpio"
   },
@@ -930,6 +934,10 @@
   {
     "Extension": "png",
     "Type": "image/png"
+  },
+  {
+    "Extension": "png",
+    "Type": "application/x-png"
   },
   {
     "Extension": "pnm",

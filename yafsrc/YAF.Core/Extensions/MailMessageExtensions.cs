@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -54,12 +54,12 @@ namespace YAF.Core.Extensions
         /// <param name="bodyHtml">The body html.</param>
         [NotNull]
         public static void Populate(
-            [NotNull] this MailMessage mailMessage, 
-            [NotNull] MailAddress fromAddress, 
-            [NotNull] MailAddress toAddress, 
+            [NotNull] this MailMessage mailMessage,
+            [NotNull] MailAddress fromAddress,
+            [NotNull] MailAddress toAddress,
             [NotNull] MailAddress senderAddress,
-            [CanBeNull] string subject, 
-            [CanBeNull] string bodyText, 
+            [CanBeNull] string subject,
+            [CanBeNull] string bodyText,
             [CanBeNull] string bodyHtml)
         {
             CodeContracts.VerifyNotNull(mailMessage, "mailMessage");
@@ -79,15 +79,13 @@ namespace YAF.Core.Extensions
 
             // add default text view
             mailMessage.AlternateViews.Add(
-                AlternateView.CreateAlternateViewFromString(
-                    bodyText, Encoding.UTF8, MediaTypeNames.Text.Plain));
+                AlternateView.CreateAlternateViewFromString(bodyText, Encoding.UTF8, MediaTypeNames.Text.Plain));
 
             // see if html alternative is also desired...
             if (bodyHtml.IsSet())
             {
                 mailMessage.AlternateViews.Add(
-                    AlternateView.CreateAlternateViewFromString(
-                        bodyHtml, Encoding.UTF8, MediaTypeNames.Text.Html));
+                    AlternateView.CreateAlternateViewFromString(bodyHtml, Encoding.UTF8, MediaTypeNames.Text.Html));
             }
         }
 

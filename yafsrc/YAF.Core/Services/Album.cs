@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,14 +31,16 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.Web;
 
-    using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
 
@@ -152,37 +154,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The change album title.
-        /// </summary>
-        /// <param name="albumId">
-        /// The album id.
-        /// </param>
-        /// <param name="newTitle">
-        /// The New title.
-        /// </param>
-        /// <returns>
-        /// the return object.
-        /// </returns>
-        public ReturnClass ChangeAlbumTitle(int albumId, [NotNull] string newTitle)
-        {
-            // load the DB so BoardContext can work...
-            CodeContracts.VerifyNotNull(newTitle, "newTitle");
-
-            this.Get<StartupInitializeDb>().Run();
-
-            // newTitle = System.Web.HttpUtility.HtmlEncode(newTitle);
-            this.GetRepository<UserAlbum>().UpdateTitle(albumId, newTitle);
-
-            var returnObject = new ReturnClass { NewTitle = newTitle };
-
-            returnObject.NewTitle = newTitle == string.Empty
-                                        ? this.Get<ILocalization>().GetText("ALBUM", "ALBUM_CHANGE_TITLE")
-                                        : newTitle;
-            returnObject.Id = $"0{albumId.ToString()}";
-            return returnObject;
-        }
-
-        /// <summary>
         /// The change image caption.
         /// </summary>
         /// <param name="imageId">
@@ -197,11 +168,10 @@ namespace YAF.Core.Services
         public ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption)
         {
             // load the DB so BoardContext can work...
-            CodeContracts.VerifyNotNull(newCaption, "newCaption");
+            CodeContracts.VerifyNotNull(newCaption);
 
             this.Get<StartupInitializeDb>().Run();
 
-            // newCaption = System.Web.HttpUtility.HtmlEncode(newCaption);
             this.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
             var returnObject = new ReturnClass { NewTitle = newCaption };
 
@@ -222,6 +192,14 @@ namespace YAF.Core.Services
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
         public void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("imgprv")))
+            {
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+                return;
+            }
+
             var etag =
                 $@"""{context.Request.QueryString.GetFirstOrDefault("imgprv")}{localizationFile.GetHashCode()}""";
 
@@ -231,7 +209,7 @@ namespace YAF.Core.Services
                 var image = this.GetRepository<UserAlbumImage>()
                     .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("imgprv"));
 
-                var uploadFolder = BoardFolders.Current.Uploads;
+                var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                 var oldFileName = context.Server.MapPath(
                     $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -253,16 +231,16 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(ms.ToArray(), 0, ms.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetMaxAge(TimeSpan.FromHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 ms.Dispose();
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
-                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.PageUserID),
+                this.Get<ILoggerService>().Log(
+                    BoardContext.Current.User.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -280,6 +258,24 @@ namespace YAF.Core.Services
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
         public void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("album")))
+            {
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                return;
+            }
+
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("cover")))
+            {
+                context.Response.Write(
+                 "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                return;
+            }
+
             var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("cover")}{localizationFile.GetHashCode()}""";
 
             try
@@ -297,7 +293,7 @@ namespace YAF.Core.Services
                     {
                         var image = this.GetRepository<UserAlbumImage>().GetImage(album[random.Next(album.Count)].ID);
 
-                        var uploadFolder = BoardFolders.Current.Uploads;
+                        var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                         var oldFileName = context.Server.MapPath(
                             $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -315,7 +311,7 @@ namespace YAF.Core.Services
 
                     if (image != null)
                     {
-                        var uploadFolder = BoardFolders.Current.Uploads;
+                        var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                         var oldFileName = context.Server.MapPath(
                             $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -337,16 +333,16 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetMaxAge(TimeSpan.FromHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
-                    BoardContext.Current.PageUserID,
+                this.Get<ILoggerService>().Log(
+                    BoardContext.Current.User.ID,
                     this,
                     x,
                     EventLogTypes.Information);
@@ -365,13 +361,22 @@ namespace YAF.Core.Services
         {
             try
             {
+                // Check QueryString first
+                if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("image")))
+                {
+                    context.Response.Write(
+                        "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                    return;
+                }
+
                 // ImageID
                 var image = this.GetRepository<UserAlbumImage>()
                     .GetImage(context.Request.QueryString.GetFirstOrDefaultAs<int>("image"));
 
                 byte[] data;
 
-                var uploadFolder = BoardFolders.Current.Uploads;
+                var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                 var oldFileName = context.Server.MapPath(
                     $"{uploadFolder}/{image.Item2.UserID}.{image.Item1.AlbumID}.{image.Item1.FileName}");
@@ -406,8 +411,8 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
-                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.PageUserID),
+                this.Get<ILoggerService>().Log(
+                    BoardContext.Current.User.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -425,6 +430,15 @@ namespace YAF.Core.Services
         /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
         public void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
         {
+            // Check QueryString first
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("p")))
+            {
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                return;
+            }
+
             var etag = $@"""{context.Request.QueryString.GetFirstOrDefault("p")}{localizationFile.GetHashCode()}""";
 
             try
@@ -450,7 +464,7 @@ namespace YAF.Core.Services
 
                 if (attachment.FileData == null)
                 {
-                    var uploadFolder = BoardFolders.Current.Uploads;
+                    var uploadFolder = this.Get<BoardFolders>().Uploads;
 
                     var oldFileName = context.Server.MapPath(
                         $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}");
@@ -501,16 +515,16 @@ namespace YAF.Core.Services
                 // output stream...
                 context.Response.OutputStream.Write(data.ToArray(), 0, data.Length.ToType<int>());
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                context.Response.Cache.SetExpires(System.DateTime.UtcNow.AddHours(2));
-                context.Response.Cache.SetLastModified(System.DateTime.UtcNow);
+                context.Response.Cache.SetMaxAge(TimeSpan.FromHours(2));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
                 context.Response.Cache.SetETag(etag);
 
                 data.Dispose();
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Log(
-                    this.Get<IUserDisplayName>().GetName(BoardContext.Current.PageUserID),
+                this.Get<ILoggerService>().Log(
+                    BoardContext.Current.User.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);

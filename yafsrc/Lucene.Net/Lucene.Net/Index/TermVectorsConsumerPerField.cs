@@ -23,10 +23,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using TermVectorsWriter = YAF.Lucene.Net.Codecs.TermVectorsWriter;
+    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using TermVectorsWriter  = YAF.Lucene.Net.Codecs.TermVectorsWriter;
 
     internal sealed class TermVectorsConsumerPerField : TermsHashConsumerPerField
     {
@@ -227,7 +227,7 @@ namespace YAF.Lucene.Net.Index
 
         internal void ShrinkHash()
         {
-            termsHashPerField.ShrinkHash(maxNumPostings);
+            termsHashPerField.ShrinkHash(/* maxNumPostings // LUCENENET: Not used */);
             maxNumPostings = 0;
         }
 

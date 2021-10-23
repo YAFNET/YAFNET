@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Encodes/decodes per-document values.
@@ -152,13 +152,13 @@ namespace YAF.Lucene.Net.Codecs
         {
             get
             {
-                if (docValuesFormatFactory is IServiceListable)
+                if (docValuesFormatFactory is IServiceListable serviceListable)
                 {
-                    return ((IServiceListable)docValuesFormatFactory).AvailableServices;
+                    return serviceListable.AvailableServices;
                 }
                 else
                 {
-                    throw new NotSupportedException("The current DocValuesFormatFactory class does not implement IServiceListable.");
+                    throw UnsupportedOperationException.Create("The current DocValuesFormatFactory class does not implement IServiceListable.");
                 }
             }
         }

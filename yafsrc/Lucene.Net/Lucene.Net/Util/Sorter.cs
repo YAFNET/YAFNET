@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -52,6 +54,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public abstract void Sort(int from, int to);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void CheckRange(int from, int to)
         {
             if (to < from)
@@ -60,6 +63,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void MergeInPlace(int from, int mid, int to)
         {
             if (from == mid || mid == to || Compare(mid - 1, mid) <= 0)
@@ -83,14 +87,14 @@ namespace YAF.Lucene.Net.Util
             int len11, len22;
             if (mid - from > to - mid)
             {
-                len11 = (int)((uint)(mid - from) >> 1);
+                len11 = (mid - from).TripleShift(1);
                 first_cut = from + len11;
                 second_cut = Lower(mid, to, first_cut);
                 len22 = second_cut - mid;
             }
             else
             {
-                len22 = (int)((uint)(to - mid) >> 1);
+                len22 = (to - mid).TripleShift(1);
                 second_cut = mid + len22;
                 first_cut = Upper(from, mid, second_cut);
                 //len11 = first_cut - from; // LUCENENET: Unnecessary assignment
@@ -101,12 +105,13 @@ namespace YAF.Lucene.Net.Util
             MergeInPlace(new_mid, second_cut, to);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual int Lower(int from, int to, int val)
         {
             int len = to - from;
             while (len > 0)
             {
-                int half = (int)((uint)len >> 1);
+                int half = len.TripleShift(1);
                 int mid = from + half;
                 if (Compare(mid, val) < 0)
                 {
@@ -121,12 +126,13 @@ namespace YAF.Lucene.Net.Util
             return from;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual int Upper(int from, int to, int val)
         {
             int len = to - from;
             while (len > 0)
             {
-                int half = (int)((uint)len >> 1);
+                int half = len.TripleShift(1);
                 int mid = from + half;
                 if (Compare(val, mid) < 0)
                 {
@@ -142,6 +148,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         // faster than lower when val is at the end of [from:to[
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual int Lower2(int from, int to, int val)
         {
             int f = to - 1, t = to;
@@ -159,6 +166,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         // faster than upper when val is at the beginning of [from:to[
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual int Upper2(int from, int to, int val)
         {
             int f = from, t = f + 1;
@@ -175,6 +183,7 @@ namespace YAF.Lucene.Net.Util
             return Upper(f, to, val);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void Reverse(int from, int to)
         {
             for (--to; from < to; ++from, --to)
@@ -183,6 +192,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void Rotate(int lo, int mid, int hi)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(lo <= mid && mid <= hi);
@@ -193,6 +203,7 @@ namespace YAF.Lucene.Net.Util
             DoRotate(lo, mid, hi);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void DoRotate(int lo, int mid, int hi)
         {
             if (mid - lo == hi - mid)
@@ -211,6 +222,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void InsertionSort(int from, int to)
         {
             for (int i = from + 1; i < to; ++i)
@@ -229,11 +241,13 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void BinarySort(int from, int to)
         {
             BinarySort(from, to, from + 1);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void BinarySort(int from, int to, int i)
         {
             for (; i < to; ++i)
@@ -242,7 +256,7 @@ namespace YAF.Lucene.Net.Util
                 int h = i - 1;
                 while (l <= h)
                 {
-                    int mid = (int)((uint)(l + h) >> 1);
+                    int mid = (l + h).TripleShift(1);
                     int cmp = Compare(i, mid);
                     if (cmp < 0)
                     {
@@ -277,6 +291,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void HeapSort(int from, int to)
         {
             if (to - from <= 1)
@@ -291,6 +306,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void Heapify(int from, int to)
         {
             for (int i = HeapParent(from, to - 1); i >= from; --i)
@@ -299,6 +315,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void SiftDown(int i, int from, int to)
         {
             for (int leftChild = HeapChild(from, i); leftChild < to; leftChild = HeapChild(from, i))
@@ -329,11 +346,13 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int HeapParent(int from, int i)
         {
-            return ((int)((uint)(i - 1 - from) >> 1)) + from;
+            return ((i - 1 - from).TripleShift(1)) + from;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static int HeapChild(int from, int i)
         {
             return ((i - from) << 1) + 1 + from;

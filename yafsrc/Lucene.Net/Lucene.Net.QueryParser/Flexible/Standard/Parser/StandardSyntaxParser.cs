@@ -2,10 +2,10 @@
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
@@ -34,11 +34,14 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
     /// <summary>
     /// Parser for the standard Lucene syntax
     /// </summary>
+    [SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "This class is based on generated code")]
+    [SuppressMessage("Style", "IDE0059:Unnecessary assignment of a value", Justification = "This class is based on generated code")]
+    [SuppressMessage("Style", "IDE0028:Collection initialization can be simplified", Justification = "This class is based on generated code")]
     public class StandardSyntaxParser : ISyntaxParser /*, StandardSyntaxParserConstants*/
     {
-        private static readonly int CONJ_NONE = 0;
-        private static readonly int CONJ_AND = 2;
-        private static readonly int CONJ_OR = 2;
+        private const int CONJ_NONE = 0;
+        private const int CONJ_AND = 2;
+        private const int CONJ_OR = 2;
 
 
         // syntax parser constructor
@@ -63,18 +66,17 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 IQueryNode querynode = TopLevelQuery(field);
                 return querynode;
             }
-            catch (ParseException tme)
+            catch (Lucene.Net.QueryParsers.Flexible.Standard.Parser.ParseException tme) // LUCENENET: Flexible QueryParser has its own ParseException that is different than the one in Support
             {
-                tme.SetQuery(query);
-                throw tme;
+                // LUCENENET specific - removed NLS support (since .NET already has localization) so we need to re-throw the exception here with a different message. However,
+                // unlike the original Lucene code we also preserve the original message in the InnerException.
+                throw new Lucene.Net.QueryParsers.Flexible.Standard.Parser.ParseException(string.Format(QueryParserMessages.INVALID_SYNTAX_CANNOT_PARSE, query, string.Empty), tme) { Query = query };
             }
-            catch (Exception tme)
+            catch (Exception tme) when (tme.IsError())
             {
-                IMessage message = new Message(QueryParserMessages.INVALID_SYNTAX_CANNOT_PARSE, query, tme.Message);
-                QueryNodeParseException e = new QueryNodeParseException(tme);
-                e.SetQuery(query);
-                e.SetNonLocalizedMessage(message);
-                throw e;
+                // LUCENENET specific - removed NLS support (since .NET already has localization) so we pass everything through the constructor of the
+                // exception.
+                throw new QueryNodeParseException(string.Format(QueryParserMessages.INVALID_SYNTAX_CANNOT_PARSE, query, tme.Message), tme) { Query = query };
             }
         }
 
@@ -108,7 +110,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                     break;
             }
             { if (true) return ret; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public Modifier Modifiers()
@@ -144,7 +146,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                     break;
             }
             { if (true) return ret; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         // This makes sure that there is no garbage after the query string
@@ -154,8 +156,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             q = Query(field);
             Jj_consume_token(0);
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
+
 
         // These changes were made to introduce operator precedence:
         // - Clause() now returns a QueryNode. 
@@ -210,7 +213,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             {
                 { if (true) return first; }
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public IQueryNode DisjQuery(string field)
@@ -248,7 +251,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             {
                 { if (true) return first; }
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public IQueryNode ConjQuery(string field)
@@ -286,7 +289,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             {
                 { if (true) return first; }
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         // QueryNode Query(CharSequence field) :
@@ -338,7 +341,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 q = new ModifierQueryNode(q, mods);
             }
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public IQueryNode Clause(string field)
@@ -456,7 +459,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                                                          "*", term.BeginColumn, term.EndColumn);
                                 break;
                             default:
-                                { if (true) throw new Exception("Unhandled case: operator=" + @operator.ToString()); }
+                                { if (true) throw Error.Create("Unhandled case: operator=" + @operator.ToString()); }
                         }
                         q = new TermRangeQueryNode(qLower, qUpper, lowerInclusive, upperInclusive);
                         break;
@@ -539,19 +542,17 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             }
             if (boost != null)
             {
-                float f = (float)1.0;
+                // LUCENENET specific - parse without throwing exceptions
+                float f = float.TryParse(boost.Image, NumberStyles.Float, CultureInfo.InvariantCulture, out float temp) ? temp : 1.0f;
                 try
                 {
-                    f = Convert.ToSingle(boost.Image, CultureInfo.InvariantCulture);
                     // avoid boosting null queries, such as those caused by stop words
                     if (q != null)
                     {
                         q = new BoostQueryNode(q, f);
                     }
                 }
-#pragma warning disable 168
-                catch (Exception ignored)
-#pragma warning restore 168
+                catch (Exception ignored) when (ignored.IsException())
                 {
                     /* Should this be handled somehow? (defaults to "no boost", if
                          * boost number is invalid)
@@ -560,7 +561,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             }
             if (group) { q = new GroupQueryNode(q); }
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public IQueryNode Term(string field)
@@ -630,21 +631,15 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                     }
                     if (fuzzy)
                     {
-                        float fms = defaultMinSimilarity;
-                        try
-                        {
-                            fms = Convert.ToSingle(fuzzySlop.Image.Substring(1), CultureInfo.InvariantCulture);
-                        }
-#pragma warning disable 168
-                        catch (Exception ignored) { }
-#pragma warning restore 168
+                        // LUCENENET specific: parse without throwing exceptions
+                        float fms = float.TryParse(fuzzySlop.Image.Substring(1), NumberStyles.Float, CultureInfo.InvariantCulture, out float temp) ? temp : defaultMinSimilarity;
                         if (fms < 0.0f)
                         {
-                            { if (true) throw new ParseException(new Message(QueryParserMessages.INVALID_SYNTAX_FUZZY_LIMITS)); }
+                            { if (true) throw new ParseException(QueryParserMessages.INVALID_SYNTAX_FUZZY_LIMITS); }
                         }
                         else if (fms >= 1.0f && fms != (int)fms)
                         {
-                            { if (true) throw new ParseException(new Message(QueryParserMessages.INVALID_SYNTAX_FUZZY_EDITS)); }
+                            { if (true) throw new ParseException(QueryParserMessages.INVALID_SYNTAX_FUZZY_EDITS); }
                         }
                         q = new FuzzyQueryNode(field, EscapeQuerySyntax.DiscardEscapeChar(term.Image), fms, term.BeginColumn, term.EndColumn);
                     }
@@ -770,18 +765,20 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
 
                     if (fuzzySlop != null)
                     {
-                        try
+                        // LUCENENET: don't let parsing throw exceptions
+                        if (float.TryParse(fuzzySlop.Image.Substring(1), NumberStyles.Float, CultureInfo.InvariantCulture, out float temp))
                         {
-                            phraseSlop = (int)Convert.ToSingle(fuzzySlop.Image.Substring(1), CultureInfo.InvariantCulture);
-                            q = new SlopQueryNode(q, phraseSlop);
-                        }
-#pragma warning disable 168
-                        catch (Exception ignored)
-#pragma warning restore 168
-                        {
-                            /* Should this be handled somehow? (defaults to "no PhraseSlop", if
-                           * slop number is invalid)
-                           */
+                            try
+                            {
+                                phraseSlop = (int)temp;
+                                q = new SlopQueryNode(q, phraseSlop);
+                            }
+                            catch (Exception ignored) when (ignored.IsException())
+                            {
+                                /* Should this be handled somehow? (defaults to "no PhraseSlop", if
+                               * slop number is invalid)
+                               */
+                            }
                         }
                     }
                     break;
@@ -792,19 +789,17 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             }
             if (boost != null)
             {
-                float f = (float)1.0;
+                // LUCENENET specific: parse without throwing exceptions
+                float f = float.TryParse(boost.Image, NumberStyles.Float, CultureInfo.InvariantCulture, out float temp) ? temp : 1.0f;
                 try
                 {
-                    f = Convert.ToSingle(boost.Image, CultureInfo.InvariantCulture);
                     // avoid boosting null queries, such as those caused by stop words
                     if (q != null)
                     {
                         q = new BoostQueryNode(q, f);
                     }
                 }
-#pragma warning disable 168
-                catch (Exception ignored)
-#pragma warning restore 168
+                catch (Exception ignored) when (ignored.IsException())
                 {
                     /* Should this be handled somehow? (defaults to "no boost", if
                        * boost number is invalid)
@@ -812,7 +807,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 }
             }
             { if (true) return q; }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         private bool Jj_2_1(int xla)
@@ -1160,10 +1155,10 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
                 return (jj_ntk = Jj_nt.Kind);
         }
 
-        private List<int[]> jj_expentries = new List<int[]>();
+        private readonly List<int[]> jj_expentries = new List<int[]>(); // LUCENENET: marked readonly
         private int[] jj_expentry;
         private int jj_kind = -1;
-        private int[] jj_lasttokens = new int[100];
+        private readonly int[] jj_lasttokens = new int[100]; // LUCENENET: marked readonly
         private int jj_endpos;
 
         private void Jj_add_error_token(int kind, int pos)
@@ -1251,6 +1246,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser
             }
             return new ParseException(Token, exptokseq, StandardSyntaxParserConstants.TokenImage);
         }
+
 
         /// <summary>Enable tracing.</summary>
         public void Enable_tracing()

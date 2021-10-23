@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,26 +33,30 @@ namespace YAF.Types.Models
     /// A class which represents the TopicReadTracking table.
     /// </summary>
     [Serializable]
-    public partial class TopicReadTracking : IEntity
+    [CompositePrimaryKey(nameof(UserID), nameof(TopicID))]
+    public class TopicReadTracking : IEntity
     {
-        partial void OnCreated();
-
-        public TopicReadTracking()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
         [References(typeof(Topic))]
         [Required]
         public int TopicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last access date.
+        /// </summary>
         [Required]
         public DateTime LastAccessDate { get; set; }
-
 
         #endregion
     }

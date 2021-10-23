@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
@@ -39,7 +40,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         {
             if (length < 1)
             {
-                throw new ArgumentOutOfRangeException("length parameter must be a positive number: " + length);
+                throw new ArgumentOutOfRangeException(nameof(length),"length parameter must be a positive number: " + length); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.length = length;
             this.termAttribute = AddAttribute<ICharTermAttribute>();

@@ -47,7 +47,8 @@ namespace YAF.UrlRewriter.Actions
                 throw new ArgumentNullException(nameof(context));
             }
 
-            var cookie = new HttpCookie(this.Name, this.Value);
+            var cookie = new HttpCookie(this.Name, this.Value) { HttpOnly = true };
+
             context.ResponseCookies.Add(cookie);
 
             return RewriteProcessing.ContinueProcessing;

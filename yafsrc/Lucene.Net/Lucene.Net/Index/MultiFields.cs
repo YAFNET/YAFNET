@@ -24,8 +24,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Exposes flex API, merged from flex API of sub-segments.
@@ -254,8 +254,7 @@ namespace YAF.Lucene.Net.Index
 
         public override Terms GetTerms(string field)
         {
-            Terms result;
-            if (terms.TryGetValue(field, out result) && result != null)
+            if (terms.TryGetValue(field, out Terms result) && result != null)
             {
                 return result;
             }

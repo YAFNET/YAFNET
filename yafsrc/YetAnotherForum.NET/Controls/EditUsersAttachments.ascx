@@ -7,17 +7,30 @@
                         LocalizedPage="ATTACHMENTS" />
 </h2>
 
-<YAF:Pager ID="PagerTop" runat="server" OnPageChange="PagerTop_PageChange" />
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <div class="input-group input-group-sm me-2" role="group">
+            <div class="input-group-text">
+                <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+            </div>
+            <asp:DropDownList runat="server" ID="PageSize"
+                              AutoPostBack="True"
+                              OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                              CssClass="form-select">
+            </asp:DropDownList>
+        </div>
+    </div>
+</div>
 
 <asp:Repeater runat="server" ID="List" OnItemCommand="List_ItemCommand">
     <HeaderTemplate>
-        <ul class="list-group list-group-flush mt-3">
+        <ul class="list-group list-group-flush">
     </HeaderTemplate>
     <ItemTemplate>
         <li class="list-group-item">
             <asp:CheckBox ID="Selected" runat="server"
                           Text="&nbsp;"
-                          CssClass="custom-control custom-checkbox d-inline-flex" />
+                          CssClass="form-check d-inline-flex align-middle" />
             <%# this.GetPreviewImage(Container.DataItem) %>
             <%# this.Eval( "FileName") %> <em>(<%# this.Eval("Bytes").ToType<int>() / 1024%> kb)</em>
                             
@@ -44,8 +57,12 @@
                  Type="Danger"
                  Visible="<%# this.List.Items.Count > 0 %>"
                  CssClass="m-3"/>
-<YAF:Pager ID="PagerBottom" runat="server" 
-           LinkedPager="PagerTop" />
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager ID="PagerTop" runat="server" 
+                   OnPageChange="PagerTop_PageChange" />
+    </div>
+</div>
 <hr />
 <div class="text-lg-center">
     <YAF:ThemeButton runat="server" ID="Back" 

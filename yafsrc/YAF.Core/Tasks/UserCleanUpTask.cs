@@ -24,10 +24,9 @@
 namespace YAF.Core.Tasks
 {
     using System;
-    using System.Data;
     using System.Linq;
-    using System.Threading;
-
+    
+    using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -61,32 +60,21 @@ namespace YAF.Core.Tasks
             try
             {
                 // get all boards...
-                var boardIds = this.GetRepository<Board>().ListTyped().Select(x => x.ID).ToList();
+                var boardIds = this.GetRepository<Board>().GetAll().Select(x => x.ID);
 
                 // go through each board...
                 boardIds.ForEach(
-                    boardId =>
+                    id =>
                     {
-                        // get users for this board...
-                        var users = this.GetRepository<User>().ListAsDataTable(boardId, null, null).Rows.Cast<DataRow>().ToList();
-
-                        // handle un-suspension...
-                        var suspendedUsers = from u in users
-                                             where u["Suspended"] != DBNull.Value && (DateTime)u["Suspended"] < DateTime.UtcNow
-                                             select u;
+                        // Check for users ...
+                        var users = this.GetRepository<User>().Get(
+                            u => u.BoardID == id && u.Suspended.HasValue && u.Suspended < DateTime.UtcNow);
 
                         // un-suspend these users...
-                        suspendedUsers.ForEach(
-                            user =>
-                            {
-                                this.GetRepository<User>().Suspend(user["UserId"].ToType<int>());
-
-                                // sleep for a quarter of a second so we don't pound the server...
-                                Thread.Sleep(250);
-                            });
+                        users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
 
                         // sleep for a second...
-                        Thread.Sleep(1000);
+                        // Thread.Sleep(1000);
                     });
             }
             catch (Exception x)

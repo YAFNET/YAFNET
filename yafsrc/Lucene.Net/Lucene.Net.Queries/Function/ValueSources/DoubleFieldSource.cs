@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -52,15 +53,15 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
             var arr = m_cache.GetDoubles(readerContext.AtomicReader, m_field, m_parser, true);
             var valid = m_cache.GetDocsWithField(readerContext.AtomicReader, m_field);
-            return new DoubleDocValuesAnonymousInnerClassHelper(this, arr, valid);
+            return new DoubleDocValuesAnonymousClass(this, arr, valid);
         }
 
-        private class DoubleDocValuesAnonymousInnerClassHelper : DoubleDocValues
+        private class DoubleDocValuesAnonymousClass : DoubleDocValues
         {
             private readonly FieldCache.Doubles arr;
             private readonly IBits valid;
 
-            public DoubleDocValuesAnonymousInnerClassHelper(DoubleFieldSource @this, FieldCache.Doubles arr, IBits valid)
+            public DoubleDocValuesAnonymousClass(DoubleFieldSource @this, FieldCache.Doubles arr, IBits valid)
                 : base(@this)
             {
                 this.arr = arr;

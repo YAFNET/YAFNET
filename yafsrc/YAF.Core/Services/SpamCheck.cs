@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,10 +29,14 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Services.CheckForSpam;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// User and Content Spam Checking
@@ -83,33 +87,43 @@ namespace YAF.Core.Services
         {
             result = string.Empty;
 
-            if (BoardContext.Current.Get<BoardSettings>().SpamServiceType.Equals(0))
+            if (BoardContext.Current.User.NumPosts
+                >= this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
             {
                 return false;
             }
 
-            if (BoardContext.Current.CurrentUserData.NumPosts
-                >= BoardContext.Current.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
-            {
-                return false;
-            }
+            var isSpamContent = false;
 
-            switch (BoardContext.Current.Get<BoardSettings>().SpamServiceType)
+            switch (this.Get<BoardSettings>().SpamServiceType)
             {
                 case 2:
                     {
-                        return BoardContext.Current.Get<BoardSettings>().AkismetApiKey.IsSet()
-                               && CheckWithAkismet(userName, postMessage, ipAddress, out result);
+                        isSpamContent = this.Get<BoardSettings>().AkismetApiKey.IsSet()
+                                     && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
                     }
+
+                    break;
 
                 case 1:
                 case 3:
                     {
-                        return BoardContext.Current.Get<ISpamWordCheck>().CheckForSpamWord(postMessage, out result);
+                        isSpamContent = this.Get<ISpamWordCheck>()
+                            .CheckForSpamWord(postMessage, out result);
                     }
+
+                    break;
             }
 
-            return false;
+            if (isSpamContent)
+            {
+                return true;
+            }
+
+            // Check for Urls
+            isSpamContent = this.Get<ISpamCheck>().ContainsSpamUrls(postMessage, out result);
+
+            return isSpamContent;
         }
 
         /// <summary>
@@ -134,23 +148,23 @@ namespace YAF.Core.Services
                 return true;
             }
 
-            if (BoardContext.Current.Get<BoardSettings>().BotSpamServiceType.Equals(0))
+            if (this.Get<BoardSettings>().BotSpamService == BotSpamService.NoService)
             {
                 return false;
             }
 
-            switch (BoardContext.Current.Get<BoardSettings>().BotSpamServiceType)
+            switch (this.Get<BoardSettings>().BotSpamService)
             {
-                case 1:
+                case BotSpamService.StopForumSpam:
                     {
                         var stopForumSpam = new StopForumSpam();
 
                         return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
 
-                case 2:
+                case BotSpamService.BotScout:
                     {
-                        if (BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             var botScout = new BotScout();
 
@@ -163,12 +177,11 @@ namespace YAF.Core.Services
                         return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
 
-                case 3:
+                case BotSpamService.BothServiceMatch:
                     {
-                        // use StopForumSpam instead
                         var stopForumSpam = new StopForumSpam();
 
-                        if (!BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (!this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                         }
@@ -179,12 +192,12 @@ namespace YAF.Core.Services
                                && stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
 
-                case 4:
+                case BotSpamService.OneServiceMatch:
                     {
                         // use StopForumSpam instead
                         var stopForumSpam = new StopForumSpam();
 
-                        if (!BoardContext.Current.Get<BoardSettings>().BotScoutApiKey.IsSet())
+                        if (!this.Get<BoardSettings>().BotScoutApiKey.IsSet())
                         {
                             return stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                         }
@@ -192,11 +205,47 @@ namespace YAF.Core.Services
                         var botScout = new BotScout();
 
                         return botScout.IsBot(ipAddress, emailAddress, userName)
-                               | stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
+                               || stopForumSpam.IsBot(ipAddress, emailAddress, userName, out result);
                     }
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// Check Content for Spam URLs (Count URLs inside Messages)
+        /// </summary>
+        /// <param name="message">
+        /// The message to check for URLs.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public bool ContainsSpamUrls(string message, out string result)
+        {
+            result = string.Empty;
+
+            // Check posts for urls if the user has only x posts
+            if (BoardContext.Current.User.NumPosts > this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount ||
+                BoardContext.Current.IsAdmin || BoardContext.Current.ForumModeratorAccess)
+            {
+                return false;
+            }
+
+            var urlCount = UrlHelper.CountUrls(message);
+
+            if (urlCount <= this.Get<BoardSettings>().AllowedNumberOfUrls)
+            {
+                return false;
+            }
+
+            result =
+                $"The user posted {urlCount} urls but allowed only {this.Get<BoardSettings>().AllowedNumberOfUrls}";
+
+            return true;
         }
 
         /// <summary>
@@ -209,7 +258,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns if the Content or the User was flagged as Spam, or not
         /// </returns>
-        private static bool CheckWithAkismet(
+        private bool CheckWithAkismet(
             [NotNull] string userName,
             [NotNull] string postMessage,
             [NotNull] string ipAddress,
@@ -217,11 +266,11 @@ namespace YAF.Core.Services
         {
             try
             {
-                var service = new AkismetSpamClient(BoardContext.Current.Get<BoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
+                var service = new AkismetSpamClient(this.Get<BoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
 
                 return
                     service.CheckCommentForSpam(
-                        new Comment(IPAddress.Parse(ipAddress), BoardContext.Current.Get<HttpRequestBase>().UserAgent)
+                        new Comment(IPAddress.Parse(ipAddress), this.Get<HttpRequestBase>().UserAgent)
                             {
                                 Content
                                     =
@@ -234,7 +283,7 @@ namespace YAF.Core.Services
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Spam via BlogSpam");
+                this.Get<ILoggerService>().Error(ex, "Error while Checking for Spam via BlogSpam");
 
                 result = string.Empty;
                 return false;

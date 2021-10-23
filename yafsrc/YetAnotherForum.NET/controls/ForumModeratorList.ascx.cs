@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -26,17 +26,15 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Collections;
-    using System.Data;
-    using System.Linq;
+    using System.Collections.Generic;
     using System.Text;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Helpers;
     using YAF.Core.Utilities;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects;
     using YAF.Web.Controls;
 
     #endregion
@@ -51,7 +49,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets or sets DataSource.
         /// </summary>
-        public IEnumerable DataSource { get; set; }
+        public List<SimpleModerator> DataSource { get; set; }
 
         #endregion
 
@@ -62,15 +60,8 @@ namespace YAF.Controls
         /// </summary>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected override void OnPreRender(EventArgs e)
-        { 
+        {
             base.OnPreRender(e);
-
-            if (((DataRow[])this.DataSource).Length == 0)
-            {
-                this.ShowMods.Visible = false;
-
-                return;
-            }
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "ForumModsPopoverJs",
@@ -81,31 +72,32 @@ namespace YAF.Controls
 
             content.Append(@"<ol class=""list-unstyled"">");
 
-            this.DataSource.Cast<DataRow>().ForEach(
+            this.DataSource.ForEach(
                 row =>
                 {
                     content.Append("<li>");
 
-                    if (row["IsGroup"].ToType<int>() == 0)
+                    if (row.IsGroup)
+                    {
+                        // render mod group
+                        content.Append(
+                            this.PageContext.BoardSettings.EnableDisplayName
+                                    ? row.DisplayName
+                                    : row.Name);
+                    }
+                    else
                     {
                         // Render Moderator User Link
                         var userLink = new UserLink
                         {
-                            UserID = row["ModeratorID"].ToType<int>(),
-                            ReplaceName = row[this.Get<BoardSettings>().EnableDisplayName
-                                                                     ? "ModeratorDisplayName"
-                                                                     : "ModeratorName"].ToString()
+                            Style = row.Style,
+                            UserID = row.ModeratorID,
+                            ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                                                                     ? row.DisplayName
+                                                                     : row.Name
                         };
 
                         content.Append(userLink.RenderToString());
-                    }
-                    else
-                    {
-                        // render mod group
-                        content.Append(
-                            row[this.Get<BoardSettings>().EnableDisplayName
-                                    ? "ModeratorDisplayName"
-                                    : "ModeratorName"]);
                     }
 
                     content.Append(@"</li>");

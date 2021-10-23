@@ -20,17 +20,17 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using RewriteMethod = YAF.Lucene.Net.Search.MultiTermQuery.RewriteMethod;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using TermContext = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRefHash  = YAF.Lucene.Net.Util.BytesRefHash;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using RewriteMethod  = YAF.Lucene.Net.Search.MultiTermQuery.RewriteMethod;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState  = YAF.Lucene.Net.Index.TermState;
 
     /// <summary>
     /// Base rewrite method that translates each term into a query, and keeps
@@ -54,11 +54,11 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         ///  <seealso cref="MultiTermQuery.MultiTermRewriteMethod"/>
-        public static readonly ScoringRewrite<BooleanQuery> SCORING_BOOLEAN_QUERY_REWRITE = new ScoringRewriteAnonymousInnerClassHelper();
+        public static readonly ScoringRewrite<BooleanQuery> SCORING_BOOLEAN_QUERY_REWRITE = new ScoringRewriteAnonymousClass();
 
-        private class ScoringRewriteAnonymousInnerClassHelper : ScoringRewrite<BooleanQuery>
+        private class ScoringRewriteAnonymousClass : ScoringRewrite<BooleanQuery>
         {
-            public ScoringRewriteAnonymousInnerClassHelper()
+            public ScoringRewriteAnonymousClass()
             {
             }
 
@@ -94,11 +94,11 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         /// <seealso cref="MultiTermQuery.MultiTermRewriteMethod"/>
-        public static readonly RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = new RewriteMethodAnonymousInnerClassHelper();
+        public static readonly RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = new RewriteMethodAnonymousClass();
 
-        private class RewriteMethodAnonymousInnerClassHelper : RewriteMethod
+        private class RewriteMethodAnonymousClass : RewriteMethod
         {
-            public RewriteMethodAnonymousInnerClassHelper()
+            public RewriteMethodAnonymousClass()
             {
             }
 
@@ -143,18 +143,13 @@ namespace YAF.Lucene.Net.Search
 
         internal sealed class ParallelArraysTermCollector : TermCollector
         {
-            internal void InitializeInstanceFields()
-            {
-                terms = new BytesRefHash(new ByteBlockPool(new ByteBlockPool.DirectAllocator()), 16, array);
-            }
-
             private readonly ScoringRewrite<Q> outerInstance;
 
             public ParallelArraysTermCollector(ScoringRewrite<Q> outerInstance)
             {
                 this.outerInstance = outerInstance;
 
-                InitializeInstanceFields();
+                terms = new BytesRefHash(new ByteBlockPool(new ByteBlockPool.DirectAllocator()), 16, array);
             }
 
             internal readonly TermFreqBoostByteStart array = new TermFreqBoostByteStart(16);

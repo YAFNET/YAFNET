@@ -29,17 +29,16 @@ namespace YAF.Dialogs
     using System;
     using System.Text;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -100,12 +99,38 @@ namespace YAF.Dialogs
         }
 
         /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender. 
+        /// </param>
+        /// <param name="e">
+        /// The e. 
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+        }
+
+        /// <summary>
         /// Handles the Click event of the Add control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
+
             var ipParts = this.mask.Text.Trim().Split('.');
 
             // do some validation...
@@ -152,21 +177,28 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.GetRepository<BannedIP>().Save(
+            if (!this.GetRepository<BannedIP>().Save(
                 this.BannedId,
                 this.mask.Text.Trim(),
                 this.BanReason.Text.Trim(),
-                this.PageContext.PageUserID);
-
-            if (BoardContext.Current.Get<BoardSettings>().LogBannedIP)
+                this.PageContext.PageUserID))
             {
-                this.Logger.Log(
-                    $"IP or mask {this.mask.Text.Trim()} was saved by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
-                    EventLogTypes.IpBanSet);
+                this.PageContext.LoadMessage.AddSession(
+                    this.GetText("ADMIN_BANNEDIP", "MSG_EXIST"),
+                    MessageTypes.warning);
+            }
+            else
+            {
+                if (this.PageContext.BoardSettings.LogBannedIP)
+                {
+                    this.Logger.Log(
+                        $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageContext.User.DisplayOrUserName()}.",
+                        EventLogTypes.IpBanSet);
+                }
             }
 
-            // go back to banned IP's administration page
-            BuildLink.Redirect(ForumPages.admin_bannedip);
+            // go back to banned IPs administration page
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedIps);
         }
 
         #endregion

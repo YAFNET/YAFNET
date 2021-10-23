@@ -1,0 +1,32 @@
+﻿.stacktrace {
+    .st-type {
+        color: $secondary;
+        font-weight: bolder;
+    }
+
+    .st-method {
+        color: $primary;
+        font-weight: bolder;
+    }
+
+    .st-frame-params {
+        color: $secondary;
+        font-weight: normal;
+    }
+
+    .st-param-type {
+        color: $dark;
+    }
+
+    .st-param-name {
+        color: $success;
+    }
+
+    .st-file {
+        color: $warning;
+    }
+
+    .st-line {
+        color: $info;
+    }
+}

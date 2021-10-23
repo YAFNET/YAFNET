@@ -1,4 +1,6 @@
-﻿using J2N;
+﻿// Lucene version compatibility level 4.8.1
+using J2N;
+using J2N.Numerics;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
@@ -269,9 +271,9 @@ namespace YAF.Lucene.Net.Analysis.Synonym
             this.synonyms = synonyms;
             this.ignoreCase = ignoreCase;
             this.fst = synonyms.Fst;
-            if (fst == null)
+            if (fst is null)
             {
-                throw new ArgumentException("fst must be non-null");
+                throw new ArgumentNullException(nameof(synonyms.Fst), "fst must be non-null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             this.fstReader = fst.GetBytesReader();
 
@@ -493,7 +495,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
 
             int code = bytesReader.ReadVInt32();
             bool keepOrig = (code & 0x1) == 0;
-            int count = (int)((uint)code >> 1);
+            int count = code.TripleShift(1);
             //System.out.println("  addOutput count=" + count + " keepOrig=" + keepOrig);
             for (int outputIDX = 0; outputIDX < count; outputIDX++)
             {

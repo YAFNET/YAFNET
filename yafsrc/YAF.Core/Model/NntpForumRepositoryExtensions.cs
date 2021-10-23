@@ -28,14 +28,13 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
 
+    using ServiceStack.OrmLite;
+
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
-    using YAF.Types.Objects;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -46,47 +45,101 @@ namespace YAF.Core.Model
     {
         #region Public Methods and Operators
 
-        public static void Update(this IRepository<NntpForum> repository, [NotNull] object nntpForumId, [NotNull] object lastMessageNo, [NotNull] object userId)
+        /// <summary>
+        /// The update.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="forumId">
+        /// The forum Id.
+        /// </param>
+        /// <param name="nntpForumId">
+        /// The nntp forum id.
+        /// </param>
+        /// <param name="lastMessageNo">
+        /// The last message no.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        public static void Update(
+            this IRepository<NntpForum> repository,
+            [NotNull] int forumId,
+            [NotNull] int nntpForumId,
+            [NotNull] int lastMessageNo,
+            [NotNull] int userId)
         {
+            CodeContracts.VerifyNotNull(repository);
 
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Scalar.nntpforum_update(
-                NntpForumID: nntpForumId,
-                LastMessageNo: lastMessageNo,
-                UserID: userId,
-                UTCTIMESTAMP: DateTime.UtcNow);
+            repository.UpdateOnly(
+                () => new NntpForum { LastMessageNo = lastMessageNo, LastUpdate = DateTime.UtcNow },
+                n => n.ID == nntpForumId);
         }
 
         /// <summary>
-        /// The nntpforum_list.
+        /// Gets the NNTP Forums List
         /// </summary>
-        /// <param name="boardID">
-        /// The board id.
+        /// <param name="repository">
+        /// The repository.
         /// </param>
-        /// <param name="minutes">
-        /// The minutes.
-        /// </param>
-        /// <param name="nntpForumID">
-        /// The nntp forum id.
+        /// <param name="boardId">
+        /// The board Id.
         /// </param>
         /// <param name="active">
         /// The active.
         /// </param>
         /// <returns>
+        /// The <see cref="IEnumerable"/>.
         /// </returns>
-        public static IEnumerable<TypedNntpForum> NntpForumList(this IRepository<NntpForum> repository, int boardId, int? minutes, int? nntpForumID, bool? active)
+        public static List<Tuple<NntpForum, NntpServer, Forum>> NntpForumList(
+            this IRepository<NntpForum> repository,
+            int boardId,
+            bool? active)
         {
-            return repository.DbFunction
-                .GetAsDataTable(
-                    cdb => cdb.nntpforum_list(
-                        BoardID: boardId,
-                        Minutes: minutes,
-                        NntpForumID: nntpForumID,
-                        Active: active,
-                        UTCTIMESTAMP: DateTime.UtcNow)).SelectTypedList(t => new TypedNntpForum(t));
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<NntpForum>();
+
+            if (active.HasValue)
+            {
+                expression.Join<NntpServer>((b, a) => a.ID == b.NntpServerID).Join<Forum>((b, f) => f.ID == b.ForumID)
+                    .Where<NntpForum, NntpServer>((b, a) => a.BoardID == boardId && b.Active == active.Value);
+            }
+            else
+            {
+                expression.Join<NntpServer>((b, a) => a.ID == b.NntpServerID).Join<Forum>((b, f) => f.ID == b.ForumID)
+                    .Where<NntpForum, NntpServer>((b, a) => a.BoardID == boardId);
+            }
+
+            return repository.DbAccess.Execute(
+                db => db.Connection.SelectMulti<NntpForum, NntpServer, Forum>(expression));
         }
 
+        /// <summary>
+        /// The save.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="nntpForumId">
+        /// The nntp forum id.
+        /// </param>
+        /// <param name="nntpServerId">
+        /// The nntp server id.
+        /// </param>
+        /// <param name="groupName">
+        /// The group name.
+        /// </param>
+        /// <param name="forumID">
+        /// The forum id.
+        /// </param>
+        /// <param name="active">
+        /// The active.
+        /// </param>
+        /// <param name="dateCutOff">
+        /// The date Cut Off.
+        /// </param>
         public static void Save(
             this IRepository<NntpForum> repository,
             [NotNull] int? nntpForumId,
@@ -94,7 +147,7 @@ namespace YAF.Core.Model
             [NotNull] string groupName,
             [NotNull] int forumID,
             [NotNull] bool active,
-            [NotNull] DateTime? datecutoff)
+            [NotNull] DateTime? dateCutOff)
         {
             if (nntpForumId.HasValue)
             {
@@ -105,7 +158,7 @@ namespace YAF.Core.Model
                                   GroupName = groupName,
                                   ForumID = forumID,
                                   Active = active,
-                                  DateCutOff = datecutoff
+                                  DateCutOff = dateCutOff
                               },
                     n => n.ID == nntpForumId);
             }
@@ -117,7 +170,7 @@ namespace YAF.Core.Model
                                      GroupName = groupName,
                                      ForumID = forumID,
                                      Active = active,
-                                     DateCutOff = datecutoff,
+                                     DateCutOff = dateCutOff,
                                      LastUpdate = DateTime.UtcNow,
                                      LastMessageNo = 0,
                                  };

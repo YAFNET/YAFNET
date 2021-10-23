@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using BitSet = J2N.Collections.BitSet;
 
 namespace YAF.Lucene.Net.Util
@@ -19,8 +20,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// Simple <see cref="DocIdSet"/> and <see cref="DocIdSetIterator"/> backed by a <see cref="BitSet"/> 
@@ -50,6 +51,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public virtual BitSet BitSet => this.bitSet;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool Get(int index)
         {
             return bitSet.Get(index);
@@ -89,6 +91,7 @@ namespace YAF.Lucene.Net.Util
                 return docId;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long GetCost()
             {
                 // upper bound

@@ -4,7 +4,6 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
 using YAF.Lucene.Net.Util;
@@ -61,14 +60,13 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 
         protected override IQueryNode PostProcessNode(IQueryNode node)
         {
-            if (node is FieldQueryNode
+            if (node is FieldQueryNode fieldNode
                 && !(node.Parent is IRangeQueryNode))
             {
                 QueryConfigHandler config = GetQueryConfigHandler();
 
                 if (config != null)
                 {
-                    FieldQueryNode fieldNode = (FieldQueryNode)node;
                     FieldConfig fieldConfig = config.GetFieldConfig(fieldNode
                         .GetFieldAsString());
 
@@ -82,7 +80,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                             NumberFormat numberFormat = numericConfig.NumberFormat;
                             string text = fieldNode.GetTextAsString();
                             /*Number*/
-                            object number = null;
+                            object number; // LUCENENET: IDE0059: Remove unnecessary value assignment
 
                             if (text.Length > 0)
                             {
@@ -90,9 +88,10 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                                 {
                                     number = numberFormat.Parse(text);
                                 }
-                                catch (FormatException e)
+                                catch (FormatException e) // LUCENENET: In .NET we are expecting the framework to throw FormatException, not ParseException
                                 {
-                                    throw new QueryNodeParseException(new Message(
+                                    // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                                    throw new QueryNodeParseException(string.Format(
                                         QueryParserMessages.COULD_NOT_PARSE_NUMBER, fieldNode
                                             .GetTextAsString(), numberFormat.GetType()
                                             .AssemblyQualifiedName), e);
@@ -117,7 +116,8 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                             }
                             else
                             {
-                                throw new QueryNodeParseException(new Message(
+                                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                                throw new QueryNodeParseException(string.Format(
                                     QueryParserMessages.NUMERIC_CANNOT_BE_EMPTY, fieldNode.GetFieldAsString()));
                             }
 

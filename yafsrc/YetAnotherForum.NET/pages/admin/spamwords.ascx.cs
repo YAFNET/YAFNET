@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -33,16 +33,15 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
     using System.Xml.Linq;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -50,7 +49,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin spam words page.
     /// </summary>
-    public partial class spamwords : AdminPage
+    public partial class SpamWords : AdminPage
     {
         #region Methods
 
@@ -97,6 +96,38 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -105,12 +136,8 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddRoot()
-                .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin))
+            this.PageLinks.AddRoot().AddAdminIndex()
                 .AddLink(this.GetText("ADMIN_SPAMWORDS", "TITLE"));
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_SPAMWORDS", "TITLE")}";
         }
 
         /// <summary>
@@ -126,7 +153,7 @@ namespace YAF.Pages.Admin
         {
             this.EditDialog.BindData(null);
 
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
+            this.PageContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
         }
@@ -150,7 +177,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.Get<BoardSettings>().MemberListPageSize;
+            this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             var searchText = this.SearchInput.Text.Trim();
 
@@ -173,7 +200,7 @@ namespace YAF.Pages.Admin
 
             this.list.DataSource = bannedList;
 
-            this.PagerTop.Count = bannedList != null && bannedList.Any()
+            this.PagerTop.Count = !bannedList.NullOrEmpty()
                                       ? this.GetRepository<Spam_Words>()
                                           .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
                                       : 0;
@@ -194,12 +221,12 @@ namespace YAF.Pages.Admin
                 "content-disposition",
                 "attachment; filename=SpamWordsExport.xml");
 
-            var spamwordList =
+            var spamWordList =
                 this.GetRepository<Spam_Words>().GetByBoardId();
 
             var element = new XElement(
                 "YafSpamWordsList",
-                from spamWord in spamwordList
+                from spamWord in spamWordList
                 select new XElement("YafSpamWords", new XElement("SpamWord", spamWord.SpamWord)));
 
             element.Save(this.Get<HttpResponseBase>().OutputStream);
@@ -220,7 +247,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
 

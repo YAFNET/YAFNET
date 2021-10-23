@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,9 +22,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Enumerator to seek (<see cref="SeekCeil(BytesRef)"/>, 
@@ -268,21 +268,14 @@ namespace YAF.Lucene.Net.Index
         /// <seealso cref="SeekExact(BytesRef, TermState)"/>
         public virtual TermState GetTermState() // LUCENENET NOTE: Renamed from TermState()
         {
-            return new TermStateAnonymousInnerClassHelper(this);
+            return new TermStateAnonymousClass();
         }
 
-        private class TermStateAnonymousInnerClassHelper : TermState
+        private class TermStateAnonymousClass : TermState
         {
-            private readonly TermsEnum outerInstance;
-
-            public TermStateAnonymousInnerClassHelper(TermsEnum outerInstance)
-            {
-                this.outerInstance = outerInstance;
-            }
-
             public override void CopyFrom(TermState other)
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
         }
 
@@ -294,9 +287,9 @@ namespace YAF.Lucene.Net.Index
         /// This should not be a problem, as the enum is always empty and
         /// the existence of unused Attributes does not matter.
         /// </summary>
-        public static readonly TermsEnum EMPTY = new TermsEnumAnonymousInnerClassHelper();
+        public static readonly TermsEnum EMPTY = new TermsEnumAnonymousClass();
 
-        private class TermsEnumAnonymousInnerClassHelper : TermsEnum
+        private class TermsEnumAnonymousClass : TermsEnum
         {
             public override SeekStatus SeekCeil(BytesRef term)
             {
@@ -307,24 +300,24 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            public override BytesRef Term => throw new InvalidOperationException("this method should never be called");
+            public override BytesRef Term => throw IllegalStateException.Create("this method should never be called");
 
             public override IComparer<BytesRef> Comparer => null;
 
-            public override int DocFreq => throw new InvalidOperationException("this method should never be called");
+            public override int DocFreq => throw IllegalStateException.Create("this method should never be called");
 
-            public override long TotalTermFreq => throw new InvalidOperationException("this method should never be called");
+            public override long TotalTermFreq => throw IllegalStateException.Create("this method should never be called");
 
-            public override long Ord => throw new InvalidOperationException("this method should never be called");
+            public override long Ord => throw IllegalStateException.Create("this method should never be called");
 
             public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
             {
-                throw new InvalidOperationException("this method should never be called");
+                throw IllegalStateException.Create("this method should never be called");
             }
 
             public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
             {
-                throw new InvalidOperationException("this method should never be called");
+                throw IllegalStateException.Create("this method should never be called");
             }
 
             // LUCENENET specific
@@ -352,12 +345,12 @@ namespace YAF.Lucene.Net.Index
 
             public override TermState GetTermState()
             {
-                throw new InvalidOperationException("this method should never be called");
+                throw IllegalStateException.Create("this method should never be called");
             }
 
             public override void SeekExact(BytesRef term, TermState state)
             {
-                throw new InvalidOperationException("this method should never be called");
+                throw IllegalStateException.Create("this method should never be called");
             }
         }
     }

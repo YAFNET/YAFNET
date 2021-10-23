@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using System.Globalization;
 using System.Text;
+using Float = J2N.Numerics.Single;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -33,7 +35,7 @@ namespace YAF.Lucene.Net.Util
             if (boost != 1.0f)
             {
                 // .NET compatibility fix
-                return "^" + boost.ToString("0.0######", CultureInfo.InvariantCulture);
+                return "^" + Float.ToString(boost, CultureInfo.InvariantCulture);
             }
             else
                 return "";
@@ -59,7 +61,7 @@ namespace YAF.Lucene.Net.Util
         public static string Int64Hex(long x)
         {
             char[] asHex = new char[16];
-            for (int i = 16; --i >= 0; x = (long)((ulong)x >> 4))
+            for (int i = 16; --i >= 0; x = x.TripleShift(4))
             {
                 asHex[i] = HEX[(int)x & 0x0F];
             }

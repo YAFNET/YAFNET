@@ -10,8 +10,7 @@
                             <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" 
                                 LocalizedPage="ADMIN_BANNEDEMAIL_IMPORT" />
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">
@@ -19,18 +18,19 @@
                         <YAF:HelpLabel ID="HelpLabel1" runat="server" 
                                        AssociatedControlID="importFile"
                                        LocalizedTag="IMPORT_FILE" LocalizedPage="ADMIN_BANNEDEMAIL_IMPORT" />
-                        <YAF:Alert runat="server" Type="warning">
+                        <YAF:Alert runat="server" Type="info">
+                            <YAF:Icon runat="server" IconName="info-circle" />
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
                                                 LocalizedTag="NOTE" LocalizedPage="ADMIN_BANNEDEMAIL">
                             </YAF:LocalizedLabel>
                         </YAF:Alert>
-                        <div class="custom-file">
-                            <input type="file" id="importFile" class="custom-file-input" runat="server" />
-                            <asp:Label runat="server" CssClass="custom-file-label" AssociatedControlID="importFile">
+                        <div class="mb-3">
+                            <label for="<%# this.importFile.ClientID %>" class="form-label">
                                 <YAF:LocalizedLabel runat="server" 
                                                     LocalizedTag="SELECT_IMPORT" 
-                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"></YAF:LocalizedLabel>
-                            </asp:Label>
+                                                    LocalizedPage="ADMIN_EXTENSIONS_IMPORT"/>
+                            </label>
+                            <input type="file" id="importFile" class="form-control" runat="server" />
                         </div>
                         <!-- Modal Content END !-->
                     </div>

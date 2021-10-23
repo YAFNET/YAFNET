@@ -563,8 +563,8 @@ diffview = {
                         addCellsInline(node, null, n++, newTextLines, change);
                     } else if (change == "replace") {
                         botrows.push(node2 = document.createElement("tr"));
-                        if (b < be) addCellsInline(node, b++, null, baseTextLines, "bg-danger text-white");
-                        if (n < ne) addCellsInline(node2, null, n++, newTextLines, "bg-success text-white");
+                        if (b < be) addCellsInline(node, b++, null, baseTextLines, "bg-danger link-light");
+                        if (n < ne) addCellsInline(node2, null, n++, newTextLines, "bg-success link-light");
                     } else if (change == "delete") {
                         addCellsInline(node, b++, null, baseTextLines, change);
                     } else {
@@ -575,8 +575,8 @@ diffview = {
                     var wdiff = diffString2(b < be ? baseTextLines[b] : "", n < ne ? newTextLines[n] : "");
                     if (b < be) baseTextLines[b] = wdiff.o;
                     if (n < ne) newTextLines[n] = wdiff.n;
-                    b = addCells(node, b, be, baseTextLines, change == "replace" ? "bg-danger text-white" : change);
-                    n = addCells(node, n, ne, newTextLines, change == "replace" ? "bg-success text-white" : change);
+                    b = addCells(node, b, be, baseTextLines, change == "replace" ? "bg-danger link-light" : change);
+                    n = addCells(node, n, ne, newTextLines, change == "replace" ? "bg-success link-light" : change);
                 }
             }
 

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using JCG = J2N.Collections.Generic;
-using SubInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo.SubInfo;
-using TermInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
-using WeightedPhraseInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
+using SubInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo.SubInfo;
+using TermInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
+using WeightedPhraseInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldPhraseList.WeightedPhraseInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

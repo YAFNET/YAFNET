@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using System;
@@ -38,7 +38,7 @@ namespace YAF.Lucene.Net.Search
     public abstract class ReferenceManager<G> : IDisposable
         where G : class //Make G nullable
     {
-        private const string REFERENCE_MANAGER_IS_CLOSED_MSG = "this ReferenceManager is closed";
+        private const string REFERENCE_MANAGER_IS_CLOSED_MSG = "this ReferenceManager is disposed.";
 
         // LUCENENET NOTE: changed this to be a private volatile field
         // with a property to set/get it, since protected volatile 
@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (current == null)
             {
-                throw new ObjectDisposedException(this.GetType().FullName, REFERENCE_MANAGER_IS_CLOSED_MSG);
+                throw AlreadyClosedException.Create(this.GetType().FullName, REFERENCE_MANAGER_IS_CLOSED_MSG);
             }
         }
 
@@ -109,7 +109,7 @@ namespace YAF.Lucene.Net.Search
             {
                 if ((@ref = current) == null)
                 {
-                    throw new ObjectDisposedException(this.GetType().FullName, REFERENCE_MANAGER_IS_CLOSED_MSG);
+                    throw AlreadyClosedException.Create(this.GetType().FullName, REFERENCE_MANAGER_IS_CLOSED_MSG);
                 }
                 if (TryIncRef(@ref))
                 {
@@ -127,7 +127,7 @@ namespace YAF.Lucene.Net.Search
                        decrements the refcount without a corresponding increment
                        since the RM assigns the new reference before counting down
                        the reference. */
-                    throw new InvalidOperationException("The managed reference has already closed - this is likely a bug when the reference count is modified outside of the ReferenceManager");
+                    throw IllegalStateException.Create("The managed reference has already closed - this is likely a bug when the reference count is modified outside of the ReferenceManager");
                 }
             } while (true);
         }
@@ -154,11 +154,8 @@ namespace YAF.Lucene.Net.Search
         ///           If the underlying reader of the current reference could not be disposed </exception>
         public void Dispose()
         {
-            lock (this)
-            {
-                Dispose(true);
-                GC.SuppressFinalize(this);
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -167,17 +164,25 @@ namespace YAF.Lucene.Net.Search
         protected abstract int GetRefCount(G reference);
 
         /// <summary>
-        /// Called after <see cref="Dispose()"/>, so subclass can free any resources. </summary>
+        /// Called after <see cref="Dispose()"/>, so subclass can free any resources.
+        /// <para/>
+        /// When overriding, be sure to include a call to <c>base.Dispose(disposing)</c> in your implementation.</summary>
         /// <exception cref="IOException"> if the after dispose operation in a sub-class throws an <see cref="IOException"/>
         /// </exception>
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing && current != null)
+            if (disposing)
             {
-                // make sure we can call this more than once
-                // closeable javadoc says:
-                // if this is already closed then invoking this method has no effect.
-                SwapReference(null);
+                lock (this)
+                {
+                    if (current != null)
+                    {
+                        // make sure we can call this more than once
+                        // closeable javadoc says:
+                        // if this is already closed then invoking this method has no effect.
+                        SwapReference(null);
+                    }
+                }
             }
         }
 
@@ -336,9 +341,9 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual void AddListener(ReferenceManager.IRefreshListener listener)
         {
-            if (listener == null)
+            if (listener is null)
             {
-                throw new ArgumentNullException("Listener cannot be null");
+                throw new ArgumentNullException(nameof(listener), "Listener cannot be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             refreshListeners.Add(listener);
         }
@@ -348,9 +353,9 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual void RemoveListener(ReferenceManager.IRefreshListener listener)
         {
-            if (listener == null)
+            if (listener is null)
             {
-                throw new ArgumentNullException("Listener cannot be null");
+                throw new ArgumentNullException(nameof(listener), "Listener cannot be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             refreshListeners.Remove(listener);
         }

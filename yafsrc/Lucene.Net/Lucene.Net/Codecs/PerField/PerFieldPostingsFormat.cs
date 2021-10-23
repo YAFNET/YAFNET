@@ -1,8 +1,8 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.PerField
@@ -24,12 +24,12 @@ namespace YAF.Lucene.Net.Codecs.PerField
      * limitations under the License.
      */
 
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
-    using Terms = YAF.Lucene.Net.Index.Terms;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
 
     /// <summary>
     /// Enables per field postings support.
@@ -70,11 +70,12 @@ namespace YAF.Lucene.Net.Codecs.PerField
 
         /// <summary>
         /// Sole constructor. </summary>
-        public PerFieldPostingsFormat()
+        protected PerFieldPostingsFormat() // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             : base()
         {
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override sealed FieldsConsumer FieldsConsumer(SegmentWriteState state)
         {
             return new FieldsWriter(this, state);
@@ -85,6 +86,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
             internal FieldsConsumer Consumer { get; set; }
             internal int Suffix { get; set; }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void Dispose()
             {
                 Consumer.Dispose();
@@ -111,7 +113,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 PostingsFormat format = outerInstance.GetPostingsFormatForField(field.Name);
                 if (format == null)
                 {
-                    throw new InvalidOperationException("invalid null PostingsFormat for field=\"" + field.Name + "\"");
+                    throw IllegalStateException.Create("invalid null PostingsFormat for field=\"" + field.Name + "\"");
                 }
                 string formatName = format.Name;
 
@@ -120,8 +122,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
 
                 int? suffix;
 
-                FieldsConsumerAndSuffix consumer;
-                if (!formats.TryGetValue(format, out consumer) || consumer == null)
+                if (!formats.TryGetValue(format, out FieldsConsumerAndSuffix consumer) || consumer == null)
                 {
                     // First time we are seeing this format; create a new instance
 
@@ -136,8 +137,8 @@ namespace YAF.Lucene.Net.Codecs.PerField
                     }
                     suffixes[formatName] = suffix;
 
-                    string segmentSuffix = GetFullSegmentSuffix(field.Name, 
-                                                                segmentWriteState.SegmentSuffix, 
+                    string segmentSuffix = GetFullSegmentSuffix(field.Name,
+                                                                segmentWriteState.SegmentSuffix,
                                                                 GetSuffix(formatName, Convert.ToString(suffix, CultureInfo.InvariantCulture)));
                     consumer = new FieldsConsumerAndSuffix();
                     consumer.Consumer = format.FieldsConsumer(new SegmentWriteState(segmentWriteState, segmentSuffix));
@@ -162,6 +163,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 return consumer.Consumer.AddField(field);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected override void Dispose(bool disposing)
             {
                 if (disposing)
@@ -172,11 +174,13 @@ namespace YAF.Lucene.Net.Codecs.PerField
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static string GetSuffix(string formatName, string suffix)
         {
             return formatName + "_" + suffix;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static string GetFullSegmentSuffix(string fieldName, string outerSegmentSuffix, string segmentSuffix)
         {
             if (outerSegmentSuffix.Length == 0)
@@ -188,22 +192,18 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 // TODO: support embedding; I think it should work but
                 // we need a test confirm to confirm
                 // return outerSegmentSuffix + "_" + segmentSuffix;
-                throw new InvalidOperationException("cannot embed PerFieldPostingsFormat inside itself (field \"" + fieldName + "\" returned PerFieldPostingsFormat)");
+                throw IllegalStateException.Create("cannot embed PerFieldPostingsFormat inside itself (field \"" + fieldName + "\" returned PerFieldPostingsFormat)");
             }
         }
 
         private class FieldsReader : FieldsProducer
         {
-            private readonly PerFieldPostingsFormat outerInstance;
-
             // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
             internal readonly IDictionary<string, FieldsProducer> fields = new JCG.SortedDictionary<string, FieldsProducer>(StringComparer.Ordinal);
             internal readonly IDictionary<string, FieldsProducer> formats = new Dictionary<string, FieldsProducer>();
 
-            public FieldsReader(PerFieldPostingsFormat outerInstance, SegmentReadState readState)
+            public FieldsReader(SegmentReadState readState)
             {
-                this.outerInstance = outerInstance;
-
                 // Read _X.per and init each format:
                 bool success = false;
                 try
@@ -242,24 +242,26 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override IEnumerator<string> GetEnumerator()
             {
                 return fields.Keys.GetEnumerator(); // LUCENENET NOTE: enumerators are not writable in .NET
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override Terms GetTerms(string field)
             {
-                FieldsProducer fieldsProducer;
-                if (fields.TryGetValue(field, out fieldsProducer) && fieldsProducer != null)
+                if (fields.TryGetValue(field, out FieldsProducer fieldsProducer) && fieldsProducer != null)
                 {
                     return fieldsProducer.GetTerms(field);
                 }
-                
+
                 return null;
             }
 
             public override int Count => fields.Count;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected override void Dispose(bool disposing)
             {
                 if (disposing)
@@ -268,6 +270,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 }
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override long RamBytesUsed()
             {
                 long sizeInBytes = 0;
@@ -279,6 +282,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
                 return sizeInBytes;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void CheckIntegrity()
             {
                 foreach (FieldsProducer producer in formats.Values)
@@ -288,9 +292,10 @@ namespace YAF.Lucene.Net.Codecs.PerField
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override sealed FieldsProducer FieldsProducer(SegmentReadState state)
         {
-            return new FieldsReader(this, state);
+            return new FieldsReader(state);
         }
 
         /// <summary>

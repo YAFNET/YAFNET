@@ -1,6 +1,6 @@
+﻿using J2N;
 using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
-using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -89,7 +89,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (!ShouldMerge)
             {
-                throw new InvalidOperationException("Merge would result in 0 document segment");
+                throw IllegalStateException.Create("Merge would result in 0 document segment");
             }
             // NOTE: it's important to add calls to
             // checkAbort.work(...) if you make any changes to this
@@ -251,7 +251,7 @@ namespace YAF.Lucene.Net.Index
                         }
                         else
                         {
-                            throw new InvalidOperationException("type=" + type);
+                            throw AssertionError.Create("type=" + type);
                         }
                     }
                 }
@@ -330,9 +330,8 @@ namespace YAF.Lucene.Net.Index
                 // required?  But... this'd also require exposing
                 // bulk-copy (TVs and stored fields) API in foreign
                 // readers..
-                if (reader is SegmentReader)
+                if (reader is SegmentReader segmentReader)
                 {
-                    SegmentReader segmentReader = (SegmentReader)reader;
                     bool same = true;
                     FieldInfos segmentFieldInfos = segmentReader.FieldInfos;
                     foreach (FieldInfo fi in segmentFieldInfos)

@@ -11,7 +11,7 @@ namespace YAF.Pages.Admin
 {
 
 
-    public partial class editforum
+    public partial class EditForum
     {
 
         /// <summary>
@@ -24,40 +24,22 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
-        /// LocalizedLabel1 control.
+        /// IconHeader control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+        protected global::YAF.Web.Controls.IconHeader IconHeader;
 
         /// <summary>
-        /// Label1 control.
+        /// Body control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label1;
-
-        /// <summary>
-        /// LocalizedLabel2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
-
-        /// <summary>
-        /// ForumNameTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label ForumNameTitle;
+        protected global::System.Web.UI.WebControls.Panel Body;
 
         /// <summary>
         /// HelpLabel3 control.

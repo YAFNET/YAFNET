@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support.Text;
+﻿using YAF.Lucene.Net.Support.Text;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Concurrent;
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Support.IO
             return GetFileIOExceptionHResult(provokeException: (fileName) =>
             {
                 //Try to create the file again -this should throw an IOException with the correct HResult for the current platform
-                using (var stream = new FileStream(fileName, FileMode.CreateNew, FileAccess.Write, FileShare.Read)) { }
+                using var stream = new FileStream(fileName, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
             });
         }
 
@@ -172,7 +172,7 @@ namespace YAF.Lucene.Net.Support.IO
             }
             // Ensure the directory exists (this does nothing if it already exists, although may throw exceptions in cases where permissions are changed)
             directory.Create();
-            string fileName = string.Empty;
+            string fileName;
 
             while (true)
             {
@@ -186,10 +186,8 @@ namespace YAF.Lucene.Net.Support.IO
                 try
                 {
                     // Create the file, and close it immediately
-                    using (var stream = new FileStream(fileName, FileMode.CreateNew, FileAccess.Write, FileShare.Read))
-                    {
-                        break;
-                    }
+                    using var stream = new FileStream(fileName, FileMode.CreateNew, FileAccess.Write, FileShare.Read);
+                    break;
                 }
                 catch (IOException e) when (IsFileAlreadyExistsException(e, fileName))
                 {
@@ -264,8 +262,7 @@ namespace YAF.Lucene.Net.Support.IO
             string absPath = path.FullName; // LUCENENET NOTE: This internally calls GetFullPath(), which resolves relative paths
             byte[] result = Encoding.UTF8.GetBytes(absPath);
 
-            string canonPath;
-            if (fileCanonPathCache.TryGetValue(absPath, out canonPath) && canonPath != null)
+            if (fileCanonPathCache.TryGetValue(absPath, out string canonPath) && canonPath != null)
             {
                 return canonPath;
             }
@@ -363,6 +360,8 @@ namespace YAF.Lucene.Net.Support.IO
             newResult[newLength] = 0;
             //newResult = getCanonImpl(newResult);
             newLength = newResult.Length;
+            // LUCENENET: There is a small chance that two threads could load the same string
+            // simultaneously, but it shouldn't be too expensive.
             canonPath = fileCanonPathCache.GetOrAdd(
                 absPath,
                 k => Encoding.UTF8.GetString(newResult, 0, newLength).TrimEnd('\0')); // LUCENENET: Eliminate null terminator char

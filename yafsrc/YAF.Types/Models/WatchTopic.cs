@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -35,30 +35,48 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(TopicID), nameof(UserID))]
-    public partial class WatchTopic : IEntity, IHaveID
+    public class WatchTopic : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public WatchTopic()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("WatchTopicID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the topic id.
+        /// </summary>
         [References(typeof(Topic))]
         [Required]
         public int TopicID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         [References(typeof(User))]
         [Required]
         public int UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created.
+        /// </summary>
         [Required]
         public DateTime Created { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last mail.
+        /// </summary>
         public DateTime? LastMail { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether
+        /// selected for editing.
+        /// </summary>
+        [Ignore]
+        public bool Selected { get; set; }
 
         #endregion
     }

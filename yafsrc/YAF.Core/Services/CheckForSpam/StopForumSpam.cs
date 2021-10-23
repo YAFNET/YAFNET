@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -31,13 +31,14 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Net;
     using System.Runtime.Serialization;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
-    using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Extensions;
+    using YAF.Types.Interfaces.CheckForSpam;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -80,7 +81,7 @@ namespace YAF.Core.Services.CheckForSpam
             try
             {
                 var url =
-                    $"http://www.stopforumspam.com/api?{(ipAddress.IsSet() ? $"ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&username={userName}" : string.Empty)}&f=json";
+                    $"https://www.stopforumspam.com/api?{(ipAddress.IsSet() ? $"ip={ipAddress}" : string.Empty)}{(emailAddress.IsSet() ? $"&email={emailAddress}" : string.Empty)}{(userName.IsSet() ? $"&username={userName}" : string.Empty)}&f=json";
 
                 var webRequest = (HttpWebRequest)WebRequest.Create(url);
 
@@ -114,7 +115,7 @@ namespace YAF.Core.Services.CheckForSpam
             }
             catch (Exception ex)
             {
-                BoardContext.Current.Get<ILogger>().Error(ex, "Error while Checking for Bot");
+                BoardContext.Current.Get<ILoggerService>().Error(ex, "Error while Checking for Bot");
 
                 return false;
             }
@@ -133,17 +134,17 @@ namespace YAF.Core.Services.CheckForSpam
             [CanBeNull] string userName)
         {
             var parameters =
-                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.Get<BoardSettings>().StopForumSpamApiKey}";
+                $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.BoardSettings.StopForumSpamApiKey}";
 
             var result = new HttpClient().PostRequest(
-                new Uri("http://www.stopforumspam.com/add.php"),
+                new Uri("https://www.stopforumspam.com/add.php"),
                 null,
                 60 * 1000,
                 parameters);
 
             if (!result.Contains("success"))
             {
-                BoardContext.Current.Get<ILogger>().Log(
+                BoardContext.Current.Get<ILoggerService>().Log(
                     null,
                     " Report to StopForumSpam.com Failed",
                     result);

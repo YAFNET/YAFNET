@@ -1,7 +1,9 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util
@@ -35,10 +37,7 @@ namespace YAF.Lucene.Net.Util
 #if FEATURE_SERIALIZABLE
     [Serializable]
 #endif
-    public sealed class Int64sRef : IComparable<Int64sRef>
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public sealed class Int64sRef : IComparable<Int64sRef> // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// An empty <see cref="long"/> array for convenience
@@ -57,10 +56,7 @@ namespace YAF.Lucene.Net.Util
         public long[] Int64s
         {
             get => longs;
-            set
-            {
-                longs = value ?? throw new ArgumentNullException(nameof(value));
-            }
+            set => longs = value ?? throw new ArgumentNullException(nameof(Int64s)); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
         private long[] longs;
 
@@ -106,6 +102,7 @@ namespace YAF.Lucene.Net.Util
         /// object.
         /// </summary>
         /// <seealso cref="DeepCopyOf(Int64sRef)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Clone()
         {
             return new Int64sRef(longs, Offset, Length);
@@ -118,20 +115,20 @@ namespace YAF.Lucene.Net.Util
             long end = Offset + Length;
             for (int i = Offset; i < end; i++)
             {
-                result = prime * result + (int)(longs[i] ^ ((long)((ulong)longs[i] >> 32)));
+                result = prime * result + (int)(longs[i] ^ (longs[i].TripleShift(32)));
             }
             return result;
         }
 
-        public override bool Equals(object other)
+        public override bool Equals(object obj)
         {
-            if (other == null)
+            if (obj == null)
             {
                 return false;
             }
-            if (other is Int64sRef)
+            if (obj is Int64sRef other)
             {
-                return this.Int64sEquals((Int64sRef)other);
+                return Int64sEquals(other);
             }
             return false;
         }
@@ -249,6 +246,7 @@ namespace YAF.Lucene.Net.Util
         /// The returned <see cref="Int64sRef"/> will have a length of <c>other.Length</c>
         /// and an offset of zero.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Int64sRef DeepCopyOf(Int64sRef other)
         {
             Int64sRef clone = new Int64sRef();
@@ -264,31 +262,31 @@ namespace YAF.Lucene.Net.Util
         {
             if (longs == null)
             {
-                throw new InvalidOperationException("longs is null");
+                throw IllegalStateException.Create("longs is null");
             }
             if (Length < 0)
             {
-                throw new InvalidOperationException("length is negative: " + Length);
+                throw IllegalStateException.Create("length is negative: " + Length);
             }
             if (Length > longs.Length)
             {
-                throw new InvalidOperationException("length is out of bounds: " + Length + ",longs.length=" + longs.Length);
+                throw IllegalStateException.Create("length is out of bounds: " + Length + ",longs.length=" + longs.Length);
             }
             if (Offset < 0)
             {
-                throw new InvalidOperationException("offset is negative: " + Offset);
+                throw IllegalStateException.Create("offset is negative: " + Offset);
             }
             if (Offset > longs.Length)
             {
-                throw new InvalidOperationException("offset out of bounds: " + Offset + ",longs.length=" + longs.Length);
+                throw IllegalStateException.Create("offset out of bounds: " + Offset + ",longs.length=" + longs.Length);
             }
             if (Offset + Length < 0)
             {
-                throw new InvalidOperationException("offset+length is negative: offset=" + Offset + ",length=" + Length);
+                throw IllegalStateException.Create("offset+length is negative: offset=" + Offset + ",length=" + Length);
             }
             if (Offset + Length > longs.Length)
             {
-                throw new InvalidOperationException("offset+length out of bounds: offset=" + Offset + ",length=" + Length + ",longs.length=" + longs.Length);
+                throw IllegalStateException.Create("offset+length out of bounds: offset=" + Offset + ",length=" + Length + ",longs.length=" + longs.Length);
             }
             return true;
         }

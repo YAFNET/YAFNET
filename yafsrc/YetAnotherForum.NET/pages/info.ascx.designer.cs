@@ -33,7 +33,7 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.Label Title;
 
         /// <summary>
-        /// Info control.
+        /// InfoLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.

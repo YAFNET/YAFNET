@@ -33,20 +33,8 @@ namespace YAF.Types.Models
     ///     A class which represents the yaf_vaccessfull views.
     /// </summary>
     [Serializable]
-    public partial class vaccessfull : IEntity
+    public class vaccessfull : IEntity
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="vaccessfull"/> class.
-        /// </summary>
-        public vaccessfull()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         [Required]
@@ -64,15 +52,6 @@ namespace YAF.Types.Models
         public int? UploadAccess { get; set; }
         public int? DownloadAccess { get; set; }
         public int? AdminGroup { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

@@ -1,35 +1,28 @@
 ﻿@import "jsdifflib.scss";
 @import "prism";
-@import "jquery.selectedQuoting";
 @import "jquery.hovercard.scss";
 @import "bootstrap-notify";
-@import "jquery.emojipicker";
 
 @import "fontawesome/fontawesome-all";
 @import "flag-icons/flag-icon.scss";
 
-// -- TableSorter Plugin
-@import "tablesorter/theme.bootstrap_4.min";
-
-// --Bootstrap extensions
+// Bootstrap extensions
 @import "select2/select2";
-@import "select2/select2-bootstrap";
 @import "bootstrap-tagsinput";
-@import "select2/select2-bootstrap";
 @import "bootstrap-datetimepicker";
-@import "blueimp-gallery.scss";
-@import "bootstrap-suggest.scss";
 
-// --Forum imports
+@import "blueimp-gallery.scss";
+
+// Forum imports
 @import "forum/attachments-upload.scss";
 @import "forum/dropdowns.scss";
-@import "forum/editor.scss";
 @import "forum/user-albums.scss";
 @import "forum/social-icons.scss";
 @import "forum/cookie-alert.scss";
 @import "forum/button-scroll.scss";
+@import "forum/editor.scss";
 
-// -- Main
+// Main
 #YafBody {
     padding-right: 15px;
     padding-left: 15px;
@@ -37,14 +30,15 @@
     margin-left: auto;
 }
 
-// -- Topic Title
+// Topic Title
 .topic-title {
     white-space: pre-wrap;
 }
 
-// -- MultiQuote Button
-.MultiQuoteButton {
+// MultiQuote Button
+.btn-multiquote {
     display: inline-block;
+    margin-left: 10px !important;
 
     label {
         margin-top: -1px;
@@ -59,42 +53,17 @@
     margin: 0;
 }
 
-// -- Main Menu
-.dropdown-submenu {
-    position: relative;
-}
-
-.dropdown-submenu .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -1px;
-}
-
-// -- Similar topic lists
+// Similar topic lists
 .list-similar {
     height: 200px;
     overflow: hidden;
     overflow-y: scroll;
 }
 
-.navbar-round {
-    border-radius: 4px;
-    border: 1px solid #e7e7e7;
-}
-
-#passwordStrength {
-    padding: 0 .7em;
-
-    .PasswordStrengthMessageIcon {
-        display: inline-block;
-        vertical-align: bottom;
-        margin-right: .3em;
-    }
-}
-
-// -- Scrollable Mobile Dropdowns
+// Scrollable Mobile Dropdowns
 .scrollable-dropdown {
     height: auto;
+    width: 100%;
     max-height: 200px;
     overflow-x: hidden;
 }
@@ -119,6 +88,10 @@
 .blockquote-custom {
     position: relative;
     margin-top: .25rem;
+
+    .blockquote-footer {
+        margin-top:0px;
+    }
 
     > .blockquote-custom {
         margin-top: 2rem;
@@ -148,4 +121,9 @@
     position: absolute;
     top: 8px;
     left:16px;
+}
+
+// Tabs
+.tab-content {
+    padding-top: 10px;
 }

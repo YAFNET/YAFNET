@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -24,12 +24,11 @@
 
 namespace YAF.Web.Extensions
 {
-    using System.Data;
-    using System.Linq;
+    using System.Collections.Generic;
     using System.Web.UI.WebControls;
 
     using YAF.Types;
-    using YAF.Types.Extensions;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     /// The DropDown Extensions
@@ -45,23 +44,31 @@ namespace YAF.Web.Extensions
         /// <param name="forumList">
         /// The forum list.
         /// </param>
-        public static void AddForumAndCategoryIcons(this DropDownList dropDownList, [NotNull] DataTable forumList)
+        public static void AddForumAndCategoryIcons(this DropDownList dropDownList, [NotNull] List<ForumSorted> forumList)
         {
-            CodeContracts.VerifyNotNull(dropDownList, "dropDownList");
+            CodeContracts.VerifyNotNull(dropDownList);
 
-            CodeContracts.VerifyNotNull(forumList, "forumList");
+            CodeContracts.VerifyNotNull(forumList);
 
-            forumList.Rows.Cast<DataRow>().ForEach(
+            forumList.ForEach(
                 row =>
+                {
+                    // don't render categories
+                    if (row.Icon == "folder")
                     {
-                        var item = new ListItem { Value = row["ForumID"].ToString(), Text = row["Title"].ToString() };
+                        return;
+                    }
 
-                        item.Attributes.Add(
-                            "data-content",
-                            $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row["Icon"]} fa-fw text-secondary\"></i>&nbsp;{row["Title"]}</span>");
+                    var item = new ListItem { Value = row.ForumID.ToString(), Text = row.Forum };
 
-                        dropDownList.Items.Add(item);
-                    });
+                    item.Attributes.Add("data-category", row.Category);
+
+                    item.Attributes.Add(
+                        "data-content",
+                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row.Icon} fa-fw text-secondary me-2\"></i>{row.Forum}</span>");
+
+                    dropDownList.Items.Add(item);
+                });
         }
     }
 }

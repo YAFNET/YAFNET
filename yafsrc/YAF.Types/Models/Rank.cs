@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,6 +29,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -40,20 +41,8 @@ namespace YAF.Types.Models
     [Serializable]
 
     [UniqueConstraint(nameof(BoardID), nameof(Name))]
-    public partial class Rank : IEntity, IHaveID, IHaveBoardID
+    public class Rank : IEntity, IHaveID, IHaveBoardID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Rank" /> class.
-        /// </summary>
-        public Rank()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -90,6 +79,17 @@ namespace YAF.Types.Models
         public int Flags { get; set; }
 
         /// <summary>
+        /// Gets or sets the Rank flags.
+        /// </summary>
+        [Ignore]
+        public RankFlags RankFlags
+        {
+            get => new(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
+
+        /// <summary>
         /// Gets or sets the pm limit.
         /// </summary>
         [Default(0)]
@@ -115,46 +115,31 @@ namespace YAF.Types.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr sig chars.
+        /// Gets or sets the user sig chars.
         /// </summary>
         [Required]
         [Default(0)]
         public int UsrSigChars { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr sig bb codes.
+        /// Gets or sets the user sig bb codes.
         /// </summary>
         [StringLength(255)]
         public string UsrSigBBCodes { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr sig html tags.
-        /// </summary>
-        [StringLength(255)]
-        public string UsrSigHTMLTags { get; set; }
-
-        /// <summary>
-        /// Gets or sets the usr albums.
+        /// Gets or sets the user albums.
         /// </summary>
         [Required]
         [Default(0)]
         public int UsrAlbums { get; set; }
 
         /// <summary>
-        /// Gets or sets the usr album images.
+        /// Gets or sets the user album images.
         /// </summary>
         [Required]
         [Default(0)]
         public int UsrAlbumImages { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

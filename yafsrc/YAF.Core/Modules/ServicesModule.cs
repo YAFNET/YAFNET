@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,21 +27,30 @@ namespace YAF.Core.Modules
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+    using System.Web;
 
     using Autofac;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.Owin.Security;
 
     using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BBCode;
+    using YAF.Core.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
     using YAF.Core.Helpers;
+    using YAF.Core.Identity;
     using YAF.Core.Services;
     using YAF.Core.Services.Cache;
+    using YAF.Core.Services.Migrations;
     using YAF.Core.Services.Startup;
-    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models.Identity;
 
     /// <summary>
     /// Registers all Service Modules
@@ -53,11 +62,13 @@ namespace YAF.Core.Modules
         /// <summary>
         /// Loads the specified container builder.
         /// </summary>
-        /// <param name="containerBuilder">The container builder.</param>
-        protected override void Load(ContainerBuilder containerBuilder)
+        /// <param name="builder">The container builder.</param>
+        protected override void Load(ContainerBuilder builder)
         {
-            RegisterServices(containerBuilder);
-            RegisterStartupServices(containerBuilder);
+            RegisterServices(builder);
+            RegisterIdentityServices(builder);
+            RegisterBoardContextServices(builder);
+            RegisterStartupServices(builder);
         }
 
         /// <summary>
@@ -69,11 +80,10 @@ namespace YAF.Core.Modules
         private static void RegisterServices(ContainerBuilder builder)
         {
             // optional defaults.
-            builder.RegisterType<SendMail>().As<ISendMail>().SingleInstance().PreserveExistingDefaults();
+            builder.RegisterType<MailService>().As<IMailService>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<ActivityStream>().As<IActivityStream>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SendNotification>().As<ISendNotification>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<Digest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
@@ -94,29 +104,25 @@ namespace YAF.Core.Modules
                 .PreserveExistingDefaults();
             builder.RegisterType<CurrentBoardId>().As<IHaveBoardID>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
+            builder.RegisterType<Search>().As<ISearch>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
-            builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerBoardContext()
-                .PreserveExistingDefaults();
+            builder.RegisterType<LinkBuilder>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<Session>().As<ISession>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<BadWordReplace>().As<IBadWordReplace>().SingleInstance().PreserveExistingDefaults();
             builder.RegisterType<SpamWordCheck>().As<ISpamWordCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<SpamCheck>().As<ISpamCheck>().SingleInstance().PreserveExistingDefaults();
-            builder.RegisterType<ThankYou>().As<IThankYou>().SingleInstance().PreserveExistingDefaults();
 
             builder.RegisterType<Permissions>().As<IPermissions>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<DateTime>().As<IDateTime>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<DateTimeService>().As<IDateTimeService>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<UserIgnored>().As<IUserIgnored>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<Buddys>().As<IBuddy>().InstancePerLifetimeScope().PreserveExistingDefaults();
-            builder.RegisterType<LatestInformation>().As<ILatestInformation>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<Friends>().As<IFriends>().InstancePerLifetimeScope().PreserveExistingDefaults();
+            builder.RegisterType<LatestInformation>().As<ILatestInformation>().InstancePerLifetimeScope()
+                .PreserveExistingDefaults();
+            builder.RegisterType<SyndicationFeeds>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
-
-            // builder.RegisterType<RewriteUrlBuilder>().Named<IUrlBuilder>("rewriter").InstancePerLifetimeScope();
-            builder.RegisterType<StopWatch>().As<IStopWatch>()
-                .InstancePerMatchingLifetimeScope(LifetimeScope.Context).PreserveExistingDefaults();
 
             // localization registration...
             builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -139,18 +145,65 @@ namespace YAF.Core.Modules
             builder.RegisterGeneric(typeof(StandardModuleManager<>)).As(typeof(IModuleManager<>))
                 .InstancePerLifetimeScope();
 
-            // style transformation...
-            builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerBoardContext()
-                .PreserveExistingDefaults();
-
             // board settings...
-            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerBoardContext().PreserveExistingDefaults();
+            builder.RegisterType<CurrentBoardSettings>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentBoardSettings>().Instance)
                 .ExternallyOwned().PreserveExistingDefaults();
 
-            // favorite topic is based on BoardContext
+            builder.RegisterInstance(new BoardFolders()).AsSelf().SingleInstance();
+            builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
+
+            // Migrations
+            builder.RegisterType<V80_Migration>().AsSelf().PreserveExistingDefaults();
+
+            // Caching
+            //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
+        }
+
+        /// <summary>
+        /// Register all Identity (Membership) Services
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterIdentityServices(ContainerBuilder builder)
+        {
+            // user manager
+            var x = new IdentityDbContext();
+            builder.Register(c => x);
+
+            builder.RegisterType<UserStore>().As<IUserStore<AspNetUsers>>().InstancePerBoardContext();
+            builder.RegisterType<AspNetUsersManager>().AsSelf().InstancePerBoardContext();
+
+            builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
+
+            builder.RegisterType<RoleStore>().As<IRoleStore<AspNetRoles, string>>().InstancePerBoardContext();
+            builder.RegisterType<AspNetRoleManager>().As<IAspNetRoleManager>().InstancePerBoardContext();
+
+            builder.RegisterType<AspNetUsersHelper>().As<IAspNetUsersHelper>().InstancePerBoardContext();
+            builder.RegisterType<AspNetRolesHelper>().As<IAspNetRolesHelper>().InstancePerBoardContext();
+        }
+
+        /// <summary>
+        /// Register all Services that are based on BoardContext
+        /// </summary>
+        /// <param name="builder">
+        /// The builder.
+        /// </param>
+        private static void RegisterBoardContextServices(ContainerBuilder builder)
+        {
+            builder.RegisterType<StyleTransform>().As<IStyleTransform>().InstancePerBoardContext()
+                .PreserveExistingDefaults();
+
+            builder.RegisterType<ReadTrackCurrentUser>().As<IReadTrackCurrentUser>().InstancePerBoardContext()
+                .PreserveExistingDefaults();
+
+            builder.RegisterType<StopWatch>().As<IStopWatch>().InstancePerBoardContext().PreserveExistingDefaults();
+
             builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()
                 .PreserveExistingDefaults();
+            builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
+            builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
         }
 
         /// <summary>
@@ -165,9 +218,8 @@ namespace YAF.Core.Modules
                 .As<IStartupService>().InstancePerLifetimeScope();
 
             builder.Register(
-                    x => x.Resolve<IComponentContext>().Resolve<IEnumerable<IStartupService>>()
-                             .FirstOrDefault(t => t is StartupInitializeDb) as StartupInitializeDb)
-                .InstancePerLifetimeScope();
+                x => x.Resolve<IComponentContext>().Resolve<IEnumerable<IStartupService>>()
+                    .FirstOrDefault(t => t is StartupInitializeDb) as StartupInitializeDb).InstancePerLifetimeScope();
         }
 
         #endregion

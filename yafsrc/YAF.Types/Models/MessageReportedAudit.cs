@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,38 +24,52 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_MessageReportedAudit table.
+    /// A class which represents the MessageReportedAudit table.
     /// </summary>
     [Serializable]
-    [Table(Name = "MessageReportedAudit")]
-    public partial class MessageReportedAudit : IEntity
+    public class MessageReportedAudit : IEntity
     {
-        partial void OnCreated();
-
-        public MessageReportedAudit()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the log id.
+        /// </summary>
         [AutoIncrement]
         public int LogID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         public int? UserID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the message id.
+        /// </summary>
         [References(typeof(MessageReported))]
         [Required]
         public int MessageID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reported.
+        /// </summary>
         public DateTime? Reported { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reported number.
+        /// </summary>
         [Required]
         [Default(1)]
         public int ReportedNumber { get; set; }
+
+        /// <summary>
+        /// Gets or sets the report text.
+        /// </summary>
         [StringLength(4000)]
         public string ReportText { get; set; }
 

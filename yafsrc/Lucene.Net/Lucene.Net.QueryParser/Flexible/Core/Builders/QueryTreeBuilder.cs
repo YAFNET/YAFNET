@@ -1,10 +1,8 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Parser;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders
 {
@@ -126,9 +124,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders
         {
             IQueryBuilder<TQuery> builder = null;
 
-            if (this.fieldNameBuilders != null && node is IFieldableNode)
+            if (this.fieldNameBuilders != null && node is IFieldableNode fieldableNode)
             {
-                string field = ((IFieldableNode)node).Field;
+                string field = fieldableNode.Field;
                 this.fieldNameBuilders.TryGetValue(field, out builder);
             }
 
@@ -160,11 +158,12 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders
             return builder;
         }
 
-        private void ProcessNode(IQueryNode node, IQueryBuilder<TQuery> builder)
+        private static void ProcessNode(IQueryNode node, IQueryBuilder<TQuery> builder) // LUCENENET: CA1822: Mark members as static
         {
             if (builder == null)
             {
-                throw new QueryNodeException(new Message(
+                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                throw new QueryNodeException(string.Format(
                     QueryParserMessages.LUCENE_QUERY_CONVERSION_ERROR, node
                         .ToQueryString(new EscapeQuerySyntax()), node.GetType()
                         .Name));
@@ -183,8 +182,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Builders
         {
             if (typeof(IQueryNode).IsAssignableFrom(clazz))
             {
-                IQueryBuilder<TQuery> result;
-                this.queryNodeBuilders.TryGetValue(clazz, out result);
+                this.queryNodeBuilders.TryGetValue(clazz, out IQueryBuilder<TQuery> result);
                 return result;
             }
 

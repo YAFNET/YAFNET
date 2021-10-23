@@ -1,10 +1,9 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using System;
 using System.Text;
-using NumericType = YAF.Lucene.Net.Documents.NumericType;
+using NumericType  = YAF.Lucene.Net.Documents.NumericType;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
 {
@@ -71,8 +70,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
             }
             else
             {
+                // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
                 throw new QueryNodeException(
-                    new Message(
+                    string.Format(
                         QueryParserMessages.NUMBER_CLASS_NOT_SUPPORTED_BY_NUMERIC_RANGE_QUERY,
                         number.GetType()));
             }
@@ -90,10 +90,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
         public virtual void SetBounds(NumericQueryNode lower, NumericQueryNode upper,
             bool lowerInclusive, bool upperInclusive, NumericConfig numericConfig)
         {
-
-            if (numericConfig == null)
+            if (numericConfig is null)
             {
-                throw new ArgumentException("numericConfig cannot be null!");
+                throw new ArgumentNullException(nameof(numericConfig), "numericConfig cannot be null!"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
 
             NumericType lowerNumberType, upperNumberType;

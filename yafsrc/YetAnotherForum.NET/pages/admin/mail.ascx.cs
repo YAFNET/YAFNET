@@ -26,22 +26,20 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
-    using System.Linq;
     using System.Net.Mail;
     using System.Threading.Tasks;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -49,7 +47,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     ///     Admin Interface to send Mass email's to user groups.
     /// </summary>
-    public partial class mail : AdminPage
+    public partial class Mail : AdminPage
     {
         #region Methods
 
@@ -65,6 +63,10 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
+
             this.BindData();
         }
 
@@ -73,14 +75,9 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, BuildLink.GetLink(ForumPages.forum));
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_MAIL", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_MAIL", "TITLE")}";
         }
 
         /// <summary>
@@ -97,40 +94,30 @@ namespace YAF.Pages.Admin
                 groupId = this.ToList.SelectedValue.ToType<int>();
             }
 
-            var subject = this.Subject.Text.Trim();
+            var emails = this.GetRepository<User>().GroupEmails(groupId.Value);
 
-            if (subject.IsNotSet())
-            {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_SUBJECT"), MessageTypes.danger);
-            }
-            else
-            {
-                using (var dt = this.GetRepository<User>().EmailsAsDataTable(this.PageContext.PageBoardID, groupId))
+            Parallel.ForEach(
+                emails,
+                email =>
                 {
-                    Parallel.ForEach(
-                        dt.Rows.Cast<DataRow>(),
-                        row =>
-                            {
-                                var from = new MailAddress(
-                                    this.Get<BoardSettings>().ForumEmail,
-                                    this.Get<BoardSettings>().Name);
+                    var from = new MailAddress(
+                        this.PageContext.BoardSettings.ForumEmail,
+                        this.PageContext.BoardSettings.Name);
 
-                                var to = new MailAddress(row.Field<string>("Email"));
+                    var to = new MailAddress(email);
 
-                                this.Get<ISendMail>().Send(
-                                    from,
-                                    to,
-                                    from,
-                                    this.Subject.Text.Trim(),
-                                    this.Body.Text.Trim(),
-                                    null);
-                            });
-                }
+                    this.Get<IMailService>().Send(
+                        from,
+                        to,
+                        from,
+                        this.Subject.Text.Trim(),
+                        this.Body.Text.Trim(),
+                        null);
+                });
 
-                this.Subject.Text = string.Empty;
-                this.Body.Text = string.Empty;
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
-            }
+            this.Subject.Text = string.Empty;
+            this.Body.Text = string.Empty;
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
         }
 
         /// <summary>
@@ -146,7 +133,7 @@ namespace YAF.Pages.Admin
         {
             try
             {
-                this.Get<ISendMail>().Send(
+                this.Get<IMailService>().Send(
                     this.TestFromEmail.Text.Trim(),
                     this.TestToEmail.Text.Trim(),
                     this.TestFromEmail.Text.Trim(),
@@ -174,7 +161,7 @@ namespace YAF.Pages.Admin
 
             this.TestSubject.Text = this.GetText("TEST_SUBJECT");
             this.TestBody.Text = this.GetText("TEST_BODY");
-            this.TestFromEmail.Text = this.Get<BoardSettings>().ForumEmail;
+            this.TestFromEmail.Text = this.PageContext.BoardSettings.ForumEmail;
         }
 
         #endregion

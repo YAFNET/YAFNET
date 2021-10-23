@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Index;
+﻿using YAF.Lucene.Net.Index;
 using System;
 
 namespace YAF.Lucene.Net.Documents
@@ -117,42 +117,30 @@ namespace YAF.Lucene.Net.Documents
         /// Type for an <see cref="Int32Field"/> that is not stored:
         /// normalization factors, frequencies, and positions are omitted.
         /// </summary>
-        public static readonly FieldType TYPE_NOT_STORED = LoadTypeNotStored();
-
-        private static FieldType LoadTypeNotStored() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        public static readonly FieldType TYPE_NOT_STORED = new FieldType
         {
-            var typeNotStored = new FieldType
-            {
-                IsIndexed = true,
-                IsTokenized = true,
-                OmitNorms = true,
-                IndexOptions = IndexOptions.DOCS_ONLY,
-                NumericType = Documents.NumericType.INT32
-            };
-            typeNotStored.Freeze();
-            return typeNotStored;
-        }
+            IsIndexed = true,
+            IsTokenized = true,
+            OmitNorms = true,
+            IndexOptions = IndexOptions.DOCS_ONLY,
+            NumericType = Documents.NumericType.INT32
+        }.Freeze();
 
         /// <summary>
         /// Type for a stored <see cref="Int32Field"/>:
         /// normalization factors, frequencies, and positions are omitted.
         /// </summary>
-        public static readonly FieldType TYPE_STORED = LoadTypeStored();
-
-        private static FieldType LoadTypeStored() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        public static readonly FieldType TYPE_STORED = new FieldType
         {
-            var typeStored = new FieldType
-            {
-                IsIndexed = true,
-                IsTokenized = true,
-                OmitNorms = true,
-                IndexOptions = IndexOptions.DOCS_ONLY,
-                NumericType = Documents.NumericType.INT32,
-                IsStored = true
-            };
-            typeStored.Freeze();
-            return typeStored;
-        }
+            IsIndexed = true,
+            IsTokenized = true,
+            OmitNorms = true,
+            IndexOptions = IndexOptions.DOCS_ONLY,
+            NumericType = Documents.NumericType.INT32,
+            IsStored = true
+        }.Freeze();
 
         /// <summary>
         /// Creates a stored or un-stored <see cref="Int32Field"/> with the provided value
@@ -177,7 +165,7 @@ namespace YAF.Lucene.Net.Documents
         /// <param name="value"> 32-bit <see cref="int"/> value </param>
         /// <param name="type"> customized field type: must have <see cref="FieldType.NumericType"/>
         ///         of <see cref="NumericType.INT32"/>. </param>
-        /// <exception cref="ArgumentNullException"> if the field <paramref name="name"/> or <paramref name="type"/> is <see cref="NumericType.NONE"/> </exception>
+        /// <exception cref="ArgumentNullException"> if the field <paramref name="name"/> or <paramref name="type"/> is <c>null</c>. </exception>
         /// <exception cref="ArgumentException">if the field type does not have a 
         ///         <see cref="FieldType.NumericType"/> of <see cref="NumericType.INT32"/> </exception>
         public Int32Field(string name, int value, FieldType type)

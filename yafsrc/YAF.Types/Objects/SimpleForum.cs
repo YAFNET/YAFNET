@@ -23,50 +23,50 @@
  */
 namespace YAF.Types.Objects
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Collections.Generic;
-
-  #endregion
-
-  /// <summary>
-  /// The simple forum.
-  /// </summary>
-  [Serializable]
-  public class SimpleForum
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _topics.
-    /// </summary>
-    private List<SimpleTopic> _topics = new List<SimpleTopic>();
+    using System;
+    using System.Collections.Generic;
 
     #endregion
 
-    #region Properties
-
     /// <summary>
-    /// Gets or sets ForumID.
+    /// The simple forum.
     /// </summary>
-    public int ForumID { get; set; }
-
-    /// <summary>
-    /// Gets or sets Name.
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
-    /// Gets or sets Topics.
-    /// </summary>
-    public List<SimpleTopic> Topics
+    [Serializable]
+    public class SimpleForum
     {
-      get => this._topics;
+        #region Constants and Fields
 
-      set => this._topics = value;
+        /// <summary>
+        /// The topics.
+        /// </summary>
+        private List<SimpleTopic> topics = new();
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets ForumID.
+        /// </summary>
+        public int ForumID { get; set; }
+
+        /// <summary>
+        /// Gets or sets Name.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets Topics.
+        /// </summary>
+        public List<SimpleTopic> Topics
+        {
+            get => this.topics;
+
+            set => this.topics = value;
+        }
+
+        #endregion
     }
-
-    #endregion
-  }
 }

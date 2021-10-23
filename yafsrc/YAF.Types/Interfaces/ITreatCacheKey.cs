@@ -24,22 +24,22 @@
 namespace YAF.Types.Interfaces
 {
     /// <summary>
-  /// The i treat cache key.
-  /// </summary>
-  public interface ITreatCacheKey
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// The treat.
+    /// The i treat cache key.
     /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    string Treat([NotNull] string key);
+    public interface ITreatCacheKey
+    {
+        #region Public Methods
 
-    #endregion
-  }
+        /// <summary>
+        /// The treat.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        string Treat([NotNull] string key);
+
+        #endregion
+    }
 }

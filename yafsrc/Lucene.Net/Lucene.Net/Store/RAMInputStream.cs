@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 
 namespace YAF.Lucene.Net.Store
@@ -25,15 +25,12 @@ namespace YAF.Lucene.Net.Store
     /// <para/>
     /// @lucene.internal
     /// </summary>
-    public class RAMInputStream : IndexInput
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public class RAMInputStream : IndexInput // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         internal const int BUFFER_SIZE = RAMOutputStream.BUFFER_SIZE;
 
-        private RAMFile file;
-        private long length;
+        private readonly RAMFile file; // LUCENENET: marked readonly
+        private readonly long length; // LUCENENET: marked readonly
 
         private byte[] currentBuffer;
         private int currentBufferIndex;
@@ -102,7 +99,7 @@ namespace YAF.Lucene.Net.Store
                 // end of file reached, no more buffers left
                 if (enforceEOF)
                 {
-                    throw new EndOfStreamException("read past EOF: " + this);
+                    throw EOFException.Create("read past EOF: " + this);
                 }
                 else
                 {
@@ -120,10 +117,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        public override long GetFilePointer()
-        {
-            return currentBufferIndex < 0 ? 0 : bufferStart + bufferPosition;
-        }
+        public override long Position => currentBufferIndex < 0 ? 0 : bufferStart + bufferPosition; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
         public override void Seek(long pos)
         {

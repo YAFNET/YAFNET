@@ -31,12 +31,13 @@ namespace YAF.Dialogs
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     #endregion
 
@@ -97,22 +98,50 @@ namespace YAF.Dialogs
         }
 
         /// <summary>
+        /// The page_ load.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender. 
+        /// </param>
+        /// <param name="e">
+        /// The e. 
+        /// </param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (!this.IsPostBack)
+            {
+                return;
+            }
+
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+        }
+
+        /// <summary>
         /// Handles the Click event of the Add control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.mask.Text.IsSet())
+            if (!this.Page.IsValid)
             {
-                this.GetRepository<BannedEmail>().Save(
-                    this.BannedId,
-                    this.mask.Text.Trim(),
-                    this.BanReason.Text.Trim());
-
-                // go back to banned IP's administration page
-                BuildLink.Redirect(ForumPages.admin_bannedemail);
+                return;
             }
+
+            if (!this.GetRepository<BannedEmail>().Save(
+                this.BannedId,
+                this.mask.Text.Trim(),
+                this.BanReason.Text.Trim()))
+            {
+                this.PageContext.LoadMessage.AddSession(
+                    this.GetText("ADMIN_BANNEDEMAIL", "MSG_EXIST"),
+                    MessageTypes.warning);
+            }
+
+            // go back to banned IPs administration page
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BannedEmails);
         }
 
         #endregion

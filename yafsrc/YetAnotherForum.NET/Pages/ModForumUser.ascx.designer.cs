@@ -33,15 +33,6 @@ namespace YAF.Pages
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
 
         /// <summary>
-        /// LocalizedLabel4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel4;
-
-        /// <summary>
         /// UserName control.
         /// </summary>
         /// <remarks>
@@ -57,7 +48,7 @@ namespace YAF.Pages
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button FindUsers;
+        protected global::YAF.Web.Controls.ThemeButton FindUsers;
 
         /// <summary>
         /// ToList control.

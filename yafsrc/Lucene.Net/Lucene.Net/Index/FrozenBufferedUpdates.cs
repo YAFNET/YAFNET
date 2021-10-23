@@ -23,12 +23,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using QueryAndLimit = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using BinaryDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query  = YAF.Lucene.Net.Search.Query;
+    using QueryAndLimit  = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Holds buffered deletes and updates by term or query, once pushed. Pushed
@@ -153,14 +153,14 @@ namespace YAF.Lucene.Net.Index
         // LUCENENET NOTE: This was termsIterable() in Lucene
         public virtual IEnumerable<Term> GetTermsEnumerable()
         {
-            return new IterableAnonymousInnerClassHelper(this);
+            return new IterableAnonymousClass(this);
         }
 
-        private class IterableAnonymousInnerClassHelper : IEnumerable<Term>
+        private class IterableAnonymousClass : IEnumerable<Term>
         {
             private readonly FrozenBufferedUpdates outerInstance;
 
-            public IterableAnonymousInnerClassHelper(FrozenBufferedUpdates outerInstance)
+            public IterableAnonymousClass(FrozenBufferedUpdates outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
@@ -179,21 +179,21 @@ namespace YAF.Lucene.Net.Index
         // LUCENENET NOTE: This was queriesIterable() in Lucene
         public virtual IEnumerable<QueryAndLimit> GetQueriesEnumerable()
         {
-            return new IterableAnonymousInnerClassHelper2(this);
+            return new IterableAnonymousClass2(this);
         }
 
-        private class IterableAnonymousInnerClassHelper2 : IEnumerable<QueryAndLimit>
+        private class IterableAnonymousClass2 : IEnumerable<QueryAndLimit>
         {
             private readonly FrozenBufferedUpdates outerInstance;
 
-            public IterableAnonymousInnerClassHelper2(FrozenBufferedUpdates outerInstance)
+            public IterableAnonymousClass2(FrozenBufferedUpdates outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
 
             public virtual IEnumerator<QueryAndLimit> GetEnumerator()
             {
-                return new IteratorAnonymousInnerClassHelper(this);
+                return new IteratorAnonymousClass(this);
             }
 
             IEnumerator IEnumerable.GetEnumerator()
@@ -201,13 +201,14 @@ namespace YAF.Lucene.Net.Index
                 return GetEnumerator();
             }
 
-            private class IteratorAnonymousInnerClassHelper : IEnumerator<QueryAndLimit>
+            private class IteratorAnonymousClass : IEnumerator<QueryAndLimit>
             {
-                private readonly IterableAnonymousInnerClassHelper2 outerInstance;
-                private int upto, i;
+                private readonly IterableAnonymousClass2 outerInstance;
+                private readonly int upto;
+                private int i;
                 private QueryAndLimit current;
 
-                public IteratorAnonymousInnerClassHelper(IterableAnonymousInnerClassHelper2 outerInstance)
+                public IteratorAnonymousClass(IterableAnonymousClass2 outerInstance)
                 {
                     this.outerInstance = outerInstance;
                     upto = this.outerInstance.outerInstance.queries.Length;
@@ -231,7 +232,7 @@ namespace YAF.Lucene.Net.Index
 
                 public virtual void Reset()
                 {
-                    throw new NotSupportedException();
+                    throw UnsupportedOperationException.Create();
                 }
 
                 public void Dispose()

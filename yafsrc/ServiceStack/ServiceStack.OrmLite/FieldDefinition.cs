@@ -1,13 +1,9 @@
-//
-// ServiceStack.OrmLite: Light-weight POCO ORM for .NET and Mono
-//
-// Authors:
-//   Demis Bellot (demis.bellot@gmail.com)
-//
-// Copyright 2013 ServiceStack, Inc. All Rights Reserved.
-//
-// Licensed under the same terms of ServiceStack.
-//
+﻿// ***********************************************************************
+// <copyright file="FieldDefinition.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 using System;
 using System.Collections;
@@ -15,63 +11,177 @@ using System.Reflection;
 
 namespace ServiceStack.OrmLite
 {
+    using ServiceStack.Text;
+
+    /// <summary>
+    /// Class FieldDefinition.
+    /// </summary>
     public class FieldDefinition
     {
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the alias.
+        /// </summary>
+        /// <value>The alias.</value>
         public string Alias { get; set; }
 
+        /// <summary>
+        /// Gets the name of the field.
+        /// </summary>
+        /// <value>The name of the field.</value>
         public string FieldName => this.Alias ?? this.Name;
 
+        /// <summary>
+        /// Gets or sets the type of the field.
+        /// </summary>
+        /// <value>The type of the field.</value>
         public Type FieldType { get; set; }
 
+        /// <summary>
+        /// Gets or sets the field type default value.
+        /// </summary>
+        /// <value>The field type default value.</value>
         public object FieldTypeDefaultValue { get; set; }
 
+        /// <summary>
+        /// Gets or sets the type of the treat as.
+        /// </summary>
+        /// <value>The type of the treat as.</value>
         public Type TreatAsType { get; set; }
 
+        /// <summary>
+        /// Gets the type of the column.
+        /// </summary>
+        /// <value>The type of the column.</value>
         public Type ColumnType => TreatAsType ?? FieldType;
 
+        /// <summary>
+        /// Gets or sets the property information.
+        /// </summary>
+        /// <value>The property information.</value>
         public PropertyInfo PropertyInfo { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is primary key.
+        /// </summary>
+        /// <value><c>true</c> if this instance is primary key; otherwise, <c>false</c>.</value>
         public bool IsPrimaryKey { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatic increment].
+        /// </summary>
+        /// <value><c>true</c> if [automatic increment]; otherwise, <c>false</c>.</value>
         public bool AutoIncrement { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [automatic identifier].
+        /// </summary>
+        /// <value><c>true</c> if [automatic identifier]; otherwise, <c>false</c>.</value>
         public bool AutoId { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is nullable.
+        /// </summary>
+        /// <value><c>true</c> if this instance is nullable; otherwise, <c>false</c>.</value>
         public bool IsNullable { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is indexed.
+        /// </summary>
+        /// <value><c>true</c> if this instance is indexed; otherwise, <c>false</c>.</value>
         public bool IsIndexed { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is unique index.
+        /// </summary>
+        /// <value><c>true</c> if this instance is unique index; otherwise, <c>false</c>.</value>
         public bool IsUniqueIndex { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is clustered.
+        /// </summary>
+        /// <value><c>true</c> if this instance is clustered; otherwise, <c>false</c>.</value>
         public bool IsClustered { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is non clustered.
+        /// </summary>
+        /// <value><c>true</c> if this instance is non clustered; otherwise, <c>false</c>.</value>
         public bool IsNonClustered { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the name of the index.
+        /// </summary>
+        /// <value>The name of the index.</value>
         public string IndexName { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is row version.
+        /// </summary>
+        /// <value><c>true</c> if this instance is row version; otherwise, <c>false</c>.</value>
         public bool IsRowVersion { get; set; }
 
+        /// <summary>
+        /// Gets or sets the length of the field.
+        /// </summary>
+        /// <value>The length of the field.</value>
         public int? FieldLength { get; set; }  // Precision for Decimal Type
 
+        /// <summary>
+        /// Gets or sets the scale.
+        /// </summary>
+        /// <value>The scale.</value>
         public int? Scale { get; set; }  //  for decimal type
 
+        /// <summary>
+        /// Gets or sets the default value.
+        /// </summary>
+        /// <value>The default value.</value>
         public string DefaultValue { get; set; }
 
+        /// <summary>
+        /// Gets or sets the check constraint.
+        /// </summary>
+        /// <value>The check constraint.</value>
         public string CheckConstraint { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is unique constraint.
+        /// </summary>
+        /// <value><c>true</c> if this instance is unique constraint; otherwise, <c>false</c>.</value>
         public bool IsUniqueConstraint { get; set; }
-        
+
+        /// <summary>
+        /// Gets or sets the foreign key.
+        /// </summary>
+        /// <value>The foreign key.</value>
         public ForeignKeyConstraint ForeignKey { get; set; }
 
+        /// <summary>
+        /// Gets or sets the get value function.
+        /// </summary>
+        /// <value>The get value function.</value>
         public GetMemberDelegate GetValueFn { get; set; }
 
+        /// <summary>
+        /// Gets or sets the set value function.
+        /// </summary>
+        /// <value>The set value function.</value>
         public SetMemberDelegate SetValueFn { get; set; }
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <returns>System.Object.</returns>
         public object GetValue(object instance)
         {
-            var type = instance.GetType(); 
+            var type = instance.GetType();
             if (PropertyInfo.DeclaringType?.IsAssignableFrom(type) != true)
             {
                 if (instance is IDictionary d)
@@ -80,10 +190,15 @@ namespace ServiceStack.OrmLite
                 var accessor = TypeProperties.Get(type).GetAccessor(Name);
                 return accessor?.PublicGetter(instance);
             }
-            
+
             return this.GetValueFn?.Invoke(instance);
         }
 
+        /// <summary>
+        /// Sets the value.
+        /// </summary>
+        /// <param name="instance">The instance.</param>
+        /// <param name="value">The value.</param>
         public void SetValue(object instance, object value)
         {
             if (instance is IDictionary d)
@@ -91,10 +206,15 @@ namespace ServiceStack.OrmLite
                 d[Name] = value;
                 return;
             }
-            
+
             this.SetValueFn?.Invoke(instance, value);
         }
 
+        /// <summary>
+        /// Gets the name of the quoted.
+        /// </summary>
+        /// <param name="dialectProvider">The dialect provider.</param>
+        /// <returns>System.String.</returns>
         public string GetQuotedName(IOrmLiteDialectProvider dialectProvider)
         {
             return IsRowVersion
@@ -102,59 +222,156 @@ namespace ServiceStack.OrmLite
                 : dialectProvider.GetQuotedColumnName(FieldName);
         }
 
+        /// <summary>
+        /// Gets the quoted value.
+        /// </summary>
+        /// <param name="fromInstance">From instance.</param>
+        /// <param name="dialect">The dialect.</param>
+        /// <returns>System.String.</returns>
         public string GetQuotedValue(object fromInstance, IOrmLiteDialectProvider dialect = null)
         {
             var value = GetValue(fromInstance);
             return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedValue(value, ColumnType);
         }
 
+        /// <summary>
+        /// Gets or sets the sequence.
+        /// </summary>
+        /// <value>The sequence.</value>
         public string Sequence { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is computed.
+        /// </summary>
+        /// <value><c>true</c> if this instance is computed; otherwise, <c>false</c>.</value>
         public bool IsComputed { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is persisted.
+        /// </summary>
+        /// <value><c>true</c> if this instance is persisted; otherwise, <c>false</c>.</value>
         public bool IsPersisted { get; set; }
 
+        /// <summary>
+        /// Gets or sets the compute expression.
+        /// </summary>
+        /// <value>The compute expression.</value>
         public string ComputeExpression { get; set; }
 
+        /// <summary>
+        /// Gets or sets the custom select.
+        /// </summary>
+        /// <value>The custom select.</value>
         public string CustomSelect { get; set; }
+        /// <summary>
+        /// Gets or sets the custom insert.
+        /// </summary>
+        /// <value>The custom insert.</value>
         public string CustomInsert { get; set; }
+        /// <summary>
+        /// Gets or sets the custom update.
+        /// </summary>
+        /// <value>The custom update.</value>
         public string CustomUpdate { get; set; }
 
+        /// <summary>
+        /// Gets a value indicating whether [requires alias].
+        /// </summary>
+        /// <value><c>true</c> if [requires alias]; otherwise, <c>false</c>.</value>
         public bool RequiresAlias => Alias != null || CustomSelect != null;
 
+        /// <summary>
+        /// Gets or sets the name of the belong to model.
+        /// </summary>
+        /// <value>The name of the belong to model.</value>
         public string BelongToModelName { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is reference.
+        /// </summary>
+        /// <value><c>true</c> if this instance is reference; otherwise, <c>false</c>.</value>
         public bool IsReference { get; set; }
 
+        /// <summary>
+        /// Gets or sets the custom field definition.
+        /// </summary>
+        /// <value>The custom field definition.</value>
         public string CustomFieldDefinition { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this instance is reference type.
+        /// </summary>
+        /// <value><c>true</c> if this instance is reference type; otherwise, <c>false</c>.</value>
         public bool IsRefType { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [ignore on update].
+        /// </summary>
+        /// <value><c>true</c> if [ignore on update]; otherwise, <c>false</c>.</value>
         public bool IgnoreOnUpdate { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [ignore on insert].
+        /// </summary>
+        /// <value><c>true</c> if [ignore on insert]; otherwise, <c>false</c>.</value>
         public bool IgnoreOnInsert { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [return on insert].
+        /// </summary>
+        /// <value><c>true</c> if [return on insert]; otherwise, <c>false</c>.</value>
         public bool ReturnOnInsert { get; set; }
 
+        /// <summary>
+        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// </summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString() => Name;
 
-        public bool ShouldSkipInsert() => IgnoreOnInsert || AutoIncrement || (IsComputed && !IsPersisted) || IsRowVersion;
+        /// <summary>
+        /// Shoulds the skip insert.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool ShouldSkipInsert() => IgnoreOnInsert || AutoIncrement || IsComputed && !IsPersisted || IsRowVersion;
 
-        public bool ShouldSkipUpdate() => IgnoreOnUpdate || (IsComputed && !IsPersisted);
+        /// <summary>
+        /// Shoulds the skip update.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool ShouldSkipUpdate() => IgnoreOnUpdate || IsComputed && !IsPersisted;
 
-        public bool ShouldSkipDelete() => (IsComputed && !IsPersisted);
+        /// <summary>
+        /// Shoulds the skip delete.
+        /// </summary>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool ShouldSkipDelete() => IsComputed && !IsPersisted;
 
+        /// <summary>
+        /// Determines whether [is self reference field] [the specified field definition].
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns><c>true</c> if [is self reference field] [the specified field definition]; otherwise, <c>false</c>.</returns>
         public bool IsSelfRefField(FieldDefinition fieldDef)
         {
-            return (fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias))
+            return fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias)
                     || IsSelfRefField(fieldDef.Name);
         }
 
+        /// <summary>
+        /// Determines whether [is self reference field] [the specified name].
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns><c>true</c> if [is self reference field] [the specified name]; otherwise, <c>false</c>.</returns>
         public bool IsSelfRefField(string name)
         {
-            return (Alias != null && Alias + "Id" == name)
+            return Alias != null && Alias + "Id" == name
                     || Name + "Id" == name;
         }
 
+        /// <summary>
+        /// Clones the specified modifier.
+        /// </summary>
+        /// <param name="modifier">The modifier.</param>
+        /// <returns>FieldDefinition.</returns>
         public FieldDefinition Clone(Action<FieldDefinition> modifier = null)
         {
             var fieldDef = new FieldDefinition
@@ -184,7 +401,7 @@ namespace ServiceStack.OrmLite
                 SetValueFn = SetValueFn,
                 Sequence = Sequence,
                 IsComputed = IsComputed,
-                IsPersisted = IsPersisted, 
+                IsPersisted = IsPersisted,
                 ComputeExpression = ComputeExpression,
                 CustomSelect = CustomSelect,
                 BelongToModelName = BelongToModelName,
@@ -198,8 +415,18 @@ namespace ServiceStack.OrmLite
         }
     }
 
+    /// <summary>
+    /// Class ForeignKeyConstraint.
+    /// </summary>
     public class ForeignKeyConstraint
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ForeignKeyConstraint"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="onDelete">The on delete.</param>
+        /// <param name="onUpdate">The on update.</param>
+        /// <param name="foreignKeyName">Name of the foreign key.</param>
         public ForeignKeyConstraint(Type type, string onDelete = null, string onUpdate = null, string foreignKeyName = null)
         {
             ReferenceType = type;
@@ -208,11 +435,35 @@ namespace ServiceStack.OrmLite
             ForeignKeyName = foreignKeyName;
         }
 
+        /// <summary>
+        /// Gets the type of the reference.
+        /// </summary>
+        /// <value>The type of the reference.</value>
         public Type ReferenceType { get; private set; }
+        /// <summary>
+        /// Gets the on delete.
+        /// </summary>
+        /// <value>The on delete.</value>
         public string OnDelete { get; private set; }
+        /// <summary>
+        /// Gets the on update.
+        /// </summary>
+        /// <value>The on update.</value>
         public string OnUpdate { get; private set; }
+        /// <summary>
+        /// Gets the name of the foreign key.
+        /// </summary>
+        /// <value>The name of the foreign key.</value>
         public string ForeignKeyName { get; private set; }
 
+        /// <summary>
+        /// Gets the name of the foreign key.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="refModelDef">The reference model definition.</param>
+        /// <param name="namingStrategy">The naming strategy.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public string GetForeignKeyName(ModelDefinition modelDef, ModelDefinition refModelDef, INamingStrategy namingStrategy, FieldDefinition fieldDef)
         {
             if (ForeignKeyName.IsNullOrEmpty())

@@ -1,4 +1,4 @@
-﻿<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.editlanguage" Codebehind="editlanguage.ascx.cs" %>
+﻿<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.EditLanguage" Codebehind="EditLanguage.ascx.cs" %>
 
 
 <YAF:PageLinks runat="server" id="PageLinks" />
@@ -7,29 +7,32 @@
     <div class="col-xl-12">
         <div class="card mb-3">
             <div class="card-header">
-                <YAF:Icon runat="server" IconName="language" IconType="text-secondary"></YAF:Icon>
-                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="HEADER" LocalizedPage="ADMIN_EDITLANGUAGE" />
-                <asp:Label runat="server" id="lblPageName"></asp:Label>
+                <YAF:IconHeader runat="server" ID="IconHeader"
+                                IconName="language"
+                                LocalizedPage="ADMIN_VERSION"></YAF:IconHeader>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="dDLPages">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"
                                             LocalizedTag="SELECT_PAGE" 
                                             LocalizedPage="ADMIN_EDITLANGUAGE" />
                     </asp:Label>
-                    <asp:DropDownList runat="server" id="dDLPages" CssClass="custom-select"></asp:DropDownList>
+                    <asp:DropDownList runat="server" id="dDLPages" CssClass="form-select"></asp:DropDownList>
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <YAF:ThemeButton runat="server" id="btnLoadPageLocalization" 
                                      Type="Primary" 
                                      Icon="share" 
                                      TextLocalizedTag="LOAD_PAGE" TextLocalizedPage="ADMIN_EDITLANGUAGE" />
                 </div>
                 <YAF:Alert ID="Info" runat="server" Type="danger">
+                    <YAF:Icon runat="server" 
+                              IconName="info-circle" />
                     <asp:Label runat="server" id="lblInfo"></asp:Label>
                 </YAF:Alert>
                 <hr />
+                <div class="table-responsive">
                 <asp:DataGrid id="grdLocals" runat="server" 
                               CssClass="table table-striped"
                               GridLines="None"
@@ -85,10 +88,11 @@
                         </asp:TemplateColumn>
                     </Columns>
                 </asp:DataGrid>
+                    </div>
             </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton runat="server" id="btnSave"
-                                 CssClass="mr-1"
+                                 CssClass="me-1"
                                  Type="Primary"
                                  Icon="save" 
                                  TextLocalizedTag="SAVE" />

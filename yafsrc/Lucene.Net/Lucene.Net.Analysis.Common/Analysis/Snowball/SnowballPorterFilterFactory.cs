@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Miscellaneous;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Tartarus.Snowball;
 using System;
@@ -54,7 +55,7 @@ namespace YAF.Lucene.Net.Analysis.Snowball
             wordFiles = Get(args, PROTECTED_TOKENS);
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 
@@ -77,9 +78,9 @@ namespace YAF.Lucene.Net.Analysis.Snowball
             {
                 program = (SnowballProgram)Activator.CreateInstance(stemClass);
             }
-            catch (Exception e)
+            catch (Exception e) when (e.IsException())
             {
-                throw new Exception("Error instantiating stemmer for language " + language + "from class " + stemClass, e);
+                throw RuntimeException.Create("Error instantiating stemmer for language " + language + "from class " + stemClass, e);
             }
 
             if (protectedWords != null)

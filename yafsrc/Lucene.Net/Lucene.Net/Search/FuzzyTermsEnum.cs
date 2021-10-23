@@ -1,4 +1,4 @@
-using J2N;
+﻿using J2N;
 using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
@@ -58,15 +58,10 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class FuzzyTermsEnum : TermsEnum
     {
-        private void InitializeInstanceFields()
-        {
-            boostAtt = Attributes.AddAttribute<IBoostAttribute>();
-        }
-
         private TermsEnum actualEnum;
         private IBoostAttribute actualBoostAtt;
 
-        private IBoostAttribute boostAtt;
+        private readonly IBoostAttribute boostAtt;
 
         private readonly IMaxNonCompetitiveBoostAttribute maxBoostAtt;
         private readonly ILevenshteinAutomataAttribute dfaAtt;
@@ -112,24 +107,24 @@ namespace YAF.Lucene.Net.Search
         /// <exception cref="IOException"> if there is a low-level IO error </exception>
         public FuzzyTermsEnum(Terms terms, AttributeSource atts, Term term, float minSimilarity, int prefixLength, bool transpositions)
         {
-            InitializeInstanceFields();
+            boostAtt = Attributes.AddAttribute<IBoostAttribute>();
             if (minSimilarity >= 1.0f && minSimilarity != (int)minSimilarity)
             {
                 throw new ArgumentException("fractional edit distances are not allowed");
             }
             if (minSimilarity < 0.0f)
             {
-                throw new ArgumentException("minimumSimilarity cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(minSimilarity), "minimumSimilarity cannot be less than 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (prefixLength < 0)
             {
-                throw new ArgumentException("prefixLength cannot be less than 0");
+                throw new ArgumentOutOfRangeException(nameof(prefixLength), "prefixLength cannot be less than 0"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             this.m_terms = terms;
             this.term = term;
 
             // convert the string into a utf32 int[] representation for fast comparisons
-            string utf16 = term.Text();
+            string utf16 = term.Text;
             this.m_termText = new int[utf16.CodePointCount(0, utf16.Length)];
             for (int cp, i = 0, j = 0; i < utf16.Length; i += Character.CharCount(cp))
             {
@@ -157,7 +152,7 @@ namespace YAF.Lucene.Net.Search
             }
             if (transpositions && m_maxEdits > LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE)
             {
-                throw new NotSupportedException("with transpositions enabled, distances > " + LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE + " are not supported ");
+                throw UnsupportedOperationException.Create("with transpositions enabled, distances > " + LevenshteinAutomata.MAXIMUM_SUPPORTED_DISTANCE + " are not supported ");
             }
             this.transpositions = transpositions;
             this.m_scaleFactor = 1.0f / (1.0f - this.m_minSimilarity);
@@ -179,7 +174,7 @@ namespace YAF.Lucene.Net.Search
             {
                 //if (BlockTreeTermsWriter.DEBUG) System.out.println("FuzzyTE.getAEnum: ed=" + editDistance + " lastTerm=" + (lastTerm==null ? "null" : lastTerm.utf8ToString()));
                 CompiledAutomaton compiled = runAutomata[editDistance];
-                return new AutomatonFuzzyTermsEnum(this, m_terms.Intersect(compiled, lastTerm == null ? null : compiled.Floor(lastTerm, new BytesRef())), runAutomata.SubList(0, editDistance + 1).ToArray(/*new CompiledAutomaton[editDistance + 1]*/));
+                return new AutomatonFuzzyTermsEnum(this, m_terms.Intersect(compiled, lastTerm == null ? null : compiled.Floor(lastTerm, new BytesRef())), runAutomata.GetView(0, editDistance + 1).ToArray(/*new CompiledAutomaton[editDistance + 1]*/)); // LUCENENET: Checked count parameter of GetView()
             }
             else
             {
@@ -361,31 +356,26 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         private class AutomatonFuzzyTermsEnum : FilteredTermsEnum
         {
-            internal virtual void InitializeInstanceFields()
-            {
-                boostAtt = Attributes.AddAttribute<IBoostAttribute>();
-            }
-
             private readonly FuzzyTermsEnum outerInstance;
 
             private readonly ByteRunAutomaton[] matchers;
 
             private readonly BytesRef termRef;
 
-            private IBoostAttribute boostAtt;
+            private readonly IBoostAttribute boostAtt;
 
             public AutomatonFuzzyTermsEnum(FuzzyTermsEnum outerInstance, TermsEnum tenum, CompiledAutomaton[] compiled)
                 : base(tenum, false)
             {
                 this.outerInstance = outerInstance;
 
-                InitializeInstanceFields();
+                boostAtt = Attributes.AddAttribute<IBoostAttribute>();
                 this.matchers = new ByteRunAutomaton[compiled.Length];
                 for (int i = 0; i < compiled.Length; i++)
                 {
                     this.matchers[i] = compiled[i].RunAutomaton;
                 }
-                termRef = new BytesRef(outerInstance.term.Text());
+                termRef = new BytesRef(outerInstance.term.Text);
             }
 
             /// <summary>

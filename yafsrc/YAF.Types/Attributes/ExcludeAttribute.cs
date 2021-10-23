@@ -23,17 +23,17 @@
  */
 namespace YAF.Types.Attributes
 {
-  #region Using
+    #region Using
 
-  using System;
+    using System;
 
-  #endregion
+    #endregion
 
-  /// <summary>
-  /// Exclude a field from the dynamic object conversion.
-  /// </summary>
-  [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-  public class ExcludeAttribute : Attribute
-  {
-  }
+    /// <summary>
+    /// Exclude a field from the dynamic object conversion.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
+    public class ExcludeAttribute : Attribute
+    {
+    }
 }

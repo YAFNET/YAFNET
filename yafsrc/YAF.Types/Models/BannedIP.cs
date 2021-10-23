@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,39 +30,53 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
+    /// <summary>
+    /// The banned IP table.
+    /// </summary>
     [Serializable]
     [UniqueConstraint(nameof(BoardID), nameof(Mask))]
-    public partial class BannedIP : IEntity, IHaveID, IHaveBoardID
+    public class BannedIP : IEntity, IHaveID, IHaveBoardID
     {
-        partial void OnCreated();
-
-        public BannedIP()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("ID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board id.
+        /// </summary>
         [References(typeof(Board))]
         [Required]
         public int BoardID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the mask.
+        /// </summary>
         [Required]
-        [StringLength(15)]
+        [StringLength(56)]
         public string Mask { get; set; }
 
+        /// <summary>
+        /// Gets or sets the since.
+        /// </summary>
         [Required]
         public DateTime Since { get; set; }
 
+        /// <summary>
+        /// Gets or sets the reason.
+        /// </summary>
         [StringLength(128)]
         public string Reason { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
         public int? UserID { get; set; }
-        
+
         #endregion
     }
 }

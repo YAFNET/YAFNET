@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace YAF.Lucene.Net.Codecs.Lucene41
 {
     /*
@@ -17,8 +19,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * limitations under the License.
      */
 
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Provides a <see cref="Codecs.PostingsReaderBase"/> and 
@@ -37,11 +39,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         {
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override PostingsReaderBase PostingsReaderBase(SegmentReadState state)
         {
             return new Lucene41PostingsReader(state.Directory, state.FieldInfos, state.SegmentInfo, state.Context, state.SegmentSuffix);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override PostingsWriterBase PostingsWriterBase(SegmentWriteState state)
         {
             return new Lucene41PostingsWriter(state);

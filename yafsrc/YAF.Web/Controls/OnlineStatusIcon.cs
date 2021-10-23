@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,13 +26,11 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Linq;
     using System.Web.UI;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -72,10 +70,10 @@ namespace YAF.Web.Controls
         /// <summary>
         /// The render.
         /// </summary>
-        /// <param name="output">
+        /// <param name="writer">
         /// The output.
         /// </param>
-        protected override void Render([NotNull] HtmlTextWriter output)
+        protected override void Render([NotNull] HtmlTextWriter writer)
         {
             if (!this.Visible)
             {
@@ -86,49 +84,47 @@ namespace YAF.Web.Controls
                 Constants.Cache.UsersOnlineStatus,
                 () => this.GetRepository<Active>().List(
                     false,
-                    this.Get<BoardSettings>().ShowCrawlersInActiveList,
-                    this.Get<BoardSettings>().ActiveListTime,
-                    this.Get<BoardSettings>().UseStyledNicks),
+                    this.PageContext.BoardSettings.ShowCrawlersInActiveList,
+                    this.PageContext.BoardSettings.ActiveListTime),
                 TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
-            output.BeginRender();
-            output.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
-            output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
+            writer.BeginRender();
+            writer.WriteBeginTag(HtmlTextWriterTag.Span.ToString());
+            writer.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
 
             if (this.Suspended.HasValue)
             {
                 // suspended
-                output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended");
-                output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
-                output.WriteAttribute("data-toggle", "tooltip");
+                writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended me-1");
+                writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
+                writer.WriteAttribute("data-bs-toggle", "tooltip");
             }
             else
             {
-                if (activeUsers.AsEnumerable()
-                    .Any(x => x.Field<int>("UserId") == this.UserId && !x.Field<bool>("IsHidden")))
+                if (activeUsers.Any(x => x.UserID == this.UserId && !x.IsActiveExcluded))
                 {
                     // online
-                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success user-online");
-                    output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
-                    output.WriteAttribute("data-toggle", "tooltip");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success user-online me-1");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
+                    writer.WriteAttribute("data-bs-toggle", "tooltip");
                 }
                 else
                 {
                     // offline
-                    output.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger user-offline");
-                    output.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
-                    output.WriteAttribute("data-toggle", "tooltip");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger user-offline me-1");
+                    writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
+                    writer.WriteAttribute("data-bs-toggle", "tooltip");
                 }
             }
 
-            output.Write(HtmlTextWriter.TagRightChar);
+            writer.Write(HtmlTextWriter.TagRightChar);
 
-            output.Write(@"<i class=""fas fa-user-circle"" style=""font-size: 1.5em""></i>");
+            writer.Write(@"<i class=""fas fa-user-circle"" style=""font-size: 1.5em""></i>");
 
             // render the optional controls (if any)
-            base.Render(output);
-            output.WriteEndTag(HtmlTextWriterTag.Span.ToString());
-            output.EndRender();
+            base.Render(writer);
+            writer.WriteEndTag(HtmlTextWriterTag.Span.ToString());
+            writer.EndRender();
         }
 
         #endregion

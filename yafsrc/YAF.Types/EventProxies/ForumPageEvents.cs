@@ -23,44 +23,44 @@
  */
 namespace YAF.Types.EventProxies
 {
-  #region Using
+    #region Using
 
-  using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Events;
 
-  #endregion
+    #endregion
 
-  /// <summary>
-  /// The forum page init event.
-  /// </summary>
-  public class ForumPageInitEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// The forum page init event.
+    /// </summary>
+    public class ForumPageInitEvent : IAmEvent
+    {
+    }
 
-  /// <summary>
-  /// The forum page pre load event.
-  /// </summary>
-  public class ForumPagePreLoadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// The forum page pre load event.
+    /// </summary>
+    public class ForumPagePreLoadEvent : IAmEvent
+    {
+    }
 
-  /// <summary>
-  /// The forum page post load event.
-  /// </summary>
-  public class ForumPagePostLoadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// The forum page post load event.
+    /// </summary>
+    public class ForumPagePostLoadEvent : IAmEvent
+    {
+    }
 
-  /// <summary>
-  /// The forum page prerender event.
-  /// </summary>
-  public class ForumPagePreRenderEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// The forum page prerender event.
+    /// </summary>
+    public class ForumPagePreRenderEvent : IAmEvent
+    {
+    }
 
-  /// <summary>
-  /// The forum page unload load event.
-  /// </summary>
-  public class ForumPageUnloadEvent : IAmEvent
-  {
-  }
+    /// <summary>
+    /// The forum page unload load event.
+    /// </summary>
+    public class ForumPageUnloadEvent : IAmEvent
+    {
+    }
 }

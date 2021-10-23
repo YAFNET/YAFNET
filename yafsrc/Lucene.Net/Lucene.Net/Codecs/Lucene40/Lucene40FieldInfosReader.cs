@@ -1,6 +1,8 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Index;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -21,16 +23,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Lucene 4.0 FieldInfos reader.
@@ -102,7 +104,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     // DV Types are packed in one byte
                     byte val = input.ReadByte();
                     LegacyDocValuesType oldValuesType = GetDocValuesType((sbyte)(val & 0x0F));
-                    LegacyDocValuesType oldNormsType = GetDocValuesType((sbyte)(((int)((uint)val >> 4)) & 0x0F));
+                    LegacyDocValuesType oldNormsType = GetDocValuesType((sbyte)(val.TripleShift(4) & 0x0F));
                     IDictionary<string, string> attributes = input.ReadStringStringMap();
                     if (oldValuesType.GetMapping() != DocValuesType.NONE)
                     {
@@ -143,19 +145,19 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /*internal enum LegacyDocValuesType
         {
           NONE = null,
-          VAR_INTS = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FLOAT_32 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FLOAT_64 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          BYTES_FIXED_STRAIGHT = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          BYTES_FIXED_DEREF = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          BYTES_VAR_STRAIGHT = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          BYTES_VAR_DEREF = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
-          FIXED_INTS_16 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FIXED_INTS_32 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FIXED_INTS_64 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          FIXED_INTS_8 = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
-          BYTES_FIXED_SORTED = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED,
-          BYTES_VAR_SORTED = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED
+          VAR_INTS  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FLOAT_32  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FLOAT_64  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          BYTES_FIXED_STRAIGHT  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          BYTES_FIXED_DEREF  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          BYTES_VAR_STRAIGHT  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          BYTES_VAR_DEREF  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.BINARY,
+          FIXED_INTS_16  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FIXED_INTS_32  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FIXED_INTS_64  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          FIXED_INTS_8  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.NUMERIC,
+          BYTES_FIXED_SORTED  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED,
+          BYTES_VAR_SORTED  = YAF.Lucene.Net.Index.FieldInfo.DocValuesType_e.SORTED
         }*/
 
         // decodes a 4.0 type
@@ -186,11 +188,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
     internal static class LegacyDocValuesTypeExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DocValuesType GetMapping(this LegacyDocValuesType legacyDocValuesType)
         {
             return mapping[legacyDocValuesType];
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static LegacyDocValuesType ToLegacyDocValuesType(this string name) // Was ValueOf in Java
         {
             return (LegacyDocValuesType)Enum.Parse(typeof(LegacyDocValuesType), name);

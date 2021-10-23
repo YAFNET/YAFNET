@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,17 +29,18 @@ namespace YAF.Pages.Admin
     using System;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Extensions;
 
     #endregion
@@ -47,7 +48,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Add or Edit User Rank Page.
     /// </summary>
-    public partial class editrank : AdminPage
+    public partial class EditRank : AdminPage
     {
         #region Methods
 
@@ -58,7 +59,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_ranks);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Ranks);
         }
 
         /// <summary>
@@ -68,6 +69,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
             if (this.IsPostBack)
             {
                 return;
@@ -81,10 +86,14 @@ namespace YAF.Pages.Admin
             var rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
             var rank = this.GetRepository<Rank>().GetById(rankId);
 
-            var flags = new RankFlags(rank.Flags);
+            if (rank == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
             this.Name.Text = rank.Name;
-            this.IsStart.Checked = flags.IsStart;
-            this.IsLadder.Checked = flags.IsLadder;
+            this.IsStart.Checked = rank.RankFlags.IsStart;
+            this.IsLadder.Checked = rank.RankFlags.IsLadder;
             this.MinPosts.Text = rank.MinPosts.ToString();
             this.PMLimit.Text = rank.PMLimit.ToString();
             this.Style.Text = rank.Style;
@@ -93,7 +102,6 @@ namespace YAF.Pages.Admin
             this.UsrAlbumImages.Text = rank.UsrAlbumImages.ToString();
             this.UsrSigChars.Text = rank.UsrSigChars.ToString();
             this.UsrSigBBCodes.Text = rank.UsrSigBBCodes;
-            this.UsrSigHTMLTags.Text = rank.UsrSigHTMLTags;
             this.Description.Text = rank.Description;
 
             this.DataBind();
@@ -105,17 +113,12 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), BuildLink.GetLink(ForumPages.admin_ranks));
+            this.PageLinks.AddLink(this.GetText("ADMIN_RANKS", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Ranks));
 
             // current page label (no link)
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITRANK", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_RANKS", "TITLE")} - {this.GetText("ADMIN_EDITRANK", "TITLE")}";
         }
 
         /// <summary>
@@ -163,38 +166,29 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            // Group
-            var rankID = 0;
+            // Rank
+            int? rankId = null;
             if (this.Get<HttpRequestBase>().QueryString.Exists("r"))
             {
-                rankID = int.Parse(this.Request.QueryString.GetFirstOrDefault("r"));
+                rankId = this.Request.QueryString.GetFirstOrDefaultAs<int>("r");
             }
 
             this.GetRepository<Rank>().Save(
-                rankID,
+                rankId,
                 this.PageContext.PageBoardID,
                 this.Name.Text,
-                this.IsStart.Checked,
-                this.IsLadder.Checked,
-                this.MinPosts.Text,
+                new RankFlags { IsStart = this.IsStart.Checked, IsLadder = this.IsLadder.Checked },
+                this.MinPosts.Text.ToType<int>(),
                 this.PMLimit.Text.Trim().ToType<int>(),
                 this.Style.Text.Trim(),
-                this.RankPriority.Text.Trim(),
+                this.RankPriority.Text.Trim().ToType<short>(),
                 this.Description.Text,
                 this.UsrSigChars.Text.Trim().ToType<int>(),
                 this.UsrSigBBCodes.Text.Trim(),
-                this.UsrSigHTMLTags.Text.Trim(),
                 this.UsrAlbums.Text.Trim().ToType<int>(),
                 this.UsrAlbumImages.Text.Trim().ToType<int>());
 
-            // Clearing cache with old permissions data...
-            this.Get<IDataCache>().RemoveOf<object>(
-                k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
-
-            // Clear Styling Caching
-            this.Get<IDataCache>().Remove(Constants.Cache.GroupRankStyles);
-
-            BuildLink.Redirect(ForumPages.admin_ranks);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Ranks);
         }
 
         #endregion

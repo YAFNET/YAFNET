@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Console  = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
 {
@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
             {
                 input.Dispose();
             }
-            catch (IOException e)
+            catch (Exception e) when (e.IsIOException())
             {
                 Console.Error.WriteLine("Caught: " + e + "; ignoring.");
             }

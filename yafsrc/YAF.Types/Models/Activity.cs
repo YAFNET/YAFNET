@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,7 +24,6 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
@@ -35,7 +34,6 @@ namespace YAF.Types.Models
     /// A class which represents the Activity table.
     /// </summary>
     [Serializable]
-    [Table(Name = "Activity")]
     public class Activity : IEntity, IHaveID
     {
         #region Properties
@@ -67,7 +65,7 @@ namespace YAF.Types.Models
         [Ignore]
         public ActivityFlags ActivityFlags
         {
-            get => new ActivityFlags(this.Flags);
+            get => new(this.Flags);
 
             set => this.Flags = value.BitValue;
         }
@@ -90,44 +88,8 @@ namespace YAF.Types.Models
         /// <summary>
         /// Gets or sets a value indicating whether notification.
         /// </summary>
-        [Default(0)]
+        [Default(typeof(bool), "0")]
         public bool Notification { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether created topic.
-        /// </summary>
-        [Compute]
-        public bool CreatedTopic { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether created reply.
-        /// </summary>
-        [Compute]
-        public bool CreatedReply { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether was mentioned.
-        /// </summary>
-        [Compute]
-        public bool WasMentioned { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether received thanks.
-        /// </summary>
-        [Compute]
-        public bool ReceivedThanks { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether given thanks.
-        /// </summary>
-        [Compute]
-        public bool GivenThanks { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether was quoted.
-        /// </summary>
-        [Compute]
-        public bool WasQuoted { get; set; }
 
         #endregion
     }

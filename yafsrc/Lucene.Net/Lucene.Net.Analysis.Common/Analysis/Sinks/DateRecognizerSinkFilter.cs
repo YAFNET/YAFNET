@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Globalization;
@@ -143,14 +144,14 @@ namespace YAF.Lucene.Net.Analysis.Sinks
                 m_termAtt = source.AddAttribute<ICharTermAttribute>();
             }
 
-            DateTime date; //We don't care about the date, just that we can parse it as a date
+            //We don't care about the date, just that we can parse it as a date
             if (m_formats == null)
             {
-                return DateTime.TryParse(m_termAtt.ToString(), m_culture, m_style, out date);
+                return DateTime.TryParse(m_termAtt.ToString(), m_culture, m_style, out _);
             }
             else
             {
-                return DateTime.TryParseExact(m_termAtt.ToString(), m_formats, m_culture, m_style, out date);
+                return DateTime.TryParseExact(m_termAtt.ToString(), m_formats, m_culture, m_style, out _);
             }
         }
     }

@@ -1,21 +1,25 @@
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.AttachmentsUpload" CodeBehind="AttachmentsUpload.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Dialogs.AttachmentsUpload" CodeBehind="AttachmentsUpload.ascx.cs" %>
 
 
 <div class="modal fade" id="UploadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-          <h5 class="modal-title" id="myModalLabel"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_TITLE") %></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+          <h5 class="modal-title" id="myModalLabel">
+              <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_TITLE") %>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4><YAF:LocalizedLabel ID="SelectFile" LocalizedTag="SELECT_FILE" LocalizedPage="ATTACHMENTS" runat="server" /></h4>
+        <h4>
+            <YAF:LocalizedLabel ID="SelectFile"
+                                LocalizedTag="SELECT_FILE"
+                                LocalizedPage="ATTACHMENTS" runat="server" />
+        </h4>
         <div>
             <div id="fileupload">
                       <div class="fileupload-buttonbar">
-                          <div id="dropzone" class="card text-white bg-dark border-danger mb-3">
+                          <div id="dropzone" class="card link-light bg-dark border-danger mb-3">
                               <div class="card-body">
                                   <p class="card-text"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></p>
                               </div>
@@ -35,8 +39,8 @@
                           </div>
                           <div class="col-lg-5 fileupload-progress fade">
                               <!-- The global progress bar -->
-                              <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                  <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                              <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                  <div class="progress-bar progress-bar-striped bg-success" style="width:0%;"></div>
                               </div>
                               <!-- The extended global progress state -->
                               <div class="progress-extended">&nbsp;</div>
@@ -54,7 +58,7 @@
       <small class="text-muted size">Processing...</small>
     </div>
     <div class="mb-1"> <p class="name">{%=file.name%}</p>
-                                  <strong class="error"></strong>
+                                  <strong class="error text-danger"></strong>
                                   <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
    </div>
     <small class="text-muted"><div class="btn-group" role="group">
@@ -65,23 +69,23 @@
                                       <button class="btn btn-danger btn-sm cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
                                   {% } %}</div></small>
   </li>
-                         
+
                       {% } %}
                   </script>
 
                   <script id="template-download" type="text/x-tmpl">
                   </script>
         </div>
-
-            <asp:PlaceHolder ID="UploadNodePlaceHold" runat="server">
-                <div class="alert alert-info" role="alert">
-                    <asp:Label ID="UploadNote" runat="server"></asp:Label>
-                </div>
-            </asp:PlaceHolder>
       </div>
       <div class="modal-footer">
+          <asp:PlaceHolder ID="UploadNodePlaceHold" runat="server">
+              <YAF:Alert runat="server" Type="warning"><asp:Label ID="UploadNote" runat="server"></asp:Label></YAF:Alert>
+          </asp:PlaceHolder>
         <div class="alert alert-info" role="alert">
-                <strong><YAF:LocalizedLabel ID="ExtensionTitle" LocalizedTag="ALLOWED_EXTENSIONS" runat="server" />:</strong>&nbsp;<asp:Label ID="ExtensionsList" runat="server"></asp:Label>
+                <strong><YAF:LocalizedLabel ID="ExtensionTitle"
+                                            LocalizedTag="ALLOWED_EXTENSIONS" runat="server" /></strong>
+            &nbsp;
+            <asp:Label ID="ExtensionsList" runat="server"></asp:Label>
         </div>
       </div>
     </div>

@@ -11,22 +11,27 @@
                                                 LocalizedTag="TITLE" 
                                                 LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">
                         <!-- Modal Content START !-->
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel1" runat="server"
                                            AssociatedControlID="mask"
                                            LocalizedTag="MASK" LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
                             <asp:TextBox ID="mask" runat="server"
                                          CssClass="form-control" 
                                          Height="100"
-                                         TextMode="MultiLine"></asp:TextBox>
+                                         TextMode="MultiLine" 
+                                         required="required"/>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server" 
+                                                    LocalizedPage="ADMIN_BANNEDNAME_EDIT"
+                                                    LocalizedTag="NEED_MASK" />
+                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="mb-3">
                             <YAF:HelpLabel ID="HelpLabel2" runat="server" 
                                            AssociatedControlID="BanReason"
                                            LocalizedTag="REASON" LocalizedPage="ADMIN_BANNEDNAME_EDIT" />
@@ -40,6 +45,7 @@
                         <YAF:ThemeButton id="Save" runat="server" 
                                          OnClick="Save_OnClick"
                                          TextLocalizedTag="ADMIN_BANNEDNAME_EDIT" TextLocalizedPage="SAVE"
+                                         CausesValidation="True"
                                          Type="Primary" 
                                          Icon="save">
                         </YAF:ThemeButton>

@@ -21,97 +21,104 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
-  #region Using
+    #region Using
 
-  using System;
-  using System.Web;
-  using System.Web.Caching;
+    using System;
+    using System.Runtime.Caching;
+    using System.Web;
+    using System.Web.Caching;
 
-  using YAF.Types;
-  using YAF.Types.Extensions;
-  using YAF.Types.Interfaces;
+    using YAF.Core.Context;
+    using YAF.Types;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
-  #endregion
-
-  /// <summary>
-  /// The captcha helper.
-  /// </summary>
-  public static class CaptchaHelper
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// Gets the CaptchaString using the BoardSettings
-    /// </summary>
-    /// <returns>
-    /// The get captcha string.
-    /// </returns>
-    public static string GetCaptchaString()
-    {
-      return StringExtensions.GenerateRandomString(
-        BoardContext.Current.BoardSettings.CaptchaSize, "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
-    }
-
-    /// <summary>
-    /// The get captcha text.
-    /// </summary>
-    /// <param name="session">
-    /// </param>
-    /// <param name="cache">
-    /// The cache.
-    /// </param>
-    /// <param name="forceNew">
-    /// The force New.
-    /// </param>
-    /// <returns>
-    /// The get captcha text.
-    /// </returns>
-    public static string GetCaptchaText([NotNull] HttpSessionStateBase session, [NotNull] Cache cache, bool forceNew)
-    {
-      CodeContracts.VerifyNotNull(session, "session");
-
-      var cacheName = $"Session{session.SessionID}CaptchaImageText";
-
-      if (!forceNew && cache[cacheName] != null)
-      {
-        return cache[cacheName].ToString();
-      }
-
-      var text = GetCaptchaString();
-
-      if (cache[cacheName] != null)
-      {
-        cache[cacheName] = text;
-      }
-      else
-      {
-        cache.Add(
-          cacheName, text, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(10), CacheItemPriority.Low, null);
-      }
-
-      return text;
-    }
-
-    /// <summary>
-    /// The is valid.
-    /// </summary>
-    /// <param name="captchaText">
-    /// The captcha text.
-    /// </param>
-    /// <returns>
-    /// The is valid.
-    /// </returns>
-    public static bool IsValid([NotNull] string captchaText)
-    {
-      CodeContracts.VerifyNotNull(captchaText, "captchaText");
-
-      var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), HttpRuntime.Cache, false);
-
-      return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
-    }
-
+    
     #endregion
-  }
+
+    /// <summary>
+    /// The captcha helper.
+    /// </summary>
+    public static class CaptchaHelper
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the CaptchaString using the BoardSettings
+        /// </summary>
+        /// <returns>
+        /// The get captcha string.
+        /// </returns>
+        public static string GetCaptchaString()
+        {
+            return StringExtensions.GenerateRandomString(
+                BoardContext.Current.BoardSettings.CaptchaSize,
+                "abcdefghijkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ123456789");
+        }
+
+        /// <summary>
+        /// The get captcha text.
+        /// </summary>
+        /// <param name="session">
+        /// The session.
+        /// </param>
+        /// <param name="cache">
+        /// The cache.
+        /// </param>
+        /// <param name="forceNew">
+        /// The force New.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public static string GetCaptchaText(
+            [NotNull] HttpSessionStateBase session,
+            [NotNull] MemoryCache cache,
+            bool forceNew)
+        {
+            CodeContracts.VerifyNotNull(session, "session");
+
+            var cacheName = $"Session{session.SessionID}CaptchaImageText";
+
+            if (!forceNew && cache[cacheName] != null)
+            {
+                return cache[cacheName].ToString();
+            }
+
+            var text = GetCaptchaString();
+
+            if (cache[cacheName] != null)
+            {
+                cache[cacheName] = text;
+            }
+            else
+            {
+                cache.Add(cacheName, text, Cache.NoAbsoluteExpiration);
+            }
+
+            return text;
+        }
+
+        /// <summary>
+        /// The is valid.
+        /// </summary>
+        /// <param name="captchaText">
+        /// The captcha text.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        public static bool IsValid([NotNull] string captchaText)
+        {
+            CodeContracts.VerifyNotNull(captchaText, "captchaText");
+
+            var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), MemoryCache.Default, false);
+
+            return string.Compare(text, captchaText, StringComparison.InvariantCultureIgnoreCase) == 0;
+        }
+
+        #endregion
+    }
 }

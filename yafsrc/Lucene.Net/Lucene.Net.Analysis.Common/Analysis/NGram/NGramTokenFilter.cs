@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Miscellaneous;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Miscellaneous;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
@@ -89,7 +90,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
                 CharacterUtils.GetInstance(version) : CharacterUtils.GetJava4Instance(version);
             if (minGram < 1)
             {
-                throw new ArgumentException("minGram must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(minGram), "minGram must be greater than zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (minGram > maxGram)
             {
@@ -106,14 +107,14 @@ namespace YAF.Lucene.Net.Analysis.NGram
             }
             else
             {
-                posIncAtt = new PositionIncrementAttributeAnonymousInnerClassHelper();
-                posLenAtt = new PositionLengthAttributeAnonymousInnerClassHelper();
+                posIncAtt = new PositionIncrementAttributeAnonymousClass();
+                posLenAtt = new PositionLengthAttributeAnonymousClass();
             }
             termAtt = AddAttribute<ICharTermAttribute>();
             offsetAtt = AddAttribute<IOffsetAttribute>();
         }
 
-        private class PositionIncrementAttributeAnonymousInnerClassHelper : PositionIncrementAttribute
+        private class PositionIncrementAttributeAnonymousClass : PositionIncrementAttribute
         {
             public override int PositionIncrement
             {
@@ -122,7 +123,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
             }
         }
 
-        private class PositionLengthAttributeAnonymousInnerClassHelper : PositionLengthAttribute
+        private class PositionLengthAttributeAnonymousClass : PositionLengthAttribute
         {
             public override int PositionLength
             {

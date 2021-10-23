@@ -1,4 +1,6 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using J2N.Numerics;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using System;
 using System.Collections;
@@ -46,14 +48,14 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         public override FunctionValues GetValues(IDictionary context, AtomicReaderContext readerContext)
         {
-            return new DoubleDocValuesAnonymousInnerClassHelper(this, this);
+            return new DoubleDocValuesAnonymousClass(this, this);
         }
 
-        private class DoubleDocValuesAnonymousInnerClassHelper : DoubleDocValues
+        private class DoubleDocValuesAnonymousClass : DoubleDocValues
         {
             private readonly DoubleConstValueSource outerInstance;
 
-            public DoubleDocValuesAnonymousInnerClassHelper(DoubleConstValueSource outerInstance, DoubleConstValueSource @this)
+            public DoubleDocValuesAnonymousClass(DoubleConstValueSource outerInstance, DoubleConstValueSource @this)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;
@@ -107,7 +109,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         public override int GetHashCode()
         {
             long bits = J2N.BitConversion.DoubleToRawInt64Bits(constant);
-            return (int)(bits ^ ((long)((ulong)bits >> 32)));
+            return (int)(bits ^ (bits.TripleShift(32)));
         }
 
         public override bool Equals(object o)

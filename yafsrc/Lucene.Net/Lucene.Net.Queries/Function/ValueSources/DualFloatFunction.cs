@@ -1,4 +1,6 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using J2N.Numerics;
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using System.Collections;
@@ -35,7 +37,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         /// <param name="a">  the base. </param>
         /// <param name="b">  the exponent. </param>
-        public DualSingleFunction(ValueSource a, ValueSource b)
+        protected DualSingleFunction(ValueSource a, ValueSource b) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
             this.m_a = a;
             this.m_b = b;
@@ -53,17 +55,17 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
             FunctionValues aVals = m_a.GetValues(context, readerContext);
             FunctionValues bVals = m_b.GetValues(context, readerContext);
-            return new SingleDocValuesAnonymousInnerClassHelper(this, this, aVals, bVals);
+            return new SingleDocValuesAnonymousClass(this, this, aVals, bVals);
         }
 
-        private class SingleDocValuesAnonymousInnerClassHelper : SingleDocValues
+        private class SingleDocValuesAnonymousClass : SingleDocValues
         {
             private readonly DualSingleFunction outerInstance;
 
             private readonly FunctionValues aVals;
             private readonly FunctionValues bVals;
 
-            public SingleDocValuesAnonymousInnerClassHelper(DualSingleFunction outerInstance, DualSingleFunction @this, FunctionValues aVals, FunctionValues bVals)
+            public SingleDocValuesAnonymousClass(DualSingleFunction outerInstance, DualSingleFunction @this, FunctionValues aVals, FunctionValues bVals)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;
@@ -94,9 +96,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         public override int GetHashCode()
         {
             int h = m_a.GetHashCode();
-            h ^= (h << 13) | ((int)((uint)h >> 20));
+            h ^= (h << 13) | (h.TripleShift(20));
             h += m_b.GetHashCode();
-            h ^= (h << 23) | ((int)((uint)h >> 10));
+            h ^= (h << 23) | (h.TripleShift(10));
             h += Name.GetHashCode();
             return h;
         }

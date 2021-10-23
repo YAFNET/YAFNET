@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Support;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -20,15 +22,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
 
     [Obsolete("(4.0) this is only used to read indexes created before 4.0.")]
     internal sealed class Lucene3xSkipListReader : MultiLevelSkipListReader
     {
         private bool currentFieldStoresPayloads;
-        private long[] freqPointer;
-        private long[] proxPointer;
-        private int[] payloadLength;
+        private readonly long[] freqPointer; // LUCENENET: marked readonly
+        private readonly long[] proxPointer; // LUCENENET: marked readonly
+        private readonly int[] payloadLength; // LUCENENET: marked readonly
 
         private long lastFreqPointer;
         private long lastProxPointer;
@@ -73,6 +75,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// </summary>
         public int PayloadLength => lastPayloadLength;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void SeekChild(int level)
         {
             base.SeekChild(level);
@@ -81,6 +84,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             payloadLength[level] = lastPayloadLength;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void SetLastSkipData(int level)
         {
             base.SetLastSkipData(level);
@@ -104,7 +108,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 {
                     payloadLength[level] = skipStream.ReadVInt32();
                 }
-                delta = (int)((uint)delta >> 1);
+                delta = delta.TripleShift(1);
             }
             else
             {

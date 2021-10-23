@@ -1,8 +1,7 @@
-using J2N;
+﻿using J2N;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
@@ -24,21 +23,21 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
     using Document = Documents.Document;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IIndexableField = YAF.Lucene.Net.Index.IIndexableField;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
-    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IIndexableField  = YAF.Lucene.Net.Index.IIndexableField;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using MergeState  = YAF.Lucene.Net.Index.MergeState;
+    using SegmentReader  = YAF.Lucene.Net.Index.SegmentReader;
 
     /// <summary>
     /// Class responsible for writing stored document fields.
@@ -51,12 +50,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     public sealed class Lucene40StoredFieldsWriter : StoredFieldsWriter
     {
         // NOTE: bit 0 is free here!  You can steal it!
-        internal static readonly int FIELD_IS_BINARY = 1 << 1;
+        internal const int FIELD_IS_BINARY = 1 << 1;
 
         // the old bit 1 << 2 was compressed, is now left out
 
         private const int _NUMERIC_BIT_SHIFT = 3;
-        internal static readonly int FIELD_IS_NUMERIC_MASK = 0x07 << _NUMERIC_BIT_SHIFT;
+        internal const int FIELD_IS_NUMERIC_MASK = 0x07 << _NUMERIC_BIT_SHIFT;
 
         internal const int FIELD_IS_NUMERIC_INT = 1 << _NUMERIC_BIT_SHIFT;
         internal const int FIELD_IS_NUMERIC_LONG = 2 << _NUMERIC_BIT_SHIFT;
@@ -84,8 +83,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         private readonly Directory directory;
         private readonly string segment;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private IndexOutput fieldsStream;
         private IndexOutput indexStream;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -105,8 +106,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 CodecUtil.WriteHeader(indexStream, CODEC_NAME_IDX, VERSION_CURRENT);
                 if (Debugging.AssertsEnabled)
                 {
-                    Debugging.Assert(HEADER_LENGTH_DAT == fieldsStream.GetFilePointer());
-                    Debugging.Assert(HEADER_LENGTH_IDX == indexStream.GetFilePointer());
+                    Debugging.Assert(HEADER_LENGTH_DAT == fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
+                    Debugging.Assert(HEADER_LENGTH_IDX == indexStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
                 success = true;
             }
@@ -123,12 +124,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         // and adds a new entry for this document into the index
         // stream.  this assumes the buffer was already written
         // in the correct fields format.
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void StartDocument(int numStoredFields)
         {
-            indexStream.WriteInt64(fieldsStream.GetFilePointer());
+            indexStream.WriteInt64(fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             fieldsStream.WriteVInt32(numStoredFields);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -151,7 +154,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             {
                 Dispose();
             }
-            catch (Exception)
+            catch (Exception ignored) when (ignored.IsThrowable())
             {
             }
             IOUtils.DeleteFilesIgnoringExceptions(directory, IndexFileNames.SegmentFileName(segment, "", FIELDS_EXTENSION), IndexFileNames.SegmentFileName(segment, "", FIELDS_INDEX_EXTENSION));
@@ -214,7 +217,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 }
             }
 
-            fieldsStream.WriteByte((byte)(sbyte)bits);
+            fieldsStream.WriteByte((byte)bits);
 
             if (bytes != null)
             {
@@ -244,7 +247,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                         fieldsStream.WriteInt64(BitConversion.DoubleToInt64Bits(field.GetDoubleValue().Value));
                         break;
                     default:
-                        throw new InvalidOperationException("Cannot get here");
+                        throw AssertionError.Create("Cannot get here");
                 }
             }
         }
@@ -258,7 +261,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// </summary>
         public void AddRawDocuments(IndexInput stream, int[] lengths, int numDocs)
         {
-            long position = fieldsStream.GetFilePointer();
+            long position = fieldsStream.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             long start = position;
             for (int i = 0; i < numDocs; i++)
             {
@@ -266,19 +269,20 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 position += lengths[i];
             }
             fieldsStream.CopyBytes(stream, position - start);
-            if (Debugging.AssertsEnabled) Debugging.Assert(fieldsStream.GetFilePointer() == position);
+            if (Debugging.AssertsEnabled) Debugging.Assert(fieldsStream.Position == position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Finish(FieldInfos fis, int numDocs)
         {
-            if (HEADER_LENGTH_IDX + ((long)numDocs) * 8 != indexStream.GetFilePointer())
+            if (HEADER_LENGTH_IDX + ((long)numDocs) * 8 != indexStream.Position) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             // this is most likely a bug in Sun JRE 1.6.0_04/_05;
             // we detect that the bug has struck, here, and
             // throw an exception to prevent the corruption from
             // entering the index.  See LUCENE-1282 for
             // details.
             {
-                throw new Exception("fdx size mismatch: docCount is " + numDocs + " but fdx file size is " + indexStream.GetFilePointer() + " file=" + indexStream.ToString() + "; now aborting this merge to prevent index corruption");
+                throw RuntimeException.Create("fdx size mismatch: docCount is " + numDocs + " but fdx file size is " + indexStream.Position + " file=" + indexStream.ToString() + "; now aborting this merge to prevent index corruption");
             }
         }
 
@@ -298,9 +302,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                 {
                     StoredFieldsReader fieldsReader = matchingSegmentReader.FieldsReader;
                     // we can only bulk-copy if the matching reader is also a Lucene40FieldsReader
-                    if (fieldsReader != null && fieldsReader is Lucene40StoredFieldsReader)
+                    if (fieldsReader != null && fieldsReader is Lucene40StoredFieldsReader lucene40StoredFieldsReader)
                     {
-                        matchingFieldsReader = (Lucene40StoredFieldsReader)fieldsReader;
+                        matchingFieldsReader = lucene40StoredFieldsReader;
                     }
                 }
 

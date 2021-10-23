@@ -2,9 +2,9 @@ using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Support.IO;
 using System;
 using System.IO;
-using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Console  = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -72,11 +72,13 @@ namespace YAF.Lucene.Net.Util
             this.m_messageID = messageID;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Message(string component, string message)
         {
             m_stream.Write(component + " " + m_messageID + " [" + DateTime.Now + "; " + Thread.CurrentThread.Name + "]: " + message);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override bool IsEnabled(string component)
         {
             return true;

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,44 +30,35 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_ForumAccess table.
+    ///     A class which represents the ForumAccess table.
     /// </summary>
     [Serializable]
-    public partial class ForumAccess : IEntity
+    [CompositePrimaryKey(nameof(GroupID), nameof(ForumID))]
+    public class ForumAccess : IEntity
     {
-        #region Constructors and Destructors
-
-        public ForumAccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the group id.
+        /// </summary>
         [References(typeof(Group))]
         [Required]
         public int GroupID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         [Index]
         public int ForumID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the access mask id.
+        /// </summary>
         [References(typeof(AccessMask))]
         [Required]
         public int AccessMaskID { get; set; }
-
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,19 +28,19 @@ namespace YAF.Pages.Moderate
 
     using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -51,9 +51,9 @@ namespace YAF.Pages.Moderate
     public partial class Index : ModerateForumPage
     {
         /// <summary>
-        /// The userListDataTable.
+        /// The forums.
         /// </summary>
-        private IEnumerable<DataRow> forumsTable;
+        private List<ModerateForum> forumsList;
 
         #region Constructors and Destructors
 
@@ -100,7 +100,7 @@ namespace YAF.Pages.Moderate
 
             var category = (Category)e.Item.DataItem;
 
-            var forums = this.forumsTable.Where(row => row.Field<int>("CategoryID") == category.ID);
+            var forums = this.forumsList.Where(f => f.CategoryID == category.ID);
 
             var forumRepeater = e.Item.FindControlAs<Repeater>("ForumList");
 
@@ -128,12 +128,12 @@ namespace YAF.Pages.Moderate
                 case "viewunapprovedposts":
 
                     // go to unapproved posts for selected forum
-                    BuildLink.Redirect(ForumPages.Moderate_UnapprovedPosts, "f={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_UnapprovedPosts, "f={0}", e.CommandArgument);
                     break;
                 case "viewreportedposts":
 
                     // go to spam reports for selected forum
-                    BuildLink.Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", e.CommandArgument);
                     break;
             }
         }
@@ -151,9 +151,6 @@ namespace YAF.Pages.Moderate
                 return;
             }
 
-            // create page links
-            this.CreatePageLinks();
-
             // bind data
             this.BindData();
         }
@@ -163,9 +160,8 @@ namespace YAF.Pages.Moderate
         /// </summary>
         private void BindData()
         {
-            this.forumsTable = this.GetRepository<Forum>()
-                .ModerateListAsDataTable(this.PageContext.PageUserID, this.PageContext.PageBoardID).Rows
-                .Cast<DataRow>();
+            this.forumsList = this.GetRepository<Forum>()
+                .ModerateList(this.PageContext.PageUserID, this.PageContext.PageBoardID);
 
             this.CategoryList.DataSource = this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder);
 

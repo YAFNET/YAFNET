@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -34,20 +34,9 @@ namespace YAF.Types.Models
     ///     A class which represents the ActiveAccess table.
     /// </summary>
     [Serializable]
-    public partial class ActiveAccess : IEntity, IHaveBoardID
+    [CompositePrimaryKey(nameof(UserID), nameof(ForumID))]
+    public class ActiveAccess : IEntity, IHaveBoardID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ActiveAccess"/> class.
-        /// </summary>
-        public ActiveAccess()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
         /// <summary>
@@ -95,7 +84,7 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether is guest x.
         /// </summary>
         [Required]
-        [Default(0)]
+        [Default(typeof(bool), "1")]
         public bool IsGuestX { get; set; }
 
         /// <summary>
@@ -155,7 +144,6 @@ namespace YAF.Types.Models
         /// Gets or sets the user id.
         /// </summary>
         [Required]
-        [PrimaryKey]
         public int UserID { get; set; }
 
         /// <summary>
@@ -163,15 +151,6 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         public bool VoteAccess { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

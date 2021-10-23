@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.IO;
 
@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Analysis
         /// Construct a token stream processing the given input. </summary>
         protected internal Tokenizer(TextReader input)
         {
-            this.inputPending = input ?? throw new ArgumentNullException(nameof(input), "input must not be null");
+            this.inputPending = input ?? throw new ArgumentNullException(nameof(input), "input must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Analysis
         protected internal Tokenizer(AttributeFactory factory, TextReader input)
             : base(factory)
         {
-            this.inputPending = input ?? throw new ArgumentNullException(nameof(input), "input must not be null");
+            this.inputPending = input ?? throw new ArgumentNullException(nameof(input), "input must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
         /// <summary>
@@ -73,6 +73,7 @@ namespace YAF.Lucene.Net.Analysis
             if (disposing)
             {
                 m_input.Dispose();
+                inputPending.Dispose(); // LUCENENET specific: call dispose on input pending
                 // LUCENE-2387: don't hold onto TextReader after close, so
                 // GC can reclaim
                 inputPending = ILLEGAL_STATE_READER;
@@ -88,7 +89,7 @@ namespace YAF.Lucene.Net.Analysis
         /// <seealso cref="CharFilter.CorrectOffset(int)"/>
         protected internal int CorrectOffset(int currentOff)
         {
-            return (m_input is CharFilter) ? ((CharFilter)m_input).CorrectOffset(currentOff) : currentOff;
+            return (m_input is CharFilter charFilter) ? charFilter.CorrectOffset(currentOff) : currentOff;
         }
 
         /// <summary>
@@ -98,13 +99,13 @@ namespace YAF.Lucene.Net.Analysis
         /// </summary>
         public void SetReader(TextReader input)
         {
-            if (input == null)
+            if (input is null)
             {
-                throw new ArgumentNullException("value", "input must not be null");
+                throw new ArgumentNullException(nameof(input), "input must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             else if (this.m_input != ILLEGAL_STATE_READER)
             {
-                throw new InvalidOperationException("TokenStream contract violation: Close() call missing");
+                throw IllegalStateException.Create("TokenStream contract violation: Close() call missing");
             }
             this.inputPending = input;
             if (Debugging.AssertsEnabled) Debugging.Assert(SetReaderTestPoint());
@@ -123,15 +124,15 @@ namespace YAF.Lucene.Net.Analysis
             return true;
         }
 
-        private static readonly TextReader ILLEGAL_STATE_READER = new ReaderAnonymousInnerClassHelper();
+        private static readonly TextReader ILLEGAL_STATE_READER = new ReaderAnonymousClass();
 
-        private class ReaderAnonymousInnerClassHelper : TextReader
+        private class ReaderAnonymousClass : TextReader
         {
             public override int Read(char[] cbuf, int off, int len)
             {
-                throw new InvalidOperationException("TokenStream contract violation: Reset()/Dispose() call missing, " 
+                throw IllegalStateException.Create("TokenStream contract violation: Reset()/Dispose() call missing, " 
                     + "Reset() called multiple times, or subclass does not call base.Reset(). "
-                    + "Please see Javadocs of TokenStream class for more information about the correct consuming workflow.");
+                    + "Please see the documentation of TokenStream class for more information about the correct consuming workflow.");
             }
 
             protected override void Dispose(bool disposing)

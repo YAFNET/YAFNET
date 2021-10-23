@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------------------------------------------------
 // <copyright company="Intelligencia" file="RewriterEngine.cs">
 //   Copyright (c)2011 Seth Yates
 //   //   Author Seth Yates
@@ -10,17 +10,17 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-
 namespace YAF.UrlRewriter
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Text.RegularExpressions;
     using System.Web;
-
+    using YAF.Types.Extensions;
     using YAF.UrlRewriter.Actions;
     using YAF.UrlRewriter.Conditions;
     using YAF.UrlRewriter.Configuration;
@@ -38,7 +38,7 @@ namespace YAF.UrlRewriter
         /// Constructor.
         /// </summary>
         /// <param name="httpContext">The HTTP context facade.</param>
-        /// <param param name="configurationManager">The configuration manager facade.</param>
+        /// <param name="configurationManager">The configuration manager facade.</param>
         /// <param name="configuration">The URL rewriter configuration.</param>
         public RewriterEngine(
             IHttpContext httpContext,
@@ -166,7 +166,7 @@ namespace YAF.UrlRewriter
                          * |	${[a-zA-Z0-9\-]+}
                          * |	${fn( <replacement> )}
                          * |	${<replacement-or-id>:<replacement-or-value>:<replacement-or-value>}
-                         * 
+                         *
                          * replacement-or-id :- <replacement> | <id>
                          * replacement-or-value :- <replacement> | <value>
                          */
@@ -206,71 +206,47 @@ namespace YAF.UrlRewriter
             this.ProcessRules(context, this._configuration.Rules, 0);
         }
 
-        private void ProcessRules(IRewriteContext context, IList<IRewriteAction> rewriteRules, int restarts)
+        private void ProcessRules(IRewriteContext context, IEnumerable<IRewriteAction> rewriteRules, int restarts)
         {
             foreach (var action in rewriteRules)
             {
                 // If the rule is conditional, ensure the conditions are met.
-                if (!(action is IRewriteCondition condition) || condition.IsMatch(context))
+                if (action is IRewriteCondition condition && !condition.IsMatch(context))
                 {
-                    // Execute the action.
-                    var processing = action.Execute(context);
+                    continue;
+                }
 
-                    // If the action is Stop, then break out of the processing loop
-                    if (processing == RewriteProcessing.StopProcessing)
+                // Execute the action.
+                var processing = action.Execute(context);
+
+                // If the action is Stop, then break out of the processing loop
+                if (processing == RewriteProcessing.StopProcessing)
+                {
+                    this._configuration.Logger.Debug(MessageProvider.FormatString(Message.StoppingBecauseOfRule));
+
+                    // Exit the loop.
+                    break;
+                }
+
+                // If the action is Restart, then start again.
+                if (processing == RewriteProcessing.RestartProcessing)
+                {
+                    this._configuration.Logger.Debug(MessageProvider.FormatString(Message.RestartingBecauseOfRule));
+
+                    // Increment the number of restarts and check that we have not exceeded our max.
+                    restarts++;
+                    if (restarts > MaxRestarts)
                     {
-                        this._configuration.Logger.Debug(MessageProvider.FormatString(Message.StoppingBecauseOfRule));
-
-                        // Exit the loop.
-                        break;
+                        throw new InvalidOperationException(MessageProvider.FormatString(Message.TooManyRestarts));
                     }
 
-                    // If the action is Restart, then start again.
-                    if (processing == RewriteProcessing.RestartProcessing)
-                    {
-                        this._configuration.Logger.Debug(MessageProvider.FormatString(Message.RestartingBecauseOfRule));
+                    // Restart again from the first rule by calling this method recursively.
+                    this.ProcessRules(context, rewriteRules, restarts);
 
-                        // Increment the number of restarts and check that we have not exceeded our max.
-                        restarts++;
-                        if (restarts > MaxRestarts)
-                        {
-                            throw new InvalidOperationException(MessageProvider.FormatString(Message.TooManyRestarts));
-                        }
-
-                        // Restart again from the first rule by calling this method recursively.
-                        this.ProcessRules(context, rewriteRules, restarts);
-
-                        // Exit the loop.
-                        break;
-                    }
+                    // Exit the loop.
+                    break;
                 }
             }
-        }
-
-        private bool HandleDefaultDocument(IRewriteContext context)
-        {
-            var uri = new Uri(this._httpContext.RequestUrl, context.Location);
-            var b = new UriBuilder(uri);
-            b.Path += "/";
-            uri = b.Uri;
-            if (uri.Host == this._httpContext.RequestUrl.Host)
-            {
-                var filename = this._httpContext.MapPath(uri.AbsolutePath);
-                if (Directory.Exists(filename))
-                {
-                    foreach (var document in this._configuration.DefaultDocuments)
-                    {
-                        var pathName = Path.Combine(filename, document);
-                        if (File.Exists(pathName))
-                        {
-                            context.Location = new Uri(uri, document).AbsolutePath;
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
         }
 
         private void HandleError(IRewriteContext context)
@@ -286,7 +262,7 @@ namespace YAF.UrlRewriter
                 throw new HttpException((int)context.StatusCode, context.StatusCode.ToString());
             }
 
-            var handler = this._configuration.ErrorHandlers[(int) context.StatusCode];
+            var handler = this._configuration.ErrorHandlers[(int)context.StatusCode];
 
             try
             {
@@ -368,7 +344,7 @@ namespace YAF.UrlRewriter
             set => this._httpContext.Items[ContextQueryString] = value;
         }
 
-        private string Reduce(IRewriteContext context, StringReader reader)
+        private string Reduce(IRewriteContext context, TextReader reader)
         {
             string result;
             var ch = (char)reader.Read();
@@ -383,8 +359,8 @@ namespace YAF.UrlRewriter
 
                 if (context.LastMatch != null)
                 {
-                    var group = context.LastMatch.Groups[Convert.ToInt32(num)];
-                    result = @group == null ? string.Empty : group.Value;
+                    var group = context.LastMatch.Groups[num.ToType<int>()];
+                    result = group.Value;
                 }
                 else
                 {
@@ -418,7 +394,7 @@ namespace YAF.UrlRewriter
                 if (context.LastMatch != null)
                 {
                     var group = context.LastMatch.Groups[expr];
-                    result = @group == null ? string.Empty : group.Value;
+                    result = group == null ? string.Empty : group.Value;
                 }
                 else
                 {
@@ -442,13 +418,14 @@ namespace YAF.UrlRewriter
                         }
                         else
                         {
-                            if (ch == ':')
+                            switch (ch)
                             {
-                                isMap = true;
-                            }
-                            else if (ch == '(')
-                            {
-                                isFunction = true;
+                                case ':':
+                                    isMap = true;
+                                    break;
+                                case '(':
+                                    isFunction = true;
+                                    break;
                             }
 
                             writer.Write(ch);
@@ -505,8 +482,8 @@ namespace YAF.UrlRewriter
         private const string ContextQueryString = "UrlRewriter.NET.QueryString";
         private const string ContextOriginalQueryString = "UrlRewriter.NET.OriginalQueryString";
         private const string ContextRawUrl = "UrlRewriter.NET.RawUrl";
-        private IRewriterConfiguration _configuration;
-        private IHttpContext _httpContext;
-        private IConfigurationManager _configurationManager;
+        private readonly IRewriterConfiguration _configuration;
+        private readonly IHttpContext _httpContext;
+        private readonly IConfigurationManager _configurationManager;
     }
 }

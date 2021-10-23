@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.IO;
@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using Entry = YAF.Lucene.Net.Search.FieldValueHitQueue.Entry;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using Entry  = YAF.Lucene.Net.Search.FieldValueHitQueue.Entry;
 
     /// <summary>
     /// A <see cref="ICollector"/> that sorts by <see cref="SortField"/> using
@@ -1235,6 +1235,10 @@ namespace YAF.Lucene.Net.Search
         /// <exception cref="IOException"> If there is a low-level I/O error </exception>
         public static TopFieldCollector Create(Sort sort, int numHits, FieldDoc after, bool fillFields, bool trackDocScores, bool trackMaxScore, bool docsScoredInOrder)
         {
+            // LUCENENET specific: Added guard clause for null
+            if (sort is null)
+                throw new ArgumentNullException(nameof(sort));
+
             if (sort.fields.Length == 0)
             {
                 throw new ArgumentException("Sort must contain at least one field");
@@ -1247,7 +1251,7 @@ namespace YAF.Lucene.Net.Search
 
             FieldValueHitQueue<Entry> queue = FieldValueHitQueue.Create<Entry>(sort.fields, numHits);
 
-            if (after == null)
+            if (after is null)
             {
                 if (queue.Comparers.Length == 1)
                 {
@@ -1319,12 +1323,12 @@ namespace YAF.Lucene.Net.Search
             {
                 if (after.Fields == null)
                 {
-                    throw new ArgumentException("after.fields wasn't set; you must pass fillFields=true for the previous search");
+                    throw new ArgumentException("after.Fields wasn't set; you must pass fillFields=true for the previous search");
                 }
 
                 if (after.Fields.Length != sort.GetSort().Length)
                 {
-                    throw new ArgumentException("after.fields has " + after.Fields.Length + " values but sort has " + sort.GetSort().Length);
+                    throw new ArgumentException("after.Fields has " + after.Fields.Length + " values but sort has " + sort.GetSort().Length);
                 }
 
                 return new PagingFieldCollector(queue, after, numHits, fillFields, trackDocScores, trackMaxScore);

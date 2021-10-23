@@ -30,124 +30,124 @@ namespace YAF.Core.BBCode.ReplaceRules
     using YAF.Types.Interfaces;
 
     /// <summary>
-  /// For basic regex with no variables
-  /// </summary>
-  public class SimpleRegexReplaceRule : BaseReplaceRule
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    ///   The _reg ex replace.
+    /// For basic regex with no variables
     /// </summary>
-    protected string _regExReplace;
-
-    /// <summary>
-    ///   The _reg ex search.
-    /// </summary>
-    protected Regex _regExSearch;
-
-    #endregion
-
-    #region Constructors and Destructors
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    /// <param name="regExOptions">
-    /// The reg ex options.
-    /// </param>
-    public SimpleRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
+    public class SimpleRegexReplaceRule : BaseReplaceRule
     {
-      this._regExSearch = new Regex(regExSearch, regExOptions);
-      this._regExReplace = regExReplace;
+        #region Constants and Fields
+
+        /// <summary>
+        ///   The replace regex.
+        /// </summary>
+        protected readonly string RegExReplace;
+
+        /// <summary>
+        ///   The search regex.
+        /// </summary>
+        protected readonly Regex RegExSearch;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The Search Regex
+        /// </param>
+        /// <param name="regExReplace">
+        /// The Replace Regex.
+        /// </param>
+        /// <param name="regExOptions">
+        /// The Regex options.
+        /// </param>
+        public SimpleRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
+        {
+            this.RegExSearch = new Regex(regExSearch, regExOptions);
+            this.RegExReplace = regExReplace;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SimpleRegexReplaceRule"/> class.
+        /// </summary>
+        /// <param name="regExSearch">
+        /// The regex search.
+        /// </param>
+        /// <param name="regExReplace">
+        /// The regex replace.
+        /// </param>
+        public SimpleRegexReplaceRule(Regex regExSearch, string regExReplace)
+        {
+            this.RegExSearch = regExSearch;
+            this.RegExReplace = regExReplace;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///   Gets RuleDescription.
+        /// </summary>
+        public override string RuleDescription => $"RegExSearch = \"{this.RegExSearch}\"";
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// The replace.
+        /// </summary>
+        /// <param name="text">
+        /// The text.
+        /// </param>
+        /// <param name="replacement">
+        /// The replacement.
+        /// </param>
+        public override void Replace(ref string text, IReplaceBlocks replacement)
+        {
+            var sb = new StringBuilder(text);
+
+            var m = this.RegExSearch.Match(text);
+            while (m.Success)
+            {
+                var replaceString = this.RegExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
+
+                // pulls the html into the replacement collection before it's inserted back into the main text
+                replacement.ReplaceHtmlFromText(ref replaceString);
+
+                // remove old bbcode...
+                sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
+
+                // insert replaced value(s)
+                sb.Insert(m.Groups[0].Index, replaceString);
+
+                // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
+                m = this.RegExSearch.Match(sb.ToString());
+            }
+
+            text = sb.ToString();
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Gets the Inner Value
+        /// </summary>
+        /// <param name="innerValue">
+        /// The inner value.
+        /// </param>
+        /// <returns>
+        /// Returns the Inner Value
+        /// </returns>
+        protected virtual string GetInnerValue(string innerValue)
+        {
+            return innerValue;
+        }
+
+        #endregion
     }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleRegexReplaceRule"/> class.
-    /// </summary>
-    /// <param name="regExSearch">
-    /// The reg ex search.
-    /// </param>
-    /// <param name="regExReplace">
-    /// The reg ex replace.
-    /// </param>
-    public SimpleRegexReplaceRule(Regex regExSearch, string regExReplace)
-    {
-      this._regExSearch = regExSearch;
-      this._regExReplace = regExReplace;
-    }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   Gets RuleDescription.
-    /// </summary>
-    public override string RuleDescription => $"RegExSearch = \"{this._regExSearch}\"";
-
-    #endregion
-
-    #region Public Methods
-
-    /// <summary>
-    /// The replace.
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <param name="replacement">
-    /// The replacement.
-    /// </param>
-    public override void Replace(ref string text, IReplaceBlocks replacement)
-    {
-      var sb = new StringBuilder(text);
-
-      var m = this._regExSearch.Match(text);
-      while (m.Success)
-      {
-        var replaceString = this._regExReplace.Replace("${inner}", this.GetInnerValue(m.Groups["inner"].Value));
-
-        // pulls the htmls into the replacement collection before it's inserted back into the main text
-        replacement.ReplaceHtmlFromText(ref replaceString);
-
-        // remove old bbcode...
-        sb.Remove(m.Groups[0].Index, m.Groups[0].Length);
-
-        // insert replaced value(s)
-        sb.Insert(m.Groups[0].Index, replaceString);
-
-        // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
-        m = this._regExSearch.Match(sb.ToString());
-      }
-
-      text = sb.ToString();
-    }
-
-    #endregion
-
-    #region Methods
-
-    /// <summary>
-    /// The get inner value.
-    /// </summary>
-    /// <param name="innerValue">
-    /// The inner value.
-    /// </param>
-    /// <returns>
-    /// The get inner value.
-    /// </returns>
-    protected virtual string GetInnerValue(string innerValue)
-    {
-      return innerValue;
-    }
-
-    #endregion
-  }
 }

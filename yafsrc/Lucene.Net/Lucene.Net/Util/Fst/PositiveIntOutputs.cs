@@ -1,5 +1,6 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -20,8 +21,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// An FST <see cref="Outputs{T}"/> implementation where each output
@@ -109,12 +110,14 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override void Write(long? output, DataOutput @out)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(Valid(output));
             @out.WriteVInt64(output.Value);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override long? Read(DataInput @in)
         {
             long v = @in.ReadVInt64();
@@ -137,11 +140,13 @@ namespace YAF.Lucene.Net.Util.Fst
 
         public override long? NoOutput => NO_OUTPUT;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string OutputToString(long? output)
         {
             return output.ToString(); // LUCENENET TODO: Invariant Culture?
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string ToString()
         {
             return "PositiveIntOutputs";

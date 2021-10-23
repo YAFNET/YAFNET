@@ -1,8 +1,8 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Console  = YAF.Lucene.Net.Util.SystemConsole;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Store
@@ -24,8 +24,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
 
     // TODO
     //   - let subclass dictate policy...?
@@ -72,7 +72,9 @@ namespace YAF.Lucene.Net.Store
         private readonly long maxMergeSizeBytes;
         private readonly long maxCachedBytes;
 
-        private static readonly bool VERBOSE = false;
+#pragma warning disable CA1802 // Use literals where appropriate
+        private static readonly bool VERBOSE = false; // For debugging
+#pragma warning restore CA1802 // Use literals where appropriate
 
         /// <summary>
         /// We will cache a newly created output if 1) it's a
@@ -139,7 +141,7 @@ namespace YAF.Lucene.Net.Store
                         files.Add(f);
                     }
                 }
-                catch (DirectoryNotFoundException /*ex*/)
+                catch (Exception ex) when (ex.IsNoSuchDirectoryException())
                 {
                     // however, if there are no cached files, then the directory truly
                     // does not "exist"
@@ -229,9 +231,7 @@ namespace YAF.Lucene.Net.Store
                 {
                     @delegate.DeleteFile(name);
                 }
-#pragma warning disable 168
-                catch (IOException ioe)
-#pragma warning restore 168
+                catch (Exception ioe) when (ioe.IsIOException())
                 {
                     // this is fine: file may not exist
                 }
@@ -243,9 +243,7 @@ namespace YAF.Lucene.Net.Store
                 {
                     cache.DeleteFile(name);
                 }
-#pragma warning disable 168
-                catch (IOException ioe)
-#pragma warning restore 168
+                catch (Exception ioe) when (ioe.IsIOException())
                 {
                     // this is fine: file may not exist
                 }

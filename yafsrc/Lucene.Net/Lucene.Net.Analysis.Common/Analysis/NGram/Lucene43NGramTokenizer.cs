@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 using System.IO;
 
@@ -76,7 +77,7 @@ namespace YAF.Lucene.Net.Analysis.NGram
         {
             if (minGram < 1)
             {
-                throw new ArgumentException("minGram must be greater than zero");
+                throw new ArgumentOutOfRangeException(nameof(minGram), "minGram must be greater than zero"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             if (minGram > maxGram)
             {

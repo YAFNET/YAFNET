@@ -1,4 +1,5 @@
-﻿using System;
+// Lucene version compatibility level 4.8.1
+using System;
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Util;
 
@@ -76,8 +77,8 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             {
                 return true;
             }
-            int start = 0;
-            int end = 0;
+            int start; // LUCENENET: IDE0059: Remove unnecessary value assignment
+            int end; // LUCENENET: IDE0059: Remove unnecessary value assignment
             int endOff = 0;
 
             // eat the first characters

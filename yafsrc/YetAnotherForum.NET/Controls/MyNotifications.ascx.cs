@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,7 +30,10 @@ namespace YAF.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -39,8 +42,6 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
     using YAF.Web.Controls;
 
     #endregion
@@ -88,19 +89,12 @@ namespace YAF.Controls
                 return;
             }
 
-            var previousPageSize = this.Get<ISession>().UserActivityPageSize;
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
 
-            if (previousPageSize.HasValue)
-            {
-                // look for value previously selected
-                var sinceItem = this.PageSize.Items.FindByValue(previousPageSize.Value.ToString());
-
-                // and select it if found
-                if (sinceItem != null)
-                {
-                    this.PageSize.SelectedIndex = this.PageSize.Items.IndexOf(sinceItem);
-                }
-            }
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.BindData();
         }
@@ -160,16 +154,18 @@ namespace YAF.Controls
             var icon = string.Empty;
 
             var topicLink = new ThemeButton
-                                {
-                                    NavigateUrl =
-                                        BuildLink.GetLink(
-                                            ForumPages.Posts,
-                                            "m={0}#post{0}",
-                                            activity.Item1.MessageID.Value),
-                                    Type = ButtonAction.None,
-                                    Text = activity.Item3.TopicName,
-                                    Icon = "comment"
-                                };
+            {
+                NavigateUrl =
+                    this.Get<LinkBuilder>().GetLink(
+                        ForumPages.Posts,
+                        "m={0}&name={1}",
+                        activity.Item1.MessageID.Value,
+                        activity.Item3.TopicName),
+                Type = ButtonStyle.None,
+                Text = activity.Item3.TopicName,
+                Icon = "comment",
+                IconCssClass = "far"
+            };
 
             if (activity.Item1.ActivityFlags.ReceivedThanks)
             {
@@ -178,9 +174,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = activity.Item2.Suspended,
                     Style = activity.Item2.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                        ? activity.Item2.DisplayName
-                        : activity.Item2.Name
+                    ReplaceName = activity.Item2.DisplayOrUserName()
                 };
 
                 icon = "heart";
@@ -197,9 +191,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = activity.Item2.Suspended,
                     Style = activity.Item2.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                        ? activity.Item2.DisplayName
-                        : activity.Item2.Name
+                    ReplaceName = activity.Item2.DisplayOrUserName()
                 };
 
                 icon = "at";
@@ -216,9 +208,7 @@ namespace YAF.Controls
                     UserID = activity.Item1.FromUserID.Value,
                     Suspended = activity.Item2.Suspended,
                     Style = activity.Item2.UserStyle,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                        ? activity.Item2.DisplayName
-                        : activity.Item2.Name
+                    ReplaceName = activity.Item2.DisplayOrUserName()
                 };
 
                 icon = "quote-left";
@@ -341,15 +331,13 @@ namespace YAF.Controls
         /// </param>
         protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
         {
-            this.Get<ISession>().UserActivityPageSize = this.PageSize.SelectedValue.ToType<int>();
-
             this.BindData();
         }
 
         /// <summary>
         /// The bind data.
         /// </summary>
-            private void BindData()
+        private void BindData()
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
@@ -357,20 +345,20 @@ namespace YAF.Controls
 
             if (!this.WasMentioned.Checked)
             {
-                stream.RemoveAll(a => a.Item1.WasMentioned);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.WasMentioned);
             }
 
             if (!this.ReceivedThanks.Checked)
             {
-                stream.RemoveAll(a => a.Item1.ReceivedThanks);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.ReceivedThanks);
             }
 
             if (!this.WasQuoted.Checked)
             {
-                stream.RemoveAll(a => a.Item1.WasQuoted);
+                stream.RemoveAll(a => a.Item1.ActivityFlags.WasQuoted);
             }
 
-            stream.RemoveAll(a => a.Item1.GivenThanks);
+            stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
 
             var paged = stream
                 .Skip(this.PagerTop.CurrentPageIndex * this.PagerTop.PageSize).Take(this.PagerTop.PageSize).ToList();

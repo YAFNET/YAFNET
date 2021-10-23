@@ -1,6 +1,6 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using BufferedIndexInput = YAF.Lucene.Net.Store.BufferedIndexInput;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using BufferedIndexInput  = YAF.Lucene.Net.Store.BufferedIndexInput;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
 
     /// <summary>
     /// This abstract class reads skip lists with multiple levels.
@@ -52,26 +52,26 @@ namespace YAF.Lucene.Net.Codecs
         // the skipInterval. The top level can not contain more than
         // skipLevel entries, the second top level can not contain more
         // than skipLevel^2 entries and so forth.
-        private int numberOfLevelsToBuffer = 1;
+        private readonly int numberOfLevelsToBuffer = 1; // LUCENENET: marked readonly
 
         private int docCount;
         private bool haveSkipped;
 
         /// <summary>
         /// SkipStream for each level. </summary>
-        private IndexInput[] skipStream;
+        private readonly IndexInput[] skipStream;
 
         /// <summary>
         /// The start pointer of each skip level. </summary>
-        private long[] skipPointer;
+        private readonly long[] skipPointer;
 
         /// <summary>
         /// SkipInterval of each level. </summary>
-        private int[] skipInterval;
+        private readonly int[] skipInterval;
 
         /// <summary>
         /// Number of docs skipped per level. </summary>
-        private int[] numSkipped;
+        private readonly int[] numSkipped;
 
         /// <summary>
         /// Doc id of current skip entry per level. </summary>
@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Child pointer of current skip entry per level. </summary>
-        private long[] childPointer;
+        private readonly long[] childPointer;
 
         /// <summary>
         /// childPointer of last read skip entry with docId &lt;=
@@ -91,7 +91,7 @@ namespace YAF.Lucene.Net.Codecs
         /// </summary>
         private long lastChildPointer;
 
-        private bool inputIsBuffered;
+        private readonly bool inputIsBuffered;
         private readonly int skipMultiplier;
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace YAF.Lucene.Net.Codecs
                 else
                 {
                     // no more skips on this level, go down one level
-                    if (level > 0 && lastChildPointer > skipStream[level - 1].GetFilePointer())
+                    if (level > 0 && lastChildPointer > skipStream[level - 1].Position) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                     {
                         SeekChild(level - 1);
                     }
@@ -293,7 +293,7 @@ namespace YAF.Lucene.Net.Codecs
                 long length = skipStream[0].ReadVInt64();
 
                 // the start pointer of the current level
-                skipPointer[i] = skipStream[0].GetFilePointer();
+                skipPointer[i] = skipStream[0].Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (toBuffer > 0)
                 {
                     // buffer this level
@@ -310,12 +310,12 @@ namespace YAF.Lucene.Net.Codecs
                     }
 
                     // move base stream beyond the current level
-                    skipStream[0].Seek(skipStream[0].GetFilePointer() + length);
+                    skipStream[0].Seek(skipStream[0].Position + length); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
             }
 
             // use base stream for the lowest level
-            skipPointer[0] = skipStream[0].GetFilePointer();
+            skipPointer[0] = skipStream[0].Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
         }
 
         /// <summary>
@@ -327,6 +327,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Copies the values of the last read skip entry on this <paramref name="level"/>. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual void SetLastSkipData(int level)
         {
             lastDoc = m_skipDoc[level];
@@ -338,14 +339,14 @@ namespace YAF.Lucene.Net.Codecs
         private sealed class SkipBuffer : IndexInput
         {
             private byte[] data;
-            private long pointer;
+            private readonly long pointer;
             private int pos;
 
             internal SkipBuffer(IndexInput input, int length)
                 : base("SkipBuffer on " + input)
             {
                 data = new byte[length];
-                pointer = input.GetFilePointer();
+                pointer = input.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 input.ReadBytes(data, 0, length);
             }
 
@@ -357,24 +358,24 @@ namespace YAF.Lucene.Net.Codecs
                 }
             }
 
-            public override long GetFilePointer()
-            {
-                return pointer + pos;
-            }
+            public override long Position => pointer + pos; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
             public override long Length => data.Length;
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override byte ReadByte()
             {
                 return data[pos++];
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void ReadBytes(byte[] b, int offset, int len)
             {
                 Array.Copy(data, pos, b, offset, len);
                 pos += len;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override void Seek(long pos)
             {
                 this.pos = (int)(pos - pointer);

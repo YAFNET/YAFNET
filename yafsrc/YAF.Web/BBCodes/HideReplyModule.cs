@@ -26,8 +26,8 @@ namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 
-    using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -47,8 +47,6 @@ namespace YAF.Web.BBCodes
         protected override void Render(HtmlTextWriter writer)
         {
             var hiddenContent = this.Parameters["inner"];
-
-            var messageId = this.MessageID;
 
             if (hiddenContent.IsNotSet())
             {
@@ -73,7 +71,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            var userId = BoardContext.Current.CurrentUserData.UserID;
+            var userId = BoardContext.Current.PageUserID;
 
             if (BoardContext.Current.IsGuest)
             {
@@ -82,7 +80,7 @@ namespace YAF.Web.BBCodes
             }
 
             if (this.DisplayUserID == userId ||
-                this.GetRepository<User>().RepliedTopic(messageId.ToType<int>(), userId))
+                this.GetRepository<Message>().RepliedTopic(this.PageContext.PageTopicID, userId))
             {
                 // Show hidden content if user is the poster or have thanked the poster.
                 shownContent = hiddenContent;

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,16 +26,18 @@ namespace YAF.Core.Services
 {
     #region Using
 
+    using System;
     using System.Linq;
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -73,11 +75,11 @@ namespace YAF.Core.Services
         /// <summary>
         ///     Gets the last visit.
         /// </summary>
-        public System.DateTime LastRead
+        public DateTime LastRead
         {
             get
             {
-                var lastRead = this.sessionState["LastRead"]?.ToType<System.DateTime?>();
+                var lastRead = this.sessionState["LastRead"]?.ToType<DateTime?>();
 
                 if (!lastRead.HasValue && this.UseDatabaseReadTracking)
                 {
@@ -157,24 +159,14 @@ namespace YAF.Core.Services
         /// <returns>
         ///     Returns the DateTime object from the Forum ID.
         /// </returns>
-        public System.DateTime GetForumRead(int forumId, System.DateTime? readTimeOverride)
+        public DateTime GetForumRead(int forumId, DateTime? readTimeOverride)
         {
-            System.DateTime? readTime;
+            DateTime? readTime;
 
             if (this.UseDatabaseReadTracking)
             {
-                if (readTimeOverride.HasValue)
-                {
-                    // use it if it's not the min value...
-                    /*readTime = readTimeOverride.Value > DateTimeHelper.SqlDbMinTime()
-                                   ? readTimeOverride.Value
-                                   : this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);*/
-                    readTime = readTimeOverride.Value;
-                }
-                else
-                {
-                    readTime = this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
-                }
+                readTime = readTimeOverride ??
+                           this.GetRepository<ForumReadTracking>().LastRead(this.CurrentUserId, forumId);
             }
             else
             {
@@ -192,26 +184,14 @@ namespace YAF.Core.Services
         /// <returns>
         ///     Returns the DateTime object from the topicID.
         /// </returns>
-        public System.DateTime GetTopicRead(int topicId, System.DateTime? readTimeOverride)
+        public DateTime GetTopicRead(int topicId, DateTime? readTimeOverride)
         {
-            System.DateTime? readTime;
+            DateTime? readTime;
 
             if (this.UseDatabaseReadTracking)
             {
-                if (readTimeOverride.HasValue)
-                {
-                    // use it if it's not the min value...
-                    /*readTime = readTimeOverride.Value > DateTimeHelper.SqlDbMinTime()
-                                   ? readTimeOverride.Value
-                                   : this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);*/
-
-                    readTime = readTimeOverride.Value;
-                }
-                else
-                {
-                    // last option is to load from the forum...
-                    readTime = this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
-                }
+                readTime = readTimeOverride ??
+                           this.GetRepository<TopicReadTracking>().LastRead(this.CurrentUserId, topicId);
             }
             else
             {
@@ -233,7 +213,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                this.Get<ISession>().SetForumRead(forumId, System.DateTime.UtcNow);
+                this.Get<ISession>().SetForumRead(forumId, DateTime.UtcNow);
             }
         }
 
@@ -249,7 +229,7 @@ namespace YAF.Core.Services
             }
             else
             {
-                this.Get<ISession>().SetTopicRead(topicId, System.DateTime.UtcNow);
+                this.Get<ISession>().SetTopicRead(topicId, DateTime.UtcNow);
             }
         }
 
@@ -264,13 +244,13 @@ namespace YAF.Core.Services
         /// <returns>
         ///     The get session forum read.
         /// </returns>
-        private System.DateTime? GetSessionForumRead(int forumId)
+        private DateTime? GetSessionForumRead(int forumId)
         {
             var forumReadHashtable = this.Get<ISession>().ForumRead;
 
             if (forumReadHashtable != null && forumReadHashtable.ContainsKey(forumId))
             {
-                return forumReadHashtable[forumId].ToType<System.DateTime>();
+                return forumReadHashtable[forumId].ToType<DateTime>();
             }
 
             return null;
@@ -283,13 +263,13 @@ namespace YAF.Core.Services
         /// <returns>
         ///     The get session topic read.
         /// </returns>
-        private System.DateTime? GetSessionTopicRead(int topicId)
+        private DateTime? GetSessionTopicRead(int topicId)
         {
             var topicReadHashtable = this.Get<ISession>().TopicRead;
 
             if (topicReadHashtable != null && topicReadHashtable.ContainsKey(topicId))
             {
-                return topicReadHashtable[topicId].ToType<System.DateTime>();
+                return topicReadHashtable[topicId].ToType<DateTime>();
             }
 
             return null;

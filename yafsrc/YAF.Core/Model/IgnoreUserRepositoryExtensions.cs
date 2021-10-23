@@ -1,5 +1,7 @@
 namespace YAF.Core.Model
 {
+    using System.Collections.Generic;
+
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
@@ -22,13 +24,17 @@ namespace YAF.Core.Model
         /// <param name="userId">The user identifier.</param>
         /// <param name="ignoreUserId">The ignore user identifier.</param>
         /// <returns>Returns if deleting was successfully or not</returns>
-        public static bool Delete(this IRepository<IgnoreUser> repository, int userId, int ignoreUserId)
+        public static bool Delete(
+            this IRepository<IgnoreUser> repository,
+            [NotNull] int userId,
+            [NotNull] int ignoreUserId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var success = repository.DbAccess.Execute(
                               db => db.Connection.Delete<IgnoreUser>(
-                                  x => x.UserID == userId && x.IgnoredUserID == ignoreUserId)) == 1;
+                                  x => x.UserID == userId && x.IgnoredUserID == ignoreUserId)) ==
+                          1;
 
             if (success)
             {
@@ -55,21 +61,38 @@ namespace YAF.Core.Model
             [NotNull] int userId,
             [NotNull] int ignoredUserId)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             var ignoreUser = repository.GetSingle(i => i.UserID == userId && i.IgnoredUserID == ignoredUserId);
 
             if (ignoreUser == null)
             {
-                repository.Insert(
-                    new IgnoreUser
-                        {
-                            UserID = userId,
-                            IgnoredUserID = ignoredUserId
-                        });
+                repository.Insert(new IgnoreUser { UserID = userId, IgnoredUserID = ignoredUserId });
             }
+        }
+
+        /// <summary>
+        /// Gets the List of Ignored Users
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="List"/>.
+        /// </returns>
+        [NotNull]
+        public static List<User> IgnoredUsers(this IRepository<IgnoreUser> repository, [NotNull] int userId)
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<IgnoreUser>();
+
+            expression.Join<User>((i, u) => u.ID == i.IgnoredUserID).Where<IgnoreUser>(u => u.UserID == userId);
+
+            return repository.DbAccess.Execute(db => db.Connection.Select<User>(expression));
         }
 
         #endregion
     }
-} 
+}

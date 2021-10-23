@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.Core.BasePages.ForumPageBase" MaintainScrollPositionOnPostback="true" %>
-<%@ Register TagPrefix="YAF" Assembly="YAF.Web" Namespace="YAF.Web.Controls" %>
 
 <!doctype html>
 <html lang="en">
@@ -11,13 +10,11 @@
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
     <meta id="YafMetaDescription" runat="server" name="description" content="YetAnotherForum.NET -- A bulletin board system written in ASP.NET" />
-    <meta id="YafMetaKeywords" runat="server" name="keywords" content="Yet Another Forum.net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
+    <meta id="YafMetaKeywords" runat="server" name="keywords" content="Yet Another Forum .Net, Forum, ASP.NET, BB, Bulletin Board, opensource" />
     <title></title>
 </head>
 <body id="YafBody" runat="server">
-
-    <asp:HyperLink runat="server" id="BannerLink" 
-                   CssClass="forum-logo my-4">
+    <asp:HyperLink runat="server" id="BannerLink" CssClass="forum-logo my-4">
     </asp:HyperLink>
     <YAF:Form id="form1" runat="server" enctype="multipart/form-data">
         <YAF:Forum runat="server" ID="forum" BoardID="1">

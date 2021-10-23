@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Tartarus.Snowball;
 using System;
 using System.Reflection;
@@ -78,7 +79,7 @@ namespace YAF.Lucene.Net.Analysis.Snowball
 
                 stemmer = (SnowballProgram)Activator.CreateInstance(stemClass);
             }
-            catch (Exception e)
+            catch (Exception e) when (e.IsException())
             {
                 throw new ArgumentException("Invalid stemmer class specified: " + name, e);
             }

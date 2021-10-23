@@ -1,3 +1,4 @@
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 using System.IO;
@@ -273,7 +274,8 @@ namespace YAF.Lucene.Net.Analysis.Standard
         {
             int[] result = new int[3116];
             int offset = 0;
-            offset = ZzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
+            /*offset = */
+            ZzUnpackAction(ZZ_ACTION_PACKED_0, offset, result); // LUCENENET: IDE0059: Remove unnecessary value assignment
             return result;
         }
 
@@ -693,7 +695,8 @@ namespace YAF.Lucene.Net.Analysis.Standard
         {
             int[] result = new int[3116];
             int offset = 0;
-            offset = ZzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
+            /*offset = */
+            ZzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result); // LUCENENET: IDE0059: Remove unnecessary value assignment
             return result;
         }
 
@@ -8966,7 +8969,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
             int offset = 0;
             offset = ZzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
             offset = ZzUnpackTrans(ZZ_TRANS_PACKED_1, offset, result);
-            offset = ZzUnpackTrans(ZZ_TRANS_PACKED_2, offset, result);
+            /*offset = */ZzUnpackTrans(ZZ_TRANS_PACKED_2, offset, result); // LUCENENET: IDE0059: Remove unnecessary value assignment
             return result;
         }
 
@@ -9038,7 +9041,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
         {
             int[] result = new int[3116];
             int offset = 0;
-            offset = ZzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
+            /*offset = */ZzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result); // LUCENENET: IDE0059: Remove unnecessary value assignment
             return result;
         }
 
@@ -9086,31 +9089,29 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// </summary>
         private int zzEndRead;
 
-        /// <summary>number of newlines encountered up to the start of the matched text</summary>
-        private int yyline;
+        ///// <summary>number of newlines encountered up to the start of the matched text</summary>
+        //private int yyline; // LUCENENET: Never read
 
         /// <summary>the number of characters up to the start of the matched text</summary>
         private int yychar;
 
-#pragma warning disable 169, 414
-        /// <summary>
-        /// the number of characters from the last newline up to the start of the
-        /// matched text
-        /// </summary>
-        private int yycolumn;
+        ///// <summary>
+        ///// the number of characters from the last newline up to the start of the
+        ///// matched text
+        ///// </summary>
+        //private int yycolumn; // LUCENENET: Never read
 
-        /// <summary>
-        /// zzAtBOL == true &lt;=&gt; the scanner is currently at the beginning of a line
-        /// </summary>
-        private bool zzAtBOL = true;
+        ///// <summary>
+        ///// zzAtBOL == true &lt;=&gt; the scanner is currently at the beginning of a line
+        ///// </summary>
+        //private bool zzAtBOL = true; // LUCENENET: Never read
 
         /// <summary>zzAtEOF == true &lt;=&gt; the scanner is at the EOF</summary>
         private bool zzAtEOF;
 
-        /// <summary>denotes if the user-EOF-code has already been executed</summary>
-        private bool zzEOFDone;
+        ///// <summary>denotes if the user-EOF-code has already been executed</summary>
+        //private bool zzEOFDone; // LUCENENET: Never read
 
-#pragma warning restore 169, 414
 
         /* user code: */
         /// <summary>Alphanumeric sequences</summary>
@@ -9271,12 +9272,13 @@ namespace YAF.Lucene.Net.Analysis.Standard
         public void YyReset(TextReader reader)
         {
             zzReader = reader;
-            zzAtBOL = true;
+            //zzAtBOL = true; // LUCENENET: Never read
             zzAtEOF = false;
-            zzEOFDone = false;
+            //zzEOFDone = false; // LUCENENET: Never read
             zzEndRead = zzStartRead = 0;
             zzCurrentPos = zzMarkedPos = 0;
-            yyline = yychar = yycolumn = 0;
+            //yyline = yychar = yycolumn = 0; // LUCENENET: Never read
+            yychar = 0;
             zzLexicalState = YYINITIAL;
             if (zzBuffer.Length > ZZ_BUFFERSIZE)
                 zzBuffer = new char[ZZ_BUFFERSIZE];
@@ -9344,16 +9346,17 @@ namespace YAF.Lucene.Net.Analysis.Standard
         private void ZzScanError(int errorCode)
         {
             string message;
-            try
+            // LUCENENET specific: Defensive check so we don't have to catch IndexOutOfRangeException
+            if (errorCode >= 0 && errorCode < ZZ_ERROR_MSG.Length)
             {
                 message = ZZ_ERROR_MSG[errorCode];
             }
-            catch (IndexOutOfRangeException /*e*/)
+            else
             {
                 message = ZZ_ERROR_MSG[ZZ_UNKNOWN_ERROR];
             }
 
-            throw new Exception(message);
+            throw Error.Create(message);
         }
 
 

@@ -56,7 +56,7 @@ namespace YAF.UrlRewriter.Parsers
 
             var to = node.GetRequiredAttribute(Constants.AttrTo, true);
 
-            var processing = this.ParseProcessing(node);
+            var processing = ParseProcessing(node);
 
             var action = new RewriteAction(to, processing);
             this.ParseConditions(node, action.Conditions, false, config);
@@ -64,7 +64,7 @@ namespace YAF.UrlRewriter.Parsers
             return action;
         }
 
-        private RewriteProcessing ParseProcessing(XmlNode node)
+        private static RewriteProcessing ParseProcessing(XmlNode node)
         {
             var processing = node.GetOptionalAttribute(Constants.AttrProcessing);
             if (processing == null)
@@ -73,20 +73,20 @@ namespace YAF.UrlRewriter.Parsers
                 return RewriteProcessing.ContinueProcessing;
             }
 
-            switch (processing)
+            return processing switch
             {
-                case Constants.AttrValueRestart:
-                    return RewriteProcessing.RestartProcessing;
-
-                case Constants.AttrValueStop: 
-                    return RewriteProcessing.StopProcessing;
-
-                case Constants.AttrValueContinue:
-                    return RewriteProcessing.ContinueProcessing;
-
-                default:
-                    throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.ValueOfProcessingAttribute, processing, Constants.AttrValueContinue, Constants.AttrValueRestart, Constants.AttrValueStop), node);
-            }
+                Constants.AttrValueRestart => RewriteProcessing.RestartProcessing,
+                Constants.AttrValueStop => RewriteProcessing.StopProcessing,
+                Constants.AttrValueContinue => RewriteProcessing.ContinueProcessing,
+                _ => throw new ConfigurationErrorsException(
+                         MessageProvider.FormatString(
+                             Message.ValueOfProcessingAttribute,
+                             processing,
+                             Constants.AttrValueContinue,
+                             Constants.AttrValueRestart,
+                             Constants.AttrValueStop),
+                         node)
+            };
         }
     }
 }

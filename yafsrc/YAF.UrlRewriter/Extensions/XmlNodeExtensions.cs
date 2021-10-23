@@ -59,7 +59,7 @@ namespace YAF.UrlRewriter.Extensions
 
             return attribute.Value;
         }
-        
+
 
         /// <summary>
         /// Gets an optional attribute from an XML node.

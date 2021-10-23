@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Diagnostics;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -119,7 +120,7 @@ namespace YAF.Lucene.Net.Queries
         {
             // we dont pass acceptDocs, we will filter at the end using an additional filter
             DocIdSet set = filter.GetDocIdSet(context, null);
-            return set == null ? null : set.GetIterator();
+            return set?.GetIterator();
         }
 
         /// <summary>

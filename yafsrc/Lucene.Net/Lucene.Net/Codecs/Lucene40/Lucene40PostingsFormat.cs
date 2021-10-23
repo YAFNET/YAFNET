@@ -1,6 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
-using System.Diagnostics;
 
 namespace YAF.Lucene.Net.Codecs.Lucene40
 {
@@ -21,8 +20,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Lucene 4.0 Postings format.
@@ -241,7 +240,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override FieldsConsumer FieldsConsumer(SegmentWriteState state)
         {
-            throw new NotSupportedException("this codec can only be used for reading");
+            throw UnsupportedOperationException.Create("this codec can only be used for reading");
         }
 
         public override FieldsProducer FieldsProducer(SegmentReadState state)
@@ -266,11 +265,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         /// <summary>
         /// Extension of freq postings file. </summary>
-        internal static readonly string FREQ_EXTENSION = "frq";
+        internal const string FREQ_EXTENSION = "frq";
 
         /// <summary>
         /// Extension of prox postings file. </summary>
-        internal static readonly string PROX_EXTENSION = "prx";
+        internal const string PROX_EXTENSION = "prx";
 
         public override string ToString()
         {

@@ -72,7 +72,6 @@ namespace YAF.UrlRewriter.Utilities
                 null,
                 args,
                 null,
-                null,
                 null);
         }
     }

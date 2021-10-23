@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,13 +31,13 @@ namespace YAF.Core.Handlers
     using System.Web;
     using System.Xml.Serialization;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
 
     using SiteMap = YAF.Types.Objects.SiteMap;
 
@@ -76,20 +76,15 @@ namespace YAF.Core.Handlers
         {
             var siteMap = new SiteMap();
 
-            var forumList = this.GetRepository<Forum>().ListAll(
+            var forumList = this.GetRepository<Forum>().ListAllWithAccess(
                 BoardContext.Current.BoardSettings.BoardID,
-                UserMembershipHelper.GuestUserId);
+                BoardContext.Current.GuestUserID);
 
             forumList.ForEach(
                 forum => siteMap.Add(
                     new UrlLocation
                     {
-                        Url = BuildLink.GetLinkNotEscaped(
-                            ForumPages.topics,
-                            true,
-                            "f={0}&name={1}",
-                            forum.Item1.ID,
-                            forum.Item1.Name),
+                        Url = this.Get<LinkBuilder>().GetTopicLink(forum.Item1.ID, forum.Item1.Name),
                         Priority = 0.8D,
                         LastModified =
                             forum.Item1.LastPosted.HasValue
@@ -101,13 +96,13 @@ namespace YAF.Core.Handlers
                     }));
 
             context.Response.Clear();
-            
+
             var xs = new XmlSerializer(typeof(SiteMap));
-            
+
             context.Response.ContentType = "text/xml";
-            
+
             xs.Serialize(context.Response.Output, siteMap);
-            
+
             context.Response.End();
         }
 

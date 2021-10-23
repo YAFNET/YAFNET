@@ -30,6 +30,7 @@ namespace YAF.Dialogs
 
     using YAF.Core.BaseControls;
     using YAF.Core.Services.Import;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
@@ -57,12 +58,16 @@ namespace YAF.Dialogs
                     this.GetTextFormatted("IMPORT_FAILED", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
 
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
+
                 return;
             }
 
             try
             {
-                var importedCount = DataImport.BannedEmailAdressesImport(
+                var importedCount = DataImport.BannedEmailAddressesImport(
                     this.PageContext.PageBoardID,
                     this.PageContext.PageUserID,
                     this.importFile.PostedFile.InputStream);
@@ -77,6 +82,10 @@ namespace YAF.Dialogs
             {
                 this.PageContext.AddLoadMessage(
                     string.Format(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
+
+                this.PageContext.PageElements.RegisterJsBlockStartup(
+                    "openModalJs",
+                    JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }
         }
 

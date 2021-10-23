@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 
 namespace YAF.Lucene.Net.Store
@@ -61,16 +61,13 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        public override long GetFilePointer()
-        {
-            return main.GetFilePointer();
-        }
+        public override long Position => main.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
         public override long Length => main.Length;
 
         public override object Clone()
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
     }
 }

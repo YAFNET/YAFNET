@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,7 +27,6 @@ namespace YAF.Core.Tasks
     using System.Threading;
 
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
 
     /// <summary>
     /// The intermittent background task.
@@ -35,22 +34,22 @@ namespace YAF.Core.Tasks
     public class IntermittentBackgroundTask : BaseBackgroundTask
     {
         /// <summary>
-        /// The _intermittent timer.
+        /// The primary thread identity
         /// </summary>
-        protected Timer _intermittentTimer;
+        private WindowsIdentity primaryThreadIdentity;
 
         /// <summary>
-        /// The _primary thread identity
+        /// Gets or sets the intermittent timer.
         /// </summary>
-        private WindowsIdentity _primaryThreadIdentity;
+        public Timer intermittentTimer { get; set; }
 
         /// <summary>
-        /// Gets or sets StartDelayMs.
+        /// Gets or sets Start Delay.
         /// </summary>
         public long StartDelayMs { get; set; }
 
         /// <summary>
-        /// Gets or sets RunPeriodMs.
+        /// Gets or sets Run Period.
         /// </summary>
         public long RunPeriodMs { get; set; }
 
@@ -72,15 +71,15 @@ namespace YAF.Core.Tasks
             }
 
             // keep the context...
-            this._primaryThreadIdentity = WindowsIdentity.GetCurrent();
+            this.primaryThreadIdentity = WindowsIdentity.GetCurrent();
 
             // we're running this thread now...
             this.IsRunning = true;
 
-            this.Logger.Debug("Starting Background Task {0} Now", this.GetType().Name);
+            this.Logger.Debug($"Starting Background Task {this.GetType().Name} Now");
 
             // create the timer...);
-            this._intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
+            this.intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
         }
 
         /// <summary>
@@ -98,9 +97,9 @@ namespace YAF.Core.Tasks
 
             WindowsImpersonationContext impersonationContext = null;
 
-            if (this._primaryThreadIdentity != null)
+            if (this.primaryThreadIdentity != null)
             {
-                impersonationContext = this._primaryThreadIdentity.Impersonate();
+                impersonationContext = this.primaryThreadIdentity.Impersonate();
             }
 
             try

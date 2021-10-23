@@ -89,7 +89,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             {
                 if (aq.Field.Equals(field, StringComparison.Ordinal))
                 {
-                    list.Add(new CharacterRunAutomatonToStringAnonymousHelper(aq.Automaton, () => aq.ToString()));
+                    list.Add(new CharacterRunAutomatonToStringAnonymousClass(aq.Automaton, () => aq.ToString()));
                 }
             }
             else if (query is PrefixQuery pq)
@@ -97,8 +97,8 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
                 Term prefix = pq.Prefix;
                 if (prefix.Field.Equals(field, StringComparison.Ordinal))
                 {
-                    list.Add(new CharacterRunAutomatonToStringAnonymousHelper(
-                        BasicOperations.Concatenate(BasicAutomata.MakeString(prefix.Text()), BasicAutomata.MakeAnyString()),
+                    list.Add(new CharacterRunAutomatonToStringAnonymousClass(
+                        BasicOperations.Concatenate(BasicAutomata.MakeString(prefix.Text), BasicAutomata.MakeAnyString()),
                         () => pq.ToString()));
                 }
             }
@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             {
                 if (fq.Field.Equals(field, StringComparison.Ordinal))
                 {
-                    string utf16 = fq.Term.Text();
+                    string utf16 = fq.Term.Text;
                     int[] termText = new int[utf16.CodePointCount(0, utf16.Length)];
                     for (int cp, i = 0, j = 0; i < utf16.Length; i += Character.CharCount(cp))
                     {
@@ -122,7 +122,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
                         Automaton prefix = BasicAutomata.MakeString(UnicodeUtil.NewString(termText, 0, prefixLength));
                         automaton = BasicOperations.Concatenate(prefix, automaton);
                     }
-                    list.Add(new CharacterRunAutomatonToStringAnonymousHelper(automaton, () => fq.ToString()));
+                    list.Add(new CharacterRunAutomatonToStringAnonymousClass(automaton, () => fq.ToString()));
                 }
             }
             else if (query is TermRangeQuery tq)
@@ -130,17 +130,17 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
                 if (tq.Field.Equals(field, StringComparison.Ordinal))
                 {
                     // this is *not* an automaton, but its very simple
-                    list.Add(new SimpleCharacterRunAutomatonAnonymousHelper(BasicAutomata.MakeEmpty(), tq));
+                    list.Add(new SimpleCharacterRunAutomatonAnonymousClass(BasicAutomata.MakeEmpty(), tq));
                 }
             }
             return list.ToArray(/*new CharacterRunAutomaton[list.size()]*/);
         }
 
-        internal class CharacterRunAutomatonToStringAnonymousHelper : CharacterRunAutomaton
+        private class CharacterRunAutomatonToStringAnonymousClass : CharacterRunAutomaton
         {
             private readonly Func<string> toStringMethod;
 
-            public CharacterRunAutomatonToStringAnonymousHelper(Automaton a, Func<string> toStringMethod)
+            public CharacterRunAutomatonToStringAnonymousClass(Automaton a, Func<string> toStringMethod)
                 : base(a)
             {
                 this.toStringMethod = toStringMethod;
@@ -152,18 +152,18 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             }
         }
 
-        internal class SimpleCharacterRunAutomatonAnonymousHelper : CharacterRunAutomaton
+        private class SimpleCharacterRunAutomatonAnonymousClass : CharacterRunAutomaton
         {
             private readonly CharsRef lowerBound;
             private readonly CharsRef upperBound;
 
-            private bool includeLower;
-            private bool includeUpper;
+            private readonly bool includeLower;
+            private readonly bool includeUpper;
 #pragma warning disable 612, 618
-            private IComparer<CharsRef> comparer = CharsRef.UTF16SortedAsUTF8Comparer;
+            private static readonly IComparer<CharsRef> comparer = CharsRef.UTF16SortedAsUTF8Comparer; // LUCENENET specific - made static
 #pragma warning restore 612, 618
 
-            public SimpleCharacterRunAutomatonAnonymousHelper(Automaton a, TermRangeQuery tq)
+            public SimpleCharacterRunAutomatonAnonymousClass(Automaton a, TermRangeQuery tq)
                 : base(a)
             {
                 if (tq.LowerTerm == null)
@@ -230,16 +230,16 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             // would only serve to make this method less bogus.
             // instead, we always return freq() = Integer.MAX_VALUE and let PH terminate based on offset...
 
-            return new DocsAndPositionsEnumAnonymousHelper(ts, matchers, charTermAtt, offsetAtt);
+            return new DocsAndPositionsEnumAnonymousClass(ts, matchers, charTermAtt, offsetAtt);
         }
 
-        internal class DocsAndPositionsEnumAnonymousHelper : DocsAndPositionsEnum
+        private class DocsAndPositionsEnumAnonymousClass : DocsAndPositionsEnum
         {
             private readonly CharacterRunAutomaton[] matchers;
             private readonly ICharTermAttribute charTermAtt;
             private readonly IOffsetAttribute offsetAtt;
 
-            public DocsAndPositionsEnumAnonymousHelper(
+            public DocsAndPositionsEnumAnonymousClass(
                 TokenStream ts, CharacterRunAutomaton[] matchers, ICharTermAttribute charTermAtt, IOffsetAttribute offsetAtt)
             {
                 this.matchers = matchers;
@@ -257,7 +257,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
             internal int currentEndOffset = -1;
             internal TokenStream stream;
 
-            readonly BytesRef[] matchDescriptions;
+            private readonly BytesRef[] matchDescriptions;
 
 
             public override int NextPosition()
@@ -320,7 +320,7 @@ namespace YAF.Lucene.Net.Search.PostingsHighlight
 
             public override int NextDoc()
             {
-                throw new NotSupportedException();
+                throw UnsupportedOperationException.Create();
             }
 
             public override int Advance(int target)

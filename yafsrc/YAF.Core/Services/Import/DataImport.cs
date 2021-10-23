@@ -30,11 +30,11 @@ namespace YAF.Core.Services.Import
     using System.Linq;
     using System.Net;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
@@ -60,7 +60,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BBCode>>();
+            var repository = BoardContext.Current.GetRepository<BBCode>();
 
             // import extensions...
             var dsBBCode = new DataSet();
@@ -131,62 +131,6 @@ namespace YAF.Core.Services.Import
         }
 
         /// <summary>
-        /// The file extension import.
-        /// </summary>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="inputStream">
-        /// The input stream.
-        /// </param>
-        /// <returns>
-        /// Returns How Many Extensions where imported.
-        /// </returns>
-        /// <exception cref="Exception">Import stream is not expected format.
-        /// </exception>
-        public static int FileExtensionImport(int boardId, Stream inputStream)
-        {
-            var importedCount = 0;
-
-            var dsExtensions = new DataSet();
-            dsExtensions.ReadXml(inputStream);
-
-            if (dsExtensions.Tables["YafExtension"]?.Columns["Extension"] != null)
-            {
-                var repository = BoardContext.Current.Get<IRepository<FileExtension>>();
-
-                var extensionList = repository.Get(e => e.BoardId == boardId);
-
-                // import any extensions that don't exist...
-                var extensionsToImport = dsExtensions.Tables["YafExtension"].Rows.Cast<DataRow>()
-                    .Select(row => row["Extension"].ToString()).ToList();
-
-                foreach (var newExtension in extensionsToImport.Where(
-                    ext => !extensionList.Any(
-                               e => string.Equals(e.Extension, ext, StringComparison.OrdinalIgnoreCase))))
-                {
-                    try
-                    {
-                        // add this...
-                        repository.Insert(new FileExtension { BoardId = boardId, Extension = newExtension });
-                    }
-                    catch
-                    {
-                        // LAZY CODER ALERT: Ignore errors, probably duplicates.
-                    }
-
-                    importedCount++;
-                }
-            }
-            else
-            {
-                throw new Exception("Import stream is not expected format.");
-            }
-
-            return importedCount;
-        }
-
-        /// <summary>
         /// Import List of Banned Email Addresses
         /// </summary>
         /// <param name="boardId">The board id.</param>
@@ -198,11 +142,11 @@ namespace YAF.Core.Services.Import
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        public static int BannedEmailAdressesImport(int boardId, int userId, Stream inputStream)
+        public static int BannedEmailAddressesImport(int boardId, int userId, Stream inputStream)
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BannedEmail>>();
+            var repository = BoardContext.Current.GetRepository<BannedEmail>();
             var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -221,8 +165,10 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    repository.Save(null, line, "Imported Email Adress", boardId);
-                    importedCount++;
+                    if (repository.Save(null, line, "Imported Email Adress", boardId))
+                    {
+                        importedCount++;
+                    }
                 }
             }
 
@@ -241,11 +187,11 @@ namespace YAF.Core.Services.Import
         /// <exception cref="Exception">
         /// Import stream is not expected format.
         /// </exception>
-        public static int BannedIpAdressesImport(int boardId, int userId, Stream inputStream)
+        public static int BannedIpAddressesImport(int boardId, int userId, Stream inputStream)
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BannedIP>>();
+            var repository = BoardContext.Current.GetRepository<BannedIP>();
             var existingBannedIPList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -264,8 +210,10 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId);
-                    importedCount++;
+                    if (repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId))
+                    {
+                        importedCount++;
+                    }
                 }
             }
 
@@ -288,7 +236,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<BannedName>>();
+            var repository = BoardContext.Current.GetRepository<BannedName>();
             var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
 
             using (var streamReader = new StreamReader(inputStream))
@@ -307,8 +255,10 @@ namespace YAF.Core.Services.Import
                         continue;
                     }
 
-                    repository.Save(null, line, "Imported User Name", boardId);
-                    importedCount++;
+                    if (repository.Save(null, line, "Imported User Name", boardId))
+                    {
+                        importedCount++;
+                    }
                 }
             }
 
@@ -325,7 +275,7 @@ namespace YAF.Core.Services.Import
         {
             var importedCount = 0;
 
-            var repository = BoardContext.Current.Get<IRepository<Spam_Words>>();
+            var repository = BoardContext.Current.GetRepository<Spam_Words>();
 
             // import spam words...
             var spamWords = new DataSet();
@@ -340,7 +290,7 @@ namespace YAF.Core.Services.Import
 
             // import any extensions that don't exist...
             spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
-                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"])).ForEach(
+                .Where(row => spamWordsList.Any(s => s.SpamWord == row["spamword"].ToString())).ForEach(
                     row =>
                         {
                             // add this...

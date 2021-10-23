@@ -1,8 +1,9 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util.Automaton
@@ -24,10 +25,10 @@ namespace YAF.Lucene.Net.Util.Automaton
      * limitations under the License.
      */
 
-    using PrefixTermsEnum = YAF.Lucene.Net.Search.PrefixTermsEnum;
-    using SingleTermsEnum = YAF.Lucene.Net.Index.SingleTermsEnum;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using PrefixTermsEnum  = YAF.Lucene.Net.Search.PrefixTermsEnum;
+    using SingleTermsEnum  = YAF.Lucene.Net.Index.SingleTermsEnum;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Immutable class holding compiled details for a given
@@ -215,6 +216,7 @@ namespace YAF.Lucene.Net.Util.Automaton
 
         //private static final boolean DEBUG = BlockTreeTermsWriter.DEBUG;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private BytesRef AddTail(int state, BytesRef term, int idx, int leadLabel)
         {
             // Find biggest transition that's < label
@@ -292,7 +294,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 AUTOMATON_TYPE.PREFIX => new PrefixTermsEnum(terms.GetEnumerator(), Term),// TODO: this is very likely faster than .intersect,
                                                                                             // but we should test and maybe cutover
                 AUTOMATON_TYPE.NORMAL => terms.Intersect(this, null),
-                _ => throw new Exception("unhandled case"),// unreachable
+                _ => throw RuntimeException.Create("unhandled case"),// unreachable
             };
         }
 

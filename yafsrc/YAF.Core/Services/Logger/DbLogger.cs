@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -33,13 +33,14 @@ namespace YAF.Core.Services.Logger
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Interfaces.Services;
 
     using EventLog = YAF.Types.Models.EventLog;
 
@@ -48,8 +49,23 @@ namespace YAF.Core.Services.Logger
     /// <summary>
     ///     The YAF Data Base logger.
     /// </summary>
-    public class DbLogger : ILogger, IHaveServiceLocator
+    public class DbLogger : ILoggerService, IHaveServiceLocator
     {
+#if DEBUG
+        /// <summary>
+        ///     The is debug.
+        /// </summary>
+        private const bool IsDebug = true;
+#else
+        private const bool IsDebug = false;
+
+#endif
+
+        /// <summary>
+        ///     The event log type lookup.
+        /// </summary>
+        private Dictionary<EventLogTypes, bool> eventLogTypeLookup;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DbLogger"/> class.
         /// </summary>
@@ -73,17 +89,7 @@ namespace YAF.Core.Services.Logger
         /// Gets or sets the service locator.
         /// </summary>
         [Inject]
-        public IServiceLocator ServiceLocator { get; set; }        
-
-#if (DEBUG)
-
-        /// <summary>
-        ///     The _is debug.
-        /// </summary>
-        private bool isDebug = true;
-#else
-    private bool isDebug = false;
-#endif
+        public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
         ///     Gets or sets the logging type.
@@ -99,13 +105,13 @@ namespace YAF.Core.Services.Logger
         /// </returns>
         public bool IsLogTypeEnabled(EventLogTypes type)
         {
-            if (this._eventLogTypeLookup == null)
+            if (this.eventLogTypeLookup == null)
             {
                 // create it...
                 this.InitLookup();
             }
 
-            return this._eventLogTypeLookup.ContainsKey(type) && this._eventLogTypeLookup[type];
+            return this.eventLogTypeLookup.ContainsKey(type) && this.eventLogTypeLookup[type];
         }
 
         /// <summary>
@@ -117,8 +123,8 @@ namespace YAF.Core.Services.Logger
         /// <param name="eventType">
         /// The event type.
         /// </param>
-        /// <param name="username">
-        /// The username.
+        /// <param name="userId">
+        /// The user Id.
         /// </param>
         /// <param name="source">
         /// The source.
@@ -127,7 +133,11 @@ namespace YAF.Core.Services.Logger
         /// The exception.
         /// </param>
         public void Log(
-            string message, EventLogTypes eventType = EventLogTypes.Error, string username = null, string source = null, Exception exception = null)
+            [NotNull] string message,
+            [NotNull] EventLogTypes eventType = EventLogTypes.Error,
+            [CanBeNull] int? userId = null,
+            [CanBeNull] string source = null,
+            [CanBeNull] Exception exception = null)
         {
             if (!this.IsLogTypeEnabled(eventType))
             {
@@ -142,8 +152,8 @@ namespace YAF.Core.Services.Logger
             }
 
             var formattedDescription = HttpContext.Current != null
-                                           ? $"{message} (URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"
-                                           : $"{message}\r\n{exceptionDescription}";
+                ? $"{message} (URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"
+                : $"{message}\r\n{exceptionDescription}";
 
             if (source.IsNotSet())
             {
@@ -171,89 +181,84 @@ namespace YAF.Core.Services.Logger
 
                     break;
                 case EventLogTypes.Information:
-                    if (BoardContext.Current.Get<BoardSettings>().LogInformation)
+                    if (this.Get<BoardSettings>().LogInformation)
                     {
                         this.EventLogRepository.Insert(
                             new EventLog
-                                {
-                                    EventType = eventType,
-                                    UserName = username,
-                                    Description = formattedDescription,
-                                    Source = source,
-                                    EventTime = DateTime.UtcNow
-                                });
+                            {
+                                EventType = eventType,
+                                UserID = userId,
+                                Description = formattedDescription,
+                                Source = source,
+                                EventTime = DateTime.UtcNow
+                            });
                     }
 
                     break;
                 case EventLogTypes.Warning:
-                    if (BoardContext.Current.Get<BoardSettings>().LogWarning)
+                    if (this.Get<BoardSettings>().LogWarning)
                     {
                         this.EventLogRepository.Insert(
                             new EventLog
-                                {
-                                    EventType = eventType,
-                                    UserName = username,
-                                    Description = formattedDescription,
-                                    Source = source,
-                                    EventTime = DateTime.UtcNow
-                                });
+                            {
+                                EventType = eventType,
+                                UserID = userId,
+                                Description = formattedDescription,
+                                Source = source,
+                                EventTime = DateTime.UtcNow
+                            });
                     }
 
                     break;
                 case EventLogTypes.Error:
-                    if (BoardContext.Current.Get<BoardSettings>().LogError)
+                    if (this.Get<BoardSettings>().LogError)
                     {
                         this.EventLogRepository.Insert(
                             new EventLog
-                                {
-                                    EventType = eventType,
-                                    UserName = username,
-                                    Description = formattedDescription,
-                                    Source = source,
-                                    EventTime = DateTime.UtcNow
-                                });
+                            {
+                                EventType = eventType,
+                                UserID = userId,
+                                Description = formattedDescription,
+                                Source = source,
+                                EventTime = DateTime.UtcNow
+                            });
                     }
 
                     break;
                 default:
+                {
+                    var log = new EventLog
                     {
-                        var log = new EventLog
-                                      {
-                                          EventType = eventType,
-                                          UserName = username,
-                                          Description = formattedDescription,
-                                          Source = source,
-                                          EventTime = DateTime.UtcNow
-                                      };
+                        EventType = eventType,
+                        UserID = userId,
+                        Description = formattedDescription,
+                        Source = source,
+                        EventTime = DateTime.UtcNow
+                    };
 
-                        this.EventLogRepository.Insert(log);
-                    }
+                    this.EventLogRepository.Insert(log);
+                }
 
                     break;
             }
         }
 
         /// <summary>
-        ///     The _event log type lookup.
-        /// </summary>
-        private Dictionary<EventLogTypes, bool> _eventLogTypeLookup;
-
-        /// <summary>
-        /// Inits. the lookup.
+        /// Initialization of Lookup.
         /// </summary>
         private void InitLookup()
         {
-            if (this._eventLogTypeLookup != null)
+            if (this.eventLogTypeLookup != null)
             {
                 return;
             }
 
-            var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, v => true);
+            var logTypes = EnumHelper.EnumToList<EventLogTypes>().ToDictionary(t => t, _ => true);
 
             new[] { EventLogTypes.Debug, EventLogTypes.Trace }.ForEach(
-                debugTypes => { logTypes.AddOrUpdate(debugTypes, this.isDebug); });
+                debugTypes => logTypes.AddOrUpdate(debugTypes, IsDebug));
 
-            this._eventLogTypeLookup = logTypes;
+            this.eventLogTypeLookup = logTypes;
         }
     }
 }

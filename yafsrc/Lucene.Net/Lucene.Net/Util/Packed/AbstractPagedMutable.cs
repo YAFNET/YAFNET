@@ -1,5 +1,7 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -59,6 +61,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         protected abstract PackedInt32s.Mutable NewMutable(int valueCount, int bitsPerValue);
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal int LastPageSize(long size)
         {
             int sz = IndexInPage(size);
@@ -74,11 +77,13 @@ namespace YAF.Lucene.Net.Util.Packed
         /// </summary>
         public long Count => size;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal int PageIndex(long index)
         {
-            return (int)((long)((ulong)index >> pageShift));
+            return (int)index.TripleShift(pageShift);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal int IndexInPage(long index)
         {
             return (int)index & pageMask;
@@ -156,7 +161,7 @@ namespace YAF.Lucene.Net.Util.Packed
                 T result = (T)this;
                 return result;
             }
-            long extra = (long)((ulong)minSize >> 3);
+            long extra = minSize.TripleShift(3);
             if (extra < 3)
             {
                 extra = 3;
@@ -167,6 +172,7 @@ namespace YAF.Lucene.Net.Util.Packed
 
         /// <summary>
         /// Similar to <see cref="ArrayUtil.Grow(long[])"/>. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T Grow()
         {
             return Grow(Count + 1);

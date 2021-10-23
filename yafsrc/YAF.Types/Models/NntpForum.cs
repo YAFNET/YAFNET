@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,46 +24,69 @@
 namespace YAF.Types.Models
 {
     using System;
-    using System.Data.Linq.Mapping;
 
     using ServiceStack.DataAnnotations;
 
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    /// A class which represents the yaf_NntpForum table.
+    /// A class which represents the NntpForum table.
     /// </summary>
     [Serializable]
-    [Table(Name = "NntpForum")]
-    public partial class NntpForum : IEntity, IHaveID
+    public class NntpForum : IEntity, IHaveID
     {
-        partial void OnCreated();
-
-        public NntpForum()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [Alias("NntpForumID")]
         [AutoIncrement]
         public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the nntp server id.
+        /// </summary>
         [References(typeof(NntpServer))]
         [Required]
         public int NntpServerID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the group name.
+        /// </summary>
         [Required]
         [StringLength(100)]
         public string GroupName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum id.
+        /// </summary>
         [References(typeof(Forum))]
         [Required]
         public int ForumID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last message no.
+        /// </summary>
         [Required]
         public int LastMessageNo { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last update.
+        /// </summary>
         [Required]
         public DateTime LastUpdate { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether active.
+        /// </summary>
         [Required]
+        [Default(typeof(bool), "1")]
         public bool Active { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date cut off.
+        /// </summary>
         public DateTime? DateCutOff { get; set; }
 
         #endregion

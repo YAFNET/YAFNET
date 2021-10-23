@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Analysis;
+﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
 using System;
@@ -98,6 +98,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
     /// <item><description>As of 3.1, <see cref="QueryParserBase.AutoGeneratePhraseQueries"/> is false by default.</description></item>
     /// </list>
     /// </summary>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "This class is based on generated code")]
     public class QueryParser : QueryParserBase
     {
         // NOTE: This was moved into the QueryParserBase class.
@@ -156,7 +157,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             {
                 if (true) return ret;
             }
-            throw new InvalidOperationException("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public int Modifiers()
@@ -194,7 +195,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             {
                 if (true) return ret;
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         // This makes sure that there is no garbage after the query string
@@ -206,7 +207,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             {
                 if (true) return q;
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public Query Query(string field)
@@ -258,13 +259,14 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
                 if (true) return firstQuery;
             }
 
-            return GetBooleanQuery(clauses);
+            if (true) return GetBooleanQuery(clauses);
+            throw Error.Create("Missing return statement in function");
         }
 
         public Query Clause(string field)
         {
             Query q;
-            Token fieldToken = null, boost = null;
+            Token fieldToken, boost = null; // LUCENENET: IDE0059: Remove unnecessary value assignment
             if (Jj_2_1(2))
             {
                 switch ((jj_ntk == -1) ? Jj_ntk() : jj_ntk)
@@ -326,7 +328,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             {
                 if (true) return HandleBoost(q, boost);
             }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         public Query Term(string field)
@@ -537,7 +539,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
                     throw new ParseException();
             }
             { if (true) return HandleBoost(q, boost); }
-            throw new Exception("Missing return statement in function");
+            throw Error.Create("Missing return statement in function");
         }
 
         private bool Jj_2_1(int xla)
@@ -594,14 +596,14 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         private Token jj_scanpos, jj_lastpos;
         private int jj_la;
         private int jj_gen;
-        private int[] jj_la1 = new int[21];
-        private static uint[] jj_la1_0 = new uint[] // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private readonly int[] jj_la1 = new int[21]; // LUCENENET: marked readonly
+        private static readonly uint[] jj_la1_0 = new uint[] // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             0x300, 0x300, 0x1c00, 0x1c00, 0xfda7f00, 0x120000, 0x40000, 0xfda6000, 0x9d22000, 0x200000,
             0x200000, 0x40000, 0x6000000, 0x80000000, 0x10000000, 0x80000000, 0x60000000, 0x40000,
             0x200000, 0x40000, 0xfda2000,
         };
-        private static int[] jj_la1_1 = new int[] // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private static readonly int[] jj_la1_1 = new int[] // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0,
             0x1, 0x0, 0x0, 0x0, 0x0, 0x0,
@@ -735,7 +737,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
 #endif
         }
 
-        private LookaheadSuccess jj_ls = new LookaheadSuccess();
+        private readonly LookaheadSuccess jj_ls = new LookaheadSuccess(); // LUCENENET: marked readonly
         private bool Jj_scan_token(int kind)
         {
             if (jj_scanpos == jj_lastpos)
@@ -800,10 +802,10 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
                 return (jj_ntk = Jj_nt.Kind);
         }
 
-        private List<int[]> jj_expentries = new List<int[]>();
+        private readonly List<int[]> jj_expentries = new List<int[]>(); // LUCENENET: marked readonly
         private int[] jj_expentry;
         private int jj_kind = -1;
-        private int[] jj_lasttokens = new int[100];
+        private readonly int[] jj_lasttokens = new int[100]; // LUCENENET: marked readonly
         private int jj_endpos;
 
         private void Jj_add_error_token(int kind, int pos)
@@ -888,6 +890,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             }
             return new ParseException(Token, exptokseq, QueryParserConstants.TokenImage);
         }
+
 
         /// <summary>Enable tracing. </summary>
         public void Enable_tracing()

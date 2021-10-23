@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
-    using ThreadState = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
+    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
+    using ThreadState  = YAF.Lucene.Net.Index.DocumentsWriterPerThreadPool.ThreadState;
 
     /// <summary>
     /// <see cref="FlushPolicy"/> controls when segments are flushed from a RAM resident
@@ -51,10 +51,7 @@ namespace YAF.Lucene.Net.Index
     /// <seealso cref="DocumentsWriterFlushControl"/>
     /// <seealso cref="DocumentsWriterPerThread"/>
     /// <seealso cref="IndexWriterConfig.FlushPolicy"/>
-    internal abstract class FlushPolicy
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    internal abstract class FlushPolicy // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         protected LiveIndexWriterConfig m_indexWriterConfig;
         protected InfoStream m_infoStream;

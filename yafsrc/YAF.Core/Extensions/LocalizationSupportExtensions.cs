@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,10 +25,10 @@ namespace YAF.Core.Extensions
 {
     using System.Web.UI;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
-    using YAF.Core;
     using YAF.Core.BaseControls;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -53,7 +53,7 @@ namespace YAF.Core.Extensions
             CodeContracts.VerifyNotNull(supportItem, "supportItem");
             CodeContracts.VerifyNotNull(currentControl, "currentControl");
 
-            if (currentControl.Site != null && currentControl.Site.DesignMode)
+            if (currentControl.Site is { DesignMode: true })
             {
                 return $"[PAGE:{supportItem.LocalizedPage}|TAG:{supportItem.LocalizedTag}]";
             }
@@ -86,10 +86,10 @@ namespace YAF.Core.Extensions
 
             var localizedItem = supportedItem.Localize(currentControl);
 
-            // convert from YafBBCode to HTML
+            // convert from BBCode to HTML
             if (supportedItem.EnableBBCode)
             {
-                localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, false, true, false);
+                localizedItem = currentControl.Get<IBBCode>().MakeHtml(localizedItem, true, true);
             }
 
             return localizedItem.Fmt(supportedItem.Param0, supportedItem.Param1, supportedItem.Param2);

@@ -7,7 +7,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[twitter\](?&lt;statusID&gt;.+?)\[/twitter\]</SearchRegex>
-    <ReplaceRegex>&lt;div class="embed-responsive embed-responsive-1by1" data-oembed-url="${statusID}"&gt;&lt;iframe class="embed-responsive-item" src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>statusID</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>
@@ -22,7 +22,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[dailymotion\](?&lt;inner&gt;http://(?&lt;prefix&gt;[A-Za-z][A-Za-z][A-Za-z]?\.)?dailymotion.com/video/(?&lt;id&gt;[^_]*))[^[]*\[/dailymotion\]</SearchRegex>
-    <ReplaceRegex>&lt;div data-oembed-url="https://dailymotion.com/video/${id}" class="embed-responsive embed-responsive-1by1"&gt;&lt;iframe class="embed-responsive-item" src="https://dailymotion.com/embed/video/${id}?forcedQuality=hd720"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div data-oembed-url="https://dailymotion.com/video/${id}" class="ratio ratio-1x1"&gt;&lt;iframe src="https://dailymotion.com/embed/video/${id}?forcedQuality=hd720"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>id;prefix</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>false</UseToolbar>
@@ -38,8 +38,8 @@
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtube.com/watch\?v=(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]|\[youtube\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)youtu.be/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/youtube\]</SearchRegex>
     <ReplaceRegex>
-      &lt;div data-oembed-url="//youtube.com/embed/${id}" class="embed-responsive embed-responsive-16by9"&gt;
-      &lt;iframe src="//youtube.com/embed/${id}?hd=1" class="embed-responsive-item"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;
+      &lt;div data-oembed-url="//youtube.com/embed/${id}" class="ratio ratio-16x9"&gt;
+      &lt;iframe src="//youtube.com/embed/${id}?hd=1"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;
     </ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
@@ -59,7 +59,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.SpoilerBBCodeModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.SpoilerBBCodeModule, YAF.Web</ModuleClass>
     <ExecOrder>50</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -74,7 +74,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.UserLinkBBCodeModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.UserLinkBBCodeModule, YAF.Web</ModuleClass>
     <ExecOrder>75</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -85,7 +85,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[vimeo\](?&lt;inner&gt;(?&lt;prefix&gt;.+?)vimeo.com/(?&lt;vimeoId&gt;[0-9]+))[^[]*\[/vimeo\]</SearchRegex>
-    <ReplaceRegex>&lt;div data-oembed-url="https://vimeo.com/${vimeoId}" class="embed-responsive embed-responsive-16by9"&gt;&lt;iframe class="embed-responsive-item" src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div data-oembed-url="https://vimeo.com/${vimeoId}" class="ratio ratio-16x9"&gt;&lt;iframe src="http://player.vimeo.com/video/${vimeoId}?show_title=1&amp;amp;show_byline=1&amp;amp;show_portrait=1&amp;amp;&amp;amp;fullscreen=1"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>prefix;vimeoId</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>
@@ -104,7 +104,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule, YAF.Web</ModuleClass>
     <ExecOrder>60</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -119,7 +119,7 @@
     <Variables>group</Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.GroupHide</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.GroupHide, YAF.Web</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -134,7 +134,7 @@
     <Variables>thanks</Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule, YAF.Web</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -149,7 +149,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.HideReplyThanksModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.HideReplyThanksModule, YAF.Web</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -164,7 +164,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.HideReplyModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.HideReplyModule, YAF.Web</ModuleClass>
     <ExecOrder>1</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -179,7 +179,7 @@
     <Variables>posts</Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.HideBBCodeModule, YAF.Web</ModuleClass>
     <ExecOrder>2</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -194,7 +194,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.AlbumImage</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.AlbumImage, YAF.Web</ModuleClass>
     <ExecOrder>30</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -209,7 +209,7 @@
     <Variables></Variables>
     <UseModule>true</UseModule>
     <UseToolbar>false</UseToolbar>
-    <ModuleClass>YAF.Web.BBCodes.Attach</ModuleClass>
+    <ModuleClass>YAF.Web.BBCodes.Attach, YAF.Web</ModuleClass>
     <ExecOrder>31</ExecOrder>
   </YafBBCode>
   <YafBBCode>
@@ -220,7 +220,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[instagram\](?&lt;inner&gt;(.*?).instagram.com/p/(?&lt;id&gt;[0-9A-Za-z-_]{11}))[^[]*\[/instagram\]</SearchRegex>
-    <ReplaceRegex>&lt;div class="embed-responsive embed-responsive-1by1"  data-oembed-url="https://www.instagram.com/p/${id}"&gt;&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" class="embed-responsive-item"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="https://www.instagram.com/p/${id}"&gt;&lt;iframe src="https://www.instagram.com/p/${id}/embed/captioned/" &gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>id</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>
@@ -235,7 +235,7 @@
     <EditJS></EditJS>
     <DisplayCSS></DisplayCSS>
     <SearchRegex>\[facebook\](?&lt;url&gt;.*?)\[/facebook\]</SearchRegex>
-    <ReplaceRegex>&lt;div class="embed-responsive embed-responsive-1by1" data-oembed-url="${url}"&gt;&lt;iframe class="embed-responsive-item" src="https://www.facebook.com/plugins/post.php?href=${url}" /&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+    <ReplaceRegex>&lt;div class="ratio ratio-1x1" data-oembed-url="${url}"&gt;&lt;iframe src="https://www.facebook.com/plugins/post.php?href=${url}" /&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
     <Variables>url</Variables>
     <UseModule>false</UseModule>
     <UseToolbar>true</UseToolbar>

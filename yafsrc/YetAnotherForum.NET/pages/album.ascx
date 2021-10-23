@@ -4,25 +4,28 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
-<div class="row">
-    <div class="col-xl-12">
-        <h2>
-            <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="Albums_Title" />
-        </h2>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col">
-        <div class="card mb-3">
-            <YAF:AlbumImageList ID="AlbumImageList1" runat="server"></YAF:AlbumImageList>
-            <div class="card-footer text-center">
-                <YAF:ThemeButton runat="server" ID="Back" 
+<section class="text-center container mb-3">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">
+                <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
+                                    LocalizedTag="Albums_Title" />
+            </h1>
+            <p>
+                <YAF:ThemeButton runat="server" ID="EditAlbums"
+                                 OnClick="EditAlbums_Click"
+                                 CssClass="mb-1"
+                                 TextLocalizedTag="BUTTON_EDITALBUMIMAGES"
+                                 Icon="plus"/>
+                <YAF:ThemeButton runat="server" ID="Back"
                                  OnClick="Back_Click"
+                                 CssClass="mb-1"
                                  TextLocalizedTag="BACK_ALBUMS"
                                  Type="Secondary"
                                  Icon="arrow-circle-left"/>
-            </div>
+            </p>
         </div>
     </div>
-</div>
+</section>
+
+<YAF:AlbumImageList ID="AlbumImageList1" runat="server" />

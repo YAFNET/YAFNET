@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -26,19 +26,15 @@ namespace YAF.Controls
 {
     #region Using
 
-    using System;
     using System.Collections;
-    using System.Data;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
+    using YAF.Core.Services;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -66,20 +62,22 @@ namespace YAF.Controls
         ///   Automatically disables the link if the current user doesn't
         ///   have proper permissions.
         /// </summary>
-        /// <param name="row">
-        /// Current data row
+        /// <param name="forum">
+        /// The forum.
         /// </param>
         /// <returns>
         /// Forum link text
         /// </returns>
-        public string GetForumLink([NotNull] DataRow row)
+        public string GetForumLink([NotNull] ForumRead forum)
         {
-            var forumID = row["ForumID"].ToType<int>();
+            var forumID = forum.ForumID;
 
             // get the Forum Description
-            var output = Convert.ToString(row["Forum"]);
+            var output = forum.Forum;
 
-            output = int.Parse(row["ReadAccess"].ToString()) > 0 ? $"<a class=\"card-link small\" href=\"{BuildLink.GetLink(ForumPages.topics, "f={0}&name={1}", forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>" : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
+            output = forum.ReadAccess
+                ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
+                : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
             return output;
         }
@@ -95,57 +93,46 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void SubForumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            switch (e.Item.ItemType)
+            if (!e.Item.ItemType.Equals(ListItemType.Footer))
             {
-                case ListItemType.Item:
-                case ListItemType.AlternatingItem:
-                    {
-                        var row = e.Item.DataItem.ToType<DataRow>();
-                        var lastRead = this.Get<IReadTrackCurrentUser>()
-                            .GetForumRead(
-                                row["ForumID"].ToType<int>(),
-                                row["LastForumAccess"].ToType<DateTime?>() ?? DateTimeHelper.SqlDbMinTime());
-
-                        var lastPosted = row["LastPosted"].ToType<DateTime?>() ?? lastRead;
-
-                        var forumIcon = e.Item.FindControlAs<PlaceHolder>("ForumIcon");
-
-                        var icon = new Literal { Text = "<i class=\"fa fa-comments text-secondary\"></i>" };
-
-                        try
-                        {
-                            if (lastPosted > lastRead)
-                            {
-                                icon.Text = "<i class=\"fa fa-comments text-success\"></i>";
-                            }
-                        }
-                        catch
-                        {
-                            icon = new Literal { Text = "<i class=\"fa fa-comments text-secondary\"></i>" };
-                        }
-
-                        forumIcon.Controls.Add(icon);
-                    }
-
-                    break;
-                case ListItemType.EditItem:
-                    break;
-                case ListItemType.Footer:
-                    {
-                        var repeater = sender as Repeater;
-                        var dataSource = repeater.DataSource.ToType<IEnumerable>();
-
-                        if (dataSource != null
-                            && dataSource.ToType<ArrayList>().Count >= this.Get<BoardSettings>().SubForumsInForumList)
-                        {
-                            e.Item.FindControl("CutOff").Visible = true;
-                        }
-                    }
-
-                    break;
-                default:
-                    return;
+                return;
             }
+
+            if (this.SubforumList.Items.Count >=
+                this.PageContext.BoardSettings.SubForumsInForumList)
+            {
+                e.Item.FindControl("CutOff").Visible = true;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Gets the Posts string
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Returns the Posts string
+        /// </returns>
+        protected string Posts([NotNull] ForumRead item)
+        {
+            return item.RemoteURL.IsNotSet() ? $"{item.Posts:N0}" : "-";
+        }
+
+        /// <summary>
+        /// Gets the Topics string
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// Returns the Topics string
+        /// </returns>
+        protected string Topics([NotNull] ForumRead item)
+        {
+            return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
         }
 
         #endregion

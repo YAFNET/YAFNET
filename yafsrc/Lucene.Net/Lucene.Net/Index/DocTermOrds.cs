@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
@@ -112,15 +113,15 @@ namespace YAF.Lucene.Net.Index
         /// Term ords are shifted by this, internally, to reserve
         /// values 0 (end term) and 1 (index is a pointer into byte array)
         /// </summary>
-        private static readonly int TNUM_OFFSET = 2;
+        private const int TNUM_OFFSET = 2;
 
         /// <summary>
         /// Every 128th term is indexed, by default. </summary>
-        public static readonly int DEFAULT_INDEX_INTERVAL_BITS = 7; // decrease to a low number like 2 for testing
+        public const int DEFAULT_INDEX_INTERVAL_BITS = 7; // decrease to a low number like 2 for testing
 
-        private int indexIntervalBits;
-        private int indexIntervalMask;
-        private int indexInterval;
+        private readonly int indexIntervalBits; // LUCENENET: marked readonly
+        private readonly int indexIntervalMask; // LUCENENET: marked readonly
+        private readonly int indexInterval; // LUCENENET: marked readonly
 
         /// <summary>
         /// Don't uninvert terms that exceed this count. </summary>
@@ -255,7 +256,7 @@ namespace YAF.Lucene.Net.Index
             this.m_field = field;
             this.m_maxTermDocFreq = maxTermDocFreq;
             this.indexIntervalBits = indexIntervalBits;
-            indexIntervalMask = (int)((uint)0xffffffff >> (32 - indexIntervalBits));
+            indexIntervalMask = (int)(0xffffffff >> (32 - indexIntervalBits)); // LUCENENET: No need to cast to uint here for the triple shift because the literal already is uint
             indexInterval = 1 << indexIntervalBits;
         }
 
@@ -330,10 +331,10 @@ namespace YAF.Lucene.Net.Index
             FieldInfo info = reader.FieldInfos.FieldInfo(m_field);
             if (info != null && info.HasDocValues)
             {
-                throw new InvalidOperationException("Type mismatch: " + m_field + " was indexed as " + info.DocValuesType);
+                throw IllegalStateException.Create("Type mismatch: " + m_field + " was indexed as " + info.DocValuesType);
             }
             //System.out.println("DTO uninvert field=" + field + " prefix=" + termPrefix);
-            long startTime = Environment.TickCount;
+            long startTime = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
             m_prefix = termPrefix == null ? null : BytesRef.DeepCopyOf(termPrefix);
 
             int maxDoc = reader.MaxDoc;
@@ -411,9 +412,7 @@ namespace YAF.Lucene.Net.Index
                         m_ordBase = (int)te.Ord;
                         //System.out.println("got ordBase=" + ordBase);
                     }
-#pragma warning disable 168
-                    catch (NotSupportedException uoe)
-#pragma warning restore 168
+                    catch (Exception uoe) when (uoe.IsUnsupportedOperationException())
                     {
                         // Reader cannot provide ord support, so we wrap
                         // our own support by creating our own terms index:
@@ -468,7 +467,7 @@ namespace YAF.Lucene.Net.Index
                         {
                             // index into byte array (actually the end of
                             // the doc-specific byte[] when building)
-                            int pos = (int)((uint)val >> 8);
+                            int pos = val.TripleShift(8);
                             int ilen = VInt32Size(delta);
                             var arr = bytes[doc];
                             int newend = pos + ilen;
@@ -535,7 +534,7 @@ namespace YAF.Lucene.Net.Index
                                 for (int j = 0; j < ipos; j++)
                                 {
                                     tempArr[j] = (sbyte)val;
-                                    val = (int)((uint)val >> 8);
+                                    val = val.TripleShift(8);
                                 }
                                 // point at the end index in the byte[]
                                 index[doc] = (endPos << 8) | 1;
@@ -556,7 +555,7 @@ namespace YAF.Lucene.Net.Index
 
             m_numTermsInField = termNum;
 
-            long midPoint = Environment.TickCount;
+            long midPoint = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             if (m_termInstances == 0)
             {
@@ -599,13 +598,13 @@ namespace YAF.Lucene.Net.Index
                             int val = index[doc];
                             if ((val & 0xff) == 1)
                             {
-                                int len = (int)((uint)val >> 8);
+                                int len = val.TripleShift(8);
                                 //System.out.println("    ptr pos=" + pos);
                                 index[doc] = (pos << 8) | 1; // change index to point to start of array
                                 if ((pos & 0xff000000) != 0)
                                 {
                                     // we only have 24 bits for the array index
-                                    throw new InvalidOperationException("Too many values for UnInvertedField faceting on field " + m_field);
+                                    throw IllegalStateException.Create("Too many values for UnInvertedField faceting on field " + m_field);
                                 }
                                 var arr = bytes[doc];
                                 /*
@@ -666,7 +665,7 @@ namespace YAF.Lucene.Net.Index
                 indexedTerms.CopyTo(m_indexedTermsArray, 0);
             }
 
-            long endTime = Environment.TickCount;
+            long endTime = J2N.Time.NanoTime() / J2N.Time.MillisecondsPerNanosecond; // LUCENENET: Use NanoTime() rather than CurrentTimeMilliseconds() for more accurate/reliable results
 
             m_total_time = (int)(endTime - startTime);
             m_phase1_time = (int)(midPoint - startTime);
@@ -705,22 +704,22 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         private static int WriteInt32(int x, sbyte[] arr, int pos)
         {
-            var a = ((int)((uint)x >> (7 * 4)));
+            var a = x.TripleShift(7 * 4);
             if (a != 0)
             {
                 arr[pos++] = (sbyte)(a | 0x80);
             }
-            a = ((int)((uint)x >> (7 * 3)));
+            a = x.TripleShift(7 * 3);
             if (a != 0)
             {
                 arr[pos++] = (sbyte)(a | 0x80);
             }
-            a = ((int)((uint)x >> (7 * 2)));
+            a = x.TripleShift(7 * 2);
             if (a != 0)
             {
                 arr[pos++] = (sbyte)(a | 0x80);
             }
-            a = ((int)((uint)x >> (7 * 1)));
+            a = x.TripleShift(7 * 1);
             if (a != 0)
             {
                 arr[pos++] = (sbyte)(a | 0x80);
@@ -736,11 +735,6 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         private sealed class OrdWrappedTermsEnum : TermsEnum
         {
-            internal void InitializeInstanceFields()
-            {
-                ord = -outerInstance.indexInterval - 1;
-            }
-
             private readonly DocTermOrds outerInstance;
 
             internal readonly TermsEnum termsEnum;
@@ -751,7 +745,7 @@ namespace YAF.Lucene.Net.Index
             {
                 this.outerInstance = outerInstance;
 
-                InitializeInstanceFields();
+                ord = -outerInstance.indexInterval - 1;
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.m_indexedTermsArray != null);
                 termsEnum = reader.Fields.GetTerms(outerInstance.m_field).GetEnumerator();
             }
@@ -781,8 +775,7 @@ namespace YAF.Lucene.Net.Index
                     term = null;
                     return false;
                 }
-                SetTerm(); // this is extra work if we know we are in bounds...
-                return true;
+                return SetTerm() != null;   // this is extra work if we know we are in bounds...
             }
 
             [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -877,7 +870,7 @@ namespace YAF.Lucene.Net.Index
                 //System.out.println("  seek(ord) targetOrd=" + targetOrd + " delta=" + delta + " ord=" + ord + " ii=" + indexInterval);
                 if (delta < 0 || delta > outerInstance.indexInterval)
                 {
-                    int idx = (int)((long)((ulong)targetOrd >> outerInstance.indexIntervalBits));
+                    int idx = (int)targetOrd.TripleShift(outerInstance.indexIntervalBits);
                     BytesRef @base = outerInstance.m_indexedTermsArray[idx];
                     //System.out.println("  do seek term=" + base.utf8ToString());
                     ord = idx << outerInstance.indexIntervalBits;
@@ -1009,7 +1002,7 @@ namespace YAF.Lucene.Net.Index
                             //System.out.println("  tnum=" + tnum);
                             delta = 0;
                         }
-                        code = (int)((uint)code >> 8);
+                        code = code.TripleShift(8);
                     }
                 }
                 else
@@ -1053,9 +1046,9 @@ namespace YAF.Lucene.Net.Index
                 if ((code & 0xff) == 1)
                 {
                     // a pointer
-                    upto = (int)((uint)code >> 8);
+                    upto = code.TripleShift(8);
                     //System.out.println("    pointer!  upto=" + upto);
-                    int whichArray = ((int)((uint)docID >> 16)) & 0xff;
+                    int whichArray = (docID.TripleShift(16)) & 0xff;
                     arr = outerInstance.m_tnums[whichArray];
                 }
                 else
@@ -1070,14 +1063,14 @@ namespace YAF.Lucene.Net.Index
 
             public override void LookupOrd(long ord, BytesRef result)
             {
-                BytesRef @ref = null;
+                BytesRef @ref/* = null*/; // LUCENENET: IDE0059: Remove unnecessary value assignment
                 try
                 {
                     @ref = outerInstance.LookupTerm(te, (int)ord);
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception(e.ToString(), e);
+                    throw RuntimeException.Create(e);
                 }
                 result.Bytes = @ref.Bytes;
                 result.Offset = @ref.Offset;
@@ -1099,9 +1092,9 @@ namespace YAF.Lucene.Net.Index
                         return -te.Ord - 1;
                     }
                 }
-                catch (IOException e)
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception(e.ToString(), e);
+                    throw RuntimeException.Create(e);
                 }
             }
 
@@ -1111,11 +1104,9 @@ namespace YAF.Lucene.Net.Index
                 {
                     return outerInstance.GetOrdTermsEnum(reader);
                 }
-#pragma warning disable 168
-                catch (IOException e)
-#pragma warning restore 168
+                catch (Exception e) when (e.IsIOException())
                 {
-                    throw new Exception(e.ToString(), e);
+                    throw RuntimeException.Create(e);
                 }
             }
         }

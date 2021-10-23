@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using YAF.Lucene.Net.Diagnostics;
 
 namespace YAF.Lucene.Net.Util
@@ -29,10 +29,7 @@ namespace YAF.Lucene.Net.Util
     /// </para>
     /// @lucene.internal
     /// </summary>
-    public abstract class InfoStream : IDisposable
-#if FEATURE_CLONEABLE
-        , System.ICloneable
-#endif
+    public abstract class InfoStream : IDisposable // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// Instance of <see cref="InfoStream"/> that does no logging at all. </summary>
@@ -81,7 +78,7 @@ namespace YAF.Lucene.Net.Util
                 lock (typeof(InfoStream))
                 {
                     defaultInfoStream = value ?? throw new ArgumentNullException(
-                        nameof(value),
+                        nameof(Default),
                         "Cannot set InfoStream default implementation to null. " +
                         "To disable logging use InfoStream.NO_OUTPUT");
                 }
@@ -110,14 +107,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public virtual object Clone()
         {
-            try
-            {
-                return (InfoStream)base.MemberwiseClone();
-            }
-            catch (InvalidOperationException e)
-            {
-                throw new Exception(e.ToString(), e);
-            }
+            return MemberwiseClone(); // LUCENENET: No exception can occur in .NET and there is no need to cast.
         }
     }
 }

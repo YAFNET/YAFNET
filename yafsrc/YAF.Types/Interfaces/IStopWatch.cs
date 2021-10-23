@@ -23,26 +23,29 @@
  */
 namespace YAF.Types.Interfaces
 {
-  public interface IStopWatch
-  {
     /// <summary>
-    /// Gets Duration.
+    /// The StopWatch interface.
     /// </summary>
-    double Duration { get; }
+    public interface IStopWatch
+    {
+        /// <summary>
+        /// Gets Duration.
+        /// </summary>
+        double Duration { get; }
 
-    /// <summary>
-    /// The start.
-    /// </summary>
-    void Start();
+        /// <summary>
+        /// The start.
+        /// </summary>
+        void Start();
 
-    /// <summary>
-    /// The stop.
-    /// </summary>
-    void Stop();
+        /// <summary>
+        /// The stop.
+        /// </summary>
+        void Stop();
 
-    /// <summary>
-    /// The reset.
-    /// </summary>
-    void Reset();
-  }
+        /// <summary>
+        /// The reset.
+        /// </summary>
+        void Reset();
+    }
 }

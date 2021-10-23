@@ -1,8 +1,9 @@
-// Lucene version compatibility level: 4.8.1
+﻿// Lucene version compatibility level: 4.8.1
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Threading;
 
 namespace YAF.Lucene.Net.Index
@@ -39,10 +40,7 @@ namespace YAF.Lucene.Net.Index
     /// new <see cref="DocumentsWriterPerThread"/> instance.
     /// </summary>
 
-    internal sealed class DocumentsWriterPerThreadPool
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    internal sealed class DocumentsWriterPerThreadPool // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary>
         /// <see cref="ThreadState"/> references and guards a
@@ -118,7 +116,7 @@ namespace YAF.Lucene.Net.Index
                     return IsActive && dwpt != null;
                 }
             }
-                
+
 
             /// <summary>
             /// Returns the number of currently active bytes in this ThreadState's
@@ -167,7 +165,7 @@ namespace YAF.Lucene.Net.Index
         {
             if (maxNumThreadStates < 1)
             {
-                throw new ArgumentException("maxNumThreadStates must be >= 1 but was: " + maxNumThreadStates);
+                throw new ArgumentOutOfRangeException(nameof(maxNumThreadStates), "maxNumThreadStates must be >= 1 but was: " + maxNumThreadStates); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             threadStates = new ThreadState[maxNumThreadStates];
             numThreadStatesActive = 0;
@@ -183,7 +181,7 @@ namespace YAF.Lucene.Net.Index
             // We should only be cloned before being used:
             if (numThreadStatesActive != 0)
             {
-                throw new InvalidOperationException("clone this object before it is used!");
+                throw IllegalStateException.Create("clone this object before it is used!");
             }
             return new DocumentsWriterPerThreadPool(threadStates.Length);
         }
@@ -220,13 +218,13 @@ namespace YAF.Lucene.Net.Index
                 {
                     // unreleased thread states are deactivated during DW#close()
                     numThreadStatesActive++; // increment will publish the ThreadState
-                                                        //System.out.println("activeCount=" + numThreadStatesActive);
-                        if (Debugging.AssertsEnabled) Debugging.Assert(threadState.dwpt == null);
+                                                    //System.out.println("activeCount=" + numThreadStatesActive);
+                    if (Debugging.AssertsEnabled) Debugging.Assert(threadState.dwpt == null);
                     unlock = false;
                     return threadState;
                 }
                 // we are closed: unlock since the threadstate is not active anymore
-                    if (Debugging.AssertsEnabled) Debugging.Assert(AssertUnreleasedThreadStatesInactive());
+                if (Debugging.AssertsEnabled) Debugging.Assert(AssertUnreleasedThreadStatesInactive());
                 return null;
             }
             finally
@@ -282,7 +280,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal DocumentsWriterPerThread Reset(ThreadState threadState, bool closed)
+        internal static DocumentsWriterPerThread Reset(ThreadState threadState, bool closed) // LUCENENET: CA1822: Mark members as static
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(threadState.IsHeldByCurrentThread);
             DocumentsWriterPerThread dwpt = threadState.dwpt;
@@ -297,14 +295,15 @@ namespace YAF.Lucene.Net.Index
             return dwpt;
         }
 
-        internal void Recycle(DocumentsWriterPerThread dwpt)
-        {
-            // don't recycle DWPT by default
-        }
+        // LUCENENET: Called in one place, but since there is no implementation it is just wasted CPU
+        //internal void Recycle(DocumentsWriterPerThread dwpt)
+        //{
+        //    // don't recycle DWPT by default
+        //}
 
         // you cannot subclass this without being in o.a.l.index package anyway, so
         // the class is already pkg-private... fix me: see LUCENE-4013
-        public ThreadState GetAndLock(Thread requestingThread, DocumentsWriter documentsWriter)
+        public ThreadState GetAndLock(/* Thread requestingThread, DocumentsWriter documentsWriter // LUCENENET: Not referenced */)
         {
             ThreadState threadState = null;
             lock (this)
@@ -352,6 +351,7 @@ namespace YAF.Lucene.Net.Index
                     {
                         // Wait until a thread state frees up:
                         Monitor.Wait(this);
+                        // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException
                     }
                 }
             }
@@ -383,6 +383,7 @@ namespace YAF.Lucene.Net.Index
         ///          the ordinal of the <seealso cref="ThreadState"/> </param>
         /// <returns> the <i>i</i>th active <seealso cref="ThreadState"/> where <i>i</i> is the
         ///         given ord. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal ThreadState GetThreadState(int ord)
         {
             return threadStates[ord];
@@ -441,7 +442,8 @@ namespace YAF.Lucene.Net.Index
         /// if the parent <see cref="DocumentsWriter"/> is closed or aborted.
         /// </summary>
         /// <param name="threadState"> the state to deactivate </param>
-        internal void DeactivateThreadState(ThreadState threadState)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal static void DeactivateThreadState(ThreadState threadState) // LUCENENET: CA1822: Mark members as static
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(threadState.IsActive);
             threadState.Deactivate();

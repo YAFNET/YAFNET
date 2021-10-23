@@ -41,24 +41,19 @@ namespace YAF.Core.Extensions
     public static class CultureExtensions
     {
         /// <summary>
-        /// The fa culture
+        /// The Farsi culture
         /// </summary>
         private static CultureInfo faCulture;
 
         /// <summary>
-        /// The ar culture
+        /// The internal Farsi culture
         /// </summary>
-        private static CultureInfo arCulture;
-
-        /// <summary>
-        /// The internalfa culture
-        /// </summary>
-        private static CultureInfo internalfaCulture;
+        private static CultureInfo internalFaCulture;
 
         /// <summary>
         /// The pc.
         /// </summary>
-        private static readonly PersianCalendar pc = new PersianCalendar();
+        private static readonly PersianCalendar pc = new();
 
         /// <summary>
         /// Gets the persian calendar.
@@ -78,7 +73,7 @@ namespace YAF.Core.Extensions
         /// <summary>
         /// Instance of Persian Culture with correct date formatting.
         /// </summary>
-        public static CultureInfo PersianCulture => internalfaCulture ?? (internalfaCulture = new PersianCultureInfo());
+        public static CultureInfo PersianCulture => internalFaCulture ?? (internalFaCulture = new PersianCultureInfo());
 
         /// <summary>
         /// The is farsi culture.
@@ -96,6 +91,5 @@ namespace YAF.Core.Extensions
                                                               "fa",
                                                               StringComparison.InvariantCultureIgnoreCase);
         }
-
     }
 }

@@ -1,6 +1,7 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace YAF.Lucene.Net.Util
@@ -28,10 +29,7 @@ namespace YAF.Lucene.Net.Util
     /// Attributes are used to add data in a dynamic, yet type-safe way to a source
     /// of usually streamed objects, e. g. a <see cref="Lucene.Net.Analysis.TokenStream" />.
     /// </summary>
-    public abstract class Attribute : IAttribute
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    public abstract class Attribute : IAttribute // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         /// <summary> Clears the values in this <see cref="Attribute"/> and resets it to its
         /// default value. If this implementation implements more than one <see cref="Attribute"/> interface
@@ -53,6 +51,7 @@ namespace YAF.Lucene.Net.Util
                 this.prependAttClass = prependAttClass;
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public void Reflect<T>(string key, object value)
                 where T : IAttribute
             {
@@ -69,7 +68,11 @@ namespace YAF.Lucene.Net.Util
                 {
                     buffer.Append(type.Name).Append('#');
                 }
-                buffer.Append(key).Append('=').Append(object.ReferenceEquals(value, null) ? (object)"null" : value);
+                buffer.Append(key).Append('=');
+                if (value is null)
+                    buffer.Append("null");
+                else
+                    buffer.Append(value);
             }
         }
 
@@ -122,7 +125,7 @@ namespace YAF.Lucene.Net.Util
 
             if (interfaces.Count != 1)
             {
-                throw new NotSupportedException(clazz.Name + " implements more than one Attribute interface, the default ReflectWith() implementation cannot handle this.");
+                throw UnsupportedOperationException.Create(clazz.Name + " implements more than one Attribute interface, the default ReflectWith() implementation cannot handle this.");
             }
 
             interfaces.First.Value.TryGetTarget(out Type interf);
@@ -139,9 +142,11 @@ namespace YAF.Lucene.Net.Util
                     reflector.Reflect(interf, f.Name, f.GetValue(this));
                 }
             }
-            catch (MemberAccessException e)
+            catch (Exception e) when (e.IsIllegalAccessException())
             {
-                throw new Exception(e.ToString(), e);
+                // this should never happen, because we're just accessing fields
+                // from 'this'
+                throw RuntimeException.Create(e);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
@@ -55,14 +56,18 @@ namespace YAF.Lucene.Net.Queries
         /// can contain duplicate terms and multiple fields.
         /// </summary>
         public TermsFilter(IList<Term> terms)
-            : this(new FieldAndTermEnumAnonymousInnerClassHelper(terms), terms.Count)
+            : this(new FieldAndTermEnumAnonymousClass(terms), terms.Count)
         {
         }
 
-        private class FieldAndTermEnumAnonymousInnerClassHelper : FieldAndTermEnum
+        private class FieldAndTermEnumAnonymousClass : FieldAndTermEnum
         {            
-            public FieldAndTermEnumAnonymousInnerClassHelper(IList<Term> terms)
+            public FieldAndTermEnumAnonymousClass(IList<Term> terms)
             {
+                // LUCENENET specific - added guard clause for null
+                if (terms is null)
+                    throw new ArgumentNullException(nameof(terms));
+
                 if (terms.Count == 0)
                 {
                     throw new ArgumentException("no terms provided");
@@ -73,7 +78,7 @@ namespace YAF.Lucene.Net.Queries
             }
 
             // we need to sort for deduplication and to have a common cache key
-            readonly IEnumerator<Term> iter;
+            private readonly IEnumerator<Term> iter;
             public override bool MoveNext()
             {
                 if (iter.MoveNext())
@@ -93,15 +98,19 @@ namespace YAF.Lucene.Net.Queries
         /// a single field.
         /// </summary>
         public TermsFilter(string field, IList<BytesRef> terms)
-            : this(new FieldAndTermEnumAnonymousInnerClassHelper2(field, terms), terms.Count)
+            : this(new FieldAndTermEnumAnonymousClass2(field, terms), terms.Count)
         {
         }
 
-        private class FieldAndTermEnumAnonymousInnerClassHelper2 : FieldAndTermEnum
+        private class FieldAndTermEnumAnonymousClass2 : FieldAndTermEnum
         {
-            public FieldAndTermEnumAnonymousInnerClassHelper2(string field, IList<BytesRef> terms)
+            public FieldAndTermEnumAnonymousClass2(string field, IList<BytesRef> terms)
                 : base(field)
             {
+                // LUCENENET specific - added guard clause for null
+                if (terms is null)
+                    throw new ArgumentNullException(nameof(terms));
+
                 if (terms.Count == 0)
                 {
                     throw new ArgumentException("no terms provided");
@@ -112,7 +121,7 @@ namespace YAF.Lucene.Net.Queries
             }
 
             // we need to sort for deduplication and to have a common cache key
-            readonly IEnumerator<BytesRef> iter;
+            private readonly IEnumerator<BytesRef> iter;
             public override bool MoveNext()
             {
                 if (iter.MoveNext())
@@ -225,7 +234,7 @@ namespace YAF.Lucene.Net.Queries
             {
                 return result;
             }
-            Terms terms = null;
+            Terms terms; // LUCENENET: IDE0059: Remove unnecessary value assignment
             TermsEnum termsEnum = null;
             DocsEnum docs = null;
             foreach (TermsAndField termsAndField in this.termsAndFields)

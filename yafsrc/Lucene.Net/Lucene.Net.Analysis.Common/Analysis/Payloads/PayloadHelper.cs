@@ -1,4 +1,5 @@
-﻿namespace YAF.Lucene.Net.Analysis.Payloads
+// Lucene version compatibility level 4.8.1
+namespace YAF.Lucene.Net.Analysis.Payloads
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -20,7 +21,7 @@
     /// <summary>
     /// Utility methods for encoding payloads.
     /// </summary>
-    public class PayloadHelper
+    public static class PayloadHelper // LUCENENET specific: CA1052 Static holder types should be Static or NotInheritable
     {
         /// <summary>
         /// NOTE: This was encodeFloat() in Lucene

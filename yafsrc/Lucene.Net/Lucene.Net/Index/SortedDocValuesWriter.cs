@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Codecs;
+﻿using YAF.Lucene.Net.Codecs;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Packed;
@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Index
     internal class SortedDocValuesWriter : DocValuesWriter
     {
         internal readonly BytesRefHash hash;
-        private AppendingDeltaPackedInt64Buffer pending;
+        private readonly AppendingDeltaPackedInt64Buffer pending; // LUCENENET: marked readonly
         private readonly Counter iwBytesUsed;
         private long bytesUsed; // this currently only tracks differences in 'pending'
         private readonly FieldInfo fieldInfo;
@@ -55,9 +55,9 @@ namespace YAF.Lucene.Net.Index
             {
                 throw new ArgumentException("DocValuesField \"" + fieldInfo.Name + "\" appears more than once in this document (only one value is allowed per field)");
             }
-            if (value == null)
+            if (value is null)
             {
-                throw new ArgumentException("field \"" + fieldInfo.Name + "\": null value not allowed");
+                throw new ArgumentNullException("field \"" + fieldInfo.Name + "\": null value not allowed"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             if (value.Length > (ByteBlockPool.BYTE_BLOCK_SIZE - 2))
             {

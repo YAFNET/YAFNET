@@ -1,4 +1,5 @@
 using YAF.Lucene.Net.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Packed
 {
@@ -19,7 +20,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using Mutable = YAF.Lucene.Net.Util.Packed.PackedInt32s.Mutable;
+    using Mutable  = YAF.Lucene.Net.Util.Packed.PackedInt32s.Mutable;
 
     /// <summary>
     /// A <see cref="PagedMutable"/>. This class slices data into fixed-size blocks
@@ -56,17 +57,20 @@ namespace YAF.Lucene.Net.Util.Packed
             this.format = format;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override Mutable NewMutable(int valueCount, int bitsPerValue)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(this.bitsPerValue >= bitsPerValue);
             return PackedInt32s.GetMutable(valueCount, this.bitsPerValue, format);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override PagedMutable NewUnfilledCopy(long newSize)
         {
             return new PagedMutable(newSize, PageSize, bitsPerValue, format);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected override long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_OBJECT_REF;

@@ -1,7 +1,16 @@
+﻿// ***********************************************************************
+// <copyright file="SqlMapper.Link.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 using System.Threading;
 
 namespace ServiceStack.OrmLite.Dapper
 {
+    /// <summary>
+    /// Class SqlMapper.
+    /// </summary>
     public static partial class SqlMapper
     {
         /// <summary>
@@ -13,6 +22,13 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="TValue">The value type of the cache.</typeparam>
         internal class Link<TKey, TValue> where TKey : class
         {
+            /// <summary>
+            /// Tries the get.
+            /// </summary>
+            /// <param name="link">The link.</param>
+            /// <param name="key">The key.</param>
+            /// <param name="value">The value.</param>
+            /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
             public static bool TryGet(Link<TKey, TValue> link, TKey key, out TValue value)
             {
                 while (link != null)
@@ -28,6 +44,13 @@ namespace ServiceStack.OrmLite.Dapper
                 return false;
             }
 
+            /// <summary>
+            /// Tries the add.
+            /// </summary>
+            /// <param name="head">The head.</param>
+            /// <param name="key">The key.</param>
+            /// <param name="value">The value.</param>
+            /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
             public static bool TryAdd(ref Link<TKey, TValue> head, TKey key, ref TValue value)
             {
                 bool tryAgain;
@@ -46,6 +69,12 @@ namespace ServiceStack.OrmLite.Dapper
                 return true;
             }
 
+            /// <summary>
+            /// Initializes a new instance of the <see cref="Link{TKey, TValue}"/> class.
+            /// </summary>
+            /// <param name="key">The key.</param>
+            /// <param name="value">The value.</param>
+            /// <param name="tail">The tail.</param>
             private Link(TKey key, TValue value, Link<TKey, TValue> tail)
             {
                 Key = key;
@@ -53,8 +82,20 @@ namespace ServiceStack.OrmLite.Dapper
                 Tail = tail;
             }
 
+            /// <summary>
+            /// Gets the key.
+            /// </summary>
+            /// <value>The key.</value>
             public TKey Key { get; }
+            /// <summary>
+            /// Gets the value.
+            /// </summary>
+            /// <value>The value.</value>
             public TValue Value { get; }
+            /// <summary>
+            /// Gets the tail.
+            /// </summary>
+            /// <value>The tail.</value>
             public Link<TKey, TValue> Tail { get; }
         }
     }

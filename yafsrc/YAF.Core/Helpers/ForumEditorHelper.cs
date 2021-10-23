@@ -25,10 +25,8 @@ namespace YAF.Core.Helpers
 {
     #region Using
 
-    using System.Data;
-
-    using YAF.Core.Extensions;
-    using YAF.Types.Extensions;
+    using YAF.Core.BaseModules;
+    using YAF.Core.Context;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -48,40 +46,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static ForumEditor GetCurrentForumEditor()
         {
-            // get the forum editor based on the settings
-            var editorId = BoardContext.Current.BoardSettings.ForumEditor;
-
-            if (BoardContext.Current.BoardSettings.AllowUsersTextEditor)
-            {
-                // Text editor
-                editorId = BoardContext.Current.TextEditor.IsSet()
-                               ? BoardContext.Current.TextEditor
-                               : BoardContext.Current.BoardSettings.ForumEditor;
-            }
-
-            // Check if Editor exists, if not fallback to default editor
-            var forumEditor = BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy(editorId, false)
-                              ?? BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
-
-            // Revert to standard editor 
-            if (forumEditor.Description.Contains("TinyMCE") || forumEditor.Description.Contains("FreeTextBox")
-                                                            || forumEditor.Description.Contains("Telerik"))
-            {
-                forumEditor = BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
-            }
-
-            return forumEditor;
-        }
-
-        /// <summary>
-        /// Gets the filtered editor list.
-        /// </summary>
-        /// <returns>Returns the filtered editor list.</returns>
-        public static DataTable GetFilteredEditorList()
-        {
-            var editorList = BoardContext.Current.Get<IModuleManager<ForumEditor>>().ActiveAsDataTable("Editors");
-
-            return editorList;
+            return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("4");
         }
 
         #endregion

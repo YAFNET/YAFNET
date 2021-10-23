@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,28 +27,23 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
-
+    using System.IO;
 #if DEBUG
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
 #endif
-    using System.Text;
     using System.Web;
     using System.Web.UI;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-#if DEBUG
-    using YAF.Core.Data.Profiling;
-#endif
-
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -99,38 +94,33 @@ namespace YAF.Web.Controls
         protected void RenderRegular([NotNull] ref HtmlTextWriter writer)
         {
             // BEGIN FOOTER
-            var footer = new StringBuilder();
-
             this.Get<IStopWatch>().Stop();
 
-            footer.Append(@"<div class=""clearfix""></div><footer class=""footer""><div class=""text-right"">");
+            writer.Write(@"<footer class=""footer""><div class=""text-end"">");
 
-            this.RenderRulesLink(footer);
+            this.RenderRulesLink(writer);
 
-            this.RenderVersion(footer);
+            this.RenderVersion(writer);
 
-            this.RenderGeneratedAndDebug(footer);
-
-            // write CSS, Refresh, then header...
-            writer.Write(footer);
+            this.RenderGeneratedAndDebug(writer);
         }
 
         /// <summary>
         /// The render generated and debug.
         /// </summary>
-        /// <param name="footer">
-        /// The footer.
+        /// <param name="writer">
+        /// The writer.
         /// </param>
-        private void RenderGeneratedAndDebug([NotNull] StringBuilder footer)
+        private void RenderGeneratedAndDebug([NotNull] TextWriter writer)
         {
-            if (this.Get<BoardSettings>().ShowPageGenerationTime)
+            if (this.PageContext.BoardSettings.ShowPageGenerationTime)
             {
-                footer.Append(@"<br /><span class=""text-muted"">");
-                footer.AppendFormat(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
-                footer.Append("</span>");
+                writer.Write(@"<br /><span class=""text-muted small"">");
+                writer.Write(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
+                writer.Write("</span>");
             }
 
-            footer.Append(@"</div></footer>");
+            writer.Write(@"</div></footer>");
 
 #if DEBUG
             if (!this.PageContext.IsAdmin)
@@ -138,82 +128,86 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            footer.AppendFormat(
-                @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color:#990000"">YAF Compiled in <strong>DEBUG MODE</strong></span>.<br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
-            footer.Append(@"<br /><br /><a href=""http://validator.w3.org/check?uri=referer"" >XHTML</a> | ");
-            footer.Append(@"<a href=""http://jigsaw.w3.org/css-validator/check/referer"" >CSS</a><br /><br />");
+            writer.Write(
+                @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;"">
+                              <span class=""text-danger"">YAF Compiled in <strong>DEBUG MODE</strong></span>.
+                  <br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
 
             var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
             if (extensions.Any(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
             {
-                footer.Append("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
+                writer.Write("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
             }
+
+            writer.Write(
+                @"<div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color: green"">{0}</span></div>",
+                Config.ConnectionProviderName);
 
             if (extensions.Any(x => x.Contains(".Module")))
             {
-                footer.AppendFormat(
+                writer.Write(
                     @"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
                     extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
             }
 
-            footer.AppendFormat(
-                @"<br /><br /><b>{0}</b> SQL Queries: <b>{1:N3}</b> Seconds (<b>{2:N2}%</b> of Total Page Load Time).<br />{3}",
-                QueryCounter.Count,
-                QueryCounter.Duration,
-                100 * QueryCounter.Duration / this.Get<IStopWatch>().Duration,
-                QueryCounter.Commands);
-            footer.Append("</div>");
+            writer.Write("</div>");
 #endif
         }
 
         /// <summary>
         /// Renders the rules link.
         /// </summary>
-        /// <param name="footer">The footer.</param>
-        private void RenderRulesLink([NotNull] StringBuilder footer)
+        /// <param name="writer">
+        /// The writer.
+        /// </param>
+        private void RenderRulesLink([NotNull] TextWriter writer)
         {
-            CodeContracts.VerifyNotNull(footer, "footer");
-
             if (Config.IsAnyPortal)
             {
                 return;
             }
 
-            footer.AppendFormat(
+            writer.Write(
                 @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
-                BuildLink.GetLink(ForumPages.Rules),
+                this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
         }
 
         /// <summary>
         /// The render version.
         /// </summary>
-        /// <param name="footer">
-        /// The footer.
+        /// <param name="writer">
+        /// The writer.
         /// </param>
-        private void RenderVersion([NotNull] StringBuilder footer)
+        private void RenderVersion([NotNull] TextWriter writer)
         {
-            CodeContracts.VerifyNotNull(footer, "footer");
-
             // Copyright Link-back Algorithm
             // Please keep if you haven't purchased a removal or commercial license.
-            var domainKey = this.Get<BoardSettings>().CopyrightRemovalDomainKey;
+            var domainKey = this.PageContext.BoardSettings.CopyrightRemovalDomainKey;
             var url = this.Get<HttpRequestBase>().Url;
 
             if (domainKey.IsSet() && url != null)
             {
-                var dnsSafeHost = url.DnsSafeHost.ToLower();
+                /*var dnsSafeHost = url.DnsSafeHost.ToLower();
 
                 // handle www domains correctly.
                 if (dnsSafeHost.StartsWith("www."))
                 {
                     dnsSafeHost = dnsSafeHost.Replace("www.", string.Empty);
+                }*/
+
+                var dnsSafeHost = url.Host.ToLowerInvariant();
+                if (dnsSafeHost.LastIndexOf('.') != dnsSafeHost.IndexOf('.'))
+                {
+                    dnsSafeHost = dnsSafeHost.Remove(
+                        0,
+                        dnsSafeHost.IndexOf('.') + 1);
                 }
 
                 var currentDomainHash = HashHelper.Hash(
                     dnsSafeHost,
-                    HashHelper.HashAlgorithmType.SHA1,
+                    HashAlgorithmType.SHA1,
                     this.GetType().GetSigningKey().ToString(),
                     false);
 
@@ -223,33 +217,26 @@ namespace YAF.Web.Controls
                 }
             }
 
-            footer.Append(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""http://www.yetanotherforum.net"">");
-            footer.Append(this.GetText("COMMON", "POWERED_BY"));
-            footer.Append(@" YAF.NET");
+            writer.Write(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""https://www.yetanotherforum.net"">");
+            writer.Write(this.GetText("COMMON", "POWERED_BY"));
+            writer.Write(@" YAF.NET");
 
-            if (this.Get<BoardSettings>().ShowYAFVersion)
+            if (this.PageContext.BoardSettings.ShowYAFVersion)
             {
-                footer.AppendFormat(" {0} ", BoardInfo.AppVersionName);
+                writer.Write(" {0} ", BoardInfo.AppVersionName);
+
                 if (Config.IsDotNetNuke)
                 {
-                    footer.Append(" Under DNN ");
-                }
-                else if (Config.IsRainbow)
-                {
-                    footer.Append(" Under Rainbow ");
+                    writer.Write(" Under DNN ");
                 }
                 else if (Config.IsMojoPortal)
                 {
-                    footer.Append(" Under MojoPortal ");
-                }
-                else if (Config.IsPortalomatic)
-                {
-                    footer.Append(" Under Portalomatic ");
+                    writer.Write(" Under MojoPortal ");
                 }
             }
 
-            footer.AppendFormat(
-                @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2}, Yet Another Forum.NET</a>",
+            writer.Write(
+                @"</a> | <a target=""_top"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2} YetAnotherForum.NET</a>",
                 "YetAnotherForum.NET",
                 "https://www.yetanotherforum.net",
                 DateTime.UtcNow.Year);

@@ -1,9 +1,9 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
 using YAF.Lucene.Net.Util;
 using System;
-using System.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -32,12 +32,8 @@ namespace YAF.Lucene.Net.Codecs
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-    public sealed class CodecUtil
+    public static class CodecUtil // LUCENENET specific - marked static because all members are static
     {
-        private CodecUtil() // no instance
-        {
-        }
-
         /// <summary>
         /// Constant to identify the start of a codec header.
         /// </summary>
@@ -73,6 +69,7 @@ namespace YAF.Lucene.Net.Codecs
         ///              less than 128 characters in length. </param>
         /// <param name="version"> Version number </param>
         /// <exception cref="IOException"> If there is an I/O error writing to the underlying medium. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WriteHeader(DataOutput @out, string codec, int version)
         {
             BytesRef bytes = new BytesRef(codec);
@@ -91,6 +88,7 @@ namespace YAF.Lucene.Net.Codecs
         /// <param name="codec"> Codec name. </param>
         /// <returns> Length of the entire codec header. </returns>
         /// <seealso cref="WriteHeader(DataOutput, string, int)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int HeaderLength(string codec)
         {
             return 9 + codec.Length;
@@ -122,6 +120,7 @@ namespace YAF.Lucene.Net.Codecs
         ///         than <paramref name="maxVersion"/>. </exception>
         /// <exception cref="IOException"> If there is an I/O error reading from the underlying medium. </exception>
         /// <seealso cref="WriteHeader(DataOutput, string, int)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CheckHeader(DataInput @in, string codec, int minVersion, int maxVersion)
         {
             // Safety to guard against reading a bogus string:
@@ -180,6 +179,7 @@ namespace YAF.Lucene.Net.Codecs
         /// </summary>
         /// <param name="out"> Output stream </param>
         /// <exception cref="IOException"> If there is an I/O error writing to the underlying medium. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void WriteFooter(IndexOutput @out)
         {
             @out.WriteInt32(FOOTER_MAGIC);
@@ -192,6 +192,7 @@ namespace YAF.Lucene.Net.Codecs
         /// </summary>
         /// <returns> Length of the entire codec footer. </returns>
         /// <seealso cref="WriteFooter(IndexOutput)"/>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int FooterLength()
         {
             return 16;
@@ -212,9 +213,9 @@ namespace YAF.Lucene.Net.Codecs
             {
                 throw new IOException("checksum failed (hardware problem?) : expected=" + expectedChecksum.ToString("x") + " actual=" + actualChecksum.ToString("x") + " (resource=" + @in + ")");
             }
-            if (@in.GetFilePointer() != @in.Length)
+            if (@in.Position != @in.Length) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             {
-                throw new IOException("did not read all bytes from file: read " + @in.GetFilePointer() + " vs size " + @in.Length + " (resource: " + @in + ")");
+                throw new IOException("did not read all bytes from file: read " + @in.Position + " vs size " + @in.Length + " (resource: " + @in + ")"); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             }
             return actualChecksum;
         }
@@ -223,6 +224,7 @@ namespace YAF.Lucene.Net.Codecs
         /// Returns (but does not validate) the checksum previously written by <see cref="CheckFooter(ChecksumIndexInput)"/>. </summary>
         /// <returns> actual checksum value </returns>
         /// <exception cref="IOException"> If the footer is invalid. </exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static long RetrieveChecksum(IndexInput @in)
         {
             @in.Seek(@in.Length - FooterLength());
@@ -251,9 +253,9 @@ namespace YAF.Lucene.Net.Codecs
         [Obsolete("Use CheckFooter(ChecksumIndexInput) instead, this should only used for files without checksums.")]
         public static void CheckEOF(IndexInput @in)
         {
-            if (@in.GetFilePointer() != @in.Length)
+            if (@in.Position != @in.Length) // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             {
-                throw new IOException("did not read all bytes from file: read " + @in.GetFilePointer() + " vs size " + @in.Length + " (resource: " + @in + ")");
+                throw new IOException("did not read all bytes from file: read " + @in.Position + " vs size " + @in.Length + " (resource: " + @in + ")");
             }
         }
 
@@ -268,7 +270,7 @@ namespace YAF.Lucene.Net.Codecs
             IndexInput clone = (IndexInput)input.Clone();
             clone.Seek(0);
             ChecksumIndexInput @in = new BufferedChecksumIndexInput(clone);
-            if (Debugging.AssertsEnabled) Debugging.Assert(@in.GetFilePointer() == 0);
+            if (Debugging.AssertsEnabled) Debugging.Assert(@in.Position == 0); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             @in.Seek(@in.Length - FooterLength());
             return CheckFooter(@in);
         }

@@ -1,4 +1,4 @@
-namespace YAF.Lucene.Net.Codecs.Lucene46
+﻿namespace YAF.Lucene.Net.Codecs.Lucene46
 {
     /*
      * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,13 +17,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene 4.0 implementation of <see cref="SegmentInfoWriter"/>.
@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
                 output.WriteString(si.Version);
                 output.WriteInt32(si.DocCount);
 
-                output.WriteByte((byte)(sbyte)(si.UseCompoundFile ? SegmentInfo.YES : SegmentInfo.NO));
+                output.WriteByte((byte)(si.UseCompoundFile ? SegmentInfo.YES : SegmentInfo.NO));
                 output.WriteStringStringMap(si.Diagnostics);
                 output.WriteStringSet(si.GetFiles());
                 CodecUtil.WriteFooter(output);

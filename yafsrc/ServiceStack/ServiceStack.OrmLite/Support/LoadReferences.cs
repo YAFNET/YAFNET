@@ -1,34 +1,77 @@
-﻿using System;
+﻿// ***********************************************************************
+// <copyright file="LoadReferences.cs" company="ServiceStack, Inc.">
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+// </copyright>
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite.Support
 {
+    /// <summary>
+    /// Class LoadReferences.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal abstract class LoadReferences<T>
     {
+        /// <summary>
+        /// The database command
+        /// </summary>
         protected IDbCommand dbCmd;
+        /// <summary>
+        /// The instance
+        /// </summary>
         protected T instance;
+        /// <summary>
+        /// The model definition
+        /// </summary>
         protected ModelDefinition modelDef;
+        /// <summary>
+        /// The field defs
+        /// </summary>
         protected List<FieldDefinition> fieldDefs;
+        /// <summary>
+        /// The pk value
+        /// </summary>
         protected object pkValue;
+        /// <summary>
+        /// The dialect provider
+        /// </summary>
         protected IOrmLiteDialectProvider dialectProvider;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadReferences{T}"/> class.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="instance">The instance.</param>
         protected LoadReferences(IDbCommand dbCmd, T instance)
         {
             this.dbCmd = dbCmd;
             this.instance = instance;
-            
+
             modelDef = ModelDefinition<T>.Definition;
             fieldDefs = modelDef.AllFieldDefinitionsArray.Where(x => x.IsReference).ToList();
             pkValue = modelDef.PrimaryKey.GetValue(instance);
             dialectProvider = dbCmd.GetDialectProvider();
         }
 
+        /// <summary>
+        /// Gets the field defs.
+        /// </summary>
+        /// <value>The field defs.</value>
         public List<FieldDefinition> FieldDefs => fieldDefs;
 
+        /// <summary>
+        /// Gets the reference list SQL.
+        /// </summary>
+        /// <param name="refType">Type of the reference.</param>
+        /// <returns>System.String.</returns>
         protected string GetRefListSql(Type refType)
         {
             var refModelDef = refType.GetModelDefinition();
@@ -44,6 +87,12 @@ namespace ServiceStack.OrmLite.Support
             return sql;
         }
 
+        /// <summary>
+        /// Gets the reference field SQL.
+        /// </summary>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="refField">The reference field.</param>
+        /// <returns>System.String.</returns>
         protected string GetRefFieldSql(Type refType, FieldDefinition refField)
         {
             var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
@@ -55,6 +104,13 @@ namespace ServiceStack.OrmLite.Support
             return sql;
         }
 
+        /// <summary>
+        /// Gets the reference self SQL.
+        /// </summary>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="refSelf">The reference self.</param>
+        /// <param name="refModelDef">The reference model definition.</param>
+        /// <returns>System.String.</returns>
         protected string GetRefSelfSql(Type refType, FieldDefinition refSelf, ModelDefinition refModelDef)
         {
             //Load Self Table.RefTableId PK
@@ -72,11 +128,27 @@ namespace ServiceStack.OrmLite.Support
         }
     }
 
+    /// <summary>
+    /// Class LoadReferencesSync.
+    /// Implements the <see cref="ServiceStack.OrmLite.Support.LoadReferences{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.Support.LoadReferences{T}" />
     internal class LoadReferencesSync<T> : LoadReferences<T>
     {
-        public LoadReferencesSync(IDbCommand dbCmd, T instance) 
-            : base(dbCmd, instance) {}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadReferencesSync{T}"/> class.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="instance">The instance.</param>
+        public LoadReferencesSync(IDbCommand dbCmd, T instance)
+            : base(dbCmd, instance) { }
 
+        /// <summary>
+        /// Sets the reference field list.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
         public void SetRefFieldList(FieldDefinition fieldDef, Type refType)
         {
             var sql = GetRefListSql(refType);
@@ -85,6 +157,11 @@ namespace ServiceStack.OrmLite.Support
             fieldDef.SetValue(instance, results);
         }
 
+        /// <summary>
+        /// Sets the reference field.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
         public void SetRefField(FieldDefinition fieldDef, Type refType)
         {
             var refModelDef = refType.GetModelDefinition();
@@ -113,19 +190,42 @@ namespace ServiceStack.OrmLite.Support
     }
 
 #if ASYNC
+    /// <summary>
+    /// Class LoadReferencesAsync.
+    /// Implements the <see cref="ServiceStack.OrmLite.Support.LoadReferences{T}" />
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <seealso cref="ServiceStack.OrmLite.Support.LoadReferences{T}" />
     internal class LoadReferencesAsync<T> : LoadReferences<T>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LoadReferencesAsync{T}"/> class.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="instance">The instance.</param>
         public LoadReferencesAsync(IDbCommand dbCmd, T instance)
             : base(dbCmd, instance) { }
 
+        /// <summary>
+        /// Sets the reference field list.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         public async Task SetRefFieldList(FieldDefinition fieldDef, Type refType, CancellationToken token)
         {
             var sql = GetRefListSql(refType);
 
-            var results = await dbCmd.ConvertToListAsync(refType, sql, token);
+            var results = await dbCmd.ConvertToListAsync(refType, sql, token).ConfigAwait();
             fieldDef.SetValue(instance, results);
         }
 
+        /// <summary>
+        /// Sets the reference field.
+        /// </summary>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <param name="refType">Type of the reference.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         public async Task SetRefField(FieldDefinition fieldDef, Type refType, CancellationToken token)
         {
             var refModelDef = refType.GetModelDefinition();
@@ -138,7 +238,7 @@ namespace ServiceStack.OrmLite.Support
             if (refField != null)
             {
                 var sql = GetRefFieldSql(refType, refField);
-                var result = await dbCmd.ConvertToAsync(refType, sql, token);
+                var result = await dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
                 fieldDef.SetValue(instance, result);
             }
             else if (refSelf != null)
@@ -147,7 +247,7 @@ namespace ServiceStack.OrmLite.Support
                 if (sql == null)
                     return;
 
-                var result = await dbCmd.ConvertToAsync(refType, sql, token);
+                var result = await dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
                 fieldDef.SetValue(instance, result);
             }
         }

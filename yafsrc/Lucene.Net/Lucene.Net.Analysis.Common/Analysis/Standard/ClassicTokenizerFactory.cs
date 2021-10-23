@@ -1,7 +1,8 @@
-﻿using System;
+// Lucene version compatibility level 4.8.1
+using System;
 using System.Collections.Generic;
 using System.IO;
-using TokenizerFactory = YAF.Lucene.Net.Analysis.Util.TokenizerFactory;
+using TokenizerFactory  = YAF.Lucene.Net.Analysis.Util.TokenizerFactory;
 
 namespace YAF.Lucene.Net.Analysis.Standard
 {
@@ -44,7 +45,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
             maxTokenLength = GetInt32(args, "maxTokenLength", StandardAnalyzer.DEFAULT_MAX_TOKEN_LENGTH);
             if (args.Count > 0)
             {
-                throw new ArgumentException("Unknown parameters: " + args);
+                throw new ArgumentException(string.Format(J2N.Text.StringFormatter.CurrentCulture, "Unknown parameters: {0}", args));
             }
         }
 

@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -27,22 +27,24 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Objects;
     using YAF.Web.Extensions;
 
     #endregion
@@ -50,16 +52,8 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// Class for the Edit Category Page
     /// </summary>
-    public partial class editcategory : AdminPage
+    public partial class EditCategory : AdminPage
     {
-        /// <summary>
-        /// The category id.
-        /// </summary>
-        public int CategoryId =>
-            this.Get<HttpRequestBase>().QueryString.Exists("c")
-                ? Security.StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("c"))
-                : 0;
-
         #region Methods
 
         /// <summary>
@@ -69,55 +63,35 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.admin_forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         /// <summary>
-        /// The create images data table.
+        /// create images List.
         /// </summary>
-        protected void CreateImagesDataTable()
+        protected void CreateImagesList()
         {
-            using (var dt = new DataTable("Files"))
+            var list = new List<NamedParameter>
             {
-                dt.Columns.Add("FileID", typeof(long));
-                dt.Columns.Add("FileName", typeof(string));
-                dt.Columns.Add("Description", typeof(string));
-                var dr = dt.NewRow();
-                dr["FileID"] = 0;
-                dr["FileName"] =
-                    $"{BoardInfo.ForumClientFileRoot}Content/images/spacer.gif"; // use spacer.gif for Description Entry
-                dr["Description"] = "None";
-                dt.Rows.Add(dr);
+                new(this.GetText("COMMON", "NONE"), "")
+            };
 
-                var dir = new DirectoryInfo(
-                    this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}{BoardFolders.Current.Categories}"));
-                if (dir.Exists)
-                {
-                    var files = dir.GetFiles("*.*");
-                    long fileId = 1;
+            var dir = new DirectoryInfo(
+                this.Get<HttpRequestBase>()
+                    .MapPath($"{BoardInfo.ForumServerFileRoot}{this.Get<BoardFolders>().Categories}"));
+            if (dir.Exists)
+            {
+                var files = dir.GetFiles("*.*").ToList();
 
-                    var filesList = from file in files
-                                let sExt = file.Extension.ToLower()
-                                where sExt == ".png" || sExt == ".gif" || sExt == ".jpg"
-                                select file;
-
-                    filesList.ForEach(
-                        file =>
-                        {
-                            dr = dt.NewRow();
-                            dr["FileID"] = fileId++;
-                            dr["FileName"] =
-                                $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Categories}/{file.Name}";
-                            dr["Description"] = file.Name;
-                            dt.Rows.Add(dr);
-                        });
-                }
-
-                this.CategoryImages.DataSource = dt;
-                this.CategoryImages.DataValueField = "FileName";
-                this.CategoryImages.DataTextField = "Description";
-                this.CategoryImages.DataBind();
+                list.AddImageFiles(files, this.Get<BoardFolders>().Categories);
             }
+
+            this.CategoryImages.PlaceHolder = this.GetText("COMMON", "NONE");
+
+            this.CategoryImages.DataSource = list;
+            this.CategoryImages.DataValueField = "Value";
+            this.CategoryImages.DataTextField = "Name";
+            this.CategoryImages.DataBind();
         }
 
         /// <summary>
@@ -132,8 +106,12 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            // Populate Category Table
-            this.CreateImagesDataTable();
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
+
+            // Populate Categories
+            this.CreateImagesList();
 
             this.BindData();
         }
@@ -144,15 +122,10 @@ namespace YAF.Pages.Admin
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            this.PageLinks.AddAdminIndex();
 
-            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), BuildLink.GetLink(ForumPages.admin_forums));
+            this.PageLinks.AddLink(this.GetText("TEAM", "FORUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums));
             this.PageLinks.AddLink(this.GetText("ADMIN_EDITCATEGORY", "TITLE"), string.Empty);
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("TEAM", "FORUMS")} - {this.GetText("ADMIN_EDITCATEGORY", "TITLE")}";
         }
 
         /// <summary>
@@ -162,7 +135,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var name = this.Name.Text.Trim();
             string categoryImage = null;
 
             if (this.CategoryImages.SelectedIndex > 0)
@@ -178,24 +150,10 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
-            {
-                // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_NUMBER"), MessageTypes.danger);
-                return;
-            }
-
-            if (name.IsNotSet())
-            {
-                // error...
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITCATEGORY", "MSG_VALUE"), MessageTypes.danger);
-                return;
-            }
-
-            var category = this.GetRepository<Category>().GetSingle(c => c.Name == name);
+            var category = this.GetRepository<Category>().GetSingle(c => c.Name == this.Name.Text);
 
             // Check Name duplicate only if new Category
-            if (category != null && this.CategoryId == 0)
+            if (category != null && this.PageContext.PageCategoryID == 0)
             {
                 this.PageContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
@@ -204,13 +162,10 @@ namespace YAF.Pages.Admin
             }
 
             // save category
-            this.GetRepository<Category>().Save(this.CategoryId, name, categoryImage, sortOrder);
-
-            // remove category cache...
-            this.Get<IDataCache>().Remove(Constants.Cache.ForumCategory);
+            this.GetRepository<Category>().Save(this.PageContext.PageCategoryID, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
 
             // redirect
-            BuildLink.Redirect(ForumPages.admin_forums);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
         /// <summary>
@@ -218,39 +173,48 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("c"))
+            if (this.Get<HttpRequestBase>().QueryString.Exists("c"))
             {
-                this.LocalizedLabel1.LocalizedTag = this.LocalizedLabel2.LocalizedTag = "NEW_CATEGORY";
-                    
-                // Currently creating a New Category, and auto fill the Category Sort Order + 1
-                var sortOrder = 1;
+                this.BindExisting(); 
+            }
+            else
+            {
+                this.BindNew();
+            }
+        }
 
-                try
-                {
-                    sortOrder = this.GetRepository<Category>().GetHighestSortOrder() + sortOrder;
-                }
-                catch
-                {
-                    sortOrder = 1;
-                }
+        private void BindNew()
+        {
+            this.IconHeader.Text = this.GetText("NEW_CATEGORY");
 
-                this.SortOrder.Text = sortOrder.ToString();
+            // Currently creating a New Category, and auto fill the Category Sort Order + 1
+            var sortOrder = 1;
 
-                return;
+            try
+            {
+                sortOrder = this.GetRepository<Category>().GetHighestSortOrder() + sortOrder;
+            }
+            catch
+            {
+                sortOrder = 1;
             }
 
-            var category = this.GetRepository<Category>().List(this.CategoryId)
-                .FirstOrDefault();
+            this.SortOrder.Text = sortOrder.ToString();
+        }
+
+        private void BindExisting()
+        {
+            var category = this.PageContext.PageCategory;
 
             if (category == null)
             {
-                return;
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
 
             this.Name.Text = category.Name;
             this.SortOrder.Text = category.SortOrder.ToString();
 
-            this.CategoryNameTitle.Text = this.Label1.Text = this.Name.Text;
+            this.IconHeader.Text = $"{this.GetText("ADMIN_EDITCATEGORY", "HEADER")} <strong>{this.Name.Text}</strong>";
 
             var item = this.CategoryImages.Items.FindByText(category.CategoryImage);
 

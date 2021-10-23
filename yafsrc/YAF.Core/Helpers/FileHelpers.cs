@@ -27,7 +27,10 @@ namespace YAF.Core.Helpers
     using System.Web.Hosting;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
+    using YAF.Core.Services;
     using YAF.Types;
+    using YAF.Types.Interfaces;
     using YAF.Types.Models;
 
     /// <summary>
@@ -50,7 +53,8 @@ namespace YAF.Core.Helpers
         {
             CodeContracts.VerifyNotNull(attachment, "attachment");
 
-            var uploadFolder = HostingEnvironment.MapPath(string.Concat(BaseUrlBuilder.ServerFileRoot, BoardFolders.Current.Uploads));
+            var uploadFolder = HostingEnvironment.MapPath(
+                string.Concat(BaseUrlBuilder.ServerFileRoot, BoardContext.Current.Get<BoardFolders>().Uploads));
 
             var fileNameOld =
                 $"{uploadFolder}/{(attachment.MessageID > 0 ? attachment.MessageID.ToString() : $"u{attachment.UserID}")}.{attachment.FileName}.yafupload";

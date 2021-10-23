@@ -44,11 +44,11 @@ namespace YAF.Core.Model
         /// <param name="boardId">The board identifier.</param>
         public static void Save(
             this IRepository<Spam_Words> repository,
-            int? spamWordId,
-            string spamWord,
-            int? boardId = null)
+            [CanBeNull] int? spamWordId,
+            [NotNull] string spamWord,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             repository.Upsert(
                 new Spam_Words

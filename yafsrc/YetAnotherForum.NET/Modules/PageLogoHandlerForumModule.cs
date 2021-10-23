@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -29,20 +29,20 @@ namespace YAF.Modules
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
     /// <summary>
     /// Page Logo Handler Module
     /// </summary>
-    [YafModule("Page Logo Handler Module", "Tiny Gecko", 1)]
+    [Module("Page Logo Handler Module", "Tiny Gecko", 1)]
     public class PageLogoHandlerForumModule : SimpleBaseForumModule
     {
         #region Public Methods
@@ -84,14 +84,13 @@ namespace YAF.Modules
                 return;
             }
 
-            bannerLink.NavigateUrl = BuildLink.GetLink(ForumPages.forum);
+            bannerLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
-
-            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{BoardFolders.Current.Logos}/{BoardContext.Current.BoardSettings.ForumLogo}";
+            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageContext.BoardSettings.ForumLogo}";
 
             bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
-            
+
             if (!this.CurrentForumPage.ShowToolBar)
             {
                 bannerLink.Visible = false;

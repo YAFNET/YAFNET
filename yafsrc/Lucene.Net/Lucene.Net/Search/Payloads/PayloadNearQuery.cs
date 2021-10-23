@@ -21,18 +21,18 @@ namespace YAF.Lucene.Net.Search.Payloads
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using NearSpansOrdered = YAF.Lucene.Net.Search.Spans.NearSpansOrdered;
-    using NearSpansUnordered = YAF.Lucene.Net.Search.Spans.NearSpansUnordered;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using SpanNearQuery = YAF.Lucene.Net.Search.Spans.SpanNearQuery;
-    using SpanQuery = YAF.Lucene.Net.Search.Spans.SpanQuery;
-    using Spans = YAF.Lucene.Net.Search.Spans.Spans;
-    using SpanScorer = YAF.Lucene.Net.Search.Spans.SpanScorer;
-    using SpanWeight = YAF.Lucene.Net.Search.Spans.SpanWeight;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using NearSpansOrdered  = YAF.Lucene.Net.Search.Spans.NearSpansOrdered;
+    using NearSpansUnordered  = YAF.Lucene.Net.Search.Spans.NearSpansUnordered;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using SpanNearQuery  = YAF.Lucene.Net.Search.Spans.SpanNearQuery;
+    using SpanQuery  = YAF.Lucene.Net.Search.Spans.SpanQuery;
+    using Spans  = YAF.Lucene.Net.Search.Spans.Spans;
+    using SpanScorer  = YAF.Lucene.Net.Search.Spans.SpanScorer;
+    using SpanWeight  = YAF.Lucene.Net.Search.Spans.SpanWeight;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// This class is very similar to
@@ -211,7 +211,9 @@ namespace YAF.Lucene.Net.Search.Payloads
             protected internal float m_payloadScore;
             internal int payloadsSeen;
 
+#pragma warning disable IDE0060 // Remove unused parameter
             protected internal PayloadNearSpanScorer(PayloadNearQuery outerInstance, Spans spans, Weight weight, Similarity similarity, Similarity.SimScorer docScorer)
+#pragma warning restore IDE0060 // Remove unused parameter
                 : base(spans, weight, docScorer)
             {
                 this.outerInstance = outerInstance;
@@ -223,8 +225,7 @@ namespace YAF.Lucene.Net.Search.Payloads
             {
                 for (var i = 0; i < subSpans.Length; i++)
                 {
-                    var span = subSpans[i] as NearSpansOrdered;
-                    if (span != null)
+                    if (subSpans[i] is NearSpansOrdered span)
                     {
                         if (span.IsPayloadAvailable)
                         {
@@ -234,8 +235,7 @@ namespace YAF.Lucene.Net.Search.Payloads
                     }
                     else
                     {
-                        var unordered = subSpans[i] as NearSpansUnordered;
-                        if (unordered != null)
+                        if (subSpans[i] is NearSpansUnordered unordered)
                         {
                             if (unordered.IsPayloadAvailable)
                             {

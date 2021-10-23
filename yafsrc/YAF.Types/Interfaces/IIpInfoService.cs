@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -23,7 +23,7 @@
  */
 namespace YAF.Types.Interfaces
 {
-    using System.Collections.Generic;
+    using YAF.Types.Objects;
 
     /// <summary>
     /// The IP Info Service interface.
@@ -34,9 +34,9 @@ namespace YAF.Types.Interfaces
         /// Get the User IP Locator
         /// </summary>
         /// <returns>
-        /// The <see cref="IDictionary"/>.
+        /// The <see cref="IpLocator"/>.
         /// </returns>
-        IDictionary<string, string> GetUserIpLocator();
+        IpLocator GetUserIpLocator();
 
         /// <summary>
         /// Get the User IP Locator
@@ -45,8 +45,8 @@ namespace YAF.Types.Interfaces
         /// The IP Address.
         /// </param>
         /// <returns>
-        /// The <see cref="IDictionary"/>.
+        /// The <see cref="IpLocator"/>.
         /// </returns>
-        IDictionary<string, string> GetUserIpLocator(string ipAddress);
+        IpLocator GetUserIpLocator(string ipAddress);
     }
 }

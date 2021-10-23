@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,6 +25,7 @@ namespace YAF.Core.Tasks
 {
     using System;
 
+    using YAF.Core.Context;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -95,18 +96,15 @@ namespace YAF.Core.Tasks
             try
             {
                 this.Logger.Info(
-                    "Starting Prune Task for ForumID {0}, {1} Days, Perm Delete {2}.",
-                    this.ForumId,
-                    this.Days,
-                    this.PermDelete);
+                    $"Starting Prune Task for ForumID {this.ForumId}, {this.Days} Days, Perm Delete {this.PermDelete}.");
 
                 var count = this.GetRepository<Topic>().Prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
 
-                this.Logger.Info("Prune Task Complete. Pruned {0} topics.", count);
+                this.Logger.Info($"Prune Task Complete. Pruned {count} topics.");
             }
             catch (Exception x)
             {
-                this.Logger.Error(x, "Error In Prune Topic Task: {0}", x);
+                this.Logger.Error(x, $"Error In Prune Topic Task: {x.Message}");
             }
         }
     }

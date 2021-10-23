@@ -28,8 +28,7 @@ namespace YAF.Web.Controls
 
     using System;
     using System.Web.UI;
-    
-    using YAF.Configuration;
+
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
@@ -49,7 +48,7 @@ namespace YAF.Web.Controls
         /// <summary>
         ///   The _active users.
         /// </summary>
-        private readonly ActiveUsers activeUsers = new ActiveUsers();
+        private readonly ActiveUsers activeUsers = new();
 
         #endregion
 
@@ -77,7 +76,7 @@ namespace YAF.Web.Controls
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             // Ederon : 07/14/2007
-            if (!this.Get<BoardSettings>().ShowBrowsingUsers)
+            if (!this.PageContext.BoardSettings.ShowBrowsingUsers)
             {
                 return;
             }
@@ -112,15 +111,9 @@ namespace YAF.Web.Controls
         {
             var inTopic = this.PageContext.PageTopicID > 0;
 
-            if (this.activeUsers.ActiveUserTable == null)
-            {
-                var useStyledNicks = this.Get<BoardSettings>().UseStyledNicks;
-
-                this.activeUsers.ActiveUserTable =
-                    inTopic
-                        ? this.GetRepository<Active>().ListTopic(this.PageContext.PageTopicID, useStyledNicks)
-                        : this.GetRepository<Active>().ListForum(this.PageContext.PageForumID, useStyledNicks);
-            }
+            this.activeUsers.ActiveUsersList ??= inTopic
+                ? this.GetRepository<Active>().ListTopic(this.PageContext.PageTopicID)
+                : this.GetRepository<Active>().ListForum(this.PageContext.PageForumID);
 
             // add it...
             this.Controls.Add(this.activeUsers);

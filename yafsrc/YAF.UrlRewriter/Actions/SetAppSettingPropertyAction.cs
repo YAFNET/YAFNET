@@ -5,10 +5,10 @@
 // Copyright 2011 Seth Yates
 // 
 
-using System;
-
 namespace YAF.UrlRewriter.Actions
 {
+    using System;
+
     /// <summary>
     /// Action that sets a property in the context from AppSettings, i.e the appSettings collection
     /// in web.config.

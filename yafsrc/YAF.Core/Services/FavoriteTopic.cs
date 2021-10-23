@@ -25,9 +25,9 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System.Linq;
     using System.Web;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Constants;
@@ -108,17 +108,18 @@ namespace YAF.Core.Services
         /// <summary>
         /// Checks if Topic is Favorite Topic
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool IsFavoriteTopic(int topicID)
+        public bool IsFavoriteTopic(int topicId)
         {
-            var list = BoardContext.Current.Get<DataBroker>().FavoriteTopicList(BoardContext.Current.PageUserID);
+            var favoriteTopic = this.GetRepository<YAF.Types.Models.FavoriteTopic>().GetSingle(
+                f => f.UserID == BoardContext.Current.PageUserID && f.TopicID == topicId);
 
-            return list.Any() && list.Contains(topicID);
+            return favoriteTopic != null;
         }
 
         /// <summary>

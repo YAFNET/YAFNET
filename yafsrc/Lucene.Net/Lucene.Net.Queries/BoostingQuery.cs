@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 
 namespace YAF.Lucene.Net.Queries
@@ -53,31 +54,32 @@ namespace YAF.Lucene.Net.Queries
 
         public override Query Rewrite(IndexReader reader)
         {
-            BooleanQuery result = new BooleanQueryAnonymousInnerClassHelper(this);
-            result.Add(match, Occur.MUST);
-            result.Add(context, Occur.SHOULD);
-            return result;
+            return new BooleanQueryAnonymousClass(this)
+            {
+                { match, Occur.MUST },
+                { context, Occur.SHOULD }
+            };
         }
 
-        private class BooleanQueryAnonymousInnerClassHelper : BooleanQuery
+        private class BooleanQueryAnonymousClass : BooleanQuery
         {
             private readonly BoostingQuery outerInstance;
 
-            public BooleanQueryAnonymousInnerClassHelper(BoostingQuery outerInstance)
+            public BooleanQueryAnonymousClass(BoostingQuery outerInstance)
             {
                 this.outerInstance = outerInstance;
             }
 
             public override Weight CreateWeight(IndexSearcher searcher)
             {
-                return new BooleanWeightAnonymousInnerClassHelper(this, searcher);
+                return new BooleanWeightAnonymousClass(this, searcher);
             }
 
-            private class BooleanWeightAnonymousInnerClassHelper : BooleanWeight
+            private class BooleanWeightAnonymousClass : BooleanWeight
             {
-                private readonly BooleanQueryAnonymousInnerClassHelper outerInstance;
+                private readonly BooleanQueryAnonymousClass outerInstance;
 
-                public BooleanWeightAnonymousInnerClassHelper(BooleanQueryAnonymousInnerClassHelper outerInstance, IndexSearcher searcher)
+                public BooleanWeightAnonymousClass(BooleanQueryAnonymousClass outerInstance, IndexSearcher searcher)
                     : base(outerInstance, searcher, false)
                 {
                     this.outerInstance = outerInstance;

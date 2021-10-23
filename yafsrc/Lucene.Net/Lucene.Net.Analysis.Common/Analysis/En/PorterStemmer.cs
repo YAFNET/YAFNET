@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Support;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -860,7 +861,7 @@ namespace YAF.Lucene.Net.Analysis.En
         //                }
         //            }
         //        }
-        //        catch (IOException e)
+        //        catch (Exception e) when (ex.IsIOException())
         //        {
         //            Console.WriteLine("error reading " + args[i]);
         //            Console.WriteLine(e.ToString());

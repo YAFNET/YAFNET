@@ -2,11 +2,11 @@
 <Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Target Name="Resources" Condition=" ('$(PublishProfileName)' == '' And '$(WebPublishProfileFile)' == '') ">
     <ItemGroup>
-      <languages-Include 
+      <languages-Include
         Include="$(MSBuildProjectDirectory)\bin\**\YAF.resources.dll"
         Exclude="$(MSBuildProjectDirectory)\bin\languages\**\YAF.resources.dll"/>
     </ItemGroup>
-    <Move SourceFiles="@(languages-Include)" 
+    <Move SourceFiles="@(languages-Include)"
           DestinationFolder="$(MSBuildProjectDirectory)\bin\languages\%(RecursiveDir)" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\ar\" />
@@ -36,12 +36,21 @@
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\zh-CN\" />
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\zh-TW\" />
 
+    <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\net48\" />
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\bin\bin\" ContinueOnError="True" />
   </Target>
   <Target Name="PackageModule" Condition=" '$(Configuration)' == 'Release' AND '$(CreatePackages)' == 'true' ">
     <GetAssemblyIdentity AssemblyFiles="$(MSBuildProjectDirectory)\bin\YAF.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyIdentities"/>
     </GetAssemblyIdentity>
+
+    <PropertyGroup>
+      <YAFVersion>%(AssemblyIdentities.Version)</YAFVersion>
+    </PropertyGroup>
+
+    <PropertyGroup>
+      <YAFVersion>$(YAFVersion.Remove($(YAFVersion.LastIndexOf('.')),2))</YAFVersion>
+    </PropertyGroup>
 
     <ItemGroup>
       <DefaultExclude Include="**\.svn\**" />
@@ -61,85 +70,79 @@
       <DefaultExclude Include="**\*ReSharper.*\**" />
       <DefaultExclude Include="**\.nuget\**" />
       <DefaultExclude Include="**\_source\**" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Gruntfile.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.FileUpload\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootbox.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-select.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-suggest.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blockUI.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.fileupload.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensionsDnn.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.selectedQuoting.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery-indicator.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\blueimp-gallery.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-tagsinput.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-typeahead.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-datetimepicker.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-image-gallery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-notify.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\cookiealert-standalone.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.blueimp-gallery.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\hammer.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.bootstrap-touchspin.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.intellisense.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\ladda.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\spin.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\emojipicker\**\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\esm\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\i18n\**\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\tablesorter\**\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\umd\**\*.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafEditor\yafEditor.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\**\*.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\tablesorter\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.FileUpload\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-select.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.fileupload.comb.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.min.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\blueimp-gallery.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-datetimepicker.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-image-gallery.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-notify.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-tagsinput.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum-admin.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.bootstrap-touchspin.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.emojipicker.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.selectedQuoting.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.tablesorter.min.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jsdifflib.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2\select2.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2\select2-bootstrap.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\zephyr\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\yaf\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\yeti\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\vapor\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\united\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\superhero\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\spacelab\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\solar\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\slate\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\sketchy\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\simplex\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\sandstone\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\quartz\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\pulse\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\morph\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\minty\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\materia\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\lux\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\lumen\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\litera\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\journal\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\flatly\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\darkly\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cyborg\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cosmo\bootstrap-forum.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\cerulean\bootstrap-forum.css" />
     </ItemGroup>
 
     <ItemGroup>
@@ -158,7 +161,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.jpeg" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.gif" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\**\jQuery.FileUpload\**;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.png" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xml" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\bundleconfig.json;$(MSBuildProjectDirectory)\**\compilerconfig.json;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xml" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.aspx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.sql" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xsl" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
@@ -173,52 +176,47 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.woff2" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.ico" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.webmanifest" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config;$(MSBuildProjectDirectory)\recommended-azure.web.config;$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config;$(MSBuildProjectDirectory)\..\.nuget\NuGet.Config" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\bundleconfig.json;$(MSBuildProjectDirectory)\compilerconfig.json" />
+	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json" />
     </ItemGroup>
 
     <ItemGroup>
-      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*" 
-                     Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\nStuff.UpdateControls\**;$(MSBuildProjectDirectory)\..\**\Dependencies\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\.svn\**;$(MSBuildProjectDirectory)\..\**\*.suo;" />
+      <yafsrcInclude Include="$(MSBuildProjectDirectory)\..\**\*.*"
+                     Exclude="$(MSBuildProjectDirectory)\..\.nuget\nuget.exe;$(MSBuildProjectDirectory)\..\packages\**\*.*;$(MSBuildProjectDirectory)\..\YAF.Extras\YAF.SampleWebApplication\**\*.*;$(MSBuildProjectDirectory)\..\**\*.ReSharper;$(MSBuildProjectDirectory)\..\**\*.testsettings;$(MSBuildProjectDirectory)\..\**\*.chm;$(MSBuildProjectDirectory)\..\**\*.psd;$(MSBuildProjectDirectory)\..\**\TestResults\**;$(MSBuildProjectDirectory)\..\**\obj\**;$(MSBuildProjectDirectory)\..\**\_ReSharper*\**;$(MSBuildProjectDirectory)\..\**\bin\**;$(MSBuildProjectDirectory)\..\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;$(MSBuildProjectDirectory)\..\**\*.user;$(MSBuildProjectDirectory)\..\**\*.suo;" />
     </ItemGroup>
 
     <Delete Files="$(MSBuildProjectDirectory)\bin\YAF.DotNetNuke.Module.dll" />
 
+
     <ItemGroup>
      <LibaryFiles Include="$(MSBuildProjectDirectory)\**\*.dll"
-                  Exclude="$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\BuildScripts\**;$(MSBuildProjectDirectory)\**\bin\net472\**;"></LibaryFiles>
+                  Exclude="$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\BuildScripts\**;$(MSBuildProjectDirectory)\**\bin\net48\**;"></LibaryFiles>
     </ItemGroup>
 
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\CHANGES.md"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\LICENSE.md" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\LICENSE.md"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\README.md" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\..\README.md"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\" />
-    <Copy SourceFiles="@(yafInstall-Include)" 
+    <Copy SourceFiles="@(yafInstall-Include)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)" />
-    <Copy SourceFiles="@(LibaryFiles)" 
+    <Copy SourceFiles="@(LibaryFiles)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\%(RecursiveDir)"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" 
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\recommended-azure.web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\robots.txt"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\"/>
 
-    <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
-      <Output TaskParameter="Include" ItemName="OutputContentInstall" />
-    </CreateItem>
-
     <!-- Create the Install package -->
-    <Zip Files="@(OutputContentInstall)" 
-         WorkingDirectory="$(MSBuildProjectDirectory)\Package\" 
-         ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" />
+    <ZipDirectory
+            SourceDirectory="$(MSBuildProjectDirectory)\Package\"
+            DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Install.$(Extension)" />
 
     <!-- Copy the Install package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Install.$(Extension)" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Install.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <!--Create Deploy Package -->
@@ -228,65 +226,54 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
     </ItemGroup>
 
-    <Copy SourceFiles="@(yafInstall-Include)" 
+    <Copy SourceFiles="@(yafInstall-Include)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)" />
-    <Copy SourceFiles="@(LibaryFiles)" 
+    <Copy SourceFiles="@(LibaryFiles)"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\web.config"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended-azure.web.config" 
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\recommended-azure.web.config"/>
     <Copy SourceFiles="$(MSBuildProjectDirectory)\robots.txt"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\InstallSQL.sql" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\InstallSQL.sql"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Manifest.xml" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Manifest.xml"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Parameters.xml" 
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Parameters.xml"
           DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-
-    <CreateItem Include="$(MSBuildProjectDirectory)\Package\deploy\**\*.*">
-      <Output TaskParameter="Include" ItemName="OutputContentDeploy" />
-    </CreateItem>
 
     <!-- Create the Deploy package -->
-    <Zip Files="@(OutputContentDeploy)" 
-         WorkingDirectory="$(MSBuildProjectDirectory)\Package\deploy" 
-         ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" />
+    <ZipDirectory
+            SourceDirectory="$(MSBuildProjectDirectory)\Package\deploy"
+            DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Deploy.$(Extension)" />
 
     <!-- Copy the Deploy package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Deploy.$(Extension)" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Deploy.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package\deploy" />
 
     <!-- / END Deploy Package-->
 
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\app.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\db.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\mail.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended.web.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended-azure.web.config" 
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended-azure.web.config"/>
-
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\v1.9.1.upgrade.web.config" 
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\v1.9.1.upgrade.web.config"/>
 
     <CreateItem Include="$(MSBuildProjectDirectory)\Package\**\*.*">
       <Output TaskParameter="Include" ItemName="OutputContentUpgrade" />
     </CreateItem>
 
     <!-- Create the Upgrade package -->
-    <Zip Files="@(OutputContentUpgrade)" 
-         WorkingDirectory="$(MSBuildProjectDirectory)\Package\" 
-         ZipFileName="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" />
+    <ZipDirectory
+      SourceDirectory="$(MSBuildProjectDirectory)\Package\"
+      DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Upgrade.$(Extension)" />
 
     <!-- Copy the Upgrade package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-v%(AssemblyIdentities.Version)-Upgrade.$(Extension)" 
+    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Upgrade.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
     <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package" />

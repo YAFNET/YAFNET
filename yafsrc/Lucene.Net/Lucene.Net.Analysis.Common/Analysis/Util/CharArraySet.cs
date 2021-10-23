@@ -1,4 +1,5 @@
-﻿using J2N.Globalization;
+﻿// Lucene version compatibility level 4.8.1
+using J2N.Globalization;
 using J2N.Text;
 using YAF.Lucene.Net.Util;
 using System;
@@ -226,11 +227,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <returns> an new unmodifiable <see cref="CharArraySet"/>. </returns>
         /// <exception cref="ArgumentNullException">
         ///           if the given set is <c>null</c>. </exception>
-        public static CharArraySet UnmodifiableSet(CharArraySet set)
+        public static CharArraySet UnmodifiableSet(CharArraySet set) // LUCENENET TODO: API - Rename AsReadOnly() to match .NET convention
         {
-            if (set == null)
+            if (set is null)
             {
-                throw new ArgumentNullException("Given set is null");
+                throw new ArgumentNullException(nameof(set), "Given set is null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
             }
             if (set == EMPTY_SET)
             {
@@ -379,10 +380,10 @@ namespace YAF.Lucene.Net.Analysis.Util
         [Obsolete("Not applicable in this class.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
-        public virtual bool Remove(string item)
+        public virtual bool Remove(string item) // LUCENENET TODO: API - make an explicit implementation that isn't public
         {
             // LUCENENET NOTE: According to the documentation header, Remove should not be supported
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         // LUCENENET - Added to ensure equality checking works in tests
@@ -412,11 +413,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -439,11 +440,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -465,11 +466,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             foreach (var item in other)
             {
@@ -487,11 +488,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -525,9 +526,9 @@ namespace YAF.Lucene.Net.Analysis.Util
         [Obsolete("Not applicable in this class.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
-        public void IntersectWith(IEnumerable<string> other)
+        public void IntersectWith(IEnumerable<string> other) // LUCENENET TODO: API - make an explicit implementation that isn't public
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         // LUCENENET - no modifications should be made outside of original
@@ -535,9 +536,9 @@ namespace YAF.Lucene.Net.Analysis.Util
         [Obsolete("Not applicable in this class.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
-        public void ExceptWith(IEnumerable<string> other)
+        public void ExceptWith(IEnumerable<string> other) // LUCENENET TODO: API - make an explicit implementation that isn't public
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         // LUCENENET - no modifications should be made outside of original
@@ -545,9 +546,9 @@ namespace YAF.Lucene.Net.Analysis.Util
         [Obsolete("Not applicable in this class.")]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
-        public void SymmetricExceptWith(IEnumerable<string> other)
+        public void SymmetricExceptWith(IEnumerable<string> other) // LUCENENET TODO: API - make an explicit implementation that isn't public
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         /// <summary>
@@ -559,7 +560,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (this.Count == 0)
             {
@@ -577,8 +578,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             // we just need to return true if the other set
             // contains all of the elements of the this set,
             // but we need to use the comparison rules of the current set.
-            int foundCount, unfoundCount;
-            this.GetFoundAndUnfoundCounts(other, out foundCount, out unfoundCount);
+            this.GetFoundAndUnfoundCounts(other, out int foundCount, out int _);
             return foundCount == this.Count;
         }
 
@@ -591,7 +591,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (this.Count == 0)
             {
@@ -600,8 +600,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             // we just need to return true if the other set
             // contains all of the elements of the this set,
             // but we need to use the comparison rules of the current set.
-            int foundCount, unfoundCount;
-            this.GetFoundAndUnfoundCounts(other, out foundCount, out unfoundCount);
+            this.GetFoundAndUnfoundCounts(other, out int foundCount, out int _);
             return foundCount == this.Count;
         }
 
@@ -614,7 +613,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             ICollection<string> is2 = other as ICollection<string>;
             if (is2 != null)
@@ -641,7 +640,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             ICollection<T> is2 = other as ICollection<T>;
             if (is2 != null && is2.Count == 0)
@@ -660,7 +659,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             ICollection<string> is2 = other as ICollection<string>;
             if (is2 != null)
@@ -682,8 +681,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             // we just need to return true if the other set
             // contains all of the elements of the this set plus at least one more,
             // but we need to use the comparison rules of the current set.
-            int foundCount, unfoundCount;
-            this.GetFoundAndUnfoundCounts(other, out foundCount, out unfoundCount);
+            this.GetFoundAndUnfoundCounts(other, out int foundCount, out int unfoundCount);
             return foundCount == this.Count && unfoundCount > 0;
         }
 
@@ -696,7 +694,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             ICollection<T> is2 = other as ICollection<T>;
             if (is2 != null && this.Count == 0)
@@ -706,8 +704,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             // we just need to return true if the other set
             // contains all of the elements of the this set plus at least one more,
             // but we need to use the comparison rules of the current set.
-            int foundCount, unfoundCount;
-            this.GetFoundAndUnfoundCounts(other, out foundCount, out unfoundCount);
+            this.GetFoundAndUnfoundCounts(other, out int foundCount, out int unfoundCount);
             return foundCount == this.Count && unfoundCount > 0;
         }
 
@@ -720,7 +717,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (this.Count == 0)
             {
@@ -743,8 +740,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                     return this.ContainsAll(set);
                 }
             }
-            int foundCount, unfoundCount;
-            this.GetFoundAndUnfoundCounts(other, out foundCount, out unfoundCount);
+            this.GetFoundAndUnfoundCounts(other, out int foundCount, out int unfoundCount);
             return foundCount < this.Count && unfoundCount == 0;
         }
 
@@ -757,7 +753,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (this.Count == 0)
             {
@@ -768,8 +764,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             {
                 return true;
             }
-            int foundCount, unfoundCount;
-            this.GetFoundAndUnfoundCounts(other, out foundCount, out unfoundCount);
+            this.GetFoundAndUnfoundCounts(other, out int foundCount, out int unfoundCount);
             return foundCount < this.Count && unfoundCount == 0;
         }
 
@@ -782,7 +777,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (this.Count != 0)
             {
@@ -806,7 +801,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (this.Count != 0)
             {
@@ -1144,11 +1139,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1172,11 +1167,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1200,11 +1195,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         //{
         //    if (other == null)
         //    {
-        //        throw new ArgumentNullException("other");
+        //        throw new ArgumentNullException(nameof(other));
         //    }
         //    if (set.IsReadOnly)
         //    {
-        //        throw new InvalidOperationException("CharArraySet is readonly");
+        //        throw UnsupportedOperationException.Create("CharArraySet is readonly");
         //    }
         //    bool modified = false;
         //    foreach (var item in other)
@@ -1228,11 +1223,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         //{
         //    if (other == null)
         //    {
-        //        throw new ArgumentNullException("other");
+        //        throw new ArgumentNullException(nameof(other));
         //    }
         //    if (set.IsReadOnly)
         //    {
-        //        throw new InvalidOperationException("CharArraySet is readonly");
+        //        throw UnsupportedOperationException.Create("CharArraySet is readonly");
         //    }
         //    bool modified = false;
         //    foreach (var item in other)
@@ -1256,11 +1251,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         //{
         //    if (other == null)
         //    {
-        //        throw new ArgumentNullException("other");
+        //        throw new ArgumentNullException(nameof(other));
         //    }
         //    if (set.IsReadOnly)
         //    {
-        //        throw new InvalidOperationException("CharArraySet is readonly");
+        //        throw UnsupportedOperationException.Create("CharArraySet is readonly");
         //    }
         //    bool modified = false;
         //    foreach (var item in other)
@@ -1284,11 +1279,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1312,11 +1307,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1341,11 +1336,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1369,11 +1364,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1398,11 +1393,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1427,11 +1422,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)
@@ -1456,11 +1451,11 @@ namespace YAF.Lucene.Net.Analysis.Util
         {
             if (other == null)
             {
-                throw new ArgumentNullException("other");
+                throw new ArgumentNullException(nameof(other));
             }
             if (set.IsReadOnly)
             {
-                throw new InvalidOperationException("CharArraySet is readonly");
+                throw UnsupportedOperationException.Create("CharArraySet is readonly");
             }
             bool modified = false;
             foreach (var item in other)

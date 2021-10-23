@@ -1,4 +1,4 @@
-using J2N.Threading.Atomic;
+﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
@@ -25,17 +25,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using FieldsProducer = YAF.Lucene.Net.Codecs.FieldsProducer;
-    using ICoreDisposedListener = YAF.Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
-    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
+    using Codec  = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using DocValuesProducer  = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using FieldsProducer  = YAF.Lucene.Net.Codecs.FieldsProducer;
+    using ICoreDisposedListener  = YAF.Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
+    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using PostingsFormat  = YAF.Lucene.Net.Codecs.PostingsFormat;
+    using StoredFieldsReader  = YAF.Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader  = YAF.Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// Holds core readers that are shared (unchanged) when
@@ -155,7 +155,7 @@ namespace YAF.Lucene.Net.Index
                     return;
                 }
             }
-            throw new ObjectDisposedException(this.GetType().FullName, "SegmentCoreReaders is already closed");
+            throw AlreadyClosedException.Create(this.GetType().FullName, "SegmentCoreReaders is already disposed.");
         }
 
         internal NumericDocValues GetNormValues(FieldInfo fi)
@@ -164,10 +164,7 @@ namespace YAF.Lucene.Net.Index
 
             IDictionary<string, object> normFields = normsLocal.Value;
 
-            object ret;
-            normFields.TryGetValue(fi.Name, out ret);
-            var norms = ret as NumericDocValues;
-            if (norms == null)
+            if (!normFields.TryGetValue(fi.Name, out object ret) || !(ret is NumericDocValues norms))
             {
                 norms = normsProducer.GetNumeric(fi);
                 normFields[fi.Name] = norms;
@@ -185,7 +182,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     IOUtils.Dispose(termVectorsLocal, fieldsReaderLocal, normsLocal, fields, termVectorsReaderOrig, fieldsReaderOrig, cfsReader, normsProducer);
                 }
-                catch (Exception throwable)
+                catch (Exception throwable) when (throwable.IsThrowable())
                 {
                     th = throwable;
                 }
@@ -208,9 +205,8 @@ namespace YAF.Lucene.Net.Index
                     {
                         listener.OnDispose(this);
                     }
-                    catch (Exception t)
+                    catch (Exception t) when (t.IsThrowable())
                     {
-                        
                         if (th == null)
                         {
                             th = t;

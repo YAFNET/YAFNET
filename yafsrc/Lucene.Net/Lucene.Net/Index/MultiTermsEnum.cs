@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Exposes <see cref="TermsEnum"/> API, merged from <see cref="TermsEnum"/> API of sub-segments.
@@ -129,7 +129,7 @@ namespace YAF.Lucene.Net.Index
                     IComparer<BytesRef> subTermComp = termsEnumIndex.TermsEnum.Comparer;
                     if (subTermComp != null && !subTermComp.Equals(termComp))
                     {
-                        throw new InvalidOperationException("sub-readers have different BytesRef.Comparers: " + subTermComp + " vs " + termComp + "; cannot merge");
+                        throw IllegalStateException.Create("sub-readers have different BytesRef.Comparers: " + subTermComp + " vs " + termComp + "; cannot merge");
                     }
                 }
 
@@ -318,10 +318,10 @@ namespace YAF.Lucene.Net.Index
 
         public override void SeekExact(long ord)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
-        public override long Ord => throw new NotSupportedException();
+        public override long Ord => throw UnsupportedOperationException.Create();
 
         private void PullTop()
         {
@@ -432,31 +432,10 @@ namespace YAF.Lucene.Net.Index
 
         public override DocsEnum Docs(IBits liveDocs, DocsEnum reuse, DocsFlags flags)
         {
-            MultiDocsEnum docsEnum;
             // Can only reuse if incoming enum is also a MultiDocsEnum
-            if (reuse != null && reuse is MultiDocsEnum)
-            {
-                docsEnum = (MultiDocsEnum)reuse;
-                // ... and was previously created w/ this MultiTermsEnum:
-                if (!docsEnum.CanReuse(this))
-                {
-                    docsEnum = new MultiDocsEnum(this, subs.Length);
-                }
-            }
-            else
-            {
+            // ... and was previously created w/ this MultiTermsEnum:
+            if (reuse is null || !(reuse is MultiDocsEnum docsEnum) || !docsEnum.CanReuse(this))
                 docsEnum = new MultiDocsEnum(this, subs.Length);
-            }
-
-            MultiBits multiLiveDocs;
-            if (liveDocs is MultiBits)
-            {
-                multiLiveDocs = (MultiBits)liveDocs;
-            }
-            else
-            {
-                multiLiveDocs = null;
-            }
 
             int upto = 0;
 
@@ -466,7 +445,7 @@ namespace YAF.Lucene.Net.Index
 
                 IBits b;
 
-                if (multiLiveDocs != null)
+                if (liveDocs is MultiBits multiLiveDocs)
                 {
                     // optimize for common case: requested skip docs is a
                     // congruent sub-slice of MultiBits: in this case, we
@@ -523,31 +502,12 @@ namespace YAF.Lucene.Net.Index
 
         public override DocsAndPositionsEnum DocsAndPositions(IBits liveDocs, DocsAndPositionsEnum reuse, DocsAndPositionsFlags flags)
         {
-            MultiDocsAndPositionsEnum docsAndPositionsEnum;
             // Can only reuse if incoming enum is also a MultiDocsAndPositionsEnum
-            if (reuse != null && reuse is MultiDocsAndPositionsEnum)
-            {
-                docsAndPositionsEnum = (MultiDocsAndPositionsEnum)reuse;
-                // ... and was previously created w/ this MultiTermsEnum:
-                if (!docsAndPositionsEnum.CanReuse(this))
-                {
-                    docsAndPositionsEnum = new MultiDocsAndPositionsEnum(this, subs.Length);
-                }
-            }
-            else
-            {
-                docsAndPositionsEnum = new MultiDocsAndPositionsEnum(this, subs.Length);
-            }
+            // ... and was previously created w/ this MultiTermsEnum:
+            if (reuse is null || !(reuse is MultiDocsAndPositionsEnum docsAndPositionsEnum) || !docsAndPositionsEnum.CanReuse(this))
 
-            MultiBits multiLiveDocs;
-            if (liveDocs is MultiBits)
-            {
-                multiLiveDocs = (MultiBits)liveDocs;
-            }
-            else
-            {
-                multiLiveDocs = null;
-            }
+                docsAndPositionsEnum = new MultiDocsAndPositionsEnum(this, subs.Length);
+
 
             int upto = 0;
 
@@ -557,7 +517,7 @@ namespace YAF.Lucene.Net.Index
 
                 IBits b;
 
-                if (multiLiveDocs != null)
+                if (liveDocs is MultiBits multiLiveDocs)
                 {
                     // Optimize for common case: requested skip docs is a
                     // congruent sub-slice of MultiBits: in this case, we

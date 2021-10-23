@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,25 +27,22 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Data;
     using System.Globalization;
-    using System.Linq;
+    using System.Web;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -55,9 +52,9 @@ namespace YAF.Controls
     public partial class EditUsersSuspend : BaseUserControl
     {
         /// <summary>
-        /// The _user data.
+        /// The user.
         /// </summary>
-        private CombinedUserDataHelper _userData;
+        private User user;
 
         #region Properties
 
@@ -74,14 +71,26 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>
-        protected int CurrentUserID => this.PageContext.QueryIDs["u"].ToType<int>();
+        protected int CurrentUserID =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private CombinedUserDataHelper UserData =>
-            this._userData ?? (this._userData = new CombinedUserDataHelper(this.CurrentUserID));
+        private User User
+        {
+            get
+            {
+                var id = this.user;
+                if (id != null)
+                {
+                    return id;
+                }
+
+                return this.user = this.GetRepository<User>().GetById(this.CurrentUserID);
+            }
+        }
 
         #endregion
 
@@ -95,10 +104,9 @@ namespace YAF.Controls
         /// </returns>
         protected string GetSuspendedTo()
         {
-            // is there suspension expiration in the view-state?
-            return this.ViewState["SuspendedUntil"] != null
-                       ? this.ViewState["SuspendedUntil"].ToString()
-                       : string.Empty;
+            return this.Get<IDateTimeService>().GetUserDateTime(
+                this.User.Suspended.Value,
+                this.User.TimeZoneInfo).ToString(CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -112,15 +120,12 @@ namespace YAF.Controls
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // init ids...
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u", true);
-
             this.SuspendInfo.Text = this.GetTextFormatted(
                 "SUSPEND_INFO",
-                this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow, this.UserData.TimeZoneInfo)
+                this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo)
                     .ToString(CultureInfo.InvariantCulture));
 
-            // this needs to be done just once, not during postbacks
+            // this needs to be done just once, not during post-back
             if (this.IsPostBack)
             {
                 return;
@@ -169,30 +174,20 @@ namespace YAF.Controls
             // un-suspend user
             this.GetRepository<User>().Suspend(this.CurrentUserID);
 
-            var usr = this.GetRepository<User>().UserList(
-                this.PageContext.PageBoardID,
-                this.CurrentUserID,
-                null,
-                null,
-                null,
-                false).ToList();
-
-            if (usr.Any())
+            if (this.PageContext.BoardSettings.LogUserSuspendedUnsuspended)
             {
-                this.Get<ILogger>().Log(
+                this.Get<ILoggerService>().Log(
                     this.PageContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
-                    $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was unsuspended by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)}.",
+                    $"User {this.User.DisplayOrUserName()} was unsuspended by {this.PageContext.User.DisplayOrUserName()}.",
                     EventLogTypes.UserUnsuspended);
-
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
-
-                this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
-                    this.UserData.Email,
-                    this.PageContext.BoardSettings.EnableDisplayName
-                        ? this.UserData.DisplayName
-                        : this.UserData.UserName);
             }
+
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
+
+            this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
+                this.User.Email,
+                this.User.DisplayOrUserName());
 
             // re-bind data
             this.BindData();
@@ -209,77 +204,53 @@ namespace YAF.Controls
         /// </param>
         protected void Suspend_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // Admins can suspend anyone not admins
-            // Forum Moderators can suspend anyone not admin or forum moderator
-            using (var dt = this.GetRepository<User>().ListAsDataTable(
-                this.PageContext.PageBoardID,
-                this.CurrentUserID,
-                null))
+            var access = this.GetRepository<vaccess>().GetSingle(v => v.UserID == this.CurrentUserID);
+
+            // is user to be suspended admin?
+            if (access.IsAdmin > 0)
             {
-                dt.Rows.Cast<DataRow>().ForEach(row =>
-                {
-                    // is user to be suspended admin?
-                    if (row["IsAdmin"] != DBNull.Value && row["IsAdmin"].ToType<int>() > 0)
-                    {
-                        // tell user he can't suspend admin
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("PROFILE", "ERROR_ADMINISTRATORS"),
-                            MessageTypes.danger);
-                        return;
-                    }
+                // tell user he can't suspend admin
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
+                return;
+            }
 
-                    // is user to be suspended forum moderator, while user suspending him is not admin?
-                    if (!this.PageContext.IsAdmin && int.Parse(row["IsForumModerator"].ToString()) > 0)
-                    {
-                        // tell user he can't suspend forum moderator when he's not admin
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("PROFILE", "ERROR_FORUMMODERATORS"),
-                            MessageTypes.danger);
-                        return;
-                    }
+            // is user to be suspended forum moderator, while user suspending him is not admin?
+            if (!this.PageContext.IsAdmin && access.IsForumModerator > 0)
+            {
+                // tell user he can't suspend forum moderator when he's not admin
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
+                return;
+            }
 
-                    var isGuest = row["IsGuest"];
-
-                    // verify the user isn't guest...
-                    if (isGuest != DBNull.Value && isGuest.ToType<int>() > 0)
-                    {
-                        this.PageContext.AddLoadMessage(
-                            this.GetText("PROFILE", "ERROR_GUESTACCOUNT"),
-                            MessageTypes.danger);
-                    }
-                });
+            // verify the user isn't guest...
+            if (this.User.UserFlags.IsGuest)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
             }
 
             // time until when user is suspended
-            var suspend = this.Get<IDateTime>().GetUserDateTime(DateTime.UtcNow, this.UserData.TimeZoneInfo);
+            var suspend = this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow, this.User.TimeZoneInfo);
 
             // number inserted by suspending user
             var count = int.Parse(this.SuspendCount.Text);
 
             // what time units are used for suspending
-            switch (this.SuspendUnit.SelectedValue)
+            suspend = this.SuspendUnit.SelectedValue switch
             {
                 // days
-                case "1":
-
-                    // add user inserted suspension time to current time
-                    suspend = suspend.AddDays(count);
-                    break;
-
+                "1" =>
+                // add user inserted suspension time to current time
+                suspend.AddDays(count),
                 // hours
-                case "2":
-
-                    // add user inserted suspension time to current time
-                    suspend = suspend.AddHours(count);
-                    break;
-
+                "2" =>
+                // add user inserted suspension time to current time
+                suspend.AddHours(count),
                 // minutes
-                case "3":
-
-                    // add user inserted suspension time to current time
-                    suspend = suspend.AddHours(count);
-                    break;
-            }
+                "3" =>
+                // add user inserted suspension time to current time
+                suspend.AddHours(count),
+                _ => suspend
+            };
 
             // suspend user by calling appropriate method
             this.GetRepository<User>().Suspend(
@@ -288,32 +259,20 @@ namespace YAF.Controls
                 this.SuspendedReason.Text.Trim(),
                 this.PageContext.PageUserID);
 
-            var usr = this.GetRepository<User>().UserList(
-                this.PageContext.PageBoardID,
-                this.CurrentUserID,
-                null,
-                null,
-                null,
-                false).ToList();
+            this.Get<ILoggerService>().Log(
+                this.PageContext.PageUserID,
+                "YAF.Controls.EditUsersSuspend",
+                $"User {this.User.DisplayOrUserName()} was suspended by {this.PageContext.User.DisplayOrUserName()} until: {suspend} (UTC)",
+                EventLogTypes.UserSuspended);
 
-            if (usr.Any())
-            {
-                this.Get<ILogger>().Log(
-                    this.PageContext.PageUserID,
-                    "YAF.Controls.EditUsersSuspend",
-                    $"User {(this.Get<BoardSettings>().EnableDisplayName ? usr.First().DisplayName : usr.First().Name)} was suspended by {(this.Get<BoardSettings>().EnableDisplayName ? this.PageContext.CurrentUserData.DisplayName : this.PageContext.CurrentUserData.UserName)} until: {suspend} (UTC)",
-                    EventLogTypes.UserSuspended);
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
+            this.Get<ISendNotification>().SendUserSuspensionNotification(
+                suspend,
+                this.SuspendedReason.Text.Trim(),
+                this.User.Email,
+                this.User.DisplayOrUserName());
 
-                this.Get<ISendNotification>().SendUserSuspensionNotification(
-                    suspend,
-                    this.SuspendedReason.Text.Trim(),
-                    this.UserData.Email,
-                    this.PageContext.BoardSettings.EnableDisplayName
-                        ? this.UserData.DisplayName
-                        : this.UserData.UserName);
-            }
 
             this.SuspendedReason.Text = string.Empty;
 
@@ -326,37 +285,23 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            // get user's info
-            using (var dt = this.GetRepository<User>().ListAsDataTable(
-                this.PageContext.PageBoardID,
-                this.CurrentUserID,
-                null))
+            // is user suspended?
+            if (!this.User.Suspended.HasValue)
             {
-                // there is no such user
-                if (dt.Rows.Count < 1)
-                {
-                    BuildLink.AccessDenied(/*No such user exists*/);
-                }
-
-                // get user's data in form of data row
-                var user = dt.Rows[0];
+                this.SuspendedHolder.Visible = false;
 
                 // if user is not suspended, hide row with suspend information and remove suspension button
-                this.SuspendedHolder.Visible = !user.IsNull("Suspended");
-
-                // is user suspended?
-                if (!user.IsNull("Suspended"))
-                {
-                    // get time when his suspension expires to the view state
-                    this.ViewState["SuspendedUntil"] = this.Get<IDateTime>().GetUserDateTime(
-                        user["Suspended"].ToType<DateTime>(),
-                        this.UserData.TimeZoneInfo);
-
-                    this.CurrentSuspendedReason.Text = user["SuspendedReason"].ToString();
-
-                    this.SuspendedBy.UserID = user["SuspendedBy"].ToType<int>();
-                }
+                return;
             }
+
+            this.CurrentSuspendedReason.Text = this.User.SuspendedReason;
+
+            var suspendedByUser = this.GetRepository<User>().GetById(this.User.SuspendedBy);
+
+            this.SuspendedBy.UserID = suspendedByUser.ID;
+            this.SuspendedBy.Suspended = suspendedByUser.Suspended;
+            this.SuspendedBy.Style = suspendedByUser.UserStyle;
+            this.SuspendedBy.ReplaceName = suspendedByUser.DisplayOrUserName();
         }
 
         #endregion

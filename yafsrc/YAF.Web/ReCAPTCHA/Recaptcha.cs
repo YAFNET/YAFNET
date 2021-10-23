@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -31,12 +31,10 @@ namespace YAF.Web.Controls
     using System.Web.UI;
     using System.Web.UI.WebControls;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Utils.Helpers;
     using YAF.Web.ReCAPTCHA;
 
     #endregion
@@ -58,11 +56,6 @@ namespace YAF.Web.Controls
         /// </summary>
         private RecaptchaResponse recaptchaResponse;
 
-        /// <summary>
-        ///   The skip reCAPTCHA.
-        /// </summary>
-        private bool skipRecaptcha;
-
         #endregion
 
         #region Constructors and Destructors
@@ -72,9 +65,9 @@ namespace YAF.Web.Controls
         /// </summary>
         public RecaptchaControl()
         {
-            this.skipRecaptcha = false;
-            this.SecretKey = BoardContext.Current.Get<BoardSettings>().RecaptchaPrivateKey;
-            this.SiteKey = BoardContext.Current.Get<BoardSettings>().RecaptchaPublicKey;
+            this.SkipRecaptcha = false;
+            this.SecretKey = BoardContext.Current.BoardSettings.RecaptchaPrivateKey;
+            this.SiteKey = BoardContext.Current.BoardSettings.RecaptchaPublicKey;
         }
 
         #endregion
@@ -102,7 +95,7 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.skipRecaptcha)
+                if (this.SkipRecaptcha)
                 {
                     return true;
                 }
@@ -112,7 +105,7 @@ namespace YAF.Web.Controls
                     this.Validate();
                 }
 
-                return this.recaptchaResponse != null && this.recaptchaResponse.IsValid;
+                return this.recaptchaResponse is { IsValid: true };
             }
 
             set => throw new NotImplementedException("This setter is not implemented.");
@@ -138,12 +131,7 @@ namespace YAF.Web.Controls
         [Description("Set this to true to stop reCAPTCHA validation. Useful for testing platform.")]
         [DefaultValue(false)]
         [Category("Settings")]
-        public bool SkipRecaptcha
-        {
-            get => this.skipRecaptcha;
-
-            set => this.skipRecaptcha = value;
-        }
+        public bool SkipRecaptcha { get; set; }
 
         #endregion
 
@@ -156,7 +144,7 @@ namespace YAF.Web.Controls
         /// </summary>
         public void Validate()
         {
-            if (this.skipRecaptcha)
+            if (this.SkipRecaptcha)
             {
                 this.recaptchaResponse = RecaptchaResponse.Valid;
             }
@@ -167,11 +155,11 @@ namespace YAF.Web.Controls
             }
 
             var validator = new RecaptchaValidator
-                                {
-                                    SecretKey = this.SecretKey,
-                                    RemoteIP = this.Page.Request.GetUserRealIPAddress(),
-                                    Response = this.Context.Request.Form["g-recaptcha-response"]
-                                };
+            {
+                SecretKey = this.SecretKey,
+                RemoteIP = this.Page.Request.GetUserRealIPAddress(),
+                Response = this.Context.Request.Form["g-recaptcha-response"]
+            };
             try
             {
                 this.recaptchaResponse = validator.Validate();
@@ -193,7 +181,6 @@ namespace YAF.Web.Controls
         /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
         /// </summary>
         /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        /// <exception cref="System.ApplicationException">reCAPTCHA needs to be configured with a public & private key.</exception>
         protected override void OnInit([NotNull] EventArgs e)
         {
             base.OnInit(e);
@@ -215,7 +202,7 @@ namespace YAF.Web.Controls
         /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            if (this.skipRecaptcha)
+            if (this.SkipRecaptcha)
             {
                 writer.WriteLine(
                     "reCAPTCHA validation is skipped. Set SkipRecaptcha property to false to enable validation.");

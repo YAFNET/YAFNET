@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,17 +21,17 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Context
 {
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.EventProxies;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Utils.Helpers;
 
     /// <summary>
     /// The load page request information.
@@ -93,34 +93,30 @@ namespace YAF.Core
 
             var userAgent = this.HttpRequestBase.UserAgent;
 
-            var isMobileDevice = UserAgentHelper.IsMobileDevice(this.HttpRequestBase);
-
-            // try and get more verbose platform name by ref and other parameters             
+            // try and get more verbose platform name by ref and other parameters
             UserAgentHelper.Platform(
                 userAgent,
                 this.HttpRequestBase.Browser.Crawler,
                 ref platform,
                 ref browser,
-                out var isSearchEngine,
-                out var dontTrack);
+                out var isSearchEngine);
 
-            dontTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
+            var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 
             // don't track if this is a feed reader. May be to make it switchable in host settings.
             // we don't have page 'g' token for the feed page.
-            if (browser.Contains("Unknown") && !dontTrack)
+            if (browser.Contains("Unknown") && !doNotTrack)
             {
-                dontTrack = UserAgentHelper.IsFeedReader(userAgent);
+                doNotTrack = UserAgentHelper.IsFeedReader(userAgent);
             }
 
-            @event.Data.DontTrack = dontTrack;
-            @event.Data.UserAgent = userAgent;
-            @event.Data.IsSearchEngine = isSearchEngine;
-            @event.Data.IsMobileDevice = isMobileDevice;
-            @event.Data.Browser = browser;
-            @event.Data.Platform = platform;
+            @event.UserRequestData.DontTrack = doNotTrack;
+            @event.UserRequestData.UserAgent = userAgent;
+            @event.UserRequestData.IsSearchEngine = isSearchEngine;
+            @event.UserRequestData.Browser = browser;
+            @event.UserRequestData.Platform = platform;
 
-            BoardContext.Current.Vars["DontTrack"] = dontTrack;
+            BoardContext.Current.Vars["DontTrack"] = doNotTrack;
         }
 
         #endregion

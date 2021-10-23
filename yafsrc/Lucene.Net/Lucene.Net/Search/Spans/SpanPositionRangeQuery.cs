@@ -1,3 +1,4 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using System.Text;
 
@@ -20,7 +21,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Checks to see if the <see cref="SpanPositionCheckQuery.Match"/> lies between a start and end position
@@ -98,7 +99,7 @@ namespace YAF.Lucene.Net.Search.Spans
         public override int GetHashCode()
         {
             int h = m_match.GetHashCode();
-            h ^= (h << 8) | ((int)((uint)h >> 25)); // reversible
+            h ^= (h << 8) | (h.TripleShift(25)); // reversible
             h ^= J2N.BitConversion.SingleToRawInt32Bits(Boost) ^ m_end ^ m_start;
             return h;
         }

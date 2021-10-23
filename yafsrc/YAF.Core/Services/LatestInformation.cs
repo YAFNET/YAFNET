@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,11 +28,12 @@ namespace YAF.Core.Services
     using System.Dynamic;
     using System.Net;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// LatestInformation service class
@@ -69,8 +70,8 @@ namespace YAF.Core.Services
 
             try
             {
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 |
-                                                       SecurityProtocolType.Tls12 | SecurityProtocolType.Ssl3;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
+                                                       SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
                 var test = "https://api.github.com/repos/YAFNET/YAFNET/releases/latest".GetJsonFromUrl(
                     x => x.UserAgent = "YAF.NET");
@@ -78,8 +79,8 @@ namespace YAF.Core.Services
                 var json = DynamicJson.Deserialize(test);
 
                 var tagName = (string)json.tag_name;
-                var date = System.DateTime.SpecifyKind(
-                    System.DateTime.Parse(json.published_at),
+                var date = DateTime.SpecifyKind(
+                    DateTime.Parse(json.published_at),
                     DateTimeKind.Unspecified);
 
                 version.UpgradeUrl = (string)json.assets[2].browser_download_url;
@@ -88,8 +89,7 @@ namespace YAF.Core.Services
             }
             catch (Exception x)
             {
-                this.Get<ILogger>().Error(x, "Exception In LatestInformationService");
-                return null;
+                this.Get<ILoggerService>().Error(x, "Exception In LatestInformationService");
             }
 
             return version;

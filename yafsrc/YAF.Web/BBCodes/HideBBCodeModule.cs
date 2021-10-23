@@ -26,9 +26,8 @@ namespace YAF.Web.BBCodes
 {
     using System.Web.UI;
 
-    using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BBCode;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types.Extensions;
@@ -89,7 +88,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            var userId = BoardContext.Current.CurrentUserData.UserID;
+            var userId = BoardContext.Current.PageUserID;
 
             if (postsCount > -1)
             {
@@ -109,7 +108,7 @@ namespace YAF.Web.BBCodes
                 }
 
                 if (this.DisplayUserID == userId ||
-                    BoardContext.Current.CurrentUserData.NumPosts >= postsCount)
+                    BoardContext.Current.User.NumPosts >= postsCount)
                 {
                     shownContent = hiddenContent;
                 }
@@ -148,12 +147,6 @@ namespace YAF.Web.BBCodes
             else
             {
                 // Handle Hide Thanks
-                if (!this.Get<BoardSettings>().EnableThanksMod)
-                {
-                    writer.Write(hiddenContent);
-                    return;
-                }
-
                 if (BoardContext.Current.IsGuest)
                 {
                     writer.Write(shownContentGuest);

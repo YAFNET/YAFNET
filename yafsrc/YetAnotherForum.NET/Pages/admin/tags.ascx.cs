@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -29,14 +29,13 @@ namespace YAF.Pages.Admin
     using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -44,8 +43,20 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Admin Manage Tags Page.
     /// </summary>
-    public partial class tags : AdminPage
+    public partial class Tags : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///   Initializes a new instance of the <see cref = "Tags" /> class.
+        /// </summary>
+        public Tags()
+            : base("ADMIN_TAGS")
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -61,6 +72,12 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             // bind data to controls
             this.BindData();
@@ -73,9 +90,8 @@ namespace YAF.Pages.Admin
         {
             this.PageLinks.AddRoot();
 
-            this.PageLinks.AddLink(
-                this.GetText("ADMIN_ADMIN", "Administration"),
-                BuildLink.GetLink(ForumPages.admin_admin));
+            // administration index second
+            this.PageLinks.AddAdminIndex();
 
             this.PageLinks.AddLink(this.GetText("ADMIN_TAGS", "TITLE"), string.Empty);
         }
@@ -92,30 +108,17 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Populates data source and binds data to controls.
+        /// The page size on selected index changed.
         /// </summary>
-        private void BindData()
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
         {
-            var currentPageIndex = this.PagerTop.CurrentPageIndex;
-            this.PagerTop.PageSize = 10;
-
-            // list event for this board
-            var list = this.GetRepository<Tag>().GetPaged(
-                x => x.BoardID == this.PageContext.PageBoardID,
-                currentPageIndex,
-                10);
-
-            this.List.DataSource = list;
-
-            this.PagerTop.Count = list != null && list.Any() ? this.GetRepository<Tag>().GetByBoardId().Count : 0;
-
-            // bind data to controls
-            this.DataBind();
-
-            if (this.List.Items.Count == 0)
-            {
-                this.NoInfo.Visible = true;
-            }
+            this.BindData();
         }
 
         /// <summary>
@@ -140,6 +143,34 @@ namespace YAF.Pages.Admin
                     // re-bind controls
                     this.BindData();
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Populates data source and binds data to controls.
+        /// </summary>
+        private void BindData()
+        {
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
+            var currentPageIndex = this.PagerTop.CurrentPageIndex;
+            this.PagerTop.PageSize = baseSize;
+
+            // list event for this board
+            var list = this.GetRepository<Tag>().GetPaged(
+                x => x.BoardID == this.PageContext.PageBoardID,
+                currentPageIndex,
+                baseSize);
+
+            this.List.DataSource = list;
+
+            this.PagerTop.Count = !list.NullOrEmpty() ? this.GetRepository<Tag>().GetByBoardId().Count : 0;
+
+            // bind data to controls
+            this.DataBind();
+
+            if (this.List.Items.Count == 0)
+            {
+                this.NoInfo.Visible = true;
             }
         }
 

@@ -26,15 +26,17 @@ namespace YAF.Types.Interfaces
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Web.UI;
 
     using YAF.Types;
     using YAF.Types.Flags;
+    using YAF.Types.Models;
 
     #endregion
 
     /// <summary>
-    /// The YAF BBCode Interface.
+    /// The BBCode Interface.
     /// </summary>
     public interface IBBCode
     {
@@ -61,10 +63,10 @@ namespace YAF.Types.Interfaces
         string FormatMessageWithCustomBBCode([NotNull] string message, [NotNull] MessageFlags flags, int? displayUserId, int? messageId);
 
         /// <summary>
-        /// Converts a message containing YafBBCode to HTML appropriate for editing in a rich text editor.
+        /// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
         /// </summary>
         /// <remarks>
-        /// YafBBCode quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
+        /// quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
         ///   returned, as to appear in plain text in rich text editors.
         /// </remarks>
         /// <param name="message">
@@ -73,10 +75,11 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The converted text
         /// </returns>
-        string ConvertBBCodeToHtmlForEdit([NotNull] string message);
+        //[Obsolete]
+        //string ConvertBBCodeToHtmlForEdit([NotNull] string message);
 
         /// <summary>
-        /// Converts a message containing HTML to YafBBCode for editing in a rich bbcode editor.
+        /// Converts a message containing HTML to BBCode for editing.
         /// </summary>
         /// <param name="message">
         /// String containing the body of the message to convert
@@ -84,11 +87,14 @@ namespace YAF.Types.Interfaces
         /// <returns>
         /// The converted text
         /// </returns>
-        string ConvertHtmltoBBCodeForEdit([NotNull] string message);
+        string ConvertHtmlToBBCodeForEdit([NotNull] string message);
 
         /// <summary>
-        /// Creates the rules that convert <see cref="YafBBCode"/> to HTML
+        /// Creates the rules that convert BBCode to HTML
         /// </summary>
+        /// <param name="messageId">
+        /// The message Id.
+        /// </param>
         /// <param name="ruleEngine">
         /// The rule Engine.
         /// </param>
@@ -101,30 +107,23 @@ namespace YAF.Types.Interfaces
         /// <param name="useNoFollow">
         /// The use No Follow.
         /// </param>
-        /// <param name="convertBBQuotes">
-        /// The convert BB Quotes.
+        /// <param name="isEditMode">
+        /// Indicates if the formatting is for the Editor.
         /// </param>
         void CreateBBCodeRules(
+            [NotNull] int messageId,
             [NotNull] IProcessReplaceRules ruleEngine,
-            bool isHtml,
             bool doFormatting,
             bool targetBlankOverride,
             bool useNoFollow,
-            bool convertBBQuotes);
+            bool isEditMode = false);
 
         /// <summary>
-        /// Creates the rules that convert HTML to <see cref="YafBBCode"/>
-        /// </summary>
-        /// <param name="ruleEngine">
-        /// The rule Engine.
-        /// </param>
-        void CreateHtmlRules([NotNull] IProcessReplaceRules ruleEngine);
-
-        /// <summary>
-        /// Handles localization for a Custom YafBBCode Elements using
+        /// Handles localization for a Custom BBCode Elements using
         ///   the code [localization=tag]default[/localization]
         /// </summary>
         /// <param name="strToLocalize">
+        /// The string to Localize
         /// </param>
         /// <returns>
         /// The localize custom bb code element.
@@ -132,23 +131,25 @@ namespace YAF.Types.Interfaces
         string LocalizeCustomBBCodeElement([NotNull] string strToLocalize);
 
         /// <summary>
-        /// Converts a string containing YafBBCode to the equivalent HTML string.
+        /// Converts a string containing BBCode to the equivalent HTML string.
         /// </summary>
         /// <param name="inputString">
-        /// Input string containing YafBBCode to convert to HTML
+        /// Input string containing BBCode to convert to HTML
         /// </param>
         /// <param name="doFormatting">
+        /// The do Formatting.
         /// </param>
         /// <param name="targetBlankOverride">
+        /// The target Blank Override.
         /// </param>
         /// <returns>
         /// The make html.
         /// </returns>
-        string MakeHtml([NotNull] string inputString, bool isHtml, bool doFormatting, bool targetBlankOverride);
+        string MakeHtml([NotNull] string inputString, bool doFormatting, bool targetBlankOverride);
 
         /// <summary>
-        /// Helper function that dandles registering "custom bbcode" javascript (if there is any)
-        ///   for all the custom YafBBCode.
+        /// Helper function that dandles registering "Custom BBCode" JavaScript (if there is any)
+        ///   for all the custom BBCode.
         /// </summary>
         /// <param name="currentPage">
         /// The current Page.
@@ -159,8 +160,8 @@ namespace YAF.Types.Interfaces
         void RegisterCustomBBCodePageElements([NotNull] Page currentPage, [NotNull] Type currentType);
 
         /// <summary>
-        /// Helper function that dandles registering "custom bbcode" javascript (if there is any)
-        ///   for all the custom YafBBCode. Defining editorID make the system also show "editor js" (if any).
+        /// Helper function that dandles registering "Custom BBCode" JavaScript (if there is any)
+        ///   for all the custom BBCode. Defining Editor ID make the system also show "Editor JS" (if any).
         /// </summary>
         /// <param name="currentPage">
         /// The current Page.
@@ -175,6 +176,12 @@ namespace YAF.Types.Interfaces
             [NotNull] Page currentPage,
             [NotNull] Type currentType,
             [NotNull] string editorID);
+
+        /// <summary>
+        ///     The get custom bb code.
+        /// </summary>
+        /// <returns> Returns List with Custom BBCodes </returns>
+        IEnumerable<BBCode> GetCustomBBCode();
 
         #endregion
     }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,14 +25,14 @@ namespace YAF.Core.Services
     #region Using
 
     using System.IO;
-    using System.Web;
+    using System.Web.Hosting;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
+    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
 
     #endregion
 
@@ -85,10 +85,10 @@ namespace YAF.Core.Services
         /// Gets full path to the given theme file.
         /// </summary>
         /// <param name="filename">
-        /// Short name of theme file. 
+        /// Short name of theme file.
         /// </param>
         /// <returns>
-        /// The build theme path. 
+        /// The build theme path.
         /// </returns>
         public string BuildThemePath([NotNull] string filename)
         {
@@ -111,7 +111,7 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(theme, "theme");
 
             return
-                HttpContext.Current.Server.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
+                HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
         }
     }
 }

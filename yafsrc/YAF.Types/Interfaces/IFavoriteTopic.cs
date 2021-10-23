@@ -44,13 +44,13 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Checks if Topic is Favorite Topic
         /// </summary>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
         /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        bool IsFavoriteTopic(int topicID);
+        bool IsFavoriteTopic(int topicId);
 
         /// <summary>
         /// The remove favorite topic.

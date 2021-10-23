@@ -1,4 +1,4 @@
-using J2N.Text;
+﻿using J2N.Text;
 using System;
 using System.Text;
 
@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A <see cref="Term"/> represents a word from text.  This is the unit of search.  It is
@@ -84,10 +84,7 @@ namespace YAF.Lucene.Net.Index
         /// text of the word.  In the case of dates and other types, this is an
         /// encoding of the object as a string.
         /// </summary>
-        public string Text()
-        {
-            return ToString(Bytes);
-        }
+        public string Text => ToString(Bytes); // LUCENENET: Changed to a property. While this calls a method internally, its expected usage is that it will return a deterministic value.
 
         /// <summary>
         /// Returns human-readable form of the term text. If the term is not unicode,
@@ -193,7 +190,7 @@ namespace YAF.Lucene.Net.Index
 
         public override string ToString()
         {
-            return Field + ":" + Text();
+            return Field + ":" + Text;
         }
     }
 }

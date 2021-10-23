@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Analysis.Util;
+// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Analysis.Util;
 using System;
 
 namespace YAF.Lucene.Net.Analysis.No
@@ -63,7 +64,7 @@ namespace YAF.Lucene.Net.Analysis.No
     /// </summary>
     public class NorwegianMinimalStemmer
     {
-        private readonly bool useBokmaal;
+        //private readonly bool useBokmaal; // LUCENENET: Never read
         private readonly bool useNynorsk;
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace YAF.Lucene.Net.Analysis.No
             {
                 throw new ArgumentException("invalid flags");
             }
-            useBokmaal = (flags & NorwegianStandard.BOKMAAL) != 0;
+            //useBokmaal = (flags & NorwegianStandard.BOKMAAL) != 0; // LUCENENET: Never read
             useNynorsk = (flags & NorwegianStandard.NYNORSK) != 0;
         }
 

@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using System.Collections;
@@ -33,7 +34,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     {
         protected readonly IList<ValueSource> m_sources;
 
-        public MultiBoolFunction(IList<ValueSource> sources)
+        protected MultiBoolFunction(IList<ValueSource> sources) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {
             this.m_sources = sources;
         }
@@ -51,16 +52,16 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
                 vals[i++] = source.GetValues(context, readerContext);
             }
 
-            return new BoolDocValuesAnonymousInnerClassHelper(this, this, vals);
+            return new BoolDocValuesAnonymousClass(this, this, vals);
         }
 
-        private class BoolDocValuesAnonymousInnerClassHelper : BoolDocValues
+        private class BoolDocValuesAnonymousClass : BoolDocValues
         {
             private readonly MultiBoolFunction outerInstance;
 
             private readonly FunctionValues[] vals;
 
-            public BoolDocValuesAnonymousInnerClassHelper(MultiBoolFunction outerInstance, MultiBoolFunction @this, FunctionValues[] vals)
+            public BoolDocValuesAnonymousClass(MultiBoolFunction outerInstance, MultiBoolFunction @this, FunctionValues[] vals)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;

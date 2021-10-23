@@ -26,15 +26,17 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
 
-    using YAF.Configuration;
     using YAF.Controls;
-    using YAF.Core;
+    using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -67,7 +69,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "yafBuddiesTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -81,18 +83,17 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.IsPostBack)
-            {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddLink(
-                    this.Get<BoardSettings>().EnableDisplayName
-                        ? this.PageContext.CurrentUserData.DisplayName
-                        : this.PageContext.PageUserName,
-                    BuildLink.GetLink(ForumPages.Account));
-                this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
-            }
-
             this.BindData();
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
         }
 
         /// <summary>
@@ -100,9 +101,11 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            this.InitializeBuddyList(this.BuddyList1, 2);
-            this.InitializeBuddyList(this.PendingBuddyList, 3);
-            this.InitializeBuddyList(this.BuddyRequested, 4);
+            var buddyList = this.Get<IFriends>().GetForUser(this.PageContext.PageUserID);
+
+            this.InitializeBuddyList(this.BuddyList1, 2, buddyList);
+            this.InitializeBuddyList(this.PendingBuddyList, 3, buddyList);
+            this.InitializeBuddyList(this.BuddyRequested, 4, buddyList);
         }
 
         /// <summary>
@@ -114,8 +117,12 @@ namespace YAF.Pages
         /// <param name="mode">
         /// The mode of this BuddyList.
         /// </param>
-        private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode)
+        /// <param name="buddyList">
+        /// The buddy List.
+        /// </param>
+        private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<BuddyUser> buddyList)
         {
+            customBuddyList.FriendsList = buddyList;
             customBuddyList.CurrentUserID = this.PageContext.PageUserID;
             customBuddyList.Mode = mode;
             customBuddyList.Container = this;

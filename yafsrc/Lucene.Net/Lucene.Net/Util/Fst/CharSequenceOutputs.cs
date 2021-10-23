@@ -1,5 +1,6 @@
 using YAF.Lucene.Net.Diagnostics;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -20,8 +21,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using DataInput = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// An FST <see cref="Outputs{T}"/> implementation where each output
@@ -172,6 +173,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
         public override CharsRef NoOutput => NO_OUTPUT;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public override string OutputToString(CharsRef output)
         {
             return output.ToString();

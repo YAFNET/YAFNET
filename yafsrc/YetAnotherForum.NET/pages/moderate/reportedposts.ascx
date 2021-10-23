@@ -1,52 +1,51 @@
-﻿
-<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.ReportedPosts"CodeBehind="ReportedPosts.ascx.cs" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Moderate.ReportedPosts" CodeBehind="ReportedPosts.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
-<%@ Import Namespace="ServiceStack" %>
+<%@ Import Namespace="YAF.Core.Services" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
-
-<%@ Register TagPrefix="YAF" TagName="ReportedPosts" Src="../../controls/ReportedPosts.ascx" %>
 
 
 <div class="row">
     <div class="col-xl-12">
-        <h1><%# this.PageContext.PageForumName %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
+        <h1><%# this.PageContext.PageForum.Name %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
     </div>
 </div>
-<asp:Repeater ID="List" runat="server">
+<asp:Repeater ID="List" runat="server" OnItemDataBound="List_OnItemDataBound">
     <ItemTemplate>
         <div class="row">
             <div class="col-xl-12">
                 <div class="card mb-3">
                     <div class="card-header">
-                        <i class="fa fa-comment fa-fw text-secondary pr-1"></i>
-                        <span class="font-weight-bold"><YAF:LocalizedLabel ID="TopicLabel" runat="server"
-                                            LocalizedTag="TOPIC" />
-                        </span>
-                        <a id="TopicLink" 
-                           href='<%# BuildLink.GetLink(ForumPages.Posts, "t={0}", this.Eval("TopicID")) %>'
-                           runat="server"><%# this.Eval("Topic") %></a>
-                        <div class="float-right text-muted">
-                            <span class="font-weight-bold">
+                        <YAF:Icon runat="server" IconName="comment" IconType="text-secondary" />
+                        <a id="TopicLink"
+                           href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", (Container.DataItem as ReportedMessage).TopicID, (Container.DataItem as ReportedMessage).TopicName) %>'
+                           runat="server"><%# (Container.DataItem as ReportedMessage).TopicName %></a>
+                        <div class="float-end">
+                            <span class="fw-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="POSTED" />
                             </span>
-                            <%# this.Get<IDateTime>().FormatDateShort((DateTime) DataBinder.Eval(Container.DataItem, "[\"Posted\"]")) %>
-                            <span class="font-weight-bold pl-3">
+                            <%# this.Get<IDateTimeService>().FormatDateShort((Container.DataItem as ReportedMessage).Posted) %>
+                            <span class="fw-bold ps-3">
                                 <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="NUMBERREPORTED" />
                             </span>
-                            <%# DataBinder.Eval(Container.DataItem, "[\"NumberOfReports\"]") %>
-                            <span class="font-weight-bold pl-3">
-                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" 
+                            <%# (Container.DataItem as ReportedMessage).NumberOfReports %>
+                            <span class="fw-bold ps-3">
+                                <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
-                            <YAF:UserLink ID="UserLink1" runat="server" UserID='<%# this.Eval("UserID").ToType<int>() %>' />
-                            <YAF:ThemeButton ID="AdminUserButton" runat="server" 
+                            <YAF:UserLink ID="UserLink1" runat="server"
+                                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ReportedMessage).UserDisplayName : (Container.DataItem as ReportedMessage).UserName %>"
+                                          Suspended="<%# (Container.DataItem as ReportedMessage).Suspended %>"
+                                          Style="<%# (Container.DataItem as ReportedMessage).UserStyle %>"
+                                          UserID="<%# (Container.DataItem as ReportedMessage).UserID %>" />
+                            <YAF:ThemeButton ID="AdminUserButton" runat="server"
                                              Size="Small"
                                              Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                             NavigateUrl='<%# BuildLink.GetLinkNotEscaped( ForumPages.admin_edituser,"u={0}", this.Eval("UserID").ToType<int>() ) %>'
-                                             Icon="users-cog" 
+                                             NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,"u={0}", (Container.DataItem as ReportedMessage).UserID ) %>'
+                                             Icon="users-cog"
                                              Type="Danger">
                             </YAF:ThemeButton>
                         </div>
@@ -57,57 +56,60 @@
                                 <h6 class="card-subtitle mb-2 text-muted">
                                     <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="ORIGINALMESSAGE" />
                                 </h6>
-                                <span id="Label1" runat="server" 
-                                      class="badge badge-warning" 
-                                      visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'>
-                                    <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
-                                </span>
-                                <div class="mb-3">
-                                    <YAF:MessagePostData ID="MessagePostPrimary" runat="server" 
-                                                         DataRow="<%# ((System.Data.DataRowView)Container.DataItem).Row %>"
-                                                         ShowAttachments="false" 
-                                                         ShowEditMessage="False" ShowSignature="False">
-                                    </YAF:MessagePostData>
+                                <div class="card bg-light mb-3">
+                                    <div class="card-body">
+                                        <YAF:MessagePostData ID="MessagePostPrimary" runat="server"
+                                                             ShowAttachments="false"
+                                                             ShowEditMessage="False" ShowSignature="False">
+                                        </YAF:MessagePostData>
+                                    </div>
                                 </div>
+                                <asp:PlaceHolder id="Label1" runat="server"
+                                                 visible="<%# (Container.DataItem as ReportedMessage).OriginalMessage != (Container.DataItem as ReportedMessage).Message%>">
+                                    <div class="alert alert-warning" role="alert">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MODIFIED" />
+                                    </div>
+                                </asp:PlaceHolder>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
-                                <YAF:ReportedPosts ID="ReportersList" runat="server" 
-                                                   MessageID='<%# DataBinder.Eval(Container.DataItem, "[\"MessageID\"]") %>'
-                                                   ResolvedBy='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedBy\"]") %>' 
-                                                   Resolved='<%# DataBinder.Eval(Container.DataItem, "[\"Resolved\"]") %>'
-                                                   ResolvedDate='<%# DataBinder.Eval(Container.DataItem, "[\"ResolvedDate\"]") %>' />
+                                <YAF:BaseReportedPosts ID="ReportersList" runat="server"
+                                                   MessageID="<%# (Container.DataItem as ReportedMessage).MessageID %>"
+                                                   ResolvedBy="<%# (Container.DataItem as ReportedMessage).ResolvedBy %>"
+                                                   Resolved="<%# (Container.DataItem as ReportedMessage).Resolved %>"
+                                                   ResolvedDate="<%# (Container.DataItem as ReportedMessage).ResolvedDate %>" />
                             </div>
                         </div>
                     </div>
                     <div class="card-footer text-center">
-                        <YAF:ThemeButton ID="CopyOverBtn" runat="server" 
-                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER" 
-                                         CommandName="CopyOver" CommandArgument='<%# this.Eval("MessageID") %>'
-                                         Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
-                                         Icon="copy" 
+                        <YAF:ThemeButton ID="CopyOverBtn" runat="server"
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="COPYOVER"
+                                         CommandName="CopyOver" CommandArgument="<%# (Container.DataItem as ReportedMessage).MessageID %>"
+                                         Visible="<%# (Container.DataItem as ReportedMessage).OriginalMessage != (Container.DataItem as ReportedMessage).Message%>"
+                                         Icon="copy"
                                          Type="Secondary" />
-                        <YAF:ThemeButton ID="DeleteBtn" runat="server" 
-                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE" 
-                                         CommandName="Delete" CommandArgument='<%# this.Eval("MessageID") %>'
+                        <YAF:ThemeButton ID="DeleteBtn" runat="server"
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="DELETE"
+                                         CommandName="Delete" CommandArgument='<%# string.Format("{0};{1}", (Container.DataItem as ReportedMessage).MessageID,  (Container.DataItem as ReportedMessage).TopicID) %>'
                                          ReturnConfirmText='<%# this.GetText("ASK_DELETE") %>'
-                                         Icon="trash" 
+                                         Icon="trash"
                                          Type="Danger"/>
-                        <YAF:ThemeButton ID="ResolveBtn" runat="server" 
-                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="RESOLVED" 
-                                         CommandName="Resolved" CommandArgument='<%# this.Eval("MessageID") %>'
-                                         Icon="check" Type="Success" />
-                        <YAF:ThemeButton ID="ViewBtn" runat="server" 
-                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW" 
-                                         CommandName="View" CommandArgument='<%# this.Eval("MessageID") %>'
-                                         Icon="eye" 
+                        <YAF:ThemeButton ID="ResolveBtn" runat="server"
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="RESOLVED"
+                                         CommandName="Resolved" CommandArgument="<%# (Container.DataItem as ReportedMessage).MessageID %>"
+                                         Icon="check"
+                                         Type="Success" />
+                        <YAF:ThemeButton ID="ViewBtn" runat="server"
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="VIEW"
+                                         CommandName="View" CommandArgument="<%# (Container.DataItem as ReportedMessage).MessageID %>"
+                                         Icon="eye"
                                          Type="Secondary" />
-                        <YAF:ThemeButton ID="ViewHistoryBtn" runat="server" 
-                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY" 
-                                         Visible='<%# General.CompareMessage(DataBinder.Eval(Container.DataItem, "[\"OriginalMessage\"]"),DataBinder.Eval(Container.DataItem, "[\"Message\"]"))%>'
-                                         CommandName="ViewHistory" CommandArgument='<%# "{0},{1}".Fmt(this.PageContext.PageForumID, this.Eval("MessageID")) %>'
-                                         Icon="history" 
+                        <YAF:ThemeButton ID="ViewHistoryBtn" runat="server"
+                                         TextLocalizedPage="MODERATE_FORUM" TextLocalizedTag="HISTORY"
+                                         Visible="<%# (Container.DataItem as ReportedMessage).OriginalMessage != (Container.DataItem as ReportedMessage).Message%>"
+                                         CommandName="ViewHistory" CommandArgument="<%# (Container.DataItem as ReportedMessage).MessageID %>"
+                                         Icon="history"
                                          Type="Secondary" />
                     </div>
                 </div>

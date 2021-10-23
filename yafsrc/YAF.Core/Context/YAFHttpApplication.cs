@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,13 +28,81 @@ namespace YAF.Core.Context
     using System.Web;
     using System.Web.Http;
 
+    using Autofac;
+
     using YAF.Core.Context.Start;
+    using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services.Startup;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.EventProxies;
+    using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// The YAF HttpApplication.
     /// </summary>
-    public abstract class YafHttpApplication : HttpApplication
+    public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
     {
+        /// <summary>
+        ///   Gets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+        /// <summary>
+        /// Log Application Errors
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Application_Error([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            var exception = this.Server.GetLastError();
+            int? userId = BoardContext.Current != null ? BoardContext.Current.PageUserID : null;
+
+            this.Application["Exception"] = exception.ToString();
+            this.Application["ExceptionMessage"] = exception.Message;
+
+            this.Get<ILoggerService>().Log(
+                exception.Message,
+                EventLogTypes.Error,
+                exception: exception,
+                userId: userId);
+        }
+
+        /// <summary>
+        /// The application_ end.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected virtual void Application_End([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // make sure the BoardContext is disposed of...
+            BoardContext.Current.Dispose();
+
+            if (!this.Get<StartupInitializeDb>().Initialized)
+            {
+                return;
+            }
+
+            if (BoardContext.Current.BoardSettings.AbandonSessionsForDontTrack
+                && (BoardContext.Current.Vars.AsBoolean("DontTrack") ?? false)
+                && this.Get<HttpSessionStateBase>().IsNewSession)
+            {
+                // remove session
+                this.Get<HttpSessionStateBase>().Abandon();
+            }
+        }
+
         /// <summary>
         /// The application_ start.
         /// </summary>
@@ -44,10 +112,34 @@ namespace YAF.Core.Context
         /// <param name="e">
         /// The e.
         /// </param>
-        protected virtual void Application_Start(object sender, EventArgs e)
+        protected virtual void Application_Start([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Pass a delegate to the Configure method.
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            ScriptManagerHelper.RegisterJQuery();
+        }
+
+        /// <summary>
+        /// The session_ start.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void Session_Start([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // run startup services...
+            this.RunStartupServices();
+
+            // set the httpApplication as early as possible...
+            GlobalContainer.Container.Resolve<CurrentHttpApplicationStateBaseProvider>().Instance =
+                new HttpApplicationStateWrapper(this.Application);
+
+            // app init notification...
+            this.Get<IRaiseEvent>().RaiseIssolated(new HttpApplicationInitEvent(this), null);
         }
     }
 }

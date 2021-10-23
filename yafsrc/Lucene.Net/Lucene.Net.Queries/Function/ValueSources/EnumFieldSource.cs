@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Index;
+﻿// Lucene version compatibility level 4.8.1
+using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Queries.Function.DocValues;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Util;
@@ -110,26 +111,26 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             var arr = m_cache.GetInt32s(readerContext.AtomicReader, m_field, parser, true);
             var valid = m_cache.GetDocsWithField(readerContext.AtomicReader, m_field);
 
-            return new Int32DocValuesAnonymousInnerClassHelper(this, this, arr, valid);
+            return new Int32DocValuesAnonymousClass(this, this, arr, valid);
         }
 
-        private class Int32DocValuesAnonymousInnerClassHelper : Int32DocValues
+        private class Int32DocValuesAnonymousClass : Int32DocValues
         {
             private readonly EnumFieldSource outerInstance;
 
             private readonly FieldCache.Int32s arr;
             private readonly IBits valid;
 
-            public Int32DocValuesAnonymousInnerClassHelper(EnumFieldSource outerInstance, EnumFieldSource @this, FieldCache.Int32s arr, IBits valid)
+            public Int32DocValuesAnonymousClass(EnumFieldSource outerInstance, EnumFieldSource @this, FieldCache.Int32s arr, IBits valid)
                 : base(@this)
             {
                 this.outerInstance = outerInstance;
                 this.arr = arr;
                 this.valid = valid;
-                val = new MutableValueInt32();
+                //val = new MutableValueInt32(); // LUCENENET: Never read
             }
 
-            private readonly MutableValueInt32 val;
+            //private readonly MutableValueInt32 val; // LUCENENET: Never read
 
             /// <summary>
             /// NOTE: This was floatVal() in Lucene

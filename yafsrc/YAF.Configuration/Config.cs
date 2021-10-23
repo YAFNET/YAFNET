@@ -31,8 +31,9 @@ namespace YAF.Configuration
     using System.Linq;
     using System.Web;
     using System.Web.Configuration;
-
+    using System.Web.Security;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
     #endregion
@@ -64,8 +65,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets the Current BoardID -- default is 1.
         /// </summary>
-        [NotNull]
-        public static string BoardID => GetConfigValueAsString("YAF.BoardID") ?? "1";
+        public static int BoardID => GetConfigValueAsInt("YAF.BoardID", 1);
 
         /// <summary>
         ///     Gets the Folder to use for board specific uploads, images Example : /Boards/
@@ -76,7 +76,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets the Current CategoryID -- default is null.
         /// </summary>
-        public static string CategoryID => GetConfigValueAsString("YAF.CategoryID");
+        public static int CategoryID => GetConfigValueAsInt("YAF.CategoryID", 0);
 
         /// <summary>
         ///     Gets ClientFileRoot.
@@ -137,7 +137,7 @@ namespace YAF.Configuration
         public static bool CreateDistinctRoles => GetConfigValueAsBool("YAF.CreateDistinctRoles", false);
 
         /// <summary>
-        ///     Gets DatabaseObjectQualifier.
+        ///     Gets the Database Object Qualifier.
         /// </summary>
         [NotNull]
         public static string DatabaseObjectQualifier
@@ -145,14 +145,19 @@ namespace YAF.Configuration
             get
             {
                 var value = GetConfigValueAsString("YAF.DatabaseObjectQualifier");
-                return value != null
-                           ? value.IsSet() ? GetConfigValueAsString("YAF.DatabaseObjectQualifier") : "yaf_"
-                           : "yaf_";
+
+                return value.IsSet() ? GetConfigValueAsString("YAF.DatabaseObjectQualifier") : "yaf_";
             }
         }
 
         /// <summary>
-        ///     Gets DatabaseOwner.
+        ///    Gets the Database Schema.
+        /// </summary>
+        [NotNull]
+        public static string DatabaseSchema => GetConfigValueAsString("YAF.DatabaseSchema") ?? "public";
+
+        /// <summary>
+        ///    Gets the Database Owner.
         /// </summary>
         [NotNull]
         public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
@@ -196,7 +201,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets a value indicating whether IsAnyPortal.
         /// </summary>
-        public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsRainbow || IsPortal || IsPortalomatic;
+        public static bool IsAnyPortal => IsDotNetNuke || IsMojoPortal || IsPortal;
 
         /// <summary>
         ///     Gets a value indicating whether IsDotNetNuke.
@@ -211,8 +216,9 @@ namespace YAF.Configuration
                 }
 
                 var obj = HttpContext.Current.Items["PortalSettings"];
+
                 return obj != null
-                       && obj.ToString().ToLower().IndexOf("dotnetnuke", StringComparison.Ordinal) >= 0;
+                       && obj.ToString().Contains("DotNetNuke");
             }
         }
 
@@ -237,28 +243,6 @@ namespace YAF.Configuration
         ///     Gets a value indicating whether IsPortal.
         /// </summary>
         public static bool IsPortal => HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
-
-        /// <summary>
-        ///     Gets a value indicating whether Is Portalomatic.
-        /// </summary>
-        public static bool IsPortalomatic => HttpContext.Current.Session != null && HttpContext.Current.Session["Portalomatic.NET"] != null;
-
-        /// <summary>
-        ///     Gets a value indicating whether IsRainbow.
-        /// </summary>
-        public static bool IsRainbow
-        {
-            get
-            {
-                if (HttpContext.Current == null)
-                {
-                    return false;
-                }
-
-                var obj = HttpContext.Current.Items["PortalSettings"];
-                return obj != null && obj.ToString().ToLower().IndexOf("rainbow", StringComparison.Ordinal) >= 0;
-            }
-        }
 
         /// <summary>
         ///     Gets jQuery Alias
@@ -297,40 +281,9 @@ namespace YAF.Configuration
                                                    ?? "3.6.0";
 
         /// <summary>
-        ///     Gets MembershipProvider.
-        /// </summary>
-        [NotNull]
-        public static string MembershipProvider => GetConfigValueAsString("YAF.MembershipProvider") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets MobileUserAgents.
-        /// </summary>
-        [NotNull]
-        public static string MobileUserAgents => GetConfigValueAsString("YAF.MobileUserAgents")
-                                                 ?? "iphone,ipad,midp,windows ce,windows phone,android,blackberry,opera mini,mobile,palm,portable,webos,htc,armv,lg/u,elaine,nokia,playstation,symbian,sonyericsson,mmp,hd_mini";
-
-        /// <summary>
         ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false
         /// </summary>
         public static bool MultiBoardFolders => GetConfigValueAsBool("YAF.MultiBoardFolders", false);
-
-        /// <summary>
-        ///     Gets ProviderKeyType.
-        /// </summary>
-        [NotNull]
-        public static string ProviderKeyType => GetConfigValueAsString("YAF.ProviderKeyType") ?? "System.Guid";
-
-        /// <summary>
-        ///     Gets ProfileProvider.
-        /// </summary>
-        [NotNull]
-        public static string ProviderProvider => GetConfigValueAsString("YAF.ProfileProvider") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets RoleProvider.
-        /// </summary>
-        [NotNull]
-        public static string RoleProvider => GetConfigValueAsString("YAF.RoleProvider") ?? string.Empty;
 
         /// <summary>
         ///     Gets ServerFileRoot.
@@ -352,8 +305,7 @@ namespace YAF.Configuration
         /// <summary>
         ///     Gets the Current BoardID -- default is 1.
         /// </summary>
-        [NotNull]
-        public static string SqlCommandTimeout => GetConfigValueAsString("YAF.SqlCommandTimeout") ?? "99999";
+        public static int SqlCommandTimeout => GetConfigValueAsInt("YAF.SqlCommandTimeout", 99999);
 
         /// <summary>
         ///     Gets TwitterConsumerKey
@@ -366,40 +318,10 @@ namespace YAF.Configuration
         public static string TwitterConsumerSecret => GetConfigValueAsString("YAF.TwitterConsumerSecret");
 
         /// <summary>
-        /// Gets the twitter token.
-        /// </summary>
-        /// <value>
-        /// The twitter token.
-        /// </value>
-        public static string TwitterToken => GetConfigValueAsString("YAF.TwitterToken");
-
-        /// <summary>
-        /// Gets the twitter token secret.
-        /// </summary>
-        /// <value>
-        /// The twitter token secret.
-        /// </value>
-        public static string TwitterTokenSecret => GetConfigValueAsString("YAF.TwitterTokenSecret");
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is twitter enabled.
-        /// </summary>
-        /// <value>
-        /// <c>true</c> if this instance is twitter enabled; otherwise, <c>false</c>.
-        /// </value>
-        public static bool IsTwitterEnabled => TwitterConsumerKey.IsSet() && TwitterConsumerSecret.IsSet() && TwitterToken.IsSet()
-                                               && TwitterTokenSecret.IsSet();
-
-        /// <summary>
         ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
         /// </summary>
         [NotNull]
         public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
-
-        /// <summary>
-        ///     Gets a value indicating whether Use an SSL connection for the SMTP server -- default is "false"
-        /// </summary>
-        public static bool UseSMTPSSL => GetConfigValueAsBool("YAF.UseSMTPSSL", false);
 
         /// <summary>
         /// Gets the banned IP redirect URL.
@@ -409,9 +331,76 @@ namespace YAF.Configuration
         /// </value>
         public static string BannedIpRedirectUrl => GetConfigValueAsString("YAF.BannedIpRedirectUrl");
 
+        #region Legacy Membership Settings
+
+        /// <summary>
+        /// Gets the legacy membership hash algorithm type.
+        /// </summary>
+        public static HashAlgorithmType LegacyMembershipHashAlgorithmType
+        {
+            get
+            {
+                var value = GetConfigValueAsString("YAF.LegacyMembershipHashAlgorithmType");
+
+                return value.IsSet()
+                    ? value.ToEnum<HashAlgorithmType>()
+                    : HashAlgorithmType.SHA1;
+            }
+        }
+
+        /// <summary>
+        /// Gets the legacy membership password format.
+        /// </summary>
+        public static MembershipPasswordFormat LegacyMembershipPasswordFormat
+        {
+            get
+            {
+                var value = GetConfigValueAsString("YAF.LegacyMembershipPasswordFormat");
+
+                return value.IsSet()
+                    ? value.ToEnum<MembershipPasswordFormat>()
+                    : MembershipPasswordFormat.Hashed;
+            }
+        }
+
+        /// <summary>
+        /// Gets the legacy membership hash case.
+        /// </summary>
+        public static HashCaseType LegacyMembershipHashCase
+        {
+            get
+            {
+                var value = GetConfigValueAsString("YAF.LegacyMembershipHashCase");
+
+                return value.IsSet()
+                    ? value.ToEnum<HashCaseType>()
+                    : HashCaseType.None;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether legacy membership hash hex.
+        /// </summary>
+        public static bool LegacyMembershipHashHex => GetConfigValueAsBool("YAF.LegacyMembershipHashHex", false);
+
+        #endregion
+
         #endregion
 
         #region Public Methods and Operators
+
+        /// <summary>
+        ///     Gets the config value as Integer.
+        /// </summary>
+        /// <param name="configKey"> The config key. </param>
+        /// <param name="defaultValue"> if set to <c>true</c> [default value]. </param>
+        /// <returns> Returns the Integer Value </returns>
+        public static int GetConfigValueAsInt([NotNull] string configKey, int defaultValue)
+        {
+            var value = GetConfigValueAsString(configKey);
+
+            return value.IsSet() ? value.ToLower().ToType<int>() : defaultValue;
+        }
 
         /// <summary>
         ///     Gets the config value as Boolean.
@@ -449,6 +438,6 @@ namespace YAF.Configuration
             return GetConfigValueAsString(key);
         }
 
-        #endregion
+#endregion
     }
 }

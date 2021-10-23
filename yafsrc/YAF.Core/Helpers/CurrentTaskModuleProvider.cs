@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,69 +21,41 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core
+namespace YAF.Core.Helpers
 {
-  #region Using
+    #region Using
 
-  using System.Web;
+    using System.Runtime.Caching;
 
-  using YAF.Types;
-  using YAF.Types.Constants;
-  using YAF.Types.Interfaces;
-
-  #endregion
-
-  /// <summary>
-  /// The current task module provider.
-  /// </summary>
-  public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
-  {
-    #region Constants and Fields
-
-    /// <summary>
-    /// The _http application state.
-    /// </summary>
-    private readonly HttpApplicationStateBase _httpApplicationState;
+    using YAF.Types;
+    using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
 
     #endregion
 
-    #region Constructors and Destructors
-
     /// <summary>
-    /// Initializes a new instance of the <see cref="CurrentTaskModuleProvider"/> class.
+    /// The current task module provider.
     /// </summary>
-    /// <param name="httpApplicationState">
-    /// The http application state.
-    /// </param>
-    public CurrentTaskModuleProvider([NotNull] HttpApplicationStateBase httpApplicationState)
+    public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
     {
-      CodeContracts.VerifyNotNull(httpApplicationState, "httpApplicationState");
+        #region Properties
 
-      this._httpApplicationState = httpApplicationState;
+        /// <summary>
+        /// Gets or sets the instance.
+        /// </summary>
+        [CanBeNull]
+        public ITaskModuleManager Instance
+        {
+            get => MemoryCache.Default[Constants.Cache.TaskModule] as ITaskModuleManager;
+
+            set
+            {
+                CodeContracts.VerifyNotNull(value, "value");
+
+                MemoryCache.Default[Constants.Cache.TaskModule] = value;
+            }
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    /// <summary>
-    ///   The create.
-    /// </summary>
-    /// <returns>
-    /// </returns>
-    [CanBeNull]
-    public ITaskModuleManager Instance
-    {
-      get => this._httpApplicationState[Constants.Cache.TaskModule] as ITaskModuleManager;
-
-      set
-      {
-        CodeContracts.VerifyNotNull(value, "value");
-
-        this._httpApplicationState[Constants.Cache.TaskModule] = value;
-      }
-    }
-
-    #endregion
-  }
 }

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -25,35 +25,52 @@ namespace YAF.Core.Services
 {
     #region Using
 
-    using System;
     using System.Web;
     using System.Web.Hosting;
 
     using YAF.Configuration;
-    using YAF.Core.Model;
+    using YAF.Core.Context;
+    using YAF.Core.Helpers;
     using YAF.Core.Services.Startup;
-    using YAF.Core.UsersRoles;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Interfaces.Identity;
 
     #endregion
 
     /// <summary>
-    /// The yaf permissions.
+    /// The permissions.
     /// </summary>
-    public class Permissions : IPermissions
+    public class Permissions : IPermissions, IHaveServiceLocator
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Permissions"/> class.
+        /// </summary>
+        /// <param name="serviceLocator">
+        /// The service locator.
+        /// </param>
+        public Permissions([NotNull] IServiceLocator serviceLocator)
+        {
+            this.ServiceLocator = serviceLocator;
+        }
+
+        #region Properties
+
+        /// <summary>
+        /// Gets or sets ServiceLocator.
+        /// </summary>
+        public IServiceLocator ServiceLocator { get; set; }
+
+        #endregion
+
         #region Implemented Interfaces
 
         #region IPermissions
 
         /// <summary>
-        /// The check.
+        /// Check Viewing Permissions
         /// </summary>
         /// <param name="permission">
         /// The permission.
@@ -63,15 +80,12 @@ namespace YAF.Core.Services
         /// </returns>
         public bool Check(ViewPermissions permission)
         {
-            switch (permission)
-            {
-                case ViewPermissions.Everyone:
-                    return true;
-                case ViewPermissions.RegisteredUsers:
-                    return !BoardContext.Current.IsGuest;
-                default:
-                    return BoardContext.Current.IsAdmin;
-            }
+            return permission switch
+                {
+                    ViewPermissions.Everyone => true,
+                    ViewPermissions.RegisteredUsers => !BoardContext.Current.IsGuest,
+                    _ => BoardContext.Current.IsAdmin
+                };
         }
 
         /// <summary>
@@ -84,27 +98,25 @@ namespace YAF.Core.Services
         {
             var noAccess = true;
 
-            if (!this.Check(permission))
+            if (this.Check(permission))
             {
-                if (permission == ViewPermissions.RegisteredUsers)
-                {
-                    if (!Config.AllowLoginAndLogoff && BoardContext.Current.BoardSettings.CustomLoginRedirectUrl.IsSet())
-                    {
-                        var loginRedirectUrl = BoardContext.Current.BoardSettings.CustomLoginRedirectUrl;
+                return;
+            }
 
-                        if (loginRedirectUrl.Contains("{0}"))
-                        {
-                            // process for return url..
-                            loginRedirectUrl = string.Format(
-                                loginRedirectUrl, HttpUtility.UrlEncode(
-                                    General.GetSafeRawUrl(BoardContext.Current.Get<HttpRequestBase>().Url.ToString())));
-                        }
+            if (permission == ViewPermissions.RegisteredUsers)
+            {
+                switch (Config.AllowLoginAndLogoff)
+                {
+                    case false when this.Get<BoardSettings>().CustomLoginRedirectUrl.IsSet():
+                    {
+                        var loginRedirectUrl = this.Get<BoardSettings>().CustomLoginRedirectUrl;
 
                         // allow custom redirect...
-                        BoardContext.Current.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
+                        this.Get<HttpResponseBase>().Redirect(loginRedirectUrl);
                         noAccess = false;
+                        break;
                     }
-                    else if (!Config.AllowLoginAndLogoff && Config.IsDotNetNuke)
+                    case false when Config.IsDotNetNuke:
                     {
                         // automatic DNN redirect...
                         var appPath = HostingEnvironment.ApplicationVirtualPath;
@@ -114,25 +126,22 @@ namespace YAF.Core.Services
                         }
 
                         // redirect to DNN login...
-                        BoardContext.Current.Get<HttpResponseBase>().Redirect(
-                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(General.GetSafeRawUrl())}");
+                        this.Get<HttpResponseBase>().Redirect(
+                            $"{appPath}Login.aspx?ReturnUrl={HttpUtility.UrlEncode(this.Get<LinkBuilder>().GetSafeRawUrl())}");
                         noAccess = false;
+                        break;
                     }
-                    else if (Config.AllowLoginAndLogoff)
-                    {
-                        BuildLink.Redirect(
-                            ForumPages.Login,
-                            "ReturnUrl={0}",
-                            HttpUtility.UrlEncode(General.GetSafeRawUrl()));
+                    case true:
+                        this.Get<LinkBuilder>().Redirect(ForumPages.Account_Login);
                         noAccess = false;
-                    }
+                        break;
                 }
+            }
 
-                // fall-through with no access...
-                if (noAccess)
-                {
-                    BuildLink.AccessDenied();
-                }
+            // fall-through with no access...
+            if (noAccess)
+            {
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 
@@ -152,33 +161,33 @@ namespace YAF.Core.Services
             }
 
             // Find user name
-            var user = UserMembershipHelper.GetUser();
+            var user = this.Get<IAspNetUsersHelper>().GetUser();
 
             var browser =
                 $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
             var platform = HttpContext.Current.Request.Browser.Platform;
-            var isMobileDevice = HttpContext.Current.Request.Browser.IsMobileDevice;
             var userAgent = HttpContext.Current.Request.UserAgent;
 
-            // try and get more verbose platform name by ref and other parameters             
+            // try and get more verbose platform name by ref and other parameters
             UserAgentHelper.Platform(
                 userAgent,
-                HttpContext.Current.Request.Browser.Crawler,
+                this.Get<HttpRequestBase>().Browser.Crawler,
                 ref platform,
                 ref browser,
-                out var isSearchEngine,
-                out var dontTrack);
+                out var isSearchEngine);
 
-            BoardContext.Current.Get<StartupInitializeDb>().Run();
+            var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
 
-            object userKey = DBNull.Value;
+            this.Get<StartupInitializeDb>().Run();
+
+            string userKey = null;
 
             if (user != null)
             {
-                userKey = user.ProviderUserKey;
+                userKey = user.Id;
             }
 
-            var pageRow = BoardContext.Current.GetRepository<ActiveAccess>().PageLoadAsDataRow(
+            var pageRow = BoardContext.Current.Get<DataBroker>().GetPageLoad(
                 HttpContext.Current.Session.SessionID,
                 boardId,
                 userKey,
@@ -187,15 +196,14 @@ namespace YAF.Core.Services
                 HttpContext.Current.Request.QueryString.ToString(),
                 browser,
                 platform,
-                null,
-                null,
-                null,
+                0,
+                0,
+                0,
                 messageId,
-                isSearchEngine, // don't track if this is a search engine
-                isMobileDevice,
-                dontTrack);
+                isSearchEngine,
+                doNotTrack);
 
-            return pageRow["DownloadAccess"].ToType<bool>() || pageRow["ModeratorAccess"].ToType<bool>();
+            return pageRow.Item1.DownloadAccess || pageRow.Item1.ModeratorAccess;
         }
 
         #endregion

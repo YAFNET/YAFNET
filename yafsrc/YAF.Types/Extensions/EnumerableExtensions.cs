@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -49,8 +49,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(action);
 
             list.ToList().ForEach(action);
         }
@@ -63,8 +63,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(action);
 
             var isFirst = true;
 
@@ -84,8 +84,8 @@ namespace YAF.Types.Extensions
         /// <param name="action"> </param>
         public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
         {
-            CodeContracts.VerifyNotNull(list, "list");
-            CodeContracts.VerifyNotNull(action, "action");
+            CodeContracts.VerifyNotNull(list);
+            CodeContracts.VerifyNotNull(action);
 
             var i = 0;
 
@@ -105,25 +105,43 @@ namespace YAF.Types.Extensions
         }
 
         /// <summary>
-        ///     Creates an infinite IEnumerable from the <paramref name="currentEnumerable" /> padding it with default( <typeparamref
-        ///      name="T" /> ).
+        /// The distinct by.
         /// </summary>
-        /// <param name="currentEnumerable"> The current enumerable. </param>
-        /// <typeparam name="T"> </typeparam>
-        /// <returns> </returns>
-        public static IEnumerable<T> Infinite<T>([NotNull] this IEnumerable<T> currentEnumerable)
+        /// <param name="source">
+        /// The source.
+        /// </param>
+        /// <param name="keySelector">
+        /// The key selector.
+        /// </param>
+        /// <typeparam name="TSource">
+        /// </typeparam>
+        /// <typeparam name="TKey">
+        /// </typeparam>
+        /// <returns>
+        /// The <see cref="IEnumerable"/>.
+        /// </returns>
+        public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
+            this IEnumerable<TSource> source,
+            Func<TSource, TKey> keySelector)
         {
-            CodeContracts.VerifyNotNull(currentEnumerable, "currentEnumerable");
+            var knownKeys = new HashSet<TKey>();
+            return source.Where(element => knownKeys.Add(keySelector(element)));
+        }
 
-            foreach (var item in currentEnumerable)
+        /// <summary>
+        /// Checks if List is Null Or Empty
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source">The source.</param>
+        /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
+        static public bool NullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            if (source == null)
             {
-                yield return item;
+                return true;
             }
 
-            while (true)
-            {
-                yield return default;
-            }
+            return !source.Any();
         }
 
         #endregion

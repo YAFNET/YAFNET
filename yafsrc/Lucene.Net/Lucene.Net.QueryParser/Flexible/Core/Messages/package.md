@@ -1,4 +1,4 @@
-﻿---
+---
 uid: Lucene.Net.QueryParsers.Flexible.Core.Messages
 summary: *content
 ---
@@ -26,4 +26,4 @@ Messages usually used by query parser implementations.
 ## Query Parser Messages
 
 
-Messages for the Flexible Query Parser, they use <tt>org.apache.lucene.messages.NLS</tt> API.
+Messages for the Flexible Query Parser use .NET Resources. See [How to create user-defined exceptions with localized exception messages](https://docs.microsoft.com/en-us/dotnet/standard/exceptions/how-to-create-localized-exception-messages).

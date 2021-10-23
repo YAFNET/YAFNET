@@ -23,49 +23,49 @@
  */
 namespace YAF.Types.Interfaces
 {
-  #region Using
+    #region Using
 
-  using System;
-
-  #endregion
-
-  /// <summary>
-  /// Interface to the cache system.
-  /// </summary>
-  public interface IDataCache : IObjectStore
-  {
-    #region Public Methods
-
-    /// <summary>
-    /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="getValue">
-    /// The get value.
-    /// </param>
-    /// <param name="timeout">
-    /// The timeout.
-    /// </param>
-    /// <returns>
-    /// </returns>
-    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout);
-
-    /// <summary>
-    /// Sets a cache value with a timeout.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="timeout">
-    /// The timeout.
-    /// </param>
-    void Set([NotNull] string key, object value, TimeSpan timeout);
+    using System;
 
     #endregion
-  }
+
+    /// <summary>
+    /// Interface to the cache system.
+    /// </summary>
+    public interface IDataCache : IObjectStore
+    {
+        #region Public Methods
+
+        /// <summary>
+        /// Gets the cache value if it's in the cache or sets it if it doesn't exist or is expired.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="getValue">
+        /// The get value.
+        /// </param>
+        /// <param name="timeout">
+        /// The timeout.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout);
+
+        /// <summary>
+        /// Sets a cache value with a timeout.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        /// <param name="timeout">
+        /// The timeout.
+        /// </param>
+        void Set([NotNull] string key, object value, TimeSpan timeout);
+
+        #endregion
+    }
 }

@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,14 +24,12 @@
 namespace YAF.Core.Model
 {
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
 
     using ServiceStack.OrmLite;
 
     using YAF.Core.Extensions;
     using YAF.Types;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -47,31 +45,37 @@ namespace YAF.Core.Model
         /// </summary>
         /// <param name="repository">The repository.</param>
         /// <returns>Returns the highest sort order.</returns>
-        public static int GetHighestSortOrder(
-            this IRepository<Category> repository)
+        public static int GetHighestSortOrder(this IRepository<Category> repository)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
             return repository.DbAccess.Execute(
-                cmd => cmd.Connection.Scalar<int>(
-                    $"select MAX(SortOrder) from {repository.DbAccess.GetTableName<Category>()}"));
+                db => db.Connection.Scalar<int>(expression.Select(c => Sql.Max(c.SortOrder))));
         }
 
         /// <summary>
-        /// The list.
+        /// List Categories
         /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="categoryId">The category id.</param>
-        /// <param name="boardId">The board id.</param>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="categoryId">
+        /// The category id.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
         /// <returns>
-        /// The <see cref="DataTable" />.
+        /// The <see cref="List"/>.
         /// </returns>
         public static List<Category> List(
             this IRepository<Category> repository,
-            int? categoryId = null,
-            int? boardId = null)
+            [CanBeNull] int? categoryId = null,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
             return categoryId.HasValue
                        ? repository.Get(
@@ -81,69 +85,48 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The list read.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userID">The user id.</param>
-        /// <param name="categoryID">The category id.</param>
-        /// <param name="boardId">The board id.</param>
-        /// <returns>
-        /// The <see cref="DataTable" />.
-        /// </returns>
-        public static DataTable Listread(this IRepository<Category> repository, int userID, int? categoryID, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            return repository.DbFunction.GetData.category_listread(BoardID: boardId ?? repository.BoardID, UserID: userID, CategoryID: categoryID);
-        }
-
-        /// <summary>
         /// Save a Category
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="categoryId">The category id.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="categoryImage">The category image.</param>
-        /// <param name="sortOrder">The sort order.</param>
-        /// <param name="boardId">The board id.</param>
-        public static void Save(
-            this IRepository<Category> repository, int? categoryId, string name, string categoryImage, short sortOrder, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.Upsert(
-                new Category
-                    {
-                        BoardID = boardId ?? repository.BoardID,
-                        ID = categoryId ?? 0,
-                        Name = name,
-                        SortOrder = sortOrder,
-                        CategoryImage = categoryImage
-                });
-        }
-
-        /// <summary>
-        /// Get All Categories by Limit 
         /// </summary>
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="startId">
-        /// The start id.
+        /// <param name="categoryId">
+        /// The category id.
         /// </param>
-        /// <param name="limit">
-        /// The limit.
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="categoryImage">
+        /// The category image.
+        /// </param>
+        /// <param name="sortOrder">
+        /// The sort order.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
         /// </param>
         /// <returns>
-        /// Returns the Categories list
+        /// Returns the Category ID of the Updated or new Category
         /// </returns>
-        public static DataTable SimpleListAsDataTable(this IRepository<Category> repository, [CanBeNull] int startId = 0, [CanBeNull] int limit = 500)
+        public static int Save(
+            this IRepository<Category> repository,
+            [CanBeNull] int? categoryId,
+            [NotNull] string name,
+            [CanBeNull] string categoryImage,
+            [NotNull] short sortOrder,
+            [CanBeNull] int? boardId = null)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.category_simplelist(StartID: startId, Limit: limit);
-
-            // return repository.Get(c => c.ID >= startId && c.ID < 0 + limit).Take(limit).OrderBy(c => c.ID).ToList();
+            return repository.Upsert(
+                new Category
+                {
+                    BoardID = boardId ?? repository.BoardID,
+                    ID = categoryId ?? 0,
+                    Name = name,
+                    SortOrder = sortOrder,
+                    CategoryImage = categoryImage
+                });
         }
 
         #endregion

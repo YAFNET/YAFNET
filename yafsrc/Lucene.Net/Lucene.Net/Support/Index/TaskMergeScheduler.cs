@@ -40,6 +40,7 @@ namespace YAF.Lucene.Net.Index
     ///  
     /// LUCENENET specific
     /// </summary>
+    [Obsolete("Use ConcurrentMergeScheduler instead. This class will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public class TaskMergeScheduler : MergeScheduler, IConcurrentMergeScheduler
     {
         public const string COMPONENT_NAME = "CMS";
@@ -112,17 +113,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Return the priority that merge threads run at. This is always the same.
         /// </summary>
-        public int MergeThreadPriority
-        {
-            get
-            {
-#if !FEATURE_THREAD_PRIORITY
-                return 2;
-#else
-                return (int)ThreadPriority.Normal;
-#endif 
-            }
-        }
+        public int MergeThreadPriority => (int)ThreadPriority.Normal;
 
         /// <summary>
         /// This method has no effect in <see cref="TaskMergeScheduler"/> because the
@@ -176,6 +167,7 @@ namespace YAF.Lucene.Net.Index
         {
             Sync();
             _manualResetEvent.Dispose();
+            _lock.Dispose();
         }
 
         /// <summary>
@@ -219,10 +211,7 @@ namespace YAF.Lucene.Net.Index
         /// Returns the number of merge threads that are alive. Note that this number
         /// is &lt;= <see cref="_mergeThreads"/> size.
         /// </summary>
-        private int MergeThreadCount
-        {
-            get { return _mergeThreads.Count(x => x.IsAlive && x.CurrentMerge != null); }
-        }
+        private int MergeThreadCount => _mergeThreads.Count(x => x.IsAlive && x.CurrentMerge != null);
 
         [MethodImpl(MethodImplOptions.NoInlining)]
         public override void Merge(IndexWriter writer, MergeTrigger trigger, bool newMergesFound)
@@ -340,9 +329,7 @@ namespace YAF.Lucene.Net.Index
 
         private void OnMergeThreadCompleted(object sender, EventArgs e)
         {
-            var mergeThread = sender as MergeThread;
-
-            if (mergeThread == null)
+            if (!(sender is MergeThread mergeThread))
             {
                 return;
             }
@@ -377,24 +364,15 @@ namespace YAF.Lucene.Net.Index
                 return;
             }
 
-//#if FEATURE_THREAD_INTERRUPT
-//            try
-//            {
-//#endif
-                // When an exception is hit during merge, IndexWriter
-                // removes any partial files and then allows another
-                // merge to run.  If whatever caused the error is not
-                // transient then the exception will keep happening,
-                // so, we sleep here to avoid saturating CPU in such
-                // cases:
-                Thread.Sleep(250);
-//#if FEATURE_THREAD_INTERRUPT // LUCENENET NOTE: Senseless to catch and rethrow the same exception type
-//            }
-//            catch (ThreadInterruptedException ie)
-//            {
-//                throw new ThreadInterruptedException("Thread Interrupted Exception", ie);
-//            }
-//#endif
+            // When an exception is hit during merge, IndexWriter
+            // removes any partial files and then allows another
+            // merge to run.  If whatever caused the error is not
+            // transient then the exception will keep happening,
+            // so, we sleep here to avoid saturating CPU in such
+            // cases:
+            Thread.Sleep(250);
+            // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException
+
             throw new MergePolicy.MergeException(exc, _directory);
         }
 
@@ -636,10 +614,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     _isDone = true;
 
-                    if (MergeThreadCompleted != null)
-                    {
-                        MergeThreadCompleted(this, EventArgs.Empty);
-                    }
+                    MergeThreadCompleted?.Invoke(this, EventArgs.Empty);
                 }
             }
 
@@ -664,9 +639,7 @@ namespace YAF.Lucene.Net.Index
 
             public override bool Equals(object obj)
             {
-                var compared = obj as MergeThread;
-
-                if (compared == null
+                if (!(obj is MergeThread compared)
                     || (Instance == null && compared.Instance != null)
                     || (Instance != null && compared.Instance == null))
                 {

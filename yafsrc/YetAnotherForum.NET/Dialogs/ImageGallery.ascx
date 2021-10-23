@@ -9,7 +9,7 @@
     <a class="next btn btn-secondary">
         <i class="fas fa-chevron-right"></i>
     </a>
-    <a class="close">
+    <a class="btn-close">
         <i class="fas fa-times-circle"></i>
     </a>
     <a class="play-pause"></a>

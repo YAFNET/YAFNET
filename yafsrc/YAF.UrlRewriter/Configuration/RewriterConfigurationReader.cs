@@ -10,8 +10,10 @@ namespace YAF.UrlRewriter.Configuration
     using System;
     using System.Collections.Specialized;
     using System.Configuration;
+    using System.Linq;
     using System.Xml;
 
+    using YAF.Types.Extensions;
     using YAF.UrlRewriter.Errors;
     using YAF.UrlRewriter.Extensions;
     using YAF.UrlRewriter.Logging;
@@ -124,26 +126,27 @@ namespace YAF.UrlRewriter.Configuration
             var type = node.GetRequiredAttribute(Constants.AttrParser);
 
             var parser = TypeHelper.Activate(type, null);
-            if (parser is IRewriteActionParser actionParser)
-            {
-                config.ActionParserFactory.Add(actionParser);
-            }
 
-            if (parser is IRewriteConditionParser conditionParser)
+            switch (parser)
             {
-                config.ConditionParserPipeline.Add(conditionParser);
+                case IRewriteActionParser actionParser:
+                    config.ActionParserFactory.Add(actionParser);
+                    break;
+                case IRewriteConditionParser conditionParser:
+                    config.ConditionParserPipeline.Add(conditionParser);
+                    break;
             }
         }
 
         private static void ReadDefaultDocuments(XmlNode node, IRewriterConfiguration config)
         {
-            foreach (XmlNode childNode in node.ChildNodes)
+            node.ChildNodes.Cast<XmlNode>().ForEach(childNode =>
             {
                 if (childNode.NodeType == XmlNodeType.Element && childNode.LocalName == Constants.ElementDocument)
                 {
                     config.DefaultDocuments.Add(childNode.InnerText);
                 }
-            }
+            });
         }
 
         private static void ReadErrorHandler(XmlNode node, IRewriterConfiguration config)
@@ -157,7 +160,7 @@ namespace YAF.UrlRewriter.Configuration
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.AttributeRequired, Constants.AttrUrl), node);
             }
 
-            IRewriteErrorHandler handler = null;
+            IRewriteErrorHandler handler;
             if (typeNode != null)
             {
                 // <error-handler code="500" url="/oops.aspx" />
@@ -189,19 +192,21 @@ namespace YAF.UrlRewriter.Configuration
             var map = new StringDictionary();
             foreach (XmlNode mapNode in node.ChildNodes)
             {
-                if (mapNode.NodeType == XmlNodeType.Element)
+                if (mapNode.NodeType != XmlNodeType.Element)
                 {
-                    if (mapNode.LocalName == Constants.ElementMap)
-                    {
-                        var fromValue = mapNode.GetRequiredAttribute(Constants.AttrFrom, true);
-                        var toValue = mapNode.GetRequiredAttribute(Constants.AttrTo, true);
+                    continue;
+                }
 
-                        map.Add(fromValue, toValue);
-                    }
-                    else
-                    {
-                        throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.ElementNotAllowed, mapNode.LocalName), node);
-                    }
+                if (mapNode.LocalName == Constants.ElementMap)
+                {
+                    var fromValue = mapNode.GetRequiredAttribute(Constants.AttrFrom, true);
+                    var toValue = mapNode.GetRequiredAttribute(Constants.AttrTo, true);
+
+                    map.Add(fromValue, toValue);
+                }
+                else
+                {
+                    throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.ElementNotAllowed, mapNode.LocalName), node);
                 }
             }
 
@@ -229,18 +234,21 @@ namespace YAF.UrlRewriter.Configuration
                     }
 
                     var rule = parser.Parse(node, config);
-                    if (rule != null)
+
+                    if (rule == null)
                     {
-                        config.Rules.Add(rule);
-                        parsed = true;
-                        break;
+                        continue;
                     }
+
+                    config.Rules.Add(rule);
+                    parsed = true;
+                    break;
                 }
             }
 
             if (!parsed)
             {
-                // No parsers recognised to handle this node.
+                // No parsers recognized to handle this node.
                 throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.ElementNotAllowed, node.LocalName), node);
             }
         }

@@ -1,11 +1,13 @@
-using J2N;
+﻿using J2N;
+using J2N.Numerics;
 using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using BitSet = YAF.Lucene.Net.Util.OpenBitSet;
+using System.Runtime.CompilerServices;
+using BitSet  = YAF.Lucene.Net.Util.OpenBitSet;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Fst
@@ -180,7 +182,7 @@ namespace YAF.Lucene.Net.Util.Fst
                         bool exact = false;
                         while (low <= high)
                         {
-                            mid = (int)((uint)(low + high) >> 1);
+                            mid = (low + high).TripleShift(1);
                             @in.Position = arc.PosArcsStart;
                             @in.SkipBytes(arc.BytesPerArc * mid);
                             var flags = (sbyte)@in.ReadByte();
@@ -635,6 +637,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 return new TopResults<T>(rejectCount + topN <= maxQueueDepth, results);
             }
 
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
             protected virtual bool AcceptResult(Int32sRef input, T output)
             {
                 return true;
@@ -955,6 +958,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// <summary>
         /// Emit a single state in the <c>dot</c> language.
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void EmitDotState(TextWriter @out, string name, string shape, string color, string label)
         {
             @out.Write("  " + name 
@@ -968,6 +972,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// <summary>
         /// Ensures an arc's label is indeed printable (dot uses US-ASCII).
         /// </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string PrintableLabel(int label)
         {
             // Any ordinary ascii character, except for " or \, are
@@ -1139,7 +1144,7 @@ namespace YAF.Lucene.Net.Util.Fst
                 // " targetLabel=" + targetLabel);
                 while (low <= high)
                 {
-                    mid = (int)((uint)(low + high) >> 1);
+                    mid = (low + high).TripleShift(1);
                     @in.Position = arc.PosArcsStart;
                     @in.SkipBytes(arc.BytesPerArc * mid + 1);
                     int midLabel = fst.ReadLabel(@in);

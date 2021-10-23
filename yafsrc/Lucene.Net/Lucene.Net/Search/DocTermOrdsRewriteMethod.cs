@@ -21,14 +21,14 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Int64BitSet  = YAF.Lucene.Net.Util.Int64BitSet;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Rewrites <see cref="MultiTermQuery"/>s into a filter, using DocTermOrds for term enumeration.
@@ -99,7 +99,7 @@ namespace YAF.Lucene.Net.Search
                 SortedSetDocValues docTermOrds = FieldCache.DEFAULT.GetDocTermOrds((context.AtomicReader), m_query.m_field);
                 // Cannot use FixedBitSet because we require long index (ord):
                 Int64BitSet termSet = new Int64BitSet(docTermOrds.ValueCount);
-                TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousInnerClassHelper(docTermOrds));
+                TermsEnum termsEnum = m_query.GetTermsEnum(new TermsAnonymousClass(docTermOrds));
 
                 if (Debugging.AssertsEnabled) Debugging.Assert(termsEnum != null);
                 if (termsEnum.MoveNext())
@@ -130,11 +130,11 @@ namespace YAF.Lucene.Net.Search
                 });
             }
 
-            private class TermsAnonymousInnerClassHelper : Terms
+            private class TermsAnonymousClass : Terms
             {
                 private readonly SortedSetDocValues docTermOrds;
 
-                public TermsAnonymousInnerClassHelper(SortedSetDocValues docTermOrds)
+                public TermsAnonymousClass(SortedSetDocValues docTermOrds)
                 {
                     this.docTermOrds = docTermOrds;
                 }

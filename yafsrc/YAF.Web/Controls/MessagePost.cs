@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -30,15 +30,14 @@ namespace YAF.Web.Controls
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
 
     #endregion
 
@@ -64,7 +63,7 @@ namespace YAF.Web.Controls
         /// </summary>
         public virtual int? MessageID
         {
-            get => this.ViewState["MessageID"]?.ToType<int>();
+            get => this.ViewState["MessageID"] != null ? this.ViewState["MessageID"].ToType<int?>() : 0;
 
             set => this.ViewState["MessageID"] = value;
         }
@@ -155,11 +154,11 @@ namespace YAF.Web.Controls
             if (this.Signature.IsSet())
             {
                 var sig = new MessageSignature
-                    {
-                        Signature = this.Signature,
-                        DisplayUserId = this.DisplayUserID,
-                        MessageId = this.MessageID
-                    };
+                {
+                    Signature = this.Signature,
+                    DisplayUserId = this.DisplayUserID,
+                    MessageId = this.MessageID
+                };
 
                 this.Controls.Add(sig);
             }
@@ -227,7 +226,7 @@ namespace YAF.Web.Controls
         protected virtual void RenderEditedMessage(
             [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
-            if (!this.Get<BoardSettings>().ShowEditedMessage)
+            if (!this.PageContext.BoardSettings.ShowEditedMessage)
             {
                 return;
             }
@@ -246,7 +245,7 @@ namespace YAF.Web.Controls
 
             var messageHistoryButton =
                 $@"<hr />
-                   <p class=""mb-0""><a href=""{BuildLink.GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm mr-1"">
+                   <p class=""mb-0""><a href=""{this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm me-1"">
                          <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
                       </a></p>";
 
@@ -271,12 +270,11 @@ namespace YAF.Web.Controls
         {
             writer.Write(
                 @"<div class=""alert alert-success"" role=""alert"">
-                      <a title=""{0}"" alt=""title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
-                      <button type=""button"" class=""close"" data-dismiss=""alert"" aria-label=""Close"">
-                          <span aria-hidden=""true"">&times;</span>
+                      <a title=""{0}"" href=""{1}""><i class=""fa fa-check fa-fw""></i>{0}</a>
+                      <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
-                BuildLink.GetLink(ForumPages.Posts, "m={0}#post{0}", messageId));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopic.TopicName));
         }
 
         /// <summary>
@@ -298,9 +296,10 @@ namespace YAF.Web.Controls
             }
             else
             {
-                var formattedMessage =
-                    this.Get<IFormatMessage>().Format(
-                        this.HighlightMessage(this.Message, true), this.MessageFlags);
+                var formattedMessage = this.Get<IFormatMessage>().Format(
+                    this.MessageID.Value,
+                    this.HighlightMessage(this.Message, true),
+                    this.MessageFlags);
 
                 // tha_watcha : Since HTML message and BBCode can be mixed now, message should be always replace BBCode
                 this.RenderModulesInBBCode(

@@ -2,7 +2,6 @@ using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace YAF.Lucene.Net.Codecs
@@ -24,20 +23,20 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
-    using MergeState = YAF.Lucene.Net.Index.MergeState;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using OrdinalMap = YAF.Lucene.Net.Index.MultiDocValues.OrdinalMap;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FilteredTermsEnum  = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using Int64BitSet  = YAF.Lucene.Net.Util.Int64BitSet;
+    using MergeState  = YAF.Lucene.Net.Index.MergeState;
+    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using OrdinalMap  = YAF.Lucene.Net.Index.MultiDocValues.OrdinalMap;
+    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Abstract API that consumes numeric, binary and
@@ -114,10 +113,10 @@ namespace YAF.Lucene.Net.Codecs
         /// </summary>
         public virtual void MergeNumericField(FieldInfo fieldInfo, MergeState mergeState, IList<NumericDocValues> toMerge, IList<IBits> docsWithField)
         {
-            AddNumericField(fieldInfo, GetMergeNumericFieldEnumerable(fieldInfo, mergeState, toMerge, docsWithField));
+            AddNumericField(fieldInfo, GetMergeNumericFieldEnumerable(/* fieldInfo, // LUCENENET: Never read */ mergeState, toMerge, docsWithField));
         }
 
-        private IEnumerable<long?> GetMergeNumericFieldEnumerable(FieldInfo fieldinfo, MergeState mergeState, IList<NumericDocValues> toMerge, IList<IBits> docsWithField)
+        private IEnumerable<long?> GetMergeNumericFieldEnumerable(/*FieldInfo fieldinfo, // LUCENENET: Never read */ MergeState mergeState, IList<NumericDocValues> toMerge, IList<IBits> docsWithField)
         {
             int readerUpto = -1;
             int docIDUpto = 0;
@@ -176,10 +175,10 @@ namespace YAF.Lucene.Net.Codecs
         /// </summary>
         public virtual void MergeBinaryField(FieldInfo fieldInfo, MergeState mergeState, IList<BinaryDocValues> toMerge, IList<IBits> docsWithField)
         {
-            AddBinaryField(fieldInfo, GetMergeBinaryFieldEnumerable(fieldInfo, mergeState, toMerge, docsWithField));
+            AddBinaryField(fieldInfo, GetMergeBinaryFieldEnumerable(/*fieldInfo, // LUCENENET: Never read */ mergeState, toMerge, docsWithField));
         }
 
-        private IEnumerable<BytesRef> GetMergeBinaryFieldEnumerable(FieldInfo fieldInfo, MergeState mergeState, IList<BinaryDocValues> toMerge, IList<IBits> docsWithField)
+        private IEnumerable<BytesRef> GetMergeBinaryFieldEnumerable(/*FieldInfo fieldInfo, // LUCENENET: Never read */ MergeState mergeState, IList<BinaryDocValues> toMerge, IList<IBits> docsWithField)
         {
             int readerUpto = -1;
             int docIDUpto = 0;

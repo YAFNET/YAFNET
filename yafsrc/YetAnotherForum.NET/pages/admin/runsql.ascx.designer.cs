@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Pages.Admin {
-    
-    
-    public partial class runsql {
-        
+namespace YAF.Pages.Admin
+{
+
+
+    public partial class RunSql
+    {
+
         /// <summary>
         /// PageLinks control.
         /// </summary>
@@ -20,43 +22,16 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.PageLinks PageLinks;
-        
+
         /// <summary>
-        /// LocalizedLabel1 control.
+        /// EditorLine control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-        
-        /// <summary>
-        /// LocalizedLabel3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel3;
-        
-        /// <summary>
-        /// txtQuery control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQuery;
-        
-        /// <summary>
-        /// chkRunInTransaction control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox chkRunInTransaction;
-        
+        protected global::System.Web.UI.WebControls.PlaceHolder EditorLine;
+
         /// <summary>
         /// RunQuery control.
         /// </summary>
@@ -65,7 +40,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton RunQuery;
-        
+
         /// <summary>
         /// ResultHolder control.
         /// </summary>
@@ -74,7 +49,7 @@ namespace YAF.Pages.Admin {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder ResultHolder;
-        
+
         /// <summary>
         /// txtResult control.
         /// </summary>

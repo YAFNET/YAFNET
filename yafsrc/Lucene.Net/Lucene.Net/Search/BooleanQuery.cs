@@ -1,4 +1,4 @@
-using J2N;
+﻿using J2N;
 using J2N.Collections.Generic.Extensions;
 using System;
 using System.Collections;
@@ -28,13 +28,13 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using Occur_e = YAF.Lucene.Net.Search.Occur;
-    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using Term = YAF.Lucene.Net.Index.Term;
-    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
+    using Occur_e  = YAF.Lucene.Net.Search.Occur;
+    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Term  = YAF.Lucene.Net.Index.Term;
+    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents matching boolean combinations of other
@@ -82,7 +82,8 @@ namespace YAF.Lucene.Net.Search
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
         [Serializable]
 #endif
-        public class TooManyClausesException : Exception // LUCENENET specific - added Exception suffix
+        // LUCENENET specific: Added IRuntimeException for identification of the Java superclass in .NET
+        public class TooManyClausesException : Exception, IRuntimeException // LUCENENET specific - added Exception suffix
         {
             public TooManyClausesException()
                 : base("maxClauseCount is set to " + maxClauseCount)
@@ -113,7 +114,7 @@ namespace YAF.Lucene.Net.Search
             {
                 if (value < 1)
                 {
-                    throw new ArgumentException("maxClauseCount must be >= 1");
+                    throw new ArgumentOutOfRangeException(nameof(MaxClauseCount), "maxClauseCount must be >= 1"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 BooleanQuery.maxClauseCount = value;
             }

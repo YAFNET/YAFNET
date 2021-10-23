@@ -30,55 +30,46 @@ namespace YAF.Types.Models
     using YAF.Types.Interfaces.Data;
 
     /// <summary>
-    ///     A class which represents the yaf_Choice table.
+    ///     A class which represents the Choice table.
     /// </summary>
     [Serializable]
-    public partial class Choice : IEntity, IHaveID
+    public class Choice : IEntity, IHaveID
     {
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Choice"/> class.
-        /// </summary>
-        public Choice()
-        {
-            this.OnCreated();
-        }
-
-        #endregion
-
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the id.
+        /// </summary>
         [AutoIncrement]
         [Alias("ChoiceID")]
         public int ID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the poll id.
+        /// </summary>
         [References(typeof(Poll))]
         [Required]
         public int PollID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the choice name.
+        /// </summary>
         [Alias("Choice")]
         [Required]
         [StringLength(50)]
         public string ChoiceName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the votes.
+        /// </summary>
         [Required]
         public int Votes { get; set; }
 
+        /// <summary>
+        /// Gets or sets the object path.
+        /// </summary>
         [StringLength(255)]
         public string ObjectPath { get; set; }
-
-        [StringLength(50)]
-        public string MimeType { get; set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// The on created.
-        /// </summary>
-        partial void OnCreated();
 
         #endregion
     }

@@ -26,11 +26,12 @@ namespace YAF.Core.BasePages
 {
     using System.Globalization;
     using System.Threading;
+    using System.Web.UI;
 
     /// <summary>
     /// The base page.
     /// </summary>
-    public class BasePage : System.Web.UI.Page
+    public class BasePage : Page
     {
         /// <summary>
         /// The initialize culture.

@@ -2,6 +2,7 @@ using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util.Fst
 {
@@ -22,8 +23,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    //using INPUT_TYPE = YAF.Lucene.Net.Util.Fst.FST.INPUT_TYPE; // javadoc
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    //using INPUT_TYPE  = YAF.Lucene.Net.Util.Fst.FST.INPUT_TYPE; // javadoc
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     // TODO: could we somehow stream an FST to disk while we
     // build it?
@@ -486,7 +487,7 @@ namespace YAF.Lucene.Net.Util.Fst
             //System.out.println("  count[0]=" + frontier[0].inputCount);
         }
 
-        internal bool ValidOutput(T output)
+        internal bool ValidOutput(T output) // Only called from assert
         {
             return output.Equals(NO_OUTPUT) || !output.Equals(NO_OUTPUT);
         }
@@ -533,6 +534,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CompileAllTargets(UnCompiledNode<T> node, int tailLength)
         {
             for (int arcIdx = 0; arcIdx < node.NumArcs; arcIdx++)
@@ -560,6 +562,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
         // LUCENENET specific: moved INode to Builder type
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual long GetFstSizeInBytes()
         {
             return fst.GetSizeInBytes();

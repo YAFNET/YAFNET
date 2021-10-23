@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -24,12 +24,18 @@
 namespace YAF.Core.Model
 {
     using System;
-    using System.Data;
+    using System.Collections.Generic;
 
+    using ServiceStack.OrmLite;
+
+    using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
 
     /// <summary>
     ///     The event log repository extensions.
@@ -39,37 +45,13 @@ namespace YAF.Core.Model
         #region Public Methods and Operators
 
         /// <summary>
-        /// The delete by user.
+        /// Gets the Event Log (Paged)
         /// </summary>
         /// <param name="repository">
         /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
         /// </param>
         /// <param name="boardId">
         /// The board id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="DataTable"/>.
-        /// </returns>
-        public static void DeleteByUser(this IRepository<EventLog> repository, int userId, int? boardId = null)
-        {
-            CodeContracts.VerifyNotNull(repository, "repository");
-
-            repository.DbFunction.Query.eventlog_deletebyuser(BoardID: boardId ?? repository.BoardID, PageUserID: userId);
-
-            repository.FireDeleted();
-        }
-
-        /// <summary>
-        /// The list.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
         /// </param>
         /// <param name="maxRows">
         /// The max rows.
@@ -89,40 +71,122 @@ namespace YAF.Core.Model
         /// <param name="toDate">
         /// The to date.
         /// </param>
-        /// <param name="eventIDs">
-        /// The event i ds.
+        /// <param name="eventType">
+        /// The event Type.
         /// </param>
-        /// <param name="boardId">
-        /// The board id.
+        /// <param name="spamOnly">
+        /// The spam Only.
         /// </param>
         /// <returns>
-        /// The <see cref="DataTable"/>.
+        /// Returns a Paged List of the Event Log
         /// </returns>
-        public static DataTable List(
-            this IRepository<EventLog> repository, 
-            int userId, 
-            int maxRows, 
-            int maxDays, 
-            int pageIndex, 
-            int pageSize, 
-            DateTime sinceDate, 
-            DateTime toDate, 
-            string eventIDs, 
-            int? boardId = null)
+        public static List<PagedEventLog> ListPaged(
+            this IRepository<EventLog> repository,
+            [NotNull] int? boardId,
+            [NotNull] int maxRows,
+            [NotNull] int maxDays,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
+            [NotNull] DateTime sinceDate,
+            [NotNull] DateTime toDate,
+            [CanBeNull] int? eventType,
+            [NotNull] bool spamOnly = false)
         {
-            CodeContracts.VerifyNotNull(repository, "repository");
+            CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbFunction.GetData.eventlog_list(
-                BoardID: boardId ?? repository.BoardID, 
-                PageUserID: userId, 
-                MaxRows: maxRows, 
-                MaxDays: maxDays, 
-                PageIndex: pageIndex, 
-                PageSize: pageSize, 
-                SinceDate: sinceDate, 
-                ToDate: toDate, 
-                EventIDs: eventIDs, 
-                UTCTIMESTAMP: DateTime.UtcNow);
+            repository.DeleteOld(maxRows, maxDays);
+
+            return repository.DbAccess.Execute(
+                db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
+
+                    var guestUserId = BoardContext.Current.GuestUserID;
+
+                    expression.Join<User>((e, u) => u.ID == (e.UserID != null ? e.UserID : guestUserId));
+
+                    expression.Where<EventLog, User>(
+                        (a, b) => b.BoardID == (boardId ?? repository.BoardID) && a.EventTime >= sinceDate &&
+                                  a.EventTime <= toDate);
+
+                    if (eventType.HasValue)
+                    {
+                        expression.And(a => a.Type == eventType);
+                    }
+
+                    if (spamOnly)
+                    {
+                        expression.And(
+                            a => a.Type == 1003 || a.Type == 1004 || a.Type == 1005 || a.Type == 2000 ||
+                                 a.Type == 2001 || a.Type == 2002 || a.Type == 2003);
+                    }
+
+                    // -- count total
+                    var countTotalExpression = expression;
+
+                    var countTotalSql = countTotalExpression
+                        .Select(Sql.Count($"{countTotalExpression.Column<EventLog>(x => x.ID)}")).ToSelectStatement();
+
+                    expression.Select<EventLog, User>(
+                        (a, b) => new
+                        {
+                            a.UserID,
+                            a.ID,
+                            a.EventTime,
+                            a.Source,
+                            a.Description,
+                            a.Type,
+                            b.Name,
+                            b.DisplayName,
+                            b.Suspended,
+                            b.UserStyle,
+                            TotalRows = Sql.Custom($"({countTotalSql})")
+                        });
+
+                    expression.OrderByDescending(a => a.ID);
+
+                    // Set Paging
+                    expression.Page(pageIndex + 1, pageSize);
+
+                    return db.Connection.Select<PagedEventLog>(expression);
+                });
+        }
+
+        /// <summary>
+        /// Delete Old Entries
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="maxRows">
+        /// The max rows.
+        /// </param>
+        /// <param name="maxDays">
+        /// The max days.
+        /// </param>
+        public static void DeleteOld(
+           this IRepository<EventLog> repository,
+           [NotNull] int maxRows,
+           [NotNull] int maxDays)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            // -- delete entries older than 10 days
+            var agesAgo = DateTime.Today.AddDays(-maxDays);
+
+            repository.Delete(x => x.EventTime < agesAgo);
+
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
+
+            expression.OrderBy(x => x.EventTime).Limit(100);
+
+            var entries = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+
+            // -- or if there are more then 1000
+            if (entries.Count >= maxRows + 50)
+            {
+                repository.DbAccess.Execute(db => db.Connection.DeleteAll(entries));
+            }
         }
 
         #endregion

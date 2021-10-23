@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,29 +27,30 @@ namespace YAF.Controls
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
+    using System.Linq;
     using System.Text.RegularExpressions;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using FarsiLibrary.Utils;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
-    using YAF.Core.Utilities;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
+    using YAF.Types.Models.Identity;
 
     #endregion
 
@@ -66,9 +67,13 @@ namespace YAF.Controls
         private int currentUserId;
 
         /// <summary>
-        /// The _user data.
+        /// The user.
         /// </summary>
-        private CombinedUserDataHelper userData;
+        private Tuple<User, AspNetUsers, Rank, vaccess> user;
+
+        private List<ProfileCustom> userProfileCustom;
+
+        private IList<ProfileDefinition> profileDefinitions;
 
         /// <summary>
         /// The current culture information
@@ -105,7 +110,13 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private CombinedUserDataHelper UserData => this.userData ?? (this.userData = new CombinedUserDataHelper(this.currentUserId));
+        private Tuple<User, AspNetUsers, Rank, vaccess> User =>
+            this.user ??= this.Get<IAspNetUsersHelper>().GetBoardUser(this.currentUserId);
+        private IEnumerable<ProfileCustom> UserProfileCustom =>
+            this.userProfileCustom ??= this.GetRepository<ProfileCustom>().Get(p => p.UserID == this.currentUserId);
+
+        private IList<ProfileDefinition> ProfileDefinitions =>
+            this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
 
         #endregion
 
@@ -118,22 +129,104 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.admin_users : ForumPages.Account);
+            this.Get<LinkBuilder>().Redirect(
+                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
-        /// <summary>
-        /// Raises the <see cref="E:System.Web.UI.Control.PreRender" /> event.
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
+        protected void CustomProfile_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            BoardContext.Current.PageElements.RegisterJsBlockStartup(
-                "DatePickerJs",
-                JavaScriptBlocks.DatePickerLoadJs(
-                    this.GetText("COMMON", "CAL_JQ_CULTURE_DFORMAT"),
-                    this.GetText("COMMON", "CAL_JQ_CULTURE")));
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
 
-            base.OnPreRender(e);
+            var profileDef = (ProfileDefinition)e.Item.DataItem;
+
+            var hidden = e.Item.FindControlAs<HiddenField>("DefID");
+            var label = e.Item.FindControlAs<Label>("DefLabel");
+            var textBox = e.Item.FindControlAs<TextBox>("DefText");
+            var check = e.Item.FindControlAs<CheckBox>("DefCheck");
+
+            hidden.Value = profileDef.ID.ToString();
+
+            label.Text = profileDef.Name;
+
+            var userValue = this.UserProfileCustom.FirstOrDefault(p => p.ProfileDefinitionID == profileDef.ID);
+
+            var type = profileDef.DataType.ToEnum<DataType>();
+
+            switch (type)
+            {
+                case DataType.Text:
+                    {
+                        textBox.MaxLength = profileDef.Length;
+                        textBox.CssClass = "form-control";
+                        textBox.Visible = true;
+
+                        if (profileDef.DefaultValue.IsSet())
+                        {
+                            textBox.Text = profileDef.DefaultValue;
+                        }
+
+                        if (profileDef.Required)
+                        {
+                            textBox.Attributes.Add("required", "required");
+                        }
+
+                        if (userValue != null)
+                        {
+                            textBox.Text = userValue.Value;
+                        }
+
+                        label.AssociatedControlID = textBox.ID;
+
+                        break;
+                    }
+                case DataType.Number:
+                    {
+                        textBox.TextMode = TextBoxMode.Number;
+                        textBox.MaxLength = profileDef.Length;
+                        textBox.CssClass = "form-control";
+                        textBox.Visible = true;
+
+                        if (profileDef.DefaultValue.IsSet())
+                        {
+                            textBox.Text = profileDef.DefaultValue;
+                        }
+
+                        if (profileDef.Required)
+                        {
+                            textBox.Attributes.Add("required", "required");
+                        }
+
+                        if (userValue != null)
+                        {
+                            textBox.Text = userValue.Value;
+                        }
+
+                        label.AssociatedControlID = textBox.ID;
+
+                        break;
+                    }
+                case DataType.Check:
+                    {
+                        check.Visible = true;
+
+                        if (profileDef.Required)
+                        {
+                            check.Attributes.Add("required", "required");
+                        }
+
+                        if (userValue != null)
+                        {
+                            check.Checked = userValue.Value.ToType<bool>();
+                        }
+
+                        label.AssociatedControlID = check.ClientID;
+
+                        break;
+                    }
+            }
         }
 
         /// <summary>
@@ -143,13 +236,11 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            //this.Page.Form.DefaultButton = this.UpdateProfile.UniqueID;
-
-            this.PageContext.QueryIDs = new QueryStringIDHelper("u");
-
-            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin && this.PageContext.QueryIDs.ContainsKey("u"))
+            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin &&
+                this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                this.currentUserId = this.PageContext.QueryIDs["u"].ToType<int>();
+                this.currentUserId =
+                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             }
             else
             {
@@ -161,19 +252,20 @@ namespace YAF.Controls
                 return;
             }
 
-            // Begin Modifications for enhanced profile
-            this.Gender.Items.Add(this.GetText("PROFILE", "gender0"));
-            this.Gender.Items.Add(this.GetText("PROFILE", "gender1"));
-            this.Gender.Items.Add(this.GetText("PROFILE", "gender2"));
+            this.Gender.DataSource = StaticDataHelper.Gender();
+            this.Gender.DataValueField = "Value";
+            this.Gender.DataTextField = "Name";
 
             // End Modifications for enhanced profile
-            this.DisplayNamePlaceholder.Visible = this.Get<BoardSettings>().EnableDisplayName
-                                                  && this.Get<BoardSettings>().AllowDisplayNameModification;
+            this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName &&
+                                                  this.PageContext.BoardSettings.AllowDisplayNameModification;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
             {
                 this.ProfilePlaceHolder.Visible = false;
+
+                this.CustomProfile.Visible = false;
 
                 this.IMServicesPlaceHolder.Visible = false;
             }
@@ -188,7 +280,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void UpdateProfileClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var userName = UserMembershipHelper.GetUserNameFromID(this.currentUserId);
+            var userName = this.User.Item1.DisplayOrUserName();
 
             if (this.HomePage.Text.IsSet())
             {
@@ -204,37 +296,39 @@ namespace YAF.Controls
                     return;
                 }
 
-                if (this.UserData.NumPosts < this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
+                if (this.User.Item1.NumPosts < this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount)
                 {
                     // Check for spam
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
                     {
-                        // Log and Send Message to Admins
-                        if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(1))
+                        switch (this.PageContext.BoardSettings.BotHandlingOnRegister)
                         {
-                            this.Logger.Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
-                                EventLogTypes.SpamBotDetected);
-                        }
-                        else if (this.Get<BoardSettings>().BotHandlingOnRegister.Equals(2))
-                        {
-                            this.Logger.Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
-                                EventLogTypes.SpamBotDetected);
-
-                            // Kill user
-                            if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                            // Log and Send Message to Admins
+                            case 1:
+                                this.Logger.Log(
+                                    null,
+                                    "Bot Detected",
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
+                                    EventLogTypes.SpamBotDetected);
+                                break;
+                            case 2:
                             {
-                                var user = UserMembershipHelper.GetMembershipUserById(this.currentUserId);
-                                var userId = this.currentUserId;
+                                this.Logger.Log(
+                                    null,
+                                    "Bot Detected",
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
+                                    EventLogTypes.SpamBotDetected);
 
-                                var userIp = new CombinedUserDataHelper(user, userId).LastIP;
+                                // Kill user
+                                if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                                {
+                                    this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                        this.currentUserId,
+                                        this.User.Item2,
+                                        this.User.Item1.IP);
+                                }
 
-                                UserMembershipHelper.DeleteAndBanUser(this.currentUserId, user, userIp);
+                                break;
                             }
                         }
                     }
@@ -253,8 +347,8 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.ICQ.Text.IsSet()
-                && !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
+            if (this.ICQ.Text.IsSet() &&
+                !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"), MessageTypes.warning);
                 return;
@@ -268,32 +362,31 @@ namespace YAF.Controls
 
             string displayName = null;
 
-            if (this.Get<BoardSettings>().EnableDisplayName
-                && this.Get<BoardSettings>().AllowDisplayNameModification)
+            if (this.PageContext.BoardSettings.EnableDisplayName && this.PageContext.BoardSettings.AllowDisplayNameModification)
             {
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Trim().Length < this.Get<BoardSettings>().DisplayNameMinLength)
+                if (this.DisplayName.Text.Trim().Length < this.PageContext.BoardSettings.DisplayNameMinLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().DisplayNameMinLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.DisplayNameMinLength),
                         MessageTypes.warning);
 
                     return;
                 }
 
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Length > this.Get<BoardSettings>().UserNameMaxLength)
+                if (this.DisplayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
                 {
                     this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.Get<BoardSettings>().UserNameMaxLength),
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength),
                         MessageTypes.warning);
 
                     return;
                 }
 
-                if (this.DisplayName.Text.Trim() != this.UserData.DisplayName)
+                if (this.DisplayName.Text.Trim() != this.User.Item1.DisplayName)
                 {
-                    if (this.Get<IUserDisplayName>().GetId(this.DisplayName.Text.Trim()).HasValue)
+                    if (this.Get<IUserDisplayName>().FindUserByName(this.DisplayName.Text.Trim()) != null)
                     {
                         this.PageContext.AddLoadMessage(
                             this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
@@ -324,26 +417,74 @@ namespace YAF.Controls
                 return;
             }
 
-            this.UpdateUserProfile(userName);
+            this.UpdateUserProfile();
 
-            // save remaining settings to the DB
-            this.GetRepository<User>().Save(
-                this.currentUserId,
-                this.PageContext.PageBoardID,
-                null,
-                displayName,
-                null,
-                this.UserData.TimeZoneInfo.Id,
-                this.UserData.LanguageFile,
-                this.UserData.CultureUser,
-                this.UserData.ThemeFile,
-                this.UserData.TextEditor,
-                null,
-                null,
-                null,
-                false,
-                this.UserData.IsActiveExcluded,
-                null);
+            // save display name
+            this.GetRepository<User>().UpdateDisplayName(this.User.Item1, displayName);
+
+            // Save Custom Profile
+            if (this.CustomProfile.Visible)
+            {
+                this.GetRepository<ProfileCustom>().Delete(x => x.UserID == this.currentUserId);
+
+                this.CustomProfile.Items.Cast<RepeaterItem>().Where(x => x.ItemType == ListItemType.Item || x.ItemType == ListItemType.AlternatingItem).ForEach(
+                    item =>
+                    {
+                        var id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>();
+                        var profileDef = this.ProfileDefinitions.FirstOrDefault(x => x.ID == id);
+
+                        var textBox = item.FindControlAs<TextBox>("DefText");
+                        var check = item.FindControlAs<CheckBox>("DefCheck");
+
+                        var type = profileDef.DataType.ToEnum<DataType>();
+
+                        switch (type)
+                        {
+                            case DataType.Text:
+                                {
+                                    if (textBox.Text.IsSet())
+                                    {
+                                        this.GetRepository<ProfileCustom>().Insert(
+                                            new ProfileCustom
+                                            {
+                                                UserID = this.currentUserId,
+                                                ProfileDefinitionID = profileDef.ID,
+                                                Value = textBox.Text
+                                            });
+                                    }
+
+                                    break;
+                                }
+                            case DataType.Number:
+                                {
+                                    if (textBox.Text.IsSet())
+                                    {
+                                        this.GetRepository<ProfileCustom>().Insert(
+                                               new ProfileCustom
+                                               {
+                                                   UserID = this.currentUserId,
+                                                   ProfileDefinitionID = profileDef.ID,
+                                                   Value = textBox.Text
+                                               });
+                                    }
+
+                                    break;
+                                }
+                            case DataType.Check:
+                                {
+                                    this.GetRepository<ProfileCustom>().Insert(
+                                           new ProfileCustom
+                                           {
+                                               UserID = this.currentUserId,
+                                               ProfileDefinitionID = profileDef.ID,
+                                               Value = check.Checked.ToString()
+                                           });
+
+                                    break;
+                                }
+                        }
+                    });
+            }
 
             // clear the cache for this user...)
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
@@ -352,11 +493,10 @@ namespace YAF.Controls
 
             if (!this.PageContext.CurrentForumPage.IsAdminPage)
             {
-                BuildLink.Redirect(ForumPages.Account);
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
             }
             else
             {
-                this.userData = null;
                 this.BindData();
             }
         }
@@ -396,15 +536,14 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void GetLocationOnClick(object sender, EventArgs e)
         {
-            var userIpLocator = BoardContext.Current.Get<IIpInfoService>().GetUserIpLocator(
+            var userIpLocator = this.Get<IIpInfoService>().GetUserIpLocator(
                 this.PageContext.CurrentForumPage.IsAdminPage
-                    ? this.UserData.LastIP
-                    : BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress());
+                    ? this.User.Item1.IP
+                    : this.Get<HttpRequestBase>().GetUserRealIPAddress());
 
-            if (userIpLocator.ContainsKey("CountryCode") && userIpLocator["CountryCode"].IsSet() &&
-                !userIpLocator["CountryCode"].Equals("-"))
+            if (userIpLocator.CountryCode.IsSet() && !userIpLocator.CountryCode.Equals("-"))
             {
-                var countryItem = this.Country.Items.FindByValue(userIpLocator["CountryCode"]);
+                var countryItem = this.Country.Items.FindByValue(userIpLocator.CountryCode);
 
                 if (countryItem != null)
                 {
@@ -413,10 +552,9 @@ namespace YAF.Controls
                 }
             }
 
-            if (userIpLocator.ContainsKey("CityName") && userIpLocator["CityName"].IsSet() &&
-                !userIpLocator["CityName"].Equals("-"))
+            if (userIpLocator.CityName.IsSet() && !userIpLocator.CityName.Equals("-"))
             {
-                this.City.Text = userIpLocator["CityName"];
+                this.City.Text = userIpLocator.CityName;
             }
         }
 
@@ -429,108 +567,112 @@ namespace YAF.Controls
             this.Country.DataValueField = "Value";
             this.Country.DataTextField = "Name";
 
-            if (this.UserData.Profile.Country.IsSet())
+            if (this.User.Item2.Profile_Country.IsSet())
             {
-                this.LookForNewRegionsBind(this.UserData.Profile.Country);
+                this.LookForNewRegionsBind(this.User.Item2.Profile_Country);
             }
 
             this.DataBind();
 
-            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.PageContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
-                                     || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                         ? PersianDateConverter.ToPersianDate(this.UserData.Profile.Birthday)
-                                               .ToString("d")
-                                         : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
+                this.Birthday.Text =
+                    this.User.Item2.Profile_Birthday.HasValue &&
+                    this.User.Item2.Profile_Birthday.Value > DateTimeHelper.SqlDbMinTime()
+                        ? PersianDateConverter.ToPersianDate(this.User.Item2.Profile_Birthday.Value).ToString("d")
+                        : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
             }
             else
             {
-                this.Birthday.Text = this.UserData.Profile.Birthday > DateTimeHelper.SqlDbMinTime()
-                                     || this.UserData.Profile.Birthday.IsNullOrEmptyDBField()
-                                         ? this.UserData.Profile.Birthday.Date.ToString(
-                                             this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
-                                             CultureInfo.InvariantCulture)
-                                         : DateTimeHelper.SqlDbMinTime()
-                                               .Date.ToString(
-                                                   this.CurrentCultureInfo.DateTimeFormat.ShortDatePattern,
-                                                   CultureInfo.InvariantCulture);
+                this.Birthday.Text =
+                    this.User.Item2.Profile_Birthday.HasValue &&
+                    this.User.Item2.Profile_Birthday.Value > DateTimeHelper.SqlDbMinTime()
+                        ? this.User.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
+                        : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
+
+                this.Birthday.TextMode = TextBoxMode.Date;
             }
 
             this.Birthday.ToolTip = this.GetText("COMMON", "CAL_JQ_TT");
 
-            this.DisplayName.Text = this.UserData.DisplayName;
-            this.City.Text = this.UserData.Profile.City;
-            this.Location.Text = this.UserData.Profile.Location;
-            this.HomePage.Text = this.UserData.Profile.Homepage;
-            this.Realname.Text = this.UserData.Profile.RealName;
-            this.Occupation.Text = this.UserData.Profile.Occupation;
-            this.Interests.Text = this.UserData.Profile.Interests;
-            this.Weblog.Text = this.UserData.Profile.Blog;
-            this.ICQ.Text = this.UserData.Profile.ICQ;
+            this.DisplayName.Text = this.User.Item1.DisplayName;
+            this.City.Text = this.User.Item2.Profile_City;
+            this.Location.Text = this.User.Item2.Profile_Location;
+            this.HomePage.Text = this.User.Item2.Profile_Homepage;
+            this.Realname.Text = this.User.Item2.Profile_RealName;
+            this.Occupation.Text = this.User.Item2.Profile_Occupation;
+            this.Interests.Text = this.User.Item2.Profile_Interests;
+            this.Weblog.Text = this.User.Item2.Profile_Blog;
+            this.ICQ.Text = this.User.Item2.Profile_ICQ;
 
-            this.Facebook.Text = ValidationHelper.IsNumeric(this.UserData.Profile.Facebook)
-                                     ? $"https://www.facebook.com/profile.php?id={this.UserData.Profile.Facebook}"
-                                     : this.UserData.Profile.Facebook;
+            this.Facebook.Text = ValidationHelper.IsNumeric(this.User.Item2.Profile_Facebook)
+                ? $"https://www.facebook.com/profile.php?id={this.User.Item2.Profile_Facebook}"
+                : this.User.Item2.Profile_Facebook;
 
-            this.Twitter.Text = this.UserData.Profile.Twitter;
-            this.Xmpp.Text = this.UserData.Profile.XMPP;
-            this.Skype.Text = this.UserData.Profile.Skype;
-            this.Gender.SelectedIndex = this.UserData.Profile.Gender;
+            this.Twitter.Text = this.User.Item2.Profile_Twitter;
+            this.Xmpp.Text = this.User.Item2.Profile_XMPP;
+            this.Skype.Text = this.User.Item2.Profile_Skype;
+            this.Gender.SelectedIndex = this.User.Item2.Profile_Gender;
 
-            if (this.UserData.Profile.Country.IsSet())
+            if (this.User.Item2.Profile_Country.IsSet())
             {
-                var countryItem = this.Country.Items.FindByValue(this.UserData.Profile.Country.Trim());
+                var countryItem = this.Country.Items.FindByValue(this.User.Item2.Profile_Country.Trim());
                 if (countryItem != null)
                 {
                     countryItem.Selected = true;
                 }
             }
 
-            if (this.UserData.Profile.Region.IsSet())
+            if (this.User.Item2.Profile_Region.IsSet())
             {
-                var regionItem = this.Region.Items.FindByValue(this.UserData.Profile.Region.Trim());
+                var regionItem = this.Region.Items.FindByValue(this.User.Item2.Profile_Region.Trim());
                 if (regionItem != null)
                 {
                     regionItem.Selected = true;
                 }
             }
+
+            if (!this.ProfileDefinitions.Any())
+            {
+                return;
+            }
+
+            this.CustomProfile.DataSource = this.ProfileDefinitions;
+            this.CustomProfile.DataBind();
+            this.CustomProfile.Visible = true;
         }
 
         /// <summary>
-        /// The update user profile.
+        /// Update user Profile Info.
         /// </summary>
-        /// <param name="userName">
-        /// The user name.
-        /// </param>
-        private void UpdateUserProfile([NotNull] string userName)
+        private void UpdateUserProfile()
         {
-            var userProfile = YafUserProfile.GetProfile(userName);
-
-            userProfile.Country = this.Country.SelectedItem != null
-                                      ? this.Country.SelectedItem.Value.Trim()
-                                      : string.Empty;
-            userProfile.Region = this.Region.SelectedItem != null && this.Country.SelectedItem != null
-                                 && this.Country.SelectedItem.Value.Trim().IsSet()
-                                     ? this.Region.SelectedItem.Value.Trim()
-                                     : string.Empty;
-            userProfile.City = this.City.Text.Trim();
-            userProfile.Location = this.Location.Text.Trim();
-            userProfile.Homepage = this.HomePage.Text.Trim();
-            userProfile.ICQ = this.ICQ.Text.Trim();
-            userProfile.Facebook = this.Facebook.Text.Trim();
-            userProfile.Twitter = this.Twitter.Text.Trim();
-            userProfile.XMPP = this.Xmpp.Text.Trim();
-            userProfile.Skype = this.Skype.Text.Trim();
-            userProfile.RealName = this.Realname.Text.Trim();
-            userProfile.Occupation = this.Occupation.Text.Trim();
-            userProfile.Interests = this.Interests.Text.Trim();
-            userProfile.Gender = this.Gender.SelectedIndex;
-            userProfile.Blog = this.Weblog.Text.Trim();
+            var userProfile = new ProfileInfo
+            {
+                Country = this.Country.SelectedItem != null ? this.Country.SelectedItem.Value.Trim() : string.Empty,
+                Region =
+                    this.Region.SelectedItem != null && this.Country.SelectedItem != null &&
+                    this.Country.SelectedItem.Value.Trim().IsSet()
+                        ? this.Region.SelectedItem.Value.Trim()
+                        : string.Empty,
+                City = this.City.Text.Trim(),
+                Location = this.Location.Text.Trim(),
+                Homepage = this.HomePage.Text.Trim(),
+                ICQ = this.ICQ.Text.Trim(),
+                Facebook = this.Facebook.Text.Trim(),
+                Twitter = this.Twitter.Text.Trim(),
+                XMPP = this.Xmpp.Text.Trim(),
+                Skype = this.Skype.Text.Trim(),
+                RealName = this.Realname.Text.Trim(),
+                Occupation = this.Occupation.Text.Trim(),
+                Interests = this.Interests.Text.Trim(),
+                Gender = this.Gender.SelectedIndex,
+                Blog = this.Weblog.Text.Trim()
+            };
 
             DateTime userBirthdate;
 
-            if (this.Get<BoardSettings>().UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.PageContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 try
                 {
@@ -559,7 +701,27 @@ namespace YAF.Controls
                 }
             }
 
-            userProfile.Save();
+            this.User.Item2.Profile_Birthday = userProfile.Birthday;
+            this.User.Item2.Profile_Blog = userProfile.Blog;
+            this.User.Item2.Profile_Gender = userProfile.Gender;
+            this.User.Item2.Profile_GoogleId = userProfile.GoogleId;
+            this.User.Item2.Profile_Homepage = userProfile.Homepage;
+            this.User.Item2.Profile_ICQ = userProfile.ICQ;
+            this.User.Item2.Profile_Facebook = userProfile.Facebook;
+            this.User.Item2.Profile_FacebookId = userProfile.FacebookId;
+            this.User.Item2.Profile_Twitter = userProfile.Twitter;
+            this.User.Item2.Profile_TwitterId = userProfile.TwitterId;
+            this.User.Item2.Profile_Interests = userProfile.Interests;
+            this.User.Item2.Profile_Location = userProfile.Location;
+            this.User.Item2.Profile_Country = userProfile.Country;
+            this.User.Item2.Profile_Region = userProfile.Region;
+            this.User.Item2.Profile_City = userProfile.City;
+            this.User.Item2.Profile_Occupation = userProfile.Occupation;
+            this.User.Item2.Profile_RealName = userProfile.RealName;
+            this.User.Item2.Profile_Skype = userProfile.Skype;
+            this.User.Item2.Profile_XMPP = userProfile.XMPP;
+
+            this.Get<IAspNetUsersHelper>().Update(this.User.Item2);
         }
 
         /// <summary>
@@ -571,7 +733,7 @@ namespace YAF.Controls
             var dt = StaticDataHelper.Region(country);
 
             // The first row is empty
-            if (dt.Rows.Count > 1)
+            if (dt.Any())
             {
                 this.Region.DataSource = dt;
                 this.Region.DataValueField = "Value";
@@ -599,31 +761,31 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.Get<BoardSettings>().Language;
-            var culture4Tag = this.Get<BoardSettings>().Culture;
+            var languageFile = this.PageContext.BoardSettings.Language;
+            var culture4Tag = this.PageContext.BoardSettings.Culture;
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.CurrentUserData.LanguageFile.IsSet())
+                if (this.PageContext.User.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.CurrentUserData.LanguageFile;
+                    languageFile = this.PageContext.User.LanguageFile;
                 }
 
-                if (this.PageContext.CurrentUserData.CultureUser.IsSet())
+                if (this.PageContext.User.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.CurrentUserData.CultureUser;
+                    culture4Tag = this.PageContext.User.Culture;
                 }
             }
             else
             {
-                if (this.UserData.LanguageFile.IsSet())
+                if (this.User.Item1.LanguageFile.IsSet())
                 {
-                    languageFile = this.UserData.LanguageFile;
+                    languageFile = this.User.Item1.LanguageFile;
                 }
 
-                if (this.UserData.CultureUser.IsSet())
+                if (this.User.Item1.Culture.IsSet())
                 {
-                    culture4Tag = this.UserData.CultureUser;
+                    culture4Tag = this.User.Item1.Culture;
                 }
             }
 

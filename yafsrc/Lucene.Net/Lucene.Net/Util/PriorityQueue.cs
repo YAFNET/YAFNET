@@ -1,7 +1,9 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -70,7 +72,7 @@ namespace YAF.Lucene.Net.Util
                     // one will actually insert this many objects into
                     // the PQ:
                     // Throw exception to prevent confusing OOME:
-                    throw new ArgumentException("maxSize must be <= " + ArrayUtil.MAX_ARRAY_LENGTH + "; got: " + maxSize);
+                    throw new ArgumentOutOfRangeException(nameof(maxSize), "maxSize must be <= " + ArrayUtil.MAX_ARRAY_LENGTH + "; got: " + maxSize); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
                 }
                 else
                 {
@@ -145,6 +147,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <returns> The sentinel object to use to pre-populate the queue, or <c>null</c> if
         ///         sentinel objects are not supported. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual T GetSentinelObject()
         {
             return default;
@@ -260,6 +263,7 @@ namespace YAF.Lucene.Net.Util
         /// </code>
         /// </summary>
         /// <returns> The new 'top' element. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public T UpdateTop()
         {
             DownHeap();
@@ -274,6 +278,7 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Removes all entries from the <see cref="PriorityQueue{T}"/>. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
             for (int i = 0; i <= size; i++)
@@ -287,12 +292,12 @@ namespace YAF.Lucene.Net.Util
         {
             int i = size;
             T node = heap[i]; // save bottom node
-            int j = (int)((uint)i >> 1);
+            int j = i.TripleShift(1);
             while (j > 0 && LessThan(node, heap[j]))
             {
                 heap[i] = heap[j]; // shift parents down
                 i = j;
-                j = (int)((uint)j >> 1);
+                j = j.TripleShift(1);
             }
             heap[i] = node; // install saved node
         }

@@ -1,7 +1,6 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene42
@@ -23,16 +22,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FormatAndBits = YAF.Lucene.Net.Util.Packed.PackedInt32s.FormatAndBits;
-    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
-    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using BlockPackedWriter  = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
+    using FormatAndBits  = YAF.Lucene.Net.Util.Packed.PackedInt32s.FormatAndBits;
+    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Writer for <see cref="Lucene42NormsFormat"/>.
@@ -48,7 +47,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
         internal const sbyte UNCOMPRESSED = 2;
         internal const sbyte GCD_COMPRESSED = 3;
 
+#pragma warning disable CA2213 // Disposable fields should be disposed
         internal IndexOutput data, meta;
+#pragma warning restore CA2213 // Disposable fields should be disposed
         internal readonly int maxDoc;
         internal readonly float acceptableOverheadRatio;
 
@@ -80,12 +81,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
         {
             meta.WriteVInt32(field.Number);
             meta.WriteByte((byte)NUMBER);
-            meta.WriteInt64(data.GetFilePointer());
+            meta.WriteInt64(data.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             long minValue = long.MaxValue;
             long maxValue = long.MinValue;
             long gcd = 0;
             // TODO: more efficient?
-            JCG.HashSet<long> uniqueValues = null;
+            JCG.HashSet<long> uniqueValues/* = null*/; // LUCENENET: IDE0059: Remove unnecessary value assignment
             if (true)
             {
                 uniqueValues = new JCG.HashSet<long>();
@@ -234,17 +235,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
         public override void AddBinaryField(FieldInfo field, IEnumerable<BytesRef> values)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public override void AddSortedField(FieldInfo field, IEnumerable<BytesRef> values, IEnumerable<long?> docToOrd)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
 
         public override void AddSortedSetField(FieldInfo field, IEnumerable<BytesRef> values, IEnumerable<long?> docToOrdCount, IEnumerable<long?> ords)
         {
-            throw new NotSupportedException();
+            throw UnsupportedOperationException.Create();
         }
     }
 }

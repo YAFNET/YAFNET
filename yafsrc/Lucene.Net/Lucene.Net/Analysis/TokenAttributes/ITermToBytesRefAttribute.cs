@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
      * limitations under the License.
      */
 
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// This attribute is requested by TermsHashPerField to index the contents.

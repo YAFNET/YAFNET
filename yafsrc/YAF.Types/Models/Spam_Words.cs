@@ -34,18 +34,8 @@ namespace YAF.Types.Models
     /// A class which represents the Spam_Words table.
     /// </summary>
     [Serializable]
-    public partial class Spam_Words : IEntity, IHaveBoardID, IHaveID
+    public class Spam_Words : IEntity, IHaveBoardID, IHaveID
     {
-        partial void OnCreated();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Spam_Words"/> class.
-        /// </summary>
-        public Spam_Words()
-        {
-            this.OnCreated();
-        }
-
         #region Properties
 
         /// <summary>

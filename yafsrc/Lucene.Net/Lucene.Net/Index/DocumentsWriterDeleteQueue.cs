@@ -23,9 +23,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
+    using BinaryDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query  = YAF.Lucene.Net.Search.Query;
 
     /// <summary>
     /// <see cref="DocumentsWriterDeleteQueue"/> is a non-blocking linked pending deletes
@@ -375,7 +375,7 @@ namespace YAF.Lucene.Net.Index
 
             internal virtual void Apply(BufferedUpdates bufferedDeletes, int docIDUpto)
             {
-                throw new InvalidOperationException("sentinel item must never be applied");
+                throw IllegalStateException.Create("sentinel item must never be applied");
             }
 
             internal virtual bool CasNext(Node cmp, Node val)

@@ -21,10 +21,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using BinaryDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query  = YAF.Lucene.Net.Search.Query;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
 
 
     /// <summary>
@@ -151,7 +151,9 @@ namespace YAF.Lucene.Net.Index
 
         internal readonly AtomicInt64 bytesUsed;
 
-        private static bool VERBOSE_DELETES = false;
+#pragma warning disable CA1802 // Use literals where appropriate
+        private static readonly bool VERBOSE_DELETES = false;
+#pragma warning restore CA1802 // Use literals where appropriate
 
         internal long gen;
 
@@ -203,8 +205,7 @@ namespace YAF.Lucene.Net.Index
 
         public virtual void AddQuery(Query query, int docIDUpto)
         {
-            int? prev;
-            queries.TryGetValue(query, out prev);
+            queries.TryGetValue(query, out int? prev);
             queries[query] = docIDUpto;
             // increment bytes used only if the query wasn't added so far.
             if (prev == null)
@@ -221,8 +222,7 @@ namespace YAF.Lucene.Net.Index
 
         public virtual void AddTerm(Term term, int docIDUpto)
         {
-            int? current;
-            terms.TryGetValue(term, out current);
+            terms.TryGetValue(term, out int? current);
             if (current != null && docIDUpto < current)
             {
                 // Only record the new number if it's greater than the

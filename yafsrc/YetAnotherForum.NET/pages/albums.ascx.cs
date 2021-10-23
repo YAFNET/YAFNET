@@ -29,14 +29,13 @@ namespace YAF.Pages
     using System;
     using System.Web;
 
-    using YAF.Configuration;
-    using YAF.Core;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils;
+    using YAF.Types.Models;
     using YAF.Web.Extensions;
 
     #endregion
@@ -52,11 +51,17 @@ namespace YAF.Pages
         ///   Initializes a new instance of the Albums class.
         /// </summary>
         public Albums()
-            : base("ALBUM")
+            : base("ALBUMS")
         {
         }
 
         #endregion
+
+        /// <summary>
+        ///   Gets user ID of edited user.
+        /// </summary>
+        protected int CurrentUserID =>
+            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         #region Methods
 
@@ -67,50 +72,43 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<BoardSettings>().EnableAlbum)
+            if (!this.PageContext.BoardSettings.EnableAlbum)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (!this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
-            var user = UserMembershipHelper.GetMembershipUserById(
-                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
+            var user = this.GetRepository<User>().GetById(this.CurrentUserID);
 
             if (user == null)
             {
                 // No such user exists
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (user.IsApproved == false)
+            if (!user.UserFlags.IsApproved)
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
 
-            var displayName = UserMembershipHelper.GetDisplayNameFromID(
-                Security.StringToLongOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
-
-            // Generate the Page Links.
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(
-                this.Get<BoardSettings>().EnableDisplayName
-                    ? displayName
-                    : UserMembershipHelper.GetUserNameFromID(
-                        Security.StringToLongOrRedirect(
-                            this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"))),
-                BuildLink.GetLink(
-                    ForumPages.Profile,
-                    "u={0}",
-                    this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u")));
+            this.PageLinks.AddUser(this.CurrentUserID, user.DisplayOrUserName());
             this.PageLinks.AddLink(this.GetText("ALBUMS"), string.Empty);
 
             // Initialize the Album List control.
-            this.AlbumList1.UserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u").ToType<int>();
+            this.AlbumList1.User = user;
+        }
+
+        /// <summary>
+        /// Create the Page links.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
         }
 
         #endregion

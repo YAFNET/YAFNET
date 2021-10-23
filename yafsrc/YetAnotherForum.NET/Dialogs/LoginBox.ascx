@@ -1,118 +1,106 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Dialogs.LoginBox" CodeBehind="LoginBox.ascx.cs" %>
 
-<asp:UpdatePanel ID="UpdateLoginPanel" runat="server" UpdateMode="Conditional">
-    <ContentTemplate>
-        <asp:Login ID="Login1" runat="server"
-                   RememberMeSet="True" 
-                   OnLoginError="Login1_LoginError" 
-                   OnLoggedIn="Login1_LoggedIn"
-                   OnAuthenticate="Login1_Authenticate" 
-                   VisibleWhenLoggedIn="True">
-            <LayoutTemplate>
-                <div id="LoginBox" class="modal fade">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" 
-                                                        LocalizedPage="LOGIN" 
-                                                        LocalizedTag="title" />
-                                </h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">
-                                        <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                            LocalizedPage="LOGIN" 
-                                                            LocalizedTag="username" />
-                                    </asp:Label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-user fa-fw"></i></span>
-                                        </div>
-                                        <asp:TextBox ID="UserName" runat="server" 
-                                                     placeholder='<%# this.GetText("USERNAME") %>'
-                                                     CssClass="form-control"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">
-                                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="password" />
-                                    </asp:Label>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-lock fa-fw"></i></span>
-                                        </div>
-                                        <asp:TextBox ID="Password" runat="server"
-                                                     CssClass="form-control" 
-                                                     placeholder='<%# this.GetText("PASSWORD") %>'
-                                                     TextMode="Password"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="alert alert-danger CapsLockWarning" style="display: none;" role="alert">
-                                    <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="CAPS_LOCK" />
-                                </div>
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <div class="custom-control custom-checkbox">
-                                            <asp:CheckBox ID="RememberMe" runat="server"></asp:CheckBox>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-6 text-right">
-                                        <asp:Button ID="LoginButton" runat="server"
-                                                    CommandName="Login" 
-                                                    ValidationGroup="Login1"
-                                                    CssClass="btn btn-primary" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <asp:LinkButton ID="PasswordRecovery" runat="server" 
-                                                CssClass="btn btn-secondary btn-sm mb-3" 
-                                                CausesValidation="false"
-                                                OnClick="PasswordRecovery_Click" />
-                               
-                                <asp:PlaceHolder ID="FaceBookHolder" runat="server" Visible="false">
-                                    <YAF:ThemeButton runat="server" ID="FacebookRegister"
-                                                     Visible="True"
-                                                     Type="None"
-                                                     Size="Small"
-                                                     CssClass="btn btn-social btn-facebook mr-2"
-                                                     Icon="facebook"
-                                                     IconCssClass="fab"
-                                                     OnClick="FacebookRegisterClick">
-                                    </YAF:ThemeButton>
-                                </asp:PlaceHolder>
-                                <asp:PlaceHolder ID="TwitterHolder" runat="server" Visible="false">
-                                    <YAF:ThemeButton runat="server" ID="TwitterRegister"
-                                                     Visible="True"
-                                                     Type="None"
-                                                     Size="Small"
-                                                     CssClass="btn btn-social btn-facebook mr-2"
-                                                     Icon="facebook"
-                                                     IconCssClass="fab"
-                                                     OnClick="TwitterRegisterClick">
-                                    </YAF:ThemeButton>
-                                </asp:PlaceHolder>
-                                <asp:PlaceHolder ID="GoogleHolder" runat="server" Visible="false">
-                                    <YAF:ThemeButton runat="server" ID="GoogleRegister"
-                                                     Visible="True"
-                                                     Type="None"
-                                                     Size="Small"
-                                                     CssClass="btn btn-social btn-facebook mr-2"
-                                                     Icon="facebook"
-                                                     IconCssClass="fab"
-                                                     OnClick="GoogleRegisterClick">
-                                    </YAF:ThemeButton>
-                                </asp:PlaceHolder>
+<%@ Register Src="../controls/OpenAuthProviders.ascx" TagPrefix="YAF" TagName="OpenAuthProviders" %>
+
+<div id="LoginBox" class="modal fade" role="dialog" aria-labelledby="LocalizedLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
+                                        LocalizedPage="LOGIN"
+                                        LocalizedTag="title" />
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="mb-3">
+                        <asp:Label runat="server" 
+                                   AssociatedControlID="UserName">
+                            <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
+                                                LocalizedTag="username" />
+                        </asp:Label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <YAF:Icon runat="server"
+                                          IconName="user"
+                                          IconType="text-secondary"></YAF:Icon>
+                            </span>
+                            <asp:TextBox runat="server" ID="UserName"
+                                         CssClass="form-control"
+                                         required="required" />
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="NEED_USERNAME" />
                             </div>
                         </div>
                     </div>
+                    <div class="mb-3">
+                        <asp:Label runat="server" 
+                                   AssociatedControlID="Password">
+                            <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="PASSWORD" />
+                        </asp:Label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <YAF:Icon runat="server"
+                                          IconName="key"
+                                          IconType="text-secondary"></YAF:Icon>
+                            </span>
+                            <asp:TextBox runat="server" ID="Password" 
+                                         CssClass="form-control"
+                                         TextMode="Password"
+                                         required="required"/>
+                            <a class="input-group-text" id="PasswordToggle" href="#">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                </a>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server"
+                                                    LocalizedTag="NEED_PASSWORD" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-6">
+                            <div class="form-check">
+                                <asp:CheckBox ID="RememberMe" runat="server"
+                                              Checked="True"></asp:CheckBox>
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-6 text-end">
+                            <YAF:ThemeButton ID="PasswordRecovery" runat="server"
+                                             CausesValidation="False"
+                                             Type="Secondary"
+                                             Size="Small"
+                                             Icon="key"
+                                             OnClick="PasswordRecovery_Click"
+                                             TextLocalizedTag="LOSTPASSWORD" />
+                        </div>
+                    </div>
+                    <div class="mb-3 d-grid gap-2">
+                        <YAF:ThemeButton ID="LoginButton" runat="server"
+                                         CausesValidation="True"
+                                         Icon="sign-in-alt"
+                                         Type="Primary"
+                                         CssClass="btn-loading"
+                                         TextLocalizedTag="FORUM_LOGIN"
+                                         OnClick="SignIn"/>
+                    </div>
+                    <section>
+                        <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
+                    </section>
                 </div>
-            </LayoutTemplate>
-        </asp:Login>
-    </ContentTemplate>
-</asp:UpdatePanel>
+            </div>
+            <div class="modal-footer text-center">
+                <YAF:ThemeButton ID="RegisterLink" runat="server"
+                                 CausesValidation="False"
+                                 Size="Small"
+                                 Type="OutlineSecondary"
+                                 Icon="user-plus"
+                                 OnClick="RegisterLinkClick"
+                                 TextLocalizedTag="REGISTER_INSTEAD" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -51,13 +51,13 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.PlaceHolder AdminModHolder;
 
         /// <summary>
-        /// menuAdminItems control.
+        /// menuModerateItems control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder menuAdminItems;
+        protected global::System.Web.UI.WebControls.PlaceHolder menuModerateItems;
 
         /// <summary>
         /// AdminAdminHolder control.
@@ -85,15 +85,6 @@ namespace YAF.Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton hostDropdown;
-
-        /// <summary>
-        /// ModerateHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ModerateHolder;
 
         /// <summary>
         /// LoggedInUserPanel control.

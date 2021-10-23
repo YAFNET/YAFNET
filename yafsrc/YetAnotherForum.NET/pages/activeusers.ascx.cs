@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -27,19 +27,20 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Utilities;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -75,14 +76,21 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet()
-                && this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+
+            if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet() && this.Get<IPermissions>()
+                .Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
             {
                 this.BindData();
             }
             else
             {
-                BuildLink.AccessDenied();
+                this.Get<LinkBuilder>().AccessDenied();
             }
         }
 
@@ -98,21 +106,45 @@ namespace YAF.Pages
         }
 
         /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
         /// Removes from the DataView all users but guests.
         /// </summary>
         /// <param name="activeUsers">
         /// The active users.
         /// </param>
-        private static void RemoveAllButGuests([NotNull] ref DataTable activeUsers)
+        private static void RemoveAllButGuests([NotNull] ref List<ActiveUser> activeUsers)
         {
-            if (!activeUsers.HasRows())
+            if (!activeUsers.Any())
             {
                 return;
             }
 
             // remove non-guest users...
-            activeUsers.Rows.Cast<DataRow>().Where(row => !Convert.ToBoolean(row["IsGuest"]))
-                .ForEach(row => row.Delete());
+            activeUsers.RemoveAll(row => row.IsGuest == false);
         }
 
         /// <summary>
@@ -120,7 +152,10 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            DataTable activeUsers = null;
+            var baseSize = this.PageSize.SelectedValue.ToType<int>();
+            this.PagerTop.PageSize = baseSize;
+
+            List<ActiveUser> activeUsers = null;
 
             switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("v"))
             {
@@ -130,6 +165,7 @@ namespace YAF.Pages
                     activeUsers = this.GetActiveUsersData(
                         true,
                         this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList);
+
                     if (activeUsers != null)
                     {
                         this.RemoveHiddenUsers(ref activeUsers);
@@ -140,6 +176,7 @@ namespace YAF.Pages
 
                     // Show members
                     activeUsers = this.GetActiveUsersData(false, false);
+
                     if (activeUsers != null)
                     {
                         this.RemoveHiddenUsers(ref activeUsers);
@@ -149,7 +186,10 @@ namespace YAF.Pages
                 case 2:
 
                     // Show guests
-                    activeUsers = this.GetActiveUsersData(true, this.PageContext.BoardSettings.ShowCrawlersInActiveList);
+                    activeUsers = this.GetActiveUsersData(
+                        true,
+                        this.PageContext.BoardSettings.ShowCrawlersInActiveList);
+
                     if (activeUsers != null)
                     {
                         RemoveAllButGuests(ref activeUsers);
@@ -158,7 +198,7 @@ namespace YAF.Pages
                     break;
                 case 3:
 
-                    // Show hidden                         
+                    // Show hidden
                     if (this.PageContext.IsAdmin)
                     {
                         activeUsers = this.GetActiveUsersData(false, false);
@@ -169,33 +209,26 @@ namespace YAF.Pages
                     }
                     else
                     {
-                        BuildLink.AccessDenied();
+                        this.Get<LinkBuilder>().AccessDenied();
                     }
 
                     break;
                 default:
-                    BuildLink.AccessDenied();
+                    this.Get<LinkBuilder>().AccessDenied();
                     break;
             }
 
-            if (activeUsers == null || !activeUsers.HasRows())
+            if (activeUsers.NullOrEmpty())
             {
                 return;
             }
 
-            BoardContext.Current.PageElements.RegisterJsBlock(
-                "UnverifiedUserstablesorterLoadJs",
-                JavaScriptBlocks.LoadTableSorter(
-                    "#ActiveUsers",
-                    "sortList: [[0,0]]",
-                    "#ActiveUsersPager"));
-
-            this.UserList.DataSource = activeUsers;
+            this.UserList.DataSource = activeUsers.GetPaged(this.PagerTop);
             this.DataBind();
         }
 
         /// <summary>
-        /// Gets active user data Table data for a page user
+        /// Gets active user(s) data for a page user
         /// </summary>
         /// <param name="showGuests">
         /// The show guests.
@@ -204,18 +237,17 @@ namespace YAF.Pages
         /// The show crawlers.
         /// </param>
         /// <returns>
-        /// A DataTable
+        /// Returns the Active user list
         /// </returns>
-        private DataTable GetActiveUsersData(bool showGuests, bool showCrawlers)
+        private List<ActiveUser> GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
-            // vzrus: Here should not be a common cache as it's should be individual for each user because of ActiveLocation Control to hide unavailable places.        
-            var activeUsers = this.GetRepository<Active>()
-                .ListUserAsDataTable(
-                    this.PageContext.PageUserID,
-                    showGuests,
-                    showCrawlers,
-                    this.PageContext.BoardSettings.ActiveListTime,
-                    this.PageContext.BoardSettings.UseStyledNicks);
+            var activeUsers = this.GetRepository<Active>().ListUsersPaged(
+                this.PageContext.PageUserID,
+                showGuests,
+                showCrawlers,
+                this.PageContext.BoardSettings.ActiveListTime,
+                0,
+                5000);
 
             return activeUsers;
         }
@@ -226,18 +258,16 @@ namespace YAF.Pages
         /// <param name="activeUsers">
         /// The active users.
         /// </param>
-        private void RemoveAllButHiddenUsers([NotNull] ref DataTable activeUsers)
+        private void RemoveAllButHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
         {
-            if (!activeUsers.HasRows())
+            if (!activeUsers.Any())
             {
                 return;
             }
 
             // remove hidden users...
-            activeUsers.Rows.Cast<DataRow>()
-                .Where(
-                    row => !row["IsHidden"].ToType<bool>()
-                           && this.PageContext.PageUserID != row["UserID"].ToType<int>()).ForEach(row => row.Delete());
+            activeUsers.RemoveAll(
+                row => row.IsActiveExcluded == false && this.PageContext.PageUserID != row.UserID);
         }
 
         /// <summary>
@@ -246,19 +276,17 @@ namespace YAF.Pages
         /// <param name="activeUsers">
         /// The active users.
         /// </param>
-        private void RemoveHiddenUsers([NotNull] ref DataTable activeUsers)
+        private void RemoveHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
         {
-            if (!activeUsers.HasRows())
+            if (!activeUsers.Any())
             {
                 return;
             }
 
             // remove hidden users...
-            activeUsers.Rows.Cast<DataRow>()
-                .Where(
-                    row => row["IsHidden"].ToType<bool>() && !this.PageContext.IsAdmin
-                                                          && this.PageContext.PageUserID != row["UserID"].ToType<int>())
-                .ForEach(row => row.Delete());
+            activeUsers.RemoveAll(
+                row => row.IsActiveExcluded && !this.PageContext.IsAdmin &&
+                       this.PageContext.PageUserID != row.UserID);
         }
 
         #endregion

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace YAF.Dialogs {
-    
-    
-    public partial class UserMedalEdit {
-        
+namespace YAF.Dialogs
+{
+
+
+    public partial class UserMedalEdit
+    {
+
         /// <summary>
         /// UserMedalEditTitle control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label UserMedalEditTitle;
-        
+
         /// <summary>
         /// HelpLabel23 control.
         /// </summary>
@@ -29,16 +31,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel23;
-        
-        /// <summary>
-        /// UserName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserName;
-        
+
         /// <summary>
         /// UserNameList control.
         /// </summary>
@@ -47,7 +40,16 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList UserNameList;
-        
+
+        /// <summary>
+        /// UserName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox UserName;
+
         /// <summary>
         /// FindUsers control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton FindUsers;
-        
+
         /// <summary>
         /// Clear control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton Clear;
-        
+
         /// <summary>
         /// UserID control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserID;
-        
+
         /// <summary>
         /// HelpLabel19 control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel19;
-        
+
         /// <summary>
         /// UserMessage control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserMessage;
-        
+
         /// <summary>
         /// HelpLabel20 control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel20;
-        
+
         /// <summary>
         /// UserSortOrder control.
         /// </summary>
@@ -110,25 +112,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UserSortOrder;
-        
-        /// <summary>
-        /// HelpLabel21 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel21;
-        
-        /// <summary>
-        /// UserOnlyRibbon control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UserOnlyRibbon;
-        
+
         /// <summary>
         /// HelpLabel22 control.
         /// </summary>
@@ -137,7 +121,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.HelpLabel HelpLabel22;
-        
+
         /// <summary>
         /// UserHide control.
         /// </summary>
@@ -146,7 +130,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox UserHide;
-        
+
         /// <summary>
         /// AddUserSave control.
         /// </summary>
@@ -155,7 +139,7 @@ namespace YAF.Dialogs {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::YAF.Web.Controls.ThemeButton AddUserSave;
-        
+
         /// <summary>
         /// Cancel control.
         /// </summary>

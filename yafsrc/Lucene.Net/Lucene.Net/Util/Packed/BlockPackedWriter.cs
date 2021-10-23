@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A writer for large sequences of longs.
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
 
             int token = (bitsRequired << BPV_SHIFT) | (min == 0 ? MIN_VALUE_EQUALS_0 : 0);
-            m_out.WriteByte((byte)(sbyte)token);
+            m_out.WriteByte((byte)token);
 
             if (min != 0)
             {

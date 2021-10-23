@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Util.Packed;
+﻿using YAF.Lucene.Net.Util.Packed;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -22,12 +22,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using Counter = YAF.Lucene.Net.Util.Counter;
-    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer  = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending long per doc, then flushes when
@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Index
     {
         private const long MISSING = 0L;
 
-        private AppendingDeltaPackedInt64Buffer pending;
+        private readonly AppendingDeltaPackedInt64Buffer pending; // LUCENENET: marked readonly
         private readonly Counter iwBytesUsed;
         private long bytesUsed;
         private FixedBitSet docsWithField;

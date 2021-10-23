@@ -1,4 +1,4 @@
-using J2N;
+﻿using J2N;
 using YAF.Lucene.Net.Codecs.Lucene40;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
@@ -8,10 +8,8 @@ using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Packed;
 using System;
-using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.CompilerServices;
-using Document = YAF.Lucene.Net.Documents.Document;
+using Document  = YAF.Lucene.Net.Documents.Document;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -74,8 +72,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         private readonly Directory directory;
         private readonly string segment;
         private readonly string segmentSuffix;
+#pragma warning disable CA2213 // Disposable fields should be disposed
         private CompressingStoredFieldsIndexWriter indexWriter;
         private IndexOutput fieldsStream;
+#pragma warning restore CA2213 // Disposable fields should be disposed
 
         private readonly CompressionMode compressionMode;
         private readonly Compressor compressor;
@@ -116,8 +116,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 CodecUtil.WriteHeader(fieldsStream, codecNameDat, VERSION_CURRENT);
                 if (Debugging.AssertsEnabled)
                 {
-                    Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == fieldsStream.GetFilePointer());
-                    Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.GetFilePointer());
+                    Debugging.Assert(CodecUtil.HeaderLength(codecNameDat) == fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
+                    Debugging.Assert(CodecUtil.HeaderLength(codecNameIdx) == indexStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 }
 
                 indexWriter = new CompressingStoredFieldsIndexWriter(indexStream);
@@ -234,6 +234,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             SaveInt32s(lengths, numBufferedDocs, fieldsStream);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool TriggerFlush()
         {
             return bufferedDocs.Length >= chunkSize || numBufferedDocs >= MAX_DOCUMENTS_PER_CHUNK; // chunks of at least chunkSize bytes
@@ -242,7 +243,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         [MethodImpl(MethodImplOptions.NoInlining)]
         private void Flush()
         {
-            indexWriter.WriteIndex(numBufferedDocs, fieldsStream.GetFilePointer());
+            indexWriter.WriteIndex(numBufferedDocs, fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
             // transform end offsets into lengths
             int[] lengths = endOffsets;
@@ -275,7 +276,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
         public override void WriteField(FieldInfo info, IIndexableField field)
         {
-            int bits = 0;
+            int bits/* = 0*/; // LUCENENET: IDE0059: Remove unnecessary value assignment
             BytesRef bytes;
             string @string;
 
@@ -357,7 +358,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                         bufferedDocs.WriteInt64(BitConversion.DoubleToInt64Bits(field.GetDoubleValue().Value));
                         break;
                     default:
-                        throw new Exception("Cannot get here");
+                        throw AssertionError.Create("Cannot get here");
                 }
             }
         }
@@ -381,9 +382,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             }
             if (docBase != numDocs)
             {
-                throw new Exception("Wrote " + docBase + " docs, finish called with numDocs=" + numDocs);
+                throw RuntimeException.Create("Wrote " + docBase + " docs, finish called with numDocs=" + numDocs);
             }
-            indexWriter.Finish(numDocs, fieldsStream.GetFilePointer());
+            indexWriter.Finish(numDocs, fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             CodecUtil.WriteFooter(fieldsStream);
             if (Debugging.AssertsEnabled) Debugging.Assert(bufferedDocs.Length == 0);
         }
@@ -402,9 +403,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                 {
                     StoredFieldsReader fieldsReader = matchingSegmentReader.FieldsReader;
                     // we can only bulk-copy if the matching reader is also a CompressingStoredFieldsReader
-                    if (fieldsReader != null && fieldsReader is CompressingStoredFieldsReader)
+                    if (fieldsReader != null && fieldsReader is CompressingStoredFieldsReader compressingStoredFieldsReader)
                     {
-                        matchingFieldsReader = (CompressingStoredFieldsReader)fieldsReader;
+                        matchingFieldsReader = compressingStoredFieldsReader;
                     }
                 }
 
@@ -429,7 +430,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                     {
                         // not all docs were deleted
                         CompressingStoredFieldsReader.ChunkIterator it = matchingFieldsReader.GetChunkIterator(docID);
-                        int[] startOffsets = new int[0];
+                        int[] startOffsets = Arrays.Empty<int>();
                         do
                         {
                             // go to the next chunk that contains docID
@@ -449,7 +450,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
                                 if (Debugging.AssertsEnabled) Debugging.Assert(docID == it.docBase);
 
                                 // no need to decompress, just copy data
-                                indexWriter.WriteIndex(it.chunkDocs, fieldsStream.GetFilePointer());
+                                indexWriter.WriteIndex(it.chunkDocs, fieldsStream.Position); // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                                 WriteHeader(this.docBase, it.chunkDocs, it.numStoredFields, it.lengths);
                                 it.CopyCompressedData(fieldsStream);
                                 this.docBase += it.chunkDocs;
@@ -486,6 +487,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             return docCount;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int NextLiveDoc(int doc, IBits liveDocs, int maxDoc)
         {
             if (liveDocs == null)
@@ -499,6 +501,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             return doc;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int NextDeletedDoc(int doc, IBits liveDocs, int maxDoc)
         {
             if (liveDocs == null)

@@ -39,7 +39,7 @@ namespace YAF.Core.ForumModules
     /// The Update Search Index Task
     /// </summary>
     /// <seealso cref="BaseForumModule" />
-    [YafModule("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
+    [Module("Update Search Index Task Forum Module", "Tiny Gecko", 1)]
     public class UpdateSearchIndexTaskForumModule : BaseForumModule
     {
         #region Public Methods

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -28,21 +28,23 @@ namespace YAF.Pages
     #region
 
     using System;
-    using System.Data;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
-    using YAF.Utils;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     #endregion
@@ -55,9 +57,9 @@ namespace YAF.Pages
         #region Fields
 
         /// <summary>
-        /// The userListDataTable.
+        /// The user List.
         /// </summary>
-        private DataTable userListDataTable;
+        private List<PagedUser> userList;
 
         #endregion
 
@@ -94,7 +96,7 @@ namespace YAF.Pages
         public void Reset_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // re-direct to self.
-            BuildLink.Redirect(ForumPages.Members);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Members);
         }
 
         /// <summary>
@@ -118,28 +120,22 @@ namespace YAF.Pages
         /// <param name="userId">The user id.</param>
         /// <param name="avatarString">The avatar string.</param>
         /// <param name="hasAvatarImage">if set to <c>true</c> [has avatar image].</param>
-        /// <param name="email">The email.</param>
         /// <returns>Returns the File Url</returns>
-        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage, string email)
+        protected string GetAvatarUrlFileName(int userId, string avatarString, bool hasAvatarImage)
         {
-            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage, email);
+            var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(userId, avatarString, hasAvatarImage);
 
-            return avatarUrl.IsNotSet()
-                       ? $"{BoardInfo.ForumClientFileRoot}images/noavatar.svg"
-                       : avatarUrl;
+            return avatarUrl.IsNotSet() ? $"{BoardInfo.ForumClientFileRoot}resource.ashx?u={userId}" : avatarUrl;
         }
 
         /// <summary>
-        /// Get all users from user_list for this board.
+        /// Get all users from for this board.
         /// </summary>
-        /// <param name="literals">
-        /// The literals.
+        /// <param name="startLetter">
+        /// The start Letter.
         /// </param>
-        /// <param name="lastUserId">
-        /// The last User Id.
-        /// </param>
-        /// <param name="specialSymbol">
-        /// The special Symbol.
+        /// <param name="userName">
+        /// The user Name.
         /// </param>
         /// <param name="totalCount">
         /// The total Count.
@@ -147,19 +143,14 @@ namespace YAF.Pages
         /// <returns>
         /// The Members List
         /// </returns>
-        protected DataTable GetUserList(string literals, int lastUserId, bool specialSymbol, out int totalCount)
+        protected List<PagedUser> GetUserList(char startLetter, string userName, out int totalCount)
         {
-            this.userListDataTable = this.GetRepository<User>().ListMembersAsDataTable(
+            this.userList = this.Get<IAspNetUsersHelper>().ListMembersPaged(
                 this.PageContext.PageBoardID,
-                null,
-                true,
-                this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue,
-                this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue,
-                this.Get<BoardSettings>().UseStyledNicks,
-                lastUserId,
-                literals,
-                specialSymbol,
-                specialSymbol,
+                this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue.ToType<int?>(),
+                this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue.ToType<int?>(),
+                startLetter,
+                userName,
                 this.Pager.CurrentPageIndex,
                 this.Pager.PageSize,
                 this.ViewState["SortNameField"].ToType<int?>(),
@@ -167,25 +158,12 @@ namespace YAF.Pages
                 this.ViewState["SortJoinedField"].ToType<int?>(),
                 this.ViewState["SortNumPostsField"].ToType<int?>(),
                 this.ViewState["SortLastVisitField"].ToType<int?>(),
-                this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int>() : 0,
+                this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostsTB.Text.Trim().ToType<int?>() : null,
                 this.NumPostDDL.SelectedIndex < 0 ? 3 : this.NumPostsTB.Text.Trim().IsSet() ? this.NumPostDDL.SelectedValue.ToType<int>() : 0);
 
-            if (this.Get<BoardSettings>().UseStyledNicks)
-            {
-                this.Get<IStyleTransform>().DecodeStyleByTable(this.userListDataTable);
-            }
+            totalCount = this.userList.Any() ? this.userList.FirstOrDefault().TotalRows : 0;
 
-            if (this.userListDataTable.HasRows())
-            {
-                // commits the deletes to the table
-                totalCount = (int)this.userListDataTable.Rows[0]["TotalCount"];
-            }
-            else
-            {
-                totalCount = 0;
-            }
-
-            return this.userListDataTable;
+            return this.userList;
         }
 
         /// <summary>
@@ -195,14 +173,19 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
-            //this.Page.Form.DefaultButton = this.SearchByUserName.UniqueID;
-
             this.UserSearchName.Focus();
 
             if (this.IsPostBack)
             {
                 return;
             }
+
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
 
             this.ViewState["SortNameField"] = 1;
             this.ViewState["SortRankNameField"] = 0;
@@ -215,7 +198,7 @@ namespace YAF.Pages
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"));
             this.NumPostDDL.Items.Add(new ListItem(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3"));
-            
+
             this.NumPostDDL.DataBind();
 
             // get list of user ranks for filtering
@@ -229,8 +212,8 @@ namespace YAF.Pages
             this.Ranks.DataTextField = "Name";
             this.Ranks.DataValueField = "ID";
             this.Ranks.DataBind();
-			
-			// get list of user ranks for filtering
+
+            // get list of user ranks for filtering
             var groups = this.GetRepository<Group>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
 
             groups.Insert(0, new Group { Name = this.GetText("ALL"), ID = 0 });
@@ -242,6 +225,20 @@ namespace YAF.Pages
             this.Group.DataValueField = "ID";
             this.Group.DataBind();
 
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
             this.BindData();
         }
 
@@ -474,35 +471,32 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            this.Pager.PageSize = this.Get<BoardSettings>().MemberListPageSize;
-            var selectedCharLetter = this.AlphaSort1.CurrentLetter;
+            this.Pager.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-            // get the user list...
-            var selectedLetter = this.UserSearchName.Text.IsSet() ? this.UserSearchName.Text.Trim() : selectedCharLetter.ToString();
+            this.NumPostDDL.SelectedValue = "3";
 
-            if (this.NumPostsTB.Text.Trim().IsSet() &&
-                (!int.TryParse(this.NumPostsTB.Text.Trim(), out var numpostsTb) || numpostsTb < 0 || numpostsTb > int.MaxValue))
+            if (this.NumPostsTB.Text.IsSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
-                return;
-            }
+                var numberOfPosts = this.NumPostsTB.Text.ToType<int>();
 
-            if (this.NumPostsTB.Text.Trim().IsNotSet())
-            {
-                this.NumPostsTB.Text = "0";
-                this.NumPostDDL.SelectedValue = "3";
+                if (numberOfPosts < 0)
+                {
+                    this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
+                    return;
+                }
             }
 
             // get the user list...
-            this.userListDataTable = this.GetUserList(
-                selectedLetter,
-                0,
-                this.UserSearchName.Text.IsNotSet() || selectedCharLetter == char.MinValue && selectedCharLetter == '#',
+            this.userList = this.GetUserList(
+                this.AlphaSort1.CurrentLetter,
+                this.UserSearchName.Text.Trim(),
                 out var totalCount);
-            
+
             this.Pager.Count = totalCount;
-            this.MemberList.DataSource = this.userListDataTable;
+            this.MemberList.DataSource = this.userList;
             this.DataBind();
+
+            this.NoInfo.Visible = this.MemberList.Items.Count == 0;
 
             switch (this.ViewState["SortNameField"].ToType<int?>())
             {
@@ -601,7 +595,7 @@ namespace YAF.Pages
         }
 
         /// <summary>
-        /// Helper function for setting up the current sort on 
+        /// Helper function for setting up the current sort on
         /// the member list view
         /// </summary>
         /// <param name="field">

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 using System.Runtime.CompilerServices;
@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
 
     /// <summary>
     /// A <see cref="ICollector"/> implementation that collects the top-scoring hits,
@@ -278,7 +278,7 @@ namespace YAF.Lucene.Net.Search
         {
             if (numHits <= 0)
             {
-                throw new ArgumentException("numHits must be > 0; please use TotalHitCountCollector if you just need the total hit count");
+                throw new ArgumentOutOfRangeException(nameof(numHits), "numHits must be > 0; please use TotalHitCountCollector if you just need the total hit count"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
 
             if (docsScoredInOrder)

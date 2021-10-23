@@ -13,11 +13,12 @@
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-arrows-alt fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" 
-                                                                                LocalizedTag="MOVE_TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="arrows-alt"
+                                LocalizedTag="MOVE_TITLE"/>
             </div>
             <div class="card-body text-center">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="ForumList">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                             LocalizedTag="select_forum_moveto" />
@@ -27,12 +28,12 @@
                                       AutoPostBack="True" 
                                       OnSelectedIndexChanged="ForumList_SelectedIndexChanged" />
                 </div>
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicsList">
-                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="select_topic_moveto" />
+                        <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" 
+                                            LocalizedTag="select_topic_moveto" />
                     </asp:Label>
                     <asp:DropDownList ID="TopicsList" runat="server" 
-                                      CssClass="TopicsSelect2Menu" 
                                       OnSelectedIndexChanged="TopicsList_SelectedIndexChanged" />
                 </div>
             </div>
@@ -45,16 +46,15 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="row">
     <div class="col">
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-cut fa-fw text-secondary"></i>&nbsp;<YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SPLIT_TITLE" />
+                <YAF:IconHeader runat="server"
+                                IconName="cut"
+                                LocalizedTag="SPLIT_TITLE"/>
             </div>
             <div class="card-body text-center">
-                <div class="form-group">
+                <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicSubject">
                         <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" 
                                             LocalizedTag="new_topic" />

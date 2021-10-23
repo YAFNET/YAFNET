@@ -27,19 +27,18 @@ namespace YAF.Pages.Moderate
     #region Using
 
     using System;
-    using System.Data;
+    using System.Linq;
     using System.Web.UI.WebControls;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
-    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -75,25 +74,25 @@ namespace YAF.Pages.Moderate
             // moderation index
             this.PageLinks.AddLink(
                 this.GetText("MODERATE_DEFAULT", "TITLE"),
-                BuildLink.GetLink(ForumPages.Moderate_Index));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
             // current page
-            this.PageLinks.AddLink(this.PageContext.PageForumName);
+            this.PageLinks.AddLink(this.PageContext.PageForum.Name);
         }
 
         /// <summary>
         /// Format message.
         /// </summary>
-        /// <param name="row">
-        /// Message data row.
+        /// <param name="item">
+        /// The item.
         /// </param>
         /// <returns>
         /// Formatted string with escaped HTML markup and formatted.
         /// </returns>
-        protected string FormatMessage([NotNull] DataRowView row)
+        protected string FormatMessage([NotNull] Tuple<Topic, Message, User> item)
         {
             // get message flags
-            var messageFlags = new MessageFlags(row["Flags"]);
+            var messageFlags = item.Item2.MessageFlags;
 
             // message
             string msg;
@@ -102,15 +101,16 @@ namespace YAF.Pages.Moderate
             if (messageFlags.NotFormatted)
             {
                 // just encode it for HTML output
-                msg = this.HtmlEncode(row["Message"].ToString());
+                msg = this.HtmlEncode(item.Item2.MessageText);
             }
             else
             {
                 // fully format message (YafBBCode)
                 msg = this.Get<IFormatMessage>().Format(
-                    row["Message"].ToString(),
+                    item.Item2.ID,
+                    item.Item2.MessageText,
                     messageFlags,
-                    row["IsModeratorChanged"].ToType<bool>());
+                    item.Item2.IsModeratorChanged.Value);
             }
 
             // return formatted message
@@ -140,9 +140,6 @@ namespace YAF.Pages.Moderate
                 return;
             }
 
-            // create page links
-            this.CreatePageLinks();
-
             // bind data
             this.BindData();
         }
@@ -152,12 +149,12 @@ namespace YAF.Pages.Moderate
         /// </summary>
         private void BindData()
         {
-            var messageList = this.GetRepository<Message>().UnapprovedAsDataTable(this.PageContext.PageForumID);
+            var messageList = this.GetRepository<Message>().Unapproved(this.PageContext.PageForumID);
 
-            if (!messageList.HasRows())
+            if (!messageList.Any())
             {
                 // redirect back to the moderate main if no messages found
-                BuildLink.Redirect(ForumPages.Moderate_Index);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Index);
             }
             else
             {
@@ -181,10 +178,9 @@ namespace YAF.Pages.Moderate
                 case "approve":
 
                     // approve post
-                    this.GetRepository<Message>().ApproveMessage(e.CommandArgument.ToType<int>());
-
-                    // Update statistics
-                    this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+                    this.GetRepository<Message>().Approve(
+                        e.CommandArgument.ToType<int>(),
+                        this.PageContext.PageForumID);
 
                     // re-bind data
                     this.BindData();
@@ -197,11 +193,20 @@ namespace YAF.Pages.Moderate
                     break;
                 case "delete":
 
-                    // delete message
-                    this.GetRepository<Message>().Delete(e.CommandArgument.ToType<int>(), true, string.Empty, 1, true);
+                    var commandArgs = e.CommandArgument.ToString().Split(';');
 
-                    // Update statistics
-                    this.Get<IDataCache>().Remove(Constants.Cache.BoardStats);
+                    var topicId = commandArgs[1].ToType<int>();
+                    var messageId = commandArgs[0].ToType<int>();
+
+                    // delete message
+                    this.GetRepository<Message>().Delete(
+                        this.PageContext.PageForumID,
+                        topicId,
+                        messageId,
+                        true,
+                        string.Empty,
+                        true,
+                        true);
 
                     // re-bind data
                     this.BindData();

@@ -1,4 +1,5 @@
-﻿using J2N.Text;
+﻿// Lucene version compatibility level 4.8.1
+using J2N.Text;
 using YAF.Lucene.Net.Analysis.Util;
 using YAF.Lucene.Net.Util;
 using System;
@@ -404,7 +405,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + exceptionWords[i] + "] already in dictionary 1");
+                    throw RuntimeException.Create("Warning: Entry [" + exceptionWords[i] + "] already in dictionary 1");
                 }
             }
 
@@ -417,7 +418,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + directConflations[i][0] + "] already in dictionary 2");
+                    throw RuntimeException.Create("Warning: Entry [" + directConflations[i][0] + "] already in dictionary 2");
                 }
             }
 
@@ -430,7 +431,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + countryNationality[i][0] + "] already in dictionary 3");
+                    throw RuntimeException.Create("Warning: Entry [" + countryNationality[i][0] + "] already in dictionary 3");
                 }
             }
 
@@ -447,7 +448,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + array[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + array[i] + "] already in dictionary 4");
                 }
             }
 
@@ -460,7 +461,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + array[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + array[i] + "] already in dictionary 4");
                 }
             }
 
@@ -473,7 +474,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + array[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + array[i] + "] already in dictionary 4");
                 }
             }
 
@@ -486,7 +487,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + array[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + array[i] + "] already in dictionary 4");
                 }
             }
 
@@ -499,7 +500,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + array[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + array[i] + "] already in dictionary 4");
                 }
             }
 
@@ -512,7 +513,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + array[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + array[i] + "] already in dictionary 4");
                 }
             }
 
@@ -525,7 +526,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + array[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + array[i] + "] already in dictionary 4");
                 }
             }
 
@@ -537,7 +538,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + KStemData8.data[i] + "] already in dictionary 4");
+                    throw RuntimeException.Create("Warning: Entry [" + KStemData8.data[i] + "] already in dictionary 4");
                 }
             }
 
@@ -549,7 +550,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + supplementDict[i] + "] already in dictionary 5");
+                    throw RuntimeException.Create("Warning: Entry [" + supplementDict[i] + "] already in dictionary 5");
                 }
             }
 
@@ -561,7 +562,7 @@ namespace YAF.Lucene.Net.Analysis.En
                 }
                 else
                 {
-                    throw new Exception("Warning: Entry [" + properNouns[i] + "] already in dictionary 6");
+                    throw RuntimeException.Create("Warning: Entry [" + properNouns[i] + "] already in dictionary 6");
                 }
             }
 
@@ -765,7 +766,7 @@ namespace YAF.Lucene.Net.Analysis.En
             // lookups.add(thisLookup); if (!added) {
             // System.out.println("######extra lookup:" + thisLookup); // occaasional
             // extra lookups aren't necessarily errors... could happen by diff
-            // manipulations // throw new RuntimeException("######extra lookup:" +
+            // manipulations // throw RuntimeException.Create("######extra lookup:" +
             // thisLookup); } else { // System.out.println("new lookup:" + thisLookup);
             // }
 

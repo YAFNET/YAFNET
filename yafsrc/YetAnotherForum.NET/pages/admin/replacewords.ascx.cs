@@ -32,7 +32,7 @@ namespace YAF.Pages.Admin
     using System.Web.UI.WebControls;
     using System.Xml.Linq;
 
-    using YAF.Core;
+    using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -40,7 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Utils;
     using YAF.Web.Extensions;
 
     #endregion
@@ -48,7 +47,7 @@ namespace YAF.Pages.Admin
     /// <summary>
     /// The Replace Words Admin Page.
     /// </summary>
-    public partial class replacewords : AdminPage
+    public partial class ReplaceWords : AdminPage
     {
         #region Methods
 
@@ -60,7 +59,6 @@ namespace YAF.Pages.Admin
         {
             this.list.ItemCommand += this.ListItemCommand;
 
-            // CODEGEN: This call is required by the ASP.NET Web Form Designer.
             base.OnInit(e);
         }
 
@@ -76,14 +74,17 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageLinks.AddRoot()
-                .AddLink(this.GetText("ADMIN_ADMIN", "Administration"), BuildLink.GetLink(ForumPages.admin_admin))
-                .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
-
-            this.Page.Header.Title =
-                $"{this.GetText("ADMIN_ADMIN", "Administration")} - {this.GetText("ADMIN_REPLACEWORDS", "TITLE")}";
-
             this.BindData();
+        }
+
+        /// <summary>
+        /// Creates page links for this page.
+        /// </summary>
+        protected override void CreatePageLinks()
+        {
+            this.PageLinks.AddRoot()
+                .AddAdminIndex()
+                .AddLink(this.GetText("ADMIN_REPLACEWORDS", "TITLE"));
         }
 
         /// <summary>
@@ -107,7 +108,7 @@ namespace YAF.Pages.Admin
                 case "add":
                     this.EditDialog.BindData(null);
 
-                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
 
@@ -115,7 +116,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    BoardContext.Current.PageElements.RegisterJsBlockStartup(
+                    this.PageContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
                     break;
@@ -147,11 +148,11 @@ namespace YAF.Pages.Admin
                 "content-disposition",
                 "attachment; filename=ReplaceWordsExport.xml");
 
-            var spamwordList = this.GetRepository<Replace_Words>().GetByBoardId();
+            var spamWordList = this.GetRepository<Replace_Words>().GetByBoardId();
 
             var element = new XElement(
                 "YafReplaceWordsList",
-                from spamWord in spamwordList
+                from spamWord in spamWordList
                 select new XElement(
                     "YafReplaceWords",
                     new XElement("BadWord", spamWord.BadWord),

@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -32,14 +32,13 @@ namespace YAF.Web.ReCAPTCHA
     using System.Text;
     using System.Web;
 
-    using ServiceStack;
+    using ServiceStack.Text;
 
-    using YAF.Core;
-    using YAF.Core.Extensions;
+    using YAF.Core.Context;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Utils.Extensions;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -59,11 +58,6 @@ namespace YAF.Web.ReCAPTCHA
         ///   The remote IP.
         /// </summary>
         private string remoteIp;
-
-        /// <summary>
-        ///   The response.
-        /// </summary>
-        private string response;
 
         #endregion
 
@@ -98,12 +92,7 @@ namespace YAF.Web.ReCAPTCHA
         /// <summary>
         ///   Gets or sets Response.
         /// </summary>
-        public string Response
-        {
-            get => this.response;
-
-            set => this.response = value;
-        }
+        public string Response { get; set; }
 
         #endregion
 
@@ -120,8 +109,8 @@ namespace YAF.Web.ReCAPTCHA
             CheckNotNull(this.SecretKey, "SecretKey");
             CheckNotNull(this.RemoteIP, "RemoteIp");
             CheckNotNull(this.Response, "Response");
-            
-            if (this.response.IsNotSet())
+
+            if (this.Response.IsNotSet())
             {
                 return RecaptchaResponse.InvalidSolution;
             }
@@ -136,7 +125,7 @@ namespace YAF.Web.ReCAPTCHA
 
             var s =
                 $"secret={HttpUtility.UrlEncode(this.SecretKey)}&remoteip={HttpUtility.UrlEncode(this.RemoteIP)}&response={HttpUtility.UrlEncode(this.Response)}";
-            
+
             var bytes = Encoding.ASCII.GetBytes(s);
             using (var stream = request.GetRequestStream())
             {
@@ -145,17 +134,16 @@ namespace YAF.Web.ReCAPTCHA
 
             try
             {
-                using (var webResponse = request.GetResponse())
-                {
-                    using (TextReader reader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8))
-                    {
-                        responseJson = reader.ReadToEnd().FromJson<RecaptchaJson>();
-                    }
-                }
+                using var webResponse = request.GetResponse();
+                using TextReader reader = new StreamReader(webResponse.GetResponseStream(), Encoding.UTF8);
+                responseJson = reader.ReadToEnd().FromJson<RecaptchaJson>();
             }
             catch (WebException exception)
             {
-                BoardContext.Current.Get<ILogger>().Log(BoardContext.Current.PageUserID, this.GetType().Name, exception.ToString());
+                BoardContext.Current.Get<ILoggerService>().Log(
+                    BoardContext.Current.PageUserID,
+                    this.GetType().Name,
+                    exception.ToString());
 
                 return RecaptchaResponse.RecaptchaNotReachable;
             }

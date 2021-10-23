@@ -31,12 +31,12 @@ namespace YAF.Core.BasePages
     using System.Web;
     using System.Web.UI;
 
-    using YAF.Configuration;
-    using YAF.Core;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Services.Startup;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -106,17 +106,17 @@ namespace YAF.Core.BasePages
             if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
                 || error.Source.Contains("ViewStateException"))
             {
-                if (this.Get<BoardSettings>().LogViewStateError)
+                if (this.PageContext.BoardSettings.LogViewStateError)
                 {
-                    this.Get<ILogger>()
-                        .Log(BoardContext.Current.PageUserID, error.Source, error, EventLogTypes.Information);
+                    this.Get<ILoggerService>()
+                        .Log(BoardContext.Current.User.ID, error.Source, error, EventLogTypes.Information);
                 }
             }
             else
             {
-                this.Get<ILogger>()
+                this.Get<ILoggerService>()
                     .Log(
-                        BoardContext.Current.PageUserID,
+                        BoardContext.Current.User.ID,
                         error.Source,
                         error);
             }
@@ -145,6 +145,7 @@ namespace YAF.Core.BasePages
 
             Thread.CurrentThread.CurrentUICulture = info;
             Thread.CurrentThread.CurrentCulture = info;
+
         }
 
         #endregion

@@ -1,6 +1,8 @@
+﻿using J2N.Numerics;
 using YAF.Lucene.Net.Support;
 using System;
-using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+using System.Runtime.CompilerServices;
+using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -21,25 +23,22 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
+    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Random-access reader for <see cref="CompressingStoredFieldsIndexWriter"/>.
     /// <para/>
     /// @lucene.internal
     /// </summary>
-    public sealed class CompressingStoredFieldsIndexReader
-#if FEATURE_CLONEABLE
-        : System.ICloneable
-#endif
+    public sealed class CompressingStoredFieldsIndexReader // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
         internal static long MoveLowOrderBitToSign(long n)
         {
-            return (((long)((ulong)n >> 1)) ^ -(n & 1));
+            return ((n.TripleShift(1)) ^ -(n & 1));
         }
 
         internal readonly int maxDoc;
@@ -120,7 +119,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             int lo = 0, hi = docBases.Length - 1;
             while (lo <= hi)
             {
-                int mid = (int)((uint)(lo + hi) >> 1);
+                int mid = (lo + hi).TripleShift(1);
                 int midValue = docBases[mid];
                 if (midValue == docID)
                 {
@@ -138,6 +137,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             return hi;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int RelativeDocBase(int block, int relativeChunk)
         {
             int expected = avgChunkDocs[block] * relativeChunk;
@@ -145,6 +145,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             return expected + (int)delta;
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private long RelativeStartPointer(int block, int relativeChunk)
         {
             long expected = avgChunkSizes[block] * relativeChunk;
@@ -157,7 +158,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             int lo = 0, hi = docBasesDeltas[block].Count - 1;
             while (lo <= hi)
             {
-                int mid = (int)((uint)(lo + hi) >> 1);
+                int mid = (lo + hi).TripleShift(1);
                 int midValue = RelativeDocBase(block, mid);
                 if (midValue == relativeDoc)
                 {
@@ -179,13 +180,14 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             if (docID < 0 || docID >= maxDoc)
             {
-                throw new ArgumentException("docID out of range [0-" + maxDoc + "]: " + docID);
+                throw new ArgumentOutOfRangeException(nameof(docID), "docID out of range [0-" + maxDoc + "]: " + docID); // LUCENENET specific - changed from IllegalArgumentException to ArgumentOutOfRangeException (.NET convention)
             }
             int block = Block(docID);
             int relativeChunk = RelativeChunk(block, docID - docBases[block]);
             return startPointers[block] + RelativeStartPointer(block, relativeChunk);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public object Clone()
         {
             return this;

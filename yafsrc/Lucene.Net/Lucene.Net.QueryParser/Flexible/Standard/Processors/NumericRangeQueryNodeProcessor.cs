@@ -5,7 +5,6 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Util;
-using YAF.Lucene.Net.QueryParsers.Flexible.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
 using YAF.Lucene.Net.Util;
@@ -56,13 +55,12 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 
         protected override IQueryNode PostProcessNode(IQueryNode node)
         {
-            if (node is TermRangeQueryNode)
+            if (node is TermRangeQueryNode termRangeNode)
             {
                 QueryConfigHandler config = GetQueryConfigHandler();
 
                 if (config != null)
                 {
-                    TermRangeQueryNode termRangeNode = (TermRangeQueryNode)node;
                     FieldConfig fieldConfig = config.GetFieldConfig(StringUtils
                         .ToString(termRangeNode.Field));
 
@@ -88,9 +86,10 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                                 {
                                     lowerNumber = numberFormat.Parse(lowerText);
                                 }
-                                catch (FormatException e)
+                                catch (FormatException e) // LUCENENET: In .NET we are expecting the framework to throw FormatException, not ParseException
                                 {
-                                    throw new QueryNodeParseException(new Message(
+                                    // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                                    throw new QueryNodeParseException(string.Format(
                                         QueryParserMessages.COULD_NOT_PARSE_NUMBER, lower
                                             .GetTextAsString(), numberFormat.ToString()), e);
                                 }
@@ -102,9 +101,10 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                                 {
                                     upperNumber = numberFormat.Parse(upperText);
                                 }
-                                catch (FormatException e)
+                                catch (FormatException e) // LUCENENET: In .NET we are expecting the framework to throw FormatException, not ParseException
                                 {
-                                    throw new QueryNodeParseException(new Message(
+                                    // LUCENENET: Factored out NLS/Message/IMessage so end users can optionally utilize the built-in .NET localization.
+                                    throw new QueryNodeParseException(string.Format(
                                         QueryParserMessages.COULD_NOT_PARSE_NUMBER, upper
                                             .GetTextAsString(), numberFormat.ToString()), e);
                                 }

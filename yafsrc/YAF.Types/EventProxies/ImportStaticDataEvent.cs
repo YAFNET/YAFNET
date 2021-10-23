@@ -27,10 +27,19 @@ namespace YAF.Types.EventProxies
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
 
+    /// <summary>
+    /// The import static data event.
+    /// </summary>
     public class ImportStaticDataEvent : IAmEvent, IHaveBoardID
     {
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImportStaticDataEvent"/> class.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
         public ImportStaticDataEvent(int boardId)
         {
             this.BoardID = boardId;
@@ -40,6 +49,9 @@ namespace YAF.Types.EventProxies
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the board id.
+        /// </summary>
         public int BoardID { get; }
 
         #endregion

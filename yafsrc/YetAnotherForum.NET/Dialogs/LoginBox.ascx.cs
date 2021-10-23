@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -28,25 +28,18 @@ namespace YAF.Dialogs
 
     using System;
     using System.Web;
-    using System.Web.Security;
-    using System.Web.UI.WebControls;
 
     using YAF.Configuration;
-    using YAF.Core;
     using YAF.Core.BaseControls;
-    using YAF.Core.Model;
-    using YAF.Core.UsersRoles;
+    using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Events;
-    using YAF.Types.Models;
-    using YAF.Utils;
-    using YAF.Utils.Helpers;
-    using YAF.Web.Controls;
+    using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models.Identity;
 
     #endregion
 
@@ -58,124 +51,6 @@ namespace YAF.Dialogs
         #region Methods
 
         /// <summary>
-        /// Handles the Authenticate event of the Login1 control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="AuthenticateEventArgs"/> instance containing the event data.</param>
-        protected void Login1_Authenticate([NotNull] object sender, [NotNull] AuthenticateEventArgs e)
-        {
-            e.Authenticated = false;
-
-            var realUserName = this.GetValidUsername(this.Login1.UserName, this.Login1.Password);
-
-            if (!realUserName.IsSet())
-            {
-                return;
-            }
-
-            this.Login1.UserName = realUserName;
-            e.Authenticated = true;
-        }
-
-        /// <summary>
-        /// Gets the valid username.
-        /// </summary>
-        /// <param name="username">The username.</param>
-        /// <param name="password">The password.</param>
-        /// <returns>
-        /// The get valid login.
-        /// </returns>
-        protected virtual string GetValidUsername(string username, string password)
-        {
-            if (username.Contains("@") && this.Get<MembershipProvider>().RequiresUniqueEmail)
-            {
-                // attempt Email Login
-                var realUsername = this.Get<MembershipProvider>().GetUserNameByEmail(username);
-
-                if (realUsername.IsSet() && this.Get<MembershipProvider>()
-                        .ValidateUser(realUsername, password))
-                {
-                    return realUsername;
-                }
-            }
-
-            // Standard user name login
-            if (this.Get<MembershipProvider>().ValidateUser(username, password))
-            {
-                return username;
-            }
-
-            // display name login...
-            if (!this.Get<BoardSettings>().EnableDisplayName)
-            {
-                return null;
-            }
-
-            // Display name login
-            var id = this.Get<IUserDisplayName>().GetId(username);
-
-            if (id.HasValue)
-            {
-                // get the username associated with this id...
-                var realUsername = UserMembershipHelper.GetUserNameFromID(id.Value);
-
-                // validate again...
-                if (this.Get<MembershipProvider>().ValidateUser(realUsername, password))
-                {
-                    return realUsername;
-                }
-            }
-
-            // no valid login -- return null
-            return null;
-        }
-
-        /// <summary>
-        /// Handles the LoginError event of the Login1 control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Login1_LoginError([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var emptyFields = false;
-
-            var userName = this.Login1.FindControlAs<TextBox>("UserName");
-            var password = this.Login1.FindControlAs<TextBox>("Password");
-
-            if (userName.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("REGISTER", "NEED_USERNAME"),
-                    "LoginBox",
-                    MessageTypes.danger);
-                emptyFields = true;
-            }
-
-            if (password.Text.Trim().Length == 0)
-            {
-                this.PageContext.AddLoadMessage(
-                    this.GetText("REGISTER", "NEED_PASSWORD"),
-                    "LoginBox",
-                    MessageTypes.danger);
-                emptyFields = true;
-            }
-
-            if (!emptyFields)
-            {
-                this.Logger.Log(
-                    $"Login Failure: {userName.Text}",
-                    this,
-                     $"Login Failure for User {userName.Text} with the IP Address: {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
-                    EventLogTypes.LoginFailure);
-
-                this.PageContext.AddLoadMessage(
-                    this.Login1.FailureText,
-                    "LoginBox",
-                    MessageTypes.danger);
-            }
-        }
-
-        /// <summary>
         /// The On PreRender event.
         /// </summary>
         /// <param name="e">
@@ -184,7 +59,7 @@ namespace YAF.Dialogs
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            BoardContext.Current.PageElements.RegisterJsBlock(
+            this.PageContext.PageElements.RegisterJsBlock(
                 "yafmodaldialogJs",
                 JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "#LoginBox"));
 
@@ -203,86 +78,19 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.Login1.MembershipProvider = Config.MembershipProvider;
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                "loadLoginValidatorFormJs",
+                JavaScriptBlocks.FormValidatorJs(this.LoginButton.ClientID));
 
-            // Login1.CreateUserText = "Sign up for a new account.";
-            // Login1.CreateUserUrl = BuildLink.GetLink( ForumPages.register );
-            this.Login1.PasswordRecoveryText = this.GetText("lostpassword");
-            this.Login1.PasswordRecoveryUrl = BuildLink.GetLink(ForumPages.RecoverPassword);
-            this.Login1.FailureText = this.GetText("password_error");
+            this.RememberMe.Text = this.GetText("auto");
 
-            this.Login1.DestinationPageUrl = this.Page.Request.RawUrl;
+            this.Password.Attributes.Add(
+                "onkeydown",
+                JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
 
-            // localize controls
-            var rememberMe = this.Login1.FindControlAs<CheckBox>("RememberMe");
-            var userName = this.Login1.FindControlAs<TextBox>("UserName");
-            var password = this.Login1.FindControlAs<TextBox>("Password");
-            var forumLogin = this.Login1.FindControlAs<Button>("LoginButton");
-            var passwordRecovery = this.Login1.FindControlAs<LinkButton>("PasswordRecovery");
-
-            var faceBookHolder = this.Login1.FindControlAs<PlaceHolder>("FaceBookHolder");
-            var facebookRegister = this.Login1.FindControlAs<ThemeButton>("FacebookRegister");
-
-            var twitterHolder = this.Login1.FindControlAs<PlaceHolder>("TwitterHolder");
-            var twitterRegister = this.Login1.FindControlAs<ThemeButton>("TwitterRegister");
-
-            var googleHolder = this.Login1.FindControlAs<PlaceHolder>("GoogleHolder");
-            var googleRegister = this.Login1.FindControlAs<ThemeButton>("GoogleRegister");
-
-            userName.Focus();
-
-            if (rememberMe != null)
+            if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
             {
-                rememberMe.Text = this.GetText("auto");
-            }
-
-            if (forumLogin != null)
-            {
-                forumLogin.Text = this.GetText("forum_login");
-
-                var script =
-                    $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
-                          document.getElementById('{forumLogin.ClientID}').click();return false;}}}} else {{return true}}; ";
-
-                userName.Attributes.Add("onkeydown", script);
-
-                password.Attributes.Add("onkeydown", script);
-            }
-
-            if (passwordRecovery != null)
-            {
-                passwordRecovery.Text = this.GetText("lostpassword");
-            }
-
-            if (this.Get<BoardSettings>().AllowSingleSignOn)
-            {
-                faceBookHolder.Visible = Config.FacebookAPIKey.IsSet() && Config.FacebookSecretKey.IsSet();
-                twitterHolder.Visible = Config.TwitterConsumerKey.IsSet() && Config.TwitterConsumerSecret.IsSet();
-                googleHolder.Visible = Config.GoogleClientID.IsSet() && Config.GoogleClientSecret.IsSet();
-
-                if (twitterHolder.Visible)
-                {
-                    twitterRegister.Visible = true;
-                    twitterRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Twitter");
-                    twitterRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
-                    twitterRegister.ParamTitle0 = "Twitter";
-                }
-
-                if (faceBookHolder.Visible)
-                {
-                    facebookRegister.Visible = true;
-                    facebookRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Facebook");
-                    facebookRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
-                    facebookRegister.ParamTitle0 = "Facebook";
-                }
-
-                if (googleHolder.Visible)
-                {
-                    googleRegister.Visible = true;
-                    googleRegister.Text = this.GetTextFormatted("AUTH_CONNECT", "Google");
-                    googleRegister.TitleLocalizedTag = "AUTH_CONNECT_HELP";
-                    googleRegister.ParamTitle0 = "Google";
-                }
+                this.RegisterLink.Visible = true;
             }
 
             this.DataBind();
@@ -299,54 +107,100 @@ namespace YAF.Dialogs
         /// </param>
         protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            BuildLink.Redirect(ForumPages.RecoverPassword);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Account_ForgotPassword);
+        }
+
+        /// <summary>
+        /// Redirects to the Register Page
+        /// </summary>
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void RegisterLinkClick(object sender, EventArgs e)
+        {
+            this.Get<LinkBuilder>().Redirect(
+                this.PageContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
+        }
+
+        /// <summary>
+        /// The sign in.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void SignIn(object sender, EventArgs e)
+        {
+            if (!this.Page.IsValid)
+            {
+                return;
+            }
+
+            var user = this.Get<IAspNetUsersHelper>().ValidateUser(this.UserName.Text.Trim());
+
+            if (user == null)
+            {
+                this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                return;
+            }
+
+            // Valid user, verify password
+            var result =
+                (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher.VerifyHashedPassword(user.PasswordHash, this.Password.Text);
+
+            switch (result)
+            {
+                case PasswordVerificationResult.Success:
+                    this.UserAuthenticated(user);
+                    break;
+                case PasswordVerificationResult.SuccessRehashNeeded:
+                    user.PasswordHash = this.Get<IAspNetUsersHelper>().IPasswordHasher.HashPassword(this.Password.Text);
+                    this.UserAuthenticated(user);
+                    break;
+                default:
+                    {
+                        // Lockout for 15 minutes if more than 10 failed attempts
+                        user.AccessFailedCount++;
+                        if (user.AccessFailedCount >= 10)
+                        {
+                            user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(15);
+
+                            this.Logger.Info(
+                                $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
+
+                            this.PageContext.LoadMessage.AddSession(
+                                this.GetText("LOGIN", "ERROR_LOCKEDOUT"),
+                                MessageTypes.danger);
+                        }
+
+                        this.Get<IAspNetUsersHelper>().Update(user);
+
+                        this.Logger.Log(
+                            $"Login Failure for User {this.UserName.Text.Trim()} with the IP Address {this.Get<HttpRequestBase>().GetUserRealIPAddress()}",
+                            EventLogTypes.LoginFailure,
+                            null,
+                            $"Login Failure: {this.UserName.Text.Trim()}");
+
+                        this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                        break;
+                    }
+            }
+        }
+
+        /// <summary>
+        /// The user authenticated.
+        /// </summary>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        private void UserAuthenticated(AspNetUsers user)
+        {
+            this.Get<IAspNetUsersHelper>().SignIn(user, this.RememberMe.Checked);
+
+            this.Page.Response.Redirect(this.Request.RawUrl);
         }
 
         #endregion
-
-        /// <summary>
-        /// Handles the LoggedIn event of the Login1 control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void Login1_LoggedIn(object sender, EventArgs e)
-        {
-            this.Get<IRaiseEvent>()
-                .Raise(new SuccessfulUserLoginEvent(this.PageContext.PageUserID));
-
-            this.GetRepository<User>().UpdateAuthServiceStatus(
-                this.PageContext.PageUserID,
-                AuthService.none);
-        }
-
-        /// <summary>
-        /// Redirects to the Facebook login/register page.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void FacebookRegisterClick(object sender, EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.facebook);
-        }
-
-        /// <summary>
-        /// Redirects to the Twitter login/register page.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void TwitterRegisterClick(object sender, EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.twitter);
-        }
-
-        /// <summary>
-        /// Redirects to the Google login/register page.
-        /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void GoogleRegisterClick(object sender, EventArgs e)
-        {
-            BuildLink.Redirect(ForumPages.Login, "auth={0}", AuthService.google);
-        }
     }
 }

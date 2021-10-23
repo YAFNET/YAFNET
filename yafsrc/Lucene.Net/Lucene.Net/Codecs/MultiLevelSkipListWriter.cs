@@ -1,6 +1,6 @@
-using YAF.Lucene.Net.Diagnostics;
-using System.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
-    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
-    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
+    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
 
     /// <summary>
     /// This abstract class writes skip lists with multiple levels.
@@ -61,11 +61,11 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// The skip interval in the list with level = 0. </summary>
-        private int skipInterval;
+        private readonly int skipInterval; // LUCENENET: marked readonly
 
         /// <summary>
         /// SkipInterval used for level &gt; 0. </summary>
-        private int skipMultiplier;
+        private readonly int skipMultiplier; // LUCENENET: marked readonly
 
         /// <summary>
         /// For every skip level a different buffer is used. </summary>
@@ -107,6 +107,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Allocates internal skip buffers. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         protected virtual void Init()
         {
             skipBuffer = new RAMOutputStream[m_numberOfSkipLevels];
@@ -118,6 +119,7 @@ namespace YAF.Lucene.Net.Codecs
 
         /// <summary>
         /// Creates new buffers or empties the existing ones. </summary>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public virtual void ResetSkip()
         {
             if (skipBuffer == null)
@@ -165,7 +167,7 @@ namespace YAF.Lucene.Net.Codecs
             {
                 WriteSkipData(level, skipBuffer[level]);
 
-                long newChildPointer = skipBuffer[level].GetFilePointer();
+                long newChildPointer = skipBuffer[level].Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
                 if (level != 0)
                 {
@@ -185,7 +187,7 @@ namespace YAF.Lucene.Net.Codecs
         /// <returns> The pointer the skip list starts. </returns>
         public virtual long WriteSkip(IndexOutput output)
         {
-            long skipPointer = output.GetFilePointer();
+            long skipPointer = output.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
             //System.out.println("skipper.writeSkip fp=" + skipPointer);
             if (skipBuffer == null || skipBuffer.Length == 0)
             {
@@ -194,7 +196,7 @@ namespace YAF.Lucene.Net.Codecs
 
             for (int level = m_numberOfSkipLevels - 1; level > 0; level--)
             {
-                long length = skipBuffer[level].GetFilePointer();
+                long length = skipBuffer[level].Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (length > 0)
                 {
                     output.WriteVInt64(length);
