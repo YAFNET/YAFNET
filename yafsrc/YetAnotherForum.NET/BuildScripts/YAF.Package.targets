@@ -219,41 +219,6 @@
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Install.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
-    <!--Create Deploy Package -->
-
-    <ItemGroup>
-      <yafDeploy-Include Include="$(MSBuildProjectDirectory)\Package\**\*.*" />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(yafInstall-Include)"
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)" />
-    <Copy SourceFiles="@(LibaryFiles)"
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\%(RecursiveDir)"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\recommended.web.config"
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\web.config"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\robots.txt"
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy\YetAnotherForum.NET\"/>
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\InstallSQL.sql"
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Manifest.xml"
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-    <Copy SourceFiles="$(MSBuildProjectDirectory)\..\deploy\Parameters.xml"
-          DestinationFolder="$(MSBuildProjectDirectory)\Package\deploy" />
-
-    <!-- Create the Deploy package -->
-    <ZipDirectory
-            SourceDirectory="$(MSBuildProjectDirectory)\Package\deploy"
-            DestinationFile="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Deploy.$(Extension)" />
-
-    <!-- Copy the Deploy package to the Packages folder -->
-    <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName)-$(SQLPackageName)-v$(YAFVersion)-Deploy.$(Extension)"
-          DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
-
-    <RemoveDir Directories ="$(MSBuildProjectDirectory)\Package\deploy" />
-
-    <!-- / END Deploy Package-->
-
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\app.config"/>
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config"
