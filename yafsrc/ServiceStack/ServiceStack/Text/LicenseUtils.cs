@@ -20,9 +20,24 @@ namespace ServiceStack
     using ServiceStack.Text;
     using ServiceStack.Text.Common;
 
+    /// <summary>
+    /// Class LicenseException.
+    /// Implements the <see cref="System.Exception" />
+    /// </summary>
+    /// <seealso cref="System.Exception" />
     public class LicenseException : Exception
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LicenseException"/> class.
+        /// </summary>
+        /// <param name="message">The message that describes the error.</param>
         public LicenseException(string message) : base(message) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LicenseException"/> class.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (<see langword="Nothing" /> in Visual Basic) if no inner exception is specified.</param>
         public LicenseException(string message, Exception innerException) : base(message, innerException) { }
     }
 
@@ -207,6 +222,9 @@ namespace ServiceStack
         }
 
         private static __ActivatedLicense __activatedLicense;
+
+        private static readonly object lockObj = new object();
+
         public static void RegisterLicense(string licenseKeyText)
         {
             JsConfig.InitStatics();
@@ -246,7 +264,7 @@ namespace ServiceStack
                 if (!string.IsNullOrEmpty(subId))
                     msg += $" The id for this license is '{subId}'";
 
-                lock (typeof(LicenseUtils))
+                lock (lockObj)
                 {
                     try
                     {
@@ -494,7 +512,7 @@ namespace ServiceStack
         {
             try
             {
-                var RSAalg = new System.Security.Cryptography.RSACryptoServiceProvider();
+                var RSAalg = new System.Security.Cryptography.RSACryptoServiceProvider(2048);
                 RSAalg.ImportParameters(Key);
                 return RSAalg.VerifySha1Data(DataToVerify, SignedData);
 
@@ -597,7 +615,7 @@ namespace ServiceStack
 
         public static bool VerifyLicenseKeyText(this string licenseKeyText, out LicenseKey key)
         {
-            var publicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider();
+            var publicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider(2048);
             publicRsaProvider.FromXml(LicenseUtils.LicensePublicKey);
             var publicKeyParams = publicRsaProvider.ExportParameters(false);
 
@@ -613,7 +631,7 @@ namespace ServiceStack
             System.Security.Cryptography.RSAParameters publicKeyParams;
             try
             {
-                var publicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider();
+                var publicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider(2048);
                 publicRsaProvider.FromXml(LicenseUtils.LicensePublicKey);
                 publicKeyParams = publicRsaProvider.ExportParameters(false);
             }
