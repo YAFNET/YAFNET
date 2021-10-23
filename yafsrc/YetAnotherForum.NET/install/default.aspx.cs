@@ -856,6 +856,12 @@ namespace YAF.Install
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (Config.IsDotNetNuke)
+            {
+                this.Get<HttpResponseBase>().Redirect("~/");
+                return;
+            }
+
             var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage");
 
             if (this.loadMessage.IsNotSet())
