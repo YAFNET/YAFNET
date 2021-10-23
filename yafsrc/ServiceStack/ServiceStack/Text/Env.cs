@@ -25,6 +25,7 @@ namespace ServiceStack.Text
         /// <exception cref="System.ArgumentException">PclExport.Instance needs to be initialized</exception>
         static Env()
         {
+
             if (PclExport.Instance == null)
                 throw new ArgumentException("PclExport.Instance needs to be initialized");
 
@@ -354,6 +355,12 @@ namespace ServiceStack.Text
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
+
+        private static readonly DateTime __releaseDate;
+        public static DateTime GetReleaseDate()
+        {
+            return __releaseDate;
+        }
 
 #if NETSTANDARD || NET5_0_OR_GREATER
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

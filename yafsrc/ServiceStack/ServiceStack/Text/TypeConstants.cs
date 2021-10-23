@@ -92,76 +92,76 @@ namespace ServiceStack.Text
         /// <summary>
         /// The empty string array
         /// </summary>
-        public static readonly string[] EmptyStringArray = Array.Empty<string>();
+        public static string[] EmptyStringArray = Array.Empty<string>();
         /// <summary>
         /// The empty long array
         /// </summary>
-        public static readonly long[] EmptyLongArray = Array.Empty<long>();
+        public static long[] EmptyLongArray = Array.Empty<long>();
         /// <summary>
         /// The empty int array
         /// </summary>
-        public static readonly int[] EmptyIntArray = Array.Empty<int>();
+        public static int[] EmptyIntArray = Array.Empty<int>();
         /// <summary>
         /// The empty character array
         /// </summary>
-        public static readonly char[] EmptyCharArray = Array.Empty<char>();
+        public static char[] EmptyCharArray = Array.Empty<char>();
         /// <summary>
         /// The empty bool array
         /// </summary>
-        public static readonly bool[] EmptyBoolArray = Array.Empty<bool>();
+        public static bool[] EmptyBoolArray = Array.Empty<bool>();
         /// <summary>
         /// The empty byte array
         /// </summary>
-        public static readonly byte[] EmptyByteArray = Array.Empty<byte>();
+        public static byte[] EmptyByteArray = Array.Empty<byte>();
         /// <summary>
         /// The empty object array
         /// </summary>
-        public static readonly object[] EmptyObjectArray = Array.Empty<object>();
+        public static object[] EmptyObjectArray = Array.Empty<object>();
         /// <summary>
         /// The empty type array
         /// </summary>
-        public static readonly Type[] EmptyTypeArray = Type.EmptyTypes;
+        public static Type[] EmptyTypeArray = Type.EmptyTypes;
         /// <summary>
         /// The empty field information array
         /// </summary>
-        public static readonly FieldInfo[] EmptyFieldInfoArray = Array.Empty<FieldInfo>();
+        public static FieldInfo[] EmptyFieldInfoArray = Array.Empty<FieldInfo>();
         /// <summary>
         /// The empty property information array
         /// </summary>
-        public static readonly PropertyInfo[] EmptyPropertyInfoArray = Array.Empty<PropertyInfo>();
+        public static PropertyInfo[] EmptyPropertyInfoArray = Array.Empty<PropertyInfo>();
         /// <summary>
         /// The empty object dictionary
         /// </summary>
-        public static readonly Dictionary<string, object> EmptyObjectDictionary = new();
+        public static Dictionary<string, object> EmptyObjectDictionary = new();
 
         /// <summary>
         /// The empty string list
         /// </summary>
-        public static readonly List<string> EmptyStringList = new(0);
+        public static List<string> EmptyStringList = new(0);
         /// <summary>
         /// The empty long list
         /// </summary>
-        public static readonly List<long> EmptyLongList = new(0);
+        public static List<long> EmptyLongList = new(0);
         /// <summary>
         /// The empty int list
         /// </summary>
-        public static readonly List<int> EmptyIntList = new(0);
+        public static List<int> EmptyIntList = new(0);
         /// <summary>
         /// The empty character list
         /// </summary>
-        public static readonly List<char> EmptyCharList = new(0);
+        public static List<char> EmptyCharList = new(0);
         /// <summary>
         /// The empty bool list
         /// </summary>
-        public static readonly List<bool> EmptyBoolList = new(0);
+        public static List<bool> EmptyBoolList = new(0);
         /// <summary>
         /// The empty object list
         /// </summary>
-        public static readonly List<object> EmptyObjectList = new(0);
+        public static List<object> EmptyObjectList = new(0);
         /// <summary>
         /// The empty type list
         /// </summary>
-        public static readonly List<Type> EmptyTypeList = new(0);
+        public static List<Type> EmptyTypeList = new(0);
     }
 
     /// <summary>
@@ -173,14 +173,14 @@ namespace ServiceStack.Text
         /// <summary>
         /// The empty array
         /// </summary>
-        public static readonly T[] EmptyArray = Array.Empty<T>();
+        public static T[] EmptyArray = Array.Empty<T>();
         /// <summary>
         /// The empty list
         /// </summary>
-        public static readonly List<T> EmptyList = new(0);
+        public static List<T> EmptyList = new(0);
         /// <summary>
         /// The empty hash set
         /// </summary>
-        public static readonly HashSet<T> EmptyHashSet = new();
+        public static HashSet<T> EmptyHashSet = new();
     }
 }

@@ -169,7 +169,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The property map
         /// </summary>
-        public readonly Dictionary<string, PropertyAccessor> PropertyMap =
+        public Dictionary<string, PropertyAccessor> PropertyMap =
             new(PclExport.Instance.InvariantComparerIgnoreCase);
 
         /// <summary>

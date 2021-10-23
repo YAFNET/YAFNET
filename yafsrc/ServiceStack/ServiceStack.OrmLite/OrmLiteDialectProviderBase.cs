@@ -1568,7 +1568,7 @@ namespace ServiceStack.OrmLite
                 if (fieldDef.AutoId && p.Value != null)
                 {
                     var existingId = fieldDef.GetValue(obj);
-                    if (existingId is Guid existingGuid && existingGuid != default(Guid))
+                    if (existingId is Guid existingGuid && existingGuid != default)
                     {
                         p.Value = existingGuid; // Use existing value if not default
                     }
@@ -2492,7 +2492,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         /// <param name="tableType">Type of the table.</param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public virtual List<string> SequenceList(Type tableType) => new List<string>();
+        public virtual List<string> SequenceList(Type tableType) => new();
 
         /// <summary>
         /// Sequences the list asynchronous.
@@ -2808,15 +2808,14 @@ namespace ServiceStack.OrmLite
         /// <returns>System.String.</returns>
         protected virtual string FkOptionToString(OnFkOption option)
         {
-            switch (option)
+            return option switch
             {
-                case OnFkOption.Cascade: return "CASCADE";
-                case OnFkOption.NoAction: return "NO ACTION";
-                case OnFkOption.SetNull: return "SET NULL";
-                case OnFkOption.SetDefault: return "SET DEFAULT";
-                case OnFkOption.Restrict:
-                default: return "RESTRICT";
-            }
+                OnFkOption.Cascade => "CASCADE",
+                OnFkOption.NoAction => "NO ACTION",
+                OnFkOption.SetNull => "SET NULL",
+                OnFkOption.SetDefault => "SET DEFAULT",
+                _ => "RESTRICT",
+            };
         }
 
         /// <summary>
@@ -3151,7 +3150,7 @@ namespace ServiceStack.OrmLite
                 if (await this.ReadAsync(reader, token))
                     return fn();
 
-                return default(T);
+                return default;
             }
             finally
             {

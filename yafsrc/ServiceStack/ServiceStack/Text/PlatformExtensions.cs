@@ -1123,6 +1123,8 @@ namespace ServiceStack.Text
             /// <param name="value">The value.</param>
             public void SetValue(object instance, object value)
             {
+              var lockObj = new object();
+
                 if (SetValueFn == null)
                     return;
 
@@ -1135,7 +1137,7 @@ namespace ServiceStack.Text
 
                     if (!Type.IsInstanceOfType(value))
                     {
-                        lock (this)
+                        lock (lockObj)
                         {
                             //Only caches object converter used on first use
                             if (ConvertType == null)

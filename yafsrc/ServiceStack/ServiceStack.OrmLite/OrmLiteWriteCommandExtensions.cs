@@ -1365,7 +1365,7 @@ namespace ServiceStack.OrmLite
         {
             var modelDef = typeof(T).GetModelDefinition();
             var id = modelDef.GetPrimaryKey(obj);
-            var existingRow = id != null ? dbCmd.SingleById<T>(id) : default(T);
+            var existingRow = id != null ? dbCmd.SingleById<T>(id) : default;
 
             if (Equals(existingRow, default(T)))
             {

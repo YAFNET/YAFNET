@@ -405,15 +405,15 @@ namespace YAF.Pages.Account
                     $"Bot Check detected a possible SPAM BOT: (user name : '{userName}', email : '{this.Email.Text}', ip: '{userIpAddress}', reason : {result}), user was rejected.",
                     EventLogTypes.SpamBotDetected);
 
+                if (this.PageContext.BoardSettings.BanBotIpOnDetection)
+                {
+                    this.Get<IRaiseEvent>().Raise(
+                        new BanUserEvent(this.PageContext.PageUserID, userName, this.Email.Text, userIpAddress));
+                }
+
                 if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(2))
                 {
                     this.GetRepository<Registry>().IncrementBannedUsers();
-
-                    if (this.PageContext.BoardSettings.BanBotIpOnDetection)
-                    {
-                        this.Get<IRaiseEvent>().Raise(
-                            new BanUserEvent(this.PageContext.PageUserID, userName, this.Email.Text, userIpAddress));
-                    }
 
                     return false;
                 }

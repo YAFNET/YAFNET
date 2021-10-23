@@ -19,7 +19,7 @@
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\K4os.Hash.xxHash.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\MySql.Data.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\Ubiety.Dns.Core.dll" />
-	  <Delete Files="$(MSBuildProjectDirectory)\bin\Zstandard.Net.dll" />
+	  <Delete Files="$(MSBuildProjectDirectory)\bin\ZstdNet.dll" />
 	  
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\Npgsql.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Text.Json.dll" />

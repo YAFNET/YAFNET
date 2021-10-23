@@ -553,7 +553,7 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
 
             this.smallPool = new ConcurrentStack<byte[]>();
             var numLargePools = useExponentialLargeBuffer
-                                    ? (int)Math.Log(maximumBufferSize / largeBufferMultiple, 2) + 1
+                                    ? (int)Math.Log((double)maximumBufferSize / largeBufferMultiple, 2) + 1
                                     : maximumBufferSize / largeBufferMultiple;
 
             // +1 to store size of bytes in use that are too large to be pooled

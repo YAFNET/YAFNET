@@ -184,7 +184,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The fields map
         /// </summary>
-        public readonly Dictionary<string, FieldAccessor> FieldsMap =
+        public Dictionary<string, FieldAccessor> FieldsMap =
             new(PclExport.Instance.InvariantComparerIgnoreCase);
 
         /// <summary>
