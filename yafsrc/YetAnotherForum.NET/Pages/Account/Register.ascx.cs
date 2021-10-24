@@ -173,7 +173,8 @@ namespace YAF.Pages.Account
                 LoweredUserName = this.UserName.Text,
                 Email = this.Email.Text,
                 IsApproved = false,
-                EmailConfirmed = false
+                EmailConfirmed = false,
+                Profile_Birthday = null
             };
 
             var result = this.Get<IAspNetUsersHelper>().Create(user, this.Password.Text.Trim());
