@@ -202,15 +202,17 @@ namespace YAF.Controls
                         try
                         {
                             this.RecentUsers.ActiveUsersList = activeUsers1Day1;
-                            this.RecentUsers.Visible = true;
+                            this.RecentUsersPlaceHolder.Visible = true;
                         }
                         catch (Exception)
                         {
-                            this.RecentUsers.Visible = false;
+                            this.RecentUsersPlaceHolder.Visible = false;
                         }
                     }
-
-                    this.RecentUsersPlaceHolder.Visible = true;
+                    else
+                    {
+                        this.RecentUsersPlaceHolder.Visible = false;
+                    }
                 }
             }
             else
