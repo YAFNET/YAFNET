@@ -129,78 +129,77 @@ namespace YAF.Web.Controls
             // go through the table and process each row
             this.ActiveUsersList.ForEach(
                 user =>
+                {
+                    UserLink userLink;
+
+                    var isCrawler = user.IsCrawler;
+
+                    // create new link and set its parameters
+                    if (isCrawler)
                     {
-                        UserLink userLink;
-
-                        var isCrawler = user.IsCrawler;
-
-                        // create new link and set its parameters
-                        if (isCrawler)
-                        {
-                            if (crawlers.Contains(user.Browser))
-                            {
-                                return;
-                            }
-
-                            crawlers.Add(user.Browser);
-                            userLink = new UserLink
-                            {
-                                Suspended = user.Suspended,
-                                CrawlerName = user.Browser,
-                                UserID = user.UserID,
-                                Style = user.UserStyle
-                            };
-                            userLink.ID += userLink.CrawlerName;
-                        }
-                        else
-                        {
-                            userLink = new UserLink
-                            {
-                                Suspended = user.Suspended,
-                                UserID = user.UserID,
-                                Style = user.UserStyle,
-                                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
-                                    ? user.UserDisplayName
-                                    : user.UserName
-                            };
-                            userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
-                        }
-
-                        // how many users of this type is present (valid for guests, others have it 1)
-                        var userCount = user.UserCount;
-                        if (userCount > 1 && (!isCrawler || !this.PageContext.BoardSettings.ShowCrawlersInActiveList))
-                        {
-                            // add postfix if there is more the one user of this name
-                            userLink.PostfixText = $" ({userCount})";
-                        }
-
-                        // indicates whether user link should be added or not
-                        var addControl = true;
-
-                        // we might not want to add this user link if user is marked as hidden
-                        if (user.IsActiveExcluded || // or if user is guest and guest should be hidden
-                            user.IsGuest)
-                        {
-                            // hidden user are always visible to admin and himself)
-                            if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
-                            {
-                                userLink.PostfixText = "  <i class=\"fas fa-user-secret\"></i>";
-                            }
-                            else
-                            {
-                                // user is hidden from this user...
-                                addControl = false;
-                            }
-                        }
-
-                        // add user link if it's not suppressed
-                        if (!addControl)
+                        if (crawlers.Contains(user.Browser))
                         {
                             return;
                         }
 
-                        this.Controls.Add(userLink);
-                    });
+                        crawlers.Add(user.Browser);
+                        userLink = new UserLink
+                        {
+                            Suspended = user.Suspended,
+                            CrawlerName = user.Browser,
+                            UserID = user.UserID,
+                            Style = user.UserStyle
+                        };
+                        userLink.ID += userLink.CrawlerName;
+                    }
+                    else
+                    {
+                        userLink = new UserLink
+                        {
+                            Suspended = user.Suspended,
+                            UserID = user.UserID,
+                            Style = user.UserStyle,
+                            ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                                ? user.UserDisplayName
+                                : user.UserName
+                        };
+                        userLink.ID = $"UserLink{this.InstantId}{userLink.UserID}";
+                    }
+
+                    // how many users of this type is present (valid for guests, others have it 1)
+                    var userCount = user.UserCount;
+                    if (userCount > 1 && (!isCrawler || !this.PageContext.BoardSettings.ShowCrawlersInActiveList))
+                    {
+                        // add postfix if there is more the one user of this name
+                        userLink.PostfixText = $" ({userCount})";
+                    }
+
+                    // if user is guest and guest should be hidden
+                    var addControl = !(!user.IsGuest && !this.PageContext.IsAdmin);
+
+                    // we might not want to add this user link if user is marked as hidden
+                    if (user.IsActiveExcluded)
+                    {
+                        // hidden user are always visible to admin and himself)
+                        if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
+                        {
+                            userLink.PostfixText = "  <i class=\"fas fa-user-secret\"></i>";
+                        }
+                        else
+                        {
+                            // user is hidden from this user...
+                            addControl = false;
+                        }
+                    }
+
+                    // add user link if it's not suppressed
+                    if (!addControl)
+                    {
+                        return;
+                    }
+
+                    this.Controls.Add(userLink);
+                });
         }
 
         /// <summary>
@@ -217,14 +216,14 @@ namespace YAF.Web.Controls
             // cycle through active user links contained within this control (see OnPreRender where this links are added)
             this.Controls.Cast<Control>().Where(control => control is UserLink && control.Visible).ForEach(
                 control =>
-                    {
-                        writer.Write(@"<li class=""list-inline-item"">");
+                {
+                    writer.Write(@"<li class=""list-inline-item"">");
 
-                        // render UserLink
-                        control.RenderControl(writer);
+                    // render UserLink
+                    control.RenderControl(writer);
 
-                        writer.Write(@"</li>");
-                    });
+                    writer.Write(@"</li>");
+                });
 
             // writes ending tag
             writer.Write(@"</ul>");
