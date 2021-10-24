@@ -20,9 +20,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using Query  = YAF.Lucene.Net.Search.Query;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Query = YAF.Lucene.Net.Search.Query;
 
     /// <summary>
     /// Class that tracks changes to a delegated

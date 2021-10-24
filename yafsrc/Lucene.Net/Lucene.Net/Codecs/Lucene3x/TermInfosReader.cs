@@ -4,8 +4,8 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-using Directory  = YAF.Lucene.Net.Store.Directory;
+using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using Directory = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -26,11 +26,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using Term  = YAF.Lucene.Net.Index.Term;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// This stores a monotonically increasing set of <c>Term, TermInfo</c> pairs in a

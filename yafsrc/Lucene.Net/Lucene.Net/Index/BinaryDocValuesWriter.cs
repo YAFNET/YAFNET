@@ -22,17 +22,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer  = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using Counter  = YAF.Lucene.Net.Util.Counter;
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
-    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using FixedBitSet  = YAF.Lucene.Net.Util.FixedBitSet;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using Counter = YAF.Lucene.Net.Util.Counter;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending <see cref="T:byte[]"/> per doc, then flushes when

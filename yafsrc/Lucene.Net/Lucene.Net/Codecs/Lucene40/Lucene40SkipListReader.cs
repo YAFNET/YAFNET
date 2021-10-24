@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
 
     /// <summary>
     /// Implements the skip list reader for the 4.0 posting list format

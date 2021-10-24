@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// Direct wrapping of 8-bits values to a backing array.

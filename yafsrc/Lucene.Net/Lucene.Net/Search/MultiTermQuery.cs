@@ -19,12 +19,12 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
-    using Terms  = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// An abstract <see cref="Query"/> that matches documents

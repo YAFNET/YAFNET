@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Analyzer  = YAF.Lucene.Net.Analysis.Analyzer;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using TokenStream  = YAF.Lucene.Net.Analysis.TokenStream;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using TokenStream = YAF.Lucene.Net.Analysis.TokenStream;
 
     // TODO: how to handle versioning here...?
 

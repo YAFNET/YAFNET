@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Spans
 {
@@ -22,12 +23,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
-    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Removes matches which overlap with another <see cref="SpanQuery"/> or
@@ -206,10 +207,10 @@ namespace YAF.Lucene.Net.Search.Spans
 
             public override ICollection<byte[]> GetPayload()
             {
-                List<byte[]> result = null;
+                JCG.List<byte[]> result = null;
                 if (includeSpans.IsPayloadAvailable)
                 {
-                    result = new List<byte[]>(includeSpans.GetPayload());
+                    result = new JCG.List<byte[]>(includeSpans.GetPayload());
                 }
                 return result;
             }

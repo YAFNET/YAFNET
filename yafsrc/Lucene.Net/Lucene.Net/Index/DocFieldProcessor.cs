@@ -25,11 +25,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using Counter  = YAF.Lucene.Net.Util.Counter;
-    using FieldInfosWriter  = YAF.Lucene.Net.Codecs.FieldInfosWriter;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using Counter = YAF.Lucene.Net.Util.Counter;
+    using FieldInfosWriter = YAF.Lucene.Net.Codecs.FieldInfosWriter;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
 
     /// <summary>
     /// This is a <see cref="DocConsumer"/> that gathers all fields under the

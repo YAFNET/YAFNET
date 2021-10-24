@@ -3,7 +3,8 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using System;
 using System.Collections.Generic;
-using Operator  = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
+using JCG = J2N.Collections.Generic;
+using Operator = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Precedence.Processors
 {
@@ -37,7 +38,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Precedence.Processors
     /// <seealso cref="ConfigurationKeys.DEFAULT_OPERATOR"/>
     public class BooleanModifiersQueryNodeProcessor : QueryNodeProcessor
     {
-        private readonly List<IQueryNode> childrenBuffer = new List<IQueryNode>(); // LUCENENET: marked readonly
+        private readonly IList<IQueryNode> childrenBuffer = new JCG.List<IQueryNode>(); // LUCENENET: marked readonly
 
         private bool usingAnd = false;
 

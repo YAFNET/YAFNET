@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Expert: Calculate query weights and build query scorers.

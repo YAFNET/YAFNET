@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Analysis.TokenAttributes
      */
 
     // javadocs
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// The payload of a Token.

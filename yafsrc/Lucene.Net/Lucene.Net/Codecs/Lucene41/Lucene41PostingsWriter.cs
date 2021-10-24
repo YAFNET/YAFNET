@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
     using DataOutput = Store.DataOutput;
     using FieldInfo = Index.FieldInfo;
     using IndexFileNames = Index.IndexFileNames;
-    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
     using IndexOutput = Store.IndexOutput;
     using IOUtils = Util.IOUtils;
     using PackedInt32s = Util.Packed.PackedInt32s;

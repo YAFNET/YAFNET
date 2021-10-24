@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// A <see cref="FilterAtomicReader"/> contains another <see cref="AtomicReader"/>, which it

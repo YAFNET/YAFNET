@@ -1,7 +1,9 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.Threading;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -22,11 +24,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using WAH8DocIdSet  = YAF.Lucene.Net.Util.WAH8DocIdSet;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using WAH8DocIdSet = YAF.Lucene.Net.Util.WAH8DocIdSet;
 
     /// <summary>
     /// Wraps another <see cref="Search.Filter"/>'s result and caches it.  The purpose is to allow
@@ -170,16 +172,21 @@ namespace YAF.Lucene.Net.Search
         public virtual long GetSizeInBytes()
         {
             // Sync only to pull the current set of values:
-            List<DocIdSet> docIdSets;
-            lock (_cache)
+            IList<DocIdSet> docIdSets;
+            UninterruptableMonitor.Enter(_cache);
+            try
             {
 #if FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
-                docIdSets = new List<DocIdSet>();
+                docIdSets = new JCG.List<DocIdSet>();
                 foreach (var pair in _cache)
                     docIdSets.Add(pair.Value);
 #else
-                docIdSets = new List<DocIdSet>(_cache.Values);
+                docIdSets = new JCG.List<DocIdSet>(_cache.Values);
 #endif
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(_cache);
             }
 
             long total = 0;

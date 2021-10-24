@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using JCG = J2N.Collections.Generic;
-using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
 using J2N.Numerics;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
@@ -27,28 +27,28 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BlockPackedWriter  = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BufferedChecksumIndexInput  = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using Fields  = YAF.Lucene.Net.Index.Fields;
-    using GrowableByteArrayDataOutput  = YAF.Lucene.Net.Util.GrowableByteArrayDataOutput;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using MergeState  = YAF.Lucene.Net.Index.MergeState;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
-    using SegmentReader  = YAF.Lucene.Net.Index.SegmentReader;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BufferedChecksumIndexInput = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using Fields = YAF.Lucene.Net.Index.Fields;
+    using GrowableByteArrayDataOutput = YAF.Lucene.Net.Util.GrowableByteArrayDataOutput;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// <see cref="TermVectorsWriter"/> for <see cref="CompressingTermVectorsFormat"/>.

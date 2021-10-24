@@ -4,9 +4,8 @@ using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search.Spans;
 using YAF.Lucene.Net.Util;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Xml;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
 {
@@ -44,7 +43,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
             string fieldName = DOMUtils.GetAttributeWithInheritanceOrFail(e, "fieldName");
             string value = DOMUtils.GetNonBlankTextOrFail(e);
 
-            List<SpanQuery> clausesList = new List<SpanQuery>();
+            JCG.List<SpanQuery> clausesList = new JCG.List<SpanQuery>();
 
             TokenStream ts = null;
             try

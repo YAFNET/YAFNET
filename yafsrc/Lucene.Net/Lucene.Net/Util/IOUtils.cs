@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// This class emulates the new Java 7 "Try-With-Resources" statement.

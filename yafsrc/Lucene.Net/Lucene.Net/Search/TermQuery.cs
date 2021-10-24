@@ -1,4 +1,5 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -22,19 +23,19 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexReaderContext  = YAF.Lucene.Net.Index.IndexReaderContext;
-    using ReaderUtil  = YAF.Lucene.Net.Index.ReaderUtil;
-    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using SimScorer  = YAF.Lucene.Net.Search.Similarities.Similarity.SimScorer;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState  = YAF.Lucene.Net.Index.TermState;
-    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
+    using ReaderUtil = YAF.Lucene.Net.Index.ReaderUtil;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using SimScorer = YAF.Lucene.Net.Search.Similarities.Similarity.SimScorer;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState = YAF.Lucene.Net.Index.TermState;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// A <see cref="Query"/> that matches documents containing a term.
@@ -233,7 +234,9 @@ namespace YAF.Lucene.Net.Search
                 return false;
             }
             TermQuery other = (TermQuery)o;
-            return (this.Boost == other.Boost) && this.term.Equals(other.term);
+            // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+            return (NumericUtils.SingleToSortableInt32(this.Boost) == NumericUtils.SingleToSortableInt32(other.Boost))
+                && this.term.Equals(other.term);
         }
 
         /// <summary>

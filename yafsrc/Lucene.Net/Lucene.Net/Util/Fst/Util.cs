@@ -2,12 +2,13 @@
 using J2N.Numerics;
 using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
-using BitSet  = YAF.Lucene.Net.Util.OpenBitSet;
+using BitSet = YAF.Lucene.Net.Util.OpenBitSet;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Fst
@@ -441,9 +442,14 @@ namespace YAF.Lucene.Net.Util.Fst
                     // so we need to add some thread safety just in case.
                     // Perhaps it might make sense to wrap SortedSet into a type
                     // that provides thread safety.
-                    lock (syncLock)
+                    UninterruptableMonitor.Enter(syncLock);
+                    try
                     {
                         queue.Remove(queue.Max);
+                    }
+                    finally
+                    {
+                        UninterruptableMonitor.Exit(syncLock);
                     }
                 }
             }
@@ -518,13 +524,18 @@ namespace YAF.Lucene.Net.Util.Fst
                     // so we need to add some thread safety just in case.
                     // Perhaps it might make sense to wrap SortedSet into a type
                     // that provides thread safety.
-                    lock (syncLock)
+                    UninterruptableMonitor.Enter(syncLock);
+                    try
                     {
                         path = queue.Min;
                         if (path != null)
                         {
                             queue.Remove(path);
                         }
+                    }
+                    finally
+                    {
+                        UninterruptableMonitor.Exit(syncLock);
                     }
 
                     if (path == null)

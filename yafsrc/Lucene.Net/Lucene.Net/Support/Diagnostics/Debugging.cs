@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Diagnostics
         /// <see cref="Index.FreqProxTermsWriterPerField"/>, <see cref="Index.StoredFieldsProcessor"/>,
         /// <see cref="Index.TermVectorsConsumer"/>, and <see cref="Index.TermVectorsConsumerPerField"/>.
         /// </summary>
-        public static bool AssertsEnabled = false;//SystemProperties.GetPropertyAsBoolean("assert", false);
+        public static bool AssertsEnabled = SystemProperties.GetPropertyAsBoolean("assert", false);
 
         /// <summary>
         /// Checks for a condition; if the condition is <c>false</c>, throws an <see cref="AssertionException"/>.
@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -102,7 +102,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -128,7 +128,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -155,7 +155,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -214,7 +214,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would
@@ -245,7 +245,7 @@ namespace YAF.Lucene.Net.Diagnostics
         }
 
         /// <summary>
-        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated
+        /// Checks for a condition; if the <paramref name="condition"/> is <c>false</c>, throws an <see cref="AssertionException"/> with the message formated 
         /// from the specified <paramref name="messageFormat"/>.
         /// <para/>
         /// IMPORTANT: The purpose of using this overload is to defer execution of building the string until it the <paramref name="condition"/> is <c>false</c>. Ideally, we would

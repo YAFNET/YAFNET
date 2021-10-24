@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
 
     /// <summary>
     /// A <see cref="TokenStream"/> enumerates the sequence of tokens, either from

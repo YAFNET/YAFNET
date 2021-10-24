@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
 
     internal abstract class DocValuesWriter
     {

@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     // Packs high order byte first, to match
     // IndexOutput.writeInt/Long/Short byte order

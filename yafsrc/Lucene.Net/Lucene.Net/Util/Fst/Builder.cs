@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    //using INPUT_TYPE  = YAF.Lucene.Net.Util.Fst.FST.INPUT_TYPE; // javadoc
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    //using INPUT_TYPE = YAF.Lucene.Net.Util.Fst.FST.INPUT_TYPE; // javadoc
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     // TODO: could we somehow stream an FST to disk while we
     // build it?

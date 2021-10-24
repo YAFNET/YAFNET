@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants  = YAF.Lucene.Net.Util.Constants;
+    using Constants = YAF.Lucene.Net.Util.Constants;
 
     /// <summary>
     /// File-based <see cref="Directory"/> implementation that uses

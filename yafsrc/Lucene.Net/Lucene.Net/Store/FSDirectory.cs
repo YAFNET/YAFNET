@@ -29,8 +29,8 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using Constants  = YAF.Lucene.Net.Util.Constants;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using Constants = YAF.Lucene.Net.Util.Constants;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Base class for <see cref="Directory"/> implementations that store index

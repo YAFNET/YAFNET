@@ -22,12 +22,12 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using Fields  = YAF.Lucene.Net.Index.Fields;
-    using MergeState  = YAF.Lucene.Net.Index.MergeState;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using Fields = YAF.Lucene.Net.Index.Fields;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
 
     // javadocs
-    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using Terms = YAF.Lucene.Net.Index.Terms;
 
     /// <summary>
     /// Abstract API that consumes terms, doc, freq, prox, offset and

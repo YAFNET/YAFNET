@@ -21,13 +21,13 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using Document = Documents.Document;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IIndexableField  = YAF.Lucene.Net.Index.IIndexableField;
-    using MergeState  = YAF.Lucene.Net.Index.MergeState;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IIndexableField = YAF.Lucene.Net.Index.IIndexableField;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
 
     /// <summary>
     /// Codec API for writing stored fields:

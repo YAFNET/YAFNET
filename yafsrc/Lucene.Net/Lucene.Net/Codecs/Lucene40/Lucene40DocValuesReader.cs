@@ -1,5 +1,6 @@
 ﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -24,24 +25,24 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    //using LegacyDocValuesType  = YAF.Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
-    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    //using LegacyDocValuesType = YAF.Lucene.Net.Codecs.Lucene40.LegacyDocValuesType;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
     /// Reads the 4.0 format of norms/docvalues.
@@ -74,7 +75,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override NumericDocValues GetNumeric(FieldInfo field)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (!numericInstances.TryGetValue(field.Number, out NumericDocValues instance))
                 {
@@ -137,6 +139,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     numericInstances[field.Number] = instance;
                 }
                 return instance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 
@@ -431,7 +437,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override BinaryDocValues GetBinary(FieldInfo field)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (!binaryInstances.TryGetValue(field.Number, out BinaryDocValues instance))
                 {
@@ -460,6 +467,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     binaryInstances[field.Number] = instance;
                 }
                 return instance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 
@@ -699,7 +710,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
 
         public override SortedDocValues GetSorted(FieldInfo field)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (!sortedInstances.TryGetValue(field.Number, out SortedDocValues instance))
                 {
@@ -746,6 +758,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
                     sortedInstances[field.Number] = instance;
                 }
                 return instance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 

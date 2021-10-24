@@ -6,6 +6,7 @@ using YAF.Lucene.Net.Search.Spans;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
 {
@@ -30,7 +31,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
     // We won't know until we start generating QueryParser how to handle this scenario, but for now we are
     // mapping this explicitly INSIDE of the namespace declaration to prevent our Lucene.ParseException from being
     // used instead.
-    using ParseException  = YAF.Lucene.Net.QueryParsers.Classic.ParseException;
+    using ParseException = YAF.Lucene.Net.QueryParsers.Classic.ParseException;
 
     /// <summary>
     /// <see cref="QueryParser"/> which permits complex phrase query syntax eg "(john jon
@@ -54,7 +55,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
     /// </summary>
     public class ComplexPhraseQueryParser : QueryParser
     {
-        private List<ComplexPhraseQuery> complexPhrases = null;
+        private IList<ComplexPhraseQuery> complexPhrases = null;
 
         private bool isPass2ResolvingPhrases;
 
@@ -110,7 +111,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
 
             // First pass - parse the top-level query recording any PhraseQuerys
             // which will need to be resolved
-            complexPhrases = new List<ComplexPhraseQuery>();
+            complexPhrases = new JCG.List<ComplexPhraseQuery>();
             Query q = base.Parse(query);
 
             // Perform second pass, using this QueryParser to parse any nested
@@ -287,7 +288,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
 
                     if (qc is BooleanQuery booleanQuery)
                     {
-                        List<SpanQuery> sc = new List<SpanQuery>();
+                        IList<SpanQuery> sc = new JCG.List<SpanQuery>();
                         AddComplexPhraseClause(sc, booleanQuery);
                         if (sc.Count > 0)
                         {
@@ -326,7 +327,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                 // Complex case - we have mixed positives and negatives in the
                 // sequence.
                 // Need to return a SpanNotQuery
-                List<SpanQuery> positiveClauses = new List<SpanQuery>();
+                JCG.List<SpanQuery> positiveClauses = new JCG.List<SpanQuery>();
                 for (int j = 0; j < allSpanClauses.Length; j++)
                 {
                     if (!bclauses[j].Occur.Equals(Occur.MUST_NOT))
@@ -359,8 +360,8 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
 
             private void AddComplexPhraseClause(IList<SpanQuery> spanClauses, BooleanQuery qc)
             {
-                List<SpanQuery> ors = new List<SpanQuery>();
-                List<SpanQuery> nots = new List<SpanQuery>();
+                JCG.List<SpanQuery> ors = new JCG.List<SpanQuery>();
+                JCG.List<SpanQuery> nots = new JCG.List<SpanQuery>();
                 BooleanClause[] bclauses = qc.GetClauses();
 
                 // For all clauses e.g. one* two~
@@ -369,7 +370,7 @@ namespace YAF.Lucene.Net.QueryParsers.ComplexPhrase
                     Query childQuery = bclauses[i].Query;
 
                     // select the list to which we will add these options
-                    List<SpanQuery> chosenList = ors;
+                    IList<SpanQuery> chosenList = ors;
                     if (bclauses[i].Occur == Occur.MUST_NOT)
                     {
                         chosenList = nots;

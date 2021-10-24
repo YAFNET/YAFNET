@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Search.Spans;
+using YAF.Lucene.Net.Support.Threading;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.QueryParsers.Surround.Query
@@ -69,12 +70,17 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
 
         protected virtual void CheckMax()
         {
-            lock (_lock) 
+            UninterruptableMonitor.Enter(_lock);
+            try
             {
                 if (AtMax)
                     throw new TooManyBasicQueries(MaxBasicQueries);
 
                 queriesMade++;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(_lock);
             }
         }
 

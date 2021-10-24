@@ -17,8 +17,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Attribute  = YAF.Lucene.Net.Util.Attribute;
-    using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
+    using Attribute = YAF.Lucene.Net.Util.Attribute;
+    using IAttribute = YAF.Lucene.Net.Util.IAttribute;
 
     /// <summary>
     /// Implementation class for <see cref="IBoostAttribute"/>.

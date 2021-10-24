@@ -1,5 +1,6 @@
 ﻿using J2N.Collections.Generic.Extensions;
 using J2N.Numerics;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,12 +25,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
-    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches spans which are near one another.  One can specify <i>slop</i>, the
@@ -61,7 +62,7 @@ namespace YAF.Lucene.Net.Search.Spans
         public SpanNearQuery(SpanQuery[] clauses, int slop, bool inOrder, bool collectPayloads)
         {
             // copy clauses array into an ArrayList
-            this.m_clauses = new List<SpanQuery>(clauses.Length);
+            this.m_clauses = new JCG.List<SpanQuery>(clauses.Length);
             for (int i = 0; i < clauses.Length; i++)
             {
                 SpanQuery clause = clauses[i];
@@ -209,7 +210,8 @@ namespace YAF.Lucene.Net.Search.Spans
                 return false;
             }
 
-            return Boost == spanNearQuery.Boost;
+            // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+            return NumericUtils.SingleToSortableInt32(Boost) == NumericUtils.SingleToSortableInt32(spanNearQuery.Boost);
         }
 
         public override int GetHashCode()

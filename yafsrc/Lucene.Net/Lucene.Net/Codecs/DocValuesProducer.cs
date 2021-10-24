@@ -19,12 +19,12 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
-    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
 
     /// <summary>
     /// Abstract API that produces numeric, binary and

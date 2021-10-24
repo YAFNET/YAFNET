@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using PerFieldPostingsFormat  = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
+    using PerFieldPostingsFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
 
     /// <summary>
     /// Implements the Lucene 4.0 index format, with configurable per-field postings formats.

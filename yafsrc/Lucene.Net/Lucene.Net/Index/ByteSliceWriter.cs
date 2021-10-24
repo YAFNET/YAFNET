@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// Class to write byte streams into slices of shared

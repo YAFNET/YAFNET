@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -27,18 +28,18 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using DefaultSimilarity  = YAF.Lucene.Net.Search.Similarities.DefaultSimilarity;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using DefaultSimilarity = YAF.Lucene.Net.Search.Similarities.DefaultSimilarity;
     using Document = Documents.Document;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using IndexReaderContext  = YAF.Lucene.Net.Index.IndexReaderContext;
-    using MultiFields  = YAF.Lucene.Net.Index.MultiFields;
-    using ReaderUtil  = YAF.Lucene.Net.Index.ReaderUtil;
-    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
-    using Terms  = YAF.Lucene.Net.Index.Terms;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
+    using MultiFields = YAF.Lucene.Net.Index.MultiFields;
+    using ReaderUtil = YAF.Lucene.Net.Index.ReaderUtil;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using Terms = YAF.Lucene.Net.Index.Terms;
 
     /// <summary>
     /// Implements search over a single <see cref="Index.IndexReader"/>.
@@ -818,7 +819,8 @@ namespace YAF.Lucene.Net.Search
                     }
 
                     // Carry over maxScore from sub:
-                    if (doMaxScore && docs.MaxScore > hq.maxScore)
+                    // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                    if (doMaxScore && NumericUtils.SingleToSortableInt32(docs.MaxScore) > NumericUtils.SingleToSortableInt32(hq.maxScore))
                     {
                         hq.maxScore = docs.MaxScore;
                     }
@@ -880,8 +882,7 @@ namespace YAF.Lucene.Net.Search
                     }
                     catch (Exception e) when (e.IsInterruptedException())
                     {
-                        // LUCENENET: Throwing as same type, no need to wrap here
-                        throw; // LUCENENET: CA2200: Rethrow to preserve stack details (https://docs.microsoft.com/en-us/visualstudio/code-quality/ca2200-rethrow-to-preserve-stack-details)
+                        throw new Util.ThreadInterruptedException(e);
                     }
                     catch (Exception e)
                     {

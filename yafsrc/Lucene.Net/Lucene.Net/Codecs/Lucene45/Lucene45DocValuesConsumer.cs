@@ -24,18 +24,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * limitations under the License.
      */
 
-    using BlockPackedWriter  = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
-    using MonotonicBlockPackedWriter  = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedWriter;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
-    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using MonotonicBlockPackedWriter = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedWriter;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Writer for <see cref="Lucene45DocValuesFormat"/> </summary>

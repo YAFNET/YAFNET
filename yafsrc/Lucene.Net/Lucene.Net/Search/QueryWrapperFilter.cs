@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Constrains search results to only match those which also match a provided

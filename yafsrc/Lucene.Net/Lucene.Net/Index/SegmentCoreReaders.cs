@@ -1,8 +1,10 @@
 ﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using JCG = J2N.Collections.Generic;
 
@@ -25,17 +27,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using DocValuesProducer  = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using FieldsProducer  = YAF.Lucene.Net.Codecs.FieldsProducer;
-    using ICoreDisposedListener  = YAF.Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using PostingsFormat  = YAF.Lucene.Net.Codecs.PostingsFormat;
-    using StoredFieldsReader  = YAF.Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader  = YAF.Lucene.Net.Codecs.TermVectorsReader;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using FieldsProducer = YAF.Lucene.Net.Codecs.FieldsProducer;
+    using ICoreDisposedListener = YAF.Lucene.Net.Index.SegmentReader.ICoreDisposedListener;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
+    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// Holds core readers that are shared (unchanged) when
@@ -195,7 +197,9 @@ namespace YAF.Lucene.Net.Index
 
         private void NotifyCoreClosedListeners(Exception th)
         {
-            lock (coreClosedListeners)
+            object syncRoot = ((ICollection)coreClosedListeners).SyncRoot;
+            UninterruptableMonitor.Enter(syncRoot);
+            try
             {
                 foreach (ICoreDisposedListener listener in coreClosedListeners)
                 {
@@ -218,6 +222,10 @@ namespace YAF.Lucene.Net.Index
                     }
                 }
                 IOUtils.ReThrowUnchecked(th);
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(syncRoot);
             }
         }
 

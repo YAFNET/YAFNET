@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using WeightedFragInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo;
+using WeightedFragInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldFragList.WeightedFragInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

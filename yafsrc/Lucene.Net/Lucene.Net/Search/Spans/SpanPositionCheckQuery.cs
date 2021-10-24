@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Spans
 {
@@ -20,11 +21,11 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Base class for filtering a <see cref="SpanQuery"/> based on the position of a match.
@@ -176,10 +177,10 @@ namespace YAF.Lucene.Net.Search.Spans
 
             public override ICollection<byte[]> GetPayload()
             {
-                List<byte[]> result = null;
+                JCG.List<byte[]> result = null;
                 if (spans.IsPayloadAvailable)
                 {
-                    result = new List<byte[]>(spans.GetPayload());
+                    result = new JCG.List<byte[]>(spans.GetPayload());
                 }
                 return result; //TODO: any way to avoid the new construction?
             }

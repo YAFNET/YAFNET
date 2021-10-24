@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// A DocIdSet in Elias-Fano encoding.

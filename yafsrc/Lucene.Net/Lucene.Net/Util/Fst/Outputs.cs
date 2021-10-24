@@ -20,8 +20,8 @@ namespace YAF.Lucene.Net.Util.Fst
      * limitations under the License.
      */
 
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// Represents the outputs for an FST, providing the basic

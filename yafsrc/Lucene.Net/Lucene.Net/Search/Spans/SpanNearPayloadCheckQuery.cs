@@ -1,5 +1,6 @@
 ﻿using J2N.Numerics;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Util;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -23,7 +24,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Only return those matches that have a specific payload at
@@ -130,9 +131,10 @@ namespace YAF.Lucene.Net.Search.Spans
             }
 
             // LUCENENET NOTE: Need to use the structural equality comparer to compare equality of all contained values
-            return payloadEqualityComparer.Equals(this.m_payloadToMatch, other.m_payloadToMatch) 
-                && this.m_match.Equals(other.m_match) 
-                && this.Boost == other.Boost;
+            return payloadEqualityComparer.Equals(this.m_payloadToMatch, other.m_payloadToMatch)
+                && this.m_match.Equals(other.m_match)
+                // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                && NumericUtils.SingleToSortableInt32(this.Boost) == NumericUtils.SingleToSortableInt32(other.Boost);
         }
 
         public override int GetHashCode()

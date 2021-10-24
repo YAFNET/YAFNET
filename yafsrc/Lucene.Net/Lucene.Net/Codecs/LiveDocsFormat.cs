@@ -20,11 +20,11 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IMutableBits  = YAF.Lucene.Net.Util.IMutableBits;
-    using SegmentCommitInfo  = YAF.Lucene.Net.Index.SegmentCommitInfo;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IMutableBits = YAF.Lucene.Net.Util.IMutableBits;
+    using SegmentCommitInfo = YAF.Lucene.Net.Index.SegmentCommitInfo;
 
     /// <summary>
     /// Format for live/deleted documents.

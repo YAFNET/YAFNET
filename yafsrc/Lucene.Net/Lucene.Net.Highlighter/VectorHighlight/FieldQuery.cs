@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JCG = J2N.Collections.Generic;
-using TermInfo  = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
+using TermInfo = YAF.Lucene.Net.Search.VectorHighlight.FieldTermStack.TermInfo;
 
 namespace YAF.Lucene.Net.Search.VectorHighlight
 {

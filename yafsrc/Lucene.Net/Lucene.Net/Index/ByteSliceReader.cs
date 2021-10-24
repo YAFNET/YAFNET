@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// <see cref="Store.IndexInput"/> that knows how to read the byte slices written

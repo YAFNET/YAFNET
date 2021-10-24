@@ -1,5 +1,6 @@
 ﻿using J2N.Collections.Generic.Extensions;
 using J2N.Numerics;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,12 +25,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
-    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches the union of its clauses. </summary>
@@ -163,7 +164,8 @@ namespace YAF.Lucene.Net.Search.Spans
                 return false;
             }
 
-            return Boost == that.Boost;
+            // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+            return NumericUtils.SingleToSortableInt32(Boost) == NumericUtils.SingleToSortableInt32(that.Boost);
         }
 
         public override int GetHashCode()
@@ -307,11 +309,11 @@ namespace YAF.Lucene.Net.Search.Spans
 
             public override ICollection<byte[]> GetPayload()
             {
-                List<byte[]> result = null;
+                JCG.List<byte[]> result = null;
                 Spans theTop = Top;
                 if (theTop != null && theTop.IsPayloadAvailable)
                 {
-                    result = new List<byte[]>(theTop.GetPayload());
+                    result = new JCG.List<byte[]>(theTop.GetPayload());
                 }
                 return result;
             }

@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
 
     /// <summary>
     /// Extension of <see cref="PostingsConsumer"/> to support pluggable term dictionaries.

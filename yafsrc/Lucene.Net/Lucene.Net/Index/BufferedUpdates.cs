@@ -1,5 +1,6 @@
-using J2N.Collections.Generic;
+﻿using J2N.Collections.Generic;
 using J2N.Threading.Atomic;
+using JCG = J2N.Collections.Generic;
 using SCG = System.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
@@ -21,10 +22,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query  = YAF.Lucene.Net.Search.Query;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
 
 
     /// <summary>
@@ -123,7 +124,7 @@ namespace YAF.Lucene.Net.Index
         internal readonly AtomicInt32 numBinaryUpdates = new AtomicInt32();
         internal readonly SCG.IDictionary<Term, int?> terms = new Dictionary<Term, int?>();
         internal readonly SCG.IDictionary<Query, int?> queries = new Dictionary<Query, int?>();
-        internal readonly SCG.IList<int?> docIDs = new SCG.List<int?>();
+        internal readonly SCG.IList<int?> docIDs = new JCG.List<int?>();
 
 
         // Map<dvField,Map<updateTerm,NumericUpdate>>

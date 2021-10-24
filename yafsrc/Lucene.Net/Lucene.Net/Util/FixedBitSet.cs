@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet  = YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// BitSet of fixed length (numBits), backed by accessible (<see cref="GetBits()"/>)

@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
-    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     // LUCENENET specific - converted constants from DocsEnum
     // into a flags enum.

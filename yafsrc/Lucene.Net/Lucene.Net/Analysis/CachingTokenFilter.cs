@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis
 {
@@ -19,7 +20,7 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
 
     /// <summary>
     /// This class can be used if the token attributes of a <see cref="TokenStream"/>
@@ -51,7 +52,7 @@ namespace YAF.Lucene.Net.Analysis
             if (cache == null)
             {
                 // fill cache lazily
-                cache = new List<AttributeSource.State>();
+                cache = new JCG.List<AttributeSource.State>();
                 FillCache();
                 iterator = cache.GetEnumerator();
             }

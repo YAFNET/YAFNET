@@ -3,6 +3,7 @@ using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -23,7 +24,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
 
     /// <summary>
     /// A <see cref="Scorer"/> for OR like queries, counterpart of <see cref="ConjunctionScorer"/>.
@@ -130,7 +131,7 @@ namespace YAF.Lucene.Net.Search
 
         public override sealed ICollection<ChildScorer> GetChildren()
         {
-            List<ChildScorer> children = new List<ChildScorer>(numScorers);
+            IList<ChildScorer> children = new JCG.List<ChildScorer>(numScorers);
             for (int i = 0; i < numScorers; i++)
             {
                 children.Add(new ChildScorer(subScorers[i], "SHOULD"));

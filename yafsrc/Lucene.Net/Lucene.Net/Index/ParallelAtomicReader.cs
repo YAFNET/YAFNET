@@ -1,5 +1,6 @@
 ﻿using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +27,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// An <see cref="AtomicReader"/> which reads multiple, parallel indexes.  Each index
@@ -284,7 +285,8 @@ namespace YAF.Lucene.Net.Index
 
         protected internal override void DoClose()
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 Exception ioe = null; // LUCENENET: No need to cast to IOExcpetion
                 foreach (AtomicReader reader in completeReaderSet)
@@ -313,6 +315,10 @@ namespace YAF.Lucene.Net.Index
                 {
                     ExceptionDispatchInfo.Capture(ioe).Throw(); // LUCENENET: Rethrow to preserve stack details from the original throw
                 }
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 

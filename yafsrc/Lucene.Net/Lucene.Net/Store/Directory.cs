@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// A <see cref="Directory"/> is a flat list of files.  Files may be written once, when they

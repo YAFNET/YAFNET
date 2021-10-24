@@ -22,10 +22,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using InfoStream  = YAF.Lucene.Net.Util.InfoStream;
-    using MonotonicAppendingInt64Buffer  = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using InfoStream = YAF.Lucene.Net.Util.InfoStream;
+    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
 
     /// <summary>
     /// Holds common state used during segment merging.

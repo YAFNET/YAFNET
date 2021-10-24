@@ -20,18 +20,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * limitations under the License.
      */
 
-    using CompressingStoredFieldsFormat  = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsFormat;
-    using CompressionMode  = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using Lucene40DocValuesFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40DocValuesFormat;
-    using Lucene40FieldInfosFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40FieldInfosFormat;
-    using Lucene40LiveDocsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
-    using Lucene40NormsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40NormsFormat;
-    using Lucene40SegmentInfoFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
-    using Lucene40TermVectorsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40TermVectorsFormat;
-    using PerFieldPostingsFormat  = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using CompressingStoredFieldsFormat = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsFormat;
+    using CompressionMode = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using Lucene40DocValuesFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40DocValuesFormat;
+    using Lucene40FieldInfosFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40FieldInfosFormat;
+    using Lucene40LiveDocsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40LiveDocsFormat;
+    using Lucene40NormsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40NormsFormat;
+    using Lucene40SegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40SegmentInfoFormat;
+    using Lucene40TermVectorsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40TermVectorsFormat;
+    using PerFieldPostingsFormat = YAF.Lucene.Net.Codecs.PerField.PerFieldPostingsFormat;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Implements the Lucene 4.1 index format, with configurable per-field postings formats.

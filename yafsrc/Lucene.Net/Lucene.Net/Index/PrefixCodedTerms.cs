@@ -24,11 +24,11 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using RAMFile  = YAF.Lucene.Net.Store.RAMFile;
-    using RAMInputStream  = YAF.Lucene.Net.Store.RAMInputStream;
-    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using RAMFile = YAF.Lucene.Net.Store.RAMFile;
+    using RAMInputStream = YAF.Lucene.Net.Store.RAMInputStream;
+    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
 
     /// <summary>
     /// Prefix codes term instances (prefixes are shared)

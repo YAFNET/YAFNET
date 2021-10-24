@@ -4,10 +4,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using IBits  = YAF.Lucene.Net.Util.IBits;
-using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
-using Directory  = YAF.Lucene.Net.Store.Directory;
+using IBits = YAF.Lucene.Net.Util.IBits;
+using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+using Directory = YAF.Lucene.Net.Store.Directory;
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
@@ -29,20 +29,20 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using Fields  = YAF.Lucene.Net.Index.Fields;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
-    using Terms  = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using Fields = YAF.Lucene.Net.Index.Fields;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     [Obsolete("Only for reading existing 3.x indexes")]
     internal class Lucene3xTermVectorsReader : TermVectorsReader

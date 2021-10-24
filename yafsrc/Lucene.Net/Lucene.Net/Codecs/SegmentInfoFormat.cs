@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Expert: Controls the format of the

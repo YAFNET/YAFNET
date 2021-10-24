@@ -2,6 +2,7 @@
 using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,10 +26,10 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
-    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Class for accessing a compound stream.
@@ -285,7 +286,8 @@ namespace YAF.Lucene.Net.Store
 
         protected override void Dispose(bool disposing)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (disposing)
                 {
@@ -306,11 +308,16 @@ namespace YAF.Lucene.Net.Store
                     }
                 }
             }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
+            }
         }
 
         public override IndexInput OpenInput(string name, IOContext context)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 EnsureOpen();
                 if (Debugging.AssertsEnabled) Debugging.Assert(!openForWrite);
@@ -322,6 +329,10 @@ namespace YAF.Lucene.Net.Store
                         string.Format(J2N.Text.StringFormatter.InvariantCulture, "{0}", entries.Keys) + ")");
                 }
                 return handle.OpenSlice(name, entry.Offset, entry.Length);
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 

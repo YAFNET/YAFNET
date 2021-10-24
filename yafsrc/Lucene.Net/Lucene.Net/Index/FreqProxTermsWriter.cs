@@ -1,6 +1,7 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -21,10 +22,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using CollectionUtil  = YAF.Lucene.Net.Util.CollectionUtil;
-    using FieldsConsumer  = YAF.Lucene.Net.Codecs.FieldsConsumer;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using CollectionUtil = YAF.Lucene.Net.Util.CollectionUtil;
+    using FieldsConsumer = YAF.Lucene.Net.Codecs.FieldsConsumer;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     internal sealed class FreqProxTermsWriter : TermsHashConsumer
     {
@@ -42,7 +43,7 @@ namespace YAF.Lucene.Net.Index
         {
             // Gather all FieldData's that have postings, across all
             // ThreadStates
-            IList<FreqProxTermsWriterPerField> allFields = new List<FreqProxTermsWriterPerField>();
+            IList<FreqProxTermsWriterPerField> allFields = new JCG.List<FreqProxTermsWriterPerField>();
 
             foreach (TermsHashConsumerPerField f in fieldsToFlush.Values)
             {

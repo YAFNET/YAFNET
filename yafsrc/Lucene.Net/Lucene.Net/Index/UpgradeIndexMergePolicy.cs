@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -20,7 +21,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Constants  = YAF.Lucene.Net.Util.Constants;
+    using Constants = YAF.Lucene.Net.Util.Constants;
 
     /// <summary>
     /// This <see cref="MergePolicy"/> is used for upgrading all existing segments of
@@ -131,7 +132,7 @@ namespace YAF.Lucene.Net.Index
                 {
                     Message("findForcedMerges: " + m_base.GetType().Name + " does not want to merge all old segments, merge remaining ones into new segment: " + oldSegments);
                 }
-                IList<SegmentCommitInfo> newInfos = new List<SegmentCommitInfo>();
+                IList<SegmentCommitInfo> newInfos = new JCG.List<SegmentCommitInfo>();
                 foreach (SegmentCommitInfo si in segmentInfos.Segments)
                 {
                     if (oldSegments.ContainsKey(si))

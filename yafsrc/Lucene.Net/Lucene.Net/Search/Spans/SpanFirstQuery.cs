@@ -1,5 +1,6 @@
 ﻿using J2N.Numerics;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Util;
 using System.Text;
 
 namespace YAF.Lucene.Net.Search.Spans
@@ -21,7 +22,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ToStringUtils  = YAF.Lucene.Net.Util.ToStringUtils;
+    using ToStringUtils = YAF.Lucene.Net.Util.ToStringUtils;
 
     /// <summary>
     /// Matches spans near the beginning of a field.
@@ -88,7 +89,10 @@ namespace YAF.Lucene.Net.Search.Spans
             }
 
             SpanFirstQuery other = (SpanFirstQuery)o;
-            return this.m_end == other.m_end && this.m_match.Equals(other.m_match) && this.Boost == other.Boost;
+            // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+            return this.m_end == other.m_end
+                && this.m_match.Equals(other.m_match)
+                && NumericUtils.SingleToSortableInt32(this.Boost) == NumericUtils.SingleToSortableInt32(other.Boost);
         }
 
         public override int GetHashCode()

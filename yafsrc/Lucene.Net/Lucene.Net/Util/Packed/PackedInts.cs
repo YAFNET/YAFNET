@@ -25,11 +25,11 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
 
     /// <summary>
     /// Simplistic compression for array of unsigned long values.
@@ -343,7 +343,8 @@ namespace YAF.Lucene.Net.Util.Packed
                     {
                         float overhead = Format.PACKED_SINGLE_BLOCK.OverheadPerValue(bpv);
                         float acceptableOverhead = acceptableOverheadPerValue + bitsPerValue - bpv;
-                        if (overhead <= acceptableOverhead)
+                        // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                        if (NumericUtils.SingleToSortableInt32(overhead) <= NumericUtils.SingleToSortableInt32(acceptableOverhead))
                         {
                             actualBitsPerValue = bpv;
                             format = Format.PACKED_SINGLE_BLOCK;

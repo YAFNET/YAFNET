@@ -23,16 +23,16 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using NumericUtils  = YAF.Lucene.Net.Util.NumericUtils;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using Terms  = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using NumericUtils = YAF.Lucene.Net.Util.NumericUtils;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Expert: Maintains caches of term values.
@@ -1127,7 +1127,8 @@ namespace YAF.Lucene.Net.Search
             {
                 if (obj is AcceptableOverheadRatio other)
                 {
-                    return Value.Equals(other.Value);
+                    // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                    return NumericUtils.SingleToSortableInt32(Value) == NumericUtils.SingleToSortableInt32(other.Value);
                 }
                 return false;
             }

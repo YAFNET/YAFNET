@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSetIterator  = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// <see cref="OpenBitSet"/> with added methods to bulk-update the bits

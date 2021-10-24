@@ -24,22 +24,22 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using AtomicReader  = YAF.Lucene.Net.Index.AtomicReader;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using Fields  = YAF.Lucene.Net.Index.Fields;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using MergeState  = YAF.Lucene.Net.Index.MergeState;
-    using SegmentReader  = YAF.Lucene.Net.Index.SegmentReader;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using Fields = YAF.Lucene.Net.Index.Fields;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MergeState = YAF.Lucene.Net.Index.MergeState;
+    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     // TODO: make a new 4.0 TV format that encodes better
     //   - use startOffset (not endOffset) as base for delta on

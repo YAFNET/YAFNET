@@ -1,7 +1,7 @@
-using YAF.Lucene.Net.Util;
-using System;
+﻿using YAF.Lucene.Net.Util;
 using System.Collections;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -22,18 +22,18 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using NumericDocValuesUpdate  = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query  = YAF.Lucene.Net.Search.Query;
-    using QueryAndLimit  = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
+    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using QueryAndLimit = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
 
     internal class CoalescedUpdates
     {
         internal readonly IDictionary<Query, int> queries = new Dictionary<Query, int>();
-        internal readonly IList<IEnumerable<Term>> iterables = new List<IEnumerable<Term>>();
-        internal readonly IList<NumericDocValuesUpdate> numericDVUpdates = new List<NumericDocValuesUpdate>();
-        internal readonly IList<BinaryDocValuesUpdate> binaryDVUpdates = new List<BinaryDocValuesUpdate>();
+        internal readonly IList<IEnumerable<Term>> iterables = new JCG.List<IEnumerable<Term>>();
+        internal readonly IList<NumericDocValuesUpdate> numericDVUpdates = new JCG.List<NumericDocValuesUpdate>();
+        internal readonly IList<BinaryDocValuesUpdate> binaryDVUpdates = new JCG.List<BinaryDocValuesUpdate>();
 
         public override string ToString()
         {

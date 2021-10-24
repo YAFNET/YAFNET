@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.Analysis;
 using YAF.Lucene.Net.QueryParsers.Classic;
 using YAF.Lucene.Net.Search;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System.Xml;
 
@@ -65,9 +66,14 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
                 if (unSafeParser != null)
                 {
                     //synchronize on unsafe parser
-                    lock (unSafeParser)
+                    UninterruptableMonitor.Enter(unSafeParser);
+                    try
                     {
                         q = unSafeParser.Parse(text);
+                    }
+                    finally
+                    {
+                        UninterruptableMonitor.Exit(unSafeParser);
                     }
                 }
                 else

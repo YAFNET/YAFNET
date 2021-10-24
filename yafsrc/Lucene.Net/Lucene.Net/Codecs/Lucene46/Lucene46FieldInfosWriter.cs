@@ -22,15 +22,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
      * limitations under the License.
      */
 
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Lucene 4.6 FieldInfos writer.

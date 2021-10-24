@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using TokenizerFactory  = YAF.Lucene.Net.Analysis.Util.TokenizerFactory;
+using TokenizerFactory = YAF.Lucene.Net.Analysis.Util.TokenizerFactory;
 
 namespace YAF.Lucene.Net.Analysis.Standard
 {

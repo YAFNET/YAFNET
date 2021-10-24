@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// Space optimized random access capable array of values with a fixed number of

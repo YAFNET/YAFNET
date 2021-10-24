@@ -2,9 +2,9 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using Term  = YAF.Lucene.Net.Index.Term;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// @lucene.experimental

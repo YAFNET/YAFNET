@@ -1,6 +1,7 @@
 ﻿// Lucene version compatibility level 4.8.1
 using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// </summary>
         public void Reload()
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 IDictionary<string, Type> services = new JCG.LinkedDictionary<string, Type>(this.services);
                 SPIClassIterator<S> loader = SPIClassIterator<S>.Get();
@@ -97,6 +99,10 @@ namespace YAF.Lucene.Net.Analysis.Util
                     }
                 }
                 this.services = services.AsReadOnly();
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 

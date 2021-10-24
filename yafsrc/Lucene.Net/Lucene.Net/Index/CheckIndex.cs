@@ -1,17 +1,16 @@
 ﻿using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Store;
-using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.IO;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Threading;
 using Console = YAF.Lucene.Net.Util.SystemConsole;
 using Integer = J2N.Numerics.Int32;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -32,7 +31,6 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits = YAF.Lucene.Net.Util.IBits;
     using BlockTreeTermsReader = YAF.Lucene.Net.Codecs.BlockTreeTermsReader;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using Codec = YAF.Lucene.Net.Codecs.Codec;
@@ -41,9 +39,10 @@ namespace YAF.Lucene.Net.Index
     using Document = Documents.Document;
     using DocValuesStatus = YAF.Lucene.Net.Index.CheckIndex.Status.DocValuesStatus;
     using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
+    using IBits = YAF.Lucene.Net.Util.IBits;
     using IndexInput = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext = YAF.Lucene.Net.Store.IOContext;
     using Int64BitSet = YAF.Lucene.Net.Util.Int64BitSet;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
     using Lucene3xSegmentInfoFormat = YAF.Lucene.Net.Codecs.Lucene3x.Lucene3xSegmentInfoFormat;
     using PostingsFormat = YAF.Lucene.Net.Codecs.PostingsFormat;
     using StringHelper = YAF.Lucene.Net.Util.StringHelper;
@@ -77,8 +76,8 @@ namespace YAF.Lucene.Net.Index
             internal Status()
             {
                 // Set property defaults
-                SegmentsChecked = new List<string>();
-                SegmentInfos = new List<SegmentInfoStatus>();
+                SegmentsChecked = new JCG.List<string>();
+                SegmentInfos = new JCG.List<SegmentInfoStatus>();
             }
 
             /// <summary>
@@ -2412,7 +2411,7 @@ namespace YAF.Lucene.Net.Index
             bool doFix = false;
             bool doCrossCheckTermVectors = false;
             bool verbose = false;
-            IList<string> onlySegments = new List<string>();
+            IList<string> onlySegments = new JCG.List<string>();
             string indexPath = null;
             string dirImpl = null;
             int i = 0;

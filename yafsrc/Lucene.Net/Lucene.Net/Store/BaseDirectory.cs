@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Store
     {
         private volatile bool isOpen = true;
 
-        // LUCENENET specific - since we can't make a CLS-compliant
+        // LUCENENET specific - since we can't make a CLS-compliant 
         // protected volatile field, we are exposing it through a protected
         // property.
         protected internal virtual bool IsOpen

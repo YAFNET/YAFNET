@@ -9,7 +9,7 @@ using YAF.Lucene.Net.Util;
 using YAF.Lucene.Net.Util.Packed;
 using System;
 using System.Runtime.CompilerServices;
-using Document  = YAF.Lucene.Net.Documents.Document;
+using Document = YAF.Lucene.Net.Documents.Document;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {

@@ -3,7 +3,7 @@ using J2N.Text;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using WritableArrayAttribute  = YAF.Lucene.Net.Support.WritableArrayAttribute;
+using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
 
 namespace YAF.Lucene.Net.Analysis.Util
 {

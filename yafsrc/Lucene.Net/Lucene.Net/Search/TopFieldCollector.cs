@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using Entry  = YAF.Lucene.Net.Search.FieldValueHitQueue.Entry;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using Entry = YAF.Lucene.Net.Search.FieldValueHitQueue.Entry;
 
     /// <summary>
     /// A <see cref="ICollector"/> that sorts by <see cref="SortField"/> using
@@ -299,7 +299,8 @@ namespace YAF.Lucene.Net.Search
             public override void Collect(int doc)
             {
                 float score = scorer.GetScore();
-                if (score > maxScore)
+                // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                if (NumericUtils.SingleToSortableInt32(score) > NumericUtils.SingleToSortableInt32(maxScore))
                 {
                     maxScore = score;
                 }
@@ -355,7 +356,8 @@ namespace YAF.Lucene.Net.Search
             public override void Collect(int doc)
             {
                 float score = scorer.GetScore();
-                if (score > maxScore)
+                // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                if (NumericUtils.SingleToSortableInt32(score) > NumericUtils.SingleToSortableInt32(maxScore))
                 {
                     maxScore = score;
                 }
@@ -600,7 +602,8 @@ namespace YAF.Lucene.Net.Search
             public override void Collect(int doc)
             {
                 float score = scorer.GetScore();
-                if (score > maxScore)
+                // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                if (NumericUtils.SingleToSortableInt32(score) > NumericUtils.SingleToSortableInt32(maxScore))
                 {
                     maxScore = score;
                 }
@@ -685,7 +688,8 @@ namespace YAF.Lucene.Net.Search
             public override void Collect(int doc)
             {
                 float score = scorer.GetScore();
-                if (score > maxScore)
+                // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                if (NumericUtils.SingleToSortableInt32(score) > NumericUtils.SingleToSortableInt32(maxScore))
                 {
                     maxScore = score;
                 }
@@ -990,7 +994,8 @@ namespace YAF.Lucene.Net.Search
                 if (trackMaxScore)
                 {
                     score = scorer.GetScore();
-                    if (score > maxScore)
+                    // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                    if (NumericUtils.SingleToSortableInt32(score) > NumericUtils.SingleToSortableInt32(maxScore))
                     {
                         maxScore = score;
                     }

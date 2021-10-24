@@ -11,7 +11,7 @@ using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Operator  = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
+using Operator = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard
 {

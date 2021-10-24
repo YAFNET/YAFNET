@@ -1,9 +1,10 @@
-// Lucene version compatibility level 4.8.1
+﻿// Lucene version compatibility level 4.8.1
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Analysis.Util;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Analysis.Miscellaneous
 {
@@ -94,7 +95,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             k = GetSet(args, OK_PREFIX);
             if (k != null)
             {
-                okPrefix = new List<char[]>();
+                okPrefix = new JCG.List<char[]>();
                 foreach (string item in k)
                 {
                     okPrefix.Add(item.ToCharArray());

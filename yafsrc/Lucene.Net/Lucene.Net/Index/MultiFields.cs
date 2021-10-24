@@ -1,4 +1,4 @@
-using J2N.Collections.Generic.Extensions;
+﻿using J2N.Collections.Generic.Extensions;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System.Collections.Concurrent;
@@ -24,8 +24,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
 
     /// <summary>
     /// Exposes flex API, merged from flex API of sub-segments.
@@ -73,8 +73,8 @@ namespace YAF.Lucene.Net.Index
                     return leaves[0].AtomicReader.Fields;
 
                 default:
-                    IList<Fields> fields = new List<Fields>();
-                    IList<ReaderSlice> slices = new List<ReaderSlice>();
+                    IList<Fields> fields = new JCG.List<Fields>();
+                    IList<ReaderSlice> slices = new JCG.List<ReaderSlice>();
                     foreach (AtomicReaderContext ctx in leaves)
                     {
                         AtomicReader r = ctx.AtomicReader;
@@ -261,8 +261,8 @@ namespace YAF.Lucene.Net.Index
 
             // Lazy init: first time this field is requested, we
             // create & add to terms:
-            IList<Terms> subs2 = new List<Terms>();
-            IList<ReaderSlice> slices2 = new List<ReaderSlice>();
+            IList<Terms> subs2 = new JCG.List<Terms>();
+            IList<ReaderSlice> slices2 = new JCG.List<ReaderSlice>();
 
             // Gather all sub-readers that share this field
             for (int i = 0; i < subs.Length; i++)

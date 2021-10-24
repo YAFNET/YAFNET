@@ -1,6 +1,7 @@
 ﻿using J2N.Collections.Generic.Extensions;
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,9 +27,9 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using CodecUtil  = YAF.Lucene.Net.Codecs.CodecUtil;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using CodecUtil = YAF.Lucene.Net.Codecs.CodecUtil;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Combines multiple files into a single compound file.
@@ -100,7 +101,8 @@ namespace YAF.Lucene.Net.Store
 
         private IndexOutput GetOutput()
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (dataOut == null)
                 {
@@ -120,6 +122,10 @@ namespace YAF.Lucene.Net.Store
                     }
                 }
                 return dataOut;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using J2N.Text;
+﻿using J2N.Collections.Generic.Extensions;
+using J2N.Text;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Util.Fst;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs
 {
@@ -27,21 +29,21 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteSequenceOutputs  = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
-    using Int32sRef  = YAF.Lucene.Net.Util.Int32sRef;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using NoOutputs  = YAF.Lucene.Net.Util.Fst.NoOutputs;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RAMOutputStream  = YAF.Lucene.Net.Store.RAMOutputStream;
-    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
-    using Util  = YAF.Lucene.Net.Util.Fst.Util;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteSequenceOutputs = YAF.Lucene.Net.Util.Fst.ByteSequenceOutputs;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using NoOutputs = YAF.Lucene.Net.Util.Fst.NoOutputs;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RAMOutputStream = YAF.Lucene.Net.Store.RAMOutputStream;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
+    using Util = YAF.Lucene.Net.Util.Fst.Util;
 
     /*
       TODO:
@@ -274,7 +276,7 @@ namespace YAF.Lucene.Net.Codecs
             }
         }
 
-        private readonly IList<FieldMetaData> fields = new List<FieldMetaData>();
+        private readonly IList<FieldMetaData> fields = new JCG.List<FieldMetaData>();
         // private final String segment;
 
         /// <summary>
@@ -608,7 +610,7 @@ namespace YAF.Lucene.Net.Codecs
             private readonly Builder<object> blockBuilder;
 
             // PendingTerm or PendingBlock:
-            private readonly IList<PendingEntry> pending = new List<PendingEntry>();
+            private readonly IList<PendingEntry> pending = new JCG.List<PendingEntry>();
 
             // Index into pending of most recently written block
             private int lastBlockIndex = -1;
@@ -730,7 +732,7 @@ namespace YAF.Lucene.Net.Codecs
                     // already done this (partitioned these sub-terms
                     // according to their leading prefix byte)
 
-                    IList<PendingEntry> slice = ListExtensions.SubList<PendingEntry>(pending, pending.Count - count, pending.Count);
+                    IList<PendingEntry> slice = pending.GetView(pending.Count - count, count); // LUCENENET: Converted end index to length
                     int lastSuffixLeadLabel = -1;
                     int termCount = 0;
                     int subCount = 0;
@@ -846,7 +848,7 @@ namespace YAF.Lucene.Net.Codecs
                     int curStart = count;
                     subCount = 0;
 
-                    IList<PendingBlock> floorBlocks = new List<PendingBlock>();
+                    IList<PendingBlock> floorBlocks = new JCG.List<PendingBlock>();
                     PendingBlock firstBlock = null;
 
                     for (int sub = 0; sub < numSubs; sub++)
@@ -962,7 +964,7 @@ namespace YAF.Lucene.Net.Codecs
 
                 if (Debugging.AssertsEnabled) Debugging.Assert(start >= 0, "pending.Count={0} startBackwards={1} length={2}", pending.Count, startBackwards, length);
 
-                IList<PendingEntry> slice = pending.SubList(start, start + length);
+                IList<PendingEntry> slice = pending.GetView(start, length); // LUCENENET: Converted end index to length
 
                 long startFP = outerInstance.@out.Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
 
@@ -1056,7 +1058,7 @@ namespace YAF.Lucene.Net.Codecs
                 }
                 else
                 {
-                    subIndices = new List<FST<BytesRef>>();
+                    subIndices = new JCG.List<FST<BytesRef>>();
                     termCount = 0;
                     foreach (PendingEntry ent in slice)
                     {

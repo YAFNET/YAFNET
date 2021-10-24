@@ -24,12 +24,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using InPlaceMergeSorter  = YAF.Lucene.Net.Util.InPlaceMergeSorter;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using InPlaceMergeSorter = YAF.Lucene.Net.Util.InPlaceMergeSorter;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// A <see cref="Spans"/> that is formed from the ordered subspans of a <see cref="SpanNearQuery"/>
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Search.Spans
         private int matchDoc = -1;
         private int matchStart = -1;
         private int matchEnd = -1;
-        private readonly List<byte[]> matchPayload; // LUCENENET: marked readonly
+        private readonly JCG.List<byte[]> matchPayload; // LUCENENET: marked readonly
 
         private readonly Spans[] subSpansByDoc;
 
@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Search.Spans
             allowedSlop = spanNearQuery.Slop;
             SpanQuery[] clauses = spanNearQuery.GetClauses();
             subSpans = new Spans[clauses.Length];
-            matchPayload = new List<byte[]>();
+            matchPayload = new JCG.List<byte[]>();
             subSpansByDoc = new Spans[clauses.Length];
             for (int i = 0; i < clauses.Length; i++)
             {
@@ -370,7 +370,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 Spans prevSpans = subSpans[i];
                 if (collectPayloads && prevSpans.IsPayloadAvailable)
                 {
-                    possiblePayload = new List<byte[]>(prevSpans.GetPayload()); // LUCENENET specific - using copy constructor instead of AddRange()
+                    possiblePayload = new JCG.List<byte[]>(prevSpans.GetPayload()); // LUCENENET specific - using copy constructor instead of AddRange()
                 }
 
                 int prevStart = prevSpans.Start;
@@ -402,7 +402,7 @@ namespace YAF.Lucene.Net.Search.Spans
                             prevEnd = ppEnd;
                             if (collectPayloads && prevSpans.IsPayloadAvailable)
                             {
-                                possiblePayload = new List<byte[]>(prevSpans.GetPayload()); // LUCENENET specific - using copy constructor instead of AddRange()
+                                possiblePayload = new JCG.List<byte[]>(prevSpans.GetPayload()); // LUCENENET specific - using copy constructor instead of AddRange()
                             }
                         }
                     }

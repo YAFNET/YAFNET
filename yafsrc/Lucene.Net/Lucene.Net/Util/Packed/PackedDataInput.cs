@@ -22,7 +22,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// A <see cref="DataInput"/> wrapper to read unaligned, variable-length packed

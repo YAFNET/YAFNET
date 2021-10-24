@@ -3,6 +3,7 @@ using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Index;
 using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search.Highlight
 {
@@ -28,7 +29,7 @@ namespace YAF.Lucene.Net.Search.Highlight
     /// </summary>
     public sealed class TokenStreamFromTermPositionVector : TokenStream
     {
-        private readonly List<Token> positionedTokens = new List<Token>();
+        private readonly IList<Token> positionedTokens = new JCG.List<Token>();
 
         private IEnumerator<Token> tokensAtCurrentPosition;
 

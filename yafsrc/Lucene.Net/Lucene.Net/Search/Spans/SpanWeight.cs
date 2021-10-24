@@ -20,12 +20,12 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexReaderContext  = YAF.Lucene.Net.Index.IndexReaderContext;
-    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexReaderContext = YAF.Lucene.Net.Index.IndexReaderContext;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Expert-only.  Public for use by other weight implementations

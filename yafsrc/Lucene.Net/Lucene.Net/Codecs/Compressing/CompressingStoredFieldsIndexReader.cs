@@ -2,7 +2,7 @@
 using YAF.Lucene.Net.Support;
 using System;
 using System.Runtime.CompilerServices;
-using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -23,11 +23,11 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Random-access reader for <see cref="CompressingStoredFieldsIndexWriter"/>.

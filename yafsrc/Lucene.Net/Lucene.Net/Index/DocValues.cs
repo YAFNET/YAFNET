@@ -19,8 +19,8 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// This class contains utility methods and constants for <see cref="DocValues"/>

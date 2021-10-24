@@ -17,11 +17,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * limitations under the License.
      */
 
-    using CompressingStoredFieldsFormat  = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsFormat;
-    using CompressingStoredFieldsIndexWriter  = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsIndexWriter;
-    using CompressionMode  = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
-    using Lucene40StoredFieldsFormat  = YAF.Lucene.Net.Codecs.Lucene40.Lucene40StoredFieldsFormat;
-    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using CompressingStoredFieldsFormat = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsFormat;
+    using CompressingStoredFieldsIndexWriter = YAF.Lucene.Net.Codecs.Compressing.CompressingStoredFieldsIndexWriter;
+    using CompressionMode = YAF.Lucene.Net.Codecs.Compressing.CompressionMode;
+    using Lucene40StoredFieldsFormat = YAF.Lucene.Net.Codecs.Lucene40.Lucene40StoredFieldsFormat;
+    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
 
     /// <summary>
     /// Lucene 4.1 stored fields format.

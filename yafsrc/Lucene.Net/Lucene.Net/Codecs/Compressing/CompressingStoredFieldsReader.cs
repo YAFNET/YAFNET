@@ -25,24 +25,24 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using BufferedChecksumIndexInput  = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
-    using ByteArrayDataInput  = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
-    using StoredFieldVisitor  = YAF.Lucene.Net.Index.StoredFieldVisitor;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using BufferedChecksumIndexInput = YAF.Lucene.Net.Store.BufferedChecksumIndexInput;
+    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
+    using StoredFieldVisitor = YAF.Lucene.Net.Index.StoredFieldVisitor;
 
     /// <summary>
     /// <see cref="StoredFieldsReader"/> impl for <see cref="CompressingStoredFieldsFormat"/>.

@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using DataInput  = YAF.Lucene.Net.Store.DataInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
 
     /// <summary>
     /// This exception is thrown when Lucene detects

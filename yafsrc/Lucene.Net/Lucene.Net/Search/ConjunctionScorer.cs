@@ -1,4 +1,5 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -19,7 +20,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
 
     /// <summary>
     /// Scorer for conjunctions, sets of queries, all of which are required. </summary>
@@ -136,7 +137,7 @@ namespace YAF.Lucene.Net.Search
 
         public override ICollection<ChildScorer> GetChildren()
         {
-            List<ChildScorer> children = new List<ChildScorer>(m_docsAndFreqs.Length);
+            IList<ChildScorer> children = new JCG.List<ChildScorer>(m_docsAndFreqs.Length);
             foreach (DocsAndFreqs docs in m_docsAndFreqs)
             {
                 children.Add(new ChildScorer(docs.Scorer, "MUST"));

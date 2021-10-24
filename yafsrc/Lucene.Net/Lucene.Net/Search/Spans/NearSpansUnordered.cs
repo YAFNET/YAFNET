@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Support;
+﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -24,10 +24,10 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
 
     /// <summary>
     /// Similar to <see cref="NearSpansOrdered"/>, but for the unordered case.
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Search.Spans
     {
         private readonly SpanNearQuery query; // LUCENENET: marked readonly
 
-        private readonly IList<SpansCell> ordered = new List<SpansCell>(); // spans in query order // LUCENENET: marked readonly
+        private readonly IList<SpansCell> ordered = new JCG.List<SpansCell>(); // spans in query order // LUCENENET: marked readonly
         private readonly Spans[] subSpans; // LUCENENET: marked readonly
         private readonly int slop; // from query // LUCENENET: marked readonly
 
@@ -131,7 +131,7 @@ namespace YAF.Lucene.Net.Search.Spans
 
             public override ICollection<byte[]> GetPayload()
             {
-                return new List<byte[]>(spans.GetPayload());
+                return new JCG.List<byte[]>(spans.GetPayload());
             }
 
             // TODO: Remove warning after API has been finalized

@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// Embeds a [read-only] <see cref="SegmentInfo"/> and adds per-commit

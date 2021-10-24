@@ -17,10 +17,10 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using FilteredTermsEnum  = YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Subclass of <see cref="FilteredTermsEnum"/> for enumerating all terms that match the

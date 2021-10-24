@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
     using NumericDocValuesField = NumericDocValuesField;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// An in-place update to a <see cref="DocValues"/> field. </summary>

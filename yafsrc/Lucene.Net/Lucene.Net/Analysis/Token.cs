@@ -2,10 +2,10 @@
 using YAF.Lucene.Net.Analysis.TokenAttributes;
 using System;
 using System.Reflection;
-using Attribute  = YAF.Lucene.Net.Util.Attribute;
-using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
-using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-using IAttribute  = YAF.Lucene.Net.Util.IAttribute;
+using Attribute = YAF.Lucene.Net.Util.Attribute;
+using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using IAttribute = YAF.Lucene.Net.Util.IAttribute;
 
 namespace YAF.Lucene.Net.Analysis
 {
@@ -26,8 +26,8 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using CharTermAttribute  = YAF.Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
-    using IAttributeReflector  = YAF.Lucene.Net.Util.IAttributeReflector;
+    using CharTermAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.CharTermAttribute;
+    using IAttributeReflector = YAF.Lucene.Net.Util.IAttributeReflector;
 
     /// <summary>
     /// A <see cref="Token"/> is an occurrence of a term from the text of a field.  It consists of

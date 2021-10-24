@@ -2,6 +2,7 @@
 using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
@@ -27,30 +28,30 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
      * limitations under the License.
      */
 
-    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BlockPackedReader  = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
-    using DocValues  = YAF.Lucene.Net.Index.DocValues;
-    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using Int64Values  = YAF.Lucene.Net.Util.Int64Values;
-    using MonotonicBlockPackedReader  = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
-    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using RandomAccessOrds  = YAF.Lucene.Net.Index.RandomAccessOrds;
-    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BlockPackedReader = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using DocValues = YAF.Lucene.Net.Index.DocValues;
+    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using Int64Values = YAF.Lucene.Net.Util.Int64Values;
+    using MonotonicBlockPackedReader = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using RandomAccessOrds = YAF.Lucene.Net.Index.RandomAccessOrds;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Reader for <see cref="Lucene45DocValuesFormat"/>. </summary>
@@ -507,7 +508,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         protected virtual MonotonicBlockPackedReader GetAddressInstance(IndexInput data, FieldInfo field, BinaryEntry bytes)
         {
             MonotonicBlockPackedReader addresses;
-            lock (addressInstances)
+            UninterruptableMonitor.Enter(addressInstances);
+            try
             {
                 if (!addressInstances.TryGetValue(field.Number, out MonotonicBlockPackedReader addrInstance) || addrInstance == null)
                 {
@@ -517,6 +519,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                     ramBytesUsed.AddAndGet(addrInstance.RamBytesUsed() + RamUsageEstimator.NUM_BYTES_INT32);
                 }
                 addresses = addrInstance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(addressInstances);
             }
             return addresses;
         }
@@ -576,7 +582,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         {
             MonotonicBlockPackedReader addresses;
             long interval = bytes.AddressInterval;
-            lock (addressInstances)
+            UninterruptableMonitor.Enter(addressInstances);
+            try
             {
                 if (!addressInstances.TryGetValue(field.Number, out MonotonicBlockPackedReader addrInstance))
                 {
@@ -595,6 +602,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                     ramBytesUsed.AddAndGet(addrInstance.RamBytesUsed() + RamUsageEstimator.NUM_BYTES_INT32);
                 }
                 addresses = addrInstance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(addressInstances);
             }
             return addresses;
         }
@@ -683,7 +694,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         protected virtual MonotonicBlockPackedReader GetOrdIndexInstance(IndexInput data, FieldInfo field, NumericEntry entry)
         {
             MonotonicBlockPackedReader ordIndex;
-            lock (ordIndexInstances)
+            UninterruptableMonitor.Enter(ordIndexInstances);
+            try
             {
                 if (!ordIndexInstances.TryGetValue(field.Number, out MonotonicBlockPackedReader ordIndexInstance))
                 {
@@ -693,6 +705,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                     ramBytesUsed.AddAndGet(ordIndexInstance.RamBytesUsed() + RamUsageEstimator.NUM_BYTES_INT32);
                 }
                 ordIndex = ordIndexInstance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(ordIndexInstances);
             }
             return ordIndex;
         }

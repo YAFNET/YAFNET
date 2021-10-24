@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -24,9 +25,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     internal sealed class StandardDirectoryReader : DirectoryReader
     {
@@ -99,7 +100,7 @@ namespace YAF.Lucene.Net.Index
             // no need to process segments in reverse order
             int numSegments = infos.Count;
 
-            IList<SegmentReader> readers = new List<SegmentReader>();
+            IList<SegmentReader> readers = new JCG.List<SegmentReader>();
             Directory dir = writer.Directory;
 
             SegmentInfos segmentInfos = (SegmentInfos)infos.Clone();

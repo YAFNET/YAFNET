@@ -19,9 +19,9 @@ namespace YAF.Lucene.Net.Codecs
      * limitations under the License.
      */
 
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Specifies an API for classes that can read <see cref="SegmentInfo"/> information.

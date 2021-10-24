@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Search.Highlight
      */
 
     /// <summary>
-    /// Class used to extract <see cref="WeightedSpanTerm"/>s from a <see cref="Query"/> based on whether
+    /// Class used to extract <see cref="WeightedSpanTerm"/>s from a <see cref="Query"/> based on whether 
     /// <see cref="Term"/>s from the <see cref="Query"/> are contained in a supplied <see cref="Analysis.TokenStream"/>.
     /// </summary>
     public class WeightedSpanTermExtractor
@@ -137,10 +137,10 @@ namespace YAF.Lucene.Net.Search.Highlight
             }
             else if (query is CommonTermsQuery)
             {
-                // specialized since rewriting would change the result query
+                // specialized since rewriting would change the result query 
                 // this query is TermContext sensitive.
                 ExtractWeightedTerms(terms, query);
-            }
+            } 
             else if (query is DisjunctionMaxQuery disjunctionMaxQuery)
             {
                 foreach (var q in disjunctionMaxQuery)
@@ -164,16 +164,16 @@ namespace YAF.Lucene.Net.Search.Highlight
                         }
                     }
 
-                    var disjunctLists = new List<SpanQuery>[maxPosition + 1];
+                    var disjunctLists = new JCG.List<SpanQuery>[maxPosition + 1];
                     int distinctPositions = 0;
 
                     for (int i = 0; i < termArrays.Count; ++i)
                     {
                         Term[] termArray = termArrays[i];
-                        List<SpanQuery> disjuncts = disjunctLists[positions[i]];
+                        JCG.List<SpanQuery> disjuncts = disjunctLists[positions[i]];
                         if (disjuncts == null)
                         {
-                            disjuncts = (disjunctLists[positions[i]] = new List<SpanQuery>(termArray.Length));
+                            disjuncts = (disjunctLists[positions[i]] = new JCG.List<SpanQuery>(termArray.Length));
                             ++distinctPositions;
                         }
                         foreach (var term in termArray)
@@ -282,7 +282,7 @@ namespace YAF.Lucene.Net.Search.Highlight
                 spanQuery.ExtractTerms(nonWeightedTerms);
             }
 
-            List<PositionSpan> spanPositions = new List<PositionSpan>();
+            IList<PositionSpan> spanPositions = new JCG.List<PositionSpan>();
 
             foreach (string field in fieldNames)
             {
@@ -336,7 +336,7 @@ namespace YAF.Lucene.Net.Search.Highlight
         }
 
         /// <summary>
-        /// Fills a <see cref="T:IDictionary{string, WeightedSpanTerm}"/> with <see cref="WeightedSpanTerm"/>s using the terms from
+        /// Fills a <see cref="T:IDictionary{string, WeightedSpanTerm}"/> with <see cref="WeightedSpanTerm"/>s using the terms from 
         /// the supplied <see cref="Search.Spans.SpanQuery"/>.
         /// </summary>
         /// <param name="terms"><see cref="T:IDictionary{string, WeightedSpanTerm}"/> to place created <see cref="WeightedSpanTerm"/>s in</param>
@@ -414,7 +414,7 @@ namespace YAF.Lucene.Net.Search.Highlight
 
                 public override IEnumerator<string> GetEnumerator()
                 {
-                    var list = new List<string> { DelegatingAtomicReader.FIELD_NAME };
+                    var list = new JCG.List<string> { DelegatingAtomicReader.FIELD_NAME };
                     return list.GetEnumerator();
                 }
 
@@ -430,7 +430,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             {
                 return base.GetBinaryDocValues(FIELD_NAME);
             }
-
+           
             public override SortedDocValues GetSortedDocValues(string field)
             {
                 return base.GetSortedDocValues(FIELD_NAME);

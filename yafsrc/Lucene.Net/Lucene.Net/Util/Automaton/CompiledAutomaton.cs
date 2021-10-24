@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util.Automaton
 {
@@ -25,10 +26,10 @@ namespace YAF.Lucene.Net.Util.Automaton
      * limitations under the License.
      */
 
-    using PrefixTermsEnum  = YAF.Lucene.Net.Search.PrefixTermsEnum;
-    using SingleTermsEnum  = YAF.Lucene.Net.Index.SingleTermsEnum;
-    using Terms  = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
+    using PrefixTermsEnum = YAF.Lucene.Net.Search.PrefixTermsEnum;
+    using SingleTermsEnum = YAF.Lucene.Net.Index.SingleTermsEnum;
+    using Terms = YAF.Lucene.Net.Index.Terms;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Immutable class holding compiled details for a given
@@ -328,7 +329,7 @@ namespace YAF.Lucene.Net.Util.Automaton
                 }
             }
 
-            IList<int> stack = new List<int>();
+            IList<int> stack = new JCG.List<int>();
 
             int idx = 0;
             while (true)

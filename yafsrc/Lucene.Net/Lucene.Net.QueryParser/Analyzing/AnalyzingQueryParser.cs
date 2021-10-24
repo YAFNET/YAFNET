@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.QueryParsers.Analyzing
     // We won't know until we start generating QueryParser how to handle this scenario, but for now we are
     // mapping this explicitly INSIDE of the namespace declaration to prevent our Lucene.ParseException from being
     // used instead.
-    using ParseException  = YAF.Lucene.Net.QueryParsers.Classic.ParseException;
+    using ParseException = YAF.Lucene.Net.QueryParsers.Classic.ParseException;
 
     /// <summary>
     /// Overrides Lucene's default <see cref="QueryParser"/> so that Fuzzy-, Prefix-, Range-, and WildcardQuerys

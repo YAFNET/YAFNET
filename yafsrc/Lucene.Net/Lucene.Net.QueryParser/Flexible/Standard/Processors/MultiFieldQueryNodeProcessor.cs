@@ -3,6 +3,7 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using System;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 {
@@ -87,7 +88,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
                         }
                         else
                         {
-                            List<IQueryNode> children = new List<IQueryNode>
+                            IList<IQueryNode> children = new JCG.List<IQueryNode>
                             {
                                 fieldNode
                             };

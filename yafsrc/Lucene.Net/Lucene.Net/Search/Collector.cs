@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
 
     /// <summary>
     /// <para>Expert: Collectors are primarily meant to be used to

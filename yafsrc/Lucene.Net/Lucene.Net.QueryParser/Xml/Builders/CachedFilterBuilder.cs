@@ -1,5 +1,6 @@
 ﻿using J2N.Collections.Concurrent;
 using YAF.Lucene.Net.Search;
+using YAF.Lucene.Net.Support.Threading;
 using System.Xml;
 
 namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
@@ -56,7 +57,8 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
 
         public virtual Filter GetFilter(XmlElement e)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 XmlElement childElement = DOMUtils.GetFirstChildOrFail(e);
 
@@ -98,6 +100,10 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
 
                 filterCache[cacheKey] = cachedFilter;
                 return cachedFilter;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 

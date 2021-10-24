@@ -20,18 +20,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexFormatTooNewException  = YAF.Lucene.Net.Index.IndexFormatTooNewException;
-    using IndexFormatTooOldException  = YAF.Lucene.Net.Index.IndexFormatTooOldException;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using IndexOptions  = YAF.Lucene.Net.Index.IndexOptions;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexFormatTooNewException = YAF.Lucene.Net.Index.IndexFormatTooNewException;
+    using IndexFormatTooOldException = YAF.Lucene.Net.Index.IndexFormatTooOldException;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using IndexOptions = YAF.Lucene.Net.Index.IndexOptions;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// @lucene.experimental </summary>

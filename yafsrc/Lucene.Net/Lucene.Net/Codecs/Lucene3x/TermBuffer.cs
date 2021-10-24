@@ -4,8 +4,8 @@ using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
+using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -26,8 +26,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using Term  = YAF.Lucene.Net.Index.Term;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// @lucene.experimental 

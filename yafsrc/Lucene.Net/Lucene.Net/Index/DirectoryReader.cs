@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -23,7 +24,7 @@ namespace YAF.Lucene.Net.Index
      */
 
     // javadocs
-    using Directory  = YAF.Lucene.Net.Store.Directory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
 
     /// <summary>
     /// <see cref="DirectoryReader"/> is an implementation of <see cref="CompositeReader"/>
@@ -275,7 +276,7 @@ namespace YAF.Lucene.Net.Index
         {
             string[] files = dir.ListAll();
 
-            List<IndexCommit> commits = new List<IndexCommit>();
+            JCG.List<IndexCommit> commits = new JCG.List<IndexCommit>();
 
             SegmentInfos latest = new SegmentInfos();
             latest.Read(dir);

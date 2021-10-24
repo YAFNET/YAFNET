@@ -1,4 +1,5 @@
 ﻿using J2N.Threading;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 #if FEATURE_SERIALIZABLE_EXCEPTIONS
 using System.Runtime.Serialization;
@@ -25,8 +26,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using Counter  = YAF.Lucene.Net.Util.Counter;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using Counter = YAF.Lucene.Net.Util.Counter;
 
     /// <summary>
     /// The <see cref="TimeLimitingCollector"/> is used to timeout search requests that
@@ -304,8 +305,14 @@ namespace YAF.Lucene.Net.Search
                     // TODO: Use System.nanoTime() when Lucene moves to Java SE 5.
                     counter.AddAndGet(resolution);
 
-                    Thread.Sleep(TimeSpan.FromMilliseconds(Interlocked.Read(ref resolution)));
-                    // LUCENENET NOTE: No need to catch and rethrow same excepton type ThreadInterruptedException 
+                    try
+                    {
+                        Thread.Sleep(TimeSpan.FromMilliseconds(Interlocked.Read(ref resolution)));
+                    }
+                    catch (Exception ie) when (ie.IsInterruptedException())
+                    {
+                        throw new Util.ThreadInterruptedException(ie);
+                    }
                 }
             }
 

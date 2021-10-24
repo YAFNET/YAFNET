@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Codecs.Lucene3x
 {
@@ -24,15 +25,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using GrowableWriter  = YAF.Lucene.Net.Util.Packed.GrowableWriter;
-    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
-    using PagedBytesDataInput  = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataInput;
-    using PagedBytesDataOutput  = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataOutput;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using Term  = YAF.Lucene.Net.Index.Term;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using PagedBytesDataInput = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataInput;
+    using PagedBytesDataOutput = YAF.Lucene.Net.Util.PagedBytes.PagedBytesDataOutput;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// This stores a monotonically increasing set of <c>Term, TermInfo</c> pairs in an
@@ -78,7 +79,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             GrowableWriter indexToTerms = new GrowableWriter(bitEstimate, indexSize, PackedInt32s.DEFAULT);
 
             string currentField = null;
-            IList<string> fieldStrs = new List<string>();
+            IList<string> fieldStrs = new JCG.List<string>();
             int fieldCounter = -1;
             for (int i = 0; indexEnum.Next(); i++)
             {

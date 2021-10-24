@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Util.Packed
      * limitations under the License.
      */
 
-    using DataOutput  = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A writer for large monotonically increasing sequences of positive <see cref="long"/>s.

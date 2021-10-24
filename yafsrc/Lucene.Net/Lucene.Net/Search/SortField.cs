@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using StringHelper  = YAF.Lucene.Net.Util.StringHelper;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using StringHelper = YAF.Lucene.Net.Util.StringHelper;
 
     /// <summary>
     /// Stores information about how to sort documents by terms in an individual

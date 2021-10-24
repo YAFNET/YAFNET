@@ -1,6 +1,7 @@
 ﻿using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Parser;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 {
@@ -105,7 +106,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Nodes
 
         public virtual void SetChild(IQueryNode child)
         {
-            List<IQueryNode> list = new List<IQueryNode>
+            IList<IQueryNode> list = new JCG.List<IQueryNode>
             {
                 child
             };

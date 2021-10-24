@@ -5,7 +5,8 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes;
 using System;
 using System.Collections.Generic;
-using Operator  = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
+using JCG = J2N.Collections.Generic;
+using Operator = YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config.StandardQueryConfigHandler.Operator;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 {
@@ -55,7 +56,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 
         private QueryConfigHandler queryConfigHandler;
 
-        private readonly List<IQueryNode> childrenBuffer = new List<IQueryNode>();
+        private readonly IList<IQueryNode> childrenBuffer = new JCG.List<IQueryNode>();
 
         private bool usingAnd = false;
 

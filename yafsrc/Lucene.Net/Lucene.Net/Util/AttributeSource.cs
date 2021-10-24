@@ -1,12 +1,13 @@
 ﻿using YAF.Lucene.Net.Analysis.TokenAttributes;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-using FlagsAttribute  = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
+using FlagsAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util
@@ -111,7 +112,8 @@ namespace YAF.Lucene.Net.Util
 
                     // LUCENENET: If the weakreference is dead, we need to explicitly update its key.
                     // We synchronize on attClassImplMapLock to make the operation atomic.
-                    lock (attClassImplMapLock)
+                    UninterruptableMonitor.Enter(attClassImplMapLock);
+                    try
                     {
                         if (!attClassImplMap.TryGetValue(attClass, out var @ref) || !@ref.TryGetTarget(out clazz))
                         {
@@ -122,6 +124,10 @@ namespace YAF.Lucene.Net.Util
                             attClassImplMap.Add(attClass, CreateAttributeWeakReference(attClass, out clazz));
 #endif
                         }
+                    }
+                    finally
+                    {
+                        UninterruptableMonitor.Exit(attClassImplMapLock);
                     }
 
                     return clazz;

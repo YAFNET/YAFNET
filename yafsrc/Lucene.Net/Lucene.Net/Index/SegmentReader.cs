@@ -1,4 +1,4 @@
-using J2N.Runtime.CompilerServices;
+﻿using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
@@ -26,16 +26,16 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using CompoundFileDirectory  = YAF.Lucene.Net.Store.CompoundFileDirectory;
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using DocValuesFormat  = YAF.Lucene.Net.Codecs.DocValuesFormat;
-    using DocValuesProducer  = YAF.Lucene.Net.Codecs.DocValuesProducer;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using StoredFieldsReader  = YAF.Lucene.Net.Codecs.StoredFieldsReader;
-    using TermVectorsReader  = YAF.Lucene.Net.Codecs.TermVectorsReader;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using CompoundFileDirectory = YAF.Lucene.Net.Store.CompoundFileDirectory;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DocValuesFormat = YAF.Lucene.Net.Codecs.DocValuesFormat;
+    using DocValuesProducer = YAF.Lucene.Net.Codecs.DocValuesProducer;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using StoredFieldsReader = YAF.Lucene.Net.Codecs.StoredFieldsReader;
+    using TermVectorsReader = YAF.Lucene.Net.Codecs.TermVectorsReader;
 
     /// <summary>
     /// <see cref="IndexReader"/> implementation over a single segment.
@@ -69,7 +69,7 @@ namespace YAF.Lucene.Net.Index
 
         private readonly FieldInfos fieldInfos; // LUCENENET specific - since it is readonly, made all internal classes use property
 
-        private readonly IList<long?> dvGens = new List<long?>();
+        private readonly IList<long?> dvGens = new JCG.List<long?>();
 
         /// <summary>
         /// Constructs a new <see cref="SegmentReader"/> with a new core. </summary>
@@ -257,7 +257,7 @@ namespace YAF.Lucene.Net.Index
                 long gen = fi.DocValuesGen;
                 if (!genInfos.TryGetValue(gen, out IList<FieldInfo> infos) || infos == null)
                 {
-                    infos = new List<FieldInfo>();
+                    infos = new JCG.List<FieldInfo>();
                     genInfos[gen] = infos;
                 }
                 infos.Add(fi);

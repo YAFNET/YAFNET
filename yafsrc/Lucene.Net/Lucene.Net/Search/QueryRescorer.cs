@@ -1,4 +1,5 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 
@@ -21,7 +22,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
 
     /// <summary>
     /// A <see cref="Rescorer"/> that uses a provided <see cref="Query"/> to assign
@@ -114,11 +115,12 @@ namespace YAF.Lucene.Net.Search
             Array.Sort(hits, Comparer<ScoreDoc>.Create((a, b) =>
             {
                 // Sort by score descending, then docID ascending:
-                if (a.Score > b.Score)
+                // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                if (NumericUtils.SingleToSortableInt32(a.Score) > NumericUtils.SingleToSortableInt32(b.Score))
                 {
                     return -1;
                 }
-                else if (a.Score < b.Score)
+                else if (NumericUtils.SingleToSortableInt32(a.Score) < NumericUtils.SingleToSortableInt32(b.Score))
                 {
                     return 1;
                 }

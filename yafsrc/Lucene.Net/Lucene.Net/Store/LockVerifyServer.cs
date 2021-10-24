@@ -1,4 +1,5 @@
 ﻿using J2N.Threading;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 using System;
 using System.Globalization;
@@ -6,7 +7,7 @@ using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Console  = YAF.Lucene.Net.Util.SystemConsole;
+using Console = YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Store
 {
@@ -27,7 +28,7 @@ namespace YAF.Lucene.Net.Store
      * limitations under the License.
      */
 
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// Simple standalone server that must be running when you
@@ -136,7 +137,8 @@ namespace YAF.Lucene.Net.Store
                             return; // closed
                         }
 
-                        lock (localLock)
+                        UninterruptableMonitor.Enter(localLock);
+                        try
                         {
                             int currentLock = lockedID[0];
                             if (currentLock == -2)
@@ -170,6 +172,10 @@ namespace YAF.Lucene.Net.Store
                             }
                             intWriter.Write((byte)command);
                             stream.Flush();
+                        }
+                        finally
+                        {
+                            UninterruptableMonitor.Exit(localLock);
                         }
                     }
                 }

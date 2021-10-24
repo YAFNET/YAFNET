@@ -22,16 +22,16 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using BlockPackedWriter  = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FormatAndBits  = YAF.Lucene.Net.Util.Packed.PackedInt32s.FormatAndBits;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using MathUtil  = YAF.Lucene.Net.Util.MathUtil;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using SegmentWriteState  = YAF.Lucene.Net.Index.SegmentWriteState;
+    using BlockPackedWriter = YAF.Lucene.Net.Util.Packed.BlockPackedWriter;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FormatAndBits = YAF.Lucene.Net.Util.Packed.PackedInt32s.FormatAndBits;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MathUtil = YAF.Lucene.Net.Util.MathUtil;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using SegmentWriteState = YAF.Lucene.Net.Index.SegmentWriteState;
 
     /// <summary>
     /// Writer for <see cref="Lucene42NormsFormat"/>.

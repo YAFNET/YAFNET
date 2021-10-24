@@ -21,10 +21,10 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Directory  = YAF.Lucene.Net.Store.Directory;
-    using DirectoryReader  = YAF.Lucene.Net.Index.DirectoryReader;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using IndexWriter  = YAF.Lucene.Net.Index.IndexWriter;
+    using Directory = YAF.Lucene.Net.Store.Directory;
+    using DirectoryReader = YAF.Lucene.Net.Index.DirectoryReader;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using IndexWriter = YAF.Lucene.Net.Index.IndexWriter;
 
     /// <summary>
     /// Utility class to safely share <see cref="IndexSearcher"/> instances across multiple

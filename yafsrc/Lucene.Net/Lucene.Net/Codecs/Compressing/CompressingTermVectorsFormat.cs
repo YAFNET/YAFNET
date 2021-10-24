@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using Directory  = YAF.Lucene.Net.Store.Directory;
+using Directory = YAF.Lucene.Net.Store.Directory;
 
 namespace YAF.Lucene.Net.Codecs.Compressing
 {
@@ -21,9 +21,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
      * limitations under the License.
      */
 
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// A <see cref="TermVectorsFormat"/> that compresses chunks of documents together in

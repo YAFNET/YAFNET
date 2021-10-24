@@ -3,7 +3,7 @@ using YAF.Lucene.Net.QueryParsers.Flexible.Core.Messages;
 using YAF.Lucene.Net.QueryParsers.Flexible.Standard.Config;
 using System;
 using System.Text;
-using NumericType  = YAF.Lucene.Net.Documents.NumericType;
+using NumericType = YAF.Lucene.Net.Documents.NumericType;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Nodes
 {

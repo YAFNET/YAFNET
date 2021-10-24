@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Analysis
      * limitations under the License.
      */
 
-    using Automaton  = YAF.Lucene.Net.Util.Automaton.Automaton;
-    using State  = YAF.Lucene.Net.Util.Automaton.State;
-    using Transition  = YAF.Lucene.Net.Util.Automaton.Transition;
+    using Automaton = YAF.Lucene.Net.Util.Automaton.Automaton;
+    using State = YAF.Lucene.Net.Util.Automaton.State;
+    using Transition = YAF.Lucene.Net.Util.Automaton.Transition;
 
     // TODO: maybe also toFST?  then we can translate atts into FST outputs/weights
 

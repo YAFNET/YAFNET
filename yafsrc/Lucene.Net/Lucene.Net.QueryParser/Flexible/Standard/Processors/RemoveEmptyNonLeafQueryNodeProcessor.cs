@@ -2,6 +2,7 @@
 using YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors;
 using YAF.Lucene.Net.Util;
 using System.Collections.Generic;
+using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
 {
@@ -35,7 +36,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
     /// <seealso cref="MatchNoDocsQueryNode"/>
     public class RemoveEmptyNonLeafQueryNodeProcessor : QueryNodeProcessor
     {
-        private readonly List<IQueryNode> childrenBuffer = new List<IQueryNode>(); // LUCENENET: marked readonly
+        private readonly JCG.List<IQueryNode> childrenBuffer = new JCG.List<IQueryNode>(); // LUCENENET: marked readonly
 
         public RemoveEmptyNonLeafQueryNodeProcessor()
         {

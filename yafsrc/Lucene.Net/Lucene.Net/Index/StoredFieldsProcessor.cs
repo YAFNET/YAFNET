@@ -1,5 +1,6 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
+using YAF.Lucene.Net.Support.Threading;
 using System;
 using System.Runtime.CompilerServices;
 
@@ -22,12 +23,12 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using Codec  = YAF.Lucene.Net.Codecs.Codec;
-    using IOContext  = YAF.Lucene.Net.Store.IOContext;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using StoredFieldsWriter  = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using Codec = YAF.Lucene.Net.Codecs.Codec;
+    using IOContext = YAF.Lucene.Net.Store.IOContext;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using StoredFieldsWriter = YAF.Lucene.Net.Codecs.StoredFieldsWriter;
 
     /// <summary>
     /// This is a <see cref="StoredFieldsConsumer"/> that writes stored fields. </summary>
@@ -99,13 +100,18 @@ namespace YAF.Lucene.Net.Index
 
         private void InitFieldsWriter(IOContext context)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (fieldsWriter == null)
                 {
                     fieldsWriter = codec.StoredFieldsFormat.FieldsWriter(docWriter.directory, docWriter.SegmentInfo, context);
                     lastDocID = 0;
                 }
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 

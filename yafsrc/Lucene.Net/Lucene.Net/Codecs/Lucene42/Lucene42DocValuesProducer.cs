@@ -1,5 +1,6 @@
 ﻿using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Index;
+using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util.Fst;
 using System;
 using System.Collections.Generic;
@@ -25,34 +26,34 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
      * limitations under the License.
      */
 
-    using BinaryDocValues  = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BlockPackedReader  = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
-    using ByteArrayDataInput  = YAF.Lucene.Net.Store.ByteArrayDataInput;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using ChecksumIndexInput  = YAF.Lucene.Net.Store.ChecksumIndexInput;
-    using CorruptIndexException  = YAF.Lucene.Net.Index.CorruptIndexException;
-    using DocsAndPositionsEnum  = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
-    using DocsEnum  = YAF.Lucene.Net.Index.DocsEnum;
-    using DocValues  = YAF.Lucene.Net.Index.DocValues;
-    using DocValuesType  = YAF.Lucene.Net.Index.DocValuesType;
-    using FieldInfo  = YAF.Lucene.Net.Index.FieldInfo;
-    using FieldInfos  = YAF.Lucene.Net.Index.FieldInfos;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using IndexFileNames  = YAF.Lucene.Net.Index.IndexFileNames;
-    using IndexInput  = YAF.Lucene.Net.Store.IndexInput;
-    using Int32sRef  = YAF.Lucene.Net.Util.Int32sRef;
-    using IOUtils  = YAF.Lucene.Net.Util.IOUtils;
-    using MonotonicBlockPackedReader  = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
-    using NumericDocValues  = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes  = YAF.Lucene.Net.Util.PagedBytes;
-    using PositiveInt32Outputs  = YAF.Lucene.Net.Util.Fst.PositiveInt32Outputs;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using SegmentReadState  = YAF.Lucene.Net.Index.SegmentReadState;
-    using SortedDocValues  = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues  = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
-    using Util  = YAF.Lucene.Net.Util.Fst.Util;
+    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
+    using BlockPackedReader = YAF.Lucene.Net.Util.Packed.BlockPackedReader;
+    using ByteArrayDataInput = YAF.Lucene.Net.Store.ByteArrayDataInput;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using ChecksumIndexInput = YAF.Lucene.Net.Store.ChecksumIndexInput;
+    using CorruptIndexException = YAF.Lucene.Net.Index.CorruptIndexException;
+    using DocsAndPositionsEnum = YAF.Lucene.Net.Index.DocsAndPositionsEnum;
+    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
+    using DocValues = YAF.Lucene.Net.Index.DocValues;
+    using DocValuesType = YAF.Lucene.Net.Index.DocValuesType;
+    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
+    using FieldInfos = YAF.Lucene.Net.Index.FieldInfos;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using IndexFileNames = YAF.Lucene.Net.Index.IndexFileNames;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
+    using Int32sRef = YAF.Lucene.Net.Util.Int32sRef;
+    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using MonotonicBlockPackedReader = YAF.Lucene.Net.Util.Packed.MonotonicBlockPackedReader;
+    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
+    using PositiveInt32Outputs = YAF.Lucene.Net.Util.Fst.PositiveInt32Outputs;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using SegmentReadState = YAF.Lucene.Net.Index.SegmentReadState;
+    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using Util = YAF.Lucene.Net.Util.Fst.Util;
 
     /// <summary>
     /// Reader for <see cref="Lucene42DocValuesFormat"/>.
@@ -222,7 +223,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
         public override NumericDocValues GetNumeric(FieldInfo field)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (!numericInstances.TryGetValue(field.Number, out NumericDocValues instance) || instance == null)
                 {
@@ -230,6 +232,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     numericInstances[field.Number] = instance;
                 }
                 return instance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 
@@ -348,7 +354,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 
         public override BinaryDocValues GetBinary(FieldInfo field)
         {
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (!binaryInstances.TryGetValue(field.Number, out BinaryDocValues instance) || instance == null)
                 {
@@ -356,6 +363,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     binaryInstances[field.Number] = instance;
                 }
                 return instance;
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
         }
 
@@ -422,7 +433,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
         {
             FSTEntry entry = fsts[field.Number];
             FST<long?> instance;
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (!fstInstances.TryGetValue(field.Number, out instance) || instance == null)
                 {
@@ -431,6 +443,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     ramBytesUsed.AddAndGet(instance.GetSizeInBytes());
                     fstInstances[field.Number] = instance;
                 }
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
             var docToOrd = GetNumeric(field);
             var fst = instance;
@@ -480,7 +496,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 {
                     @in.Position = 0;
                     fst.GetFirstArc(firstArc);
-                    Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
+                    Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
                     result.Bytes = new byte[output.Length];
                     result.Offset = 0;
                     result.Length = 0;
@@ -533,7 +549,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 return DocValues.EMPTY_SORTED_SET; // empty FST!
             }
             FST<long?> instance;
-            lock (this)
+            UninterruptableMonitor.Enter(this);
+            try
             {
                 if (!fstInstances.TryGetValue(field.Number, out instance) || instance == null)
                 {
@@ -542,6 +559,10 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                     ramBytesUsed.AddAndGet(instance.GetSizeInBytes());
                     fstInstances[field.Number] = instance;
                 }
+            }
+            finally
+            {
+                UninterruptableMonitor.Exit(this);
             }
             BinaryDocValues docToOrds = GetBinary(field);
             FST<long?> fst = instance;
@@ -614,7 +635,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 {
                     @in.Position = 0;
                     fst.GetFirstArc(firstArc);
-                    Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
+                    Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, @in, firstArc, scratchArc, scratchInts);
                     result.Bytes = new byte[output.Length];
                     result.Offset = 0;
                     result.Length = 0;
@@ -783,7 +804,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
                 // but we dont want to introduce a bug that corrupts our enum state!
                 bytesReader.Position = 0;
                 fst.GetFirstArc(firstArc);
-                Int32sRef output  = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, bytesReader, firstArc, scratchArc, scratchInts);
+                Int32sRef output = YAF.Lucene.Net.Util.Fst.Util.GetByOutput(fst, ord, bytesReader, firstArc, scratchArc, scratchInts);
                 scratchBytes.Bytes = new byte[output.Length];
                 scratchBytes.Offset = 0;
                 scratchBytes.Length = 0;

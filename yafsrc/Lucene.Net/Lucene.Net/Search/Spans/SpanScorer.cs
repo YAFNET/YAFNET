@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search.Spans
      * limitations under the License.
      */
 
-    using Similarity  = YAF.Lucene.Net.Search.Similarities.Similarity;
+    using Similarity = YAF.Lucene.Net.Search.Similarities.Similarity;
 
     /// <summary>
     /// Public for extension only.

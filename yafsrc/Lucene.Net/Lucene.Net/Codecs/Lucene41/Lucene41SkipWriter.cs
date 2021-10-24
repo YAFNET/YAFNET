@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
      * limitations under the License.
      */
 
-    using IndexOutput  = YAF.Lucene.Net.Store.IndexOutput;
+    using IndexOutput = YAF.Lucene.Net.Store.IndexOutput;
 
     /// <summary>
     /// Write skip lists with multiple levels, and support skip within block ints.

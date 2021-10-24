@@ -22,17 +22,17 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AppendingDeltaPackedInt64Buffer  = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
-    using AppendingPackedInt64Buffer  = YAF.Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash  = YAF.Lucene.Net.Util.BytesRefHash;
-    using Counter  = YAF.Lucene.Net.Util.Counter;
-    using DirectBytesStartArray  = YAF.Lucene.Net.Util.BytesRefHash.DirectBytesStartArray;
-    using DocValuesConsumer  = YAF.Lucene.Net.Codecs.DocValuesConsumer;
-    using PackedInt32s  = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using AppendingDeltaPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingDeltaPackedInt64Buffer;
+    using AppendingPackedInt64Buffer = YAF.Lucene.Net.Util.Packed.AppendingPackedInt64Buffer;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
+    using Counter = YAF.Lucene.Net.Util.Counter;
+    using DirectBytesStartArray = YAF.Lucene.Net.Util.BytesRefHash.DirectBytesStartArray;
+    using DocValuesConsumer = YAF.Lucene.Net.Codecs.DocValuesConsumer;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
 
     /// <summary>
     /// Buffers up pending <see cref="T:byte[]"/>s per doc, deref and sorting via

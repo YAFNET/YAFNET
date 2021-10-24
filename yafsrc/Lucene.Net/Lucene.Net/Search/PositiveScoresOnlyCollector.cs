@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReaderContext  = YAF.Lucene.Net.Index.AtomicReaderContext;
+    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
 
     /// <summary>
     /// A <see cref="ICollector"/> implementation which wraps another

@@ -1,4 +1,5 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Util;
 using System;
 
 namespace YAF.Lucene.Net.Search
@@ -20,17 +21,17 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using ArrayUtil  = YAF.Lucene.Net.Util.ArrayUtil;
-    using ByteBlockPool  = YAF.Lucene.Net.Util.ByteBlockPool;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
-    using BytesRefHash  = YAF.Lucene.Net.Util.BytesRefHash;
-    using IndexReader  = YAF.Lucene.Net.Index.IndexReader;
-    using RamUsageEstimator  = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using RewriteMethod  = YAF.Lucene.Net.Search.MultiTermQuery.RewriteMethod;
-    using Term  = YAF.Lucene.Net.Index.Term;
-    using TermContext  = YAF.Lucene.Net.Index.TermContext;
-    using TermsEnum  = YAF.Lucene.Net.Index.TermsEnum;
-    using TermState  = YAF.Lucene.Net.Index.TermState;
+    using ArrayUtil = YAF.Lucene.Net.Util.ArrayUtil;
+    using ByteBlockPool = YAF.Lucene.Net.Util.ByteBlockPool;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
+    using BytesRefHash = YAF.Lucene.Net.Util.BytesRefHash;
+    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
+    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
+    using RewriteMethod = YAF.Lucene.Net.Search.MultiTermQuery.RewriteMethod;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermContext = YAF.Lucene.Net.Index.TermContext;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using TermState = YAF.Lucene.Net.Index.TermState;
 
     /// <summary>
     /// Base rewrite method that translates each term into a query, and keeps
@@ -174,7 +175,8 @@ namespace YAF.Lucene.Net.Search
                     // duplicate term: update docFreq
                     int pos = (-e) - 1;
                     array.termState[pos].Register(state, m_readerContext.Ord, termsEnum.DocFreq, termsEnum.TotalTermFreq);
-                    if (Debugging.AssertsEnabled) Debugging.Assert(array.boost[pos] == boostAtt.Boost, "boost should be equal in all segment TermsEnums");
+                    // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
+                    if (Debugging.AssertsEnabled) Debugging.Assert(NumericUtils.SingleToSortableInt32(array.boost[pos]) == NumericUtils.SingleToSortableInt32(boostAtt.Boost), "boost should be equal in all segment TermsEnums");
                 }
                 else
                 {

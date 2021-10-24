@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using Term  = YAF.Lucene.Net.Index.Term;
+    using Term = YAF.Lucene.Net.Index.Term;
 
     /// <summary>
     /// A <see cref="Filter"/> that restricts search results to values that have a matching prefix in a given

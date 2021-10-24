@@ -1,4 +1,5 @@
-﻿using YAF.Lucene.Net.Util;
+﻿using YAF.Lucene.Net.Support.Threading;
+using YAF.Lucene.Net.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,9 +23,9 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using AttributeSource  = YAF.Lucene.Net.Util.AttributeSource;
-    using IBits  = YAF.Lucene.Net.Util.IBits;
-    using BytesRef  = YAF.Lucene.Net.Util.BytesRef;
+    using AttributeSource = YAF.Lucene.Net.Util.AttributeSource;
+    using IBits = YAF.Lucene.Net.Util.IBits;
+    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
 
     /// <summary>
     /// Enumerator to seek (<see cref="SeekCeil(BytesRef)"/>, 
@@ -336,9 +337,14 @@ namespace YAF.Lucene.Net.Index
             {
                 get
                 {
-                    lock (this)
+                    UninterruptableMonitor.Enter(this);
+                    try
                     {
                         return base.Attributes;
+                    }
+                    finally
+                    {
+                        UninterruptableMonitor.Exit(this);
                     }
                 }
             }

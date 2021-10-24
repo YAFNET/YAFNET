@@ -17,7 +17,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene46
      * limitations under the License.
      */
 
-    using SegmentInfo  = YAF.Lucene.Net.Index.SegmentInfo;
+    using SegmentInfo = YAF.Lucene.Net.Index.SegmentInfo;
 
     /// <summary>
     /// Lucene 4.6 Segment info format.
