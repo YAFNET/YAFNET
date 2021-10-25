@@ -143,9 +143,9 @@ namespace YAF.Core.Services
             [NotNull] string toEmail,
             [CanBeNull] string toName)
         {
-            CodeContracts.VerifyNotNull(digestHtml, "digestHtml");
+            CodeContracts.VerifyNotNull(digestHtml);
             CodeContracts.VerifyNotNull(boardAddress);
-            CodeContracts.VerifyNotNull(toEmail, "toEmail");
+            CodeContracts.VerifyNotNull(toEmail);
 
             return this.Get<IMailService>().CreateMessage(
                 boardAddress,

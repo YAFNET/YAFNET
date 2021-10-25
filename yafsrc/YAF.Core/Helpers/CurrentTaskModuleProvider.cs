@@ -50,7 +50,7 @@ namespace YAF.Core.Helpers
 
             set
             {
-                CodeContracts.VerifyNotNull(value, "value");
+                CodeContracts.VerifyNotNull(value);
 
                 MemoryCache.Default[Constants.Cache.TaskModule] = value;
             }

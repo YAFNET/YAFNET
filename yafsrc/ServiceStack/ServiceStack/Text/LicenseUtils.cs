@@ -1,11 +1,9 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
+﻿// ***********************************************************************
 // <copyright file="LicenseUtils.cs" company="ServiceStack, Inc.">
-//   Copyright (c) ServiceStack, Inc. All Rights Reserved.
+//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
-// <summary>
-//   Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
+// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
+// ***********************************************************************
 
 namespace ServiceStack
 {
@@ -28,77 +26,218 @@ namespace ServiceStack
     public class LicenseException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LicenseException"/> class.
+        /// Initializes a new instance of the <see cref="LicenseException" /> class.
         /// </summary>
         /// <param name="message">The message that describes the error.</param>
         public LicenseException(string message) : base(message) { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LicenseException"/> class.
+        /// Initializes a new instance of the <see cref="LicenseException" /> class.
         /// </summary>
         /// <param name="message">The error message that explains the reason for the exception.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a null reference (<see langword="Nothing" /> in Visual Basic) if no inner exception is specified.</param>
         public LicenseException(string message, Exception innerException) : base(message, innerException) { }
     }
 
+    /// <summary>
+    /// Enum LicenseType
+    /// </summary>
     public enum LicenseType
     {
+        /// <summary>
+        /// The free
+        /// </summary>
         Free,
+        /// <summary>
+        /// The indie
+        /// </summary>
         Indie,
+        /// <summary>
+        /// The business
+        /// </summary>
         Business,
+        /// <summary>
+        /// The enterprise
+        /// </summary>
         Enterprise,
+        /// <summary>
+        /// The text indie
+        /// </summary>
         TextIndie,
+        /// <summary>
+        /// The text business
+        /// </summary>
         TextBusiness,
+        /// <summary>
+        /// The orm lite indie
+        /// </summary>
         OrmLiteIndie,
+        /// <summary>
+        /// The orm lite business
+        /// </summary>
         OrmLiteBusiness,
+        /// <summary>
+        /// The redis indie
+        /// </summary>
         RedisIndie,
+        /// <summary>
+        /// The redis business
+        /// </summary>
         RedisBusiness,
+        /// <summary>
+        /// The aws indie
+        /// </summary>
         AwsIndie,
+        /// <summary>
+        /// The aws business
+        /// </summary>
         AwsBusiness,
+        /// <summary>
+        /// The trial
+        /// </summary>
         Trial,
+        /// <summary>
+        /// The site
+        /// </summary>
         Site,
+        /// <summary>
+        /// The text site
+        /// </summary>
         TextSite,
+        /// <summary>
+        /// The redis site
+        /// </summary>
         RedisSite,
+        /// <summary>
+        /// The orm lite site
+        /// </summary>
         OrmLiteSite,
     }
 
+    /// <summary>
+    /// Enum LicenseFeature
+    /// </summary>
     [Flags]
     public enum LicenseFeature : long
     {
+        /// <summary>
+        /// The none
+        /// </summary>
         None = 0,
+        /// <summary>
+        /// All
+        /// </summary>
         All = Premium | Text | Client | Common | Redis | OrmLite | ServiceStack | Server | Razor | Admin | Aws,
+        /// <summary>
+        /// The redis sku
+        /// </summary>
         RedisSku = Redis | Text,
+        /// <summary>
+        /// The orm lite sku
+        /// </summary>
         OrmLiteSku = OrmLite | Text,
+        /// <summary>
+        /// The aws sku
+        /// </summary>
         AwsSku = Aws | Text,
+        /// <summary>
+        /// The free
+        /// </summary>
         Free = None,
+        /// <summary>
+        /// The premium
+        /// </summary>
         Premium = 1 << 0,
+        /// <summary>
+        /// The text
+        /// </summary>
         Text = 1 << 1,
+        /// <summary>
+        /// The client
+        /// </summary>
         Client = 1 << 2,
+        /// <summary>
+        /// The common
+        /// </summary>
         Common = 1 << 3,
+        /// <summary>
+        /// The redis
+        /// </summary>
         Redis = 1 << 4,
+        /// <summary>
+        /// The orm lite
+        /// </summary>
         OrmLite = 1 << 5,
+        /// <summary>
+        /// The service stack
+        /// </summary>
         ServiceStack = 1 << 6,
+        /// <summary>
+        /// The server
+        /// </summary>
         Server = 1 << 7,
+        /// <summary>
+        /// The razor
+        /// </summary>
         Razor = 1 << 8,
+        /// <summary>
+        /// The admin
+        /// </summary>
         Admin = 1 << 9,
+        /// <summary>
+        /// The aws
+        /// </summary>
         Aws = 1 << 10,
     }
 
+    /// <summary>
+    /// Enum LicenseMeta
+    /// </summary>
     [Flags]
     public enum LicenseMeta : long
     {
+        /// <summary>
+        /// The none
+        /// </summary>
         None = 0,
+        /// <summary>
+        /// The subscription
+        /// </summary>
         Subscription = 1 << 0,
+        /// <summary>
+        /// The cores
+        /// </summary>
         Cores = 1 << 1,
     }
 
+    /// <summary>
+    /// Enum QuotaType
+    /// </summary>
     public enum QuotaType
     {
+        /// <summary>
+        /// The operations
+        /// </summary>
         Operations,      //ServiceStack
+        /// <summary>
+        /// The types
+        /// </summary>
         Types,           //Text, Redis
+        /// <summary>
+        /// The fields
+        /// </summary>
         Fields,          //ServiceStack, Text, Redis, OrmLite
+        /// <summary>
+        /// The requests per hour
+        /// </summary>
         RequestsPerHour, //Redis
+        /// <summary>
+        /// The tables
+        /// </summary>
         Tables,          //OrmLite, Aws
+        /// <summary>
+        /// The premium feature
+        /// </summary>
         PremiumFeature,  //AdminUI, Advanced Redis APIs, etc
     }
 
@@ -107,11 +246,20 @@ namespace ServiceStack
     /// </summary>
     public static class Licensing
     {
+        /// <summary>
+        /// Registers the license.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
         public static void RegisterLicense(string licenseKeyText)
         {
             LicenseUtils.RegisterLicense(licenseKeyText);
         }
 
+        /// <summary>
+        /// Registers the license from file.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
+        /// <exception cref="ServiceStack.LicenseException">License file does not exist: " + filePath</exception>
         public static void RegisterLicenseFromFile(string filePath)
         {
             if (!filePath.FileExists())
@@ -121,6 +269,10 @@ namespace ServiceStack
             LicenseUtils.RegisterLicense(licenseKeyText);
         }
 
+        /// <summary>
+        /// Registers the license from file if exists.
+        /// </summary>
+        /// <param name="filePath">The file path.</param>
         public static void RegisterLicenseFromFileIfExists(string filePath)
         {
             if (!filePath.FileExists())
@@ -131,13 +283,40 @@ namespace ServiceStack
         }
     }
 
+    /// <summary>
+    /// Class LicenseKey.
+    /// </summary>
     public class LicenseKey
     {
+        /// <summary>
+        /// Gets or sets the reference.
+        /// </summary>
+        /// <value>The reference.</value>
         public string Ref { get; set; }
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the type.
+        /// </summary>
+        /// <value>The type.</value>
         public LicenseType Type { get; set; }
+        /// <summary>
+        /// Gets or sets the meta.
+        /// </summary>
+        /// <value>The meta.</value>
         public long Meta { get; set; }
+        /// <summary>
+        /// Gets or sets the hash.
+        /// </summary>
+        /// <value>The hash.</value>
         public string Hash { get; set; }
+        /// <summary>
+        /// Gets or sets the expiry.
+        /// </summary>
+        /// <value>The expiry.</value>
         public DateTime Expiry { get; set; }
     }
 
@@ -146,11 +325,23 @@ namespace ServiceStack
     /// </summary>
     public static class LicenseUtils
     {
+        /// <summary>
+        /// The runtime public key
+        /// </summary>
         public const string RuntimePublicKey = "<RSAKeyValue><Modulus>nkqwkUAcuIlVzzOPENcQ+g5ALCe4LyzzWv59E4a7LuOM1Nb+hlNlnx2oBinIkvh09EyaxIX2PmaY0KtyDRIh+PoItkKeJe/TydIbK/bLa0+0Axuwa0MFShE6HdJo/dynpODm64+Sg1XfhICyfsBBSxuJMiVKjlMDIxu9kDg7vEs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+        /// <summary>
+        /// The license public key
+        /// </summary>
         public const string LicensePublicKey = "<RSAKeyValue><Modulus>w2fTTfr2SrGCclwLUkrbH0XsIUpZDJ1Kei2YUwYGmIn5AUyCPLTUv3obDBUBFJKLQ61Khs7dDkXlzuJr5tkGQ0zS0PYsmBPAtszuTum+FAYRH4Wdhmlfqu1Z03gkCIo1i11TmamN5432uswwFCVH60JU3CpaN97Ehru39LA1X9E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
+        /// <summary>
+        /// The contact details
+        /// </summary>
         private const string ContactDetails = " Please see servicestack.net or contact team@servicestack.net for more details.";
 
+        /// <summary>
+        /// Initializes static members of the <see cref="LicenseUtils"/> class.
+        /// </summary>
         static LicenseUtils()
         {
             const string ossLicenseKey = "1001-e1JlZjoxMDAxLE5hbWU6VGVzdCBCdXNpbmVzcyxUeXBlOkJ1c2luZXNzLEhhc2g6UHVNTVRPclhvT2ZIbjQ5MG5LZE1mUTd5RUMzQnBucTFEbTE3TDczVEF4QUNMT1FhNXJMOWkzVjFGL2ZkVTE3Q2pDNENqTkQyUktRWmhvUVBhYTBiekJGUUZ3ZE5aZHFDYm9hL3lydGlwUHI5K1JsaTBYbzNsUC85cjVJNHE5QVhldDN6QkE4aTlvdldrdTgyTk1relY2eis2dFFqTThYN2lmc0JveHgycFdjPSxFeHBpcnk6MjAxMy0wMS0wMX0=";
@@ -158,36 +349,102 @@ namespace ServiceStack
             RegisterLicense(ossLicenseKey);
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance has initialize.
+        /// </summary>
+        /// <value><c>true</c> if this instance has initialize; otherwise, <c>false</c>.</value>
         public static bool HasInit { get; private set; }
+        /// <summary>
+        /// Initializes this instance.
+        /// </summary>
         public static void Init()
         {
             HasInit = true; //Dummy method to init static constructor
         }
 
+        /// <summary>
+        /// Class ErrorMessages.
+        /// </summary>
         public static class ErrorMessages
         {
+            /// <summary>
+            /// The upgrade instructions
+            /// </summary>
             private const string UpgradeInstructions = " Please see https://servicestack.net to upgrade to a commercial license or visit https://github.com/ServiceStackV3/ServiceStackV3 to revert back to the free ServiceStack v3.";
+            /// <summary>
+            /// The exceeded redis types
+            /// </summary>
             internal const string ExceededRedisTypes = "The free-quota limit on '{0} Redis Types' has been reached." + UpgradeInstructions;
+            /// <summary>
+            /// The exceeded redis requests
+            /// </summary>
             internal const string ExceededRedisRequests = "The free-quota limit on '{0} Redis requests per hour' has been reached." + UpgradeInstructions;
+            /// <summary>
+            /// The exceeded orm lite tables
+            /// </summary>
             internal const string ExceededOrmLiteTables = "The free-quota limit on '{0} OrmLite Tables' has been reached." + UpgradeInstructions;
+            /// <summary>
+            /// The exceeded aws tables
+            /// </summary>
             internal const string ExceededAwsTables = "The free-quota limit on '{0} AWS Tables' has been reached." + UpgradeInstructions;
+            /// <summary>
+            /// The exceeded service stack operations
+            /// </summary>
             internal const string ExceededServiceStackOperations = "The free-quota limit on '{0} ServiceStack Operations' has been reached." + UpgradeInstructions;
+            /// <summary>
+            /// The exceeded admin UI
+            /// </summary>
             internal const string ExceededAdminUi = "The Admin UI is a commercial-only premium feature." + UpgradeInstructions;
+            /// <summary>
+            /// The exceeded premium feature
+            /// </summary>
             internal const string ExceededPremiumFeature = "Unauthorized use of a commercial-only premium feature." + UpgradeInstructions;
+            /// <summary>
+            /// The unauthorized access request
+            /// </summary>
             public const string UnauthorizedAccessRequest = "Unauthorized access request of a licensed feature.";
         }
 
+        /// <summary>
+        /// Class FreeQuotas.
+        /// </summary>
         public static class FreeQuotas
         {
+            /// <summary>
+            /// The service stack operations
+            /// </summary>
             public const int ServiceStackOperations = 10;
+            /// <summary>
+            /// The type fields
+            /// </summary>
             public const int TypeFields = 20;
+            /// <summary>
+            /// The redis types
+            /// </summary>
             public const int RedisTypes = 20;
+            /// <summary>
+            /// The redis request per hour
+            /// </summary>
             public const int RedisRequestPerHour = 6000;
+            /// <summary>
+            /// The orm lite tables
+            /// </summary>
             public const int OrmLiteTables = 10;
+            /// <summary>
+            /// The aws tables
+            /// </summary>
             public const int AwsTables = 10;
+            /// <summary>
+            /// The premium feature
+            /// </summary>
             public const int PremiumFeature = 0;
         }
 
+        /// <summary>
+        /// Asserts the evaluation license.
+        /// </summary>
+        /// <exception cref="ServiceStack.LicenseException">The evaluation license for this software has expired. " +
+        ///                     "See https://servicestack.net to upgrade to a valid license.</exception>
         public static void AssertEvaluationLicense()
         {
             if (DateTime.UtcNow > new DateTime(2013, 12, 31))
@@ -195,16 +452,40 @@ namespace ServiceStack
                     "See https://servicestack.net to upgrade to a valid license.").Trace();
         }
 
+        /// <summary>
+        /// The revoked subs
+        /// </summary>
         private static readonly int[] revokedSubs = { 4018, 4019, 4041, 4331, 4581 };
 
+        /// <summary>
+        /// Class __ActivatedLicense.
+        /// </summary>
         private class __ActivatedLicense
         {
+            /// <summary>
+            /// The license key
+            /// </summary>
             internal readonly LicenseKey LicenseKey;
-            internal __ActivatedLicense(LicenseKey licenseKey) => LicenseKey = licenseKey;
+            /// <summary>
+            /// Initializes a new instance of the <see cref="__ActivatedLicense"/> class.
+            /// </summary>
+            /// <param name="licenseKey">The license key.</param>
+            internal __ActivatedLicense(LicenseKey licenseKey)
+            {
+                LicenseKey = licenseKey;
+            }
         }
 
+        /// <summary>
+        /// Gets the license warning message.
+        /// </summary>
+        /// <value>The license warning message.</value>
         public static string LicenseWarningMessage { get; private set; }
 
+        /// <summary>
+        /// Gets the license warning message.
+        /// </summary>
+        /// <returns>System.String.</returns>
         private static string GetLicenseWarningMessage()
         {
             var key = __activatedLicense?.LicenseKey;
@@ -221,10 +502,23 @@ namespace ServiceStack
             return null;
         }
 
+        /// <summary>
+        /// The activated license
+        /// </summary>
         private static __ActivatedLicense __activatedLicense;
 
+        /// <summary>
+        /// The lock object
+        /// </summary>
         private static readonly object lockObj = new object();
 
+        /// <summary>
+        /// Registers the license.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <exception cref="ServiceStack.LicenseException">This subscription has been revoked. " + ContactDetails</exception>
+        /// <exception cref="ServiceStack.LicenseException"></exception>
+        /// <exception cref="ServiceStack.LicenseException"></exception>
         public static void RegisterLicense(string licenseKeyText)
         {
             JsConfig.InitStatics();
@@ -288,6 +582,13 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Validates the license key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <exception cref="ServiceStack.LicenseException">This license has expired on {key.Expiry:d} and is not valid for use with this release."
+        ///                                            + ContactDetails</exception>
+        /// <exception cref="ServiceStack.LicenseException">This trial license has expired on {key.Expiry:d}." + ContactDetails</exception>
         private static void ValidateLicenseKey(LicenseKey key)
         {
             var releaseDate = Env.GetReleaseDate();
@@ -305,16 +606,32 @@ namespace ServiceStack
                 Console.WriteLine(LicenseWarningMessage);
         }
 
+        /// <summary>
+        /// Removes the license.
+        /// </summary>
         public static void RemoveLicense()
         {
             __activatedLicense = null;
         }
 
+        /// <summary>
+        /// Activateds the license features.
+        /// </summary>
+        /// <returns>LicenseFeature.</returns>
         public static LicenseFeature ActivatedLicenseFeatures()
         {
             return __activatedLicense?.LicenseKey.GetLicensedFeatures() ?? LicenseFeature.None;
         }
 
+        /// <summary>
+        /// Approveds the usage.
+        /// </summary>
+        /// <param name="licenseFeature">The license feature.</param>
+        /// <param name="requestedFeature">The requested feature.</param>
+        /// <param name="allowedUsage">The allowed usage.</param>
+        /// <param name="actualUsage">The actual usage.</param>
+        /// <param name="message">The message.</param>
+        /// <exception cref="ServiceStack.LicenseException"></exception>
         public static void ApprovedUsage(LicenseFeature licenseFeature, LicenseFeature requestedFeature,
             int allowedUsage, int actualUsage, string message)
         {
@@ -326,12 +643,24 @@ namespace ServiceStack
                 throw new LicenseException(message.Fmt(allowedUsage)).Trace();
         }
 
+        /// <summary>
+        /// Determines whether [has licensed feature] [the specified feature].
+        /// </summary>
+        /// <param name="feature">The feature.</param>
+        /// <returns><c>true</c> if [has licensed feature] [the specified feature]; otherwise, <c>false</c>.</returns>
         public static bool HasLicensedFeature(LicenseFeature feature)
         {
             var licensedFeatures = ActivatedLicenseFeatures();
             return (feature & licensedFeatures) == feature;
         }
 
+        /// <summary>
+        /// Asserts the valid usage.
+        /// </summary>
+        /// <param name="feature">The feature.</param>
+        /// <param name="quotaType">Type of the quota.</param>
+        /// <param name="count">The count.</param>
+        /// <exception cref="ServiceStack.LicenseException">Unknown Quota Usage: {0}, {1}".Fmt(feature, quotaType)</exception>
         public static void AssertValidUsage(LicenseFeature feature, QuotaType quotaType, int count)
         {
             var licensedFeatures = ActivatedLicenseFeatures();
@@ -402,6 +731,12 @@ namespace ServiceStack
             throw new LicenseException("Unknown Quota Usage: {0}, {1}".Fmt(feature, quotaType)).Trace();
         }
 
+        /// <summary>
+        /// Gets the licensed features.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>LicenseFeature.</returns>
+        /// <exception cref="System.ArgumentException">Unknown License Type: " + key.Type</exception>
         public static LicenseFeature GetLicensedFeatures(this LicenseKey key)
         {
             switch (key.Type)
@@ -438,6 +773,12 @@ namespace ServiceStack
             throw new ArgumentException("Unknown License Type: " + key.Type).Trace();
         }
 
+        /// <summary>
+        /// Converts to licensekey.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <returns>LicenseKey.</returns>
+        /// <exception cref="ServiceStack.LicenseException">The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId)</exception>
         public static LicenseKey ToLicenseKey(this string licenseKeyText)
         {
             licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "");
@@ -468,6 +809,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Converts to licensekeyfallback.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <returns>LicenseKey.</returns>
+        /// <exception cref="ServiceStack.LicenseException">The license '{base64}' is not assigned to CustomerId '{refId}'.</exception>
         public static LicenseKey ToLicenseKeyFallback(this string licenseKeyText)
         {
             licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "");
@@ -492,11 +839,21 @@ namespace ServiceStack
             return key;
         }
 
+        /// <summary>
+        /// Gets the hash key to sign.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>System.String.</returns>
         public static string GetHashKeyToSign(this LicenseKey key)
         {
             return $"{key.Ref}:{key.Name}:{key.Expiry:yyyy-MM-dd}:{key.Type}";
         }
 
+        /// <summary>
+        /// Gets the inner most exception.
+        /// </summary>
+        /// <param name="ex">The ex.</param>
+        /// <returns>Exception.</returns>
         public static Exception GetInnerMostException(this Exception ex)
         {
             //Extract true exception from static initializers (e.g. LicenseException)
@@ -508,6 +865,13 @@ namespace ServiceStack
         }
 
         //License Utils
+        /// <summary>
+        /// Verifies the signed hash.
+        /// </summary>
+        /// <param name="DataToVerify">The data to verify.</param>
+        /// <param name="SignedData">The signed data.</param>
+        /// <param name="Key">The key.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool VerifySignedHash(byte[] DataToVerify, byte[] SignedData, System.Security.Cryptography.RSAParameters Key)
         {
             try
@@ -524,6 +888,12 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Verifies the license key text.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <returns>LicenseKey.</returns>
+        /// <exception cref="System.ArgumentException">licenseKeyText</exception>
         public static LicenseKey VerifyLicenseKeyText(string licenseKeyText)
         {
 #if NET48 || NET5_0_OR_GREATER
@@ -544,6 +914,11 @@ namespace ServiceStack
 #endif
         }
 
+        /// <summary>
+        /// Froms the XML.
+        /// </summary>
+        /// <param name="rsa">The RSA.</param>
+        /// <param name="xml">The XML.</param>
         private static void FromXml(this System.Security.Cryptography.RSA rsa, string xml)
         {
 #if NET48
@@ -613,6 +988,12 @@ namespace ServiceStack
         }
 #endif
 
+        /// <summary>
+        /// Verifies the license key text.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool VerifyLicenseKeyText(this string licenseKeyText, out LicenseKey key)
         {
             var publicRsaProvider = new System.Security.Cryptography.RSACryptoServiceProvider(2048);
@@ -626,6 +1007,17 @@ namespace ServiceStack
             return VerifySignedHash(originalData, signedData, publicKeyParams);
         }
 
+        /// <summary>
+        /// Verifies the license key text fallback.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <param name="key">The key.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <exception cref="System.Exception">Could not import LicensePublicKey</exception>
+        /// <exception cref="System.Exception">Could not deserialize LicenseKeyText Manually</exception>
+        /// <exception cref="System.Exception">Could not convert HashKey to UTF-8</exception>
+        /// <exception cref="System.Exception">Could not convert key.Hash from Base64</exception>
+        /// <exception cref="System.Exception">Could not Verify License Key ({originalData.Length}, {signedData.Length})</exception>
         public static bool VerifyLicenseKeyTextFallback(this string licenseKeyText, out LicenseKey key)
         {
             System.Security.Cryptography.RSAParameters publicKeyParams;
@@ -680,12 +1072,17 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Verifies the sha1 data.
+        /// </summary>
+        /// <param name="RSAalg">The rs aalg.</param>
+        /// <param name="unsignedData">The unsigned data.</param>
+        /// <param name="encryptedData">The encrypted data.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool VerifySha1Data(this System.Security.Cryptography.RSACryptoServiceProvider RSAalg, byte[] unsignedData, byte[] encryptedData)
         {
-            using (var sha = new System.Security.Cryptography.SHA1CryptoServiceProvider())
-            {
-                return RSAalg.VerifyData(unsignedData, sha, encryptedData);
-            }
+            using var sha = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+            return RSAalg.VerifyData(unsignedData, sha, encryptedData);
         }
     }
 }

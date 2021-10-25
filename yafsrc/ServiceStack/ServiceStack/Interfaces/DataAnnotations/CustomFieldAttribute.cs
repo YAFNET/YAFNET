@@ -187,33 +187,4 @@ namespace ServiceStack.DataAnnotations
         /// </summary>
         public PgSqlTimestampTzArrayAttribute() : base("timestamp with time zone[]") { }
     }
-
-    /// <summary>
-    /// Class PgSqlTimestampAttribute.
-    /// Implements the <see cref="ServiceStack.DataAnnotations.CustomFieldAttribute" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.DataAnnotations.CustomFieldAttribute" />
-    [Obsolete("Use [PgSqlTimestampArray]")]
-    public class PgSqlTimestampAttribute : CustomFieldAttribute
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PgSqlTimestampAttribute"/> class.
-        /// </summary>
-        public PgSqlTimestampAttribute() : base("timestamp[]") { }
-    }
-
-    /// <summary>
-    /// Class PgSqlTimestampTzAttribute.
-    /// Implements the <see cref="ServiceStack.DataAnnotations.CustomFieldAttribute" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.DataAnnotations.CustomFieldAttribute" />
-    [Obsolete("Use [PgSqlTimestampTzArray]")]
-    public class PgSqlTimestampTzAttribute : CustomFieldAttribute
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PgSqlTimestampTzAttribute"/> class.
-        /// </summary>
-        public PgSqlTimestampTzAttribute() : base("timestamp with time zone[]") { }
-    }
-
 }

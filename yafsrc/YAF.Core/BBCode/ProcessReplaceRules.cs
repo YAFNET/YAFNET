@@ -99,7 +99,7 @@ namespace YAF.Core.BBCode
         /// </param>
         public void AddRule(IReplaceRule newRule)
         {
-            CodeContracts.VerifyNotNull(newRule, "newRule");
+            CodeContracts.VerifyNotNull(newRule);
 
             lock (this.rulesLock)
             {

@@ -24,94 +24,6 @@ namespace ServiceStack.Text
     public static class PlatformExtensions
     {
         /// <summary>
-        /// Determines whether the specified type is interface.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if the specified type is interface; otherwise, <c>false</c>.</returns>
-        [Obsolete("Use type.IsInterface")]
-        public static bool IsInterface(this Type type) => type.IsInterface;
-
-        /// <summary>
-        /// Determines whether the specified type is array.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if the specified type is array; otherwise, <c>false</c>.</returns>
-        [Obsolete("Use type.IsArray")]
-        public static bool IsArray(this Type type) => type.IsArray;
-
-        /// <summary>
-        /// Determines whether [is value type] [the specified type].
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if [is value type] [the specified type]; otherwise, <c>false</c>.</returns>
-        [Obsolete("Use type.IsValueType")]
-        public static bool IsValueType(this Type type) => type.IsValueType;
-
-        /// <summary>
-        /// Determines whether the specified type is generic.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if the specified type is generic; otherwise, <c>false</c>.</returns>
-        [Obsolete("Use type.IsGenericType")]
-        public static bool IsGeneric(this Type type) => type.IsGenericType;
-
-        /// <summary>
-        /// Bases the type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Type.</returns>
-        [Obsolete("Use type.BaseType")]
-        public static Type BaseType(this Type type) => type.BaseType;
-
-        /// <summary>
-        /// Reflecteds the type.
-        /// </summary>
-        /// <param name="pi">The pi.</param>
-        /// <returns>Type.</returns>
-        [Obsolete("Use pi.ReflectedType")]
-        public static Type ReflectedType(this PropertyInfo pi) => pi.ReflectedType;
-
-        /// <summary>
-        /// Reflecteds the type.
-        /// </summary>
-        /// <param name="fi">The fi.</param>
-        /// <returns>Type.</returns>
-        [Obsolete("Use fi.ReflectedType")]
-        public static Type ReflectedType(this FieldInfo fi) => fi.ReflectedType;
-
-        /// <summary>
-        /// Generics the type definition.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Type.</returns>
-        [Obsolete("Use type.GetGenericTypeDefinition()")]
-        public static Type GenericTypeDefinition(this Type type) => type.GetGenericTypeDefinition();
-
-        /// <summary>
-        /// Gets the type interfaces.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Type[].</returns>
-        [Obsolete("Use type.GetInterfaces()")]
-        public static Type[] GetTypeInterfaces(this Type type) => type.GetInterfaces();
-
-        /// <summary>
-        /// Gets the empty constructor.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>ConstructorInfo.</returns>
-        [Obsolete("Use type.GetConstructor(Type.EmptyTypes)")]
-        public static ConstructorInfo GetEmptyConstructor(this Type type) => type.GetConstructor(Type.EmptyTypes);
-
-        /// <summary>
-        /// Gets all constructors.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>IEnumerable&lt;ConstructorInfo&gt;.</returns>
-        [Obsolete("Use type.GetConstructors()")]
-        public static IEnumerable<ConstructorInfo> GetAllConstructors(this Type type) => type.GetConstructors();
-
-        /// <summary>
         /// Gets the types public properties.
         /// </summary>
         /// <param name="subType">Type of the sub.</param>
@@ -139,14 +51,6 @@ namespace ServiceStack.Text
                 BindingFlags.NonPublic |
                 BindingFlags.Instance);
         }
-
-        /// <summary>
-        /// Gets the assembly.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Assembly.</returns>
-        [Obsolete("Use type.Assembly")]
-        public static Assembly GetAssembly(this Type type) => type.Assembly;
 
         /// <summary>
         /// Fieldses the specified type.
@@ -234,14 +138,6 @@ namespace ServiceStack.Text
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static MethodInfo GetInstanceMethod(this Type type, string methodName) =>
             type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-        /// <summary>
-        /// Methods the specified function.
-        /// </summary>
-        /// <param name="fn">The function.</param>
-        /// <returns>MethodInfo.</returns>
-        [Obsolete("Use fn.Method")]
-        public static MethodInfo Method(this Delegate fn) => fn.Method;
 
         /// <summary>
         /// Determines whether the specified type has attribute.
@@ -837,63 +733,12 @@ namespace ServiceStack.Text
             Delegate.CreateDelegate(delegateType, mi, throwOnBindFailure);
 
         /// <summary>
-        /// Generics the type arguments.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Type[].</returns>
-        [Obsolete("Use type.GetGenericArguments()")]
-        public static Type[] GenericTypeArguments(this Type type) => type.GetGenericArguments();
-
-        /// <summary>
-        /// Declareds the constructors.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>ConstructorInfo[].</returns>
-        [Obsolete("Use type.GetConstructors()")]
-        public static ConstructorInfo[] DeclaredConstructors(this Type type) => type.GetConstructors();
-
-        /// <summary>
-        /// Assignables from.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="fromType">From type.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        [Obsolete("Use type.IsAssignableFrom(fromType)")]
-        public static bool AssignableFrom(this Type type, Type fromType) => type.IsAssignableFrom(fromType);
-
-        /// <summary>
         /// Determines whether [is standard class] [the specified type].
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns><c>true</c> if [is standard class] [the specified type]; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsStandardClass(this Type type) => type.IsClass && !type.IsAbstract && !type.IsInterface;
-
-        /// <summary>
-        /// Determines whether the specified type is abstract.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns><c>true</c> if the specified type is abstract; otherwise, <c>false</c>.</returns>
-        [Obsolete("Use type.IsAbstract")]
-        public static bool IsAbstract(this Type type) => type.IsAbstract;
-
-        /// <summary>
-        /// Gets the property information.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="propertyName">Name of the property.</param>
-        /// <returns>PropertyInfo.</returns>
-        [Obsolete("Use type.GetProperty(propertyName)")]
-        public static PropertyInfo GetPropertyInfo(this Type type, string propertyName) => type.GetProperty(propertyName);
-
-        /// <summary>
-        /// Gets the field information.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="fieldName">Name of the field.</param>
-        /// <returns>FieldInfo.</returns>
-        [Obsolete("Use type.GetField(fieldName)")]
-        public static FieldInfo GetFieldInfo(this Type type, string fieldName) => type.GetField(fieldName);
 
         /// <summary>
         /// Gets the writable fields.
@@ -976,14 +821,6 @@ namespace ServiceStack.Text
         {
             return Delegate.CreateDelegate(delegateType, target, methodInfo);
         }
-
-        /// <summary>
-        /// Elements the type.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <returns>Type.</returns>
-        [Obsolete("Use type.GetElementType()")]
-        public static Type ElementType(this Type type) => type.GetElementType();
 
         /// <summary>
         /// Gets the type of the collection.

@@ -79,9 +79,9 @@ namespace YAF.Core.Helpers
             [NotNull] IHaveBoardID haveBoardId,
             [NotNull] ITreatCacheKey treatCacheKey)
         {
-            CodeContracts.VerifyNotNull(injectServices, "injectServices");
-            CodeContracts.VerifyNotNull(haveBoardId, "haveBoardId");
-            CodeContracts.VerifyNotNull(treatCacheKey, "treatCacheKey");
+            CodeContracts.VerifyNotNull(injectServices);
+            CodeContracts.VerifyNotNull(haveBoardId);
+            CodeContracts.VerifyNotNull(treatCacheKey);
 
             this.injectServices = injectServices;
             this.haveBoardId = haveBoardId;

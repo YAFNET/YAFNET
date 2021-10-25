@@ -97,7 +97,7 @@ namespace YAF.Core.Tasks
         /// </returns>
         private static bool IsTimeToSendDigestForBoard([NotNull] LoadBoardSettings boardSettings)
         {
-            CodeContracts.VerifyNotNull(boardSettings, "boardSettings");
+            CodeContracts.VerifyNotNull(boardSettings);
 
             if (!boardSettings.AllowDigestEmail)
             {

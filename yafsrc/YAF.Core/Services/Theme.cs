@@ -76,7 +76,7 @@ namespace YAF.Core.Services
         /// </returns>
         public static bool IsValidTheme([NotNull] string theme)
         {
-            CodeContracts.VerifyNotNull(theme, "theme");
+            CodeContracts.VerifyNotNull(theme);
 
             return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme));
         }
@@ -92,7 +92,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string BuildThemePath([NotNull] string filename)
         {
-            CodeContracts.VerifyNotNull(filename, "filename");
+            CodeContracts.VerifyNotNull(filename);
 
             return BoardInfo.GetURLToContentThemes(this.ThemeFile.CombineWith(filename));
         }
@@ -108,7 +108,7 @@ namespace YAF.Core.Services
         /// </returns>
         private static string GetMappedThemeFile([NotNull] string theme)
         {
-            CodeContracts.VerifyNotNull(theme, "theme");
+            CodeContracts.VerifyNotNull(theme);
 
             return
                 HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");

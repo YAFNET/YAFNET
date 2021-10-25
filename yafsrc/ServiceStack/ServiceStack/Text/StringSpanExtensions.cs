@@ -302,27 +302,6 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Subsegments the specified start position.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="startPos">The start position.</param>
-        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-        [Obsolete("Use Slice()")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ReadOnlySpan<char> Subsegment(this ReadOnlySpan<char> text, int startPos) => text.Slice(startPos, text.Length - startPos);
-
-        /// <summary>
-        /// Subsegments the specified start position.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="startPos">The start position.</param>
-        /// <param name="length">The length.</param>
-        /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-        [Obsolete("Use Slice()")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ReadOnlySpan<char> Subsegment(this ReadOnlySpan<char> text, int startPos, int length) => text.Slice(startPos, length);
-
-        /// <summary>
         /// Lefts the part.
         /// </summary>
         /// <param name="strVal">The string value.</param>

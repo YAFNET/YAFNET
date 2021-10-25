@@ -57,8 +57,8 @@ namespace YAF.Core.Extensions
             [CanBeNull] string subject,
             [CanBeNull] string body)
         {
-            CodeContracts.VerifyNotNull(fromEmail, "fromEmail");
-            CodeContracts.VerifyNotNull(toEmail, "toEmail");
+            CodeContracts.VerifyNotNull(fromEmail);
+            CodeContracts.VerifyNotNull(toEmail);
 
             sendMail.Send(
                 new MailAddress(fromEmail),
@@ -107,9 +107,9 @@ namespace YAF.Core.Extensions
             [CanBeNull] string bodyText,
             [CanBeNull] string bodyHtml)
         {
-            CodeContracts.VerifyNotNull(sendMail, "sendMail");
-            CodeContracts.VerifyNotNull(fromAddress, "fromAddress");
-            CodeContracts.VerifyNotNull(toAddress, "toAddress");
+            CodeContracts.VerifyNotNull(sendMail);
+            CodeContracts.VerifyNotNull(fromAddress);
+            CodeContracts.VerifyNotNull(toAddress);
 
             var mailMessage = new MailMessage();
 
@@ -154,9 +154,9 @@ namespace YAF.Core.Extensions
             [CanBeNull] string bodyText,
             [CanBeNull] string bodyHtml)
         {
-            CodeContracts.VerifyNotNull(sendMail, "sendMail");
-            CodeContracts.VerifyNotNull(fromAddress, "fromAddress");
-            CodeContracts.VerifyNotNull(toAddress, "toAddress");
+            CodeContracts.VerifyNotNull(sendMail);
+            CodeContracts.VerifyNotNull(fromAddress);
+            CodeContracts.VerifyNotNull(toAddress);
 
             var mailMessage = new MailMessage();
 

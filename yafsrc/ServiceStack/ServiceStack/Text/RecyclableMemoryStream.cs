@@ -1706,37 +1706,6 @@ namespace ServiceStack.Text //Internalize to avoid conflicts
         }
 
         /// <summary>
-        /// Returns a new array with a copy of the buffer's contents. You should almost certainly be using GetBuffer combined with the Length to
-        /// access the bytes in this stream. Calling ToArray will destroy the benefits of pooled buffers, but it is included
-        /// for the sake of completeness.
-        /// </summary>
-        /// <returns>byte[].</returns>
-        /// <exception cref="NotSupportedException">The underlying RecyclableMemoryStreamManager is configured to not allow calls to ToArray.</exception>
-        /// <exception cref="ObjectDisposedException">Object has been disposed</exception>
-#pragma warning disable CS0809
-        [Obsolete("This method has degraded performance vs. GetBuffer and should be avoided.")]
-        public override byte[] ToArray()
-        {
-            this.CheckDisposed();
-
-            string stack = this.memoryManager.GenerateCallStacks ? Environment.StackTrace : null;
-            RecyclableMemoryStreamManager.Events.Writer.MemoryStreamToArray(this.id, this.tag, stack, this.length);
-
-            if (this.memoryManager.ThrowExceptionOnToArray)
-            {
-                throw new NotSupportedException("The underlying RecyclableMemoryStreamManager is configured to not allow calls to ToArray.");
-            }
-
-            var newBuffer = new byte[this.Length];
-
-            this.InternalRead(newBuffer, 0, this.length, 0);
-            this.memoryManager.ReportStreamToArray();
-
-            return newBuffer;
-        }
-#pragma warning restore CS0809
-
-        /// <summary>
         /// Reads from the current position into the provided buffer
         /// </summary>
         /// <param name="buffer">Destination buffer</param>

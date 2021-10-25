@@ -299,7 +299,7 @@ namespace YAF.Core.Services
         /// </returns>
         public MessageCleaned GetCleanedTopicMessage([NotNull] string topicMessage, [NotNull] int topicId)
         {
-            CodeContracts.VerifyNotNull(topicMessage, "topicMessage");
+            CodeContracts.VerifyNotNull(topicMessage);
 
             // get the common words for the language -- should be all lower case.
             var commonWords = this.Get<ILocalization>().GetText("COMMON", "COMMON_WORDS").StringToList(',');
@@ -558,10 +558,10 @@ namespace YAF.Core.Services
             [NotNull] string prefix,
             [NotNull] string postfix)
         {
-            CodeContracts.VerifyNotNull(message, "message");
-            CodeContracts.VerifyNotNull(wordList, "wordList");
-            CodeContracts.VerifyNotNull(prefix, "prefix");
-            CodeContracts.VerifyNotNull(postfix, "postfix");
+            CodeContracts.VerifyNotNull(message);
+            CodeContracts.VerifyNotNull(wordList);
+            CodeContracts.VerifyNotNull(prefix);
+            CodeContracts.VerifyNotNull(postfix);
 
             wordList.Where(w => w.Length > 3).ForEach(
                 word => MatchAndPerformAction(
@@ -597,9 +597,9 @@ namespace YAF.Core.Services
             [NotNull] string text,
             [NotNull] Action<string, int, int> matchAction)
         {
-            CodeContracts.VerifyNotNull(matchRegEx, "matchRegEx");
-            CodeContracts.VerifyNotNull(text, "text");
-            CodeContracts.VerifyNotNull(matchAction, "MatchAction");
+            CodeContracts.VerifyNotNull(matchRegEx);
+            CodeContracts.VerifyNotNull(text);
+            CodeContracts.VerifyNotNull(matchAction);
 
             const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
@@ -629,8 +629,8 @@ namespace YAF.Core.Services
         {
             var allowedTags = matchList.ToList();
 
-            CodeContracts.VerifyNotNull(text, "text");
-            CodeContracts.VerifyNotNull(allowedTags, "matchList");
+            CodeContracts.VerifyNotNull(text);
+            CodeContracts.VerifyNotNull(allowedTags);
 
             MatchAndPerformAction(
                 "<.*?>",

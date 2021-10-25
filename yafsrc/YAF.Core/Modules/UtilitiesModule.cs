@@ -60,7 +60,7 @@ namespace YAF.Core.Modules
         /// </param>
         private static void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
         {
-            CodeContracts.VerifyNotNull(builder, "builder");
+            CodeContracts.VerifyNotNull(builder);
 
 
             builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>()

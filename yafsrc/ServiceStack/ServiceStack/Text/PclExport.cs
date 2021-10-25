@@ -481,78 +481,7 @@ namespace ServiceStack.Text
         {
             return new UTF8Encoding(emitBom);
         }
-
-
-        /// <summary>
-        /// Creates the getter.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <returns>GetMemberDelegate.</returns>
-        [Obsolete("ReflectionOptimizer.CreateGetter")]
-        public GetMemberDelegate CreateGetter(PropertyInfo propertyInfo) => ReflectionOptimizer.Instance.CreateGetter(propertyInfo);
-
-        /// <summary>
-        /// Creates the getter.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
-        [Obsolete("ReflectionOptimizer.CreateGetter")]
-        public GetMemberDelegate<T> CreateGetter<T>(PropertyInfo propertyInfo) => ReflectionOptimizer.Instance.CreateGetter<T>(propertyInfo);
-
-        /// <summary>
-        /// Creates the setter.
-        /// </summary>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <returns>SetMemberDelegate.</returns>
-        [Obsolete("ReflectionOptimizer.CreateSetter")]
-        public SetMemberDelegate CreateSetter(PropertyInfo propertyInfo) => ReflectionOptimizer.Instance.CreateSetter(propertyInfo);
-
-        /// <summary>
-        /// Creates the setter.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="propertyInfo">The property information.</param>
-        /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-        [Obsolete("ReflectionOptimizer.CreateSetter")]
-        public SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo) => ReflectionOptimizer.Instance.CreateSetter<T>(propertyInfo);
-
-
-        /// <summary>
-        /// Creates the getter.
-        /// </summary>
-        /// <param name="fieldInfo">The field information.</param>
-        /// <returns>GetMemberDelegate.</returns>
-        [Obsolete("ReflectionOptimizer.CreateGetter")]
-        public virtual GetMemberDelegate CreateGetter(FieldInfo fieldInfo) => ReflectionOptimizer.Instance.CreateGetter(fieldInfo);
-
-        /// <summary>
-        /// Creates the getter.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fieldInfo">The field information.</param>
-        /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
-        [Obsolete("ReflectionOptimizer.CreateGetter")]
-        public virtual GetMemberDelegate<T> CreateGetter<T>(FieldInfo fieldInfo) => ReflectionOptimizer.Instance.CreateGetter<T>(fieldInfo);
-
-        /// <summary>
-        /// Creates the setter.
-        /// </summary>
-        /// <param name="fieldInfo">The field information.</param>
-        /// <returns>SetMemberDelegate.</returns>
-        [Obsolete("ReflectionOptimizer.CreateSetter")]
-        public virtual SetMemberDelegate CreateSetter(FieldInfo fieldInfo) => ReflectionOptimizer.Instance.CreateSetter(fieldInfo);
-
-        /// <summary>
-        /// Creates the setter.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fieldInfo">The field information.</param>
-        /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-        [Obsolete("ReflectionOptimizer.CreateSetter")]
-        public virtual SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo) => ReflectionOptimizer.Instance.CreateSetter<T>(fieldInfo);
-
-
+        
         /// <summary>
         /// Ins the same assembly.
         /// </summary>
@@ -703,11 +632,21 @@ namespace ServiceStack.Text
             stream.Position = 0;
         }
 
+        /// <summary>
+        /// Verifies the license key text.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <returns>LicenseKey.</returns>
         public virtual LicenseKey VerifyLicenseKeyText(string licenseKeyText)
         {
             return licenseKeyText.ToLicenseKey();
         }
 
+        /// <summary>
+        /// Verifies the license key text fallback.
+        /// </summary>
+        /// <param name="licenseKeyText">The license key text.</param>
+        /// <returns>LicenseKey.</returns>
         public virtual LicenseKey VerifyLicenseKeyTextFallback(string licenseKeyText)
         {
             return licenseKeyText.ToLicenseKeyFallback();

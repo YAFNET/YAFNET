@@ -75,16 +75,6 @@ namespace ServiceStack.Script
         }
 
         /// <summary>
-        /// Performs an implicit conversion from <see cref="ScriptScopeContext"/> to <see cref="Templates.TemplateScopeContext"/>.
-        /// </summary>
-        /// <param name="from">From.</param>
-        /// <returns>The result of the conversion.</returns>
-        public static implicit operator Templates.TemplateScopeContext(ScriptScopeContext from)
-        {
-            return new Templates.TemplateScopeContext(from.PageResult, from.OutputStream, from.ScopedParams);
-        }
-
-        /// <summary>
         /// Clones this instance.
         /// </summary>
         /// <returns>ScriptScopeContext.</returns>

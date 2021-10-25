@@ -4,25 +4,12 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ServiceStack.Web
 {
-    /// <summary>
-    /// Interface IStreamWriter
-    /// </summary>
-    [Obsolete("Use IStreamWriterAsync")]
-    public interface IStreamWriter
-    {
-        /// <summary>
-        /// Writes to.
-        /// </summary>
-        /// <param name="responseStream">The response stream.</param>
-        void WriteTo(Stream responseStream);
-    }
+    using System.IO;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Interface IStreamWriterAsync

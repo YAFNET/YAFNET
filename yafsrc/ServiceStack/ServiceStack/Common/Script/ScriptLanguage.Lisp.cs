@@ -1,10 +1,4 @@
-﻿// ***********************************************************************
-// <copyright file="ScriptLanguage.Lisp.cs" company="ServiceStack, Inc.">
-//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
-// </copyright>
-// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
-// ***********************************************************************
-/*
+﻿/*
   Copyright (c) 2017 OKI Software Co., Ltd.
   Copyright (c) 2018 SUZUKI Hisao
 

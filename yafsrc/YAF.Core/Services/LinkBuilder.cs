@@ -87,7 +87,7 @@ namespace YAF.Core.Services
         [NotNull]
         public string GetSafeRawUrl([NotNull] string url)
         {
-            CodeContracts.VerifyNotNull(url, "url");
+            CodeContracts.VerifyNotNull(url);
 
             var processedRaw = url;
             processedRaw = processedRaw.Replace("\"", string.Empty);

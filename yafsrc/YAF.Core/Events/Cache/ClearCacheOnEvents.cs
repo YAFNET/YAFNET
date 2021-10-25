@@ -77,8 +77,8 @@ namespace YAF.Core.Events.Cache
         /// </param>
         public ClearCacheOnEvents([NotNull] IServiceLocator serviceLocator, [NotNull] IDataCache dataCache)
         {
-            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
-            CodeContracts.VerifyNotNull(dataCache, "dataCache");
+            CodeContracts.VerifyNotNull(serviceLocator);
+            CodeContracts.VerifyNotNull(dataCache);
 
             this.ServiceLocator = serviceLocator;
             this.DataCache = dataCache;

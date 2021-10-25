@@ -66,7 +66,7 @@ namespace YAF.Core.Helpers
 
       set
       {
-        CodeContracts.VerifyNotNull(value, "value");
+        CodeContracts.VerifyNotNull(value);
 
         this.applicationStateBase = value;
       }

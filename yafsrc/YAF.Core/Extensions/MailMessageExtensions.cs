@@ -62,9 +62,9 @@ namespace YAF.Core.Extensions
             [CanBeNull] string bodyText,
             [CanBeNull] string bodyHtml)
         {
-            CodeContracts.VerifyNotNull(mailMessage, "mailMessage");
-            CodeContracts.VerifyNotNull(fromAddress, "fromAddress");
-            CodeContracts.VerifyNotNull(toAddress, "toAddress");
+            CodeContracts.VerifyNotNull(mailMessage);
+            CodeContracts.VerifyNotNull(fromAddress);
+            CodeContracts.VerifyNotNull(toAddress);
 
             mailMessage.To.Add(toAddress);
             mailMessage.From = fromAddress;

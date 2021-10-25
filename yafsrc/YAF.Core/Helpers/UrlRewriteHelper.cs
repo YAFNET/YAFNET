@@ -51,7 +51,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static string CleanStringForURL([NotNull]string inputString)
         {
-            CodeContracts.VerifyNotNull(inputString, nameof(inputString));
+            CodeContracts.VerifyNotNull(inputString);
 
             var sb = new StringBuilder();
 

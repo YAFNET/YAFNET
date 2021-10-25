@@ -50,8 +50,8 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static string Localize([NotNull] this ILocalizationSupport supportItem, [NotNull] Control currentControl)
         {
-            CodeContracts.VerifyNotNull(supportItem, "supportItem");
-            CodeContracts.VerifyNotNull(currentControl, "currentControl");
+            CodeContracts.VerifyNotNull(supportItem);
+            CodeContracts.VerifyNotNull(currentControl);
 
             if (currentControl.Site is { DesignMode: true })
             {
@@ -81,8 +81,8 @@ namespace YAF.Core.Extensions
             [NotNull] this ILocalizationSupport supportedItem,
             [NotNull] BaseControl currentControl)
         {
-            CodeContracts.VerifyNotNull(supportedItem, "supportedItem");
-            CodeContracts.VerifyNotNull(currentControl, "currentControl");
+            CodeContracts.VerifyNotNull(supportedItem);
+            CodeContracts.VerifyNotNull(currentControl);
 
             var localizedItem = supportedItem.Localize(currentControl);
 

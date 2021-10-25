@@ -121,7 +121,7 @@ namespace YAF.Core.BaseModules
     /// </returns>
     private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> fileNames)
     {
-      CodeContracts.VerifyNotNull(fileNames, "filenames");
+      CodeContracts.VerifyNotNull(fileNames);
 
       foreach (var assemblyFile in fileNames.Where(File.Exists))
       {

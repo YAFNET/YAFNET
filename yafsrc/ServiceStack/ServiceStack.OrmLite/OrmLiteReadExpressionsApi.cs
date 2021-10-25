@@ -192,16 +192,6 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Joins the alias.
-        /// </summary>
-        /// <param name="db">The database.</param>
-        /// <param name="alias">The alias.</param>
-        /// <returns>JoinFormatDelegate.</returns>
-        [Obsolete("Use TableAlias")]
-        public static JoinFormatDelegate JoinAlias(this IDbConnection db, string alias) =>
-            OrmLiteUtils.JoinAlias(alias);
-
-        /// <summary>
         /// Tables the alias.
         /// </summary>
         /// <param name="db">The database.</param>

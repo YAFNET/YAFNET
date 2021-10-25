@@ -212,16 +212,6 @@ namespace ServiceStack
         public static bool IsEmpty<T>(this T[] collection) => collection == null || collection.Length == 0;
 
         /// <summary>
-        /// Converts to hashset.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="items">The items.</param>
-        /// <returns>HashSet&lt;T&gt;.</returns>
-        [Obsolete("Use ToSet() or 'using System.Linq;'")]
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> items) => new(items);
-
-        /// <summary>
         /// Converts to set.
         /// </summary>
         /// <typeparam name="T"></typeparam>

@@ -49,7 +49,7 @@ namespace YAF.Core.Extensions
         public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
             where TModule : IModuleDefinition
         {
-            CodeContracts.VerifyNotNull(moduleManager, "moduleManager");
+            CodeContracts.VerifyNotNull(moduleManager);
 
             return moduleManager.GetAll(false);
         }

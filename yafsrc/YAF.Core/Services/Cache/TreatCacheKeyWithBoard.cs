@@ -46,7 +46,7 @@ namespace YAF.Core.Services.Cache
     /// </param>
     public TreatCacheKeyWithBoard([NotNull] IHaveBoardID haveBoardId)
     {
-      CodeContracts.VerifyNotNull(haveBoardId, "haveBoardId");
+      CodeContracts.VerifyNotNull(haveBoardId);
 
       this.HaveBoardId = haveBoardId;
     }

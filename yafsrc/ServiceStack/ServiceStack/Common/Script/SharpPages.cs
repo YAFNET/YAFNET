@@ -86,10 +86,8 @@ namespace ServiceStack.Script
     /// <summary>
     /// Class SharpPages.
     /// Implements the <see cref="ServiceStack.Script.ISharpPages" />
-    /// Implements the <see cref="ServiceStack.Templates.ITemplatePages" />
     /// </summary>
     /// <seealso cref="ServiceStack.Script.ISharpPages" />
-    /// <seealso cref="ServiceStack.Templates.ITemplatePages" />
     public partial class SharpPages : ISharpPages
     {
         /// <summary>

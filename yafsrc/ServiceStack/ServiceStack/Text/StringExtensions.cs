@@ -987,16 +987,6 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Substrings the with elipsis.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="length">The length.</param>
-        /// <returns>string.</returns>
-        [Obsolete("typo")]
-        public static string SubstringWithElipsis(this string value, int startIndex, int length) => SubstringWithEllipsis(value, startIndex, length);
-
-        /// <summary>
         /// Substrings the with ellipsis.
         /// </summary>
         /// <param name="value">The value.</param>
@@ -1801,60 +1791,5 @@ namespace ServiceStack.Text
                 : (char)(i - 10 + (upper ? 'A' : 'a'));
         }
 
-    }
-
-    /// <summary>
-    /// Class StringTextExtensions.
-    /// </summary>
-    public static class StringTextExtensions
-    {
-        /// <summary>
-        /// To the specified value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns>T.</returns>
-        [Obsolete("Use ConvertTo<T>")]
-        public static T To<T>(this string value)
-        {
-            return TypeSerializer.DeserializeFromString<T>(value);
-        }
-
-        /// <summary>
-        /// To the specified value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <param name="defaultValue">The default value.</param>
-        /// <returns>T.</returns>
-        [Obsolete("Use ConvertTo<T>")]
-        public static T To<T>(this string value, T defaultValue)
-        {
-            return string.IsNullOrEmpty(value) ? defaultValue : TypeSerializer.DeserializeFromString<T>(value);
-        }
-
-        /// <summary>
-        /// Converts to ordefaultvalue.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns>T.</returns>
-        [Obsolete("Use ConvertTo<T>")]
-        public static T ToOrDefaultValue<T>(this string value)
-        {
-            return string.IsNullOrEmpty(value) ? default(T) : TypeSerializer.DeserializeFromString<T>(value);
-        }
-
-        /// <summary>
-        /// To the specified value.
-        /// </summary>
-        /// <param name="value">The value.</param>
-        /// <param name="type">The type.</param>
-        /// <returns>object.</returns>
-        [Obsolete("Use ConvertTo<T>")]
-        public static object To(this string value, Type type)
-        {
-            return TypeSerializer.DeserializeFromString(value, type);
-        }
     }
 }

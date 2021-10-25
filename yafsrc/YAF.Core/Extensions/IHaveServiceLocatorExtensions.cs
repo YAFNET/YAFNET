@@ -50,7 +50,7 @@ namespace YAF.Core.Extensions
         /// </param>
         public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
         {
-            CodeContracts.VerifyNotNull(serviceLocator, "serviceLocator");
+            CodeContracts.VerifyNotNull(serviceLocator);
 
             var startupServices = serviceLocator.Get<IEnumerable<IStartupService>>().ToList();
 

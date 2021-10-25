@@ -66,9 +66,9 @@ namespace YAF.Core.Services.CheckForSpam
             int timeout,
             [NotNull] IWebProxy proxy)
         {
-            CodeContracts.VerifyNotNull(url, "url");
-            CodeContracts.VerifyNotNull(userAgent, "userAgent");
-            CodeContracts.VerifyNotNull(proxy, "proxy");
+            CodeContracts.VerifyNotNull(url);
+            CodeContracts.VerifyNotNull(userAgent);
+            CodeContracts.VerifyNotNull(proxy);
 
             ServicePointManager.Expect100Continue = false;
             var request = WebRequest.Create(url) as HttpWebRequest;
@@ -169,8 +169,8 @@ namespace YAF.Core.Services.CheckForSpam
             [NotNull] string formParameters,
             [CanBeNull] IWebProxy proxy)
         {
-            CodeContracts.VerifyNotNull(url, "url");
-            CodeContracts.VerifyNotNull(formParameters, "formParameters");
+            CodeContracts.VerifyNotNull(url);
+            CodeContracts.VerifyNotNull(formParameters);
 
             ServicePointManager.Expect100Continue = false;
             var request = WebRequest.Create(url) as HttpWebRequest;

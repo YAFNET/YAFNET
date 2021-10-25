@@ -86,22 +86,10 @@ namespace ServiceStack.Script
         public List<ScriptMethods> ScriptMethods { get; set; }
 
         /// <summary>
-        /// Gets the template filters.
-        /// </summary>
-        /// <value>The template filters.</value>
-        [Obsolete("Use ScriptMethods")] public List<ScriptMethods> TemplateFilters => ScriptMethods;
-
-        /// <summary>
         /// Add additional script blocks available to all pages
         /// </summary>
         /// <value>The script blocks.</value>
         public List<ScriptBlock> ScriptBlocks { get; set; }
-
-        /// <summary>
-        /// Gets the template blocks.
-        /// </summary>
-        /// <value>The template blocks.</value>
-        [Obsolete("Use ScriptBlocks")] public List<ScriptBlock> TemplateBlocks => ScriptBlocks;
 
         /// <summary>
         /// Add additional partials available to all pages

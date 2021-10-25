@@ -1378,18 +1378,6 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Gets the non default value insert fields.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="obj">The object.</param>
-        /// <returns>System.Collections.Generic.List&lt;string&gt;.</returns>
-        [Obsolete("Use dialectProvider.GetNonDefaultValueInsertFields()")]
-        public static List<string> GetNonDefaultValueInsertFields<T>(T obj)
-        {
-            return OrmLiteConfig.DialectProvider.GetNonDefaultValueInsertFields<T>(obj);
-        }
-
-        /// <summary>
         /// Asserts the type of the not anon.
         /// </summary>
         /// <typeparam name="T"></typeparam>

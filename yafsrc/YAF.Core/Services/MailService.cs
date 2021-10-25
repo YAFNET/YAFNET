@@ -58,7 +58,7 @@ namespace YAF.Core.Services
         {
             var mailMessages = messages.ToList();
 
-            CodeContracts.VerifyNotNull(mailMessages, "messages");
+            CodeContracts.VerifyNotNull(mailMessages);
 
             var smtpClient = new SmtpClient();
 

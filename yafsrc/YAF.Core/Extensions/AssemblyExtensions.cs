@@ -59,7 +59,7 @@ namespace YAF.Core.Extensions
         public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
             where T : Attribute
         {
-            CodeContracts.VerifyNotNull(assemblies, "assemblies");
+            CodeContracts.VerifyNotNull(assemblies);
 
             var moduleClassTypes = new List<Type>();
             var attributeType = typeof(T);
@@ -83,7 +83,7 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static int GetAssemblySortOrder([NotNull] this Assembly assembly)
         {
-            CodeContracts.VerifyNotNull(assembly, "assembly");
+            CodeContracts.VerifyNotNull(assembly);
 
             var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
 

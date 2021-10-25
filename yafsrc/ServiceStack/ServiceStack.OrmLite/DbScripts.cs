@@ -18,7 +18,6 @@ namespace ServiceStack.OrmLite
     /// Implements the <see cref="ServiceStack.Script.ScriptMethods" />
     /// </summary>
     /// <seealso cref="ServiceStack.Script.ScriptMethods" />
-    [Obsolete("Use DbScriptsAsync")]
     public class DbScripts : ScriptMethods
     {
         /// <summary>
@@ -34,14 +33,15 @@ namespace ServiceStack.OrmLite
         /// The database factory
         /// </summary>
         private IDbConnectionFactory dbFactory;
+
         /// <summary>
         /// Gets or sets the database factory.
         /// </summary>
         /// <value>The database factory.</value>
         public IDbConnectionFactory DbFactory
         {
-            get => dbFactory ??= Context.Container.Resolve<IDbConnectionFactory>();
-            set => dbFactory = value;
+            get => this.dbFactory ??= this.Context.Container.Resolve<IDbConnectionFactory>();
+            set => this.dbFactory = value;
         }
 
         /// <summary>
@@ -52,20 +52,20 @@ namespace ServiceStack.OrmLite
         /// <returns>IDbConnection.</returns>
         public IDbConnection OpenDbConnection(ScriptScopeContext scope, Dictionary<string, object> options)
         {
-            var dbConn = OpenDbConnectionFromOptions(options);
+            var dbConn = this.OpenDbConnectionFromOptions(options);
             if (dbConn != null)
                 return dbConn;
 
             if (scope.PageResult != null)
             {
                 if (scope.PageResult.Args.TryGetValue(DbInfo, out var oDbInfo) && oDbInfo is ConnectionInfo dbInfo)
-                    return DbFactory.OpenDbConnection(dbInfo);
+                    return this.DbFactory.OpenDbConnection(dbInfo);
 
                 if (scope.PageResult.Args.TryGetValue(DbConnection, out var oDbConn) && oDbConn is Dictionary<string, object> globalDbConn)
-                    return OpenDbConnectionFromOptions(globalDbConn);
+                    return this.OpenDbConnectionFromOptions(globalDbConn);
             }
 
-            return DbFactory.OpenDbConnection();
+            return this.DbFactory.OpenDbConnection();
         }
 
         /// <summary>
@@ -80,13 +80,15 @@ namespace ServiceStack.OrmLite
             if (scope.PageResult != null)
             {
                 if (scope.PageResult.Args.TryGetValue(DbInfo, out var oDbInfo) && oDbInfo is ConnectionInfo dbInfo)
-                    return fn(DbFactory.GetDialectProvider(dbInfo));
+                    return fn(this.DbFactory.GetDialectProvider(dbInfo));
 
                 if (scope.PageResult.Args.TryGetValue(DbConnection, out var oDbConn) && oDbConn is Dictionary<string, object> useDb)
-                    return fn(DbFactory.GetDialectProvider(
+                    return fn(
+                        this.DbFactory.GetDialectProvider(
                         providerName: useDb.GetValueOrDefault("providerName")?.ToString(),
                         namedConnection: useDb.GetValueOrDefault("namedConnection")?.ToString()));
             }
+
             return fn(OrmLiteConfig.DialectProvider);
         }
 
@@ -106,10 +108,11 @@ namespace ServiceStack.OrmLite
             else
             {
                 if (!dbConnOptions.ContainsKey("connectionString") && !dbConnOptions.ContainsKey("namedConnection"))
-                    throw new NotSupportedException(nameof(useDb) + " requires either 'connectionString' or 'namedConnection' property");
+                    throw new NotSupportedException(nameof(this.useDb) + " requires either 'connectionString' or 'namedConnection' property");
 
                 scope.PageResult.Args[DbConnection] = dbConnOptions;
             }
+
             return IgnoreResult.Value;
         }
 
@@ -125,13 +128,13 @@ namespace ServiceStack.OrmLite
                 if (options.TryGetValue("connectionString", out var connectionString))
                 {
                     return options.TryGetValue("providerName", out var providerName)
-                        ? DbFactory.OpenDbConnectionString((string)connectionString, (string)providerName)
-                        : DbFactory.OpenDbConnectionString((string)connectionString);
+                        ? this.DbFactory.OpenDbConnectionString((string)connectionString, (string)providerName)
+                        : this.DbFactory.OpenDbConnectionString((string)connectionString);
                 }
 
                 if (options.TryGetValue("namedConnection", out var namedConnection))
                 {
-                    return DbFactory.OpenDbConnection((string)namedConnection);
+                    return this.DbFactory.OpenDbConnection((string)namedConnection);
                 }
             }
 
@@ -151,7 +154,7 @@ namespace ServiceStack.OrmLite
         {
             try
             {
-                using var db = OpenDbConnection(scope, options as Dictionary<string, object>);
+                using var db = this.OpenDbConnection(scope, options as Dictionary<string, object>);
                 return fn(db);
             }
             catch (Exception ex)
@@ -166,8 +169,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Object.</returns>
-        public object dbSelect(ScriptScopeContext scope, string sql) =>
-            exec(db => db.SqlList<Dictionary<string, object>>(sql), scope, null);
+        public object dbSelect(ScriptScopeContext scope, string sql) => this.exec(db => db.SqlList<Dictionary<string, object>>(sql), scope, null);
 
         /// <summary>
         /// Databases the select.
@@ -176,8 +178,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Object.</returns>
-        public object dbSelect(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            exec(db => db.SqlList<Dictionary<string, object>>(sql, args), scope, null);
+        public object dbSelect(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.exec(db => db.SqlList<Dictionary<string, object>>(sql, args), scope, null);
 
         /// <summary>
         /// Databases the select.
@@ -187,8 +188,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Object.</returns>
-        public object dbSelect(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            exec(db => db.SqlList<Dictionary<string, object>>(sql, args), scope, options);
+        public object dbSelect(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.exec(db => db.SqlList<Dictionary<string, object>>(sql, args), scope, options);
 
 
         /// <summary>
@@ -197,8 +197,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Object.</returns>
-        public object dbSingle(ScriptScopeContext scope, string sql) =>
-            exec(db => db.Single<Dictionary<string, object>>(sql), scope, null);
+        public object dbSingle(ScriptScopeContext scope, string sql) => this.exec(db => db.Single<Dictionary<string, object>>(sql), scope, null);
 
         /// <summary>
         /// Databases the single.
@@ -207,8 +206,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Object.</returns>
-        public object dbSingle(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            exec(db => db.Single<Dictionary<string, object>>(sql, args), scope, null);
+        public object dbSingle(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.exec(db => db.Single<Dictionary<string, object>>(sql, args), scope, null);
 
         /// <summary>
         /// Databases the single.
@@ -218,8 +216,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Object.</returns>
-        public object dbSingle(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            exec(db => db.Single<Dictionary<string, object>>(sql, args), scope, options);
+        public object dbSingle(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.exec(db => db.Single<Dictionary<string, object>>(sql, args), scope, options);
 
 
         /// <summary>
@@ -228,8 +225,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Object.</returns>
-        public object dbScalar(ScriptScopeContext scope, string sql) =>
-            exec(db => db.Scalar<object>(sql), scope, null);
+        public object dbScalar(ScriptScopeContext scope, string sql) => this.exec(db => db.Scalar<object>(sql), scope, null);
 
         /// <summary>
         /// Databases the scalar.
@@ -238,8 +234,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Object.</returns>
-        public object dbScalar(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            exec(db => db.Scalar<object>(sql, args), scope, null);
+        public object dbScalar(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.exec(db => db.Scalar<object>(sql, args), scope, null);
 
         /// <summary>
         /// Databases the scalar.
@@ -249,8 +244,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Object.</returns>
-        public object dbScalar(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            exec(db => db.Scalar<object>(sql, args), scope, options);
+        public object dbScalar(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.exec(db => db.Scalar<object>(sql, args), scope, options);
 
 
         /// <summary>
@@ -259,8 +253,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Int64.</returns>
-        public long dbCount(ScriptScopeContext scope, string sql) =>
-            exec(db => db.RowCount(sql), scope, null);
+        public long dbCount(ScriptScopeContext scope, string sql) => this.exec(db => db.RowCount(sql), scope, null);
 
         /// <summary>
         /// Databases the count.
@@ -269,8 +262,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Int64.</returns>
-        public long dbCount(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            exec(db => db.RowCount(sql, args), scope, null);
+        public long dbCount(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.exec(db => db.RowCount(sql, args), scope, null);
 
         /// <summary>
         /// Databases the count.
@@ -280,8 +272,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Int64.</returns>
-        public long dbCount(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            exec(db => db.RowCount(sql, args), scope, options);
+        public long dbCount(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.exec(db => db.RowCount(sql, args), scope, options);
 
 
         /// <summary>
@@ -290,8 +281,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool dbExists(ScriptScopeContext scope, string sql) =>
-            dbScalar(scope, sql) != null;
+        public bool dbExists(ScriptScopeContext scope, string sql) => this.dbScalar(scope, sql) != null;
 
         /// <summary>
         /// Databases the exists.
@@ -300,8 +290,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool dbExists(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            dbScalar(scope, sql, args) != null;
+        public bool dbExists(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.dbScalar(scope, sql, args) != null;
 
         /// <summary>
         /// Databases the exists.
@@ -311,8 +300,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool dbExists(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            dbScalar(scope, sql, args, options) != null;
+        public bool dbExists(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.dbScalar(scope, sql, args, options) != null;
 
 
         /// <summary>
@@ -321,8 +309,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Int32.</returns>
-        public int dbExec(ScriptScopeContext scope, string sql) =>
-            exec(db => db.ExecuteSql(sql), scope, null);
+        public int dbExec(ScriptScopeContext scope, string sql) => this.exec(db => db.ExecuteSql(sql), scope, null);
 
         /// <summary>
         /// Databases the execute.
@@ -331,8 +318,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Int32.</returns>
-        public int dbExec(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            exec(db => db.ExecuteSql(sql, args), scope, null);
+        public int dbExec(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.exec(db => db.ExecuteSql(sql, args), scope, null);
 
         /// <summary>
         /// Databases the execute.
@@ -342,27 +328,29 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Int32.</returns>
-        public int dbExec(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            exec(db => db.ExecuteSql(sql, args), scope, options);
+        public int dbExec(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.exec(db => db.ExecuteSql(sql, args), scope, options);
 
         /// <summary>
         /// Databases the named connections.
         /// </summary>
         /// <returns>List&lt;System.String&gt;.</returns>
         public List<string> dbNamedConnections() => OrmLiteConnectionFactory.NamedConnections.Keys.ToList();
+
         /// <summary>
         /// Databases the table names.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public List<string> dbTableNames(ScriptScopeContext scope) => dbTableNames(scope, null, null);
+        public List<string> dbTableNames(ScriptScopeContext scope) => this.dbTableNames(scope, null, null);
+
         /// <summary>
         /// Databases the table names.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public List<string> dbTableNames(ScriptScopeContext scope, Dictionary<string, object> args) => dbTableNames(scope, args, null);
+        public List<string> dbTableNames(ScriptScopeContext scope, Dictionary<string, object> args) => this.dbTableNames(scope, args, null);
+
         /// <summary>
         /// Databases the table names.
         /// </summary>
@@ -370,24 +358,23 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public List<string> dbTableNames(ScriptScopeContext scope, Dictionary<string, object> args, object options) =>
-            exec(db => db.GetTableNames(args != null && args.TryGetValue("schema", out var oSchema) ? oSchema as string : null), scope, options);
+        public List<string> dbTableNames(ScriptScopeContext scope, Dictionary<string, object> args, object options) => this.exec(db => db.GetTableNames(args != null && args.TryGetValue("schema", out var oSchema) ? oSchema as string : null), scope, options);
 
         /// <summary>
         /// Databases the table names with row counts.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <returns>List&lt;KeyValuePair&lt;System.String, System.Int64&gt;&gt;.</returns>
-        public List<KeyValuePair<string, long>> dbTableNamesWithRowCounts(ScriptScopeContext scope) =>
-            dbTableNamesWithRowCounts(scope, null, null);
+        public List<KeyValuePair<string, long>> dbTableNamesWithRowCounts(ScriptScopeContext scope) => this.dbTableNamesWithRowCounts(scope, null, null);
+
         /// <summary>
         /// Databases the table names with row counts.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>List&lt;KeyValuePair&lt;System.String, System.Int64&gt;&gt;.</returns>
-        public List<KeyValuePair<string, long>> dbTableNamesWithRowCounts(ScriptScopeContext scope, Dictionary<string, object> args) =>
-            dbTableNamesWithRowCounts(scope, args, null);
+        public List<KeyValuePair<string, long>> dbTableNamesWithRowCounts(ScriptScopeContext scope, Dictionary<string, object> args) => this.dbTableNamesWithRowCounts(scope, args, null);
+
         /// <summary>
         /// Databases the table names with row counts.
         /// </summary>
@@ -396,7 +383,7 @@ namespace ServiceStack.OrmLite
         /// <param name="options">The options.</param>
         /// <returns>List&lt;KeyValuePair&lt;System.String, System.Int64&gt;&gt;.</returns>
         public List<KeyValuePair<string, long>> dbTableNamesWithRowCounts(ScriptScopeContext scope, Dictionary<string, object> args, object options) =>
-            exec(db => args == null
+            this.exec(db => args == null
                     ? db.GetTableNamesWithRowCounts()
                     : db.GetTableNamesWithRowCounts(
                         live: args.TryGetValue("live", out var oLive) && oLive is bool b && b,
@@ -409,7 +396,8 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="tableName">Name of the table.</param>
         /// <returns>System.String[].</returns>
-        public string[] dbColumnNames(ScriptScopeContext scope, string tableName) => dbColumnNames(scope, tableName, null);
+        public string[] dbColumnNames(ScriptScopeContext scope, string tableName) => this.dbColumnNames(scope, tableName, null);
+
         /// <summary>
         /// Databases the column names.
         /// </summary>
@@ -417,8 +405,7 @@ namespace ServiceStack.OrmLite
         /// <param name="tableName">Name of the table.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.String[].</returns>
-        public string[] dbColumnNames(ScriptScopeContext scope, string tableName, object options) =>
-            dbColumns(scope, tableName, options).Select(x => x.ColumnName).ToArray();
+        public string[] dbColumnNames(ScriptScopeContext scope, string tableName, object options) => this.dbColumns(scope, tableName, options).Select(x => x.ColumnName).ToArray();
 
         /// <summary>
         /// Databases the columns.
@@ -426,7 +413,8 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="tableName">Name of the table.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbColumns(ScriptScopeContext scope, string tableName) => dbColumns(scope, tableName, null);
+        public ColumnSchema[] dbColumns(ScriptScopeContext scope, string tableName) => this.dbColumns(scope, tableName, null);
+
         /// <summary>
         /// Databases the columns.
         /// </summary>
@@ -434,8 +422,7 @@ namespace ServiceStack.OrmLite
         /// <param name="tableName">Name of the table.</param>
         /// <param name="options">The options.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbColumns(ScriptScopeContext scope, string tableName, object options) =>
-            exec(db => db.GetTableColumns($"SELECT * FROM {sqlQuote(scope, tableName)}"), scope, options);
+        public ColumnSchema[] dbColumns(ScriptScopeContext scope, string tableName, object options) => this.exec(db => db.GetTableColumns($"SELECT * FROM {this.sqlQuote(scope, tableName)}"), scope, options);
 
         /// <summary>
         /// Databases the desc.
@@ -443,7 +430,8 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbDesc(ScriptScopeContext scope, string sql) => dbDesc(scope, sql, null);
+        public ColumnSchema[] dbDesc(ScriptScopeContext scope, string sql) => this.dbDesc(scope, sql, null);
+
         /// <summary>
         /// Databases the desc.
         /// </summary>
@@ -451,7 +439,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="options">The options.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbDesc(ScriptScopeContext scope, string sql, object options) => exec(db => db.GetTableColumns(sql), scope, options);
+        public ColumnSchema[] dbDesc(ScriptScopeContext scope, string sql, object options) => this.exec(db => db.GetTableColumns(sql), scope, options);
 
 
         /// <summary>
@@ -460,21 +448,24 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="name">The name.</param>
         /// <returns>System.String.</returns>
-        public string sqlQuote(ScriptScopeContext scope, string name) => dialect(scope, d => d.GetQuotedName(name));
+        public string sqlQuote(ScriptScopeContext scope, string name) => this.dialect(scope, d => d.GetQuotedName(name));
+
         /// <summary>
         /// SQLs the concat.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="values">The values.</param>
         /// <returns>System.String.</returns>
-        public string sqlConcat(ScriptScopeContext scope, IEnumerable<object> values) => dialect(scope, d => d.SqlConcat(values));
+        public string sqlConcat(ScriptScopeContext scope, IEnumerable<object> values) => this.dialect(scope, d => d.SqlConcat(values));
+
         /// <summary>
         /// SQLs the currency.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="fieldOrValue">The field or value.</param>
         /// <returns>System.String.</returns>
-        public string sqlCurrency(ScriptScopeContext scope, string fieldOrValue) => dialect(scope, d => d.SqlCurrency(fieldOrValue));
+        public string sqlCurrency(ScriptScopeContext scope, string fieldOrValue) => this.dialect(scope, d => d.SqlCurrency(fieldOrValue));
+
         /// <summary>
         /// SQLs the currency.
         /// </summary>
@@ -482,8 +473,7 @@ namespace ServiceStack.OrmLite
         /// <param name="fieldOrValue">The field or value.</param>
         /// <param name="symbol">The symbol.</param>
         /// <returns>System.String.</returns>
-        public string sqlCurrency(ScriptScopeContext scope, string fieldOrValue, string symbol) =>
-            dialect(scope, d => d.SqlCurrency(fieldOrValue, symbol));
+        public string sqlCurrency(ScriptScopeContext scope, string fieldOrValue, string symbol) => this.dialect(scope, d => d.SqlCurrency(fieldOrValue, symbol));
 
         /// <summary>
         /// SQLs the cast.
@@ -492,27 +482,30 @@ namespace ServiceStack.OrmLite
         /// <param name="fieldOrValue">The field or value.</param>
         /// <param name="castAs">The cast as.</param>
         /// <returns>System.String.</returns>
-        public string sqlCast(ScriptScopeContext scope, object fieldOrValue, string castAs) =>
-            dialect(scope, d => d.SqlCast(fieldOrValue, castAs));
+        public string sqlCast(ScriptScopeContext scope, object fieldOrValue, string castAs) => this.dialect(scope, d => d.SqlCast(fieldOrValue, castAs));
+
         /// <summary>
         /// SQLs the bool.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="value">if set to <c>true</c> [value].</param>
         /// <returns>System.String.</returns>
-        public string sqlBool(ScriptScopeContext scope, bool value) => dialect(scope, d => d.SqlBool(value));
+        public string sqlBool(ScriptScopeContext scope, bool value) => this.dialect(scope, d => d.SqlBool(value));
+
         /// <summary>
         /// SQLs the true.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <returns>System.String.</returns>
-        public string sqlTrue(ScriptScopeContext scope) => dialect(scope, d => d.SqlBool(true));
+        public string sqlTrue(ScriptScopeContext scope) => this.dialect(scope, d => d.SqlBool(true));
+
         /// <summary>
         /// SQLs the false.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <returns>System.String.</returns>
-        public string sqlFalse(ScriptScopeContext scope) => dialect(scope, d => d.SqlBool(false));
+        public string sqlFalse(ScriptScopeContext scope) => this.dialect(scope, d => d.SqlBool(false));
+
         /// <summary>
         /// SQLs the limit.
         /// </summary>
@@ -520,48 +513,47 @@ namespace ServiceStack.OrmLite
         /// <param name="offset">The offset.</param>
         /// <param name="limit">The limit.</param>
         /// <returns>System.String.</returns>
-        public string sqlLimit(ScriptScopeContext scope, int? offset, int? limit) =>
-            dialect(scope, d => padCondition(d.SqlLimit(offset, limit)));
+        public string sqlLimit(ScriptScopeContext scope, int? offset, int? limit) => this.dialect(scope, d => this.padCondition(d.SqlLimit(offset, limit)));
+
         /// <summary>
         /// SQLs the limit.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="limit">The limit.</param>
         /// <returns>System.String.</returns>
-        public string sqlLimit(ScriptScopeContext scope, int? limit) =>
-            dialect(scope, d => padCondition(d.SqlLimit(null, limit)));
+        public string sqlLimit(ScriptScopeContext scope, int? limit) => this.dialect(scope, d => this.padCondition(d.SqlLimit(null, limit)));
+
         /// <summary>
         /// SQLs the skip.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="offset">The offset.</param>
         /// <returns>System.String.</returns>
-        public string sqlSkip(ScriptScopeContext scope, int? offset) =>
-            dialect(scope, d => padCondition(d.SqlLimit(offset, null)));
+        public string sqlSkip(ScriptScopeContext scope, int? offset) => this.dialect(scope, d => this.padCondition(d.SqlLimit(offset, null)));
+
         /// <summary>
         /// SQLs the take.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="limit">The limit.</param>
         /// <returns>System.String.</returns>
-        public string sqlTake(ScriptScopeContext scope, int? limit) =>
-            dialect(scope, d => padCondition(d.SqlLimit(null, limit)));
+        public string sqlTake(ScriptScopeContext scope, int? limit) => this.dialect(scope, d => this.padCondition(d.SqlLimit(null, limit)));
+
         /// <summary>
         /// SQLs the order by fields.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="orderBy">The order by.</param>
         /// <returns>System.String.</returns>
-        public string sqlOrderByFields(ScriptScopeContext scope, string orderBy) =>
-            dialect(scope, d => OrmLiteUtils.OrderByFields(d, orderBy));
+        public string sqlOrderByFields(ScriptScopeContext scope, string orderBy) => this.dialect(scope, d => OrmLiteUtils.OrderByFields(d, orderBy));
+
         /// <summary>
         /// Ormlites the variable.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="name">The name.</param>
         /// <returns>System.String.</returns>
-        public string ormliteVar(ScriptScopeContext scope, string name) =>
-            dialect(scope, d => d.Variables.TryGetValue(name, out var value) ? value : null);
+        public string ormliteVar(ScriptScopeContext scope, string name) => this.dialect(scope, d => d.Variables.TryGetValue(name, out var value) ? value : null);
 
         /// <summary>
         /// SQLs the verify fragment.
@@ -569,12 +561,14 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <returns>System.String.</returns>
         public string sqlVerifyFragment(string sql) => sql.SqlVerifyFragment();
+
         /// <summary>
         /// Determines whether [is unsafe SQL] [the specified SQL].
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <returns><c>true</c> if [is unsafe SQL] [the specified SQL]; otherwise, <c>false</c>.</returns>
         public bool isUnsafeSql(string sql) => OrmLiteUtils.isUnsafeSql(sql, OrmLiteUtils.VerifySqlRegEx);
+
         /// <summary>
         /// Determines whether [is unsafe SQL fragment] [the specified SQL].
         /// </summary>
@@ -587,7 +581,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns>System.String.</returns>
-        private string padCondition(string text) => string.IsNullOrEmpty(text) ? "" : " " + text;
+        private string padCondition(string text) => string.IsNullOrEmpty(text) ? string.Empty : " " + text;
     }
 
     /// <summary>
@@ -601,11 +595,12 @@ namespace ServiceStack.OrmLite
         /// The synchronize
         /// </summary>
         private DbScripts sync;
+
         /// <summary>
         /// Gets the synchronize.
         /// </summary>
         /// <value>The synchronize.</value>
-        private DbScripts Sync => sync ??= new DbScripts { Context = Context, Pages = Pages };
+        private DbScripts Sync => this.sync ??= new DbScripts { Context = this.Context, Pages = this.Pages };
 
         /// <summary>
         /// Databases the select synchronize.
@@ -613,7 +608,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Object.</returns>
-        public object dbSelectSync(ScriptScopeContext scope, string sql) => Sync.dbSelect(scope, sql);
+        public object dbSelectSync(ScriptScopeContext scope, string sql) => this.Sync.dbSelect(scope, sql);
 
         /// <summary>
         /// Databases the select synchronize.
@@ -622,8 +617,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Object.</returns>
-        public object dbSelectSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            Sync.dbSelect(scope, sql, args);
+        public object dbSelectSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.Sync.dbSelect(scope, sql, args);
 
         /// <summary>
         /// Databases the select synchronize.
@@ -633,8 +627,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Object.</returns>
-        public object dbSelectSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            Sync.dbSelect(scope, sql, args, options);
+        public object dbSelectSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.Sync.dbSelect(scope, sql, args, options);
 
 
         /// <summary>
@@ -643,8 +636,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Object.</returns>
-        public object dbSingleSync(ScriptScopeContext scope, string sql) =>
-            Sync.dbSingle(scope, sql);
+        public object dbSingleSync(ScriptScopeContext scope, string sql) => this.Sync.dbSingle(scope, sql);
 
         /// <summary>
         /// Databases the single synchronize.
@@ -653,8 +645,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Object.</returns>
-        public object dbSingleSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            Sync.dbSingle(scope, sql, args);
+        public object dbSingleSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.Sync.dbSingle(scope, sql, args);
 
         /// <summary>
         /// Databases the single synchronize.
@@ -664,8 +655,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Object.</returns>
-        public object dbSingleSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            Sync.dbSingle(scope, sql, args, options);
+        public object dbSingleSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.Sync.dbSingle(scope, sql, args, options);
 
 
         /// <summary>
@@ -674,8 +664,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Object.</returns>
-        public object dbScalarSync(ScriptScopeContext scope, string sql) =>
-            Sync.dbScalar(scope, sql);
+        public object dbScalarSync(ScriptScopeContext scope, string sql) => this.Sync.dbScalar(scope, sql);
 
         /// <summary>
         /// Databases the scalar synchronize.
@@ -684,8 +673,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Object.</returns>
-        public object dbScalarSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            Sync.dbScalar(scope, sql, args);
+        public object dbScalarSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.Sync.dbScalar(scope, sql, args);
 
         /// <summary>
         /// Databases the scalar synchronize.
@@ -695,8 +683,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Object.</returns>
-        public object dbScalarSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            Sync.dbScalar(scope, sql, args, options);
+        public object dbScalarSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.Sync.dbScalar(scope, sql, args, options);
 
 
         /// <summary>
@@ -705,8 +692,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Int64.</returns>
-        public long dbCountSync(ScriptScopeContext scope, string sql) =>
-            Sync.dbCount(scope, sql);
+        public long dbCountSync(ScriptScopeContext scope, string sql) => this.Sync.dbCount(scope, sql);
 
         /// <summary>
         /// Databases the count synchronize.
@@ -715,8 +701,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Int64.</returns>
-        public long dbCountSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            Sync.dbCount(scope, sql, args);
+        public long dbCountSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.Sync.dbCount(scope, sql, args);
 
         /// <summary>
         /// Databases the count synchronize.
@@ -726,8 +711,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Int64.</returns>
-        public long dbCountSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            Sync.dbCount(scope, sql, args, options);
+        public long dbCountSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.Sync.dbCount(scope, sql, args, options);
 
 
         /// <summary>
@@ -736,8 +720,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool dbExistsSync(ScriptScopeContext scope, string sql) =>
-            Sync.dbExists(scope, sql);
+        public bool dbExistsSync(ScriptScopeContext scope, string sql) => this.Sync.dbExists(scope, sql);
 
         /// <summary>
         /// Databases the exists synchronize.
@@ -746,8 +729,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool dbExistsSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            Sync.dbExists(scope, sql, args);
+        public bool dbExistsSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.Sync.dbExists(scope, sql, args);
 
         /// <summary>
         /// Databases the exists synchronize.
@@ -757,8 +739,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool dbExistsSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            Sync.dbExists(scope, sql, args, options);
+        public bool dbExistsSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.Sync.dbExists(scope, sql, args, options);
 
 
         /// <summary>
@@ -767,8 +748,7 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Int32.</returns>
-        public int dbExecSync(ScriptScopeContext scope, string sql) =>
-            Sync.dbExec(scope, sql);
+        public int dbExecSync(ScriptScopeContext scope, string sql) => this.Sync.dbExec(scope, sql);
 
         /// <summary>
         /// Databases the execute synchronize.
@@ -777,8 +757,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>System.Int32.</returns>
-        public int dbExecSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) =>
-            Sync.dbExec(scope, sql, args);
+        public int dbExecSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args) => this.Sync.dbExec(scope, sql, args);
 
         /// <summary>
         /// Databases the execute synchronize.
@@ -788,22 +767,23 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.Int32.</returns>
-        public int dbExecSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) =>
-            Sync.dbExec(scope, sql, args, options);
+        public int dbExecSync(ScriptScopeContext scope, string sql, Dictionary<string, object> args, object options) => this.Sync.dbExec(scope, sql, args, options);
 
         /// <summary>
         /// Databases the table names synchronize.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public List<string> dbTableNamesSync(ScriptScopeContext scope) => dbTableNamesSync(scope, null, null);
+        public List<string> dbTableNamesSync(ScriptScopeContext scope) => this.dbTableNamesSync(scope, null, null);
+
         /// <summary>
         /// Databases the table names synchronize.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public List<string> dbTableNamesSync(ScriptScopeContext scope, Dictionary<string, object> args) => dbTableNamesSync(scope, args, null);
+        public List<string> dbTableNamesSync(ScriptScopeContext scope, Dictionary<string, object> args) => this.dbTableNamesSync(scope, args, null);
+
         /// <summary>
         /// Databases the table names synchronize.
         /// </summary>
@@ -811,24 +791,23 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>List&lt;System.String&gt;.</returns>
-        public List<string> dbTableNamesSync(ScriptScopeContext scope, Dictionary<string, object> args, object options) =>
-            Sync.dbTableNames(scope, args, options);
+        public List<string> dbTableNamesSync(ScriptScopeContext scope, Dictionary<string, object> args, object options) => this.Sync.dbTableNames(scope, args, options);
 
         /// <summary>
         /// Databases the table names with row counts synchronize.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <returns>List&lt;KeyValuePair&lt;System.String, System.Int64&gt;&gt;.</returns>
-        public List<KeyValuePair<string, long>> dbTableNamesWithRowCountsSync(ScriptScopeContext scope) =>
-            dbTableNamesWithRowCountsSync(scope, null, null);
+        public List<KeyValuePair<string, long>> dbTableNamesWithRowCountsSync(ScriptScopeContext scope) => this.dbTableNamesWithRowCountsSync(scope, null, null);
+
         /// <summary>
         /// Databases the table names with row counts synchronize.
         /// </summary>
         /// <param name="scope">The scope.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>List&lt;KeyValuePair&lt;System.String, System.Int64&gt;&gt;.</returns>
-        public List<KeyValuePair<string, long>> dbTableNamesWithRowCountsSync(ScriptScopeContext scope, Dictionary<string, object> args) =>
-            dbTableNamesWithRowCountsSync(scope, args, null);
+        public List<KeyValuePair<string, long>> dbTableNamesWithRowCountsSync(ScriptScopeContext scope, Dictionary<string, object> args) => this.dbTableNamesWithRowCountsSync(scope, args, null);
+
         /// <summary>
         /// Databases the table names with row counts synchronize.
         /// </summary>
@@ -836,8 +815,7 @@ namespace ServiceStack.OrmLite
         /// <param name="args">The arguments.</param>
         /// <param name="options">The options.</param>
         /// <returns>List&lt;KeyValuePair&lt;System.String, System.Int64&gt;&gt;.</returns>
-        public List<KeyValuePair<string, long>> dbTableNamesWithRowCountsSync(ScriptScopeContext scope, Dictionary<string, object> args, object options) =>
-            Sync.dbTableNamesWithRowCounts(scope, args, options);
+        public List<KeyValuePair<string, long>> dbTableNamesWithRowCountsSync(ScriptScopeContext scope, Dictionary<string, object> args, object options) => this.Sync.dbTableNamesWithRowCounts(scope, args, options);
 
         /// <summary>
         /// Databases the column names synchronize.
@@ -845,7 +823,8 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="tableName">Name of the table.</param>
         /// <returns>System.String[].</returns>
-        public string[] dbColumnNamesSync(ScriptScopeContext scope, string tableName) => dbColumnNamesSync(scope, tableName, null);
+        public string[] dbColumnNamesSync(ScriptScopeContext scope, string tableName) => this.dbColumnNamesSync(scope, tableName, null);
+
         /// <summary>
         /// Databases the column names synchronize.
         /// </summary>
@@ -853,8 +832,7 @@ namespace ServiceStack.OrmLite
         /// <param name="tableName">Name of the table.</param>
         /// <param name="options">The options.</param>
         /// <returns>System.String[].</returns>
-        public string[] dbColumnNamesSync(ScriptScopeContext scope, string tableName, object options) =>
-            dbColumnsSync(scope, tableName, options).Select(x => x.ColumnName).ToArray();
+        public string[] dbColumnNamesSync(ScriptScopeContext scope, string tableName, object options) => this.dbColumnsSync(scope, tableName, options).Select(x => x.ColumnName).ToArray();
 
         /// <summary>
         /// Databases the columns synchronize.
@@ -862,7 +840,8 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="tableName">Name of the table.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbColumnsSync(ScriptScopeContext scope, string tableName) => dbColumnsSync(scope, tableName, null);
+        public ColumnSchema[] dbColumnsSync(ScriptScopeContext scope, string tableName) => this.dbColumnsSync(scope, tableName, null);
+
         /// <summary>
         /// Databases the columns synchronize.
         /// </summary>
@@ -870,8 +849,7 @@ namespace ServiceStack.OrmLite
         /// <param name="tableName">Name of the table.</param>
         /// <param name="options">The options.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbColumnsSync(ScriptScopeContext scope, string tableName, object options) =>
-            Sync.dbColumns(scope, tableName, options);
+        public ColumnSchema[] dbColumnsSync(ScriptScopeContext scope, string tableName, object options) => this.Sync.dbColumns(scope, tableName, options);
 
         /// <summary>
         /// Databases the desc synchronize.
@@ -879,7 +857,8 @@ namespace ServiceStack.OrmLite
         /// <param name="scope">The scope.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbDescSync(ScriptScopeContext scope, string sql) => dbDescSync(scope, sql, null);
+        public ColumnSchema[] dbDescSync(ScriptScopeContext scope, string sql) => this.dbDescSync(scope, sql, null);
+
         /// <summary>
         /// Databases the desc synchronize.
         /// </summary>
@@ -887,7 +866,6 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="options">The options.</param>
         /// <returns>ColumnSchema[].</returns>
-        public ColumnSchema[] dbDescSync(ScriptScopeContext scope, string sql, object options) =>
-            Sync.dbDesc(scope, sql, options);
+        public ColumnSchema[] dbDescSync(ScriptScopeContext scope, string sql, object options) => this.Sync.dbDesc(scope, sql, options);
     }
 }

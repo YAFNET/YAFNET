@@ -245,26 +245,6 @@ namespace ServiceStack.Text
         /// <summary>
         /// 
         /// </summary>
-        [Obsolete("Use TextCase = TextCase.CamelCase")]
-        public bool EmitCamelCaseNames
-        {
-            get => TextCase == TextCase.CamelCase;
-            set => TextCase = value ? TextCase.CamelCase : TextCase;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Obsolete("Use TextCase = TextCase.SnakeCase")]
-        public bool EmitLowercaseUnderscoreNames
-        {
-            get => TextCase == TextCase.SnakeCase;
-            set => TextCase = value ? TextCase.SnakeCase : TextCase.Default;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public bool ThrowOnError { get; set; }
         /// <summary>
         /// 

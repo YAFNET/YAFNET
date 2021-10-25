@@ -80,7 +80,7 @@ namespace YAF.Core.Modules
         /// </param>
         private static void RegisterDynamicServices(ContainerBuilder builder, [NotNull] Assembly[] assemblies)
         {
-            CodeContracts.VerifyNotNull(assemblies, "assemblies");
+            CodeContracts.VerifyNotNull(assemblies);
 
             var classes = assemblies.FindClassesWithAttribute<ExportServiceAttribute>();
 

@@ -3332,25 +3332,6 @@ namespace ServiceStack.Script
         }
 
         /// <summary>
-        /// Evals the template.
-        /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <param name="source">The source.</param>
-        /// <returns>Task&lt;System.Object&gt;.</returns>
-        [Obsolete("Use evalScript")]
-        public Task<object> evalTemplate(ScriptScopeContext scope, string source) => evalTemplate(scope, source, null);
-        /// <summary>
-        /// Evals the template.
-        /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <param name="source">The source.</param>
-        /// <param name="args">The arguments.</param>
-        /// <returns>Task&lt;System.Object&gt;.</returns>
-        [Obsolete("Use evalScript")]
-        public Task<object> evalTemplate(ScriptScopeContext scope, string source, Dictionary<string, object> args) =>
-            evalScript(scope, source, args);
-
-        /// <summary>
         /// Evals the script.
         /// </summary>
         /// <param name="scope">The scope.</param>

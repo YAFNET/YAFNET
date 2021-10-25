@@ -152,7 +152,7 @@ namespace YAF.Core.Helpers
         /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
         public static string GetUserRealIPAddress([NotNull] this HttpRequest httpRequest)
         {
-            CodeContracts.VerifyNotNull(httpRequest, "httpRequest");
+            CodeContracts.VerifyNotNull(httpRequest);
 
             return new HttpRequestWrapper(httpRequest).GetUserRealIPAddress();
         }
@@ -169,7 +169,7 @@ namespace YAF.Core.Helpers
         /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
         public static string GetUserRealIPAddress([NotNull] this HttpRequestBase httpRequest)
         {
-            CodeContracts.VerifyNotNull(httpRequest, "httpRequest");
+            CodeContracts.VerifyNotNull(httpRequest);
 
             IPAddress ipAddress;
             var ipString = httpRequest.Headers["X-Forwarded-For"];
@@ -378,7 +378,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static bool IsRoutable([NotNull] this IPAddress ipAddress)
         {
-            CodeContracts.VerifyNotNull(ipAddress, "ipAddress");
+            CodeContracts.VerifyNotNull(ipAddress);
 
             // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
             var ipAddressBytes = ipAddress.GetAddressBytes();

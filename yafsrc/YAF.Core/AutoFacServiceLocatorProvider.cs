@@ -79,7 +79,7 @@ namespace YAF.Core
         /// </param>
         public AutoFacServiceLocatorProvider([NotNull] ILifetimeScope container)
         {
-            CodeContracts.VerifyNotNull(container, "container");
+            CodeContracts.VerifyNotNull(container);
 
             this.Container = container;
         }
@@ -140,7 +140,7 @@ namespace YAF.Core
         /// </returns>
         public object Get(Type serviceType)
         {
-            CodeContracts.VerifyNotNull(serviceType, "serviceType");
+            CodeContracts.VerifyNotNull(serviceType);
 
             return this.Container.Resolve(serviceType);
         }
@@ -162,8 +162,8 @@ namespace YAF.Core
         /// </exception>
         public object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters)
         {
-            CodeContracts.VerifyNotNull(serviceType, "serviceType");
-            CodeContracts.VerifyNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(serviceType);
+            CodeContracts.VerifyNotNull(parameters);
 
             return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
         }
@@ -182,8 +182,8 @@ namespace YAF.Core
         /// </returns>
         public object Get(Type serviceType, string named)
         {
-            CodeContracts.VerifyNotNull(serviceType, "serviceType");
-            CodeContracts.VerifyNotNull(named, "named");
+            CodeContracts.VerifyNotNull(serviceType);
+            CodeContracts.VerifyNotNull(named);
 
             return this.Container.ResolveNamed(named, serviceType);
         }
@@ -205,9 +205,9 @@ namespace YAF.Core
         /// </returns>
         public object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters)
         {
-            CodeContracts.VerifyNotNull(serviceType, "serviceType");
-            CodeContracts.VerifyNotNull(named, "named");
-            CodeContracts.VerifyNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(serviceType);
+            CodeContracts.VerifyNotNull(named);
+            CodeContracts.VerifyNotNull(parameters);
 
             return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
         }
@@ -241,7 +241,7 @@ namespace YAF.Core
         /// </param>
         public void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute
         {
-            CodeContracts.VerifyNotNull(instance, "instance");
+            CodeContracts.VerifyNotNull(instance);
 
             // Container.InjectUnsetProperties(instance);
             var type = instance.GetType();
@@ -287,7 +287,7 @@ namespace YAF.Core
         /// </returns>
         public bool TryGet(Type serviceType, [NotNull] out object instance)
         {
-            CodeContracts.VerifyNotNull(serviceType, "serviceType");
+            CodeContracts.VerifyNotNull(serviceType);
 
             return this.Container.TryResolve(serviceType, out instance);
         }
@@ -309,8 +309,8 @@ namespace YAF.Core
         /// </returns>
         public bool TryGet(Type serviceType, string named, [NotNull] out object instance)
         {
-            CodeContracts.VerifyNotNull(serviceType, "serviceType");
-            CodeContracts.VerifyNotNull(named, "named");
+            CodeContracts.VerifyNotNull(serviceType);
+            CodeContracts.VerifyNotNull(named);
 
             return this.Container.TryResolveNamed(named, serviceType, out instance);
         }
@@ -338,7 +338,7 @@ namespace YAF.Core
         private static IEnumerable<Parameter> ConvertToAutofacParameters(
             [NotNull] IEnumerable<IServiceLocationParameter> parameters)
         {
-            CodeContracts.VerifyNotNull(parameters, "parameters");
+            CodeContracts.VerifyNotNull(parameters);
 
             var autoParams = new List<Parameter>();
 

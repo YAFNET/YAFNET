@@ -48,7 +48,7 @@ namespace YAF.Core.Helpers
         [NotNull]
         public static string RenderToString([NotNull] this Control control)
         {
-            CodeContracts.VerifyNotNull(control, "control");
+            CodeContracts.VerifyNotNull(control);
 
             (control as IRaiseControlLifeCycles)?.RaiseLoad();
 
@@ -86,8 +86,8 @@ namespace YAF.Core.Helpers
             [NotNull] this Control sourceControl,
             [NotNull] Func<Control, bool> isControl)
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(isControl, "isControl");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(isControl);
 
             var list = new List<Control>();
 
@@ -114,8 +114,8 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static Control FindControlRecursiveReverse([NotNull] this Control sourceControl, [NotNull] string id)
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(id, "id");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(id);
 
             var foundControl = sourceControl.FindControl(id);
 
@@ -137,8 +137,8 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static Control FindControlRecursiveBoth([NotNull] this Control sourceControl, [NotNull] string id)
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(id, "id");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(id);
 
             var found = FindControlRecursiveReverse(sourceControl, id);
             if (found != null)
@@ -167,8 +167,8 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static T FindControlAs<T>([NotNull] this Control sourceControl, [NotNull] string id) where T : class
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(id, "id");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(id);
 
             var foundControl = sourceControl.FindControl(id);
 
@@ -187,8 +187,8 @@ namespace YAF.Core.Helpers
         public static T FindControlRecursiveAs<T>([NotNull] this Control sourceControl, [NotNull] string id)
             where T : class
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(id, "id");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(id);
 
             var foundControl = FindControlRecursive(sourceControl, id);
 
@@ -207,8 +207,8 @@ namespace YAF.Core.Helpers
         public static T FindControlRecursiveBothAs<T>([NotNull] this Control sourceControl, [NotNull] string id)
             where T : class
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(id, "id");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(id);
 
             var foundControl = FindControlRecursiveBoth(sourceControl, id);
 
@@ -230,8 +230,8 @@ namespace YAF.Core.Helpers
         [CanBeNull]
         public static Control FindWizardControlRecursive([NotNull] this Wizard wizardControl, [NotNull] string id)
         {
-            CodeContracts.VerifyNotNull(wizardControl, "wizardControl");
-            CodeContracts.VerifyNotNull(id, "id");
+            CodeContracts.VerifyNotNull(wizardControl);
+            CodeContracts.VerifyNotNull(id);
 
             Control foundControl = null;
 
@@ -270,8 +270,8 @@ namespace YAF.Core.Helpers
         [CanBeNull]
         public static Control FindControlRecursive([NotNull] this Control sourceControl, [NotNull] string id)
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(id, "id");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(id);
 
             var foundControl = sourceControl.FindControl(id);
 
@@ -312,7 +312,7 @@ namespace YAF.Core.Helpers
         [NotNull]
         public static IEnumerable<T> FindControlType<T>([NotNull] this Control sourceControl)
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
+            CodeContracts.VerifyNotNull(sourceControl);
 
             return sourceControl.Controls.OfType<T>();
         }
@@ -327,7 +327,7 @@ namespace YAF.Core.Helpers
         [NotNull]
         public static HtmlLink MakeCssIncludeControl([NotNull] string href)
         {
-            CodeContracts.VerifyNotNull(href, "href");
+            CodeContracts.VerifyNotNull(href);
 
             var stylesheet = new HtmlLink { Href = href };
             stylesheet.Attributes.Add("rel", "stylesheet");
@@ -348,7 +348,7 @@ namespace YAF.Core.Helpers
         [NotNull]
         public static HtmlGenericControl MakeCssControl([NotNull] string css)
         {
-            CodeContracts.VerifyNotNull(css, "css");
+            CodeContracts.VerifyNotNull(css);
 
             var style = new HtmlGenericControl { TagName = "style" };
             style.Attributes.Add("type", "text/css");
@@ -409,8 +409,8 @@ namespace YAF.Core.Helpers
             [NotNull] this Control sourceControl,
             [NotNull] Func<Control, bool> isControl)
         {
-            CodeContracts.VerifyNotNull(sourceControl, "sourceControl");
-            CodeContracts.VerifyNotNull(isControl, "isControl");
+            CodeContracts.VerifyNotNull(sourceControl);
+            CodeContracts.VerifyNotNull(isControl);
 
             return
                 (from c in sourceControl.Controls.Cast<Control>().AsQueryable() where !c.HasControls() select c).AsEnumerable().Where(

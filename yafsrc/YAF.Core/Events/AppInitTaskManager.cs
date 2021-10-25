@@ -110,8 +110,8 @@ namespace YAF.Core.Events
         /// </returns>
         public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
         {
-            CodeContracts.VerifyNotNull(instanceName, "instanceName");
-            CodeContracts.VerifyNotNull(start, "start");
+            CodeContracts.VerifyNotNull(instanceName);
+            CodeContracts.VerifyNotNull(start);
 
             if (this.appInstance == null)
             {

@@ -346,22 +346,6 @@ namespace ServiceStack.Script
         public string substring(string text, int startIndex, int length) => text.SafeSubstring(startIndex, length);
 
         /// <summary>
-        /// Substrings the with elipsis.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="length">The length.</param>
-        /// <returns>System.String.</returns>
-        [Obsolete("typo")] public string substringWithElipsis(string text, int length) => text.SubstringWithEllipsis(0, length);
-        /// <summary>
-        /// Substrings the with elipsis.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <param name="startIndex">The start index.</param>
-        /// <param name="length">The length.</param>
-        /// <returns>System.String.</returns>
-        [Obsolete("typo")] public string substringWithElipsis(string text, int startIndex, int length) => text.SubstringWithEllipsis(startIndex, length);
-
-        /// <summary>
         /// Substrings the with ellipsis.
         /// </summary>
         /// <param name="text">The text.</param>

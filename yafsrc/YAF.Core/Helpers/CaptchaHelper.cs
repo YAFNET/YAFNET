@@ -78,7 +78,7 @@ namespace YAF.Core.Helpers
             [NotNull] MemoryCache cache,
             bool forceNew)
         {
-            CodeContracts.VerifyNotNull(session, "session");
+            CodeContracts.VerifyNotNull(session);
 
             var cacheName = $"Session{session.SessionID}CaptchaImageText";
 
@@ -112,7 +112,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public static bool IsValid([NotNull] string captchaText)
         {
-            CodeContracts.VerifyNotNull(captchaText, "captchaText");
+            CodeContracts.VerifyNotNull(captchaText);
 
             var text = GetCaptchaText(BoardContext.Current.Get<HttpSessionStateBase>(), MemoryCache.Default, false);
 

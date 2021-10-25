@@ -129,7 +129,7 @@ namespace YAF.Core.Services
         /// </returns>
         private IpLocator GetData([CanBeNull] string ip)
         {
-            CodeContracts.VerifyNotNull(ip, "ip");
+            CodeContracts.VerifyNotNull(ip);
 
             if (this.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
                 this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())

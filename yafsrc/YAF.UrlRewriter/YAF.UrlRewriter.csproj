@@ -13,7 +13,7 @@
     <StartupObject />
     <FileUpgradeFlags />
     <UpgradeBackupLocation />
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <TargetFrameworks>net48</TargetFrameworks>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>

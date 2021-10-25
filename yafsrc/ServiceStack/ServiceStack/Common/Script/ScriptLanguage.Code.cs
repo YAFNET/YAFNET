@@ -144,15 +144,6 @@ namespace ServiceStack.Script
     public static class ScriptCodeUtils
     {
         /// <summary>
-        /// Codes the block.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="code">The code.</param>
-        /// <returns>SharpPage.</returns>
-        [Obsolete("Use CodeSharpPage")]
-        public static SharpPage CodeBlock(this ScriptContext context, string code) => context.CodeSharpPage(code);
-
-        /// <summary>
         /// Codes the sharp page.
         /// </summary>
         /// <param name="context">The context.</param>

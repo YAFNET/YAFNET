@@ -65,7 +65,7 @@ namespace YAF.Core.Extensions
             [NotNull] Exception exception, 
             EventLogTypes eventType = EventLogTypes.Error)
         {
-            CodeContracts.VerifyNotNull(logger, "logger");
+            CodeContracts.VerifyNotNull(logger);
 
             var sourceDescription = "unknown";
 
