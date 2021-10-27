@@ -744,54 +744,52 @@ namespace YAF.Pages
             if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
             {
                 // Check content for spam
-                if (!this.Get<ISpamCheck>().CheckPostForSpam(
+                if (this.Get<ISpamCheck>().CheckPostForSpam(
                     this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName(),
                     this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.MembershipUser.Email,
                     out var spamResult))
                 {
-                    return false;
-                }
-
-                var description =
-                    $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
+                    var description =
+                        $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
                        posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
 
-                switch (this.PageContext.BoardSettings.SpamPostHandling)
-                {
-                    case SpamPostHandling.DoNothing:
-                        this.Logger.SpamMessageDetected(
-                            this.PageContext.PageUserID,
-                            description);
-                        break;
-                    case SpamPostHandling.FlagMessageUnapproved:
-                        this.Logger.SpamMessageDetected(
-                            this.PageContext.PageUserID,
-                            $"{description}, it was flagged as unapproved post");
-                        break;
-                    case SpamPostHandling.RejectMessage:
-                        this.Logger.SpamMessageDetected(
-                            this.PageContext.PageUserID,
-                            $"{description}, post was rejected");
+                    switch (this.PageContext.BoardSettings.SpamPostHandling)
+                    {
+                        case SpamPostHandling.DoNothing:
+                            this.Logger.SpamMessageDetected(
+                                this.PageContext.PageUserID,
+                                description);
+                            break;
+                        case SpamPostHandling.FlagMessageUnapproved:
+                            this.Logger.SpamMessageDetected(
+                                this.PageContext.PageUserID,
+                                $"{description}, it was flagged as unapproved post");
+                            break;
+                        case SpamPostHandling.RejectMessage:
+                            this.Logger.SpamMessageDetected(
+                                this.PageContext.PageUserID,
+                                $"{description}, post was rejected");
 
-                        this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
-                        break;
-                    case SpamPostHandling.DeleteBanUser:
-                        this.Logger.SpamMessageDetected(
-                            this.PageContext.PageUserID,
-                            $"{description}, user was deleted and bannded");
+                            break;
+                        case SpamPostHandling.DeleteBanUser:
+                            this.Logger.SpamMessageDetected(
+                                this.PageContext.PageUserID,
+                                $"{description}, user was deleted and bannded");
 
-                        this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                            this.PageContext.PageUserID,
-                            this.PageContext.MembershipUser,
-                            this.PageContext.User.IP);
+                            this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
+                                this.PageContext.PageUserID,
+                                this.PageContext.MembershipUser,
+                                this.PageContext.User.IP);
 
-                        break;
+                            break;
+                    }
+
+                    return false;
                 }
-
-                return false;
             }
 
             ///////////////////////////////
