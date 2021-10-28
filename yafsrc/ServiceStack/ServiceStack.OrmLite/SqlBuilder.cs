@@ -134,7 +134,7 @@ namespace ServiceStack.OrmLite
             public object CreateDynamicType()
             {
                 var assemblyName = new AssemblyName { Name = "tmpAssembly" };
-#if NET5_0_OR_GREATER
+#if NETCORE
                 var typeBuilder =
                     AssemblyBuilder.DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run)
                     .DefineDynamicModule("tmpModule")
@@ -209,7 +209,7 @@ namespace ServiceStack.OrmLite
 
                 ctorIL.Emit(OpCodes.Ret);
 
-#if NET5_0_OR_GREATER
+#if NETCORE
                 var generetedType = typeBuilder.CreateTypeInfo().AsType();
 #else
                 var generetedType = typeBuilder.CreateType();

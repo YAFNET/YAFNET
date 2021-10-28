@@ -5,7 +5,7 @@
     <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
-    <Copyright>&#169; 2008-2021 ServiceStack, Inc</Copyright>
+    <Copyright>&#169; 2008-2022 ServiceStack, Inc</Copyright>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <PackageProjectUrl>https://github.com/ServiceStack/ServiceStack</PackageProjectUrl>
     <PackageLicenseUrl>https://servicestack.net/terms</PackageLicenseUrl>
@@ -38,4 +38,15 @@
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
+	
+	<PropertyGroup Condition=" '$(TargetFramework)' == 'net6.0' ">
+		<DefineConstants>$(DefineConstants);NET6_0;NET6_0_OR_GREATER</DefineConstants>
+		<SignAssembly>True</SignAssembly>
+		<DelaySign>False</DelaySign>
+		<AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)' == 'net5.0' OR '$(TargetFramework)' == 'net6.0' ">
+		<DefineConstants>$(DefineConstants);NETCORE;NETCORE_SUPPORT</DefineConstants>
+	</PropertyGroup>
 </Project>

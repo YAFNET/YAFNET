@@ -896,7 +896,7 @@ namespace ServiceStack
         /// <exception cref="System.ArgumentException">licenseKeyText</exception>
         public static LicenseKey VerifyLicenseKeyText(string licenseKeyText)
         {
-#if NET48 || NET5_0_OR_GREATER
+#if NET48 || NETCORE
             LicenseKey key;
             try
             {

@@ -96,9 +96,9 @@ namespace ServiceStack.OrmLite
         /// <param name="obj">The object.</param>
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
         /// <returns>System.Int64.</returns>
-        public static long Insert<T>(this IDbConnection dbConn, T obj, bool selectIdentity = false)
+        public static long Insert<T>(this IDbConnection dbConn, T obj, bool selectIdentity = false, bool enableIdentityInsert = false)
         {
-            return dbConn.Exec(dbCmd => dbCmd.Insert(obj, commandFilter: null, selectIdentity: selectIdentity));
+            return dbConn.Exec(dbCmd => dbCmd.Insert(obj, commandFilter: null, selectIdentity: selectIdentity, enableIdentityInsert));
         }
 
         /// <summary>

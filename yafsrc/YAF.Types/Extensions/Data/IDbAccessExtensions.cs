@@ -184,7 +184,7 @@ namespace YAF.Types.Extensions.Data
             where T : class, IEntity, new()
         {
             return dbAccess.Execute(
-                db => db.Connection.UpdateOnly(
+                db => db.Connection.UpdateOnlyFields(
                     updateFields,
                     where, //OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
                     commandFilter));

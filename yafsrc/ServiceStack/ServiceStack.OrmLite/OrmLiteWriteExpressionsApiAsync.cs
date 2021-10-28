@@ -22,10 +22,10 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Use an SqlExpression to select which fields to update and construct the where expression, E.g:
         /// var q = db.From&gt;Person&lt;());
-        /// db.UpdateOnlyAsync(new Person { FirstName = "JJ" }, q.Update(p =&gt; p.FirstName).Where(x =&gt; x.FirstName == "Jimi"));
+        /// db.UpdateOnlyFieldsAsync(new Person { FirstName = "JJ" }, q.Update(p =&gt; p.FirstName).Where(x =&gt; x.FirstName == "Jimi"));
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// What's not in the update expression doesn't get updated. No where expression updates all rows. E.g:
-        /// db.UpdateOnlyAsync(new Person { FirstName = "JJ", LastName = "Hendo" }, ev.Update(p =&gt; p.FirstName));
+        /// db.UpdateOnlyFieldsAsync(new Person { FirstName = "JJ", LastName = "Hendo" }, ev.Update(p =&gt; p.FirstName));
         /// UPDATE "Person" SET "FirstName" = 'JJ'
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -35,20 +35,20 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn,
             T model,
             SqlExpression<T> onlyFields,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync(model, onlyFields, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync(model, onlyFields, commandFilter, token));
         }
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-        /// db.UpdateOnlyAsync(() =&gt; new Person { FirstName = "JJ" }, where: p =&gt; p.LastName == "Hendrix");
+        /// db.UpdateOnlyFieldsAsync(() =&gt; new Person { FirstName = "JJ" }, where: p =&gt; p.LastName == "Hendrix");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-        /// db.UpdateOnlyAsync(() =&gt; new Person { FirstName = "JJ" });
+        /// db.UpdateOnlyFieldsAsync(() =&gt; new Person { FirstName = "JJ" });
         /// UPDATE "Person" SET "FirstName" = 'JJ'
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -58,18 +58,18 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn,
             Expression<Func<T>> updateFields,
             Expression<Func<T, bool>> where = null,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync(updateFields, dbCmd.GetDialectProvider().SqlExpression<T>().Where(where), commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync(updateFields, dbCmd.GetDialectProvider().SqlExpression<T>().Where(where), commandFilter, token));
         }
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-        /// db.UpdateOnlyAsync(() =&gt; new Person { FirstName = "JJ" }, db.From&lt;Person&gt;().Where(p =&gt; p.LastName == "Hendrix"));
+        /// db.UpdateOnlyFieldsAsync(() =&gt; new Person { FirstName = "JJ" }, db.From&lt;Person&gt;().Where(p =&gt; p.LastName == "Hendrix"));
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -79,19 +79,19 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn,
             Expression<Func<T>> updateFields,
             SqlExpression<T> q,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync(updateFields, q, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync(updateFields, q, commandFilter, token));
         }
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
         /// var q = db.From&gt;Person&lt;().Where(p =&gt; p.LastName == "Hendrix");
-        /// db.UpdateOnlyAsync(() =&gt; new Person { FirstName = "JJ" }, q.WhereExpression, q.Params);
+        /// db.UpdateOnlyFieldsAsync(() =&gt; new Person { FirstName = "JJ" }, q.WhereExpression, q.Params);
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -102,21 +102,21 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn,
             Expression<Func<T>> updateFields,
             string whereExpression,
             IEnumerable<IDbDataParameter> sqlParams,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync(updateFields, whereExpression, sqlParams, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync(updateFields, whereExpression, sqlParams, commandFilter, token));
         }
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-        /// db.UpdateOnlyAsync(new Person { FirstName = "JJ" }, p =&gt; p.FirstName, p =&gt; p.LastName == "Hendrix");
+        /// db.UpdateOnlyFieldsAsync(new Person { FirstName = "JJ" }, p =&gt; p.FirstName, p =&gt; p.LastName == "Hendrix");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-        /// db.UpdateOnlyAsync(new Person { FirstName = "JJ" }, p =&gt; p.FirstName);
+        /// db.UpdateOnlyFieldsAsync(new Person { FirstName = "JJ" }, p =&gt; p.FirstName);
         /// UPDATE "Person" SET "FirstName" = 'JJ'
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -127,13 +127,13 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn, T obj,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn, T obj,
             Expression<Func<T, object>> onlyFields = null,
             Expression<Func<T, bool>> where = null,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync(obj, onlyFields, where, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync(obj, onlyFields, where, commandFilter, token));
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-        /// db.UpdateOnlyAsync(new Person { FirstName = "JJ" }, new[]{ "FirstName" }, p =&gt; p.LastName == "Hendrix");
+        /// db.UpdateOnlyFieldsAsync(new Person { FirstName = "JJ" }, new[]{ "FirstName" }, p =&gt; p.LastName == "Hendrix");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -174,13 +174,13 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn, T obj,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn, T obj,
             string[] onlyFields,
             Expression<Func<T, bool>> where = null,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync(obj, onlyFields, where, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync(obj, onlyFields, where, commandFilter, token));
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Updates all values from Object Dictionary matching the where condition. E.g
-        /// db.UpdateOnlyAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, where:p =&gt; p.FirstName == "Jimi");
+        /// db.UpdateOnlyFieldsAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, where:p =&gt; p.FirstName == "Jimi");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -218,18 +218,18 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn,
             Dictionary<string, object> updateFields,
             Expression<Func<T, bool>> where,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync(updateFields, where, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync(updateFields, where, commandFilter, token));
         }
 
         /// <summary>
         /// Updates all values from Object Dictionary, Requires Id which is used as a Primary Key Filter. E.g
-        /// db.UpdateOnlyAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"Id", 1}, {"FirstName", "JJ"} });
+        /// db.UpdateOnlyFieldsAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"Id", 1}, {"FirstName", "JJ"} });
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("Id" = 1)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -238,17 +238,17 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn,
             Dictionary<string, object> updateFields,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync<T>(updateFields, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync<T>(updateFields, commandFilter, token));
         }
 
         /// <summary>
         /// Updates all values from Object Dictionary matching the where condition. E.g
-        /// db.UpdateOnlyAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, "FirstName == {0}", new[]{ "Jimi" });
+        /// db.UpdateOnlyFieldsAsync&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, "FirstName == {0}", new[]{ "Jimi" });
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -259,14 +259,14 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public static Task<int> UpdateOnlyAsync<T>(this IDbConnection dbConn,
+        public static Task<int> UpdateOnlyFieldsAsync<T>(this IDbConnection dbConn,
             Dictionary<string, object> updateFields,
             string whereExpression,
             object[] whereParams,
             Action<IDbCommand> commandFilter = null,
             CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyAsync<T>(updateFields, whereExpression, whereParams, commandFilter, token));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFieldsAsync<T>(updateFields, whereExpression, whereParams, commandFilter, token));
         }
 
         /// <summary>

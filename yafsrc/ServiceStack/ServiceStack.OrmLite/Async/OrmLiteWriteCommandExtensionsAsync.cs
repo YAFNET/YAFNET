@@ -552,19 +552,45 @@ namespace ServiceStack.OrmLite
         /// <param name="obj">The object.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <param name="enableIdentityInsert">if set to <c>true</c> [enable identity insert].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
-        internal static async Task<long> InsertAsync<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter, bool selectIdentity, CancellationToken token)
+        internal static async Task<long> InsertAsync<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter, bool selectIdentity, bool enableIdentityInsert, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
             OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj);
 
             var dialectProvider = dbCmd.GetDialectProvider();
-            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
-                insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj));
+            var pkField = ModelDefinition<T>.Definition.FieldDefinitions.FirstOrDefault(f => f.IsPrimaryKey);
+            if (!enableIdentityInsert || pkField == null || !pkField.AutoIncrement)
+            {
+                dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
+                    insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj));
+                return await InsertInternalAsync<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity, token).ConfigAwait();
+            }
+            else
+            {
+                try
+                {
+                    await dialectProvider.EnableIdentityInsertAsync<T>(dbCmd, token);
+                    dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
+                        insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj),
+                        shouldInclude: f => f == pkField);
+                    await InsertInternalAsync<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity, token).ConfigAwait();
+                    if (selectIdentity)
+                    {
+                        var id = pkField.GetValue(obj);
+                        return Convert.ToInt64(id);
+                    }
 
-            return await InsertInternalAsync<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity, token).ConfigAwait();
+                    return default;
+                }
+                finally
+                {
+                    await dialectProvider.DisableIdentityInsertAsync<T>(dbCmd, token);
+                }
+            }
         }
 
         /// <summary>
@@ -781,14 +807,14 @@ namespace ServiceStack.OrmLite
                 if (modelDef.HasAutoIncrementId)
                 {
 
-                    var newId = await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: true, token: token).ConfigAwait();
+                    var newId = await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: true, enableIdentityInsert: false, token: token).ConfigAwait();
                     var safeId = dbCmd.GetDialectProvider().FromDbValue(newId, modelDef.PrimaryKey.FieldType);
                     modelDef.PrimaryKey.SetValue(obj, safeId);
                     id = newId;
                 }
                 else
                 {
-                    await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: false, token: token).ConfigAwait();
+                    await dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: false, enableIdentityInsert: false, token: token).ConfigAwait();
                 }
 
                 modelDef.RowVersion?.SetValue(obj, await dbCmd.GetRowVersionAsync(modelDef, id, token).ConfigAwait());
@@ -853,14 +879,14 @@ namespace ServiceStack.OrmLite
                     {
                         if (modelDef.HasAutoIncrementId)
                         {
-                            var newId = await dbCmd.InsertAsync(row, commandFilter: null, selectIdentity: true, token: token).ConfigAwait();
+                            var newId = await dbCmd.InsertAsync(row, commandFilter: null, selectIdentity: true, enableIdentityInsert: false, token: token).ConfigAwait();
                             var safeId = dialectProvider.FromDbValue(newId, modelDef.PrimaryKey.FieldType);
                             modelDef.PrimaryKey.SetValue(row, safeId);
                             id = newId;
                         }
                         else
                         {
-                            await dbCmd.InsertAsync(row, commandFilter: null, selectIdentity: false, token: token).ConfigAwait();
+                            await dbCmd.InsertAsync(row, commandFilter: null, selectIdentity: false, enableIdentityInsert: false, token: token).ConfigAwait();
                         }
 
                         rowsAdded++;

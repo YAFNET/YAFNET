@@ -12,7 +12,7 @@ using System.Data;
 using System.Reflection;
 using System.Runtime.Serialization;
 using ServiceStack.DataAnnotations;
-#if NET5_0_OR_GREATER
+#if NETCORE
 using System.Globalization;
 #endif
 

@@ -5,7 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-#if !NET5_0_OR_GREATER
+#if !NETCORE
 namespace ServiceStack.Text.Extensions
 {
     using System;

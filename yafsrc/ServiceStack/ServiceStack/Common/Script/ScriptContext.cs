@@ -1112,7 +1112,7 @@ namespace ServiceStack.Script
                         if (pageResult.LastFilterError != null)
                             throw new ScriptException(pageResult);
 
-#if NET5_0_OR_GREATER
+#if NETCORE
                         stream.WriteAsync(MemoryProvider.Instance.ToUtf8Bytes(pageResult.ResultOutput.AsSpan()));
 #else
                         stream.WriteAsync(MemoryProvider.Instance.ToUtf8Bytes(pageResult.ResultOutput.AsSpan())).Wait();

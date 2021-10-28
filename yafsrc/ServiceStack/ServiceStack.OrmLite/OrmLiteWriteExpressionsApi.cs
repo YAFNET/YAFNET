@@ -19,10 +19,10 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Use an SqlExpression to select which fields to update and construct the where expression, E.g:
         /// var q = db.From&gt;Person&lt;());
-        /// db.UpdateOnly(new Person { FirstName = "JJ" }, q.Update(p =&gt; p.FirstName).Where(x =&gt; x.FirstName == "Jimi"));
+        /// db.UpdateOnlyFields(new Person { FirstName = "JJ" }, q.Update(p =&gt; p.FirstName).Where(x =&gt; x.FirstName == "Jimi"));
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// What's not in the update expression doesn't get updated. No where expression updates all rows. E.g:
-        /// db.UpdateOnly(new Person { FirstName = "JJ", LastName = "Hendo" }, ev.Update(p =&gt; p.FirstName));
+        /// db.UpdateOnlyFields(new Person { FirstName = "JJ", LastName = "Hendo" }, ev.Update(p =&gt; p.FirstName));
         /// UPDATE "Person" SET "FirstName" = 'JJ'
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -31,16 +31,16 @@ namespace ServiceStack.OrmLite
         /// <param name="onlyFields">The only fields.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn, T model, SqlExpression<T> onlyFields, Action<IDbCommand> commandFilter = null)
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn, T model, SqlExpression<T> onlyFields, Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly(model, onlyFields, commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields(model, onlyFields, commandFilter));
         }
 
         /// <summary>
         /// Update only fields in the specified expression that matches the where condition (if any), E.g:
-        /// db.UpdateOnly(() =&gt; new Person { FirstName = "JJ" }, where: p =&gt; p.LastName == "Hendrix");
+        /// db.UpdateOnlyFields(() =&gt; new Person { FirstName = "JJ" }, where: p =&gt; p.LastName == "Hendrix");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-        /// db.UpdateOnly(() =&gt; new Person { FirstName = "JJ" });
+        /// db.UpdateOnlyFields(() =&gt; new Person { FirstName = "JJ" });
         /// UPDATE "Person" SET "FirstName" = 'JJ'
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -49,17 +49,17 @@ namespace ServiceStack.OrmLite
         /// <param name="where">The where.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn,
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn,
             Expression<Func<T>> updateFields,
             Expression<Func<T, bool>> where = null,
             Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly(updateFields, dbCmd.GetDialectProvider().SqlExpression<T>().Where(where), commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields(updateFields, dbCmd.GetDialectProvider().SqlExpression<T>().Where(where), commandFilter));
         }
 
         /// <summary>
         /// Update only fields in the specified expression that matches the where condition (if any), E.g:
-        /// db.UpdateOnly(() =&gt; new Person { FirstName = "JJ" }, db.From&gt;Person&lt;().Where(p =&gt; p.LastName == "Hendrix"));
+        /// db.UpdateOnlyFields(() =&gt; new Person { FirstName = "JJ" }, db.From&gt;Person&lt;().Where(p =&gt; p.LastName == "Hendrix"));
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -68,18 +68,18 @@ namespace ServiceStack.OrmLite
         /// <param name="q">The q.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn,
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn,
             Expression<Func<T>> updateFields,
             SqlExpression<T> q,
             Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly(updateFields, q, commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields(updateFields, q, commandFilter));
         }
 
         /// <summary>
         /// Update only fields in the specified expression that matches the where condition (if any), E.g:
         /// var q = db.From&gt;Person&lt;().Where(p =&gt; p.LastName == "Hendrix");
-        /// db.UpdateOnly(() =&gt; new Person { FirstName = "JJ" }, q.WhereExpression, q.Params);
+        /// db.UpdateOnlyFields(() =&gt; new Person { FirstName = "JJ" }, q.WhereExpression, q.Params);
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -89,22 +89,22 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn,
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn,
             Expression<Func<T>> updateFields,
             string whereExpression,
             IEnumerable<IDbDataParameter> sqlParams,
             Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly(updateFields, whereExpression, sqlParams, commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields(updateFields, whereExpression, sqlParams, commandFilter));
         }
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-        /// db.UpdateOnly(new Person { FirstName = "JJ" }, p =&gt; p.FirstName, p =&gt; p.LastName == "Hendrix");
+        /// db.UpdateOnlyFields(new Person { FirstName = "JJ" }, p =&gt; p.FirstName, p =&gt; p.LastName == "Hendrix");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-        /// db.UpdateOnly(new Person { FirstName = "JJ" }, p =&gt; p.FirstName);
+        /// db.UpdateOnlyFields(new Person { FirstName = "JJ" }, p =&gt; p.FirstName);
         /// UPDATE "Person" SET "FirstName" = 'JJ'
-        /// db.UpdateOnly(new Person { FirstName = "JJ", Age = 27 }, p =&gt; new { p.FirstName, p.Age );
+        /// db.UpdateOnlyFields(new Person { FirstName = "JJ", Age = 27 }, p =&gt; new { p.FirstName, p.Age );
         /// UPDATE "Person" SET "FirstName" = 'JJ', "Age" = 27
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -114,17 +114,17 @@ namespace ServiceStack.OrmLite
         /// <param name="where">The where.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn, T obj,
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn, T obj,
             Expression<Func<T, object>> onlyFields = null,
             Expression<Func<T, bool>> where = null,
             Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly(obj, onlyFields, where, commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields(obj, onlyFields, where, commandFilter));
         }
 
         /// <summary>
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
-        /// db.UpdateOnly(new Person { FirstName = "JJ" }, new[]{ "FirstName" }, p =&gt; p.LastName == "Hendrix");
+        /// db.UpdateOnlyFields(new Person { FirstName = "JJ" }, new[]{ "FirstName" }, p =&gt; p.LastName == "Hendrix");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -134,12 +134,12 @@ namespace ServiceStack.OrmLite
         /// <param name="where">The where.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn, T obj,
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn, T obj,
             string[] onlyFields,
             Expression<Func<T, bool>> where = null,
             Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly(obj, onlyFields, where, commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields(obj, onlyFields, where, commandFilter));
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace ServiceStack.OrmLite
 
         /// <summary>
         /// Updates all values from Object Dictionary matching the where condition. E.g
-        /// db.UpdateOnly&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, where:p =&gt; p.FirstName == "Jimi");
+        /// db.UpdateOnlyFields&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, where:p =&gt; p.FirstName == "Jimi");
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -196,14 +196,14 @@ namespace ServiceStack.OrmLite
         /// <param name="updateFields">The update fields.</param>
         /// <param name="obj">The object.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn, Dictionary<string, object> updateFields, Expression<Func<T, bool>> obj)
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn, Dictionary<string, object> updateFields, Expression<Func<T, bool>> obj)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly(updateFields, obj));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields(updateFields, obj));
         }
 
         /// <summary>
         /// Updates all values from Object Dictionary, Requires Id which is used as a Primary Key Filter. E.g
-        /// db.UpdateOnly&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"Id", 1}, {"FirstName", "JJ"} });
+        /// db.UpdateOnlyFields&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"Id", 1}, {"FirstName", "JJ"} });
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("Id" = 1)
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -211,14 +211,14 @@ namespace ServiceStack.OrmLite
         /// <param name="updateFields">The update fields.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn, Dictionary<string, object> updateFields, Action<IDbCommand> commandFilter = null)
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn, Dictionary<string, object> updateFields, Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly<T>(updateFields, commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields<T>(updateFields, commandFilter));
         }
 
         /// <summary>
         /// Updates all values from Object Dictionary matching the where condition. E.g
-        /// db.UpdateOnly&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, "FirstName == {0}", new[] { "Jimi" });
+        /// db.UpdateOnlyFields&lt;Person&gt;(new Dictionary&lt;string,object&lt; { {"FirstName", "JJ"} }, "FirstName == {0}", new[] { "Jimi" });
         /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("FirstName" = 'Jimi')
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -228,9 +228,9 @@ namespace ServiceStack.OrmLite
         /// <param name="whereParams">The where parameters.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <returns>System.Int32.</returns>
-        public static int UpdateOnly<T>(this IDbConnection dbConn, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams, Action<IDbCommand> commandFilter = null)
+        public static int UpdateOnlyFields<T>(this IDbConnection dbConn, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams, Action<IDbCommand> commandFilter = null)
         {
-            return dbConn.Exec(dbCmd => dbCmd.UpdateOnly<T>(updateFields, whereExpression, whereParams, commandFilter));
+            return dbConn.Exec(dbCmd => dbCmd.UpdateOnlyFields<T>(updateFields, whereExpression, whereParams, commandFilter));
         }
 
         /// <summary>

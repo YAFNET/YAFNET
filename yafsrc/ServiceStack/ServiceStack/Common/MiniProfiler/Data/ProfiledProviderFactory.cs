@@ -57,7 +57,7 @@ namespace ServiceStack.MiniProfiler.Data
             WrappedFactory = wrappedFactory;
         }
 
-#if !NET5_0_OR_GREATER
+#if !NETCORE
         /// <summary>
         /// proxy
         /// </summary>
@@ -100,7 +100,7 @@ namespace ServiceStack.MiniProfiler.Data
         public override DbConnectionStringBuilder CreateConnectionStringBuilder() =>
             WrappedFactory.CreateConnectionStringBuilder();
 
-#if !NET5_0_OR_GREATER
+#if !NETCORE
         /// <summary>
         /// proxy
         /// </summary>

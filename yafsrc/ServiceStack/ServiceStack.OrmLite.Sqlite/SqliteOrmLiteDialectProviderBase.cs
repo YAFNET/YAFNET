@@ -46,7 +46,7 @@ namespace ServiceStack.OrmLite.Sqlite
             base.RegisterConverter<Guid>(new SqliteGuidConverter());
             base.RegisterConverter<bool>(new SqliteBoolConverter());
             base.RegisterConverter<byte[]>(new SqliteByteArrayConverter());
-#if NET5_0_OR_GREATER
+#if NETCORE
             base.RegisterConverter<char>(new SqliteCharConverter());
 #endif
             this.Variables = new Dictionary<string, string>
@@ -177,7 +177,7 @@ namespace ServiceStack.OrmLite.Sqlite
                         Directory.CreateDirectory(existingDir);
                     }
                 }
-#if NET5_0_OR_GREATER
+#if NETCORE
                 connString.AppendFormat(@"Data Source={0};", connectionString.Trim());
 #else
                 connString.AppendFormat(@"Data Source={0};Version=3;New=True;Compress=True;", connectionString.Trim());

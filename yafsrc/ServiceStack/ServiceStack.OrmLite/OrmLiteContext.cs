@@ -9,7 +9,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
-#if !NET5_0_OR_GREATER
+#if !NETCORE
 using System.Runtime.Remoting.Messaging;
 #endif
 using System.Threading;
@@ -38,7 +38,7 @@ namespace ServiceStack.OrmLite
         [ThreadStatic]
         public static IDictionary ContextItems;
 
-#if NET5_0_OR_GREATER
+#if NETCORE
         readonly AsyncLocal<IDictionary> localContextItems = new();
 #endif
 
@@ -63,7 +63,7 @@ namespace ServiceStack.OrmLite
         /// <returns>IDictionary.</returns>
         private IDictionary GetItems()
         {
-#if NET5_0_OR_GREATER
+#if NETCORE
             return UseThreadStatic ? ContextItems : this.localContextItems.Value;
 
 #else
@@ -89,7 +89,7 @@ namespace ServiceStack.OrmLite
         /// <returns>IDictionary.</returns>
         private IDictionary CreateItems(IDictionary items = null)
         {
-#if NET5_0_OR_GREATER
+#if NETCORE
             if (UseThreadStatic)
             {
                 ContextItems = items ??= new Dictionary<object, object>();
@@ -131,7 +131,7 @@ namespace ServiceStack.OrmLite
             }
             else
             {
-#if NET5_0_OR_GREATER
+#if NETCORE
                 this.localContextItems.Value = new ConcurrentDictionary<object, object>();                
 #else                
                 CallContext.FreeNamedDataSlot(_key);

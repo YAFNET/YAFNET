@@ -269,7 +269,7 @@ namespace ServiceStack.OrmLite
         /// </summary>
         /// <value><c>true</c> if [strip upper in like]; otherwise, <c>false</c>.</value>
         public static bool StripUpperInLike { get; set; }
-#if NET5_0_OR_GREATER
+#if NETCORE
             = true;
 #endif
 

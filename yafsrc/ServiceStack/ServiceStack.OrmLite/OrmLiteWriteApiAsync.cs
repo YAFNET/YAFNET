@@ -58,11 +58,13 @@ namespace ServiceStack.OrmLite
         /// <param name="dbConn">The database connection.</param>
         /// <param name="obj">The object.</param>
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <param name="enableIdentityInsert">if set to <c>true</c> [enable identity insert].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int64&gt;.</returns>
-        public static Task<long> InsertAsync<T>(this IDbConnection dbConn, T obj, bool selectIdentity = false, CancellationToken token = default)
+        public static Task<long> InsertAsync<T>(this IDbConnection dbConn, T obj, bool selectIdentity = false,
+            bool enableIdentityInsert = false, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: selectIdentity, token: token));
+            return dbConn.Exec(dbCmd => dbCmd.InsertAsync(obj, commandFilter: null, selectIdentity: selectIdentity, enableIdentityInsert, token: token));
         }
 
         /// <summary>
@@ -74,11 +76,12 @@ namespace ServiceStack.OrmLite
         /// <param name="obj">The object.</param>
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
+        /// <param name="enableIdentityInsert">if set to <c>true</c> [enable identity insert].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int64&gt;.</returns>
-        public static Task<long> InsertAsync<T>(this IDbConnection dbConn, T obj, Action<IDbCommand> commandFilter, bool selectIdentity = false, CancellationToken token = default)
+        public static Task<long> InsertAsync<T>(this IDbConnection dbConn, T obj, Action<IDbCommand> commandFilter, bool selectIdentity = false, bool enableIdentityInsert = false, CancellationToken token = default)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertAsync(obj, commandFilter: commandFilter, selectIdentity: selectIdentity, token: token));
+            return dbConn.Exec(dbCmd => dbCmd.InsertAsync(obj, commandFilter: commandFilter, selectIdentity: selectIdentity, enableIdentityInsert, token: token));
         }
 
         /// <summary>

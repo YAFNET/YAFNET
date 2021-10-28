@@ -211,7 +211,7 @@ namespace ServiceStack.IO
         public void DeleteFolder(string dirPath)
         {
             var realPath = RootDir.RealPath.CombineWith(dirPath);
-#if NET5_0_OR_GREATER
+#if NETCORE
             // Doesn't properly recursively delete nested dirs/files on .NET Core (win at least)
             if (Directory.Exists(realPath))
                 DeleteDirectoryRecursive(realPath);

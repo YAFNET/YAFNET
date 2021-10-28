@@ -12,7 +12,7 @@ using ServiceStack.Logging;
 using ServiceStack.Script;
 using ServiceStack.Text;
 
-#if NET5_0_OR_GREATER
+#if NETCORE
 using System.Threading.Tasks;
 #endif
 

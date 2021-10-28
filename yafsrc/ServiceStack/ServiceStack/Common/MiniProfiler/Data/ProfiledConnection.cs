@@ -210,7 +210,7 @@ namespace ServiceStack.MiniProfiler.Data
         //{
         //    _conn.EnlistTransaction(transaction);
         //}
-#if !NET5_0_OR_GREATER
+#if !NETCORE
         /// <summary>
         /// Returns schema information for the data source of this <see cref="T:System.Data.Common.DbConnection" />.
         /// </summary>

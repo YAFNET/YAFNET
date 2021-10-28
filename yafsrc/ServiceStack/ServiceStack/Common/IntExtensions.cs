@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-#if NET5_0_OR_GREATER
+#if NETCORE
 using System.Threading.Tasks;
 #endif
 
@@ -141,7 +141,7 @@ namespace ServiceStack
             var asyncResults = new List<IAsyncResult>(times);
             for (var i = 0; i < times; i++)
             {
-#if NET5_0_OR_GREATER
+#if NETCORE
                 asyncResults.Add(Task.Run(() => actionFn(i)));
 #else                
                 asyncResults.Add(actionFn.BeginInvoke(i, null, null));
@@ -161,7 +161,7 @@ namespace ServiceStack
             var asyncResults = new List<IAsyncResult>(times);
             for (var i = 0; i < times; i++)
             {
-#if NET5_0_OR_GREATER
+#if NETCORE
                 asyncResults.Add(Task.Run(actionFn));
 #else                
                 asyncResults.Add(actionFn.BeginInvoke(null, null));

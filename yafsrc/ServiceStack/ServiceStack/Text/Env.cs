@@ -79,7 +79,7 @@ namespace ServiceStack.Text
             SupportsDynamic = true;
 #endif
 
-#if NET5_0_OR_GREATER
+#if NETCORE
             IsNetStandard = false;
             IsNetCore = true;
             SupportsDynamic = true;
@@ -371,7 +371,7 @@ namespace ServiceStack.Text
             return ReleaseDate;
         }
 
-#if NETSTANDARD || NET5_0_OR_GREATER
+#if NETSTANDARD || NETCORE
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
