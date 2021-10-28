@@ -321,7 +321,8 @@ namespace YAF.Core.Services
                 }
 
                 // get the PM ID
-                var userPMessageId = this.GetRepository<UserPMessage>().GetSingle(p => p.UserID == toUserId).ID;
+                var userPMessageId = this.GetRepository<UserPMessage>().Get(p => p.UserID == toUserId)
+                    .OrderByDescending(p => p.ID).FirstOrDefault().ID;
 
                 var languageFile = UserHelper.GetUserLanguageFile(toUser);
 
