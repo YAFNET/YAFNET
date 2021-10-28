@@ -46,6 +46,7 @@ namespace YAF.Pages
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     using ListItem = System.Web.UI.WebControls.ListItem;
@@ -57,6 +58,13 @@ namespace YAF.Pages
     /// </summary>
     public partial class PostPrivateMessage : ForumPage
     {
+        public PagedPm ReplyMessage
+        {
+            get => this.ViewState["ReplyMessage"].ToType<PagedPm>();
+
+            set => this.ViewState["ReplyMessage"] = value;
+        }
+
         #region Constants and Fields
 
         /// <summary>
@@ -317,19 +325,19 @@ namespace YAF.Pages
                 var isReport = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("report") == "1";
 
                 // get quoted message
-                var replyMessage =
+                this.ReplyMessage =
                     this.GetRepository<PMessage>().GetMessage(
                         this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("p")));
 
                 // there is such a message
-                if (replyMessage == null)
+                if (this.ReplyMessage == null)
                 {
                     return;
                 }
 
                 // get message sender/recipient
-                var toUserId = replyMessage.ToUserID;
-                var fromUserId = replyMessage.FromUserID;
+                var toUserId = this.ReplyMessage.ToUserID;
+                var fromUserId = this.ReplyMessage.FromUserID;
 
                 // verify access to this PM
                 if (toUserId != this.PageContext.PageUserID && fromUserId != this.PageContext.PageUserID)
@@ -338,7 +346,7 @@ namespace YAF.Pages
                 }
 
                 // handle subject
-                var subject = replyMessage.Subject;
+                var subject = this.ReplyMessage.Subject;
                 if (!subject.StartsWith("Re: "))
                 {
                     subject = $"Re: {subject}";
@@ -361,7 +369,7 @@ namespace YAF.Pages
                 }
 
                 // PM is a quoted reply
-                var body = replyMessage.Body;
+                var body = this.ReplyMessage.Body;
 
                 if (this.PageContext.BoardSettings.RemoveNestedQuotes)
                 {
@@ -382,7 +390,7 @@ namespace YAF.Pages
                     return;
                 }
 
-                var hostUser = this.GetRepository<User>().Get(u => u.BoardID == this.PageContext.PageBoardID && u.UserFlags.IsHostAdmin).FirstOrDefault();
+                var hostUser = this.GetRepository<User>().Get(u => u.BoardID == this.PageContext.PageBoardID && (u.Flags & 1) == 1).FirstOrDefault();
 
                 if (hostUser != null)
                 {
@@ -390,7 +398,7 @@ namespace YAF.Pages
 
                     this.PmSubjectTextBox.Text = this.GetTextFormatted("REPORT_SUBJECT", displayName);
 
-                    var bodyReport = $"[QUOTE={displayName}]{replyMessage.Body}[/QUOTE]";
+                    var bodyReport = $"[QUOTE={displayName}]{this.ReplyMessage.Body}[/QUOTE]";
 
                     // Quote the original message
                     bodyReport = this.GetTextFormatted("REPORT_BODY", bodyReport);
@@ -539,19 +547,13 @@ namespace YAF.Pages
         protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             var replyTo = this.Get<HttpRequestBase>().QueryString.Exists("p")
-                              ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("p")
-                              : null;
+                ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("p")
+                : null;
 
             // Check if quoted message is Reply
-            if (replyTo.HasValue)
+            if (this.ReplyMessage.ReplyTo.HasValue)
             {
-                var reply = this.GetRepository<PMessage>().GetSingle(
-                    m => m.ID == replyTo.Value);
-
-                if (reply.ReplyTo is > 0)
-                {
-                    replyTo = reply.ReplyTo.Value;
-                }
+                replyTo = this.ReplyMessage.ReplyTo;
             }
 
             // recipient was set in dropdown

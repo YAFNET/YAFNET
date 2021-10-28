@@ -29,6 +29,7 @@ namespace YAF.Types.Objects.Model
     /// <summary>
     /// The paged private Message.
     /// </summary>
+    [Serializable]
     public class PagedPm
     {
         /// <summary>

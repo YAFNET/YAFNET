@@ -96,8 +96,7 @@ namespace YAF.Modules
         private void GeneratePopUp()
         {
             // This happens when user logs in
-            if (this.DisplayPmPopup() && (!this.PageContext.ForumPageType.Equals(ForumPages.MyMessages)
-                                          || !this.PageContext.ForumPageType.Equals(ForumPages.Friends)))
+            if (this.DisplayPmPopup() && this.PageContext.ForumPageType != ForumPages.MyMessages)
             {
                 this.PageContext.PageElements.RegisterJsBlockStartup(
                     "ModalConfirmJs",
@@ -114,7 +113,7 @@ namespace YAF.Modules
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType.Equals(ForumPages.Friends) || this.PageContext.ForumPageType.Equals(ForumPages.MyMessages))
+            if (!this.DisplayPendingBuddies() || this.PageContext.ForumPageType == ForumPages.MyMessages)
             {
                 return;
             }

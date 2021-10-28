@@ -30,7 +30,7 @@
                                                 LocalizedTag="RECENT_USERS" />
                             </div>
                             <div class="card-body">
-                                <YAF:ActiveUsers ID="RecentUsers" runat="server" InstantId="RecentUsersOneDay" Visible="False">
+                                <YAF:ActiveUsers ID="RecentUsers" runat="server" InstantId="RecentUsersOneDay">
                                 </YAF:ActiveUsers>
                             </div>
                             <div class="card-footer">
