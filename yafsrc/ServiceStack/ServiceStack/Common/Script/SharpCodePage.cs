@@ -45,7 +45,7 @@ namespace ServiceStack.Script
         /// Gets the arguments.
         /// </summary>
         /// <value>The arguments.</value>
-        public Dictionary<string, object> Args { get; } = new Dictionary<string, object>();
+        public Dictionary<string, object> Args { get; } = new();
         /// <summary>
         /// Gets or sets the context.
         /// </summary>

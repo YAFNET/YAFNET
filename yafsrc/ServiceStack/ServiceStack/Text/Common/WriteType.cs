@@ -792,15 +792,13 @@ namespace ServiceStack.Text.Common
                     else
                     {
                         //Trim brackets in top-level lists in QueryStrings, e.g: ?a=[1,2,3] => ?a=1,2,3
-                        using (var ms = MemoryStreamFactory.GetStream())
-                        {
-                            var enumerableWriter = new StreamWriter(ms); //ms disposed in using 
-                            propertyWriter.WriteFn(enumerableWriter, propertyValue);
-                            enumerableWriter.Flush();
-                            var output = ms.ReadToEnd();
-                            output = output.Trim(ArrayBrackets);
-                            writer.Write(output);
-                        }
+                        using var ms = MemoryStreamFactory.GetStream();
+                        var enumerableWriter = new StreamWriter(ms); //ms disposed in using 
+                        propertyWriter.WriteFn(enumerableWriter, propertyValue);
+                        enumerableWriter.Flush();
+                        var output = ms.ReadToEnd();
+                        output = output.Trim(ArrayBrackets);
+                        writer.Write(output);
                     }
                 }
             }

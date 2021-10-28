@@ -97,7 +97,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsGreaterThan Operator = new JsGreaterThan();
+        public static JsGreaterThan Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsGreaterThan"/> class from being created.
         /// </summary>
@@ -126,7 +126,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsGreaterThanEqual Operator = new JsGreaterThanEqual();
+        public static JsGreaterThanEqual Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsGreaterThanEqual"/> class from being created.
         /// </summary>
@@ -155,7 +155,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsLessThanEqual Operator = new JsLessThanEqual();
+        public static JsLessThanEqual Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsLessThanEqual"/> class from being created.
         /// </summary>
@@ -184,7 +184,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsLessThan Operator = new JsLessThan();
+        public static JsLessThan Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsLessThan"/> class from being created.
         /// </summary>
@@ -213,7 +213,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsEquals Operator = new JsEquals();
+        public static JsEquals Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsEquals"/> class from being created.
         /// </summary>
@@ -242,7 +242,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsNotEquals Operator = new JsNotEquals();
+        public static JsNotEquals Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsNotEquals"/> class from being created.
         /// </summary>
@@ -271,7 +271,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsStrictEquals Operator = new JsStrictEquals();
+        public static JsStrictEquals Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsStrictEquals"/> class from being created.
         /// </summary>
@@ -300,7 +300,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsStrictNotEquals Operator = new JsStrictNotEquals();
+        public static JsStrictNotEquals Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsStrictNotEquals"/> class from being created.
         /// </summary>
@@ -329,7 +329,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsCoalescing Operator = new JsCoalescing();
+        public static JsCoalescing Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsCoalescing"/> class from being created.
         /// </summary>
@@ -361,7 +361,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsOr Operator = new JsOr();
+        public static JsOr Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsOr"/> class from being created.
         /// </summary>
@@ -393,7 +393,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsAnd Operator = new JsAnd();
+        public static JsAnd Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsAnd"/> class from being created.
         /// </summary>
@@ -425,7 +425,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsNot Operator = new JsNot();
+        public static JsNot Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsNot"/> class from being created.
         /// </summary>
@@ -453,7 +453,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsBitwiseAnd Operator = new JsBitwiseAnd();
+        public static JsBitwiseAnd Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsBitwiseAnd"/> class from being created.
         /// </summary>
@@ -484,7 +484,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsBitwiseOr Operator = new JsBitwiseOr();
+        public static JsBitwiseOr Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsBitwiseOr"/> class from being created.
         /// </summary>
@@ -515,7 +515,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsBitwiseXOr Operator = new JsBitwiseXOr();
+        public static JsBitwiseXOr Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsBitwiseXOr"/> class from being created.
         /// </summary>
@@ -546,7 +546,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsBitwiseNot Operator = new JsBitwiseNot();
+        public static JsBitwiseNot Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsBitwiseNot"/> class from being created.
         /// </summary>
@@ -574,7 +574,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsBitwiseLeftShift Operator = new JsBitwiseLeftShift();
+        public static JsBitwiseLeftShift Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsBitwiseLeftShift"/> class from being created.
         /// </summary>
@@ -605,7 +605,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsBitwiseRightShift Operator = new JsBitwiseRightShift();
+        public static JsBitwiseRightShift Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsBitwiseRightShift"/> class from being created.
         /// </summary>
@@ -636,7 +636,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsAddition Operator = new JsAddition();
+        public static JsAddition Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsAddition"/> class from being created.
         /// </summary>
@@ -676,7 +676,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsSubtraction Operator = new JsSubtraction();
+        public static JsSubtraction Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsSubtraction"/> class from being created.
         /// </summary>
@@ -707,7 +707,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsMultiplication Operator = new JsMultiplication();
+        public static JsMultiplication Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsMultiplication"/> class from being created.
         /// </summary>
@@ -738,7 +738,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsDivision Operator = new JsDivision();
+        public static JsDivision Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsDivision"/> class from being created.
         /// </summary>
@@ -769,7 +769,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsMod Operator = new JsMod();
+        public static JsMod Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsMod"/> class from being created.
         /// </summary>
@@ -800,7 +800,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsAssignment Operator = new JsAssignment();
+        public static JsAssignment Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsAssignment"/> class from being created.
         /// </summary>
@@ -834,7 +834,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsMinus Operator = new JsMinus();
+        public static JsMinus Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsMinus"/> class from being created.
         /// </summary>
@@ -865,7 +865,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator
         /// </summary>
-        public static JsPlus Operator = new JsPlus();
+        public static JsPlus Operator = new();
         /// <summary>
         /// Prevents a default instance of the <see cref="JsPlus"/> class from being created.
         /// </summary>

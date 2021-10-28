@@ -114,7 +114,7 @@ namespace ServiceStack.IO
         /// Gets or sets the partial file names.
         /// </summary>
         /// <value>The partial file names.</value>
-        public static HashSet<string> PartialFileNames { get; set; } = new HashSet<string>
+        public static HashSet<string> PartialFileNames { get; set; } = new()
         {
             "min.js",
             "min.css",

@@ -29,7 +29,8 @@ namespace ServiceStack.Script
         /// <summary>
         /// The evaluate when skipping filter execution
         /// </summary>
-        public static List<string> EvaluateWhenSkippingFilterExecution = new List<string> {
+        public static List<string> EvaluateWhenSkippingFilterExecution = new()
+        {
             nameof(htmlError),
             nameof(htmlErrorMessage),
             nameof(htmlErrorDebug),
@@ -787,7 +788,7 @@ namespace ServiceStack.Script
         /// Gets the void elements.
         /// </summary>
         /// <value>The void elements.</value>
-        public static HashSet<string> VoidElements { get; } = new HashSet<string>
+        public static HashSet<string> VoidElements { get; } = new()
         {
             "area", "base", "br", "col", "embed", "hr", "img", "input", "keygen", "link", "meta", "param", "source", "track", "wbr"
         };

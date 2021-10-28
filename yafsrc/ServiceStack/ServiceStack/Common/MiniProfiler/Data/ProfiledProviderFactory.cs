@@ -17,7 +17,7 @@ namespace ServiceStack.MiniProfiler.Data
         /// <summary>
         /// Every provider factory must have an Instance public field
         /// </summary>
-        public static ProfiledProviderFactory Instance = new ProfiledProviderFactory();
+        public static ProfiledProviderFactory Instance = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfiledProviderFactory"/> class.

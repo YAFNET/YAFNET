@@ -83,7 +83,7 @@ namespace ServiceStack.Script
         /// Converts to jsast.
         /// </summary>
         /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-        public override Dictionary<string, object> ToJsAst() => new Dictionary<string, object>
+        public override Dictionary<string, object> ToJsAst() => new()
         {
             ["type"] = ToJsAstType(),
             ["name"] = Name,
@@ -125,11 +125,11 @@ namespace ServiceStack.Script
         /// <summary>
         /// The true
         /// </summary>
-        public static JsLiteral True = new JsLiteral(true);
+        public static JsLiteral True = new(true);
         /// <summary>
         /// The false
         /// </summary>
-        public static JsLiteral False = new JsLiteral(false);
+        public static JsLiteral False = new(false);
 
         /// <summary>
         /// Gets the value.
@@ -187,7 +187,7 @@ namespace ServiceStack.Script
         /// Converts to jsast.
         /// </summary>
         /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-        public override Dictionary<string, object> ToJsAst() => new Dictionary<string, object>
+        public override Dictionary<string, object> ToJsAst() => new()
         {
             ["type"] = ToJsAstType(),
             ["value"] = Value,
@@ -625,7 +625,7 @@ namespace ServiceStack.Script
         /// Converts to jsast.
         /// </summary>
         /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-        public override Dictionary<string, object> ToJsAst() => new Dictionary<string, object>
+        public override Dictionary<string, object> ToJsAst() => new()
         {
             ["type"] = ToJsAstType(),
             ["argument"] = Argument.ToJsAst()

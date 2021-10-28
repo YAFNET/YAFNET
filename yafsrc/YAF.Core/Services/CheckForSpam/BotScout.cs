@@ -1,5 +1,5 @@
-/* Yet Another Forum.NET
- * Copyright (C) 2003-2005 Bj�rnar Henden
+﻿/* Yet Another Forum.NET
+ * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
  * https://www.yetanotherforum.net/
@@ -85,10 +85,8 @@ namespace YAF.Core.Services.CheckForSpam
 
                 var response = (HttpWebResponse)webRequest.GetResponse();
 
-                using (var streamReader = new StreamReader(response.GetResponseStream()))
-                {
-                    responseText = streamReader.ReadToEnd();
-                }
+                using var streamReader = new StreamReader(response.GetResponseStream());
+                responseText = streamReader.ReadToEnd();
 
                 if (!responseText.StartsWith("Y|"))
                 {

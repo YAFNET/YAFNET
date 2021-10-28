@@ -39,12 +39,12 @@ namespace ServiceStack.Script
         /// Gets the headers.
         /// </summary>
         /// <value>The headers.</value>
-        public List<string> Headers { get; } = new List<string>();
+        public List<string> Headers { get; } = new();
         /// <summary>
         /// Gets the rows.
         /// </summary>
         /// <value>The rows.</value>
-        public List<List<string>> Rows { get; } = new List<List<string>>();
+        public List<List<string>> Rows { get; } = new();
 
         /// <summary>
         /// Renders this instance.

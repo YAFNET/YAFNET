@@ -464,7 +464,8 @@ namespace ServiceStack
         /// <summary>
         /// The escaped character map
         /// </summary>
-        public static readonly Dictionary<char, string> EscapedCharMap = new Dictionary<char, string> {
+        public static readonly Dictionary<char, string> EscapedCharMap = new()
+        {
             // {'\'', @"\'"},
             {'\"', "\\\""},
             {'\\', @"\\"},
@@ -551,12 +552,12 @@ namespace ServiceStack
         /// The strip HTML unicode reg ex
         /// </summary>
         static readonly Regex StripHtmlUnicodeRegEx =
-            new Regex(@"&(#)?([xX])?([^ \f\n\r\t\v;]+);", RegexOptions.Compiled);
+            new(@"&(#)?([xX])?([^ \f\n\r\t\v;]+);", RegexOptions.Compiled);
 
         /// <summary>
         /// The safe input reg ex
         /// </summary>
-        static readonly Regex SafeInputRegEx = new Regex(@"[^\w\s\.,@-\\+\\/]", RegexOptions.Compiled);
+        static readonly Regex SafeInputRegEx = new(@"[^\w\s\.,@-\\+\\/]", RegexOptions.Compiled);
 
         /// <summary>
         /// HTMLs the encode lite.

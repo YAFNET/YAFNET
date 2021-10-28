@@ -72,13 +72,11 @@ namespace YAF.Core.Utilities
                 {
                     const string SubKey = @"SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\";
 
-                    using (var openSubKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
-                        .OpenSubKey(SubKey))
-                    {
-                        return openSubKey?.GetValue("Release") != null
-                                   ? $"Framework Version: {CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>())}"
-                                   : Environment.Version.ToString();
-                    }
+                    using var openSubKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
+                        .OpenSubKey(SubKey);
+                    return openSubKey?.GetValue("Release") != null
+                        ? $"Framework Version: {CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>())}"
+                        : Environment.Version.ToString();
                 }
                 catch (Exception)
                 {

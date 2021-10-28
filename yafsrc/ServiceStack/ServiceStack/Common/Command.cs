@@ -37,7 +37,7 @@ namespace ServiceStack
         /// Gets the arguments.
         /// </summary>
         /// <value>The arguments.</value>
-        public List<ReadOnlyMemory<char>> Args { get; internal set; } = new List<ReadOnlyMemory<char>>();
+        public List<ReadOnlyMemory<char>> Args { get; internal set; } = new();
 
         /// <summary>
         /// Gets or sets the suffix.

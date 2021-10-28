@@ -23,10 +23,8 @@ namespace ServiceStack.Text
         /// <param name="records">The records.</param>
         public static void WriteCsv<T>(this Stream outputStream, IEnumerable<T> records)
         {
-            using (var textWriter = new StreamWriter(outputStream))
-            {
-                textWriter.WriteCsv(records);
-            }
+            using var textWriter = new StreamWriter(outputStream);
+            textWriter.WriteCsv(records);
         }
 
         /// <summary>

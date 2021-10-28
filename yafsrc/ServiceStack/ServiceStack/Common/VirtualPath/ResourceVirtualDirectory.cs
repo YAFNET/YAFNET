@@ -26,7 +26,7 @@ namespace ServiceStack.VirtualPath
         /// Gets or sets the embedded resource treat as files.
         /// </summary>
         /// <value>The embedded resource treat as files.</value>
-        public static HashSet<string> EmbeddedResourceTreatAsFiles { get; set; } = new HashSet<string>();
+        public static HashSet<string> EmbeddedResourceTreatAsFiles { get; set; } = new();
 
         /// <summary>
         /// The log

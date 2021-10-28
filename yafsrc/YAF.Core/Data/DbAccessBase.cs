@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -112,15 +112,14 @@ namespace YAF.Core.Data
                 }
                 else
                 {
-                    using (var connection = this.CreateConnectionOpen())
-                    {
-                        // get an open connection
-                        command.Connection = connection;
+                    using var connection = this.CreateConnectionOpen();
 
-                        result = execFunc(command);
+                    // get an open connection
+                    command.Connection = connection;
 
-                        connection.Close();
-                    }
+                    result = execFunc(command);
+
+                    connection.Close();
                 }
             }
             else

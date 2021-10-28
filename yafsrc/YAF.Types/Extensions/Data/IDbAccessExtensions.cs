@@ -362,15 +362,14 @@ namespace YAF.Types.Extensions.Data
             return dbAccess.Execute(
                     db =>
                     {
-                        using (var cmd = db.Connection.CreateCommand())
-                        {
-                            // added so command won't timeout anymore...
-                            cmd.CommandTimeout = timeOut;
-                            cmd.CommandType = CommandType.Text;
-                            cmd.CommandText = sql;
+                        using var cmd = db.Connection.CreateCommand();
 
-                            return db.GetDialectProvider().InnerRunSqlExecuteReader(cmd);
-                        }
+                        // added so command won't timeout anymore...
+                        cmd.CommandTimeout = timeOut;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = sql;
+
+                        return db.GetDialectProvider().InnerRunSqlExecuteReader(cmd);
                     });
         }
 
@@ -399,36 +398,30 @@ namespace YAF.Types.Extensions.Data
 
             var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
 
-            using (var trans = dbAccess.CreateConnectionOpen().BeginTransaction())
-            {
-                foreach (var sql in statements.Select(sql0 => sql0.Trim()))
+            using var trans = dbAccess.CreateConnectionOpen().BeginTransaction();
+
+            statements.Select(sql0 => sql0.Trim()).Where(sql => sql.Length > 0).ForEach(
+                sql =>
                 {
                     try
                     {
-                        if (sql.Length <= 0)
-                        {
-                            continue;
-                        }
+                        using var cmd = trans.Connection.CreateCommand();
 
-                        using (var cmd = trans.Connection.CreateCommand())
-                        {
                             // added so command won't timeout anymore...
                             cmd.CommandTimeout = timeOut;
-                            cmd.Transaction = trans;
-                            cmd.CommandType = CommandType.Text;
-                            cmd.CommandText = sql.Trim();
-                            cmd.ExecuteNonQuery();
-                        }
+                        cmd.Transaction = trans;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = sql.Trim();
+                        cmd.ExecuteNonQuery();
                     }
                     catch (Exception x)
                     {
                         trans.Rollback();
                         throw new Exception($"FILE:\n{scriptFile}\n\nERROR:\n{x.Message}\n\nSTATEMENT:\n{sql}");
                     }
-                }
+                });
 
-                trans.Commit();
-            }
+            trans.Commit();
         }
 
         #endregion

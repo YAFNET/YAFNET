@@ -181,19 +181,19 @@ namespace ServiceStack.ExpressionUtil
             /// The simple member access dictionary
             /// </summary>
             private static readonly ConcurrentDictionary<MemberInfo, Func<TIn, TOut>> _simpleMemberAccessDict =
-                new ConcurrentDictionary<MemberInfo, Func<TIn, TOut>>();
+                new();
 
             /// <summary>
             /// The constant member access dictionary
             /// </summary>
             private static readonly ConcurrentDictionary<MemberInfo, Func<object, TOut>> _constMemberAccessDict =
-                new ConcurrentDictionary<MemberInfo, Func<object, TOut>>();
+                new();
 
             /// <summary>
             /// The fingerprinted cache
             /// </summary>
             private static readonly ConcurrentDictionary<ExpressionFingerprintChain, Hoisted<TIn, TOut>> _fingerprintedCache =
-                new ConcurrentDictionary<ExpressionFingerprintChain, Hoisted<TIn, TOut>>();
+                new();
 
             /// <summary>
             /// Compiles the specified expr.
@@ -541,7 +541,7 @@ namespace ServiceStack.ExpressionUtil
         /// <summary>
         /// The elements
         /// </summary>
-        public readonly List<ExpressionFingerprint> Elements = new List<ExpressionFingerprint>();
+        public readonly List<ExpressionFingerprint> Elements = new();
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -607,15 +607,15 @@ namespace ServiceStack.ExpressionUtil
         /// <summary>
         /// The seen constants
         /// </summary>
-        private readonly List<object> _seenConstants = new List<object>();
+        private readonly List<object> _seenConstants = new();
         /// <summary>
         /// The seen parameters
         /// </summary>
-        private readonly List<ParameterExpression> _seenParameters = new List<ParameterExpression>();
+        private readonly List<ParameterExpression> _seenParameters = new();
         /// <summary>
         /// The current chain
         /// </summary>
-        private readonly ExpressionFingerprintChain _currentChain = new ExpressionFingerprintChain();
+        private readonly ExpressionFingerprintChain _currentChain = new();
         /// <summary>
         /// The gave up
         /// </summary>

@@ -471,11 +471,9 @@ namespace YAF.Core.Services
                         }
 
                         // import into board...
-                        using (var stream = new StreamReader(fullFile))
-                        {
-                            streamAction(stream.BaseStream);
-                            stream.Close();
-                        }
+                        using var stream = new StreamReader(fullFile);
+                        streamAction(stream.BaseStream);
+                        stream.Close();
                     });
 
             // get all boards...

@@ -55,7 +55,7 @@ namespace ServiceStack.Text
         /// <returns></returns>
         public static JsConfigScope BeginScope()
         {
-            return new(); // Populated with Config.Instance
+            return new JsConfigScope(); // Populated with Config.Instance
         }
 
         /// <summary>

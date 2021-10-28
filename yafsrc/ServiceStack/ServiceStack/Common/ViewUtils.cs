@@ -100,7 +100,7 @@ namespace ServiceStack
         /// 'content:' (ContentRoot HostContext.VirtualFiles), 'filesystem:' (WebRoot FileSystem), 'memory:' (WebRoot Memory)
         /// </summary>
         /// <value>The sources.</value>
-        public List<string> Sources { get; set; } = new List<string>();
+        public List<string> Sources { get; set; } = new();
 
         /// <summary>
         /// Write bundled file to this Virtual Path
@@ -405,7 +405,7 @@ namespace ServiceStack
         /// Creates this instance.
         /// </summary>
         /// <returns>NavOptions.</returns>
-        public static NavOptions Create() => new NavOptions
+        public static NavOptions Create() => new()
         {
             NavClass = NavClass,
             NavItemClass = NavItemClass,
@@ -474,7 +474,7 @@ namespace ServiceStack
         /// Creates this instance.
         /// </summary>
         /// <returns>NavOptions.</returns>
-        public static NavOptions Create() => new NavOptions { NavClass = NavClass };
+        public static NavOptions Create() => new() { NavClass = NavClass };
         /// <summary>
         /// Fors the navbar.
         /// </summary>
@@ -501,7 +501,7 @@ namespace ServiceStack
         /// Creates this instance.
         /// </summary>
         /// <returns>NavOptions.</returns>
-        public static NavOptions Create() => new NavOptions { NavClass = NavClass, NavItemClass = NavItemClass };
+        public static NavOptions Create() => new() { NavClass = NavClass, NavItemClass = NavItemClass };
         /// <summary>
         /// Fors the nav button group.
         /// </summary>
@@ -612,11 +612,11 @@ namespace ServiceStack
         /// <summary>
         /// The default scripts
         /// </summary>
-        internal static readonly DefaultScripts DefaultScripts = new DefaultScripts();
+        internal static readonly DefaultScripts DefaultScripts = new();
         /// <summary>
         /// The HTML scripts
         /// </summary>
-        private static readonly HtmlScripts HtmlScripts = new HtmlScripts();
+        private static readonly HtmlScripts HtmlScripts = new();
 
         /// <summary>
         /// Gets or sets the nav items key.
@@ -672,12 +672,12 @@ namespace ServiceStack
         /// Gets the nav items.
         /// </summary>
         /// <value>The nav items.</value>
-        public static List<NavItem> NavItems { get; } = new List<NavItem>();
+        public static List<NavItem> NavItems { get; } = new();
         /// <summary>
         /// Gets the nav items map.
         /// </summary>
         /// <value>The nav items map.</value>
-        public static Dictionary<string, List<NavItem>> NavItemsMap { get; } = new Dictionary<string, List<NavItem>>();
+        public static Dictionary<string, List<NavItem>> NavItemsMap { get; } = new();
 
         /// <summary>
         /// Gets the nav items.
@@ -713,13 +713,11 @@ namespace ServiceStack
                 if (file == null)
                     continue;
 
-                using (var reader = file.OpenText())
+                using var reader = file.OpenText();
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        sb.AppendLine(line);
-                    }
+                    sb.AppendLine(line);
                 }
             }
 
@@ -752,13 +750,11 @@ namespace ServiceStack
                 if (file == null)
                     continue;
 
-                using (var reader = file.OpenText())
+                using var reader = file.OpenText();
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        sb.AppendLine(line);
-                    }
+                    sb.AppendLine(line);
                 }
             }
 

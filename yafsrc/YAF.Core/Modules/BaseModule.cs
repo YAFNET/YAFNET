@@ -126,12 +126,10 @@ namespace YAF.Core.Modules
             moduleFinder.RegisterAssemblyTypes(assemblies)
                 .Where(t => typeof(TModule).IsAssignableFrom(t) && !excludeList.Contains(t)).As<IModule>();
 
-            using (var moduleContainer = moduleFinder.Build())
-            {
-                var modules = moduleContainer.Resolve<IEnumerable<IModule>>().ByOptionalSortOrder().ToList();
+            using var moduleContainer = moduleFinder.Build();
+            var modules = moduleContainer.Resolve<IEnumerable<IModule>>().ByOptionalSortOrder().ToList();
 
-                modules.ForEach(module => builder.RegisterModule(module));
-            }
+            modules.ForEach(module => builder.RegisterModule(module));
         }
 
         #endregion

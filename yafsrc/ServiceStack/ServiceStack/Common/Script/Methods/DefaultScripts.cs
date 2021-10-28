@@ -31,13 +31,14 @@ namespace ServiceStack.Script
         /// <summary>
         /// The instance
         /// </summary>
-        public static readonly DefaultScripts Instance = new DefaultScripts();
+        public static readonly DefaultScripts Instance = new();
 
         /// <summary>
         /// Gets the remove new lines for.
         /// </summary>
         /// <value>The remove new lines for.</value>
-        public static List<string> RemoveNewLinesFor { get; } = new List<string> {
+        public static List<string> RemoveNewLinesFor { get; } = new()
+        {
             nameof(to),
             nameof(toGlobal),
             nameof(assignTo),
@@ -77,7 +78,8 @@ namespace ServiceStack.Script
         /// <summary>
         /// The evaluate when skipping filter execution
         /// </summary>
-        public static List<string> EvaluateWhenSkippingFilterExecution = new List<string> {
+        public static List<string> EvaluateWhenSkippingFilterExecution = new()
+        {
             nameof(ifError),
             nameof(lastError),
         };
@@ -1517,7 +1519,7 @@ namespace ServiceStack.Script
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>KeyValuePair&lt;System.String, System.Object&gt;.</returns>
-        public KeyValuePair<string, object> keyValuePair(string key, object value) => new KeyValuePair<string, object>(key, value);
+        public KeyValuePair<string, object> keyValuePair(string key, object value) => new(key, value);
 
         /// <summary>
         /// Prepends to.
@@ -2312,7 +2314,7 @@ namespace ServiceStack.Script
         /// <param name="month">The month.</param>
         /// <param name="day">The day.</param>
         /// <returns>DateTime.</returns>
-        public DateTime date(int year, int month, int day) => new DateTime(year, month, day);
+        public DateTime date(int year, int month, int day) => new(year, month, day);
         /// <summary>
         /// Dates the specified year.
         /// </summary>
@@ -2323,7 +2325,7 @@ namespace ServiceStack.Script
         /// <param name="min">The minimum.</param>
         /// <param name="secs">The secs.</param>
         /// <returns>DateTime.</returns>
-        public DateTime date(int year, int month, int day, int hour, int min, int secs) => new DateTime(year, month, day, hour, min, secs);
+        public DateTime date(int year, int month, int day, int hour, int min, int secs) => new(year, month, day, hour, min, secs);
         /// <summary>
         /// To the time span.
         /// </summary>
@@ -2337,7 +2339,7 @@ namespace ServiceStack.Script
         /// <param name="mins">The mins.</param>
         /// <param name="secs">The secs.</param>
         /// <returns>TimeSpan.</returns>
-        public TimeSpan time(int hours, int mins, int secs) => new TimeSpan(0, hours, mins, secs);
+        public TimeSpan time(int hours, int mins, int secs) => new(0, hours, mins, secs);
         /// <summary>
         /// Times the specified days.
         /// </summary>
@@ -2346,7 +2348,7 @@ namespace ServiceStack.Script
         /// <param name="mins">The mins.</param>
         /// <param name="secs">The secs.</param>
         /// <returns>TimeSpan.</returns>
-        public TimeSpan time(int days, int hours, int mins, int secs) => new TimeSpan(days, hours, mins, secs);
+        public TimeSpan time(int days, int hours, int mins, int secs) => new(days, hours, mins, secs);
 
         /// <summary>
         /// Pairs the specified key.
@@ -2354,7 +2356,7 @@ namespace ServiceStack.Script
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>KeyValuePair&lt;System.String, System.Object&gt;.</returns>
-        public KeyValuePair<string, object> pair(string key, object value) => new KeyValuePair<string, object>(key, value);
+        public KeyValuePair<string, object> pair(string key, object value) => new(key, value);
 
         /// <summary>
         /// To the keys.
@@ -3218,7 +3220,8 @@ namespace ServiceStack.Script
         /// <summary>
         /// The internal keys
         /// </summary>
-        private static readonly HashSet<string> InternalKeys = new HashSet<string> {
+        private static readonly HashSet<string> InternalKeys = new()
+        {
             ScriptConstants.It, ScriptConstants.PartialArg };
 
         /// <summary>
@@ -3352,19 +3355,17 @@ namespace ServiceStack.Script
 
             var context = scope.CreateNewContext(args);
 
-            using (var ms = MemoryStreamFactory.GetStream())
-            {
-                var pageResult = new PageResult(context.OneTimePage(source));
-                if (args != null)
-                    pageResult.Args = args;
+            using var ms = MemoryStreamFactory.GetStream();
+            var pageResult = new PageResult(context.OneTimePage(source));
+            if (args != null)
+                pageResult.Args = args;
 
-                await pageResult.WriteToAsync(ms);
+            await pageResult.WriteToAsync(ms);
 
-                ms.Position = 0;
-                var result = ms.ReadToEnd();
+            ms.Position = 0;
+            var result = ms.ReadToEnd();
 
-                return result;
-            }
+            return result;
         }
 
         /// <summary>

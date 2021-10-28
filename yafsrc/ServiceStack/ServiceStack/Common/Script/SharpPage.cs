@@ -99,7 +99,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The semaphore
         /// </summary>
-        private readonly object semaphore = new object();
+        private readonly object semaphore = new();
 
         /// <summary>
         /// Gets a value indicating whether this instance is temporary file.
@@ -306,11 +306,11 @@ namespace ServiceStack.Script
         /// <summary>
         /// The temporary files
         /// </summary>
-        private static readonly MemoryVirtualFiles TempFiles = new MemoryVirtualFiles();
+        private static readonly MemoryVirtualFiles TempFiles = new();
         /// <summary>
         /// The temporary dir
         /// </summary>
-        private static readonly InMemoryVirtualDirectory TempDir = new InMemoryVirtualDirectory(TempFiles, ScriptConstants.TempFilePath);
+        private static readonly InMemoryVirtualDirectory TempDir = new(TempFiles, ScriptConstants.TempFilePath);
 
         /// <summary>
         /// Creates the file.

@@ -21,7 +21,7 @@ namespace ServiceStack.Script
         /// Rethrow fatal exceptions thrown on incorrect API usage
         /// </summary>
         /// <value>The fatal exceptions.</value>
-        public static HashSet<Type> FatalExceptions { get; set; } = new HashSet<Type>
+        public static HashSet<Type> FatalExceptions { get; set; } = new()
         {
             typeof(NotSupportedException),
             typeof(NotImplementedException),
@@ -32,7 +32,7 @@ namespace ServiceStack.Script
         /// Gets or sets the capture and evaluate exceptions to null.
         /// </summary>
         /// <value>The capture and evaluate exceptions to null.</value>
-        public static HashSet<Type> CaptureAndEvaluateExceptionsToNull { get; set; } = new HashSet<Type>
+        public static HashSet<Type> CaptureAndEvaluateExceptionsToNull { get; set; } = new()
         {
             typeof(NullReferenceException),
             typeof(ArgumentNullException),

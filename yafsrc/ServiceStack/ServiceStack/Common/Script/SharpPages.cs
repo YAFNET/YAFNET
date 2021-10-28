@@ -110,7 +110,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The page map
         /// </summary>
-        readonly ConcurrentDictionary<string, SharpPage> pageMap = new ConcurrentDictionary<string, SharpPage>();
+        readonly ConcurrentDictionary<string, SharpPage> pageMap = new();
 
         /// <summary>
         /// Resolves the layout page.

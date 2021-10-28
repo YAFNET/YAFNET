@@ -70,7 +70,7 @@ namespace ServiceStack.Text.Pools
         /// <returns>PooledObject&lt;StringBuilder&gt;.</returns>
         public static PooledObject<StringBuilder> Create(ObjectPool<StringBuilder> pool)
         {
-            return new(pool, Allocator, Releaser);
+            return new PooledObject<StringBuilder>(pool, Allocator, Releaser);
         }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace ServiceStack.Text.Pools
         /// <returns>PooledObject&lt;Stack&lt;TItem&gt;&gt;.</returns>
         public static PooledObject<Stack<TItem>> Create<TItem>(ObjectPool<Stack<TItem>> pool)
         {
-            return new(pool, Allocator, Releaser);
+            return new PooledObject<Stack<TItem>>(pool, Allocator, Releaser);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace ServiceStack.Text.Pools
         /// <returns>PooledObject&lt;Queue&lt;TItem&gt;&gt;.</returns>
         public static PooledObject<Queue<TItem>> Create<TItem>(ObjectPool<Queue<TItem>> pool)
         {
-            return new(pool, Allocator, Releaser);
+            return new PooledObject<Queue<TItem>>(pool, Allocator, Releaser);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace ServiceStack.Text.Pools
         /// <returns>PooledObject&lt;HashSet&lt;TItem&gt;&gt;.</returns>
         public static PooledObject<HashSet<TItem>> Create<TItem>(ObjectPool<HashSet<TItem>> pool)
         {
-            return new(pool, Allocator, Releaser);
+            return new PooledObject<HashSet<TItem>>(pool, Allocator, Releaser);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace ServiceStack.Text.Pools
         /// <returns>PooledObject&lt;Dictionary&lt;TKey, TValue&gt;&gt;.</returns>
         public static PooledObject<Dictionary<TKey, TValue>> Create<TKey, TValue>(ObjectPool<Dictionary<TKey, TValue>> pool)
         {
-            return new(pool, Allocator, Releaser);
+            return new PooledObject<Dictionary<TKey, TValue>>(pool, Allocator, Releaser);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace ServiceStack.Text.Pools
         /// <returns>PooledObject&lt;List&lt;TItem&gt;&gt;.</returns>
         public static PooledObject<List<TItem>> Create<TItem>(ObjectPool<List<TItem>> pool)
         {
-            return new(pool, Allocator, Releaser);
+            return new PooledObject<List<TItem>>(pool, Allocator, Releaser);
         }
         #endregion
 

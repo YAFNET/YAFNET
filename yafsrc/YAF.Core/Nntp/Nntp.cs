@@ -153,180 +153,178 @@ namespace YAF.Core.Nntp
                     .NntpForumList(boardId, true)
                     .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > lastUpdate))
                 {
-                    using (var nntpConnection = GetNntpConnection(nntpForum))
+                    using var nntpConnection = GetNntpConnection(nntpForum);
+                    var group = nntpConnection.ConnectGroup(nntpForum.Item1.GroupName);
+
+                    var lastMessageNo = nntpForum.Item1.LastMessageNo;
+
+                    // start at the bottom...
+                    var currentMessage = lastMessageNo == 0 ? @group.Low : lastMessageNo + 1;
+                    var cutOffDate = nntpForum.Item1.DateCutOff ?? DateTime.MinValue;
+
+                    if (nntpForum.Item1.DateCutOff.HasValue)
                     {
-                        var group = nntpConnection.ConnectGroup(nntpForum.Item1.GroupName);
+                        var behindCutOff = true;
 
-                        var lastMessageNo = nntpForum.Item1.LastMessageNo;
-
-                        // start at the bottom...
-                        var currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
-                        var cutOffDate = nntpForum.Item1.DateCutOff ?? DateTime.MinValue;
-
-                        if (nntpForum.Item1.DateCutOff.HasValue)
+                        // advance if needed...
+                        do
                         {
-                            var behindCutOff = true;
-
-                            // advance if needed...
-                            do
-                            {
-                                var list = nntpConnection.GetArticleList(
-                                    currentMessage,
-                                    Math.Min(currentMessage + 500, group.High));
-
-                                foreach (var article in list)
-                                {
-                                    if (article.Header.Date.Year < 1950 || article.Header.Date > DateTime.UtcNow)
-                                    {
-                                        article.Header.Date = DateTime.UtcNow;
-                                    }
-
-                                    if (article.Header.Date >= cutOffDate)
-                                    {
-                                        behindCutOff = false;
-                                        break;
-                                    }
-
-                                    currentMessage++;
-                                }
-                            }
-                            while (behindCutOff);
-
-                            // update the group lastMessage info...
-                            BoardContext.Current.GetRepository<NntpForum>().Update(
-                                nntpForum.Item1.ForumID,
-                                nntpForum.Item1.ID,
+                            var list = nntpConnection.GetArticleList(
                                 currentMessage,
-                                guestUserId);
-                        }
+                                Math.Min(currentMessage + 500, @group.High));
 
-                        for (; currentMessage <= group.High; currentMessage++)
-                        {
-                            try
+                            foreach (var article in list)
                             {
-                                Article article;
-                                try
+                                if (article.Header.Date.Year < 1950 || article.Header.Date > DateTime.UtcNow)
                                 {
-                                    article = nntpConnection.GetArticle(currentMessage);
-                                }
-                                catch (InvalidOperationException ex)
-                                {
-                                    this.Logger.Error(ex, $"Error Downloading Message ID {currentMessage}");
-
-                                    // just advance to the next message
-                                    currentMessage++;
-                                    continue;
+                                    article.Header.Date = DateTime.UtcNow;
                                 }
 
-                                var subject = article.Header.Subject.Trim();
-                                var originalName = article.Header.From.Trim();
-                                var fromName = originalName;
-                                var dateTime = article.Header.Date;
-
-                                if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
+                                if (article.Header.Date >= cutOffDate)
                                 {
-                                    dateTime = DateTime.UtcNow;
-                                }
-
-                                if (dateTime < cutOffDate)
-                                {
-                                    this.Logger.Debug(
-                                        $"Skipped message id {currentMessage} due to date being {dateTime}.");
-                                    continue;
-                                }
-
-                                if (fromName.IsSet() && fromName.Contains("<"))
-                                {
-                                    fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
-                                    fromName = fromName.Replace("\"", string.Empty).Trim();
-                                }
-                                else if (fromName.IsSet() && fromName.Contains("("))
-                                {
-                                    fromName = fromName.Substring(0, fromName.LastIndexOf('(') - 1).Trim();
-                                }
-
-                                if (fromName.IsNotSet())
-                                {
-                                    fromName = originalName;
-                                }
-
-                                var externalMessageId = article.MessageId;
-
-                                var referenceId = article.Header.ReferenceIds.LastOrDefault();
-
-                                if (createUsers)
-                                {
-                                    guestUserId = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
-                                        boardId,
-                                        fromName,
-                                        string.Empty);
-                                }
-
-                                var body = ReplaceBody(article.Body.Text.Trim());
-
-                                BoardContext.Current.GetRepository<NntpTopic>().SaveMessage(
-                                    nntpForum.Item1,
-                                    subject.Truncate(75),
-                                    body,
-                                    guestUserId,
-                                    fromName.Truncate(100, string.Empty),
-                                    "NNTP",
-                                    dateTime,
-                                    externalMessageId.Truncate(255, string.Empty),
-                                    referenceId.Truncate(255, string.Empty));
-
-                                lastMessageNo = currentMessage;
-
-                                articleCount++;
-
-                                // We don't wanna retrieve articles forever...
-                                // Total time x seconds for all groups
-                                if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
-                                {
+                                    behindCutOff = false;
                                     break;
                                 }
 
-                                if (count++ <= 1000)
-                                {
-                                    continue;
-                                }
-
-                                count = 0;
-                                BoardContext.Current.GetRepository<NntpForum>().Update(
-                                    nntpForum.Item1.ForumID,
-                                    nntpForum.Item1.ID,
-                                    lastMessageNo,
-                                    guestUserId);
-                            }
-                            catch (NntpException exception)
-                            {
-                                if (exception.ErrorCode >= 900)
-                                {
-                                    throw;
-                                }
-
-                                if (exception.ErrorCode != 423)
-                                {
-                                    this.Logger.Error(exception, "YafNntp");
-                                }
-                            }
-                            catch (Exception exception)
-                            {
-                                this.Logger.Error(exception, "YafNntp DB Failure");
+                                currentMessage++;
                             }
                         }
+                        while (behindCutOff);
 
+                        // update the group lastMessage info...
                         BoardContext.Current.GetRepository<NntpForum>().Update(
                             nntpForum.Item1.ForumID,
                             nntpForum.Item1.ID,
-                            lastMessageNo,
+                            currentMessage,
                             guestUserId);
+                    }
 
-                        // Total time x seconds for all groups
-                        if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
+                    for (; currentMessage <= @group.High; currentMessage++)
+                    {
+                        try
                         {
-                            break;
+                            Article article;
+                            try
+                            {
+                                article = nntpConnection.GetArticle(currentMessage);
+                            }
+                            catch (InvalidOperationException ex)
+                            {
+                                this.Logger.Error(ex, $"Error Downloading Message ID {currentMessage}");
+
+                                // just advance to the next message
+                                currentMessage++;
+                                continue;
+                            }
+
+                            var subject = article.Header.Subject.Trim();
+                            var originalName = article.Header.From.Trim();
+                            var fromName = originalName;
+                            var dateTime = article.Header.Date;
+
+                            if (dateTime.Year < 1950 || dateTime > DateTime.UtcNow)
+                            {
+                                dateTime = DateTime.UtcNow;
+                            }
+
+                            if (dateTime < cutOffDate)
+                            {
+                                this.Logger.Debug(
+                                    $"Skipped message id {currentMessage} due to date being {dateTime}.");
+                                continue;
+                            }
+
+                            if (fromName.IsSet() && fromName.Contains("<"))
+                            {
+                                fromName = fromName.Substring(0, fromName.LastIndexOf('<') - 1);
+                                fromName = fromName.Replace("\"", string.Empty).Trim();
+                            }
+                            else if (fromName.IsSet() && fromName.Contains("("))
+                            {
+                                fromName = fromName.Substring(0, fromName.LastIndexOf('(') - 1).Trim();
+                            }
+
+                            if (fromName.IsNotSet())
+                            {
+                                fromName = originalName;
+                            }
+
+                            var externalMessageId = article.MessageId;
+
+                            var referenceId = article.Header.ReferenceIds.LastOrDefault();
+
+                            if (createUsers)
+                            {
+                                guestUserId = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
+                                    boardId,
+                                    fromName,
+                                    string.Empty);
+                            }
+
+                            var body = ReplaceBody(article.Body.Text.Trim());
+
+                            BoardContext.Current.GetRepository<NntpTopic>().SaveMessage(
+                                nntpForum.Item1,
+                                subject.Truncate(75),
+                                body,
+                                guestUserId,
+                                fromName.Truncate(100, string.Empty),
+                                "NNTP",
+                                dateTime,
+                                externalMessageId.Truncate(255, string.Empty),
+                                referenceId.Truncate(255, string.Empty));
+
+                            lastMessageNo = currentMessage;
+
+                            articleCount++;
+
+                            // We don't wanna retrieve articles forever...
+                            // Total time x seconds for all groups
+                            if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
+                            {
+                                break;
+                            }
+
+                            if (count++ <= 1000)
+                            {
+                                continue;
+                            }
+
+                            count = 0;
+                            BoardContext.Current.GetRepository<NntpForum>().Update(
+                                nntpForum.Item1.ForumID,
+                                nntpForum.Item1.ID,
+                                lastMessageNo,
+                                guestUserId);
                         }
+                        catch (NntpException exception)
+                        {
+                            if (exception.ErrorCode >= 900)
+                            {
+                                throw;
+                            }
+
+                            if (exception.ErrorCode != 423)
+                            {
+                                this.Logger.Error(exception, "YafNntp");
+                            }
+                        }
+                        catch (Exception exception)
+                        {
+                            this.Logger.Error(exception, "YafNntp DB Failure");
+                        }
+                    }
+
+                    BoardContext.Current.GetRepository<NntpForum>().Update(
+                        nntpForum.Item1.ForumID,
+                        nntpForum.Item1.ID,
+                        lastMessageNo,
+                        guestUserId);
+
+                    // Total time x seconds for all groups
+                    if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
+                    {
+                        break;
                     }
                 }
             }

@@ -136,10 +136,8 @@ namespace ServiceStack.IO
         {
             var realFilePath = RootDir.RealPath.CombineWith(filePath);
             EnsureDirectory(Path.GetDirectoryName(realFilePath));
-            using (var fs = File.Open(realFilePath, FileMode.Create, FileAccess.Write))
-            {
-                stream.WriteTo(fs);
-            }
+            using var fs = File.Open(realFilePath, FileMode.Create, FileAccess.Write);
+            stream.WriteTo(fs);
         }
 
         /// <summary>
@@ -173,10 +171,8 @@ namespace ServiceStack.IO
         {
             var realFilePath = RootDir.RealPath.CombineWith(filePath);
             EnsureDirectory(Path.GetDirectoryName(realFilePath));
-            using (var fs = new FileStream(realFilePath, FileMode.Append))
-            {
-                stream.WriteTo(fs);
-            }
+            using var fs = new FileStream(realFilePath, FileMode.Append);
+            stream.WriteTo(fs);
         }
 
         /// <summary>

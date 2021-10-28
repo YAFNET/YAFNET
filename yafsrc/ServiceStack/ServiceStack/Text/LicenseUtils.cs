@@ -510,7 +510,7 @@ namespace ServiceStack
         /// <summary>
         /// The lock object
         /// </summary>
-        private static readonly object lockObj = new object();
+        private static readonly object lockObj = new();
 
         /// <summary>
         /// Registers the license.

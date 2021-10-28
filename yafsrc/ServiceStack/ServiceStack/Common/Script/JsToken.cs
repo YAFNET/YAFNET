@@ -88,7 +88,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The value
         /// </summary>
-        public static JsLiteral Value = new JsLiteral(null);
+        public static JsLiteral Value = new(null);
     }
 
     /// <summary>
@@ -152,7 +152,8 @@ namespace ServiceStack.Script
         /// <summary>
         /// The operator precedence
         /// </summary>
-        public static readonly Dictionary<string, int> OperatorPrecedence = new Dictionary<string, int> {
+        public static readonly Dictionary<string, int> OperatorPrecedence = new()
+        {
             {")", 0},
             {";", 0},
             {",", 0},

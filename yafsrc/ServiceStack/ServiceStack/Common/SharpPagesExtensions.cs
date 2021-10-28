@@ -23,11 +23,9 @@ namespace ServiceStack
         /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
         public static async Task<string> RenderToStringAsync(this IStreamWriterAsync writer)
         {
-            using (var ms = MemoryStreamFactory.GetStream())
-            {
-                await writer.WriteToAsync(ms);
-                return await ms.ReadToEndAsync();
-            }
+            using var ms = MemoryStreamFactory.GetStream();
+            await writer.WriteToAsync(ms);
+            return await ms.ReadToEndAsync();
         }
     }
 }

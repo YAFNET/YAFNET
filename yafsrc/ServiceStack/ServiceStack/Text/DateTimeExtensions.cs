@@ -121,7 +121,7 @@ namespace ServiceStack.Text
         /// <returns>System.DateTime.</returns>
         public static DateTime RoundToSecond(this DateTime dateTime)
         {
-            return new(dateTime.Ticks / TimeSpan.TicksPerSecond * TimeSpan.TicksPerSecond, dateTime.Kind);
+            return new DateTime(dateTime.Ticks / TimeSpan.TicksPerSecond * TimeSpan.TicksPerSecond, dateTime.Kind);
         }
 
         /// <summary>

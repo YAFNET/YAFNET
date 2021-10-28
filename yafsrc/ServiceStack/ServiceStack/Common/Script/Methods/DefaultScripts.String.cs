@@ -1005,15 +1005,15 @@ namespace ServiceStack.Script
         /// <summary>
         /// The invalid chars regex
         /// </summary>
-        private static readonly Regex InvalidCharsRegex = new Regex(@"[^a-z0-9\s-]", RegexOptions.Compiled);
+        private static readonly Regex InvalidCharsRegex = new(@"[^a-z0-9\s-]", RegexOptions.Compiled);
         /// <summary>
         /// The spaces regex
         /// </summary>
-        private static readonly Regex SpacesRegex = new Regex(@"\s", RegexOptions.Compiled);
+        private static readonly Regex SpacesRegex = new(@"\s", RegexOptions.Compiled);
         /// <summary>
         /// The collapse hyphens regex
         /// </summary>
-        private static readonly Regex CollapseHyphensRegex = new Regex("-+", RegexOptions.Compiled);
+        private static readonly Regex CollapseHyphensRegex = new("-+", RegexOptions.Compiled);
 
         /// <summary>
         /// Generates the slug.

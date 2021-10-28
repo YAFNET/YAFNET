@@ -28,12 +28,7 @@ namespace ServiceStack
             if (b1 == null || b2 == null) return false;
             if (b1.Length != b2.Length) return false;
 
-            for (var i = 0; i < b1.Length; i++)
-            {
-                if (b1[i] != b2[i]) return false;
-            }
-
-            return true;
+            return !b1.Where((t, i) => t != b2[i]).Any();
         }
 
         /// <summary>
@@ -43,10 +38,8 @@ namespace ServiceStack
         /// <returns>System.Byte[].</returns>
         public static byte[] ToSha1Hash(this byte[] bytes)
         {
-            using (var sha1 = SHA1.Create())
-            {
-                return sha1.ComputeHash(bytes);
-            }
+            using var sha1 = SHA1.Create();
+            return sha1.ComputeHash(bytes);
         }
     }
 
@@ -60,7 +53,7 @@ namespace ServiceStack
         /// <summary>
         /// The instance
         /// </summary>
-        public static ByteArrayComparer Instance = new ByteArrayComparer();
+        public static ByteArrayComparer Instance = new();
 
         /// <summary>
         /// Equalses the specified left.

@@ -16,7 +16,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The empty
         /// </summary>
-        public static RawString Empty = new RawString("");
+        public static RawString Empty = new("");
 
         /// <summary>
         /// The value

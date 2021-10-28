@@ -36,7 +36,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The instance
         /// </summary>
-        public static readonly ProtectedScripts Instance = new ProtectedScripts();
+        public static readonly ProtectedScripts Instance = new();
 
         /// <summary>
         /// Resolves the specified scope.

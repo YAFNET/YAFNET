@@ -57,7 +57,7 @@ namespace ServiceStack.Script
         /// Gets or sets the page formats.
         /// </summary>
         /// <value>The page formats.</value>
-        public List<PageFormat> PageFormats { get; set; } = new List<PageFormat>();
+        public List<PageFormat> PageFormats { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the index page.
@@ -93,7 +93,7 @@ namespace ServiceStack.Script
         /// Gets the arguments.
         /// </summary>
         /// <value>The arguments.</value>
-        public Dictionary<string, object> Args { get; } = new Dictionary<string, object>();
+        public Dictionary<string, object> Args { get; } = new();
 
         /// <summary>
         /// Gets or sets a value indicating whether [debug mode].
@@ -112,31 +112,31 @@ namespace ServiceStack.Script
         /// Scan Types and auto-register any Script Methods, Blocks and Code Pages
         /// </summary>
         /// <value>The scan types.</value>
-        public List<Type> ScanTypes { get; set; } = new List<Type>();
+        public List<Type> ScanTypes { get; set; } = new();
 
         /// <summary>
         /// Scan Assemblies and auto-register any Script Methods, Blocks and Code Pages
         /// </summary>
         /// <value>The scan assemblies.</value>
-        public List<Assembly> ScanAssemblies { get; set; } = new List<Assembly>();
+        public List<Assembly> ScanAssemblies { get; set; } = new();
 
         /// <summary>
         /// Allow scripting of Types from specified Assemblies
         /// </summary>
         /// <value>The script assemblies.</value>
-        public List<Assembly> ScriptAssemblies { get; set; } = new List<Assembly>();
+        public List<Assembly> ScriptAssemblies { get; set; } = new();
 
         /// <summary>
         /// Allow scripting of the specified Types
         /// </summary>
         /// <value>The script types.</value>
-        public List<Type> ScriptTypes { get; set; } = new List<Type>();
+        public List<Type> ScriptTypes { get; set; } = new();
 
         /// <summary>
         /// Lookup Namespaces for resolving Types in Scripts
         /// </summary>
         /// <value>The script namespaces.</value>
-        public List<string> ScriptNamespaces { get; set; } = new List<string>();
+        public List<string> ScriptNamespaces { get; set; } = new();
 
         /// <summary>
         /// Allow scripting of all Types in loaded Assemblies
@@ -148,12 +148,12 @@ namespace ServiceStack.Script
         /// Register short Type name accessible from scripts. (Advanced, use ScriptAssemblies/ScriptTypes first)
         /// </summary>
         /// <value>The script type name map.</value>
-        public Dictionary<string, Type> ScriptTypeNameMap { get; } = new Dictionary<string, Type>();
+        public Dictionary<string, Type> ScriptTypeNameMap { get; } = new();
         /// <summary>
         /// Register long qualified Type name accessible from scripts. (Advanced, use ScriptAssemblies/ScriptTypes first)
         /// </summary>
         /// <value>The script type qualified name map.</value>
-        public Dictionary<string, Type> ScriptTypeQualifiedNameMap { get; } = new Dictionary<string, Type>();
+        public Dictionary<string, Type> ScriptTypeQualifiedNameMap { get; } = new();
 
         /// <summary>
         /// Gets or sets the container.
@@ -171,7 +171,7 @@ namespace ServiceStack.Script
         /// Gets the preprocessors.
         /// </summary>
         /// <value>The preprocessors.</value>
-        public List<Func<string, string>> Preprocessors { get; } = new List<Func<string, string>>();
+        public List<Func<string, string>> Preprocessors { get; } = new();
 
         /// <summary>
         /// Gets or sets the default script language.
@@ -183,7 +183,7 @@ namespace ServiceStack.Script
         /// Gets the script languages.
         /// </summary>
         /// <value>The script languages.</value>
-        public List<ScriptLanguage> ScriptLanguages { get; } = new List<ScriptLanguage>();
+        public List<ScriptLanguage> ScriptLanguages { get; } = new();
 
         /// <summary>
         /// Gets the script languages array.
@@ -195,42 +195,42 @@ namespace ServiceStack.Script
         /// Gets the script methods.
         /// </summary>
         /// <value>The script methods.</value>
-        public List<ScriptMethods> ScriptMethods { get; } = new List<ScriptMethods>();
+        public List<ScriptMethods> ScriptMethods { get; } = new();
 
         /// <summary>
         /// Insert additional Methods at the start so they have priority over default Script Methods
         /// </summary>
         /// <value>The insert script methods.</value>
-        public List<ScriptMethods> InsertScriptMethods { get; } = new List<ScriptMethods>();
+        public List<ScriptMethods> InsertScriptMethods { get; } = new();
 
         /// <summary>
         /// Gets the script blocks.
         /// </summary>
         /// <value>The script blocks.</value>
-        public List<ScriptBlock> ScriptBlocks { get; } = new List<ScriptBlock>();
+        public List<ScriptBlock> ScriptBlocks { get; } = new();
 
         /// <summary>
         /// Insert additional Blocks at the start so they have priority over default Script Blocks
         /// </summary>
         /// <value>The insert script blocks.</value>
-        public List<ScriptBlock> InsertScriptBlocks { get; } = new List<ScriptBlock>();
+        public List<ScriptBlock> InsertScriptBlocks { get; } = new();
 
         /// <summary>
         /// Gets the code pages.
         /// </summary>
         /// <value>The code pages.</value>
-        public Dictionary<string, Type> CodePages { get; } = new Dictionary<string, Type>();
+        public Dictionary<string, Type> CodePages { get; } = new();
 
         /// <summary>
         /// Gets the exclude filters named.
         /// </summary>
         /// <value>The exclude filters named.</value>
-        public HashSet<string> ExcludeFiltersNamed { get; } = new HashSet<string>();
+        public HashSet<string> ExcludeFiltersNamed { get; } = new();
 
         /// <summary>
         /// The script languages map
         /// </summary>
-        private readonly Dictionary<string, ScriptLanguage> scriptLanguagesMap = new Dictionary<string, ScriptLanguage>();
+        private readonly Dictionary<string, ScriptLanguage> scriptLanguagesMap = new();
         /// <summary>
         /// Gets the script language.
         /// </summary>
@@ -241,7 +241,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The blocks map
         /// </summary>
-        private readonly Dictionary<string, ScriptBlock> blocksMap = new Dictionary<string, ScriptBlock>();
+        private readonly Dictionary<string, ScriptBlock> blocksMap = new();
         /// <summary>
         /// Gets the block.
         /// </summary>
@@ -253,67 +253,67 @@ namespace ServiceStack.Script
         /// Gets the cache.
         /// </summary>
         /// <value>The cache.</value>
-        public ConcurrentDictionary<string, object> Cache { get; } = new ConcurrentDictionary<string, object>();
+        public ConcurrentDictionary<string, object> Cache { get; } = new();
 
         /// <summary>
         /// Gets the cache memory.
         /// </summary>
         /// <value>The cache memory.</value>
-        public ConcurrentDictionary<ReadOnlyMemory<char>, object> CacheMemory { get; } = new ConcurrentDictionary<ReadOnlyMemory<char>, object>();
+        public ConcurrentDictionary<ReadOnlyMemory<char>, object> CacheMemory { get; } = new();
 
         /// <summary>
         /// Gets the expiring cache.
         /// </summary>
         /// <value>The expiring cache.</value>
-        public ConcurrentDictionary<string, Tuple<DateTime, object>> ExpiringCache { get; } = new ConcurrentDictionary<string, Tuple<DateTime, object>>();
+        public ConcurrentDictionary<string, Tuple<DateTime, object>> ExpiringCache { get; } = new();
 
         /// <summary>
         /// Gets the js token cache.
         /// </summary>
         /// <value>The js token cache.</value>
-        public ConcurrentDictionary<ReadOnlyMemory<char>, JsToken> JsTokenCache { get; } = new ConcurrentDictionary<ReadOnlyMemory<char>, JsToken>();
+        public ConcurrentDictionary<ReadOnlyMemory<char>, JsToken> JsTokenCache { get; } = new();
 
         /// <summary>
         /// Gets the assign expression cache.
         /// </summary>
         /// <value>The assign expression cache.</value>
-        public ConcurrentDictionary<string, Action<ScriptScopeContext, object, object>> AssignExpressionCache { get; } = new ConcurrentDictionary<string, Action<ScriptScopeContext, object, object>>();
+        public ConcurrentDictionary<string, Action<ScriptScopeContext, object, object>> AssignExpressionCache { get; } = new();
 
         /// <summary>
         /// Gets the code page invokers.
         /// </summary>
         /// <value>The code page invokers.</value>
-        public ConcurrentDictionary<Type, Tuple<MethodInfo, MethodInvoker>> CodePageInvokers { get; } = new ConcurrentDictionary<Type, Tuple<MethodInfo, MethodInvoker>>();
+        public ConcurrentDictionary<Type, Tuple<MethodInfo, MethodInvoker>> CodePageInvokers { get; } = new();
 
         /// <summary>
         /// Gets the path mappings.
         /// </summary>
         /// <value>The path mappings.</value>
-        public ConcurrentDictionary<string, string> PathMappings { get; } = new ConcurrentDictionary<string, string>();
+        public ConcurrentDictionary<string, string> PathMappings { get; } = new();
 
         /// <summary>
         /// Gets the plugins.
         /// </summary>
         /// <value>The plugins.</value>
-        public List<IScriptPlugin> Plugins { get; } = new List<IScriptPlugin>();
+        public List<IScriptPlugin> Plugins { get; } = new();
 
         /// <summary>
         /// Insert plugins at the start of Plugins so they're registered first
         /// </summary>
         /// <value>The insert plugins.</value>
-        public List<IScriptPlugin> InsertPlugins { get; } = new List<IScriptPlugin>();
+        public List<IScriptPlugin> InsertPlugins { get; } = new();
 
         /// <summary>
         /// Gets the file filter names.
         /// </summary>
         /// <value>The file filter names.</value>
-        public HashSet<string> FileFilterNames { get; } = new HashSet<string> { "includeFile", "fileContents" };
+        public HashSet<string> FileFilterNames { get; } = new() { "includeFile", "fileContents" };
 
         /// <summary>
         /// Available transformers that can transform context filter stream outputs
         /// </summary>
         /// <value>The filter transformers.</value>
-        public Dictionary<string, Func<Stream, Task<Stream>>> FilterTransformers { get; set; } = new Dictionary<string, Func<Stream, Task<Stream>>>();
+        public Dictionary<string, Func<Stream, Task<Stream>>> FilterTransformers { get; set; } = new();
 
         /// <summary>
         /// Whether to check for modified pages by default when not in DebugMode
@@ -383,18 +383,18 @@ namespace ServiceStack.Script
         /// Gets or sets the remove new line after filters named.
         /// </summary>
         /// <value>The remove new line after filters named.</value>
-        public HashSet<string> RemoveNewLineAfterFiltersNamed { get; set; } = new HashSet<string>();
+        public HashSet<string> RemoveNewLineAfterFiltersNamed { get; set; } = new();
         /// <summary>
         /// Gets or sets the only evaluate filters when skipping page filter execution.
         /// </summary>
         /// <value>The only evaluate filters when skipping page filter execution.</value>
-        public HashSet<string> OnlyEvaluateFiltersWhenSkippingPageFilterExecution { get; set; } = new HashSet<string>();
+        public HashSet<string> OnlyEvaluateFiltersWhenSkippingPageFilterExecution { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the parse as language.
         /// </summary>
         /// <value>The parse as language.</value>
-        public Dictionary<string, ScriptLanguage> ParseAsLanguage { get; set; } = new Dictionary<string, ScriptLanguage>();
+        public Dictionary<string, ScriptLanguage> ParseAsLanguage { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the on unhandled expression.

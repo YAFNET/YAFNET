@@ -41,7 +41,7 @@ namespace ServiceStack.Script
         /// </summary>
         /// <param name="gistId">The gist identifier.</param>
         /// <returns>GistVirtualFiles.</returns>
-        public GistVirtualFiles gistVirtualFiles(string gistId) => new GistVirtualFiles(gistId);
+        public GistVirtualFiles gistVirtualFiles(string gistId) => new(gistId);
 
         /// <summary>
         /// Gists the virtual files.
@@ -50,19 +50,19 @@ namespace ServiceStack.Script
         /// <param name="accessToken">The access token.</param>
         /// <returns>GistVirtualFiles.</returns>
         public GistVirtualFiles gistVirtualFiles(string gistId, string accessToken) =>
-            new GistVirtualFiles(gistId, accessToken);
+            new(gistId, accessToken);
 
         /// <summary>
         /// Githubs the gateway.
         /// </summary>
         /// <returns>GitHubGateway.</returns>
-        public GitHubGateway githubGateway() => new GitHubGateway();
+        public GitHubGateway githubGateway() => new();
         /// <summary>
         /// Githubs the gateway.
         /// </summary>
         /// <param name="accessToken">The access token.</param>
         /// <returns>GitHubGateway.</returns>
-        public GitHubGateway githubGateway(string accessToken) => new GitHubGateway(accessToken);
+        public GitHubGateway githubGateway(string accessToken) => new(accessToken);
 
         /// <summary>
         /// Githubs the source zip URL.

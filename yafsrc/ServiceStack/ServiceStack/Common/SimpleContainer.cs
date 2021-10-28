@@ -29,17 +29,17 @@ namespace ServiceStack
         /// Gets the ignore types named.
         /// </summary>
         /// <value>The ignore types named.</value>
-        public HashSet<string> IgnoreTypesNamed { get; } = new HashSet<string>();
+        public HashSet<string> IgnoreTypesNamed { get; } = new();
 
         /// <summary>
         /// The instance cache
         /// </summary>
-        protected readonly ConcurrentDictionary<Type, object> InstanceCache = new ConcurrentDictionary<Type, object>();
+        protected readonly ConcurrentDictionary<Type, object> InstanceCache = new();
 
         /// <summary>
         /// The factory
         /// </summary>
-        protected readonly ConcurrentDictionary<Type, Func<object>> Factory = new ConcurrentDictionary<Type, Func<object>>();
+        protected readonly ConcurrentDictionary<Type, Func<object>> Factory = new();
 
         /// <summary>
         /// Resolves the specified type.

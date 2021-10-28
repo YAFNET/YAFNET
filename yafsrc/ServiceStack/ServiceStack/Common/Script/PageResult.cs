@@ -135,7 +135,7 @@ namespace ServiceStack.Script
         /// Don't allow access to specified filters
         /// </summary>
         /// <value>The exclude filters named.</value>
-        public HashSet<string> ExcludeFiltersNamed { get; } = new HashSet<string>();
+        public HashSet<string> ExcludeFiltersNamed { get; } = new();
 
         /// <summary>
         /// The last error thrown by a filter
@@ -249,7 +249,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The stack trace
         /// </summary>
-        private readonly Stack<string> stackTrace = new Stack<string>();
+        private readonly Stack<string> stackTrace = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PageResult"/> class.
@@ -912,7 +912,7 @@ namespace ServiceStack.Script
         /// <param name="var">The variable.</param>
         /// <param name="outputStream">The output stream.</param>
         /// <returns>ScriptScopeContext.</returns>
-        private ScriptScopeContext CreatePageContext(PageVariableFragment var, Stream outputStream) => new ScriptScopeContext(this, outputStream, GetPageParams(var));
+        private ScriptScopeContext CreatePageContext(PageVariableFragment var, Stream outputStream) => new(this, outputStream, GetPageParams(var));
 
         /// <summary>
         /// Evaluate as an asynchronous operation.
@@ -1352,7 +1352,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The blocks map
         /// </summary>
-        private readonly Dictionary<string, ScriptBlock> blocksMap = new Dictionary<string, ScriptBlock>();
+        private readonly Dictionary<string, ScriptBlock> blocksMap = new();
 
         /// <summary>
         /// Tries the get block.
@@ -1381,7 +1381,7 @@ namespace ServiceStack.Script
         /// <param name="outputStream">The output stream.</param>
         /// <returns>ScriptScopeContext.</returns>
         public ScriptScopeContext CreateScope(Stream outputStream = null) =>
-            new ScriptScopeContext(this, outputStream ?? MemoryStreamFactory.GetStream(), null);
+            new(this, outputStream ?? MemoryStreamFactory.GetStream(), null);
 
         /// <summary>
         /// Gets the filter invoker.

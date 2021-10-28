@@ -172,16 +172,14 @@ namespace YAF.Controls
 
             try
             {
-                using (var img = Image.FromStream(this.File.PostedFile.InputStream))
+                using var img = Image.FromStream(this.File.PostedFile.InputStream);
+                if (img.Width > x || img.Height > y)
                 {
-                    if (img.Width > x || img.Height > y)
-                    {
-                        this.PageContext.AddLoadMessage(
-                            $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
-                            MessageTypes.warning);
+                    this.PageContext.AddLoadMessage(
+                        $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
+                        MessageTypes.warning);
 
-                        resized = ImageHelper.GetResizedImageStreamFromImage(img, x, y);
-                    }
+                    resized = ImageHelper.GetResizedImageStreamFromImage(img, x, y);
                 }
 
                 // Delete old first...
@@ -239,15 +237,11 @@ namespace YAF.Controls
 
                     var avatarImage = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
 
-                    using (var memory = new MemoryStream())
-                    {
-                        using (var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
-                        {
-                            avatarImage.Save(memory, avatarImage.RawFormat);
-                            var bytes = memory.ToArray();
-                            fs.Write(bytes, 0, bytes.Length);
-                        }
-                    }
+                    using var memory = new MemoryStream();
+                    using var fs = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+                    avatarImage.Save(memory, avatarImage.RawFormat);
+                    var bytes = memory.ToArray();
+                    fs.Write(bytes, 0, bytes.Length);
 
                     this.GetRepository<User>().SaveAvatar(
                         this.currentUserId,

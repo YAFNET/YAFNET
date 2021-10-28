@@ -809,7 +809,7 @@ namespace ServiceStack.Script
         /// Gets the binder cache.
         /// </summary>
         /// <value>The binder cache.</value>
-        public static ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>> BinderCache { get; } = new ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>>();
+        public static ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>> BinderCache { get; } = new();
 
         /// <summary>
         /// Gets the member expression.

@@ -131,7 +131,8 @@ namespace ServiceStack.Script
         /// <param name="modifiers">The modifiers.</param>
         /// <returns>List&lt;PageFragment&gt;.</returns>
         public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers) =>
-            new List<PageFragment> {
+            new()
+            {
                 new PageStringFragment(body)
             };
     }

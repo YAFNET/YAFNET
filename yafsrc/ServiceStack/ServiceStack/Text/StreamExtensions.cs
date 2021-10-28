@@ -397,7 +397,7 @@ namespace ServiceStack.Text
         /// <returns>System.IO.MemoryStream.</returns>
         public static MemoryStream InMemoryStream(this byte[] bytes)
         {
-            return new(bytes, 0, bytes.Length, true, true);
+            return new MemoryStream(bytes, 0, bytes.Length, true, true);
         }
 
         /// <summary>

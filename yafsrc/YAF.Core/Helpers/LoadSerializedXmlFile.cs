@@ -81,30 +81,28 @@ namespace YAF.Core.Helpers
                 var serializer = new XmlSerializer(typeof(T));
                 var sourceEncoding = GetEncodingForXmlFile(xmlFileName);
 
-                using (var sourceReader = new StreamReader(xmlFileName, sourceEncoding))
+                using var sourceReader = new StreamReader(xmlFileName, sourceEncoding);
+                var resources = (T)serializer.Deserialize(sourceReader);
+
+                transformResource?.Invoke(resources);
+
+                if (!cacheName.IsSet())
                 {
-                    var resources = (T)serializer.Deserialize(sourceReader);
-
-                    transformResource?.Invoke(resources);
-
-                    if (!cacheName.IsSet())
-                    {
-                        return resources;
-                    }
-
-                    var item = new CacheItem(cacheName) { Value = resources, RegionName = xmlFileName };
-
-                    var cacheItemPolicy = new CacheItemPolicy
-                    {
-                        AbsoluteExpiration = DateTime.UtcNow.AddHours(1.0),
-                        SlidingExpiration = TimeSpan.Zero,
-                        Priority = CacheItemPriority.Default
-                    };
-
-                    MemoryCache.Default.Add(item, cacheItemPolicy);
-
                     return resources;
                 }
+
+                var item = new CacheItem(cacheName) { Value = resources, RegionName = xmlFileName };
+
+                var cacheItemPolicy = new CacheItemPolicy
+                {
+                    AbsoluteExpiration = DateTime.UtcNow.AddHours(1.0),
+                    SlidingExpiration = TimeSpan.Zero,
+                    Priority = CacheItemPriority.Default
+                };
+
+                MemoryCache.Default.Add(item, cacheItemPolicy);
+
+                return resources;
             }
         }
 

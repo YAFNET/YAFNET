@@ -27,7 +27,7 @@ namespace ServiceStack.VirtualPath
         /// Gets or sets the scan skip paths.
         /// </summary>
         /// <value>The scan skip paths.</value>
-        public static List<string> ScanSkipPaths { get; set; } = new List<string>();
+        public static List<string> ScanSkipPaths { get; set; } = new();
 
         /// <summary>
         /// Gets or sets the virtual path provider.

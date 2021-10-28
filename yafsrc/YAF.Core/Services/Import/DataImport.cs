@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2021 Ingo Herbote
@@ -149,26 +149,24 @@ namespace YAF.Core.Services.Import
             var repository = BoardContext.Current.GetRepository<BannedEmail>();
             var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
 
-            using (var streamReader = new StreamReader(inputStream))
+            using var streamReader = new StreamReader(inputStream);
+            while (!streamReader.EndOfStream)
             {
-                while (!streamReader.EndOfStream)
+                var line = streamReader.ReadLine();
+
+                if (line.IsNotSet() || !line.Contains("@"))
                 {
-                    var line = streamReader.ReadLine();
+                    continue;
+                }
 
-                    if (line.IsNotSet() || !line.Contains("@"))
-                    {
-                        continue;
-                    }
+                if (existingBannedEmailList.Any(b => b.Mask == line))
+                {
+                    continue;
+                }
 
-                    if (existingBannedEmailList.Any(b => b.Mask == line))
-                    {
-                        continue;
-                    }
-
-                    if (repository.Save(null, line, "Imported Email Adress", boardId))
-                    {
-                        importedCount++;
-                    }
+                if (repository.Save(null, line, "Imported Email Adress", boardId))
+                {
+                    importedCount++;
                 }
             }
 
@@ -194,26 +192,24 @@ namespace YAF.Core.Services.Import
             var repository = BoardContext.Current.GetRepository<BannedIP>();
             var existingBannedIPList = repository.Get(x => x.BoardID == boardId);
 
-            using (var streamReader = new StreamReader(inputStream))
+            using var streamReader = new StreamReader(inputStream);
+            while (!streamReader.EndOfStream)
             {
-                while (!streamReader.EndOfStream)
+                var line = streamReader.ReadLine();
+
+                if (line.IsNotSet() || !IPAddress.TryParse(line, out var importAddress))
                 {
-                    var line = streamReader.ReadLine();
+                    continue;
+                }
 
-                    if (line.IsNotSet() || !IPAddress.TryParse(line, out var importAddress))
-                    {
-                        continue;
-                    }
+                if (existingBannedIPList.Any(b => b.Mask == importAddress.ToString()))
+                {
+                    continue;
+                }
 
-                    if (existingBannedIPList.Any(b => b.Mask == importAddress.ToString()))
-                    {
-                        continue;
-                    }
-
-                    if (repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId))
-                    {
-                        importedCount++;
-                    }
+                if (repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId))
+                {
+                    importedCount++;
                 }
             }
 
@@ -239,26 +235,24 @@ namespace YAF.Core.Services.Import
             var repository = BoardContext.Current.GetRepository<BannedName>();
             var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
 
-            using (var streamReader = new StreamReader(inputStream))
+            using var streamReader = new StreamReader(inputStream);
+            while (!streamReader.EndOfStream)
             {
-                while (!streamReader.EndOfStream)
+                var line = streamReader.ReadLine();
+
+                if (line.IsNotSet())
                 {
-                    var line = streamReader.ReadLine();
+                    continue;
+                }
 
-                    if (line.IsNotSet())
-                    {
-                        continue;
-                    }
+                if (existingBannedNameList.Any(b => b.Mask == line))
+                {
+                    continue;
+                }
 
-                    if (existingBannedNameList.Any(b => b.Mask == line))
-                    {
-                        continue;
-                    }
-
-                    if (repository.Save(null, line, "Imported User Name", boardId))
-                    {
-                        importedCount++;
-                    }
+                if (repository.Save(null, line, "Imported User Name", boardId))
+                {
+                    importedCount++;
                 }
             }
 

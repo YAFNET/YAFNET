@@ -978,7 +978,7 @@ namespace ServiceStack
         /// <param name="value">The value.</param>
         /// <returns>NotSupportedException.</returns>
         internal static NotSupportedException CreateContentNotSupportedException(object value) =>
-            new NotSupportedException($"Could not write '{value?.GetType().Name ?? "null"}' value. Only string, byte[], Stream or IVirtualFile content is supported.");
+            new($"Could not write '{value?.GetType().Name ?? "null"}' value. Only string, byte[], Stream or IVirtualFile content is supported.");
 
         /// <summary>
         /// Writes the gist files.

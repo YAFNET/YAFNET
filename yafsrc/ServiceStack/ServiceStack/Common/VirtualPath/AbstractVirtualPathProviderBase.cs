@@ -220,7 +220,7 @@ namespace ServiceStack.VirtualPath
         /// <param name="value">The value.</param>
         /// <returns>NotSupportedException.</returns>
         protected NotSupportedException CreateContentNotSupportedException(object value) =>
-            new NotSupportedException($"Could not write '{value?.GetType().Name ?? "null"}' value. Only string, byte[], Stream or IVirtualFile content is supported.");
+            new($"Could not write '{value?.GetType().Name ?? "null"}' value. Only string, byte[], Stream or IVirtualFile content is supported.");
 
         /// <summary>
         /// Writes the file.
@@ -284,10 +284,8 @@ namespace ServiceStack.VirtualPath
                 WriteFile(path, romChars);
             else if (contents is byte[] binaryContents)
             {
-                using (var ms = MemoryStreamFactory.GetStream(binaryContents))
-                {
-                    vfs.WriteFile(path, ms);
-                }
+                using var ms = MemoryStreamFactory.GetStream(binaryContents);
+                vfs.WriteFile(path, ms);
             }
             else if (contents is ReadOnlyMemory<byte> romBytes)
                 WriteFile(path, romBytes);
@@ -347,10 +345,8 @@ namespace ServiceStack.VirtualPath
                 AppendFile(path, romChars);
             else if (contents is byte[] binaryContents)
             {
-                using (var ms = MemoryStreamFactory.GetStream(binaryContents))
-                {
-                    vfs.AppendFile(path, ms);
-                }
+                using var ms = MemoryStreamFactory.GetStream(binaryContents);
+                vfs.AppendFile(path, ms);
             }
             else if (contents is ReadOnlyMemory<byte> romBytes)
                 AppendFile(path, romBytes);

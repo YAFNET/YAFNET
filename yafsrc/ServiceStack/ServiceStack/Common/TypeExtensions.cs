@@ -193,7 +193,7 @@ namespace ServiceStack
         /// The activator cache
         /// </summary>
         static Dictionary<ConstructorInfo, ObjectActivator> activatorCache =
-            new Dictionary<ConstructorInfo, ObjectActivator>();
+            new();
 
         /// <summary>
         /// Gets the activator.

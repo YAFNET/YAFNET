@@ -57,16 +57,12 @@ namespace YAF.Core.Helpers
                 return string.Empty;
             }
 
-            using (var stringWriter = new StringWriter())
-            {
-                using (var writer = new HtmlTextWriter(stringWriter))
-                {
-                    (control as IRaiseControlLifeCycles)?.RaisePreRender();
+            using var stringWriter = new StringWriter();
+            using var writer = new HtmlTextWriter(stringWriter);
+            (control as IRaiseControlLifeCycles)?.RaisePreRender();
 
-                    control.RenderControl(writer);
-                    return stringWriter.ToString();
-                }
-            }
+            control.RenderControl(writer);
+            return stringWriter.ToString();
         }
 
         /// <summary>

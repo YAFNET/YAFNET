@@ -230,18 +230,16 @@ namespace YAF.Core.Utilities.ImageUtils
             if (_lines > 0)
             {
                 var lines = (int)_lines / 30 + 1;
-                using (var pen = new Pen(hatchBrush, 1))
+                using var pen = new Pen(hatchBrush, 1);
+                for (var i = 0; i < lines; i++)
                 {
-                    for (var i = 0; i < lines; i++)
+                    var pointsLine = new PointF[lines > 2 ? lines - 1 : 2];
+                    for (var j = 0; j < pointsLine.Length; j++)
                     {
-                        var pointsLine = new PointF[lines > 2 ? lines - 1 : 2];
-                        for (var j = 0; j < pointsLine.Length; j++)
-                        {
-                            pointsLine[j] = new PointF(this.random.Next(rect.Width), this.random.Next(rect.Height));
-                        }
-
-                        g.DrawCurve(pen, pointsLine, 1.75F);
+                        pointsLine[j] = new PointF(this.random.Next(rect.Width), this.random.Next(rect.Height));
                     }
+
+                    g.DrawCurve(pen, pointsLine, 1.75F);
                 }
             }
 

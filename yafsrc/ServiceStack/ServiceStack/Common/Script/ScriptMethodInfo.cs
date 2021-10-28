@@ -194,7 +194,7 @@ namespace ServiceStack.Script
         /// Converts to scriptmethodtype.
         /// </summary>
         /// <returns>ScriptMethodType.</returns>
-        public ScriptMethodType ToScriptMethodType() => new ScriptMethodType
+        public ScriptMethodType ToScriptMethodType() => new()
         {
             Name = Name,
             ParamNames = ParamNames,

@@ -181,10 +181,8 @@ namespace ServiceStack.Text
         public static T DeserializeFromStream<T>(Stream stream)
         {
             if (stream == null) return default(T);
-            using (var reader = new StreamReader(stream, UseEncoding))
-            {
-                return DeserializeFromString<T>(reader.ReadToEnd());
-            }
+            using var reader = new StreamReader(stream, UseEncoding);
+            return DeserializeFromString<T>(reader.ReadToEnd());
         }
 
         /// <summary>
@@ -196,10 +194,8 @@ namespace ServiceStack.Text
         public static object DeserializeFromStream(Type type, Stream stream)
         {
             if (stream == null) return null;
-            using (var reader = new StreamReader(stream, UseEncoding))
-            {
-                return DeserializeFromString(type, reader.ReadToEnd());
-            }
+            using var reader = new StreamReader(stream, UseEncoding);
+            return DeserializeFromString(type, reader.ReadToEnd());
         }
 
         /// <summary>

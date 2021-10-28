@@ -221,10 +221,8 @@ namespace YAF.Core.Services
 
                 var ms = new MemoryStream();
 
-                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    input.CopyTo(ms);
-                }
+                using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                input.CopyTo(ms);
 
                 context.Response.ContentType = "image/png";
 
@@ -323,10 +321,8 @@ namespace YAF.Core.Services
                     }
                 }
 
-                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    input.CopyTo(data);
-                }
+                using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                input.CopyTo(data);
 
                 context.Response.ContentType = "image/png";
 
@@ -386,12 +382,10 @@ namespace YAF.Core.Services
                 // use the new fileName (with extension) if it exists...
                 var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
-                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    data = new byte[input.Length];
-                    input.Read(data, 0, data.Length);
-                    input.Close();
-                }
+                using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                data = new byte[input.Length];
+                input.Read(data, 0, data.Length);
+                input.Close();
 
                 context.Response.ContentType = image.Item1.ContentType;
 
@@ -496,10 +490,8 @@ namespace YAF.Core.Services
                         }
                     }
 
-                    using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                    {
-                        input.CopyTo(data);
-                    }
+                    using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+                    input.CopyTo(data);
                 }
                 else
                 {

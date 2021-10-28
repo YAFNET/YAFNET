@@ -297,57 +297,51 @@ namespace YAF.Core.Services
                     ? $"#{user.ProviderUserKey.ToGuid().ToString().Substring(0, 6)}"
                     : $"#{user.ProviderUserKey.Substring(0, 6)}";
 
-                using (var bmp = new Bitmap(this.Get<BoardSettings>().AvatarWidth, this.Get<BoardSettings>().AvatarHeight))
+                using var bmp = new Bitmap(this.Get<BoardSettings>().AvatarWidth, this.Get<BoardSettings>().AvatarHeight);
+                using var graphics = Graphics.FromImage(bmp);
+                graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
+                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+
+                using Brush brush = new SolidBrush((Color)new ColorConverter().ConvertFromString(backgroundColor));
+                graphics.FillRectangle(
+                    brush,
+                    0,
+                    0,
+                    this.Get<BoardSettings>().AvatarWidth,
+                    this.Get<BoardSettings>().AvatarHeight);
+
+                var sf = new StringFormat
                 {
-                    using (var graphics = Graphics.FromImage(bmp))
-                    {
-                        graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-                        graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                    Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center
+                };
 
-                        using (Brush brush = new SolidBrush((Color)new ColorConverter().ConvertFromString(backgroundColor)))
-                        {
-                            graphics.FillRectangle(
-                                brush,
-                                0,
-                                0,
-                                this.Get<BoardSettings>().AvatarWidth,
-                                this.Get<BoardSettings>().AvatarHeight);
-                        }
+                var font = new Font("Arial", 48, FontStyle.Bold, GraphicsUnit.Pixel);
 
-                        var sf = new StringFormat
-                        {
-                            Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center
-                        };
+                graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+                graphics.DrawString(
+                    abbreviation,
+                    font,
+                    new SolidBrush(Color.WhiteSmoke),
+                    new RectangleF(
+                        0,
+                        0,
+                        this.Get<BoardSettings>().AvatarWidth,
+                        this.Get<BoardSettings>().AvatarHeight),
+                    sf);
+                graphics.Flush();
 
-                        var font = new Font("Arial", 48, FontStyle.Bold, GraphicsUnit.Pixel);
+                var converter = new ImageConverter();
 
-                        graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-                        graphics.DrawString(
-                            abbreviation,
-                            font,
-                            new SolidBrush(Color.WhiteSmoke),
-                            new RectangleF(
-                                0,
-                                0,
-                                this.Get<BoardSettings>().AvatarWidth,
-                                this.Get<BoardSettings>().AvatarHeight),
-                            sf);
-                        graphics.Flush();
+                var image = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
 
-                        var converter = new ImageConverter();
+                context.Response.Clear();
 
-                        var image = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
+                context.Response.ContentType = "image/png";
+                context.Response.Cache.SetCacheability(HttpCacheability.Public);
+                context.Response.Cache.SetMaxAge(TimeSpan.FromDays(30));
+                context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
-                        context.Response.Clear();
-
-                        context.Response.ContentType = "image/png";
-                        context.Response.Cache.SetCacheability(HttpCacheability.Public);
-                        context.Response.Cache.SetMaxAge(TimeSpan.FromDays(30));
-                        context.Response.Cache.SetLastModified(DateTime.UtcNow);
-
-                        context.Response.OutputStream.Write(image, 0, image.Length);
-                    }
-                }
+                context.Response.OutputStream.Write(image, 0, image.Length);
             }
             catch (Exception x)
             {

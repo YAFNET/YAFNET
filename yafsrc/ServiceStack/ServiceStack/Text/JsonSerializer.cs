@@ -254,11 +254,9 @@ namespace ServiceStack.Text
         /// <returns>T.</returns>
         public static T DeserializeResponse<T>(WebRequest webRequest)
         {
-            using (var webRes = PclExport.Instance.GetResponse(webRequest))
-            using (var stream = webRes.GetResponseStream())
-            {
-                return DeserializeFromStream<T>(stream);
-            }
+            using var webRes = PclExport.Instance.GetResponse(webRequest);
+            using var stream = webRes.GetResponseStream();
+            return DeserializeFromStream<T>(stream);
         }
 
         /// <summary>
@@ -270,11 +268,9 @@ namespace ServiceStack.Text
         /// <returns>System.Object.</returns>
         public static object DeserializeResponse<T>(Type type, WebRequest webRequest)
         {
-            using (var webRes = PclExport.Instance.GetResponse(webRequest))
-            using (var stream = webRes.GetResponseStream())
-            {
-                return DeserializeFromStream(type, stream);
-            }
+            using var webRes = PclExport.Instance.GetResponse(webRequest);
+            using var stream = webRes.GetResponseStream();
+            return DeserializeFromStream(type, stream);
         }
 
         /// <summary>
@@ -285,10 +281,8 @@ namespace ServiceStack.Text
         /// <returns>T.</returns>
         public static T DeserializeRequest<T>(WebRequest webRequest)
         {
-            using (var webRes = PclExport.Instance.GetResponse(webRequest))
-            {
-                return DeserializeResponse<T>(webRes);
-            }
+            using var webRes = PclExport.Instance.GetResponse(webRequest);
+            return DeserializeResponse<T>(webRes);
         }
 
         /// <summary>
@@ -299,10 +293,8 @@ namespace ServiceStack.Text
         /// <returns>System.Object.</returns>
         public static object DeserializeRequest(Type type, WebRequest webRequest)
         {
-            using (var webRes = PclExport.Instance.GetResponse(webRequest))
-            {
-                return DeserializeResponse(type, webRes);
-            }
+            using var webRes = PclExport.Instance.GetResponse(webRequest);
+            return DeserializeResponse(type, webRes);
         }
 
         /// <summary>
@@ -313,10 +305,8 @@ namespace ServiceStack.Text
         /// <returns>T.</returns>
         public static T DeserializeResponse<T>(WebResponse webResponse)
         {
-            using (var stream = webResponse.GetResponseStream())
-            {
-                return DeserializeFromStream<T>(stream);
-            }
+            using var stream = webResponse.GetResponseStream();
+            return DeserializeFromStream<T>(stream);
         }
 
         /// <summary>
@@ -327,10 +317,8 @@ namespace ServiceStack.Text
         /// <returns>System.Object.</returns>
         public static object DeserializeResponse(Type type, WebResponse webResponse)
         {
-            using (var stream = webResponse.GetResponseStream())
-            {
-                return DeserializeFromStream(type, stream);
-            }
+            using var stream = webResponse.GetResponseStream();
+            return DeserializeFromStream(type, stream);
         }
     }
 

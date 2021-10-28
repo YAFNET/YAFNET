@@ -446,7 +446,8 @@ namespace ServiceStack.Text.Common
         /// <returns>TypeAccessor.</returns>
         public static TypeAccessor Create(ITypeSerializer serializer, TypeConfig typeConfig, PropertyInfo propertyInfo)
         {
-            return new() {
+            return new TypeAccessor
+            {
                 PropertyType = propertyInfo.PropertyType,
                 GetProperty = GetPropertyMethod(serializer, propertyInfo),
                 SetProperty = GetSetPropertyMethod(typeConfig, propertyInfo),
@@ -533,7 +534,8 @@ namespace ServiceStack.Text.Common
         /// <returns>TypeAccessor.</returns>
         public static TypeAccessor Create(ITypeSerializer serializer, TypeConfig typeConfig, FieldInfo fieldInfo)
         {
-            return new() {
+            return new TypeAccessor
+            {
                 PropertyType = fieldInfo.FieldType,
                 GetProperty = serializer.GetParseStringSpanFn(fieldInfo.FieldType),
                 SetProperty = GetSetFieldMethod(typeConfig, fieldInfo),

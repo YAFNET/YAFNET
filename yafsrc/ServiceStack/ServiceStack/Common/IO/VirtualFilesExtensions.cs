@@ -87,10 +87,8 @@ namespace ServiceStack.IO
             if (pathProvider is not IVirtualFiles writableFs)
                 throw new InvalidOperationException(ErrorNotWritable.Fmt(pathProvider.GetType().Name));
 
-            using (var ms = MemoryStreamFactory.GetStream(bytes))
-            {
-                writableFs.WriteFile(filePath, ms);
-            }
+            using var ms = MemoryStreamFactory.GetStream(bytes);
+            writableFs.WriteFile(filePath, ms);
         }
 
         /// <summary>
@@ -180,10 +178,8 @@ namespace ServiceStack.IO
             if (pathProvider is not IVirtualFiles writableFs)
                 throw new InvalidOperationException(ErrorNotWritable.Fmt(pathProvider.GetType().Name));
 
-            using (var ms = MemoryStreamFactory.GetStream(bytes))
-            {
-                writableFs.AppendFile(filePath, ms);
-            }
+            using var ms = MemoryStreamFactory.GetStream(bytes);
+            writableFs.AppendFile(filePath, ms);
         }
 
         /// <summary>
@@ -243,10 +239,8 @@ namespace ServiceStack.IO
             if (pathProvider is not IVirtualFiles writableFs)
                 throw new InvalidOperationException(ErrorNotWritable.Fmt(pathProvider.GetType().Name));
 
-            using (var stream = file.OpenRead())
-            {
-                writableFs.WriteFile(filePath ?? file.VirtualPath, stream);
-            }
+            using var stream = file.OpenRead();
+            writableFs.WriteFile(filePath ?? file.VirtualPath, stream);
         }
 
         /// <summary>
@@ -368,14 +362,12 @@ namespace ServiceStack.IO
         {
             foreach (var file in srcFiles)
             {
-                using (var stream = file.OpenRead())
-                {
-                    var dstPath = toPath != null ? toPath(file) : file.VirtualPath;
-                    if (dstPath == null)
-                        continue;
+                using var stream = file.OpenRead();
+                var dstPath = toPath != null ? toPath(file) : file.VirtualPath;
+                if (dstPath == null)
+                    continue;
 
-                    pathProvider.WriteFile(dstPath, stream);
-                }
+                pathProvider.WriteFile(dstPath, stream);
             }
         }
     }

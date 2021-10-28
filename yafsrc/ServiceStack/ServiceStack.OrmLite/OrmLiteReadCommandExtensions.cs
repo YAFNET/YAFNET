@@ -1035,16 +1035,14 @@ namespace ServiceStack.OrmLite
                 yield break;
             }
 
-            using (var reader = dbCmd.ExecuteReader())
+            using var reader = dbCmd.ExecuteReader();
+            var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
+            var values = new object[reader.FieldCount];
+            while (reader.Read())
             {
-                var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
-                var values = new object[reader.FieldCount];
-                while (reader.Read())
-                {
-                    var row = OrmLiteUtils.CreateInstance<T>();
-                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                    yield return row;
-                }
+                var row = OrmLiteUtils.CreateInstance<T>();
+                row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                yield return row;
             }
         }
 
@@ -1100,16 +1098,14 @@ namespace ServiceStack.OrmLite
                 yield break;
             }
 
-            using (var reader = dbCmd.ExecuteReader())
+            using var reader = dbCmd.ExecuteReader();
+            while (reader.Read())
             {
-                while (reader.Read())
-                {
-                    var value = dialectProvider.FromDbValue(reader, 0, typeof(T));
-                    if (value == DBNull.Value)
-                        yield return default(T);
-                    else
-                        yield return (T)value;
-                }
+                var value = dialectProvider.FromDbValue(reader, 0, typeof(T));
+                if (value == DBNull.Value)
+                    yield return default(T);
+                else
+                    yield return (T)value;
             }
         }
 
@@ -1135,16 +1131,14 @@ namespace ServiceStack.OrmLite
             }
 
             var dialectProvider = dbCmd.GetDialectProvider();
-            using (var reader = dbCmd.ExecuteReader())
+            using var reader = dbCmd.ExecuteReader();
+            var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
+            var values = new object[reader.FieldCount];
+            while (reader.Read())
             {
-                var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
-                var values = new object[reader.FieldCount];
-                while (reader.Read())
-                {
-                    var row = OrmLiteUtils.CreateInstance<T>();
-                    row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
-                    yield return row;
-                }
+                var row = OrmLiteUtils.CreateInstance<T>();
+                row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
+                yield return row;
             }
         }
 

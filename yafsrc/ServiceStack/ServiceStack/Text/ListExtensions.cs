@@ -112,7 +112,7 @@ namespace ServiceStack.Text
         /// <returns>List&lt;T&gt;.</returns>
         public static List<T> InList<T>(this T value)
         {
-            return new() { value };
+            return new List<T> { value };
         }
 
         /// <summary>
