@@ -734,6 +734,9 @@ namespace YAF.Install
                     return false;
                 }
 
+                // fake the board settings
+                BoardContext.Current.BoardSettings ??= new BoardSettings();
+
                 // create the admin user...
                 user = new AspNetUsers
                 {
@@ -895,13 +898,14 @@ namespace YAF.Install
                     ? "WizEnterPassword"
                     : "WizWelcome";
 
-                // "WizCreatePassword"
-                if (!this.IsConfigPasswordSet)
+                if (!this.IsForumInstalled)
                 {
                     // fake the board settings
                     BoardContext.Current.BoardSettings = new BoardSettings();
                 }
-                else
+
+                // "WizCreatePassword"
+                if (this.IsConfigPasswordSet)
                 {
                     this.txtEnteredPassword.Attributes.Add(
                         "onkeydown",
