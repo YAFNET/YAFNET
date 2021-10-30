@@ -198,7 +198,7 @@ namespace YAF.Pages
             // show find users and all users (if user is admin)
             this.FindUsers.Visible = true;
             this.AllUsers.Visible = this.PageContext.IsAdmin;
-            this.AllBuddies.Visible = this.PageContext.UserHasBuddies;
+            this.AllBuddies.Visible = this.PageContext.UserHasBuddies && this.PageContext.BoardSettings.EnableBuddyList;
 
             // clear button is not necessary now
             this.Clear.Visible = false;
@@ -313,7 +313,7 @@ namespace YAF.Pages
             // only administrators can send messages to all users
             this.AllUsers.Visible = this.PageContext.IsAdmin;
 
-            this.AllBuddies.Visible = this.PageContext.UserHasBuddies;
+            this.AllBuddies.Visible = this.PageContext.UserHasBuddies && this.PageContext.BoardSettings.EnableBuddyList;
 
             // Is Reply
             if (this.Get<HttpRequestBase>().QueryString.Exists("p"))
