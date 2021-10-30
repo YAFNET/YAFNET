@@ -266,11 +266,16 @@ namespace YAF.Controls
             this.PageSize.DataTextField = "Name";
             this.PageSize.DataValueField = "Value";
 
-            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
-
             this.DataBind();
 
-            this.PageSize.SelectedValue = this.User.PageSize.ToString();
+            try
+            {
+                this.PageSize.SelectedValue = this.User.PageSize.ToString();
+            }
+            catch (Exception)
+            {
+                this.PageSize.SelectedValue = "5";
+            }
 
             this.Email.Text = this.User.Email;
 

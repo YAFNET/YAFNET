@@ -115,7 +115,14 @@ namespace YAF.Pages.Admin
             this.PageSize.DataValueField = "Value";
             this.PageSize.DataBind();
 
-            this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+            try
+            {
+                this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+            }
+            catch (Exception)
+            {
+                this.PageSize.SelectedValue = "5";
+            }
 
             var ci = this.Get<ILocalization>().Culture;
 

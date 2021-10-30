@@ -51,11 +51,16 @@ namespace YAF.Types.Models
             try
             {
                 this.ProviderUserKey = this.UserFlags.IsGuest ? null : this.ProviderUserKey;
+                this.Points = 1;
+                this.PageSize = 5;
+                this.Activity = true;
             }
             catch (Exception)
             {
                 this.UserFlags.IsGuest = true;
                 this.ProviderUserKey = null;
+                this.PageSize = 5;
+                this.Activity = true;
             }
         }
 

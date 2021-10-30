@@ -245,8 +245,15 @@ namespace YAF.Pages.Admin
             this.PageSizeUnverified.DataValueField = "Value";
             this.PageSizeUnverified.DataBind();
 
-            this.PageSize.SelectedValue =
-                this.PageSizeUnverified.SelectedValue = this.PageContext.User.PageSize.ToString();
+            try
+            {
+                this.PageSize.SelectedValue =
+                    this.PageSizeUnverified.SelectedValue = this.PageContext.User.PageSize.ToString();
+            }
+            catch (Exception)
+            {
+                this.PageSize.SelectedValue = this.PageSizeUnverified.SelectedValue = "5";
+            }
 
             this.BoardStatsSelect.Visible = this.PageContext.User.UserFlags.IsHostAdmin;
 
