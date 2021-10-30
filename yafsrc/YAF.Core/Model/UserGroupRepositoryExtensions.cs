@@ -178,7 +178,7 @@ namespace YAF.Core.Model
                         list.ForEach(
                             access => BoardContext.Current.GetRepository<ForumAccess>().Insert(access));
                     }
-                    catch (Exception exception)
+                    catch (Exception)
                     {
                         var guestAccessMask = BoardContext.Current.GetRepository<AccessMask>()
                             .GetSingle(a => a.BoardID == boardId && (a.Flags & 4) == 4);

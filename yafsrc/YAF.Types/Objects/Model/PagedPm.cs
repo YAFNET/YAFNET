@@ -72,6 +72,10 @@ namespace YAF.Types.Objects.Model
         /// </summary>
         public DateTime? FromSuspended { get; set; }
 
+        public string FromAvatar { get; set; }
+
+        public bool FromHasAvatarImage { get; set; }
+
         /// <summary>
         /// Gets or sets the to user id.
         /// </summary>

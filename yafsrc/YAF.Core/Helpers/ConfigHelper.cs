@@ -60,16 +60,14 @@ namespace YAF.Core.Helpers
         /// <summary>
         ///     Gets AppSettingsFull.
         /// </summary>
-        public AppSettingsSection AppSettingsFull => this.appSettingsFull
-                                                     ?? (this.appSettingsFull =
+        public AppSettingsSection AppSettingsFull => this.appSettingsFull ??=
                                                              this.GetConfigSectionFull<AppSettingsSection>(
-                                                                 "appSettings"));
+                                                                 "appSettings");
 
         /// <summary>
         ///     Gets WebConfigFull.
         /// </summary>
-        public Configuration WebConfigFull => this.webConfig
-                                              ?? (this.webConfig = WebConfigurationManager.OpenWebConfiguration("~/"));
+        public Configuration WebConfigFull => this.webConfig ??= WebConfigurationManager.OpenWebConfiguration("~/");
 
         #endregion
 
@@ -123,10 +121,13 @@ namespace YAF.Core.Helpers
         /// <param name="keyValue">
         /// The key value.
         /// </param>
+        /// <param name="saveConfig">
+        /// The save Config.
+        /// </param>
         /// <returns>
         /// The write app setting.
         /// </returns>
-        public bool WriteAppSetting(string keyName, string keyValue)
+        public bool WriteAppSetting(string keyName, string keyValue, bool saveConfig = true)
         {
             bool writtenSuccessfully;
 
@@ -139,8 +140,11 @@ namespace YAF.Core.Helpers
 
                 this.AppSettingsFull.Settings.Add(keyName, keyValue);
 
-                this.WebConfigFull.Save(ConfigurationSaveMode.Modified);
-
+                if (saveConfig)
+                {
+                    this.WebConfigFull.Save(ConfigurationSaveMode.Modified);
+                }
+                
                 writtenSuccessfully = true;
             }
             catch

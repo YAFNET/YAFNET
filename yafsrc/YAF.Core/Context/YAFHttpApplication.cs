@@ -63,7 +63,7 @@ namespace YAF.Core.Context
         protected void Application_Error([NotNull] object sender, [NotNull] EventArgs e)
         {
             var exception = this.Server.GetLastError();
-            int? userId = BoardContext.Current != null ? BoardContext.Current.PageUserID : null;
+            var userId = BoardContext.Current?.PageUserID;
 
             this.Application["Exception"] = exception.ToString();
             this.Application["ExceptionMessage"] = exception.Message;
