@@ -113,36 +113,31 @@ namespace YAF.Pages.Admin
                 this.Culture.SelectedValue);
 
             // save poll group
-            var boardSettings = this.PageContext.BoardSettings;
-
-            boardSettings.Language = languageFile;
-            boardSettings.Culture = this.Culture.SelectedValue;
-            boardSettings.Theme = this.Theme.SelectedValue;
-
-            boardSettings.ForumDefaultAccessMask = this.ForumDefaultAccessMask.SelectedValue.ToType<int>();
-            boardSettings.ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>();
-            boardSettings.NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim();
-
-            boardSettings.EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked;
-            boardSettings.EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked;
-            boardSettings.AllowDigestEmail = this.AllowDigestEmail.Checked;
-            boardSettings.DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked;
-            boardSettings.DefaultNotificationSetting =
-                this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>();
-
-            boardSettings.ForumEmail = this.ForumEmail.Text;
+            var boardSettings = new LoadBoardSettings(this.PageContext.PageBoardID)
+                {
+                    Language = languageFile, Culture = this.Culture.SelectedValue,
+                    Theme = this.Theme.SelectedValue,
+                    ForumDefaultAccessMask = this.ForumDefaultAccessMask.SelectedValue.ToType<int>(),
+                    ShowTopicsDefault = this.ShowTopic.SelectedValue.ToType<int>(),
+                    NotificationOnUserRegisterEmailList = this.NotificationOnUserRegisterEmailList.Text.Trim(),
+                    EmailModeratorsOnModeratedPost = this.EmailModeratorsOnModeratedPost.Checked,
+                    EmailModeratorsOnReportedPost = this.EmailModeratorsOnReportedPost.Checked,
+                    AllowDigestEmail = this.AllowDigestEmail.Checked,
+                    DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked,
+                    DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>(),
+                    ForumEmail = this.ForumEmail.Text,
+                    BaseUrlMask = this.ForumBaseUrlMask.Text,
+                    CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim(),
+                    DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>()
+                };
 
             if (this.BoardLogo.SelectedIndex > 0)
             {
                 boardSettings.ForumLogo = this.BoardLogo.SelectedItem.Text;
             }
 
-            boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
-            boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
-            boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
-
             // save the settings to the database
-            ((LoadBoardSettings)boardSettings).SaveRegistry();
+            boardSettings.SaveRegistry();
 
             // Reload forum settings
             this.PageContext.BoardSettings = null;
