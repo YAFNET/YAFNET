@@ -30,6 +30,7 @@ namespace YAF.Core.BBCode
     using System.Text;
     using System.Web;
 
+    using YAF.Core.Helpers;
     using YAF.Types.Extensions;
 
     #endregion
@@ -104,7 +105,9 @@ namespace YAF.Core.BBCode
                 language,
                 highlight.IsSet() ? $" data-line=\"{highlight}\"" : string.Empty);
 
-            tmpOutput.AppendFormat("<!---->{0}<!---->", codeText);
+            tmpOutput.AppendFormat(
+                "<!---->{0}<!---->",
+                StringHelper.IsHtmlEncoded(codeText) ? codeText : HttpUtility.HtmlEncode(codeText));
 
             tmpOutput.AppendFormat("</code></pre>{0}", Environment.NewLine);
 

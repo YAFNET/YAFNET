@@ -528,7 +528,7 @@ namespace YAF.Core.Services
             }
 
             html = !allowHtml
-                       ? this.HttpServer.HtmlEncode(html)
+                       ? html//this.HttpServer.HtmlEncode(html)
                        : RemoveHtmlByList(html, this.Get<BoardSettings>().AcceptedHTML.Split(','));
 
             return html;
