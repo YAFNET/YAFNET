@@ -538,8 +538,8 @@ namespace YAF.Core.Model
                             LastPosted = t.LastPosted != null ? t.LastPosted : t.Posted,
                             LastUserID = t.LastUserID != null ? t.LastUserID : t.UserID,
                             t.LastMessageID,
-                            t.LastMessageFlags,
-                            LastMessage = m.MessageText
+                            LastMessage = m.MessageText,
+                            LastMessageFlags = m.Flags
                         });
 
                     return db.Connection.Select<LatestTopic>(expression);
