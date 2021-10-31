@@ -67,7 +67,7 @@
                                              OnClick="Clear_Click" 
                                              Visible="false"
                                              TextLocalizedTag="CLEAR"
-                                             Type="Secondary"
+                                             Type="Danger"
                                              Icon="times"/>
                         </div>
                         <YAF:Alert runat="server" ID="MultiReceiverAlert" 
