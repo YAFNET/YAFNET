@@ -182,6 +182,7 @@ namespace YAF.Pages
                 }
 
                 this.PageLinks.AddLink(message.Subject);
+                this.MessageTitle.Text = message.Subject;
 
                 this.Inbox.DataSource = messages;
             }

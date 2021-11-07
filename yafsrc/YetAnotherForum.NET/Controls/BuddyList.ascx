@@ -25,15 +25,29 @@
             </div>
         </div>
     </div>
-    <asp:Repeater ID="rptBuddy" runat="server" OnItemDataBound="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
+    <div class="card-body">
+        <asp:Repeater ID="rptBuddy" runat="server" OnItemDataBound="rptBuddy_ItemCreated" OnItemCommand="rptBuddy_ItemCommand">
     <HeaderTemplate>
         <asp:PlaceHolder runat="server" ID="HeaderHolder">
-            <ul class="list-group list-group-flush">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mb-2">
         </asp:PlaceHolder>
     </HeaderTemplate>
     <ItemTemplate>
-        <li class="list-group-item">
-            <YAF:UserLink ID="UserProfileLink" runat="server"
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div>
+                            <asp:Image runat="server" ID="Avatar"
+                                       CssClass="img-thumbnail" ImageUrl="<%# this.Get<IAvatars>().GetAvatarUrlForUser(
+                                                                                  (Container.DataItem as BuddyUser).UserID,
+                                                                                  (Container.DataItem as BuddyUser).Avatar,
+                                                                                  (Container.DataItem as BuddyUser).AvatarImage != null) %>"
+                                       AlternateText="<%# this.PageContext.BoardSettings.EnableDisplayName ? 
+                                                              (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name  %>"/>
+                        </div>
+                        <div>
+                            <YAF:UserLink ID="UserProfileLink" runat="server"
                           ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name %>"
                           Suspended="<%# (Container.DataItem as BuddyUser).Suspended %>"
                           Style="<%# (Container.DataItem as BuddyUser).UserStyle %>"
@@ -73,11 +87,15 @@
             <asp:PlaceHolder ID="pnlRequests" runat="server" Visible="false">
                 <%# this.Get<IDateTimeService>().FormatDateLong((Container.DataItem as BuddyUser).Requested) %>
             </asp:PlaceHolder>
-        </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </ItemTemplate>
     <FooterTemplate>
         <asp:PlaceHolder runat="server" ID="FooterHolder">
-            </ul>
+            </div>
             <asp:Panel CssClass="card-footer" runat="server" ID="Footer" Visible="False">
                 <YAF:ThemeButton ID="Button1" runat="server"
                                  ReturnConfirmText='<%# this.GetText("FRIENDS", "NOTIFICATION_APPROVEALL") %>'
@@ -103,7 +121,8 @@
 </asp:Repeater>
 <YAF:Pager ID="Pager" runat="server"
            OnPageChange="Pager_PageChange" />
-<asp:PlaceHolder runat="server" Visible="<%# this.rptBuddy.Items.Count == 0 %>">
+    </div>
+    <asp:PlaceHolder runat="server" Visible="<%# this.rptBuddy.Items.Count == 0 %>">
     <div class="card-body">
         <YAF:Alert runat="server" Type="info" ID="Info"></YAF:Alert>
     </div>

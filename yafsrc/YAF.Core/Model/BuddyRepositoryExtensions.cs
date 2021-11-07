@@ -224,7 +224,9 @@ namespace YAF.Core.Model
                         c.FromUserID,
                         c.Requested,
                         a.UserStyle,
-                        a.Suspended
+                        a.Suspended,
+                        a.Avatar,
+                        a.AvatarImage
                     });
 
             var expression2 = OrmLiteConfig.DialectProvider.SqlExpression<User>();
@@ -234,7 +236,7 @@ namespace YAF.Core.Model
                 .Select<User, Rank, Buddy>(
                     (a, b, c) => new
                     {
-                        UserID = fromUserId,
+                        UserID = c.FromUserID,
                         a.BoardID,
                         a.Name,
                         a.DisplayName,
@@ -242,15 +244,17 @@ namespace YAF.Core.Model
                         a.NumPosts,
                         RankName = b.Name,
                         c.Approved,
-                        c.FromUserID,
+                        FromUserID = fromUserId,
                         c.Requested,
                         a.UserStyle,
-                        a.Suspended
+                        a.Suspended,
+                        a.Avatar,
+                        a.AvatarImage
                     });
 
             return repository.DbAccess.Execute(
                 db => db.Connection.Select<BuddyUser>(
-                    $"{expression.ToSelectStatement()} UNION {expression2.ToSelectStatement()}"));
+                    $"{expression.ToSelectStatement()} UNION ALL {expression2.ToSelectStatement()}"));
         }
 
         #endregion
