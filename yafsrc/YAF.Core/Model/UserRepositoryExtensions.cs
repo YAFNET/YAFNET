@@ -301,7 +301,7 @@ namespace YAF.Core.Model
                             counter.{provider.GetQuotedName("NumOfPosts")}").Take(displayNumber);
 
                   return db.Connection
-                      .Select<LastActive>(expression);
+                      .Select<LastActive>(expression).OrderByDescending(x => x.NumOfPosts).ToList();
               });
         }
 
