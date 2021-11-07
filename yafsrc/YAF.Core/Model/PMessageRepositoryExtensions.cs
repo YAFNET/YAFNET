@@ -522,7 +522,7 @@
         {
             CodeContracts.VerifyNotNull(repository);
 
-            List<PagedPm> messages = repository.DbAccess.Execute(
+            var messages = repository.DbAccess.Execute(
                 db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<PMessage>();
@@ -542,6 +542,8 @@
                                 FromUserDisplayName = Sql.TableAlias(d.DisplayName, "d"),
                                 FromStyle = Sql.TableAlias(d.UserStyle, "d"),
                                 FromSuspended = Sql.TableAlias(d.Suspended, "d"),
+                                FromAvatar = Sql.TableAlias(d.Avatar, "d"),
+                                FromHasAvatarImage = Sql.TableAlias(d.AvatarImage, "d") != null ? true : false,
                                 ToUserID = b.UserID,
                                 ToUser = Sql.TableAlias(c.Name, "c"),
                                 ToUserDisplayName = Sql.TableAlias(c.DisplayName, "c"),
