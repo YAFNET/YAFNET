@@ -120,7 +120,7 @@ namespace YAF.Pages
             // get a row with user lazy data...
             var adminList = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BoardAdmins,
-                () => this.GetRepository<User>().ListAdmins(this.PageContext.BoardSettings.UseStyledNicks),
+                () => this.GetRepository<User>().ListAdmins(),
                 TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardModeratorsCacheTimeout));
 
             return adminList;

@@ -84,7 +84,7 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new(2021, 10, 31, 11, 15, 00);
+        public static DateTime AppVersionDate => new(2021, 11, 07, 12, 09, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
@@ -99,7 +99,7 @@ namespace YAF.Configuration
                 Major = 3,
                 Minor = 0,
                 Build = 1,
-                ReleaseType = ReleaseType.BETA,
+                ReleaseType = ReleaseType.Regular,
                 ReleaseNumber = 0
             };
 

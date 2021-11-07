@@ -210,7 +210,7 @@ namespace YAF.Core.Model
                 new Group
                 {
                     BoardID = newBoardId,
-                    Name = Config.IsDotNetNuke ? $"{rolePrefix}Registered Users" : $"{rolePrefix}Registered",
+                    Name = $"{rolePrefix}Registered Users",
                     Flags = 4,
                     PMLimit = 100,
                     SortOrder = 2,
