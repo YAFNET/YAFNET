@@ -38,7 +38,6 @@ namespace YAF.Core.Model
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Types.Objects.Model;
@@ -1363,9 +1362,6 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="useStyledNicks">
-        /// The use styled nicks.
-        /// </param>
         /// <param name="boardId">
         /// The board identifier.
         /// </param>
@@ -1374,7 +1370,6 @@ namespace YAF.Core.Model
         /// </returns>
         public static List<User> ListAdmins(
             this IRepository<User> repository,
-            [NotNull] bool? useStyledNicks = null,
             [NotNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
