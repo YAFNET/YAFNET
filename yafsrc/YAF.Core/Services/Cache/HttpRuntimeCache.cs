@@ -168,7 +168,7 @@ namespace YAF.Core.Services.Cache
         {
             var cacheItemPolicy = new CacheItemPolicy
             {
-                AbsoluteExpiration = DateTime.Now + timeout,
+                AbsoluteExpiration = DateTime.UtcNow + timeout,
                 SlidingExpiration = Cache.NoSlidingExpiration,
                 Priority = System.Runtime.Caching.CacheItemPriority.Default,
                 RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
@@ -202,10 +202,10 @@ namespace YAF.Core.Services.Cache
           {
               var cacheItemPolicy = new CacheItemPolicy
               {
-                  AbsoluteExpiration = Cache.NoAbsoluteExpiration,
+                  AbsoluteExpiration = DateTimeOffset.MaxValue,
                   SlidingExpiration = Cache.NoSlidingExpiration,
                   Priority = System.Runtime.Caching.CacheItemPriority.Default,
-                  RemovedCallback = (k) => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+                  RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
               };
               MemoryCache.Default.Add(
                   new CacheItem(this.CreateKey(key)) { Value = c },
@@ -240,7 +240,7 @@ namespace YAF.Core.Services.Cache
 
           var cacheItemPolicy = new CacheItemPolicy
           {
-              AbsoluteExpiration = DateTime.Now + timeout,
+              AbsoluteExpiration = DateTime.UtcNow + timeout,
               SlidingExpiration = Cache.NoSlidingExpiration,
               Priority = System.Runtime.Caching.CacheItemPriority.Default,
               RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
