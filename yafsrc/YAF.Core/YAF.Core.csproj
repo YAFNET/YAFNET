@@ -45,7 +45,8 @@
     <PackageReference Include="Microsoft.Owin.Security.OAuth" Version="4.2.0" />
     <PackageReference Include="Microsoft.Owin.Security.Twitter" Version="4.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="System.Runtime.Caching" Version="5.0.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="6.0.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />

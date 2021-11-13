@@ -368,12 +368,10 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         public void CopyTo(string[] array, int arrayIndex)
         {
-            using (var iter = map.OriginalKeySet.GetEnumerator())
+            using var iter = map.OriginalKeySet.GetEnumerator();
+            for (int i = arrayIndex; iter.MoveNext(); i++)
             {
-                for (int i = arrayIndex; iter.MoveNext(); i++)
-                {
-                    array[i] = iter.Current;
-                }
+                array[i] = iter.Current;
             }
         }
 

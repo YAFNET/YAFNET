@@ -372,11 +372,9 @@ namespace YAF.Lucene.Net.Analysis.Util
                 words = new CharArraySet(m_luceneMatchVersion, files.Count * 10, ignoreCase);
                 foreach (string file in files)
                 {
-                    using (Stream stream = loader.OpenResource(file.Trim()))
-                    using (TextReader reader = new StreamReader(stream, Encoding.UTF8))
-                    {
-                        WordlistLoader.GetSnowballWordSet(reader, words);
-                    }
+                    using Stream stream = loader.OpenResource(file.Trim());
+                    using TextReader reader = new StreamReader(stream, Encoding.UTF8);
+                    WordlistLoader.GetSnowballWordSet(reader, words);
                 }
             }
             return words;
