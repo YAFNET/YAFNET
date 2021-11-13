@@ -1,7 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <Version>5.11.0</Version>
+    <Version>5.13.1</Version>
     <AssemblyVersion>5.0.0.0</AssemblyVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
@@ -28,13 +28,6 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net48' ">
     <DefineConstants>$(DefineConstants);NET48</DefineConstants>
     <SignAssembly>True</SignAssembly>
-    <DelaySign>False</DelaySign>
-    <AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0' ">
-    <DefineConstants>$(DefineConstants);NET50</DefineConstants>
-	<SignAssembly>True</SignAssembly>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>

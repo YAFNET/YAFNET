@@ -96,6 +96,12 @@ namespace ServiceStack.OrmLite.PostgreSQL
 
             RegisterConverter<XmlValue>(new PostgreSqlXmlConverter());
 
+#if NET6_0
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            AppContext.SetSwitch("Npgsql.EnableLegacyCaseInsensitiveDbParameters", true);
+            RegisterConverter<DateOnly>(new PostgreSqlDateOnlyConverter());
+#endif
+
             this.Variables = new Dictionary<string, string>
             {
                 { OrmLiteVariables.SystemUtc, "now() at time zone 'utc'" },
@@ -1021,7 +1027,7 @@ namespace ServiceStack.OrmLite.PostgreSQL
             [typeof(BitArray)] = NpgsqlDbType.Varbit,
             [typeof(IDictionary<string, string>)] = NpgsqlDbType.Hstore,
             [typeof(Guid)] = NpgsqlDbType.Uuid,
-            [typeof(NpgsqlInet)] = NpgsqlDbType.Cidr,
+            [typeof(ValueTuple<IPAddress, int>)] = NpgsqlDbType.Cidr,
             [typeof(ValueTuple<IPAddress,int>)] = NpgsqlDbType.Inet,
             [typeof(IPAddress)] = NpgsqlDbType.Inet,
             [typeof(PhysicalAddress)] = NpgsqlDbType.MacAddr,

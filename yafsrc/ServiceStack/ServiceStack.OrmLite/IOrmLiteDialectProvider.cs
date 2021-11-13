@@ -361,7 +361,8 @@ namespace ServiceStack.OrmLite
             string bodyExpression,
             string orderByExpression = null,
             int? offset = null,
-            int? rows = null);
+            int? rows = null,
+            ISet<string> tags = null);
 
         /// <summary>
         /// Converts to insertrowstatement.
@@ -1122,6 +1123,13 @@ namespace ServiceStack.OrmLite
         /// </summary>
         /// <value>The SQL random.</value>
         string SqlRandom { get; }
+
+        /// <summary>
+        ///  Generates a SQL comment.
+        /// </summary>
+        /// <param name="text">The comment text.</param>
+        /// <returns>The generated SQL.</returns>
+        string GenerateComment(in string text);
 
         /// <summary>
         /// Gets the UTC date function.

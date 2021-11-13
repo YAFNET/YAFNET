@@ -23,7 +23,8 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// The database connection
         /// </summary>
-        private OrmLiteConnection dbConn;
+        private readonly OrmLiteConnection dbConn;
+
         /// <summary>
         /// The database command
         /// </summary>

@@ -142,6 +142,7 @@ namespace ServiceStack.OrmLite.Sqlite
         public static string CreateFullTextCreateTableStatement(object objectWithProperties)
         {
             var sbColumns = StringBuilderCache.Allocate();
+
             foreach (var propertyInfo in objectWithProperties.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
             {
                 var columnDefinition = sbColumns.Length == 0
@@ -165,6 +166,11 @@ namespace ServiceStack.OrmLite.Sqlite
         /// <returns>IDbConnection.</returns>
         public override IDbConnection CreateConnection(string connectionString, Dictionary<string, string> options)
         {
+            if (connectionString == "DataSource=:memory:")
+            {
+                connectionString = ":memory:";
+            }
+
             var isFullConnectionString = connectionString.Contains(";");
             var connString = StringBuilderCache.Allocate();
             if (!isFullConnectionString)

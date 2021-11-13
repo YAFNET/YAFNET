@@ -11,6 +11,7 @@ namespace ServiceStack.OrmLite
     using System.Data;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
 
     using ServiceStack.Text;
@@ -189,6 +190,20 @@ namespace ServiceStack.OrmLite
             var q = dbConn.From<T>(tableOptions);
             options(q);
             return q;
+        }
+
+        public static SqlExpression<T> TagWith<T>(this SqlExpression<T> expression, string tag)
+        {
+            expression.AddTag(tag);
+            return expression;
+        }
+
+        public static SqlExpression<T> TagWithCallSite<T>(this SqlExpression<T> expression,
+            [CallerFilePath] string filePath = null,
+            [CallerLineNumber] int lineNumber = 0)
+        {
+            expression.AddTag($"File: {filePath}:{lineNumber.ToString()}");
+            return expression;
         }
 
         /// <summary>
@@ -531,6 +546,10 @@ namespace ServiceStack.OrmLite
             SqlExpression<T> expression) =>
             dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression));
 
+        public static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(expression));
 
         /// <summary>
         /// Selects the multi.
@@ -636,6 +655,13 @@ namespace ServiceStack.OrmLite
             SqlExpression<T> expression,
             string[] tableSelects) =>
             dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects));
+
+
+        public static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(
+            this IDbConnection dbConn,
+            SqlExpression<T> expression,
+            string[] tableSelects) =>
+            dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(expression, tableSelects));
 
         /// <summary>
         /// Returns a single result from using a LINQ Expression. E.g:

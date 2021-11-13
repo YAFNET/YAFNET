@@ -131,6 +131,8 @@ namespace ServiceStack.OrmLite
         /// <value>The where statement without where string.</value>
         public bool WhereStatementWithoutWhereString { get; set; }
 
+        public ISet<string> Tags { get; } = new HashSet<string>();
+
         /// <summary>
         /// Gets or sets the custom select.
         /// </summary>
@@ -196,6 +198,12 @@ namespace ServiceStack.OrmLite
         public SqlExpression<T> Clone()
         {
             return this.CopyTo(this.DialectProvider.SqlExpression<T>());
+        }
+
+        public virtual void AddTag(string tag)
+        {
+            //Debug.Assert(!string.IsNullOrEmpty(tag));
+            Tags.Add(tag);
         }
 
         /// <summary>
@@ -1702,8 +1710,8 @@ namespace ServiceStack.OrmLite
             foreach (var field in fields)
             {
                 var tableDef = this.GetModelDefinition(field);
-                var qualifiedName = this.modelDef != null
-                    ? this.GetQuotedColumnName(tableDef, field.Name)
+                var qualifiedName = tableDef != null
+                   ? this.GetQuotedColumnName(tableDef, field.Name)
                     : this.DialectProvider.GetQuotedColumnName(field);
 
                 if (sbOrderBy.Length > 0)
@@ -2573,7 +2581,7 @@ namespace ServiceStack.OrmLite
             OrmLiteConfig.SqlExpressionSelectFilter?.Invoke(this.GetUntyped());
 
             var sql = this.DialectProvider
-                .ToSelectStatement(forType, modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: Offset, rows: Rows);
+                .ToSelectStatement(forType, modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: Offset, rows: Rows, Tags);
 
             return this.SqlFilter != null
                 ? this.SqlFilter(sql)

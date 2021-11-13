@@ -49,8 +49,13 @@ namespace ServiceStack.OrmLite
         /// <param name="setGlobalDialectProvider">if set to <c>true</c> [set global dialect provider].</param>
         public OrmLiteConnectionFactory(string connectionString, IOrmLiteDialectProvider dialectProvider, bool setGlobalDialectProvider)
         {
-            ConnectionString = connectionString;
-            AutoDisposeConnection = connectionString != ":memory:";
+            if (connectionString == "DataSource=:memory:")
+            {
+                connectionString = ":memory:";
+            }
+
+            this.ConnectionString = connectionString;
+            this.AutoDisposeConnection = connectionString != ":memory:";
             this.DialectProvider = dialectProvider ?? OrmLiteConfig.DialectProvider;
 
             if (setGlobalDialectProvider && dialectProvider != null)
@@ -109,11 +114,12 @@ namespace ServiceStack.OrmLite
         /// The orm lite connection
         /// </summary>
         private OrmLiteConnection ormLiteConnection;
+
         /// <summary>
         /// Gets the orm lite connection.
         /// </summary>
         /// <value>The orm lite connection.</value>
-        private OrmLiteConnection OrmLiteConnection => ormLiteConnection ??= new OrmLiteConnection(this);
+        private OrmLiteConnection OrmLiteConnection => this.ormLiteConnection ??= new OrmLiteConnection(this);
 
         /// <summary>
         /// Creates the database connection.
@@ -125,9 +131,9 @@ namespace ServiceStack.OrmLite
             if (this.ConnectionString == null)
                 throw new ArgumentNullException("ConnectionString", "ConnectionString must be set");
 
-            var connection = AutoDisposeConnection
+            var connection = this.AutoDisposeConnection
                 ? new OrmLiteConnection(this)
-                : OrmLiteConnection;
+                : this.OrmLiteConnection;
 
             return connection;
         }
@@ -159,7 +165,7 @@ namespace ServiceStack.OrmLite
         /// <returns>IDbConnection.</returns>
         public virtual IDbConnection OpenDbConnection()
         {
-            var connection = CreateDbConnection();
+            var connection = this.CreateDbConnection();
             connection.Open();
 
             return connection;
@@ -172,14 +178,14 @@ namespace ServiceStack.OrmLite
         /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
         public virtual async Task<IDbConnection> OpenDbConnectionAsync(CancellationToken token = default)
         {
-            var connection = CreateDbConnection();
+            var connection = this.CreateDbConnection();
             if (connection is OrmLiteConnection ormliteConn)
             {
                 await ormliteConn.OpenAsync(token).ConfigAwait();
                 return connection;
             }
 
-            await DialectProvider.OpenAsync(connection, token).ConfigAwait();
+            await this.DialectProvider.OpenAsync(connection, token).ConfigAwait();
             return connection;
         }
 
@@ -198,7 +204,7 @@ namespace ServiceStack.OrmLite
                 return connection;
             }
 
-            await DialectProvider.OpenAsync(connection, token).ConfigAwait();
+            await this.DialectProvider.OpenAsync(connection, token).ConfigAwait();
             return connection;
         }
 
@@ -303,8 +309,8 @@ namespace ServiceStack.OrmLite
         {
             var connection = CreateDbConnection(namedConnection);
 
-            //moved setting up the ConnectionFilter to OrmLiteConnection.Open
-            //connection = factory.ConnectionFilter(connection);
+            // moved setting up the ConnectionFilter to OrmLiteConnection.Open
+            // connection = factory.ConnectionFilter(connection);
             connection.Open();
 
             return connection;
@@ -314,6 +320,7 @@ namespace ServiceStack.OrmLite
         /// The dialect providers
         /// </summary>
         private static Dictionary<string, IOrmLiteDialectProvider> dialectProviders;
+
         /// <summary>
         /// Gets the dialect providers.
         /// </summary>
@@ -334,6 +341,7 @@ namespace ServiceStack.OrmLite
         /// The named connections
         /// </summary>
         private static Dictionary<string, OrmLiteConnectionFactory> namedConnections;
+
         /// <summary>
         /// Gets the named connections.
         /// </summary>
@@ -348,7 +356,7 @@ namespace ServiceStack.OrmLite
         /// <param name="dialectProvider">The dialect provider.</param>
         public virtual void RegisterConnection(string namedConnection, string connectionString, IOrmLiteDialectProvider dialectProvider)
         {
-            RegisterConnection(namedConnection, new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false));
+            this.RegisterConnection(namedConnection, new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false));
         }
 
         /// <summary>
@@ -387,6 +395,7 @@ namespace ServiceStack.OrmLite
         {
             return ((OrmLiteConnectionFactory)connectionFactory).OpenDbConnectionAsync(token);
         }
+
         /// <summary>
         /// Opens the asynchronous.
         /// </summary>
@@ -612,6 +621,7 @@ namespace ServiceStack.OrmLite
                 if (connInfo.NamedConnection != null)
                     return dbFactoryExt.OpenDbConnection(connInfo.NamedConnection);
             }
+
             return dbFactory.Open();
         }
 
@@ -635,6 +645,7 @@ namespace ServiceStack.OrmLite
                 if (connInfo.NamedConnection != null)
                     return await dbFactoryExt.OpenDbConnectionAsync(connInfo.NamedConnection).ConfigAwait();
             }
+
             return await dbFactory.OpenAsync().ConfigAwait();
         }
     }

@@ -16,14 +16,6 @@ using ServiceStack.Text;
 namespace ServiceStack.OrmLite
 {
     /// <summary>
-    /// Class TemplateDbFiltersAsync.
-    /// Implements the <see cref="ServiceStack.OrmLite.DbScriptsAsync" />
-    /// </summary>
-    /// <seealso cref="ServiceStack.OrmLite.DbScriptsAsync" />
-    [Obsolete("Use DbScriptsAsync")]
-    public class TemplateDbFiltersAsync : DbScriptsAsync { }
-
-    /// <summary>
     /// Class DbScriptsAsync.
     /// Implements the <see cref="ServiceStack.Script.ScriptMethods" />
     /// </summary>

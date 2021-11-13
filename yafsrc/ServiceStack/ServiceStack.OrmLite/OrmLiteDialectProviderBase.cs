@@ -133,6 +133,11 @@ namespace ServiceStack.OrmLite
             this.RegisterConverter<TimeSpan>(new TimeSpanAsIntConverter());
             this.RegisterConverter<DateTime>(new DateTimeConverter());
             this.RegisterConverter<DateTimeOffset>(new DateTimeOffsetConverter());
+
+#if NET6_0
+            RegisterConverter<DateOnly>(new DateOnlyConverter());
+            RegisterConverter<TimeOnly>(new TimeOnlyConverter());
+#endif
         }
 
         /// <summary>
@@ -885,6 +890,18 @@ namespace ServiceStack.OrmLite
             return StringBuilderCache.ReturnAndFree(sql);
         }
 
+        protected virtual void ApplyTags(StringBuilder sqlBuilder, ISet<string> tags)
+        {
+            if (tags != null && tags.Count > 0)
+            {
+                foreach (var tag in tags)
+                {
+                    sqlBuilder.AppendLine(GenerateComment(tag));
+                }
+                sqlBuilder.Append("\n");
+            }
+        }
+
         /// <summary>
         /// Converts to selectstatement.
         /// </summary>
@@ -903,9 +920,13 @@ namespace ServiceStack.OrmLite
             string bodyExpression,
             string orderByExpression = null,
             int? offset = null,
-            int? rows = null)
+            int? rows = null,
+            ISet<string> tags = null)
         {
             var sb = StringBuilderCache.Allocate();
+
+            ApplyTags(sb, tags);
+
             sb.Append(selectExpression);
             sb.Append(bodyExpression);
 
@@ -921,6 +942,11 @@ namespace ServiceStack.OrmLite
             }
 
             return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public virtual string GenerateComment(in string text)
+        {
+            return $"-- {text}";
         }
 
         /// <summary>
