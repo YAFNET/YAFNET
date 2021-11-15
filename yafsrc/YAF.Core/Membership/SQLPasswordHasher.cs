@@ -31,6 +31,7 @@ namespace YAF.Core.Membership
 
     using YAF.Configuration;
     using YAF.Core.Helpers;
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The SQL password hasher.
@@ -61,11 +62,19 @@ namespace YAF.Core.Membership
             var passwordHash = passwordProperties[0];
             var salt = passwordProperties[2];
 
-            var encryptedPassword = EncryptPassword(providedPassword, Config.LegacyMembershipPasswordFormat, salt);
+            var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
+
+            var encryptedPassword = EncryptPassword(
+                passwordHash,
+                providedPassword,
+                passwordFormat,
+                salt);
 
             return string.Equals(
                 encryptedPassword,
-                passwordHash,
+                passwordFormat == MembershipPasswordFormat.Hashed
+                    ? passwordHash
+                    : providedPassword,
                 StringComparison.CurrentCultureIgnoreCase)
                 ? PasswordVerificationResult.SuccessRehashNeeded
                 : PasswordVerificationResult.Failed;
@@ -74,8 +83,11 @@ namespace YAF.Core.Membership
         /// <summary>
         /// The encrypt password.
         /// </summary>
-        /// <param name="pass">
-        /// The pass.
+        /// <param name="hashedPassword">
+        /// The hashed Password.
+        /// </param>
+        /// <param name="clearPassword">
+        /// The clear Password.
         /// </param>
         /// <param name="passwordFormat">
         /// The password format.
@@ -86,15 +98,15 @@ namespace YAF.Core.Membership
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        private static string EncryptPassword(string pass, MembershipPasswordFormat passwordFormat, string salt)
+        private static string EncryptPassword(string hashedPassword, string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
         {
             switch (passwordFormat)
             {
                 case MembershipPasswordFormat.Clear:
-                    return pass;
+                    return clearPassword;
                 case MembershipPasswordFormat.Hashed:
                     return HashHelper.Hash(
-                        pass,
+                        clearPassword,
                         Config.LegacyMembershipHashAlgorithmType,
                         salt,
                         Config.LegacyMembershipHashHex,
@@ -103,10 +115,10 @@ namespace YAF.Core.Membership
                         false);
                 case MembershipPasswordFormat.Encrypted:
                     var passwordManager = new YafMembershipProvider();
-                    return passwordManager.GetClearTextPassword(pass);
+                    return passwordManager.GetClearTextPassword(hashedPassword);
             }
 
-            return pass;
+            return clearPassword;
         }
     }
 }

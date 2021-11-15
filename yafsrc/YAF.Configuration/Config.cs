@@ -349,21 +349,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets the legacy membership password format.
-        /// </summary>
-        public static MembershipPasswordFormat LegacyMembershipPasswordFormat
-        {
-            get
-            {
-                var value = GetConfigValueAsString("YAF.LegacyMembershipPasswordFormat");
-
-                return value.IsSet()
-                    ? value.ToEnum<MembershipPasswordFormat>()
-                    : MembershipPasswordFormat.Hashed;
-            }
-        }
-
-        /// <summary>
         /// Gets the legacy membership hash case.
         /// </summary>
         public static HashCaseType LegacyMembershipHashCase

@@ -509,7 +509,6 @@ namespace YAF.Core.Services
 
                 var hashHex = providerSettings.Parameters["hashHex"];
                 var hashCase = providerSettings.Parameters["hashCase"];
-                var passwordFormat = providerSettings.Parameters["passwordFormat"];
 
                 ConfigHelper config = new ();
 
@@ -526,11 +525,6 @@ namespace YAF.Core.Services
                 if (hashCase.IsSet())
                 {
                     config.WriteAppSetting("YAF.LegacyMembershipHashCase", hashCase);
-                }
-
-                if (passwordFormat.IsSet())
-                {
-                    config.WriteAppSetting("YAF.LegacyMembershipPasswordFormat", passwordFormat);
                 }
             }
             catch (Exception)
