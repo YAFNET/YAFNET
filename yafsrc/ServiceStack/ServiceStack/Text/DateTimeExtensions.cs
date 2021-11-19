@@ -1,74 +1,60 @@
-﻿// ***********************************************************************
+// --------------------------------------------------------------------------------------------------------------------
 // <copyright file="DateTimeExtensions.cs" company="ServiceStack, Inc.">
-//     Copyright (c) ServiceStack, Inc. All Rights Reserved.
+//   Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>
-// <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
-// ***********************************************************************
-
-using System;
-using System.Globalization;
-using ServiceStack.Text.Common;
+// <summary>
+//   Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace ServiceStack.Text
 {
+    using System;
+    using System.Globalization;
+
+    using ServiceStack.Text.Common;
+
     /// <summary>
     /// A fast, standards-based, serialization-issue free DateTime serializer.
     /// </summary>
     public static class DateTimeExtensions
     {
-        /// <summary>
-        /// The unix epoch
-        /// </summary>
         public const long UnixEpoch = 621355968000000000L;
-        /// <summary>
-        /// The unix epoch date time UTC
-        /// </summary>
-        private static readonly DateTime UnixEpochDateTimeUtc = new(UnixEpoch, DateTimeKind.Utc);
-        /// <summary>
-        /// The unix epoch date time unspecified
-        /// </summary>
-        private static readonly DateTime UnixEpochDateTimeUnspecified = new(UnixEpoch, DateTimeKind.Unspecified);
-        /// <summary>
-        /// The minimum date time UTC
-        /// </summary>
-        private static readonly DateTime MinDateTimeUtc = new(1, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        private static readonly DateTime UnixEpochDateTimeUtc = new DateTime(UnixEpoch, DateTimeKind.Utc);
+        private static readonly DateTime UnixEpochDateTimeUnspecified = new DateTime(UnixEpoch, DateTimeKind.Unspecified);
+        private static readonly DateTime MinDateTimeUtc = new DateTime(1, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        /// <summary>
-        /// Froms the unix time.
-        /// </summary>
-        /// <param name="unixTime">The unix time.</param>
-        /// <returns>System.DateTime.</returns>
         public static DateTime FromUnixTime(this int unixTime)
         {
             return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
         }
 
-        /// <summary>
-        /// Converts to unixtimems.
-        /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns>long.</returns>
+        public static DateTime FromUnixTime(this double unixTime)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
+        }
+
+        public static DateTime FromUnixTime(this long unixTime)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromSeconds(unixTime);
+        }
+
+        public static long ToUnixTimeMsAlt(this DateTime dateTime)
+        {
+            return (dateTime.ToStableUniversalTime().Ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
+        }
+
         public static long ToUnixTimeMs(this DateTime dateTime)
         {
             var universal = ToDateTimeSinceUnixEpoch(dateTime);
             return (long)universal.TotalMilliseconds;
         }
 
-        /// <summary>
-        /// Converts to unixtime.
-        /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns>long.</returns>
         public static long ToUnixTime(this DateTime dateTime)
         {
-            return dateTime.ToDateTimeSinceUnixEpoch().Ticks / TimeSpan.TicksPerSecond;
+            return (dateTime.ToDateTimeSinceUnixEpoch().Ticks) / TimeSpan.TicksPerSecond;
         }
 
-        /// <summary>
-        /// Converts to datetimesinceunixepoch.
-        /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns>System.TimeSpan.</returns>
         private static TimeSpan ToDateTimeSinceUnixEpoch(this DateTime dateTime)
         {
             var dtUtc = dateTime;
@@ -83,53 +69,84 @@ namespace ServiceStack.Text
             return universal;
         }
 
-        /// <summary>
-        /// Converts to unixtimems.
-        /// </summary>
-        /// <param name="ticks">The ticks.</param>
-        /// <returns>long.</returns>
         public static long ToUnixTimeMs(this long ticks)
         {
             return (ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
         }
 
-        /// <summary>
-        /// Froms the unix time ms.
-        /// </summary>
-        /// <param name="msSince1970">The ms since1970.</param>
-        /// <returns>System.DateTime.</returns>
+#if NET6_0
+        public static long ToUnixTimeMs(this DateOnly dateOnly) => dateOnly.ToDateTime(default, DateTimeKind.Utc).ToUnixTimeMs(); 
+        public static long ToUnixTime(this DateOnly dateOnly) => dateOnly.ToDateTime(default, DateTimeKind.Utc).ToUnixTime(); 
+#endif
+
+        public static DateTime FromUnixTimeMs(this double msSince1970)
+        {
+            return UnixEpochDateTimeUtc + TimeSpan.FromMilliseconds(msSince1970);
+        }
+
         public static DateTime FromUnixTimeMs(this long msSince1970)
         {
             return UnixEpochDateTimeUtc + TimeSpan.FromMilliseconds(msSince1970);
         }
 
-        /// <summary>
-        /// Froms the unix time ms.
-        /// </summary>
-        /// <param name="msSince1970">The ms since1970.</param>
-        /// <param name="offset">The offset.</param>
-        /// <returns>System.DateTime.</returns>
         public static DateTime FromUnixTimeMs(this long msSince1970, TimeSpan offset)
         {
             return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
         }
 
-        /// <summary>
-        /// Rounds to second.
-        /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns>System.DateTime.</returns>
-        public static DateTime RoundToSecond(this DateTime dateTime)
+        public static DateTime FromUnixTimeMs(this double msSince1970, TimeSpan offset)
         {
-            return new DateTime(dateTime.Ticks / TimeSpan.TicksPerSecond * TimeSpan.TicksPerSecond, dateTime.Kind);
+            return DateTime.SpecifyKind(UnixEpochDateTimeUnspecified + TimeSpan.FromMilliseconds(msSince1970) + offset, DateTimeKind.Local);
         }
 
-        /// <summary>
-        /// Converts to timeoffsetstring.
-        /// </summary>
-        /// <param name="offset">The offset.</param>
-        /// <param name="seperator">The seperator.</param>
-        /// <returns>string.</returns>
+        public static DateTime FromUnixTimeMs(string msSince1970)
+        {
+            long ms;
+            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs();
+
+            // Do we really need to support fractional unix time ms time strings??
+            return double.Parse(msSince1970).FromUnixTimeMs();
+        }
+
+        public static DateTime FromUnixTimeMs(string msSince1970, TimeSpan offset)
+        {
+            long ms;
+            if (long.TryParse(msSince1970, out ms)) return ms.FromUnixTimeMs(offset);
+
+            // Do we really need to support fractional unix time ms time strings??
+            return double.Parse(msSince1970).FromUnixTimeMs(offset);
+        }
+
+        public static DateTime RoundToMs(this DateTime dateTime)
+        {
+            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerMillisecond) * TimeSpan.TicksPerMillisecond, dateTime.Kind);
+        }
+
+        public static DateTime RoundToSecond(this DateTime dateTime)
+        {
+            return new DateTime((dateTime.Ticks / TimeSpan.TicksPerSecond) * TimeSpan.TicksPerSecond, dateTime.Kind);
+        }
+
+        public static DateTime Truncate(this DateTime dateTime, TimeSpan timeSpan)
+        {
+            return dateTime.AddTicks(-(dateTime.Ticks % timeSpan.Ticks));
+        }
+
+        public static string ToShortestXsdDateTimeString(this DateTime dateTime)
+        {
+            return DateTimeSerializer.ToShortestXsdDateTimeString(dateTime);
+        }
+
+        public static DateTime FromShortestXsdDateTimeString(this string xsdDateTime)
+        {
+            return DateTimeSerializer.ParseShortestXsdDateTime(xsdDateTime);
+        }
+
+        public static bool IsEqualToTheSecond(this DateTime dateTime, DateTime otherDateTime)
+        {
+            return dateTime.ToStableUniversalTime().RoundToSecond().Equals(otherDateTime.ToStableUniversalTime().RoundToSecond());
+        }
+
         public static string ToTimeOffsetString(this TimeSpan offset, string seperator = "")
         {
             var hours = Math.Abs(offset.Hours).ToString(CultureInfo.InvariantCulture);
@@ -140,11 +157,6 @@ namespace ServiceStack.Text
                 + (minutes.Length == 1 ? "0" + minutes : minutes);
         }
 
-        /// <summary>
-        /// Froms the time offset string.
-        /// </summary>
-        /// <param name="offsetString">The offset string.</param>
-        /// <returns>System.TimeSpan.</returns>
         public static TimeSpan FromTimeOffsetString(this string offsetString)
         {
             if (!offsetString.Contains(":"))
@@ -155,16 +167,40 @@ namespace ServiceStack.Text
             return TimeSpan.Parse(offsetString);
         }
 
-        /// <summary>
-        /// Converts to stableuniversaltime.
-        /// </summary>
-        /// <param name="dateTime">The date time.</param>
-        /// <returns>System.DateTime.</returns>
         public static DateTime ToStableUniversalTime(this DateTime dateTime)
         {
             if (dateTime.Kind == DateTimeKind.Utc)
                 return dateTime;
-            return dateTime == DateTime.MinValue ? MinDateTimeUtc : PclExport.Instance.ToStableUniversalTime(dateTime);
+            if (dateTime == DateTime.MinValue)
+                return MinDateTimeUtc;
+
+            return PclExport.Instance.ToStableUniversalTime(dateTime);
+        }
+
+        public static string FmtSortableDate(this DateTime from)
+        {
+            return from.ToString("yyyy-MM-dd");
+        }
+
+        public static string FmtSortableDateTime(this DateTime from)
+        {
+            return from.ToString("u");
+        }
+
+        public static DateTime LastMonday(this DateTime from)
+        {
+            var mondayOfWeek = from.Date.AddDays(-(int)from.DayOfWeek + 1);
+            return mondayOfWeek;
+        }
+
+        public static DateTime StartOfLastMonth(this DateTime from)
+        {
+            return new DateTime(from.Date.Year, from.Date.Month, 1).AddMonths(-1);
+        }
+
+        public static DateTime EndOfLastMonth(this DateTime from)
+        {
+            return new DateTime(from.Date.Year, from.Date.Month, 1).AddDays(-1);
         }
     }
 

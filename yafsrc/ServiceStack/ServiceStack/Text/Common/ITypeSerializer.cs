@@ -135,13 +135,13 @@ namespace ServiceStack.Text.Common
         /// </summary>
         /// <param name="writer">The writer.</param>
         /// <param name="dateTimeOffset">The date time offset.</param>
-        void WriteTimeSpan(TextWriter writer, object dateTimeOffset);
+        void WriteTimeSpan(TextWriter writer, object timeSpan);
         /// <summary>
         /// Writes the nullable time span.
         /// </summary>
         /// <param name="writer">The writer.</param>
         /// <param name="dateTimeOffset">The date time offset.</param>
-        void WriteNullableTimeSpan(TextWriter writer, object dateTimeOffset);
+        void WriteNullableTimeSpan(TextWriter writer, object timeSpan);
         /// <summary>
         /// Writes the unique identifier.
         /// </summary>
@@ -244,6 +244,13 @@ namespace ServiceStack.Text.Common
         /// <param name="writer">The writer.</param>
         /// <param name="enumValue">The enum value.</param>
         void WriteEnum(TextWriter writer, object enumValue);
+
+#if NET6_0_OR_GREATER
+        void WriteDateOnly(TextWriter writer, object oDateOnly);
+        void WriteNullableDateOnly(TextWriter writer, object oDateOnly);
+        void WriteTimeOnly(TextWriter writer, object oTimeOnly);
+        void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly);
+#endif
 
         /// <summary>
         /// Gets the parse function.

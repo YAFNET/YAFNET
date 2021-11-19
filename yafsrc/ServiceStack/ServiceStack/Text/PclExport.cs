@@ -51,10 +51,10 @@ namespace ServiceStack.Text
         public static PclExport Instance
 #if NET48
           = new Net48PclExport()
-#elif NETCORE2_1
-          = new NetCorePclExport()
-#else
+#elif NETSTANDARD2_0
           = new NetStandardPclExport()
+#elif NETCORE
+          = new NetCorePclExport()
 #endif
         ;
 

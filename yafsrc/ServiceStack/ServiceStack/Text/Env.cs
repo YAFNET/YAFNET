@@ -29,7 +29,7 @@ namespace ServiceStack.Text
             if (PclExport.Instance == null)
                 throw new ArgumentException("PclExport.Instance needs to be initialized");
 
-#if NETSTANDARD
+#if NETCORE
             IsNetStandard = true;
             try
             {
@@ -85,6 +85,10 @@ namespace ServiceStack.Text
             SupportsDynamic = true;
 #endif
 
+#if NET6_0
+            IsNet6 = true;
+#endif
+
             if (!IsUWP)
             {
                 try
@@ -115,7 +119,9 @@ namespace ServiceStack.Text
             VersionString = ServiceStackVersion.ToString(CultureInfo.InvariantCulture);
 
             ServerUserAgent =
-                $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsMono ? "/Mono" : "")}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}";
+                $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsMono ? "/Mono" : "")}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}{(IsNet6 ? "/net6" : IsNetFramework ? "netfx" : "")}";
+
+            __releaseDate = new DateTime(2001, 01, 01);
         }
 
         /// <summary>
@@ -127,7 +133,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The service stack version
         /// </summary>
-        public static decimal ServiceStackVersion = 5.11m;
+        public static decimal ServiceStackVersion = 5.131m;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is linux.
@@ -201,6 +207,8 @@ namespace ServiceStack.Text
         /// <value><c>true</c> if this instance is net core; otherwise, <c>false</c>.</value>
         public static bool IsNetCore { get; set; }
 
+        public static bool IsNet6 { get; set; }
+
         /// <summary>
         /// Gets a value indicating whether [supports expressions].
         /// </summary>
@@ -245,7 +253,13 @@ namespace ServiceStack.Text
         /// <value><c>true</c> if this instance has multiple platform targets; otherwise, <c>false</c>.</value>
         public static bool HasMultiplePlatformTargets { get; set; }
 
-#if NETSTANDARD
+        private static readonly DateTime __releaseDate;
+        public static DateTime GetReleaseDate()
+        {
+            return __releaseDate;
+        }
+
+#if NETCORE
         private static bool IsRunningAsUwp()
         {
             try
@@ -299,7 +313,7 @@ namespace ServiceStack.Text
                             break;
                         case 0:     // ERROR_SUCCESS
                         case 122:   // ERROR_INSUFFICIENT_BUFFER
-                                    // Success is actually insufficent buffer as we're really only looking for
+                                    // Success is actually insufficient buffer as we're really only looking for
                                     // not NO_APPLICATION and we're not actually giving a buffer here. The
                                     // API will always return NO_APPLICATION if we're not running under a
                                     // WinRT process, no matter what size the buffer is.
@@ -356,30 +370,14 @@ namespace ServiceStack.Text
         public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task) =>
             task.ConfigureAwait(ContinueOnCapturedContext);
 
-        /// <summary>
-        /// Gets the release date.
-        /// </summary>
-        /// <value>The release date.</value>
-        public static DateTime ReleaseDate { get; }
-
-        /// <summary>
-        /// Gets the release date.
-        /// </summary>
-        /// <returns>DateTime.</returns>
-        public static DateTime GetReleaseDate()
-        {
-            return ReleaseDate;
-        }
-
-#if NETSTANDARD || NETCORE
+#if NETCORE
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) =>
+        public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) => 
             task.ConfigureAwait(ContinueOnCapturedContext);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ConfiguredValueTaskAwaitable<T> ConfigAwait<T>(this ValueTask<T> task) =>
+        public static ConfiguredValueTaskAwaitable<T> ConfigAwait<T>(this ValueTask<T> task) => 
             task.ConfigureAwait(ContinueOnCapturedContext);
 #endif
-
     }
 }

@@ -219,6 +219,8 @@ namespace ServiceStack.Text.Json
             CacheFn = typeof(T) == typeof(object)
                 ? JsonWriter.WriteLateBoundObject
                 : JsonWriter.Instance.GetWriteFn<T>();
+
+            JsConfig.AddUniqueType(typeof(T));
         }
 
         /// <summary>
@@ -287,11 +289,16 @@ namespace ServiceStack.Text.Json
         /// <param name="value">The value.</param>
         public static void WriteRootObject(TextWriter writer, object value)
         {
+            GetRootObjectWriteFn(value)(writer, value);
+        }
+
+        public static WriteObjectDelegate GetRootObjectWriteFn(object value)
+        {
             TypeConfig<T>.Init();
             JsonSerializer.OnSerialize?.Invoke(value);
 
             JsState.Depth = 0;
-            CacheFn(writer, value);
+            return CacheFn;
         }
     }
 

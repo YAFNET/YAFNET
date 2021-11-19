@@ -23,7 +23,7 @@ namespace ServiceStack.Text
         /// The instance
         /// </summary>
         public static MemoryProvider Instance =
-#if NETCORE2_1
+#if NETCORE
             ServiceStack.Memory.NetCoreMemory.Provider;
 #else
             DefaultMemory.Provider;

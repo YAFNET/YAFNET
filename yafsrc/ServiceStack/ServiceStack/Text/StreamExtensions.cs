@@ -416,7 +416,7 @@ namespace ServiceStack.Text
         {
             ms.Position = 0;
 
-#if NETSTANDARD || NETCORE2_1
+#if NETCORE
             if (ms.TryGetBuffer(out var buffer))
             {
                 return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count);
@@ -437,6 +437,27 @@ namespace ServiceStack.Text
             return reader.ReadToEnd();
         }
 
+        public static ReadOnlySpan<byte> GetBufferAsSpan(this MemoryStream ms)
+        {
+#if NETCORE
+            if (ms.TryGetBuffer(out var buffer))
+            {
+                return new ReadOnlySpan<byte>(buffer.Array, buffer.Offset, buffer.Count);
+            }
+#else
+            try
+            {
+                return new ReadOnlySpan<byte>(ms.GetBuffer(), 0, (int) ms.Length);
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+#endif
+
+            Tracer.Instance.WriteWarning("MemoryStream in GetBufferAsSpan() wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
+            return new ReadOnlySpan<byte>(ms.ToArray());
+        }
+
         /// <summary>
         /// Gets the buffer as memory.
         /// </summary>
@@ -444,7 +465,7 @@ namespace ServiceStack.Text
         /// <returns>System.ReadOnlyMemory&lt;byte&gt;.</returns>
         public static ReadOnlyMemory<byte> GetBufferAsMemory(this MemoryStream ms)
         {
-#if NETSTANDARD || NETCORE2_1
+#if NETCORE
             if (ms.TryGetBuffer(out var buffer))
             {
                 return new ReadOnlyMemory<byte>(buffer.Array, buffer.Offset, buffer.Count);
@@ -470,7 +491,7 @@ namespace ServiceStack.Text
         /// <returns>byte[].</returns>
         public static byte[] GetBufferAsBytes(this MemoryStream ms)
         {
-#if NETSTANDARD || NETCORE2_1
+#if NETCORE
             if (ms.TryGetBuffer(out var buffer))
             {
                 return buffer.Array;
@@ -505,7 +526,7 @@ namespace ServiceStack.Text
         {
             ms.Position = 0;
 
-#if NETSTANDARD || NETCORE2_1
+#if NETCORE
             if (ms.TryGetBuffer(out var buffer))
             {
                 return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count).InTask();
@@ -598,7 +619,7 @@ namespace ServiceStack.Text
         /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task WriteToAsync(this MemoryStream stream, Stream output, Encoding encoding, CancellationToken token)
         {
-#if NETSTANDARD || NETCORE2_1
+#if NETCORE
             if (stream.TryGetBuffer(out var buffer))
             {
                 await output.WriteAsync(buffer.Array, buffer.Offset, buffer.Count, token).ConfigAwait();

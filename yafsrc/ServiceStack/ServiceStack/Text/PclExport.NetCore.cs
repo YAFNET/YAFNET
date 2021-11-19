@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NETCORE2_1
+#if NETCORE && !NETSTANDARD2_0
 
 using System;
 using ServiceStack.Text;
@@ -18,17 +18,6 @@ namespace ServiceStack
         {
             this.PlatformName = Platforms.NetCore;
             ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;            
-        }
-
-        public override ParseStringDelegate GetJsReaderParseMethod<TSerializer>(Type type)
-        {
-            if (type.IsAssignableFrom(typeof(System.Dynamic.IDynamicMetaObjectProvider)) ||
-                type.HasInterface(typeof(System.Dynamic.IDynamicMetaObjectProvider)))
-            {
-                return DeserializeDynamic<TSerializer>.Parse;
-            }
-
-            return null;
         }
 
         public override ParseStringSpanDelegate GetJsReaderParseStringSpanMethod<TSerializer>(Type type)

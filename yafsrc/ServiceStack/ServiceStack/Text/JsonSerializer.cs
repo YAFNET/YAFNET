@@ -123,9 +123,10 @@ namespace ServiceStack.Text
             }
             if (typeof(T).IsAbstract || typeof(T).IsInterface)
             {
+                var prevState = JsState.IsWritingDynamic;
                 JsState.IsWritingDynamic = true;
                 var result = SerializeToString(value, value.GetType());
-                JsState.IsWritingDynamic = false;
+                JsState.IsWritingDynamic = prevState;
                 return result;
             }
 
@@ -136,7 +137,7 @@ namespace ServiceStack.Text
             }
             else
             {
-                JsonWriter<T>.WriteRootObject(writer, value);
+                WriteObjectToWriter(value, JsonWriter<T>.GetRootObjectWriteFn(value), writer);
             }
             return StringWriterThreadStatic.ReturnAndFree(writer);
         }
@@ -159,7 +160,7 @@ namespace ServiceStack.Text
             else
             {
                 OnSerialize?.Invoke(value);
-                JsonWriter.GetWriteFn(type)(writer, value);
+                WriteObjectToWriter(value, JsonWriter.GetWriteFn(type), writer);
             }
             return StringWriterThreadStatic.ReturnAndFree(writer);
         }
@@ -180,7 +181,7 @@ namespace ServiceStack.Text
             }
 
             OnSerialize?.Invoke(value);
-            JsonWriter.GetWriteFn(type)(writer, value);
+            WriteObjectToWriter(value, JsonWriter.GetWriteFn(type), writer);
         }
 
         /// <summary>
@@ -198,14 +199,15 @@ namespace ServiceStack.Text
             }
             else if (typeof(T).IsAbstract || typeof(T).IsInterface)
             {
+                var prevState = JsState.IsWritingDynamic;
                 JsState.IsWritingDynamic = false;
                 SerializeToStream(value, value.GetType(), stream);
-                JsState.IsWritingDynamic = true;
+                JsState.IsWritingDynamic = prevState;
             }
             else
             {
                 var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, true);
-                JsonWriter<T>.WriteRootObject(writer, value);
+                WriteObjectToWriter(value, JsonWriter<T>.GetRootObjectWriteFn(value), writer);
                 writer.Flush();
             }
         }
@@ -220,8 +222,26 @@ namespace ServiceStack.Text
         {
             OnSerialize?.Invoke(value);
             var writer = new StreamWriter(stream, JsConfig.UTF8Encoding, BufferSize, true);
-            JsonWriter.GetWriteFn(type)(writer, value);
+            WriteObjectToWriter(value, JsonWriter.GetWriteFn(type), writer);
             writer.Flush();
+        }
+
+        private static void WriteObjectToWriter(object value, WriteObjectDelegate serializeFn, TextWriter writer)
+        {
+            if (!JsConfig.Indent)
+            {
+                serializeFn(writer, value);
+            }
+            else
+            {
+                var sb = StringBuilderCache.Allocate();
+                using var captureJson = new StringWriter(sb);
+                serializeFn(captureJson, value);
+                captureJson.Flush();
+                var json = StringBuilderCache.ReturnAndFree(sb);
+                var indentJson = json.IndentJson();
+                writer.Write(indentJson);
+            }
         }
 
         /// <summary>

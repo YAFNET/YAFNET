@@ -23,7 +23,7 @@ namespace ServiceStack.Text
 
         private readonly JsConfigScope parent;
 
-#if NETSTANDARD        
+#if NETCORE        
         private static AsyncLocal<JsConfigScope> head = new AsyncLocal<JsConfigScope>();
 #else
         [ThreadStatic] private static JsConfigScope head;
@@ -33,7 +33,7 @@ namespace ServiceStack.Text
         {
             PclExport.Instance.BeginThreadAffinity();
 
-#if NETSTANDARD        
+#if NETCORE        
             parent = head.Value;
             head.Value = this;
 #else
@@ -43,7 +43,7 @@ namespace ServiceStack.Text
         }
 
         internal static JsConfigScope Current =>
-#if NETSTANDARD
+#if NETCORE
             head.Value;
 #else
             head;
@@ -57,7 +57,7 @@ namespace ServiceStack.Text
             if (!disposed)
             {
                 disposed = true;
-#if NETSTANDARD        
+#if NETCORE        
                 head.Value = parent;
 #else
                 head = parent;
@@ -181,6 +181,8 @@ namespace ServiceStack.Text
         /// 
         /// </summary>
         public bool IncludeTypeInfo { get; set; }
+
+        public bool Indent { get; set; }
 
         private string typeAttr;
         /// <summary>
@@ -323,6 +325,7 @@ namespace ServiceStack.Text
             TreatEnumAsInteger = false,
             ExcludeTypeInfo = false,
             IncludeTypeInfo = false,
+            Indent = false,
             TypeAttr = JsWriter.TypeAttr,
             DateTimeFormat = null,
             TypeWriter = AssemblyUtils.WriteType,
@@ -372,6 +375,7 @@ namespace ServiceStack.Text
             TreatEnumAsInteger = config.TreatEnumAsInteger;
             ExcludeTypeInfo = config.ExcludeTypeInfo;
             IncludeTypeInfo = config.IncludeTypeInfo;
+            Indent = config.Indent;
             TypeAttr = config.TypeAttr;
             DateTimeFormat = config.DateTimeFormat;
             TypeWriter = config.TypeWriter;

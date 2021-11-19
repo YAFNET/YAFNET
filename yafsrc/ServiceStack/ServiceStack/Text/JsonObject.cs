@@ -127,7 +127,7 @@ namespace ServiceStack.Text
     /// Implements the <see cref="string" />
     /// </summary>
     /// <seealso cref="string" />
-    public class JsonObject : Dictionary<string, string>
+    public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<string, string>>
     {
         /// <summary>
         /// Get JSON string value
@@ -138,6 +138,30 @@ namespace ServiceStack.Text
         {
             get => this.Get(key);
             set => base[key] = value;
+        }
+
+        public new Enumerator GetEnumerator()
+        {
+            var to = new Dictionary<string, string>();
+            foreach (var key in Keys)
+            {
+                to[key] = this[key];
+            }
+            return to.GetEnumerator();
+        }
+
+        IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
+            => GetEnumerator();
+
+        public Dictionary<string, string> ToUnescapedDictionary()
+        {
+            var to = new Dictionary<string, string>();
+            var enumerateAsConcreteDict = (Dictionary<string, string>)this;
+            foreach (var entry in enumerateAsConcreteDict)
+            {
+                to[entry.Key] = entry.Value;
+            }
+            return to;
         }
 
         /// <summary>

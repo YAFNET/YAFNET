@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NETCORE2_1
+#if NETCORE
 
 using System;
 using System.Buffers.Text;
@@ -22,7 +22,7 @@ namespace ServiceStack.Memory
     public sealed class NetCoreMemory : MemoryProvider
     {
         private static NetCoreMemory provider;
-        public static NetCoreMemory Provider => provider ?? (provider = new NetCoreMemory());
+        public static NetCoreMemory Provider => provider ??= new NetCoreMemory();
         private NetCoreMemory() { }
         
         public static void Configure() => Instance = Provider;

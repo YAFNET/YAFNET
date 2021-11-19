@@ -991,7 +991,7 @@ namespace ServiceStack.Text
             if (string.IsNullOrEmpty(fileNameOrExt))
                 throw new ArgumentNullException(nameof(fileNameOrExt));
 
-            var fileExt = fileNameOrExt.LastRightPart('.');
+            var fileExt = fileNameOrExt.LastRightPart('.').ToLower();
             if (ExtensionMimeTypes.TryGetValue(fileExt, out var mimeType))
             {
                 return mimeType;

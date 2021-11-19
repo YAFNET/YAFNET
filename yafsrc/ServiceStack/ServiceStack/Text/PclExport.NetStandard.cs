@@ -1,7 +1,7 @@
 //Copyright (c) ServiceStack, Inc. All Rights Reserved.
 //License: https://raw.github.com/ServiceStack/ServiceStack/master/license.txt
 
-#if NET5_0
+#if NETCORE
 using System;
 using System.Collections.Generic;
 using System.IO;

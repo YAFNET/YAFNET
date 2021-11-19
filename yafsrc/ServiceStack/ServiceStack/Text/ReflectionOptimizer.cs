@@ -20,7 +20,7 @@ namespace ServiceStack.Text
         /// The instance
         /// </summary>
         public static ReflectionOptimizer Instance =
-#if NET48 || NETCORE2_1
+#if NET48 || NETCORE
             EmitReflectionOptimizer.Provider
 #else
             ExpressionReflectionOptimizer.Provider

@@ -117,6 +117,7 @@ namespace ServiceStack.Text.Json
                 return;
 
             ReadFn = JsonReader.Instance.GetParseStringSpanFn<T>();
+            JsConfig.AddUniqueType(typeof(T));
         }
 
         /// <summary>

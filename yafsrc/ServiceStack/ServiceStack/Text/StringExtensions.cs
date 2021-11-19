@@ -1181,28 +1181,6 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Replaces all.
-        /// </summary>
-        /// <param name="haystack">The haystack.</param>
-        /// <param name="needle">The needle.</param>
-        /// <param name="replacement">The replacement.</param>
-        /// <returns>string.</returns>
-        public static string ReplaceAll(this string haystack, string needle, string replacement)
-        {
-            int pos;
-            // Avoid a possible infinite loop
-            if (needle == replacement)
-                return haystack;
-            while ((pos = haystack.IndexOf(needle, StringComparison.Ordinal)) >= 0)
-            {
-                haystack = haystack.Substring(0, pos)
-                           + replacement
-                           + haystack.Substring(pos + needle.Length);
-            }
-            return haystack;
-        }
-
-        /// <summary>
         /// Determines whether the specified text contains any.
         /// </summary>
         /// <param name="text">The text.</param>
