@@ -62,16 +62,15 @@ namespace YAF.Core.Modules
         {
             CodeContracts.VerifyNotNull(builder);
 
-
-            builder.Register(c => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>()
-                .InstancePerBoardContext();
-            builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerBoardContext();
+            builder.Register(_ => new HttpContextWrapper(HttpContext.Current)).As<HttpContextBase>()
+                .InstancePerLifetimeScope();
+            builder.Register(c => c.Resolve<HttpContextBase>().Request).As<HttpRequestBase>().InstancePerLifetimeScope();
             builder.Register(c => c.Resolve<HttpContextBase>().Response).As<HttpResponseBase>()
-                .InstancePerBoardContext();
+                .InstancePerLifetimeScope();
             builder.Register(c => c.Resolve<HttpContextBase>().Server).As<HttpServerUtilityBase>()
-                .InstancePerBoardContext();
+                .InstancePerLifetimeScope();
             builder.Register(c => c.Resolve<HttpContextBase>().Session).As<HttpSessionStateBase>()
-                .InstancePerBoardContext();
+                .InstancePerLifetimeScope();
         }
 
         #endregion
