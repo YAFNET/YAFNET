@@ -8,10 +8,14 @@
 
 (function() {
     CKEDITOR.plugins.add("codemirror", {
-        icons: "searchcode,autoformat,commentselectedrange,uncommentselectedrange,autocomplete", // %REMOVE_LINE_CORE%
         lang: "af,ar,bg,bn,bs,ca,cs,cy,da,de,el,en-au,en-ca,en-gb,en,eo,es,et,eu,fa,fi,fo,fr-ca,fr,gl,gu,he,hi,hr,hu,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt-br,pt,ro,ru,sk,sl,sr-latn,sr,sv,th,tr,ug,uk,vi,zh-cn,zh", // %REMOVE_LINE_CORE%
-        version: "1.17.14",
+        version: "1.18.1",
         init: function (editor) {
+            var command = editor.addCommand("codemirrorAbout", new CKEDITOR.dialogCommand("codemirrorAboutDialog"));
+            command.modes = { wysiwyg: 1, source: 1 };
+
+            CKEDITOR.dialog.add('codemirrorAboutDialog', this.path + 'dialogs/codemirrorAbout.js');
+
             var rootPath = this.path,
                 defaultConfig = {
                     autoCloseBrackets: true,
@@ -42,7 +46,7 @@
                     useBeautifyOnStart: false,
                     hintOptions: null,
                     extraKeys: {
-                        "Ctrl-Space":
+						"Ctrl-Space":
                             "autocomplete",
                         "Ctrl-Q": function (codeMirror_Editor) {
                             if (config.enableCodeFolding) {
@@ -273,7 +277,7 @@
                         minWidth: minWidth,
                         minHeight: minHeight,
                         resizable: CKEDITOR.DIALOG_RESIZE_BOTH,
-                        onLoad: function() {
+                        onLoad: function () {
                             this.on("resize",
                                 function (event) {
                                     var parts = event.sender.parts;
@@ -308,18 +312,18 @@
                                     !IsStyleSheetAlreadyLoaded(rootPath + "theme/" + config.theme + ".css")) {
                                     CKEDITOR.document.appendStyleSheet(rootPath + "theme/" + config.theme + ".css");
                                 }
-                                if(requirePresent) {
-                                    pluginRequire(getCodeMirrorDependencies(),function (codemirror, addons){
+                                if (requirePresent) {
+                                    pluginRequire(getCodeMirrorDependencies(), function (codemirror, addons) {
                                         loadCodeMirrorInline(editor, textArea, event.sender);
                                     });
                                 } else {
                                     if (typeof (CodeMirror) == "undefined") {
 
                                         CKEDITOR.scriptLoader.load(rootPath + "js/codemirror.min.js",
-                                            function() {
+                                            function () {
 
                                                 CKEDITOR.scriptLoader.load(getCodeMirrorScripts(),
-                                                    function() {
+                                                    function () {
                                                         loadCodeMirrorInline(editor, textArea, event.sender);
                                                     });
                                             });
@@ -331,7 +335,7 @@
                                         } else {
                                             // loading the add-on scripts.
                                             CKEDITOR.scriptLoader.load(getCodeMirrorScripts(),
-                                                function() {
+                                                function () {
                                                     loadCodeMirrorInline(editor, textArea, event.sender);
                                                 });
                                         }
@@ -407,9 +411,19 @@
                                             id: "searchCode",
                                             label: "",
                                             title: lang.searchCode,
-                                            'class': "searchCodeButton",
-                                            onClick: function() {
+                                            'class': "searchCodeButton cke_button_icon",
+                                            onClick: function () {
                                                 CodeMirror.commands.find(window["codemirror_" + editor.id]);
+                                            }
+                                        },
+                                        {
+                                            type: "button",
+                                            id: "replaceCode",
+                                            label: "",
+                                            title: lang.replaceCode,
+                                            'class': "replaceCodeButton",
+                                            onClick: function () {
+                                                CodeMirror.commands.replace(window["codemirror_" + editor.id]);
                                             }
                                         }, {
                                             type: "button",
@@ -417,7 +431,7 @@
                                             label: "",
                                             title: lang.autoFormat,
                                             'class': "autoFormat",
-                                            onClick: function() {
+                                            onClick: function () {
                                                 var range = {
                                                     from: window["codemirror_" + editor.id].getCursor(true),
                                                     to: window["codemirror_" + editor.id].getCursor(false)
@@ -452,6 +466,15 @@
                                                 if (window["codemirror_" + editor.id].config.autoFormatOnUncomment) {
                                                     window["codemirror_" + editor.id].autoFormatRange(range.from, range.to);
                                                 }
+                                            }
+                                        }, {
+                                            type: "button",
+                                            id: "codemirrorAbout",
+                                            label: "",
+                                            title: lang.dlgTitle,
+                                            'class': "codemirrorAbout",
+                                            onClick: function () {
+                                                editor.execCommand("codemirrorAbout");
                                             }
                                         }]
                                 }, {
@@ -878,17 +901,16 @@
                 }
 
                 function addCKEditorKeystrokes(editorExtraKeys) {
-                    var ckeditorKeystrokes = editor.config.keystrokes;
-                    if (CKEDITOR.tools.isArray(ckeditorKeystrokes)) {
-                        for (var i = 0; i < ckeditorKeystrokes.length; i++) {
-                            var key = getCodeMirrorKey(ckeditorKeystrokes[i][0]);
-                            if (key !== null) {
-                                (function (command) {
-                                    editorExtraKeys[key] = function () {
-                                        editor.execCommand(command);
-                                    }
-                                })(ckeditorKeystrokes[i][1]);
-                            }
+                    var ckeditorKeystrokes = editor.keystrokeHandler.keystrokes;
+
+                    for (var i in ckeditorKeystrokes) {
+                        var key = getCodeMirrorKey(i);
+						if (key !== null && key !== 'Enter') {
+                            (function (command) {
+                                editorExtraKeys[key] = function () {
+                                    editor.execCommand(command);
+                                }
+                            })(ckeditorKeystrokes[i]);
                         }
                     }
                 }
@@ -1015,15 +1037,17 @@
                     if (config.showFormatButton || config.showCommentButton || config.showUncommentButton || config.showSearchButton) {
                         editor.ui.add("-", CKEDITOR.UI_SEPARATOR, { toolbar: "mode,30" });
                     }
-                    if (config.showSearchButton && config.enableSearchTools) {
+                    /*if (config.showSearchButton && config.enableSearchTools) {
                         editor.ui.addButton("searchCode", {
+                            icon: this.path + "icons/searchcode.svg",
                             label: lang.searchCode,
                             command: "searchCode",
                             toolbar: "mode,40"
                         });
-                    }
+                    }*/
                     if (config.showFormatButton) {
                         editor.ui.addButton("autoFormat", {
+                            icon: this.path + "icons/autoformat.svg",
                             label: lang.autoFormat,
                             command: "autoFormat",
                             toolbar: "mode,50"
@@ -1031,6 +1055,7 @@
                     }
                     if (config.showCommentButton) {
                         editor.ui.addButton("CommentSelectedRange", {
+                            icon: this.path + "icons/commentselectedrange.svg",
                             label: lang.commentSelectedRange,
                             command: "commentSelectedRange",
                             toolbar: "mode,60"
@@ -1038,6 +1063,7 @@
                     }
                     if (config.showUncommentButton) {
                         editor.ui.addButton("UncommentSelectedRange", {
+                            icon: this.path + "icons/uncommentselectedrange.svg",
                             label: lang.uncommentSelectedRange,
                             command: "uncommentSelectedRange",
                             toolbar: "mode,70"
@@ -1045,11 +1071,19 @@
                     }
                     if (config.showAutoCompleteButton) {
                         editor.ui.addButton("AutoComplete", {
+                            icon: this.path + "icons/autocomplete.svg",
                             label: lang.autoCompleteToggle,
                             command: "autoCompleteToggle",
                             toolbar: "mode,80"
                         });
                     }
+
+                    editor.ui.addButton("codemirrorAbout", {
+                        icon: this.path + "icons/codemirror.svg",
+                        label: lang.dlgTitle,
+                        command: "codemirrorAbout",
+                        toolbar: "mode,90"
+                    });
                 }
             }
 
