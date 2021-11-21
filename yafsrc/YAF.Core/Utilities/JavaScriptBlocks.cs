@@ -646,6 +646,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
+                          keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
                           mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
                                          outputTemplate: '@[userlink]{{name}}[/userlink]'
@@ -654,6 +655,18 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
 
                       {Config.JQueryAlias}(""a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']"").click(function () {{
                           yafCKEditor.editor.updateElement();
+                      }});
+
+                      yafCKEditor.editor.addCommand( 'postMessage', {{
+                              modes: {{ wysiwyg: 1, source: 1 }},
+                              exec: function( editor ) {{
+                                    editor.updateElement();
+                                    if ($('[id*=""PostReply""]').length) {{
+                                        window.location.href = $('[id *= ""PostReply""]').attr(""href"");
+                                    }} else if ($('[id*=""_Save""]').length) {{
+                                        window.location.href = $('[id *= ""Save""]').attr(""href"");
+                                    }}
+                              }}
                       }});
                   }});
 
@@ -716,6 +729,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
                           codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
+                          keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
                           mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
                                          outputTemplate: '@[userlink]{{name}}[/userlink]'
@@ -725,6 +739,18 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           {Config.JQueryAlias}(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']"").click(function () {{
                               yafCKEditor.editor.updateElement();
                           }});
+
+                          yafCKEditor.editor.addCommand( 'postMessage', {{
+                              modes: {{ wysiwyg: 1, source: 1 }},
+                              exec: function( editor ) {{
+                                    editor.updateElement();
+                                    if ($('[id*=""QuickReply""]').length) {{
+                                        $('[id*=""QuickReply""]').click();
+                                    }} else if ($('[id*=""_SignatureEdit""]').length) {{
+                                        $('[id*=""_SignatureEdit""]').click();
+                                    }}
+                              }}
+                      }});
                   }});";
         }
 
@@ -1307,7 +1333,8 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             [NotNull] string no,
             [NotNull] string link)
         {
-            return $@"bootbox.confirm({{
+            return $@"document.addEventListener('DOMContentLoaded', function() {{
+                        bootbox.confirm({{
                 centerVertical: true,
                 title: '{title}',
                 message: '{text}',
@@ -1327,7 +1354,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     }}
                 }}
             }}
-        );";
+        );}})";
         }
 
         /// <summary>
