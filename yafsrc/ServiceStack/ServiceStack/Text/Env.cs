@@ -120,8 +120,6 @@ namespace ServiceStack.Text
 
             ServerUserAgent =
                 $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsMono ? "/Mono" : "")}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}{(IsNet6 ? "/net6" : IsNetFramework ? "netfx" : "")}";
-
-            __releaseDate = new DateTime(2001, 01, 01);
         }
 
         /// <summary>
@@ -133,7 +131,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The service stack version
         /// </summary>
-        public static decimal ServiceStackVersion = 5.131m;
+        public static decimal ServiceStackVersion = 5.133m;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is linux.
@@ -231,6 +229,7 @@ namespace ServiceStack.Text
         /// The strict mode
         /// </summary>
         private static bool strictMode;
+
         /// <summary>
         /// Gets or sets a value indicating whether [strict mode].
         /// </summary>
@@ -253,11 +252,13 @@ namespace ServiceStack.Text
         /// <value><c>true</c> if this instance has multiple platform targets; otherwise, <c>false</c>.</value>
         public static bool HasMultiplePlatformTargets { get; set; }
 
-        private static readonly DateTime __releaseDate;
-        public static DateTime GetReleaseDate()
-        {
-            return __releaseDate;
-        }
+        /// <summary>
+        /// The get release date.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="DateTime"/>.
+        /// </returns>
+        public static DateTime GetReleaseDate() => new(2001, 01, 01);
 
 #if NETCORE
         private static bool IsRunningAsUwp()
