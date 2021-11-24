@@ -21,6 +21,9 @@ namespace ServiceStack.DataAnnotations
         /// </summary>
         /// <value>The SQL.</value>
         public string Sql { get; set; }
+        public int Order { get; set; }
+
+        public CustomFieldAttribute() { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CustomFieldAttribute"/> class.

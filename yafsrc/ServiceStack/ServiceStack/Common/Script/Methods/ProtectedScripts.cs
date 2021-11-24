@@ -930,20 +930,6 @@ namespace ServiceStack.Script
         public FileSystemVirtualFiles vfsFileSystem(string dirPath) => new(dirPath);
 
         /// <summary>
-        /// VFSs the gist.
-        /// </summary>
-        /// <param name="gistId">The gist identifier.</param>
-        /// <returns>GistVirtualFiles.</returns>
-        public GistVirtualFiles vfsGist(string gistId) => new(gistId);
-        /// <summary>
-        /// VFSs the gist.
-        /// </summary>
-        /// <param name="gistId">The gist identifier.</param>
-        /// <param name="accessToken">The access token.</param>
-        /// <returns>GistVirtualFiles.</returns>
-        public GistVirtualFiles vfsGist(string gistId, string accessToken) => new(gistId, accessToken);
-
-        /// <summary>
         /// Oses the paths.
         /// </summary>
         /// <param name="path">The path.</param>

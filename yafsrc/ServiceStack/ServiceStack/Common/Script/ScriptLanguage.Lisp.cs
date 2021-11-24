@@ -293,16 +293,6 @@ namespace ServiceStack.Script
             var interp = scope.GetLispInterpreter();
             return interp.Globals.Keys.Map(x => x.Name).OrderBy(x => x).ToList();
         }
-
-        /// <summary>
-        /// Gistindexes the specified scope.
-        /// </summary>
-        /// <param name="scope">The scope.</param>
-        /// <returns>List&lt;GistLink&gt;.</returns>
-        public List<GistLink> gistindex(ScriptScopeContext scope)
-        {
-            return Lisp.Interpreter.GetGistIndexLinks(scope);
-        }
     }
 
     /// <summary>
@@ -2139,31 +2129,6 @@ namespace ServiceStack.Script
             }
 
             /// <summary>
-            /// Downloads the cached gist.
-            /// </summary>
-            /// <param name="scope">The scope.</param>
-            /// <param name="gistId">The gist identifier.</param>
-            /// <param name="force">if set to <c>true</c> [force].</param>
-            /// <returns>GithubGist.</returns>
-            private static GithubGist DownloadCachedGist(ScriptScopeContext scope, string gistId, bool force = false)
-            {
-                var gistUrl = GitHubGateway.ApiBaseUrl.CombineWith($"gists/{gistId}");
-                var gistJson = DownloadCachedUrl(scope, gistUrl, "gist_", force);
-                var gist = JsonSerializer.DeserializeFromSpan<GithubGist>(gistJson.Span);
-                return gist;
-            }
-
-            /// <summary>
-            /// Gets the gist contents.
-            /// </summary>
-            /// <param name="scope">The scope.</param>
-            /// <param name="gistFile">The gist file.</param>
-            /// <returns>System.String.</returns>
-            private static string GetGistContents(ScriptScopeContext scope, GistFile gistFile) => IsTruncated(gistFile)
-                ? DownloadCachedUrl(scope, gistFile.Raw_Url, "gist_file_").ToString()
-                : gistFile.Content;
-
-            /// <summary>
             /// Load examples:
             /// - file.l
             /// - virtual/path/file.l
@@ -2201,91 +2166,6 @@ namespace ServiceStack.Script
                         var textContents = DownloadCachedUrl(scope, path, "url_");
                         return textContents;
                     }
-
-                    if (path.StartsWith("gist:"))
-                    {
-                        var cachedContents = GetCachedContents(scope, path, "gist_", out var vfsCache, out var cachedPath);
-                        if (cachedContents != null)
-                            return cachedContents.Value;
-
-                        var gistId = path.RightPart(':');
-                        var specificFile = gistId.IndexOf('/') >= 0
-                            ? gistId.RightPart('/')
-                            : null;
-                        gistId = gistId.LeftPart('/');
-
-                        var gist = DownloadCachedGist(scope, gistId);
-
-                        if (specificFile != null)
-                        {
-                            if (!gist.Files.TryGetValue(specificFile, out var gistFile))
-                                throw new NotSupportedException($"File '{specificFile}' does not exist in gist '{gistId}'");
-
-                            var contents = GetGistContents(scope, gistFile);
-                            return WriteCacheFile(scope, vfsCache, cachedPath, contents.AsMemory());
-                        }
-
-                        var sb = StringBuilderCache.Allocate();
-                        foreach (var entry in gist.Files)
-                        {
-                            var contents = GetGistContents(scope, entry.Value);
-                            sb.AppendLine(contents);
-                        }
-                        return WriteCacheFile(scope, vfsCache, cachedPath, StringBuilderCache.ReturnAndFree(sb).AsMemory());
-                    }
-
-                    if (path.StartsWith("index:"))
-                    {
-                        var cachedContents = GetCachedContents(scope, path, "index_", out var vfsCache, out var cachedPath);
-                        if (cachedContents != null)
-                            return cachedContents.Value;
-
-                        if (IndexGistId == null)
-                            throw new NotSupportedException("IndexGistId is unspecified");
-
-                        var indexName = path.RightPart(':');
-                        indexName = path.RightPart(':');
-                        var specificFile = indexName.IndexOf('/') >= 0
-                            ? indexName.RightPart('/')
-                            : null;
-                        indexName = indexName.LeftPart('/');
-
-                        var indexLinks = GetGistIndexLinks(scope);
-                        var indexLink = indexLinks.FirstOrDefault(x => x.Name == indexName);
-
-                        // If can't find named link index.md could be stale, re-download and cache
-                        if (indexLink == null)
-                        {
-                            indexLinks = GetGistIndexLinks(scope, force: true);
-                            indexLink = indexLinks.FirstOrDefault(x => x.Name == indexName);
-
-                            if (indexLink == null)
-                                throw new NotSupportedException($"Could not resolve '{indexName}' from Gist Index '{IndexGistId}'");
-                        }
-
-                        if (!indexLink.Url.StartsWith("https://gist.github.com/"))
-                            throw new NotSupportedException($"{indexName} '{indexLink.Url}' is not a Gist URL");
-
-                        var gistId = indexLink.Url.LastRightPart('/');
-                        var gist = DownloadCachedGist(scope, gistId);
-
-                        if (specificFile != null)
-                        {
-                            if (!gist.Files.TryGetValue(specificFile, out var gistFile))
-                                throw new NotSupportedException($"File '{specificFile}' does not exist in gist '{gistId}'");
-
-                            var contents = GetGistContents(scope, gistFile);
-                            return WriteCacheFile(scope, vfsCache, cachedPath, contents.AsMemory());
-                        }
-
-                        var sb = StringBuilderCache.Allocate();
-                        foreach (var entry in gist.Files)
-                        {
-                            var contents = GetGistContents(scope, entry.Value);
-                            sb.AppendLine(contents);
-                        }
-                        return WriteCacheFile(scope, vfsCache, cachedPath, StringBuilderCache.ReturnAndFree(sb).AsMemory());
-                    }
                 }
 
                 var file = scope.Context.VirtualFiles.GetFile(path);
@@ -2295,31 +2175,6 @@ namespace ServiceStack.Script
                 var lisp = file.GetTextContentsAsMemory();
                 return lisp;
             }
-
-            /// <summary>
-            /// Gets the gist index links.
-            /// </summary>
-            /// <param name="scope">The scope.</param>
-            /// <param name="force">if set to <c>true</c> [force].</param>
-            /// <returns>List&lt;GistLink&gt;.</returns>
-            /// <exception cref="System.NotSupportedException">IndexGistId '{IndexGistId}' does not contain index.md</exception>
-            internal static List<GistLink> GetGistIndexLinks(ScriptScopeContext scope, bool force = false)
-            {
-                var gistIndex = DownloadCachedGist(scope, IndexGistId, force);
-                if (!gistIndex.Files.TryGetValue("index.md", out var indexGistFile))
-                    throw new NotSupportedException($"IndexGistId '{IndexGistId}' does not contain index.md");
-
-                var indexGistContents = GetGistContents(scope, indexGistFile);
-                var indexLinks = GistLink.Parse(indexGistContents);
-                return indexLinks;
-            }
-
-            /// <summary>
-            /// Determines whether the specified f is truncated.
-            /// </summary>
-            /// <param name="f">The f.</param>
-            /// <returns><c>true</c> if the specified f is truncated; otherwise, <c>false</c>.</returns>
-            private static bool IsTruncated(GistFile f) => (string.IsNullOrEmpty(f.Content) || f.Content.Length < f.Size) && f.Truncated;
 
             /// <summary>
             /// The gensym counter

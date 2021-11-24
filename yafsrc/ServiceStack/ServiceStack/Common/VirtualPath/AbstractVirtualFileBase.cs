@@ -288,15 +288,6 @@ namespace ServiceStack
             vfs.GetVirtualFileSource<FileSystemVirtualFiles>();
 
         /// <summary>
-        /// Gets the gist virtual files.
-        /// </summary>
-        /// <param name="vfs">The VFS.</param>
-        /// <returns>GistVirtualFiles.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static GistVirtualFiles GetGistVirtualFiles(this IVirtualPathProvider vfs) =>
-            vfs.GetVirtualFileSource<GistVirtualFiles>();
-
-        /// <summary>
         /// Gets the resource virtual files.
         /// </summary>
         /// <param name="vfs">The VFS.</param>
@@ -337,29 +328,6 @@ namespace ServiceStack
                         ? MemoryProvider.Instance.ToUtf8(s.AsSpan())
                         : file.ReadAllBytes().AsMemory();
             return span;
-        }
-
-        /// <summary>
-        /// Gets the bytes contents as bytes.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns>System.Byte[].</returns>
-        public static byte[] GetBytesContentsAsBytes(this IVirtualFile file)
-        {
-            if (file is InMemoryVirtualFile m)
-                return m.ByteContents ?? MemoryProvider.Instance.ToUtf8Bytes(m.TextContents.AsSpan());
-            if (file is GistVirtualFile g && g.Stream != null)
-                return ((MemoryStream)g.Stream).GetBufferAsBytes();
-
-            var contents = file.GetContents();
-            var bytes = contents is ReadOnlyMemory<byte> rom
-                ? rom.ToArray()
-                : contents is ReadOnlyMemory<char> romChars
-                    ? MemoryProvider.Instance.ToUtf8(romChars.Span).ToArray()
-                    : contents is string s
-                        ? MemoryProvider.Instance.ToUtf8(s.AsSpan()).ToArray()
-                        : file.ReadAllBytes();
-            return bytes;
         }
 
     }
