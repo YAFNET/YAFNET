@@ -75,7 +75,7 @@ namespace YAF.Core.Model
             }
 
             repository.Save("maxusers", count, boardId);
-            repository.Save("maxuserswhen", DateTime.UtcNow, boardId);
+            repository.Save("maxuserswhen", DateTime.UtcNow.ToString("u"), boardId);
         }
 
         /// <summary>
@@ -269,15 +269,19 @@ namespace YAF.Core.Model
         /// The validate version.
         /// </summary>
         /// <param name="repository">
-        /// The repository.
+        ///     The repository.
         /// </param>
         /// <param name="appVersion">
-        /// The app version.
+        ///     The app version.
         /// </param>
+        /// <param name="registryVersion">Returns Current Registry Version</param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string ValidateVersion(this IRepository<Registry> repository, [NotNull] int appVersion)
+        public static string ValidateVersion(
+            this IRepository<Registry> repository,
+            [NotNull] int appVersion,
+            out int registryVersion)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -285,9 +289,7 @@ namespace YAF.Core.Model
 
             try
             {
-                var registryVersion = BoardContext.Current.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.Version,
-                    () => repository.GetSingle(r => r.Name.ToLower() == "version").Value.ToType<int>());
+                registryVersion = repository.GetCurrentVersion();
 
                 if (registryVersion < appVersion)
                 {
@@ -297,12 +299,26 @@ namespace YAF.Core.Model
             }
             catch (Exception)
             {
+                registryVersion = 0;
+
                 // needs to be setup...
                 redirect = "install/default.aspx";
             }
 
 
             return redirect;
+        }
+
+        /// <summary>
+        /// Gets the current YAF DB version.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <returns>Returns the YAF DB Version</returns>
+        public static int GetCurrentVersion(this IRepository<Registry> repository)
+        {
+            return BoardContext.Current.Get<IDataCache>().GetOrSet(
+                Constants.Cache.Version,
+                () => repository.GetSingle(r => r.Name.ToLower() == "version").Value.ToType<int>());
         }
 
         /// <summary>
