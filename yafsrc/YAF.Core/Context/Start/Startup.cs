@@ -24,7 +24,14 @@
 
 namespace YAF.Core.Context.Start
 {
+    using System;
+    using System.Linq;
+
+    using Autofac.Util;
+
     using Owin;
+
+    using YAF.Types.Extensions;
 
     /// <summary>
     /// The startup.
@@ -37,6 +44,20 @@ namespace YAF.Core.Context.Start
         /// <param name="app">
         /// The app.
         /// </param>
-        public void Configuration(IAppBuilder app) => this.ConfigureAuth(app);
+        public void Configuration(IAppBuilder app)
+        {
+            // Inject SignalR Registration
+            AppDomain.CurrentDomain.GetAssemblies().ForEach(
+                assembly => assembly.GetLoadableTypes().Where(type => type.IsClass && type.Name == "StartupSignalR")
+                    .ForEach(
+                        type =>
+                        {
+                            var startupClass = Activator.CreateInstance(type);
+
+                            type.GetMethod("ConfigureSignalR").Invoke(startupClass, new object[] { app });
+                        }));
+
+            this.ConfigureAuth(app);
+        }
     }
 }
