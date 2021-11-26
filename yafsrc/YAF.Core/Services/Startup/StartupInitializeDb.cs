@@ -44,19 +44,32 @@ namespace YAF.Core.Services.Startup
     /// <summary>
     /// The startup initialize Database.
     /// </summary>
-    public class StartupInitializeDb : BaseStartupService, ICriticalStartupService
+    public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, IHaveServiceLocator
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="StartupInitializeDb" /> class.
+        /// Initializes a new instance of the <see cref="StartupInitializeDb"/> class.
         /// </summary>
-        /// <param name="httpResponseBase">The http response base.</param>
+        /// <param name="httpResponseBase">
+        /// The http response base.
+        /// </param>
+        /// <param name="serviceLocator">
+        /// The service Locator.
+        /// </param>
         public StartupInitializeDb(
-            [NotNull] HttpResponseBase httpResponseBase)
+            [NotNull] HttpResponseBase httpResponseBase,
+            [NotNull] IServiceLocator serviceLocator)
         {
             this.HttpResponseBase = httpResponseBase;
+            this.ServiceLocator = serviceLocator;
         }
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the ServiceLocator.
+        /// </summary>
+        /// <value>The service locator.</value>
+        public IServiceLocator ServiceLocator { get; set; }
 
         /// <summary>
         ///   Gets or sets HttpResponseBase.
@@ -95,10 +108,10 @@ namespace YAF.Core.Services.Startup
             }
 
             // attempt to init the db...
-            if (!BoardContext.Current.Get<IDbAccess>().TestConnection(out var errorString))
+            if (!this.Get<IDbAccess>().TestConnection(out var errorString))
             {
                 // unable to connect to the DB...
-                BoardContext.Current.Get<HttpSessionStateBase>()["StartupException"] = errorString;
+                this.Get<HttpSessionStateBase>()["StartupException"] = errorString;
 
                 this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}error.aspx");
 
@@ -106,14 +119,23 @@ namespace YAF.Core.Services.Startup
             }
 
             // step 2: validate the database version...
-            var redirectString = BoardContext.Current.GetRepository<Registry>().ValidateVersion(BoardInfo.AppVersion);
+            var redirectString = this.GetRepository<Registry>()
+                .ValidateVersion(BoardInfo.AppVersion, out var registryVersion);
 
             if (redirectString.IsNotSet())
             {
                 return true;
             }
 
-            this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}{redirectString}", true);
+            if (registryVersion >= 80)
+            {
+                // Run Auto Upgrade
+                //this.Get<UpgradeService>().Upgrade();
+            }
+            else
+            {
+                this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}{redirectString}", true);
+            }
 
             return false;
         }
