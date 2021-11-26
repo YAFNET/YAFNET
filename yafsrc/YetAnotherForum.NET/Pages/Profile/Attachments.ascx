@@ -41,6 +41,7 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <li class="list-group-item d-inline-flex align-items-center">
+                            <asp:HiddenField runat="server" ID="FileID" Value='<%# this.Eval( "ID") %>' />
                             <asp:CheckBox ID="Selected" runat="server"
                                               Text="&nbsp;"
                                               CssClass="form-check" />

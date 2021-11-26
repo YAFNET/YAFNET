@@ -173,7 +173,7 @@ namespace YAF.Pages.Profile
             {
                 items.ForEach(
                     item => this.GetRepository<Attachment>().DeleteById(
-                        item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>()));
+                        item.FindControlAs<HiddenField>("FileID").Value.ToType<int>()));
 
                 this.PageContext.AddLoadMessage(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
             }
