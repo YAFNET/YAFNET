@@ -850,6 +850,8 @@
     <Resource tag="CURRENT_POINTS">Current Points:</Resource>
     <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">Delete all Posts for User?</Resource>
+    <Resource tag="DISABLED">User Disabled</Resource>
+    <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Must Enter a Confirm Password</Resource>
     <Resource tag="ERROR_NEW_PASS">Must Enter New Password</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Error: Current Membership Provider does not support the "Password Reset" function. Verify that "EnablePasswordReset" is "true" in your provider configuration settings in the web.config.</Resource>
@@ -1873,6 +1875,7 @@
     <Resource tag="MSG_SELF_DELETE">You can't delete yourself.</Resource>
     <Resource tag="NAME_CONTAINS">User Name Contains:</Resource>
     <Resource tag="NEW_USER">New User</Resource>
+    <Resource tag="NOT_APPROVED">Not Approved</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="RANK">Rank:</Resource>
     <Resource tag="ROLE">Role:</Resource>
@@ -4328,6 +4331,7 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
     <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
@@ -4347,6 +4351,7 @@ Spoiler Content
     <Resource tag="FORUM_LOGIN">Intrare forum</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Am pierdut parola</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">Parola:</Resource>
     <Resource tag="PASSWORD_ERROR">Utilizatorul sau parola au fost incorecte. Incercati din nou.</Resource>
     <Resource tag="RECOVER">Recupereaza parola</Resource>

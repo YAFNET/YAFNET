@@ -31,6 +31,7 @@ namespace YAF.Pages.Profile
     using YAF.Core.Services;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Web.Extensions;
 
     #endregion
@@ -51,6 +52,12 @@ namespace YAF.Pages.Profile
         }
 
         #endregion
+
+        /// <summary>
+        /// Sets the current edit user.
+        /// </summary>
+        /// <value>The user.</value>
+        public User EditBoardUser => this.PageContext.User;
 
         #region Methods
 

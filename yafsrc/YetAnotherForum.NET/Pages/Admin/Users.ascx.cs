@@ -191,7 +191,7 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The get is user disabled label.
+        /// Get Label if user is Unapproved or Disabled (Soft-Deleted)
         /// </summary>
         /// <param name="userFlag">
         /// The user Flag.
@@ -199,12 +199,21 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        protected string GetIsUserDisabledLabel(object userFlag)
+        protected string GetIsUserDisabledLabel(int userFlag)
         {
-            var flag = new UserFlags((int)userFlag);
-            return flag.IsApproved
-                       ? string.Empty
-                       : $@"<span class=""badge bg-warning text-dark"">{this.GetText("DISABLED")}</span>";
+            var flag = new UserFlags(userFlag);
+
+            if (flag.IsApproved)
+            {
+                return string.Empty;
+            }
+
+            if (flag.IsApproved && flag.IsDeleted)
+            {
+                return $@"<span class=""badge bg-warning text-dark"">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>";
+            }
+
+            return $@"<span class=""badge bg-danger"">{this.GetText("NOT_APPROVED")}</span>";
         }
 
         #endregion

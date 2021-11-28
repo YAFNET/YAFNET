@@ -213,6 +213,42 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.CheckBox IsApproved;
 
         /// <summary>
+        /// ApproveHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ApproveHolder;
+
+        /// <summary>
+        /// ApproveUser control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton ApproveUser;
+
+        /// <summary>
+        /// DisabledHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder DisabledHolder;
+
+        /// <summary>
+        /// HelpLabel16 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel16;
+
+        /// <summary>
         /// IsGuestRow control.
         /// </summary>
         /// <remarks>

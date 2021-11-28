@@ -63,7 +63,7 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="USER_REPUTATION" LocalizedPage="ADMIN_EDITUSER" />
                                 </a>
                             </li>
-                            <asp:PlaceHolder runat="server" Visible="<%#!this.IsGuestUser%>">
+                            <asp:PlaceHolder runat="server" Visible="<%#!this.EditBoardUser.Item1.UserFlags.IsGuest%>">
                                 <li class="nav-item">
                                 <a class="nav-link" href="#View8" data-bs-toggle="tab" role="tab">
                                     <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server" LocalizedTag="USER_SUSPEND" LocalizedPage="ADMIN_EDITUSER" />
@@ -78,16 +78,16 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane" id="View1" role="tabpanel">
-                                <uc1:QuickEdit ID="QuickEditControl" runat="server" />
+                                <uc1:QuickEdit ID="QuickEditControl" User="<%# this.EditBoardUser %>" runat="server" />
                             </div>
                             <div class="tab-pane" id="View2" role="tabpanel">
-                                <uc1:GroupsEdit ID="GroupEditControl" runat="server" Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>" />
+                                <uc1:GroupsEdit ID="GroupEditControl" runat="server" Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>" User="<%# this.EditBoardUser %>" />
                             </div>
                             <div class="tab-pane" id="View3" role="tabpanel">
-                                <uc1:ProfileEdit ID="ProfileEditControl" runat="server" />
+                                <uc1:ProfileEdit ID="ProfileEditControl" runat="server" User="<%# this.EditBoardUser %>" />
                             </div>
                             <div class="tab-pane" id="View10" role="tabpanel">
-                                <uc1:ProfileSettings ID="ProfileSettings" runat="server" />
+                                <uc1:ProfileSettings ID="ProfileSettings" runat="server" User="<%# this.EditBoardUser.Item1 %>" />
                             </div>
                             <div class="tab-pane" id="View11" role="tabpanel">
                                 <uc1:Attachments ID="UserAttachments" runat="server" />
@@ -99,14 +99,14 @@
                                 <uc1:SignatureEdit ID="SignatureEditControl" runat="server" />
                             </div>
                             <div class="tab-pane" id="View6" role="tabpanel">
-                                <uc1:PointsEdit runat="server" ID="UserPointsControl" />
+                                <uc1:PointsEdit runat="server" ID="UserPointsControl" User="<%# this.EditBoardUser.Item1 %>" />
                             </div>
-                            <asp:PlaceHolder runat="server" ID="FielsNoGuests" Visible="<%#!this.IsGuestUser%>">
+                            <asp:PlaceHolder runat="server" ID="FielsNoGuests" Visible="<%#!this.EditBoardUser.Item1.UserFlags.IsGuest%>">
                                 <div class="tab-pane" id="View8" role="tabpanel">
                                     <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
                                 </div>
                                 <div class="tab-pane" id="View9" role="tabpanel">
-                                    <uc1:KillEdit runat="server" ID="KillEdit1" />
+                                    <uc1:KillEdit runat="server" ID="KillEdit1" User="<%# this.EditBoardUser %>" />
                                 </div>
                             </asp:PlaceHolder>
                         </div>

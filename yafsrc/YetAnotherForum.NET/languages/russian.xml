@@ -848,6 +848,8 @@
     <Resource tag="CURRENT_POINTS">Текущие очки:</Resource>
     <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">Удалить все сообщения пользователя?</Resource>
+    <Resource tag="DISABLED">User Disabled</Resource>
+    <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Нужно ввести подтверждение пароля</Resource>
     <Resource tag="ERROR_NEW_PASS">Нужно ввести новый пароль</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Ошибка: Текущий провайдер Membership не поддерживает функцию сброса пароля. Проверьте, что опция "EnablePasswordReset" имеет значение "true" в секции конфигурации провайдера в web.config.</Resource>
@@ -1856,6 +1858,7 @@
     <Resource tag="MSG_SELF_DELETE">Вы не можете удалить себя.</Resource>
     <Resource tag="NAME_CONTAINS">Ник пользователя содержит:</Resource>
     <Resource tag="NEW_USER">Новый пользователь</Resource>
+    <Resource tag="NOT_APPROVED">Not Approved</Resource>
     <Resource tag="POSTS">Сообщения</Resource>
     <Resource tag="RANK">Статус:</Resource>
     <Resource tag="ROLE">Роль:</Resource>
@@ -4292,6 +4295,7 @@ Spoiler Content
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ/АБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЭЮЯ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
     <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
@@ -4311,6 +4315,7 @@ Spoiler Content
     <Resource tag="FORUM_LOGIN">Войти</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Восстановить пароль</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">Пароль:</Resource>
     <Resource tag="PASSWORD_ERROR">Введённые пароль или имя пользователя неверны. Попытайтесь снова.</Resource>
     <Resource tag="RECOVER">Восстановление пароля</Resource>

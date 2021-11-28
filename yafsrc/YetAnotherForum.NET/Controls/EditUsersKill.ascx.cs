@@ -29,7 +29,6 @@ namespace YAF.Controls
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -61,20 +60,21 @@ namespace YAF.Controls
         /// </summary>
         private IOrderedEnumerable<Tuple<Message, Topic>> allPostsByUser;
 
-        /// <summary>
-        /// The user.
-        /// </summary>
-        private Tuple<User, AspNetUsers, Rank, vaccess> user;
-
         #endregion
 
         #region Properties
 
         /// <summary>
+        /// Gets or sets the User Data.
+        /// </summary>
+        [NotNull]
+        public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
+
+        /// <summary>
         ///   Gets AllPostsByUser.
         /// </summary>
         public IOrderedEnumerable<Tuple<Message, Topic>> AllPostsByUser =>
-            this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.CurrentUserId);
+            this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.User.Item1.ID);
 
         /// <summary>
         ///   Gets IPAddresses.
@@ -94,17 +94,6 @@ namespace YAF.Controls
                 return list;
             }
         }
-
-        /// <summary>
-        /// Gets the User Data.
-        /// </summary>
-        [NotNull]
-        private Tuple<User, AspNetUsers, Rank, vaccess> User => this.user ??= this.Get<IAspNetUsersHelper>().GetBoardUser(this.CurrentUserId);
-
-        /// <summary>
-        ///   Gets CurrentUserID.
-        /// </summary>
-        protected int CurrentUserId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
 
         /// <summary>
         /// Gets or sets the current user.
@@ -165,7 +154,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{this.User.Item1.Name}/ID:{this.CurrentUserId}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageContext.User.DisplayOrUserName()}",
+                            $"User (Name:{this.User.Item1.Name}/ID:{this.User.Item1.ID}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageContext.User.DisplayOrUserName()}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -177,7 +166,7 @@ namespace YAF.Controls
 
                     this.Logger.Log(
                         this.PageContext.PageUserID,
-                        $"User (Name{this.User.Item1.Name}/ID:{this.CurrentUserId}) Report to StopForumSpam.com Failed",
+                        $"User (Name{this.User.Item1.Name}/ID:{this.User.Item1.ID}) Report to StopForumSpam.com Failed",
                         exception);
                 }
             }
@@ -185,10 +174,10 @@ namespace YAF.Controls
             switch (this.SuspendOrDelete.SelectedValue)
             {
                 case "delete":
-                    if (this.CurrentUserId > 0)
+                    if (this.User.Item1.ID > 0)
                     {
                         // we are deleting user
-                        if (this.PageContext.PageUserID == this.CurrentUserId)
+                        if (this.PageContext.PageUserID == this.User.Item1.ID)
                         {
                             // deleting yourself isn't an option
                             this.PageContext.AddLoadMessage(
@@ -219,7 +208,7 @@ namespace YAF.Controls
                         }
 
                         // all is good, user can be deleted
-                        this.Get<IAspNetUsersHelper>().DeleteUser(this.CurrentUserId);
+                        this.Get<IAspNetUsersHelper>().DeleteUser(this.User.Item1.ID);
 
                         this.PageContext.LoadMessage.AddSession(
                             this.GetTextFormatted("MSG_USER_KILLED", this.User.Item1.Name),
@@ -230,10 +219,10 @@ namespace YAF.Controls
 
                     break;
                 case "suspend":
-                    if (this.CurrentUserId > 0)
+                    if (this.User.Item1.ID > 0)
                     {
                         this.GetRepository<User>().Suspend(
-                            this.CurrentUserId,
+                            this.User.Item1.ID,
                             DateTime.UtcNow.AddYears(5));
                     }
 
@@ -284,8 +273,8 @@ namespace YAF.Controls
                     var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
                         "ADMIN_EDITUSER",
                         "LINK_USER_BAN",
-                        this.CurrentUserId,
-                        this.Get<LinkBuilder>().GetUserProfileLink(this.CurrentUserId, name),
+                        this.User.Item1.ID,
+                        this.Get<LinkBuilder>().GetUserProfileLink(this.User.Item1.ID, name),
                         this.HtmlEncode(name));
 
                     this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
@@ -329,7 +318,7 @@ namespace YAF.Controls
 
             // get user's info
             this.CurrentUser = this.GetRepository<User>().GetById(
-                this.CurrentUserId);
+                this.User.Item1.ID);
 
             if (this.CurrentUser.Suspended.HasValue)
             {

@@ -86,7 +86,7 @@ namespace YAF.Core.Helpers
         /// <summary>
         /// The users.
         /// </summary>
-        public IQueryable<AspNetUsers> Users => this.Get<AspNetUsersManager>().Users;
+        public IQueryable<AspNetUsers> Users => this.Get<AspNetUsersManager>().AspNetUsers;
 
         /// <summary>Used to hash/verify passwords</summary>et
         public IPasswordHasher IPasswordHasher => this.Get<AspNetUsersManager>().PasswordHasher;
@@ -378,7 +378,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public IQueryable<AspNetUsers> FindUsersByEmail(string email)
         {
-            return this.Get<AspNetUsersManager>().Users.Where(u => u.Email == email);
+            return this.Get<AspNetUsersManager>().AspNetUsers.Where(u => u.Email == email);
         }
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public IQueryable<AspNetUsers> FindUsersByName(string username)
         {
-            return this.Get<AspNetUsersManager>().Users.Where(u => u.UserName == username);
+            return this.Get<AspNetUsersManager>().AspNetUsers.Where(u => u.UserName == username);
         }
 
         /// <summary>
@@ -403,7 +403,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public IQueryable<AspNetUsers> GetAllUsers()
         {
-            return this.Get<AspNetUsersManager>().Users;
+            return this.Get<AspNetUsersManager>().AspNetUsers;
         }
 
         /// <summary>
@@ -910,7 +910,7 @@ namespace YAF.Core.Helpers
             }
 
             // get the username associated with this id...
-            user = this.Get<IAspNetUsersHelper>().GetUserByName(realUsername.Name);
+            user = this.Get<IAspNetUsersHelper>().GetUser(realUsername.ProviderUserKey);
 
             // validate again...
             return user;
@@ -927,18 +927,33 @@ namespace YAF.Core.Helpers
         /// <param name="boardId">
         /// The board id.
         /// </param>
+        /// <param name="includeNonApproved">
+        /// Include not approved user
+        /// </param>
         /// <returns>
         /// The <see cref="Tuple"/>.
         /// </returns>
         public Tuple<User, AspNetUsers, Rank, vaccess> GetBoardUser(
             [NotNull] int userId,
-            [CanBeNull] int? boardId = null)
+            [CanBeNull] int? boardId = null,
+            bool includeNonApproved = false)
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-            expression.Join<vaccess>((u, v) => v.UserID == u.ID).Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
-                .Join<Rank>((u, r) => r.ID == u.RankID).Where<vaccess, User>(
-                    (v, u) => u.ID == userId && u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) && (u.Flags & 2) == 2);
+            expression.LeftJoin<vaccess>((u, v) => v.UserID == u.ID).Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
+                .Join<Rank>((u, r) => r.ID == u.RankID);
+
+            if (includeNonApproved)
+            {
+                expression.Where<vaccess, User>(
+                    (v, u) => u.ID == userId && u.BoardID == (boardId ?? this.GetRepository<User>().BoardID));
+            }
+            else
+            {
+                expression.Where<vaccess, User>(
+                    (v, u) => u.ID == userId && u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) &&
+                              (u.Flags & 2) == 2);
+            }
 
             return this.GetRepository<User>().DbAccess
                 .Execute(db => db.Connection.SelectMulti<User, AspNetUsers, Rank, vaccess>(expression))
@@ -976,7 +991,7 @@ namespace YAF.Core.Helpers
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-                    Expression<Func<User, bool>> whereCriteria = u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID) && (u.Flags & 2) == 2;
+                    Expression<Func<User, bool>> whereCriteria = u => u.BoardID == (boardId ?? this.GetRepository<User>().BoardID);
 
                     // -- count total
                     var countTotalExpression = db.Connection.From<User>();

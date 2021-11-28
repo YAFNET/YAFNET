@@ -26,11 +26,9 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Web;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
-    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -46,9 +44,10 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets user ID of edited user.
+        /// Gets or sets the current edit user.
         /// </summary>
-        protected int CurrentUserID => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+        /// <value>The user.</value>
+        public User User { get; set; }
 
         #endregion
 
@@ -65,7 +64,7 @@ namespace YAF.Controls
         /// </param>
         protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.GetRepository<User>().AddPoints(this.CurrentUserID, null, this.txtAddPoints.Text.ToType<int>());
+            this.GetRepository<User>().AddPoints(this.User.ID, null, this.txtAddPoints.Text.ToType<int>());
 
             this.BindData();
         }
@@ -100,7 +99,10 @@ namespace YAF.Controls
         /// </param>
         protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.GetRepository<User>().RemovePoints(this.CurrentUserID, null, this.txtRemovePoints.Text.ToType<int>());
+            this.GetRepository<User>().RemovePoints(
+                this.User.ID,
+                null,
+                this.txtRemovePoints.Text.ToType<int>());
             this.BindData();
         }
 
@@ -115,7 +117,7 @@ namespace YAF.Controls
         /// </param>
         protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.GetRepository<User>().SetPoints(this.CurrentUserID, this.txtUserPoints.Text.ToType<int>());
+            this.GetRepository<User>().SetPoints(this.User.ID, this.txtUserPoints.Text.ToType<int>());
 
             this.BindData();
         }
@@ -125,8 +127,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.ltrCurrentPoints.Text = this.txtUserPoints.Text =
-                                             this.GetRepository<User>().GetPoints(this.CurrentUserID).ToString();
+            this.ltrCurrentPoints.Text = this.txtUserPoints.Text = this.User.Points.ToString();
         }
 
         #endregion

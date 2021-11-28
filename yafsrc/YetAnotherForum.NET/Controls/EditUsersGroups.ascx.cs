@@ -29,7 +29,6 @@ namespace YAF.Controls
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Web;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
@@ -40,11 +39,11 @@ namespace YAF.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
 
     #endregion
 
@@ -56,10 +55,10 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
-        ///   Gets user ID of edited user.
+        /// Gets or sets the User Data.
         /// </summary>
-        protected int CurrentUserID =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+        [NotNull]
+        public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
 
         #endregion
 
@@ -117,9 +116,6 @@ namespace YAF.Controls
             var addedRoles = new List<string>();
             var removedRoles = new List<string>();
 
-            // get user's name
-            var user = this.Get<IAspNetUsersHelper>().GetMembershipUserById(this.CurrentUserID);
-
             // go through all roles displayed on page
             for (var i = 0; i < this.UserGroups.Items.Count; i++)
             {
@@ -136,47 +132,47 @@ namespace YAF.Controls
                 var isChecked = item.FindControlAs<CheckBox>("GroupMember").Checked;
 
                 // save user in role
-                this.GetRepository<UserGroup>().AddOrRemove(this.CurrentUserID, roleID, isChecked);
+                this.GetRepository<UserGroup>().AddOrRemove(this.User.Item1.ID, roleID, isChecked);
 
                 // update roles if this user isn't the guest
-                if (this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentUserID))
+                if (this.Get<IAspNetUsersHelper>().IsGuestUser(this.User.Item1.ID))
                 {
                     continue;
                 }
 
                 // add/remove user from roles in membership provider
-                if (isChecked && !this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName))
+                if (isChecked && !this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
                 {
-                    this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName);
+                    this.Get<IAspNetRolesHelper>().AddUserToRole(this.User.Item2, roleName);
 
                     addedRoles.Add(roleName);
                 }
-                else if (!isChecked && this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName))
+                else if (!isChecked && this.Get<IAspNetRolesHelper>().IsUserInRole(this.User.Item2, roleName))
                 {
-                    this.Get<IAspNetRolesHelper>().RemoveUserFromRole(user.Id, roleName);
+                    this.Get<IAspNetRolesHelper>().RemoveUserFromRole(this.User.Item2.Id, roleName);
 
                     removedRoles.Add(roleName);
                 }
             }
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(this.CurrentUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserStyleEvent(this.User.Item1.ID));
 
             if (this.SendEmail.Checked)
             {
                 // send notification to user
                 if (addedRoles.Any())
                 {
-                    this.Get<ISendNotification>().SendRoleAssignmentNotification(user, addedRoles);
+                    this.Get<ISendNotification>().SendRoleAssignmentNotification(this.User.Item2, addedRoles);
                 }
 
                 if (removedRoles.Any())
                 {
-                    this.Get<ISendNotification>().SendRoleUnAssignmentNotification(user, removedRoles);
+                    this.Get<ISendNotification>().SendRoleUnAssignmentNotification(this.User.Item2, removedRoles);
                 }
             }
 
             // clear the cache for this user...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.Item1.ID));
 
             this.BindData();
         }
@@ -189,7 +185,7 @@ namespace YAF.Controls
             // get user roles
             this.UserGroups.DataSource = this.GetRepository<Group>().Member(
                 this.PageContext.PageBoardID,
-                this.CurrentUserID);
+                this.User.Item1.ID);
 
             // bind data to controls
             this.DataBind();

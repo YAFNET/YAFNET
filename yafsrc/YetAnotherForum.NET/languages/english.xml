@@ -823,6 +823,8 @@
     <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
     <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
+      <Resource tag="DISABLED">User Disabled</Resource>
+	  <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
     <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
     <Resource tag="LINK_USER_BAN">User &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is banned by IP</Resource>
     <Resource tag="MEMBER">Member</Resource>
@@ -1811,6 +1813,7 @@
     <Resource tag="MSG_SELF_DELETE">You can't delete yourself.</Resource>
     <Resource tag="NAME_CONTAINS">User Name Contains:</Resource>
     <Resource tag="NEW_USER">New User</Resource>
+	  <Resource tag="NOT_APPROVED">Not Approved</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="RANK">Rank:</Resource>
     <Resource tag="ROLE">Role:</Resource>
@@ -4156,7 +4159,8 @@
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
-    <Resource tag="AUTO">Remember me</Resource>
+	  <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
+	  <Resource tag="AUTO">Remember me</Resource>
     <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
     <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
@@ -4173,6 +4177,7 @@
     <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FORUM_LOGIN">Forum Login</Resource>
     <Resource tag="LOSTPASSWORD">Lost Password</Resource>
+	  <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">Password:</Resource>
     <Resource tag="PASSWORD_ERROR">The user name or password entered is incorrect. Please try again.</Resource>
     <Resource tag="RECOVER">Recover Password</Resource>

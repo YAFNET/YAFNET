@@ -848,6 +848,8 @@
     <Resource tag="CURRENT_POINTS">Aantal punten:</Resource>
     <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">Verwijder alle Posts van deze gebruiker?</Resource>
+    <Resource tag="DISABLED">User Disabled</Resource>
+    <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Je moet het wachtwoord ook als controle ingeven</Resource>
     <Resource tag="ERROR_NEW_PASS">Je moet een nieuw wachtwoord ingeven</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Fout: De huidige Membership Provider ondersteunt niet de "Wachtwoord Reset" optie. Controleer of "EnablePasswordReset" "aan" staat in je provider configuratie in web.config.</Resource>
@@ -1868,6 +1870,7 @@
     <Resource tag="MSG_SELF_DELETE">Je kunt jezelf niet verwijderen..</Resource>
     <Resource tag="NAME_CONTAINS">Naam bevat:</Resource>
     <Resource tag="NEW_USER">Nieuwe Gebruiker</Resource>
+    <Resource tag="NOT_APPROVED">Not Approved</Resource>
     <Resource tag="POSTS">Berichten</Resource>
     <Resource tag="RANK">Rang:</Resource>
     <Resource tag="ROLE">Rol:</Resource>
@@ -4285,6 +4288,7 @@ Spoiler Inhoud
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
     <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
@@ -4304,6 +4308,7 @@ Spoiler Inhoud
     <Resource tag="FORUM_LOGIN">Inloggen op forum</Resource>
     <Resource tag="GOOGLE_LOGIN">Login with Google</Resource>
     <Resource tag="LOSTPASSWORD">Wachtwoord vergeten?</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">Wachtwoord:</Resource>
     <Resource tag="PASSWORD_ERROR">De ingevoerde gebruikersnaam of wachtwoord is ongeldig. Probeer het opnieuw.</Resource>
     <Resource tag="RECOVER">Wachtwoord opvragen</Resource>

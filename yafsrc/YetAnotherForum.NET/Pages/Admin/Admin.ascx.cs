@@ -459,7 +459,7 @@ namespace YAF.Pages.Admin
 
             this.PagerUnverified.PageSize = this.PageSizeUnverified.SelectedValue.ToType<int>();
 
-            var unverifiedUsers = this.GetRepository<User>().UnApprovedUsers(this.PageContext.PageBoardID)
+            var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageContext.PageBoardID)
                 .GetPaged(this.PagerUnverified);
 
             // bind list

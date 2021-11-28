@@ -40,6 +40,7 @@ namespace YAF.Types.Models.Identity
     /// <summary>
     /// The asp net users.
     /// </summary>
+    [Serializable]
     public class AspNetUsers : AspNetUsers<string>
     {
         /// <summary>
@@ -100,6 +101,7 @@ namespace YAF.Types.Models.Identity
     /// </summary>
     /// <typeparam name="TKey">
     /// </typeparam>
+    [Serializable]
     public class AspNetUsers<TKey> : IUser<TKey>, IEntity, IHasId<TKey>
     {
         /// <summary>

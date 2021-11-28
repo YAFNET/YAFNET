@@ -470,12 +470,16 @@ namespace YAF.Types.Interfaces.Identity
         /// <param name="boardId">
         /// The board id.
         /// </param>
+        /// <param name="includeNonApproved">
+        /// Include Non Approved user.
+        /// </param>
         /// <returns>
         /// The <see cref="Tuple"/>.
         /// </returns>
         public Tuple<User, AspNetUsers, Rank, vaccess> GetBoardUser(
             [NotNull] int userId,
-            [CanBeNull] int? boardId = null);
+            [CanBeNull] int? boardId = null,
+            bool includeNonApproved = false);
 
         /// <summary>
         /// Gets the users paged.

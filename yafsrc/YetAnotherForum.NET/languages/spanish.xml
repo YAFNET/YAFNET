@@ -850,6 +850,8 @@
     <Resource tag="CURRENT_POINTS">Puntos actuales:</Resource>
     <Resource tag="DELETE_ACCOUNT">Delete this account</Resource>
     <Resource tag="DELETE_POSTS_USER">¿Eliminar todas las publicaciones de este usuario?</Resource>
+    <Resource tag="DISABLED">User Disabled</Resource>
+    <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">Debes introducir una contraseña de confirmación</Resource>
     <Resource tag="ERROR_NEW_PASS">Debes introducir una nueva contraseña</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">Error: El actual proveedor de afiliación no soporta la función de "reseteo de contraseña". Verifica que "EnablePasswordReset" es "true" en tu configuración del proveedor en el web.config.</Resource>
@@ -1881,6 +1883,7 @@
     <Resource tag="MSG_SELF_DELETE">No puedes eliminarte a ti mismo.</Resource>
     <Resource tag="NAME_CONTAINS">El nombre de usuario contiene:</Resource>
     <Resource tag="NEW_USER">Nuevo usuario</Resource>
+    <Resource tag="NOT_APPROVED">Not Approved</Resource>
     <Resource tag="POSTS">Publicaciones</Resource>
     <Resource tag="RANK">Rango:</Resource>
     <Resource tag="ROLE">Rol:</Resource>
@@ -4677,6 +4680,7 @@ public class Hello1
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNÑOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
     <Resource tag="AUTH_CONNECT">Ingresa o regístrate con {0}</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Conecta una cuenta existente en el foro con tu cuenta de {0} Antes necesitas ingresar en el foro. {1}</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;El email de Facebook debe coincidir con el email del foro para conectar el usuario.&lt;/strong&gt;</Resource>
@@ -4696,6 +4700,7 @@ public class Hello1
     <Resource tag="FORUM_LOGIN">Iniciar sesión en foro</Resource>
     <Resource tag="GOOGLE_LOGIN">Ingresar con Google</Resource>
     <Resource tag="LOSTPASSWORD">Recuperar contraseña</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">Contraseña:</Resource>
     <Resource tag="PASSWORD_ERROR">El usuario o contraseña es incorrecto. Intentalo de nuevo.</Resource>
     <Resource tag="RECOVER">Recuperar contraseña</Resource>

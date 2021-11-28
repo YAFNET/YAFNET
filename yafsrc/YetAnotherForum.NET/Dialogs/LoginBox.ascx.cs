@@ -27,11 +27,14 @@ namespace YAF.Dialogs
     #region Using
 
     using System;
+    using System.Linq;
+    using System.Net.Mail;
     using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
     using YAF.Types;
@@ -39,7 +42,9 @@ namespace YAF.Dialogs
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Models;
     using YAF.Types.Models.Identity;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -145,9 +150,24 @@ namespace YAF.Dialogs
                 return;
             }
 
+            if (!user.IsApproved)
+            {
+                var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+
+                // Ignore Deleted User
+                if (yafUser.UserFlags.IsDeleted)
+                {
+                    return;
+                }
+
+                this.ResendConfirm.CommandArgument = $"{user.Email};{user.UserName}";
+                this.NotApprovedHolder.Visible = true;
+                return;
+            }
+
             // Valid user, verify password
-            var result =
-                (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher.VerifyHashedPassword(user.PasswordHash, this.Password.Text);
+            var result = (PasswordVerificationResult)this.Get<IAspNetUsersHelper>().IPasswordHasher
+                .VerifyHashedPassword(user.PasswordHash, this.Password.Text);
 
             switch (result)
             {
@@ -186,6 +206,43 @@ namespace YAF.Dialogs
                         break;
                     }
             }
+        }
+
+        /// <summary>
+        /// Handles the OnClick event of the ResendConfirm control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
+        protected void ResendConfirmClick(object sender, EventArgs e)
+        {
+            var commandArgument = sender.ToType<ThemeButton>().CommandArgument.Split(';');
+
+            var checkMail = this.GetRepository<CheckEmail>().ListTyped(commandArgument[0]).FirstOrDefault();
+
+            if (checkMail == null)
+            {
+                return;
+            }
+
+            var verifyEmail = new TemplateEmail("VERIFYEMAIL");
+
+            var subject = this.Get<ILocalization>()
+                .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
+
+            verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
+                ForumPages.Account_Approve,
+                true,
+                "code={0}",
+                checkMail.Hash);
+            verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
+            verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+            verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
+
+            verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
+
+            this.PageContext.AddLoadMessage(
+                this.GetText("LOGIN", "MSG_MESSAGE_SEND"),
+                MessageTypes.success);
         }
 
         /// <summary>

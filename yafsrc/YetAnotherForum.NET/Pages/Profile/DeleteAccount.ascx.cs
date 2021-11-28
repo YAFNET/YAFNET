@@ -40,9 +40,9 @@ namespace YAF.Pages.Profile
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
     using YAF.Web.Extensions;
 
     #endregion
@@ -136,39 +136,31 @@ namespace YAF.Pages.Profile
                             "User Suspended his own account",
                             this.PageContext.PageUserID);
 
-                        var user = this.GetRepository<User>().GetById(
-                            this.PageContext.PageUserID);
+                        this.Get<ILoggerService>().Log(
+                            this.PageContext.PageUserID,
+                            this,
+                            $"User {this.PageContext.User.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
+                            EventLogTypes.UserSuspended);
 
-                        if (user != null)
-                        {
-                            this.Get<ILoggerService>().Log(
-                                this.PageContext.PageUserID,
-                                this,
-                                $"User {user.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
-                                EventLogTypes.UserSuspended);
-
-                            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
-                        }
+                        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
                     }
 
                     break;
                 case "delete":
                     {
                         // (Soft) Delete User
-                        var user = this.PageContext.MembershipUser;
-
-                        // Update IsApproved
-                        user.IsApproved = false;
-
-                        this.Get<IAspNetUsersHelper>().Update(user);
-
                         var yafUser = this.PageContext.User;
 
-                        yafUser.UserFlags.IsApproved = true;
+                        yafUser.UserFlags.IsDeleted = true;
+                        yafUser.UserFlags.IsApproved = false;
 
                         this.GetRepository<User>().UpdateOnly(
                             () => new User { Flags = yafUser.UserFlags.BitValue },
-                            u => u.ID == yafUser.ID);
+                            u => u.ID == this.PageContext.PageUserID);
+
+                        this.GetRepository<AspNetUsers>().UpdateOnly(
+                            () => new AspNetUsers { IsApproved = false },
+                            u => u.Id == yafUser.ProviderUserKey);
 
                         // delete posts...
                         var messages = this.GetRepository<Message>().GetAllUserMessages(this.PageContext.PageUserID);

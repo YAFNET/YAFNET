@@ -14,7 +14,19 @@
                                 IconName="sign-in-alt"></YAF:IconHeader>
             </div>
             <div class="card-body">
+                <asp:PlaceHolder runat="server" ID="NotApprovedHolder" Visible="False">
                     <div class="mb-3">
+                        <YAF:Alert runat="server" ID="NotApprovedInfo" Type="warning">
+                            <YAF:LocalizedLabel runat="server" LocalizedPage="LOGIN" LocalizedTag="ACCOUNT_NOT_APPROVED"></YAF:LocalizedLabel>
+                            <YAF:ThemeButton runat="server" ID="ResendConfirm" 
+                                             Type="None"
+                                             CssClass="alert-link"
+                                             OnClick="ResendConfirmClick"
+                                             TextLocalizedTag="ADMIN_RESEND_EMAIL"></YAF:ThemeButton>
+                        </YAF:Alert>
+                    </div>
+                </asp:PlaceHolder>
+                <div class="mb-3">
                             <asp:Label runat="server"
                                        AssociatedControlID="UserName">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server"

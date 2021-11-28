@@ -850,6 +850,8 @@
     <Resource tag="CURRENT_POINTS">امتیازات کنونی</Resource>
     <Resource tag="DELETE_ACCOUNT">حذف این حساب کاربری</Resource>
     <Resource tag="DELETE_POSTS_USER">تمام ارسال های کاربر حذف شود؟</Resource>
+    <Resource tag="DISABLED">User Disabled</Resource>
+    <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
     <Resource tag="ERROR_CONFIRM_PASS">می بایست کلمه عبور تائید شود</Resource>
     <Resource tag="ERROR_NEW_PASS">می بایست کلمه عبور جدید وارد گردد</Resource>
     <Resource tag="ERROR_NOTE_PASSRESET">خطا : سیستم عضویت "بازیابی کلمه عبور" را پشتیبانی نمی کند. گزینه "فعال سازی بازنشانی کلمه عبور" را در web.config کنترل کنید.</Resource>
@@ -1889,6 +1891,7 @@
     <Resource tag="MSG_SELF_DELETE">شما نمی توانید خودتان را حذف کنید.</Resource>
     <Resource tag="NAME_CONTAINS">نام کاربری شامل:</Resource>
     <Resource tag="NEW_USER">کاربر جدید</Resource>
+    <Resource tag="NOT_APPROVED">Not Approved</Resource>
     <Resource tag="POSTS">پاسخ ها</Resource>
     <Resource tag="RANK">رتبه:</Resource>
     <Resource tag="ROLE">نقش:</Resource>
@@ -4374,6 +4377,7 @@
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
     <Resource tag="AUTH_CONNECT">ورود یا ثبت نام با {0}</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
     <Resource tag="AUTH_CONNECT_FACEBOOK">&lt;strong&gt;The Facebook email address must match the forum user email address to connect the user.&lt;/strong&gt;</Resource>
@@ -4393,6 +4397,7 @@
     <Resource tag="FORUM_LOGIN">ورود به انجمن</Resource>
     <Resource tag="GOOGLE_LOGIN">ورود با گوگل</Resource>
     <Resource tag="LOSTPASSWORD">رمز عبور را فراموش کرده ام</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">رمز عبور:</Resource>
     <Resource tag="PASSWORD_ERROR">نام کاربری و یا رمز عبور وارد شده اشتباه می باشد. دوباره تلاش کنید.</Resource>
     <Resource tag="RECOVER">بازیابی رمز عبور</Resource>

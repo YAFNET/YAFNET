@@ -61,16 +61,6 @@ namespace YAF.Controls
     {
         #region Constants and Fields
 
-        /// <summary>
-        /// The current user id.
-        /// </summary>
-        private int currentUserId;
-
-        /// <summary>
-        /// The user.
-        /// </summary>
-        private Tuple<User, AspNetUsers, Rank, vaccess> user;
-
         private List<ProfileCustom> userProfileCustom;
 
         private IList<ProfileDefinition> profileDefinitions;
@@ -110,10 +100,10 @@ namespace YAF.Controls
         /// Gets the User Data.
         /// </summary>
         [NotNull]
-        private Tuple<User, AspNetUsers, Rank, vaccess> User =>
-            this.user ??= this.Get<IAspNetUsersHelper>().GetBoardUser(this.currentUserId);
+        public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
+
         private IEnumerable<ProfileCustom> UserProfileCustom =>
-            this.userProfileCustom ??= this.GetRepository<ProfileCustom>().Get(p => p.UserID == this.currentUserId);
+            this.userProfileCustom ??= this.GetRepository<ProfileCustom>().Get(p => p.UserID == this.User.Item1.ID);
 
         private IList<ProfileDefinition> ProfileDefinitions =>
             this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
@@ -236,17 +226,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin &&
-                this.Get<HttpRequestBase>().QueryString.Exists("u"))
-            {
-                this.currentUserId =
-                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-            }
-            else
-            {
-                this.currentUserId = this.PageContext.PageUserID;
-            }
-
             if (this.IsPostBack)
             {
                 return;
@@ -308,7 +287,7 @@ namespace YAF.Controls
                                 this.Logger.Log(
                                     null,
                                     "Bot Detected",
-                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.User.Item1.ID}') after the user changed the profile Homepage url to: {this.HomePage.Text}",
                                     EventLogTypes.SpamBotDetected);
                                 break;
                             case 2:
@@ -316,14 +295,14 @@ namespace YAF.Controls
                                 this.Logger.Log(
                                     null,
                                     "Bot Detected",
-                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.currentUserId}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
+                                    $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{this.User.Item1.ID}') after the user changed the profile Homepage url to: {this.HomePage.Text}, user was deleted and the name, email and IP Address are banned.",
                                     EventLogTypes.SpamBotDetected);
 
                                 // Kill user
                                 if (!this.PageContext.CurrentForumPage.IsAdminPage)
                                 {
                                     this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                        this.currentUserId,
+                                        this.User.Item1.ID,
                                         this.User.Item2,
                                         this.User.Item1.IP);
                                 }
@@ -425,7 +404,7 @@ namespace YAF.Controls
             // Save Custom Profile
             if (this.CustomProfile.Visible)
             {
-                this.GetRepository<ProfileCustom>().Delete(x => x.UserID == this.currentUserId);
+                this.GetRepository<ProfileCustom>().Delete(x => x.UserID == this.User.Item1.ID);
 
                 this.CustomProfile.Items.Cast<RepeaterItem>().Where(x => x.ItemType == ListItemType.Item || x.ItemType == ListItemType.AlternatingItem).ForEach(
                     item =>
@@ -447,7 +426,7 @@ namespace YAF.Controls
                                         this.GetRepository<ProfileCustom>().Insert(
                                             new ProfileCustom
                                             {
-                                                UserID = this.currentUserId,
+                                                UserID = this.User.Item1.ID,
                                                 ProfileDefinitionID = profileDef.ID,
                                                 Value = textBox.Text
                                             });
@@ -462,7 +441,7 @@ namespace YAF.Controls
                                         this.GetRepository<ProfileCustom>().Insert(
                                                new ProfileCustom
                                                {
-                                                   UserID = this.currentUserId,
+                                                   UserID = this.User.Item1.ID,
                                                    ProfileDefinitionID = profileDef.ID,
                                                    Value = textBox.Text
                                                });
@@ -475,7 +454,7 @@ namespace YAF.Controls
                                     this.GetRepository<ProfileCustom>().Insert(
                                            new ProfileCustom
                                            {
-                                               UserID = this.currentUserId,
+                                               UserID = this.User.Item1.ID,
                                                ProfileDefinitionID = profileDef.ID,
                                                Value = check.Checked.ToString()
                                            });
@@ -487,7 +466,7 @@ namespace YAF.Controls
             }
 
             // clear the cache for this user...)
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.Item1.ID));
 
             this.Get<IDataCache>().Clear();
 

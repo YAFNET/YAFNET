@@ -15,7 +15,7 @@
                                 LocalizedTag="EDIT_SETTINGS" />
             </div>
             <div class="card-body">
-                <YAF:ProfileSettings runat="server" ID="ProfileSettings" />
+                <YAF:ProfileSettings runat="server" ID="ProfileSettings" User="<%# this.EditBoardUser %>" />
             </div>
         </div>
     </div>

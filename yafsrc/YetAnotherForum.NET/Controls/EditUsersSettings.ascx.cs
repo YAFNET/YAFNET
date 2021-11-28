@@ -28,11 +28,9 @@ namespace YAF.Controls
 
     using System;
     using System.Linq;
-    using System.Web;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
-    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -52,21 +50,13 @@ namespace YAF.Controls
     /// </summary>
     public partial class EditUsersSettings : BaseUserControl
     {
-        #region Constants and Fields
-
-        /// <summary>
-        /// The current user id.
-        /// </summary>
-        private int currentUserId;
-
-        /// <summary>
-        /// The user.
-        /// </summary>
-        private User user;
-
-        #endregion
-
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the current edit user.
+        /// </summary>
+        /// <value>The user.</value>
+        public User User { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether UpdateEmailFlag.
@@ -77,12 +67,6 @@ namespace YAF.Controls
 
             set => this.ViewState["bUpdateEmail"] = value;
         }
-
-        /// <summary>
-        /// Gets the User Data.
-        /// </summary>
-        [NotNull]
-        private User User => this.user ??= this.GetRepository<User>().GetById(this.currentUserId);
 
         #endregion
 
@@ -116,16 +100,6 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
-                                                              && this.Get<HttpRequestBase>().QueryString.Exists("u"))
-            {
-                this.currentUserId = this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-            }
-            else
-            {
-                this.currentUserId = this.PageContext.PageUserID;
-            }
-
             if (this.IsPostBack)
             {
                 return;
@@ -211,7 +185,7 @@ namespace YAF.Controls
 
             // save remaining settings to the DB
             this.GetRepository<User>().Save(
-                this.currentUserId,
+                this.User.ID,
                 this.TimeZones.SelectedValue,
                 language,
                 culture,
@@ -229,7 +203,7 @@ namespace YAF.Controls
             }
 
             // clear the cache for this user...)
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.currentUserId));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.ID));
 
             this.Get<IDataCache>().Clear();
 

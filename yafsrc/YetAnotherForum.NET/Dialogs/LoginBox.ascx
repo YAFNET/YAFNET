@@ -15,7 +15,21 @@
                 </button>
             </div>
             <div class="modal-body">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
                 <div class="container-fluid">
+                    <asp:PlaceHolder runat="server" ID="NotApprovedHolder" Visible="False">
+                        <div class="mb-3">
+                            <YAF:Alert runat="server" ID="NotApprovedInfo" Type="warning">
+                                <YAF:LocalizedLabel runat="server" LocalizedPage="LOGIN" LocalizedTag="ACCOUNT_NOT_APPROVED"></YAF:LocalizedLabel>
+                                <YAF:ThemeButton runat="server" ID="ResendConfirm" 
+                                                 Type="None"
+                                                 CssClass="alert-link"
+                                                 OnClick="ResendConfirmClick"
+                                                 TextLocalizedTag="ADMIN_RESEND_EMAIL"></YAF:ThemeButton>
+                            </YAF:Alert>
+                        </div>
+                    </asp:PlaceHolder>
                     <div class="mb-3">
                         <asp:Label runat="server" 
                                    AssociatedControlID="UserName">
@@ -91,6 +105,8 @@
                         <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
                     </section>
                 </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
             </div>
             <div class="modal-footer text-center">
                 <YAF:ThemeButton ID="RegisterLink" runat="server"

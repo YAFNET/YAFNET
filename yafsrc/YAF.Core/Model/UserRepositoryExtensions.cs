@@ -1395,11 +1395,11 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns all Unapproved Users
         /// </returns>
-        public static List<User> UnApprovedUsers(this IRepository<User> repository, [NotNull] int boardId)
+        public static List<User> GetUnApprovedUsers(this IRepository<User> repository, [NotNull] int boardId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.Get(u => u.BoardID == boardId && (u.Flags & 2) != 2);
+            return repository.Get(u => u.BoardID == boardId && (u.Flags & 2) != 2 && (u.Flags & 32) != 32);
         }
 
         /// <summary>
@@ -1416,19 +1416,6 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             repository.UpdateOnly(() => new User { Signature = signature }, u => u.ID == userId);
-        }
-
-        /// <summary>
-        /// Gets the user points.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="userId">The user identifier.</param>
-        /// <returns>Returns the user points</returns>
-        public static int GetPoints(this IRepository<User> repository, [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.GetById(userId).Points;
         }
 
         /// <summary>

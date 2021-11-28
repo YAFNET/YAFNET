@@ -27,7 +27,6 @@ namespace YAF.Controls
 
     using System;
     using System.Globalization;
-    using System.Web;
 
     using YAF.Core.BaseControls;
     using YAF.Core.Extensions;
@@ -52,26 +51,10 @@ namespace YAF.Controls
     public partial class EditUsersInfo : BaseUserControl
     {
         /// <summary>
-        /// The user.
-        /// </summary>
-        private Tuple<User, AspNetUsers, Rank, vaccess> user;
-
-        #region Properties
-
-        /// <summary>
-        ///   Gets user ID of edited user.
-        /// </summary>
-        protected int CurrentUserID =>
-            this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
-
-        #endregion
-
-        /// <summary>
-        /// Gets the User Data.
+        /// Gets or sets the User Data.
         /// </summary>
         [NotNull]
-        private Tuple<User, AspNetUsers, Rank, vaccess> User =>
-            this.user ??= this.Get<IAspNetUsersHelper>().GetBoardUser(this.CurrentUserID);
+        public Tuple<User, AspNetUsers, Rank, vaccess> User { get; set; }
 
         #region Methods
 
@@ -145,16 +128,32 @@ namespace YAF.Controls
 
             this.GetRepository<User>().AdminSave(
                 this.PageContext.PageBoardID,
-                this.CurrentUserID,
+                this.User.Item1.ID,
                 this.Name.Text.Trim(),
                 this.DisplayName.Text.Trim(),
                 this.Email.Text.Trim(),
                 userFlags.BitValue,
                 this.RankID.SelectedValue.ToType<int>());
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.User.Item1.ID));
 
             this.BindData();
+        }
+
+        /// <summary>
+        /// Approve the User
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ApproveUserClick(object sender, EventArgs e)
+        {
+            this.Get<IAspNetUsersHelper>().ApproveUser(this.User.Item1.ID);
+
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
         }
 
         /// <summary>
@@ -186,6 +185,16 @@ namespace YAF.Controls
             if (item != null)
             {
                 item.Selected = true;
+            }
+
+            if (!this.User.Item1.UserFlags.IsApproved && !this.User.Item1.UserFlags.IsDeleted)
+            {
+                this.ApproveHolder.Visible = true;
+            }
+
+            if (!this.User.Item1.UserFlags.IsApproved && this.User.Item1.UserFlags.IsDeleted)
+            {
+                this.DisabledHolder.Visible = true;
             }
         }
 

@@ -126,10 +126,9 @@ namespace YAF.Types.Flags
             IsActiveExcluded = 16,
 
             /// <summary>
-            /// The Daylight Saving Time is Enabled.
+            /// The User is deleted flag.
             /// </summary>
-            [Obsolete("Not used anymore")]
-            IsDST = 32,
+            IsDeleted = 32,
 
             /// <summary>
             /// Is Dirty data flag.
@@ -207,10 +206,9 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether a user is enabled the DST correction.
+        /// Gets or sets a value indicating whether User is (soft) deleted.
         /// </summary>
-        [Obsolete("Not used anymore dst is inherited from the user selected timezone")]
-        public bool IsDST
+        public bool IsDeleted
         {
             // int value 32
             get => this[5];
@@ -256,7 +254,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator UserFlags(int newBitValue)
         {
-            return new(newBitValue);
+            return new UserFlags(newBitValue);
         }
 
         /// <summary>
@@ -269,7 +267,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator UserFlags(Flags flags)
         {
-            return new(flags);
+            return new UserFlags(flags);
         }
 
         #endregion

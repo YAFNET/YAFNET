@@ -24,6 +24,33 @@ namespace YAF.Pages.Account
         protected global::YAF.Web.Controls.PageLinks PageLinks;
 
         /// <summary>
+        /// NotApprovedHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder NotApprovedHolder;
+
+        /// <summary>
+        /// NotApprovedInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert NotApprovedInfo;
+
+        /// <summary>
+        /// ResendConfirm control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::YAF.Web.Controls.ThemeButton ResendConfirm;
+
+        /// <summary>
         /// LocalizedLabel2 control.
         /// </summary>
         /// <remarks>
