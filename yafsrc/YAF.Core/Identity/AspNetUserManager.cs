@@ -97,7 +97,7 @@ namespace YAF.Core.Identity
         /// <summary>
         /// The users.
         /// </summary>
-        public virtual IQueryable<AspNetUsers> Users => base.Users;
+        public virtual IQueryable<AspNetUsers> AspNetUsers => this.Users;
 
         /// <summary>
         /// Remove a user from a role.
@@ -162,13 +162,13 @@ namespace YAF.Core.Identity
         }
 
         /// <summary>
-        /// Returns the roles for the user
+        /// Gets the roles for the user
         /// </summary>
         /// <param name="userId">
         /// The user Id.
         /// </param>
         /// <returns>
-        /// The <see cref="IList"/>.
+        /// Returns the roles for the user
         /// </returns>
         public IList<string> GetRoles(string userId)
         {

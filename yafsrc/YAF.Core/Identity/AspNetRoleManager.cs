@@ -55,7 +55,7 @@ namespace YAF.Core.Identity
         /// <summary>
         /// The roles.
         /// </summary>
-        public virtual IQueryable<AspNetRoles> Roles => base.Roles;
+        public virtual IQueryable<AspNetRoles> AspNetRoles => this.Roles;
 
         /// <summary>
         /// The get roles.
