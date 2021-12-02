@@ -16,7 +16,7 @@ YetAnotherForum.NET Changelog
 * [NEW] Html Email Template
 * [NEW] Standard Text Avatars
 * Replaced obsolete Membership/Role/Profile Provider with ASP.NET Identity
-* Automatic Migration of all old Attachments on Uprade
+* Automatic migration of all old attachments on upgrade
 * Completed DAL changes
 
 # YetAnotherForum.NET v2.3.1.15
