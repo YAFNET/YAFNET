@@ -28,7 +28,6 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
-    using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
@@ -101,6 +100,8 @@ namespace YAF.Core.Model
 
             BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
             BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
+
+            BoardContext.Current.GetRepository<Registry>().Save("webservicetoken", Guid.NewGuid().ToString());
 
             // -- Rank
             var rankIDAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
