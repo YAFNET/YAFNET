@@ -25,15 +25,19 @@ namespace YAF.Core.Services
 {
     #region Using
 
+    using System;
     using System.Net;
     using System.Net.Mail;
+    using System.Web.UI;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -73,15 +77,21 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets the digest HTML.
         /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="boardSettings">
+        /// The board Settings.
+        /// </param>
+        /// <param name="showErrors">
+        /// The show Errors.
+        /// </param>
         /// <returns>
         /// The get digest html.
         /// </returns>
-        public string GetDigestHtml(int userId, object boardSettings, bool showErrors = false)
+        public string GetDigestHtml(User user, object boardSettings, bool showErrors = false)
         {
-            var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(userId, boardSettings, showErrors));
+            var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(user.ID, boardSettings, showErrors));
 
             var digestHtml = string.Empty;
 
@@ -160,4 +170,4 @@ namespace YAF.Core.Services
 
         #endregion
     }
-} 
+}

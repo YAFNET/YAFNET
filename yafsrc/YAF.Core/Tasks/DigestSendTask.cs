@@ -41,7 +41,6 @@ namespace YAF.Core.Tasks
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
@@ -190,8 +189,12 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Sends the digest to users.
         /// </summary>
-        /// <param name="usersWithDigest">The users with digest.</param>
-        /// <param name="boardSettings">The board settings.</param>
+        /// <param name="usersWithDigest">
+        /// The users with digest.
+        /// </param>
+        /// <param name="boardSettings">
+        /// The Board Settings.
+        /// </param>
         private void SendDigestToUsers(IEnumerable<User> usersWithDigest, BoardSettings boardSettings)
         {
             var currentContext = HttpContext.Current;
@@ -202,50 +205,49 @@ namespace YAF.Core.Tasks
 
             usersWithDigest.AsParallel().ForAll(
                 user =>
+                {
+                    HttpContext.Current = currentContext;
+
+                    try
                     {
-                        HttpContext.Current = currentContext;
+                        var digestHtml = this.Get<IDigest>().GetDigestHtml(user, boardSettings);
 
-                        try
+                        if (digestHtml.IsNotSet())
                         {
-                            var digestHtml = this.Get<IDigest>().GetDigestHtml(user.ID, boardSettings);
+                            return;
+                        }
 
-                            if (digestHtml.IsNotSet())
-                            {
-                                return;
-                            }
+                        if (user.ProviderUserKey == null)
+                        {
+                            return;
+                        }
 
-                            if (user.ProviderUserKey == null)
-                            {
-                                return;
-                            }
+                        if (user.UserFlags.IsGuest)
+                        {
+                            return;
+                        }
 
-                            var membershipUser = this.Get<IAspNetUsersHelper>().GetUserByName(user.Name);
+                        var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline).Groups[1]
+                            .Value.Trim();
 
-                            if (membershipUser == null || membershipUser.Email.IsNotSet())
-                            {
-                                return;
-                            }
-
-                            var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline)
-                                .Groups[1].Value.Trim();
-
-                            // send the digest...
-                            mailMessages.Add(this.Get<IDigest>().CreateDigestMessage(
+                        // send the digest...
+                        mailMessages.Add(
+                            this.Get<IDigest>().CreateDigestMessage(
                                 subject.Trim(),
                                 digestHtml,
                                 boardEmail,
-                                membershipUser.Email,
-                                user.DisplayName));
-                        }
-                        catch (Exception e)
-                        {
-                            this.Get<ILoggerService>().Error(e, $"Error In Creating Digest for User {user.ID}");
-                        }
-                        finally
-                        {
-                            HttpContext.Current = null;
-                        }
-                    });
+                                user.Email,
+                                user.DisplayOrUserName()));
+                    }
+                    catch (Exception e)
+                    {
+                        this.Get<ILoggerService>().Error(e, $"Error In Creating Digest for User {user.ID}");
+                    }
+                    finally
+                    {
+                        HttpContext.Current = null;
+                    }
+                });
 
             this.Get<IMailService>().SendAll(mailMessages);
 

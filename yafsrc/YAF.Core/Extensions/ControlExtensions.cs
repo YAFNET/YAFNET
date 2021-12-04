@@ -27,7 +27,6 @@ namespace YAF.Core.Extensions
     #region Using
 
     using System;
-    using System.Text;
     using System.Web.UI;
 
     using YAF.Core.Context;
@@ -89,13 +88,41 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static BoardContext PageContext(this Control currentControl)
         {
-            if (currentControl.Site is { DesignMode: true })
+            return currentControl.Site is { DesignMode: true } ? null : BoardContext.Current;
+        }
+
+        /// <summary>
+        /// Loads a user control with a constructor with a signature matching the supplied params
+        /// Control must implement a blank default constructor as well as the custom one or we will error
+        /// </summary>
+        /// <param name="templateControl">Template control base object</param>
+        /// <param name="controlPath">Path to the user control</param>
+        /// <param name="constructorParams">Parameters for the constructor</param>
+        /// <returns></returns>
+        public static UserControl LoadControl(this TemplateControl templateControl, string controlPath, params object[] constructorParams)
+        {
+            // Load the control
+            var control = templateControl.LoadControl(controlPath) as UserControl;
+
+            // Get the types for the passed parameters
+            var paramTypes = new Type[constructorParams.Length];
+            for (var paramLoop = 0; paramLoop < constructorParams.Length; paramLoop++)
             {
-                // design-time, return null...
-                return null;
+                paramTypes[paramLoop] = constructorParams[paramLoop].GetType();
             }
 
-            return BoardContext.Current;
+            // Get the constructor that matches our signature
+            var constructor = control.GetType().BaseType.GetConstructor(paramTypes);
+
+            // Call the constructor if we found it, otherwise throw
+            if (constructor == null)
+            {
+                throw new ArgumentException("Required constructor signature not found.");
+            }
+
+            constructor.Invoke(control, constructorParams);
+
+            return control;
         }
 
         #endregion

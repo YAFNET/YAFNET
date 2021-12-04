@@ -25,6 +25,8 @@ namespace YAF.Types.Interfaces
 {
     using System.Net.Mail;
 
+    using YAF.Types.Models;
+
     /// <summary>
     /// The digest interface
     /// </summary>
@@ -35,24 +37,30 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Gets the digest HTML.
         /// </summary>
-        /// <param name="userId">The user id.</param>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
+        /// <param name="user">
+        /// The user.
+        /// </param>
+        /// <param name="boardSettings">
+        /// The board Settings.
+        /// </param>
+        /// <param name="showErrors">
+        /// The show Errors.
+        /// </param>
         /// <returns>
         /// The get digest html.
         /// </returns>
-        string GetDigestHtml(int userId, object boardSettings, bool showErrors = false);
+        string GetDigestHtml(User user, object boardSettings, bool showErrors = false);
 
         /// <summary>
         /// Gets the digest URL.
         /// </summary>
         /// <param name="userId">The user id.</param>
         /// <param name="boardSettings">The board settings.</param>
-        /// <param name="showErrors">Show digest generation errors</param>
+        /// <param name="showErrors">Show errors creating the digest.</param>
         /// <returns>
         /// The get digest url.
         /// </returns>
-        string GetDigestUrl(int userId, object boardSettings, bool showErrors);
+        public string GetDigestUrl(int userId, object boardSettings, bool showErrors);
 
         /// <summary>
         /// Creates the Digest Mail Message.

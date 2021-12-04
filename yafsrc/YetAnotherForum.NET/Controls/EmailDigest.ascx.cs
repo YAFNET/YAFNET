@@ -29,8 +29,8 @@ namespace YAF.Controls
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using YAF.Configuration;
     using YAF.Core.BaseControls;
@@ -96,8 +96,8 @@ namespace YAF.Controls
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
                 return topicsFlattened.Where(
-                    t => t.LastPostDate > DateTime.Now.AddHours(this.topicHours)
-                         && t.CreatedDate < DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
+                    t => t.LastPostDate > DateTime.Now.AddHours(this.topicHours) &&
+                         t.CreatedDate < DateTime.Now.AddHours(this.topicHours)).GroupBy(x => x.Forum);
             }
         }
 
@@ -107,9 +107,9 @@ namespace YAF.Controls
         public int BoardID { get; set; }
 
         /// <summary>
-        ///   Gets or sets CurrentUserID.
+        ///   Gets or sets Current User.
         /// </summary>
-        public int CurrentUserID { get; set; }
+        public User CurrentUser { get; set; }
 
         /// <summary>
         /// Gets or sets the board settings.
@@ -130,8 +130,8 @@ namespace YAF.Controls
                 // flatten...
                 var topicsFlattened = this.forumData.SelectMany(x => x.Topics);
 
-                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours)).OrderByDescending(x => x.LastPostDate)
-                    .GroupBy(x => x.Forum);
+                return topicsFlattened.Where(t => t.CreatedDate > DateTime.Now.AddHours(this.topicHours))
+                    .OrderByDescending(x => x.LastPostDate).GroupBy(x => x.Forum);
             }
         }
 
@@ -215,7 +215,7 @@ namespace YAF.Controls
         protected void OutputError([NotNull] string errorString)
         {
             this.Get<HttpResponseBase>().Write(
-                $"<!DOCTYPE html><html><head><title>Error</title></head><body><h1>{errorString}</h1></body></html>");
+                $"<h1>{errorString}</h1>");
         }
 
         /// <summary>
@@ -233,8 +233,8 @@ namespace YAF.Controls
             if (HttpContext.Current != null)
             {
                 this.BoardSettings = this.PageContext.BoardSettings.BoardID.Equals(this.BoardID)
-                                         ? this.PageContext.BoardSettings
-                                         : new LoadBoardSettings(this.BoardID);
+                    ? this.PageContext.BoardSettings
+                    : new LoadBoardSettings(this.BoardID);
             }
             else
             {
@@ -270,19 +270,18 @@ namespace YAF.Controls
                 return;
             }
 
-            if (this.CurrentUserID == 0)
+            if (this.CurrentUser == null)
             {
-                this.CurrentUserID = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("UserID").Value;
+                var userId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("UserID").Value;
+                this.CurrentUser = this.GetRepository<User>().GetById(userId);
             }
 
-            var currentUser = this.GetRepository<User>().GetById(this.CurrentUserID);
-
             // get topic hours...
-            this.topicHours = -this.BoardSettings.DigestSendEveryXHours;
+            this.topicHours = -this.Get<BoardSettings>().DigestSendEveryXHours;
 
             this.forumData = this.Get<DataBroker>().GetSimpleForumTopic(
-                this.BoardID,
-                this.CurrentUserID,
+                this.PageContext.PageBoardID,
+                this.CurrentUser.ID,
                 DateTime.Now.AddHours(this.topicHours),
                 9999);
 
@@ -291,52 +290,95 @@ namespace YAF.Controls
                 if (this.ShowErrors)
                 {
                     this.OutputError($"No topics for the last {this.BoardSettings.DigestSendEveryXHours} hours.");
-
-                    this.Get<HttpResponseBase>().Write(this.GetDebug());
                 }
 
                 this.Get<HttpResponseBase>().End();
                 return;
             }
 
-            this.languageFile = UserHelper.GetUserLanguageFile(
-                currentUser);
+            this.languageFile = UserHelper.GetUserLanguageFile(this.CurrentUser);
 
-            var theme = UserHelper.GetUserThemeFile(
-                currentUser,
-                this.BoardSettings.AllowUserTheme,
-                this.BoardSettings.Theme);
+            if (this.languageFile.IsNotSet())
+            {
+                this.languageFile = this.BoardSettings.Language;
+            }
 
-            var subject = string.Format(this.GetText("SUBJECT"), this.BoardSettings.Name);
+            var inlineCss = File.ReadAllText(
+                HttpContext.Current.Server
+                    .MapPath(this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css")));
 
             this.YafHead.Controls.Add(
-                ControlHelper.MakeCssIncludeControl(
-                    BoardInfo.GetURLToContentThemes(Path.Combine(theme, "bootstrap-forum.min.css"))));
+                ControlHelper.MakeCssControl(inlineCss));
+
+            var logoUrl =
+                $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.Get<BoardSettings>().ForumLogo}";
+
+            this.Logo.ImageUrl = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
+
+            var subject = string.Format(this.GetText("SUBJECT"), this.BoardSettings.Name);
 
             if (subject.IsSet())
             {
                 this.YafHead.Title = subject;
             }
+
+            this.NewTopicsForumsRepeater.DataSource = this.NewTopics;
+            this.NewTopicsForumsRepeater.DataBind();
+
+            this.ActiveTopicsForumsRepeater.DataSource = this.ActiveTopics;
+            this.ActiveTopicsForumsRepeater.DataBind();
+        }
+
+        /// <summary>
+        /// The new topics forums repeater_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void NewTopicsForumsRepeater_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (!e.Item.ItemType.Equals(ListItemType.Item))
+            {
+                return;
+            }
+
+            var item = (IGrouping<SimpleForum, SimpleTopic>)e.Item.DataItem;
+
+            var topics = item.OrderByDescending(x => x.LastPostDate);
+
+            var newTopicsRepeater = e.Item.FindControlAs<Repeater>("NewTopicsRepeater");
+            newTopicsRepeater.DataSource = topics;
+            newTopicsRepeater.DataBind();
+        }
+
+        /// <summary>
+        /// The active topics forums repeater_ on item data bound.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ActiveTopicsForumsRepeater_OnItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (!e.Item.ItemType.Equals(ListItemType.Item))
+            {
+                return;
+            }
+
+            var item = (IGrouping<SimpleForum, SimpleTopic>)e.Item.DataItem;
+
+            var topics = item.OrderByDescending(x => x.LastPostDate);
+
+            var activeTopicsRepeater = e.Item.FindControlAs<Repeater>("ActiveTopicsRepeater");
+            activeTopicsRepeater.DataSource = topics;
+            activeTopicsRepeater.DataBind();
         }
 
         #endregion
-
-        /// <summary>
-        /// Gets the debug information.
-        /// </summary>
-        /// <returns>Returns the String with the debug information</returns>
-        protected string GetDebug()
-        {
-            var debugInfo = new StringBuilder();
-
-#if DEBUG
-            if (!this.ShowErrors)
-            {
-                return debugInfo.ToString();
-            }
-#endif
-
-            return debugInfo.ToString();
-        }
     }
 }

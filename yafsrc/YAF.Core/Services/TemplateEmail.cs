@@ -32,6 +32,7 @@ namespace YAF.Core.Services
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
@@ -49,8 +50,10 @@ namespace YAF.Core.Services
         /// <param name="templateName">
         /// The template name.
         /// </param>
-        public TemplateEmail(string templateName)
+        public TemplateEmail([CanBeNull]string templateName)
         {
+            this.HtmlTemplateFileName = "EmailTemplate.html";
+
             this.TemplateName = templateName;
 
             var logoUrl =
@@ -84,6 +87,11 @@ namespace YAF.Core.Services
         ///     Gets or sets TemplateName.
         /// </summary>
         public string TemplateName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the html template file name.
+        /// </summary>
+        public string HtmlTemplateFileName { get; set; }
 
         /// <summary>
         ///     Gets or sets Template Parameter
@@ -181,7 +189,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The process template.
         /// </returns>
-        public string ProcessTemplate(string templateName)
+        public string ProcessTemplate([CanBeNull]string templateName)
         {
             var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
 
@@ -189,7 +197,9 @@ namespace YAF.Core.Services
             {
                 email = this.TemplateParams.Keys.Aggregate(
                     email,
-                    (current, key) => current.Replace(key, this.TemplateParams[key]));
+                    (current, key) => this.TemplateParams[key].IsSet()
+                        ? current.Replace(key, this.TemplateParams[key])
+                        : current.Replace(key, string.Empty));
             }
 
             return email;
@@ -207,7 +217,7 @@ namespace YAF.Core.Services
         private string ProcessHtml(string textBody)
         {
             var htmlTemplate = File.ReadAllText(this.Get<HttpContextBase>().Server.MapPath(
-                $"{BoardInfo.ForumServerFileRoot}Resources/EmailTemplate.html"));
+                $"{BoardInfo.ForumServerFileRoot}Resources/{this.HtmlTemplateFileName}"));
 
             var formattedBody = this.Get<IBBCode>().MakeHtml(textBody, true, true);
 

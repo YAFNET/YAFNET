@@ -128,8 +128,10 @@ namespace YAF.Pages.Admin
                 try
                 {
                     // create and send a test digest to the email provided...
-                    var digestHtml = this.Get<IDigest>()
-                        .GetDigestHtml(this.PageContext.PageUserID, this.PageContext.BoardSettings, true);
+                    var digestHtml = this.Get<IDigest>().GetDigestHtml(
+                        this.PageContext.User,
+                        this.PageContext.BoardSettings,
+                        true);
 
                     // send....
                     var message = this.Get<IDigest>().CreateDigestMessage(

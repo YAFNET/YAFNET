@@ -42,25 +42,26 @@
                                     IconName="envelope"
                                     LocalizedTag="HEADER2" 
                                     LocalizedPage="ADMIN_DIGEST"></YAF:IconHeader>
-           </div>
+                </div>
                 <div class="card-body">
-        <asp:PlaceHolder ID="DigestHtmlPlaceHolder" runat="server" Visible="false">
+                    <asp:PlaceHolder ID="DigestHtmlPlaceHolder" runat="server" Visible="false">
                  
-                    <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DIGEST_GENERATE"
-                        LocalizedPage="ADMIN_DIGEST" />
+                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="DIGEST_GENERATE"
+                                            LocalizedPage="ADMIN_DIGEST" />
                  
-                <p>
-                    <asp:HtmlIframe id="DigestFrame" runat="server" style="width: 100%; height: 500px"></asp:HtmlIframe>
-                </p>
-        </asp:PlaceHolder>
-</div>
+                        <p>
+                            <asp:HtmlIframe id="DigestFrame" runat="server" style="width: 100%; height: 500px"></asp:HtmlIframe>
+                        </p>
+                    </asp:PlaceHolder>
+                </div>
                 <div class="card-footer text-center">
                     <YAF:ThemeButton ID="GenerateDigest" runat="server" OnClick="GenerateDigestClick" Type="Primary"
                                      Icon="envelope" TextLocalizedTag="GENERATE_DIGEST">
                     </YAF:ThemeButton>
+                </div>
             </div>
-        </div>
-                <div class="card mb-3">
+
+            <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
                                     IconName="envelope"
