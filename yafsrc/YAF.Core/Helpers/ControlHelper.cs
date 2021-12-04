@@ -348,7 +348,7 @@ namespace YAF.Core.Helpers
 
             var style = new HtmlGenericControl { TagName = "style" };
             style.Attributes.Add("type", "text/css");
-            style.InnerText = css;
+            style.InnerHtml = css;
 
             return style;
         }
