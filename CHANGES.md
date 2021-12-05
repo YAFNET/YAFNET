@@ -1,6 +1,14 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.0.2
+* [FIXED #658] Re-Added CTRL+Enter to submit post
+* [FIXED #656] The UTC time represented when the offset is applied must be between year 0 and 10,000
+* [FIXED] Not Approved users should not be able to log-in
+* [NEW] Not Approved Users can re-send the Confirm Email 
+* [FIXED] Not Approved users can be edited in the Admin Interface 
+* Upgraded to CKEditor 4.17.1
+
 # YetAnotherForum.NET v3.0.1
 * [FIXED #645] Send PM for regular users
 * bug fixes
