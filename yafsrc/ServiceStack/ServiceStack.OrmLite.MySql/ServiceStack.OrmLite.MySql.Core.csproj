@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
-    <ProjectReference Include="..\ServiceStack\ServiceStack.Core.csproj" />
     <PackageReference Include="Mysql.Data" Version="8.0.27" />
   </ItemGroup>
 

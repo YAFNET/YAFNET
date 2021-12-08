@@ -189,17 +189,5 @@ namespace ServiceStack.Script
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
         public override string ToString() => Signature;
-
-        /// <summary>
-        /// Converts to scriptmethodtype.
-        /// </summary>
-        /// <returns>ScriptMethodType.</returns>
-        public ScriptMethodType ToScriptMethodType() => new()
-        {
-            Name = Name,
-            ParamNames = ParamNames,
-            ParamTypes = ParamTypes,
-            ReturnType = ReturnType,
-        };
     }
 }

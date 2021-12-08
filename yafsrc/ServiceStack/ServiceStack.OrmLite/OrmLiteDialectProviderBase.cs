@@ -2006,7 +2006,7 @@ namespace ServiceStack.OrmLite
         /// Gets or sets the create table fields strategy.
         /// </summary>
         /// <value>The create table fields strategy.</value>
-        public Func<ModelDefinition, List<FieldDefinition>> CreateTableFieldsStrategy { get; set; } =
+        public Func<ModelDefinition, IEnumerable<FieldDefinition>> CreateTableFieldsStrategy { get; set; } =
             GetFieldDefinitions;
 
         /// <summary>
@@ -2014,7 +2014,8 @@ namespace ServiceStack.OrmLite
         /// </summary>
         /// <param name="modelDef">The model definition.</param>
         /// <returns>List&lt;FieldDefinition&gt;.</returns>
-        public static List<FieldDefinition> GetFieldDefinitions(ModelDefinition modelDef) => modelDef.FieldDefinitions;
+        public static IEnumerable<FieldDefinition> GetFieldDefinitions(ModelDefinition modelDef) =>
+            modelDef.FieldDefinitions.OrderBy(fd => fd.Order);
 
         /// <summary>
         /// Converts to createschemastatement.

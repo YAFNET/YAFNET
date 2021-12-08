@@ -126,6 +126,7 @@ namespace ServiceStack.OrmLite
             var hasIdField = CheckForIdField(objProperties);
 
             var i = 0;
+            var propertyInfoIdx = 0;
             foreach (var propertyInfo in objProperties)
             {
                 // Is Indexer
@@ -213,6 +214,12 @@ namespace ServiceStack.OrmLite
                 var customFieldAttr = propertyInfo.FirstAttribute<CustomFieldAttribute>();
                 var chkConstraintAttr = propertyInfo.FirstAttribute<CheckConstraintAttribute>();
 
+                var order = propertyInfoIdx++;
+                if (customFieldAttr != null)
+                {
+                    order = customFieldAttr.Order;
+                }
+
                 var fieldDefinition = new FieldDefinition
                 {
                     Name = propertyInfo.Name,
@@ -260,6 +267,7 @@ namespace ServiceStack.OrmLite
                     BelongToModelName = belongToAttribute?.BelongToTableType.GetModelDefinition().ModelName,
                     CustomFieldDefinition = customFieldAttr?.Sql,
                     IsRefType = propertyType.IsRefType(),
+                    Order = order
                 };
 
                 if (isIgnored)

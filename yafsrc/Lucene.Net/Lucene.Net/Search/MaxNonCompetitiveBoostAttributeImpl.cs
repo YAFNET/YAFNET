@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 
 namespace YAF.Lucene.Net.Search
 {
@@ -28,9 +28,6 @@ namespace YAF.Lucene.Net.Search
     /// <para/>
     /// @lucene.internal
     /// </summary>
-#if FEATURE_SERIALIZABLE
-    [Serializable]
-#endif
     public sealed class MaxNonCompetitiveBoostAttribute : Attribute, IMaxNonCompetitiveBoostAttribute
     {
         private float maxNonCompetitiveBoost = float.NegativeInfinity;

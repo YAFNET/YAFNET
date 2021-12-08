@@ -94,9 +94,9 @@
     <DefineConstants>$(DefineConstants);NETFRAMEWORK</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_ARGITERATOR</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_MEMORYMAPPEDFILESECURITY</DefineConstants>
-    <!-- Although HostProtectionAttribute is available in .NET Standard 2.0+ via platform extensions, we are excluding
+    <!-- Although code access security is available in .NET Standard 2.0+ via platform extensions, we are excluding
          it due to the fact it is not a primary feature of Lucene.NET -->
-    <DefineConstants>$(DefineConstants);FEATURE_SECURITYPERMISSIONS_HOSTPROTECTION</DefineConstants>
+    <DefineConstants>$(DefineConstants);FEATURE_CODE_ACCESS_SECURITY</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_STACKOVERFLOWEXCEPTION__ISCATCHABLE</DefineConstants>
     <DefineConstants>$(DefineConstants);FEATURE_TEXTWRITER_CREATEOBJREF</DefineConstants>
     
@@ -108,7 +108,6 @@
   <PropertyGroup Condition="$(TargetFramework.StartsWith('net4')) And '$(TargetFramework)' != 'net461'">
 
     <DefineConstants>$(DefineConstants);FEATURE_OPENNLP</DefineConstants>
-    <DefineConstants>$(DefineConstants);FEATURE_SERIALIZABLE_EXCEPTIONS</DefineConstants>
 
   </PropertyGroup>
     

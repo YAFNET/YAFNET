@@ -65,9 +65,6 @@ namespace YAF.Lucene.Net.Search
     /// };
     /// </code>
     /// </summary>
-#if FEATURE_SERIALIZABLE
-    [Serializable]
-#endif
     public class BooleanQuery : Query, IEnumerable<BooleanClause>
     {
         private static int maxClauseCount = 1024;

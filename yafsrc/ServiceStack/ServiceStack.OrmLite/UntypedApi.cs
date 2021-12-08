@@ -4,17 +4,18 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using ServiceStack.Text;
 
     /// <summary>
@@ -26,7 +27,7 @@ namespace ServiceStack.OrmLite
         /// The untyped API map
         /// </summary>
         static readonly ConcurrentDictionary<Type, Type> untypedApiMap =
-            new ConcurrentDictionary<Type, Type>();
+            new();
 
         /// <summary>
         /// Creates the typed API.
@@ -95,6 +96,11 @@ namespace ServiceStack.OrmLite
         /// <param name="filter">The filter.</param>
         /// <returns>TReturn.</returns>
         public TReturn Exec<TReturn>(Func<IDbCommand, TReturn> filter)
+        {
+            return DbCmd != null ? filter(DbCmd) : Db.Exec(filter);
+        }
+
+        public Task<TReturn> Exec<TReturn>(Func<IDbCommand, Task<TReturn>> filter)
         {
             return DbCmd != null ? filter(DbCmd) : Db.Exec(filter);
         }

@@ -1,4 +1,4 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Support;
 using System;
 
@@ -32,9 +32,6 @@ namespace YAF.Lucene.Net.Index
     /// <para/>
     /// @lucene.experimental
     /// </summary>
-#if FEATURE_SERIALIZABLE
-    [Serializable]
-#endif
     public sealed class TermContext
     {
         /// <summary>

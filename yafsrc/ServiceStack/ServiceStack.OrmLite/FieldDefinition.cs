@@ -157,6 +157,12 @@ namespace ServiceStack.OrmLite
         public bool IsUniqueConstraint { get; set; }
 
         /// <summary>
+        /// Gets or sets the order.
+        /// </summary>
+        /// <value>The order.</value>
+        public int Order { get; set; }
+
+        /// <summary>
         /// Gets or sets the foreign key.
         /// </summary>
         /// <value>The foreign key.</value>
