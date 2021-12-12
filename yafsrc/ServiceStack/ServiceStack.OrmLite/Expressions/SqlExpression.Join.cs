@@ -81,6 +81,31 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
+        /// Adds the reference table if not exists.
+        /// </summary>
+        /// <typeparam name="Target">The type of the target.</typeparam>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
+        public SqlExpression<T> AddReferenceTableIfNotExists<Target>()
+        {
+            var tableDef = typeof(Target).GetModelDefinition();
+            if (!tableDefs.Contains(tableDef))
+                tableDefs.Add(tableDef);
+            return this;
+        }
+
+        /// <summary>
+        /// Customs the join.
+        /// </summary>
+        /// <typeparam name="Target">The type of the target.</typeparam>
+        /// <param name="joinString">The join string.</param>
+        /// <returns>SqlExpression&lt;T&gt;.</returns>
+        public SqlExpression<T> CustomJoin<Target>(string joinString)
+        {
+            AddReferenceTableIfNotExists<Target>();
+            return CustomJoin(joinString);
+        }
+        
+        /// <summary>
         /// Determines whether [is joined table] [the specified type].
         /// </summary>
         /// <param name="type">The type.</param>
