@@ -91,6 +91,13 @@ namespace YAF.Types.Models
         [Default(0)]
         public bool ShowInUserInfo { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether show on register page.
+        /// </summary>
+        [Required]
+        [Default(0)]
+        public bool ShowOnRegisterPage { get; set; }
+
         #endregion
     }
 }
