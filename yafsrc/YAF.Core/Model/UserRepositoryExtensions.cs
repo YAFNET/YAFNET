@@ -572,7 +572,6 @@ namespace YAF.Core.Model
                         RankID = rankId,
                         Name = userName,
                         DisplayName = displayName,
-                        Password = "-",
                         Email = email,
                         Joined = DateTime.UtcNow,
                         LastVisit = DateTime.UtcNow,

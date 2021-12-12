@@ -595,6 +595,11 @@ namespace YAF.Core.Services.Migrations
             // Not used
         }
 
+        public void UpgradeTableProfileDefinition(IDbAccess dbAccess, IDbCommand dbCommand)
+        {
+            // Not used
+        }
+
         public void UpgradeTableRank(IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<Rank>(x => x.PMLimit))

@@ -104,13 +104,6 @@ namespace YAF.Types.Models
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        [Required]
-        [StringLength(32)]
-        public string Password { get; set; }
-
-        /// <summary>
         /// Gets or sets the email.
         /// </summary>
         [StringLength(255)]

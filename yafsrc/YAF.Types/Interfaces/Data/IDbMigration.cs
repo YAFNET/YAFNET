@@ -116,7 +116,7 @@ namespace YAF.Types.Interfaces.Data
         void UpgradeTableBannedEmail(IDbAccess dbAccess, IDbCommand dbCommand);
 
         /// <summary>
-        /// The upgrade table banned ip.
+        /// The upgrade table BannedIP.
         /// </summary>
         /// <param name="dbAccess">
         /// The Database access.
@@ -324,58 +324,312 @@ namespace YAF.Types.Interfaces.Data
         /// </param>
         void UpgradeTableMessageHistory(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table message reported.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableMessageReported(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table message reported audit.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableMessageReportedAudit(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade tables nntp forum.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTablesNntpForum(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade tables nntp server.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTablesNntpServer(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade tables nntp topic.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTablesNntpTopic(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table PMessage.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTablePMessage(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table poll.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTablePoll(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table poll vote.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTablePollVote(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table profile custom.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableProfileCustom(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table profile definition.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
+        void UpgradeTableProfileDefinition(IDbAccess dbAccess, IDbCommand dbCommand);
+
+        /// <summary>
+        /// The upgrade table rank.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableRank(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table registry.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableRegistry(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table replace_ words.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableReplace_Words(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table reputation vote.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableReputationVote(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table spam_ words.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableSpam_Words(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table tag.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableTag(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table thanks.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableThanks(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table topic.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableTopic(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table topic read tracking.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableTopicReadTracking(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table topic tag.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableTopicTag(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table user.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableUser(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table user album.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableUserAlbum(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table user album image.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableUserAlbumImage(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table user forum.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableUserForum(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table user group.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableUserGroup(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table UserPMessage.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableUserPMessage(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table watch forum.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableWatchForum(IDbAccess dbAccess, IDbCommand dbCommand);
 
+        /// <summary>
+        /// The upgrade table watch topic.
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The db access.
+        /// </param>
+        /// <param name="dbCommand">
+        /// The db command.
+        /// </param>
         void UpgradeTableWatchTopic(IDbAccess dbAccess, IDbCommand dbCommand);
     }
 }
