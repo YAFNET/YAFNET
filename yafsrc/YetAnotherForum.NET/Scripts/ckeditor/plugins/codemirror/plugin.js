@@ -914,9 +914,13 @@
 
                     for (var i in ckeditorKeystrokes) {
                         var key = getCodeMirrorKey(i);
-						if (key !== null && key !== 'Enter') {
-                            (function (command) {
-                                editorExtraKeys[key] = function () {
+                        if (key !== null &&
+                            key !== 'Enter' &&
+                            key !== 'Ctrl-B' &&
+                            key !== 'Ctrl-I' &&
+                            key !== 'Ctrl-U') {
+                            (function(command) {
+                                editorExtraKeys[key] = function() {
                                     editor.execCommand(command);
                                 }
                             })(ckeditorKeystrokes[i]);

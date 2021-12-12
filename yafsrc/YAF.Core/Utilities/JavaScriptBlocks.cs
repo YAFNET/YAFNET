@@ -646,6 +646,23 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
+                          codemirror: {{
+                              theme: ""monokai"",
+                              extraKeys: {{
+                                               ""Ctrl-B"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
+                                                            }},
+                                               ""Ctrl-I"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[i]"", ""[/i]"");
+                                                            }},
+                                               ""Shift-Ctrl-Q"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[quote]"", ""[/quote]"");
+                                                            }},
+                                               ""Ctrl-U"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[u]"", ""[/u]"");
+                                                            }}
+                                         }}
+                          }},
                           keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
                           mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
@@ -728,7 +745,22 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           {{
                               maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
                           }},
-                          codemirror: {{mode: ""bbcode"",  theme: ""monokai""}},
+                          codemirror: {{mode: ""bbcode"",  
+                              theme: ""monokai"",
+                              extraKeys: {{
+                                               ""Ctrl-B"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
+                                                            }},
+                                               ""Ctrl-I"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[i]"", ""[/i]"");
+                                                            }},
+                                               ""Shift-Ctrl-Q"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[quote]"", ""[/quote]"");
+                                                            }},
+                                               ""Ctrl-U"" : function (codeMirror_Editor) {{
+                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[u]"", ""[/u]"");
+                                                            }}
+                                         }}}},
                           keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
                           mentions: [ {{ feed:  CKEDITOR.basePath.replace('Scripts/ckeditor/', '') + 'resource.ashx?users={{encodedQuery}}',
                                          itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
