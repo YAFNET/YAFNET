@@ -9,7 +9,7 @@
 (function() {
     CKEDITOR.plugins.add("codemirror", {
         lang: "af,ar,bg,bn,bs,ca,cs,cy,da,de,el,en-au,en-ca,en-gb,en,eo,es,et,eu,fa,fi,fo,fr-ca,fr,gl,gu,he,hi,hr,hu,is,it,ja,ka,km,ko,ku,lt,lv,mk,mn,ms,nb,nl,no,pl,pt-br,pt,ro,ru,sk,sl,sr-latn,sr,sv,th,tr,ug,uk,vi,zh-cn,zh", // %REMOVE_LINE_CORE%
-        version: "1.18.1",
+        version: "1.18.2",
         init: function (editor) {
             var command = editor.addCommand("codemirrorAbout", new CKEDITOR.dialogCommand("codemirrorAboutDialog"));
             command.modes = { wysiwyg: 1, source: 1 };
@@ -152,9 +152,18 @@
                             width = size.width,
                             height = size.height / 1.5;
 
+                        var mode = config.mode;
+
+                        if (mode == "handlebars") {
+                            mode = { name: "handlebars", base: "text/html" };
+                        }
+                        else if (mode == "twig") {
+                            mode = { name: "twig", base: "text/html" };
+                        }
+
                         window["codemirror_" + editor.id] = CodeMirror.fromTextArea(textarea, {
                             direction: editor.lang.dir,
-                            mode: config.mode === "handlebars" ? { name: "handlebars", base: "text/html" } : config.mode,
+                            mode: mode,
                             matchBrackets: config.matchBrackets,
                             maxHighlightLineLength: config.maxHighlightLineLength,
                             matchTags: config.matchTags,
@@ -917,9 +926,18 @@
 
                 addCKEditorKeystrokes(config.extraKeys);
 
+                var mode = config.mode;
+
+                if (mode == "handlebars") {
+                    mode = { name: "handlebars", base: "text/html" };
+                }
+                else if (config.mode == "twig") {
+                    mode = { name: "twig", base: "text/html" };
+                }
+
                 window["codemirror_" + editor.id] = CodeMirror.fromTextArea(sourceAreaElement.$, {
                     direction: editor.lang.dir,
-                    mode: config.mode === "handlebars" ? { name: "handlebars", base: "text/html" } : config.mode,
+                    mode: mode,
                     matchBrackets: config.matchBrackets,
                     maxHighlightLineLength: config.maxHighlightLineLength,
                     matchTags: config.matchTags,
@@ -1249,7 +1267,7 @@ CKEDITOR.plugins.sourcearea = {
             },
             editorFocus: false,
             readOnly: 1,
-            exec: function(editor) {
+            exec: function (editor) {
                 if (editor.mode === "wysiwyg") {
                     editor.fire("saveSnapshot");
                 }
@@ -1266,7 +1284,7 @@ CKEDITOR.plugins.sourcearea = {
             },
             editorFocus: false,
             readOnly: 1,
-            exec: function(editor) {
+            exec: function (editor) {
                 CodeMirror.commands.find(window["codemirror_" + editor.id]);
             },
             canUndo: true
@@ -1278,7 +1296,7 @@ CKEDITOR.plugins.sourcearea = {
             },
             editorFocus: false,
             readOnly: 0,
-            exec: function(editor) {
+            exec: function (editor) {
                 var range = {
                     from: window["codemirror_" + editor.id].getCursor(true),
                     to: window["codemirror_" + editor.id].getCursor(false)
@@ -1294,7 +1312,7 @@ CKEDITOR.plugins.sourcearea = {
             },
             editorFocus: false,
             readOnly: 0,
-            exec: function(editor) {
+            exec: function (editor) {
                 var range = {
                     from: window["codemirror_" + editor.id].getCursor(true),
                     to: window["codemirror_" + editor.id].getCursor(false)
@@ -1310,7 +1328,7 @@ CKEDITOR.plugins.sourcearea = {
             },
             editorFocus: false,
             readOnly: 0,
-            exec: function(editor) {
+            exec: function (editor) {
                 var range = {
                     from: window["codemirror_" + editor.id].getCursor(true),
                     to: window["codemirror_" + editor.id].getCursor(false)
@@ -1331,7 +1349,7 @@ CKEDITOR.plugins.sourcearea = {
             },
             editorFocus: false,
             readOnly: 1,
-            exec: function(editor) {
+            exec: function (editor) {
                 if (this.state == CKEDITOR.TRISTATE_ON) {
                     window["codemirror_" + editor.id].setOption("autoCloseTags", false);
                 } else if (this.state == CKEDITOR.TRISTATE_OFF) {

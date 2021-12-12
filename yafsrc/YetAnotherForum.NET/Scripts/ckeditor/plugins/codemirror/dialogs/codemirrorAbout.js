@@ -59,29 +59,48 @@ CKEDITOR.dialog.add('codemirrorAboutDialog',
                                 '<div class="cke_about_container">' +
                                 '<div class="cke_about_logo"></div>' +
                                 '<p>' +
-                                'CodeMirror ' +
-                                CodeMirror.version + ' (CKEditor Plugin Version ' + editor.plugins.codemirror.version + ')<br>' +
+                                (typeof (CodeMirror) == "undefined" ? "" : 'CodeMirror ' + CodeMirror.version) +
+                                ' (CKEditor Plugin Version ' +
+                                editor.plugins.codemirror.version +
+                                ')<br>' +
                                 '<a target="_blank" rel="noopener noreferrer" href="https://codemirror.net">https://codemirror.net</a> - ' +
                                 '<a target="_blank" rel="noopener noreferrer" href="https://github.com/w8tcha/CKEditor-CodeMirror-Plugin">https://github.com/w8tcha/CKEditor-CodeMirror-Plugin</a>' +
                                 '</p>' +
-                                '<h5>' + lang.moreInfoShortcuts + '</h5>' +
+                                '<h5>' +
+                                lang.moreInfoShortcuts +
+                                '</h5>' +
                                 '<p><ul>' +
-                                '<li>' + lang.moreInfoShortcuts1 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts2 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts3 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts4 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts5 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts6 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts7 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts8 + '</li>' +
-                                '<li>' + lang.moreInfoShortcuts9 + '</li>' +
-
+                                '<li>' +
+                                lang.moreInfoShortcuts1 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts2 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts3 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts4 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts5 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts6 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts7 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts8 +
+                                '</li>' +
+                                '<li>' +
+                                lang.moreInfoShortcuts9 +
+                                '</li>' +
                                 '</ul></p>' +
-
                                 '<p>' +
                                 lang.copyright +
                                 '</p>' +
-
                                 '</div>'
                         }
                     ]
