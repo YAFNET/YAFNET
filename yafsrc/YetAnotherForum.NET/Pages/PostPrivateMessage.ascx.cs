@@ -551,7 +551,7 @@ namespace YAF.Pages
                 : null;
 
             // Check if quoted message is Reply
-            if (this.ReplyMessage.ReplyTo.HasValue)
+            if (this.ReplyMessage?.ReplyTo != null)
             {
                 replyTo = this.ReplyMessage.ReplyTo;
             }
