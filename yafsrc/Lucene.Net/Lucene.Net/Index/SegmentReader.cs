@@ -1,4 +1,5 @@
-﻿using J2N.Runtime.CompilerServices;
+﻿using J2N;
+using J2N.Runtime.CompilerServices;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Util;
 using System;
@@ -69,7 +70,7 @@ namespace YAF.Lucene.Net.Index
 
         private readonly FieldInfos fieldInfos; // LUCENENET specific - since it is readonly, made all internal classes use property
 
-        private readonly IList<long?> dvGens = new JCG.List<long?>();
+        private readonly IList<long> dvGens = new JCG.List<long>();
 
         /// <summary>
         /// Constructs a new <see cref="SegmentReader"/> with a new core. </summary>
@@ -187,15 +188,15 @@ namespace YAF.Lucene.Net.Index
         {
             Directory dir = core.cfsReader ?? si.Info.Dir;
             DocValuesFormat dvFormat = codec.DocValuesFormat;
-            IDictionary<long?, IList<FieldInfo>> genInfos = GetGenInfos();
+            IDictionary<long, IList<FieldInfo>> genInfos = GetGenInfos();
 
             //      System.out.println("[" + Thread.currentThread().getName() + "] SR.initDocValuesProducers: segInfo=" + si + "; gens=" + genInfos.keySet());
 
             // TODO: can we avoid iterating over fieldinfos several times and creating maps of all this stuff if dv updates do not exist?
 
-            foreach (KeyValuePair<long?, IList<FieldInfo>> e in genInfos)
+            foreach (KeyValuePair<long, IList<FieldInfo>> e in genInfos)
             {
-                long? gen = e.Key;
+                long gen = e.Key;
                 IList<FieldInfo> infos = e.Value;
                 DocValuesProducer dvp = segDocValues.GetDocValuesProducer(gen, si, IOContext.READ, dir, dvFormat, infos, TermInfosIndexDivisor);
                 foreach (FieldInfo fi in infos)
@@ -232,7 +233,10 @@ namespace YAF.Lucene.Net.Index
 
             try
             {
-                string segmentSuffix = info.FieldInfosGen == -1 ? "" : info.FieldInfosGen.ToString(CultureInfo.InvariantCulture);//Convert.ToString(info.FieldInfosGen, Character.MAX_RADIX));
+                // LUCENENET specific: We created the segments names wrong in 4.8.0-beta00001 - 4.8.0-beta00015,
+                // so we added a switch to be able to read these indexes in later versions. This logic as well as an
+                // optimization on the first 100 segment values is implmeneted in SegmentInfos.SegmentNumberToString().
+                string segmentSuffix = info.FieldInfosGen == -1 ? string.Empty : SegmentInfos.SegmentNumberToString(info.FieldInfosGen);
                 return info.Info.Codec.FieldInfosFormat.FieldInfosReader.Read(dir, info.Info.Name, segmentSuffix, IOContext.READ_ONCE);
             }
             finally
@@ -245,9 +249,9 @@ namespace YAF.Lucene.Net.Index
         }
 
         // returns a gen->List<FieldInfo> mapping. Fields without DV updates have gen=-1
-        private IDictionary<long?, IList<FieldInfo>> GetGenInfos()
+        private IDictionary<long, IList<FieldInfo>> GetGenInfos()
         {
-            IDictionary<long?, IList<FieldInfo>> genInfos = new Dictionary<long?, IList<FieldInfo>>();
+            IDictionary<long, IList<FieldInfo>> genInfos = new Dictionary<long, IList<FieldInfo>>();
             foreach (FieldInfo fi in FieldInfos)
             {
                 if (fi.DocValuesType == DocValuesType.NONE)

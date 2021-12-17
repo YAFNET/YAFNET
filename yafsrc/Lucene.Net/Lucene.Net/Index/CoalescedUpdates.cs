@@ -22,9 +22,7 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
     using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
     using Query = YAF.Lucene.Net.Search.Query;
     using QueryAndLimit = YAF.Lucene.Net.Index.BufferedUpdatesStream.QueryAndLimit;
 
@@ -53,7 +51,7 @@ namespace YAF.Lucene.Net.Index
 
             foreach (NumericDocValuesUpdate nu in @in.numericDVUpdates)
             {
-                NumericDocValuesUpdate clone = new NumericDocValuesUpdate(nu.term, nu.field, (long?)nu.value);
+                NumericDocValuesUpdate clone = new NumericDocValuesUpdate(nu.term, nu.field, nu.value);
                 clone.docIDUpto = int.MaxValue;
                 numericDVUpdates.Add(clone);
             }

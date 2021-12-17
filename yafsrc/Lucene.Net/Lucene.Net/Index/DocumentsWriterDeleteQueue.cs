@@ -1,4 +1,5 @@
-using YAF.Lucene.Net.Diagnostics;
+﻿using YAF.Lucene.Net.Diagnostics;
+using YAF.Lucene.Net.Search;
 using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using System;
@@ -22,10 +23,6 @@ namespace YAF.Lucene.Net.Index
      * See the License for the specific language governing permissions and
      * limitations under the License.
      */
-
-    using BinaryDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.BinaryDocValuesUpdate;
-    using NumericDocValuesUpdate = YAF.Lucene.Net.Index.DocValuesUpdate.NumericDocValuesUpdate;
-    using Query = YAF.Lucene.Net.Search.Query;
 
     /// <summary>
     /// <see cref="DocumentsWriterDeleteQueue"/> is a non-blocking linked pending deletes

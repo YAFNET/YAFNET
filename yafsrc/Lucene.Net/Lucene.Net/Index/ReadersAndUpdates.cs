@@ -1,4 +1,5 @@
-﻿using J2N.Threading.Atomic;
+﻿using J2N;
+using J2N.Threading.Atomic;
 using YAF.Lucene.Net.Diagnostics;
 using YAF.Lucene.Net.Documents;
 using YAF.Lucene.Net.Support.Threading;
@@ -579,7 +580,10 @@ namespace YAF.Lucene.Net.Index
 
                         fieldInfos = builder.Finish();
                         long nextFieldInfosGen = Info.NextFieldInfosGen;
-                        string segmentSuffix = nextFieldInfosGen.ToString(CultureInfo.InvariantCulture);//Convert.ToString(nextFieldInfosGen, Character.MAX_RADIX));
+                        // LUCENENET specific: We created the segments names wrong in 4.8.0-beta00001 - 4.8.0-beta00015,
+                        // so we added a switch to be able to read these indexes in later versions. This logic as well as an
+                        // optimization on the first 100 segment values is implmeneted in SegmentInfos.SegmentNumberToString().
+                        string segmentSuffix = SegmentInfos.SegmentNumberToString(nextFieldInfosGen);
                         SegmentWriteState state = new SegmentWriteState(null, trackingDir, Info.Info, fieldInfos, writer.Config.TermIndexInterval, null, IOContext.DEFAULT, segmentSuffix);
                         DocValuesFormat docValuesFormat = codec.DocValuesFormat;
                         DocValuesConsumer fieldsConsumer = docValuesFormat.FieldsConsumer(state);
@@ -757,7 +761,7 @@ namespace YAF.Lucene.Net.Index
             {
                 if (curDoc == updateDoc) //document has an updated value
                 {
-                    long? value = (long?)iter.Value; // either null or updated
+                    long? value = iter.Value; // either null or updated
                     updateDoc = iter.NextDoc(); //prepare for next round
                     yield return value;
                 }
