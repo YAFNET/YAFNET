@@ -22,8 +22,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
-    using FSDirectory = YAF.Lucene.Net.Store.FSDirectory;
+    using Directory= YAF.Lucene.Net.Store.Directory;
+    using FSDirectory= YAF.Lucene.Net.Store.FSDirectory;
 
     /// <summary>
     /// Class containing some useful methods used by command line tools

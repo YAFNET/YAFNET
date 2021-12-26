@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-using FlagsAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
+using FlagsAttribute= YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util

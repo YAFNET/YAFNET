@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
-using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
+using WritableArrayAttribute= YAF.Lucene.Net.Support.WritableArrayAttribute;
 
 namespace YAF.Lucene.Net.Util
 {

@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using DataOutput= YAF.Lucene.Net.Store.DataOutput;
 
     /// <summary>
     /// A <see cref="DataOutput"/> that can be used to build a <see cref="T:byte[]"/>.

@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using Allocator = YAF.Lucene.Net.Util.Int32BlockPool.Allocator;
+    using Allocator= YAF.Lucene.Net.Util.Int32BlockPool.Allocator;
 
     /// <summary>
     /// A <see cref="Allocator"/> implementation that recycles unused <see cref="int"/>

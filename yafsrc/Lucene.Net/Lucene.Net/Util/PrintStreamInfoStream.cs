@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using Console = YAF.Lucene.Net.Util.SystemConsole;
+using Console= YAF.Lucene.Net.Util.SystemConsole;
 
 namespace YAF.Lucene.Net.Util
 {
