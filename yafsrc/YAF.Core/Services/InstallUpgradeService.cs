@@ -277,6 +277,7 @@ namespace YAF.Core.Services
                         extensions.Select(x => x.Extension).ToDelimitedString(","));
 
                     this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
+                    this.Get<V81_Migration>().MigrateDatabase(this.DbAccess);
 
                     // Upgrade to ASPNET Identity
                     if (!Config.IsDotNetNuke)

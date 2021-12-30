@@ -130,7 +130,7 @@ namespace YAF.Core.Services.Startup
             if (registryVersion >= 80)
             {
                 // Run Auto Upgrade
-                //this.Get<UpgradeService>().Upgrade();
+                this.Get<UpgradeService>().Upgrade();
             }
             else
             {

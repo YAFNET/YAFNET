@@ -123,6 +123,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<SyndicationFeeds>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
 
             builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
+            builder.RegisterType<UpgradeService>().AsSelf().PreserveExistingDefaults();
 
             // localization registration...
             builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
@@ -155,6 +156,7 @@ namespace YAF.Core.Modules
 
             // Migrations
             builder.RegisterType<V80_Migration>().AsSelf().PreserveExistingDefaults();
+            builder.RegisterType<V81_Migration>().AsSelf().PreserveExistingDefaults();
 
             // Caching
             //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();
