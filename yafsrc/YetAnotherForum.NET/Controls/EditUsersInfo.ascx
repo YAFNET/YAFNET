@@ -92,28 +92,28 @@
             <asp:CheckBox Text="&nbsp;" runat="server" ID="IsApproved" Enabled="False" />
         </div>
     </div>
-<asp:PlaceHolder runat="server" ID="ApproveHolder" Visible="False">
-    <div class="mb-3">
-        <YAF:ThemeButton runat="server" ID="ApproveUser" 
-                         Type="Secondary"
-                         ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
-                         Icon="check"
-                         OnClick="ApproveUserClick"
-                         TextLocalizedTag="ADMIN_APPROVE"></YAF:ThemeButton>
-    </div>
-</asp:PlaceHolder>
-<asp:PlaceHolder ID="DisabledHolder" runat="server">
-    <span class="badge bg-warning text-dark">
-        <YAF:LocalizedLabel runat="server" 
-                            LocalizedTag="DISABLED" 
-                            LocalizedPage="ADMIN_EDITUSER" />
-    </span>
-    <div class="mb-3">
-        <YAF:HelpLabel ID="HelpLabel16" runat="server" 
-                       AssociatedControlID="UnDisableUser"
-                       LocalizedTag="DISABLED" LocalizedPage="ADMIN_EDITUSER"/>
-    </div>
-</asp:PlaceHolder>
+<div class="row">
+    <asp:PlaceHolder runat="server" ID="ApproveHolder" Visible="False">
+        <div class="mb-3 col-md-6">
+            <YAF:ThemeButton runat="server" ID="ApproveUser" 
+                             Type="Secondary"
+                             ReturnConfirmText='<%# this.GetText("ADMIN_ADMIN", "CONFIRM_APPROVE") %>'
+                             Icon="check"
+                             OnClick="ApproveUserClick"
+                             TextLocalizedTag="ADMIN_APPROVE"></YAF:ThemeButton>
+        </div>
+    </asp:PlaceHolder>
+    <asp:PlaceHolder ID="DisabledHolder" runat="server" Visible="False">
+        <div class="mb-3 col-md-6">
+            <YAF:HelpLabel ID="HelpLabel16" runat="server" 
+                           AssociatedControlID="UnDisableUser"
+                           LocalizedTag="DISABLED" LocalizedPage="ADMIN_EDITUSER"/>
+            <div class="form-check form-switch">
+                <asp:CheckBox Text="&nbsp;" runat="server" ID="UnDisableUser" Enabled="False" Checked="True" />
+            </div>
+        </div>
+    </asp:PlaceHolder>
+</div>
 <!-- Easy to enable it if there is major issues (i.e. Guest being deleted). -->
     <asp:PlaceHolder runat="server" id="IsGuestRow" visible="false">
         <div class="mb-3">
