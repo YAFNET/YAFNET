@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2021 Ingo Herbote
+ * Copyright (C) 2014-2022 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -79,12 +79,12 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets the Current YAF Database Version
         /// </summary>
-        public static int AppVersion => 80;
+        public static int AppVersion => 81;
 
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new(2021, 11, 07, 12, 09, 00);
+        public static DateTime AppVersionDate => new(2021, 12, 08, 16, 10, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
@@ -98,7 +98,7 @@ namespace YAF.Configuration
             {
                 Major = 3,
                 Minor = 0,
-                Build = 1,
+                Build = 2,
                 ReleaseType = ReleaseType.Regular,
                 ReleaseNumber = 0
             };

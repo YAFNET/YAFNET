@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2021 Ingo Herbote
+ * Copyright (C) 2014-2022 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -282,15 +282,38 @@ namespace YAF.Core.Services
                 {
                     currentUser = this.GetRepository<User>()
                         .GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == userKey);
-                    userId = currentUser.ID;
 
-                    isGuest = false;
+                    if (currentUser != null)
+                    {
+                        userId = currentUser.ID;
 
-                    // make sure that registered users are not crawlers
-                    isCrawler = false;
+                        isGuest = false;
 
-                    // -- set IsRegistered ActiveFlag
-                    activeFlags |= 4;
+                        // make sure that registered users are not crawlers
+                        isCrawler = false;
+
+                        // -- set IsRegistered ActiveFlag
+                        activeFlags |= 4;
+                    }
+                    else
+                    {
+                        currentUser = guestUser;
+
+                        // -- this is a guest
+                        userId = guestUser.ID;
+                        previousVisit = guestUser.LastVisit;
+                        isGuest = true;
+
+                        // -- set IsGuest ActiveFlag  1 | 2
+                        activeFlags = 3;
+
+                        // -- crawlers are always guests
+                        if (isCrawler)
+                        {
+                            // -- set IsCrawler ActiveFlag
+                            activeFlags |= 8;
+                        }
+                    }
                 }
 
                 // -- Check valid ForumID

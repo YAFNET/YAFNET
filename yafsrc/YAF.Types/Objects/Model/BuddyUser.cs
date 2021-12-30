@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2021 Ingo Herbote
+ * Copyright (C) 2014-2022 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -26,29 +26,93 @@ namespace YAF.Types.Objects.Model
 {
     using System;
 
+    /// <summary>
+    /// Class BuddyUser.
+    /// </summary>
     public class BuddyUser
     {
+        /// <summary>
+        /// Gets or sets the user id.
+        /// </summary>
+        /// <value>The user identifier.</value>
         public int UserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the board identifier.
+        /// </summary>
+        /// <value>The board identifier.</value>
         public int BoardID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>The name.</value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
+        /// <value>The display name.</value>
         public string DisplayName { get; set; }
 
+        /// <summary>
+        /// Gets or sets the joined.
+        /// </summary>
+        /// <value>The joined.</value>
         public DateTime Joined { get; set; }
 
+        /// <summary>
+        /// Gets or sets the number posts.
+        /// </summary>
+        /// <value>The number posts.</value>
         public int NumPosts { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the rank.
+        /// </summary>
+        /// <value>The name of the rank.</value>
         public string RankName { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="BuddyUser"/> is approved.
+        /// </summary>
+        /// <value><c>true</c> if approved; otherwise, <c>false</c>.</value>
         public bool Approved { get; set; }
 
+        /// <summary>
+        /// Gets or sets from user identifier.
+        /// </summary>
+        /// <value>From user identifier.</value>
         public int FromUserID { get; set; }
 
+        /// <summary>
+        /// Gets or sets the requested.
+        /// </summary>
+        /// <value>The requested.</value>
         public DateTime Requested { get; set; }
 
+        /// <summary>
+        /// Gets or sets the user style.
+        /// </summary>
+        /// <value>The user style.</value>
         public string UserStyle { get; set; }
 
+        /// <summary>
+        /// Gets or sets the suspended.
+        /// </summary>
+        /// <value>The suspended.</value>
         public DateTime? Suspended { get; set; }
+
+        /// <summary>
+        /// Gets or sets the avatar.
+        /// </summary>
+        /// <value>The avatar.</value>
+        public string Avatar { get; set; }
+
+        /// <summary>
+        /// Gets or sets the avatar image.
+        /// </summary>
+        /// <value>The avatar image.</value>
+        public byte[] AvatarImage { get; set; }
     }
 }
