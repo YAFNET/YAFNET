@@ -14,6 +14,8 @@ using ServiceStack.Text.Jsv;
 
 namespace ServiceStack.Text
 {
+    using System.Threading;
+
     /// <summary>
     /// 
     /// </summary>

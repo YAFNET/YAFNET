@@ -15,6 +15,8 @@ using System.Threading;
 
 namespace ServiceStack.Text //Internalize to avoid conflicts
 {
+    using System.Diagnostics.Tracing;
+
     /// <summary>
     /// Class MemoryStreamFactory.
     /// </summary>
