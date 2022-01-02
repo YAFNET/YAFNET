@@ -933,6 +933,10 @@
   },
   {
     "Extension": "png",
+    "Type": "image/x-png"
+  },
+  {
+    "Extension": "png",
     "Type": "image/png"
   },
   {
