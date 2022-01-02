@@ -26,10 +26,14 @@ namespace YAF.Pages.Profile
 {
     #region Using
 
+    using System;
+
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Services;
+    using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
@@ -69,6 +73,21 @@ namespace YAF.Pages.Profile
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
+        }
+
+        /// <summary>
+        /// Handles the Load event of the Page control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            if (this.EditBoardUser == null)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+            }
+
+            this.ProfileSettings.User = this.EditBoardUser;
         }
 
         #endregion

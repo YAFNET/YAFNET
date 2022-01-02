@@ -87,7 +87,7 @@
                                 <uc1:ProfileEdit ID="ProfileEditControl" runat="server" User="<%# this.EditBoardUser %>" />
                             </div>
                             <div class="tab-pane" id="View10" role="tabpanel">
-                                <uc1:ProfileSettings ID="ProfileSettings" runat="server" User="<%# this.EditBoardUser.Item1 %>" />
+                                <uc1:ProfileSettings ID="ProfileSettings" runat="server" />
                             </div>
                             <div class="tab-pane" id="View11" role="tabpanel">
                                 <uc1:Attachments ID="UserAttachments" runat="server" />

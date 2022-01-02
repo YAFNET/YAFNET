@@ -95,7 +95,11 @@ namespace YAF.Pages.Admin
             if (this.EditBoardUser == null)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
+
+                return;
             }
+
+            this.ProfileSettings.User = this.EditBoardUser.Item1;
 
             // do admin permission check...
             if (!this.PageContext.User.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
