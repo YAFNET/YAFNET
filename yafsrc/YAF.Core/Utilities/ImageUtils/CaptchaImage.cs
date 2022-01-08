@@ -45,7 +45,7 @@ namespace YAF.Core.Utilities.ImageUtils
         /// <summary>
         /// The random.
         /// </summary>
-        private readonly Random random;
+        private readonly RandomGenerator random;
 
         /// <summary>
         ///   The family name.
@@ -75,7 +75,7 @@ namespace YAF.Core.Utilities.ImageUtils
         public CaptchaImage([NotNull] string s, int width, int height, [NotNull] string familyName)
         {
             this.Text = s;
-            this.random = new Random((int)DateTime.Now.Ticks);
+            this.random = new RandomGenerator();
             this.SetDimensions(width, height);
             this.SetFamilyName(familyName);
             this.GenerateImage();
@@ -131,7 +131,7 @@ namespace YAF.Core.Utilities.ImageUtils
         /// </summary>
         private void GenerateImage()
         {
-            var r = new Random();
+            var r = new RandomGenerator();
 
             // Create a new 32-bit bitmap image.
             var bitmap = new Bitmap(this.Width, this.Height, PixelFormat.Format32bppArgb);
@@ -141,7 +141,7 @@ namespace YAF.Core.Utilities.ImageUtils
             g.SmoothingMode = SmoothingMode.AntiAlias;
             var rect = new Rectangle(0, 0, this.Width, this.Height);
 
-            var randomLineColor = this.random.Next(40) + 200;
+            var randomLineColor = this.random.Next(1,40) + 200;
 
             // Fill in the background.
             var hatchBrush = new HatchBrush(
@@ -176,23 +176,23 @@ namespace YAF.Core.Utilities.ImageUtils
             var v = 4F;
             PointF[] points =
             {
-                new(r.Next(rect.Width) / v, r.Next(rect.Height) / v),
-                new(rect.Width - r.Next(rect.Width) / v, r.Next(rect.Height) / v),
-                new(r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v),
-                new(rect.Width - r.Next(rect.Width) / v, rect.Height - r.Next(rect.Height) / v)
+                new(r.Next(1, rect.Width) / v, r.Next(1, rect.Height) / v),
+                new(rect.Width - r.Next(1, rect.Width) / v, r.Next(1, rect.Height) / v),
+                new(r.Next(1, rect.Width) / v, rect.Height - r.Next(1, rect.Height) / v),
+                new(rect.Width - r.Next(1, rect.Width) / v, rect.Height - r.Next(1, rect.Height) / v)
             };
             var matrix = new Matrix();
             matrix.Translate(0F, 0F);
             path.Warp(points, rect, matrix, WarpMode.Perspective, 0F);
 
             var randomColor = Color.FromArgb(
-                this.random.Next(100) + 100,
-                this.random.Next(100) + 100,
-                this.random.Next(100) + 100);
+                this.random.Next(1, 100) + 100,
+                this.random.Next(1, 100) + 100,
+                this.random.Next(1, 100) + 100);
             var randomBackground = Color.FromArgb(
-                20 + this.random.Next(100),
-                20 + this.random.Next(100),
-                20 + this.random.Next(100));
+                20 + this.random.Next(1, 100),
+                20 + this.random.Next(1, 100),
+                20 + this.random.Next(1, 100));
 
             // Draw the text.
             hatchBrush = new HatchBrush(HatchStyle.LargeConfetti, randomColor, randomBackground);
@@ -202,15 +202,15 @@ namespace YAF.Core.Utilities.ImageUtils
             var m = Math.Max(rect.Width, rect.Height);
             for (var i = 0; i < (int)(rect.Width * rect.Height / 30F); i++)
             {
-                var x = r.Next(rect.Width);
-                var y = r.Next(rect.Height);
-                var w = r.Next(m / (this.random.Next(1000) + 50));
-                var h = r.Next(m / (this.random.Next(1000) + 50));
+                var x = r.Next(1, rect.Width);
+                var y = r.Next(1, rect.Height);
+                var w = r.Next(1, m / (this.random.Next(1, 1000) + 50));
+                var h = r.Next(1, m / (this.random.Next(1, 1000) + 50));
 
                 g.FillEllipse(hatchBrush, x, y, w, h);
             }
 
-            double noise = this.random.Next(35) + 35;
+            double noise = this.random.Next(1, 35) + 35;
 
             var maxDim = Math.Max(rect.Width, rect.Height);
             var radius = (int)(maxDim * noise / 3000);
@@ -219,13 +219,13 @@ namespace YAF.Core.Utilities.ImageUtils
             {
                 g.FillEllipse(
                     hatchBrush,
-                    this.random.Next(rect.Width),
-                    this.random.Next(rect.Height),
-                    this.random.Next(radius),
-                    this.random.Next(radius));
+                    this.random.Next(1, rect.Width),
+                    this.random.Next(1, rect.Height),
+                    this.random.Next(1, radius),
+                    this.random.Next(1, radius));
             }
 
-            double _lines = this.random.Next(25) + 15;
+            double _lines = this.random.Next(1, 25) + 15;
 
             if (_lines > 0)
             {
@@ -236,7 +236,7 @@ namespace YAF.Core.Utilities.ImageUtils
                     var pointsLine = new PointF[lines > 2 ? lines - 1 : 2];
                     for (var j = 0; j < pointsLine.Length; j++)
                     {
-                        pointsLine[j] = new PointF(this.random.Next(rect.Width), this.random.Next(rect.Height));
+                        pointsLine[j] = new PointF(this.random.Next(1, rect.Width), this.random.Next(1, rect.Height));
                     }
 
                     g.DrawCurve(pen, pointsLine, 1.75F);

@@ -1640,6 +1640,8 @@
     <Resource tag="NEED_LENGTH">Maximum Length Value with Minimum 1 is required</Resource>
     <Resource tag="REQUIRED">Required</Resource>
     <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
+	  <Resource tag="SHOW_REGISTER">Show on Register Page</Resource>
+	  <Resource tag="SHOW_REGISTER_HELP">Show on User Register Page</Resource>
     <Resource tag="SHOW_USERINFO">Show in User Info</Resource>
     <Resource tag="SHOW_USERINFO_HELP">Show in User Info inside Post Header</Resource>
     <Resource tag="TITLE">Add New Profile Definition</Resource>

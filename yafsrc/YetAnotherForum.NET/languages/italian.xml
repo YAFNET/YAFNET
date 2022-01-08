@@ -523,6 +523,8 @@
     <Resource tag="REQUIRED">Required</Resource>
     <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
     <Resource tag="SAVE_NEW">Save New</Resource>
+    <Resource tag="SHOW_REGISTER">Show on Register Page</Resource>
+    <Resource tag="SHOW_REGISTER_HELP">Show on User Register Page</Resource>
     <Resource tag="SHOW_USERINFO">Show in User Info</Resource>
     <Resource tag="SHOW_USERINFO_HELP">Show in User Info inside Post Header</Resource>
     <Resource tag="TITLE">Add New Profile Definition</Resource>

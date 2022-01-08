@@ -36,6 +36,7 @@ namespace YAF.Core.Services
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Startup;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -221,8 +222,10 @@ namespace YAF.Core.Services
 
                 var ms = new MemoryStream();
 
-                using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                input.CopyTo(ms);
+                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    input.CopyTo(ms);
+                }
 
                 context.Response.ContentType = "image/png";
 
@@ -285,11 +288,11 @@ namespace YAF.Core.Services
                 {
                     var album = this.GetRepository<UserAlbumImage>().List(context.Request.QueryString.GetFirstOrDefaultAs<int>("album"));
 
-                    var random = new Random();
+                    var random = new RandomGenerator();
 
                     if (album != null && album.Any())
                     {
-                        var image = this.GetRepository<UserAlbumImage>().GetImage(album[random.Next(album.Count)].ID);
+                        var image = this.GetRepository<UserAlbumImage>().GetImage(album[random.Next(1, album.Count)].ID);
 
                         var uploadFolder = this.Get<BoardFolders>().Uploads;
 
@@ -321,8 +324,10 @@ namespace YAF.Core.Services
                     }
                 }
 
-                using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                input.CopyTo(data);
+                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    input.CopyTo(data);
+                }
 
                 context.Response.ContentType = "image/png";
 
@@ -382,10 +387,12 @@ namespace YAF.Core.Services
                 // use the new fileName (with extension) if it exists...
                 var fileName = File.Exists(newFileName) ? newFileName : oldFileName;
 
-                using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-                data = new byte[input.Length];
-                input.Read(data, 0, data.Length);
-                input.Close();
+                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
+                {
+                    data = new byte[input.Length];
+                    input.Read(data, 0, data.Length);
+                    input.Close();
+                }
 
                 context.Response.ContentType = image.Item1.ContentType;
 

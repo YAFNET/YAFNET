@@ -5,6 +5,8 @@ namespace YAF.Core.Helpers
 {
     using System.Text.RegularExpressions;
 
+    using YAF.Core.Utilities;
+
     /// <summary>
     /// The password generator.
     /// </summary>
@@ -86,10 +88,10 @@ namespace YAF.Core.Helpers
             var password = new char[lengthOfPassword];
             var characterSetLength = characterSet.Length;
 
-            var random = new System.Random();
+            var random = new RandomGenerator();
             for (var characterPosition = 0; characterPosition < lengthOfPassword; characterPosition++)
             {
-                password[characterPosition] = characterSet[random.Next(characterSetLength - 1)];
+                password[characterPosition] = characterSet[random.Next(1, characterSetLength - 1)];
 
                 var moreThanTwoIdenticalInARow = characterPosition > MAXIMUM_IDENTICAL_CONSECUTIVE_CHARS &&
                                                  password[characterPosition] == password[characterPosition - 1] &&

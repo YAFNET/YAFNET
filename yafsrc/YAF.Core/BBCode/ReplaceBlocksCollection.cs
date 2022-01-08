@@ -23,10 +23,10 @@
  */
 namespace YAF.Core.BBCode
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
 
+    using YAF.Core.Utilities;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
@@ -113,8 +113,9 @@ namespace YAF.Core.BBCode
     /// </summary>
     public void RandomizeInstance()
     {
-      var rand = new Random();
-      this.randomInstance = rand.Next();
+        var rand = new RandomGenerator();
+
+        this.randomInstance = rand.Next(1, 1000000000);
     }
 
     /// <summary>
