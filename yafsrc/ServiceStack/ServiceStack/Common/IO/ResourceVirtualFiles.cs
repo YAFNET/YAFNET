@@ -26,14 +26,16 @@ namespace ServiceStack.IO
         /// The root dir
         /// </summary>
         protected ResourceVirtualDirectory RootDir;
+
         /// <summary>
         /// The backing assembly
         /// </summary>
-        protected readonly Assembly BackingAssembly;
+        public Assembly BackingAssembly;
+
         /// <summary>
         /// The root namespace
         /// </summary>
-        protected readonly string RootNamespace;
+        public string RootNamespace;
 
         /// <summary>
         /// Gets the root directory.

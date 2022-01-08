@@ -276,7 +276,11 @@ namespace ServiceStack.VirtualPath
         /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
         protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
         {
-            return Files.Where(f => f.Name.Glob(globPattern));
+            var useGlob = globPattern.TrimStart('/');
+
+            return this.Files.Where(f => useGlob.IndexOf('/') >= 0
+                                             ? f.VirtualPath.Glob(useGlob)
+                                             : f.Name.Glob(useGlob));
         }
 
         /// <summary>

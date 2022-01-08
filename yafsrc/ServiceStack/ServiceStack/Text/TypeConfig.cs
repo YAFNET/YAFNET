@@ -19,27 +19,42 @@ namespace ServiceStack.Text
         /// The type
         /// </summary>
         internal readonly Type Type;
+
         /// <summary>
         /// The enable anonymous field setters
         /// </summary>
         internal bool EnableAnonymousFieldSetters;
+
         /// <summary>
         /// The properties
         /// </summary>
         internal PropertyInfo[] Properties;
+
         /// <summary>
         /// The fields
         /// </summary>
         internal FieldInfo[] Fields;
+
         /// <summary>
         /// The on deserializing
         /// </summary>
         internal Func<object, string, object, object> OnDeserializing;
+
         /// <summary>
         /// Gets or sets a value indicating whether this instance is user type.
         /// </summary>
         /// <value><c>true</c> if this instance is user type; otherwise, <c>false</c>.</value>
         internal bool IsUserType { get; set; }
+
+        internal Func<TextCase> TextCaseResolver;
+        internal TextCase? TextCase
+        {
+            get
+            {
+                var result = this.TextCaseResolver?.Invoke();
+                return result is null or Text.TextCase.Default ? null : result;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypeConfig"/> class.
@@ -47,12 +62,12 @@ namespace ServiceStack.Text
         /// <param name="type">The type.</param>
         internal TypeConfig(Type type)
         {
-            Type = type;
-            EnableAnonymousFieldSetters = false;
-            Properties = TypeConstants.EmptyPropertyInfoArray;
-            Fields = TypeConstants.EmptyFieldInfoArray;
+            this.Type = type;
+            this.EnableAnonymousFieldSetters = false;
+            this.Properties = TypeConstants.EmptyPropertyInfoArray;
+            this.Fields = TypeConstants.EmptyFieldInfoArray;
 
-            JsConfig.AddUniqueType(Type);
+            JsConfig.AddUniqueType(this.Type);
         }
     }
 
@@ -138,7 +153,10 @@ namespace ServiceStack.Text
         /// <returns>TypeConfig.</returns>
         static TypeConfig Create()
         {
-            config = new TypeConfig(typeof(T));
+            config = new TypeConfig(typeof(T))
+                         {
+                             TextCaseResolver = () => JsConfig<T>.TextCase
+                         };
 
             var excludedProperties = JsConfig<T>.ExcludePropertyNames ?? TypeConstants.EmptyStringArray;
 
