@@ -78,13 +78,13 @@
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane" id="View1" role="tabpanel">
-                                <uc1:QuickEdit ID="QuickEditControl" User="<%# this.EditBoardUser %>" runat="server" />
+                                <uc1:QuickEdit ID="QuickEditControl" runat="server" />
                             </div>
                             <div class="tab-pane" id="View2" role="tabpanel">
-                                <uc1:GroupsEdit ID="GroupEditControl" runat="server" Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>" User="<%# this.EditBoardUser %>" />
+                                <uc1:GroupsEdit ID="GroupEditControl" runat="server" Visible="<%# !YAF.Configuration.Config.IsDotNetNuke %>" />
                             </div>
                             <div class="tab-pane" id="View3" role="tabpanel">
-                                <uc1:ProfileEdit ID="ProfileEditControl" runat="server" User="<%# this.EditBoardUser %>" />
+                                <uc1:ProfileEdit ID="ProfileEditControl" runat="server" />
                             </div>
                             <div class="tab-pane" id="View10" role="tabpanel">
                                 <uc1:ProfileSettings ID="ProfileSettings" runat="server" />
@@ -99,14 +99,14 @@
                                 <uc1:SignatureEdit ID="SignatureEditControl" runat="server" />
                             </div>
                             <div class="tab-pane" id="View6" role="tabpanel">
-                                <uc1:PointsEdit runat="server" ID="UserPointsControl" User="<%# this.EditBoardUser.Item1 %>" />
+                                <uc1:PointsEdit runat="server" ID="UserPointsControl" />
                             </div>
                             <asp:PlaceHolder runat="server" ID="FielsNoGuests" Visible="<%#!this.EditBoardUser.Item1.UserFlags.IsGuest%>">
                                 <div class="tab-pane" id="View8" role="tabpanel">
                                     <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
                                 </div>
                                 <div class="tab-pane" id="View9" role="tabpanel">
-                                    <uc1:KillEdit runat="server" ID="KillEdit1" User="<%# this.EditBoardUser %>" />
+                                    <uc1:KillEdit runat="server" ID="KillEdit1" />
                                 </div>
                             </asp:PlaceHolder>
                         </div>

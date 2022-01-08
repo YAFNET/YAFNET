@@ -100,6 +100,11 @@ namespace YAF.Pages.Admin
             }
 
             this.ProfileSettings.User = this.EditBoardUser.Item1;
+            this.QuickEditControl.User = this.EditBoardUser;
+            this.ProfileEditControl.User = this.EditBoardUser;
+            this.GroupEditControl.User = this.EditBoardUser;
+            this.UserPointsControl.User = this.EditBoardUser.Item1;
+            this.KillEdit1.User = this.EditBoardUser;
 
             // do admin permission check...
             if (!this.PageContext.User.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
