@@ -27,11 +27,14 @@ namespace YAF.Pages.Account
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using System.Web.UI.WebControls;
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
@@ -68,6 +71,8 @@ namespace YAF.Pages.Account
 
         #region Properties
 
+        private IList<ProfileDefinition> profileDefinitions;
+
         /// <summary>
         ///   Gets a value indicating whether IsProtected.
         /// </summary>
@@ -80,6 +85,8 @@ namespace YAF.Pages.Account
         /// <c>true</c> if the user is possible spam bot; otherwise, <c>false</c>.
         /// </value>
         private bool IsPossibleSpamBot { get; set; }
+        private IList<ProfileDefinition> ProfileDefinitions =>
+            this.profileDefinitions ??= this.GetRepository<ProfileDefinition>().GetByBoardId();
 
         #endregion
 
@@ -142,6 +149,19 @@ namespace YAF.Pages.Account
             {
                 this.SetupRecaptchaControl();
             }
+
+            if (!this.ProfileDefinitions.Any())
+            {
+                return;
+            }
+
+            this.CustomProfile.DataSource = this.ProfileDefinitions;
+            this.CustomProfile.DataBind();
+
+            if (!Config.IsDotNetNuke)
+            {
+                this.CustomProfile.Visible = true;
+            }
         }
 
         /// <summary>
@@ -200,6 +220,8 @@ namespace YAF.Pages.Account
                     this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
                 }
 
+                this.SaveCustomProfile(userID.Value);
+
                 if (this.IsPossibleSpamBot)
                 {
                     if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(1))
@@ -256,15 +278,88 @@ namespace YAF.Pages.Account
             this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1&t=";
         }
 
-        /// <summary>
-        /// The setup display name UI.
-        /// </summary>
-        /// <param name="enabled">
-        /// The enabled.
-        /// </param>
-        private void SetupDisplayNameUI(bool enabled)
+        protected void CustomProfile_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            this.DisplayNamePlaceHolder.Visible = enabled;
+            if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
+            {
+                return;
+            }
+
+            var profileDef = (ProfileDefinition)e.Item.DataItem;
+
+            if (!profileDef.ShowOnRegisterPage)
+            {
+                return;
+            }
+
+            var hidden = e.Item.FindControlAs<HiddenField>("DefID");
+            var label = e.Item.FindControlAs<Label>("DefLabel");
+            var textBox = e.Item.FindControlAs<TextBox>("DefText");
+            var check = e.Item.FindControlAs<CheckBox>("DefCheck");
+
+            hidden.Value = profileDef.ID.ToString();
+
+            label.Text = profileDef.Name;
+
+            var type = profileDef.DataType.ToEnum<DataType>();
+
+            switch (type)
+            {
+                case DataType.Text:
+                    {
+                        textBox.MaxLength = profileDef.Length;
+                        textBox.CssClass = "form-control";
+                        textBox.Visible = true;
+
+                        if (profileDef.DefaultValue.IsSet())
+                        {
+                            textBox.Text = profileDef.DefaultValue;
+                        }
+
+                        if (profileDef.Required)
+                        {
+                            textBox.Attributes.Add("required", "required");
+                        }
+
+                        label.AssociatedControlID = textBox.ID;
+
+                        break;
+                    }
+                case DataType.Number:
+                    {
+                        textBox.TextMode = TextBoxMode.Number;
+                        textBox.MaxLength = profileDef.Length;
+                        textBox.CssClass = "form-control";
+                        textBox.Visible = true;
+
+                        if (profileDef.DefaultValue.IsSet())
+                        {
+                            textBox.Text = profileDef.DefaultValue;
+                        }
+
+                        if (profileDef.Required)
+                        {
+                            textBox.Attributes.Add("required", "required");
+                        }
+
+                        label.AssociatedControlID = textBox.ID;
+
+                        break;
+                    }
+                case DataType.Check:
+                    {
+                        check.Visible = true;
+
+                        if (profileDef.Required)
+                        {
+                            check.Attributes.Add("required", "required");
+                        }
+
+                        label.AssociatedControlID = check.ClientID;
+
+                        break;
+                    }
+            }
         }
 
         /// <summary>
@@ -292,7 +387,7 @@ namespace YAF.Pages.Account
 
             recaptchaPlaceHolder.Visible = this.PageContext.BoardSettings.CaptchaTypeRegister == 2;
 
-            this.SetupDisplayNameUI(this.PageContext.BoardSettings.EnableDisplayName);
+            this.DisplayNamePlaceHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
         }
 
         /// <summary>
@@ -449,6 +544,76 @@ namespace YAF.Pages.Account
             }
 
             return true;
+        }
+
+        private void SaveCustomProfile(int userId)
+        {
+            // Save Custom Profile
+            if (this.CustomProfile.Visible)
+            {
+                this.CustomProfile.Items.Cast<RepeaterItem>().Where(x => x.ItemType is ListItemType.Item or ListItemType.AlternatingItem).ForEach(
+                    item =>
+                    {
+                        var id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>();
+                        var profileDef = this.ProfileDefinitions.FirstOrDefault(x => x.ID == id);
+
+                        if (profileDef == null)
+                        {
+                            return;
+                        }
+
+                        var textBox = item.FindControlAs<TextBox>("DefText");
+                        var check = item.FindControlAs<CheckBox>("DefCheck");
+
+                        var type = profileDef.DataType.ToEnum<DataType>();
+
+                        switch (type)
+                        {
+                            case DataType.Text:
+                                {
+                                    if (textBox.Text.IsSet())
+                                    {
+                                        this.GetRepository<ProfileCustom>().Insert(
+                                            new ProfileCustom
+                                            {
+                                                UserID = userId,
+                                                ProfileDefinitionID = profileDef.ID,
+                                                Value = textBox.Text
+                                            });
+                                    }
+
+                                    break;
+                                }
+                            case DataType.Number:
+                                {
+                                    if (textBox.Text.IsSet())
+                                    {
+                                        this.GetRepository<ProfileCustom>().Insert(
+                                               new ProfileCustom
+                                               {
+                                                   UserID = userId,
+                                                   ProfileDefinitionID = profileDef.ID,
+                                                   Value = textBox.Text
+                                               });
+                                    }
+
+                                    break;
+                                }
+                            case DataType.Check:
+                                {
+                                    this.GetRepository<ProfileCustom>().Insert(
+                                           new ProfileCustom
+                                           {
+                                               UserID = userId,
+                                               ProfileDefinitionID = profileDef.ID,
+                                               Value = check.Checked.ToString()
+                                           });
+
+                                    break;
+                                }
+                        }
+                    });
+            }
         }
 
         #endregion

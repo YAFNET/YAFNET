@@ -101,8 +101,27 @@
 
                             </div>
                         </div>
+                
+                <asp:Repeater runat="server" ID="CustomProfile" Visible="False" OnItemDataBound="CustomProfile_OnItemDataBound">
+                    <HeaderTemplate>
+                        <hr/>
+                        <h4>
+                            <YAF:LocalizedLabel ID="LocalizedLabel16" runat="server"
+                                                LocalizedPage="EDIT_PROFILE"
+                                                LocalizedTag="OTHER" />
+                        </h4>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                        <div class="mb-3">
+                            <asp:HiddenField runat="server" ID="DefID" />
+                            <asp:Label runat="server" ID="DefLabel" />
+                            <asp:TextBox runat="server" ID="DefText" Visible="False" />
+                            <asp:TextBox runat="server" ID="DefCheck" Visible="False" />
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>
 
-                        <asp:PlaceHolder runat="server" ID="YafCaptchaHolder" Visible="false">
+                <asp:PlaceHolder runat="server" ID="YafCaptchaHolder" Visible="false">
                             <div class="mb-3">
                                 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server"
                                                     LocalizedTag="Captcha_Image" />

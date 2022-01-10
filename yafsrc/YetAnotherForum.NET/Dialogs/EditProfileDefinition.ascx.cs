@@ -88,6 +88,7 @@ namespace YAF.Dialogs
                     this.Length.Text = item.Length.ToString();
                     this.Required.Checked = item.Required;
                     this.ShowInUserInfo.Checked = item.ShowInUserInfo;
+                    this.ShowOnRegisterPage.Checked = item.ShowOnRegisterPage;
                     this.DefaultValue.Text = item.DefaultValue;
                 }
 
@@ -147,7 +148,8 @@ namespace YAF.Dialogs
                     DefaultValue = this.DefaultValue.Text,
                     Length = this.Length.Text.ToType<int>(),
                     Required = this.Required.Checked,
-                    ShowInUserInfo = this.ShowInUserInfo.Checked
+                    ShowInUserInfo = this.ShowInUserInfo.Checked,
+                    ShowOnRegisterPage = this.ShowOnRegisterPage.Checked
                 });
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_ProfileDefinitions);

@@ -64,6 +64,16 @@
                         </div>
                     </div>
                     <div class="mb-3 col-md-6">
+                        <YAF:HelpLabel ID="HelpLabel6" runat="server"
+                                       AssociatedControlID="ShowOnRegisterPage"
+                                       LocalizedTag="SHOW_REGISTER"
+                                       LocalizedPage="ADMIN_EDIT_PROFILEDEFINITION"/>
+                        <div class="form-check form-switch">
+                            <asp:CheckBox ID="ShowOnRegisterPage" runat="server"
+                                          Text="&nbsp;" />
+                        </div>
+                    </div>
+                    <div class="mb-3 col-md-6">
                         <YAF:HelpLabel ID="HelpLabel3" runat="server"
                                        AssociatedControlID="Required"
                                        LocalizedTag="REQUIRED"
