@@ -536,6 +536,10 @@
     "Type": "image/jpeg"
   },
   {
+    "Extension": "jpg",
+    "Type": "image/pjpeg"
+  },
+  {
     "Extension": "jps",
     "Type": "image/x-jps"
   },
