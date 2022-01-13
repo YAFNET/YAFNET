@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">Ingen data</Resource>
     <Resource tag="IM_AIM">Bruger AIM</Resource>
     <Resource tag="IM_EMAIL">Bruger Email</Resource>
-    <Resource tag="IM_ICQ">Bruger ICQ</Resource>
     <Resource tag="IM_MSN">Bruger MSN</Resource>
     <Resource tag="IM_SKYPE">Bruger Skype</Resource>
     <Resource tag="IM_XMPP">Bruger XMPP</Resource>
@@ -2753,7 +2752,6 @@
     <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Du har skrevet en ugyldig adresse til din hjemmeside.</Resource>
-    <Resource tag="BAD_ICQ">Du har skrevet et ugyldigt ICQ nummer.</Resource>
     <Resource tag="BAD_MSN">Du har skrevet en ugyldig e-mail adresse til din MSN konto.</Resource>
     <Resource tag="BAD_WEBLOG">Du har skrevet en ugyldig adresse til din weblog.</Resource>
     <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
@@ -2773,7 +2771,6 @@
     <Resource tag="HIDEME">Skjul mig fra aktive brugere</Resource>
     <Resource tag="HOMEPAGE">Hjemmeside</Resource>
     <Resource tag="HOMEPAGE2">Din hjemmeside:</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Sted</Resource>
     <Resource tag="MAIL_SENT">En e-mail er blevet sendt til {0}.\n\nDu skal klikke på linket i den mail for at få din nye e-mail adresse godkendt.</Resource>
     <Resource tag="MESSENGER">Direkte besked tjenester</Resource>
@@ -2783,6 +2780,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Brugernavn:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Indlæg til MetaWeblog (API Indstillinger)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Vælg et andet forum udseende:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
@@ -3963,7 +3961,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4281,13 +4279,6 @@ Spoiler Content
     <Resource tag="SUBJECT">Emne:</Resource>
     <Resource tag="TITLE">E-mail</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Skriv din besked her:</Resource>
-    <Resource tag="EMAIL">Din E-mail:</Resource>
-    <Resource tag="NAME">Dit Navn:</Resource>
-    <Resource tag="SEND">Send Besked</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">MSN Messenger</Resource>
@@ -4775,8 +4766,6 @@ Spoiler Content
     <Resource tag="GROUPS">Gruppe</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} vedhæftede følgende billed(der):</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Download billede</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Klik for at se billede</Resource>
@@ -4917,7 +4906,6 @@ Spoiler Content
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Grupper:</Resource>
     <Resource tag="HOURS">timer</Resource>
-    <Resource tag="ICQ">ICQ-Number:</Resource>
     <Resource tag="INTERESTS">Interesser:</Resource>
     <Resource tag="JOINED">Tilmeldt:</Resource>
     <Resource tag="LAST10">Sidste 10 indlæg</Resource>

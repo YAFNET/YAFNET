@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">Andmed puuduvad</Resource>
     <Resource tag="IM_AIM">Kasutab AIM</Resource>
     <Resource tag="IM_EMAIL">Kasutab e-posti</Resource>
-    <Resource tag="IM_ICQ">Kasutab ICQ</Resource>
     <Resource tag="IM_MSN">Kasutab MSN</Resource>
     <Resource tag="IM_SKYPE">Kasutab Skype</Resource>
     <Resource tag="IM_XMPP">Kasutab XMPP</Resource>
@@ -2750,7 +2749,6 @@
     <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Kodulehe aadress on vigane.</Resource>
-    <Resource tag="BAD_ICQ">ICQ number on vigane.</Resource>
     <Resource tag="BAD_MSN">E-kirja aadress on vigane.</Resource>
     <Resource tag="BAD_WEBLOG">Blogi aadress on vigane.</Resource>
     <Resource tag="BAD_XMPP">Te sisestasite vale XMPP konto nime.</Resource>
@@ -2770,7 +2768,6 @@
     <Resource tag="HIDEME">Peida mind aktiivsete kasutajate eest</Resource>
     <Resource tag="HOMEPAGE">Kodulehekülg</Resource>
     <Resource tag="HOMEPAGE2">Teie kodulehekülg (avalik):</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Asukoht</Resource>
     <Resource tag="MAIL_SENT">E-kiri on saadetud {0}.\n\nTe peate oma uue e-posti aadressi kinnitama,\navades e-kirjas oleva lingi enne e-posti aadressi muutmist.</Resource>
     <Resource tag="MESSENGER">Kiirsõnumiteenused</Resource>
@@ -2780,6 +2777,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API kasutajanimi:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Postitus MetaWeblogi (API seaded)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Valige erinev foorumiteema:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Kas saata e-posti teavitus uue privaatsõnumi laekumise kohta?</Resource>
@@ -3960,7 +3958,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4278,13 +4276,6 @@ Spoiler Content
     <Resource tag="SUBJECT">Pealkiri:</Resource>
     <Resource tag="TITLE">E-post</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Sisestage siia oma sõnum:</Resource>
-    <Resource tag="EMAIL">Teie e-posti aadress:</Resource>
-    <Resource tag="NAME">Teie nimi:</Resource>
-    <Resource tag="SEND">Saada sõnum</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">MSN Messenger</Resource>
@@ -4770,8 +4761,6 @@ Spoiler Content
     <Resource tag="GROUPS">Grupid</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} lisas alljärgneva(d) pildi(d):</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Laadi alla pilt</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Vajutage pildi vaatamiseks</Resource>
@@ -4912,7 +4901,6 @@ Spoiler Content
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Grupid:</Resource>
     <Resource tag="HOURS">tunnid</Resource>
-    <Resource tag="ICQ">ICQ number:</Resource>
     <Resource tag="INTERESTS">Huvid:</Resource>
     <Resource tag="JOINED">Liitus:</Resource>
     <Resource tag="LAST10">Viimased 10 postitust</Resource>

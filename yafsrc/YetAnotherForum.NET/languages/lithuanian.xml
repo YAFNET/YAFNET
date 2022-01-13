@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">No data</Resource>
     <Resource tag="IM_AIM">Uses AIM</Resource>
     <Resource tag="IM_EMAIL">Uses Email</Resource>
-    <Resource tag="IM_ICQ">Uses ICQ</Resource>
     <Resource tag="IM_MSN">Uses MSN</Resource>
     <Resource tag="IM_SKYPE">Uses Skype</Resource>
     <Resource tag="IM_XMPP">Uses XMPP</Resource>
@@ -2816,7 +2815,6 @@
 
       puslapį.
     </Resource>
-    <Resource tag="BAD_ICQ">Jūs įvedėte nelegalios vertę savo ICQ numerį. </Resource>
     <Resource tag="BAD_MSN">Jūs įvedėte neteisingą e-pašto adresas MSN sąskaitos. </Resource>
     <Resource tag="BAD_WEBLOG">Jūs įvedėte neteisingą adresą savo dienoraštyje. </Resource>
     <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
@@ -2836,7 +2834,6 @@
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Pradžia </Resource>
     <Resource tag="HOMEPAGE2">Jūsų puslapis: </Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Vieta </Resource>
     <Resource tag="MAIL_SENT">
       A laiškas buvo nusiųstas į {0}.\n\nYou turės patvirtinti savo
@@ -2852,6 +2849,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">
@@ -4040,7 +4038,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4358,13 +4356,6 @@ Spoiler Content
     <Resource tag="SUBJECT">Tema: </Resource>
     <Resource tag="TITLE">E-paštas </Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Įveskite savo žinutę čia: </Resource>
-    <Resource tag="EMAIL">Jūsų E-mail: </Resource>
-    <Resource tag="NAME">Jūsų vardas: </Resource>
-    <Resource tag="SEND">Siųsti laišką </Resource>
-    <Resource tag="TITLE">ICQ </Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">MSN Messenger</Resource>
@@ -4888,8 +4879,6 @@ Spoiler Content
     <Resource tag="GROUPS">Grupės </Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} pridedamas šią nuotrauką (-ai): </Resource>
     <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
@@ -5054,7 +5043,6 @@ Spoiler Content
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Grupės: </Resource>
     <Resource tag="HOURS">valandos </Resource>
-    <Resource tag="ICQ">ICQ numeris: </Resource>
     <Resource tag="INTERESTS">Pomėgiai: </Resource>
     <Resource tag="JOINED">Prisijungė: </Resource>
     <Resource tag="LAST10">Paskutiniai 10 komentarų </Resource>

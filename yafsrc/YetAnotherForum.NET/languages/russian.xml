@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">Просматривает помощь по восстановлению</Resource>
     <Resource tag="IM_AIM">Использует AIM</Resource>
     <Resource tag="IM_EMAIL">Использует Email</Resource>
-    <Resource tag="IM_ICQ">Использует ICQ</Resource>
     <Resource tag="IM_MSN">Использует MSN</Resource>
     <Resource tag="IM_SKYPE">Использует Skype</Resource>
     <Resource tag="IM_XMPP">Использует XMPP</Resource>
@@ -2734,7 +2733,6 @@
     <Resource tag="BAD_FACEBOOK">Вы вели недопустимый идентификатор профиля Facebook.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Вы ввели неработающий адрес своей домашней страницы.</Resource>
-    <Resource tag="BAD_ICQ">Вы ввели недопустимое значение для вашего номера ICQ.</Resource>
     <Resource tag="BAD_MSN">Вы ввели неверный адрес электронной почты для учётной записи MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Вы ввели неверный адрес для вашего блога.</Resource>
     <Resource tag="BAD_XMPP">Вы ввели неверное имя для своего аккаунта XMPP.</Resource>
@@ -2754,7 +2752,6 @@
     <Resource tag="HIDEME">Не отображать в активных</Resource>
     <Resource tag="HOMEPAGE">Домашняя страница</Resource>
     <Resource tag="HOMEPAGE2">Ваш веб-сайт (публичный):</Resource>
-    <Resource tag="ICQ">Ваш логин ICQ:</Resource>
     <Resource tag="LOCATION">Место</Resource>
     <Resource tag="MAIL_SENT">Сообщение по электронной почте было отправлено {0}. Вам необходимо подтвердить ваш адрес электронной почты перейдя по ссылке в сообщении перед тем, как адрес электронной почты будет изменён.</Resource>
     <Resource tag="MESSENGER">Службы мгновенных сообщений</Resource>
@@ -2764,6 +2761,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">Имя пользователя для MetaWeblog API:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Разместить при помощи MetaWeblog (Настройки API)</Resource>
     <Resource tag="MSN">Ваш ник в  Windows Live-ID (MSN):</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Выберите другую тему форума:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Желаете ли Вы получать уведомление по электронной почте при получении нового личного сообщения?</Resource>
@@ -3945,7 +3943,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4243,13 +4241,6 @@ Spoiler Content
     <Resource tag="SUBJECT">Тема:</Resource>
     <Resource tag="TITLE">E-mail</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Введите текст сообщения:</Resource>
-    <Resource tag="EMAIL">Ваш E-mail:</Resource>
-    <Resource tag="NAME">Ваше имя:</Resource>
-    <Resource tag="SEND">Послать сообщение</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">Сообщения MSN</Resource>
@@ -4732,8 +4723,6 @@ Spoiler Content
     <Resource tag="GROUPS">Группы</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Посетите домашнюю страницу {0}</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Пообщаться с {0} при помощи ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">Пользователь {0} прикрепил следующие файлы:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Загрузить изображение</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Ω Увеличить</Resource>
@@ -4874,7 +4863,6 @@ Spoiler Content
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Группы:</Resource>
     <Resource tag="HOURS">часов</Resource>
-    <Resource tag="ICQ">Номер ICQ:</Resource>
     <Resource tag="INTERESTS">Интересы:</Resource>
     <Resource tag="JOINED">Зарегистрировался:</Resource>
     <Resource tag="LAST10">Последние 10 сообщений</Resource>

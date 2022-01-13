@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">No data</Resource>
     <Resource tag="IM_AIM">Uses AIM</Resource>
     <Resource tag="IM_EMAIL">Uses Email</Resource>
-    <Resource tag="IM_ICQ">Uses ICQ</Resource>
     <Resource tag="IM_MSN">Uses MSN</Resource>
     <Resource tag="IM_SKYPE">Uses Skype</Resource>
     <Resource tag="IM_XMPP">Uses XMPP</Resource>
@@ -2753,7 +2752,6 @@
     <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Du har angett en ogiltig länk till din hemsida.</Resource>
-    <Resource tag="BAD_ICQ">Du har angett ett ogiltigt värde som ditt ICQ-nummer.</Resource>
     <Resource tag="BAD_MSN">Du har angett en ogiltig e-postadress för ditt MSN-konto.</Resource>
     <Resource tag="BAD_WEBLOG">Du har angett en ogiltig länk till din webblogg.</Resource>
     <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
@@ -2773,7 +2771,6 @@
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Hemsida</Resource>
     <Resource tag="HOMEPAGE2">Din hemsida:</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Område</Resource>
     <Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
     <Resource tag="MESSENGER">Tjänster för direktmeddelanden</Resource>
@@ -2783,6 +2780,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
@@ -3963,7 +3961,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4281,13 +4279,6 @@ Spoiler Content
     <Resource tag="SUBJECT">Ärende:</Resource>
     <Resource tag="TITLE">E-post</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Skriv ditt meddelande här:</Resource>
-    <Resource tag="EMAIL">Din e-post:</Resource>
-    <Resource tag="NAME">Ditt namn:</Resource>
-    <Resource tag="SEND">Skicka meddelande</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">MSN Messenger</Resource>
@@ -4775,8 +4766,6 @@ Spoiler Content
     <Resource tag="GROUPS">Grupper</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} bifogade följande bild(er):</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
@@ -4917,7 +4906,6 @@ Spoiler Content
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Grupper:</Resource>
     <Resource tag="HOURS">timmar</Resource>
-    <Resource tag="ICQ">ICQ-nummer:</Resource>
     <Resource tag="INTERESTS">Intressen:</Resource>
     <Resource tag="JOINED">Registrerade sig:</Resource>
     <Resource tag="LAST10">Senaste 10 meddelanden</Resource>

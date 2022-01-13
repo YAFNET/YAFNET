@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">No data</Resource>
     <Resource tag="IM_AIM">Uses AIM</Resource>
     <Resource tag="IM_EMAIL">Uses Email</Resource>
-    <Resource tag="IM_ICQ">Uses ICQ</Resource>
     <Resource tag="IM_MSN">Uses MSN</Resource>
     <Resource tag="IM_SKYPE">Uses Skype</Resource>
     <Resource tag="IM_XMPP">Uses XMPP</Resource>
@@ -2752,7 +2751,6 @@
     <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Adresse de votre site invalide.</Resource>
-    <Resource tag="BAD_ICQ">Identifiant ICQ invalide.</Resource>
     <Resource tag="BAD_MSN">Adresse e-mail address pour votre compte MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Adresse de votre blog invalide.</Resource>
     <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
@@ -2772,7 +2770,6 @@
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Sites Web</Resource>
     <Resource tag="HOMEPAGE2">Votre page d'accueil&amp;nbsp;:</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Informations</Resource>
     <Resource tag="MAIL_SENT">Un courriel a été envoyé à {0}.Vous devrez vérifier votre nouvelle adresse courriel en ouvrant le lien contenu dans le courriel envoyé pour que votre adresse courriel soit modifiée.</Resource>
     <Resource tag="MESSENGER">Services de Messagerie Instantanée</Resource>
@@ -2782,6 +2779,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Utilisateur :</Resource>
     <Resource tag="METAWEBLOG_TITLE">Ecrire sur MetaWeblog (Paramètres API)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Choisir un thème différent pour le forum :</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Voulez vous recevoi un e-mail d'information quand vous recevez un message privé?</Resource>
@@ -3962,7 +3960,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4280,13 +4278,6 @@ Spoiler Content
     <Resource tag="SUBJECT">Sujet&amp;nbsp;:</Resource>
     <Resource tag="TITLE">Courriel</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Tapez votre message ici&amp;nbsp;:</Resource>
-    <Resource tag="EMAIL">Votre courriel:</Resource>
-    <Resource tag="NAME">Votre nom:</Resource>
-    <Resource tag="SEND">Envoyer le message</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">MSN Messenger</Resource>
@@ -4774,8 +4765,6 @@ Spoiler Content
     <Resource tag="GROUPS">Groupes</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} a joint les image(s) suivantes&amp;nbsp;:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Télécharger image</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Cliquez pour afficher l'image</Resource>
@@ -4916,7 +4905,6 @@ Spoiler Content
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Groupes&amp;nbsp;:</Resource>
     <Resource tag="HOURS">heures</Resource>
-    <Resource tag="ICQ">Numéro ICQ&amp;nbsp;:</Resource>
     <Resource tag="INTERESTS">Centres d'Intérêt&amp;nbsp;:</Resource>
     <Resource tag="JOINED">Inscrit le&amp;nbsp;:</Resource>
     <Resource tag="LAST10">10 derniers messages</Resource>

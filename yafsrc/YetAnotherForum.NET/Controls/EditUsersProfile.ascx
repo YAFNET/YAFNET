@@ -162,17 +162,6 @@
     </h4>
     <div class="row">
         <div class="mb-3 col-md-6">
-            <asp:Label runat="server" AssociatedControlID="ICQ">
-                <YAF:LocalizedLabel ID="LocalizedLabel26" runat="server"
-                    LocalizedPage="EDIT_PROFILE"
-                    LocalizedTag="ICQ"/>
-            </asp:Label>
-            <asp:TextBox runat="server" ID="ICQ"
-                         CssClass="form-control"
-                         TextMode="Number"
-                         MaxLength="255" />
-        </div>
-        <div class="mb-3 col-md-6">
             <asp:Label runat="server" AssociatedControlID="Twitter">
                 <YAF:LocalizedLabel ID="LocalizedLabel33" runat="server"
                     LocalizedPage="EDIT_PROFILE"
@@ -226,15 +215,24 @@
     <ItemTemplate>
         <div class="mb-3">
             <asp:HiddenField runat="server" ID="DefID" />
-            <asp:Label runat="server" ID="DefLabel" />
+            <asp:Label runat="server" ID="DefLabel" Visible="True" />
             <asp:TextBox runat="server" ID="DefText" Visible="False" />
-            <asp:TextBox runat="server" ID="DefCheck" Visible="False" />
+            
+            <asp:PlaceHolder runat="server" ID="CheckPlaceHolder" Visible="False">
+                <div class="form-check form-switch">
+                    <asp:CheckBox runat="server" ID="DefCheck" />
+                </div>
+            </asp:PlaceHolder>
+            <div class="invalid-feedback">
+                <YAF:LocalizedLabel runat="server" ID="RequiredMessage" LocalizedTag="NEED_CUSTOM" />
+            </div>
         </div>
     </ItemTemplate>
 </asp:Repeater>
 
 <div class="text-lg-center">
     <YAF:ThemeButton ID="UpdateProfile" runat="server"
+                     CausesValidation="True"
                      Type="Primary"
                      OnClick="UpdateProfileClick"
                      CssClass="me-2"

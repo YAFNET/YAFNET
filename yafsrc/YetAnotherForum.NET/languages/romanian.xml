@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">Nu exista date</Resource>
     <Resource tag="IM_AIM">Utilizeaza AIM</Resource>
     <Resource tag="IM_EMAIL">Utilizeaza Email</Resource>
-    <Resource tag="IM_ICQ">Utilizeaza ICQ</Resource>
     <Resource tag="IM_MSN">Utilizeaza MSN</Resource>
     <Resource tag="IM_SKYPE">Utilizeaza Skype</Resource>
     <Resource tag="IM_XMPP">Utilizeaza XMPP</Resource>
@@ -2750,7 +2749,6 @@
     <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">Ai introdus o adresa  gresita pentru pagina personala.</Resource>
-    <Resource tag="BAD_ICQ">Ai introdus un numar ICQ gresit. </Resource>
     <Resource tag="BAD_MSN">Ai introdus o adresa e-mail gresita pentru contul  MSN.</Resource>
     <Resource tag="BAD_WEBLOG">Ai introdus o adresa  gresita pentru weblogul tau</Resource>
     <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
@@ -2770,7 +2768,6 @@
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Pagina</Resource>
     <Resource tag="HOMEPAGE2">Pagian ta personala:</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Locatie</Resource>
     <Resource tag="MAIL_SENT">Un email a fost trimis la {0}.\n\n Trebuie sa verifici noua adresa de email \n deschizand linkul din
     email inaine ca emailul tau sa fie modificat.</Resource>
@@ -2781,6 +2778,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Nume utilizator:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Postare noua MetaWeblog (API Settings)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Selecteaza o tema diferita:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Dorest notificare mail in cazul unui messaj privat nou?</Resource>
@@ -3961,7 +3959,7 @@ Spoiler Content
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4279,13 +4277,6 @@ Spoiler Content
     <Resource tag="SUBJECT">Subiect:</Resource>
     <Resource tag="TITLE">E-mail</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Type your message here:</Resource>
-    <Resource tag="EMAIL">E-mail:</Resource>
-    <Resource tag="NAME">Numele tau:</Resource>
-    <Resource tag="SEND">Trimite mesaj</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">MSN Messenger</Resource>
@@ -4773,8 +4764,6 @@ Spoiler Content
     <Resource tag="GROUPS">Groupuri</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} ataseaza urmatoarea imagine/imagini:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Descarca Imagine</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Clic ptr. a vedea imaginea</Resource>
@@ -4915,7 +4904,6 @@ Spoiler Content
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">Grupuri:</Resource>
     <Resource tag="HOURS">ore</Resource>
-    <Resource tag="ICQ">ICQ-No:</Resource>
     <Resource tag="INTERESTS">Interese:</Resource>
     <Resource tag="JOINED">A intrat:</Resource>
     <Resource tag="LAST10">Ultimile 10 postari</Resource>

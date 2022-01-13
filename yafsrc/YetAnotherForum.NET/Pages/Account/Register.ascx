@@ -116,7 +116,15 @@
                             <asp:HiddenField runat="server" ID="DefID" />
                             <asp:Label runat="server" ID="DefLabel" />
                             <asp:TextBox runat="server" ID="DefText" Visible="False" />
-                            <asp:TextBox runat="server" ID="DefCheck" Visible="False" />
+
+                            <asp:PlaceHolder runat="server" ID="CheckPlaceHolder" Visible="False">
+                                <div class="form-check form-switch">
+                                    <asp:CheckBox runat="server" ID="DefCheck" />
+                                </div>
+                            </asp:PlaceHolder>
+                            <div class="invalid-feedback">
+                                <YAF:LocalizedLabel runat="server" ID="RequiredMessage" LocalizedTag="NEED_CUSTOM" />
+                            </div>
                         </div>
                     </ItemTemplate>
                 </asp:Repeater>

@@ -274,11 +274,6 @@ namespace YAF.Types.Models.Identity
         public string Profile_Homepage { get; set; }
 
         /// <summary>
-        /// Gets or sets ICQ.
-        /// </summary>
-        public string Profile_ICQ { get; set; }
-
-        /// <summary>
         /// Gets or sets Facebook.
         /// </summary>
         public string Profile_Facebook { get; set; }

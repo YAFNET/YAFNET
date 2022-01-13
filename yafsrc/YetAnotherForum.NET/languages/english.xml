@@ -94,7 +94,6 @@
     <Resource tag="HELP_RECOVER">No data</Resource>
     <Resource tag="IM_AIM">Uses AIM</Resource>
     <Resource tag="IM_EMAIL">Uses Email</Resource>
-    <Resource tag="IM_ICQ">Uses ICQ</Resource>
     <Resource tag="IM_MSN">Uses MSN</Resource>
     <Resource tag="IM_SKYPE">Uses Skype</Resource>
     <Resource tag="IM_XMPP">Uses XMPP</Resource>
@@ -2619,7 +2618,6 @@
     <Resource tag="BAD_FACEBOOK">You have entered an incorrect URL as Facebook Profile.</Resource>
     <Resource tag="BAD_GOOGLE">You have entered an illegal value as Google Profile URL.</Resource>
     <Resource tag="BAD_HOME">You have entered an invalid address for your home page.</Resource>
-    <Resource tag="BAD_ICQ">You have entered an illegal value as your ICQ number.</Resource>
     <Resource tag="BAD_MSN">You have entered an invalid e-mail address for your MSN account.</Resource>
     <Resource tag="BAD_WEBLOG">You have entered an invalid address for your Blog.</Resource>
     <Resource tag="BAD_XMPP">You have entered an invalid name for your XMPP account.</Resource>
@@ -2639,7 +2637,6 @@
     <Resource tag="HIDEME">Hide me from active users</Resource>
     <Resource tag="HOMEPAGE">Home Page</Resource>
     <Resource tag="HOMEPAGE2">Your Web Site (public):</Resource>
-    <Resource tag="ICQ">Your ICQ Number:</Resource>
     <Resource tag="LOCATION">Location</Resource>
     <Resource tag="MAIL_SENT">A mail has been sent to {0}.\n\nYou will need to verify your new email address by\nopening the link in the email before your email will be modified.</Resource>
     <Resource tag="MESSENGER">Instant messaging services</Resource>
@@ -2649,6 +2646,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
+	  <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
@@ -3809,7 +3807,7 @@
 &lt;p&gt;&lt;strong&gt;Home Page&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can optionally enter a Home page and/or a Blog.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Instant messaging services&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, ICQ, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
+&lt;p&gt;Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Time Zone&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Forum Settings&lt;/strong&gt;&lt;/p&gt;
@@ -4107,13 +4105,6 @@
     <Resource tag="SUBJECT">Subject:</Resource>
     <Resource tag="TITLE">E-mail</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">Type your message here:</Resource>
-    <Resource tag="EMAIL">Your E-mail:</Resource>
-    <Resource tag="NAME">Your Name:</Resource>
-    <Resource tag="SEND">Send Message</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">MSN Messenger</Resource>
@@ -4543,8 +4534,6 @@
     <Resource tag="GROUPS">Groups</Resource>
     <Resource tag="HOME">WWW</Resource>
     <Resource tag="HOME_TITLE">Visit {0}'s Homepage</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">Contact {0} via ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} attached the following image(s):</Resource>
     <Resource tag="IMAGE_DOWNLOAD">Download Image</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">Click to View Image</Resource>
@@ -4681,7 +4670,6 @@
     <Resource tag="GENDER">Gender:</Resource>
     <Resource tag="GROUPS">Groups:</Resource>
     <Resource tag="HOURS">hours</Resource>
-    <Resource tag="ICQ">ICQ-Number:</Resource>
     <Resource tag="INTERESTS">Interests:</Resource>
     <Resource tag="JOINED">Joined:</Resource>
     <Resource tag="LAST10">Last 10 Posts</Resource>

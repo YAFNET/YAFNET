@@ -140,7 +140,6 @@
     <Resource tag="HELP_RECOVER">بدون داده</Resource>
     <Resource tag="IM_AIM">استفاده از AIM</Resource>
     <Resource tag="IM_EMAIL">استفاده از پست الکترونیک</Resource>
-    <Resource tag="IM_ICQ">استفاده از ICQ</Resource>
     <Resource tag="IM_MSN">استفاده از MSN</Resource>
     <Resource tag="IM_SKYPE">استفاده از Skype</Resource>
     <Resource tag="IM_XMPP">استفاده از XMPP</Resource>
@@ -2770,7 +2769,6 @@
     <Resource tag="BAD_FACEBOOK">آدرس پروفایل فیسبوک را نادرست وارد کرده اید</Resource>
     <Resource tag="BAD_GOOGLE">آدرس پروفایل گوگل شامل یک مقدار نامعتبر است</Resource>
     <Resource tag="BAD_HOME">آدرسی که به عنوان صفحه خانگی خود وارد کرده اید اشتباه می باشد.</Resource>
-    <Resource tag="BAD_ICQ">آدرس ایمیلی که برای سرویس ICQ وارد کرده اید اشتباه می‌باشد.</Resource>
     <Resource tag="BAD_MSN">آدرس ایمیلی که برای سرویس MSN وارد کرده اید اشتباه می‌باشد.</Resource>
     <Resource tag="BAD_WEBLOG">آدرسی که به عنوان وبلاگ خود وارد کرده اید اشتباه می‌باشد.</Resource>
     <Resource tag="BAD_XMPP">شما برای حساب XMPP خود نامی نامعتبر وارد کرده اید.</Resource>
@@ -2791,7 +2789,6 @@
     <Resource tag="HIDEME">مخفی شدن من از لیست کاربران فعال</Resource>
     <Resource tag="HOMEPAGE">صفحه اصلی</Resource>
     <Resource tag="HOMEPAGE2">وبسایت شما (عمومی):</Resource>
-    <Resource tag="ICQ">شماره ICQ شما:</Resource>
     <Resource tag="LOCATION">مکان</Resource>
     <Resource tag="MAIL_SENT">ایمیلی به آدرس {0} ارسال شد.\n\nشما باید آدرس ایمیل خود را با باز کردن لینک ارسال شده برای شما مورد تائید قرار دهید.</Resource>
     <Resource tag="MESSENGER">سرویس‌های پیام رسان</Resource>
@@ -2801,6 +2798,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API نام کاربری:</Resource>
     <Resource tag="METAWEBLOG_TITLE">ارسال به MetaWeblog (API تنظیمات)</Resource>
     <Resource tag="MSN">شناسه MSN شما:</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">انتخاب قالب مختلف:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">آیا مایل به دریافت ایمیل یادآوری در زمان دریافت پیغام خصوصی می‌باشید؟</Resource>
@@ -3986,7 +3984,7 @@
       &lt;p&gt;&lt;strong&gt;وب سایت&lt;/strong&gt;&lt;/p&gt;
       &lt;p&gt;در صورت تمایل می توانید نشانی وب سایت یا وبلاگ خود وارد کنید.&lt;/p&gt;
       &lt;p&gt;&lt;strong&gt;نام های کاربری در پیام رسانها&lt;/strong&gt;&lt;/p&gt;
-      &lt;p&gt;در صورت تمایل می توانید نام های کاربری خود در پیام رسانهایی مانند MSN, YAHOO, AIM, ICQ, XMPP, SKYPE, Facebook و Twitter وارد نمایید.&lt;/p&gt;
+      &lt;p&gt;در صورت تمایل می توانید نام های کاربری خود در پیام رسانهایی مانند MSN, SKYPE, Facebook و Twitter وارد نمایید.&lt;/p&gt;
       &lt;p&gt;&lt;strong&gt;منطقه ساعتی&lt;/strong&gt;&lt;/p&gt;
       &lt;p&gt;در اینجا می توانید منطقه زمانی خود را تعیین نمایید تا انجمن زمان و تاریخش را با زمان محلی شما تنظیم نماید. در صورت انتخاب ساعت تابستانی، زمان به ساعت تابستانی تغییر می کند.&lt;/p&gt;
       &lt;p&gt;&lt;strong&gt;تنظیمات انجمن&lt;/strong&gt;&lt;/p&gt;
@@ -4325,13 +4323,6 @@
     <Resource tag="SUBJECT">عنوان:</Resource>
     <Resource tag="TITLE">ایمیل</Resource>
     <Resource tag="TITLE2">Send E-mail to {0}</Resource>
-  </page>
-  <page name="IM_ICQ">
-    <Resource tag="BODY">پیغام خود را اینجا تایپ کنید:</Resource>
-    <Resource tag="EMAIL">ایمیل شما:</Resource>
-    <Resource tag="NAME">نام شما:</Resource>
-    <Resource tag="SEND">ارسال پیغام</Resource>
-    <Resource tag="TITLE">ICQ</Resource>
   </page>
   <page name="IM_MSN">
     <Resource tag="TITLE">پیام رسان MSN</Resource>
@@ -4809,8 +4800,6 @@
     <Resource tag="GROUPS">گروه ها</Resource>
     <Resource tag="HOME">وبسایت</Resource>
     <Resource tag="HOME_TITLE">مشاهده صفحه وبسایت {0}</Resource>
-    <Resource tag="ICQ">ICQ</Resource>
-    <Resource tag="ICQ_TITLE">تماس با {0} از طریق ICQ</Resource>
     <Resource tag="IMAGE_ATTACHMENT_TEXT">{0} تصاویر زیر را ارسال کرده است:</Resource>
     <Resource tag="IMAGE_DOWNLOAD">دانلود تصویر</Resource>
     <Resource tag="IMAGE_RESIZE_ENLARGE">برای مشاهده تصویر کلیک کنید</Resource>
@@ -4951,7 +4940,6 @@
     <Resource tag="GOOGLE">Google+ Profile:</Resource>
     <Resource tag="GROUPS">گروه ها:</Resource>
     <Resource tag="HOURS">ساعت</Resource>
-    <Resource tag="ICQ">شماره ICQ:</Resource>
     <Resource tag="INTERESTS">علاقه‌مندی‌ها:</Resource>
     <Resource tag="JOINED">عضو شده:</Resource>
     <Resource tag="LAST10">10 ارسال آخر</Resource>

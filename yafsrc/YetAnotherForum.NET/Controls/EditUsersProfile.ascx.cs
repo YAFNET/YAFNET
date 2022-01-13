@@ -42,6 +42,7 @@ namespace YAF.Controls
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -51,6 +52,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Models.Identity;
+    using YAF.Web.Controls;
 
     #endregion
 
@@ -135,6 +137,9 @@ namespace YAF.Controls
             var hidden = e.Item.FindControlAs<HiddenField>("DefID");
             var label = e.Item.FindControlAs<Label>("DefLabel");
             var textBox = e.Item.FindControlAs<TextBox>("DefText");
+            var requiredMessage = e.Item.FindControlAs<LocalizedLabel>("RequiredMessage");
+
+            var checkPlaceHolder = e.Item.FindControlAs<PlaceHolder>("CheckPlaceHolder");
             var check = e.Item.FindControlAs<CheckBox>("DefCheck");
 
             hidden.Value = profileDef.ID.ToString();
@@ -144,6 +149,11 @@ namespace YAF.Controls
             var userValue = this.UserProfileCustom.FirstOrDefault(p => p.ProfileDefinitionID == profileDef.ID);
 
             var type = profileDef.DataType.ToEnum<DataType>();
+
+            if (profileDef.Required)
+            { 
+                requiredMessage.Param0 = profileDef.Name;
+            }
 
             switch (type)
             {
@@ -200,11 +210,16 @@ namespace YAF.Controls
                     }
                 case DataType.Check:
                     {
-                        check.Visible = true;
+                        checkPlaceHolder.Visible = true;
 
                         if (profileDef.Required)
                         {
                             check.Attributes.Add("required", "required");
+                        }
+
+                        if (profileDef.DefaultValue.IsSet())
+                        {
+                            check.Checked = profileDef.DefaultValue.ToType<bool>();
                         }
 
                         if (userValue != null)
@@ -212,7 +227,8 @@ namespace YAF.Controls
                             check.Checked = userValue.Value.ToType<bool>();
                         }
 
-                        label.AssociatedControlID = check.ClientID;
+                        check.Text = profileDef.Name;
+                        label.Visible = false;
 
                         break;
                     }
@@ -226,10 +242,9 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.IsPostBack)
-            {
-                return;
-            }
+            this.PageContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.FormValidatorJs),
+                JavaScriptBlocks.FormValidatorJs(this.UpdateProfile.ClientID));
 
             this.Gender.DataSource = StaticDataHelper.Gender();
             this.Gender.DataValueField = "Value";
@@ -243,8 +258,6 @@ namespace YAF.Controls
             if (Config.IsDotNetNuke)
             {
                 this.ProfilePlaceHolder.Visible = false;
-
-                this.CustomProfile.Visible = false;
 
                 this.IMServicesPlaceHolder.Visible = false;
             }
@@ -266,7 +279,7 @@ namespace YAF.Controls
                 // add http:// by default
                 if (!Regex.IsMatch(this.HomePage.Text.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*"))
                 {
-                    this.HomePage.Text = $"http://{this.HomePage.Text.Trim()}";
+                    this.HomePage.Text = $@"https://{this.HomePage.Text.Trim()}";
                 }
 
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
@@ -323,13 +336,6 @@ namespace YAF.Controls
             if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
             {
                 this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
-                return;
-            }
-
-            if (this.ICQ.Text.IsSet() &&
-                !(ValidationHelper.IsValidEmail(this.ICQ.Text) || ValidationHelper.IsNumeric(this.ICQ.Text)))
-            {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_ICQ"), MessageTypes.warning);
                 return;
             }
 
@@ -406,7 +412,7 @@ namespace YAF.Controls
             {
                 this.GetRepository<ProfileCustom>().Delete(x => x.UserID == this.User.Item1.ID);
 
-                this.CustomProfile.Items.Cast<RepeaterItem>().Where(x => x.ItemType == ListItemType.Item || x.ItemType == ListItemType.AlternatingItem).ForEach(
+                this.CustomProfile.Items.Cast<RepeaterItem>().Where(x => x.ItemType is ListItemType.Item or ListItemType.AlternatingItem).ForEach(
                     item =>
                     {
                         var id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>();
@@ -582,7 +588,6 @@ namespace YAF.Controls
             this.Occupation.Text = this.User.Item2.Profile_Occupation;
             this.Interests.Text = this.User.Item2.Profile_Interests;
             this.Weblog.Text = this.User.Item2.Profile_Blog;
-            this.ICQ.Text = this.User.Item2.Profile_ICQ;
 
             this.Facebook.Text = ValidationHelper.IsNumeric(this.User.Item2.Profile_Facebook)
                 ? $"https://www.facebook.com/profile.php?id={this.User.Item2.Profile_Facebook}"
@@ -618,7 +623,11 @@ namespace YAF.Controls
 
             this.CustomProfile.DataSource = this.ProfileDefinitions;
             this.CustomProfile.DataBind();
-            this.CustomProfile.Visible = true;
+
+            if (!Config.IsDotNetNuke)
+            {
+                this.CustomProfile.Visible = true;
+            }
         }
 
         /// <summary>
@@ -637,7 +646,6 @@ namespace YAF.Controls
                 City = this.City.Text.Trim(),
                 Location = this.Location.Text.Trim(),
                 Homepage = this.HomePage.Text.Trim(),
-                ICQ = this.ICQ.Text.Trim(),
                 Facebook = this.Facebook.Text.Trim(),
                 Twitter = this.Twitter.Text.Trim(),
                 XMPP = this.Xmpp.Text.Trim(),
@@ -685,7 +693,6 @@ namespace YAF.Controls
             this.User.Item2.Profile_Gender = userProfile.Gender;
             this.User.Item2.Profile_GoogleId = userProfile.GoogleId;
             this.User.Item2.Profile_Homepage = userProfile.Homepage;
-            this.User.Item2.Profile_ICQ = userProfile.ICQ;
             this.User.Item2.Profile_Facebook = userProfile.Facebook;
             this.User.Item2.Profile_FacebookId = userProfile.FacebookId;
             this.User.Item2.Profile_Twitter = userProfile.Twitter;
