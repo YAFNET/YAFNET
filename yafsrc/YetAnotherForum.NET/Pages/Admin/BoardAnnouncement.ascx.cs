@@ -123,9 +123,6 @@ namespace YAF.Pages.Admin
             // save the settings to the database
             ((LoadBoardSettings)boardSettings).SaveRegistry();
 
-            // Reload forum settings
-            this.PageContext.BoardSettings = null;
-
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
         }
 
@@ -148,9 +145,6 @@ namespace YAF.Pages.Admin
 
             // save the settings to the database
             ((LoadBoardSettings)boardSettings).SaveRegistry();
-
-            // Reload forum settings
-            this.PageContext.BoardSettings = null;
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BoardAnnouncement);
         }

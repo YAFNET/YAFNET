@@ -139,9 +139,6 @@ namespace YAF.Pages.Admin
             // save the settings to the database
             boardSettings.SaveRegistry();
 
-            // Reload forum settings
-            this.PageContext.BoardSettings = null;
-
             // Clearing cache with old users permissions data to get new default styles...
             this.Get<IDataCache>().Remove(x => x.StartsWith(Constants.Cache.ActiveUserLazyData));
 
@@ -191,7 +188,7 @@ namespace YAF.Pages.Admin
             var board = this.GetRepository<Board>().GetById(this.PageContext.PageBoardID);
 
             var logos = new List<NamedParameter> {
-                new(this.GetText("BOARD_LOGO_SELECT"), "")
+                new(this.GetText("BOARD_LOGO_SELECT"), string.Empty)
             };
 
             var dir = new DirectoryInfo(

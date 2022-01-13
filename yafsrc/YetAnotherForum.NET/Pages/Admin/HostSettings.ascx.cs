@@ -322,9 +322,6 @@ namespace YAF.Pages.Admin
             // save the settings to the database
             ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
 
-            // reload all settings from the DB
-            this.PageContext.BoardSettings = null;
-
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Admin);
         }
 

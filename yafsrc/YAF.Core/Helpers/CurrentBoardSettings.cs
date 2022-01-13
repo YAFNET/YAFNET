@@ -113,6 +113,14 @@ namespace YAF.Core.Helpers
             set => MemoryCache.Default.Set(this.treatCacheKey.Treat(Constants.Cache.BoardSettings), value);
         }
 
+        /// <summary>
+        /// Reset Board Settings 
+        /// </summary>
+        public void Reset()
+        {
+            MemoryCache.Default.Remove(this.treatCacheKey.Treat(Constants.Cache.BoardSettings));
+        }
+
         #endregion
     }
 }

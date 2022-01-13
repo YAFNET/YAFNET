@@ -35,7 +35,6 @@ namespace YAF.Core.Tasks
 
     using YAF.Configuration;
     using YAF.Core.BoardSettings;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -138,9 +137,6 @@ namespace YAF.Core.Tasks
             boardSettings.ForceDigestSend = false;
 
             boardSettings.SaveRegistry();
-
-            // reload all settings from the DB
-            BoardContext.Current.BoardSettings = null;
 
             return true;
         }

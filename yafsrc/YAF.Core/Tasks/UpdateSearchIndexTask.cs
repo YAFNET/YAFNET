@@ -134,9 +134,6 @@ namespace YAF.Core.Tasks
 
                 boardSettings.SaveRegistry();
 
-                // reload all settings from the DB
-                BoardContext.Current.BoardSettings = null;
-
                 return true;
             }
 
@@ -165,9 +162,6 @@ namespace YAF.Core.Tasks
             boardSettings.LastSearchIndexUpdated = DateTime.Now.ToString(CultureInfo.InvariantCulture);
 
             boardSettings.SaveRegistry();
-
-            // reload all settings from the DB
-            BoardContext.Current.BoardSettings = null;
 
             return true;
         }

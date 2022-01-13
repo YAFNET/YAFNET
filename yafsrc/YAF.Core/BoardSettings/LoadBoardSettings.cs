@@ -29,6 +29,7 @@ namespace YAF.Core.BoardSettings
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Exceptions;
@@ -67,7 +68,7 @@ namespace YAF.Core.BoardSettings
             this.BoardName = this.CurrentBoard.Name;
 
             // get all the registry values for the forum
-            this.LoadBoardSettingsFromDB();
+            this.LoadBoardSettingsFromDb();
         }
 
         #endregion
@@ -108,6 +109,9 @@ namespace YAF.Core.BoardSettings
 
             this.RegistryBoard.Keys.ForEach(
                 key => BoardContext.Current.GetRepository<Registry>().Save(key, this.RegistryBoard[key], this.BoardId));
+
+            // Reset Board Settings
+            BoardContext.Current.Get<CurrentBoardSettings>().Reset();
         }
 
         #endregion
@@ -117,7 +121,7 @@ namespace YAF.Core.BoardSettings
         /// <summary>
         /// Loads the board settings from database.
         /// </summary>
-        private void LoadBoardSettingsFromDB()
+        private void LoadBoardSettingsFromDb()
         {
             var registryList = BoardContext.Current.GetRepository<Registry>().List();
 
