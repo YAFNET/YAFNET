@@ -178,7 +178,7 @@ namespace YAF.Dialogs
                 {
                     var dr = usersTable.NewRow();
                     var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
-                    dr.ItemArray = regex.Split(streamReader.ReadLine());
+                    dr.ItemArray = (string[])regex.Split(streamReader.ReadLine());
 
                     usersTable.Rows.Add(dr);
                 }
@@ -287,11 +287,6 @@ namespace YAF.Dialogs
                 userProfile.Skype = (string)row["Skype"];
             }
 
-            if (row.Table.Columns.Contains("ICQe") && ((string)row["ICQ"]).IsSet())
-            {
-                userProfile.ICQ = (string)row["ICQ"];
-            }
-
             if (row.Table.Columns.Contains("XMPP") && ((string)row["XMPP"]).IsSet())
             {
                 userProfile.XMPP = (string)row["XMPP"];
@@ -336,7 +331,6 @@ namespace YAF.Dialogs
                 Profile_Gender = userProfile.Gender,
                 Profile_GoogleId = userProfile.GoogleId,
                 Profile_Homepage = userProfile.Homepage,
-                Profile_ICQ = userProfile.ICQ,
                 Profile_Facebook = userProfile.Facebook,
                 Profile_FacebookId = userProfile.FacebookId,
                 Profile_Twitter = userProfile.Twitter,
@@ -358,9 +352,9 @@ namespace YAF.Dialogs
             this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageContext.PageBoardID, user);
 
             // create the user in the YAF DB as well as sync roles...
-            var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageContext.PageBoardID);
+            var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageContext.PageBoardID);
 
-            if (userID == null)
+            if (userId == null)
             {
                 // something is seriously wrong here -- redirect to failure...
                 return importCount;
@@ -369,9 +363,6 @@ namespace YAF.Dialogs
             // send user register notification to the new users
             this.Get<ISendNotification>().SendRegistrationNotificationToUser(
                 user, pass, "NOTIFICATION_ON_REGISTER");
-
-            // save the time zone...
-            var userId = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID;
 
             var timeZone = 0;
 
@@ -384,7 +375,7 @@ namespace YAF.Dialogs
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             this.GetRepository<User>().Save(
-                userId,
+                userId.Value,
                 timeZone.ToString(),
                 row.Table.Columns.Contains("LanguageFile") ? row["LanguageFile"].ToString() : null,
                 row.Table.Columns.Contains("Culture") ? row["Culture"].ToString() : null,
@@ -395,7 +386,7 @@ namespace YAF.Dialogs
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(
-                userId,
+                userId.Value,
                 true,
                 autoWatchTopicsEnabled,
                 this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt(),
