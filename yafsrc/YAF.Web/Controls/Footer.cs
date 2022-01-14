@@ -137,7 +137,7 @@ namespace YAF.Web.Controls
 
             if (extensions.Any(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
             {
-                writer.Write("Offical YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
+                writer.Write("Official YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
             }
 
             writer.Write(
@@ -169,7 +169,7 @@ namespace YAF.Web.Controls
             }
 
             writer.Write(
-                @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a> | ",
+                @"<a target=""_top"" title=""{1}"" href=""{0}"">{1}</a>",
                 this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy),
                 this.GetText("COMMON", "PRIVACY_POLICY"));
         }
@@ -189,14 +189,6 @@ namespace YAF.Web.Controls
 
             if (domainKey.IsSet() && url != null)
             {
-                /*var dnsSafeHost = url.DnsSafeHost.ToLower();
-
-                // handle www domains correctly.
-                if (dnsSafeHost.StartsWith("www."))
-                {
-                    dnsSafeHost = dnsSafeHost.Replace("www.", string.Empty);
-                }*/
-
                 var dnsSafeHost = url.Host.ToLowerInvariant();
                 if (dnsSafeHost.LastIndexOf('.') != dnsSafeHost.IndexOf('.'))
                 {
@@ -217,7 +209,7 @@ namespace YAF.Web.Controls
                 }
             }
 
-            writer.Write(@"<a target=""_top"" title=""YetAnotherForum.NET"" href=""https://www.yetanotherforum.net"">");
+            writer.Write(@" | <a target=""_top"" title=""YetAnotherForum.NET"" href=""https://www.yetanotherforum.net"">");
             writer.Write(this.GetText("COMMON", "POWERED_BY"));
             writer.Write(@" YAF.NET");
 
