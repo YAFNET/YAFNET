@@ -264,20 +264,6 @@ namespace YAF.Pages.Account
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 
-        /// <summary>
-        /// Handles the Click event of the RefreshCaptcha control.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event.
-        /// </param>
-        /// <param name="e">
-        /// The <see cref="EventArgs"/> instance containing the event data.
-        /// </param>
-        protected void RefreshCaptcha_Click(object sender, EventArgs e)
-        {
-            this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1&t=";
-        }
-
         protected void CustomProfile_OnItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
@@ -372,11 +358,7 @@ namespace YAF.Pages.Account
 
             if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1)
             {
-                this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1&t={DateTime.UtcNow}";
-
-                this.RefreshCaptcha.Text = this.GetText("GENERATE_CAPTCHA");
-
-                this.RefreshCaptcha.Click += this.RefreshCaptcha_Click;
+                this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
 
                 captchaPlaceHolder.Visible = true;
             }

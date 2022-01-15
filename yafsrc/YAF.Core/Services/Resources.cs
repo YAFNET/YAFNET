@@ -302,17 +302,20 @@ namespace YAF.Core.Services
                 graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
                 graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
 
-                using Brush brush = new SolidBrush((Color)new ColorConverter().ConvertFromString(backgroundColor));
-                graphics.FillRectangle(
-                    brush,
-                    0,
-                    0,
-                    this.Get<BoardSettings>().AvatarWidth,
-                    this.Get<BoardSettings>().AvatarHeight);
+                using (Brush brush = new SolidBrush((Color)new ColorConverter().ConvertFromString(backgroundColor)))
+                {
+                    graphics.FillRectangle(
+                        brush,
+                        0,
+                        0,
+                        this.Get<BoardSettings>().AvatarWidth,
+                        this.Get<BoardSettings>().AvatarHeight);
+                }
 
                 var sf = new StringFormat
                 {
-                    Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center
+                    Alignment = StringAlignment.Center,
+                    LineAlignment = StringAlignment.Center
                 };
 
                 var font = new Font("Arial", 48, FontStyle.Bold, GraphicsUnit.Pixel);
@@ -404,40 +407,6 @@ namespace YAF.Core.Services
                 context.Response.Write(
                     "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
             }
-        }
-
-        /// <summary>
-        /// The get response captcha.
-        /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        public void GetResponseCaptcha([NotNull] HttpContext context)
-        {
-#if (!DEBUG)
-            try
-            {
-#endif
-
-                var captchaImage =
-                    new CaptchaImage(
-                        CaptchaHelper.GetCaptchaText(new HttpSessionStateWrapper(context.Session), MemoryCache.Default, true),
-                        250,
-                        50,
-                        "Century Schoolbook");
-                context.Response.Clear();
-                context.Response.ContentType = "image/jpeg";
-                captchaImage.Image.Save(context.Response.OutputStream, ImageFormat.Jpeg);
-#if (!DEBUG)
-            }
-            catch (Exception x)
-            {
-                this.Get<ILoggerService>().Log(BoardContext.Current.PageUserID, this, x);
-                context.Response.Write(
-                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
-            }
-
-#endif
         }
     }
 }

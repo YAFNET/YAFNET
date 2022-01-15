@@ -26,11 +26,13 @@ namespace YAF.Core.Helpers
     #region Using
 
     using System;
+    using System.IO;
     using System.Runtime.Caching;
     using System.Web;
     using System.Web.Caching;
 
     using YAF.Core.Context;
+    using YAF.Core.Utilities.ImageUtils;
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -44,6 +46,27 @@ namespace YAF.Core.Helpers
     public static class CaptchaHelper
     {
         #region Public Methods
+
+        /// <summary>
+        /// Gets the Captcha Image as base64 String
+        /// </summary>
+        /// <returns>
+        /// Returns the Captcha Image as base64 String
+        /// </returns>
+        public static string GetCaptcha()
+        {
+            using var stream = new MemoryStream();
+
+            var captchaImage = new CaptchaImage(
+                GetCaptchaText(BoardContext.Current.Get<HttpContextBase>().Session, MemoryCache.Default, true),
+                250,
+                50,
+                "Century Schoolbook");
+
+            captchaImage.Image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+
+            return $"data:image/png;base64,{Convert.ToBase64String(stream.ToArray())}";
+        }
 
         /// <summary>
         /// Gets the CaptchaString using the BoardSettings

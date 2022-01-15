@@ -70,9 +70,6 @@ namespace YAF.Controls
                 // save the settings to the database
                 ((LoadBoardSettings)boardSettings).SaveRegistry();
 
-                // Reload forum settings
-                this.PageContext.BoardSettings = null;
-
                 // delete no show
                 this.Visible = false;
                 return;

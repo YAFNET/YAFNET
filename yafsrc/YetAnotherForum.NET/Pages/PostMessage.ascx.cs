@@ -299,7 +299,7 @@ namespace YAF.Pages
                 if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
                     || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.User.UserFlags.IsCaptchaExcluded)
                 {
-                    this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1";
+                    this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
                     this.tr_captcha1.Visible = true;
                     this.tr_captcha2.Visible = true;
                 }
@@ -515,7 +515,7 @@ namespace YAF.Pages
 
             var isApproved = this.spamApproved;
 
-            // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
+            // vzrus the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
             var returnForum = string.Empty;
 

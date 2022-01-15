@@ -46,6 +46,18 @@ namespace YAF.Pages.Profile
     /// </summary>
     public partial class EditProfile : ProfilePage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditProfile"/> class.
+        /// </summary>
+        public EditProfile()
+            : base("EDIT_PROFILE")
+        {
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -57,18 +69,6 @@ namespace YAF.Pages.Profile
             get => this.ViewState["EditBoardUser"].ToType<Tuple<User, AspNetUsers, Rank, vaccess>>();
 
             set => this.ViewState["EditBoardUser"] = value;
-        }
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EditProfile"/> class.
-        /// </summary>
-        public EditProfile()
-            : base("EDIT_PROFILE")
-        {
         }
 
         #endregion

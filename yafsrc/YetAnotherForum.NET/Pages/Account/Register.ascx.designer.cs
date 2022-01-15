@@ -276,15 +276,6 @@ namespace YAF.Pages.Account
         protected global::System.Web.UI.WebControls.Image imgCaptcha;
 
         /// <summary>
-        /// RefreshCaptcha-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton RefreshCaptcha;
-
-        /// <summary>
         /// LocalizedLabel10-Steuerelement.
         /// </summary>
         /// <remarks>

@@ -30,7 +30,6 @@ namespace YAF.Dialogs
     using System.Threading;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
     using YAF.Core.Extensions;
@@ -88,7 +87,7 @@ namespace YAF.Dialogs
 
             if (this.EnableCaptcha())
             {
-                this.imgCaptcha.ImageUrl = $"{BoardInfo.ForumClientFileRoot}resource.ashx?c=1";
+                this.imgCaptcha.ImageUrl = this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
                 this.CaptchaDiv.Visible = true;
             }
 
@@ -239,7 +238,7 @@ namespace YAF.Dialogs
                             case SpamPostHandling.DeleteBanUser:
                                 this.Logger.SpamMessageDetected(
                                     this.PageContext.PageUserID,
-                                    $"{description}, user was deleted and bannded");
+                                    $"{description}, user was deleted and banned");
 
                                 this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                     this.PageContext.PageUserID,
