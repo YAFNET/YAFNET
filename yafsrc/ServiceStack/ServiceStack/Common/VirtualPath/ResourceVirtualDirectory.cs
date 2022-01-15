@@ -4,17 +4,18 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using ServiceStack.IO;
-using ServiceStack.Logging;
-using ServiceStack.Text;
 
 namespace ServiceStack.VirtualPath
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
+    using ServiceStack.IO;
+    using ServiceStack.Logging;
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class ResourceVirtualDirectory.
     /// Implements the <see cref="ServiceStack.VirtualPath.AbstractVirtualDirectoryBase" />
@@ -26,7 +27,7 @@ namespace ServiceStack.VirtualPath
         /// Gets or sets the embedded resource treat as files.
         /// </summary>
         /// <value>The embedded resource treat as files.</value>
-        public static HashSet<string> EmbeddedResourceTreatAsFiles { get; set; } = new();
+        public static HashSet<string> EmbeddedResourceTreatAsFiles { get; set; } = new ();
 
         /// <summary>
         /// The log
@@ -270,6 +271,17 @@ namespace ServiceStack.VirtualPath
         }
 
         /// <summary>
+        /// The translate path.
+        /// </summary>
+        /// <param name="path">
+        /// The path.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string TranslatePath(string path) => path.Replace('-', '_');
+
+        /// <summary>
         /// Gets the matching files in dir.
         /// </summary>
         /// <param name="globPattern">The glob pattern.</param>
@@ -277,10 +289,12 @@ namespace ServiceStack.VirtualPath
         protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
         {
             var useGlob = globPattern.TrimStart('/');
+            var useGlobTranslate = this.TranslatePath(useGlob);
 
-            return this.Files.Where(f => useGlob.IndexOf('/') >= 0
-                                             ? f.VirtualPath.Glob(useGlob)
-                                             : f.Name.Glob(useGlob));
+            return this.Files.Where(
+                f => useGlob.IndexOf('/') >= 0
+                         ? f.VirtualPath.Glob(useGlob) || f.VirtualPath.Glob(useGlobTranslate)
+                         : f.Name.Glob(useGlob) || f.Name.Glob(useGlobTranslate));
         }
 
         /// <summary>
@@ -290,8 +304,8 @@ namespace ServiceStack.VirtualPath
         /// <returns>IVirtualDirectory.</returns>
         protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
         {
-            return Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(directoryName)) ??
-                Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase((directoryName ?? "").Replace('-', '_')));
+            return this.Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(directoryName))
+                   ?? this.Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(TranslatePath(directoryName ?? "")));
         }
 
         /// <summary>

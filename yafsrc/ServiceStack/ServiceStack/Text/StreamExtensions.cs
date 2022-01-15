@@ -379,16 +379,22 @@ namespace ServiceStack.Text
         /// </summary>
         /// <param name="stream">The stream.</param>
         /// <returns>string.</returns>
-        public static string ToMd5Hash(this Stream stream)
+        public static byte[] ToMd5Bytes(this Stream stream)
         {
-            var hash = System.Security.Cryptography.MD5.Create().ComputeHash(stream);
-            var sb = StringBuilderCache.Allocate();
-            foreach (byte b in hash)
+#if NET6_0_OR_GREATER
+            if (stream is MemoryStream ms)
+                return System.Security.Cryptography.MD5.HashData(ms.GetBufferAsSpan());
+#endif
+            if (stream.CanSeek)
             {
-                sb.Append(b.ToString("x2"));
+                stream.Position = 0;
             }
-            return StringBuilderCache.ReturnAndFree(sb);
+            return System.Security.Cryptography.MD5.Create().ComputeHash(stream);
         }
+
+        public static string ToMd5Hash(this Stream stream) => ToMd5Bytes(stream).ToHex();
+        public static string ToMd5Hash(this byte[] bytes) =>
+            System.Security.Cryptography.MD5.Create().ComputeHash(bytes).ToHex();
 
         /// <summary>
         /// Returns bytes in publiclyVisible MemoryStream
