@@ -135,11 +135,6 @@ namespace YAF.Core.Handlers
                         this.Get<IAlbum>().GetResponseImagePreview(context, localizationFile, previewCropped);
                     }
                 }
-                else if (context.Request.QueryString.Exists("c"))
-                {
-                    // captcha
-                    this.Get<IResources>().GetResponseCaptcha(context);
-                }
                 else if (context.Request.QueryString.Exists("cover") && context.Request.QueryString.Exists("album"))
                 {
                     var etagCode =
