@@ -8,6 +8,7 @@ YetAnotherForum.NET Changelog
 * [NEW] Not Approved Users can re-send the Confirm Email 
 * [FIXED] Not Approved users can be edited in the Admin Interface 
 * Upgraded to CKEditor 4.17.1
+* bug fixes
 
 # YetAnotherForum.NET v3.0.1
 * [FIXED #645] Send PM for regular users

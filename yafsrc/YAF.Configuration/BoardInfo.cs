@@ -26,7 +26,6 @@ namespace YAF.Configuration
 {
     using System;
     using System.Text;
-    using System.Web;
 
     using YAF.Types;
     using YAF.Types.Constants;
@@ -54,21 +53,6 @@ namespace YAF.Configuration
         /// </summary>
         public static string ForumBaseUrl => $"{BaseUrlBuilder.BaseUrl}{BaseUrlBuilder.AppPath}";
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is local.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is local; otherwise, <c>false</c>.
-        /// </value>
-        public static bool IsLocal
-        {
-            get
-            {
-                var serverName = HttpContext.Current.Request.ServerVariables["SERVER_NAME"];
-                return serverName != null && serverName.ToLower() == "localhost";
-            }
-        }
-
         #region Version Information
 
         /// <summary>
@@ -84,7 +68,7 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new(2021, 12, 08, 16, 10, 00);
+        public static DateTime AppVersionDate => new(2022, 01,16, 09, 24, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
