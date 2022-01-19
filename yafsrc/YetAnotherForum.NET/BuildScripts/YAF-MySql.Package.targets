@@ -13,7 +13,6 @@
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Text.Json.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Text.Encodings.Web.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Threading.Channels.dll" />
-	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Threading.Tasks.Extensions.dll" />
 	  
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Data.SQLite.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\System.Text.Encodings.Web.dll" />
