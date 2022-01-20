@@ -3,7 +3,7 @@
   "version": "3.0.2",
   "private": true,
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
+    "autoprefixer": "^10.4.2",
     "sass":  "*",
     "grunt": "~1.4.0",
     "grunt-contrib-cssmin": "*",
