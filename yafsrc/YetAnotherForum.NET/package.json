@@ -3,13 +3,17 @@
   "version": "3.0.2",
   "private": true,
   "devDependencies": {
-    "autoprefixer": "^9.8.6",
-    "sass":  "*",
+    "@lodder/grunt-postcss": "^3.1.1",
+    "autoprefixer": "*",
     "grunt": "~1.4.0",
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "^5.0.1",
     "grunt-contrib-watch": "~1.1.0",
-    "grunt-postcss": "*"
+    "postcss": "^8.4.5",
+    "sass": "*"
+  },
+  "peerDependencies": {
+    "postcss": "^8.4.5"
   }
 }
