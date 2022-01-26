@@ -49,7 +49,7 @@ namespace ServiceStack.Text
         /// The instance
         /// </summary>
         public static PclExport Instance
-#if NET48
+#if NETFX
           = new Net48PclExport()
 #elif NETSTANDARD2_0
           = new NetStandardPclExport()

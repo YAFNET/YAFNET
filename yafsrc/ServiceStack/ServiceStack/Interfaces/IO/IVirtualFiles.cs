@@ -10,6 +10,9 @@ using System.IO;
 
 namespace ServiceStack.IO
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Interface IVirtualFiles
     /// Implements the <see cref="ServiceStack.IO.IVirtualPathProvider" />
@@ -17,6 +20,8 @@ namespace ServiceStack.IO
     /// <seealso cref="ServiceStack.IO.IVirtualPathProvider" />
     public interface IVirtualFiles : IVirtualPathProvider
     {
+        Task WriteFileAsync(string filePath, object contents, CancellationToken token = default);
+
         /// <summary>
         /// Writes the file.
         /// </summary>

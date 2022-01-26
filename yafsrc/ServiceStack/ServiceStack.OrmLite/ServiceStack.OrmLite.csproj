@@ -27,8 +27,4 @@
     <ProjectReference Include="..\ServiceStack\ServiceStack.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Legacy\" />
-  </ItemGroup>
-
 </Project>

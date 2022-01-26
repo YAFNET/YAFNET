@@ -13,6 +13,9 @@ using ServiceStack.VirtualPath;
 
 namespace ServiceStack.IO
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Class VirtualFilesExtensions.
     /// </summary>
@@ -418,5 +421,21 @@ namespace ServiceStack.IO
             }
         }
 
+        // VFS Async providers only need implement, which all async APIs are routed to:
+        // Task WriteFileAsync(string filePath, object contents, CancellationToken token=default);
+        // E.g. see FileSystemVirtualFiles.WriteFileAsync()
+
+        public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, IVirtualFile file, CancellationToken token = default) =>
+            await vfs.WriteFileAsync(filePath, file, token).ConfigAwait();
+        public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, string textContents, CancellationToken token = default) =>
+            await vfs.WriteFileAsync(filePath, textContents, token).ConfigAwait();
+        public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, ReadOnlyMemory<char> textContents, CancellationToken token = default) =>
+            await vfs.WriteFileAsync(filePath, textContents, token).ConfigAwait();
+        public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, byte[] binaryContents, CancellationToken token = default) =>
+            await vfs.WriteFileAsync(filePath, binaryContents, token).ConfigAwait();
+        public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, ReadOnlyMemory<byte> romBytes, CancellationToken token = default) =>
+            await vfs.WriteFileAsync(filePath, romBytes, token).ConfigAwait();
+        public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, Stream stream, CancellationToken token = default) =>
+            await vfs.WriteFileAsync(filePath, stream, token).ConfigAwait();
     }
 }

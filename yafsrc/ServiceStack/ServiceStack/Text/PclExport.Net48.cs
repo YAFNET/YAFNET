@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NET48
+#if NETFX
 namespace ServiceStack.Text
 {
     using ServiceStack.Text.Common;

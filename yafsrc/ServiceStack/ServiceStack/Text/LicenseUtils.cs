@@ -1037,7 +1037,7 @@ namespace ServiceStack
         /// <exception cref="System.ArgumentException">licenseKeyText</exception>
         public static LicenseKey VerifyLicenseKeyText(string licenseKeyText)
         {
-#if NET48 || NETCORE
+#if NETFX || NETCORE
             LicenseKey key;
             try
             {
@@ -1062,7 +1062,7 @@ namespace ServiceStack
         /// <param name="xml">The XML.</param>
         private static void FromXml(this System.Security.Cryptography.RSA rsa, string xml)
         {
-#if NET48
+#if NETFX
             rsa.FromXmlString(xml);
 #else
             //throws PlatformNotSupportedException

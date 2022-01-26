@@ -11,6 +11,9 @@ using ServiceStack.VirtualPath;
 
 namespace ServiceStack.IO
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+
     using ServiceStack.Text;
 
     /// <summary>
@@ -138,6 +141,40 @@ namespace ServiceStack.IO
             EnsureDirectory(Path.GetDirectoryName(realFilePath));
             using var fs = File.Open(realFilePath, FileMode.Create, FileAccess.Write);
             stream.WriteTo(fs);
+        }
+
+        public override async Task WriteFileAsync(string filePath, object contents, CancellationToken token = default)
+        {
+            if (contents == null)
+                return;
+
+            var realFilePath = RootDir.RealPath.CombineWith(filePath);
+            EnsureDirectory(Path.GetDirectoryName(realFilePath));
+            using var fs = File.Open(realFilePath, FileMode.Create, FileAccess.Write);
+
+            switch (contents)
+            {
+                case IVirtualFile vfile:
+                    await this.WriteFileAsync(filePath, vfile.GetContents(), token).ConfigAwait();
+                    break;
+                case string textContents:
+                    await fs.WriteAsync(textContents, token).ConfigAwait();
+                    break;
+                case ReadOnlyMemory<char> romChars:
+                    await fs.WriteAsync(romChars.Span, token).ConfigAwait();
+                    break;
+                case byte[] binaryContents:
+                    await fs.WriteAsync(binaryContents, token: token).ConfigAwait();
+                    break;
+                case ReadOnlyMemory<byte> romBytes:
+                    await fs.WriteAsync(romBytes, token).ConfigAwait();
+                    break;
+                case Stream stream:
+                    await stream.CopyToAsync(fs).ConfigAwait();
+                    break;
+                default:
+                    throw this.CreateContentNotSupportedException(contents);
+            }
         }
 
         /// <summary>

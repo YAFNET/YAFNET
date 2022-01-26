@@ -119,6 +119,12 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
+        /// Reads the given stream up to the end, returning the data as a byte array.
+        /// </summary>
+        public static Task<byte[]> ReadFullyAsync(this Stream input, CancellationToken token = default) =>
+            ReadFullyAsync(input, DefaultBufferSize, token);
+
+        /// <summary>
         /// Reads the given stream up to the end, returning the data as a byte
         /// array, using the given buffer size.
         /// </summary>

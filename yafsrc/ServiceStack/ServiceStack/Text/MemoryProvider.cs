@@ -4,16 +4,18 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
-using System.Globalization;
-using System.IO;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text
 {
+    using System;
+    using System.Globalization;
+    using System.IO;
+    using System.Text;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using ServiceStack.Text.Common;
+
     /// <summary>
     /// Class MemoryProvider.
     /// </summary>
@@ -24,7 +26,7 @@ namespace ServiceStack.Text
         /// </summary>
         public static MemoryProvider Instance =
 #if NETCORE
-            ServiceStack.Memory.NetCoreMemory.Provider;
+            NetCoreMemory.Provider;
 #else
             DefaultMemory.Provider;
 #endif
