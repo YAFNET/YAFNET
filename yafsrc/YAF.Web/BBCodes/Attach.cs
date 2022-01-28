@@ -45,12 +45,14 @@ namespace YAF.Web.BBCodes
         /// <param name="writer">The writer.</param>
         protected override void Render(HtmlTextWriter writer)
         {
-            if (!ValidationHelper.IsNumeric(this.Parameters["inner"]))
+            var attachId = HtmlHelper.StripHtml(this.Parameters["inner"]);
+
+            if (!ValidationHelper.IsNumeric(attachId))
             {
                 return;
             }
 
-            var attachment = this.GetRepository<Attachment>().GetSingleById(this.Parameters["inner"].ToType<int>());
+            var attachment = this.GetRepository<Attachment>().GetSingleById(attachId.ToType<int>());
 
             if (attachment == null)
             {

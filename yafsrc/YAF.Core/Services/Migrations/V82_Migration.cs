@@ -30,7 +30,6 @@ namespace YAF.Core.Services.Migrations
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
@@ -46,6 +45,7 @@ namespace YAF.Core.Services.Migrations
                 dbCommand =>
                 {
                     this.UpgradeTableActiveAccess(dbAccess, dbCommand);
+                    this.UpgradeTableGroup(dbAccess, dbCommand);
 
                     ///////////////////////////////////////////////////////////
 
@@ -267,7 +267,7 @@ namespace YAF.Core.Services.Migrations
 
         public void UpgradeTableGroup(IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            BoardContext.Current.GetRepository<Group>().Get(g => (g.Flags & 1) == 1 | (g.Flags & 4) == 4).ForEach(
+            BoardContext.Current.GetRepository<Group>().Get(g => (g.Flags & 1) == 1).ForEach(
                 group =>
                     {
                         group.GroupFlags.AllowDownload = true;

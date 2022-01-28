@@ -73,31 +73,11 @@ namespace YAF.Dialogs
                         }
 
                         break;
-                    case "text/csv":
-                        {
-                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
-                        }
 
-                        break;
-                    case "text/comma-separated-values":
-                        {
-                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
-                        }
-
-                        break;
-                    case "application/csv":
-                        {
-                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
-                        }
-
-                        break;
                     case "application/vnd.csv":
-                        {
-                            importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
-                        }
-
-                        break;
                     case "application/vnd.ms-excel":
+                    case "application/csv":
+                    case "text/comma-separated-values":
                         {
                             importedCount = this.ImportingUsers(this.importFile.PostedFile.InputStream, false);
                         }
@@ -107,7 +87,8 @@ namespace YAF.Dialogs
                     default:
                         {
                             this.PageContext.AddLoadMessage(
-                                this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"), MessageTypes.danger);
+                                this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"),
+                                MessageTypes.danger);
                             return;
                         }
                 }
@@ -121,7 +102,8 @@ namespace YAF.Dialogs
             catch (Exception x)
             {
                 this.PageContext.LoadMessage.AddSession(
-                    string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
+                    string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message),
+                    MessageTypes.danger);
             }
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
@@ -151,10 +133,10 @@ namespace YAF.Dialogs
                 var usersDataSet = new DataSet();
                 usersDataSet.ReadXml(inputStream);
 
-                if (usersDataSet.Tables["YafUser"] != null)
+                if (usersDataSet.Tables["User"] != null)
                 {
                     importedCount =
-                        usersDataSet.Tables["YafUser"].Rows.Cast<DataRow>().Where(
+                        usersDataSet.Tables["User"].Rows.Cast<DataRow>().Where(
                             row => this.Get<IAspNetUsersHelper>().GetUserByName((string)row["Name"]) == null)
                                                       .Aggregate(
                                                           importedCount, (current, row) => this.ImportUser(row, current));

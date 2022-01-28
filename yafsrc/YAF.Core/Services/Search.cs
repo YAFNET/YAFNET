@@ -710,18 +710,7 @@ namespace YAF.Core.Services
             var flags = doc.Get("Flags").ToType<int>();
             var messageFlags = new MessageFlags(flags);
 
-            var formattedMessage = this.Get<IFormatMessage>().Format(
-                doc.Get("MessageId").ToType<int>(),
-                doc.Get("Message"),
-                messageFlags);
-
-            formattedMessage = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
-                formattedMessage,
-                new MessageFlags(flags),
-                doc.Get("UserId").ToType<int>(),
-                doc.Get("MessageId").ToType<int>());
-
-            var message = formattedMessage;
+            var message = doc.Get("Message");
 
             try
             {
@@ -730,15 +719,28 @@ namespace YAF.Core.Services
             catch (Exception)
             {
                 // Ignore
-                message = formattedMessage;
+                message = doc.Get("Message");
             }
             finally
             {
                 if (message.IsNotSet())
                 {
-                    message = formattedMessage;
+                    message = doc.Get("Message");
                 }
             }
+
+            var formattedMessage = this.Get<IFormatMessage>().Format(
+                doc.Get("MessageId").ToType<int>(),
+                message,
+                messageFlags);
+
+            formattedMessage = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
+                formattedMessage,
+                new MessageFlags(flags),
+                doc.Get("UserId").ToType<int>(),
+                doc.Get("MessageId").ToType<int>());
+
+            message = formattedMessage;
 
             string topic;
 
