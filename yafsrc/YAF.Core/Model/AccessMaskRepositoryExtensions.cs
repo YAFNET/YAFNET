@@ -44,53 +44,18 @@ namespace YAF.Core.Model
         /// <param name="repository">The repository.</param>
         /// <param name="accessMaskId">The access mask id.</param>
         /// <param name="name">The name.</param>
-        /// <param name="readAccess">The read access.</param>
-        /// <param name="postAccess">The post access.</param>
-        /// <param name="replyAccess">The reply access.</param>
-        /// <param name="priorityAccess">The priority access.</param>
-        /// <param name="pollAccess">The poll access.</param>
-        /// <param name="voteAccess">The vote access.</param>
-        /// <param name="moderatorAccess">The moderator access.</param>
-        /// <param name="editAccess">The edit access.</param>
-        /// <param name="deleteAccess">The delete access.</param>
-        /// <param name="uploadAccess">The upload access.</param>
-        /// <param name="downloadAccess">The download access.</param>
+        /// <param name="flags">The Access Mask Flags</param>
         /// <param name="sortOrder">The sort order.</param>
         /// <param name="boardId">The board id.</param>
         public static void Save(
             this IRepository<AccessMask> repository,
             [CanBeNull] int? accessMaskId,
             [NotNull] string name,
-            [NotNull] bool readAccess,
-            [NotNull] bool postAccess,
-            [NotNull] bool replyAccess,
-            [NotNull] bool priorityAccess,
-            [NotNull] bool pollAccess,
-            [NotNull] bool voteAccess,
-            [NotNull] bool moderatorAccess,
-            [NotNull] bool editAccess,
-            [NotNull] bool deleteAccess,
-            [NotNull] bool uploadAccess,
-            [NotNull] bool downloadAccess,
+            [NotNull] AccessFlags flags,
             [NotNull] short sortOrder,
             [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
-
-            var flags = new AccessFlags
-                            {
-                                ReadAccess = readAccess,
-                                PostAccess = postAccess,
-                                ReplyAccess = replyAccess,
-                                PriorityAccess = priorityAccess,
-                                PollAccess = pollAccess,
-                                VoteAccess = voteAccess,
-                                ModeratorAccess = moderatorAccess,
-                                EditAccess = editAccess,
-                                DeleteAccess = deleteAccess,
-                                UploadAccess = uploadAccess,
-                                DownloadAccess = downloadAccess
-                            };
 
             repository.Upsert(
                 new AccessMask

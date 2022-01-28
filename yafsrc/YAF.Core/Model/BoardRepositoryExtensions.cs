@@ -32,6 +32,7 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.EventProxies;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
@@ -160,15 +161,30 @@ namespace YAF.Core.Model
                     SortOrder = 1
                 });
 
+
+
             // -- AccessMask
+            var adminAccessFlag = new AccessFlags
+                                      {
+                                          DeleteAccess = true,
+                                          EditAccess = true,
+                                          ModeratorAccess = true,
+                                          PollAccess = true,
+                                          PostAccess = true,
+                                          PriorityAccess = true,
+                                          ReadAccess = true,
+                                          ReplyAccess = true,
+                                          VoteAccess = true
+                                      };
+
             var accessMaskIDAdmin = BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "Admin Access", Flags = 1023 + 1024, SortOrder = 4 });
+                new AccessMask { BoardID = newBoardId, Name = "Admin Access", Flags = adminAccessFlag.BitValue, SortOrder = 4 });
 
             BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "Moderator Access", Flags = 487 + 1024, SortOrder = 3 });
+                new AccessMask { BoardID = newBoardId, Name = "Moderator Access", Flags = adminAccessFlag.BitValue, SortOrder = 3 });
 
             var accessMaskIDMember = BoardContext.Current.GetRepository<AccessMask>().Insert(
-                new AccessMask { BoardID = newBoardId, Name = "Member Access", Flags = 423 + 1024, SortOrder = 2 });
+                new AccessMask { BoardID = newBoardId, Name = "Member Access", Flags = 423, SortOrder = 2 });
 
             var accessMaskIDReadOnly = BoardContext.Current.GetRepository<AccessMask>().Insert(
                 new AccessMask { BoardID = newBoardId, Name = "Read Only Access", Flags = 1, SortOrder = 1 });
@@ -177,12 +193,19 @@ namespace YAF.Core.Model
                 new AccessMask { BoardID = newBoardId, Name = "No Access", Flags = 0, SortOrder = 0 });
 
             // -- Group
+            var adminGroupFlag = new GroupFlags
+                                      {
+                                          IsAdmin = true,
+                                          AllowUpload = true,
+                                          AllowDownload = true
+                                      };
+
             var groupIDAdmin = BoardContext.Current.GetRepository<Group>().Insert(
                 new Group
                 {
                     BoardID = newBoardId,
                     Name = $"{rolePrefix}Administrators",
-                    Flags = 1,
+                    Flags = adminGroupFlag.BitValue,
                     PMLimit = 2147483647,
                     Style = "color: red",
                     SortOrder = 0,
@@ -192,12 +215,17 @@ namespace YAF.Core.Model
                     UsrAlbumImages = 120
                 });
 
+            var guestGroupFlag = new GroupFlags
+                                     {
+                                         IsGuest = true
+                                     };
+
             var groupIDGuest = BoardContext.Current.GetRepository<Group>().Insert(
                 new Group
                 {
                     BoardID = newBoardId,
                     Name = "Guests",
-                    Flags = 2,
+                    Flags = guestGroupFlag.BitValue,
                     PMLimit = 0,
                     Style = "font-style: italic; font-weight: bold; color: #0c7333",
                     SortOrder = 1,
@@ -207,12 +235,18 @@ namespace YAF.Core.Model
                     UsrAlbumImages = 0
                 });
 
+            var memberGroupFlag = new GroupFlags
+                                     {
+                                         AllowDownload = true,
+                                         IsStart = true
+                                     };
+
             var groupIDMember = BoardContext.Current.GetRepository<Group>().Insert(
                 new Group
                 {
                     BoardID = newBoardId,
                     Name = $"{rolePrefix}Registered Users",
-                    Flags = 4,
+                    Flags = memberGroupFlag.BitValue,
                     PMLimit = 100,
                     SortOrder = 2,
                     UsrSigChars = 128,

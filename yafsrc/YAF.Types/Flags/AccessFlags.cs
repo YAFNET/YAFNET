@@ -86,37 +86,6 @@ namespace YAF.Types.Flags
 
         #endregion
 
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator AccessFlags(int newBitValue)
-        {
-            var flags = new AccessFlags(newBitValue);
-            return flags;
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator AccessFlags(Flags flags)
-        {
-            return new(flags);
-        }
-
-        #endregion
-
         #region Flags Enumeration
 
         /// <summary>
@@ -175,15 +144,16 @@ namespace YAF.Types.Flags
             /// </summary>
             DeleteAccess = 256,
 
-            /// <summary>
-            /// The upload access.
-            /// </summary>
-            UploadAccess = 512,
-
-            /// <summary>
-            /// The download access.
-            /// </summary>
-            DownloadAccess = 1024
+            /* for future use
+              xxxxxxxx =  512,
+              xxxxxxxx = 1024,
+              xxxxxxxx = 2048,
+              xxxxxxxx = 4096,
+              xxxxxxxx = 8192,
+              xxxxxxxx = 16384,
+              xxxxxxxx = 32768,
+              xxxxxxxx = 65536
+                   */
         }
 
         #endregion
@@ -191,7 +161,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets read access right.
+        /// Gets or sets a value indicating whether the User has Forum read access.
         /// </summary>
         public bool ReadAccess
         {
@@ -201,9 +171,8 @@ namespace YAF.Types.Flags
             set => this[0] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets post access right.
+        /// Gets or sets a value indicating whether the User has post access.
         /// </summary>
         public bool PostAccess
         {
@@ -213,9 +182,8 @@ namespace YAF.Types.Flags
             set => this[1] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets reply access right.
+        /// Gets or sets a value indicating whether the User has reply access.
         /// </summary>
         public bool ReplyAccess
         {
@@ -225,9 +193,8 @@ namespace YAF.Types.Flags
             set => this[2] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets priority access right.
+        /// Gets or sets a value indicating whether the User has priority access.
         /// </summary>
         public bool PriorityAccess
         {
@@ -237,9 +204,8 @@ namespace YAF.Types.Flags
             set => this[3] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets poll access right.
+        /// Gets or sets a value indicating whether the User has poll access.
         /// </summary>
         public bool PollAccess
         {
@@ -250,7 +216,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets vote access right.
+        /// Gets or sets a value indicating whether the User has vote access.
         /// </summary>
         public bool VoteAccess
         {
@@ -261,7 +227,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets moderator access right.
+        /// Gets or sets a value indicating whether the User has moderate access.
         /// </summary>
         public bool ModeratorAccess
         {
@@ -272,7 +238,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets edit access right.
+        /// Gets or sets a value indicating whether the User has edit access.
         /// </summary>
         public bool EditAccess
         {
@@ -283,7 +249,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        ///Gets or sets delete access right.
+        /// Gets or sets a value indicating whether the User has delete access.
         /// </summary>
         public bool DeleteAccess
         {
@@ -293,27 +259,35 @@ namespace YAF.Types.Flags
             set => this[8] = value;
         }
 
-        /// <summary>
-        /// Gets or sets upload access right.
-        /// </summary>
-        public bool UploadAccess
-        {
-            // int value 512
-            get => this[9];
+        #endregion
 
-            set => this[9] = value;
+        #region Operators
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="newBitValue">
+        /// The new bit value.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator AccessFlags(int newBitValue)
+        {
+            var flags = new AccessFlags(newBitValue);
+            return flags;
         }
 
-
         /// <summary>
-        /// Gets or sets download access right.
+        /// The op_ implicit.
         /// </summary>
-        public bool DownloadAccess
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator AccessFlags(Flags flags)
         {
-            // int value 512
-            get => this[10];
-
-            set => this[10] = value;
+            return new AccessFlags(flags);
         }
 
         #endregion

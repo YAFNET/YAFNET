@@ -138,8 +138,6 @@ namespace YAF.Data.MySql
             vaccessGroupSelect.Append("d.Flags & 64 AS ModeratorAccess,");
             vaccessGroupSelect.Append("d.Flags & 128 AS EditAccess,");
             vaccessGroupSelect.Append("d.Flags & 256 AS DeleteAccess,");
-            vaccessGroupSelect.Append("d.Flags & 512 AS UploadAccess,");
-            vaccessGroupSelect.Append("d.Flags & 1024 AS DownloadAccess,");
             vaccessGroupSelect.Append("e.Flags & 1 AS AdminGroup");
 
             vaccessGroupSelect.Append(" from");
@@ -178,8 +176,6 @@ namespace YAF.Data.MySql
             vaccessNullSelect.Append("0 AS ModeratorAccess,");
             vaccessNullSelect.Append("0 AS EditAccess,");
             vaccessNullSelect.Append("0 AS DeleteAccess,");
-            vaccessNullSelect.Append("0 AS UploadAccess,");
-            vaccessNullSelect.Append("0 AS DownloadAccess,");
             vaccessNullSelect.Append("0 AS AdminGroup ");
 
             vaccessNullSelect.Append(" from");
@@ -205,8 +201,6 @@ namespace YAF.Data.MySql
             vaccessUserSelect.Append("c.Flags & 64 AS ModeratorAccess,");
             vaccessUserSelect.Append("c.Flags & 128 AS EditAccess,");
             vaccessUserSelect.Append("c.Flags & 256 AS DeleteAccess,");
-            vaccessUserSelect.Append("c.Flags & 512 AS UploadAccess,");
-            vaccessUserSelect.Append("c.Flags & 1024 AS DownloadAccess");
 
             vaccessUserSelect.Append(" from");
             vaccessUserSelect.AppendFormat(
@@ -237,8 +231,6 @@ namespace YAF.Data.MySql
             vaccessFullSelect.Append("c.Flags & 64 AS ModeratorAccess,");
             vaccessFullSelect.Append("c.Flags & 128 AS EditAccess,");
             vaccessFullSelect.Append("c.Flags & 256 AS DeleteAccess,");
-            vaccessFullSelect.Append("c.Flags & 512 AS UploadAccess,");
-            vaccessFullSelect.Append("c.Flags & 1024 AS DownloadAccess,");
             vaccessFullSelect.Append("0 AS AdminGroup ");
 
             vaccessFullSelect.AppendFormat("FROM {0}.{1}UserForum AS b ",
@@ -265,8 +257,6 @@ namespace YAF.Data.MySql
             vaccessFullSelect.Append("d.Flags & 64 AS ModeratorAccess,");
             vaccessFullSelect.Append("d.Flags & 128 AS EditAccess,");
             vaccessFullSelect.Append("d.Flags & 256 AS DeleteAccess,");
-            vaccessFullSelect.Append("d.Flags & 512 AS UploadAccess,");
-            vaccessFullSelect.Append("d.Flags & 1024 AS DownloadAccess,");
             vaccessFullSelect.Append("e.Flags & 1 AS AdminGroup");
 
             vaccessFullSelect.AppendFormat(" FROM {0}.{1}UserGroup AS b",
@@ -299,8 +289,6 @@ namespace YAF.Data.MySql
             vaccessFullSelect.Append("0 AS ModeratorAccess,");
             vaccessFullSelect.Append("0 AS EditAccess,");
             vaccessFullSelect.Append("0 AS DeleteAccess,");
-            vaccessFullSelect.Append(" 0 AS UploadAccess,");
-            vaccessFullSelect.Append("0 AS DownloadAccess,");
             vaccessFullSelect.Append("0 AS AdminGroup ");
 
             vaccessFullSelect.AppendFormat("FROM {0}.{1}User AS a",
@@ -349,8 +337,6 @@ namespace YAF.Data.MySql
             vaccessSelect.Append("MAX(x_1.ModeratorAccess) AS ModeratorAccess,");
             vaccessSelect.Append("MAX(x_1.EditAccess) AS EditAccess,");
             vaccessSelect.Append("MAX(x_1.DeleteAccess) AS DeleteAccess,");
-            vaccessSelect.Append("MAX(x_1.UploadAccess) AS UploadAccess,");
-            vaccessSelect.Append("MAX(x_1.DownloadAccess) AS DownloadAccess ");
 
             vaccessSelect.AppendFormat(" FROM {0}.{1}vaccessfull x_1 ",
                 dbCommand.Connection.Database,

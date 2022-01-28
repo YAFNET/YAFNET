@@ -298,7 +298,7 @@ namespace YAF.Core.Services
                     where attachment.FileName.IsSet()
                     select new SyndicationLink(
                         new Uri(
-                            $"{BoardInfo.ForumBaseUrl}{BoardInfo.ForumClientFileRoot.TrimStart('/')}resource.ashx?a={attachment.ID}&b={BoardContext.Current.PageBoardID}"),
+                            $"{BoardInfo.ForumBaseUrl}{BoardInfo.ForumClientFileRoot.TrimStart('/')}resource.ashx?a={attachment.ID}"),
                         "enclosure",
                         attachment.FileName,
                         attachment.ContentType,
@@ -447,7 +447,7 @@ namespace YAF.Core.Services
                     List<SyndicationLink> attachmentLinks = null;
 
                     // if the user doesn't have download access we simply don't show enclosure links.
-                    if (BoardContext.Current.ForumDownloadAccess)
+                    if (BoardContext.Current.DownloadAccess)
                     {
                         attachmentLinks = this.GetMediaLinks(row.MessageID);
                     }

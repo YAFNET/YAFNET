@@ -30,7 +30,6 @@ namespace YAF.Web.BBCodes
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -58,13 +57,6 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            if (this.PageContext.ForumPageType is ForumPages.UserProfile or ForumPages.Board)
-            {
-                writer.Write(@"<i class=""fa fa-file fa-fw""></i>&nbsp;{0}", attachment.FileName);
-
-                return;
-            }
-
             var filename = attachment.FileName.ToLower();
             var showImage = false;
 
@@ -77,7 +69,7 @@ namespace YAF.Web.BBCodes
             }
 
             // user doesn't have rights to download, don't show the image
-            if (!this.UserHasDownloadAccess())
+            if (!this.PageContext.DownloadAccess)
             {
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge bg-warning text-dark"" role=""alert"">{1}</span>",
@@ -150,18 +142,6 @@ namespace YAF.Web.BBCodes
                     this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
                     this.PageContext.PageBoardID);
             }
-        }
-
-        /// <summary>
-        /// Checks if the user has download access.
-        /// </summary>
-        /// <returns>
-        /// The <see cref="bool"/>.
-        /// </returns>
-        private bool UserHasDownloadAccess()
-        {
-            return this.PageContext.ForumPageType is ForumPages.PrivateMessage or ForumPages.PostPrivateMessage ||
-                   this.PageContext.ForumDownloadAccess;
         }
     }
 }

@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
         protected string GetItemColor(bool enabled)
         {
             // show enabled flag red
-            return enabled ? "badge bg-success" : "badge bg-danger";
+            return enabled ? "badge bg-success mb-2" : "badge bg-danger mb-2";
         }
 
         /// <summary>

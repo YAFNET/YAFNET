@@ -67,7 +67,7 @@ namespace YAF.Core.Context
         /// <summary>
         ///   Gets a value indicating whether the current user can download attachments (True).
         /// </summary>
-        public bool ForumDownloadAccess => this.PageData.Item2.Item1.DownloadAccess;
+        public bool DownloadAccess => this.PageData.Item2.Item1.DownloadAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user can edit own messages in the current forum (True).
@@ -107,7 +107,7 @@ namespace YAF.Core.Context
         /// <summary>
         ///   Gets a value indicating whether the current user can upload attachments (True).
         /// </summary>
-        public bool ForumUploadAccess => this.PageData.Item2.Item1.UploadAccess;
+        public bool UploadAccess => this.PageData.Item2.Item1.UploadAccess;
 
         /// <summary>
         ///   Gets a value indicating whether the current user has access to vote on polls in the current forum (True).

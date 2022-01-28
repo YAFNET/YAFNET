@@ -188,7 +188,7 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            if (this.PageContext.ForumUploadAccess)
+            if (this.PageContext.UploadAccess)
             {
                 this.PageContext.PageElements.AddScriptReference("FileUploadScript");
 
@@ -772,8 +772,8 @@ namespace YAF.Pages
         /// </summary>
         private void HandleUploadControls()
         {
-            this.forumEditor.UserCanUpload = this.PageContext.ForumUploadAccess;
-            this.UploadDialog.Visible = this.PageContext.ForumUploadAccess;
+            this.forumEditor.UserCanUpload = this.PageContext.UploadAccess;
+            this.UploadDialog.Visible = this.PageContext.UploadAccess;
         }
 
         #endregion

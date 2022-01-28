@@ -65,8 +65,6 @@ namespace YAF.Types.Models
         public int? ModeratorAccess { get; set; }
         public int? EditAccess { get; set; }
         public int? DeleteAccess { get; set; }
-        public int? UploadAccess { get; set; }
-        public int? DownloadAccess { get; set; }
         public int? AdminGroup { get; set; }
 
         #endregion

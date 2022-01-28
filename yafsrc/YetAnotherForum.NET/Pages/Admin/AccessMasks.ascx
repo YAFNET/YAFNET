@@ -1,7 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.AccessMasks" Codebehind="AccessMasks.ascx.cs" %>
 
-
 <%@ Import Namespace="YAF.Types.Flags" %>
+<%@ Import Namespace="YAF.Types.Extensions" %>
+<%@ Import Namespace="YAF.Types.Models" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -33,98 +34,80 @@
                         <ul class="list-inline">
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server"
-                                                    LocalizedTag="READ" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="READ" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label1" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReadAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.ReadAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.ReadAccess) %>
                                 </asp:Label>
                             </li>
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server"
-                                                    LocalizedTag="POST" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="POST" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label2" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.PostAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.PostAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.PostAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.PostAccess) %>
                                 </asp:Label>
                             </li>
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server"
-                                                    LocalizedTag="REPLY" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="REPLY" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label3" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ReplyAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.ReplyAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.ReplyAccess) %>
                                 </asp:Label>
                             </li>
 
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel8" runat="server"
-                                                    LocalizedTag="PRIORITY" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="PRIORITY" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label4" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.PriorityAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.PriorityAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.PriorityAccess) %>
                                 </asp:Label>
 
                             </li>
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server"
-                                                    LocalizedTag="POLL" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="POLL" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label5" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.PollAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.PollAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.PollAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.PollAccess) %>
                                 </asp:Label>
                             </li>
 
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel10" runat="server"
-                                                    LocalizedTag="VOTE" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="VOTE" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label6" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.VoteAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.VoteAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.VoteAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.VoteAccess) %>
                                 </asp:Label>
                             </li>
 
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel11" runat="server"
-                                                    LocalizedTag="MODERATOR" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="MODERATOR" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label7" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.ModeratorAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.ModeratorAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.ModeratorAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.ModeratorAccess) %>
                                 </asp:Label>
                             </li>
 
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel12" runat="server"
-                                                    LocalizedTag="EDIT" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
+                                                    LocalizedTag="EDIT" LocalizedPage="ADMIN_ACCESSMASKS" />:
                                 <asp:Label ID="Label8" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.EditAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.EditAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.EditAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.EditAccess) %>
                                 </asp:Label>
                             </li>
 
                             <li class="list-inline-item">
                                 <YAF:LocalizedLabel ID="LocalizedLabel13" runat="server"
-                                                    LocalizedTag="DELETE" LocalizedPage="ADMIN_ACCESSMASKS"/>:&nbsp;
+                                                    LocalizedTag="DELETE" LocalizedPage="ADMIN_ACCESSMASKS"/>:
                                 <asp:Label ID="Label9" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.DeleteAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.DeleteAccess)) %>
-                                </asp:Label>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <YAF:LocalizedLabel ID="LocalizedLabel14" runat="server"
-                                                    LocalizedTag="UPLOAD" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
-                                <asp:Label ID="Label10" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.UploadAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.UploadAccess)) %>
-                                </asp:Label>
-                            </li>
-
-                            <li class="list-inline-item">
-                                <YAF:LocalizedLabel ID="LocalizedLabel15" runat="server"
-                                                    LocalizedTag="DOWNLOAD" LocalizedPage="ADMIN_ACCESSMASKS" />:&nbsp;
-                                <asp:Label ID="Label11" runat="server"
-                                           CssClass='<%# this.GetItemColor(this.BitSet(this.Eval("Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>'>
-                                    <%# this.GetItemName(this.BitSet(this.Eval( "Flags"),(int)AccessFlags.Flags.DownloadAccess)) %>
+                                           CssClass="<%# this.GetItemColor(Container.DataItem.ToType<AccessMask>().AccessFlags.DeleteAccess) %>">
+                                    <%# this.GetItemName(Container.DataItem.ToType<AccessMask>().AccessFlags.DeleteAccess) %>
                                 </asp:Label>
                             </li>
                     </ul>

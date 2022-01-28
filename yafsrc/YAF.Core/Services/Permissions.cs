@@ -30,13 +30,10 @@ namespace YAF.Core.Services
 
     using YAF.Configuration;
     using YAF.Core.Context;
-    using YAF.Core.Helpers;
-    using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
 
     #endregion
 
@@ -143,67 +140,6 @@ namespace YAF.Core.Services
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
-        }
-
-        /// <summary>
-        /// Checks the access rights.
-        /// </summary>
-        /// <param name="boardId">The board id.</param>
-        /// <param name="messageId">The message id.</param>
-        /// <returns>
-        /// The check access rights.
-        /// </returns>
-        public bool CheckAccessRights([NotNull] int boardId, [NotNull] int messageId)
-        {
-            if (messageId.Equals(0))
-            {
-                return true;
-            }
-
-            // Find user name
-            var user = this.Get<IAspNetUsersHelper>().GetUser();
-
-            var browser =
-                $"{HttpContext.Current.Request.Browser.Browser} {HttpContext.Current.Request.Browser.Version}";
-            var platform = HttpContext.Current.Request.Browser.Platform;
-            var userAgent = HttpContext.Current.Request.UserAgent;
-
-            // try and get more verbose platform name by ref and other parameters
-            UserAgentHelper.Platform(
-                userAgent,
-                this.Get<HttpRequestBase>().Browser.Crawler,
-                ref platform,
-                ref browser,
-                out var isSearchEngine);
-
-            var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
-
-            this.Get<StartupInitializeDb>().Run();
-
-            string userKey = null;
-
-            if (user != null)
-            {
-                userKey = user.Id;
-            }
-
-            var pageRow = BoardContext.Current.Get<DataBroker>().GetPageLoad(
-                HttpContext.Current.Session.SessionID,
-                boardId,
-                userKey,
-                HttpContext.Current.Request.GetUserRealIPAddress(),
-                HttpContext.Current.Request.FilePath,
-                HttpContext.Current.Request.QueryString.ToString(),
-                browser,
-                platform,
-                0,
-                0,
-                0,
-                messageId,
-                isSearchEngine,
-                doNotTrack);
-
-            return pageRow.Item1.DownloadAccess || pageRow.Item1.ModeratorAccess;
         }
 
         #endregion

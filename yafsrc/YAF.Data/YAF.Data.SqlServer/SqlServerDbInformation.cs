@@ -139,8 +139,6 @@ namespace YAF.Data.SqlServer
             vaccessGroupSelect.Append("ModeratorAccess = convert(int,d.Flags & 64),");
             vaccessGroupSelect.Append("EditAccess = convert(int,d.Flags & 128),");
             vaccessGroupSelect.Append("DeleteAccess = convert(int,d.Flags & 256),");
-            vaccessGroupSelect.Append("UploadAccess = convert(int,d.Flags & 512),");
-            vaccessGroupSelect.Append("DownloadAccess = convert(int,d.Flags & 1024),");
             vaccessGroupSelect.Append("AdminGroup = convert(int,e.Flags & 1)");
 
             vaccessGroupSelect.Append(" from");
@@ -181,8 +179,6 @@ namespace YAF.Data.SqlServer
             vaccessNullSelect.Append("ModeratorAccess = convert(int, 0),");
             vaccessNullSelect.Append("EditAccess = convert(int, 0),");
             vaccessNullSelect.Append("DeleteAccess = convert(int, 0),");
-            vaccessNullSelect.Append("UploadAccess = convert(int, 0),");
-            vaccessNullSelect.Append("DownloadAccess = convert(int, 0),");
             vaccessNullSelect.Append("AdminGroup = convert(int, 0)");
 
             vaccessNullSelect.Append(" from");
@@ -208,8 +204,6 @@ namespace YAF.Data.SqlServer
             vaccessUserSelect.Append("ModeratorAccess = convert(int, c.Flags & 64),");
             vaccessUserSelect.Append("EditAccess = convert(int, c.Flags & 128),");
             vaccessUserSelect.Append("DeleteAccess = convert(int, c.Flags & 256),");
-            vaccessUserSelect.Append("UploadAccess = convert(int, c.Flags & 512),");
-            vaccessUserSelect.Append("DownloadAccess = convert(int, c.Flags & 1024),");
             vaccessUserSelect.Append("AdminGroup = convert(int, 0)");
 
             vaccessUserSelect.Append(" from");
@@ -238,15 +232,13 @@ namespace YAF.Data.SqlServer
             vaccessFullSelect.Append("MAX(ModeratorAccess) AS ModeratorAccess,");
             vaccessFullSelect.Append("MAX(EditAccess) AS EditAccess,");
             vaccessFullSelect.Append("MAX(DeleteAccess) AS DeleteAccess,");
-            vaccessFullSelect.Append("MAX(UploadAccess) AS UploadAccess,");
-            vaccessFullSelect.Append("MAX(DownloadAccess) AS DownloadAccess,");
             vaccessFullSelect.Append("MAX(AdminGroup) as AdminGroup");
 
             vaccessFullSelect.Append(" FROM ( select");
 
             vaccessFullSelect.Append(
                 " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
-            vaccessFullSelect.Append(" EditAccess, DeleteAccess, UploadAccess, DownloadAccess, AdminGroup");
+            vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
 
             vaccessFullSelect.Append(" from ");
             vaccessFullSelect.AppendFormat(
@@ -258,7 +250,7 @@ namespace YAF.Data.SqlServer
 
             vaccessFullSelect.Append(
                 " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
-            vaccessFullSelect.Append(" EditAccess, DeleteAccess, UploadAccess, DownloadAccess, AdminGroup");
+            vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
 
             vaccessFullSelect.Append(" from ");
             vaccessFullSelect.AppendFormat(
@@ -270,7 +262,7 @@ namespace YAF.Data.SqlServer
 
             vaccessFullSelect.Append(
                 " UserID, ForumID, ReadAccess, PostAccess, ReplyAccess, PriorityAccess, PollAccess, VoteAccess, ModeratorAccess,");
-            vaccessFullSelect.Append(" EditAccess, DeleteAccess, UploadAccess, DownloadAccess, AdminGroup");
+            vaccessFullSelect.Append(" EditAccess, DeleteAccess, AdminGroup");
 
             vaccessFullSelect.Append(" from ");
             vaccessFullSelect.AppendFormat(
@@ -313,8 +305,6 @@ namespace YAF.Data.SqlServer
             vaccessSelect.Append("ModeratorAccess = max(x.ModeratorAccess),");
             vaccessSelect.Append("EditAccess = max(x.EditAccess),");
             vaccessSelect.Append("DeleteAccess = max(x.DeleteAccess),");
-            vaccessSelect.Append("UploadAccess = max(x.UploadAccess),");
-            vaccessSelect.Append("DownloadAccess = max(x.DownloadAccess)");
 
             vaccessSelect.Append(" from");
 

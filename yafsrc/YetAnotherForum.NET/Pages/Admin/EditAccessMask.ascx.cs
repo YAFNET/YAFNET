@@ -38,6 +38,7 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
@@ -132,23 +133,21 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            var flags = new AccessFlags
+                            {
+                                ReadAccess = this.ReadAccess.Checked,
+                                PostAccess = this.PostAccess.Checked,
+                                ReplyAccess = this.ReplyAccess.Checked,
+                                PriorityAccess = this.PriorityAccess.Checked,
+                                PollAccess = this.PollAccess.Checked,
+                                VoteAccess = this.VoteAccess.Checked,
+                                ModeratorAccess = this.ModeratorAccess.Checked,
+                                EditAccess = this.EditAccess.Checked,
+                                DeleteAccess = this.DeleteAccess.Checked
+                            };
+
             // save it
-            this.GetRepository<AccessMask>()
-                .Save(
-                    accessMaskId,
-                    this.Name.Text,
-                    this.ReadAccess.Checked,
-                    this.PostAccess.Checked,
-                    this.ReplyAccess.Checked,
-                    this.PriorityAccess.Checked,
-                    this.PollAccess.Checked,
-                    this.VoteAccess.Checked,
-                    this.ModeratorAccess.Checked,
-                    this.EditAccess.Checked,
-                    this.DeleteAccess.Checked,
-                    this.UploadAccess.Checked,
-                    this.DownloadAccess.Checked,
-                    sortOrder);
+            this.GetRepository<AccessMask>().Save(accessMaskId, this.Name.Text, flags, sortOrder);
 
             // get back to access masks administration
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
@@ -180,8 +179,6 @@ namespace YAF.Pages.Admin
                     this.ModeratorAccess.Checked = accessMask.AccessFlags.ModeratorAccess;
                     this.EditAccess.Checked = accessMask.AccessFlags.EditAccess;
                     this.DeleteAccess.Checked = accessMask.AccessFlags.DeleteAccess;
-                    this.UploadAccess.Checked = accessMask.AccessFlags.UploadAccess;
-                    this.DownloadAccess.Checked = accessMask.AccessFlags.DownloadAccess;
                 }
                 else
                 {

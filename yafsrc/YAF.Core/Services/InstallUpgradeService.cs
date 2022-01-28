@@ -278,6 +278,7 @@ namespace YAF.Core.Services
 
                     this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
                     this.Get<V81_Migration>().MigrateDatabase(this.DbAccess);
+                    this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);
 
                     // Upgrade to ASPNET Identity
                     if (!Config.IsDotNetNuke)

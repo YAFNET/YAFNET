@@ -75,6 +75,24 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="mb-3 col-md-2">
+                            <YAF:HelpLabel ID="HelpLabel9" runat="server"
+                                           AssociatedControlID="UploadAccess"
+                                           LocalizedTag="UPLOAD_ACCESS" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                            <div class="form-check form-switch">
+                                <asp:CheckBox runat="server" ID="UploadAccess" Text="&nbsp;" />
+                            </div>
+                        </div>
+                        <div class="mb-3 col-md-2">
+                            <YAF:HelpLabel ID="HelpLabel16" runat="server"
+                                           AssociatedControlID="DownloadAccess"
+                                           LocalizedTag="DOWNLOAD_ACCESS" LocalizedPage="ADMIN_EDITACCESSMASKS" />
+                            <div class="form-check form-switch">
+                                <asp:CheckBox runat="server" ID="DownloadAccess" Text="&nbsp;" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel12" runat="server"
                                        AssociatedControlID="Priority"

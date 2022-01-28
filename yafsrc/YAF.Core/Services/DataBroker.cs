@@ -427,9 +427,7 @@ namespace YAF.Core.Services
                                 VoteAccess = access.VoteAccess > 0,
                                 ModeratorAccess = access.ModeratorAccess > 0,
                                 EditAccess = access.EditAccess > 0,
-                                DeleteAccess = access.DeleteAccess > 0,
-                                UploadAccess = access.UploadAccess > 0,
-                                DownloadAccess = access.DownloadAccess > 0
+                                DeleteAccess = access.DeleteAccess > 0
                             }));
                 }
 
@@ -560,35 +558,54 @@ namespace YAF.Core.Services
                         var isModeratorAnySql = isModeratorAnyExpression.Select(Sql.Count("1"))
                             .ToMergedParamsSelectStatement();
 
+                        // -- Upload Access
+                        var uploadAccessExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
+
+                        var uploadAccessSql = uploadAccessExpression
+                            .Join<Group>((a, b) => b.ID == a.GroupID && (b.Flags & 64) == 64)
+                            .Where<UserGroup>(a => a.UserID == userId).Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
+                        // -- Download Access
+                        var downloadAccessExpression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
+
+                        var downloadAccessSql = downloadAccessExpression
+                            .Join<Group>((a, b) => b.ID == a.GroupID && (b.Flags & 128) == 128)
+                            .Where<UserGroup>(a => a.UserID == userId).Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
                         expression.Select<ActiveAccess>(
                             x => new
-                            {
-                                ActiveUpdate = activeUpdate,
-                                PreviousVisit = previousVisit,
-                                x.BoardID,
-                                x.DeleteAccess,
-                                x.EditAccess,
-                                x.ForumID,
-                                x.IsAdmin,
-                                x.IsForumModerator,
-                                x.IsGuestX,
-                                x.LastActive,
-                                x.ModeratorAccess,
-                                x.DownloadAccess,
-                                x.PollAccess,
-                                x.PostAccess,
-                                x.PriorityAccess,
-                                x.ReadAccess,
-                                x.ReplyAccess,
-                                x.UploadAccess,
-                                x.UserID,
-                                x.VoteAccess,
-                                IsModeratorAny =
-                                    Sql.Custom(
-                                        $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
-                                IsCrawler = isCrawler,
-                                GuestUserId = guestUser.ID
-                            });
+                                     {
+                                         ActiveUpdate = activeUpdate,
+                                         PreviousVisit = previousVisit,
+                                         x.BoardID,
+                                         x.DeleteAccess,
+                                         x.EditAccess,
+                                         x.ForumID,
+                                         x.IsAdmin,
+                                         x.IsForumModerator,
+                                         x.IsGuestX,
+                                         x.LastActive,
+                                         x.ModeratorAccess,
+                                         x.PollAccess,
+                                         x.PostAccess,
+                                         x.PriorityAccess,
+                                         x.ReadAccess,
+                                         x.ReplyAccess,
+                                         x.UserID,
+                                         x.VoteAccess,
+                                         IsModeratorAny =
+                                             Sql.Custom(
+                                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(isModeratorAnySql, 0)})"),
+                                         IsCrawler = isCrawler,
+                                         GuestUserId = guestUser.ID,
+                                         UploadAccess =
+                                             Sql.Custom(
+                                                 $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(uploadAccessSql, 0)})"),
+                                         DownloadAccess = Sql.Custom(
+                                             $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(downloadAccessSql, 0)})")
+                                     });
 
                         return db.Connection.Select<PageLoad>(expression);
                     }).FirstOrDefault();

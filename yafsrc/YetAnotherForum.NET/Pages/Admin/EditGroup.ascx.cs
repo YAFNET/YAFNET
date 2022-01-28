@@ -171,6 +171,10 @@ namespace YAF.Pages.Admin
             this.IsModeratorX.Checked = flags.IsModerator;
             this.IsModeratorX.Enabled = !flags.IsGuest;
 
+            this.UploadAccess.Checked = flags.AllowUpload;
+
+            this.DownloadAccess.Checked = flags.AllowDownload;
+
             this.PMLimit.Text = group.PMLimit.ToString();
             this.PMLimit.Enabled = !flags.IsGuest;
 
@@ -276,7 +280,9 @@ namespace YAF.Pages.Admin
                 IsGuest = this.IsGuestX.Checked,
                 IsAdmin = this.IsAdminX.Checked,
                 IsModerator = this.IsModeratorX.Checked,
-                IsStart = this.IsStartX.Checked
+                IsStart = this.IsStartX.Checked,
+                AllowUpload = this.UploadAccess.Checked,
+                AllowDownload = this.DownloadAccess.Checked
             };
 
             // save role and get its ID if it's new (if it's old role, we get it anyway)

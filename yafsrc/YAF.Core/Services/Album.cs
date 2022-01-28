@@ -448,11 +448,7 @@ namespace YAF.Core.Services
                 var attachment = this.GetRepository<Attachment>()
                     .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("p"));
 
-                var boardID = context.Request.QueryString.Exists("b")
-                                  ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
-                                  : BoardContext.Current.BoardSettings.BoardID;
-
-                if (!this.Get<IPermissions>().CheckAccessRights(boardID, attachment.MessageID))
+                if (!BoardContext.Current.DownloadAccess)
                 {
                     // tear it down
                     // no permission to download

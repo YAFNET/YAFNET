@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2022 Ingo Herbote
@@ -83,11 +83,7 @@ namespace YAF.Core.Services
                     this.GetRepository<Attachment>()
                         .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("a"));
 
-                var boardID = context.Request.QueryString.Exists("b")
-                                  ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
-                                  : BoardContext.Current.BoardSettings.BoardID;
-
-                if (!this.Get<IPermissions>().CheckAccessRights(boardID, attachment.MessageID))
+                if (!BoardContext.Current.DownloadAccess)
                 {
                     // tear it down
                     // no permission to download
@@ -194,12 +190,8 @@ namespace YAF.Core.Services
                         .IncrementDownloadCounter(attachment.ID);
                 }
 
-                var boardID = context.Request.QueryString.Exists("b")
-                                  ? context.Request.QueryString.GetFirstOrDefaultAs<int>("b")
-                                  : BoardContext.Current.BoardSettings.BoardID;
-
                 // check download permissions here
-                if (!this.Get<IPermissions>().CheckAccessRights(boardID, attachment.MessageID))
+                if (!BoardContext.Current.DownloadAccess)
                 {
                     // tear it down
                     // no permission to download

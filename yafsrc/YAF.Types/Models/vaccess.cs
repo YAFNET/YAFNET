@@ -108,16 +108,6 @@ namespace YAF.Types.Models
         /// </summary>
         public int? DeleteAccess { get; set; }
 
-        /// <summary>
-        /// Gets or sets a value indicating whether upload access.
-        /// </summary>
-        public int? UploadAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether download access.
-        /// </summary>
-        public int? DownloadAccess { get; set; }
-
         #endregion
     }
 }

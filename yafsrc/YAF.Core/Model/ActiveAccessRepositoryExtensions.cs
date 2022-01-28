@@ -92,9 +92,7 @@ namespace YAF.Core.Model
                         VoteAccess = access.VoteAccess > 0,
                         ModeratorAccess = access.ModeratorAccess > 0,
                         EditAccess = access.EditAccess > 0,
-                        DeleteAccess = access.DeleteAccess > 0,
-                        UploadAccess = access.UploadAccess > 0,
-                        DownloadAccess = access.DownloadAccess > 0
+                        DeleteAccess = access.DeleteAccess > 0
                     });
             }
         }

@@ -164,7 +164,7 @@ namespace YAF.Controls
             var fileName = attach.FileName;
             var isImage = fileName.IsImageName();
             var url =
-                $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&b={this.PageContext.PageBoardID}&editor=true";
+                $"{BoardInfo.ForumClientFileRoot}resource.ashx?i={attach.ID}&editor=true";
 
             return isImage
                        ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\"style=\"max-width:30px\" />"

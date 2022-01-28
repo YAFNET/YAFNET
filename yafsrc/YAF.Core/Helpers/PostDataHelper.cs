@@ -190,7 +190,7 @@ namespace YAF.Core.Helpers
         public bool CanAttach =>
             (!this.PostLocked && !this.forumFlags.IsLocked && !this.topicFlags.IsLocked
              && this.UserId == BoardContext.Current.PageUserID || BoardContext.Current.ForumModeratorAccess)
-            && BoardContext.Current.ForumUploadAccess;
+            && BoardContext.Current.UploadAccess;
 
         /// <summary>
         /// Gets a value indicating whether CanDeletePost.

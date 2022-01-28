@@ -87,36 +87,6 @@ namespace YAF.Types.Flags
 
         #endregion
 
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator GroupFlags(int newBitValue)
-        {
-            return new(newBitValue);
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator GroupFlags(Flags flags)
-        {
-            return new(flags);
-        }
-
-        #endregion
-
         #region Flags Enumeration
 
         /// <summary>
@@ -125,6 +95,9 @@ namespace YAF.Types.Flags
         [Flags]
         public enum Flags
         {
+            /// <summary>
+            /// The none.
+            /// </summary>
             None = 0,
 
             /// <summary>
@@ -155,14 +128,21 @@ namespace YAF.Types.Flags
             /// <summary>
             /// The is user group.
             /// </summary>
-            IsUserGroup = 32
+            IsUserGroup = 32,
 
-            /* for future use		
-                  xxxxx = 64,
-                  xxxxx = 128,
-                  xxxxx = 256,
-                  xxxxx = 512
-                   */
+            /// <summary>
+            /// The Allow upload.
+            /// </summary>
+            AllowUpload = 64,
+
+            /// <summary>
+            /// The Allow download.
+            /// </summary>
+            AllowDownload = 128
+
+            // for future use
+            // xxxxx = 256,
+            // xxxxx = 512
         }
 
         #endregion
@@ -170,7 +150,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets whether group/role has administrator privilegies
+        /// Gets or sets a value indicating whether group/role has administrator privileges
         /// </summary>
         public bool IsAdmin
         {
@@ -180,9 +160,8 @@ namespace YAF.Types.Flags
             set => this[0] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets whether group/role is guest role.
+        /// Gets or sets a value indicating whether group/role is guest role.
         /// </summary>
         public bool IsGuest
         {
@@ -191,10 +170,9 @@ namespace YAF.Types.Flags
 
             set => this[1] = value;
         }
-
-
+        
         /// <summary>
-        /// Gets or sets whether group/role is starting role for new users.
+        /// Gets or sets a value indicating whether group/role is starting role for new users.
         /// </summary>
         public bool IsStart
         {
@@ -204,9 +182,8 @@ namespace YAF.Types.Flags
             set => this[2] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets whether group/role has moderator privilegies.
+        /// Gets or sets a value indicating whether group/role has moderator privileges.
         /// </summary>
         public bool IsModerator
         {
@@ -217,7 +194,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether group/role has moderator privilegies.
+        /// Gets or sets a value indicating whether group/role has moderator privileges.
         /// </summary>
         public bool IsHidden
         {
@@ -228,7 +205,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether this is a user group.
+        /// Gets or sets a value indicating whether this is a user group.
         /// </summary>
         public bool IsUserGroup
         {
@@ -236,6 +213,58 @@ namespace YAF.Types.Flags
             get => this[5];
 
             set => this[5] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether User can upload attachments.
+        /// </summary>
+        public bool AllowUpload
+        {
+            // int value 64
+            get => this[6];
+
+            set => this[6] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether User can download attachments.
+        /// </summary>
+        public bool AllowDownload
+        {
+            // int value 128
+            get => this[7];
+
+            set => this[7] = value;
+        }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="newBitValue">
+        /// The new bit value.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator GroupFlags(int newBitValue)
+        {
+            return new GroupFlags(newBitValue);
+        }
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator GroupFlags(Flags flags)
+        {
+            return new GroupFlags(flags);
         }
 
         #endregion
