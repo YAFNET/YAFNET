@@ -305,7 +305,17 @@ namespace ServiceStack.OrmLite.PostgreSQL
             var defaultValue = GetDefaultValue(fieldDef);
             if (!string.IsNullOrEmpty(defaultValue))
             {
-                sql.AppendFormat(DefaultValueFormat, defaultValue);
+                if (!string.IsNullOrEmpty(defaultValue))
+                {
+                    if (fieldDef.ColumnType == typeof(bool))
+                    {
+                        sql.AppendFormat(this.DefaultValueFormat, defaultValue == "1" ? "TRUE" : "FALSE");
+                    }
+                    else
+                    {
+                        sql.AppendFormat(this.DefaultValueFormat, defaultValue);
+                    }
+                }
             }
 
             var definition = StringBuilderCache.ReturnAndFree(sql);

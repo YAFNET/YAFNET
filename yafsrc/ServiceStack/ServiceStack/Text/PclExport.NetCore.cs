@@ -4,7 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-#if NETCORE && !NETSTANDARD2_0
+#if (NETCORE || NET6_0_OR_GREATER) && !NETSTANDARD2_0
 
 using System;
 using ServiceStack.Text;

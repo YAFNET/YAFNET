@@ -195,7 +195,7 @@ namespace YAF.Data.Sqlite
             vaccessUserSelect.Append("c.Flags & 32 AS VoteAccess,");
             vaccessUserSelect.Append("c.Flags & 64 AS ModeratorAccess,");
             vaccessUserSelect.Append("c.Flags & 128 AS EditAccess,");
-            vaccessUserSelect.Append("c.Flags & 256 AS DeleteAccess,");
+            vaccessUserSelect.Append("c.Flags & 256 AS DeleteAccess");
 
             vaccessUserSelect.Append(" from");
             vaccessUserSelect.AppendFormat(
@@ -318,7 +318,7 @@ namespace YAF.Data.Sqlite
             vaccessSelect.Append("MAX(x_1.VoteAccess) AS VoteAccess,");
             vaccessSelect.Append("MAX(x_1.ModeratorAccess) AS ModeratorAccess,");
             vaccessSelect.Append("MAX(x_1.EditAccess) AS EditAccess,");
-            vaccessSelect.Append("MAX(x_1.DeleteAccess) AS DeleteAccess,");
+            vaccessSelect.Append("MAX(x_1.DeleteAccess) AS DeleteAccess");
 
             vaccessSelect.AppendFormat(" FROM {0}vaccessfull x_1 ",
                 Config.DatabaseObjectQualifier);

@@ -53,7 +53,7 @@ namespace ServiceStack.Text
           = new Net48PclExport()
 #elif NETSTANDARD2_0
           = new NetStandardPclExport()
-#elif NETCORE
+#elif NETCORE || NET6_0_OR_GREATER
           = new NetCorePclExport()
 #endif
         ;

@@ -304,7 +304,7 @@ namespace YAF.Data.SqlServer
             vaccessSelect.Append("VoteAccess = max(x.VoteAccess),");
             vaccessSelect.Append("ModeratorAccess = max(x.ModeratorAccess),");
             vaccessSelect.Append("EditAccess = max(x.EditAccess),");
-            vaccessSelect.Append("DeleteAccess = max(x.DeleteAccess),");
+            vaccessSelect.Append("DeleteAccess = max(x.DeleteAccess)");
 
             vaccessSelect.Append(" from");
 

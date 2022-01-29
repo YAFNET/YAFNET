@@ -565,10 +565,9 @@ namespace ServiceStack.OrmLite.MySql
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public override bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
         {
-            tableName = GetTableName(tableName, schema).StripQuotes();
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS"
                       + " WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName AND TABLE_SCHEMA = @schema"
-                          .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), columnName);
+                          .SqlFmt(tableName.StripDbQuotes(), columnName);
 
             var result = db.SqlScalar<long>(sql, new { tableName, columnName, schema = db.Database });
 

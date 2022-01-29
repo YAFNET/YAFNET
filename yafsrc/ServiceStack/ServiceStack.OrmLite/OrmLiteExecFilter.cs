@@ -165,6 +165,7 @@ namespace ServiceStack.OrmLite
             try
             {
                 var ret = filter(dbCmd);
+
                 return ret;
             }
             catch (Exception ex)
