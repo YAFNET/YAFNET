@@ -11,10 +11,6 @@
     </PackageDescription>
     <PackageTags>JSON;Text;Serializer;CSV;JSV;HTTP;Auto Mapping;Dump;Reflection;JS;Utils;Fast</PackageTags>
   </PropertyGroup>
-	<PropertyGroup>
-		<PostBuildEvent />
-		<LangVersion>preview</LangVersion>
-	</PropertyGroup>
 	<ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.4" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
