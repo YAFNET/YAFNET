@@ -10,7 +10,7 @@
         name="scriptlanguage" content="text/javascript" />
     <meta id="YafMetaStyles" http-equiv="Content-Style-Type" runat="server" name="styles"
         content="text/css" />
-   <title>YAF.NET <%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.Upgrade : YAF.App_GlobalResources.Install.Installation %></title>
+   <title>YAF.NET <%# YAF.App_GlobalResources.Install.Installation %></title>
    <link href="../Content/InstallWizard.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -35,33 +35,6 @@
                     <p>
                         <%# YAF.App_GlobalResources.Install.WelcomeInstallText %>
                     </p>
-                </asp:WizardStep>
-                <asp:WizardStep runat="server" Title="Upgrade" ID="WizWelcomeUpgrade">
-                    <h4>
-                        <%# YAF.App_GlobalResources.Install.WelcomeUpgrade %>
-                    </h4>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.WelcomeUpgradeDesc %>
-                    </p>
-                    <ul class="standardList">
-                        <li><%# YAF.App_GlobalResources.Install.CurrentVersion %>
-                            <strong>YAF.NET v<asp:Literal runat="server" ID="CurrentVersionName"></asp:Literal></strong>
-                        </li>
-                        <li><%# YAF.App_GlobalResources.Install.UpgradeVersion %>
-                            <strong>YAF.NET v<asp:Literal runat="server" ID="UpgradeVersionName"></asp:Literal></strong>
-                        </li>
-                    </ul>
-                    <p>
-
-                    </p>
-
-                    <div class="alert alert-warning">
-                        <YAF:Icon runat="server"
-                                  IconType="text-warning"
-                                  IconName="exclamation-triangle" />
-                        <%# YAF.App_GlobalResources.Install.WarningUpgrade %>
-                    </div>
-
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Validate Permissions" ID="WizValidatePermission">
                     <h4>
@@ -94,66 +67,7 @@
                                      Text="<%# YAF.App_GlobalResources.Install.TestPermission %>"
                                      OnClick="TestPermissions_Click" />
                 </asp:WizardStep>
-                <asp:WizardStep ID="WizCreatePassword" runat="server" Title="Create Config Password">
-                    <h4>
-                        <%# YAF.App_GlobalResources.Install.CreatePassword %>
-                    </h4>
-                    <p><%# YAF.App_GlobalResources.Install.CreatePasswordText %>
 
-                    </p>
-                    <p class="descriptionText"><%# YAF.App_GlobalResources.Install.PasswordFile %>
-                        <asp:Label ID="lblConfigPasswordAppSettingFile" runat="server">app.config</asp:Label>
-                    </p>
-                    <div class="mb-3">
-                        <asp:TextBox ID="txtCreatePassword1" runat="server"
-                                     TextMode="Password"
-                                     PlaceHolder="<%# YAF.App_GlobalResources.Install.EnterConfigPassword %>"
-                                     LabelText="<%# YAF.App_GlobalResources.Install.ConfigPassword %>"
-                                     CssClass="form-control"/>
-                    </div>
-                    <div class="mb-3">
-                        <asp:TextBox ID="txtCreatePassword2" runat="server"
-                                     TextMode="Password"
-                                     PlaceHolder="<%# YAF.App_GlobalResources.Install.ReenterConfigPassword %>"
-                                     LabelText="<%# YAF.App_GlobalResources.Install.ReenterConfigPassword %>"
-                                     CssClass="form-control"/>
-                    </div>
-                </asp:WizardStep>
-                <asp:WizardStep runat="server" Title="<%# YAF.App_GlobalResources.Install.EnterConfigPassword %>" ID="WizEnterPassword">
-                    <h4>
-                        <%# YAF.App_GlobalResources.Install.EnterConfigPassword %>
-                    </h4>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.EnterConfigPasswordDesc %>
-                    </p>
-                    <div class="alert alert-info">
-                        <YAF:Icon runat="server" IconName="info-circle" IconType="text-info" />
-                        <%# YAF.App_GlobalResources.Install.UpgradeNote %>
-                    </div>
-                    <asp:TextBox ID="txtEnteredPassword" runat="server" TextMode="Password" Type="Password"
-                                 PlaceHolder="<%# YAF.App_GlobalResources.Install.EnterConfigPassword %>"
-                                 RenderWrapper="True"
-                                 CssClass="form-control"
-                                 LabelText="Password"/>
-                </asp:WizardStep>
-                <asp:WizardStep ID="WizManuallySetPassword" runat="server" Title="Manually Set Config Password">
-                    <h4>
-                        <%# YAF.App_GlobalResources.Install.ManuallyPassword %>
-                    </h4>
-                    <p class="descriptionText">
-                        <%# YAF.App_GlobalResources.Install.ManuallyPasswordDesc %>
-                    </p>
-                    <div class="alert alert-danger">
-                        <span class="badge bg-danger"><%# YAF.App_GlobalResources.Install.Error %></span> <%# YAF.App_GlobalResources.Install.ManuallyPasswordError %>
-                    </div>
-                    <p><%# YAF.App_GlobalResources.Install.OpenFile %>
-                        <strong>
-                            <asp:Label runat="server" ID="lblAppSettingsFile2">web.config</asp:Label></strong>
-                        <%# YAF.App_GlobalResources.Install.OpenFileDesc %>
-                    </p>
-                    <code>&lt;add key="YAF.ConfigPassword" value="<span class="text-primary">YourPassword</span>"/&gt;</code>
-                    <br/>
-                </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Database Connection" ID="WizDatabaseConnection">
                     <h4>
                         <%# YAF.App_GlobalResources.Install.DBConnection %>
@@ -270,17 +184,11 @@
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Upgrade Database" ID="WizInitDatabase">
                     <h4>
-                            <%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.Upgrade : YAF.App_GlobalResources.Install.Initialize %> <%# YAF.App_GlobalResources.Install.Database %>
+                            <%# YAF.App_GlobalResources.Install.Initialize %> <%# YAF.App_GlobalResources.Install.Database %>
                     </h4>
                     <p class="descriptionText">
-                        <%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.NextUpgradeDb : YAF.App_GlobalResources.Install.NextInitDb %>
+                        <%# YAF.App_GlobalResources.Install.NextInitDb %>
                     </p>
-                    <asp:PlaceHolder runat="server"  Visible="<%# this.IsForumInstalled %>">
-                    <div class="form-check form-switch">
-                        <asp:CheckBox ID="UpgradeExtensions" Checked="True" runat="server"
-                                      Text="<%# YAF.App_GlobalResources.Install.UpgradeExtensions %>"/>
-                    </div>
-                    </asp:PlaceHolder>
                 </asp:WizardStep>
                 <asp:WizardStep runat="server" Title="Create Forum" ID="WizCreateForum">
                     <h4>
@@ -381,10 +289,10 @@
                 </asp:WizardStep>
             <asp:WizardStep runat="server" StepType="Finish" Title="Finished" ID="WizFinished">
                     <h4>
-                        <%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.Upgrade : YAF.App_GlobalResources.Install.Setup%> <%# YAF.App_GlobalResources.Install.Finished %>
+                        <%# YAF.App_GlobalResources.Install.Setup%> <%# YAF.App_GlobalResources.Install.Finished %>
                     </h4>
                     <p class="descriptionText"><%# YAF.App_GlobalResources.Install.FinishDesc %></p>
-                    <p><%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.UpgradeFinish : YAF.App_GlobalResources.Install.InitFinish%></p>
+                    <p><%# YAF.App_GlobalResources.Install.InitFinish%></p>
                 </asp:WizardStep>
             </WizardSteps>
             <FinishNavigationTemplate>
@@ -422,7 +330,7 @@
                                            <path d="M4349.68,845.34h266.26v59.47H4512v376h-58.79v-376H4349.68Z" transform="translate(0 0)" style="fill:#444342"/>
                                        </g>
                                    </svg>
-                                    <%# this.IsForumInstalled ? YAF.App_GlobalResources.Install.Upgrade : YAF.App_GlobalResources.Install.Installation%> Wizard
+                                    <%# YAF.App_GlobalResources.Install.Installation%> Wizard
                                 </h5>
                                 <span>
                                     <asp:DropDownList ID="Languages" runat="server"

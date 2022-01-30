@@ -29,11 +29,10 @@ namespace YAF.Core.Services.Startup
     using System.Web;
 
     using YAF.Configuration;
-    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Extensions;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Tasks;
@@ -119,25 +118,22 @@ namespace YAF.Core.Services.Startup
             }
 
             // step 2: validate the database version...
-            var redirectString = this.GetRepository<Registry>()
-                .ValidateVersion(BoardInfo.AppVersion, out var registryVersion);
+            var versionType = this.GetRepository<Registry>().ValidateVersion(BoardInfo.AppVersion);
 
-            if (redirectString.IsNotSet())
+            switch (versionType)
             {
-                return true;
+                case DbVersionType.Current:
+                    return true;
+                case DbVersionType.Upgrade:
+                    // Run Auto Upgrade
+                    this.Get<UpgradeService>().Upgrade();
+                    return false;
+                case DbVersionType.NewInstall:
+                    this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}install/default.aspx", true);
+                    return false;
+                default:
+                    return false;
             }
-
-            if (registryVersion >= 80)
-            {
-                // Run Auto Upgrade
-                this.Get<UpgradeService>().Upgrade();
-            }
-            else
-            {
-                this.HttpResponseBase.Redirect($"{BoardInfo.ForumClientFileRoot}{redirectString}", true);
-            }
-
-            return false;
         }
 
         #endregion

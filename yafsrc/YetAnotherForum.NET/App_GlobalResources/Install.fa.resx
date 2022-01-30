@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>تابلوی جدید ایجاد کنید</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>پیکربندی رمز عبور را ایجاد کنید</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>از آنجا که این اولین بار است که این نسخه از انجمن را نصب یا به روز می کنید ، برای ایجاد امنیت باید یک رمز عبور پیکربندی ایجاد کنید.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>ایجاد کاربر فوق العاده جدید (میزبان)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>نام کاربری از قبل وجود دارد. لطفا یک نام کاربری دیگر وارد کنید.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>رمز عبور را وارد کنید</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>برای به روزرسانی یا نصب دستی انجمن ، رمز عبور پیکربندی را وارد کنید.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>خطا</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>یک پیام آزمایشی را به آدرس ایمیل ارسال می کند که به عنوان ارسال به آدرس تعریف شده است</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>دسترسی به تنظیمات برنامه وجود ندارد</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>وقتی آماده شد ، روی "بعدی" کلیک کنید.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>تغییر پرونده پیکربندی شما برای نوشتن گذرواژه نصب به دلیل مسئله مجوز امکان پذیر نیست.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>نقش ها و کاربران را مهاجرت کنید</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>کاربر (های) موجود در بانک اطلاعاتی انجمن شما.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>برای شروع به روزرسانی (انتقال) کلیه نقش ها و کاربران از پایگاه داده قدیمی YET Another Forum.NET به مدل ارائه دهنده .NET کلیک کنید.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>وظیفه مهاجرت بسته به تعداد کاربرانی که در انجمن شما وجود دارد می تواند مدت زمان بسیار طولانی &lt;/ strong&gt; را طول بکشد.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>غیرفعال کردن مهاجرت (توصیه نمی شود)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>مهاجرت کاربران ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>لطفاً در حالی که مهاجرت در حال انجام است ، از این صفحه پیمایش نکنید. این می تواند زمان بسیار طولانی را برای انجام مهاجرت طول بکشد.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>رشته اتصال جدید DB ایجاد کنید</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>وقتی آماده شد ، روی "بعدی" کلیک کنید.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>با کلیک بر روی "بعدی" ، پایگاه داده شما به آخرین نسخه ارتقا خواهد یافت.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>نه</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>پرونده را در فهرست فهرست برنامه قرار دهید و کلید زیر را در &amp; lt؛ ConnectionStrings &amp; gt؛ بخش:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>این گذرواژه با تنظیمات برنامه های شما در پرونده ذخیره می شود ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>تأیید صحت همان رمز عبور شما نیست.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>ارائه دهنده تأیید اعتبار خطایی را برگرداند. لطفاً ورود خود را تأیید کنید و دوباره امتحان کنید. اگر مشکل همچنان ادامه دارد ، لطفاً با مدیر سیستم خود تماس بگیرید.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>دوباره رمز عبور را وارد کنید</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>پاسخ سوال امنیتی</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>بررسی نشده است</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>خطای ناشناخته رخ داده است لطفاً ورود خود را تأیید کنید و دوباره امتحان کنید. اگر مشکل همچنان ادامه دارد ، لطفاً با مدیر سیستم خود تماس بگیرید.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>ارتقا</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>برنامه های افزودنی BBCode ، پسوند پرونده و Spam Words را ارتقا دهید</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>هم اکنون انجمن شما به جدیدترین نسخه ارتقا یافته است.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>اگر این یک به روزرسانی است ، لطفاً رمز عبور پیکربندی ایجاد شده هنگام ایجاد اولین انجمن را وارد کنید ، نه رمزعبور کاربر سرپرست.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>نسخه به روزرسانی:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>درخواست ایجاد کاربر لغو شده است. لطفاً ورود خود را تأیید کنید و دوباره امتحان کنید. اگر مشکل همچنان ادامه دارد ، لطفاً با مدیر سیستم خود تماس بگیرید.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>برای تست اگر مجوزها صحیح هستند ، در زیر کلیک کنید. اگر اینگونه نباشند ، می توانید
                         هنوز از جادوگر نصب استفاده کنید.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>شما می خواهید YAF.NET را به جدیدترین نسخه ارتقا دهید. قبل از شروع مراحل ارتقا لطفاً اطمینان حاصل کنید که ...
-                        &lt;ul&gt;
-                            &lt;li&gt; نسخه پشتیبان از نصب موجود خود را ایجاد کردید &lt;/li&gt;
-                        &lt;/ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>به نصب YAF.NET خوش آمدید</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>این نصب شما را از طریق مراحل مورد نیاز برای نصب YetAnotherForum.NET (YAF.NET) راهنمایی می کند.</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>به فرآیند ارتقاء YAF.NET خوش آمدید</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>بر روی "Next" کلیک کنید تا روند ارتقاء شروع شود.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>بله</value>

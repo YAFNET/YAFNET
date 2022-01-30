@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Создать новую доску</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Создать пароль для конфигурации</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Поскольку вы впервые устанавливаете или обновляете эту версию форума, вам необходимо создать пароль конфигурации для обеспечения безопасности.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Создать нового суперпользователя (хост)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Имя пользователя уже существует. Пожалуйста, введите другое имя пользователя.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Введите пароль конфигурации</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Введите пароль конфигурации для обновления или установите форум вручную.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>ошибка</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Отправляет тестовое сообщение на адрес электронной почты, который определен как Отправить на адрес</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Нет доступа для записи в настройках приложения</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Нажмите «Далее», когда вы будете готовы.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Невозможно изменить файл конфигурации для записи пароля установки из-за проблемы с разрешениями.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Миграция ролей и пользователей</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>пользователь (и) найден в базе данных вашего форума.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Нажмите «Далее», чтобы начать обновление (миграцию) всех ролей и пользователей из старой базы данных «Another Another Forum.NET» в модель провайдера .NET.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Задача миграции может занять &lt;strong&gt; очень &lt;/ strong&gt; много времени в зависимости от количества пользователей на вашем форуме.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Отключить миграцию (не рекомендуется)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Миграция пользователей ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Пожалуйста, не уходите с этой страницы, пока идет процесс миграции. Выполнение миграции может занять очень много времени.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Создать новую строку подключения к БД</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Нажмите «Далее», когда вы будете готовы.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Нажав «Далее», вы обновите базу данных до последней версии.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>НЕТ</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>файл в корневом каталоге приложения и добавьте / обновите следующий ключ в разделе &lt;connectionStrings&gt;:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Этот пароль хранится вместе с вашими настройками приложения в файле ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Проверка не совпадает с вашим паролем.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Поставщик аутентификации возвратил ошибку. Пожалуйста, проверьте ваш ввод и попробуйте еще раз. Если проблема не устранена, обратитесь к системному администратору.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Повторно введите пароль конфигурации</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Ответ на секретный вопрос</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>непроверенный</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Произошла неизвестная ошибка. Пожалуйста, проверьте ваш ввод и попробуйте еще раз. Если проблема не устранена, обратитесь к системному администратору.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>Обновить</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Обновление расширений BBCode, расширений файлов и спам-слов</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Ваш форум был обновлен до последней версии.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Если это обновление, пожалуйста, введите пароль конфигурации, который вы создали при первой установке форума, а не пароль администратора.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Версия обновления:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Запрос на создание пользователя был отменен. Пожалуйста, проверьте ваш ввод и попробуйте еще раз. Если проблема не устранена, обратитесь к системному администратору.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Нажмите ниже, чтобы проверить правильность разрешений. Если нет, вы можете
                         все еще пользуйтесь мастером установки.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Вы собираетесь обновить YAF.NET до последней версии. Прежде чем продолжить процесс обновления, убедитесь, что ...
-                        &lt;UL&gt;
-                            &lt;li&gt; вы создали резервную копию существующей установки &lt;/ li&gt;
-                        &lt;/ UL&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Добро пожаловать в YAF.NET Установка</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Этот установщик проведет вас через шаги, необходимые для установки YetAnotherForum.NET (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Добро пожаловать в процесс обновления YAF.NET</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Нажмите «Далее», чтобы начать процесс обновления.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ДА</value>

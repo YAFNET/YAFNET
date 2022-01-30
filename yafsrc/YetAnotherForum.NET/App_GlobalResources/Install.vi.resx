@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Tạo bảng mới</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Tạo mật khẩu cấu hình</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Vì đây là lần đầu tiên bạn cài đặt hoặc nâng cấp phiên bản diễn đàn này, bạn cần tạo mật khẩu cấu hình để bảo mật.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Tạo siêu người dùng mới (Máy chủ)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Tên này đã có người dùng. Vui lòng nhập một tên người dùng khác nhau.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Nhập mật khẩu cấu hình</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Nhập mật khẩu cấu hình để nâng cấp hoặc cài đặt thủ công diễn đàn.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>lỗi</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Gửi tin nhắn kiểm tra đến địa chỉ Email được xác định là Gửi đến địa chỉ</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Không có quyền truy cập ghi vào cài đặt ứng dụng</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Nhấp vào "Tiếp theo" khi bạn đã sẵn sàng.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Không thể sửa đổi tệp cấu hình của bạn để ghi mật khẩu cài đặt do vấn đề cấp phép.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Di chuyển vai trò và người dùng</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>người dùng tìm thấy trong cơ sở dữ liệu diễn đàn của bạn.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Nhấp vào "Tiếp theo" để bắt đầu nâng cấp (di chuyển) tất cả các vai trò và người dùng từ cơ sở dữ liệu Yet Another Forum.NET cũ của bạn sang Mô hình nhà cung cấp .NET.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Tác vụ di chuyển có thể mất một thời gian &lt;strong&gt; rất &lt;/ strong&gt; tùy thuộc vào số lượng người dùng trong diễn đàn của bạn.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Vô hiệu hóa di chuyển (không được khuyến nghị)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Người dùng di chuyển ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Vui lòng không điều hướng khỏi trang này trong khi quá trình di chuyển đang diễn ra. Có thể mất một thời gian rất dài để thực hiện việc di chuyển.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Tạo chuỗi kết nối DB mới</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Nhấp vào "Tiếp theo" khi bạn đã sẵn sàng.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Nhấp vào "Tiếp theo" sẽ nâng cấp cơ sở dữ liệu của bạn lên phiên bản mới nhất.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>KHÔNG</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>tệp trong thư mục gốc của ứng dụng và thêm / cập nhật khóa sau trong phần &lt;ConnectionStrings&gt;:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Mật khẩu này được lưu trữ cùng với ứng dụng Cài đặt của bạn trong tệp ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Xác minh không giống như mật khẩu của bạn.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Nhà cung cấp xác thực trả lại một lỗi. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn còn, vui lòng liên hệ với quản trị viên hệ thống của bạn.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Nhập lại mật khẩu cấu hình</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Câu trả lời cho câu hỏi bảo mật</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>Bỏ chọn</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Một lỗi không xác định đã xảy ra. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn còn, vui lòng liên hệ với quản trị viên hệ thống của bạn.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>Nâng cấp</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Nâng cấp tiện ích mở rộng BBCode, tiện ích mở rộng tệp và từ spam</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Diễn đàn của bạn đã được nâng cấp lên phiên bản mới nhất.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Nếu đây là bản nâng cấp, vui lòng nhập mật khẩu cấu hình bạn đã tạo khi diễn đàn được cài đặt lần đầu tiên, không phải mật khẩu người dùng quản trị viên.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Phiên bản nâng cấp:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Yêu cầu tạo người dùng đã bị hủy. Vui lòng xác nhận nhập cảnh của bạn và thử lại. Nếu sự cố vẫn còn, vui lòng liên hệ với quản trị viên hệ thống của bạn.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Nhấp vào bên dưới để kiểm tra nếu quyền là chính xác. Nếu họ không, bạn có thể
                         vẫn sử dụng trình hướng dẫn cài đặt.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Bạn sắp nâng cấp YAF.NET lên phiên bản mới nhất. Trước khi tiến hành quá trình nâng cấp, hãy đảm bảo rằng ...
-                        &lt;ul&gt;
-                            &lt;li&gt; bạn đã tạo bản sao lưu cài đặt hiện tại của mình &lt;/ li&gt;
-                        &lt;/ ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Chào mừng bạn đến với Cài đặt YAF.NET</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Trình cài đặt này sẽ hướng dẫn bạn các bước cần thiết để Cài đặt YetAnotherForum.NET (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Chào mừng bạn đến với Quy trình nâng cấp YAF.NET</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Nhấp vào "Tiếp theo" để bắt đầu quá trình Nâng cấp.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>VÂNG</value>

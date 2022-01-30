@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Vytvorenie novej rady</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Vytvorte konfiguračné heslo</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Pretože toto je prvá inštalácia alebo inovácia tejto verzie fóra, musíte si z bezpečnostných dôvodov vytvoriť konfiguračné heslo.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Vytvoriť nového super používateľa (hostiteľa)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Užívateľské meno už existuje. Zadajte iné používateľské meno.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Zadajte Config Password</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Ak chcete aktualizovať alebo manuálne nainštalovať fórum, zadajte konfiguračné heslo.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Chyba</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Odošle testovaciu správu na e-mailovú adresu, ktorá je definovaná ako Odoslať na adresu</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Nie je povolený prístup k nastaveniam aplikácie</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Až budete pripravení, kliknite na tlačidlo „Ďalej“.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Kvôli problému s povolením nie je možné upraviť konfiguračný súbor tak, aby napísal inštalačné heslo.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Migrácia rolí a používateľov</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>používatelia vo vašej databáze fóra.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Kliknutím na tlačidlo „Ďalej“ spustíte inováciu (migráciu) všetkých rolí a používateľov z vašej starej databázy fóra Fórum.NET na model .NET Provider Model.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Úloha migrácie môže trvať &lt;strong&gt; veľmi &lt;/strong&gt; dlho v závislosti od počtu používateľov vo vašom fóre.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Zakázať migráciu (neodporúča sa)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Migrácia používateľov ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Počas migrácie sa z tejto stránky neotvárajte. Vykonanie migrácie môže trvať veľmi dlho.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Vytvorte nový reťazec pripojenia DB</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Až budete pripravení, kliknite na tlačidlo „Ďalej“.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Kliknutím na tlačidlo „Ďalej“ inovujete svoju databázu na najnovšiu verziu.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>NO</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>do koreňového adresára aplikácie a v časti &lt;connectionStrings&gt; pridajte / aktualizujte nasledujúci kľúč:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Toto heslo sa uloží spolu s nastaveniami aplikácie do súboru ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Overenie nie je to isté ako vaše heslo.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Poskytovateľ autentifikácie vrátil chybu. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Znovu zadajte Config Password</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Odpoveď na bezpečnostnú otázku</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>nekontrolovaný</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Vyskytla sa neznáma chyba. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>upgrade</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Inovujte rozšírenia BBCode, prípony súborov a spamové slová</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Vaše fórum bolo teraz inovované na najnovšiu verziu.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Ak ide o inováciu, zadajte konfiguračné heslo, ktoré ste vytvorili pri prvej inštalácii fóra, a nie heslo správcu.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Verzia inovácie:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Žiadosť o vytvorenie používateľa bola zrušená. Skontrolujte zadanie a skúste to znova. Ak problém pretrváva, kontaktujte správcu systému.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Kliknutím nižšie otestujete, či sú povolenia správne. Ak nie sú, môžete
                         stále používajte sprievodcu inštaláciou.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Chystáte sa upgradovať YAF.NET na najnovšiu verziu. Pred pokračovaním v procese aktualizácie sa uistite, že ...
-                        &lt;Ul&gt;
-                            &lt;li&gt; vytvorili ste zálohu existujúcej inštalácie &lt;/li&gt;
-                        &lt;/ Ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Vitajte v inštalácii YAF.NET</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Tento inštalátor vás prevedie krokmi potrebnými na inštaláciu YetAnotherForum.NET (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Vitajte v procese aktualizácie YAF.NET</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Kliknutím na tlačidlo „Ďalej“ spustíte proces inovácie.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>ÁNO</value>

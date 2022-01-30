@@ -122,7 +122,7 @@ namespace YAF.Core.Modules
                 .PreserveExistingDefaults();
             builder.RegisterType<SyndicationFeeds>().AsSelf().InstancePerLifetimeScope().PreserveExistingDefaults();
 
-            builder.RegisterType<InstallUpgradeService>().AsSelf().PreserveExistingDefaults();
+            builder.RegisterType<InstallService>().AsSelf().PreserveExistingDefaults();
             builder.RegisterType<UpgradeService>().AsSelf().PreserveExistingDefaults();
 
             // localization registration...

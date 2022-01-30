@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Maak een nieuw bord</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Maak een Config-wachtwoord</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Aangezien dit de eerste keer is dat u deze versie van het forum installeert of bijwerkt, moet u voor de beveiliging een configuratiewachtwoord maken.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Nieuwe supergebruiker maken (host)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Gebruikersnaam bestaat al. Vul alsjeblieft een andere gebruikersnaam in.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Voer het Config-wachtwoord in</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Voer het configuratiewachtwoord in om het forum te upgraden of handmatig te installeren.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Fout</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Stuurt een testbericht naar het e-mailadres dat is gedefinieerd als Verzenden naar adres</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Geen schrijftoegang tot app-instellingen</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Klik op "Volgende" wanneer u klaar bent.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Kan uw configuratiebestand niet wijzigen om het installatiewachtwoord te schrijven vanwege een machtigingsprobleem.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Rollen en gebruikers migreren</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>gebruiker (s) gevonden in uw forumdatabase.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Klik op "Volgende" om de upgrade (migratie) van alle rollen en gebruikers van uw oude Yet Another Forum.NET-database naar het .NET Provider-model te starten.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>De migratietaak kan &lt;strong&gt; heel &lt;/strong&gt; lang duren, afhankelijk van het aantal gebruikers op uw forum.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Migratie uitschakelen (niet aanbevolen)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Gebruikers migreren ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Navigeer niet weg van deze pagina terwijl de migratie bezig is. Het kan erg lang duren om de migratie uit te voeren.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Maak een nieuwe DB-verbindingsreeks</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Klik op "Volgende" wanneer u klaar bent.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Als u op "Volgende" klikt, wordt uw database bijgewerkt naar de nieuwste versie.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>NEE</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>bestand in de hoofdmap van de toepassing en voeg de volgende sleutel toe aan de update &amp; lt; connectionStrings &amp; gt; sectie:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Dit wachtwoord wordt opgeslagen met uw app Instellingen in het bestand ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Verificatie is niet hetzelfde als uw wachtwoord.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>De authenticatieprovider heeft een fout geretourneerd. Controleer uw invoer en probeer het opnieuw. Neem contact op met uw systeembeheerder als het probleem zich blijft voordoen.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Voer het configuratiewachtwoord opnieuw in</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Het antwoord op de beveiligingsvraag</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>ongehinderd</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Een onbekende fout is opgetreden. Controleer uw invoer en probeer het opnieuw. Neem contact op met uw systeembeheerder als het probleem zich blijft voordoen.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>Upgrade</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Upgrade BBCode-extensies, bestandsextensies en spamwoorden</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Je forum is nu geüpgraded naar de nieuwste versie.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Als dit een upgrade is, voert u het configuratiewachtwoord in dat u hebt gemaakt toen het forum voor het eerst werd geïnstalleerd, niet het beheerderswachtwoord.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Upgrade versie:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Het verzoek om een ​​gebruiker te maken is geannuleerd. Controleer uw invoer en probeer het opnieuw. Neem contact op met uw systeembeheerder als het probleem zich blijft voordoen.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Klik hieronder om te testen of machtigingen correct zijn. Als ze dat niet zijn, kunt u dat
                         gebruik nog steeds de installatiewizard.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>U staat op het punt om YAF.NET te upgraden naar de meest recente versie. Voordat u doorgaat met het upgradeproces, moet u ervoor zorgen dat ...
-                        &lt;Ul&gt;
-                            &lt;li&gt; u hebt een back-up van uw bestaande installatie gemaakt &lt;/li&gt;
-                        &lt;/ Ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Welkom bij de YAF.NET-installatie</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Dit installatieprogramma leidt u door de stappen die nodig zijn om YetAnotherForum.NET (YAF.NET) te installeren.</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Welkom bij het YAF.NET upgradeproces</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Klik op "Volgende" om het upgradeproces te starten.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>JA</value>

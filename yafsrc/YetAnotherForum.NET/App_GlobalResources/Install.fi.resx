@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Luo uusi hallitus</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Luo määritysalasana</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Koska tämä on ensimmäinen kerta, kun asennat tai päivität tätä foorumifoorumin versiota, sinun on luotava suojausasetusten salasana.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Luo uusi superkäyttäjä (isäntä)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Käyttäjätunnus on jo olemassa. Anna toinen käyttäjänimi.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Kirjoita Config-salasana</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Syötä kokoonpanon salasana päivittääksesi tai asentamalla foorumi manuaalisesti.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Virhe</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Lähettää testiviestin sähköpostiosoitteeseen, joka määritetään Lähetä osoitteeseen</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Ei kirjoitusoikeutta sovellusasetuksiin</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Napsauta Seuraava, kun olet valmis.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Konfiguraatiotiedostoa ei voi muokata asennussalasanan kirjoittamiseen lupaongelman vuoksi.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Siirrä roolit ja käyttäjät</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>foorumin tietokannasta löytyneet käyttäjät.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Napsauta "Seuraava" aloittaaksesi kaikkien roolien ja käyttäjien päivityksen (siirron) vanhasta Yet Another Forum.NET -tietokannasta .NET-palveluntarjoajamalliin.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Siirtotehtävä voi viedä &lt;strong&gt; erittäin &lt;/strong&gt; kauan riippuen siitä, kuinka monta käyttäjää olet foorumissasi.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Poista siirto käytöstä (ei suositella)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Siirtää käyttäjiä ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Älä siirry pois tältä sivulta siirron aikana. Siirtymisen suorittaminen voi viedä hyvin kauan.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Luo uusi DB-yhteysjono</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Napsauta Seuraava, kun olet valmis.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Napsauttamalla "Seuraava" päivitetään tietokanta uusimpaan versioon.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>EI</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>tiedosto sovelluksen juurikansioon ja lisää / päivitä seuraava avain &amp; lt; connectionStrings &amp; gt; jakso:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Tämä salasana tallennetaan sovellusasetuksiesi kanssa tiedostoon ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Vahvistus ei ole sama kuin salasanasi.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Todennustoimittaja palautti virheen. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Kirjoita kokoonpano salasana uudelleen</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Vastaus turvallisuuskysymykseen</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>esteettä</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Tapahtui tuntematon virhe. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>parantaa</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Päivitä BBCode-laajennukset, tiedostopääte ja roskapostisanat</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Foorumi on nyt päivitetty uusimpaan versioon.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Jos kyseessä on päivitys, kirjoita foorumin ensimmäistä asennusta varten luomaasi määritysalasana, ei järjestelmänvalvojan salasana.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Päivitysversio:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Käyttäjän luomispyyntö on peruutettu. Vahvista ilmoituksesi ja yritä uudelleen. Jos ongelma jatkuu, ota yhteyttä järjestelmänvalvojaan.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Napsauta alla testataksesi oikeudet oikein. Jos he eivät ole, voit
                         käytä edelleen ohjattua asennusta.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Olet päivittämässä YAF.NET -sovellusta uusimpaan versioon. Ennen kuin jatkat päivitysprosessia, varmista, että ...
-                        &lt;Ul&gt;
-                            &lt;li&gt; loit varmuuskopion nykyisestä asennuksesta &lt;/li&gt;
-                        &lt;/ Ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Tervetuloa YAF.NET-asennukseen</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Tämä asennusohjelma opastaa sinut vaiheissa, joita tarvitaan YetAnotherForum.NET (YAF.NET) asennukseen.</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Tervetuloa YAF.NET-päivitysprosessiin</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Napsauta "Seuraava" aloittaaksesi päivitysprosessin.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>JOO</value>

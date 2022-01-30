@@ -49,7 +49,7 @@ namespace YAF.Data.PostgreSQL
         /// <summary>
         /// The YAF Provider Upgrade script list
         /// </summary>
-        private static readonly string[] IdentityUpgradeScriptList = { "mssql/upgrade/identity/upgrade.sql" };
+        private static readonly string[] IdentityUpgradeScriptList = {  };
 
         /// <summary>
         /// The DB parameters

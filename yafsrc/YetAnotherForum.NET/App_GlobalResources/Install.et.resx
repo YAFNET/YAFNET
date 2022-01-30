@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Loo uus juhatus</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Loo konfiguratsiooniparool</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Kuna selle foorumi versiooni installite või uuendate esimest korda, peate turvalisuse tagamiseks looma konfiguratsiooniparooli.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Loo uus superkasutaja (host)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Kasutajanimi on juba olemas. Sisestage teine ​​kasutajanimi.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Sisestage parool Config</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Foorumi uuendamiseks või käsitsi installimiseks sisestage konfiguratsiooniparool.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Viga</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Saadab testteate e-posti aadressile, mis on määratletud kui Saada aadressile</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Rakenduse seadetele pole juurdepääsu kirjutamiseks</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Kui olete valmis, klõpsake "Järgmine".</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Teie konfiguratsioonifaili ei saa installiparooli kirjutamiseks lubade väljaandmise tõttu muuta.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Roolide ja kasutajate migreerimine</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>teie foorumi andmebaasist leitud kasutajad.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Kõigi rollide ja kasutajate versiooniuuenduse (migratsiooni) alustamiseks vanalt järjekordse foorumi NET.NET andmebaasilt.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Migreerimisülesanne võib võtta &lt;strong&gt; väga &lt;/strong&gt; pikka aega, sõltuvalt sellest, kui palju kasutajaid teie foorumis on.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Keela migratsioon (pole soovitatav)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Kasutajate migreerimine ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Ärge liikuge sellel lehel üles, kui migratsioon on pooleli. Migreerimine võib võtta väga kaua aega.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Uue DB-ühenduse stringi loomine</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Kui olete valmis, klõpsake "Järgmine".</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Klõpsates nupul "Järgmine", uuendate andmebaasi uusimale versioonile.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>EI</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>faili rakenduse juurkataloogis ja lisage / värskendage järgmist võtit jaotises &amp; lt; connectionStrings &amp; gt; jaotis:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>See parool salvestatakse koos teie rakenduse seadistustega faili ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Kinnitamine ei ole sama, mis teie parool.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Autentimispakkuja tagastati tõrge. Kinnitage oma sisestus ja proovige uuesti. Kui probleem püsib, pöörduge oma süsteemi administraatori poole.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Sisestage uuesti konfiguratsiooniparool</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Vastus turvaküsimusele</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>Märkimata</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Ilmnes tundmatu tõrge. Kinnitage oma sisestus ja proovige uuesti. Kui probleem püsib, pöörduge oma süsteemi administraatori poole.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>Upgrade</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Täiendage BBCode laiendusi, faililaiendeid ja rämpsposti sõnu</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Teie foorum on nüüd uuemale versioonile üle viidud.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Kui see on versiooniuuendus, sisestage palun foorumi esmakordsel installimisel loodud konfiguratsiooniparool, mitte administraatori parool.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Täiendusversioon:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Kasutaja loomise taotlus on tühistatud. Kinnitage oma sisestus ja proovige uuesti. Kui probleem püsib, pöörduge oma süsteemi administraatori poole.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Klõpsake allpool, et kontrollida, kas õigused on õiged. Kui neid pole, saate seda teha
                         kasuta ikkagi installiviisardit.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Olete värskendamas YAF.NET-i uusimale versioonile. Enne täiendusprotsessi jätkamist veenduge, et ...
-                        &lt;ul&gt;
-                            &lt;li&gt; lõite oma olemasoleva installi varukoopia &lt;/li&gt;
-                        &lt;/ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Tere tulemast YAF.NET installi</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Installer juhendab teid YetAnotherForum.NET (YAF.NET) installimiseks vajalikest sammudest.</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Tere tulemast YAF.NET-i uuendusprotsessi</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Uuendamise protsessi alustamiseks klõpsake "Järgmine".</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>JAH</value>

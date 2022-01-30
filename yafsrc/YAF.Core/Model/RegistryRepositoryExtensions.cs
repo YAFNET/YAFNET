@@ -274,39 +274,30 @@ namespace YAF.Core.Model
         /// <param name="appVersion">
         ///     The app version.
         /// </param>
-        /// <param name="registryVersion">Returns Current Registry Version</param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        public static string ValidateVersion(
+        public static DbVersionType ValidateVersion(
             this IRepository<Registry> repository,
-            [NotNull] int appVersion,
-            out int registryVersion)
+            [NotNull] int appVersion)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var redirect = string.Empty;
-
             try
             {
-                registryVersion = repository.GetCurrentVersion();
+                var registryVersion = repository.GetCurrentVersion();
 
                 if (registryVersion < appVersion)
                 {
                     // needs upgrading...
-                    redirect = $"install/default.aspx?upgrade={registryVersion}";
+                    return DbVersionType.Upgrade;
                 }
             }
             catch (Exception)
             {
-                registryVersion = 0;
-
                 // needs to be setup...
-                redirect = "install/default.aspx";
+                return DbVersionType.NewInstall;
             }
 
 
-            return redirect;
+            return DbVersionType.Current;
         }
 
         /// <summary>

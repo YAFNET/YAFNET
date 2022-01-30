@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Lag nytt styre</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Opprett konfigurasjonspassord</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Siden dette er første gang du installerer eller oppgraderer denne versjonen av forumet, må du opprette et konfigurasjonspassord for sikkerhet.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Opprett ny superbruker (vert)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Brukernavn finnes allerede. Skriv inn et annet brukernavn.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Skriv inn konfigurasjonspassordet</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Skriv inn konfigurasjonspassordet for å oppgradere eller installere forumet manuelt.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Feil</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Sender en testmelding til e-postadressen som er definert som Send til adresse</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Ingen skrivetilgang til appinnstillinger</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Klikk "Neste" når du er klar.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Kan ikke endre konfigurasjonsfilen din til å skrive installasjonspassordet på grunn av et tillatelsesproblem.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Migrer roller og brukere</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>bruker (e) som finnes i din forumdatabase.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Klikk "Neste" for å starte oppgraderingen (migreringen) av alle roller og brukere fra den gamle Yet Another Forum.NET-databasen til .NET-leverandørmodellen.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Migrasjonsoppgaven kan ta lang tid veldig, avhengig av hvor mange brukere som er i forumet ditt.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Deaktiver migrering (anbefales ikke)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Migrerer brukere ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Ikke naviger bort fra denne siden mens overføringen pågår. Det kan ta veldig lang tid å utføre migrasjonen.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Lag ny DB-tilkoblingsstreng</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Klikk "Neste" når du er klar.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Ved å klikke "Neste" vil du oppgradere databasen til den nyeste versjonen.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>NEI</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>fil i programrotens katalog og legg til / oppdater følgende nøkkel i &amp; lt; connectionStrings &amp; gt; seksjon:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Dette passordet er lagret med appinnstillingene dine i filen ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Bekreftelsen er ikke den samme som passordet ditt.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Autentiseringsleverandøren returnerte en feil. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Angi konfigurasjonspassordet på nytt</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Svaret på sikkerhetsspørsmålet</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>ukontrollert</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>En ukjent feil oppstod. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>Oppgradering</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Oppgrader BBCode Extensions, File Extensions and Spam Words</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Forumet ditt er nå oppgradert til den nyeste versjonen.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Hvis dette er en oppgradering, må du oppgi konfigurasjonspassordet du opprettet da forumet ble installert, ikke administratorpassordet.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Oppgraderingsversjon:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Forespørsel om opprettelse av bruker er kansellert. Bekreft oppføringen din og prøv igjen. Hvis problemet vedvarer, kan du kontakte systemadministratoren.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Klikk nedenfor for å teste om tillatelsene er riktige. Hvis de ikke er det, kan du gjøre det
                         bruk fortsatt installasjonsveiviseren.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Du er i ferd med å oppgradere YAF.NET til den nyeste versjonen. Før du fortsetter med oppgraderingsprosessen, må du forsikre deg om at ...
-                        &lt;Ul&gt;
-                            &lt;li&gt; du opprettet en sikkerhetskopi av din eksisterende installasjon &lt;/li&gt;
-                        &lt;/ Ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Velkommen til YAF.NET-installasjonen</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Denne installatøren vil guide deg gjennom trinnene som kreves for å installere YetAnotherForum.NET (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Velkommen til YAF.NET oppgraderingsprosess</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Klikk "Neste" for å starte oppgraderingsprosessen.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>JA</value>

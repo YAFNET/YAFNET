@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>创建新董事会</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>创建配置密码</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>由于这是您第一次安装或升级此版本的论坛，因此您需要为安全性创建配置密码。</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>创建新的超级用户（主机）</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>此用户名已存在。请输入其他用户名。</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>输入配置密码</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>输入配置密码以升级或手动安装论坛。</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>错误</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>将测试消息发送到定义为发送到地址的电子邮件地址</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>无应用程序设置的写入权限</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>准备好后，单击“下一步”。</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>由于权限问题，无法修改配置文件以写入安装密码。</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>迁移角色和用户</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>在您的论坛数据库中找到的用户。</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>单击“下一步”开始将旧的Yet Another Forum.NET数据库中的所有角色和用户升级（迁移）到.NET提供程序模型。</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>迁移任务可能需要&lt;strong&gt;非常&lt;/ strong&gt;很长时间，具体取决于论坛中的用户数量。</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>禁用迁移（不推荐）</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>迁移用户......</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>迁移过程中请不要离开此页面。执行迁移可能需要很长时间。</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>创建新的DB连接字符串</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>准备好后，单击“下一步”。</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>单击“下一步”将数据库升级到最新版本。</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>没有</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>在应用程序根目录中的文件，并在＆lt; connectionStrings＆gt;中添加/更新以下密钥部分：</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>此密码与appSettings一起存储在文件中...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>验证与您的密码不同。</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>身份验证提供程序返回错误。请验证您的输入，然后重试。如果问题仍然存在，请与系统管理员联系。</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>重新输入配置密码</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>安全问题的答案</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>未选中</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>出现未知错误。请验证您的输入，然后重试。如果问题仍然存在，请与系统管理员联系。</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>升级</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>升级BBCode扩展，文件扩展名和垃圾邮件字</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>您的论坛现已升级到最新版本。</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>如果这是升级，请输入您在首次安装论坛时创建的配置密码，而不是管理员用户密码。</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>升级版本：</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>用户创建请求已被取消。请验证您的输入，然后重试。如果问题仍然存在，请与系统管理员联系。</value>
   </data>
@@ -473,12 +404,6 @@
     <value>单击下方以测试权限是否正确。如果他们不是，你可以
                         仍然使用安装向导。</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>您即将将YAF.NET升级到最新版本。在继续升级过程之前，请确保......
-                        &lt;UL&gt;
-                            &lt;li&gt;您创建了现有安装的备份&lt;/ li&gt;
-                        &lt;/ UL&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>欢迎来到YAF.NET安装</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>此安装程序将指导您完成安装YetAnotherForum.NET（YAF.NET）所需的步骤。</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>欢迎来到YAF.NET升级流程</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>单击“下一步”开始升级过程。</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>是</value>

@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Sukurti naują valdybą</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Sukurkite „Config“ slaptažodį</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Kadangi tai yra pirmas kartas, kai įdiegiate ar atnaujinate šią forumo versiją, turite sukurti saugos konfigūracijos slaptažodį.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Sukurti naują super vartotoją (pagrindinį kompiuterį)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Vardas jau egzistuoja. Įveskite kitą vartotojo vardą.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Įveskite konfigūravimo slaptažodį</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Įveskite konfigūracijos slaptažodį, jei norite atnaujinti arba rankiniu būdu įdiegti forumą.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Klaida</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Siunčia bandomąjį pranešimą el. Pašto adresu, kuris apibūdinamas kaip Siųsti į adresą</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Nėra rašymo prieigos prie programos nustatymų</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Spustelėkite „Kitas“, kai būsite pasiruošę.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Nepavyko modifikuoti savo konfigūracijos failo ir parašyti diegimo slaptažodžio dėl leidimo išdavimo.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Perkelti vaidmenis ir vartotojus</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>vartotojas (-ai), rastas jūsų forumo duomenų bazėje.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Spustelėkite „Kitas“, kad pradėtumėte visų vaidmenų ir vartotojų atnaujinimą (perkėlimą) iš senos „Yet Another Forum.NET“ duomenų bazės į .NET teikėjo modelį.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Perkėlimo užduotis gali užtrukti &lt;strong&gt; labai &lt;/strong&gt; ilgai, atsižvelgiant į tai, kiek vartotojų yra jūsų forume.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Išjungti migraciją (nerekomenduojama)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Migruojami vartotojai ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Kol vyksta perkėlimas, nesitraukite iš šio puslapio. Perkėlimas gali užtrukti labai ilgai.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Sukurkite naują DB ryšio eilutę</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Spustelėkite „Kitas“, kai būsite pasiruošę.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Spustelėjus „Kitas“, jūsų duomenų bazė bus atnaujinta į naujausią versiją.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>NE</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>failą programos šakniniame kataloge ir pridėkite / atnaujinkite šį raktą į &amp; lt; connectionStrings &amp; gt; skyrius:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Šis slaptažodis saugomas faile su „appSettings“ ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Patvirtinimas nėra tas pats kaip jūsų slaptažodis.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Autentifikavimo teikėjas grąžino klaidą. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Dar kartą įveskite konfigūravimo slaptažodį</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Atsakymas į saugumo klausimą</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>Nepažymėtas</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Įvyko nežinoma klaida. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>Patobulinti</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Naujovinkite „BBCode“ plėtinius, failų plėtinius ir šlamšto žodžius</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Dabar jūsų forumas buvo atnaujintas į naujausią versiją.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Jei tai yra atnaujinimas, įveskite konfigūracijos slaptažodį, kurį sukūrėte pirmą kartą įdiegdami forumą, o ne administratoriaus vartotojo slaptažodį.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Naujovinimo versija:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Vartotojo atšaukimo užklausa atšaukta. Patikrinkite savo įrašą ir bandykite dar kartą. Jei problema išlieka, susisiekite su sistemos administratoriumi.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Spustelėkite žemiau, kad patikrintumėte, ar teisingi leidimai. Jei jų nėra, galite
                         vis tiek naudokite diegimo vedlį.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Ketinate atnaujinti YAF.NET į naujausią versiją. Prieš pradėdami atnaujinimo procesą įsitikinkite, kad ...
-                        &lt;ul&gt;
-                            &lt;li&gt; sukūrėte esamo įrenginio atsarginę kopiją &lt;/li&gt;
-                        &lt;/ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Sveiki apsilankę YAF.NET diegime</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Šis diegimo programa padės jums atlikti veiksmus, kurių reikia norint įdiegti „YetAnotherForum.NET“ (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Sveiki apsilankę YAF.NET atnaujinimo procese</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Spustelėkite „Kitas“, kad pradėtumėte atnaujinimo procesą.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>TAIP</value>

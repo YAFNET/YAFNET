@@ -27,25 +27,18 @@ namespace YAF.Core.Services
     using System;
     using System.IO;
     using System.Linq;
-    using System.Threading;
     using System.Web;
-    using System.Web.Configuration;
 
     using ServiceStack.OrmLite;
 
     using YAF.Configuration;
-    using YAF.Core.Data;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services.Import;
-    using YAF.Core.Services.Migrations;
-    using YAF.Core.Tasks;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
-    using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
@@ -55,7 +48,7 @@ namespace YAF.Core.Services
     /// <summary>
     ///     The install upgrade service.
     /// </summary>
-    public class InstallUpgradeService : IHaveServiceLocator
+    public class InstallService : IHaveServiceLocator
     {
         #region Constants
 
@@ -74,7 +67,7 @@ namespace YAF.Core.Services
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="InstallUpgradeService"/> class.
+        /// Initializes a new instance of the <see cref="InstallService"/> class.
         /// </summary>
         /// <param name="serviceLocator">
         /// The service locator.
@@ -85,7 +78,7 @@ namespace YAF.Core.Services
         /// <param name="access">
         /// The access.
         /// </param>
-        public InstallUpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access)
+        public InstallService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access)
         {
             this.RaiseEvent = raiseEvent;
             this.DbAccess = access;
@@ -237,96 +230,19 @@ namespace YAF.Core.Services
         /// <summary>
         /// Initialize Or Upgrade the Database
         /// </summary>
-        /// <param name="updateExtensions">
-        /// update Extensions ?!.
-        /// </param>
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public bool InitializeOrUpgradeDatabase(bool updateExtensions)
+        public bool InitializeDatabase()
         {
-            var isForumInstalled = this.IsForumInstalled;
+            this.CreateTablesIfNotExists();
 
-            this.CreateOrUpdateTables();
-
-            if (!isForumInstalled)
-            {
-                this.ExecuteInstallScripts();
-            }
-
-            var prevVersion = this.GetRepository<Registry>().GetDbVersion();
+            this.ExecuteInstallScripts();
 
             this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
             this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
-            if (isForumInstalled)
-            {
-                if (prevVersion < 80)
-                {
-                    if (!Config.IsDotNetNuke)
-                    {
-                        this.MigrateConfig();
-                    }
-
-                    // Migrate File Extensions
-                    var extensions = this.GetRepository<FileExtension>()
-                        .Get(x => x.BoardId == this.Get<BoardSettings>().BoardID);
-
-                    this.GetRepository<Registry>().Save(
-                        "allowedfileextensions",
-                        extensions.Select(x => x.Extension).ToDelimitedString(","));
-
-                    this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
-                    this.Get<V81_Migration>().MigrateDatabase(this.DbAccess);
-                    this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);
-
-                    // Upgrade to ASPNET Identity
-                    if (!Config.IsDotNetNuke)
-                    {
-                        this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
-                    }
-
-                    this.Get<ITaskModuleManager>().StartTask(MigrateAttachmentsTask.TaskName, () => new MigrateAttachmentsTask());
-
-                    while (this.Get<ITaskModuleManager>().IsTaskRunning(MigrateAttachmentsTask.TaskName))
-                    {
-                        Thread.Sleep(100);
-                    }
-
-                    // Delete old registry Settings
-                    this.GetRepository<Registry>().DeleteLegacy();
-
-                    // update default points from 0 to 1
-                    this.GetRepository<User>().UpdateOnly(() => new User { Points = 1 }, u => u.Points == 0);
-                }
-
-                if (prevVersion < 30 || updateExtensions)
-                {
-                    this.AddOrUpdateExtensions();
-                }
-
-                if (prevVersion < 42)
-                {
-                    // un-html encode all topic subject names...
-                    this.GetRepository<Topic>().UnEncodeAllTopicsSubjects(HttpUtility.HtmlDecode);
-                }
-
-                // initialize search index
-                if (this.Get<BoardSettings>().LastSearchIndexUpdated.IsNotSet())
-                {
-                    this.GetRepository<Registry>().Save("forceupdatesearchindex", "1");
-                }
-
-                // Check if BaseUrlMask is set and if not automatically write it
-                if (this.Get<BoardSettings>().BaseUrlMask.IsNotSet())
-                {
-                    this.GetRepository<Registry>().Save("baseurlmask", BaseUrlBuilder.GetBaseUrlFromVariables());
-                }
-
-                this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
-
-                this.Get<IDataCache>().Remove(Constants.Cache.Version);
-            }
+            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
 
             return true;
         }
@@ -354,14 +270,6 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
 
             this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateIndexViews(this.DbAccess, dbCommand));
-        }
-
-        /// <summary>
-        /// Crate Tables and Update Tables
-        /// </summary>
-        private void CreateOrUpdateTables()
-        {
-            this.CreateTablesIfNotExists();
         }
 
         /// <summary>
@@ -428,36 +336,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// The execute script.
-        /// </summary>
-        /// <param name="scriptFile">
-        /// The script file.
-        /// </param>
-        private void ExecuteScript([NotNull] string scriptFile)
-        {
-            string script;
-            var fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);
-
-            try
-            {
-                script = $"{File.ReadAllText(fileName)}\r\n";
-            }
-            catch (FileNotFoundException)
-            {
-                return;
-            }
-            catch (Exception x)
-            {
-                throw new IOException($"Failed to read {fileName}", x);
-            }
-
-            this.Get<IDbAccess>().SystemInitializeExecuteScripts(
-                CommandTextHelpers.GetCommandTextReplaced(script),
-                scriptFile,
-                Config.SqlCommandTimeout);
-        }
-
-        /// <summary>
         ///    Add or Update BBCode Extensions and Spam Words
         /// </summary>
         private void AddOrUpdateExtensions()
@@ -493,46 +371,6 @@ namespace YAF.Core.Services
                         // load default spam word if available...
                         loadWrapper(SpamWordsImport, s => DataImport.SpamWordsImport(boardId, s));
                     });
-        }
-
-        /// <summary>
-        /// Migrate Legacy Membership Settings
-        /// </summary>
-        private void MigrateConfig()
-        {
-            try
-            {
-                var membershipSection = (MembershipSection)WebConfigurationManager.GetSection("system.web/membership");
-
-                var defaultProvider = membershipSection.DefaultProvider;
-                var hashAlgorithmType = membershipSection.HashAlgorithmType;
-
-                var providerSettings = membershipSection.Providers[defaultProvider];
-
-                var hashHex = providerSettings.Parameters["hashHex"];
-                var hashCase = providerSettings.Parameters["hashCase"];
-
-                ConfigHelper config = new ();
-
-                if (hashAlgorithmType.IsSet())
-                {
-                    config.WriteAppSetting("YAF.LegacyMembershipHashAlgorithmType", hashAlgorithmType);
-                }
-
-                if (hashHex.IsSet())
-                {
-                    config.WriteAppSetting("YAF.LegacyMembershipHashHex", hashHex);
-                }
-
-                if (hashCase.IsSet())
-                {
-                    config.WriteAppSetting("YAF.LegacyMembershipHashCase", hashCase);
-                }
-            }
-            catch (Exception)
-            {
-                // Can Be ignored if settings have already been removed
-            }
         }
 
         #endregion

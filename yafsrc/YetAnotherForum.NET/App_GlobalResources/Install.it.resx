@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Crea nuova scheda</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Crea password di configurazione</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Poiché è la prima volta che installi o aggiorni questa versione del forum, devi creare una password di configurazione per motivi di sicurezza.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Crea nuovo super utente (host)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Il nome utente esiste già. Inserisci un nome utente diverso.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Immettere la password di configurazione</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Immettere la password di configurazione per aggiornare o installare manualmente il forum.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Errore</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Invia un messaggio di prova all'indirizzo e-mail definito come Invia a indirizzo</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Nessun accesso in scrittura alle impostazioni dell'app</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Fai clic su "Avanti" quando sei pronto.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Impossibile modificare il file di configurazione per scrivere la password di installazione a causa di un problema di autorizzazione.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Migrare ruoli e utenti</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>utenti trovati nel database del forum.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Fare clic su "Avanti" per avviare l'aggiornamento (migrazione) di tutti i ruoli e utenti dal vecchio database Yet Another Forum.NET al modello di provider .NET.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>L'attività di migrazione può richiedere molto tempo &lt;strong&gt; molto &lt;/strong&gt; a seconda del numero di utenti presenti nel tuo forum.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Disabilita migrazione (non consigliato)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Migrazione degli utenti ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Non uscire da questa pagina mentre è in corso la migrazione. La migrazione può richiedere molto tempo.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Crea nuova stringa di connessione DB</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Fai clic su "Avanti" quando sei pronto.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Facendo clic su "Avanti", il database verrà aggiornato all'ultima versione.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>NO</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>file nella directory radice dell'applicazione e aggiungi / aggiorna la seguente chiave in &amp; lt; connectionStrings &amp; gt; sezione:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Questa password è memorizzata con le impostazioni dell'app nel file ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>La verifica non è la stessa della tua password.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Il provider di autenticazione ha restituito un errore. Si prega di verificare la voce e riprovare. Se il problema persiste, contattare l'amministratore di sistema.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Immettere nuovamente la password di configurazione</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>La risposta alla domanda di sicurezza</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>non verificato</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Si è verificato un errore sconosciuto. Si prega di verificare la voce e riprovare. Se il problema persiste, contattare l'amministratore di sistema.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>aggiornamento</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Aggiorna estensioni BBCode, estensioni file e parole spam</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Il tuo forum è stato ora aggiornato all'ultima versione.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Se si tratta di un aggiornamento, inserisci la password di configurazione che hai creato al momento della prima installazione del forum, non la password dell'utente amministratore.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Versione di aggiornamento:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>La richiesta di creazione dell'utente è stata annullata. Si prega di verificare la voce e riprovare. Se il problema persiste, contattare l'amministratore di sistema.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Fai clic di seguito per verificare se le autorizzazioni sono corrette. Se non lo sono, puoi farlo
                         utilizzare ancora la procedura guidata di installazione.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Stai per aggiornare YAF.NET alla versione più recente. Prima di procedere con il processo di aggiornamento, assicurarsi che ...
-                        &lt;Ul&gt;
-                            &lt;li&gt; hai creato un backup dell'installazione esistente &lt;/li&gt;
-                        &lt;/ Ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Benvenuti nell'installazione di YAF.NET</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Questo programma di installazione ti guiderà attraverso i passaggi necessari per installare YetAnotherForum.NET (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Benvenuti nel processo di aggiornamento di YAF.NET</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Fai clic su "Avanti" per avviare il processo di aggiornamento.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>SÌ</value>

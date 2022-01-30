@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>إنشاء مجلس جديد</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>إنشاء كلمة مرور التكوين</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>نظرًا لأن هذه هي المرة الأولى التي تقوم فيها بتثبيت أو ترقية هذا الإصدار من المنتدى ، فأنت بحاجة إلى إنشاء كلمة مرور تكوين للأمان.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>إنشاء مستخدم سوبر جديد (مضيف)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>اسم المستخدم موجود بالفعل. من فضلك أدخل اسم مستخدم آخر.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>أدخل كلمة مرور التهيئة</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>أدخل كلمة مرور التكوين لترقية أو تثبيت المنتدى يدويًا.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>خطأ</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>إرسال اختبار رسالة إلى عنوان البريد الإلكتروني الذي تم تعريفه على أنه إرسال إلى عنوان</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>لا يوجد وصول الكتابة إلى إعدادات التطبيق</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>انقر فوق "التالي" عندما تكون جاهزًا.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>غير قادر على تعديل ملف التكوين الخاص بك لكتابة كلمة مرور التثبيت بسبب مشكلة إذن.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>ترحيل الأدوار والمستخدمين</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>مستخدم (مستخدمين) موجود في قاعدة بيانات المنتدى.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>انقر فوق "التالي" لبدء ترقية (الترحيل) لجميع الأدوار والمستخدمين من قاعدة بيانات Forum.NET القديمة الخاصة بك إلى نموذج موفر .NET.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>قد تستغرق مهمة الترحيل وقتًا طويلاً &lt;strong&gt; جدًا &lt;/ strong&gt; حسب عدد المستخدمين في منتداك.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>تعطيل الترحيل (غير مستحسن)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>ترحيل المستخدمين ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>يرجى عدم الانتقال بعيدًا عن هذه الصفحة أثناء عملية الترحيل. قد تستغرق عملية الترحيل وقتًا طويلاً جدًا.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>إنشاء سلسلة اتصال DB جديدة</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>انقر فوق "التالي" عندما تكون جاهزًا.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>سيؤدي النقر فوق "التالي" إلى ترقية قاعدة البيانات الخاصة بك إلى أحدث إصدار.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>لا</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>ملف في دليل جذر التطبيق وإضافة / تحديث المفتاح التالي في علامة &amp; lt؛ connectionStrings &amp; gt؛ الجزء:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>يتم تخزين كلمة المرور هذه مع إعداداتك في الملف ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>التحقق ليس هو نفسه كلمة المرور الخاصة بك.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>أرجع مزود المصادقة خطأ. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>أعد إدخال كلمة مرور التهيئة</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>الجواب على سؤال الأمان</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>غير مفحوص</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>حدث خطأ غير معروف. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>تطوير</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>ترقية ملحقات BBCode ، امتدادات الملفات وكلمات البريد العشوائي</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>تمت ترقية منتداك الآن إلى أحدث إصدار.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>إذا كانت هذه ترقية ، فالرجاء إدخال كلمة مرور التكوين التي قمت بإنشائها عند تثبيت المنتدى لأول مرة ، وليس كلمة مرور مستخدم المسؤول.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>نسخة مطورة:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>تم إلغاء طلب إنشاء المستخدم. يرجى التحقق من دخول وحاول مرة أخرى. إذا استمرت المشكلة ، فيرجى الاتصال بمسؤول النظام لديك.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>انقر أدناه لاختبار ما إذا كانت الأذونات صحيحة. إذا لم تكن كذلك ، يمكنك ذلك
                         لا تزال تستخدم معالج التثبيت.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>أنت على وشك ترقية YAF.NET إلى الإصدار الأحدث. قبل متابعة عملية الترقية ، يرجى التأكد من ...
-                        &lt;UL&gt;
-                            &lt;li&gt; لقد أنشأت نسخة احتياطية من التثبيت الحالي &lt;/ li&gt;
-                        &lt;/ UL&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>مرحبًا بك في YAF.NET Installation</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>سيقوم هذا المثبت بإرشادك خلال الخطوات المطلوبة لتثبيت YetAnotherForum.NET (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>مرحبًا بك في عملية ترقية YAF.NET</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>انقر فوق "التالي" لبدء عملية الترقية.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>نعم فعلا</value>

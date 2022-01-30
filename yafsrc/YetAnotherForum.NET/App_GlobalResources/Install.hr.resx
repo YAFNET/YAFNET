@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Stvorite novi odbor</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Kreirajte lozinku Config</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Budući da je ovo prvi put da instalirate ili nadogradite ovu verziju foruma, morate stvoriti konfiguracijsku lozinku za sigurnost.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Stvorite novog super korisnika (domaćina)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Korisničko ime već postoji. Unesite drugo korisničko ime.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Unesite lozinku Config</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Unesite konfiguracijsku lozinku za nadogradnju ili ručnu instalaciju foruma.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>greška</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Pošaljite probnu poruku na adresu e-pošte koja je definirana kao Pošalji na adresu</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Nema pisanog pristupa postavkama aplikacije</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Kliknite "Dalje" kada budete spremni.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Zbog problema s dozvolom nije moguće izmijeniti vašu konfiguracijsku datoteku radi pisanja instalacijske lozinke.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Migracija uloga i korisnika</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>korisnika koji se nalaze u vašoj bazi podataka foruma.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Kliknite "Dalje" da biste započeli nadogradnju (migraciju) svih uloga i korisnika iz svoje stare, još jedne, Forum.NET baze podataka na .NET Model pružatelja usluga.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Zadatak migracije može trajati &lt;strong&gt; vrlo &lt;/strong&gt; dugo, ovisno o tome koliko je korisnika na vašem forumu.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Onemogući migraciju (ne preporučuje se)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Premještanje korisnika ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Ne kretajte se od ove stranice dok je migracija u tijeku. Provođenje migracije može potrajati jako dugo.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Stvorite novi niz veza DB-a</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Kliknite "Dalje" kada budete spremni.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>Klikom na "Dalje" nadogradit ćete vašu bazu podataka do najnovije verzije.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>NE</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>datoteke u korijenski direktorij aplikacije i dodajte / ažurirajte sljedeći ključ u &amp; lt; connectionStrings &amp; gt; odjeljak:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Ova se lozinka pohranjuje s vašim Postavkama u datoteci ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Provjera nije ista kao i vaša lozinka.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Davatelj autentifikacije vratio je pogrešku. Potvrdite unos i pokušajte ponovo. Ako problem i dalje postoji, obratite se administratoru sustava.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Ponovno unesite lozinku Config</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Odgovor na sigurnosno pitanje</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>neprovjeren</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Dogodila se nepoznata pogreška. Potvrdite unos i pokušajte ponovo. Ako problem i dalje postoji, obratite se administratoru sustava.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>nadogradnja</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>Nadogradite BBCode proširenja, proširenja datoteka i spam riječi</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Vaš je forum sada nadograđen na najnoviju verziju.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Ako je ovo nadogradnja, unesite konfiguracijsku lozinku koju ste stvorili prilikom prvog instaliranja foruma, a ne korisničku lozinku administratora.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Nadogradnja verzije:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Zahtjev za stvaranje korisnika je otkazan. Potvrdite unos i pokušajte ponovo. Ako problem i dalje postoji, obratite se administratoru sustava.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>Kliknite dolje da provjerite jesu li dozvole ispravne. Ako nisu, možete
                         još uvijek koristite čarobnjaka za instalaciju.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>Spremate se nadograditi YAF.NET na najnoviju verziju. Prije nastavka postupka nadogradnje provjerite da ...
-                        &lt;Ul&gt;
-                            &lt;li&gt; stvorili ste sigurnosnu kopiju postojeće instalacije &lt;/li&gt;
-                        &lt;/ Ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>Dobrodošli u YAF.NET instalaciju</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Ovaj instalacijski program vodit će vas kroz korake potrebne za instaliranje YetAbodyForum.NET (YAF.NET).</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>Dobrodošli u postupak nadogradnje YAF.NET</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Kliknite "Dalje" za pokretanje postupka nadogradnje.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>DA</value>

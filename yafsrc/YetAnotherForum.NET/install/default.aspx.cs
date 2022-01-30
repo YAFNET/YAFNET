@@ -42,10 +42,8 @@ namespace YAF.Install
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Membership;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -63,15 +61,6 @@ namespace YAF.Install
     /// </summary>
     public partial class _default : BasePage, IHaveServiceLocator
     {
-        #region Constants
-
-        /// <summary>
-        ///     The app settings password key.
-        /// </summary>
-        private const string AppPasswordKey = "YAF.ConfigPassword";
-
-        #endregion
-
         #region Fields
 
         /// <summary>
@@ -84,30 +73,19 @@ namespace YAF.Install
         /// </summary>
         private string loadMessage = string.Empty;
 
-        /// <summary>
-        /// The _is forum installed.
-        /// </summary>
-        private bool? isForumInstalled;
-
         #endregion
 
         #region Public Properties
 
         /// <summary>
-        ///     Gets the install upgrade service.
+        ///     Gets the install service.
         /// </summary>
-        public InstallUpgradeService InstallUpgradeService => this.Get<InstallUpgradeService>();
-
-        /// <summary>
-        ///     Gets a value indicating whether IsInstalled.
-        /// </summary>
-        public bool IsConfigPasswordSet => this.config.GetConfigValueAsString(AppPasswordKey).IsSet();
+        public InstallService InstallService => this.Get<InstallService>();
 
         /// <summary>
         /// Gets a value indicating whether is forum installed.
         /// </summary>
-        public bool IsForumInstalled =>
-            (this.isForumInstalled ?? (this.isForumInstalled = this.InstallUpgradeService.IsForumInstalled)).Value;
+        public bool IsForumInstalled => this.InstallService.IsForumInstalled;
 
         /// <summary>
         ///     Gets ServiceLocator.
@@ -206,7 +184,7 @@ namespace YAF.Install
         protected void TestDBConnectionManual_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // attempt to connect DB...
-            if (!this.InstallUpgradeService.TestDatabaseConnection(out var message))
+            if (!this.InstallService.TestDatabaseConnection(out var message))
             {
                 UpdateInfoPanel(
                     this.ManualConnectionInfoHolder,
@@ -240,7 +218,7 @@ namespace YAF.Install
             // attempt to connect selected DB...
             BoardContext.Current["ConnectionString"] = this.CurrentConnString;
 
-            if (!this.InstallUpgradeService.TestDatabaseConnection(out var message))
+            if (!this.InstallService.TestDatabaseConnection(out var message))
             {
                 UpdateInfoPanel(
                     this.ConnectionInfoHolder,
@@ -353,30 +331,6 @@ namespace YAF.Install
 
             switch (this.CurrentWizardStepID)
             {
-                case "WizCreatePassword":
-                    this.lblConfigPasswordAppSettingFile.Text = "app.config";
-
-                    if (this.IsConfigPasswordSet)
-                    {
-                        // no need for this setup if IsInstalled...
-                        this.InstallWizard.ActiveStepIndex++;
-
-                        if (!this.IsForumInstalled)
-                        {
-                            // Skip enter the password on a new install when
-                            // the app.config password is already set
-                            this.CurrentWizardStepID = "WizDatabaseConnection";
-                        }
-                    }
-
-                    break;
-                case "WizCreateForum":
-                    if (this.InstallUpgradeService.IsForumInstalled)
-                    {
-                        this.InstallWizard.ActiveStepIndex++;
-                    }
-
-                    break;
                 case "WizDatabaseConnection":
                     previousVisible = true;
 
@@ -387,10 +341,6 @@ namespace YAF.Install
                     this.lblAppSettingsFile.Text = "app.config";
 
                     previousVisible = true;
-                    break;
-                case "WizManuallySetPassword":
-                    this.lblAppSettingsFile2.Text = "app.config";
-
                     break;
                 case "WizTestSettings":
                     previousVisible = true;
@@ -470,62 +420,8 @@ namespace YAF.Install
                 case "WizManualDatabaseConnection":
                     e.Cancel = false;
                     break;
-                case "WizCreatePassword":
-                    if (this.txtCreatePassword1.Text.IsNotSet())
-                    {
-                        this.ShowErrorMessage(Install.EnterConfigPassword);
-                        break;
-                    }
-
-                    if (this.txtCreatePassword2.Text != this.txtCreatePassword1.Text)
-                    {
-                        this.ShowErrorMessage(Install.PasswordNoMatch);
-                        break;
-                    }
-
-                    e.Cancel = false;
-
-                    this.CurrentWizardStepID = this.config.WriteAppSetting(AppPasswordKey, this.txtCreatePassword1.Text)
-                        ? "WizDatabaseConnection"
-                        : "WizManuallySetPassword";
-
-                    break;
-                case "WizManuallySetPassword":
-                    if (this.IsConfigPasswordSet)
-                    {
-                        e.Cancel = false;
-                    }
-                    else
-                    {
-                        this.ShowErrorMessage(Install.ErrorConfigPassword);
-                    }
-
-                    break;
                 case "WizTestSettings":
                     e.Cancel = false;
-                    break;
-                case "WizEnterPassword":
-                    if (this.config.GetConfigValueAsString(AppPasswordKey) ==
-                        new SQLPasswordHasher().HashPassword(this.txtEnteredPassword.Text) ||
-                        this.config.GetConfigValueAsString(AppPasswordKey) == this.txtEnteredPassword.Text.Trim())
-                    {
-                        e.Cancel = false;
-
-                        // move to upgrade..
-                        this.CurrentWizardStepID =
-                            this.IsForumInstalled ? "WizWelcomeUpgrade" : "WizDatabaseConnection";
-
-                        var versionName = this.GetRepository<Registry>().GetDbVersionName();
-                        var version = this.GetRepository<Registry>().GetDbVersion();
-
-                        this.CurrentVersionName.Text = version < 0 ? "New" : $"{versionName} ({version})";
-                        this.UpgradeVersionName.Text = $"{BoardInfo.AppVersionName} ({BoardInfo.AppVersion})";
-                    }
-                    else
-                    {
-                        this.ShowErrorMessage(Install.ErrorWrongPassword);
-                    }
-
                     break;
                 case "WizCreateForum":
                     if (this.CreateForum())
@@ -535,18 +431,11 @@ namespace YAF.Install
 
                     break;
                 case "WizInitDatabase":
-                    if (this.InstallUpgradeService.InitializeOrUpgradeDatabase(this.UpgradeExtensions.Checked))
+                    if (this.InstallService.InitializeDatabase())
                     {
                         e.Cancel = false;
                     }
 
-                    break;
-                case "WizWelcomeUpgrade":
-
-                    e.Cancel = false;
-
-                    // move to upgrade..
-                    this.CurrentWizardStepID = "WizInitDatabase";
                     break;
                 case "WizWelcome":
 
@@ -687,12 +576,6 @@ namespace YAF.Install
         /// </returns>
         private bool CreateForum()
         {
-            if (this.InstallUpgradeService.IsForumInstalled)
-            {
-                this.ShowErrorMessage(Install.ErrorBoardInstalled);
-                return false;
-            }
-
             if (this.TheForumName.Text.IsNotSet())
             {
                 this.ShowErrorMessage(Install.ErrorBoardName);
@@ -792,7 +675,7 @@ namespace YAF.Install
                 this.Get<IAspNetUsersHelper>().SignOut();
 
                 // init forum...
-                this.InstallUpgradeService.InitializeForum(
+                this.InstallService.InitializeForum(
                     applicationId,
                     this.TheForumName.Text,
                     this.Cultures.SelectedValue,
@@ -865,6 +748,12 @@ namespace YAF.Install
                 return;
             }
 
+            if (this.InstallService.IsForumInstalled)
+            {
+                this.Get<HttpResponseBase>().Redirect("~/");
+                return;
+            }
+
             var errorMessage = this.InstallWizard.FindControlAs<PlaceHolder>("ErrorMessage");
 
             if (this.loadMessage.IsNotSet())
@@ -894,22 +783,12 @@ namespace YAF.Install
             {
                 this.Cache["DBVersion"] = this.GetRepository<Registry>().GetDbVersion();
 
-                this.CurrentWizardStepID = this.IsConfigPasswordSet && this.IsForumInstalled
-                    ? "WizEnterPassword"
-                    : "WizWelcome";
+                this.CurrentWizardStepID = "WizWelcome";
 
                 if (!this.IsForumInstalled)
                 {
                     // fake the board settings
                     BoardContext.Current.BoardSettings = new BoardSettings();
-                }
-
-                // "WizCreatePassword"
-                if (this.IsConfigPasswordSet)
-                {
-                    this.txtEnteredPassword.Attributes.Add(
-                        "onkeydown",
-                        JavaScriptBlocks.ClickOnEnterJs("InstallWizard_StepNavigationTemplateContainerID_StepNextButton"));
                 }
 
                 this.Cultures.DataSource = StaticDataHelper.Cultures();

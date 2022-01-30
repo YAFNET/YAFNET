@@ -162,12 +162,6 @@
   <data name="CreateBoard" xml:space="preserve">
     <value>Yeni Tahta Oluştur</value>
   </data>
-  <data name="CreatePassword" xml:space="preserve">
-    <value>Yapılandırma Şifresi Oluştur</value>
-  </data>
-  <data name="CreatePasswordText" xml:space="preserve">
-    <value>Forumun bu sürümünü ilk kez yüklediğinizde veya yükselttiğinizden beri, güvenlik için bir yapılandırma şifresi oluşturmanız gerekir.</value>
-  </data>
   <data name="CreateUser" xml:space="preserve">
     <value>Yeni Süper Kullanıcı Oluştur (Host)</value>
   </data>
@@ -194,12 +188,6 @@
   </data>
   <data name="DuplicateUserName" xml:space="preserve">
     <value>Kullanıcı adı zaten var. Lütfen farklı bir kullanıcı adı girin.</value>
-  </data>
-  <data name="EnterConfigPassword" xml:space="preserve">
-    <value>Yapılandırma Şifresini Girin</value>
-  </data>
-  <data name="EnterConfigPasswordDesc" xml:space="preserve">
-    <value>Forumu yükseltmek veya el ile kurmak için yapılandırma şifresini girin.</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Hata</value>
@@ -294,36 +282,6 @@
   <data name="MailTestDesc" xml:space="preserve">
     <value>Adrese gönder olarak tanımlanan e-posta adresine bir test mesajı gönderir.</value>
   </data>
-  <data name="ManuallyPassword" xml:space="preserve">
-    <value>Uygulama Ayarlarına Yazma Erişimi Yok</value>
-  </data>
-  <data name="ManuallyPasswordDesc" xml:space="preserve">
-    <value>Hazır olduğunuzda "İleri" yi tıklayın.</value>
-  </data>
-  <data name="ManuallyPasswordError" xml:space="preserve">
-    <value>Bir yapılandırma sorunu nedeniyle kurulum şifrenizi yazmak için config dosyanızı değiştiremiyor.</value>
-  </data>
-  <data name="Migrate" xml:space="preserve">
-    <value>Rolleri ve Kullanıcıları Taşıma</value>
-  </data>
-  <data name="MigrateCount" xml:space="preserve">
-    <value>forum veritabanında bulunan kullanıcılar.</value>
-  </data>
-  <data name="MigrateDesc" xml:space="preserve">
-    <value>Tüm rollerin ve kullanıcıların eski Yet Another Forum.NET veritabanınızdan .NET Provider Modeline yükseltilmesini (geçişini) başlatmak için "İleri" düğmesini tıklayın.</value>
-  </data>
-  <data name="MigrateNote" xml:space="preserve">
-    <value>Geçiş görevi, forumunuzdaki kaç kullanıcının olduğuna bağlı olarak &lt;strong&gt; çok &lt;/strong&gt; uzun zaman alabilir.</value>
-  </data>
-  <data name="MigrateSkip" xml:space="preserve">
-    <value>Geçişi Devre Dışı Bırak (önerilmez)</value>
-  </data>
-  <data name="MigrateUsers" xml:space="preserve">
-    <value>Kullanıcılar Taşınıyor ...</value>
-  </data>
-  <data name="MigrateUsersText" xml:space="preserve">
-    <value>Taşıma işlemi devam ederken lütfen bu sayfadan uzaklaşmayın. Göçün gerçekleşmesi çok uzun zaman alabilir.</value>
-  </data>
   <data name="NewConnection" xml:space="preserve">
     <value>Yeni DB Bağlantı Dizesi Oluştur</value>
   </data>
@@ -335,9 +293,6 @@
   </data>
   <data name="NextReady" xml:space="preserve">
     <value>Hazır olduğunuzda "İleri" yi tıklayın.</value>
-  </data>
-  <data name="NextUpgradeDb" xml:space="preserve">
-    <value>"İleri" yi tıklamak, veritabanınızı en son sürüme yükseltir.</value>
   </data>
   <data name="No" xml:space="preserve">
     <value>YOK HAYIR</value>
@@ -366,9 +321,6 @@
   <data name="OpenFileDesc2" xml:space="preserve">
     <value>Uygulama kök dizininde dosya ve &lt;connectionStrings&gt; bölümünde aşağıdaki anahtarı ekleyin / güncelleyin:</value>
   </data>
-  <data name="PasswordFile" xml:space="preserve">
-    <value>Bu şifre, appSettings'inizde dosyada saklanır ...</value>
-  </data>
   <data name="PasswordNoMatch" xml:space="preserve">
     <value>Doğrulama şifrenizle aynı değil.</value>
   </data>
@@ -383,9 +335,6 @@
   </data>
   <data name="ProviderError" xml:space="preserve">
     <value>Kimlik doğrulama sağlayıcısı bir hata döndürdü. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun.</value>
-  </data>
-  <data name="ReenterConfigPassword" xml:space="preserve">
-    <value>Yapılandırma Şifresini Yeniden Girin</value>
   </data>
   <data name="SecurityAnswer" xml:space="preserve">
     <value>Güvenlik sorusunun cevabı</value>
@@ -441,24 +390,6 @@
   <data name="Unchecked" xml:space="preserve">
     <value>kontrolsüz</value>
   </data>
-  <data name="UnknownError" xml:space="preserve">
-    <value>Bilinmeyen bir hata oluştu. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun.</value>
-  </data>
-  <data name="Upgrade" xml:space="preserve">
-    <value>Yükselt</value>
-  </data>
-  <data name="UpgradeExtensions" xml:space="preserve">
-    <value>BBCode Uzantıları, Dosya Uzantıları ve Spam Kelimeleri Yükseltme</value>
-  </data>
-  <data name="UpgradeFinish" xml:space="preserve">
-    <value>Forumunuz şimdi en son sürüme yükseltildi.</value>
-  </data>
-  <data name="UpgradeNote" xml:space="preserve">
-    <value>Bu bir yükseltme ise, lütfen forum ilk yüklendiğinde oluşturduğunuz yapılandırma şifresini girin, yönetici kullanıcı şifresini değil.</value>
-  </data>
-  <data name="UpgradeVersion" xml:space="preserve">
-    <value>Yükseltme Sürümü:</value>
-  </data>
   <data name="UserRejected" xml:space="preserve">
     <value>Kullanıcı oluşturma isteği iptal edildi. Lütfen girişinizi doğrulayın ve tekrar deneyin. Sorun devam ederse, lütfen sistem yöneticinize başvurun.</value>
   </data>
@@ -473,12 +404,6 @@
     <value>İzinlerin doğru olup olmadığını test etmek için aşağıya tıklayın. Onlar değilse, yapabilirsiniz
                         hala kurulum sihirbazını kullanın.</value>
   </data>
-  <data name="WarningUpgrade" xml:space="preserve">
-    <value>YAF.NET'i en son sürüme yükseltmek üzeresiniz. Yükseltme işlemine devam etmeden önce lütfen şunlardan emin olun ...
-                        &lt;Ul&gt;
-                            &lt;li&gt; mevcut kurulumunuzun bir yedeğini oluşturdunuz &lt;/li&gt;
-                        &lt;/ Ul&gt;</value>
-  </data>
   <data name="WelcomeInstall" xml:space="preserve">
     <value>YAF.NET Kurulumuna Hoşgeldiniz</value>
   </data>
@@ -487,12 +412,6 @@
   </data>
   <data name="WelcomeInstallText" xml:space="preserve">
     <value>Bu Yükleyici, YetAnotherForum.NET'i (YAF.NET) yüklemek için gerekli adımlarda size rehberlik edecektir.</value>
-  </data>
-  <data name="WelcomeUpgrade" xml:space="preserve">
-    <value>YAF.NET Yükseltme Sürecine Hoş Geldiniz</value>
-  </data>
-  <data name="WelcomeUpgradeDesc" xml:space="preserve">
-    <value>Yükseltme işlemini başlatmak için "İleri" ye tıklayın.</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>EVET</value>
