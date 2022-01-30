@@ -13,7 +13,7 @@ If you have any questions or would like to get in touch with the project, please
 ### Installation & Upgrade
 
 1.  [New Installation](https://github.com/YAFNET/YAFNET/wiki/Installation)
-2.  [Upgrade to YAF.NET v3.0.1(or newer)](https://github.com/YAFNET/YAFNET/wiki/Upgrade-to-YAF.NET-v3.0.1-(or-newer))
+2.  [Upgrade to YAF.NET v3.0.2(or newer)](https://github.com/YAFNET/YAFNET/wiki/Upgrade-to-YAF.NET-v3.0.2-(or-newer))
 
 ### DNN Module
 
