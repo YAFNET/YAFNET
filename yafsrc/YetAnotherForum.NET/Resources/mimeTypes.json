@@ -72,6 +72,10 @@
     "Type": "image/x-jg"
   },
   {
+    "Extension": "ascx",
+    "Type": "application/xml"
+  },
+  {
     "Extension": "asf",
     "Type": "video/x-ms-asf"
   },
