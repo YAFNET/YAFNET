@@ -109,7 +109,7 @@
             var limit = repository.DbAccess
                 .Execute(db => db.Connection.Select<(int GroupLimit, int? RankLimit)>(expression)).FirstOrDefault();
 
-            var numberAllowed = limit.RankLimit.Value;
+            var numberAllowed = limit.RankLimit ?? 0;
 
             if (limit.GroupLimit > limit.RankLimit)
             {
