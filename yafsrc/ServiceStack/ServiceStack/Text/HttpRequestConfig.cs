@@ -21,22 +21,54 @@ namespace ServiceStack
         public string? UserAgent { get; set; }
 
         public string? ContentType { get; set; }
-
-        public KeyValuePair<string, string>? Authorization { get; set; }
-
-        public Dictionary<string, string>? Headers { get; set; }
-
-        public string AuthBearer
+        public string? Referer { get; set; }
+        public string? Expect { get; set; }
+        public string[]? TransferEncoding { get; set; }
+        public bool? TransferEncodingChunked { get; set; }
+        public NameValue? Authorization { get; set; }
+        public LongRange? Range { get; set; }
+        public List<NameValue> Headers { get; set; } = new();
+        public void SetAuthBearer(string value) => Authorization = new("Bearer", value);
+        public void SetAuthBasic(string name, string value) =>
+            Authorization = new("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(name + ":" + value)));
+        public void SetRange(long from, long? to = null) => Range = new(from, to);
+        public void AddHeader(string name, string value) => Headers.Add(new(name, value));
+        public record NameValue
         {
-            set => Authorization = new("Bearer", value);
+            public NameValue(string name, string value)
+            {
+                this.Name = name;
+                this.Value = value;
+            }
+
+            public string Name { get; }
+
+            public string Value { get; }
+
+            public void Deconstruct(out string name, out string value)
+            {
+                name = this.Name;
+                value = this.Value;
+            }
         }
 
-        public KeyValuePair<string, string> AuthBasic
+        public record LongRange
         {
-            set =>
-                Authorization = new(
-                    "Basic",
-                    Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Key + ":" + value.Value)));
+            public LongRange(long from, long? to = null)
+            {
+                this.From = from;
+                this.To = to;
+            }
+
+            public long From { get; }
+
+            public long? To { get; }
+
+            public void Deconstruct(out long from, out long? to)
+            {
+                from = this.From;
+                to = this.To;
+            }
         }
     }
 }

@@ -139,8 +139,9 @@ namespace ServiceStack
             return start != -1 ? contentType.Substring(start, end - start + 1).ToLowerInvariant() : null;
         }
 
-        //Compares two string from start to ';' char, case-insensitive,
-        //ignoring (trimming) spaces at start and end
+        /// <summary>
+        /// Case-insensitive, trimmed compare of two content types from start to ';', i.e. without charset suffix 
+        /// </summary>
         public static bool MatchesContentType(string contentType, string matchesContentType)
         {
             if (contentType == null || matchesContentType == null)

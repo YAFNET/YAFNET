@@ -15,6 +15,7 @@ namespace ServiceStack
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
+
     using ServiceStack.Text;
 
     public static partial class HttpUtils
@@ -1707,18 +1708,26 @@ namespace ServiceStack
         public static void DownloadFileTo(
             this string downloadUrl,
             string fileName,
-            Dictionary<string, string> headers = null)
+            List<HttpRequestConfig.NameValue> headers = null)
         {
             var webClient = new WebClient();
             if (headers != null)
             {
-                foreach (var entry in headers)
+                foreach (var header in headers)
                 {
-                    webClient.Headers[entry.Key] = entry.Value;
+                    webClient.Headers[header.Name] = header.Value;
                 }
             }
 
             webClient.DownloadFile(downloadUrl, fileName);
+        }
+
+        public static void SetRange(this HttpWebRequest request, long from, long? to)
+        {
+            if (to != null)
+                request.AddRange(from, to.Value);
+            else
+                request.AddRange(from);
         }
 
         public static void AddHeader(this HttpWebRequest res, string name, string value) => res.Headers[name] = value;
@@ -1733,13 +1742,17 @@ namespace ServiceStack
             return httpReq;
         }
 
+        /// <summary>
+        /// Populate HttpRequestMessage with a simpler, untyped API
+        /// Syntax compatible with HttpClient's HttpRequestMessage
+        /// </summary>
         public static HttpWebRequest With(this HttpWebRequest httpReq, Action<HttpRequestConfig> configure)
         {
             var config = new HttpRequestConfig();
             configure(config);
 
             if (config.Accept != null)
-                httpReq.Headers.Add(HttpHeaders.Accept, config.Accept);
+                httpReq.Accept = config.Accept;
 
             if (config.UserAgent != null)
                 httpReq.UserAgent = config.UserAgent;
@@ -1747,16 +1760,22 @@ namespace ServiceStack
             if (config.ContentType != null)
                 httpReq.ContentType = config.ContentType;
 
+            if (config.Referer != null)
+                httpReq.Referer = config.Referer;
+
             if (config.Authorization != null)
                 httpReq.Headers[HttpHeaders.Authorization] =
-                    config.Authorization.Value.Key + " " + config.Authorization.Value.Value;
+                    config.Authorization.Name + " " + config.Authorization.Value;
 
-            if (config.Headers != null)
+            if (config.Range != null)
+                httpReq.SetRange(config.Range.From, config.Range.To);
+
+            if (config.Expect != null)
+                httpReq.Expect = config.Expect;
+
+            foreach (var entry in config.Headers)
             {
-                foreach (var entry in config.Headers)
-                {
-                    httpReq.Headers[entry.Key] = entry.Value;
-                }
+                httpReq.Headers[entry.Name] = entry.Value;
             }
 
             return httpReq;
@@ -1814,6 +1833,22 @@ namespace ServiceStack
         {
             UploadFileFn?.Invoke(webRequest, fileStream, fileName);
         }
+    }
+
+    public static class HttpClientExt
+    {
+        /// <summary>
+        /// Case-insensitive, trimmed compare of two content types from start to ';', i.e. without charset suffix 
+        /// </summary>
+        public static bool MatchesContentType(this HttpWebResponse res, string matchesContentType) =>
+            MimeTypes.MatchesContentType(res.Headers[HttpHeaders.ContentType], matchesContentType);
+
+        /// <summary>
+        /// Returns null for unknown Content-length
+        /// Syntax + Behavior compatible with HttpClient HttpResponseMessage 
+        /// </summary>
+        public static long? GetContentLength(this HttpWebResponse res) =>
+            res.ContentLength == -1 ? null : res.ContentLength;
     }
 }
 

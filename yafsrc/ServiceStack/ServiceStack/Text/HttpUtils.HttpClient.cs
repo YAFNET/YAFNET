@@ -21,7 +21,6 @@ using ServiceStack.Text;
 
 namespace ServiceStack
 {
-
     public static partial class HttpUtils
     {
         private class HttpClientFactory
@@ -65,7 +64,7 @@ namespace ServiceStack
             Action<HttpRequestMessage>? requestFilter = null,
             Action<HttpResponseMessage>? responseFilter = null)
         {
-            return url.GetStringFromUrl(MimeTypes.Json, requestFilter, responseFilter);
+            return url.GetStringFromUrl(accept: MimeTypes.Json, requestFilter, responseFilter);
         }
 
         public static Task<string> GetJsonFromUrlAsync(
@@ -74,7 +73,7 @@ namespace ServiceStack
             Action<HttpResponseMessage>? responseFilter = null,
             CancellationToken token = default)
         {
-            return url.GetStringFromUrlAsync(MimeTypes.Json, requestFilter, responseFilter, token: token);
+            return url.GetStringFromUrlAsync(accept: MimeTypes.Json, requestFilter, responseFilter, token: token);
         }
 
         public static string GetXmlFromUrl(
@@ -82,7 +81,7 @@ namespace ServiceStack
             Action<HttpRequestMessage>? requestFilter = null,
             Action<HttpResponseMessage>? responseFilter = null)
         {
-            return url.GetStringFromUrl(MimeTypes.Xml, requestFilter, responseFilter);
+            return url.GetStringFromUrl(accept: MimeTypes.Xml, requestFilter, responseFilter);
         }
 
         public static Task<string> GetXmlFromUrlAsync(
@@ -91,7 +90,7 @@ namespace ServiceStack
             Action<HttpResponseMessage>? responseFilter = null,
             CancellationToken token = default)
         {
-            return url.GetStringFromUrlAsync(MimeTypes.Xml, requestFilter, responseFilter, token: token);
+            return url.GetStringFromUrlAsync(accept: MimeTypes.Xml, requestFilter, responseFilter, token: token);
         }
 
         public static string GetCsvFromUrl(
@@ -99,7 +98,7 @@ namespace ServiceStack
             Action<HttpRequestMessage>? requestFilter = null,
             Action<HttpResponseMessage>? responseFilter = null)
         {
-            return url.GetStringFromUrl(MimeTypes.Csv, requestFilter, responseFilter);
+            return url.GetStringFromUrl(accept: MimeTypes.Csv, requestFilter, responseFilter);
         }
 
         public static Task<string> GetCsvFromUrlAsync(
@@ -108,7 +107,7 @@ namespace ServiceStack
             Action<HttpResponseMessage>? responseFilter = null,
             CancellationToken token = default)
         {
-            return url.GetStringFromUrlAsync(MimeTypes.Csv, requestFilter, responseFilter, token: token);
+            return url.GetStringFromUrlAsync(accept: MimeTypes.Csv, requestFilter, responseFilter, token: token);
         }
 
         public static string GetStringFromUrl(
@@ -924,12 +923,12 @@ namespace ServiceStack
         {
             return Create().SendStringToUrl(
                 url,
-                method,
-                requestBody,
-                contentType,
-                accept,
-                requestFilter,
-                responseFilter);
+                method: method,
+                requestBody: requestBody,
+                contentType: contentType,
+                accept: accept,
+                requestFilter: requestFilter,
+                responseFilter: responseFilter);
         }
 
         public static string SendStringToUrl(
@@ -949,7 +948,7 @@ namespace ServiceStack
             {
                 httpReq.Content = new StringContent(requestBody, UseEncoding);
                 if (contentType != null)
-                    httpReq.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             }
 
             requestFilter?.Invoke(httpReq);
@@ -972,12 +971,12 @@ namespace ServiceStack
         {
             return Create().SendStringToUrlAsync(
                 url,
-                method,
-                requestBody,
-                contentType,
-                accept,
-                requestFilter,
-                responseFilter,
+                method: method,
+                requestBody: requestBody,
+                contentType: contentType,
+                accept: accept,
+                requestFilter: requestFilter,
+                responseFilter: responseFilter,
                 token);
         }
 
@@ -999,7 +998,7 @@ namespace ServiceStack
             {
                 httpReq.Content = new StringContent(requestBody, UseEncoding);
                 if (contentType != null)
-                    httpReq.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             }
 
             requestFilter?.Invoke(httpReq);
@@ -1016,7 +1015,11 @@ namespace ServiceStack
             Action<HttpRequestMessage>? requestFilter = null,
             Action<HttpResponseMessage>? responseFilter = null)
         {
-            return url.SendBytesToUrl(accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+            return url.SendBytesToUrl(
+                method: HttpMethods.Get,
+                accept: accept,
+                requestFilter: requestFilter,
+                responseFilter: responseFilter);
         }
 
         public static Task<byte[]> GetBytesFromUrlAsync(
@@ -1027,6 +1030,7 @@ namespace ServiceStack
             CancellationToken token = default)
         {
             return url.SendBytesToUrlAsync(
+                method: HttpMethods.Get,
                 accept: accept,
                 requestFilter: requestFilter,
                 responseFilter: responseFilter,
@@ -1120,12 +1124,12 @@ namespace ServiceStack
         {
             return Create().SendBytesToUrl(
                 url,
-                method,
-                requestBody,
-                contentType,
-                accept,
-                requestFilter,
-                responseFilter);
+                method: method,
+                requestBody: requestBody,
+                contentType: contentType,
+                accept: accept,
+                requestFilter: requestFilter,
+                responseFilter: responseFilter);
         }
 
         public static byte[] SendBytesToUrl(
@@ -1145,7 +1149,7 @@ namespace ServiceStack
             {
                 httpReq.Content = new ReadOnlyMemoryContent(requestBody);
                 if (contentType != null)
-                    httpReq.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             }
 
             requestFilter?.Invoke(httpReq);
@@ -1195,7 +1199,7 @@ namespace ServiceStack
             {
                 httpReq.Content = new ReadOnlyMemoryContent(requestBody);
                 if (contentType != null)
-                    httpReq.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             }
 
             requestFilter?.Invoke(httpReq);
@@ -1213,7 +1217,11 @@ namespace ServiceStack
             Action<HttpRequestMessage>? requestFilter = null,
             Action<HttpResponseMessage>? responseFilter = null)
         {
-            return url.SendStreamToUrl(accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
+            return url.SendStreamToUrl(
+                method: HttpMethods.Get,
+                accept: accept,
+                requestFilter: requestFilter,
+                responseFilter: responseFilter);
         }
 
         public static Task<Stream> GetStreamFromUrlAsync(
@@ -1224,6 +1232,7 @@ namespace ServiceStack
             CancellationToken token = default)
         {
             return url.SendStreamToUrlAsync(
+                method: HttpMethods.Get,
                 accept: accept,
                 requestFilter: requestFilter,
                 responseFilter: responseFilter,
@@ -1317,12 +1326,12 @@ namespace ServiceStack
         {
             return Create().SendStreamToUrl(
                 url,
-                method,
-                requestBody,
-                contentType,
-                accept,
-                requestFilter,
-                responseFilter);
+                method: method,
+                requestBody: requestBody,
+                contentType: contentType,
+                accept: accept,
+                requestFilter: requestFilter,
+                responseFilter: responseFilter);
         }
 
         public static Stream SendStreamToUrl(
@@ -1342,7 +1351,7 @@ namespace ServiceStack
             {
                 httpReq.Content = new StreamContent(requestBody);
                 if (contentType != null)
-                    httpReq.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             }
 
             requestFilter?.Invoke(httpReq);
@@ -1365,12 +1374,12 @@ namespace ServiceStack
         {
             return Create().SendStreamToUrlAsync(
                 url,
-                method,
-                requestBody,
-                contentType,
-                accept,
-                requestFilter,
-                responseFilter,
+                method: method,
+                requestBody: requestBody,
+                contentType: contentType,
+                accept: accept,
+                requestFilter: requestFilter,
+                responseFilter: responseFilter,
                 token);
         }
 
@@ -1392,7 +1401,7 @@ namespace ServiceStack
             {
                 httpReq.Content = new StreamContent(requestBody);
                 if (contentType != null)
-                    httpReq.Content.Headers.ContentType = new MediaTypeHeaderValue(contentType);
+                    httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
             }
 
             requestFilter?.Invoke(httpReq);
@@ -1466,7 +1475,7 @@ namespace ServiceStack
             this HttpRequestMessage httpReq,
             Stream fileStream,
             string fileName,
-            string? mimeType = null,
+            string mimeType,
             string accept = "*/*",
             string method = HttpMethods.Post,
             string field = "file",
@@ -1767,11 +1776,45 @@ namespace ServiceStack
         public static void AddHeader(this HttpRequestMessage res, string name, string value) =>
             res.WithHeader(name, value);
 
-        public static string? GetHeader(this HttpRequestMessage res, string name) =>
-            res.Headers.TryGetValues(name, out var values) ? values.FirstOrDefault() : null;
+        /// <summary>
+        /// Returns first Request Header in HttpRequestMessage Headers and Content.Headers
+        /// </summary>
+        public static string? GetHeader(this HttpRequestMessage req, string name)
+        {
+            if (RequestHeadersResolver.TryGetValue(name, out var fn))
+                return fn(req);
 
-        public static string? GetHeader(this HttpResponseMessage res, string name) =>
-            res.Headers.TryGetValues(name, out var values) ? values.FirstOrDefault() : null;
+            return req.Headers.TryGetValues(name, out var headers)
+                       ? headers.FirstOrDefault()
+                       :
+                       req.Content?.Headers.TryGetValues(name, out var contentHeaders) == true
+                           ?
+                           contentHeaders!.FirstOrDefault()
+                           : null;
+        }
+
+        public static Dictionary<string, Func<HttpRequestMessage, string?>> RequestHeadersResolver { get; set; } =
+            new(StringComparer.OrdinalIgnoreCase) { };
+
+        public static Dictionary<string, Func<HttpResponseMessage, string?>> ResponseHeadersResolver { get; set; } =
+            new(StringComparer.OrdinalIgnoreCase) { };
+
+        /// <summary>
+        /// Returns first Response Header in HttpResponseMessage Headers and Content.Headers
+        /// </summary>
+        public static string? GetHeader(this HttpResponseMessage res, string name)
+        {
+            if (ResponseHeadersResolver.TryGetValue(name, out var fn))
+                return fn(res);
+
+            return res.Headers.TryGetValues(name, out var headers)
+                       ? headers.FirstOrDefault()
+                       :
+                       res.Content?.Headers.TryGetValues(name, out var contentHeaders) == true
+                           ?
+                           contentHeaders!.FirstOrDefault()
+                           : null;
+        }
 
         public static HttpRequestMessage WithHeader(this HttpRequestMessage httpReq, string name, string value)
         {
@@ -1784,22 +1827,15 @@ namespace ServiceStack
             {
                 if (httpReq.Content == null)
                     throw new NotSupportedException("Can't set ContentType before Content is populated");
-                httpReq.Content.Headers.ContentType = new MediaTypeHeaderValue(value);
+                httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(value);
+            }
+            else if (name.Equals(HttpHeaders.Referer, StringComparison.OrdinalIgnoreCase))
+            {
+                httpReq.Headers.Referrer = new Uri(value);
             }
             else if (name.Equals(HttpHeaders.UserAgent, StringComparison.OrdinalIgnoreCase))
             {
-                if (value.IndexOf('/') >= 0)
-                {
-                    var product = value.LastLeftPart('/');
-                    var version = value.LastRightPart('/');
-                    httpReq.Headers.UserAgent.Add(new ProductInfoHeaderValue(product, version));
-                }
-                else
-                {
-                    // Avoid format exceptions
-                    var commentFmt = value[0] == '(' && value[^1] == ')' ? value : $"({value})";
-                    httpReq.Headers.UserAgent.Add(new ProductInfoHeaderValue(commentFmt));
-                }
+                httpReq.Headers.UserAgent.ParseAdd(value);
             }
             else
             {
@@ -1809,44 +1845,69 @@ namespace ServiceStack
             return httpReq;
         }
 
+        /// <summary>
+        /// Populate HttpRequestMessage with a simpler, untyped API
+        /// Syntax compatible with HttpWebRequest
+        /// </summary>
         public static HttpRequestMessage With(this HttpRequestMessage httpReq, Action<HttpRequestConfig> configure)
         {
             var config = new HttpRequestConfig();
             configure(config);
 
-            config.Headers ??= new Dictionary<string, string>();
             var headers = config.Headers;
 
             if (config.Accept != null)
-                headers[HttpHeaders.Accept] = config.Accept;
+            {
+                httpReq.Headers.Accept.Clear(); //override or consistent behavior
+                httpReq.Headers.Accept.Add(new(config.Accept));
+            }
+
             if (config.UserAgent != null)
-                headers[HttpHeaders.UserAgent] = config.UserAgent;
+                headers.Add(new(HttpHeaders.UserAgent, config.UserAgent));
             if (config.ContentType != null)
-                headers[HttpHeaders.ContentType] = config.ContentType;
+            {
+                if (httpReq.Content == null)
+                    throw new NotSupportedException("Can't set ContentType before Content is populated");
+                httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(config.ContentType);
+            }
+
+            if (config.Referer != null)
+                httpReq.Headers.Referrer = new Uri(config.Referer);
             if (config.Authorization != null)
                 httpReq.Headers.Authorization = new AuthenticationHeaderValue(
-                    config.Authorization.Value.Key,
-                    config.Authorization.Value.Value);
+                    config.Authorization.Name,
+                    config.Authorization.Value);
+            if (config.Range != null)
+                httpReq.Headers.Range = new RangeHeaderValue(config.Range.From, config.Range.To);
+            if (config.Expect != null)
+                httpReq.Headers.Expect.Add(new(config.Expect));
+
+            if (config.TransferEncodingChunked != null)
+                httpReq.Headers.TransferEncodingChunked = config.TransferEncodingChunked.Value;
+            else if (config.TransferEncoding?.Length > 0)
+            {
+                foreach (var enc in config.TransferEncoding)
+                {
+                    httpReq.Headers.TransferEncoding.Add(new(enc));
+                }
+            }
 
             foreach (var entry in headers)
             {
-                httpReq.WithHeader(entry.Key, entry.Value);
+                httpReq.WithHeader(entry.Name, entry.Value);
             }
 
             return httpReq;
         }
 
-        public static void DownloadFileTo(
-            this string downloadUrl,
-            string fileName,
-            Dictionary<string, string>? headers = null)
+        public static void DownloadFileTo(this string downloadUrl, string fileName, List<HttpRequestConfig.NameValue>? headers = null)
         {
             var client = Create();
             var httpReq = new HttpRequestMessage(HttpMethod.Get, downloadUrl).With(
                 c =>
                     {
                         c.Accept = "*/*";
-                        c.Headers = headers;
+                        if (headers != null) c.Headers = headers;
                     });
 
             var httpRes = client.Send(httpReq);
@@ -1856,6 +1917,17 @@ namespace ServiceStack
             var bytes = httpRes.Content.ReadAsStream().ReadFully();
             fs.Write(bytes);
         }
+    }
+
+    public static class HttpClientExt
+    {
+        /// <summary>
+        /// Case-insensitive, trimmed compare of two content types from start to ';', i.e. without charset suffix 
+        /// </summary>
+        public static bool MatchesContentType(this HttpResponseMessage res, string matchesContentType) =>
+            MimeTypes.MatchesContentType(res.GetHeader(HttpHeaders.ContentType), matchesContentType);
+
+        public static long? GetContentLength(this HttpResponseMessage res) => res.Content.Headers.ContentLength;
     }
 }
 #endif

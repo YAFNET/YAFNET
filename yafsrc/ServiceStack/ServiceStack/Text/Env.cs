@@ -130,7 +130,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The service stack version
         /// </summary>
-        public static decimal ServiceStackVersion = 6.01m;
+        public static decimal ServiceStackVersion = 6.02m;
 
         /// <summary>
         /// Gets or sets a value indicating whether this instance is linux.
