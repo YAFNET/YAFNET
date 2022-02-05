@@ -55,12 +55,12 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The BBCode extensions import xml file.
         /// </summary>
-        private const string BbcodeImport = "BBCodeExtensions.xml";
+        private const string BbcodeImport = "Install/BBCodeExtensions.xml";
 
         /// <summary>
         ///     The Spam Words list import xml file.
         /// </summary>
-        private const string SpamWordsImport = "SpamWords.xml";
+        private const string SpamWordsImport = "Install/SpamWords.xml";
 
         #endregion
 

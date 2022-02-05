@@ -31,177 +31,197 @@ namespace YAF.Core.Services.Migrations
     using System.Text;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Model;
+    using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
     /// Version 80 Migrations
     /// </summary>
-    public class V80_Migration : IDbMigration
+    public class V80_Migration : IRepositoryMigration, IHaveServiceLocator
     {
+        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+
+        /// <summary>
+        /// Migrate Repositories (Database).
+        /// </summary>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
         public void MigrateDatabase(IDbAccess dbAccess)
         {
             dbAccess.Execute(
                 dbCommand =>
-                {
-                    this.UpgradeTableBoard(dbAccess, dbCommand);
-
-                    this.UpgradeTableBBCode(dbAccess, dbCommand);
-
-                    this.UpgradeTableActive(dbAccess, dbCommand);
-
-                    this.UpgradeTableActiveAccess(dbAccess, dbCommand);
-
-                    this.UpgradeTableBannedIP(dbAccess, dbCommand);
-
-                    this.UpgradeTableCategory(dbAccess, dbCommand);
-
-                    this.UpgradeTableEventLog(dbAccess, dbCommand);
-
-                    this.UpgradeTableForumReadTracking(dbAccess, dbCommand);
-
-                    this.UpgradeTableUserPMessage(dbAccess, dbCommand);
-
-                    this.UpgradeTableTopic(dbAccess, dbCommand);
-
-                    this.UpgradeTableTopicReadTracking(dbAccess, dbCommand);
-
-                    this.UpgradeTableUser(dbAccess, dbCommand);
-
-                    this.UpgradeTableForum(dbAccess, dbCommand);
-
-                    this.UpgradeTableGroup(dbAccess, dbCommand);
-
-                    this.UpgradeTableUserMedal(dbAccess, dbCommand);
-
-                    this.UpgradeTableGroupMedal(dbAccess, dbCommand);
-
-                    this.UpgradeTableAccessMask(dbAccess, dbCommand);
-
-                    this.UpgradeTablesNntpForum(dbAccess, dbCommand);
-
-                    this.UpgradeTablesNntpServer(dbAccess, dbCommand);
-
-                    this.UpgradeTablesNntpTopic(dbAccess, dbCommand);
-
-                    this.UpgradeTableReplace_Words(dbAccess, dbCommand);
-
-                    this.UpgradeTableRegistry(dbAccess, dbCommand);
-
-                    this.UpgradeTableMedal(dbAccess, dbCommand);
-
-                    this.UpgradeTableMessage(dbAccess, dbCommand);
-
-                    this.UpgradeTableMessageHistory(dbAccess, dbCommand);
-
-                    this.UpgradeTableMessageReported(dbAccess, dbCommand);
-
-                    this.UpgradeTableMessageReportedAudit(dbAccess, dbCommand);
-
-                    this.UpgradeTablePMessage(dbAccess, dbCommand);
-
-                    this.UpgradeTableRank(dbAccess, dbCommand);
-
-                    this.UpgradeTableCheckEmail(dbAccess, dbCommand);
-
-                    this.UpgradeTableAttachment(dbAccess, dbCommand);
-
-                    this.UpgradeTablePollVote(dbAccess, dbCommand);
-
-                    ///////////////////////////////////////////////////////////
-
-                    // Remove old Stuff
-                    this.UpgradeTablesPolls(dbAccess, dbCommand);
-
-                    if (dbCommand.Connection.TableExists("EventLogGroupAccess"))
                     {
-                        dbCommand.Connection.DropTable("EventLogGroupAccess");
-                    }
+                        this.UpgradeTable(this.GetRepository<Board>(), dbAccess, dbCommand);
 
-                    if (dbCommand.Connection.TableExists("TopicStatus"))
-                    {
-                        dbCommand.Connection.DropTable("TopicStatus");
-                    }
+                        this.UpgradeTable(this.GetRepository<BBCode>(), dbAccess, dbCommand);
 
-                    if (dbCommand.Connection.TableExists("ShoutboxMessage"))
-                    {
-                        dbCommand.Connection.DropTable("ShoutboxMessage");
-                    }
+                        this.UpgradeTable(this.GetRepository<Active>(), dbAccess, dbCommand);
 
-                    if (dbCommand.Connection.TableExists("Mail"))
-                    {
-                        dbCommand.Connection.DropTable("Mail");
-                    }
+                        this.UpgradeTable(this.GetRepository<ActiveAccess>(), dbAccess, dbCommand);
 
-                    if (dbCommand.Connection.TableExists("Extension"))
-                    {
-                        dbCommand.Connection.DropTable("Extension");
-                    }
+                        this.UpgradeTable(this.GetRepository<BannedIP>(), dbAccess, dbCommand);
 
-                    if (dbCommand.Connection.TableExists("UserProfile"))
-                    {
-                        dbCommand.Connection.DropTable("UserProfile");
-                    }
+                        this.UpgradeTable(this.GetRepository<Category>(), dbAccess, dbCommand);
 
-                    if (dbCommand.Connection.TableExists<FileExtension>())
-                    {
-                        dbCommand.Connection.DropTable<FileExtension>();
-                    }
+                        this.UpgradeTable(this.GetRepository<EventLog>(), dbAccess, dbCommand);
 
-                    return true;
-                });
+                        this.UpgradeTable(this.GetRepository<ForumReadTracking>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<UserPMessage>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Topic>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<TopicReadTracking>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Forum>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Group>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<UserMedal>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<GroupMedal>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<AccessMask>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<NntpForum>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<NntpServer>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<NntpTopic>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Replace_Words>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Registry>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Medal>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Message>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<MessageHistory>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<MessageReported>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<MessageReportedAudit>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<PMessage>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Rank>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<CheckEmail>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<Attachment>(), dbAccess, dbCommand);
+
+                        this.UpgradeTable(this.GetRepository<PollVote>(), dbAccess, dbCommand);
+
+                        ///////////////////////////////////////////////////////////
+
+                        // Remove old Stuff
+                        this.UpgradeTablesPolls(dbAccess, dbCommand);
+
+                        if (dbCommand.Connection.TableExists("EventLogGroupAccess"))
+                        {
+                            dbCommand.Connection.DropTable("EventLogGroupAccess");
+                        }
+
+                        if (dbCommand.Connection.TableExists("TopicStatus"))
+                        {
+                            dbCommand.Connection.DropTable("TopicStatus");
+                        }
+
+                        if (dbCommand.Connection.TableExists("ShoutboxMessage"))
+                        {
+                            dbCommand.Connection.DropTable("ShoutboxMessage");
+                        }
+
+                        if (dbCommand.Connection.TableExists("Mail"))
+                        {
+                            dbCommand.Connection.DropTable("Mail");
+                        }
+
+                        if (dbCommand.Connection.TableExists("Extension"))
+                        {
+                            dbCommand.Connection.DropTable("Extension");
+                        }
+
+                        if (dbCommand.Connection.TableExists("UserProfile"))
+                        {
+                            dbCommand.Connection.DropTable("UserProfile");
+                        }
+
+                        if (dbCommand.Connection.TableExists<FileExtension>())
+                        {
+                            // Migrate File Extensions
+                            var extensions = this.GetRepository<FileExtension>().Get(
+                                x => x.BoardId == this.Get<BoardSettings>().BoardID);
+
+                            this.GetRepository<Registry>().Save(
+                                "allowedfileextensions",
+                                extensions.Select(x => x.Extension).ToDelimitedString(","));
+
+                            dbCommand.Connection.DropTable<FileExtension>();
+                        }
+
+                        return true;
+                    });
 
             dbAccess.Execute(
                 dbCommand =>
-                {
-                    this.DeleteStoredProcedures(dbCommand);
+                    {
+                        this.DeleteStoredProcedures(dbCommand);
 
-                    this.DeleteTriggers(dbCommand);
+                        this.DeleteTriggers(dbCommand);
 
-                    return true;
-                });
-
-            dbAccess.Execute(
-                dbCommand =>
-                {
-                    // display names upgrade routine can run really for ages on large forums
-                    this.InitDisplayNames(dbCommand);
-
-                    return true;
-                });
+                        return true;
+                    });
 
             dbAccess.Execute(
                 dbCommand =>
-                {
-                    this.RemoveLegacyFullTextSearch(dbCommand);
+                    {
+                        // display names upgrade routine can run really for ages on large forums
+                        this.InitDisplayNames(dbCommand);
 
-                    return true;
-                });
+                        return true;
+                    });
+
+            dbAccess.Execute(
+                dbCommand =>
+                    {
+                        this.RemoveLegacyFullTextSearch(dbCommand);
+
+                        return true;
+                    });
 
             // Upgrade Views
             dbAccess.Execute(
                 dbCommand =>
-                {
-                    this.DropIndexViews(dbCommand);
+                    {
+                        this.DropIndexViews(dbCommand);
 
-                    this.DropViews(dbCommand);
+                        this.DropViews(dbCommand);
 
-                    dbAccess.Information.CreateViews(dbAccess, dbCommand);
+                        dbAccess.Information.CreateViews(dbAccess, dbCommand);
 
-                    dbAccess.Information.CreateIndexViews(dbAccess, dbCommand);
+                        dbAccess.Information.CreateIndexViews(dbAccess, dbCommand);
 
-                    return true;
-                });
+                        return true;
+                    });
 
             // Upgrade Functions
             dbAccess.Execute(
                 dbCommand =>
-                {
-                    this.DropFunctions(dbCommand);
+                    {
+                        this.DropFunctions(dbCommand);
 
-                    return true;
-                });
+                        return true;
+                    });
         }
 
         /// <summary>
@@ -209,7 +229,7 @@ namespace YAF.Core.Services.Migrations
         /// </summary>
         /// <param name="dbAccess">The db access.</param>
         /// <param name="dbCommand">The db command.</param>
-        public void UpgradeTableActive(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Active> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnMaxLength<Active>(x => x.Location) < 255)
             {
@@ -251,7 +271,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableActiveAccess(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<ActiveAccess>(x => x.LastActive))
             {
@@ -274,12 +294,12 @@ namespace YAF.Core.Services.Migrations
             dbCommand.Connection.DropIndex<ActiveAccess>();
         }
 
-        public void UpgradeTableTopicTag(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             dbCommand.Connection.DropIndex<TopicTag>($"UC_{Config.DatabaseObjectQualifier}TopicTag_TopicID_TagID");
         }
 
-        public void UpgradeTableUser(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<User>(x => x.NotificationType))
             {
@@ -365,34 +385,35 @@ namespace YAF.Core.Services.Migrations
             {
                 dbCommand.Connection.AddColumn<User>(x => x.PageSize);
             }
+
+            if (!dbCommand.Connection.ColumnExists<User>(x => x.PageSize))
+            {
+                dbCommand.Connection.AddColumn<User>(x => x.PageSize);
+            }
+
+            if (!dbCommand.Connection.ColumnExists<User>(x => x.DisplayName))
+            {
+                dbCommand.Connection.AddColumnWithCommand<User>("DisplayName nvarchar(255)");
+
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
+
+                dbCommand.Connection.ExecuteSql($@" update {expression.Table<User>()} set DisplayName = Name");
+
+                dbCommand.Connection.AlterColumn<User>(x => x.DisplayName);
+            }
+
+            if (!dbCommand.Connection.ColumnExists<User>(x => x.AutoWatchTopics))
+            {
+                dbCommand.Connection.AddColumn<User>(x => x.AutoWatchTopics);
+            }
+
+            if (!dbCommand.Connection.ColumnExists<User>(x => x.DailyDigest))
+            {
+                dbCommand.Connection.AddColumn<User>(x => x.DailyDigest);
+            }
         }
 
-        public void UpgradeTableUserAlbum(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableUserAlbumImage(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableUserForum(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableUserGroup(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableThanks(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableTopic(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Topic> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<Topic>(x => x.AnswerMessageId))
             {
@@ -450,7 +471,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableTopicReadTracking(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<TopicReadTracking> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             dbCommand.Connection.DropPrimaryKey<TopicReadTracking>($"{Config.DatabaseObjectQualifier}TopicTracking");
 
@@ -460,12 +481,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableAdminPageUserAccess(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableAttachment(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Attachment> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnMaxLength<Attachment>(x => x.ContentType) < 255)
             {
@@ -483,12 +499,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableBannedEmail(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableBannedIP(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<BannedIP> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<BannedIP>(x => x.Reason))
             {
@@ -506,12 +517,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableBannedName(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableBBCode(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<BBCode> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<BBCode>(x => x.UseModule))
             {
@@ -550,11 +556,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableActivity(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-        }
-
-        public void UpgradeTableBoard(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Board> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnExists<Board>("BoardUID"))
             {
@@ -577,12 +579,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableBuddy(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableCategory(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Category> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<Category>(x => x.CategoryImage))
             {
@@ -590,17 +587,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableProfileCustom(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableProfileDefinition(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableRank(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Rank> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<Rank>(x => x.PMLimit))
             {
@@ -672,10 +659,13 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.DropColumn<Rank>("IsLadder");
             }
 
-            dbCommand.Connection.DropColumn<Rank>("UsrSigHTMLTags");
+            if (dbCommand.Connection.ColumnExists<Rank>("UsrSigHTMLTags"))
+            {
+                dbCommand.Connection.DropColumn<Rank>("UsrSigHTMLTags");
+            }
         }
 
-        public void UpgradeTableRegistry(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Registry> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<Registry>(x => x.BoardID))
             {
@@ -688,7 +678,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableReplace_Words(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Replace_Words> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnMaxLength<Replace_Words>(x => x.BadWord) < 255)
             {
@@ -706,22 +696,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableReputationVote(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableSpam_Words(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableTag(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableCheckEmail(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<CheckEmail> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             dbCommand.Connection.DropIndex<CheckEmail>();
 
@@ -741,12 +716,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableChoice(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableEventLog(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<EventLog> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnDataType<EventLog>(x => x.Description) == "ntext")
             {
@@ -762,16 +732,6 @@ namespace YAF.Core.Services.Migrations
             {
                 dbCommand.Connection.AddColumn<EventLog>(x => x.Type);
             }
-        }
-
-        public void UpgradeTableFavoriteTopic(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableWatchTopic(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
         }
 
         public void UpgradeTablesPolls(IDbAccess dbAccess, IDbCommand dbCommand)
@@ -856,7 +816,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableForum(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Forum> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<Forum>(x => x.RemoteURL))
             {
@@ -954,18 +914,13 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableForumAccess(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableForumReadTracking(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<ForumReadTracking> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             dbCommand.Connection.DropPrimaryKey<ForumReadTracking>(
                 $"{Config.DatabaseObjectQualifier}ForumReadTracking");
         }
 
-        public void UpgradeTableUserPMessage(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<UserPMessage> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<UserPMessage>(x => x.Flags))
             {
@@ -978,12 +933,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableWatchForum(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableGroup(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnMaxLength<Group>(x => x.Name) < 255)
             {
@@ -1077,39 +1027,43 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.AddColumn<Group>(x => x.UsrAlbumImages);
             }
 
-            dbCommand.Connection.DropColumn<Group>("UsrSigHTMLTags");
+            if (dbCommand.Connection.ColumnExists<Group>("UsrSigHTMLTags"))
+            {
+                dbCommand.Connection.DropColumn<Group>("UsrSigHTMLTags");
+            }
         }
 
-        public void UpgradeTableUserMedal(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<UserMedal> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserMedal>();
+            if (dbCommand.Connection.ColumnExists<UserMedal>("OnlyRibbon"))
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserMedal>();
 
-            dbCommand.Connection.DropConstraint<UserMedal>(
-                $"DF_{Config.DatabaseObjectQualifier}{nameof(UserMedal)}_OnlyRibbon");
+                dbCommand.Connection.DropConstraint<UserMedal>(
+                    $"DF_{Config.DatabaseObjectQualifier}{nameof(UserMedal)}_OnlyRibbon");
 
-            dbCommand.Connection.DropColumn<UserMedal>("OnlyRibbon");
+                dbCommand.Connection.DropColumn<UserMedal>("OnlyRibbon");
+            }
         }
 
-        public void UpgradeTableGroupMedal(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<GroupMedal> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<GroupMedal>();
+            if (dbCommand.Connection.ColumnExists<GroupMedal>("OnlyRibbon"))
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<GroupMedal>();
 
-            // delete any old medals without valid groups.
-            dbCommand.Connection.ExecuteSql(
-                $@"DELETE FROM {expression.Table<GroupMedal>()} WHERE GroupID NOT IN (SELECT GroupID FROM {expression.Table<Group>()})");
+                // delete any old medals without valid groups.
+                dbCommand.Connection.ExecuteSql(
+                    $@"DELETE FROM {expression.Table<GroupMedal>()} WHERE GroupID NOT IN (SELECT GroupID FROM {expression.Table<Group>()})");
 
-            dbCommand.Connection.DropConstraint<GroupMedal>(
-                $"DF_{Config.DatabaseObjectQualifier}{nameof(GroupMedal)}_OnlyRibbon");
+                dbCommand.Connection.DropConstraint<GroupMedal>(
+                    $"DF_{Config.DatabaseObjectQualifier}{nameof(GroupMedal)}_OnlyRibbon");
 
-            dbCommand.Connection.DropColumn<GroupMedal>("OnlyRibbon");
+                dbCommand.Connection.DropColumn<GroupMedal>("OnlyRibbon");
+            }
         }
 
-        public void UpgradeTableIgnoreUser(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTableMedal(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Medal> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnDataType<Medal>(x => x.Description) == "ntext")
             {
@@ -1126,12 +1080,13 @@ namespace YAF.Core.Services.Migrations
                 dbCommand.Connection.DropColumn<Medal>("SmallMedalURL");
                 dbCommand.Connection.DropColumn<Medal>("SmallRibbonURL");
 
-                dbCommand.Connection.DropConstraint<Medal>($"DF_{Config.DatabaseObjectQualifier}{nameof(Medal)}_DefaultOrder");
+                dbCommand.Connection.DropConstraint<Medal>(
+                    $"DF_{Config.DatabaseObjectQualifier}{nameof(Medal)}_DefaultOrder");
                 dbCommand.Connection.DropColumn<Medal>("SortOrder");
             }
         }
 
-        public void UpgradeTableMessage(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Message> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<Message>(x => x.Flags))
             {
@@ -1210,7 +1165,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableMessageHistory(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<MessageHistory> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnDataType<MessageHistory>(x => x.Message) == "ntext")
             {
@@ -1241,7 +1196,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableMessageReported(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<MessageReported> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnDataType<MessageReported>(x => x.Message) == "ntext")
             {
@@ -1249,7 +1204,10 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableMessageReportedAudit(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(
+            IRepository<MessageReportedAudit> repository,
+            IDbAccess dbAccess,
+            IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<MessageReportedAudit>(x => x.ReportedNumber))
             {
@@ -1267,7 +1225,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTablesNntpForum(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<NntpForum> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<NntpForum>(x => x.DateCutOff))
             {
@@ -1280,7 +1238,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTablesNntpServer(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<NntpServer> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnMaxLength<NntpServer>(x => x.UserName) < 255)
             {
@@ -1288,7 +1246,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTablesNntpTopic(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<NntpTopic> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<NntpTopic>(x => x.Thread))
             {
@@ -1296,7 +1254,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTablePMessage(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<PMessage> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnDataType<PMessage>(x => x.Body) == "ntext")
             {
@@ -1314,12 +1272,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTablePoll(IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            // Not used
-        }
-
-        public void UpgradeTablePollVote(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<PollVote> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<PollVote>(x => x.ChoiceID))
             {
@@ -1327,7 +1280,7 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
-        public void UpgradeTableAccessMask(IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<AccessMask> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<AccessMask>(x => x.Flags))
             {

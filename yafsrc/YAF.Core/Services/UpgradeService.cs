@@ -41,7 +41,6 @@ namespace YAF.Core.Services
     using YAF.Core.Services.Import;
     using YAF.Core.Services.Migrations;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
@@ -50,6 +49,8 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
+
+    using Constants = YAF.Types.Constants.Constants;
 
     /// <summary>
     ///     The upgrade service.
@@ -61,12 +62,12 @@ namespace YAF.Core.Services
         /// <summary>
         ///     The BBCode extensions import xml file.
         /// </summary>
-        private const string BbcodeImport = "BBCodeExtensions.xml";
+        private const string BbcodeImport = "Install/BBCodeExtensions.xml";
 
         /// <summary>
         ///     The Spam Words list import xml file.
         /// </summary>
-        private const string SpamWordsImport = "SpamWords.xml";
+        private const string SpamWordsImport = "Install/SpamWords.xml";
 
         #endregion
 
@@ -153,14 +154,6 @@ namespace YAF.Core.Services
                     this.MigrateConfig();
                 }
 
-                // Migrate File Extensions
-                var extensions = this.GetRepository<FileExtension>()
-                    .Get(x => x.BoardId == this.Get<BoardSettings>().BoardID);
-
-                this.GetRepository<Registry>().Save(
-                    "allowedfileextensions",
-                    extensions.Select(x => x.Extension).ToDelimitedString(","));
-
                 this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
 
                 // Upgrade to ASPNET Identity
@@ -176,6 +169,11 @@ namespace YAF.Core.Services
 
                 // update default points from 0 to 1
                 this.GetRepository<User>().UpdateOnly(() => new User { Points = 1 }, u => u.Points == 0);
+            }
+
+            if (prevVersion < 30)
+            {
+                this.Get<V30_Migration>().MigrateDatabase(this.DbAccess);
             }
 
             if (prevVersion < 42)

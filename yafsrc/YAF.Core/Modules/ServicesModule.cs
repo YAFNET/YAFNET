@@ -52,6 +52,9 @@ namespace YAF.Core.Modules
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models.Identity;
 
+    using BBCode = YAF.Core.BBCode.BBCode;
+    using FavoriteTopic = YAF.Core.Services.FavoriteTopic;
+
     /// <summary>
     /// Registers all Service Modules
     /// </summary>
@@ -155,6 +158,7 @@ namespace YAF.Core.Modules
             builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
 
             // Migrations
+            builder.RegisterType<V30_Migration>().AsSelf().PreserveExistingDefaults();
             builder.RegisterType<V80_Migration>().AsSelf().PreserveExistingDefaults();
             builder.RegisterType<V81_Migration>().AsSelf().PreserveExistingDefaults();
             builder.RegisterType<V82_Migration>().AsSelf().PreserveExistingDefaults();
