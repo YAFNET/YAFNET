@@ -101,6 +101,7 @@ namespace YAF.Types.Models
         [Required]
         [Index]
         [StringLength(255)]
+        [Default("")]
         public string DisplayName { get; set; }
 
         /// <summary>

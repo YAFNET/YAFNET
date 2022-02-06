@@ -82,6 +82,7 @@ namespace YAF.Types.Models
         /// Gets or sets a value indicating whether is reply.
         /// </summary>
         [Required]
+        [Default(0)]
         public bool IsReply { get; set; }
 
         #endregion

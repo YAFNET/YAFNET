@@ -332,6 +332,18 @@ namespace YAF.Pages.Profile
 
             this.ForumList.DataBind();
             this.PagerForums.DataBind();
+
+
+
+            if (this.PagerForums.Count > 0)
+            {
+                this.UnsubscribeForums.Enabled = true;
+            }
+            else
+            {
+                this.NoInfoForums.Visible = true;
+                this.UnsubscribeForums.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -364,6 +376,16 @@ namespace YAF.Pages.Profile
 
             this.TopicList.DataBind();
             this.PagerTopics.DataBind();
+
+            if (this.PagerTopics.Count > 0)
+            {
+                this.UnsubscribeTopics.Enabled = true;
+            }
+            else
+            {
+                this.NoInfoTopics.Visible = true;
+                this.UnsubscribeTopics.Enabled = false;
+            }
         }
 
         /// <summary>
