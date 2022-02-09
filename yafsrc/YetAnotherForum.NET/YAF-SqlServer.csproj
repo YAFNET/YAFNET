@@ -1190,6 +1190,8 @@
     <Content Include="Content\bootstrap\mixins\_color-scheme.scss" />
     <Content Include="Content\bootstrap\_offcanvas.scss" />
     <Content Include="Content\bootstrap\_placeholders.scss" />
+    <Content Include="Content\fontawesome\_functions.scss" />
+    <Content Include="Content\fontawesome\_sizing.scss" />
     <None Include="Content\jquery.netStack.scss" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1910,7 +1912,6 @@
     <Content Include="Content\fontawesome\_core.scss" />
     <Content Include="Content\fontawesome\_fixed-width.scss" />
     <Content Include="Content\fontawesome\_icons.scss" />
-    <Content Include="Content\fontawesome\_larger.scss" />
     <Content Include="Content\fontawesome\_list.scss" />
     <Content Include="Content\fontawesome\_mixins.scss" />
     <Content Include="Content\fontawesome\_rotated-flipped.scss" />
@@ -1994,9 +1995,6 @@
     <Content Include="Content\Themes\zephyr\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
-    <Content Include="Content\webfonts\fa-brands-400.svg" />
-    <Content Include="Content\webfonts\fa-regular-400.svg" />
-    <Content Include="Content\webfonts\fa-solid-900.svg" />
     <Content Include="Controls\EditUsersAttachments.ascx" />
     <Content Include="Controls\OpenAuthProviders.ascx" />
     <Content Include="Controls\MostActiveUsers.ascx" />
@@ -3385,17 +3383,11 @@
     <Content Include="Content\Themes\yeti\bootstrap-forum.scss" />
     <Content Include="Content\Themes\superhero\bootstrap-forum.scss" />
     <Content Include="Content\Themes\sketchy\bootstrap-forum.scss" />
-    <Content Include="Content\webfonts\fa-brands-400.eot" />
     <Content Include="Content\webfonts\fa-brands-400.ttf" />
-    <Content Include="Content\webfonts\fa-brands-400.woff" />
     <Content Include="Content\webfonts\fa-brands-400.woff2" />
-    <Content Include="Content\webfonts\fa-regular-400.eot" />
     <Content Include="Content\webfonts\fa-regular-400.ttf" />
-    <Content Include="Content\webfonts\fa-regular-400.woff" />
     <Content Include="Content\webfonts\fa-regular-400.woff2" />
-    <Content Include="Content\webfonts\fa-solid-900.eot" />
     <Content Include="Content\webfonts\fa-solid-900.ttf" />
-    <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
     <None Include="Content\forum.scss" />
@@ -3457,6 +3449,8 @@
     <Content Include="Content\select2\_sizing.scss" />
     <Content Include="Content\select2\_validation.scss" />
     <Content Include="Content\select2\_variables.scss" />
+    <Content Include="Content\webfonts\fa-v4compatibility.ttf" />
+    <Content Include="Content\webfonts\fa-v4compatibility.woff2" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js">
@@ -3709,7 +3703,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

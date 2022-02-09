@@ -53,7 +53,6 @@ namespace YAF.Core.Modules
     using YAF.Types.Models.Identity;
 
     using BBCode = YAF.Core.BBCode.BBCode;
-    using FavoriteTopic = YAF.Core.Services.FavoriteTopic;
 
     /// <summary>
     /// Registers all Service Modules
@@ -207,8 +206,6 @@ namespace YAF.Core.Modules
 
             builder.RegisterType<StopWatch>().As<IStopWatch>().InstancePerBoardContext().PreserveExistingDefaults();
 
-            builder.RegisterType<FavoriteTopic>().As<IFavoriteTopic>().InstancePerBoardContext()
-                .PreserveExistingDefaults();
             builder.RegisterType<ThankYou>().As<IThankYou>().InstancePerBoardContext();
             builder.RegisterType<SpamCheck>().As<ISpamCheck>().InstancePerBoardContext();
         }
