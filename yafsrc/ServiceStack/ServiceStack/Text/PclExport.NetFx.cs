@@ -27,21 +27,21 @@ namespace ServiceStack.Text
     using System.Threading;
 
     /// <summary>
-    /// Class Net48PclExport.
+    /// Class NetFxPclExport.
     /// Implements the <see cref="PclExport" />
     /// </summary>
     /// <seealso cref="PclExport" />
-    public class Net48PclExport : PclExport
+    public class NetFxPclExport : PclExport
     {
         /// <summary>
         /// The provider
         /// </summary>
-        public static Net48PclExport Provider = new();
+        public static NetFxPclExport Provider = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Net48PclExport"/> class.
+        /// Initializes a new instance of the <see cref="NetFxPclExport"/> class.
         /// </summary>
-        public Net48PclExport()
+        public NetFxPclExport()
         {
             this.DirSep = Path.DirectorySeparatorChar;
             this.AltDirSep = Path.DirectorySeparatorChar == '/' ? '\\' : '/';
@@ -51,7 +51,7 @@ namespace ServiceStack.Text
             this.InvariantComparer = StringComparer.InvariantCulture;
             this.InvariantComparerIgnoreCase = StringComparer.InvariantCultureIgnoreCase;
 
-            this.PlatformName = Platforms.Net48;
+            this.PlatformName = Platforms.NetFx;
             ReflectionOptimizer.Instance = EmitReflectionOptimizer.Provider;
         }
 

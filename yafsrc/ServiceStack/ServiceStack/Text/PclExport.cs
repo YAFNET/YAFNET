@@ -34,15 +34,15 @@ namespace ServiceStack.Text
             /// <summary>
             /// The net standard
             /// </summary>
-            public const string NetStandard = "NETStandard";
+            public const string NetStandard = "NETStd";
             /// <summary>
             /// The net core
             /// </summary>
-            public const string NetCore = "NetCore";
+            public const string Net6 = "NET6";
             /// <summary>
             /// The net48
             /// </summary>
-            public const string Net48 = "Net48";
+            public const string NetFx = "NETFX";
         }
 
         /// <summary>
@@ -50,11 +50,11 @@ namespace ServiceStack.Text
         /// </summary>
         public static PclExport Instance
 #if NETFX
-          = new Net48PclExport()
+          = new NetFxPclExport()
 #elif NETSTANDARD2_0
           = new NetStandardPclExport()
 #elif NETCORE || NET6_0_OR_GREATER
-          = new NetCorePclExport()
+          = new Net6PclExport()
 #endif
         ;
 

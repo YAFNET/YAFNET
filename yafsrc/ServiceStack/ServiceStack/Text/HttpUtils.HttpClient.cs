@@ -27,22 +27,23 @@ namespace ServiceStack
         {
             private readonly Lazy<HttpMessageHandler> lazyHandler;
 
-            internal HttpClientFactory(HttpClientHandler handler) =>
-                lazyHandler = new Lazy<HttpMessageHandler>(() => handler, LazyThreadSafetyMode.ExecutionAndPublication);
+            internal HttpClientFactory(Func<HttpClientHandler> handler) =>
+                lazyHandler = new Lazy<HttpMessageHandler>(
+                    () => handler(),
+                    LazyThreadSafetyMode.ExecutionAndPublication);
 
             public HttpClient CreateClient() => new(lazyHandler.Value, disposeHandler: false);
         }
 
         // Ok to use HttpClientHandler which now uses SocketsHttpHandler
         // https://github.com/dotnet/runtime/blob/main/src/libraries/System.Net.Http/src/System/Net/Http/HttpClientHandler.cs#L16
-        public static HttpClientHandler HttpClientHandler { get; set; } = new()
-                                                                              {
-                                                                                  UseDefaultCredentials = true,
-                                                                                  AutomaticDecompression =
-                                                                                      DecompressionMethods.Brotli
-                                                                                      | DecompressionMethods.Deflate
-                                                                                      | DecompressionMethods.GZip,
-                                                                              };
+        public static Func<HttpClientHandler> HttpClientHandlerFactory { get; set; } = () =>
+            new()
+                {
+                    UseDefaultCredentials = true,
+                    AutomaticDecompression = DecompressionMethods.Brotli | DecompressionMethods.Deflate
+                                                                         | DecompressionMethods.GZip,
+                };
 
         // This was the least desirable end to this sadness https://github.com/dotnet/aspnetcore/issues/28385
         // Requires <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" /> 
@@ -53,9 +54,21 @@ namespace ServiceStack
         //     .BuildServiceProvider().GetRequiredService<IHttpClientFactory>();
 
         // Escape & BYO IHttpClientFactory
-        private static HttpClientFactory clientFactory = new(HttpClientHandler);
+        private static HttpClientFactory? clientFactory;
 
-        public static Func<HttpClient> CreateClient { get; set; } = () => clientFactory.CreateClient();
+        public static Func<HttpClient> CreateClient { get; set; } = () =>
+            {
+                try
+                {
+                    clientFactory ??= new(HttpClientHandlerFactory);
+                    return clientFactory.CreateClient();
+                }
+                catch (Exception ex)
+                {
+                    Tracer.Instance.WriteError(ex);
+                    return new HttpClient();
+                }
+            };
 
         public static HttpClient Create() => CreateClient();
 
@@ -1900,7 +1913,10 @@ namespace ServiceStack
             return httpReq;
         }
 
-        public static void DownloadFileTo(this string downloadUrl, string fileName, List<HttpRequestConfig.NameValue>? headers = null)
+        public static void DownloadFileTo(
+            this string downloadUrl,
+            string fileName,
+            List<HttpRequestConfig.NameValue>? headers = null)
         {
             var client = Create();
             var httpReq = new HttpRequestMessage(HttpMethod.Get, downloadUrl).With(

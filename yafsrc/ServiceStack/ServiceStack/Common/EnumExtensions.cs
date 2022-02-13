@@ -106,19 +106,14 @@ namespace ServiceStack
         public static bool Has<T>(this Enum @enum, T value)
         {
             var typeCode = @enum.GetTypeCode();
-            switch (typeCode)
-            {
-                case TypeCode.Byte:
-                    return ((byte)(object)@enum & (byte)(object)value) == (byte)(object)value;
-                case TypeCode.Int16:
-                    return ((short)(object)@enum & (short)(object)value) == (short)(object)value;
-                case TypeCode.Int32:
-                    return ((int)(object)@enum & (int)(object)value) == (int)(object)value;
-                case TypeCode.Int64:
-                    return ((long)(object)@enum & (long)(object)value) == (long)(object)value;
-                default:
-                    throw new NotSupportedException($"Enums of type {@enum.GetType().Name}");
-            }
+            return typeCode switch
+                {
+                    TypeCode.Byte => ((byte) (object) @enum & (byte) (object) value) == (byte) (object) value,
+                    TypeCode.Int16 => ((short) (object) @enum & (short) (object) value) == (short) (object) value,
+                    TypeCode.Int32 => ((int) (object) @enum & (int) (object) value) == (int) (object) value,
+                    TypeCode.Int64 => ((long) (object) @enum & (long) (object) value) == (long) (object) value,
+                    _ => throw new NotSupportedException($"Enums of type {@enum.GetType().Name}")
+                };
         }
 
         /// <summary>
@@ -132,19 +127,14 @@ namespace ServiceStack
         public static bool Is<T>(this Enum @enum, T value)
         {
             var typeCode = @enum.GetTypeCode();
-            switch (typeCode)
-            {
-                case TypeCode.Byte:
-                    return (byte)(object)@enum == (byte)(object)value;
-                case TypeCode.Int16:
-                    return (short)(object)@enum == (short)(object)value;
-                case TypeCode.Int32:
-                    return (int)(object)@enum == (int)(object)value;
-                case TypeCode.Int64:
-                    return (long)(object)@enum == (long)(object)value;
-                default:
-                    throw new NotSupportedException($"Enums of type {@enum.GetType().Name}");
-            }
+            return typeCode switch
+                {
+                    TypeCode.Byte => (byte) (object) @enum == (byte) (object) value,
+                    TypeCode.Int16 => (short) (object) @enum == (short) (object) value,
+                    TypeCode.Int32 => (int) (object) @enum == (int) (object) value,
+                    TypeCode.Int64 => (long) (object) @enum == (long) (object) value,
+                    _ => throw new NotSupportedException($"Enums of type {@enum.GetType().Name}")
+                };
         }
 
         /// <summary>
@@ -158,19 +148,14 @@ namespace ServiceStack
         public static T Add<T>(this Enum @enum, T value)
         {
             var typeCode = @enum.GetTypeCode();
-            switch (typeCode)
-            {
-                case TypeCode.Byte:
-                    return (T)(object)((byte)(object)@enum | (byte)(object)value);
-                case TypeCode.Int16:
-                    return (T)(object)((short)(object)@enum | (short)(object)value);
-                case TypeCode.Int32:
-                    return (T)(object)((int)(object)@enum | (int)(object)value);
-                case TypeCode.Int64:
-                    return (T)(object)((long)(object)@enum | (long)(object)value);
-                default:
-                    throw new NotSupportedException($"Enums of type {@enum.GetType().Name}");
-            }
+            return typeCode switch
+                {
+                    TypeCode.Byte => (T) (object) ((byte) (object) @enum | (byte) (object) value),
+                    TypeCode.Int16 => (T) (object) ((short) (object) @enum | (short) (object) value),
+                    TypeCode.Int32 => (T) (object) ((int) (object) @enum | (int) (object) value),
+                    TypeCode.Int64 => (T) (object) ((long) (object) @enum | (long) (object) value),
+                    _ => throw new NotSupportedException($"Enums of type {@enum.GetType().Name}")
+                };
         }
 
         /// <summary>
@@ -184,19 +169,14 @@ namespace ServiceStack
         public static T Remove<T>(this Enum @enum, T value)
         {
             var typeCode = @enum.GetTypeCode();
-            switch (typeCode)
-            {
-                case TypeCode.Byte:
-                    return (T)(object)((byte)(object)@enum & ~(byte)(object)value);
-                case TypeCode.Int16:
-                    return (T)(object)((short)(object)@enum & ~(short)(object)value);
-                case TypeCode.Int32:
-                    return (T)(object)((int)(object)@enum & ~(int)(object)value);
-                case TypeCode.Int64:
-                    return (T)(object)((long)(object)@enum & ~(long)(object)value);
-                default:
-                    throw new NotSupportedException($"Enums of type {@enum.GetType().Name}");
-            }
+            return typeCode switch
+                {
+                    TypeCode.Byte => (T) (object) ((byte) (object) @enum & ~(byte) (object) value),
+                    TypeCode.Int16 => (T) (object) ((short) (object) @enum & ~(short) (object) value),
+                    TypeCode.Int32 => (T) (object) ((int) (object) @enum & ~(int) (object) value),
+                    TypeCode.Int64 => (T) (object) ((long) (object) @enum & ~(long) (object) value),
+                    _ => throw new NotSupportedException($"Enums of type {@enum.GetType().Name}")
+                };
         }
 
     }
