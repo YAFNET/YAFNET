@@ -37,6 +37,10 @@ namespace YAF.Lucene.Net.Search.Highlight
     {
         private class TokenComparer : IComparer<Token>
         {
+            private TokenComparer() { } // LUCENENET: Made into singleton
+
+            public static IComparer<Token> Default { get; } = new TokenComparer();
+
             public int Compare(Token t1, Token t2)
             {
                 if (t1.StartOffset == t2.StartOffset)
@@ -220,7 +224,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             while (termsEnum.MoveNext())
             {
                 dpEnum = termsEnum.DocsAndPositions(null, dpEnum);
-                if (dpEnum == null)
+                if (dpEnum is null)
                 {
                     throw new ArgumentException("Required TermVector Offset information was not found");
                 }
@@ -262,7 +266,7 @@ namespace YAF.Lucene.Net.Search.Highlight
                     {
                         // tokens NOT stored with positions or not guaranteed contiguous - must
                         // add to list and sort later
-                        if (unsortedTokens == null)
+                        if (unsortedTokens is null)
                         {
                             unsortedTokens = new JCG.List<Token>();
                         }
@@ -275,7 +279,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             if (unsortedTokens != null)
             {
                 tokensInOriginalOrder = unsortedTokens.ToArray();
-                ArrayUtil.TimSort(tokensInOriginalOrder, new TokenComparer());
+                ArrayUtil.TimSort(tokensInOriginalOrder, TokenComparer.Default);
                 //tokensInOriginalOrder = tokensInOriginalOrder
                 //    .OrderBy(t => t, new TokenComparer() )
                 //    .ToArray();
@@ -298,12 +302,12 @@ namespace YAF.Lucene.Net.Search.Highlight
         public static TokenStream GetTokenStreamWithOffsets(IndexReader reader, int docId, string field) 
         {
             Fields vectors = reader.GetTermVectors(docId);
-            if (vectors == null) {
+            if (vectors is null) {
                 return null;
             }
 
             Terms vector = vectors.GetTerms(field);
-            if (vector == null) {
+            if (vector is null) {
                 return null;
             }
 
@@ -326,7 +330,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             Analyzer analyzer)
         {
             string contents = doc.Get(field);
-            if (contents == null)
+            if (contents is null)
             {
                 throw new ArgumentException("Field " + field
                     + " in document is not stored and cannot be analyzed");

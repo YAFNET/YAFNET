@@ -303,7 +303,7 @@ namespace YAF.Lucene.Net.Store
 
             ByteBuffer[] buffers = new ByteBuffer[nrBuffers];
 
-            if (input.memoryMappedFile == null)
+            if (input.memoryMappedFile is null)
             {
                 input.memoryMappedFile = MemoryMappedFile.CreateFromFile(
                     fileStream: fc, 

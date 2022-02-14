@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DirectAllocator= YAF.Lucene.Net.Util.ByteBlockPool.DirectAllocator;
+    using DirectAllocator = YAF.Lucene.Net.Util.ByteBlockPool.DirectAllocator;
 
     /// <summary>
     /// <see cref="BytesRefHash"/> is a special purpose hash-map like data-structure
@@ -535,12 +535,12 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public void Reinit()
         {
-            if (bytesStart == null)
+            if (bytesStart is null)
             {
                 bytesStart = bytesStartArray.Init();
             }
 
-            if (ids == null)
+            if (ids is null)
             {
                 ids = new int[hashSize];
                 bytesUsed.AddAndGet(RamUsageEstimator.NUM_BYTES_INT32 * hashSize);

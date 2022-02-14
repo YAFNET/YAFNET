@@ -26,16 +26,16 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using Analyzer= YAF.Lucene.Net.Analysis.Analyzer;
-    using BooleanQuery= YAF.Lucene.Net.Search.BooleanQuery;
-    using CachingTokenFilter= YAF.Lucene.Net.Analysis.CachingTokenFilter;
-    using MultiPhraseQuery= YAF.Lucene.Net.Search.MultiPhraseQuery;
-    using Occur= YAF.Lucene.Net.Search.Occur;
-    using PhraseQuery= YAF.Lucene.Net.Search.PhraseQuery;
-    using Query= YAF.Lucene.Net.Search.Query;
-    using Term= YAF.Lucene.Net.Index.Term;
-    using TermQuery= YAF.Lucene.Net.Search.TermQuery;
-    using TokenStream= YAF.Lucene.Net.Analysis.TokenStream;
+    using Analyzer = YAF.Lucene.Net.Analysis.Analyzer;
+    using BooleanQuery = YAF.Lucene.Net.Search.BooleanQuery;
+    using CachingTokenFilter = YAF.Lucene.Net.Analysis.CachingTokenFilter;
+    using MultiPhraseQuery = YAF.Lucene.Net.Search.MultiPhraseQuery;
+    using Occur = YAF.Lucene.Net.Search.Occur;
+    using PhraseQuery = YAF.Lucene.Net.Search.PhraseQuery;
+    using Query = YAF.Lucene.Net.Search.Query;
+    using Term = YAF.Lucene.Net.Index.Term;
+    using TermQuery = YAF.Lucene.Net.Search.TermQuery;
+    using TokenStream = YAF.Lucene.Net.Analysis.TokenStream;
 
     /// <summary>
     /// Creates queries from the <see cref="Analyzer"/> chain.

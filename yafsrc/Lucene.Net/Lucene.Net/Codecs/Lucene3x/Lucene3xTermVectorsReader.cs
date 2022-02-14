@@ -322,7 +322,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             public override Terms GetTerms(string field)
             {
                 FieldInfo fieldInfo = outerInstance.fieldInfos.FieldInfo(field);
-                if (fieldInfo == null)
+                if (fieldInfo is null)
                 {
                     // No such field
                     return null;
@@ -341,7 +341,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             {
                 get
                 {
-                    if (fieldNumbers == null)
+                    if (fieldNumbers is null)
                     {
                         return 0;
                     }
@@ -564,7 +564,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
                 {
                     return false;
                 }
-                return true;
+                return termAndPostings[currentTerm].Term != null;
             }
 
             [Obsolete("Use MoveNext() and Term instead. This method will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
@@ -641,7 +641,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int NextDoc()
             {
-                if (!didNext && (liveDocs == null || liveDocs.Get(0)))
+                if (!didNext && (liveDocs is null || liveDocs.Get(0)))
                 {
                     didNext = true;
                     return (doc = 0);
@@ -713,7 +713,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
             public override int NextDoc()
             {
-                if (!didNext && (liveDocs == null || liveDocs.Get(0)))
+                if (!didNext && (liveDocs is null || liveDocs.Get(0)))
                 {
                     didNext = true;
                     return (doc = 0);

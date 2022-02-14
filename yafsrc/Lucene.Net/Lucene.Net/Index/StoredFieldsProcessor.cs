@@ -103,7 +103,7 @@ namespace YAF.Lucene.Net.Index
             UninterruptableMonitor.Enter(this);
             try
             {
-                if (fieldsWriter == null)
+                if (fieldsWriter is null)
                 {
                     fieldsWriter = codec.StoredFieldsFormat.FieldsWriter(docWriter.directory, docWriter.SegmentInfo, context);
                     lastDocID = 0;

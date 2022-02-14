@@ -79,7 +79,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
 
         public override TokenStream Create(TokenStream input)
         {
-            return dictionary == null ? input : new StemmerOverrideFilter(input, dictionary);
+            return dictionary is null ? input : new StemmerOverrideFilter(input, dictionary);
         }
     }
 }

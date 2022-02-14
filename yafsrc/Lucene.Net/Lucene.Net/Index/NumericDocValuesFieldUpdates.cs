@@ -122,7 +122,7 @@ namespace YAF.Lucene.Net.Index
             }
 
             long? val = value;
-            if (val == null)
+            if (val is null)
             {
                 val = NumericDocValuesUpdate.MISSING;
             }

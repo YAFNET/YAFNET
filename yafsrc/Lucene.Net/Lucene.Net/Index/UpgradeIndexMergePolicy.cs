@@ -140,7 +140,7 @@ namespace YAF.Lucene.Net.Index
                     }
                 }
                 // add the final merge
-                if (spec == null)
+                if (spec is null)
                 {
                     spec = new MergeSpecification();
                 }

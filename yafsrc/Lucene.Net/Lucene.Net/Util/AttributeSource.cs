@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
-using FlagsAttribute= YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
+using FlagsAttribute = YAF.Lucene.Net.Analysis.TokenAttributes.FlagsAttribute;
 using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Util
@@ -289,7 +289,7 @@ namespace YAF.Lucene.Net.Util
 
             public bool MoveNext()
             {
-                if (state == null)
+                if (state is null)
                 {
                     return false;
                 }
@@ -480,7 +480,7 @@ namespace YAF.Lucene.Net.Util
         public virtual State CaptureState()
         {
             State state = this.GetCurrentState();
-            return (state == null) ? null : (State)state.Clone();
+            return (state is null) ? null : (State)state.Clone();
         }
 
         /// <summary>

@@ -24,9 +24,9 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DataInput= YAF.Lucene.Net.Store.DataInput;
-    using DataOutput= YAF.Lucene.Net.Store.DataOutput;
-    using IndexInput= YAF.Lucene.Net.Store.IndexInput;
+    using DataInput = YAF.Lucene.Net.Store.DataInput;
+    using DataOutput = YAF.Lucene.Net.Store.DataOutput;
+    using IndexInput = YAF.Lucene.Net.Store.IndexInput;
 
     /// <summary>
     /// Represents a logical <see cref="T:byte[]"/> as a series of pages.  You
@@ -216,7 +216,7 @@ namespace YAF.Lucene.Net.Util
         public void Copy(BytesRef bytes, BytesRef @out)
         {
             int left = blockSize - upto;
-            if (bytes.Length > left || currentBlock == null)
+            if (bytes.Length > left || currentBlock is null)
             {
                 if (currentBlock != null)
                 {
@@ -257,7 +257,7 @@ namespace YAF.Lucene.Net.Util
                 Array.Copy(currentBlock, 0, newBlock, 0, upto);
                 currentBlock = newBlock;
             }
-            if (currentBlock == null)
+            if (currentBlock is null)
             {
                 currentBlock = EMPTY_BYTES;
             }
@@ -270,7 +270,7 @@ namespace YAF.Lucene.Net.Util
 
         public long GetPointer()
         {
-            if (currentBlock == null)
+            if (currentBlock is null)
             {
                 return 0;
             }

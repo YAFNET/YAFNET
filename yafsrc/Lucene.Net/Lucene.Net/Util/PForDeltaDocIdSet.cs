@@ -23,10 +23,10 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet= YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator= YAF.Lucene.Net.Search.DocIdSetIterator;
-    using MonotonicAppendingInt64Buffer= YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using PackedInt32s= YAF.Lucene.Net.Util.Packed.PackedInt32s;
+    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
+    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
 
     /// <summary>
     /// <see cref="DocIdSet"/> implementation based on pfor-delta encoding.
@@ -396,7 +396,7 @@ namespace YAF.Lucene.Net.Util
 
         public override DocIdSetIterator GetIterator()
         {
-            if (data == null)
+            if (data is null)
             {
                 return null;
             }

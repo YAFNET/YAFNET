@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using WritableArrayAttribute= YAF.Lucene.Net.Support.WritableArrayAttribute;
+using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -410,7 +410,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public bool IsValid()
         {
-            if (Chars == null)
+            if (Chars is null)
             {
                 throw IllegalStateException.Create("chars is null");
             }

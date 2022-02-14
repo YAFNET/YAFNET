@@ -102,7 +102,7 @@ namespace YAF.Lucene.Net.Index.Memory
     /// 
     /// <code>
     /// (: An XQuery that finds all books authored by James that have something to do with "salmon fishing manuals", sorted by relevance :)
-    /// declare namespace lucene = "java:nux.xom.pool.FullTextUtil";
+    /// declare namespace YAF.Lucene = "java:nux.xom.pool.FullTextUtil";
     /// declare variable $query := "+salmon~ +fish* manual~"; (: any arbitrary Lucene query can go here :)
     /// 
     /// for $book in /books/book[author="James" and lucene:match(abstract, $query) > 0.0]
@@ -620,7 +620,7 @@ namespace YAF.Lucene.Net.Index.Memory
         /// </summary>
         private void SortFields()
         {
-            if (sortedFields == null)
+            if (sortedFields is null)
             {
                 sortedFields = Sort(fields);
             }

@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Index
                     }
                     catch (Exception e) when (e.IsIOException())
                     {
-                        if (ioe == null)
+                        if (ioe is null)
                         {
                             ioe = e;
                         }

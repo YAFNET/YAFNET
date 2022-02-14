@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Index
         {
             get
             {
-                if (atts == null)
+                if (atts is null)
                 {
                     atts = new AttributeSource();
                 }

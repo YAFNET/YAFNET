@@ -23,8 +23,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using DocIdSet= YAF.Lucene.Net.Search.DocIdSet;
-    using DocIdSetIterator= YAF.Lucene.Net.Search.DocIdSetIterator;
+    using DocIdSet = YAF.Lucene.Net.Search.DocIdSet;
+    using DocIdSetIterator = YAF.Lucene.Net.Search.DocIdSetIterator;
 
     /// <summary>
     /// An "open" BitSet implementation that allows direct access to the array of words

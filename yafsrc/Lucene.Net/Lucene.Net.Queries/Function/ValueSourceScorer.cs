@@ -116,7 +116,7 @@ namespace YAF.Lucene.Net.Queries.Function
 
             public override bool MatchesValue(int doc)
             {
-                return matchesValue == null ? base.MatchesValue(doc) : matchesValue(doc);
+                return matchesValue is null ? base.MatchesValue(doc) : matchesValue(doc);
             }
         }
     }

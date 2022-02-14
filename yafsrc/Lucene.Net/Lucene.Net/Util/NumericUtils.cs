@@ -21,8 +21,8 @@ namespace YAF.Lucene.Net.Util
      * limitations under the License.
      */
 
-    using FilteredTermsEnum= YAF.Lucene.Net.Index.FilteredTermsEnum;
-    using TermsEnum= YAF.Lucene.Net.Index.TermsEnum;
+    using FilteredTermsEnum = YAF.Lucene.Net.Index.FilteredTermsEnum;
+    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// This is a helper class to generate prefix-encoded representations for numerical values

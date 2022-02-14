@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Search
     /// 
     ///     public MySearchCollector(OpenBitSet bits)
     ///     {
-    ///         if (bits == null) throw new ArgumentNullException("bits");
+    ///         if (bits is null) throw new ArgumentNullException("bits");
     ///         this.bits = bits;
     ///     }
     /// 

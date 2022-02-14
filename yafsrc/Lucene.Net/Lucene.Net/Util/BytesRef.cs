@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Text;
-using WritableArrayAttribute= YAF.Lucene.Net.Support.WritableArrayAttribute;
+using WritableArrayAttribute = YAF.Lucene.Net.Support.WritableArrayAttribute;
 
 namespace YAF.Lucene.Net.Util
 {
@@ -215,7 +215,7 @@ namespace YAF.Lucene.Net.Util
 
         public override bool Equals(object other)
         {
-            if (other == null)
+            if (other is null)
                 return false;
 
             if (other is BytesRef otherBytes)
@@ -367,7 +367,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public bool IsValid()
         {
-            if (Bytes == null)
+            if (Bytes is null)
             {
                 throw IllegalStateException.Create("bytes is null");
             }

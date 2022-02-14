@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             {
                 if (!ite.MoveNext()) break;
                 phraseInfo = ite.Current;
-                if (phraseInfo == null) break;
+                if (phraseInfo is null) break;
 
                 wpil.Add(phraseInfo);
             }

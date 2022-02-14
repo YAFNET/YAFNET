@@ -511,7 +511,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             UninterruptableMonitor.Enter(addressInstances);
             try
             {
-                if (!addressInstances.TryGetValue(field.Number, out MonotonicBlockPackedReader addrInstance) || addrInstance == null)
+                if (!addressInstances.TryGetValue(field.Number, out MonotonicBlockPackedReader addrInstance) || addrInstance is null)
                 {
                     data.Seek(bytes.AddressesOffset);
                     addrInstance = new MonotonicBlockPackedReader(data, bytes.PackedInt32sVersion, bytes.BlockSize, bytes.Count, false);
@@ -1123,7 +1123,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
                         input.ReadBytes(termBuffer.Bytes, start, suffix);
                         termBuffer.Length = start + suffix;
                         SetTerm();
-                        return true;
+                        return true; // LUCENENET: term is readonly so cannot be null
                     }
                 }
 
