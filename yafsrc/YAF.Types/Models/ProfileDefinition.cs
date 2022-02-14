@@ -98,6 +98,9 @@ namespace YAF.Types.Models
         [Default(0)]
         public bool ShowOnRegisterPage { get; set; }
 
+        [Ignore]
+        public string Value { get; set; }
+
         #endregion
     }
 }

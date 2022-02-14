@@ -27,12 +27,7 @@ namespace YAF.Core.Services
     #region Using
 
     using System;
-    using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Imaging;
-    using System.Drawing.Text;
     using System.Linq;
-    using System.Runtime.Caching;
     using System.Text;
     using System.Web;
 
@@ -45,7 +40,6 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Utilities.ImageUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -201,7 +195,7 @@ namespace YAF.Core.Services
                     return;
                 }
 
-                // TODo : Cache list
+                // TODO : Cache list
                 var customBbCode = this.GetRepository<BBCode>().GetByBoardId()
                     .Where(e => e.Name != "ALBUMIMG" && e.Name != "ATTACH").Select(e => e.Name).ToList();
 
@@ -293,58 +287,32 @@ namespace YAF.Core.Services
 
                 var abbreviation = user.DisplayOrUserName().GetAbbreviation();
 
+                var width = this.Get<BoardSettings>().AvatarWidth;
+                var height = this.Get<BoardSettings>().AvatarHeight;
+
+                var fontSize = Math.Floor(width * 0.3);
+
                 var backgroundColor = ValidationHelper.IsNumeric(user.ProviderUserKey)
                     ? $"#{user.ProviderUserKey.ToGuid().ToString().Substring(0, 6)}"
                     : $"#{user.ProviderUserKey.Substring(0, 6)}";
 
-                using var bmp = new Bitmap(this.Get<BoardSettings>().AvatarWidth, this.Get<BoardSettings>().AvatarHeight);
-                using var graphics = Graphics.FromImage(bmp);
-                graphics.TextRenderingHint = TextRenderingHint.AntiAlias;
-                graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                var svg = $@"<?xml version=""1.0"" encoding=""UTF-8""?><svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" 
+                                  width=""{width}px"" height=""{height}px"" viewBox=""0 0 {width} {height}"" version=""1.1"">
+                                  <rect fill=""{backgroundColor}"" width=""{width}"" height=""{height}"" cx=""32"" cy=""32"" r=""32""/>
+                                     <text x=""50%"" y=""50%"" style=""color: #fff5f5f5;line-height: 1;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;"" 
+                                           alignment-baseline=""middle"" text-anchor=""middle"" font-size=""{fontSize}"" font-weight=""500"" dy="".1em"" dominant-baseline=""middle"" fill=""#fff5f5f5"">
+                                       {abbreviation}</text></svg>";
 
-                using (Brush brush = new SolidBrush((Color)new ColorConverter().ConvertFromString(backgroundColor)))
-                {
-                    graphics.FillRectangle(
-                        brush,
-                        0,
-                        0,
-                        this.Get<BoardSettings>().AvatarWidth,
-                        this.Get<BoardSettings>().AvatarHeight);
-                }
-
-                var sf = new StringFormat
-                {
-                    Alignment = StringAlignment.Center,
-                    LineAlignment = StringAlignment.Center
-                };
-
-                var font = new Font("Arial", 48, FontStyle.Bold, GraphicsUnit.Pixel);
-
-                graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-                graphics.DrawString(
-                    abbreviation,
-                    font,
-                    new SolidBrush(Color.WhiteSmoke),
-                    new RectangleF(
-                        0,
-                        0,
-                        this.Get<BoardSettings>().AvatarWidth,
-                        this.Get<BoardSettings>().AvatarHeight),
-                    sf);
-                graphics.Flush();
-
-                var converter = new ImageConverter();
-
-                var image = (byte[])converter.ConvertTo(bmp, typeof(byte[]));
+                var byteArray = Encoding.ASCII.GetBytes(svg);
 
                 context.Response.Clear();
 
-                context.Response.ContentType = "image/png";
+                context.Response.ContentType = "image/svg+xml";
                 context.Response.Cache.SetCacheability(HttpCacheability.Public);
                 context.Response.Cache.SetMaxAge(TimeSpan.FromDays(30));
                 context.Response.Cache.SetLastModified(DateTime.UtcNow);
 
-                context.Response.OutputStream.Write(image, 0, image.Length);
+                context.Response.OutputStream.Write(byteArray, 0, byteArray.Length);
             }
             catch (Exception x)
             {
