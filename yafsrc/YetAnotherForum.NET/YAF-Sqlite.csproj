@@ -2050,7 +2050,6 @@
     <Content Include="Controls\ForumWelcome.ascx" />
     <Content Include="Controls\LastPosts.ascx" />
     <Content Include="Dialogs\LoginBox.ascx" />
-    <Content Include="Controls\MyTopicsList.ascx" />
     <Content Include="Controls\PMList.ascx" />
     <Content Include="Controls\PollList.ascx" />
     <Content Include="Controls\PostOptions.ascx" />
@@ -3006,13 +3005,6 @@
     <Compile Include="Dialogs\LoginBox.ascx.designer.cs">
       <DependentUpon>LoginBox.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MyTopicsList.ascx.cs">
-      <DependentUpon>MyTopicsList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\MyTopicsList.ascx.designer.cs">
-      <DependentUpon>MyTopicsList.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PMList.ascx.cs">
       <DependentUpon>PMList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3704,7 +3696,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

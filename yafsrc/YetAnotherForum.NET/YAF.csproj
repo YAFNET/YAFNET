@@ -909,6 +909,7 @@
     </Compile>
     <Compile Include="Pages\Admin\TestData.ascx.cs">
       <DependentUpon>TestData.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Admin\TestData.ascx.designer.cs">
       <DependentUpon>TestData.ascx</DependentUpon>
@@ -1192,8 +1193,6 @@
     <Content Include="Content\bootstrap\mixins\_color-scheme.scss" />
     <Content Include="Content\bootstrap\_offcanvas.scss" />
     <Content Include="Content\bootstrap\_placeholders.scss" />
-    <Content Include="Content\fontawesome\_sizing.scss" />
-    <Content Include="Content\fontawesome\_functions.scss" />
     <None Include="Content\jquery.netStack.scss" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
@@ -1914,6 +1913,7 @@
     <Content Include="Content\fontawesome\_core.scss" />
     <Content Include="Content\fontawesome\_fixed-width.scss" />
     <Content Include="Content\fontawesome\_icons.scss" />
+    <Content Include="Content\fontawesome\_larger.scss" />
     <Content Include="Content\fontawesome\_list.scss" />
     <Content Include="Content\fontawesome\_mixins.scss" />
     <Content Include="Content\fontawesome\_rotated-flipped.scss" />
@@ -1997,6 +1997,9 @@
     <Content Include="Content\Themes\zephyr\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\webfonts\fa-solid-900.svg" />
     <Content Include="Controls\EditUsersAttachments.ascx" />
     <Content Include="Controls\OpenAuthProviders.ascx" />
     <Content Include="Controls\MostActiveUsers.ascx" />
@@ -2048,7 +2051,6 @@
     <Content Include="Controls\ForumWelcome.ascx" />
     <Content Include="Controls\LastPosts.ascx" />
     <Content Include="Dialogs\LoginBox.ascx" />
-    <Content Include="Controls\MyTopicsList.ascx" />
     <Content Include="Controls\PMList.ascx" />
     <Content Include="Controls\PollList.ascx" />
     <Content Include="Controls\PostOptions.ascx" />
@@ -2136,9 +2138,6 @@
     </Content>
     <Content Include="languages\finnish.xml" />
     <Content Include="languages\french.xml" />
-    <Content Include="languages\german-du.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="languages\hebrew.xml" />
     <Content Include="languages\italian.xml" />
     <Content Include="languages\lithuanian.xml" />
@@ -2153,7 +2152,7 @@
     <Content Include="languages\slovak.xml" />
     <Content Include="languages\spanish.xml" />
     <Content Include="languages\swedish.xml" />
-    <Content Include="languages\turkish.xml" />
+    <Content Include="languages\german-du.xml" />
     <Content Include="languages\vietnam.xml" />
     <Content Include="Pages\ActiveUsers.ascx" />
     <Content Include="Pages\Admin\AccessMasks.ascx" />
@@ -3004,13 +3003,6 @@
     <Compile Include="Dialogs\LoginBox.ascx.designer.cs">
       <DependentUpon>LoginBox.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MyTopicsList.ascx.cs">
-      <DependentUpon>MyTopicsList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\MyTopicsList.ascx.designer.cs">
-      <DependentUpon>MyTopicsList.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PMList.ascx.cs">
       <DependentUpon>PMList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3385,11 +3377,17 @@
     <Content Include="Content\Themes\yeti\bootstrap-forum.scss" />
     <Content Include="Content\Themes\superhero\bootstrap-forum.scss" />
     <Content Include="Content\Themes\sketchy\bootstrap-forum.scss" />
+    <Content Include="Content\webfonts\fa-brands-400.eot" />
     <Content Include="Content\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\webfonts\fa-brands-400.woff" />
     <Content Include="Content\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\webfonts\fa-regular-400.eot" />
     <Content Include="Content\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\webfonts\fa-regular-400.woff" />
     <Content Include="Content\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\webfonts\fa-solid-900.eot" />
     <Content Include="Content\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
     <None Include="Content\forum.scss" />
@@ -3440,6 +3438,7 @@
     <Content Include="Content\Themes\vapor\bootstrap-forum.scss" />
     <Content Include="Content\Themes\morph\bootstrap-forum.scss" />
     <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
+    <Content Include="package-lock.json" />
     <Content Include="Content\select2\_disabled.scss" />
     <Content Include="Content\select2\_dropdown.scss" />
     <Content Include="Content\select2\_include-all.scss" />
@@ -3450,15 +3449,23 @@
     <Content Include="Content\select2\_sizing.scss" />
     <Content Include="Content\select2\_validation.scss" />
     <Content Include="Content\select2\_variables.scss" />
-    <Content Include="Content\webfonts\fa-v4compatibility.ttf" />
-    <Content Include="Content\webfonts\fa-v4compatibility.woff2" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js">
       <DependentUpon>jquery-3.6.0.js</DependentUpon>
     </None>
-    <None Include="web.config">
-      <SubType>Designer</SubType>
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Deploy.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Package.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
     </None>
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
@@ -3550,138 +3557,162 @@ del *.xml</PostBuildEvent>
     <EmbeddedResource Include="App_GlobalResources\Install.ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.ar.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.cs.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.cs.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.fr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.fr.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.nl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.nl.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.it.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.it.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.no.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.no.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.zh-CN.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.zh-CN.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.zh-TW.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.zh-TW.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.da.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.da.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.hr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.hr.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.es.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.et.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.et.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.fa.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.fa.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.fi.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.fi.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.he.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.he.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.lt.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.lt.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.pl.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.pl.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.pt.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.pt.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.ro.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.ro.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="App_GlobalResources\Install.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.ru.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.sk.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.sk.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="App_GlobalResources\Install.sv.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.sv.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="App_GlobalResources\Install.tr.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.tr.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="App_GlobalResources\Install.vi.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Install.vi.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <Target Name="BrowsersListWarningsAsInfo" BeforeTargets="WebCompile">
