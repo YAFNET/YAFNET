@@ -27,6 +27,7 @@ namespace YAF.Core.BasePages
     #region Using
 
     using YAF.Types;
+    using YAF.Types.Constants;
 
     #endregion
 
@@ -38,11 +39,10 @@ namespace YAF.Core.BasePages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "AccountPage" /> class. 
-        ///   Creates the Administration page.
+        /// Initializes a new instance of the <see cref="AccountPage"/> class.
         /// </summary>
         public AccountPage()
-            : this(null)
+            : this(null, ForumPages.Board)
         {
             this.IsAccountPage = true;
             this.IsProtected = false;
@@ -54,8 +54,11 @@ namespace YAF.Core.BasePages
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        public AccountPage([CanBeNull] string transPage)
-            : base(transPage)
+        /// <param name="pageType">
+        /// The page Type.
+        /// </param>
+        public AccountPage([CanBeNull] string transPage, ForumPages pageType)
+            : base(transPage, pageType)
         {
             this.IsAccountPage = true;
             this.IsProtected = false;

@@ -270,10 +270,10 @@ namespace YAF.Controls
                 this.PageContext.ModeratePosts > 0,
                 this.PageContext.ModeratePosts.ToString(),
                 this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts),
-                this.PageContext.ForumPageType == ForumPages.Moderate_Index);
+                this.PageContext.CurrentForumPage.PageType == ForumPages.Moderate_Index);
 
             this.hostDropdown.CssClass =
-                this.PageContext.ForumPageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
+                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
                     ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList
                     ? "nav-link dropdown-toggle active"
                     : "nav-link dropdown-toggle";
@@ -297,7 +297,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Search,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Search,
                     string.Empty);
             }
 
@@ -314,7 +314,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Members,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Members,
                     string.Empty);
             }
 
@@ -331,7 +331,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Team,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Team,
                     string.Empty);
             }
 
@@ -348,7 +348,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Help,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Help,
                     string.Empty);
             }
 
@@ -397,7 +397,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Account_Register,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Account_Register,
                     string.Empty);
             }
         }

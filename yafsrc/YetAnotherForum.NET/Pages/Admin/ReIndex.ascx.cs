@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Extensions.Data;
     using YAF.Types.Interfaces;
@@ -47,6 +48,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class ReIndex : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReIndex"/> class. 
+        /// </summary>
+        public ReIndex()
+            : base("ADMIN_REINDEX", ForumPages.Admin_ReIndex)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>
@@ -121,7 +134,7 @@ namespace YAF.Pages.Admin
             }
             catch (Exception ex)
             {
-                this.txtIndexStatistics.Text = $"Failure: {ex}";
+                this.txtIndexStatistics.Text = $@"Failure: {ex}";
             }
         }
 

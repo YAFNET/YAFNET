@@ -86,7 +86,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="EditMessage"/> class.
         /// </summary>
         public EditMessage()
-            : base("POSTMESSAGE")
+            : base("POSTMESSAGE", ForumPages.EditMessage)
         {
         }
 

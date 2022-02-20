@@ -52,7 +52,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="ChangePassword"/> class.
         /// </summary>
         public ChangePassword()
-            : base("CHANGE_PASSWORD")
+            : base("CHANGE_PASSWORD", ForumPages.Profile_ChangePassword)
         {
         }
 

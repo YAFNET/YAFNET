@@ -159,7 +159,7 @@ namespace YAF.Core.Nntp
                     var lastMessageNo = nntpForum.Item1.LastMessageNo;
 
                     // start at the bottom...
-                    var currentMessage = lastMessageNo == 0 ? @group.Low : lastMessageNo + 1;
+                    var currentMessage = lastMessageNo == 0 ? group.Low : lastMessageNo + 1;
                     var cutOffDate = nntpForum.Item1.DateCutOff ?? DateTime.MinValue;
 
                     if (nntpForum.Item1.DateCutOff.HasValue)
@@ -171,7 +171,7 @@ namespace YAF.Core.Nntp
                         {
                             var list = nntpConnection.GetArticleList(
                                 currentMessage,
-                                Math.Min(currentMessage + 500, @group.High));
+                                Math.Min(currentMessage + 500, group.High));
 
                             foreach (var article in list)
                             {
@@ -199,7 +199,7 @@ namespace YAF.Core.Nntp
                             guestUserId);
                     }
 
-                    for (; currentMessage <= @group.High; currentMessage++)
+                    for (; currentMessage <= group.High; currentMessage++)
                     {
                         try
                         {

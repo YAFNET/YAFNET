@@ -67,7 +67,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Help" /> class.
         /// </summary>
         public Help()
-            : base("HELP")
+            : base("HELP", ForumPages.Help)
         {
         }
 

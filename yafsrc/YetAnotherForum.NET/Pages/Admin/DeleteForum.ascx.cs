@@ -51,6 +51,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class DeleteForum : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DeleteForum"/> class. 
+        /// </summary>
+        public DeleteForum()
+            : base("ADMIN_DELETEFORUM", ForumPages.Admin_DeleteForum)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

@@ -53,7 +53,7 @@ namespace YAF.Pages.Admin
         ///   Initializes a new instance of the <see cref = "Profile.Attachments" /> class.
         /// </summary>
         public BoardAnnouncement()
-            : base("ADMIN_BOARDSETTINGS")
+            : base("ADMIN_BOARDSETTINGS", ForumPages.Admin_BoardAnnouncement)
         {
         }
 

@@ -101,9 +101,12 @@ namespace YAF.Core.Services.CheckForSpam
                     response.StatusCode);
             }
 
-            using var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII);
-            // They only return "true" or "false"
-            string responseText = reader.ReadToEnd();
+            string responseText;
+            using (var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
+            {
+                // They only return "true" or "false"
+                responseText = reader.ReadToEnd();
+            }
 
             return responseText;
         }
@@ -193,8 +196,10 @@ namespace YAF.Core.Services.CheckForSpam
             request.ContentType = "application/x-www-form-urlencoded; charset=utf-8";
             request.KeepAlive = true;
 
-            using var myWriter = new StreamWriter(request.GetRequestStream());
-            myWriter.Write(formParameters);
+            using (var myWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                myWriter.Write(formParameters);
+            }
 
             var response = (HttpWebResponse)request.GetResponse();
 
@@ -208,9 +213,12 @@ namespace YAF.Core.Services.CheckForSpam
                     response.StatusCode);
             }
 
-            using var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII);
-            // They only return "true" or "false"
-            string responseText = reader.ReadToEnd();
+            string responseText;
+            using (var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
+            {
+                // They only return "true" or "false"
+                responseText = reader.ReadToEnd();
+            }
 
             return responseText;
         }

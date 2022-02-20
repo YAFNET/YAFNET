@@ -55,7 +55,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "MyMessages" /> class.
         /// </summary>
         public MyMessages()
-            : base("PM")
+            : base("PM", ForumPages.MyMessages)
         {
         }
 

@@ -30,6 +30,7 @@ namespace YAF.Core.BasePages
 
     using YAF.Core.Services;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     
     #endregion
@@ -45,7 +46,7 @@ namespace YAF.Core.BasePages
         /// Initializes a new instance of the <see cref="ModerateForumPage"/> class.
         /// </summary>
         public ModerateForumPage()
-        : this(null)
+            : this(null, ForumPages.Board)
         {
         }
 
@@ -55,8 +56,11 @@ namespace YAF.Core.BasePages
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        public ModerateForumPage([CanBeNull] string transPage)
-          : base(transPage)
+        /// <param name="pageType">
+        /// The page Type.
+        /// </param>
+        public ModerateForumPage([CanBeNull] string transPage, ForumPages pageType)
+          : base(transPage, pageType)
         {
             this.Load += this.ModeratePage_Load;
         }

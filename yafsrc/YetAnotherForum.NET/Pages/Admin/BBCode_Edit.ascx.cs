@@ -48,6 +48,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class BBCode_Edit : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BBCode_Edit"/> class. 
+        /// </summary>
+        public BBCode_Edit()
+            : base("ADMIN_BBCODE_EDIT", ForumPages.Admin_BBCode_Edit)
+        {
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

@@ -82,10 +82,12 @@ namespace YAF.Core.Utilities.MinifyUtils
             var minify = new JSMinify();
             var outputCode = new StringBuilder();
 
-            using TextReader reader = minify.textReader = new StringReader(inputCode);
-            using (minify.writer = new StringWriter(outputCode))
+            using (minify.textReader = new StringReader(inputCode))
             {
-                minify.Pack();
+                using (minify.writer = new StringWriter(outputCode))
+                {
+                    minify.Pack();
+                }
             }
 
             return outputCode.ToString();

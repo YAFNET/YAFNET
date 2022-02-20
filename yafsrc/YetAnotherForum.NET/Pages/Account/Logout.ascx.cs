@@ -51,7 +51,7 @@ namespace YAF.Pages.Account
         ///   Initializes a new instance of the <see cref = "Logout" /> class.
         /// </summary>
         public Logout()
-            : base("LOGOUT")
+            : base("LOGOUT", ForumPages.Account_Logout)
         {
             this.PageContext.Globals.IsSuspendCheckEnabled = false;
         }

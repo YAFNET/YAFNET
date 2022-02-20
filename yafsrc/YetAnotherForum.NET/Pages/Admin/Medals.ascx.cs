@@ -56,7 +56,7 @@ namespace YAF.Pages.Admin
         ///   Default constructor.
         /// </summary>
         public Medals()
-            : base("ADMIN_MEDALS")
+            : base("ADMIN_MEDALS", ForumPages.Admin_Medals)
         {
         }
 

@@ -113,7 +113,7 @@ namespace YAF.Core.Events
             CodeContracts.VerifyNotNull(instanceName);
             CodeContracts.VerifyNotNull(start);
 
-            if (this.appInstance == null)
+            if (this.appInstance is null)
             {
                 return false;
             }

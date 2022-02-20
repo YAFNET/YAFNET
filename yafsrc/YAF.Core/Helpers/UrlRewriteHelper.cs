@@ -61,7 +61,7 @@ namespace YAF.Core.Helpers
             // trim...
             inputString = Config.UrlRewritingMode == "Unicode"
                       ? HttpUtility.UrlDecode(inputString.Trim())
-                      : HttpContext.Current.Server.HtmlDecode(inputString.Trim());
+                      : HttpUtility.HtmlDecode(inputString.Trim());
 
             inputString = Regex.Replace(inputString, @"\p{Cs}", string.Empty);
 

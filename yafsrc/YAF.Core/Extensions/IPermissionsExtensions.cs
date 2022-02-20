@@ -32,7 +32,7 @@ namespace YAF.Core.Extensions
     #endregion
 
     /// <summary>
-    /// The i permissions extensions.
+    /// The permissions extensions.
     /// </summary>
     public static class IPermissionsExtensions
     {

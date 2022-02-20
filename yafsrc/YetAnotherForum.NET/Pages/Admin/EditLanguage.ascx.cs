@@ -58,6 +58,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditLanguage : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditLanguage"/> class. 
+        /// </summary>
+        public EditLanguage()
+            : base("ADMIN_EDITLANGUAGE", ForumPages.Admin_EditLanguage)
+        {
+        }
+
+        #endregion
+
         #region Constants and Fields
 
         /// <summary>

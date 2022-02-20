@@ -177,28 +177,24 @@ namespace YAF.UrlRewriter
              * ${map-name:value|default-value}	map-name is replacement, value is replacement, default-value is replacement
              * ${fn(value)}						value is replacement
              */
-            using (var reader = new StringReader(input))
+            using var reader = new StringReader(input);
+            using var writer = new StringWriter();
+            var ch = (char)reader.Read();
+            while (ch != EndChar)
             {
-                using (var writer = new StringWriter())
+                if (ch == '$')
                 {
-                    var ch = (char)reader.Read();
-                    while (ch != EndChar)
-                    {
-                        if (ch == '$')
-                        {
-                            writer.Write(this.Reduce(context, reader));
-                        }
-                        else
-                        {
-                            writer.Write(ch);
-                        }
-
-                        ch = (char)reader.Read();
-                    }
-
-                    return writer.GetStringBuilder().ToString();
+                    writer.Write(this.Reduce(context, reader));
                 }
+                else
+                {
+                    writer.Write(ch);
+                }
+
+                ch = (char)reader.Read();
             }
+
+            return writer.GetStringBuilder().ToString();
         }
 
         private void ProcessRules(IRewriteContext context)

@@ -49,7 +49,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="EditSignature"/> class.
         /// </summary>
         public EditSignature()
-            : base("EDIT_SIGNATURE")
+            : base("EDIT_SIGNATURE", ForumPages.Profile_EditSignature)
         {
         }
 

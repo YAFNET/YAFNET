@@ -56,7 +56,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="DeleteAccount"/> class.
         /// </summary>
         public DeleteAccount()
-            : base("DELETE_ACCOUNT")
+            : base("DELETE_ACCOUNT", ForumPages.Profile_DeleteAccount)
         {
         }
 

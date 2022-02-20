@@ -75,8 +75,8 @@ namespace YAF.Core.Utilities
                     using var openSubKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32)
                         .OpenSubKey(SubKey);
                     return openSubKey?.GetValue("Release") != null
-                        ? $"Framework Version: {CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>())}"
-                        : Environment.Version.ToString();
+                               ? $"Framework Version: {CheckFor45PlusVersion(openSubKey.GetValue("Release").ToType<int>())}"
+                               : Environment.Version.ToString();
                 }
                 catch (Exception)
                 {

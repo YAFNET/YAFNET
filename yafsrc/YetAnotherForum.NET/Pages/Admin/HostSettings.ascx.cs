@@ -49,6 +49,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class HostSettings : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HostSettings"/> class. 
+        /// </summary>
+        public HostSettings()
+            : base("ADMIN_HOSTSETTINGS", ForumPages.Admin_HostSettings)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

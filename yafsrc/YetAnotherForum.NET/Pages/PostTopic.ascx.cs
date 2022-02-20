@@ -554,7 +554,7 @@ namespace YAF.Pages
                             });
 
                     this.Get<IActivityStream>().AddTopicToStream(
-                        this.PageContext.PageUserID,
+                        Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
                         newMessage.TopicID,
                         newMessage.ID,
                         HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text),

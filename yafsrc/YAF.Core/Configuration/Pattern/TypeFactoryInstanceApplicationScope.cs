@@ -75,7 +75,7 @@ namespace YAF.Core.Configuration.Pattern
         {
             get
             {
-                if (HttpContext.Current == null)
+                if (HttpContext.Current is null)
                 {
                     return this.instance == null ? default : (T)this.instance;
                 }
@@ -85,7 +85,7 @@ namespace YAF.Core.Configuration.Pattern
 
             set
             {
-                if (HttpContext.Current == null)
+                if (HttpContext.Current is null)
                 {
                     this.instance = value;
                 }

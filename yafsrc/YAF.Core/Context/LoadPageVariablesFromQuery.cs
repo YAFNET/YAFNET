@@ -23,6 +23,7 @@
  */
 namespace YAF.Core.Context
 {
+    using System.Linq;
     using System.Web;
 
     using YAF.Types;

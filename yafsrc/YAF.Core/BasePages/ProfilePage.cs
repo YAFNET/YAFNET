@@ -24,19 +24,20 @@
 
 namespace YAF.Core.BasePages
 {
+    using YAF.Types.Constants;
+
     /// <summary>
     /// Profile Page Registered Class
     /// </summary>
     public class ProfilePage : ForumPageRegistered
-  {
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ProfilePage"/> class. 
-        /// Creates the Administration page.
+        /// Initializes a new instance of the <see cref="ProfilePage"/> class.
         /// </summary>
         public ProfilePage()
-      : this(null)
-    {
-    }
+            : this(null, ForumPages.Board)
+        {
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ProfilePage"/> class.
@@ -44,11 +45,14 @@ namespace YAF.Core.BasePages
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        public ProfilePage(string transPage)
-      : base(transPage)
-    {
-      this.IsRegisteredPage = true;
-    }
+        /// <param name="pageType">
+        /// The page Type.
+        /// </param>
+        public ProfilePage(string transPage, ForumPages pageType)
+            : base(transPage, pageType)
+        {
+            this.IsRegisteredPage = true;
+        }
 
         #region Properties
 

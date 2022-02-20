@@ -91,7 +91,7 @@ namespace YAF.Modules
         private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // check access permissions for specific pages...
-            switch (this.ForumPageType)
+            switch (this.CurrentForumPage.PageType)
             {
                 case ForumPages.ActiveUsers:
                     this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);

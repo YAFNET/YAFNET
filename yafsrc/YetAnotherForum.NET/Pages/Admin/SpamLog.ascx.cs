@@ -39,6 +39,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Objects.Model;
@@ -52,6 +53,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class SpamLog : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpamLog"/> class. 
+        /// </summary>
+        public SpamLog()
+            : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

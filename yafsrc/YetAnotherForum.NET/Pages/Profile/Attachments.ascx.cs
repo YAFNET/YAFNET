@@ -34,13 +34,11 @@ namespace YAF.Pages.Profile
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
     #endregion
@@ -56,7 +54,7 @@ namespace YAF.Pages.Profile
         ///   Initializes a new instance of the <see cref = "Attachments" /> class.
         /// </summary>
         public Attachments()
-            : base("ATTACHMENTS")
+            : base("ATTACHMENTS", ForumPages.Profile_Attachments)
         {
         }
 

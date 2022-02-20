@@ -52,7 +52,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="Friends"/> class.
         /// </summary>
         public Friends()
-            : base("FRIENDS")
+            : base("FRIENDS", ForumPages.Friends)
         {
         }
 

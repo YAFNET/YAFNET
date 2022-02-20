@@ -65,7 +65,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "UserProfile" /> class.
         /// </summary>
         public UserProfile()
-            : base("PROFILE")
+            : base("PROFILE", ForumPages.UserProfile)
         {
         }
 

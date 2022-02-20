@@ -9,8 +9,6 @@
 
 namespace YAF.Pages.Admin
 {
-
-
     public partial class Admin
     {
 

@@ -49,6 +49,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Mail : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Mail"/> class. 
+        /// </summary>
+        public Mail()
+            : base("ADMIN_MAIL", ForumPages.Admin_Mail)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

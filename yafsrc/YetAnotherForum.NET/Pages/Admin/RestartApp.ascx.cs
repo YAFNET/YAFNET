@@ -31,6 +31,7 @@ namespace YAF.Pages.Admin
 
     using YAF.Core.BasePages;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Web.Extensions;
 
@@ -41,6 +42,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class RestartApp : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RestartApp"/> class. 
+        /// </summary>
+        public RestartApp()
+            : base("ADMIN_RESTARTAPP", ForumPages.Admin_RestartApp)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

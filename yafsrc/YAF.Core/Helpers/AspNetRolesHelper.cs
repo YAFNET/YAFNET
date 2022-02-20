@@ -201,7 +201,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public List<string> GetAllRoles()
         {
-            return this.Get<IAspNetRoleManager>().Roles.Select(r => r.Name).ToList();
+            return this.Get<IAspNetRoleManager>().AspNetRoles.Select(r => r.Name).ToList();
         }
 
         /// <summary>
@@ -370,7 +370,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public int? UpdateForumUser([NotNull] AspNetUsers user, int pageBoardID, [CanBeNull] string[] roles = null)
         {
-            if (user == null)
+            if (user is null)
             {
                 // Check to make sure its not a guest
                 return null;
@@ -385,7 +385,7 @@ namespace YAF.Core.Helpers
                 return userId;
             }
 
-            if (user.Id == null)
+            if (user.Id is null)
             {
                 // problem -- log and move on...
                 this.Get<ILoggerService>().Log(

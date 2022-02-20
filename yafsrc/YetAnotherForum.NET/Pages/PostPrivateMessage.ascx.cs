@@ -81,7 +81,7 @@ namespace YAF.Pages
         ///   Default constructor.
         /// </summary>
         public PostPrivateMessage()
-            : base("PMESSAGE")
+            : base("PMESSAGE", ForumPages.PostPrivateMessage)
         {
         }
 

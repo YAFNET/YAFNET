@@ -63,7 +63,7 @@ namespace YAF.Pages.Account
         ///   Initializes a new instance of the <see cref = "Register" /> class.
         /// </summary>
         public Register()
-            : base("REGISTER")
+            : base("REGISTER", ForumPages.Account_Register)
         {
         }
 
@@ -464,6 +464,11 @@ namespace YAF.Pages.Account
                 }
             }
 
+            if (!this.ValidateCustomProfile())
+            {
+                return false;
+            }
+
             this.IsPossibleSpamBot = false;
 
             // Check user for bot
@@ -526,6 +531,26 @@ namespace YAF.Pages.Account
             }
 
             return true;
+        }
+
+        private bool ValidateCustomProfile()
+        {
+            // Save Custom Profile
+            if (!this.CustomProfile.Visible)
+            {
+                return true;
+            }
+
+            return (from item in
+                        this.CustomProfile.Items.Cast<RepeaterItem>().Where(
+                            x => x.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+                    let id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>()
+                    let profileDef = this.ProfileDefinitions.FirstOrDefault(x => x.ID == id)
+                    where profileDef != null
+                    let textBox = item.FindControlAs<TextBox>("DefText")
+                    let type = profileDef.DataType.ToEnum<DataType>()
+                    where profileDef.Required && type is DataType.Text or DataType.Number
+                    select textBox).All(textBox => !textBox.Text.IsNotSet());
         }
 
         private void SaveCustomProfile(int userId)

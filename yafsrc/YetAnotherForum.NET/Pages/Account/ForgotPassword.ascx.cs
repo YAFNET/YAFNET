@@ -50,7 +50,7 @@ namespace YAF.Pages.Account
         ///   Initializes a new instance of the <see cref = "ForgotPassword" /> class.
         /// </summary>
         public ForgotPassword()
-            : base("RECOVER_PASSWORD")
+            : base("RECOVER_PASSWORD", ForumPages.Account_ForgotPassword)
         {
         }
 

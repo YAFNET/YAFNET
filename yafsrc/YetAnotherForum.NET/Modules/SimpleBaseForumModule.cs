@@ -53,7 +53,7 @@ namespace YAF.Modules
         /// <summary>
         ///   Gets ForumPageType.
         /// </summary>
-        public ForumPages ForumPageType => this.PageContext.ForumPageType;
+        public ForumPages ForumPageType => this.PageContext.CurrentForumPage.PageType;
 
         #endregion
 

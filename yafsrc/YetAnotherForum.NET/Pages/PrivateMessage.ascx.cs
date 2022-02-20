@@ -58,7 +58,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="PrivateMessage"/> class.
         /// </summary>
         public PrivateMessage()
-            : base("MESSAGE")
+            : base("MESSAGE", ForumPages.PrivateMessage)
         {
         }
 

@@ -46,6 +46,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Prune : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Prune"/> class. 
+        /// </summary>
+        public Prune()
+            : base("ADMIN_PRUNE", ForumPages.Admin_Prune)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

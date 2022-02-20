@@ -53,7 +53,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Jabber" /> class.
         /// </summary>
         public Jabber()
-            : base("IM_XMPP")
+            : base("IM_XMPP", ForumPages.Jabber)
         {
         }
 

@@ -29,7 +29,6 @@ namespace YAF.Core.Helpers
     using System.IO;
     using System.Runtime.Caching;
     using System.Web;
-    using System.Web.Caching;
 
     using YAF.Core.Context;
     using YAF.Core.Utilities.ImageUtils;
@@ -118,7 +117,7 @@ namespace YAF.Core.Helpers
             }
             else
             {
-                cache.Add(cacheName, text, Cache.NoAbsoluteExpiration);
+                cache.Add(cacheName, text, DateTimeOffset.MaxValue);
             }
 
             return text;

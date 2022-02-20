@@ -71,7 +71,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="MyTopics"/> class.
         /// </summary>
         public MyTopics()
-            : base("MYTOPICS")
+            : base("MYTOPICS", ForumPages.MyTopics)
         {
         }
 

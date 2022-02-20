@@ -39,7 +39,7 @@ namespace YAF.Types.Interfaces.Identity
         /// <summary>
         /// Gets the roles.
         /// </summary>
-        IQueryable<AspNetRoles> Roles { get; }
+        IQueryable<AspNetRoles> AspNetRoles { get; }
 
         /// <summary>
         /// The get roles.

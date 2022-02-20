@@ -50,6 +50,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditAccessMask : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditAccessMask"/> class. 
+        /// </summary>
+        public EditAccessMask()
+            : base("ADMIN_EDITACCESSMASKS", ForumPages.Admin_EditAccessMask)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

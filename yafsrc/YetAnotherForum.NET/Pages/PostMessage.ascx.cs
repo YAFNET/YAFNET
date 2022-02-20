@@ -30,6 +30,7 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web;
 
+    using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
@@ -567,7 +568,7 @@ namespace YAF.Pages
                             });
 
                     this.Get<IActivityStream>().AddReplyToStream(
-                        this.PageContext.PageUserID,
+                        Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
                         this.PageContext.PageTopicID,
                         newMessage.ID,
                         this.PageContext.PageTopic.TopicName,

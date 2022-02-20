@@ -119,7 +119,14 @@ namespace YAF.Core.Context
             // resources are not handled by ActiveLocation control so far.
             if (!this.Get<HttpRequestBase>().Path.Contains("resource.ashx"))
             {
-                forumPage = BoardContext.Current.ForumPageType.ToString();
+                try
+                {
+                    forumPage = BoardContext.Current.CurrentForumPage.PageType.ToString();
+                }
+                catch (Exception)
+                {
+                    forumPage = string.Empty;
+                }
             }
 
             do
@@ -141,7 +148,7 @@ namespace YAF.Core.Context
                     @event.UserRequestData.DontTrack);
 
                 // if the user doesn't exist create the user...
-                if (userKey != null && pageRow == null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
+                if (userKey != null && pageRow is null && !this.Get<IAspNetRolesHelper>().DidCreateForumUser(
                     BoardContext.Current.MembershipUser,
                     BoardContext.Current.PageBoardID))
                 {
@@ -153,7 +160,7 @@ namespace YAF.Core.Context
                     continue;
                 }
 
-                if (userKey != null && pageRow == null)
+                if (userKey != null && pageRow is null)
                 {
                     // probably no permissions, use guest user instead...
                     userKey = null;
@@ -163,7 +170,7 @@ namespace YAF.Core.Context
                 // fail...
                 break;
             }
-            while (pageRow == null && userKey != null);
+            while (pageRow is null && userKey != null);
 
             // add all loaded page data into our data dictionary...
             @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");

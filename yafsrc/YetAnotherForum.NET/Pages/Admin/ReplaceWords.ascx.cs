@@ -49,6 +49,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class ReplaceWords : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ReplaceWords"/> class. 
+        /// </summary>
+        public ReplaceWords()
+            : base("ADMIN_REPLACEWORDS", ForumPages.Admin_ReplaceWords)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

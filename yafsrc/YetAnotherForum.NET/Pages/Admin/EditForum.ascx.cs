@@ -56,6 +56,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditForum : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditForum"/> class. 
+        /// </summary>
+        public EditForum()
+            : base("ADMIN_EDITFORUM", ForumPages.Admin_EditForum)
+        {
+        }
+
+        #endregion
+
         /// <summary>
         /// The access mask list.
         /// </summary>

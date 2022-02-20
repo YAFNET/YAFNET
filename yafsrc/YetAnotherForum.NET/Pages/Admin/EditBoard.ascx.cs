@@ -56,6 +56,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditBoard : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditBoard"/> class. 
+        /// </summary>
+        public EditBoard()
+            : base("ADMIN_EDITBOARD", ForumPages.Admin_EditBoard)
+        {
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

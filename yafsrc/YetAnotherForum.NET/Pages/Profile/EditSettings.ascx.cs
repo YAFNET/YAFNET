@@ -50,7 +50,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="EditSettings"/> class.
         /// </summary>
         public EditSettings()
-            : base("EDIT_SETTINGS")
+            : base("EDIT_SETTINGS", ForumPages.Profile_EditSettings)
         {
         }
 

@@ -51,6 +51,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class SpamWords : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SpamWords"/> class. 
+        /// </summary>
+        public SpamWords()
+            : base("ADMIN_SPAMWORDS", ForumPages.Admin_SpamWords)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using YAF.Core.BasePages;
+    using YAF.Types.Constants;
 
     #endregion
 
@@ -41,7 +42,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Cookies" /> class.
         /// </summary>
         public Cookies()
-            : base("COOKIES")
+            : base("COOKIES", ForumPages.Cookies)
         {
         }
 

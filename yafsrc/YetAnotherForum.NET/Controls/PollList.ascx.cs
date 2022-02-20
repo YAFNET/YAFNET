@@ -582,7 +582,7 @@ namespace YAF.Controls
             {
                 this.BindData();
 
-                if (!this.canChange && this.PageContext.ForumPageType is ForumPages.PostMessage or ForumPages.EditMessage)
+                if (!this.canChange && this.PageContext.CurrentForumPage.PageType is ForumPages.PostMessage or ForumPages.EditMessage)
                 {
                     this.PollListHolder.Visible = false;
                 }
@@ -653,7 +653,7 @@ namespace YAF.Controls
         private void ReturnToPage()
         {
             // We simply return here to the page where the control is put. It can be made other way.
-            if (this.PageContext.ForumPageType == ForumPages.Posts)
+            if (this.PageContext.CurrentForumPage.PageType == ForumPages.Posts)
             {
                 if (this.TopicId > 0)
                 {

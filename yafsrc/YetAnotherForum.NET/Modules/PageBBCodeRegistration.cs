@@ -44,7 +44,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            switch (this.PageContext.ForumPageType)
+            switch (this.PageContext.CurrentForumPage.PageType)
             {
                 case ForumPages.PrivateMessage:
                 case ForumPages.Search:

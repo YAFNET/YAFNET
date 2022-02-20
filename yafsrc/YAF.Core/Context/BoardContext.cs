@@ -146,29 +146,6 @@ namespace YAF.Core.Context
         public ForumPage CurrentForumPage { get; set; }
 
         /// <summary>
-        /// Gets the current page as the forumPage Enumerator (for comparison)
-        /// </summary>
-        public ForumPages ForumPageType
-        {
-            get
-            {
-                if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").IsNotSet())
-                {
-                    return ForumPages.Board;
-                }
-
-                try
-                {
-                    return this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("g").ToEnum<ForumPages>(true);
-                }
-                catch (Exception)
-                {
-                    return ForumPages.Board;
-                }
-            }
-        }
-
-        /// <summary>
         /// Gets the Access to the Context Global Variable Repository Class which is a helper class that accesses BoardContext.Vars with strongly typed properties for primary variables.
         /// </summary>
         public ContextVariableRepository Globals { get; }
@@ -289,7 +266,7 @@ namespace YAF.Core.Context
 
             this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
-            if (this.MembershipUser != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] == null
+            if (this.MembershipUser != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] is null
                                       || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
                                       != this.MembershipUser.UserName))
             {

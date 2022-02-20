@@ -99,7 +99,7 @@ namespace YAF.Modules
             }
 
             // handle security features...
-            if (this.ForumPageType == ForumPages.Account_Register && this.PageContext.BoardSettings.DisableRegistrations)
+            if (this.CurrentForumPage.PageType == ForumPages.Account_Register && this.PageContext.BoardSettings.DisableRegistrations)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }

@@ -54,6 +54,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditCategory : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditCategory"/> class. 
+        /// </summary>
+        public EditCategory()
+            : base("ADMIN_EDITCATEGORY", ForumPages.Admin_EditCategory)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

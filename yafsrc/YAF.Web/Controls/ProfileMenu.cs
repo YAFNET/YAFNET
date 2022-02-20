@@ -317,7 +317,7 @@ namespace YAF.Web.Controls
             string parameter = null)
         {
             stringBuilder.AppendFormat(
-                this.PageContext.ForumPageType == page
+                this.PageContext.CurrentForumPage.PageType == page
                     ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-light""></i>{1}</a>"
                     : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-secondary""></i>{1}</a>",
                 parameter.IsSet() ? this.Get<LinkBuilder>().GetLink(page, parameter) : this.Get<LinkBuilder>().GetLink(page),

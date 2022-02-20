@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -44,6 +45,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Pm : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Pm"/> class. 
+        /// </summary>
+        public Pm()
+            : base("ADMIN_PM", ForumPages.Admin_Pm)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>

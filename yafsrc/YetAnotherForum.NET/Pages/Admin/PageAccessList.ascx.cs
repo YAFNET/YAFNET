@@ -46,6 +46,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class PageAccessList : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageAccessList"/> class. 
+        /// </summary>
+        public PageAccessList()
+            : base("ADMIN_PAGEACCESSLIST", ForumPages.Admin_PageAccessList)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

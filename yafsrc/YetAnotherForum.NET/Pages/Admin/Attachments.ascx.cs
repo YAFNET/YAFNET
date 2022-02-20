@@ -26,7 +26,6 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -34,8 +33,8 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -55,7 +54,7 @@ namespace YAF.Pages.Admin
         ///   Initializes a new instance of the <see cref = "Attachments" /> class.
         /// </summary>
         public Attachments()
-            : base("ADMIN_ATTACHMENTS")
+            : base("ADMIN_ATTACHMENTS", ForumPages.Admin_Attachments)
         {
         }
 

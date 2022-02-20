@@ -63,7 +63,7 @@ namespace YAF.Pages.Admin
         ///   Default constructor.
         /// </summary>
         public EditMedal()
-            : base("ADMIN_EDITMEDAL")
+            : base("ADMIN_EDITMEDAL", ForumPages.Admin_EditMedal)
         {
         }
 

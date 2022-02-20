@@ -56,7 +56,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Email" /> class.
         /// </summary>
         public Email()
-            : base("IM_EMAIL")
+            : base("IM_EMAIL", ForumPages.Email)
         {
         }
 

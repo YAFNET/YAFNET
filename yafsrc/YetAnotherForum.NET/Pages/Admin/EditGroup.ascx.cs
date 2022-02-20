@@ -53,6 +53,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditGroup : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditGroup"/> class. 
+        /// </summary>
+        public EditGroup()
+            : base("ADMIN_EDITGROUP", ForumPages.Admin_EditGroup)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

@@ -50,6 +50,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class BannedEmails : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BannedEmails"/> class. 
+        /// </summary>
+        public BannedEmails()
+            : base("ADMIN_BANNEDEMAIL", ForumPages.Admin_BannedEmails)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

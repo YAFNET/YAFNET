@@ -49,6 +49,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class RegisterUser : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegisterUser"/> class. 
+        /// </summary>
+        public RegisterUser()
+            : base("ADMIN_REGUSER", ForumPages.Admin_RegisterUser)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

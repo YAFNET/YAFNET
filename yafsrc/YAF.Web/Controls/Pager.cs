@@ -133,7 +133,7 @@ namespace YAF.Web.Controls
         /// </returns>
         protected string GetPageUrl(int page)
         {
-            var url = this.PageContext.ForumPageType switch
+            var url = this.PageContext.CurrentForumPage.PageType switch
             {
                 ForumPages.Topics => page > 1
                     ? this.Get<LinkBuilder>().GetLink(

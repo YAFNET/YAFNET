@@ -46,6 +46,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class AccessMasks : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccessMasks"/> class. 
+        /// </summary>
+        public AccessMasks()
+            : base("ADMIN_ACCESSMASKS", ForumPages.Admin_AccessMasks)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

@@ -55,7 +55,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="BlockOptions"/> class.
         /// </summary>
         public BlockOptions()
-            : base("BLOCK_OPTIONS")
+            : base("BLOCK_OPTIONS", ForumPages.Profile_BlockOptions)
         {
         }
 

@@ -88,9 +88,9 @@ namespace YAF.Core.Context
         {
             get
             {
-                if (HttpContext.Current == null)
+                if (HttpContext.Current is null)
                 {
-                    return _globalInstance ?? (_globalInstance = this.CreateContextInstance());
+                    return _globalInstance ??= this.CreateContextInstance();
                 }
 
                 if (HttpContext.Current.Items[PageBoardContextName] is BoardContext pageInstance)

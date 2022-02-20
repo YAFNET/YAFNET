@@ -51,7 +51,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "RulesAndPrivacy" /> class.
         /// </summary>
         public RulesAndPrivacy()
-            : base("RULES")
+            : base("RULES", ForumPages.RulesAndPrivacy)
         {
         }
 

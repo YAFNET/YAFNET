@@ -52,6 +52,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Groups : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Groups"/> class. 
+        /// </summary>
+        public Groups()
+            : base("ADMIN_GROUPS", ForumPages.Admin_Groups)
+        {
+        }
+
+        #endregion
+
         #region Constants and Fields
 
         /// <summary>

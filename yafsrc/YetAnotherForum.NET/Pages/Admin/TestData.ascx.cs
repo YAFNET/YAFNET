@@ -57,6 +57,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class TestData : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TestData"/> class. 
+        /// </summary>
+        public TestData()
+            : base("ADMIN_TESTDATA", ForumPages.Admin_TestData)
+        {
+        }
+
+        #endregion
+
         #region Constants and Fields
 
         /// <summary>

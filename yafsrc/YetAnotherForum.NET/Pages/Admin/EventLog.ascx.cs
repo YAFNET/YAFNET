@@ -52,6 +52,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EventLog : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventLog"/> class. 
+        /// </summary>
+        public EventLog()
+            : base("ADMIN_EVENTLOG", ForumPages.Admin_EventLog)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

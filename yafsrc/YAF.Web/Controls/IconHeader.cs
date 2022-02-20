@@ -76,7 +76,7 @@ namespace YAF.Web.Controls
         /// <summary>
         /// Gets or sets LocalizedPage.
         /// </summary>
-        public string LocalizedPage { get; set; } = BoardContext.Current.ForumPageType.ToString().ToUpper();
+        public string LocalizedPage { get; set; } = BoardContext.Current.CurrentForumPage.PageName.ToUpper();
 
         /// <summary>
         /// Gets or sets LocalizedTag.

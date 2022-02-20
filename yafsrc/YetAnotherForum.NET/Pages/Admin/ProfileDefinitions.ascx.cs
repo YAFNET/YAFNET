@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -45,6 +46,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class ProfileDefinitions : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProfileDefinitions"/> class. 
+        /// </summary>
+        public ProfileDefinitions()
+            : base("ADMIN_PROFILEDEFINITIONS", ForumPages.Admin_ProfileDefinitions)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

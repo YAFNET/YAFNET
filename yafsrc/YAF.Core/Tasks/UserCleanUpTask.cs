@@ -50,7 +50,7 @@ namespace YAF.Core.Tasks
         /// <summary>
         /// Gets TaskName.
         /// </summary>
-        public static string TaskName { get; } = "UserCleanUpTask";
+        public static string TaskName => "UserCleanUpTask";
 
         /// <summary>
         /// The run once.

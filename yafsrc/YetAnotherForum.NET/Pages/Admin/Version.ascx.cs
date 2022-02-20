@@ -32,6 +32,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.BasePages;
     using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
@@ -43,6 +44,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Version : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Version"/> class. 
+        /// </summary>
+        public Version()
+            : base("ADMIN_VERSION", ForumPages.Admin_Version)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

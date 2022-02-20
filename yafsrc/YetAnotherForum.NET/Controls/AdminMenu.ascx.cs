@@ -60,7 +60,7 @@ namespace YAF.Controls
             this.AdminDropdown.CssClass = "nav-link dropdown-toggle";
 
             if (this.PageContext.CurrentForumPage.IsAdminPage &&
-                !(this.PageContext.ForumPageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
+                !(this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
                     ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList))
             {
                 this.AdminDropdown.CssClass = "nav-link dropdown-toggle active";
@@ -139,7 +139,7 @@ namespace YAF.Controls
                 "dropdown-item",
                 this.GetText("ADMINMENU", "ADMIN_ADMIN"),
                 this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin),
-                this.PageContext.ForumPageType == ForumPages.Admin_Admin,
+                this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Admin,
                 false,
                 "tachometer-alt");
 
@@ -213,7 +213,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "SETTINGS"),
                 "#",
-                this.PageContext.ForumPageType is ForumPages.Admin_BoardAnnouncement or ForumPages.Admin_Settings or
+                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_BoardAnnouncement or ForumPages.Admin_Settings or
                     ForumPages.Admin_Forums or ForumPages.Admin_EditForum or ForumPages.Admin_EditCategory or
                     ForumPages.Admin_ReplaceWords or ForumPages.Admin_BBCodes or ForumPages.Admin_BBCode_Edit or
                     ForumPages.Admin_Languages or ForumPages.Admin_EditLanguage,
@@ -233,7 +233,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BoardAnnouncement"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BoardAnnouncement),
-                    this.PageContext.ForumPageType == ForumPages.Admin_BoardAnnouncement,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_BoardAnnouncement,
                     false,
                     "bullhorn");
             }
@@ -246,7 +246,7 @@ namespace YAF.Controls
                     "dropdown-item dropdown",
                     this.GetText("ADMINMENU", "admin_boardsettings"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Settings),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Settings,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Settings,
                     false,
                     "cogs");
             }
@@ -259,7 +259,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_forums"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Forums),
-                    this.PageContext.ForumPageType is ForumPages.Admin_Forums or ForumPages.Admin_EditForum or
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_Forums or ForumPages.Admin_EditForum or
                         ForumPages.Admin_EditCategory,
                     false,
                     "comments");
@@ -273,7 +273,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_replacewords"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_ReplaceWords),
-                    this.PageContext.ForumPageType == ForumPages.Admin_ReplaceWords,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_ReplaceWords,
                     false,
                     "sticky-note");
             }
@@ -286,7 +286,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_bbcode"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BBCodes),
-                    this.PageContext.ForumPageType is ForumPages.Admin_BBCodes or ForumPages.Admin_BBCode_Edit,
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_BBCodes or ForumPages.Admin_BBCode_Edit,
                     false,
                     "plug");
             }
@@ -299,7 +299,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Languages"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Languages),
-                    this.PageContext.ForumPageType is ForumPages.Admin_Languages or ForumPages.Admin_EditLanguage,
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_Languages or ForumPages.Admin_EditLanguage,
                     false,
                     "language");
             }
@@ -326,7 +326,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Spam_Protection"),
                 "#",
-                this.PageContext.ForumPageType is ForumPages.Admin_SpamLog or ForumPages.Admin_SpamWords or
+                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_SpamLog or ForumPages.Admin_SpamWords or
                     ForumPages.Admin_BannedEmails or ForumPages.Admin_BannedIps or ForumPages.Admin_BannedNames,
                 true,
                 "shield-alt");
@@ -343,7 +343,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_spamlog"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_SpamLog),
-                    this.PageContext.ForumPageType == ForumPages.Admin_SpamLog,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_SpamLog,
                     false,
                     "book");
             }
@@ -356,7 +356,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_SpamWords"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_SpamWords),
-                    this.PageContext.ForumPageType == ForumPages.Admin_SpamWords,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_SpamWords,
                     false,
                     "hand-paper");
             }
@@ -369,7 +369,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BannedEmail"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedEmails),
-                    this.PageContext.ForumPageType == ForumPages.Admin_BannedEmails,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_BannedEmails,
                     false,
                     "hand-paper");
             }
@@ -382,7 +382,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BannedIp"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedIps),
-                    this.PageContext.ForumPageType == ForumPages.Admin_BannedIps,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_BannedIps,
                     false,
                     "hand-paper");
             }
@@ -395,7 +395,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_BannedName"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedNames),
-                    this.PageContext.ForumPageType == ForumPages.Admin_BannedNames,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_BannedNames,
                     false,
                     "hand-paper");
             }
@@ -422,7 +422,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "UsersandRoles"),
                 "#",
-                this.PageContext.ForumPageType is ForumPages.Admin_ProfileDefinitions or ForumPages.Admin_AccessMasks or
+                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_ProfileDefinitions or ForumPages.Admin_AccessMasks or
                     ForumPages.Admin_EditAccessMask or ForumPages.Admin_Groups or ForumPages.Admin_EditGroup or
                     ForumPages.Admin_Ranks or ForumPages.Admin_Users or ForumPages.Admin_EditUser or
                     ForumPages.Admin_EditRank or ForumPages.Admin_Medals or ForumPages.Admin_EditMedal or
@@ -443,7 +443,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_ProfileDefinitions"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_ProfileDefinitions),
-                    this.PageContext.ForumPageType == ForumPages.Admin_ProfileDefinitions,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_ProfileDefinitions,
                     false,
                     "id-card");
             }
@@ -456,7 +456,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_AccessMasks"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_AccessMasks),
-                    this.PageContext.ForumPageType is ForumPages.Admin_AccessMasks or ForumPages.Admin_EditAccessMask,
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_AccessMasks or ForumPages.Admin_EditAccessMask,
                     false,
                     "universal-access");
             }
@@ -469,7 +469,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Groups"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Groups),
-                    this.PageContext.ForumPageType is ForumPages.Admin_Groups or ForumPages.Admin_EditGroup,
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_Groups or ForumPages.Admin_EditGroup,
                     false,
                     "users");
             }
@@ -482,7 +482,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Users"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Users),
-                    this.PageContext.ForumPageType is ForumPages.Admin_EditUser or ForumPages.Admin_Users,
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_EditUser or ForumPages.Admin_Users,
                     false,
                     "users");
             }
@@ -495,7 +495,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Ranks"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Ranks),
-                    this.PageContext.ForumPageType is ForumPages.Admin_Ranks or ForumPages.Admin_EditRank,
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_Ranks or ForumPages.Admin_EditRank,
                     false,
                     "graduation-cap");
             }
@@ -508,7 +508,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Medals"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Medals),
-                    this.PageContext.ForumPageType is ForumPages.Admin_Medals or ForumPages.Admin_EditMedal,
+                    this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_Medals or ForumPages.Admin_EditMedal,
                     false,
                     "medal");
             }
@@ -521,7 +521,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Mail"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Mail),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Mail,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Mail,
                     false,
                     "at");
             }
@@ -534,7 +534,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Digest"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Digest),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Digest,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Digest,
                     false,
                     "envelope");
             }
@@ -561,7 +561,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Maintenance"),
                 "#",
-                this.PageContext.ForumPageType is ForumPages.Admin_Attachments or ForumPages.Admin_Tags or
+                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_Attachments or ForumPages.Admin_Tags or
                     ForumPages.Admin_Prune or ForumPages.Admin_Restore or ForumPages.Admin_TaskManager or
                     ForumPages.Admin_EventLog or ForumPages.Admin_RestartApp,
                 true,
@@ -579,7 +579,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Attachments"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Attachments),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Attachments,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Attachments,
                     false,
                     "paperclip");
             }
@@ -592,7 +592,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Tags"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Tags),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Tags,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Tags,
                     false,
                     "tags");
             }
@@ -605,7 +605,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Prune"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Prune),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Prune,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Prune,
                     false,
                     "trash");
             }
@@ -618,7 +618,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Restore"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Restore),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Restore,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Restore,
                     false,
                     "trash-restore");
             }
@@ -631,7 +631,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_Pm"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Pm),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Pm,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Pm,
                     false,
                     "envelope-square");
             }
@@ -644,7 +644,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_TaskManager"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_TaskManager),
-                    this.PageContext.ForumPageType == ForumPages.Admin_TaskManager,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_TaskManager,
                     false,
                     "tasks");
             }
@@ -657,7 +657,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_EventLog"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EventLog),
-                    this.PageContext.ForumPageType == ForumPages.Admin_EventLog,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_EventLog,
                     false,
                     "book");
             }
@@ -670,7 +670,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_RestartApp"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_RestartApp),
-                    this.PageContext.ForumPageType == ForumPages.Admin_RestartApp,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_RestartApp,
                     false,
                     "sync");
             }
@@ -697,7 +697,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Database"),
                 "#",
-                this.PageContext.ForumPageType is ForumPages.Admin_ReIndex or ForumPages.Admin_RunSql,
+                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_ReIndex or ForumPages.Admin_RunSql,
                 true,
                 "database");
 
@@ -713,7 +713,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_ReIndex"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_ReIndex),
-                    this.PageContext.ForumPageType == ForumPages.Admin_ReIndex,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_ReIndex,
                     false,
                     "database");
             }
@@ -726,7 +726,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_RunSql"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_RunSql),
-                    this.PageContext.ForumPageType == ForumPages.Admin_RunSql,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_RunSql,
                     false,
                     "database");
             }
@@ -753,7 +753,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "NNTP"),
                 "#",
-                this.PageContext.ForumPageType is ForumPages.Admin_NntpRetrieve or ForumPages.Admin_NntpForums or
+                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_NntpRetrieve or ForumPages.Admin_NntpForums or
                     ForumPages.Admin_NntpServers,
                 true,
                 "newspaper");
@@ -770,7 +770,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_NntpServers"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpServers),
-                    this.PageContext.ForumPageType == ForumPages.Admin_NntpServers,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_NntpServers,
                     false,
                     "newspaper");
             }
@@ -783,7 +783,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_NntpForums"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpForums),
-                    this.PageContext.ForumPageType == ForumPages.Admin_NntpForums,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_NntpForums,
                     false,
                     "newspaper");
             }
@@ -796,7 +796,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("ADMINMENU", "admin_NntpRetrieve"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpRetrieve),
-                    this.PageContext.ForumPageType == ForumPages.Admin_NntpRetrieve,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_NntpRetrieve,
                     false,
                     "newspaper");
             }
@@ -823,7 +823,7 @@ namespace YAF.Controls
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 this.GetText("ADMINMENU", "Upgrade"),
                 "#",
-                this.PageContext.ForumPageType == ForumPages.Admin_Version,
+                this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Version,
                 true,
                 "download");
 
@@ -839,7 +839,7 @@ namespace YAF.Controls
                     "dropdown-item dropdown",
                     this.GetText("ADMINMENU", "admin_Version"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Version),
-                    this.PageContext.ForumPageType == ForumPages.Admin_Version,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Version,
                     false,
                     "info");
             }

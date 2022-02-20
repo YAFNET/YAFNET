@@ -76,7 +76,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the ReportPost class.
         /// </summary>
         public PollEdit()
-            : base("POLLEDIT")
+            : base("POLLEDIT", ForumPages.PollEdit)
         {
         }
 

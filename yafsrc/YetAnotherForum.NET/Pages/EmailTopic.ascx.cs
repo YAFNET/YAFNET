@@ -53,7 +53,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "EmailTopic" /> class.
         /// </summary>
         public EmailTopic()
-            : base("EMAILTOPIC")
+            : base("EMAILTOPIC", ForumPages.EmailTopic)
         {
         }
 

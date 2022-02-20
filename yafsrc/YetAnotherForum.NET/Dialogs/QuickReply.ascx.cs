@@ -30,6 +30,7 @@ namespace YAF.Dialogs
     using System.Threading;
     using System.Web;
 
+    using YAF.Configuration;
     using YAF.Core.BaseControls;
     using YAF.Core.BaseModules;
     using YAF.Core.Extensions;
@@ -309,7 +310,7 @@ namespace YAF.Dialogs
                     if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
-                            this.PageContext.PageUserID,
+                            Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
                             this.PageContext.PageTopicID,
                             newMessage.ID,
                             this.PageContext.PageTopic.TopicName,

@@ -49,6 +49,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditUser : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditUser"/> class. 
+        /// </summary>
+        public EditUser()
+            : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
+        {
+        }
+
+        #endregion
+
         #region Properties
 
         /// <summary>

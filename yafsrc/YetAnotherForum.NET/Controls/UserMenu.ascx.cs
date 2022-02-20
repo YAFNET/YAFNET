@@ -235,7 +235,7 @@ namespace YAF.Controls
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.MyAccount,
+                this.PageContext.CurrentForumPage.PageType == ForumPages.MyAccount,
                 "address-card");
 
             if (!Config.IsDotNetNuke)
@@ -250,7 +250,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Profile_EditProfile,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_EditProfile,
                     "user-edit");
 
                 RenderMenuItem(
@@ -263,7 +263,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Profile_EditSettings,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_EditSettings,
                     "user-cog");
             }
 
@@ -277,7 +277,7 @@ namespace YAF.Controls
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.Profile_Attachments,
+                this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_Attachments,
                 "paperclip");
 
             if (!Config.IsDotNetNuke && (this.PageContext.BoardSettings.AvatarUpload
@@ -293,7 +293,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Profile_EditAvatar,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_EditAvatar,
                     "user-tie");
             }
 
@@ -309,7 +309,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Profile_EditSignature,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_EditSignature,
                     "signature");
             }
 
@@ -323,7 +323,7 @@ namespace YAF.Controls
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.Profile_Subscriptions,
+                this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_Subscriptions,
                 "envelope");
 
             RenderMenuItem(
@@ -336,7 +336,7 @@ namespace YAF.Controls
                 false,
                 null,
                 null,
-                this.PageContext.ForumPageType == ForumPages.Profile_BlockOptions,
+                this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_BlockOptions,
                 "user-lock");
 
             if (!Config.IsDotNetNuke)
@@ -352,7 +352,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Profile_ChangePassword,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_ChangePassword,
                     "lock");
             }
 
@@ -369,7 +369,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Profile_DeleteAccount,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Profile_DeleteAccount,
                     "user-alt-slash");
             }
 
@@ -386,7 +386,7 @@ namespace YAF.Controls
                     this.PageContext.UnreadPrivate > 0,
                     this.PageContext.UnreadPrivate.ToString(),
                     this.GetTextFormatted("NEWPM", this.PageContext.UnreadPrivate),
-                    this.PageContext.ForumPageType == ForumPages.MyMessages,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.MyMessages,
                     "inbox");
             }
 
@@ -403,7 +403,7 @@ namespace YAF.Controls
                     this.PageContext.PendingBuddies > 0,
                     this.PageContext.PendingBuddies.ToString(),
                     this.GetTextFormatted("BUDDYREQUEST", this.PageContext.PendingBuddies),
-                    this.PageContext.ForumPageType == ForumPages.Friends,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Friends,
                     "users");
             }
 
@@ -421,7 +421,7 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.ForumPageType == ForumPages.Albums,
+                    this.PageContext.CurrentForumPage.PageType == ForumPages.Albums,
                     "images");
             }
 
@@ -436,7 +436,7 @@ namespace YAF.Controls
                 false,
                 string.Empty,
                 string.Empty,
-                this.PageContext.ForumPageType == ForumPages.MyTopics,
+                this.PageContext.CurrentForumPage.PageType == ForumPages.MyTopics,
                 "comment");
 
             // Logout
@@ -452,7 +452,7 @@ namespace YAF.Controls
             this.UserDropDown.Type = ButtonStyle.None;
 
             this.UserDropDown.CssClass =
-                this.PageContext.ForumPageType is ForumPages.MyAccount or ForumPages.Profile_EditProfile or
+                this.PageContext.CurrentForumPage.PageType is ForumPages.MyAccount or ForumPages.Profile_EditProfile or
                     ForumPages.MyMessages or ForumPages.Friends or ForumPages.MyTopics or ForumPages.Profile_EditProfile
                     or ForumPages.Profile_EditSettings or ForumPages.Profile_ChangePassword or
                     ForumPages.Profile_Attachments or ForumPages.Profile_EditAvatar or ForumPages.Profile_EditSignature

@@ -46,6 +46,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Ranks : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Ranks"/> class. 
+        /// </summary>
+        public Ranks()
+            : base("ADMIN_RANKS", ForumPages.Admin_Ranks)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

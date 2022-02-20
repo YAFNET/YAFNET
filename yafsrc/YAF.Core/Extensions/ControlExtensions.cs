@@ -67,7 +67,7 @@ namespace YAF.Core.Extensions
         /// </returns>
         public static string HtmlEncode(this Control currentControl, object data)
         {
-            if (data == null)
+            if (data is null)
             {
                 return null;
             }
@@ -115,7 +115,7 @@ namespace YAF.Core.Extensions
             var constructor = control.GetType().BaseType.GetConstructor(paramTypes);
 
             // Call the constructor if we found it, otherwise throw
-            if (constructor == null)
+            if (constructor is null)
             {
                 throw new ArgumentException("Required constructor signature not found.");
             }

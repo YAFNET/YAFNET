@@ -44,6 +44,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class NntpRetrieve : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NntpRetrieve"/> class. 
+        /// </summary>
+        public NntpRetrieve()
+            : base("ADMIN_NNTPRETRIEVE", ForumPages.Admin_NntpRetrieve)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

@@ -62,7 +62,7 @@ namespace YAF.Pages.Moderate
         ///   Default constructor.
         /// </summary>
         public Index()
-            : base("MODERATE_DEFAULT")
+            : base("MODERATE_DEFAULT", ForumPages.Moderate_Index)
         {
         }
 

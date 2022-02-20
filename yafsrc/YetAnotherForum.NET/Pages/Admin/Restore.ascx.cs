@@ -49,6 +49,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Restore : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Restore"/> class. 
+        /// </summary>
+        public Restore()
+            : base("ADMIN_RESTORE", ForumPages.Admin_Restore)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

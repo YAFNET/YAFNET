@@ -46,6 +46,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Languages : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Languages"/> class. 
+        /// </summary>
+        public Languages()
+            : base("ADMIN_LANGUAGES", ForumPages.Admin_Languages)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

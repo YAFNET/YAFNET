@@ -69,7 +69,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Team" /> class.
         /// </summary>
         public Team()
-            : base("TEAM")
+            : base("TEAM", ForumPages.Team)
         {
         }
 

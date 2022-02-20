@@ -52,7 +52,7 @@ namespace YAF.Pages
         ///   Default constructor.
         /// </summary>
         public Info()
-            : base("INFO")
+            : base("INFO", ForumPages.Info)
         {
             this.PageContext.Globals.IsSuspendCheckEnabled = false;
         }

@@ -52,12 +52,6 @@ namespace YAF.Types.Models
         public bool DeleteAccess { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether download access.
-        /// </summary>
-        [Required]
-        public bool DownloadAccess { get; set; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether edit access.
         /// </summary>
         public bool EditAccess { get; set; }
@@ -133,12 +127,6 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         public bool ReplyAccess { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether upload access.
-        /// </summary>
-        [Required]
-        public bool UploadAccess { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.

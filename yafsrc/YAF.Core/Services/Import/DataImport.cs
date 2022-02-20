@@ -1,4 +1,4 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -150,6 +150,7 @@ namespace YAF.Core.Services.Import
             var existingBannedEmailList = repository.Get(x => x.BoardID == boardId);
 
             using var streamReader = new StreamReader(inputStream);
+
             while (!streamReader.EndOfStream)
             {
                 var line = streamReader.ReadLine();
@@ -164,7 +165,7 @@ namespace YAF.Core.Services.Import
                     continue;
                 }
 
-                if (repository.Save(null, line, "Imported Email Adress", boardId))
+                if (repository.Save(null, line, "Imported Email Address", boardId))
                 {
                     importedCount++;
                 }
@@ -193,6 +194,7 @@ namespace YAF.Core.Services.Import
             var existingBannedIPList = repository.Get(x => x.BoardID == boardId);
 
             using var streamReader = new StreamReader(inputStream);
+
             while (!streamReader.EndOfStream)
             {
                 var line = streamReader.ReadLine();
@@ -207,7 +209,7 @@ namespace YAF.Core.Services.Import
                     continue;
                 }
 
-                if (repository.Save(null, importAddress.ToString(), "Imported IP Adress", userId, boardId))
+                if (repository.Save(null, importAddress.ToString(), "Imported IP Address", userId, boardId))
                 {
                     importedCount++;
                 }
@@ -236,6 +238,7 @@ namespace YAF.Core.Services.Import
             var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
 
             using var streamReader = new StreamReader(inputStream);
+
             while (!streamReader.EndOfStream)
             {
                 var line = streamReader.ReadLine();

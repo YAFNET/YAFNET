@@ -46,7 +46,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="Notification"/> class.
         /// </summary>
         public Notification()
-            : base("NOTIFICATION")
+            : base("NOTIFICATION", ForumPages.Notification)
         {
         }
 

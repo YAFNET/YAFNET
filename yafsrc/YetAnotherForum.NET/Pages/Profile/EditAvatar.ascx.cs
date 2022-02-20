@@ -50,7 +50,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="EditAvatar"/> class.
         /// </summary>
         public EditAvatar()
-            : base("EDIT_AVATAR")
+            : base("EDIT_AVATAR", ForumPages.Profile_EditAvatar)
         {
         }
 

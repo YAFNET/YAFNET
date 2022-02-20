@@ -50,7 +50,7 @@ namespace YAF.Pages.Admin
         /// Initializes a new instance of the <see cref="Digest"/> class.
         /// </summary>
         public Digest()
-            : base("ADMIN_DIGEST")
+            : base("ADMIN_DIGEST", ForumPages.Admin_Digest)
         {
         }
 

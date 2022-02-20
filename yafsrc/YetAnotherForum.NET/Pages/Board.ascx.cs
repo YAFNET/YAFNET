@@ -29,6 +29,7 @@ namespace YAF.Pages
 
     using YAF.Core.BasePages;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Web.Extensions;
 
     #endregion
@@ -44,7 +45,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Board" /> class.
         /// </summary>
         public Board()
-            : base("DEFAULT")
+            : base("DEFAULT", ForumPages.Board)
         {
         }
 

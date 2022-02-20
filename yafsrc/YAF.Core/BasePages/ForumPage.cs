@@ -81,7 +81,7 @@ namespace YAF.Core.BasePages
         ///   Initializes a new instance of the <see cref = "ForumPage" /> class.
         /// </summary>
         protected ForumPage()
-            : this(string.Empty)
+            : this(string.Empty, ForumPages.Board)
         {
             this.unicodeEncoder = new UnicodeEncoder();
         }
@@ -92,13 +92,19 @@ namespace YAF.Core.BasePages
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        protected ForumPage([CanBeNull] string transPage)
+        /// <param name="pageType">
+        /// The page Type.
+        /// </param>
+        protected ForumPage([CanBeNull] string transPage, ForumPages pageType)
         {
             this.Get<IInjectServices>().Inject(this);
+
+            BoardContext.Current.CurrentForumPage = this;
 
             // create empty hashtable for cache entries));
             this.PageCache = new Hashtable();
 
+            this.PageType = pageType;
             this.transPage = transPage;
             this.Init += this.ForumPage_Init;
             this.Load += this.ForumPage_Load;
@@ -193,6 +199,11 @@ namespace YAF.Core.BasePages
         /// </summary>
         [NotNull]
         public virtual string PageName => this.GetType().Name.Replace("aspx", string.Empty);
+
+        /// <summary>
+        /// Gets or sets the page type.
+        /// </summary>
+        public ForumPages PageType { get; set; }
 
         /// <summary>
         ///   Gets or sets RefreshTime.

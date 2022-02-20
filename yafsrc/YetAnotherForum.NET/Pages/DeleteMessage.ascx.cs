@@ -70,7 +70,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "DeleteMessage" /> class.
         /// </summary>
         public DeleteMessage()
-            : base("DELETEMESSAGE")
+            : base("DELETEMESSAGE", ForumPages.DeleteMessage)
         {
         }
 

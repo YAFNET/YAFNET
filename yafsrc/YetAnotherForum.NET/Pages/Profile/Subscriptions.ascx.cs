@@ -59,7 +59,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="Subscriptions"/> class.
         /// </summary>
         public Subscriptions()
-            : base("SUBSCRIPTIONS")
+            : base("SUBSCRIPTIONS", ForumPages.Profile_Subscriptions)
         {
         }
 

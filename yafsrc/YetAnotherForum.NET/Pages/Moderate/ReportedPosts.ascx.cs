@@ -59,7 +59,7 @@ namespace YAF.Pages.Moderate
         ///   Default constructor.
         /// </summary>
         public ReportedPosts()
-            : base("MODERATE_FORUM")
+            : base("MODERATE_FORUM", ForumPages.Moderate_ReportedPosts)
         {
         }
 

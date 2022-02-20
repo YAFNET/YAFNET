@@ -76,7 +76,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the ReportPost class.
         /// </summary>
         public ReportPost()
-            : base("REPORTPOST")
+            : base("REPORTPOST", ForumPages.ReportPost)
         {
         }
 

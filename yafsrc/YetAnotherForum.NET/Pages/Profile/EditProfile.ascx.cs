@@ -52,7 +52,7 @@ namespace YAF.Pages.Profile
         /// Initializes a new instance of the <see cref="EditProfile"/> class.
         /// </summary>
         public EditProfile()
-            : base("EDIT_PROFILE")
+            : base("EDIT_PROFILE", ForumPages.Profile_EditProfile)
         {
         }
 

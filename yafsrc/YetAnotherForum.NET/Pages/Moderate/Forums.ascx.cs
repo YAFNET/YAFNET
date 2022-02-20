@@ -59,7 +59,7 @@ namespace YAF.Pages.Moderate
         ///   Initializes a new instance of the <see cref = "Forums" /> class.
         /// </summary>
         public Forums()
-            : base("MODERATING")
+            : base("MODERATING", ForumPages.Moderate_Forums)
         {
         }
 

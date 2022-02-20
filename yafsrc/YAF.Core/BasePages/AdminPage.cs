@@ -46,11 +46,10 @@ namespace YAF.Core.BasePages
         #region Constructors and Destructors
 
         /// <summary>
-        ///   Initializes a new instance of the <see cref = "AdminPage" /> class. 
-        ///   Creates the Administration page.
+        /// Initializes a new instance of the <see cref="AdminPage"/> class.
         /// </summary>
         public AdminPage()
-            : this(null)
+            : this(null, ForumPages.Board)
         {
         }
 
@@ -60,8 +59,11 @@ namespace YAF.Core.BasePages
         /// <param name="transPage">
         /// The trans page.
         /// </param>
-        public AdminPage([CanBeNull] string transPage)
-            : base(transPage)
+        /// <param name="pageType">
+        /// The page Type.
+        /// </param>
+        public AdminPage([CanBeNull] string transPage, ForumPages pageType)
+            : base(transPage, pageType)
         {
             this.IsAdminPage = true;
             this.Load += this.AdminPageLoad;
@@ -100,10 +102,10 @@ namespace YAF.Core.BasePages
             }
 
             // Load the page access list.
-            var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageContext.PageUserID, this.PageContext.ForumPageType.ToString());
+            var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageContext.PageUserID, this.PageContext.CurrentForumPage.PageName);
 
             // Check access rights to the page.
-            if (!this.PageContext.ForumPageType.ToString().IsSet() || !hasAccess)
+            if (!this.PageContext.CurrentForumPage.PageName.IsSet() || !hasAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }

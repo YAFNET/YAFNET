@@ -61,7 +61,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="EditAlbumImages"/> class.
         /// </summary>
         public EditAlbumImages()
-            : base("EDIT_ALBUMIMAGES")
+            : base("EDIT_ALBUMIMAGES", ForumPages.EditAlbumImages)
         {
         }
 

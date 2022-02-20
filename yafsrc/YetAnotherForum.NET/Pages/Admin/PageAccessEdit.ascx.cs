@@ -50,6 +50,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class PageAccessEdit : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PageAccessEdit"/> class. 
+        /// </summary>
+        public PageAccessEdit()
+            : base("ADMIN_PAGEACCESSEDIT", ForumPages.Admin_PageAccessEdit)
+        {
+        }
+
+        #endregion
+
         /// <summary>
         ///   Gets CurrentUserID.
         /// </summary>

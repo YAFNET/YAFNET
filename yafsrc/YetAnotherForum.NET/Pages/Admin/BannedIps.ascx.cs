@@ -52,6 +52,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class BannedIps : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BannedIps"/> class. 
+        /// </summary>
+        public BannedIps()
+            : base("ADMIN_BANNEDIP", ForumPages.Admin_BannedIps)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

@@ -49,7 +49,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="MyAccount"/> class.
         /// </summary>
         public MyAccount()
-            : base("ACCOUNT")
+            : base("ACCOUNT", ForumPages.MyAccount)
         {
             this.IsRegisteredPage = true;
         }

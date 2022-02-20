@@ -24,7 +24,7 @@
 namespace YAF.Types.Interfaces
 {
     /// <summary>
-    /// The i locatable page.
+    /// The LocatablePage interface.
     /// </summary>
     public interface ILocatablePage
     {

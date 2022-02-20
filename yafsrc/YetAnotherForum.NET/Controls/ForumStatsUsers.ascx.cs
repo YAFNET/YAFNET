@@ -89,6 +89,7 @@ namespace YAF.Controls
             var canViewActive = this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
             var showGuestTotal = activeGuests > 0 && (this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList
                                                       || this.PageContext.BoardSettings.ShowCrawlersInActiveList);
+            
             if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
             {
                 // always show active users...

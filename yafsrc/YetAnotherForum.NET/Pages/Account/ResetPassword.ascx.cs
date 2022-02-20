@@ -51,7 +51,7 @@ namespace YAF.Pages.Account
         ///   Initializes a new instance of the <see cref = "ResetPassword" /> class.
         /// </summary>
         public ResetPassword()
-            : base("ACCOUNT_RESEST_PASSWORD")
+            : base("ACCOUNT_RESEST_PASSWORD", ForumPages.Account_ResetPassword)
         {
         }
 

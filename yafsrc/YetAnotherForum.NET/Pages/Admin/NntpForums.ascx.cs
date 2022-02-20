@@ -34,6 +34,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -46,6 +47,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class NntpForums : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NntpForums"/> class. 
+        /// </summary>
+        public NntpForums()
+            : base("ADMIN_NNTPFORUMS", ForumPages.Admin_NntpForums)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

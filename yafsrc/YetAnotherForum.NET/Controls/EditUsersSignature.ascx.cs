@@ -158,7 +158,7 @@ namespace YAF.Controls
 
             this.user =
                 this.PageContext.CurrentForumPage.IsAdminPage ||
-                this.PageContext.ForumPageType == ForumPages.UserProfile
+                this.PageContext.CurrentForumPage.PageType == ForumPages.UserProfile
                     ? this.GetRepository<User>().GetById(this.CurrentUserID)
                     : this.PageContext.User;
 

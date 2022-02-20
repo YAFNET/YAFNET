@@ -48,7 +48,7 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            this.CurrentForumPage.PreRender += this.CurrentForumPage_PreRender;
+            this.CurrentForumPage.Load += this.CurrentForumPage_PreRender;
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace YAF.Modules
             }
 
             // in cases where we are not going to index, but follow, we will not add a canonical tag.
-            if (this.ForumPageType == ForumPages.Posts)
+            if (this.CurrentForumPage.PageType == ForumPages.Posts)
             {
                 if (this.Get<HttpRequestBase>().QueryString.Exists("m") ||
                     this.Get<HttpRequestBase>().QueryString.Exists("find"))
@@ -89,7 +89,7 @@ namespace YAF.Modules
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }
             }
-            else if (this.ForumPageType != ForumPages.Board && this.ForumPageType != ForumPages.Topics)
+            else if (this.CurrentForumPage.PageType != ForumPages.Board && this.CurrentForumPage.PageType != ForumPages.Topics)
             {
                 // there is not much SEO value to having lists indexed
                 // because they change as soon as some adds a new topic

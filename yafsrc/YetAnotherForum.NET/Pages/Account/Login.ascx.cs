@@ -62,7 +62,7 @@ namespace YAF.Pages.Account
         ///   Initializes a new instance of the <see cref="Login" /> class.
         /// </summary>
         public Login()
-            : base("LOGIN")
+            : base("LOGIN", ForumPages.Account_Login)
         {
         }
 

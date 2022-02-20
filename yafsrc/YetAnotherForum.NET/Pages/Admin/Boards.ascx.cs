@@ -47,6 +47,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Boards : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Boards"/> class. 
+        /// </summary>
+        public Boards()
+            : base("ADMIN_BOARDS", ForumPages.Admin_Boards)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

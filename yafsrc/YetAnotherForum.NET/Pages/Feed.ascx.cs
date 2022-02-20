@@ -47,7 +47,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Feed" /> class.
         /// </summary>
         public Feed()
-            : base("RSSTOPIC")
+            : base("RSSTOPIC", ForumPages.Feed)
         {
         }
 

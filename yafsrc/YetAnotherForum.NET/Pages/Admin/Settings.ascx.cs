@@ -58,6 +58,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Settings : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Settings"/> class. 
+        /// </summary>
+        public Settings()
+            : base("ADMIN_BOARDSETTINGS", ForumPages.Admin_Settings)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

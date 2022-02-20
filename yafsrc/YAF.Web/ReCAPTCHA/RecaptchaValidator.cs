@@ -127,8 +127,10 @@ namespace YAF.Web.ReCAPTCHA
                 $"secret={HttpUtility.UrlEncode(this.SecretKey)}&remoteip={HttpUtility.UrlEncode(this.RemoteIP)}&response={HttpUtility.UrlEncode(this.Response)}";
 
             var bytes = Encoding.ASCII.GetBytes(s);
-            using var stream = request.GetRequestStream();
-            stream.Write(bytes, 0, bytes.Length);
+            using (var stream = request.GetRequestStream())
+            {
+                stream.Write(bytes, 0, bytes.Length);
+            }
 
             try
             {

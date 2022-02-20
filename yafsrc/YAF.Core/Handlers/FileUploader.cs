@@ -69,7 +69,7 @@ namespace YAF.Core.Handlers
         public void ProcessRequest(HttpContext context)
         {
             // resource no longer works with dynamic compile...
-            if (HttpContext.Current.Request["allowedUpload"] == null)
+            if (HttpContext.Current.Request["allowedUpload"] is null)
             {
                 return;
             }

@@ -55,7 +55,7 @@ namespace YAF.Pages.Moderate
         ///   Default constructor.
         /// </summary>
         public UnapprovedPosts()
-            : base("MODERATE_FORUM")
+            : base("MODERATE_FORUM", ForumPages.Moderate_UnapprovedPosts)
         {
         }
 

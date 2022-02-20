@@ -48,6 +48,19 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class RunSql : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RunSql"/> class. 
+        /// </summary>
+        public RunSql()
+            : base("ADMIN_RUNSQL", ForumPages.Admin_RunSql)
+        {
+        }
+
+        #endregion
+
+
         /// <summary>
         ///   The editor.
         /// </summary>

@@ -61,6 +61,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class Users : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Users"/> class. 
+        /// </summary>
+        public Users()
+            : base("ADMIN_USERS", ForumPages.Admin_Users)
+        {
+        }
+
+        #endregion
+
         #region Public Methods
 
         /// <summary>

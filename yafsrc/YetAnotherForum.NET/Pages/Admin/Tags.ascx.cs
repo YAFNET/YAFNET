@@ -33,6 +33,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -51,7 +52,7 @@ namespace YAF.Pages.Admin
         ///   Initializes a new instance of the <see cref = "Tags" /> class.
         /// </summary>
         public Tags()
-            : base("ADMIN_TAGS")
+            : base("ADMIN_TAGS", ForumPages.Admin_Tags)
         {
         }
 

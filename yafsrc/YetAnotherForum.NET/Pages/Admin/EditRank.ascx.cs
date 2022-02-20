@@ -50,6 +50,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EditRank : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EditRank"/> class. 
+        /// </summary>
+        public EditRank()
+            : base("ADMIN_EDITRANK", ForumPages.Admin_EditRank)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

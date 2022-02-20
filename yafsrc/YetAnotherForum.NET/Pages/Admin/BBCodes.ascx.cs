@@ -51,6 +51,18 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class BBCodes : AdminPage
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BBCodes"/> class. 
+        /// </summary>
+        public BBCodes()
+            : base("ADMIN_BBCODE", ForumPages.Admin_BBCodes)
+        {
+        }
+
+        #endregion
+
         #region Methods
 
         /// <summary>

@@ -75,11 +75,8 @@ namespace YAF.Core.BaseModules
         /// <summary>
         /// Get all instances of modules available.
         /// </summary>
-        /// <param name="getInactive">
-        /// The get Inactive.
-        /// </param>
-        /// <returns>
-        /// </returns>
+        /// <param name="getInactive">The get Inactive.</param>
+        /// <returns>Returns all Modules</returns>
         public IEnumerable<TModule> GetAll(bool getInactive)
         {
             return !getInactive ? this.modules.Where(m => m.Active) : this.modules;

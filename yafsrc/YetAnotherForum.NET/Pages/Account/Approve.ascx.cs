@@ -55,7 +55,7 @@ namespace YAF.Pages.Account
         ///   Initializes a new instance of the <see cref = "Approve" /> class.
         /// </summary>
         public Approve()
-            : base("APPROVE")
+            : base("APPROVE", ForumPages.Account_Approve)
         {
         }
 
