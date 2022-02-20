@@ -53,6 +53,18 @@
                                                           Checked="True"/>
                                         </div>
                                     </div>
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <asp:CheckBox runat="server" ID="WatchForumReply"
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="form-check form-switch">
+                                            <asp:CheckBox runat="server" ID="WatchTopicReply"
+                                                          Checked="True"/>
+                                        </div>
+                                    </div>
                                     <YAF:ThemeButton runat="server" ID="Update"
                                                      OnClick="UpdateFilterClick"
                                                      TextLocalizedTag="UPDATE"

@@ -68,7 +68,7 @@ namespace YAF.Pages
         ///   Overloads the topics page.
         /// </summary>
         public Topics()
-            : base("TOPICS")
+            : base("TOPICS", ForumPages.Topics)
         {
         }
 
@@ -379,7 +379,6 @@ namespace YAF.Pages
                 this.PageContext.PageUserID,
                 0,
                 10,
-                true,
                 this.PageContext.BoardSettings.UseReadTrackingByDatabase);
 
             this.Announcements.DataSource = list;
@@ -392,10 +391,8 @@ namespace YAF.Pages
                 this.PageContext.PageForumID,
                 this.PageContext.PageUserID,
                 this.showTopicListSelected == 0 ? DateTimeHelper.SqlDbMinTime() : DateTime.UtcNow.AddDays(-days[this.showTopicListSelected]),
-                DateTime.UtcNow,
                 pagerCurrentPageIndex,
                 baseSize,
-                true,
                 this.PageContext.BoardSettings.UseReadTrackingByDatabase);
 
             this.TopicList.DataSource = topicList;

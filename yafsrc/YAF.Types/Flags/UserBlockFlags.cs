@@ -101,7 +101,7 @@ namespace YAF.Types.Flags
             None = 0,
 
             /// <summary>
-            /// The block p ms.
+            /// The block PMs.
             /// </summary>
             BlockPMs = 1,
 
@@ -121,7 +121,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets a value indicating whether block p ms.
+        /// Gets or sets a value indicating whether block PMs.
         /// </summary>
         public bool BlockPMs
         {
@@ -167,7 +167,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator UserBlockFlags(int newBitValue)
         {
-            return new(newBitValue);
+            return new UserBlockFlags(newBitValue);
         }
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace YAF.Types.Flags
         /// </returns>
         public static implicit operator UserBlockFlags(Flags flags)
         {
-            return new(flags);
+            return new UserBlockFlags(flags);
         }
 
         #endregion

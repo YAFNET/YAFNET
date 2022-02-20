@@ -41,11 +41,6 @@ namespace YAF.Types.Constants
         /// <summary>
         ///   The topics.
         /// </summary>
-        Topics,
-
-        /// <summary>
-        ///   The favorite.
-        /// </summary>
-        Favorite
+        Topics
     }
 }

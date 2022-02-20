@@ -128,7 +128,17 @@ namespace YAF.Types.Flags
             /// <summary>
             /// The was quoted.
             /// </summary>
-            WasQuoted = 4096
+            WasQuoted = 4096,
+
+            /// <summary>
+            /// The watch forum reply.
+            /// </summary>
+            WatchForumReply = 8192,
+
+            /// <summary>
+            /// The watch topic reply.
+            /// </summary>
+            WatchTopicReply = 16384
         }
 
         #endregion
@@ -199,6 +209,28 @@ namespace YAF.Types.Flags
             get => this[12];
 
             set => this[12] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether watch forum reply.
+        /// </summary>
+        public virtual bool WatchForumReply
+        {
+            // int value 8192
+            get => this[13];
+
+            set => this[13] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether watch topic reply.
+        /// </summary>
+        public virtual bool WatchTopicReply
+        {
+            // int value 16384
+            get => this[14];
+
+            set => this[14] = value;
         }
 
         #endregion

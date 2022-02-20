@@ -47,6 +47,26 @@ namespace YAF.Core.Helpers
     {
         #region Public Methods
 
+        public static IReadOnlyCollection<ListItem> TopicListModes()
+        {
+            return TopicListModes(BoardContext.Current.Get<ILocalization>());
+        }
+
+        public static IReadOnlyCollection<ListItem> TopicListModes([NotNull] ILocalization localization)
+        {
+            var modesList = new List<ListItem>();
+
+            var modes = EnumExtensions.GetAllItems<TopicListMode>();
+
+            modes.ForEach(
+                mode => modesList.Add(
+                    new ListItem(
+                        localization.GetText("MYTOPICS", mode == TopicListMode.User ? "MYTOPICS" : $"{mode}Topics"),
+                        mode.ToString())));
+
+            return modesList;
+        }
+
         public static IReadOnlyCollection<ListItem> Gender()
         {
             return Gender(BoardContext.Current.Get<ILocalization>());

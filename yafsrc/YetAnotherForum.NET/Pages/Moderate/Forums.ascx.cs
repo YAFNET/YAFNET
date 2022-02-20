@@ -120,10 +120,8 @@ namespace YAF.Pages.Moderate
                 this.PageContext.PageForumID,
                 this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
                 currentPageIndex,
                 baseSize,
-                true,
                 this.PageContext.BoardSettings.UseReadTrackingByDatabase);
 
             this.topiclist.DataSource = topicList;

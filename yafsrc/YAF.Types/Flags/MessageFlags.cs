@@ -130,7 +130,7 @@ namespace YAF.Types.Flags
             IsHtml = 1,
 
             /// <summary>
-            /// The is bb code.
+            /// The is BBCode.
             /// </summary>
             IsBBCode = 2,
 
@@ -205,7 +205,6 @@ namespace YAF.Types.Flags
             set => this[0] = value;
         }
 
-
         /// <summary>
         /// Gets or sets a value indicating whether this message allows BB code.
         /// </summary>
@@ -216,7 +215,6 @@ namespace YAF.Types.Flags
 
             set => this[1] = value;
         }
-
 
         /// <summary>
         /// Gets or sets a value indicating whether this message allows smilies.

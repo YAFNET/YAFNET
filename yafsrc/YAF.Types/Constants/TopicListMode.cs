@@ -39,11 +39,6 @@ namespace YAF.Types.Constants
         Unanswered,
 
         /// <summary>
-        ///   The favorite topics list.
-        /// </summary>
-        Favorite,
-
-        /// <summary>
         ///   The Unread topics list.
         /// </summary>
         Unread,

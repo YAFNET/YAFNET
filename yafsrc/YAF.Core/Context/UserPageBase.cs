@@ -46,11 +46,6 @@ namespace YAF.Core.Context
         #region Constants and Fields
 
         /// <summary>
-        /// Check if data is loaded.
-        /// </summary>
-        public bool UserPageDataLoaded { get; set; }
-
-        /// <summary>
         /// The page
         /// </summary>
         private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic>, UserLazyData, PageQueryData> page;
@@ -58,6 +53,11 @@ namespace YAF.Core.Context
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the page data is loaded.
+        /// </summary>
+        public bool UserPageDataLoaded { get; set; }
 
         /// <summary>
         ///   Gets a value indicating whether the current user can delete own messages in the current forum (True).
@@ -275,8 +275,7 @@ namespace YAF.Core.Context
         /// <summary>
         ///   Gets the DateTime the user is suspended until
         /// </summary>
-        public DateTime SuspendedUntil =>
-            this.IsSuspended ? this.PageData.Item3.Suspended.Value : DateTime.UtcNow;
+        public DateTime SuspendedUntil => this.IsSuspended ? this.PageData.Item3.Suspended ?? DateTime.UtcNow : DateTime.UtcNow;
 
         /// <summary>
         ///   Gets the DateTime the user is suspended until
@@ -303,6 +302,11 @@ namespace YAF.Core.Context
         /// The time zone user off set.
         /// </value>
         public int TimeZoneUserOffSet => DateTimeHelper.GetTimeZoneOffset(this.PageData.Item3.TimeZoneUser);
+
+        /// <summary>
+        /// Number of Unread New Topics in a Watch Forum and/or Replies in a Watch Topic
+        /// </summary>
+        public int WatchTopic => this.PageData.Item3.WatchTopic;
 
         /// <summary>
         /// The received thanks.
@@ -346,7 +350,7 @@ namespace YAF.Core.Context
         /// </returns>
         public bool PageIsNull()
         {
-            return this.PageData == null;
+            return this.PageData is null;
         }
 
         #endregion

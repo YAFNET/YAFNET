@@ -166,10 +166,10 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void ForumsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var forums_category = this.GetRepository<Forum>().ListAllFromCategory(
+            var forumsCategory = this.GetRepository<Forum>().ListAllFromCategory(
                 this.ForumsCategory.SelectedValue.ToType<int>());
 
-            this.ForumsParent.DataSource = forums_category;
+            this.ForumsParent.DataSource = forumsCategory;
             this.ForumsParent.DataBind();
         }
 
@@ -264,10 +264,10 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void PostsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var posts_category = this.GetRepository<Forum>().ListAllFromCategory(
+            var postsCategory = this.GetRepository<Forum>().ListAllFromCategory(
                 this.PostsCategory.SelectedValue.ToType<int>());
 
-            this.PostsForum.DataSource = posts_category;
+            this.PostsForum.DataSource = postsCategory;
             this.PostsForum.DataBind();
         }
 
@@ -286,10 +286,8 @@ namespace YAF.Pages.Admin
                 this.PostsForum.SelectedValue.ToType<int>(),
                 this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
                 0,
                 100,
-                false,
                 false);
 
             this.PostsTopic.DataSource = topics;
@@ -307,10 +305,10 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void TopicsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var topic_forums = this.GetRepository<Forum>().ListAllFromCategory(
+            var topicForums = this.GetRepository<Forum>().ListAllFromCategory(
                 this.TopicsCategory.SelectedValue.ToType<int>());
 
-            this.TopicsForum.DataSource = topic_forums;
+            this.TopicsForum.DataSource = topicForums;
             this.TopicsForum.DataBind();
         }
 
@@ -461,17 +459,17 @@ namespace YAF.Pages.Admin
         /// </returns>
         private int CreateForums()
         {
-            int? parentID = null;
+            int? parentId = null;
             if (int.TryParse(this.ForumsParent.Text.Trim(), out var parentIDInt))
             {
-                parentID = parentIDInt;
+                parentId = parentIDInt;
             }
 
             var numTopics = this.ForumsTopicsNumber.Text.ToType<int>();
             var numPosts = this.ForumsMessagesNumber.Text.ToType<int>();
             var numForums = this.ForumsNumber.Text.ToType<int>();
 
-            var categoryID = this.ForumsCategory.SelectedValue.ToType<int>();
+            var categoryId = this.ForumsCategory.SelectedValue.ToType<int>();
 
             if (numTopics < 0)
             {
@@ -494,8 +492,8 @@ namespace YAF.Pages.Admin
 
             return this.CreateForums(
                 this.PageContext.PageBoardID,
-                categoryID,
-                parentID,
+                categoryId,
+                parentId,
                 numForums,
                 numTopics,
                 numPosts);
@@ -651,11 +649,14 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// The create posts.
         /// </summary>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum id.
         /// </param>
-        /// <param name="topicID">
+        /// <param name="topicId">
         /// The topic id.
+        /// </param>
+        /// <param name="topicName">
+        /// The Topic title
         /// </param>
         /// <param name="numMessages">
         /// The num messages.
@@ -663,19 +664,19 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The number of created posts.
         /// </returns>
-        private int CreatePosts(int forumID, int topicID, string topicName, int numMessages)
+        private int CreatePosts(int forumId, int topicId, string topicName, int numMessages)
         {
             if (numMessages <= 0)
             {
                 return 0;
             }
 
-            if (forumID <= 0)
+            if (forumId <= 0)
             {
                 return 0;
             }
 
-            if (topicID <= 0)
+            if (topicId <= 0)
             {
                 return 0;
             }
@@ -689,8 +690,8 @@ namespace YAF.Pages.Admin
                 this.randomGuid = Guid.NewGuid().ToString();
 
                 this.GetRepository<Message>().SaveNew(
-                    forumID,
-                    topicID,
+                    forumId,
+                    topicId,
                     topicName,
                     this.PageContext.PageUserID,
                     $"msgd-{this.randomGuid}  {this.MyMessage.Text.Trim()}",
@@ -740,7 +741,7 @@ namespace YAF.Pages.Admin
             {
                 this.randomGuid = Guid.NewGuid().ToString();
 
-                var topicId = this.GetRepository<Topic>().SaveNew(
+                var topic = this.GetRepository<Topic>().SaveNew(
                     forumId,
                     topicName,
                     string.Empty,
@@ -754,7 +755,6 @@ namespace YAF.Pages.Admin
                     this.Request.GetUserRealIPAddress(),
                     DateTime.UtcNow,
                     this.GetMessageFlags(),
-                    null,
                     out _);
 
                 if (this.PollCreate.Checked)
@@ -773,12 +773,12 @@ namespace YAF.Pages.Admin
                     this.GetRepository<Choice>().AddChoice(pollId, $"ans3-{this.randomGuid}", null);
 
                     // Attach Poll to topic
-                    this.GetRepository<Topic>().AttachPoll(topicId, pollId);
+                    this.GetRepository<Topic>().AttachPoll(topic.ID, pollId);
                 }
 
                 if (messagesToCreate > 0)
                 {
-                    this.CreatePosts(forumId, topicId, topicName, messagesToCreate);
+                    this.CreatePosts(forumId, topic.ID, topicName, messagesToCreate);
                 }
             }
 

@@ -87,36 +87,6 @@ namespace YAF.Types.Flags
 
         #endregion
 
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator RankFlags(int newBitValue)
-        {
-            return new(newBitValue);
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator RankFlags(Flags flags)
-        {
-            return new(flags);
-        }
-
-        #endregion
-
         #region Flags Enumeration
 
         /// <summary>
@@ -124,6 +94,9 @@ namespace YAF.Types.Flags
         /// </summary>
         public enum Flags
         {
+            /// <summary>
+            /// The none.
+            /// </summary>
             None = 0,
 
             /// <summary>
@@ -153,7 +126,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets whether rank is default starting rank of new users.
+        /// Gets or sets a value indicating whether the rank is default starting rank of new users.
         /// </summary>
         public bool IsStart
         {
@@ -163,9 +136,8 @@ namespace YAF.Types.Flags
             set => this[0] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets whether rank is ladder rank.
+        /// Gets or sets a value indicating whether the rank is ladder rank.
         /// </summary>
         public bool IsLadder
         {
@@ -173,6 +145,36 @@ namespace YAF.Types.Flags
             get => this[1];
 
             set => this[1] = value;
+        }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="newBitValue">
+        /// The new bit value.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator RankFlags(int newBitValue)
+        {
+            return new RankFlags(newBitValue);
+        }
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator RankFlags(Flags flags)
+        {
+            return new RankFlags(flags);
         }
 
         #endregion

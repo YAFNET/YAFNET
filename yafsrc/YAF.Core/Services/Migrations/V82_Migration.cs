@@ -54,10 +54,19 @@ namespace YAF.Core.Services.Migrations
 
                     ///////////////////////////////////////////////////////////
 
+                    if (dbCommand.Connection.TableExists("FavoriteTopic"))
+                    {
+                        dbCommand.Connection.DropTable("FavoriteTopic");
+                    }
+
                     return true;
                 });
         }
 
+        /// <summary>Upgrades the Active Access table.</summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
         private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnExists<ActiveAccess>("DownloadAccess"))
@@ -71,6 +80,10 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
+        /// <summary>Upgrades the Group table.</summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
         private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             repository.Get(g => (g.Flags & 1) == 1).ForEach(

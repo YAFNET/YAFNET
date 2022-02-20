@@ -34,11 +34,6 @@ namespace YAF.Types.Constants
         NoNotification = 10,
 
         /// <summary>
-        ///   The all topics.
-        /// </summary>
-        AllTopics = 20,
-
-        /// <summary>
         ///   The topics I post to or subscribe to.
         /// </summary>
         TopicsIPostToOrSubscribeTo = 30,

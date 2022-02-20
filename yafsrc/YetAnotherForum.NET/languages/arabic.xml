@@ -35,6 +35,10 @@
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
     <Resource tag="WAS_QUOTED">Was Quoted</Resource>
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+    <Resource tag="WATCH_FORUM_MSG">{0} Created the new topic {1}</Resource>
+    <Resource tag="WATCH_FORUM_REPLY">New Topic in a Watch Forum</Resource>
+    <Resource tag="WATCH_TOPIC_MSG">{0} replied to the topic {1}</Resource>
+    <Resource tag="WATCH_Topic_REPLY">New Reply in a Watch Topic</Resource>
     <Resource tag="YOUR_ACCOUNT">حسابك</Resource>
     <Resource tag="YOUR_EMAIL">:عنوان بريدك الالكتروني</Resource>
     <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
@@ -4526,6 +4530,7 @@ p&gt;هذا الرابط يجلب لك صفحة التي تطلب منك ادخ�
     <Resource tag="NO_POSTS">لا يوجد مشاركات </Resource>
     <Resource tag="REPLIES">الردود</Resource>
     <Resource tag="RSSFEED">خدمة RSS</Resource>
+    <Resource tag="SELECT">Select...</Resource>
     <Resource tag="SHOW_ALL">مشاهدة الكل </Resource>
     <Resource tag="SINCE">منذ</Resource>
     <Resource tag="TOPIC_STARTER">كتابة موضوع</Resource>

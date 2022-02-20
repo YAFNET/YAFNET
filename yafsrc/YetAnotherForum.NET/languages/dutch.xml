@@ -35,6 +35,10 @@
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
     <Resource tag="WAS_QUOTED">Was Quoted</Resource>
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+    <Resource tag="WATCH_FORUM_MSG">{0} Created the new topic {1}</Resource>
+    <Resource tag="WATCH_FORUM_REPLY">New Topic in a Watch Forum</Resource>
+    <Resource tag="WATCH_TOPIC_MSG">{0} replied to the topic {1}</Resource>
+    <Resource tag="WATCH_Topic_REPLY">New Reply in a Watch Topic</Resource>
     <Resource tag="YOUR_ACCOUNT">Accountgegevens</Resource>
     <Resource tag="YOUR_EMAIL">Je e-mail adres:</Resource>
     <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
@@ -4501,6 +4505,7 @@ Spoiler Inhoud
     <Resource tag="NO_POSTS">Geen berichten</Resource>
     <Resource tag="REPLIES">Antwoorden</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SELECT">Select...</Resource>
     <Resource tag="SHOW_ALL">Laat alles zien</Resource>
     <Resource tag="SINCE">Sinds</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>

@@ -147,7 +147,7 @@ namespace YAF.Core.Model
         /// The board id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// List of deleted Topics
         /// </returns>
         public static List<Tuple<Forum, Topic, Message>> GetDeletedMessages(
             this IRepository<Message> repository,
@@ -267,7 +267,6 @@ namespace YAF.Core.Model
                         expression.OrderBy<Message>(m => m.Posted).Page(pageIndex + 1, pageSize);
                     }
 
-                    // -- Count favorite
                     var reputationExpression = db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
                     reputationExpression.Where(
                         $@"x.{reputationExpression.Column<ReputationVote>(x => x.ReputationToUserID)}={expression.Column<User>(b => b.ID, true)}
@@ -351,7 +350,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// The last posts.
+        /// Gets the 10 Newest Posts of a Topic
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -881,9 +880,6 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageFlag">
-        /// The message flag.
-        /// </param>
         /// <param name="messageId">
         /// The message Id.
         /// </param>
@@ -892,7 +888,6 @@ namespace YAF.Core.Model
         /// </param>
         public static void ReportResolve(
             this IRepository<Message> repository,
-            [NotNull] int messageFlag,
             [NotNull] int messageId,
             [NotNull] int userId)
         {
@@ -950,7 +945,7 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the Message ID
         /// </returns>
-        public static int SaveNew(
+        public static Message SaveNew(
             this IRepository<Message> repository,
             [NotNull] int forumId,
             [NotNull] int topicId,
@@ -991,26 +986,30 @@ namespace YAF.Core.Model
 
             var replaceName = BoardContext.Current.IsGuest ? guestUserName : BoardContext.Current.User.DisplayName;
 
+            var newMessage = new Message
+            {
+                UserID = userId,
+                MessageText = message,
+                TopicID = topicId,
+                Posted = posted,
+                UserName = guestUserName,
+                UserDisplayName = replaceName,
+                IP = ipAddress,
+                ReplyTo = replyTo,
+                Position = position,
+                Indent = 0,
+                Flags = flags.BitValue,
+                ExternalMessageId = null,
+                ReferenceMessageId = null
+            };
+
             var newMessageId = repository.Insert(
-                new Message
-                {
-                    UserID = userId,
-                    MessageText = message,
-                    TopicID = topicId,
-                    Posted = posted,
-                    UserName = guestUserName,
-                    UserDisplayName = replaceName,
-                    IP = ipAddress,
-                    ReplyTo = replyTo,
-                    Position = position,
-                    Indent = 0,
-                    Flags = flags.BitValue,
-                    ExternalMessageId = null,
-                    ReferenceMessageId = null
-                });
+                newMessage);
+
+            newMessage.ID = newMessageId;
 
             // Add to search index
-            var newMessage = new SearchMessage
+            var newSearchMessage = new SearchMessage
             {
                 MessageId = newMessageId,
                 Message = message,
@@ -1028,7 +1027,7 @@ namespace YAF.Core.Model
                 Description = string.Empty
             };
 
-            BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newMessage);
+            BoardContext.Current.Get<ISearch>().AddSearchIndexItem(newSearchMessage);
 
             if (flags.IsApproved)
             {
@@ -1038,7 +1037,7 @@ namespace YAF.Core.Model
 
             repository.FireNew(newMessageId);
 
-            return newMessageId;
+            return newMessage;
         }
 
         /// <summary>
@@ -1228,7 +1227,7 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="messageID">
+        /// <param name="messageId">
         /// The message id.
         /// </param>
         /// <param name="isModeratorChanged">
@@ -1248,7 +1247,7 @@ namespace YAF.Core.Model
         /// </param>
         private static void DeleteRecursively(
             this IRepository<Message> repository,
-            [NotNull] int messageID,
+            [NotNull] int messageId,
             [NotNull] bool isModeratorChanged,
             [NotNull] string deleteReason,
             [NotNull] bool isDeleteAction,
@@ -1262,7 +1261,7 @@ namespace YAF.Core.Model
             if (deleteLinked)
             {
                 // Delete replies
-                var replies = repository.Get(m => m.ReplyTo == messageID).Select(x => x.ID).ToList();
+                var replies = repository.Get(m => m.ReplyTo == messageId).Select(x => x.ID).ToList();
 
                 if (replies.Any())
                 {
@@ -1280,7 +1279,7 @@ namespace YAF.Core.Model
             // If the files are actually saved in the Hard Drive
             if (!useFileTable)
             {
-                BoardContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageID);
+                BoardContext.Current.GetRepository<Attachment>().DeleteByMessageId(messageId);
             }
 
             // Ederon : erase message for good
@@ -1289,16 +1288,16 @@ namespace YAF.Core.Model
                 BoardContext.Current.Get<ILoggerService>().Log(
                     BoardContext.Current.PageUserID,
                     "YAF",
-                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageID),
+                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", messageId),
                     EventLogTypes.Information);
             }
 
-            repository.Delete(messageID, isModeratorChanged, deleteReason, eraseMessages, isDeleteAction);
+            repository.Delete(messageId, isModeratorChanged, deleteReason, eraseMessages, isDeleteAction);
 
             // Delete Message from Search Index
             if (isDeleteAction)
             {
-                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageID);
+                BoardContext.Current.Get<ISearch>().DeleteSearchIndexRecordByMessageId(messageId);
             }
         }
 

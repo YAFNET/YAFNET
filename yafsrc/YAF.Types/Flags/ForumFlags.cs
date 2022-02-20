@@ -87,36 +87,6 @@ namespace YAF.Types.Flags
 
         #endregion
 
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator ForumFlags(int newBitValue)
-        {
-            return new(newBitValue);
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator ForumFlags(Flags flags)
-        {
-            return new(flags);
-        }
-
-        #endregion
-
         #region Flags Enumeration
 
         /// <summary>
@@ -160,7 +130,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets whether forum allows locked. No posting/activity can be made in locked forums.
+        /// Gets or sets a value indicating whether forum allows locked. No posting/activity can be made in locked forums.
         /// </summary>
         public bool IsLocked
         {
@@ -170,9 +140,8 @@ namespace YAF.Types.Flags
             set => this[0] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets whether forum is hidden to users without read access.
+        /// Gets or sets a value indicating whether forum is hidden to users without read access.
         /// </summary>
         public bool IsHidden
         {
@@ -182,9 +151,8 @@ namespace YAF.Types.Flags
             set => this[1] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets whether forum does not count to users' postcount.
+        /// Gets or sets a value indicating whether forum does not count to users' post count.
         /// </summary>
         public bool IsTest
         {
@@ -194,9 +162,9 @@ namespace YAF.Types.Flags
             set => this[2] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets whether forum is moderated. Posts in moderated posts has to be approved by moderator before they are published.
+        /// Gets or sets a value indicating whether the forum is moderated.
+        /// Posts in moderated posts has to be approved by moderator before they are published.
         /// </summary>
         public bool IsModerated
         {
@@ -204,6 +172,36 @@ namespace YAF.Types.Flags
             get => this[3];
 
             set => this[3] = value;
+        }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="newBitValue">
+        /// The new bit value.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator ForumFlags(int newBitValue)
+        {
+            return new ForumFlags(newBitValue);
+        }
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator ForumFlags(Flags flags)
+        {
+            return new ForumFlags(flags);
         }
 
         #endregion

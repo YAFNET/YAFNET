@@ -87,36 +87,6 @@ namespace YAF.Types.Flags
 
         #endregion
 
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator MedalFlags(int newBitValue)
-        {
-            return new(newBitValue);
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator MedalFlags(Flags flags)
-        {
-            return new(flags);
-        }
-
-        #endregion
-
         #region Flags Enumeration
 
         /// <summary>
@@ -125,6 +95,9 @@ namespace YAF.Types.Flags
         [Flags]
         public enum Flags
         {
+            /// <summary>
+            /// The none.
+            /// </summary>
             None = 0,
 
             /// <summary>
@@ -169,7 +142,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets whether medal message is shown.
+        /// Gets or sets a value indicating whether medal message is shown.
         /// </summary>
         public virtual bool ShowMessage
         {
@@ -180,7 +153,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether medal can be displayed as ribbon bar.
+        /// Gets or sets a value indicating whether the medal can be displayed as ribbon bar.
         /// </summary>
         [Obsolete("Not Used anymore")]
         public virtual bool AllowRibbon
@@ -192,7 +165,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether medal can be hidden by user.
+        /// Gets or sets a value indicating whether the medal can be hidden by user.
         /// </summary>
         public virtual bool AllowHiding
         {
@@ -203,7 +176,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether medal can be re-ordered by user.
+        /// Gets or sets a value indicating whether the medal can be re-ordered by user.
         /// </summary>
         [Obsolete("Not Used anymore")]
         public virtual bool AllowReOrdering
@@ -212,6 +185,36 @@ namespace YAF.Types.Flags
             get => this[3];
 
             set => this[3] = value;
+        }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="newBitValue">
+        /// The new bit value.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator MedalFlags(int newBitValue)
+        {
+            return new MedalFlags(newBitValue);
+        }
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator MedalFlags(Flags flags)
+        {
+            return new MedalFlags(flags);
         }
 
         #endregion

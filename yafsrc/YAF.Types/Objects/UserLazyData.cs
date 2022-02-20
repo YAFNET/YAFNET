@@ -62,6 +62,11 @@ namespace YAF.Types.Objects
         public int ModeratePosts { get; set; }
 
         /// <summary>
+        /// Gets or sets the watch topic.
+        /// </summary>
+        public int WatchTopic { get; set; }
+
+        /// <summary>
         /// Gets or sets the received thanks.
         /// </summary>
         public int ReceivedThanks { get; set; }

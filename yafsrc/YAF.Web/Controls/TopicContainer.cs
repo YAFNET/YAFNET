@@ -208,25 +208,6 @@ namespace YAF.Web.Controls
 
             writer.Write(topicLink.RenderToString());
 
-            var favoriteCount = this.TopicItem.FavoriteCount;
-
-            if (favoriteCount > 0)
-            {
-                var favoriteLabel = new Label
-                {
-                    CssClass = "badge bg-light text-dark ms-1",
-                    Text = new IconHeader
-                    {
-                        IconName = "star", IconType = " ", IconStyle = "far", Text = favoriteCount.ToString()
-                    }.RenderToString(),
-                    ToolTip = this.GetText("FAVORITE_COUNT_TT")
-                };
-
-                favoriteLabel.Attributes.Add("data-bs-toggle", "tooltip");
-
-                favoriteLabel.RenderControl(writer);
-            }
-
             // Render Replies & Views
             var repliesLabel = new Label
             {

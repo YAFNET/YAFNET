@@ -92,11 +92,6 @@ namespace YAF.Types.Constants
             public const string UserCustomProfileData = "UserCustomProfileData{0}";
 
             /// <summary>
-            ///   The favorite topic list.
-            /// </summary>
-            public const string FavoriteTopicList = "FavoriteTopicList{0}";
-
-            /// <summary>
             ///   The first post cleaned.
             /// </summary>
             public const string FirstPostCleaned = "FirstPostCleaned{0}{1}";

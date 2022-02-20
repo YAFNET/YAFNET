@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Controllers
 {
-    using System;
     using System.Web.Http;
 
     using YAF.Core.Context;
@@ -66,7 +65,7 @@ namespace YAF.Core.Controllers
                 searchTopic.SearchTerm,
                 "Topic");
 
-            if (results == null)
+            if (results is null)
             {
                 return this.Ok(
                     new SearchGridDataSet
@@ -107,12 +106,12 @@ namespace YAF.Core.Controllers
 
             return this.Ok(
                 new SearchGridDataSet
-                {
-                    PageNumber = searchTopic.Page,
-                    TotalRecords = totalHits,
-                    PageSize = searchTopic.PageSize,
-                    SearchResults = results
-                });
+                    {
+                        PageNumber = searchTopic.Page,
+                        TotalRecords = totalHits,
+                        PageSize = searchTopic.PageSize,
+                        SearchResults = results
+                    });
         }
     }
 }

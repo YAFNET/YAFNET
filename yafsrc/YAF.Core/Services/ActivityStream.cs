@@ -57,21 +57,31 @@ namespace YAF.Core.Services
         /// <summary>
         /// Adds the New Topic to the User's ActivityStream
         /// </summary>
-        /// <param name="forumID">The forum unique identifier.</param>
-        /// <param name="topicID">The topic unique identifier.</param>
-        /// <param name="messageID">The message unique identifier.</param>
-        /// <param name="topicTitle">The topic title.</param>
-        /// <param name="message">The message.</param>
-        public void AddTopicToStream(int forumID, int topicID, int messageID, string topicTitle, string message)
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void AddTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message)
         {
             var flags = new ActivityFlags { CreatedTopic = true };
 
             var activity = new Activity
             {
                 Flags = flags.BitValue,
-                TopicID = topicID,
-                MessageID = messageID,
-                UserID = forumID,
+                TopicID = topicId,
+                MessageID = messageId,
+                UserID = userId,
                 Notification = false,
                 Created = DateTime.UtcNow
             };
@@ -82,22 +92,110 @@ namespace YAF.Core.Services
         /// <summary>
         /// Adds the Reply to the User's ActivityStream
         /// </summary>
-        /// <param name="forumID">The forum unique identifier.</param>
-        /// <param name="topicID">The topic unique identifier.</param>
-        /// <param name="messageID">The message unique identifier.</param>
-        /// <param name="topicTitle">The topic title.</param>
-        /// <param name="message">The message.</param>
-        public void AddReplyToStream(int forumID, int topicID, int messageID, string topicTitle, string message)
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        public void AddReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message)
         {
             var flags = new ActivityFlags { CreatedReply = true };
 
             var activity = new Activity
             {
                 Flags = flags.BitValue,
-                TopicID = topicID,
-                MessageID = messageID,
-                UserID = forumID,
+                TopicID = topicId,
+                MessageID = messageId,
+                UserID = userId,
                 Notification = false,
+                Created = DateTime.UtcNow
+            };
+
+            this.GetRepository<Activity>().Insert(activity);
+        }
+
+        /// <summary>
+        /// Adds the New Watch Topic to the User's ActivityStream
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from User Id.
+        /// </param>
+        public void AddWatchTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
+        {
+            var flags = new ActivityFlags { WatchForumReply = true };
+
+            var activity = new Activity
+            {
+                Flags = flags.BitValue,
+                FromUserID = fromUserId,
+                TopicID = topicId,
+                MessageID = messageId,
+                UserID = userId,
+                Notification = true,
+                Created = DateTime.UtcNow
+            };
+
+            this.GetRepository<Activity>().Insert(activity);
+        }
+
+        /// <summary>
+        /// Adds the Watch Reply to the User's ActivityStream
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from User Id.
+        /// </param>
+        public void AddWatchReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId)
+        {
+            var flags = new ActivityFlags { WatchTopicReply = true };
+
+            var activity = new Activity
+            {
+                Flags = flags.BitValue,
+                FromUserID = fromUserId,
+                TopicID = topicId,
+                MessageID = messageId,
+                UserID = userId,
+                Notification = true,
                 Created = DateTime.UtcNow
             };
 

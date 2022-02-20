@@ -37,11 +37,6 @@ namespace YAF.Types.Objects.Model
         public int ForumID { get; set; }
 
         /// <summary>
-        /// Gets or sets the favorite count.
-        /// </summary>
-        public int FavoriteCount { get; set; }
-
-        /// <summary>
         /// Gets or sets the topic id.
         /// </summary>
         public int TopicID { get; set; }

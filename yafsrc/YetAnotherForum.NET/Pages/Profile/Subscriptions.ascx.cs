@@ -96,12 +96,6 @@ namespace YAF.Pages.Profile
 
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
-            if (!this.PageContext.BoardSettings.AllowNotificationAllPostsAllTopics)
-            {
-                // remove it...
-                items.Remove(UserNotificationSetting.AllTopics.ToInt());
-            }
-
             this.rblNotificationType.Items.AddRange(
                 items.Select(x => new ListItem(this.GetText(x.Value), x.Key.ToString())).ToArray());
 
@@ -253,7 +247,7 @@ namespace YAF.Pages.Profile
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void rblNotificationType_SelectionChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void NotificationType_SelectionChanged([NotNull] object sender, [NotNull] EventArgs e)
         {
             var selectedValue = this.rblNotificationType.SelectedItem.Value.ToEnum<UserNotificationSetting>();
 
@@ -333,8 +327,6 @@ namespace YAF.Pages.Profile
             this.ForumList.DataBind();
             this.PagerForums.DataBind();
 
-
-
             if (this.PagerForums.Count > 0)
             {
                 this.UnsubscribeForums.Enabled = true;
@@ -397,7 +389,7 @@ namespace YAF.Pages.Profile
         private void UpdateSubscribeUi(UserNotificationSetting selectedValue)
         {
             var showSubscribe =
-              !(selectedValue is UserNotificationSetting.AllTopics or UserNotificationSetting.NoNotification);
+              selectedValue is not UserNotificationSetting.NoNotification;
 
             this.SubscribeHolder.Visible = showSubscribe;
         }

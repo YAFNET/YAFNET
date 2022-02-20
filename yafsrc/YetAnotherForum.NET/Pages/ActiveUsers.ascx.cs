@@ -37,6 +37,7 @@ namespace YAF.Pages
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -56,7 +57,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "ActiveUsers" /> class.
         /// </summary>
         public ActiveUsers()
-            : base("ACTIVEUSERS")
+            : base("ACTIVEUSERS", ForumPages.ActiveUsers)
         {
         }
 

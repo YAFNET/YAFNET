@@ -1,65 +1,110 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.MyTopics" Codebehind="MyTopics.ascx.cs" %>
-<%@ Register TagPrefix="YAF" TagName="MyTopicsList" Src="../controls/MyTopicsList.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
+<div class="row">
+    <div class="col">
+        <div class="card my-3">
+            <div class="card-header">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <YAF:IconHeader runat="server" ID="IconHeader"
+                                        IconName="comments"
+                                        LocalizedPage="MYTOPICS"
+                                        LocalizedTag="ActiveTopics" />
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="input-group input-group-sm me-2 mb-1" role="group">
+                                <div class="input-group-text">
+                                    <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
+                                </div>
+                                <asp:DropDownList runat="server" ID="PageSize"
+                                                  AutoPostBack="True"
+                                                  OnSelectedIndexChanged="PageSizeSelectedIndexChanged"
+                                                  CssClass="form-select">
+                                </asp:DropDownList>
+                            </div>
+                            <div class="btn-group me-2 mb-1" role="group" aria-label="Filters">
+                        <YAF:ThemeButton runat="server"
+                                         CssClass="dropdown-toggle"
+                                         DataToggle="dropdown"
+                                         Size="Small"
+                                         Type="Secondary"
+                                         Icon="filter"
+                                         TextLocalizedTag="FILTER_DROPDOWN"
+                                         TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
 
-<asp:Panel id="TopicsTabs" runat="server">
-               <ul class="nav nav-tabs" role="tablist">
-                 <li class="nav-item">
-                     <a href="#ActiveTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
-                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" LocalizedTag="ActiveTopics" LocalizedPage="MyTopics" />
-                     </a>
-                 </li>
-                 <asp:PlaceHolder ID="UnansweredTopicsTabTitle" runat="server">
-                 <li class="nav-item">
-                     <a href="#UnansweredTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
-                         <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="UnansweredTopics" LocalizedPage="MyTopics" />
-                     </a>
-                 </li>
-                 </asp:PlaceHolder>
-                 <asp:PlaceHolder ID="UnreadTopicsTabTitle" runat="server">
-                   <li class="nav-item">
-                       <a href="#UnreadTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
-                           <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="UnreadTopics" LocalizedPage="MyTopics" />
-                       </a>
-                   </li>
-                 </asp:PlaceHolder>
-                 <asp:PlaceHolder ID="UserTopicsTabTitle" runat="server">
-                   <li class="nav-item">
-                       <a href="#MyTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
-                           <YAF:LocalizedLabel ID="LocalizedLabel4" runat="server" LocalizedTag="MyTopics" LocalizedPage="MyTopics" />
-                       </a>
-                   </li>
-                   <li class="nav-item">
-                       <a href="#FavoriteTopicsTab" class="nav-link" data-bs-toggle="tab" role="tab">
-                           <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="FavoriteTopics" LocalizedPage="MyTopics" />
-                       </a>
-                   </li>
-                 </asp:PlaceHolder>
-               </ul>
-              <div class="tab-content">
-                <div id="ActiveTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="ActiveTopics" CurrentMode="Active" AutoDataBind="True"/>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                            <div class="px-3 py-1">
+                                <asp:PlaceHolder runat="server" ID="FilterHolder">
+                                    <div class="mb-3">
+                                        <asp:Label runat="server" AssociatedControlID="Since">
+                                            <YAF:LocalizedLabel ID="SinceLabel" runat="server"
+                                                                LocalizedTag="SINCE"/>
+                                        </asp:Label>
+                                        <asp:DropDownList ID="Since" runat="server" 
+                                                          AutoPostBack="True" 
+                                                          OnSelectedIndexChanged="Since_SelectedIndexChanged" 
+                                                          CssClass="form-select" />
+                                    </div>
+                                </asp:PlaceHolder>
+                                <div class="mb-3">
+                                    <asp:Label runat="server" AssociatedControlID="TopicMode">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
+                                                            LocalizedTag="SELECT"/>
+                                    </asp:Label>
+                                    <asp:DropDownList ID="TopicMode" runat="server" 
+                                                      AutoPostBack="True" 
+                                                      OnSelectedIndexChanged="TopicModeSelectedIndexChanged" 
+                                                      CssClass="form-select" />
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
-                <asp:PlaceHolder ID="UnansweredTopicsTabContent" runat="server">
-                <div id="UnansweredTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="UnansweredTopics" CurrentMode="Unanswered" AutoDataBind="False"/>
-                </div>
+            </div>
+            <div class="card-body">
+                <asp:Repeater ID="TopicList" runat="server">
+                    <ItemTemplate>
+                        <%# this.CreateTopicLine(Container.DataItem) %>
+                    </ItemTemplate>
+                    <SeparatorTemplate>
+                        <div class="row">
+                            <div class="col">
+                                <hr/>
+                            </div>
+                        </div>
+                    </SeparatorTemplate>
+                </asp:Repeater>
+                <asp:PlaceHolder runat="server" Visible="<%# this.TopicList.Items.Count == 0 %>">
+                    <div class="card-body">
+                        <YAF:Alert runat="server" ID="Info"
+                                   Type="info">
+                            <YAF:Icon runat="server" IconName="info-circle" />
+                            <YAF:LocalizedLabel runat="server" LocalizedTag="NO_POSTS" />
+                        </YAF:Alert>
+                    </div>
                 </asp:PlaceHolder>
-                <asp:PlaceHolder ID="UnreadTopicsTabContent" runat="server">
-                <div id="UnreadTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="UnreadTopics" CurrentMode="Unread" AutoDataBind="False" />
+            </div>
+            <div class="card-footer">
+                <div class="row justify-content-end">
+                    <div class="col-auto">
+                        <YAF:ThemeButton runat="server" OnClick="MarkAll_Click" ID="MarkAll"
+                                         TextLocalizedTag="MARK_ALL_ASREAD" TextLocalizedPage="DEFAULT"
+                                         Type="Secondary"
+                                         Size="Small"
+                                         Icon="glasses"/>
+                    </div>
                 </div>
-                </asp:PlaceHolder>
-                 <asp:PlaceHolder ID="UserTopicsTabContent" runat="server">
-                <div id="MyTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="MyTopicsTopics" CurrentMode="User" />
-                </div>
-                <div id="FavoriteTopicsTab" class="tab-pane" role="tabpanel">
-                   <YAF:MyTopicsList runat="server" ID="FavoriteTopics" CurrentMode="Favorite" AutoDataBind="False" />
-                </div>
-                </asp:PlaceHolder>
-                  </div>
-</asp:Panel>
-<asp:HiddenField runat="server" ID="hidLastTab" Value="ActiveTopicsTab" />
-<asp:Button id="ChangeTab" OnClick="ChangeTabClick" runat="server" style="display:none" />
+            </div>
+    </div>
+    </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager runat="server" ID="PagerTop" 
+                   OnPageChange="Pager_PageChange" />
+    </div>
+</div>

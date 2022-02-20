@@ -84,7 +84,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "Posts" /> class.
         /// </summary>
         public Posts()
-            : base("POSTS")
+            : base("POSTS", ForumPages.Posts)
         {
         }
 
@@ -330,48 +330,6 @@ namespace YAF.Pages
                         this.PageContext.PageUserID,
                         this.PageContext.PageTopicID);
                 }
-
-                // The html code for "Favorite Topic" theme buttons.
-                var tagButtonHtml =
-                    $"'<a class=\"btn btn-secondary\" href=\"javascript:addFavoriteTopic(' + response + ');\" title=\"{this.GetText("BUTTON_TAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_TAGFAVORITE")}</span></a>'";
-                var untagButtonHtml =
-                    $"'<a class=\"btn btn-secondary\" href=\"javascript:removeFavoriteTopic(' + response + ');\" title=\"{this.GetText("BUTTON_UNTAGFAVORITE_TT")}\"><span><i class=\"fa fa-star fa-fw\"></i>&nbsp;{this.GetText("BUTTON_UNTAGFAVORITE")}</span></a>'";
-
-                // Register the client side script for the "Favorite Topic".
-                var favoriteTopicJs = JavaScriptBlocks.AddFavoriteTopicJs(untagButtonHtml) + Environment.NewLine +
-                                      JavaScriptBlocks.RemoveFavoriteTopicJs(tagButtonHtml);
-
-                this.PageContext.PageElements.RegisterJsBlockStartup("favoriteTopicJs", favoriteTopicJs);
-                this.PageContext.PageElements.RegisterJsBlockStartup(
-                    "asynchCallFailedJs",
-                    "function CallFailed(res){ console.log(res);alert('Error Occurred'); }");
-
-                // Has the user already tagged this topic as favorite?
-                if (this.Get<IFavoriteTopic>().IsFavoriteTopic(this.PageContext.PageTopicID))
-                {
-                    // Generate the "Untag" theme button with appropriate JS calls for onclick event.
-                    this.TagFavorite1.NavigateUrl = $"javascript:removeFavoriteTopic({this.PageContext.PageTopicID});";
-                    this.TagFavorite2.NavigateUrl = $"javascript:removeFavoriteTopic({this.PageContext.PageTopicID});";
-                    this.TagFavorite1.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
-                    this.TagFavorite1.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
-                    this.TagFavorite2.TextLocalizedTag = "BUTTON_UNTAGFAVORITE";
-                    this.TagFavorite2.TitleLocalizedTag = "BUTTON_UNTAGFAVORITE_TT";
-                }
-                else
-                {
-                    // Generate the "Tag" theme button with appropriate JS calls for onclick event.
-                    this.TagFavorite1.NavigateUrl = $"javascript:addFavoriteTopic({this.PageContext.PageTopicID});";
-                    this.TagFavorite2.NavigateUrl = $"javascript:addFavoriteTopic({this.PageContext.PageTopicID});";
-                    this.TagFavorite1.TextLocalizedTag = "BUTTON_TAGFAVORITE";
-                    this.TagFavorite1.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
-                    this.TagFavorite2.TextLocalizedTag = "BUTTON_TAGFAVORITE";
-                    this.TagFavorite2.TitleLocalizedTag = "BUTTON_TAGFAVORITE_TT";
-                }
-            }
-            else
-            {
-                this.TagFavorite1.Visible = false;
-                this.TagFavorite2.Visible = false;
             }
 
             this.topic = this.PageContext.PageTopic;

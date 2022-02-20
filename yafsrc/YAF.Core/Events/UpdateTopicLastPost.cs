@@ -78,7 +78,7 @@ namespace YAF.Core.Events
         /// </param>
         public void Handle(UpdateTopicLastPostEvent @event)
         {
-            this.GetRepository<Topic>().UpdateLastPost(@event.ForumId, @event.TopicId);
+            this.GetRepository<Topic>().UpdateLastPost(@event.TopicId);
         }
 
         #endregion

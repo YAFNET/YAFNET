@@ -28,7 +28,7 @@
                         <div class="form-check">
                             <asp:RadioButtonList ID="rblNotificationType" runat="server" 
                                                  AutoPostBack="true"
-                                                 OnSelectedIndexChanged="rblNotificationType_SelectionChanged"
+                                                 OnSelectedIndexChanged="NotificationType_SelectionChanged"
                                                  RepeatLayout="UnorderedList"
                                                  CssClass="list-unstyled">
                                 </asp:RadioButtonList>

@@ -96,10 +96,8 @@ namespace YAF.Core.Controllers
                     searchTopic.ForumId,
                     BoardContext.Current.PageUserID,
                     DateTimeHelper.SqlDbMinTime(),
-                    DateTime.UtcNow,
                     searchTopic.Page,
                     15,
-                    false,
                     false);
 
                 var topicsList = (from PagedTopic topic in topics

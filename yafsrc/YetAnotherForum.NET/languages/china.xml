@@ -35,6 +35,10 @@
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
     <Resource tag="WAS_QUOTED">Was Quoted</Resource>
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
+    <Resource tag="WATCH_FORUM_MSG">{0} Created the new topic {1}</Resource>
+    <Resource tag="WATCH_FORUM_REPLY">New Topic in a Watch Forum</Resource>
+    <Resource tag="WATCH_TOPIC_MSG">{0} replied to the topic {1}</Resource>
+    <Resource tag="WATCH_Topic_REPLY">New Reply in a Watch Topic</Resource>
     <Resource tag="YOUR_ACCOUNT">您的帐号</Resource>
     <Resource tag="YOUR_EMAIL">电子邮件地址:</Resource>
     <Resource tag="YOUR_NOTIFIY">Your Notifications</Resource>
@@ -4547,6 +4551,7 @@ Spoiler Content
     <Resource tag="NO_POSTS">无回复</Resource>
     <Resource tag="REPLIES">回复次数</Resource>
     <Resource tag="RSSFEED">Rss Feed</Resource>
+    <Resource tag="SELECT">Select...</Resource>
     <Resource tag="SHOW_ALL">显示所有</Resource>
     <Resource tag="SINCE">Since</Resource>
     <Resource tag="TOPIC_STARTER">Topic Starter</Resource>

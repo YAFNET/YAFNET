@@ -714,16 +714,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets FavoriteTopicFeedAccess.
-        /// </summary>
-        public int FavoriteTopicFeedAccess
-        {
-            get => this.Registry.GetValue("FavoriteTopicFeedAccess", 1);
-
-            set => this.Registry.SetValue("FavoriteTopicFeedAccess", value);
-        }
-
-        /// <summary>
         /// Gets or sets AvatarWidth.
         /// </summary>
         public int AvatarWidth
@@ -1198,16 +1188,6 @@ namespace YAF.Configuration
             get => this.Registry.GetValue("ShowEditedMessage", true);
 
             set => this.Registry.SetValue("ShowEditedMessage", value);
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [allow notification all posts all topics].
-        /// </summary>
-        public bool AllowNotificationAllPostsAllTopics
-        {
-            get => this.Registry.GetValue("AllowNotificationAllPostsAllTopics", false);
-
-            set => this.Registry.SetValue("AllowNotificationAllPostsAllTopics", value);
         }
 
         /// <summary>

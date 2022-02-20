@@ -174,6 +174,7 @@ namespace YAF.Types.Flags
         /// Converts a Flag Enum to the associated index value.
         /// </summary>
         /// <param name="theEnum">
+        /// The Enumerator
         /// </param>
         /// <returns>
         /// The enum to index.

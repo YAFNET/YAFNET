@@ -171,7 +171,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// The Page Load as Data Row
         /// </summary>
-        /// <param name="sessionID">
+        /// <param name="sessionId">
         /// The session id.
         /// </param>
         /// <param name="boardId">
@@ -217,7 +217,7 @@ namespace YAF.Core.Services
         /// The <see cref="PageLoad"/>.
         /// </returns>
         public Tuple<PageLoad, User, Category, Forum, Topic> GetPageLoad(
-            [NotNull] string sessionID,
+            [NotNull] string sessionId,
             [NotNull] int boardId,
             [CanBeNull] string userKey,
             [NotNull] string ip,
@@ -438,7 +438,7 @@ namespace YAF.Core.Services
                 {
                     // -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
                     this.GetRepository<Active>().Delete(
-                        x => x.SessionID == sessionID && (x.BoardID != boardId || x.UserID != userId));
+                        x => x.SessionID == sessionId && (x.BoardID != boardId || x.UserID != userId));
 
                     // -- get previous visit
                     if (!isGuest)
@@ -455,7 +455,7 @@ namespace YAF.Core.Services
                 if (!doNotTrack)
                 {
                     if (this.GetRepository<Active>().Exists(
-                        x => x.BoardID == boardId && x.SessionID == sessionID ||
+                        x => x.BoardID == boardId && x.SessionID == sessionId ||
                              x.Browser == browser && (x.Flags & 8) == 8))
                     {
                         if (!isCrawler)
@@ -475,7 +475,7 @@ namespace YAF.Core.Services
                                     ForumPage = forumPage,
                                     Flags = activeFlags
                                 },
-                                a => a.SessionID == sessionID && a.BoardID == boardId);
+                                a => a.SessionID == sessionId && a.BoardID == boardId);
                         }
                         else
                         {
@@ -504,7 +504,7 @@ namespace YAF.Core.Services
                             new Active
                             {
                                 UserID = userId,
-                                SessionID = sessionID,
+                                SessionID = sessionId,
                                 BoardID = boardId,
                                 IP = ip,
                                 Login = DateTime.UtcNow,
@@ -531,7 +531,7 @@ namespace YAF.Core.Services
                     if (!isGuest)
                     {
                         this.GetRepository<Active>().Delete(
-                            x => x.UserID == userId && x.BoardID == boardId && x.SessionID != sessionID);
+                            x => x.UserID == userId && x.BoardID == boardId && x.SessionID != sessionId);
                     }
                 }
 
@@ -647,10 +647,8 @@ namespace YAF.Core.Services
                         forum1.ForumID,
                         userId,
                         timeFrame,
-                        DateTime.UtcNow,
                         0,
                         maxCount,
-                        false,
                         false);
 
                 // filter first...

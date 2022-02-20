@@ -62,7 +62,7 @@ namespace YAF.Core.Controllers
 
             var list = new List<string>();
 
-            if (results == null)
+            if (results is null)
             {
                 return this.Ok(list);
             }

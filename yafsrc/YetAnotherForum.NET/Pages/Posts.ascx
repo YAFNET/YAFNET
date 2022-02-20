@@ -23,14 +23,6 @@
 
 <div class="row justify-content-end">
     <div class="col-auto">
-            <span id="dvFavorite1">
-                <YAF:ThemeButton ID="TagFavorite1" runat="server"
-                                 Type="Secondary"
-                                 CssClass="mb-1 me-1"
-                                 TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                                 Icon="star"
-                                 IconColor="text-warning" />
-            </span>
             <YAF:ThemeButton ID="Tools1" runat="server"
                              CssClass="dropdown-toggle me-1 mb-1"
                              Type="Danger"
@@ -176,14 +168,6 @@
     </div>
     <div class="col-md-8 mt-1 mt-md-0">
         <div class="d-flex justify-content-end flex-wrap">
-            <span id="dvFavorite2">
-                <YAF:ThemeButton ID="TagFavorite2" runat="server"
-                                 CssClass="mb-1"
-                                 Type="Secondary"
-                                 TextLocalizedTag="BUTTON_TAGFAVORITE" TitleLocalizedTag="BUTTON_TAGFAVORITE_TT"
-                                 Icon="star"
-                                 IconColor="text-warning" />
-            </span>
             <YAF:ThemeButton ID="Tools2" runat="server"
                              CssClass="dropdown-toggle ms-1 mb-1"
                              Type="Danger"

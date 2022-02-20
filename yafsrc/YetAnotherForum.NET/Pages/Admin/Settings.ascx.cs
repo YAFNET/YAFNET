@@ -234,12 +234,6 @@ namespace YAF.Pages.Admin
             // population default notification setting options...
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
-            if (!boardSettings.AllowNotificationAllPostsAllTopics)
-            {
-                // remove it...
-                items.Remove(UserNotificationSetting.AllTopics.ToInt());
-            }
-
             var notificationItems = items.Select(
                     x => new ListItem(HtmlHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString()))
                 .ToArray();

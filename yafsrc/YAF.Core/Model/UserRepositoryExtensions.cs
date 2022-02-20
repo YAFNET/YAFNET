@@ -626,7 +626,6 @@ namespace YAF.Core.Model
             BoardContext.Current.GetRepository<EventLog>().Delete(x => x.UserID == userId);
             BoardContext.Current.GetRepository<UserPMessage>().Delete(x => x.UserID == userId);
             BoardContext.Current.GetRepository<Thanks>().Delete(x => x.ThanksFromUserID == userId || x.ThanksToUserID == userId);
-            BoardContext.Current.GetRepository<FavoriteTopic>().Delete(x => x.UserID == userId);
             BoardContext.Current.GetRepository<Buddy>().Delete(x => x.FromUserID == userId);
             BoardContext.Current.GetRepository<Buddy>().Delete(x => x.ToUserID == userId);
 
@@ -705,7 +704,7 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the watch mail list.
+        /// Gets all Users that Watch that topic or the Forum
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -717,7 +716,7 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// List of the Users
         /// </returns>
         public static List<User> WatchMailList(
             this IRepository<User> repository,
@@ -1010,6 +1009,15 @@ namespace YAF.Core.Model
                         var countQuotedSql = countQuotedExpression.Select(Sql.Count("1"))
                             .ToMergedParamsSelectStatement();
 
+                        // -- count Watch Topics
+                        var countWatchTopicsExpression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
+
+                        countWatchTopicsExpression.Where(
+                            a => a.UserID == userId && a.Notification && ((a.Flags & 8192) == 8192 || (a.Flags & 16384) == 16384));
+
+                        var countWatchTopicsSql = countWatchTopicsExpression.Select(Sql.Count("1"))
+                            .ToMergedParamsSelectStatement();
+
                         var countUnreadSql = "0";
                         var lastUnreadSql = "null";
 
@@ -1081,6 +1089,7 @@ namespace YAF.Core.Model
                                     Sql.Custom<bool>(
                                         $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<User>(x => x.Flags, true)}&4")})"),
                                 ModeratePosts = Sql.Custom($"({moderatePostsSql})"),
+                                WatchTopic = Sql.Custom($"({countWatchTopicsSql})"),
                                 ReceivedThanks = Sql.Custom($"({countThanksSql})"),
                                 Mention = Sql.Custom($"({countMentionSql})"),
                                 Quoted = Sql.Custom($"({countQuotedSql})"),

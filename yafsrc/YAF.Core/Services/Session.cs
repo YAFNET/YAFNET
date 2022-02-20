@@ -86,46 +86,6 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        ///   Gets or sets UnreadTopicSince.
-        /// </summary>
-        public int? UnreadTopicSince
-        {
-            get => (int?)this.SessionState["UnreadTopicSince"];
-
-            set => this.SessionState["UnreadTopicSince"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets ActiveTopicSince.
-        /// </summary>
-        public int? ActiveTopicSince
-        {
-            get => (int?)this.SessionState["ActiveTopicSince"];
-
-            set => this.SessionState["ActiveTopicSince"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets UnansweredTopicSince.
-        /// </summary>
-        public int? UnansweredTopicSince
-        {
-            get => (int?)this.SessionState["UnansweredTopicSince"];
-
-            set => this.SessionState["UnansweredTopicSince"] = value;
-        }
-
-        /// <summary>
-        ///   Gets or sets FavoriteTopicSince.
-        /// </summary>
-        public int? FavoriteTopicSince
-        {
-            get => (int?)this.SessionState["FavoriteTopicSince"];
-
-            set => this.SessionState["FavoriteTopicSince"] = value;
-        }
-
-        /// <summary>
         ///   Gets or sets ForumRead.
         /// </summary>
         public Hashtable ForumRead

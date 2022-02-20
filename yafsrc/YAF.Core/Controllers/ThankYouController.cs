@@ -67,7 +67,7 @@ namespace YAF.Core.Controllers
         {
             var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
 
-            if (membershipUser == null)
+            if (membershipUser is null)
             {
                 return this.NotFound();
             }
@@ -102,7 +102,7 @@ namespace YAF.Core.Controllers
         {
             var membershipUser = this.Get<IAspNetUsersHelper>().GetUser();
 
-            if (membershipUser == null)
+            if (membershipUser is null)
             {
                 return this.NotFound();
             }

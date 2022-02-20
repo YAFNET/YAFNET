@@ -464,7 +464,7 @@ namespace YAF.Controls
 
             var unreadCount = this.PageContext.UnreadPrivate + this.PageContext.PendingBuddies;
 
-            var unreadNotify = this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks;
+            var unreadNotify = this.PageContext.Mention + this.PageContext.Quoted + this.PageContext.ReceivedThanks + this.PageContext.WatchTopic;
 
             if (!this.PageContext.User.Activity)
             {

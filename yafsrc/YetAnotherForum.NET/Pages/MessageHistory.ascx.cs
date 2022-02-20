@@ -74,7 +74,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "MessageHistory" /> class.
         /// </summary>
         public MessageHistory()
-            : base("MESSAGEHISTORY")
+            : base("MESSAGEHISTORY", ForumPages.MessageHistory)
         {
         }
 

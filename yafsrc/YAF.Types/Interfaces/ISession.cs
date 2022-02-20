@@ -43,31 +43,6 @@ namespace YAF.Types.Interfaces
         List<MultiQuote> MultiQuoteIds { get; set; }
 
         /// <summary>
-        ///   Gets or sets Unread Topic Since.
-        /// </summary>
-        int? UnreadTopicSince { get; set; }
-
-        /// <summary>
-        ///   Gets or sets User Topic Since.
-        /// </summary>
-        int? UserTopicSince { get; set; }
-
-        /// <summary>
-        ///   Gets or sets ActiveTopicSince.
-        /// </summary>
-        int? ActiveTopicSince { get; set; }
-
-        /// <summary>
-        ///   Gets or sets UnansweredTopicSince.
-        /// </summary>
-        int? UnansweredTopicSince { get; set; }
-
-        /// <summary>
-        ///   Gets or sets FavoriteTopicSince.
-        /// </summary>
-        int? FavoriteTopicSince { get; set; }
-
-        /// <summary>
         ///   Gets or sets ForumRead.
         /// </summary>
         Hashtable ForumRead { get; set; }

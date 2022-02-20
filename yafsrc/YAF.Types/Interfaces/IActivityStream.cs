@@ -34,22 +34,88 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// Adds the New Topic to the User's ActivityStream
         /// </summary>
-        /// <param name="forumID">The forum unique identifier.</param>
-        /// <param name="topicID">The topic unique identifier.</param>
-        /// <param name="messageID">The message unique identifier.</param>
-        /// <param name="topicTitle">The topic title.</param>
-        /// <param name="message">The message.</param>
-        void AddTopicToStream(int forumID, int topicID, int messageID, string topicTitle, string message);
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        void AddTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message);
+
+        /// <summary>
+        /// Adds the Watch Reply to the User's ActivityStream
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from User Id.
+        /// </param>
+        void AddWatchReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId);
+
+        /// <summary>
+        /// Adds the New Topic to the User's ActivityStream
+        /// </summary>
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <param name="fromUserId">
+        /// The from User Id.
+        /// </param>
+        void AddWatchTopicToStream(int userId, int topicId, int messageId, string topicTitle, string message, int fromUserId);
 
         /// <summary>
         /// Adds the Reply to the User's ActivityStream
         /// </summary>
-        /// <param name="forumID">The forum unique identifier.</param>
-        /// <param name="topicID">The topic unique identifier.</param>
-        /// <param name="messageID">The message unique identifier.</param>
-        /// <param name="topicTitle">The topic title.</param>
-        /// <param name="message">The message.</param>
-        void AddReplyToStream(int forumID, int topicID, int messageID, string topicTitle, string message);
+        /// <param name="userId">
+        /// The user Id.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic unique identifier.
+        /// </param>
+        /// <param name="messageId">
+        /// The message unique identifier.
+        /// </param>
+        /// <param name="topicTitle">
+        /// The topic title.
+        /// </param>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        void AddReplyToStream(int userId, int topicId, int messageId, string topicTitle, string message);
 
         /// <summary>
         /// Add Mention to Users Stream

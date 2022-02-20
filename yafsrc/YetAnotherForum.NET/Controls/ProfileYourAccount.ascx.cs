@@ -77,7 +77,7 @@ namespace YAF.Controls
             this.AccountEmail.Text = this.PageContext.User.Email;
             this.Name.Text = this.HtmlEncode(this.PageContext.User.Name);
             this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageContext.User.Joined);
-            this.NumPosts.Text = $"{this.PageContext.User.NumPosts:N0}";
+            this.NumPosts.Text = $@"{this.PageContext.User.NumPosts:N0}";
 
             this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
 

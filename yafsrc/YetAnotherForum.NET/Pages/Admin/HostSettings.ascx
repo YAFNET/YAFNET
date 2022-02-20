@@ -1092,13 +1092,6 @@
                             <asp:DropDownList CssClass="form-select" ID="TopicsFeedAccess" runat="server">
                             </asp:DropDownList>
                         </div>
-                        <div class="mb-3">
-                            <YAF:HelpLabel ID="HelpLabel138" runat="server"
-                                           AssociatedControlID="FavoriteTopicFeedAccess"
-                                           LocalizedTag="FAVTOPIC_FEEDS_ACCESS" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                            <asp:DropDownList CssClass="form-select" ID="FavoriteTopicFeedAccess" runat="server">
-                            </asp:DropDownList>
-                        </div>
                     </div>
                     <div class="tab-pane fade" id="geo" role="tabpanel" aria-labelledby="geo-tab">
                         <div class="mb-3">
@@ -1640,26 +1633,15 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="mb-3 col-md-6">
-                <YAF:HelpLabel ID="HelpLabel78" runat="server"
-                               AssociatedControlID="AllowModeratorsViewIPs"
-                               LocalizedTag="ALLOW_MOD_VIEWIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                <div class="form-check form-switch">
-                    <asp:CheckBox Text="&nbsp;" ID="AllowModeratorsViewIPs" runat="server"></asp:CheckBox>
+                        <div class="mb-3">
+                            <YAF:HelpLabel ID="HelpLabel78" runat="server"
+                                           AssociatedControlID="AllowModeratorsViewIPs"
+                                           LocalizedTag="ALLOW_MOD_VIEWIP" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                            <div class="form-check form-switch">
+                                <asp:CheckBox Text="&nbsp;" ID="AllowModeratorsViewIPs" runat="server"></asp:CheckBox>
 
-                </div>
-            </div>
-            <div class="mb-3 col-md-6">
-                <YAF:HelpLabel ID="HelpLabel77" runat="server"
-                               AssociatedControlID="AllowNotificationAllPostsAllTopics"
-                               LocalizedTag="ALLOW_NOTIFICATION_ONALL" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                <div class="form-check form-switch">
-                    <asp:CheckBox Text="&nbsp;" ID="AllowNotificationAllPostsAllTopics" runat="server"></asp:CheckBox>
-
-                </div>
-            </div>
-        </div>
+                            </div>
+                        </div>
         <div class="row">
             <div class="mb-3 col-md-6">
                 <YAF:HelpLabel ID="HelpLabel89" runat="server"

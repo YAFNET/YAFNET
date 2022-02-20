@@ -83,6 +83,8 @@ namespace YAF.Controls
             this.WasMentioned.Text = this.GetText("WAS_MENTIONED");
             this.ReceivedThanks.Text = this.GetText("RECEIVED_THANKS");
             this.WasQuoted.Text = this.GetText("WAS_QUOTED");
+            this.WatchForumReply.Text = this.GetText("WATCH_FORUM_REPLY");
+            this.WatchTopicReply.Text = this.GetText("WATCH_TOPIC_REPLY");
 
             if (this.IsPostBack)
             {
@@ -160,29 +162,34 @@ namespace YAF.Controls
             var message = string.Empty;
             var icon = string.Empty;
 
-            var topicLink = new ThemeButton
+            if (!activity.Item1.MessageID.HasValue)
             {
-                NavigateUrl =
-                    this.Get<LinkBuilder>().GetLink(
-                        ForumPages.Posts,
-                        "m={0}&name={1}",
-                        activity.Item1.MessageID.Value,
-                        activity.Item3.TopicName),
-                Type = ButtonStyle.None,
-                Text = activity.Item3.TopicName,
-                Icon = "comment",
-                IconCssClass = "far"
-            };
+                return;
+            }
 
-            if (activity.Item1.ActivityFlags.ReceivedThanks)
+            var topicLink = new ThemeButton
+                                {
+                                    NavigateUrl =
+                                        this.Get<LinkBuilder>().GetLink(
+                                            ForumPages.Posts,
+                                            "m={0}&name={1}",
+                                            activity.Item1.MessageID.Value,
+                                            activity.Item3.TopicName),
+                                    Type = ButtonStyle.None,
+                                    Text = activity.Item3.TopicName,
+                                    Icon = "comment",
+                                    IconCssClass = "far"
+                                };
+
+            if (activity.Item1.ActivityFlags.ReceivedThanks && activity.Item1.FromUserID.HasValue)
             {
                 var userLink = new UserLink
-                {
-                    UserID = activity.Item1.FromUserID.Value,
-                    Suspended = activity.Item2.Suspended,
-                    Style = activity.Item2.UserStyle,
-                    ReplaceName = activity.Item2.DisplayOrUserName()
-                };
+                                   {
+                                       UserID = activity.Item1.FromUserID.Value,
+                                       Suspended = activity.Item2.Suspended,
+                                       Style = activity.Item2.UserStyle,
+                                       ReplaceName = activity.Item2.DisplayOrUserName()
+                                   };
 
                 icon = "heart";
                 message = this.GetTextFormatted(
@@ -191,15 +198,15 @@ namespace YAF.Controls
                     topicLink.RenderToString());
             }
 
-            if (activity.Item1.ActivityFlags.WasMentioned)
+            if (activity.Item1.ActivityFlags.WasMentioned && activity.Item1.FromUserID.HasValue)
             {
                 var userLink = new UserLink
-                {
-                    UserID = activity.Item1.FromUserID.Value,
-                    Suspended = activity.Item2.Suspended,
-                    Style = activity.Item2.UserStyle,
-                    ReplaceName = activity.Item2.DisplayOrUserName()
-                };
+                                   {
+                                       UserID = activity.Item1.FromUserID.Value,
+                                       Suspended = activity.Item2.Suspended,
+                                       Style = activity.Item2.UserStyle,
+                                       ReplaceName = activity.Item2.DisplayOrUserName()
+                                   };
 
                 icon = "at";
                 message = this.GetTextFormatted(
@@ -208,19 +215,53 @@ namespace YAF.Controls
                     topicLink.RenderToString());
             }
 
-            if (activity.Item1.ActivityFlags.WasQuoted)
+            if (activity.Item1.ActivityFlags.WasQuoted && activity.Item1.FromUserID.HasValue)
             {
                 var userLink = new UserLink
-                {
-                    UserID = activity.Item1.FromUserID.Value,
-                    Suspended = activity.Item2.Suspended,
-                    Style = activity.Item2.UserStyle,
-                    ReplaceName = activity.Item2.DisplayOrUserName()
-                };
+                                   {
+                                       UserID = activity.Item1.FromUserID.Value,
+                                       Suspended = activity.Item2.Suspended,
+                                       Style = activity.Item2.UserStyle,
+                                       ReplaceName = activity.Item2.DisplayOrUserName()
+                                   };
 
                 icon = "quote-left";
                 message = this.GetTextFormatted(
                     "WAS_QUOTED_MSG",
+                    userLink.RenderToString(),
+                    topicLink.RenderToString());
+            }
+
+            if (activity.Item1.ActivityFlags.WatchForumReply && activity.Item1.FromUserID.HasValue)
+            {
+                var userLink = new UserLink
+                                   {
+                                       UserID = activity.Item1.FromUserID.Value,
+                                       Suspended = activity.Item2.Suspended,
+                                       Style = activity.Item2.UserStyle,
+                                       ReplaceName = activity.Item2.DisplayOrUserName()
+                                   };
+
+                icon = "comments";
+                message = this.GetTextFormatted(
+                    "WATCH_FORUM_MSG",
+                    userLink.RenderToString(),
+                    topicLink.RenderToString());
+            }
+
+            if (activity.Item1.ActivityFlags.WatchTopicReply && activity.Item1.FromUserID.HasValue)
+            {
+                var userLink = new UserLink
+                                   {
+                                       UserID = activity.Item1.FromUserID.Value,
+                                       Suspended = activity.Item2.Suspended,
+                                       Style = activity.Item2.UserStyle,
+                                       ReplaceName = activity.Item2.DisplayOrUserName()
+                                   };
+
+                icon = "comment";
+                message = this.GetTextFormatted(
+                    "WATCH_TOPIC_MSG",
                     userLink.RenderToString(),
                     topicLink.RenderToString());
             }
@@ -232,7 +273,10 @@ namespace YAF.Controls
 
             displayDateTime.DateTime = activity.Item1.Created;
 
-            messageHolder.Controls.Add(new Literal { Text = message });
+            messageHolder.Controls.Add(new Literal
+                                           {
+                                               Text = message
+                                           });
 
             if (!activity.Item1.Notification)
             {
@@ -323,6 +367,8 @@ namespace YAF.Controls
             this.WasMentioned.Checked = true;
             this.ReceivedThanks.Checked = true;
             this.WasQuoted.Checked = true;
+            this.WatchForumReply.Checked = true;
+            this.WatchTopicReply.Checked = true;
 
             this.BindData();
         }
@@ -363,6 +409,16 @@ namespace YAF.Controls
             if (!this.WasQuoted.Checked)
             {
                 stream.RemoveAll(a => a.Item1.ActivityFlags.WasQuoted);
+            }
+
+            if (!this.WatchForumReply.Checked)
+            {
+                stream.RemoveAll(a => a.Item1.ActivityFlags.WatchForumReply);
+            }
+
+            if (!this.WatchTopicReply.Checked)
+            {
+                stream.RemoveAll(a => a.Item1.ActivityFlags.WatchTopicReply);
             }
 
             stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);

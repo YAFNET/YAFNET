@@ -251,7 +251,6 @@ namespace YAF.Core.Model
                 pageUserId,
                 pageIndex,
                 pageSize,
-                false,
                 findLastRead,
                 (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
                              t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
@@ -300,7 +299,6 @@ namespace YAF.Core.Model
                 pageUserId,
                 pageIndex,
                 pageSize,
-                false,
                 findLastRead,
                 (t, x, c) => x.UserID == pageUserId && x.ReadAccess &&
                              (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
@@ -348,7 +346,6 @@ namespace YAF.Core.Model
                 pageUserId,
                 pageIndex,
                 pageSize,
-                false,
                 findLastRead,
                 (t, x, c) => x.UserID == pageUserId && x.ReadAccess &&
                              (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate);
@@ -396,7 +393,6 @@ namespace YAF.Core.Model
                 pageUserId,
                 pageIndex,
                 pageSize,
-                false,
                 findLastRead,
                 (t, x, c) => x.UserID == pageUserId && x.ReadAccess && (t.Flags & 8) != 8 && t.TopicMovedID == null &&
                              t.LastPosted != null && t.LastPosted > sinceDate && t.LastPosted < toDate &&
@@ -733,17 +729,11 @@ namespace YAF.Core.Model
         /// <param name="sinceDate">
         /// The since Date.
         /// </param>
-        /// <param name="toDate">
-        /// The to Date.
-        /// </param>
         /// <param name="pageIndex">
         /// The page Index.
         /// </param>
         /// <param name="pageSize">
         /// The page Size.
-        /// </param>
-        /// <param name="showMoved">
-        /// Show Moved topics.
         /// </param>
         /// <param name="findLastRead">
         /// Indicates if the list should contain the last Access Date
@@ -756,10 +746,8 @@ namespace YAF.Core.Model
             [NotNull] int forumId,
             [NotNull] int userId,
             [CanBeNull] DateTime? sinceDate,
-            [CanBeNull] DateTime? toDate,
             [NotNull] int pageIndex,
             [NotNull] int pageSize,
-            [NotNull] bool showMoved,
             [NotNull] bool findLastRead)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -768,7 +756,6 @@ namespace YAF.Core.Model
                 userId,
                 pageIndex,
                 pageSize,
-                showMoved,
                 findLastRead,
                 (t, x, c) => t.ForumID == forumId &&
                              t.Priority != 2 && t.LastPosted >= sinceDate &&
@@ -790,9 +777,6 @@ namespace YAF.Core.Model
         /// <param name="pageSize">
         /// The page Size.
         /// </param>
-        /// <param name="showMoved">
-        /// Show Moved topics.
-        /// </param>
         /// <param name="findLastRead">
         /// Indicates if the list should contain the last Access Date
         /// </param>
@@ -807,7 +791,6 @@ namespace YAF.Core.Model
             [NotNull] int userId,
             [NotNull] int pageIndex,
             [NotNull] int pageSize,
-            [NotNull] bool showMoved,
             [NotNull] bool findLastRead,
             [NotNull] Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
         {
@@ -835,13 +818,6 @@ namespace YAF.Core.Model
 
                     var countTotalSql = countTotalExpression
                         .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID)}")).ToSelectStatement();
-
-                    // -- Count favorite
-                    var countFavoriteExpression = db.Connection.From<FavoriteTopic>(db.Connection.TableAlias("f"));
-                    countFavoriteExpression.Where(
-                        $@"f.{countFavoriteExpression.Column<FavoriteTopic>(f => f.TopicID)}=
-                                    {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true),expression.Column<Topic>(x => x.ID, true))}");
-                    var countFavoriteSql = countFavoriteExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     // -- count deleted posts
                     var countDeletedExpression = db.Connection.From<Message>(db.Connection.TableAlias("mes"));
@@ -909,7 +885,6 @@ namespace YAF.Core.Model
                             c.Posted,
                             LinkTopicID = c.TopicMovedID != null ? c.TopicMovedID : c.ID,
                             c.TopicMovedID,
-                            FavoriteCount = Sql.Custom($"({countFavoriteSql})"),
                             Subject = c.TopicName,
                             c.Description,
                             c.Status,
@@ -965,9 +940,6 @@ namespace YAF.Core.Model
         /// <param name="pageSize">
         /// The page Size.
         /// </param>
-        /// <param name="showMoved">
-        /// The show Moved.
-        /// </param>
         /// <param name="findLastRead">
         /// Indicates if the list should Contain the last Access Date
         /// </param>
@@ -980,7 +952,6 @@ namespace YAF.Core.Model
             [NotNull] int userId,
             [NotNull] int pageIndex,
             [NotNull] int pageSize,
-            [NotNull] bool showMoved,
             [CanBeNull] bool findLastRead)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -989,7 +960,6 @@ namespace YAF.Core.Model
                 userId,
                 pageIndex,
                 pageSize,
-                showMoved,
                 findLastRead,
                 (t, x, c) => t.ForumID == forumId && t.Priority == 2 && (t.Flags & 8) != 8 &&
                              (t.TopicMovedID != null || t.NumPosts > 0) && x.UserID == userId && x.ReadAccess);
@@ -1040,16 +1010,13 @@ namespace YAF.Core.Model
         /// <param name="flags">
         /// The flags.
         /// </param>
-        /// <param name="topicTags">
-        /// The topic Tags.
-        /// </param>
-        /// <param name="messageId">
-        /// The message Id.
+        /// <param name="newMessage">
+        /// The new message.
         /// </param>
         /// <returns>
-        /// Returns the Topic ID
+        /// Returns the Topic
         /// </returns>
-        public static int SaveNew(
+        public static Topic SaveNew(
             this IRepository<Topic> repository,
             [NotNull] int forumId,
             [NotNull] string subject,
@@ -1064,8 +1031,7 @@ namespace YAF.Core.Model
             [NotNull] string ip,
             [NotNull] DateTime posted,
             [NotNull] MessageFlags flags,
-            [CanBeNull] string topicTags,
-            out int messageId)
+            out Message newMessage)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1087,7 +1053,9 @@ namespace YAF.Core.Model
 
             var newTopicId = repository.Insert(topic);
 
-            messageId = BoardContext.Current.GetRepository<Message>().SaveNew(
+            topic.ID = newTopicId;
+
+            newMessage = BoardContext.Current.GetRepository<Message>().SaveNew(
                 forumId,
                 newTopicId,
                 subject,
@@ -1104,7 +1072,7 @@ namespace YAF.Core.Model
                 repository.FireNew(newTopicId);
             }
 
-            return newTopicId;
+            return topic;
         }
 
         /// <summary>
@@ -1316,7 +1284,6 @@ namespace YAF.Core.Model
                 BoardContext.Current.GetRepository<Activity>().Delete(x => x.TopicID == topicId);
                 BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.TopicID == topicId);
                 BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.TopicID == topicId);
-                BoardContext.Current.GetRepository<FavoriteTopic>().Delete(x => x.TopicID == topicId);
                 BoardContext.Current.GetRepository<Topic>().Delete(x => x.TopicMovedID == topicId);
                 BoardContext.Current.GetRepository<Topic>().Delete(x => x.ID == topicId);
             }
@@ -1527,15 +1494,11 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="forumId">
-        /// The forum identifier.
-        /// </param>
         /// <param name="topicId">
         /// The topic Id.
         /// </param>
         public static void UpdateLastPost(
             [NotNull] this IRepository<Topic> repository,
-            [NotNull] int forumId,
             [NotNull] int topicId)
         {
             CodeContracts.VerifyNotNull(repository);

@@ -91,7 +91,7 @@ namespace YAF.Core.Model
             BoardContext.Current.BoardSettings.DeniedRegistrations++;
 
             repository.Save(
-                "DeniedRegistrations",
+                nameof(BoardContext.Current.BoardSettings.DeniedRegistrations),
                 BoardContext.Current.BoardSettings.DeniedRegistrations,
                 repository.BoardID);
         }

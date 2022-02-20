@@ -286,7 +286,6 @@ namespace YAF.Core.Services
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Message>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Thanks>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Buddy>());
-            this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Types.Models.FavoriteTopic>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbum>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbumImage>());
             this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Active>());

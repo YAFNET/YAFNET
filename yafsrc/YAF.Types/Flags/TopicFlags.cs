@@ -135,7 +135,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets whether topic is locked. Locked topics cannot be modified/deleted/replied to.
+        /// Gets or sets a value indicating whether topic is locked. Locked topics cannot be modified/deleted/replied to.
         /// </summary>
         public virtual bool IsLocked
         {
@@ -146,7 +146,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether topic is deleted.
+        /// Gets or sets a value indicating whether topic is deleted.
         /// </summary>
         public virtual bool IsDeleted
         {
@@ -157,7 +157,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether topic is persistent. Persistent topics cannot be purged.
+        /// Gets or sets a value indicating whether topic is persistent. Persistent topics cannot be purged.
         /// </summary>
         public virtual bool IsPersistent
         {
@@ -168,7 +168,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets whether topic is a question.
+        /// Gets or sets a value indicating whether topic is a question.
         /// </summary>
         public virtual bool IsQuestion
         {

@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
@@ -84,7 +83,7 @@ namespace YAF.Pages
         /// Initializes a new instance of the <see cref="PostMessage"/> class.
         /// </summary>
         public PostMessage()
-            : base("POSTMESSAGE")
+            : base("POSTMESSAGE", ForumPages.PostMessage)
         {
         }
 
@@ -369,9 +368,9 @@ namespace YAF.Pages
         /// The is Spam Approved.
         /// </param>
         /// <returns>
-        /// Returns the Message Id.
+        /// Returns the new Message.
         /// </returns>
-        protected int PostReplyHandleReplyToTopic(bool isSpamApproved)
+        protected Message PostReplyHandleReplyToTopic(bool isSpamApproved)
         {
             if (!this.PageContext.ForumReplyAccess)
             {
@@ -412,7 +411,7 @@ namespace YAF.Pages
                 IsApproved = isSpamApproved
             };
 
-            var messageId = this.GetRepository<Message>().SaveNew(
+            var message = this.GetRepository<Message>().SaveNew(
                 this.PageContext.PageForumID,
                 this.PageContext.PageTopicID,
                 this.PageContext.PageTopic.TopicName,
@@ -426,7 +425,7 @@ namespace YAF.Pages
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
-            return messageId;
+            return message;
         }
 
         /// <summary>
@@ -511,7 +510,7 @@ namespace YAF.Pages
             this.Get<ISession>().LastPost = DateTime.UtcNow.AddSeconds(30);
 
             // Reply to topic
-            int? messageId = this.PostReplyHandleReplyToTopic(this.spamApproved);
+            var newMessage = this.PostReplyHandleReplyToTopic(this.spamApproved);
 
             var isApproved = this.spamApproved;
 
@@ -531,7 +530,7 @@ namespace YAF.Pages
             // Create notification emails
             if (isApproved)
             {
-                this.Get<ISendNotification>().ToWatchingUsers(messageId.Value);
+                this.Get<ISendNotification>().ToWatchingUsers(newMessage, this.PageContext.PageTopic);
 
                 if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
                 {
@@ -546,7 +545,7 @@ namespace YAF.Pages
                                     this.Get<IActivityStream>().AddMentionToStream(
                                         userId,
                                         this.PageContext.PageTopicID,
-                                        messageId.ToType<int>(),
+                                        newMessage.ID,
                                         this.PageContext.PageUserID);
                                 }
                             });
@@ -562,15 +561,15 @@ namespace YAF.Pages
                                     this.Get<IActivityStream>().AddQuotingToStream(
                                         userId,
                                         this.PageContext.PageTopicID,
-                                        messageId.ToType<int>(),
+                                        newMessage.ID,
                                         this.PageContext.PageUserID);
                                 }
                             });
 
                     this.Get<IActivityStream>().AddReplyToStream(
-                        Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
+                        this.PageContext.PageUserID,
                         this.PageContext.PageTopicID,
-                        messageId.ToType<int>(),
+                        newMessage.ID,
                         this.PageContext.PageTopic.TopicName,
                         this.forumEditor.Text);
                 }
@@ -578,7 +577,7 @@ namespace YAF.Pages
                 if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopic.TopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", newMessage.ID, this.PageContext.PageTopic.TopicName);
                 }
                 else
                 {
@@ -595,7 +594,7 @@ namespace YAF.Pages
                     this.Get<ISendNotification>()
                         .ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
-                            messageId.ToType<int>(),
+                            newMessage.ID,
                             isPossibleSpamMessage);
                 }
 

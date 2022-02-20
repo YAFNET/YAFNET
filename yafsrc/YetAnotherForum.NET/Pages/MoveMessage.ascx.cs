@@ -54,7 +54,7 @@ namespace YAF.Pages
         ///   Initializes a new instance of the <see cref = "MoveMessage" /> class.
         /// </summary>
         public MoveMessage()
-            : base("MOVEMESSAGE")
+            : base("MOVEMESSAGE", ForumPages.MoveMessage)
         {
         }
 
@@ -123,10 +123,8 @@ namespace YAF.Pages
                 this.ForumList.SelectedValue.ToType<int>(),
                 this.PageContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
-                DateTime.UtcNow,
                 0,
                 100,
-                false,
                 false);
 
             this.TopicsList.DataTextField = "Subject";

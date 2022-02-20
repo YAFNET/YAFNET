@@ -84,7 +84,7 @@ namespace YAF.Core.Services
                     DateTime.Parse(json.published_at),
                     DateTimeKind.Unspecified);
 
-                version.UpgradeUrl = (string)json.assets[2].browser_download_url;
+                version.UpgradeUrl = "https://yetanotherforum.net/download";
                 version.VersionDate = date;
                 version.Version = tagName.Replace("v", string.Empty);
             }

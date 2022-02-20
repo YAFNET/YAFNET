@@ -467,66 +467,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }
 
         /// <summary>
-        /// script for the add Favorite Topic button
-        /// </summary>
-        /// <param name="untagButtonHtml">
-        /// HTML code for the "un Tag As Favorite" button
-        /// </param>
-        /// <returns>
-        /// The add Favorite Topic JS.
-        /// </returns>
-        public static string AddFavoriteTopicJs([NotNull] string untagButtonHtml)
-        {
-            return $@"function addFavoriteTopic(topicID){{ 
-            {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/FavoriteTopic/AddFavoriteTopic/' + topicID,
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    success: function(response) {{
-                              {Config.JQueryAlias}('#dvFavorite1').html({untagButtonHtml});
-                              {Config.JQueryAlias}('#dvFavorite2').html({untagButtonHtml});
-                    }},
-                    error: function(x, e)  {{
-                             console.log('An Error has occured!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-                          
-                 }}";
-        }
-
-        /// <summary>
-        /// script for the remove Favorite Topic button
-        /// </summary>
-        /// <param name="tagButtonHtml">
-        /// HTML code for the "Tag As a Favorite" button
-        /// </param>
-        /// <returns>
-        /// The remove Favorite Topic JS.
-        /// </returns>
-        public static string RemoveFavoriteTopicJs([NotNull] string tagButtonHtml)
-        {
-            return $@"function removeFavoriteTopic(topicID){{ 
-            {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/FavoriteTopic/RemoveFavoriteTopic/' + topicID,
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    success: function(response) {{
-                              {Config.JQueryAlias}('#dvFavorite1').html({tagButtonHtml});
-                              {Config.JQueryAlias}('#dvFavorite2').html({tagButtonHtml});
-                    }},
-                    error: function(x, e)  {{
-                             console.log('An Error has occured!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-                          
-                 }}";
-        }
-
-        /// <summary>
         /// script for the addThanks button
         /// </summary>
         /// <param name="removeThankBoxHtml">

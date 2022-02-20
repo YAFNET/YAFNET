@@ -86,37 +86,6 @@ namespace YAF.Types.Flags
 
         #endregion
 
-        #region Operators
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="newBitValue">
-        /// The new bit value.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator ActiveFlags(int newBitValue)
-        {
-            var flags = new ActiveFlags(newBitValue);
-            return flags;
-        }
-
-        /// <summary>
-        /// The op_ implicit.
-        /// </summary>
-        /// <param name="flags">
-        /// The flags.
-        /// </param>
-        /// <returns>
-        /// </returns>
-        public static implicit operator ActiveFlags(Flags flags)
-        {
-            return new(flags);
-        }
-
-        #endregion
-
         #region Flags Enumeration
 
         /// <summary>
@@ -125,8 +94,10 @@ namespace YAF.Types.Flags
         [Flags]
         public enum Flags
         {
+            /// <summary>
+            /// The none.
+            /// </summary>
             None = 0,
-
 
             /// <summary>
             /// The Is Active Now.
@@ -154,7 +125,7 @@ namespace YAF.Types.Flags
         #region Single Flags (can be 32 of them)
 
         /// <summary>
-        /// Gets or sets the user is active right now.
+        /// Gets or sets a value indicating whether the user is active right now.
         /// </summary>
         public bool IsActiveNow
         {
@@ -165,7 +136,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets that user is a guest.
+        /// Gets or sets a value indicating whether that user is a guest.
         /// </summary>
         public bool IsGuest
         {
@@ -176,7 +147,7 @@ namespace YAF.Types.Flags
         }
 
         /// <summary>
-        /// Gets or sets the user is a registered one.
+        /// Gets or sets a value indicating whether the user is a registered one.
         /// </summary>
         public bool IsRegistered
         {
@@ -186,9 +157,8 @@ namespace YAF.Types.Flags
             set => this[2] = value;
         }
 
-
         /// <summary>
-        /// Gets or sets that user is a crawler.
+        /// Gets or sets a value indicating whether that user is a crawler.
         /// </summary>
         public bool IsCrawler
         {
@@ -196,6 +166,37 @@ namespace YAF.Types.Flags
             get => this[3];
 
             set => this[3] = value;
+        }
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="newBitValue">
+        /// The new bit value.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator ActiveFlags(int newBitValue)
+        {
+            var flags = new ActiveFlags(newBitValue);
+            return flags;
+        }
+
+        /// <summary>
+        /// The op_ implicit.
+        /// </summary>
+        /// <param name="flags">
+        /// The flags.
+        /// </param>
+        /// <returns>
+        /// </returns>
+        public static implicit operator ActiveFlags(Flags flags)
+        {
+            return new ActiveFlags(flags);
         }
 
         #endregion

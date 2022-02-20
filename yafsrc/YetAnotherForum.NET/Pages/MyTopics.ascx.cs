@@ -26,14 +26,21 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
     using YAF.Core.Helpers;
+    using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
@@ -44,30 +51,19 @@ namespace YAF.Pages
     /// </summary>
     public partial class MyTopics : ForumPageRegistered
     {
-        /// <summary>
-        /// Indicates if the Active Tab was loaded
-        /// </summary>
-        private bool activeLoaded;
+        #region Constants and Fields
 
         /// <summary>
-        /// Indicates if the Unanswered Tab was loaded
+        ///   default since date is now
         /// </summary>
-        private bool unansweredLoaded;
+        private DateTime sinceDate = DateTime.UtcNow;
 
         /// <summary>
-        /// Indicates if the Unread Tab was loaded
+        ///   default since option is "since last visit"
         /// </summary>
-        private bool unreadLoaded;
-
-        /// <summary>
-        /// Indicates if the My Topics Tab was loaded
-        /// </summary>
-        private bool myTopicsLoaded;
-
-        /// <summary>
-        /// Indicates if the Favorite Tab was loaded
-        /// </summary>
-        private bool favoriteLoaded;
+        private int sinceValue;
+        
+        #endregion
 
         #region Constructors and Destructors
 
@@ -80,27 +76,6 @@ namespace YAF.Pages
         }
 
         #endregion
-
-        /// <summary>
-        /// Gets or sets the current tab.
-        /// </summary>
-        /// <value>
-        /// The current tab.
-        /// </value>
-        private TopicListMode CurrentTab
-        {
-            get
-            {
-                if (this.ViewState["CurrentTab"] != null)
-                {
-                    return (TopicListMode)this.ViewState["CurrentTab"];
-                }
-
-                return TopicListMode.Active;
-            }
-
-            set => this.ViewState["CurrentTab"] = value;
-        }
 
         #region Methods
 
@@ -126,13 +101,6 @@ namespace YAF.Pages
                     ".topic-link-popover",
                     "focus hover"));
 
-            this.PageContext.PageElements.RegisterJsBlock(
-                "TopicsTabsJs",
-                JavaScriptBlocks.BootstrapTabsLoadJs(
-                    this.TopicsTabs.ClientID,
-                    this.hidLastTab.ClientID,
-                    this.Page.ClientScript.GetPostBackEventReference(this.ChangeTab, string.Empty)));
-
             var iconLegend = new IconLegend().RenderToString();
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
@@ -155,15 +123,75 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.IsPostBack)
+            if (!this.IsPostBack)
             {
-                this.RefreshTab();
-
-                return;
+                this.LoadControls();
+                this.BindData();
             }
+        }
 
-            this.UnreadTopicsTabTitle.Visible = this.PageContext.BoardSettings.UseReadTrackingByDatabase;
-            this.UnreadTopicsTabContent.Visible = this.PageContext.BoardSettings.UseReadTrackingByDatabase;
+        /// <summary>
+        /// The page size on selected index changed.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void PageSizeSelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Handles the PageChange event of the Pager control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindData();
+        }
+
+        /// <summary>
+        /// Reloads the Topic Last Based on the Selected Since Value
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Set the controls' pager index to 0.
+            this.PagerTop.CurrentPageIndex = 0;
+
+            // re-bind data
+            this.BindData();
+        }
+
+        protected void TopicModeSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // Set the controls' pager index to 0.
+            this.PagerTop.CurrentPageIndex = 0;
+
+            // re-bind data
+            this.BindData();
+        }
+
+
+        /// <summary>
+        /// The create topic line.
+        /// </summary>
+        /// <param name="item">
+        /// The item.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        protected string CreateTopicLine(object item)
+        {
+            var topicLine = new TopicContainer { Item = item as PagedTopic };
+
+            return topicLine.RenderToString();
         }
 
         /// <summary>
@@ -176,157 +204,212 @@ namespace YAF.Pages
             this.PageLinks.AddLink(this.GetText("MEMBERTITLE"), string.Empty);
         }
 
-        #endregion
-
         /// <summary>
-        /// Load the Selected Tab Content
+        /// The bind data.
         /// </summary>
-        /// <param name="sender">The sender.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void ChangeTabClick(object sender, EventArgs e)
+        public void BindData()
         {
-            this.CurrentTab = this.hidLastTab.Value switch
+            // we'll hold topics in this table
+            List<PagedTopic> topicList = null;
+
+            var basePageSize = this.PageSize.SelectedValue.ToType<int>();
+
+            this.PagerTop.PageSize = basePageSize;
+
+            // page index in db which is returned back  is +1 based!
+            var currentPageIndex = this.PagerTop.CurrentPageIndex;
+
+
+            // default since date is now
+            this.sinceDate = DateTime.UtcNow;
+
+            // default since option is "since last visit"
+            this.sinceValue = 0;
+
+            // is any "since"option selected
+            if (this.Since.SelectedItem != null)
             {
-                "UnansweredTopicsTab" => TopicListMode.Unanswered,
-                "UnreadTopicsTab" => TopicListMode.Unread,
-                "MyTopicsTab" => TopicListMode.User,
-                "FavoriteTopicsTab" => TopicListMode.Favorite,
-                _ => TopicListMode.Active
-            };
+                // get selected value
+                this.sinceValue = int.Parse(this.Since.SelectedItem.Value);
 
-            this.RefreshTab();
-        }
-
-        /// <summary>
-        /// Refreshes the tab.
-        /// </summary>
-        private void RefreshTab()
-        {
-            switch (this.CurrentTab)
-            {
-                case TopicListMode.Unanswered:
-
-                    if (!this.unansweredLoaded)
+                this.sinceDate = this.sinceValue switch
                     {
-                        this.UnansweredTopics.BindData();
+                        // decrypt selected option
+                        9999 => DateTimeHelper.SqlDbMinTime(),
+                        > 0 => DateTime.UtcNow - TimeSpan.FromDays(this.sinceValue),
+                        < 0 => DateTime.UtcNow + TimeSpan.FromHours(this.sinceValue),
+                        _ => this.sinceDate
+                    };
+            }
 
-                        this.ActiveTopics.DataBind();
-                        if (this.UnreadTopicsTabTitle.Visible)
-                        {
-                            this.UnreadTopics.DataBind();
-                        }
+            // we want to filter topics since last visit
+            if (this.sinceValue == 0)
+            {
+                this.sinceDate = this.Get<ISession>().LastVisit ?? DateTime.UtcNow;
 
-                        if (this.UserTopicsTabTitle.Visible)
-                        {
-                            this.MyTopicsTopics.DataBind();
-                            this.FavoriteTopics.DataBind();
-                        }
+                if (this.TopicMode.SelectedValue.ToEnum<TopicListMode>().Equals(TopicListMode.Unread))
+                {
+                    this.sinceDate = this.Get<IReadTrackCurrentUser>().LastRead;
+                }
+            }
 
-                        this.unansweredLoaded = true;
-                    }
+            switch (this.TopicMode.SelectedValue.ToEnum<TopicListMode>())
+            {
+                case TopicListMode.Active:
+                    this.IconHeader.LocalizedTag = "ActiveTopics";
 
+                    topicList = this.GetRepository<Topic>().ListActivePaged(
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        currentPageIndex,
+                        basePageSize,
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
+                    break;
+                case TopicListMode.Unanswered:
+                    this.IconHeader.LocalizedTag = "UnansweredTopics";
+
+                    topicList = this.GetRepository<Topic>().ListUnansweredPaged(
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        currentPageIndex,
+                        basePageSize,
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unread:
+                    this.IconHeader.LocalizedTag = "UnreadTopics";
 
-                    if (!this.unreadLoaded)
-                    {
-                        this.UnreadTopics.BindData();
-
-                        this.ActiveTopics.DataBind();
-                        this.UnansweredTopics.DataBind();
-
-                        if (this.UserTopicsTabTitle.Visible)
-                        {
-                            this.MyTopicsTopics.DataBind();
-                            this.FavoriteTopics.DataBind();
-                        }
-
-                        this.unreadLoaded = true;
-                    }
-
+                    topicList = this.GetRepository<Topic>().ListUnreadPaged(
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        currentPageIndex,
+                        basePageSize,
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
+                    this.IconHeader.LocalizedTag = "MyTopics";
 
-                    if (!this.myTopicsLoaded)
-                    {
-                        this.MyTopicsTopics.BindData();
-
-                        this.ActiveTopics.DataBind();
-                        this.UnansweredTopics.DataBind();
-                        if (this.UnreadTopicsTabTitle.Visible)
-                        {
-                            this.UnreadTopics.DataBind();
-                        }
-
-                        if (this.UserTopicsTabTitle.Visible)
-                        {
-                            this.FavoriteTopics.DataBind();
-                        }
-
-                        this.myTopicsLoaded = true;
-                    }
-                    else
-                    {
-                        this.MyTopicsTopics.DataBind();
-
-                        this.ActiveTopics.DataBind();
-                        this.UnansweredTopics.DataBind();
-                        if (this.UnreadTopicsTabTitle.Visible)
-                        {
-                            this.UnreadTopics.DataBind();
-                        }
-
-                        if (this.UserTopicsTabTitle.Visible)
-                        {
-                            this.FavoriteTopics.DataBind();
-                        }
-                    }
-
-                    break;
-                case TopicListMode.Favorite:
-
-                    if (!this.favoriteLoaded)
-                    {
-                        this.FavoriteTopics.BindData();
-
-                        this.ActiveTopics.DataBind();
-                        this.UnansweredTopics.DataBind();
-                        if (this.UnreadTopicsTabTitle.Visible)
-                        {
-                            this.UnreadTopics.DataBind();
-                        }
-
-                        if (this.UserTopicsTabTitle.Visible)
-                        {
-                            this.MyTopicsTopics.DataBind();
-                        }
-
-                        this.favoriteLoaded = true;
-                    }
-
-                    break;
-                case TopicListMode.Active:
-
-                    if (!this.activeLoaded)
-                    {
-                        this.ActiveTopics.DataBind();
-                        this.UnansweredTopics.DataBind();
-                        if (this.UnreadTopicsTabTitle.Visible)
-                        {
-                            this.UnreadTopics.DataBind();
-                        }
-
-                        if (this.UserTopicsTabTitle.Visible)
-                        {
-                            this.MyTopicsTopics.DataBind();
-                            this.FavoriteTopics.DataBind();
-                        }
-
-                        this.activeLoaded = true;
-                    }
-
+                    topicList = this.GetRepository<Topic>().ListByUserPaged(
+                        this.PageContext.PageUserID,
+                        this.sinceDate,
+                        DateTime.UtcNow,
+                        currentPageIndex,
+                        basePageSize,
+                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
             }
+
+            if (topicList == null)
+            {
+                this.PagerTop.Count = 0;
+                return;
+            }
+
+            if (!topicList.Any())
+            {
+                this.PagerTop.Count = 0;
+                this.TopicList.DataSource = null;
+                this.TopicList.DataBind();
+                return;
+            }
+
+            // let's page the results
+            this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
+
+            this.TopicList.DataSource = topicList;
+            this.TopicList.DataBind();
+
+            this.DataBind();
         }
+
+        /// <summary>
+        /// Mark all Topics in the List as Read
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.BindData();
+
+            if (this.TopicList.Items.Count <= 0)
+            {
+                return;
+            }
+
+            this.TopicList.Items.Cast<RepeaterItem>()
+                .Where(item => item.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
+                .ForEach(
+                    item => this.Get<IReadTrackCurrentUser>().SetTopicRead(item.DataItem.ToType<PagedTopic>().TopicID));
+
+            // Rebind
+            this.BindData();
+        }
+
+        /// <summary>
+        /// The load and bind controls.
+        /// </summary>
+        private void LoadControls()
+        {
+            this.PageSize.DataSource = StaticDataHelper.PageEntries();
+            this.PageSize.DataTextField = "Name";
+            this.PageSize.DataValueField = "Value";
+            this.PageSize.DataBind();
+
+            try
+            {
+                this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+            }
+            catch (Exception)
+            {
+                this.PageSize.SelectedValue = "5";
+            }
+
+            // Load Topic Mode
+            this.TopicMode.DataSource = StaticDataHelper.TopicListModes();
+            this.TopicMode.DataValueField = "Value";
+            this.TopicMode.DataTextField = "Name";
+            this.TopicMode.DataBind();
+
+            this.InitSinceDropdown();
+        }
+
+        /// <summary>
+        /// Initializes dropdown with options to filter results by date.
+        /// </summary>
+        private void InitSinceDropdown()
+        {
+            var lastVisit = this.Get<ISession>().LastVisit;
+
+            // value 0, for since last visit
+            this.Since.Items.Add(
+                new ListItem(
+                    this.GetTextFormatted(
+                        "last_visit",
+                        this.Get<IDateTimeService>().FormatDateTime(
+                            lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                                ? lastVisit.Value
+                                : DateTime.UtcNow)),
+                    "0"));
+
+            // negative values for hours backward
+            this.Since.Items.Add(new ListItem(this.GetText("last_hour"), "-1"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_two_hours"), "-2"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_eight_hours"), "-8"));
+
+            // positive values for days backward
+            this.Since.Items.Add(new ListItem(this.GetText("last_day"), "1"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_two_days"), "2"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_week"), "7"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_two_weeks"), "14"));
+            this.Since.Items.Add(new ListItem(this.GetText("last_month"), "31"));
+
+            this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
+            
+            this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
+        }
+
+        #endregion
     }
 }

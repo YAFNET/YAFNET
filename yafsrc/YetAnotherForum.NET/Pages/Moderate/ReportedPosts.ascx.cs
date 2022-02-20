@@ -213,7 +213,7 @@ namespace YAF.Pages.Moderate
                 case "resolved":
 
                     // mark message as resolved
-                    this.GetRepository<Message>().ReportResolve(7, e.CommandArgument.ToType<int>(), this.PageContext.PageUserID);
+                    this.GetRepository<Message>().ReportResolve(e.CommandArgument.ToType<int>(), this.PageContext.PageUserID);
 
                     // tell user message was flagged as resolved
                     this.PageContext.LoadMessage.AddSession(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);

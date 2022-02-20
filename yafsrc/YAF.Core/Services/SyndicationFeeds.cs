@@ -31,7 +31,6 @@ namespace YAF.Core.Services
     using System.Linq;
     using System.ServiceModel.Syndication;
     using System.Text;
-    using System.Text.RegularExpressions;
     using System.Web;
     using System.Xml;
 
@@ -140,15 +139,6 @@ namespace YAF.Core.Services
                     }
 
                     break;
-
-                case RssFeeds.Favorite:
-                    if (!this.Get<IPermissions>().Check(BoardContext.Current.BoardSettings.FavoriteTopicFeedAccess))
-                    {
-                        this.Get<LinkBuilder>().AccessDenied();
-                    }
-
-                    feed = this.GetFavoriteFeed(feedType, lastPostName);
-                    break;
                 default:
                     this.Get<LinkBuilder>().AccessDenied();
                     break;
@@ -202,78 +192,6 @@ namespace YAF.Core.Services
             text = this.Get<IFormatMessage>().FormatSyndicationMessage(text, new MessageFlags(flags), altItem, 4000);
 
             return $@"{text}<a href=""{link}"" >{linkName}</a>";
-        }
-
-        /// <summary>
-        /// method the SyndicationFeed for Favorite topics.
-        /// </summary>
-        /// <param name="feedType">
-        /// The FeedType.
-        /// </param>
-        /// <param name="lastPostName">
-        /// The last post name.
-        /// </param>
-        /// <returns>
-        /// The <see cref="FeedItem"/>.
-        /// </returns>
-        public FeedItem GetFavoriteFeed([NotNull] RssFeeds feedType, [NotNull] string lastPostName)
-        {
-            var syndicationItems = new List<SyndicationItem>();
-
-            var toFavDate = BoardContext.Current.User.Joined;
-
-            var toFavText = this.Get<ILocalization>().GetText("MYTOPICS", "SHOW_ALL");
-
-            var list = this.GetRepository<Types.Models.FavoriteTopic>().ListPaged(
-                BoardContext.Current.PageUserID,
-                toFavDate,
-                DateTime.UtcNow,
-                0,
-                20,
-                false);
-
-            var urlAlphaNum = FormatUrlForFeed(BoardInfo.ForumBaseUrl);
-            var feedNameAlphaNum = new Regex(@"[^A-Za-z0-9]", RegexOptions.IgnoreCase).Replace(toFavText, string.Empty);
-
-            var feed = new FeedItem(
-                $"{this.Get<ILocalization>().GetText("MYTOPICS", "FAVORITETOPICS")} - {toFavText}",
-                feedType,
-                urlAlphaNum);
-
-            list.ForEach(
-                t =>
-                {
-                    var lastPosted = t.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
-
-                    if (syndicationItems.Count <= 0)
-                    {
-                        feed.Authors.Add(
-                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, t.UserID, null, null));
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
-                    }
-
-                    feed.Contributors.Add(
-                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, t.LastUserID.Value, null, null));
-
-                    syndicationItems.AddSyndicationItem(
-                        t.Subject,
-                        this.GetPostLatestContent(
-                            this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, "m={0}&name={1}", t.LastMessageID, t.Subject),
-                            lastPostName,
-                            lastPostName,
-                            t.LastMessageFlags ?? 22,
-                            false),
-                        null,
-                        this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, "t={0}&name={1}", t.LinkTopicID, t.Subject),
-                        $"urn:{urlAlphaNum}:ft{feedType}:span{feedNameAlphaNum}:ltid{t.LinkTopicID}:lmid{t.LastMessageID}:{BoardContext.Current.PageBoardID}"
-                            .Unidecode(),
-                        lastPosted,
-                        feed);
-                });
-
-            feed.Items = syndicationItems;
-
-            return feed;
         }
 
         /// <summary>

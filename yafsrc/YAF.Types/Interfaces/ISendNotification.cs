@@ -26,6 +26,7 @@ namespace YAF.Types.Interfaces
     using System;
     using System.Collections.Generic;
 
+    using YAF.Types.Models;
     using YAF.Types.Models.Identity;
 
     /// <summary>
@@ -76,10 +77,24 @@ namespace YAF.Types.Interfaces
         /// <summary>
         /// The to watching users.
         /// </summary>
-        /// <param name="newMessageId">
-        /// The new message id.
+        /// <param name="messageId">
+        /// The message Id.
         /// </param>
-        void ToWatchingUsers(int newMessageId);
+        void ToWatchingUsers(int messageId);
+
+        /// <summary>
+        /// The to watching users.
+        /// </summary>
+        /// <param name="message">
+        /// The new message.
+        /// </param>
+        /// <param name="topic">
+        /// The topic.
+        /// </param>
+        /// <param name="newTopic">
+        /// Indicates if Post is New Topic or reply
+        /// </param>
+        void ToWatchingUsers(Message message, Topic topic, bool newTopic = false);
 
         /// <summary>
         /// Send an Email to the Newly Created User with

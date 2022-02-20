@@ -333,12 +333,12 @@ namespace YAF.Pages.Admin
             var localizations = new[] { "FORBIDDEN", "REG_USERS", "ALL_USERS" };
 
             var dropDownLists = new[]
-            {
-                this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
-                this.TopicsFeedAccess, this.FavoriteTopicFeedAccess, this.ReportPostPermissions,
-                this.ProfileViewPermissions, this.MembersListViewPermissions, this.ActiveUsersViewPermissions,
-                this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo, this.ShowShareTopicTo
-            };
+                                    {
+                                        this.PostsFeedAccess, this.AllowCreateTopicsSameName, this.PostLatestFeedAccess,
+                                        this.TopicsFeedAccess, this.ReportPostPermissions, this.ProfileViewPermissions,
+                                        this.MembersListViewPermissions, this.ActiveUsersViewPermissions,
+                                        this.SearchPermissions, this.ShowHelpTo, this.ShowTeamTo, this.ShowShareTopicTo
+                                    };
 
             dropDownLists.ForEach(
                 ddl => ddl.Items.AddRange(

@@ -54,7 +54,7 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the List of Activity Notifications
         /// </returns>
         public static List<Tuple<Activity, User, Topic>> Notifications(
             this IRepository<Activity> repository,
@@ -80,7 +80,7 @@ namespace YAF.Core.Model
         /// The user id.
         /// </param>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns the User Timeline
         /// </returns>
         public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, [NotNull] int userId)
         {
@@ -88,9 +88,9 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-            expression.Join<Topic>((a, t) => t.ID == a.TopicID)
-                .Where<Activity>(a => a.UserID == userId && (a.Flags & 1024) != 1024 && (a.Flags & 4096) != 4096)
-                .OrderByDescending(a => a.Created);
+            expression.Join<Topic>((a, t) => t.ID == a.TopicID).Where<Activity>(
+                a => a.UserID == userId && (a.Flags & 1024) != 1024 && (a.Flags & 4096) != 4096
+                     && (a.Flags & 8192) != 8192 && (a.Flags & 16384) != 16384).OrderByDescending(a => a.Created);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, Topic>(expression));
         }

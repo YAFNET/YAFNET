@@ -275,7 +275,7 @@ namespace YAF.Dialogs
                 };
 
                 // Bypass Approval if Admin or Moderator.
-                var messageId = this.GetRepository<Message>().SaveNew(
+                var newMessage = this.GetRepository<Message>().SaveNew(
                     this.PageContext.PageForumID,
                     this.PageContext.PageTopicID,
                     this.PageContext.PageTopic.TopicName,
@@ -304,14 +304,14 @@ namespace YAF.Dialogs
                 if (messageFlags.IsApproved)
                 {
                     // send new post notification to users watching this topic/forum
-                    this.Get<ISendNotification>().ToWatchingUsers(messageId.ToType<int>());
+                    this.Get<ISendNotification>().ToWatchingUsers(newMessage, this.PageContext.PageTopic);
 
                     if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
-                            this.PageContext.PageForumID,
+                            this.PageContext.PageUserID,
                             this.PageContext.PageTopicID,
-                            messageId.ToType<int>(),
+                            newMessage.ID,
                             this.PageContext.PageTopic.TopicName,
                             message);
                     }
@@ -320,7 +320,7 @@ namespace YAF.Dialogs
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Posts,
                         "m={0}&name={1}&",
-                        messageId,
+                        newMessage.ID,
                         this.PageContext.PageTopic.TopicName);
                 }
                 else
@@ -330,7 +330,7 @@ namespace YAF.Dialogs
                         // not approved, notify moderators
                         this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
                             this.PageContext.PageForumID,
-                            messageId.ToType<int>(),
+                            newMessage.ID,
                             isPossibleSpamMessage);
                     }
 
