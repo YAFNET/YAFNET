@@ -56,14 +56,14 @@ CKEDITOR.plugins.add("quote",
 
                             var selection = editor.getSelection();
                             if (!selection) {
-                                CKEDITOR.htmlParser.fragment.fromBBCode("[quote] [/qoute]").writeHtml(writer);
+                                CKEDITOR.htmlParser.fragment.fromBBCode("[quote] [/quote]").writeHtml(writer);
 
                                 editor.insertHtml(writer.getHtml());
                             } else {
 
                                 var text = selection.getSelectedText();
 
-                                CKEDITOR.htmlParser.fragment.fromBBCode("[quote]" + text + "[/qoute]")
+                                CKEDITOR.htmlParser.fragment.fromBBCode("[quote]" + text + "[/quote]")
                                     .writeHtml(writer);
 
                                 editor.insertHtml(writer.getHtml());
