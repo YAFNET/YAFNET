@@ -2933,6 +2933,9 @@ namespace ServiceStack.OrmLite
                 }
 
                 var leftEnum = left as EnumMemberAccess;
+                //The real type should be read when a non-direct member is accessed. For example Sql.TableAlias(x.State, "p"),alias conversion should be performed when "x.State" is an enum 
+                if (leftEnum == null && left is PartialSqlString pss && pss.EnumMember != null) leftEnum = pss.EnumMember;
+
                 var rightEnum = right as EnumMemberAccess;
 
                 var rightNeedsCoercing = leftEnum != null && rightEnum == null;
@@ -4307,7 +4310,8 @@ namespace ServiceStack.OrmLite
         protected virtual object VisitSqlMethodCall(MethodCallExpression m)
         {
             List<object> args = this.VisitInSqlExpressionList(m.Arguments);
-            object quotedColName = args[0];
+            object quotedColName = args[0]; 
+            var columnEnumMemberAccess = args[0] as EnumMemberAccess;
             args.RemoveAt(0);
 
             string statement;
@@ -4364,7 +4368,7 @@ namespace ServiceStack.OrmLite
                     throw new NotSupportedException();
             }
 
-            return new PartialSqlString(statement);
+            return new PartialSqlString(statement, columnEnumMemberAccess);
         }
 
         /// <summary>
@@ -4662,9 +4666,19 @@ namespace ServiceStack.OrmLite
         /// Initializes a new instance of the <see cref="PartialSqlString"/> class.
         /// </summary>
         /// <param name="text">The text.</param>
-        public PartialSqlString(string text)
+        public PartialSqlString(string text) : this(text, null)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PartialSqlString"/> class.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="enumMember"></param>
+        public PartialSqlString(string text, EnumMemberAccess enumMember)
         {
             this.Text = text;
+            this.EnumMember = enumMember;
         }
 
         /// <summary>
@@ -4672,6 +4686,9 @@ namespace ServiceStack.OrmLite
         /// </summary>
         /// <value>The text.</value>
         public string Text { get; internal set; }
+
+        public readonly EnumMemberAccess EnumMember;
+
         /// <summary>
         /// Converts to string.
         /// </summary>
