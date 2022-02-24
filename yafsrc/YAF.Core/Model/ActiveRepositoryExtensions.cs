@@ -449,7 +449,7 @@ namespace YAF.Core.Model
 
                     countGuestsExpression.Where<Active, User>((x, u) => x.BoardID == boardId && (u.Flags & 4) == 4);
 
-                    var countGuestsSql = countMembersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+                    var countGuestsSql = countGuestsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
                     // -- count Hidden
                     var countHiddenExpression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();

@@ -242,7 +242,7 @@ namespace YAF.Core.Services
             this.GetRepository<Registry>().Save("version", BoardInfo.AppVersion.ToString());
             this.GetRepository<Registry>().Save("versionname", BoardInfo.AppVersionName);
 
-            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
+            this.GetRepository<Registry>().Save("cdvversion", 1);
 
             return true;
         }
