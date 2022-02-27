@@ -40,7 +40,6 @@ namespace YAF.Pages.Admin
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
-    using YAF.Core.Tasks;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -238,10 +237,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUIExecuteJs",
-                JavaScriptBlocks.BlockUiExecuteJs("SyncUsersMessage", $"#{this.SyncUsers.ClientID}"));
-
             // setup jQuery and Jquery Ui Tabs.
             this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
@@ -349,7 +344,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -396,31 +391,9 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void SyncUsersClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // start...
-            SyncMembershipUsersTask.Start(this.PageContext.PageBoardID);
+            this.Get<IAspNetRolesHelper>().SyncAllMembershipUsers(this.PageContext.PageBoardID);
 
-            // enable timer...
-            this.UpdateStatusTimer.Enabled = true;
-        }
-
-        /// <summary>
-        /// The update status timer_ tick.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void UpdateStatusTimerTick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            // see if the migration is done...
-            if (this.Get<ITaskModuleManager>().IsTaskRunning(SyncMembershipUsersTask.TaskName))
-            {
-                // continue...
-                return;
-            }
-
-            this.UpdateStatusTimer.Enabled = false;
-
-            // done here...
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
+            this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "SYNC_FINISH"), MessageTypes.success);
         }
 
         /// <summary>

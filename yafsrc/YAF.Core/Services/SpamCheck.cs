@@ -24,10 +24,6 @@
 
 namespace YAF.Core.Services
 {
-    using System;
-    using System.Net;
-    using System.Web;
-
     using YAF.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Helpers;
@@ -36,7 +32,6 @@ namespace YAF.Core.Services
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// User and Content Spam Checking
@@ -68,7 +63,7 @@ namespace YAF.Core.Services
         #endregion
 
         /// <summary>
-        /// Check a Post for SPAM against the BlogSpam.NET API or AKISMET Service
+        /// Check a Post for SPAM against the internal Spam Words
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <param name="ipAddress">The IP address.</param>
@@ -87,7 +82,7 @@ namespace YAF.Core.Services
         {
             result = string.Empty;
 
-            if (BoardContext.Current.User.NumPosts
+            if (BoardContext.Current.PageUser.NumPosts
                 >= this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount)
             {
                 return false;
@@ -95,24 +90,10 @@ namespace YAF.Core.Services
 
             var isSpamContent = false;
 
-            switch (this.Get<BoardSettings>().SpamServiceType)
+            if (this.Get<BoardSettings>().SpamService is not SpamService.NoService)
             {
-                case 2:
-                    {
-                        isSpamContent = this.Get<BoardSettings>().AkismetApiKey.IsSet()
-                                     && this.CheckWithAkismet(userName, postMessage, ipAddress, out result);
-                    }
-
-                    break;
-
-                case 1:
-                case 3:
-                    {
-                        isSpamContent = this.Get<ISpamWordCheck>()
-                            .CheckForSpamWord(postMessage, out result);
-                    }
-
-                    break;
+                isSpamContent = this.Get<ISpamWordCheck>()
+                    .CheckForSpamWord(postMessage, out result);
             }
 
             if (isSpamContent)
@@ -229,7 +210,7 @@ namespace YAF.Core.Services
             result = string.Empty;
 
             // Check posts for urls if the user has only x posts
-            if (BoardContext.Current.User.NumPosts > this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount ||
+            if (BoardContext.Current.PageUser.NumPosts > this.Get<BoardSettings>().IgnoreSpamWordCheckPostCount ||
                 BoardContext.Current.IsAdmin || BoardContext.Current.ForumModeratorAccess)
             {
                 return false;
@@ -246,48 +227,6 @@ namespace YAF.Core.Services
                 $"The user posted {urlCount} urls but allowed only {this.Get<BoardSettings>().AllowedNumberOfUrls}";
 
             return true;
-        }
-
-        /// <summary>
-        /// Checks with AKISMET.
-        /// </summary>
-        /// <param name="userName">Name of the user.</param>
-        /// <param name="postMessage">The post message.</param>
-        /// <param name="ipAddress">The IP Address.</param>
-        /// <param name="result">The result.</param>
-        /// <returns>
-        /// Returns if the Content or the User was flagged as Spam, or not
-        /// </returns>
-        private bool CheckWithAkismet(
-            [NotNull] string userName,
-            [NotNull] string postMessage,
-            [NotNull] string ipAddress,
-            out string result)
-        {
-            try
-            {
-                var service = new AkismetSpamClient(this.Get<BoardSettings>().AkismetApiKey, new Uri(BaseUrlBuilder.BaseUrl));
-
-                return
-                    service.CheckCommentForSpam(
-                        new Comment(IPAddress.Parse(ipAddress), this.Get<HttpRequestBase>().UserAgent)
-                            {
-                                Content
-                                    =
-                                    postMessage,
-                                Author
-                                    =
-                                    userName,
-                            },
-                        out result);
-            }
-            catch (Exception ex)
-            {
-                this.Get<ILoggerService>().Error(ex, "Error while Checking for Spam via BlogSpam");
-
-                result = string.Empty;
-                return false;
-            }
         }
     }
 }

@@ -100,7 +100,7 @@ namespace YAF.Dialogs
                                               ? this.GetRepository<WatchTopic>().Check(
                                                   this.PageContext.PageUserID,
                                                   this.PageContext.PageTopicID).HasValue
-                                              : this.PageContext.User.AutoWatchTopics;
+                                              : this.PageContext.PageUser.AutoWatchTopics;
             }
 
             this.QuickReplyLine.Controls.Add(this.quickReplyEditor);
@@ -200,7 +200,7 @@ namespace YAF.Dialogs
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName(),
+                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName(),
                         this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.quickReplyEditor.Text,
                         this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
@@ -208,7 +208,7 @@ namespace YAF.Dialogs
                     {
                         var description =
                             $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.quickReplyEditor.Text}]
-                               posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
+                               posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName())}";
 
                         switch (this.PageContext.BoardSettings.SpamPostHandling)
                         {
@@ -244,7 +244,7 @@ namespace YAF.Dialogs
                                 this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                     this.PageContext.PageUserID,
                                     this.PageContext.MembershipUser,
-                                    this.PageContext.User.IP);
+                                    this.PageContext.PageUser.IP);
 
                                 return;
                         }
@@ -277,10 +277,9 @@ namespace YAF.Dialogs
 
                 // Bypass Approval if Admin or Moderator.
                 var newMessage = this.GetRepository<Message>().SaveNew(
-                    this.PageContext.PageForumID,
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageTopic.TopicName,
-                    this.PageContext.PageUserID,
+                    this.PageContext.PageForum,
+                    this.PageContext.PageTopic,
+                    this.PageContext.PageUser,
                     message,
                     null,
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
@@ -288,8 +287,10 @@ namespace YAF.Dialogs
                     null,
                     messageFlags);
 
+                newMessage.Topic = this.PageContext.PageTopic;
+
                 // Check to see if the user has enabled "auto watch topic" option in his/her profile.
-                if (this.PageContext.User.AutoWatchTopics)
+                if (this.PageContext.PageUser.AutoWatchTopics)
                 {
                     var watchTopicId = this.GetRepository<WatchTopic>().Check(
                         this.PageContext.PageUserID,
@@ -305,9 +306,9 @@ namespace YAF.Dialogs
                 if (messageFlags.IsApproved)
                 {
                     // send new post notification to users watching this topic/forum
-                    this.Get<ISendNotification>().ToWatchingUsers(newMessage, this.PageContext.PageTopic);
+                    this.Get<ISendNotification>().ToWatchingUsers(newMessage);
 
-                    if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
+                    if (!this.PageContext.IsGuest && this.PageContext.PageUser.Activity)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
                             Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
@@ -382,7 +383,7 @@ namespace YAF.Dialogs
         private bool CheckForumModerateStatus(Forum forumInfo)
         {
             // User Moderate override
-            if (this.PageContext.User.UserFlags.Moderated)
+            if (this.PageContext.PageUser.UserFlags.Moderated)
             {
                 return true;
             }
@@ -406,7 +407,7 @@ namespace YAF.Dialogs
 
             var moderatedPostCount = forumInfo.ModeratedPostCount.Value;
 
-            return !(this.PageContext.User.NumPosts >= moderatedPostCount);
+            return !(this.PageContext.PageUser.NumPosts >= moderatedPostCount);
         }
 
         /// <summary>
@@ -420,7 +421,7 @@ namespace YAF.Dialogs
                 return true;
             }
 
-            return this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.User.UserFlags.IsCaptchaExcluded;
+            return this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.PageUser.UserFlags.IsCaptchaExcluded;
         }
 
         #endregion

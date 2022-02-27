@@ -319,13 +319,15 @@ namespace YAF.Core.Helpers
         /// </param>
         public void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user)
         {
-            (from @group in this.GetRepository<Group>().List(boardId: pageBoardID)
-                where @group.GroupFlags.IsStart && !@group.GroupFlags.IsGuest
-                select @group.Name
-                into roleName
-                where roleName.IsSet()
-                where !this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName)
-                select roleName).ForEach(roleName => this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName));
+            var groups = this.GetRepository<Group>()
+                .Get(g => g.BoardID == pageBoardID && (g.Flags & 2) != 2 && (g.Flags & 4) == 4);
+
+            (from @group in groups
+             select @group.Name
+             into roleName
+             where roleName.IsSet()
+             where !this.Get<IAspNetRolesHelper>().IsUserInRole(user, roleName)
+             select roleName).ForEach(roleName => this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName));
         }
 
         /// <summary>
@@ -351,10 +353,13 @@ namespace YAF.Core.Helpers
         /// <param name="pageBoardID">The page board ID.</param>
         public void SyncRoles(int pageBoardID)
         {
+            var groupsNames = this.GetRepository<Group>().Get(g => g.BoardID == pageBoardID && (g.Flags & 2) != 2)
+                .Select(g => g.Name);
+
             // get all the groups in YAF DB and create them if they do not exist as a role in membership
-            (from @group in this.GetRepository<Group>().List(boardId: pageBoardID)
-                let name = @group.Name
-                where name.IsSet() && !@group.GroupFlags.IsGuest && !this.Get<IAspNetRolesHelper>().RoleExists(name)
+            (from @group in groupsNames
+             let name = @group
+                where !this.Get<IAspNetRolesHelper>().RoleExists(name)
                 select name).ForEach(this.Get<IAspNetRolesHelper>().CreateRole);
         }
 

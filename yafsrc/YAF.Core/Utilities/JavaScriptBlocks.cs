@@ -71,8 +71,8 @@ namespace YAF.Core.Utilities
         public static string MomentLoadJs =>
             $@"function loadTimeAgo() {{
             
-             moment.locale('{(BoardContext.Current.User.Culture.IsSet()
-                                  ? BoardContext.Current.User.Culture.Substring(0, 2)
+             moment.locale('{(BoardContext.Current.PageUser.Culture.IsSet()
+                                  ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
                                   : BoardContext.Current.BoardSettings.Culture.Substring(0, 2))}');
              {Config.JQueryAlias}('abbr.timeago').each(function() {{
                   {Config.JQueryAlias}(this).html(function(index, value) {{
@@ -264,28 +264,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         }} else resetBox(txtTitleId, isAlbum);
     }}
 }}";
-        }
-
-        /// <summary>
-        /// Blocks the UI JS.
-        /// </summary>
-        /// <param name="messageId">The message identifier.</param>
-        /// <param name="buttonId">The button identifier.</param>
-        /// <returns>
-        /// The block UI execute JS.
-        /// </returns>
-        public static string BlockUiExecuteJs([NotNull] string messageId, [NotNull] string buttonId)
-        {
-            return $@"document.addEventListener('DOMContentLoaded', function() {{
-                     [].forEach.call(document.querySelectorAll('{buttonId}'), function(el) {{
-                            el.addEventListener('click', function() {{
-                                    var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
-                                                 backdrop: 'static',
-                                                 keyboard: false
-                                              }});
-                                   modal.show();
-                       }});}});
-                      }});";
         }
 
         /// <summary>

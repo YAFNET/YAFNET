@@ -15736,7 +15736,8 @@
             _Object$assign));
         }
         return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : "", 
-        _Object$assign2[sideX] = hasX ? x + "px" : "", _Object$assign2.transform = "", _Object$assign2));
+        _Object$assign2[sideX] = hasX ? x + "px" : "", _Object$assign2.transform = "", 
+        _Object$assign2));
     }
     function computeStyles(_ref4) {
         var state = _ref4.state, options = _ref4.options;
@@ -29003,8 +29004,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     }
     function z(a, b, c) {
         var d = c.pointers.length, e = c.changedPointers.length, f = b & Ea && d - e === 0, g = b & (Ga | Ha) && d - e === 0;
-        c.isFirst = !!f, c.isFinal = !!g, f && (a.session = {}), c.eventType = b, A(a, c), 
-        a.emit("hammer.input", c), a.recognize(c), a.session.prevInput = c;
+        c.isFirst = !!f, c.isFinal = !!g, f && (a.session = {}), c.eventType = b, 
+        A(a, c), a.emit("hammer.input", c), a.recognize(c), a.session.prevInput = c;
     }
     function A(a, b) {
         var c = a.session, d = b.pointers, e = d.length;
@@ -29014,7 +29015,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
         b.distance = H(h, i), B(c, b), b.offsetDirection = G(b.deltaX, b.deltaY);
         var j = F(b.deltaTime, b.deltaX, b.deltaY);
         b.overallVelocityX = j.x, b.overallVelocityY = j.y, b.overallVelocity = qa(j.x) > qa(j.y) ? j.x : j.y, 
-        b.scale = g ? K(g.pointers, d) : 1, b.rotation = g ? J(g.pointers, d) : 0, b.maxPointers = c.prevInput ? b.pointers.length > c.prevInput.maxPointers ? b.pointers.length : c.prevInput.maxPointers : b.pointers.length, 
+        b.scale = g ? K(g.pointers, d) : 1, b.rotation = g ? J(g.pointers, d) : 0, 
+        b.maxPointers = c.prevInput ? b.pointers.length > c.prevInput.maxPointers ? b.pointers.length : c.prevInput.maxPointers : b.pointers.length, 
         C(c, b);
         var k = a.element;
         o(b.srcEvent.target, k) && (k = b.srcEvent.target), b.target = k;
@@ -29056,7 +29058,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             x: pa(a[0].clientX),
             y: pa(a[0].clientY)
         };
-        for (var c = 0, d = 0, e = 0; b > e; ) c += a[e].clientX, d += a[e].clientY, e++;
+        for (var c = 0, d = 0, e = 0; b > e; ) c += a[e].clientX, d += a[e].clientY, 
+        e++;
         return {
             x: pa(c / b),
             y: pa(d / b)
@@ -29117,8 +29120,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     function R() {
         x.apply(this, arguments);
         var a = j(this.handler, this);
-        this.touch = new P(this.manager, a), this.mouse = new L(this.manager, a), this.primaryTouch = null, 
-        this.lastTouches = [];
+        this.touch = new P(this.manager, a), this.mouse = new L(this.manager, a), 
+        this.primaryTouch = null, this.lastTouches = [];
     }
     function S(a, b) {
         a & Ea ? (this.primaryTouch = b.changedPointers[0].identifier, T.call(this, b)) : a & (Ga | Ha) && T.call(this, b);
@@ -29198,7 +29201,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
         this._input = null, this.count = 0;
     }
     function ha(a, b) {
-        return b = b || {}, b.recognizers = l(b.recognizers, ha.defaults.preset), new ia(a, b);
+        return b = b || {}, b.recognizers = l(b.recognizers, ha.defaults.preset), 
+        new ia(a, b);
     }
     function ia(a, b) {
         this.options = la({}, ha.defaults, b || {}), this.options.inputTarget = this.options.inputTarget || a, 
@@ -29302,7 +29306,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             var b = Za[a.type];
             if (b === Ea && (this.started = !0), this.started) {
                 var c = O.call(this, a, b);
-                b & (Ga | Ha) && c[0].length - c[1].length === 0 && (this.started = !1), this.callback(this.manager, b, {
+                b & (Ga | Ha) && c[0].length - c[1].length === 0 && (this.started = !1), 
+                this.callback(this.manager, b, {
                     pointers: c[0],
                     changedPointers: c[1],
                     pointerType: za,
@@ -29374,12 +29379,14 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     Y.prototype = {
         defaults: {},
         set: function(a) {
-            return la(this.options, a), this.manager && this.manager.touchAction.update(), this;
+            return la(this.options, a), this.manager && this.manager.touchAction.update(), 
+            this;
         },
         recognizeWith: function(a) {
             if (f(a, "recognizeWith", this)) return this;
             var b = this.simultaneous;
-            return a = _(a, this), b[a.id] || (b[a.id] = a, a.recognizeWith(this)), this;
+            return a = _(a, this), b[a.id] || (b[a.id] = a, a.recognizeWith(this)), 
+            this;
         },
         dropRecognizeWith: function(a) {
             return f(a, "dropRecognizeWith", this) ? this : (a = _(a, this), delete this.simultaneous[a.id], 
@@ -29388,7 +29395,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
         requireFailure: function(a) {
             if (f(a, "requireFailure", this)) return this;
             var b = this.requireFail;
-            return a = _(a, this), -1 === r(b, a) && (b.push(a), a.requireFailure(this)), this;
+            return a = _(a, this), -1 === r(b, a) && (b.push(a), a.requireFailure(this)), 
+            this;
         },
         dropRequireFailure: function(a) {
             if (f(a, "dropRequireFailure", this)) return this;
@@ -29611,8 +29619,9 @@ Prism.languages.vba = Prism.languages["visual-basic"];
     var ub = 1, vb = 2;
     ia.prototype = {
         set: function(a) {
-            return la(this.options, a), a.touchAction && this.touchAction.update(), a.inputTarget && (this.input.destroy(), 
-            this.input.target = a.inputTarget, this.input.init()), this;
+            return la(this.options, a), a.touchAction && this.touchAction.update(), 
+            a.inputTarget && (this.input.destroy(), this.input.target = a.inputTarget, 
+            this.input.init()), this;
         },
         stop: function(a) {
             this.session.stopped = a ? vb : ub;
@@ -29635,8 +29644,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
         add: function(a) {
             if (f(a, "add", this)) return this;
             var b = this.get(a.options.event);
-            return b && this.remove(b), this.recognizers.push(a), a.manager = this, this.touchAction.update(), 
-            a;
+            return b && this.remove(b), this.recognizers.push(a), a.manager = this, 
+            this.touchAction.update(), a;
         },
         remove: function(a) {
             if (f(a, "remove", this)) return this;
@@ -29673,8 +29682,8 @@ Prism.languages.vba = Prism.languages["visual-basic"];
             }
         },
         destroy: function() {
-            this.element && ja(this, !1), this.handlers = {}, this.session = {}, this.input.destroy(), 
-            this.element = null;
+            this.element && ja(this, !1), this.handlers = {}, this.session = {}, 
+            this.input.destroy(), this.element = null;
         }
     }, la(ha, {
         INPUT_START: Ea,
@@ -29742,9 +29751,11 @@ function formatState(state) {
 $(document).on("click", '[data-bs-toggle="confirm"]', function(e) {
     if ($(this).prop("tagName").toLowerCase() === "a") {
         e.preventDefault();
-        var link = $(this).attr("href");
-        var text = $(this).data("title");
-        var title = $(this).html();
+        var button = $(this);
+        var link = button.attr("href");
+        var text = button.data("title");
+        var title = button.html();
+        $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
         var blockUI = $(this).data("confirm-event");
         bootbox.confirm({
             centerVertical: true,
@@ -29766,6 +29777,8 @@ $(document).on("click", '[data-bs-toggle="confirm"]', function(e) {
                     if (typeof blockUI !== "undefined") {
                         window[blockUI]();
                     }
+                } else {
+                    button.html(title);
                 }
             }
         });
@@ -30000,7 +30013,7 @@ function setPageNumberNotify(pageSize, pageNumber, total) {
 }
 
 $(document).ready(function() {
-    $("a.btn-login,input.btn-login").click(function() {
+    $("a.btn-login,input.btn-login, .btn-spinner").click(function() {
         $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
     });
     $(".dropdown-menu a.dropdown-toggle").on("click", function(e) {

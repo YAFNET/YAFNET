@@ -141,7 +141,7 @@ namespace YAF.Types.Objects
         /// <value>
         /// The user identifier.
         /// </value>
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the topic identifier.

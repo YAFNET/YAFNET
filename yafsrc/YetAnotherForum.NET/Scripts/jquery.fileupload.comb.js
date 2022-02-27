@@ -617,11 +617,12 @@
         function t(i, a) {
             var n, r = document.createElement("img");
             function o(e, t) {
-                i !== a ? e instanceof Error ? a(e) : ((t = t || {}).image = e, i(t)) : i && i(e, t);
+                i !== a ? e instanceof Error ? a(e) : ((t = t || {}).image = e, 
+                i(t)) : i && i(e, t);
             }
             function e(e, t) {
-                t && c.console && console.log(t), e && g("Blob", e) ? n = f(s = e) : (n = s, l && l.crossOrigin && (r.crossOrigin = l.crossOrigin)), 
-                r.src = n;
+                t && c.console && console.log(t), e && g("Blob", e) ? n = f(s = e) : (n = s, 
+                l && l.crossOrigin && (r.crossOrigin = l.crossOrigin)), r.src = n;
             }
             return r.onerror = function(e) {
                 u(n, l), a && a.call(r, e);
@@ -636,8 +637,8 @@
                 } catch (t) {
                     a && a(t);
                 }
-            }, "string" == typeof s ? (m.requiresMetaData(l) ? m.fetchBlob(s, e, l) : e(), r) : g("Blob", s) || g("File", s) ? (n = f(s)) ? (r.src = n, 
-            r) : d(s, function(e) {
+            }, "string" == typeof s ? (m.requiresMetaData(l) ? m.fetchBlob(s, e, l) : e(), 
+            r) : g("Blob", s) || g("File", s) ? (n = f(s)) ? (r.src = n, r) : d(s, function(e) {
                 r.src = e;
             }, a) : void 0;
         }
@@ -649,8 +650,8 @@
         t();
     }, m.transform = function(e, t, i, a, n) {
         i(e, n);
-    }, m.global = c, m.readFile = d, m.isInstanceOf = g, m.createObjectURL = f, m.revokeObjectURL = i, 
-    "function" == typeof define && define.amd ? define(function() {
+    }, m.global = c, m.readFile = d, m.isInstanceOf = g, m.createObjectURL = f, 
+    m.revokeObjectURL = i, "function" == typeof define && define.amd ? define(function() {
         return m;
     }) : "object" == typeof module && module.exports ? module.exports = m : c.loadImage = m;
 }("undefined" != typeof window && window || this), function(e) {
@@ -673,7 +674,8 @@
         i.maxHeight = e) : (i.maxWidth = n, i.maxHeight = n / r), i;
     }, E.drawImage = function(e, t, i, a, n, r, o, s, l) {
         t = t.getContext("2d");
-        return !1 === l.imageSmoothingEnabled ? (t.msImageSmoothingEnabled = !1, t.imageSmoothingEnabled = !1) : l.imageSmoothingQuality && (t.imageSmoothingQuality = l.imageSmoothingQuality), 
+        return !1 === l.imageSmoothingEnabled ? (t.msImageSmoothingEnabled = !1, 
+        t.imageSmoothingEnabled = !1) : l.imageSmoothingQuality && (t.imageSmoothingQuality = l.imageSmoothingQuality), 
         t.drawImage(e, i, a, n, r, 0, 0, o, s), t;
     }, E.requiresCanvas = function(e) {
         return e.canvas || e.crop || !!e.aspectRatio;
@@ -692,16 +694,19 @@
         t.sourceWidth ? (s = t.sourceWidth, t.right !== undefined && t.left === undefined && (c = h - s - t.right)) : s = h - c - (t.right || 0), 
         t.sourceHeight ? (l = t.sourceHeight, t.bottom !== undefined && t.top === undefined && (f = p - l - t.bottom)) : l = p - f - (t.bottom || 0), 
         A = s, b = l), a = t.maxWidth, n = t.maxHeight, r = t.minWidth, o = t.minHeight, 
-        m && a && n && t.crop ? (d = s / l - (A = a) / (b = n)) < 0 ? (l = n * s / a, t.top === undefined && t.bottom === undefined && (f = (p - l) / 2)) : 0 < d && (s = a * l / n, 
+        m && a && n && t.crop ? (d = s / l - (A = a) / (b = n)) < 0 ? (l = n * s / a, 
+        t.top === undefined && t.bottom === undefined && (f = (p - l) / 2)) : 0 < d && (s = a * l / n, 
         t.left === undefined && t.right === undefined && (c = (h - s) / 2)) : ((t.contain || t.cover) && (r = a = a || r, 
         o = n = n || o), t.cover ? (S(), y()) : (y(), S())), m) {
             if (1 < (m = t.pixelRatio) && (!e.style.width || Math.floor(parseFloat(e.style.width, 10)) !== Math.floor(h / m)) && (A *= m, 
             b *= m), E.orientationCropBug && !e.getContext && (c || f || s !== h || l !== p) && (d = e, 
-            e = E.createCanvas(h, p, !0), E.drawImage(d, e, 0, 0, h, p, h, p, t)), 0 < (u = t.downsamplingRatio) && u < 1 && A < s && b < l) for (;A < s * u; ) g = E.createCanvas(s * u, l * u, !0), 
-            E.drawImage(e, g, c, f, s, l, g.width, g.height, t), f = c = 0, s = g.width, l = g.height, 
-            e = g;
+            e = E.createCanvas(h, p, !0), E.drawImage(d, e, 0, 0, h, p, h, p, t)), 
+            0 < (u = t.downsamplingRatio) && u < 1 && A < s && b < l) for (;A < s * u; ) g = E.createCanvas(s * u, l * u, !0), 
+            E.drawImage(e, g, c, f, s, l, g.width, g.height, t), f = c = 0, s = g.width, 
+            l = g.height, e = g;
             return g = E.createCanvas(A, b), E.transformCoordinates(g, t, i), 1 < m && (g.style.width = g.width / m + "px"), 
-            E.drawImage(e, g, c, f, s, l, A, b, t).setTransform(1, 0, 0, 1, 0, 0), g;
+            E.drawImage(e, g, c, f, s, l, A, b, t).setTransform(1, 0, 0, 1, 0, 0), 
+            g;
         }
         return e.width = A, e.height = b, e;
     };
@@ -736,11 +741,12 @@
                     if ((n = h.jpeg[i]) && !u.disableMetaDataParsers) for (r = 0; r < n.length; r += 1) n[r].call(g, t, o, a, d, u);
                     l = o += a;
                 }
-                !u.disableImageHead && 6 < l && (d.imageHead = m.call(e, 0, l)), c(d);
+                !u.disableImageHead && 6 < l && (d.imageHead = m.call(e, 0, l)), 
+                c(d);
             }, f, "readAsArrayBuffer") || c(d);
         }
-        return u = u || {}, s.Promise && "function" != typeof e ? (d = u = e || {}, new Promise(i)) : (d = d || {}, 
-        i(e, e));
+        return u = u || {}, s.Promise && "function" != typeof e ? (d = u = e || {}, 
+        new Promise(i)) : (d = d || {}, i(e, e));
     }
     function n(e, t, i) {
         return e && t && i ? new Blob([ i, a.call(e, t.byteLength) ], {
@@ -783,7 +789,8 @@
             var a = new XMLHttpRequest();
             a.open(n.method || "GET", e), n.headers && Object.keys(n.headers).forEach(function(e) {
                 a.setRequestHeader(e, n.headers[e]);
-            }), a.withCredentials = "include" === n.credentials, a.responseType = "blob", a.onload = function() {
+            }), a.withCredentials = "include" === n.credentials, a.responseType = "blob", 
+            a.onload = function() {
                 t(a.response);
             }, a.onerror = a.onabort = a.ontimeout = function(e) {
                 t === i ? i(null, e) : i(e);
@@ -840,8 +847,8 @@
         var n, r = a.top, o = a.right, s = a.bottom, l = a.left, c = {};
         for (n in a) Object.prototype.hasOwnProperty.call(a, n) && (c[n] = a[n]);
         if ((4 < (c.orientation = t) && !(4 < i) || t < 5 && 4 < i) && (c.maxWidth = a.maxHeight, 
-        c.maxHeight = a.maxWidth, c.minWidth = a.minHeight, c.minHeight = a.minWidth, c.sourceWidth = a.sourceHeight, 
-        c.sourceHeight = a.sourceWidth), 1 < i) {
+        c.maxHeight = a.maxWidth, c.minWidth = a.minHeight, c.minHeight = a.minWidth, 
+        c.sourceWidth = a.sourceHeight, c.sourceHeight = a.sourceWidth), 1 < i) {
             switch (i) {
               case 2:
                 o = a.left, l = a.right;
@@ -906,8 +913,8 @@
         t = t.orientation, i = f.orientation && i.exif && i.exif.get("Orientation");
         if (d(t, i)) {
             var a = e.getContext("2d"), n = e.width, r = e.height, o = n, s = r;
-            switch ((4 < t && !(4 < i) || t < 5 && 4 < i) && (e.width = r, e.height = n), 4 < t && (o = r, 
-            s = n), i) {
+            switch ((4 < t && !(4 < i) || t < 5 && 4 < i) && (e.width = r, e.height = n), 
+            4 < t && (o = r, s = n), i) {
               case 2:
                 a.translate(o, 0), a.scale(-1, 1);
                 break;
@@ -1070,7 +1077,8 @@
                         }
                         console.log("Invalid Exif data: Invalid data offset.");
                     } else console.log("Invalid Exif data: Invalid tag type.");
-                }(e, t, u, e.getUint16(u + 2, a), e.getUint32(u + 4, a), a), n[d] = g, r && (r[d] = u));
+                }(e, t, u, e.getUint16(u + 2, a), e.getUint32(u + 4, a), a), n[d] = g, 
+                r && (r[d] = u));
                 return e.getUint32(c, a);
             }
             console.log("Invalid Exif data: Invalid directory size.");
@@ -1096,8 +1104,9 @@
                   default:
                     return void console.log("Invalid Exif data: Invalid byte alignment marker.");
                 }
-                42 === l.getUint16(g + 2, f) ? (e = l.getUint32(g + 4, f), c.exif = new m(), i.disableExifOffsets || (c.exifOffsets = new m(), 
-                c.exifTiffOffset = g, c.exifLittleEndian = f), (e = A(l, g, g + e, f, c.exif, c.exifOffsets, u, d)) && p(u, d, "ifd1") && (c.exif.ifd1 = e, 
+                42 === l.getUint16(g + 2, f) ? (e = l.getUint32(g + 4, f), c.exif = new m(), 
+                i.disableExifOffsets || (c.exifOffsets = new m(), c.exifTiffOffset = g, 
+                c.exifLittleEndian = f), (e = A(l, g, g + e, f, c.exif, c.exifOffsets, u, d)) && p(u, d, "ifd1") && (c.exif.ifd1 = e, 
                 c.exifOffsets && (c.exifOffsets.ifd1 = g + e)), Object.keys(c.exif.ifds).forEach(function(e) {
                     var t, i, a, n, r, o, s;
                     i = e, a = l, n = g, r = f, o = u, s = d, (e = (t = c).exif[i]) && (t.exif[i] = new m(i), 
@@ -1115,7 +1124,8 @@
     }, n.metaDataParsers.jpeg[65505].push(n.parseExifData), n.exifWriters = {
         274: function(e, t, i) {
             var a = t.exifOffsets[274];
-            return a && new DataView(e, a + 8, 2).setUint16(0, i, t.exifLittleEndian), e;
+            return a && new DataView(e, a + 8, 2).setUint16(0, i, t.exifLittleEndian), 
+            e;
         }
     }, n.writeExifData = function(e, t, i, a) {
         return n.exifWriters[t.exif.map[i]](e, t, a);
@@ -1486,7 +1496,8 @@
     }, e.parseIptcData = function(e, t, i, a, n) {
         if (!n.disableIptc) for (var r = t + i; t + 8 < r; ) {
             if (o = t, 943868237 === (s = e).getUint32(o) && 1028 === s.getUint16(o + 4)) {
-                var o = (o = t, (s = (s = e).getUint8(o + 7)) % 2 != 0 && (s += 1), s = 0 === s ? 4 : s), s = t + 8 + o;
+                var o = (o = t, (s = (s = e).getUint8(o + 7)) % 2 != 0 && (s += 1), 
+                s = 0 === s ? 4 : s), s = t + 8 + o;
                 if (r < s) {
                     console.log("Invalid IPTC data: Invalid segment offset.");
                     break;
@@ -1496,7 +1507,8 @@
                     console.log("Invalid IPTC data: Invalid segment size.");
                     break;
                 }
-                return a.iptc = new l(), n.disableIptcOffsets || (a.iptcOffsets = new l()), void c(e, s, o, a, n.includeIptcTags, n.excludeIptcTags || {
+                return a.iptc = new l(), n.disableIptcOffsets || (a.iptcOffsets = new l()), 
+                void c(e, s, o, a, n.includeIptcTags, n.excludeIptcTags || {
                     202: !0
                 });
             }

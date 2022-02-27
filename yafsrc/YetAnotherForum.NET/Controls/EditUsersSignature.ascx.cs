@@ -137,9 +137,9 @@ namespace YAF.Controls
         [NotNull]
         private User user
         {
-            get => this.ViewState["User"].ToType<User>();
+            get => this.ViewState["PageUser"].ToType<User>();
 
-            set => this.ViewState["User"] = value;
+            set => this.ViewState["PageUser"] = value;
         }
 
         #endregion
@@ -160,7 +160,7 @@ namespace YAF.Controls
                 this.PageContext.CurrentForumPage.IsAdminPage ||
                 this.PageContext.CurrentForumPage.PageType == ForumPages.UserProfile
                     ? this.GetRepository<User>().GetById(this.CurrentUserID)
-                    : this.PageContext.User;
+                    : this.PageContext.PageUser;
 
             this.signatureEditor.Text = this.user.Signature;
 

@@ -68,8 +68,11 @@ namespace YAF.Core.Services
                 {
                     try
                     {
-                        // send the message...
-                        smtpClient.Send(m);
+                        if (m != null)
+                        {
+                            // send the message...
+                            smtpClient.Send(m);
+                        }
                     }
                     catch (Exception ex)
                     {

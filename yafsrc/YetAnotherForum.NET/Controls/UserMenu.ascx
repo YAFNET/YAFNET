@@ -9,7 +9,7 @@
                        AlternateText="avatar"
                        CssClass="img-navbar-avatar rounded"/>
         </span>
-        <%= this.HtmlEncode(this.PageContext.User.DisplayOrUserName()) %>
+        <%= this.HtmlEncode(this.PageContext.PageUser.DisplayOrUserName()) %>
         <asp:PlaceHolder runat="server" id="UnreadPlaceHolder">
             <asp:Label runat="server" ID="UnreadLabel"
                        CssClass="ms-1 badge bg-danger">

@@ -563,16 +563,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether to Use Akismet Service.
-        /// </summary>
-        public string AkismetApiKey
-        {
-            get => this.Registry.GetValue("AkismetApiKey", string.Empty);
-
-            set => this.Registry.SetValue("AkismetApiKey", value);
-        }
-
-        /// <summary>
         /// Gets or sets the BotScout.com API key.
         /// </summary>
         /// <value>

@@ -144,7 +144,7 @@ namespace YAF.Controls
                 "tachometer-alt");
 
             // Admin - Settings Menu
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName is "Admin_BoardAnnouncement" or "Admin_Settings" or "Admin_Forums" or
                     "Admin_ReplaceWords" or "Admin_BBCodes" or "Admin_Languages"))
             {
@@ -152,7 +152,7 @@ namespace YAF.Controls
             }
 
             // Admin - Spam Protection Menu
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or
                     "Admin_BannedNames"))
             {
@@ -160,7 +160,7 @@ namespace YAF.Controls
             }
 
             // Admin - Users and Roles Menu
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName is "Admin_ProfileDefinitions" or "Admin_AccessMasks" or "Admin_Groups" or "Admin_Ranks"
                     or "Admin_Users" or "Admin_Medals" or "Admin_Mail" or "Admin_Digest"))
             {
@@ -168,7 +168,7 @@ namespace YAF.Controls
             }
 
             // Admin - Maintenance Menu
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or
                     "Admin_TaskManager" or "Admin_EventLog" or "Admin_RestartApp"))
             {
@@ -176,21 +176,21 @@ namespace YAF.Controls
             }
 
             // Admin - Database Menu
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName is "Admin_ReIndex" or "Admin_RunSql"))
             {
                 this.RenderAdminDatabase(pagesAccess);
             }
 
             // Admin - Nntp Menu
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName is "Admin_NntpRetrieve" or "Admin_NntpForums" or "Admin_NntpServers"))
             {
                 this.RenderAdminNntp(pagesAccess);
             }
 
             // Admin - Upgrade Menu
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Version"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Version"))
             {
                 this.RenderAdminUpgrade(pagesAccess);
             }
@@ -225,7 +225,7 @@ namespace YAF.Controls
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
             // Admin Board Announcement
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName == "Admin_BoardAnnouncement"))
             {
                 RenderMenuItem(
@@ -239,7 +239,7 @@ namespace YAF.Controls
             }
 
             // Admin Settings
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Settings"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Settings"))
             {
                 RenderMenuItem(
                     list,
@@ -252,7 +252,7 @@ namespace YAF.Controls
             }
 
             // Admin Forums
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Forums"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Forums"))
             {
                 RenderMenuItem(
                     list,
@@ -266,7 +266,7 @@ namespace YAF.Controls
             }
 
             // Admin ReplaceWords
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_ReplaceWords"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_ReplaceWords"))
             {
                 RenderMenuItem(
                     list,
@@ -279,7 +279,7 @@ namespace YAF.Controls
             }
 
             // Admin BBCodes
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BBCodes"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BBCodes"))
             {
                 RenderMenuItem(
                     list,
@@ -292,7 +292,7 @@ namespace YAF.Controls
             }
 
             // Admin Languages
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Languages"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Languages"))
             {
                 RenderMenuItem(
                     list,
@@ -336,7 +336,7 @@ namespace YAF.Controls
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
             // Admin SpamLog
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_SpamLog"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_SpamLog"))
             {
                 RenderMenuItem(
                     list,
@@ -349,7 +349,7 @@ namespace YAF.Controls
             }
 
             // Admin SpamWords
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_SpamWords"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_SpamWords"))
             {
                 RenderMenuItem(
                     list,
@@ -362,7 +362,7 @@ namespace YAF.Controls
             }
 
             // Admin BannedEmails
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedEmails"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedEmails"))
             {
                 RenderMenuItem(
                     list,
@@ -375,7 +375,7 @@ namespace YAF.Controls
             }
 
             // Admin BannedIps
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedIps"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedIps"))
             {
                 RenderMenuItem(
                     list,
@@ -388,7 +388,7 @@ namespace YAF.Controls
             }
 
             // Admin BannedNames
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedNames"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedNames"))
             {
                 RenderMenuItem(
                     list,
@@ -435,7 +435,7 @@ namespace YAF.Controls
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
             // Admin ProfileDefinitions
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName == "Admin_ProfileDefinitions"))
             {
                 RenderMenuItem(
@@ -449,7 +449,7 @@ namespace YAF.Controls
             }
 
             // Admin AccessMasks
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_AccessMasks"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_AccessMasks"))
             {
                 RenderMenuItem(
                     list,
@@ -462,7 +462,7 @@ namespace YAF.Controls
             }
 
             // Admin Groups
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Groups"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Groups"))
             {
                 RenderMenuItem(
                     list,
@@ -475,7 +475,7 @@ namespace YAF.Controls
             }
 
             // Admin Users
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Users"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Users"))
             {
                 RenderMenuItem(
                     list,
@@ -488,7 +488,7 @@ namespace YAF.Controls
             }
 
             // Admin Ranks
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Ranks"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Ranks"))
             {
                 RenderMenuItem(
                     list,
@@ -501,7 +501,7 @@ namespace YAF.Controls
             }
 
             // Admin Medals
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Medals"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Medals"))
             {
                 RenderMenuItem(
                     list,
@@ -514,7 +514,7 @@ namespace YAF.Controls
             }
 
             // Admin Mail
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Mail"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Mail"))
             {
                 RenderMenuItem(
                     list,
@@ -527,7 +527,7 @@ namespace YAF.Controls
             }
 
             // Admin Digest
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Digest"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Digest"))
             {
                 RenderMenuItem(
                     list,
@@ -572,7 +572,7 @@ namespace YAF.Controls
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
             // Admin Attachments
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Attachments"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Attachments"))
             {
                 RenderMenuItem(
                     list,
@@ -585,7 +585,7 @@ namespace YAF.Controls
             }
 
             // Admin Tags
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Tags"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Tags"))
             {
                 RenderMenuItem(
                     list,
@@ -598,7 +598,7 @@ namespace YAF.Controls
             }
 
             // Admin Prune
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Prune"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Prune"))
             {
                 RenderMenuItem(
                     list,
@@ -611,7 +611,7 @@ namespace YAF.Controls
             }
 
             // Admin Restore
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Restore"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Restore"))
             {
                 RenderMenuItem(
                     list,
@@ -624,7 +624,7 @@ namespace YAF.Controls
             }
 
             // Admin Pm
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Pm"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Pm"))
             {
                 RenderMenuItem(
                     list,
@@ -637,7 +637,7 @@ namespace YAF.Controls
             }
 
             // Admin TaskManager
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_TaskManager"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_TaskManager"))
             {
                 RenderMenuItem(
                     list,
@@ -650,7 +650,7 @@ namespace YAF.Controls
             }
 
             // Admin EventLog
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_EventLog"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_EventLog"))
             {
                 RenderMenuItem(
                     list,
@@ -663,7 +663,7 @@ namespace YAF.Controls
             }
 
             // Admin RestartApp
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_RestartApp"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_RestartApp"))
             {
                 RenderMenuItem(
                     list,
@@ -706,7 +706,7 @@ namespace YAF.Controls
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
             // Admin ReIndex
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_ReIndex"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_ReIndex"))
             {
                 RenderMenuItem(
                     list,
@@ -719,7 +719,7 @@ namespace YAF.Controls
             }
 
             // Admin RunSql
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_RunSql"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_RunSql"))
             {
                 RenderMenuItem(
                     list,
@@ -763,7 +763,7 @@ namespace YAF.Controls
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
             // Admin NntpServers
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpServers"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpServers"))
             {
                 RenderMenuItem(
                     list,
@@ -776,7 +776,7 @@ namespace YAF.Controls
             }
 
             // Admin NntpForums
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpForums"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpForums"))
             {
                 RenderMenuItem(
                     list,
@@ -789,7 +789,7 @@ namespace YAF.Controls
             }
 
             // Admin NntpRetrieve
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpRetrieve"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpRetrieve"))
             {
                 RenderMenuItem(
                     list,
@@ -832,7 +832,7 @@ namespace YAF.Controls
             list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
 
             // Admin Version
-            if (this.PageContext.User.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Version"))
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Version"))
             {
                 RenderMenuItem(
                     list,

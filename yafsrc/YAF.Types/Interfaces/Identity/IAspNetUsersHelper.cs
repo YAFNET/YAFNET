@@ -193,11 +193,16 @@ namespace YAF.Types.Interfaces.Identity
         /// <summary>
         /// Get the User from the ProviderUserKey
         /// </summary>
-        /// <param name="providerUserKey">The provider user key.</param>
+        /// <param name="providerUserKey">
+        /// The provider user key.
+        /// </param>
+        /// <param name="currentBoard">
+        /// Get user from Current board, or all boards
+        /// </param>
         /// <returns>
         /// The get user from provider user key.
         /// </returns>
-        User GetUserFromProviderUserKey(object providerUserKey);
+        User GetUserFromProviderUserKey(string providerUserKey, bool currentBoard = true);
 
         /// <summary>
         /// Helper function that gets user data from the DB (or cache)

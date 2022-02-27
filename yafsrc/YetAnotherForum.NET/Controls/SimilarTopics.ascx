@@ -3,6 +3,7 @@
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
+<%@ Import Namespace="YAF.Types.Objects" %>
 
 <asp:PlaceHolder id="SimilarTopicsHolder" runat="server" Visible="true">
     <asp:Repeater ID="Topics" runat="server" Visible="true">
@@ -19,17 +20,17 @@
         </HeaderTemplate>
         <ItemTemplate>
             <li class="list-group-item">
-                   <a href="<%# DataBinder.Eval(Container.DataItem, "TopicUrl")%>">
-                       <strong><%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(DataBinder.Eval(Container.DataItem, "Topic"))) %></strong>
-                   </a> (<a href="<%# DataBinder.Eval(Container.DataItem, "ForumUrl")%>"><%# DataBinder.Eval(Container.DataItem, "ForumName") %></a>)
+                   <a href="<%# ((SearchMessage)Container.DataItem).TopicUrl%>">
+                       <strong><%# this.Get<IBadWordReplace>().Replace(this.HtmlEncode(((SearchMessage)Container.DataItem).Topic)) %></strong>
+                   </a> (<a href="<%# ((SearchMessage)Container.DataItem).ForumUrl%>"><%# ((SearchMessage)Container.DataItem).ForumName %></a>)
                 <YAF:LocalizedLabel runat="server" LocalizedPage="SEARCH" LocalizedTag="BY">
                    </YAF:LocalizedLabel> 
                     <YAF:UserLink ID="UserName" runat="server" 
-                                  UserID='<%# DataBinder.Eval(Container.DataItem, "UserId") %>' 
-                                  ReplaceName='<%# DataBinder.Eval(Container.DataItem, this.PageContext.BoardSettings.EnableDisplayName ? "UserDisplayName" : "UserName") %>' 
-                                  Suspended='<%# DataBinder.Eval(Container.DataItem, "Suspended") %>'
+                                  UserID="<%#((SearchMessage)Container.DataItem).UserId %>" 
+                                  ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? ((SearchMessage)Container.DataItem).UserDisplayName : ((SearchMessage)Container.DataItem).UserName %>" 
+                                  Suspended="<%# ((SearchMessage)Container.DataItem).Suspended %>"
 
-                       Style='<%# DataBinder.Eval(Container.DataItem, "UserStyle") %>'>
+                       Style="<%# ((SearchMessage)Container.DataItem).UserStyle %>">
                       </YAF:UserLink>
                 <span class="fa-stack">
                     <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
@@ -37,7 +38,7 @@
                     <i class="fa fa-clock fa-badge text-secondary"></i>
                 </span>
                 <YAF:DisplayDateTime ID="CreatedDate" runat="server"
-                                     Format="BothTopic" DateTime='<%# DataBinder.Eval(Container.DataItem, "Posted") %>'>
+                                     Format="BothTopic" DateTime="<%# ((SearchMessage)Container.DataItem).Posted %>">
                 </YAF:DisplayDateTime>
             </li>
         </ItemTemplate>

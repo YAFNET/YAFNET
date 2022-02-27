@@ -249,7 +249,7 @@ namespace YAF.Core.Services.Localization
                 this.CurrentCulture = new CultureInfo(BoardContext.Current.BoardSettings.Culture);
             }
 
-            var cultureUser = BoardContext.Current.User.Culture;
+            var cultureUser = BoardContext.Current.PageUser.Culture;
 
             if (!cultureUser.IsSet())
             {

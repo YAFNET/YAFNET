@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Linq;
     using System.Web;
 
-    using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
@@ -72,11 +71,6 @@ namespace YAF.Pages
         /// The edit or quoted message.
         /// </summary>
         private Tuple<Topic, Message, User, Forum> editedMessage;
-
-        /// <summary>
-        ///   The forum.
-        /// </summary>
-        private Topic topic;
 
         #endregion
 
@@ -172,7 +166,7 @@ namespace YAF.Pages
             }
 
             if ((!this.PageContext.IsGuest || !this.PageContext.BoardSettings.EnableCaptchaForGuests)
-                && (!this.PageContext.BoardSettings.EnableCaptchaForPost || this.PageContext.User.UserFlags.IsCaptchaExcluded)
+                && (!this.PageContext.BoardSettings.EnableCaptchaForPost || this.PageContext.PageUser.UserFlags.IsCaptchaExcluded)
                 || CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
                 return true;
@@ -244,17 +238,15 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.topic = this.PageContext.PageTopic;
-
             if (this.EditMessageId.HasValue)
             {
-                var editMessage = this.GetRepository<Message>().GetMessage(this.EditMessageId.Value);
+                var editMessage = this.GetRepository<Message>().GetMessageAsTuple(this.EditMessageId.Value);
 
                 if (editMessage != null)
                 {
-                    this.ownerUserId = editMessage.Item1.UserID;
+                    this.ownerUserId = editMessage.Item2.UserID;
 
-                    if (!this.CanEditPostCheck(editMessage.Item2, this.topic))
+                    if (!this.CanEditPostCheck(editMessage.Item2, this.PageContext.PageTopic))
                     {
                         this.Get<LinkBuilder>().AccessDenied();
                     }
@@ -322,11 +314,11 @@ namespace YAF.Pages
                 {
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
                         ? this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
-                        : this.PageContext.User.AutoWatchTopics;
+                        : this.PageContext.PageUser.AutoWatchTopics;
                 }
 
                 if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
-                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.User.UserFlags.IsCaptchaExcluded)
+                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.PageUser.UserFlags.IsCaptchaExcluded)
                 {
                     this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
                     this.tr_captcha1.Visible = true;
@@ -342,19 +334,19 @@ namespace YAF.Pages
                 this.PageLinks.AddForum(this.PageContext.PageForumID);
 
                 // editing a message...
-                this.InitEditedPost(this.editedMessage.Item2);
+                this.InitEditedPost(this.editedMessage);
                 this.PollList.EditMessageId = this.EditMessageId.Value;
 
                 // form user is only for "Guest"
                 if (this.PageContext.IsGuest)
                 {
-                    this.From.Text = this.PageContext.User.DisplayOrUserName();
+                    this.From.Text = this.PageContext.PageUser.DisplayOrUserName();
                     this.FromRow.Visible = false;
                 }
             }
 
             // Set Poll
-            this.PollId = this.topic.PollID;
+            this.PollId = this.PageContext.PageTopic.PollID;
             this.PollList.TopicId = this.PageContext.PageTopicID;
             this.PollList.PollId = this.PollId;
         }
@@ -365,7 +357,7 @@ namespace YAF.Pages
         /// <returns>
         /// Returns the Message Id
         /// </returns>
-        protected Message PostReplyHandleEditPost()
+        protected Tuple<Topic, Message, User, Forum> PostReplyHandleEditPost()
         {
             if (!this.PageContext.ForumEditAccess)
             {
@@ -435,7 +427,7 @@ namespace YAF.Pages
             this.Get<IDataCache>()
                 .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID, this.PageContext.PageTopicID));
 
-            return this.editedMessage.Item2;
+            return this.editedMessage;
         }
 
         /// <summary>
@@ -462,7 +454,7 @@ namespace YAF.Pages
                 // Check content for spam
                 if (
                     this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.DisplayOrUserName(),
+                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUser.DisplayOrUserName(),
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
@@ -472,7 +464,7 @@ namespace YAF.Pages
                 {
                     var description =
                         $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
-                           posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
+                           posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName())}";
 
                     switch (this.PageContext.BoardSettings.SpamPostHandling)
                     {
@@ -501,7 +493,7 @@ namespace YAF.Pages
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.MembershipUser,
-                                this.PageContext.User.IP);
+                                this.PageContext.PageUser.IP);
 
                             return;
                     }
@@ -515,9 +507,9 @@ namespace YAF.Pages
             var editMessage = this.PostReplyHandleEditPost();
 
             // Check if message is approved
-            var isApproved = editMessage.MessageFlags.IsApproved;
+            var isApproved = editMessage.Item2.MessageFlags.IsApproved;
 
-            var messageId = editMessage.ID;
+            var messageId = editMessage.Item2.ID;
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
@@ -568,7 +560,7 @@ namespace YAF.Pages
                 // Tell user that his message will have to be approved by a moderator
                 var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
 
-                if (this.PageContext.PageTopicID > 0 && this.topic.NumPosts > 1)
+                if (this.PageContext.PageTopicID > 0 && this.PageContext.PageTopic.NumPosts > 1)
                 {
                     url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName);
                 }
@@ -650,7 +642,7 @@ namespace YAF.Pages
         /// <param name="currentMessage">
         /// The current message.
         /// </param>
-        private void InitEditedPost([NotNull] Message currentMessage)
+        private void InitEditedPost([NotNull] Tuple<Topic, Message, User, Forum> currentMessage)
         {
             /*if (this.forumEditor.UsesHTML && currentMessage.Flags.IsBBCode)
             {
@@ -658,21 +650,21 @@ namespace YAF.Pages
                 currentMessage.Message = this.Get<IBBCode>().ConvertBBCodeToHtmlForEdit(currentMessage.Message);
             }*/
 
-            if (this.forumEditor.UsesBBCode && currentMessage.MessageFlags.IsHtml)
+            if (this.forumEditor.UsesBBCode && currentMessage.Item2.MessageFlags.IsHtml)
             {
                 // If the message is in HTML but the editor uses YafBBCode, convert the message text to BBCode
-                currentMessage.MessageText = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.MessageText);
+                currentMessage.Item2.MessageText = this.Get<IBBCode>().ConvertHtmlToBBCodeForEdit(currentMessage.Item2.MessageText);
             }
 
-            this.forumEditor.Text = BBCodeHelper.DecodeCodeBlocks(currentMessage.MessageText);
+            this.forumEditor.Text = BBCodeHelper.DecodeCodeBlocks(currentMessage.Item2.MessageText);
 
-            if (this.forumEditor.UsesHTML && currentMessage.MessageFlags.IsBBCode)
+            if (this.forumEditor.UsesHTML && currentMessage.Item2.MessageFlags.IsBBCode)
             {
                 this.forumEditor.Text = this.Get<IBBCode>().FormatMessageWithCustomBBCode(
                     this.forumEditor.Text,
-                    currentMessage.MessageFlags,
-                    currentMessage.UserID,
-                    currentMessage.ID);
+                    currentMessage.Item2.MessageFlags,
+                    currentMessage.Item2.UserID,
+                    currentMessage.Item2.ID);
             }
 
             this.Title.Text = this.GetText("EDIT");
@@ -680,15 +672,15 @@ namespace YAF.Pages
             this.PostReply.TextLocalizedPage = "COMMON";
 
             // add topic link...
-            this.PageLinks.AddTopic(this.topic.TopicName, this.PageContext.PageTopicID);
+            this.PageLinks.AddTopic(this.PageContext.PageTopic.TopicName, this.PageContext.PageTopicID);
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
 
             this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopic.TopicName);
-            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.topic.Description);
+            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopic.Description);
 
-            if (this.topic.UserID == currentMessage.UserID.ToType<int>()
+            if (this.PageContext.PageTopic.UserID == currentMessage.Item2.UserID
                 || this.PageContext.ForumModeratorAccess)
             {
                 // allow editing of the topic subject
@@ -712,14 +704,14 @@ namespace YAF.Pages
                 this.TopicStylesTextBox.Enabled = false;
             }
 
-            this.TopicStylesTextBox.Text = this.topic.Styles;
+            this.TopicStylesTextBox.Text = this.PageContext.PageTopic.Styles;
 
             this.Priority.SelectedItem.Selected = false;
-            this.Priority.Items.FindByValue(this.topic.Priority.ToString()).Selected = true;
+            this.Priority.Items.FindByValue(this.PageContext.PageTopic.Priority.ToString()).Selected = true;
 
             this.EditReasonRow.Visible = true;
-            this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.EditReason);
-            this.PostOptions1.PersistentChecked = currentMessage.MessageFlags.IsPersistent;
+            this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.Item2.EditReason);
+            this.PostOptions1.PersistentChecked = currentMessage.Item2.MessageFlags.IsPersistent;
 
             var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
 
@@ -729,7 +721,7 @@ namespace YAF.Pages
             }
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
-            if (this.topic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+            if (this.PageContext.PageTopic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
             {
                 var urlReferrer = this.Get<HttpRequestBase>().UrlReferrer;
 

@@ -148,16 +148,6 @@ namespace YAF.Web.Controls
         }
 
         /// <summary>
-        ///   Gets UserID for the current User (Read Only)
-        /// </summary>
-        public int PageUserID => BoardContext.Current.PageUserID;
-
-        /// <summary>
-        ///   Gets UserName for the current User (Read Only)
-        /// </summary>
-        public string PageUserName => BoardContext.Current.MembershipUser == null ? "Guest" : BoardContext.Current.MembershipUser.UserName;
-
-        /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;

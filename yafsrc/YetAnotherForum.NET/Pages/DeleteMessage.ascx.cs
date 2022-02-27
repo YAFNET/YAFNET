@@ -189,7 +189,7 @@ namespace YAF.Pages
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Delete.ClientID));
 
-            this.message = this.GetRepository<Message>().GetMessage(this.MessageId);
+            this.message = this.GetRepository<Message>().GetMessageAsTuple(this.MessageId);
 
             this.isModeratorChanged = this.PageContext.PageUserID != this.message.Item1.UserID;
 

@@ -179,7 +179,7 @@ namespace YAF.Controls
                 this.Get<ILoggerService>().Log(
                     this.PageContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
-                    $"User {this.User.DisplayOrUserName()} was unsuspended by {this.PageContext.User.DisplayOrUserName()}.",
+                    $"User {this.User.DisplayOrUserName()} was un-suspended by {this.PageContext.PageUser.DisplayOrUserName()}.",
                     EventLogTypes.UserUnsuspended);
             }
 
@@ -262,7 +262,7 @@ namespace YAF.Controls
             this.Get<ILoggerService>().Log(
                 this.PageContext.PageUserID,
                 "YAF.Controls.EditUsersSuspend",
-                $"User {this.User.DisplayOrUserName()} was suspended by {this.PageContext.User.DisplayOrUserName()} until: {suspend} (UTC)",
+                $"User {this.User.DisplayOrUserName()} was suspended by {this.PageContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
                 EventLogTypes.UserSuspended);
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));

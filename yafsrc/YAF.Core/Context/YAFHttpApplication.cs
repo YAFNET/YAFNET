@@ -80,7 +80,7 @@ namespace YAF.Core.Context
             this.Application["Exception"] = exception.ToString();
             this.Application["ExceptionMessage"] = exception.Message;
 
-            if (exception.GetType() == typeof(HttpException) && exception.InnerException is ViewStateException
+            if ((exception.GetType() == typeof(HttpException) && exception.InnerException is ViewStateException)
                 || exception.Source.Contains("ViewStateException"))
             {
                 bool logViewStateError;
@@ -105,11 +105,15 @@ namespace YAF.Core.Context
             }
             else
             {
-                this.Get<ILoggerService>().Log(
-                    exception.Message,
-                    EventLogTypes.Error,
-                    exception: exception,
-                    userId: userId);
+                // ignore illegal path errors or 
+                if (!exception.Message.Contains("A potentially dangerous Request") && !exception.Message.Contains("does not exist"))
+                {
+                    this.Get<ILoggerService>().Log(
+                        exception.Message,
+                        EventLogTypes.Error,
+                        exception: exception,
+                        userId: userId);
+                }
             }
         }
 

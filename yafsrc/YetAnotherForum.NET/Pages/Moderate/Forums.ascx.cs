@@ -272,7 +272,7 @@ namespace YAF.Pages.Moderate
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {

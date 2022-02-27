@@ -369,7 +369,7 @@ namespace YAF.Pages.Admin
                     newAdmin.UserName,
                     newAdmin.Email,
                     newAdmin.Id,
-                    this.PageContext().User.UserFlags.IsHostAdmin,
+                    this.PageContext().PageUser.UserFlags.IsHostAdmin,
                     Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
             var loadWrapper = new Action<string, Action<Stream>>(

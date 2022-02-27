@@ -1,6 +1,6 @@
 ﻿// Generic Functions
 $(document).ready(function () {
-    $("a.btn-login,input.btn-login").click(function () {
+    $("a.btn-login,input.btn-login, .btn-spinner").click(function () {
         // add spinner to button
         $(this).html(
             "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."

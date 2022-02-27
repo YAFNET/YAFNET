@@ -79,32 +79,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Get the Topic with Message.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="messageId">
-        /// The message id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Tuple"/>.
-        /// </returns>
-        public static Tuple<Message, Topic> GetTopicWithMessage(
-            this IRepository<Topic> repository,
-            [NotNull] int messageId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId);
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression))
-                .FirstOrDefault();
-        }
-
-        /// <summary>
         /// Attach a Poll to a Topic
         /// </summary>
         /// <param name="repository">
@@ -971,8 +945,8 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
+        /// <param name="forum">
+        /// The forum.
         /// </param>
         /// <param name="subject">
         /// The subject.
@@ -989,8 +963,8 @@ namespace YAF.Core.Model
         /// <param name="message">
         /// The message.
         /// </param>
-        /// <param name="userId">
-        /// The user Id.
+        /// <param name="user">
+        /// The user.
         /// </param>
         /// <param name="priority">
         /// The priority.
@@ -1018,13 +992,13 @@ namespace YAF.Core.Model
         /// </returns>
         public static Topic SaveNew(
             this IRepository<Topic> repository,
-            [NotNull] int forumId,
+            [NotNull] Forum forum,
             [NotNull] string subject,
             [CanBeNull] string status,
             [CanBeNull] string styles,
             [CanBeNull] string description,
             [NotNull] string message,
-            [NotNull] int userId,
+            [NotNull] User user,
             [NotNull] short priority,
             [CanBeNull] string userName,
             [NotNull] string userDisplayName,
@@ -1037,9 +1011,9 @@ namespace YAF.Core.Model
 
             var topic = new Topic
             {
-                ForumID = forumId,
+                ForumID = forum.ID,
                 TopicName = subject,
-                UserID = userId,
+                UserID = user.ID,
                 Posted = posted,
                 Views = 0,
                 Priority = priority,
@@ -1048,18 +1022,15 @@ namespace YAF.Core.Model
                 NumPosts = 0,
                 Description = description,
                 Status = status,
-                Styles = styles
+                Styles = styles,
             };
 
-            var newTopicId = repository.Insert(topic);
-
-            topic.ID = newTopicId;
+            topic.ID = repository.Insert(topic);
 
             newMessage = BoardContext.Current.GetRepository<Message>().SaveNew(
-                forumId,
-                newTopicId,
-                subject,
-                userId,
+                forum,
+                topic,
+                user,
                 message,
                 userName,
                 ip,
@@ -1069,7 +1040,7 @@ namespace YAF.Core.Model
 
             if (flags.IsApproved)
             {
-                repository.FireNew(newTopicId);
+                repository.FireNew(topic.ID);
             }
 
             return topic;

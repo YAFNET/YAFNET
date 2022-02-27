@@ -517,9 +517,9 @@ namespace YAF.Web.Controls
             writer.WriteBeginTag("a");
             writer.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
 
-            string uniqueID = this.UniqueID;
+            var uniqueId = this.UniqueID;
 
-            writer.WriteAttribute(HtmlTextWriterAttribute.Name.ToString(), uniqueID);
+            writer.WriteAttribute(HtmlTextWriterAttribute.Name.ToString(), uniqueId);
 
             var actionClass = GetAttributeValue(this.Type);
 

@@ -77,7 +77,7 @@ namespace YAF.Core.BasePages
             }
             else
             {
-                // Detect User's Language.
+                // Detect PageUser's Language.
                 if (this.Request.UserLanguages != null)
                 {
                     // Set the Language.
@@ -109,14 +109,14 @@ namespace YAF.Core.BasePages
                 if (this.PageContext.BoardSettings.LogViewStateError)
                 {
                     this.Get<ILoggerService>()
-                        .Log(BoardContext.Current.User.ID, error.Source, error, EventLogTypes.Information);
+                        .Log(BoardContext.Current.PageUser.ID, error.Source, error, EventLogTypes.Information);
                 }
             }
             else
             {
                 this.Get<ILoggerService>()
                     .Log(
-                        BoardContext.Current.User.ID,
+                        BoardContext.Current.PageUser.ID,
                         error.Source,
                         error);
             }

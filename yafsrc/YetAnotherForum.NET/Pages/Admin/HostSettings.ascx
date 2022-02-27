@@ -420,20 +420,6 @@
                             </asp:DropDownList>
                         </div>
                             <div class="mb-3">
-                                <YAF:HelpLabel ID="HelpLabel186" runat="server"
-                                               AssociatedControlID="AkismetApiKey"
-                                               LocalizedTag="AKISMET_KEY" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="input-group">
-                                    <asp:TextBox ID="AkismetApiKey" CssClass="form-control" runat="server"></asp:TextBox>
-                                    <YAF:ThemeButton runat="server" ID="GetRemovalKey"
-                                                     NavigateUrl="https://akismet.com/signup/"
-                                                     Type="Info"
-                                                     Icon="sign-in-alt"
-                                                     TextLocalizedTag="AKISMET_KEY_DOWN">
-                                    </YAF:ThemeButton>
-                                </div>
-                            </div>
-                            <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel239" runat="server"
                                                AssociatedControlID="IgnoreSpamWordCheckPostCount"
                                                LocalizedTag="IGNORE_SPAMCHECK_COUNT" LocalizedPage="ADMIN_HOSTSETTINGS" />

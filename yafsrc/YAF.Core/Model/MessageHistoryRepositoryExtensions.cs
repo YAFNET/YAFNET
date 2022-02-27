@@ -101,7 +101,7 @@ namespace YAF.Core.Model
                 });
 
             // Load Current Message
-            var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessage(messageId);
+            var currentMessage = BoardContext.Current.GetRepository<Message>().GetMessageAsTuple(messageId);
 
             var current = new MessageHistoryTopic
             {

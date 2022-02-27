@@ -331,7 +331,7 @@ namespace YAF.Core.Services
 
                 var languageFile = UserHelper.GetUserLanguageFile(toUser);
 
-                var displayName = BoardContext.Current.User.DisplayOrUserName();
+                var displayName = BoardContext.Current.PageUser.DisplayOrUserName();
 
                 // send this user a PM notification e-mail
                 var notificationTemplate = new TemplateEmail("PMNOTIFICATION")
@@ -381,7 +381,7 @@ namespace YAF.Core.Services
         {
             var message = this.GetRepository<Message>().GetMessage(messageId);
 
-            this.Get<ISendNotification>().ToWatchingUsers(message.Item2, message.Item1);
+            this.Get<ISendNotification>().ToWatchingUsers(message);
         }
 
         /// <summary>
@@ -390,13 +390,10 @@ namespace YAF.Core.Services
         /// <param name="message">
         /// The new message.
         /// </param>
-        /// <param name="topic">
-        /// The topic.
-        /// </param>
         /// <param name="newTopic">
         /// Indicates if Post is New Topic or reply
         /// </param>
-        public void ToWatchingUsers([NotNull] Message message, Topic topic, bool newTopic = false)
+        public void ToWatchingUsers([NotNull] Message message, bool newTopic = false)
         {
             var mailMessages = new List<MailMessage>();
             var boardName = this.BoardSettings.Name;
@@ -416,7 +413,7 @@ namespace YAF.Core.Services
                                          {
                                              ["{topic}"] =
                                                  HttpUtility.HtmlDecode(
-                                                     this.Get<IBadWordReplace>().Replace(topic.TopicName)),
+                                                     this.Get<IBadWordReplace>().Replace(message.Topic.TopicName)),
                                              ["{postedby}"] =
                                                  this.Get<IUserDisplayName>().GetNameById(message.UserID),
                                              ["{body}"] = bodyText,
@@ -426,7 +423,7 @@ namespace YAF.Core.Services
                                                  true,
                                                  "m={0}&name={1}",
                                                  message.ID,
-                                                 topic.TopicName),
+                                                 message.Topic.TopicName),
                                              ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetLink(
                                                  ForumPages.Profile_Subscriptions,
                                                  true)
@@ -451,7 +448,7 @@ namespace YAF.Core.Services
                                         user.ID,
                                         message.TopicID,
                                         message.ID,
-                                        topic.TopicName,
+                                        message.Topic.TopicName,
                                         message.MessageText,
                                         message.UserID);
                                 }
@@ -461,7 +458,7 @@ namespace YAF.Core.Services
                                         user.ID,
                                         message.TopicID,
                                         message.ID,
-                                        topic.TopicName,
+                                        message.Topic.TopicName,
                                         message.MessageText,
                                         message.UserID);
                                 }

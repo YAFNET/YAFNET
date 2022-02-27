@@ -63,20 +63,6 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
-        /// Registers the needed Java Scripts
-        /// </summary>
-        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-        protected override void OnPreRender([NotNull] EventArgs e)
-        {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
-                "BlockUiFunctionJs",
-                JavaScriptBlocks.BlockUiFunctionJs(
-                    "DeleteForumMessage"));
-
-            base.OnPreRender(e);
-        }
-
-        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -95,7 +81,6 @@ namespace YAF.Pages.Admin
             this.PanelGetStats.Visible = true;
 
             this.Shrink.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_SHRINK");
-            this.Shrink.ReturnConfirmEvent = "blockUIMessage";
 
             this.Reindex.ReturnConfirmText = this.GetText("ADMIN_REINDEX", "CONFIRM_REINDEX");
             this.Reindex.ReturnConfirmEvent = "blockUIMessage";

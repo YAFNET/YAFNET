@@ -168,7 +168,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.User.UserFlags.IsHostAdmin)
+            if (!this.PageContext.PageUser.UserFlags.IsHostAdmin)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -362,7 +362,6 @@ namespace YAF.Pages.Admin
             this.CaptchaTypeRegister.Items.Add(new ListItem("ReCaptcha", "2"));
 
             this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));
-            this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_SERVICE_TYP_2"), "2"));
             this.SpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_HOSTSETTINGS", "SPAM_SERVICE_TYP_3"), "3"));
 
             this.BotSpamServiceType.Items.Add(new ListItem(this.GetText("ADMIN_COMMON", "DISABLED"), "0"));

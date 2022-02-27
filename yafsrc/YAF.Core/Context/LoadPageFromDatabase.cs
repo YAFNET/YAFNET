@@ -173,7 +173,7 @@ namespace YAF.Core.Context
             while (pageRow is null && userKey != null);
 
             // add all loaded page data into our data dictionary...
-            @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
+            @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest PageUser!");
 
             // update Query Data
             @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;

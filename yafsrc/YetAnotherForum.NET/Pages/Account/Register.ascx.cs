@@ -541,16 +541,21 @@ namespace YAF.Pages.Account
                 return true;
             }
 
-            return (from item in
-                        this.CustomProfile.Items.Cast<RepeaterItem>().Where(
-                            x => x.ItemType is ListItemType.Item or ListItemType.AlternatingItem)
-                    let id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>()
-                    let profileDef = this.ProfileDefinitions.FirstOrDefault(x => x.ID == id)
-                    where profileDef != null
-                    let textBox = item.FindControlAs<TextBox>("DefText")
-                    let type = profileDef.DataType.ToEnum<DataType>()
-                    where profileDef.Required && type is DataType.Text or DataType.Number
-                    select textBox).All(textBox => !textBox.Text.IsNotSet());
+            if (!(from item in this.CustomProfile.Items.Cast<RepeaterItem>()
+                  where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
+                  let id = item.FindControlAs<HiddenField>("DefID").Value.ToType<int>()
+                  let profileDef = this.ProfileDefinitions.FirstOrDefault(x => x.ID == id)
+                  where profileDef != null
+                  let textBox = item.FindControlAs<TextBox>("DefText")
+                  let type = profileDef.DataType.ToEnum<DataType>()
+                  where profileDef.Required && type is DataType.Text or DataType.Number
+                  select textBox).Any(textBox => textBox.Text.IsNotSet()))
+            {
+                return true;
+            }
+
+            this.PageContext.AddLoadMessage(this.GetText("NEED_CUSTOM"), MessageTypes.warning);
+            return false;
         }
 
         private void SaveCustomProfile(int userId)

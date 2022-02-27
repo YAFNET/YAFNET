@@ -90,14 +90,12 @@ namespace YAF.Controls
             var showGuestTotal = activeGuests > 0 && (this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList
                                                       || this.PageContext.BoardSettings.ShowCrawlersInActiveList);
             
-            if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
+            if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests > 0))
             {
                 // always show active users...
                 sb.AppendFormat(
                     "<a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
-                    this.GetTextFormatted(
-                        activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2",
-                        activeUsers),
+                    this.GetTextFormatted(activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
                     this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 0),
                     this.GetText("COMMON", "VIEW_FULLINFO"),
                     this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
@@ -126,9 +124,7 @@ namespace YAF.Controls
                 {
                     sb.AppendFormat(
                         ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
-                        this.GetTextFormatted(
-                            activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2",
-                            activeGuests),
+                        this.GetTextFormatted(activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
                         this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 2),
                         this.GetText("COMMON", "VIEW_FULLINFO"),
                         this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
@@ -221,20 +217,32 @@ namespace YAF.Controls
                 this.RecentUsersPlaceHolder.Visible = false;
             }
 
-            // show max users...
-            if (this.PageContext.BoardSettings.MaxUsers > 0)
+            try
             {
-                this.MostUsersCount.Text = this.GetTextFormatted(
-                    "MAX_ONLINE",
-                    this.PageContext.BoardSettings.MaxUsers,
-                    this.Get<IDateTimeService>().FormatDateTimeTopic(this.PageContext.BoardSettings.MaxUsersWhen));
+                // show max users...
+                if (this.PageContext.BoardSettings.MaxUsers > 0)
+                {
+                    this.MostUsersCount.Text = this.GetTextFormatted(
+                        "MAX_ONLINE",
+                        this.PageContext.BoardSettings.MaxUsers,
+                        this.Get<IDateTimeService>().FormatDateTimeTopic(this.PageContext.BoardSettings.MaxUsersWhen));
+                }
+                else
+                {
+                    this.MostUsersCount.Text = this.GetTextFormatted(
+                        "MAX_ONLINE",
+                        activeStats.ActiveUsers,
+                        this.Get<IDateTimeService>().FormatDateTimeTopic(DateTime.UtcNow));
+                }
             }
-            else
+            catch (Exception)
             {
                 this.MostUsersCount.Text = this.GetTextFormatted(
                     "MAX_ONLINE",
                     activeStats.ActiveUsers,
                     this.Get<IDateTimeService>().FormatDateTimeTopic(DateTime.UtcNow));
+
+                this.Logger.Log(this.PageContext.PageUserID, this, $"Error in MaxUsersWhen {this.PageContext.BoardSettings.MaxUsersWhen}");
             }
         }
 

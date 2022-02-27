@@ -66,7 +66,7 @@ namespace YAF.Configuration.Pattern
 
             var value = this[name];
 
-            if (value == null)
+            if (value is null)
             {
                 return defaultValue;
             }

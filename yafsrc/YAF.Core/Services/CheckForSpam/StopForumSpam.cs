@@ -39,6 +39,7 @@ namespace YAF.Core.Services.CheckForSpam
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.CheckForSpam;
     using YAF.Types.Interfaces.Services;
+    using YAF.Types.Objects;
 
     #endregion
 
@@ -151,120 +152,6 @@ namespace YAF.Core.Services.CheckForSpam
             }
 
             return result.Contains("success");
-        }
-    }
-
-    /// <summary>
-    /// User Name Namespace
-    /// </summary>
-    [DataContract(Namespace = "username")]
-    public class UserName
-    {
-        /// <summary>
-        /// Gets or sets the frequency.
-        /// </summary>
-        /// <value>
-        /// The frequency.
-        /// </value>
-        [DataMember(Name = "frequency")]
-        public int Frequency { get; set; }
-
-        /// <summary>
-        /// Gets or sets the appears string.
-        /// </summary>
-        /// <value>
-        /// The appears string.
-        /// </value>
-        [DataMember(Name = "appears")]
-        public string AppearsString { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [appears].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [appears]; otherwise, <c>false</c>.
-        /// </value>
-        public bool Appears
-        {
-            get => this.AppearsString == "1";
-
-            set => this.AppearsString = value ? "1" : "0";
-        }
-    }
-
-    /// <summary>
-    /// Email Namespace
-    /// </summary>
-    [DataContract(Namespace = "email")]
-    public class Email
-    {
-        /// <summary>
-        /// Gets or sets the frequency.
-        /// </summary>
-        /// <value>
-        /// The frequency.
-        /// </value>
-        [DataMember(Name = "frequency")]
-        public int Frequency { get; set; }
-
-        /// <summary>
-        /// Gets or sets the appears string.
-        /// </summary>
-        /// <value>
-        /// The appears string.
-        /// </value>
-        [DataMember(Name = "appears")]
-        public string AppearsString { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [appears].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [appears]; otherwise, <c>false</c>.
-        /// </value>
-        public bool Appears
-        {
-            get => this.AppearsString == "1";
-
-            set => this.AppearsString = value ? "1" : "0";
-        }
-    }
-
-    /// <summary>
-    /// IP Address Namespace
-    /// </summary>
-    [DataContract(Namespace = "ip")]
-    public class IP
-    {
-        /// <summary>
-        /// Gets or sets the frequency.
-        /// </summary>
-        /// <value>
-        /// The frequency.
-        /// </value>
-        [DataMember(Name = "frequency")]
-        public int Frequency { get; set; }
-
-        /// <summary>
-        /// Gets or sets the appears string.
-        /// </summary>
-        /// <value>
-        /// The appears string.
-        /// </value>
-        [DataMember(Name = "appears")]
-        public string AppearsString { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether [appears].
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if [appears]; otherwise, <c>false</c>.
-        /// </value>
-        public bool Appears
-        {
-            get => this.AppearsString == "1";
-
-            set => this.AppearsString = value ? "1" : "0";
         }
     }
 }

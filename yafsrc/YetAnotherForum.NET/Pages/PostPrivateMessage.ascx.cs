@@ -213,7 +213,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
 
             // users control panel
-            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
 
             // private messages
             this.PageLinks.AddLink(
@@ -747,7 +747,7 @@ namespace YAF.Pages
             {
                 // Check content for spam
                 if (this.Get<ISpamCheck>().CheckPostForSpam(
-                    this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName(),
+                    this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName(),
                     this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                     message,
                     this.PageContext.MembershipUser.Email,
@@ -755,7 +755,7 @@ namespace YAF.Pages
                 {
                     var description =
                         $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
-                       posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
+                       posted by PageUser: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName())}";
 
                     switch (this.PageContext.BoardSettings.SpamPostHandling)
                     {
@@ -785,7 +785,7 @@ namespace YAF.Pages
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.MembershipUser,
-                                this.PageContext.User.IP);
+                                this.PageContext.PageUser.IP);
 
                             break;
                     }

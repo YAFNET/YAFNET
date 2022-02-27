@@ -61,7 +61,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.PageContext.User.DisplayOrUserName(),
+                this.PageContext.PageUser.DisplayOrUserName(),
                 this.Get<LinkBuilder>().GetLink(ForumPages.Notification));
         }
 

@@ -29,6 +29,7 @@ namespace YAF.Core.Services.CheckForSpam
     using System.Text;
 
     using YAF.Types;
+    using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
 
     #endregion
@@ -101,19 +102,16 @@ namespace YAF.Core.Services.CheckForSpam
                     response.StatusCode);
             }
 
-            string responseText;
-            using (var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
-            {
-                // They only return "true" or "false"
-                responseText = reader.ReadToEnd();
-            }
+            using var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII);
+
+            // They only return "true" or "false"
+            var responseText = reader.ReadToEnd();
 
             return responseText;
         }
 
         /// <summary>
         /// Posts the request and returns a text response.
-        ///   This is all that is needed for Akismet.
         /// </summary>
         /// <param name="url">
         /// The URL.
@@ -192,14 +190,11 @@ namespace YAF.Core.Services.CheckForSpam
 
             request.Timeout = timeout;
             request.Method = "POST";
-            request.ContentLength = formParameters.Length;
             request.ContentType = "application/x-www-form-urlencoded; charset=utf-8";
             request.KeepAlive = true;
 
-            using (var myWriter = new StreamWriter(request.GetRequestStream()))
-            {
-                myWriter.Write(formParameters);
-            }
+            var formParametersAsBytes = Encoding.UTF8.GetBytes(formParameters);
+            request.GetRequestStream().Write(formParametersAsBytes, 0, formParametersAsBytes.Length);
 
             var response = (HttpWebResponse)request.GetResponse();
 
@@ -213,12 +208,10 @@ namespace YAF.Core.Services.CheckForSpam
                     response.StatusCode);
             }
 
-            string responseText;
-            using (var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII))
-            {
-                // They only return "true" or "false"
-                responseText = reader.ReadToEnd();
-            }
+            using var reader = new StreamReader(response.GetResponseStream(), Encoding.ASCII);
+
+            // They only return "true" or "false"
+            var responseText = reader.ReadToEnd();
 
             return responseText;
         }

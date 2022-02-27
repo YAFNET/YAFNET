@@ -78,7 +78,7 @@ namespace YAF.Pages.Profile
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.PageContext.User.DisplayOrUserName(),
+                this.PageContext.PageUser.DisplayOrUserName(),
                 this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }

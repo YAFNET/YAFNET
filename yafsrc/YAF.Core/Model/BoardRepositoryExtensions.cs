@@ -25,11 +25,13 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Linq;
+    using System.Web;
 
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.EventProxies;
     using YAF.Types.Flags;
@@ -105,7 +107,7 @@ namespace YAF.Core.Model
             BoardContext.Current.GetRepository<Registry>().Save("webservicetoken", Guid.NewGuid().ToString());
 
             // -- Rank
-            var rankIDAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
+            var rankIdAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
                 new Rank
                 {
                     BoardID = newBoardId,
@@ -117,7 +119,7 @@ namespace YAF.Core.Model
                     SortOrder = 0
                 });
 
-            var rankIDGuest = BoardContext.Current.GetRepository<Rank>().Insert(
+            var rankIdGuest = BoardContext.Current.GetRepository<Rank>().Insert(
                 new Rank
                 {
                     BoardID = newBoardId,
@@ -161,8 +163,6 @@ namespace YAF.Core.Model
                     SortOrder = 1
                 });
 
-
-
             // -- AccessMask
             var adminAccessFlag = new AccessFlags
                                       {
@@ -177,16 +177,16 @@ namespace YAF.Core.Model
                                           VoteAccess = true
                                       };
 
-            var accessMaskIDAdmin = BoardContext.Current.GetRepository<AccessMask>().Insert(
+            var accessMaskIdAdmin = BoardContext.Current.GetRepository<AccessMask>().Insert(
                 new AccessMask { BoardID = newBoardId, Name = "Admin Access", Flags = adminAccessFlag.BitValue, SortOrder = 4 });
 
             BoardContext.Current.GetRepository<AccessMask>().Insert(
                 new AccessMask { BoardID = newBoardId, Name = "Moderator Access", Flags = adminAccessFlag.BitValue, SortOrder = 3 });
 
-            var accessMaskIDMember = BoardContext.Current.GetRepository<AccessMask>().Insert(
+            var accessMaskIdMember = BoardContext.Current.GetRepository<AccessMask>().Insert(
                 new AccessMask { BoardID = newBoardId, Name = "Member Access", Flags = 423, SortOrder = 2 });
 
-            var accessMaskIDReadOnly = BoardContext.Current.GetRepository<AccessMask>().Insert(
+            var accessMaskIdReadOnly = BoardContext.Current.GetRepository<AccessMask>().Insert(
                 new AccessMask { BoardID = newBoardId, Name = "Read Only Access", Flags = 1, SortOrder = 1 });
 
             BoardContext.Current.GetRepository<AccessMask>().Insert(
@@ -200,7 +200,7 @@ namespace YAF.Core.Model
                                           AllowDownload = true
                                       };
 
-            var groupIDAdmin = BoardContext.Current.GetRepository<Group>().Insert(
+            var groupIdAdmin = BoardContext.Current.GetRepository<Group>().Insert(
                 new Group
                 {
                     BoardID = newBoardId,
@@ -220,7 +220,7 @@ namespace YAF.Core.Model
                                          IsGuest = true
                                      };
 
-            var groupIDGuest = BoardContext.Current.GetRepository<Group>().Insert(
+            var groupIdGuest = BoardContext.Current.GetRepository<Group>().Insert(
                 new Group
                 {
                     BoardID = newBoardId,
@@ -241,7 +241,7 @@ namespace YAF.Core.Model
                                          IsStart = true
                                      };
 
-            var groupIDMember = BoardContext.Current.GetRepository<Group>().Insert(
+            var groupIdMember = BoardContext.Current.GetRepository<Group>().Insert(
                 new Group
                 {
                     BoardID = newBoardId,
@@ -256,11 +256,11 @@ namespace YAF.Core.Model
                 });
 
             // -- User (GUEST)
-            var userIDGuest = BoardContext.Current.GetRepository<User>().Insert(
+            var userIdGuest = BoardContext.Current.GetRepository<User>().Insert(
                 new User
                 {
                     BoardID = newBoardId,
-                    RankID = rankIDGuest,
+                    RankID = rankIdGuest,
                     Name = "Guest",
                     DisplayName = "Guest",
                     Joined = DateTime.Now,
@@ -268,7 +268,8 @@ namespace YAF.Core.Model
                     NumPosts = 0,
                     TimeZone = TimeZoneInfo.Local.Id,
                     Email = boardEmail,
-                    Flags = 6
+                    Flags = 6,
+                    PageSize = 5
                 });
 
             var userFlags = 2;
@@ -279,55 +280,59 @@ namespace YAF.Core.Model
             }
 
             // -- User (ADMIN)
-            var userIDAdmin = BoardContext.Current.GetRepository<User>().Insert(
-                new User
-                {
-                    BoardID = newBoardId,
-                    RankID = rankIDAdmin,
-                    Name = userName,
-                    DisplayName = userName,
-                    ProviderUserKey = userKey,
-                    Joined = DateTime.Now,
-                    LastVisit = DateTime.Now,
-                    NumPosts = 0,
-                    TimeZone = TimeZoneInfo.Local.Id,
-                    Email = boardEmail,
-                    Flags = userFlags
-                });
+            var adminUser = new User
+                                {
+                                    BoardID = newBoardId,
+                                    RankID = rankIdAdmin,
+                                    Name = userName,
+                                    DisplayName = userName,
+                                    ProviderUserKey = userKey,
+                                    Joined = DateTime.Now,
+                                    LastVisit = DateTime.Now,
+                                    NumPosts = 0,
+                                    TimeZone = TimeZoneInfo.Local.Id,
+                                    Email = boardEmail,
+                                    Flags = userFlags,
+                                    PageSize = 5
+                                };
+
+            adminUser.ID = BoardContext.Current.GetRepository<User>().Insert(adminUser);
 
             // -- UserGroup
             BoardContext.Current.GetRepository<UserGroup>().Insert(
-                new UserGroup { UserID = userIDAdmin, GroupID = groupIDAdmin });
+                new UserGroup { UserID = adminUser.ID, GroupID = groupIdAdmin });
 
             BoardContext.Current.GetRepository<UserGroup>().Insert(
-                new UserGroup { UserID = userIDGuest, GroupID = groupIDGuest });
+                new UserGroup { UserID = userIdGuest, GroupID = groupIdGuest });
 
             // -- Category
-            var categoryID = BoardContext.Current.GetRepository<Category>().Insert(
+            var categoryId = BoardContext.Current.GetRepository<Category>().Insert(
                 new Category { BoardID = newBoardId, Name = "Test Category", SortOrder = 1 });
 
             // -- Forum
-            var forumID = BoardContext.Current.GetRepository<Forum>().Insert(
-                new Forum
-                {
-                    CategoryID = categoryID,
-                    Name = "Test Forum",
-                    Description = "A test forum",
-                    SortOrder = 1,
-                    NumTopics = 0,
-                    NumPosts = 0,
-                    Flags = 4
-                });
+            var forum = new Forum
+                            {
+                                CategoryID = categoryId,
+                                Name = "Test Forum",
+                                Description = "A test forum",
+                                SortOrder = 1,
+                                NumTopics = 0,
+                                NumPosts = 0,
+                                Flags = 4
+                            };
+
+            forum.ID = BoardContext.Current.GetRepository<Forum>().Insert(
+                forum);
 
             // -- ForumAccess
             BoardContext.Current.GetRepository<ForumAccess>().Insert(
-                new ForumAccess { GroupID = groupIDAdmin, ForumID = forumID, AccessMaskID = accessMaskIDAdmin });
+                new ForumAccess { GroupID = groupIdAdmin, ForumID = forum.ID, AccessMaskID = accessMaskIdAdmin });
 
             BoardContext.Current.GetRepository<ForumAccess>().Insert(
-                new ForumAccess { GroupID = groupIDGuest, ForumID = forumID, AccessMaskID = accessMaskIDReadOnly });
+                new ForumAccess { GroupID = groupIdGuest, ForumID = forum.ID, AccessMaskID = accessMaskIdReadOnly });
 
             BoardContext.Current.GetRepository<ForumAccess>().Insert(
-                new ForumAccess { GroupID = groupIDMember, ForumID = forumID, AccessMaskID = accessMaskIDMember });
+                new ForumAccess { GroupID = groupIdMember, ForumID = forum.ID, AccessMaskID = accessMaskIdMember });
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserStylesEvent(newBoardId));
 

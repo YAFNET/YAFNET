@@ -90,7 +90,28 @@ namespace YAF.Core.Model
         /// <returns>
         /// The <see cref="Tuple"/>.
         /// </returns>
-        public static Tuple<Topic, Message, User, Forum> GetMessage(
+        public static Message GetMessage(
+            this IRepository<Message> repository,
+            [NotNull] int messageId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            return repository.DbAccess.Execute(db => db.Connection.LoadSingleById<Message>(messageId));
+        }
+
+        /// <summary>
+        /// The get message.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="messageId">
+        /// The message id.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Tuple"/>.
+        /// </returns>
+        public static Tuple<Topic, Message, User, Forum> GetMessageAsTuple(
             this IRepository<Message> repository,
             [NotNull] int messageId)
         {
@@ -386,18 +407,14 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns all the post by a user.
         /// </returns>
-        public static IOrderedEnumerable<Tuple<Message, Topic>> GetAllUserMessages(
+        public static IOrderedEnumerable<Message> GetAllUserMessages(
             this IRepository<Message> repository,
             int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-            expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.UserID == userId);
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, Topic>(expression))
-                .OrderByDescending(m => m.Item1.Posted);
+            return repository.DbAccess.Execute(db => db.Connection.LoadSelect<Message>(m => m.UserID == userId)
+                .OrderByDescending(m => m.Posted));
         }
 
         /// <summary>
@@ -493,9 +510,9 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
+            var message = repository.GetMessage(messageId);
 
-            var flags = message.Item1.MessageFlags;
+            var flags = message.MessageFlags;
 
             flags.IsApproved = true;
 
@@ -507,40 +524,40 @@ namespace YAF.Core.Model
                 // -- update User table to increase post count
                 BoardContext.Current.GetRepository<User>().UpdateAdd(
                     () => new User { NumPosts = 1 },
-                    u => u.ID == message.Item1.UserID);
+                    u => u.ID == message.UserID);
 
-                BoardContext.Current.GetRepository<User>().Promote(message.Item1.UserID);
+                BoardContext.Current.GetRepository<User>().Promote(message.UserID);
             }
 
             // -- update Forum table with last topic/post info
             BoardContext.Current.GetRepository<Forum>().UpdateOnly(
                 () => new Forum
                 {
-                    LastPosted = message.Item1.Posted,
-                    LastTopicID = message.Item1.TopicID,
-                    LastMessageID = message.Item1.ID,
-                    LastUserID = message.Item1.UserID,
-                    LastUserName = message.Item1.UserName,
-                    LastUserDisplayName = message.Item1.UserDisplayName
+                    LastPosted = message.Posted,
+                    LastTopicID = message.TopicID,
+                    LastMessageID = message.ID,
+                    LastUserID = message.UserID,
+                    LastUserName = message.UserName,
+                    LastUserDisplayName = message.UserDisplayName
                 },
-                x => x.ID == message.Item2.ForumID);
+                x => x.ID == message.Topic.ForumID);
 
-            var numPostsCount = repository.Count(m => m.TopicID == message.Item1.TopicID && (m.Flags & 8) != 8)
+            var numPostsCount = repository.Count(m => m.TopicID == message.TopicID && (m.Flags & 8) != 8)
                 .ToType<int>();
 
             // -- update Topic table with info about last post in topic
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
                 () => new Topic
                 {
-                    LastPosted = message.Item1.Posted,
-                    LastMessageID = message.Item1.ID,
-                    LastUserID = message.Item1.UserID,
-                    LastUserName = message.Item1.UserName,
-                    LastUserDisplayName = message.Item1.UserDisplayName,
+                    LastPosted = message.Posted,
+                    LastMessageID = message.ID,
+                    LastUserID = message.UserID,
+                    LastUserName = message.UserName,
+                    LastUserDisplayName = message.UserDisplayName,
                     LastMessageFlags = flags.BitValue,
                     NumPosts = numPostsCount
                 },
-                x => x.ID == message.Item1.TopicID);
+                x => x.ID == message.TopicID);
 
             BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
 
@@ -728,16 +745,12 @@ namespace YAF.Core.Model
         /// The <see cref="List"/>.
         /// </returns>
         [NotNull]
-        public static List<Tuple<Message, User>> Replies(this IRepository<Message> repository, [NotNull] int messageId)
+        public static List<Message> Replies(this IRepository<Message> repository, [NotNull] int messageId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
-
-            expression.Join<User>((message, user) => user.ID == message.UserID).Where<Message>(
-                m => (m.Flags & 16) == 16 && m.ReplyTo == messageId);
-
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Message, User>(expression));
+            return repository.DbAccess.Execute(
+                db => db.Connection.LoadSelect<Message>(m => (m.Flags & 16) == 16 && m.ReplyTo == messageId));
         }
 
         /// <summary>
@@ -915,14 +928,14 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
+        /// <param name="forum">
+        /// The forum.
         /// </param>
-        /// <param name="topicId">
-        /// The topic Id.
+        /// <param name="topic">
+        /// The topic.
         /// </param>
-        /// <param name="userId">
-        /// The user Id.
+        /// <param name="user">
+        /// The user.
         /// </param>
         /// <param name="message">
         /// The message.
@@ -947,10 +960,9 @@ namespace YAF.Core.Model
         /// </returns>
         public static Message SaveNew(
             this IRepository<Message> repository,
-            [NotNull] int forumId,
-            [NotNull] int topicId,
-            [NotNull] string topicName,
-            [NotNull] int userId,
+            [NotNull] Forum forum,
+            [NotNull] Topic topic,
+            [NotNull] User user,
             [NotNull] string message,
             [NotNull] string guestUserName,
             [NotNull] string ipAddress,
@@ -960,10 +972,12 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
+            //var user = BoardContext.Current.GetRepository<PageUser>().GetById(userId);
+
             int position;
 
             var maxPosition = repository.DbAccess.Execute(
-                db => db.Connection.Scalar<Message, int?>(m => Sql.Max(m.Position), m => m.TopicID == topicId));
+                db => db.Connection.Scalar<Message, int?>(m => Sql.Max(m.Position), m => m.TopicID == topic.ID));
 
             if (maxPosition.HasValue)
             {
@@ -981,16 +995,16 @@ namespace YAF.Core.Model
             {
                 BoardContext.Current.GetRepository<User>().UpdateAdd(
                     () => new User { Points = 3 },
-                    u => u.ID == userId);
+                    u => u.ID == user.ID);
             }
 
-            var replaceName = BoardContext.Current.IsGuest ? guestUserName : BoardContext.Current.User.DisplayName;
+            var replaceName = BoardContext.Current.IsGuest ? guestUserName : BoardContext.Current.PageUser.DisplayName;
 
             var newMessage = new Message
             {
-                UserID = userId,
+                UserID = user.ID,
                 MessageText = message,
-                TopicID = topicId,
+                TopicID = topic.ID,
                 Posted = posted,
                 UserName = guestUserName,
                 UserDisplayName = replaceName,
@@ -1015,15 +1029,15 @@ namespace YAF.Core.Model
                 Message = message,
                 Flags = flags.BitValue,
                 Posted = posted.ToString(CultureInfo.InvariantCulture),
-                UserName = BoardContext.Current.MembershipUser.UserName,
-                UserDisplayName = BoardContext.Current.User.DisplayName,
-                UserStyle = BoardContext.Current.User.UserStyle,
-                UserId = BoardContext.Current.PageUserID,
-                TopicId = topicId,
-                Topic = topicName,
-                ForumId = forumId,
+                UserName = user.Name,
+                UserDisplayName = user.DisplayName,
+                UserStyle = user.UserStyle,
+                UserId = user.ID,
+                TopicId = topic.ID,
+                Topic = topic.TopicName,
+                ForumId = forum.ID,
                 TopicTags = string.Empty,
-                ForumName = BoardContext.Current.PageForum.Name,
+                ForumName = forum.Name,
                 Description = string.Empty
             };
 
@@ -1031,8 +1045,8 @@ namespace YAF.Core.Model
 
             if (flags.IsApproved)
             {
-                repository.Approve(newMessageId, forumId);
-                BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forumId));
+                repository.Approve(newMessageId, forum.ID);
+                BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateForumStatsEvent(forum.ID));
             }
 
             repository.FireNew(newMessageId);
@@ -1178,7 +1192,7 @@ namespace YAF.Core.Model
             {
                 BoardContext.Current.GetRepository<Topic>().UpdateOnly(
                     () => new Topic { Priority = priority.Value },
-                    t => t.ID == originalMessage.Item1.ID);
+                    t => t.ID == originalMessage.Item2.ID);
             }
 
             if (subject.IsSet())
@@ -1188,7 +1202,7 @@ namespace YAF.Core.Model
                     {
                         TopicName = subject, Description = description, Status = status, Styles = styles
                     },
-                    t => t.ID == originalMessage.Item1.ID);
+                    t => t.ID == originalMessage.Item2.ID);
             }
 
             // Update Search index Item
@@ -1196,16 +1210,16 @@ namespace YAF.Core.Model
             {
                 MessageId = originalMessage.Item2.ID,
                 Message = message,
-                Flags = originalMessage.Item1.Flags,
-                Posted = originalMessage.Item1.Posted.ToString(CultureInfo.InvariantCulture),
-                UserName = originalMessage.Item4.Name,
+                Flags = originalMessage.Item2.Flags,
+                Posted = originalMessage.Item2.Posted.ToString(CultureInfo.InvariantCulture),
+                UserName = originalMessage.Item3.Name,
                 UserDisplayName = originalMessage.Item3.DisplayName,
                 UserStyle = originalMessage.Item3.UserStyle,
-                UserId = originalMessage.Item4.ID,
+                UserId = originalMessage.Item2.UserID,
                 TopicId = originalMessage.Item2.ID,
                 Topic = originalMessage.Item1.TopicName,
-                ForumId = originalMessage.Item3.ID,
-                ForumName = originalMessage.Item3.Name,
+                ForumId = originalMessage.Item1.ForumID,
+                ForumName = originalMessage.Item4.Name,
                 Description = description
             };
 
@@ -1215,7 +1229,7 @@ namespace YAF.Core.Model
             {
                 // If forum is moderated, make sure last post pointers are correct
                 BoardContext.Current.Get<IRaiseEvent>().Raise(
-                    new UpdateTopicLastPostEvent(originalMessage.Item4.ID, originalMessage.Item1.ID));
+                    new UpdateTopicLastPostEvent(originalMessage.Item2.UserID, originalMessage.Item2.TopicID));
             }
         }
 
@@ -1359,7 +1373,7 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             // -- Find TopicID and ForumID
-            var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
+            var message = repository.GetMessage(messageId);
 
             // -- Update LastMessageID in Topic
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
@@ -1399,38 +1413,38 @@ namespace YAF.Core.Model
                 // -- update message positions inside the topic
                 repository.UpdateAdd(
                     () => new Message { Position = -1 },
-                    x => x.TopicID == message.Item1.TopicID && x.Posted > message.Item1.Posted && x.ID == messageId);
+                    x => x.TopicID == message.TopicID && x.Posted > message.Posted && x.ID == messageId);
 
                 // -- update ReplyTo
                 var replyMessage = repository.GetSingle(
-                    x => x.TopicID == message.Item1.TopicID && x.Position == 0 && x.ID != messageId);
+                    x => x.TopicID == message.TopicID && x.Position == 0 && x.ID != messageId);
 
                 if (replyMessage != null)
                 {
                     repository.UpdateOnly(
                         () => new Message { ReplyTo = replyMessage.ID },
-                        x => x.TopicID == message.Item1.TopicID && x.ID == messageId);
+                        x => x.TopicID == message.TopicID && x.ID == messageId);
 
                     // -- fix Reply To if equal with MessageID
                     repository.UpdateOnly(
                         () => new Message { ReplyTo = null },
-                        x => x.TopicID == message.Item1.TopicID && x.ID == replyMessage.ID);
+                        x => x.TopicID == message.TopicID && x.ID == replyMessage.ID);
                 }
 
                 // -- finally delete the message we want to delete
                 repository.DeleteById(messageId);
 
-                if (repository.Count(x => x.TopicID == message.Item1.TopicID && (x.Flags & 8) != 8) == 0)
+                if (repository.Count(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)
                 {
                     BoardContext.Current.GetRepository<Topic>().Delete(
-                        message.Item2.ForumID,
-                        message.Item1.TopicID,
+                        message.Topic.ForumID,
+                        message.TopicID,
                         true);
                 }
             }
             else
             {
-                var flags = message.Item1.MessageFlags;
+                var flags = message.MessageFlags;
 
                 flags.IsDeleted = isDeleteAction;
 
@@ -1440,25 +1454,25 @@ namespace YAF.Core.Model
                     {
                         IsModeratorChanged = isModeratorChanged, DeleteReason = deleteReason, Flags = flags.BitValue
                     },
-                    x => x.TopicID == message.Item1.TopicID && x.ID == messageId);
+                    x => x.TopicID == message.TopicID && x.ID == messageId);
             }
 
             // -- update user post count
             if (!BoardContext.Current.GetRepository<Forum>()
-                .Exists(f => f.ID == message.Item2.ForumID && (f.Flags & 4) != 4))
+                .Exists(f => f.ID == message.Topic.ForumID && (f.Flags & 4) != 4))
             {
                 var postCount = repository.Count(
-                    x => x.UserID == message.Item1.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
+                    x => x.UserID == message.UserID && (x.Flags & 8) != 8 && (x.Flags & 16) == 16).ToType<int>();
 
                 BoardContext.Current.GetRepository<User>().UpdateOnly(
                     () => new User { NumPosts = postCount },
-                    u => u.ID == message.Item1.UserID);
+                    u => u.ID == message.UserID);
             }
 
             // -- update topic Post Count
             BoardContext.Current.GetRepository<Topic>().UpdateAdd(
                 () => new Topic { NumPosts = -1 },
-                x => x.ID == message.Item1.TopicID);
+                x => x.ID == message.TopicID);
         }
 
         /// <summary>
@@ -1481,7 +1495,7 @@ namespace YAF.Core.Model
             CodeContracts.VerifyNotNull(repository);
 
             // -- Find TopicID and ForumID
-            var message = BoardContext.Current.GetRepository<Topic>().GetTopicWithMessage(messageId);
+            var message = repository.GetMessage(messageId);
 
             int? replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId).ID;
 
@@ -1492,7 +1506,7 @@ namespace YAF.Core.Model
                 position = repository.DbAccess.Execute(
                     db => db.Connection.Scalar<Message, int>(
                         x => Sql.Max(x.Position) + 1,
-                        x => x.TopicID == moveToTopicId && x.Posted < message.Item1.Posted));
+                        x => x.TopicID == moveToTopicId && x.Posted < message.Posted));
             }
             catch (Exception)
             {
@@ -1501,11 +1515,11 @@ namespace YAF.Core.Model
 
             repository.UpdateAdd(
                 () => new Message { Position = 1 },
-                x => x.TopicID == moveToTopicId && x.Posted > message.Item1.Posted);
+                x => x.TopicID == moveToTopicId && x.Posted > message.Posted);
 
             repository.UpdateAdd(
                 () => new Message { Position = -1 },
-                x => x.TopicID == message.Item1.TopicID && x.Posted > message.Item1.Posted);
+                x => x.TopicID == message.TopicID && x.Posted > message.Posted);
 
             // -- Update LastMessageID in Topic & Forum
             BoardContext.Current.GetRepository<Topic>().UpdateOnly(
@@ -1545,15 +1559,15 @@ namespace YAF.Core.Model
                 x => x.ID == messageId);
 
             // -- Delete topic if there are no more messages
-            if (repository.Count(x => x.TopicID == message.Item1.TopicID && (x.Flags & 8) != 8) == 0)
+            if (repository.Count(x => x.TopicID == message.TopicID && (x.Flags & 8) != 8) == 0)
             {
-                BoardContext.Current.GetRepository<Topic>().Delete(message.Item2.ForumID, message.Item1.TopicID, true);
+                BoardContext.Current.GetRepository<Topic>().Delete(message.Topic.ForumID, message.TopicID, true);
             }
 
             // -- update topic Post Count
             BoardContext.Current.GetRepository<Topic>().UpdateAdd(
                 () => new Topic { NumPosts = -1 },
-                x => x.ID == message.Item1.TopicID);
+                x => x.ID == message.TopicID);
 
             BoardContext.Current.GetRepository<Topic>().UpdateAdd(
                 () => new Topic { NumPosts = 1 },

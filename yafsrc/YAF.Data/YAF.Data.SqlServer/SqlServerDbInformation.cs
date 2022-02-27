@@ -296,7 +296,7 @@ namespace YAF.Data.SqlServer
                 dbCommand.Connection.GetTableName<ForumAccess>());
             vaccessSelect.AppendFormat("[{0}].[{1}] y", Config.DatabaseOwner, dbCommand.Connection.GetTableName<AccessMask>());
             vaccessSelect.Append(" where v1.UserID = a.UserID and w2.GroupID = v1.GroupID and x.GroupID = w2.GroupID");
-            vaccessSelect.Append(" and y.AccessMaskID = x.AccessMaskID and(y.Flags & 64) <> 0),");
+            vaccessSelect.Append(" and y.AccessMaskID = x.AccessMaskID and (y.Flags & 64) <> 0),");
 
             vaccessSelect.Append("ReadAccess = max(x.ReadAccess),");
             vaccessSelect.Append("PostAccess = max(x.PostAccess),");

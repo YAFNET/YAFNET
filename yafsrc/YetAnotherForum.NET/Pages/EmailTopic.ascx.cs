@@ -95,7 +95,7 @@ namespace YAF.Pages
                         "t={0}&name={1}",
                         this.PageContext.PageTopicID,
                         this.PageContext.PageTopic.TopicName),
-                    ["{user}"] = this.PageContext.User.DisplayOrUserName()
+                    ["{user}"] = this.PageContext.PageUser.DisplayOrUserName()
                 }
             };
 

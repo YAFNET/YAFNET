@@ -87,7 +87,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("BLOCK_OPTIONS", "TITLE"), string.Empty);
         }
 
@@ -143,9 +143,9 @@ namespace YAF.Pages.Profile
         /// </summary>
         private void BindData()
         {
-            this.BlockPMs.Checked = this.PageContext.User.Block.BlockPMs;
-            this.BlockFriendRequests.Checked = this.PageContext.User.Block.BlockFriendRequests;
-            this.BlockEmails.Checked = this.PageContext.User.Block.BlockEmails;
+            this.BlockPMs.Checked = this.PageContext.PageUser.Block.BlockPMs;
+            this.BlockFriendRequests.Checked = this.PageContext.PageUser.Block.BlockFriendRequests;
+            this.BlockEmails.Checked = this.PageContext.PageUser.Block.BlockEmails;
 
             var ignoreUsers = this.GetRepository<IgnoreUser>().IgnoredUsers(this.PageContext.PageUserID);
 

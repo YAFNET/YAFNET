@@ -245,7 +245,7 @@ namespace YAF.Controls
             }
 
             // Host
-            if (this.PageContext.User.UserFlags.IsHostAdmin)
+            if (this.PageContext.PageUser.UserFlags.IsHostAdmin)
             {
                 this.AdminModHolder.Visible = true;
                 this.HostMenuHolder.Visible = true;

@@ -69,7 +69,7 @@ namespace YAF.Pages
         /// <summary>
         /// The edit or quoted message.
         /// </summary>
-        private Tuple<Topic, Message, User, Forum> quotedMessage;
+        private Message quotedMessage;
 
         /// <summary>
         ///   The forum.
@@ -187,7 +187,7 @@ namespace YAF.Pages
             }
 
             if ((!this.PageContext.IsGuest || !this.PageContext.BoardSettings.EnableCaptchaForGuests)
-                && (!this.PageContext.BoardSettings.EnableCaptchaForPost || this.PageContext.User.UserFlags.IsCaptchaExcluded)
+                && (!this.PageContext.BoardSettings.EnableCaptchaForPost || this.PageContext.PageUser.UserFlags.IsCaptchaExcluded)
                 || CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
                 return true;
@@ -260,11 +260,11 @@ namespace YAF.Pages
                         var quotedMessageText =
                             this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("text"));
 
-                        this.quotedMessage.Item2.MessageText =
+                        this.quotedMessage.MessageText =
                             HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(HtmlHelper.CleanHtmlString(quotedMessageText)));
                     }
 
-                    if (this.quotedMessage.Item2.TopicID != this.PageContext.PageTopicID)
+                    if (this.quotedMessage.TopicID != this.PageContext.PageTopicID)
                     {
                         this.Get<LinkBuilder>().AccessDenied();
                     }
@@ -293,11 +293,11 @@ namespace YAF.Pages
                 {
                     this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
                         ? this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
-                        : this.PageContext.User.AutoWatchTopics;
+                        : this.PageContext.PageUser.AutoWatchTopics;
                 }
 
                 if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
-                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.User.UserFlags.IsCaptchaExcluded)
+                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.PageUser.UserFlags.IsCaptchaExcluded)
                 {
                     this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
                     this.tr_captcha1.Visible = true;
@@ -343,7 +343,7 @@ namespace YAF.Pages
                         }
                         else
                         {
-                            this.InitQuotedReply(this.quotedMessage.Item2);
+                            this.InitQuotedReply(this.quotedMessage);
                         }
                     }
                 }
@@ -351,7 +351,7 @@ namespace YAF.Pages
                 // form user is only for "Guest"
                 if (this.PageContext.IsGuest)
                 {
-                    this.From.Text = this.PageContext.User.DisplayOrUserName();
+                    this.From.Text = this.PageContext.PageUser.DisplayOrUserName();
                     this.FromRow.Visible = false;
                 }
             }
@@ -413,16 +413,17 @@ namespace YAF.Pages
             };
 
             var message = this.GetRepository<Message>().SaveNew(
-                this.PageContext.PageForumID,
-                this.PageContext.PageTopicID,
-                this.PageContext.PageTopic.TopicName,
-                this.PageContext.PageUserID,
+                this.PageContext.PageForum,
+                this.PageContext.PageTopic,
+                this.PageContext.PageUser,
                 HtmlHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.forumEditor.Text)),
                 this.User != null ? null : this.From.Text,
                 this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                 DateTime.UtcNow,
                 replyTo,
                 messageFlags);
+
+            message.Topic = this.PageContext.PageTopic;
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
@@ -460,7 +461,7 @@ namespace YAF.Pages
                 // Check content for spam
                 if (
                     this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.User.DisplayOrUserName(),
+                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUser.DisplayOrUserName(),
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
                             HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
@@ -470,7 +471,7 @@ namespace YAF.Pages
                 {
                     var description =
                         $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
-                           posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.User.DisplayOrUserName())}";
+                           posted by PageUser: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName())}";
 
                     switch (this.PageContext.BoardSettings.SpamPostHandling)
                     {
@@ -500,7 +501,7 @@ namespace YAF.Pages
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                 this.PageContext.PageUserID,
                                 this.PageContext.MembershipUser,
-                                this.PageContext.User.IP);
+                                this.PageContext.PageUser.IP);
 
                             return;
                     }
@@ -531,9 +532,9 @@ namespace YAF.Pages
             // Create notification emails
             if (isApproved)
             {
-                this.Get<ISendNotification>().ToWatchingUsers(newMessage, this.PageContext.PageTopic);
+                this.Get<ISendNotification>().ToWatchingUsers(newMessage);
 
-                if (!this.PageContext.IsGuest && this.PageContext.User.Activity)
+                if (!this.PageContext.IsGuest && this.PageContext.PageUser.Activity)
                 {
                     // Handle Mentions
                     BBCodeHelper.FindMentions(message).ForEach(
@@ -786,7 +787,7 @@ namespace YAF.Pages
         private bool CheckForumModerateStatus(Forum forumInfo, bool isNewTopic)
         {
             // User Moderate override
-            if (this.PageContext.User.UserFlags.Moderated)
+            if (this.PageContext.PageUser.UserFlags.Moderated)
             {
                 return true;
             }
@@ -810,7 +811,7 @@ namespace YAF.Pages
 
             var moderatedPostCount = forumInfo.ModeratedPostCount;
 
-            return !(this.PageContext.User.NumPosts >= moderatedPostCount);
+            return !(this.PageContext.PageUser.NumPosts >= moderatedPostCount);
         }
 
         /// <summary>

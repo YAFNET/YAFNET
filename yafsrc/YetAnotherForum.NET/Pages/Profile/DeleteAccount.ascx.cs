@@ -68,7 +68,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.User.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
 
             this.PageLinks.AddLink(
                 string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.PageContext.BoardSettings.Name),
@@ -82,7 +82,7 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (Config.IsDotNetNuke || this.PageContext.User.UserFlags.IsHostAdmin)
+            if (Config.IsDotNetNuke || this.PageContext.PageUser.UserFlags.IsHostAdmin)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -139,7 +139,7 @@ namespace YAF.Pages.Profile
                         this.Get<ILoggerService>().Log(
                             this.PageContext.PageUserID,
                             this,
-                            $"User {this.PageContext.User.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
+                            $"User {this.PageContext.PageUser.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
                             EventLogTypes.UserSuspended);
 
                         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
@@ -149,7 +149,7 @@ namespace YAF.Pages.Profile
                 case "delete":
                     {
                         // (Soft) Delete User
-                        var yafUser = this.PageContext.User;
+                        var yafUser = this.PageContext.PageUser;
 
                         yafUser.UserFlags.IsDeleted = true;
                         yafUser.UserFlags.IsApproved = false;
@@ -167,9 +167,9 @@ namespace YAF.Pages.Profile
 
                         messages.ForEach(
                             x => this.GetRepository<Message>().Delete(
-                                x.Item2.ForumID,
-                                x.Item2.ID,
-                                x.Item1.ID,
+                                x.Topic.ForumID,
+                                x.TopicID,
+                                x.ID,
                                 true,
                                 string.Empty,
                                 true,
@@ -178,7 +178,7 @@ namespace YAF.Pages.Profile
 
                         this.Get<ILoggerService>().UserDeleted(
                             this.PageContext.PageUserID,
-                            $"User {this.PageContext.User.DisplayOrUserName()} Deleted his own account");
+                            $"User {this.PageContext.PageUser.DisplayOrUserName()} Deleted his own account");
                     }
 
                     break;

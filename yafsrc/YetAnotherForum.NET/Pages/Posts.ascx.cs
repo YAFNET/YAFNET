@@ -324,7 +324,7 @@ namespace YAF.Pages
         {
             if (!this.PageContext.IsGuest)
             {
-                if (this.PageContext.User.Activity)
+                if (this.PageContext.PageUser.Activity)
                 {
                     this.GetRepository<Activity>().UpdateTopicNotification(
                         this.PageContext.PageUserID,
@@ -829,7 +829,7 @@ namespace YAF.Pages
                     findMessageId = unreadFirst.MessageID;
                     messagePosition = unreadFirst.MessagePosition;
 
-                    if (this.PageContext.User.Activity)
+                    if (this.PageContext.PageUser.Activity)
                     {
                         this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
                     }

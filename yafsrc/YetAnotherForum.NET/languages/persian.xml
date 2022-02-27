@@ -1009,9 +1009,7 @@
     <Resource tag="ACTIVE_USERTIME_HELP">تعداد دقایق لازم برای نمایش کاربر در لیست کاربران فعال</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">دسترسی به فید موضوعات فعال:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">محدود کردن نمایش فید موضوعات فعال.</Resource>
-    <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
-    <Resource tag="AKISMET_KEY_HELP">برای استفاده از سرویس اسپم کامنت Akismet شما باید یک API Key ارایه دهید&lt;a href="https://akismet.com/signup/"&gt;از این قسمت اقدام کنید&lt;a&gt;.</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
     <Resource tag="ALBUM_IMAGES_PER_PAGE">Album Images Per Page:</Resource>
@@ -1119,7 +1117,6 @@
     <Resource tag="CHECK_FOR_BOTSPAM">یک سرویس برای بررسی خودکار کاربران روبات انتخاب کنید:</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">فعال کردن / غیرفعال کردن بررسی روبات اسپم توسط &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, یا هر دو.</Resource>
     <Resource tag="CHECK_FOR_SPAM">سرویس اسپم را برای بررسی خودکار اسپم انتخاب کنید</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">فعال/غیرفعال کردن بررسی اتوماتیک اسپم توسط &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; یا Akismet.com. در صورت فعال کردن ارسال های اسپم بصورت خودکار تشخیص داده خواهد شد</Resource>
     <Resource tag="CLEAR_CACHE">پاکسازی حافظه موقت</Resource>
     <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">قالب تصویر کشور</Resource>
@@ -1516,7 +1513,6 @@
     <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
-    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
     <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
@@ -1903,6 +1899,7 @@
     <Resource tag="SEARCH">جستجو</Resource>
     <Resource tag="SUSPENDED_ONLY">فقط نمایش کاربران معلق؟</Resource>
     <Resource tag="SYNC_ALL">همسان سازی عضویت تمام گروه ها</Resource>
+    <Resource tag="SYNC_FINISH">All Users are synchronized now</Resource>
     <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
     <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">کاربران</Resource>
@@ -4521,8 +4518,6 @@
     <Resource tag="CATEGORY">دسته</Resource>
     <Resource tag="FORUM">انجمن</Resource>
     <Resource tag="REPORTED">ارسال های گزارش شده</Resource>
-    <Resource tag="SPAM_REPORTED">پیام با موفقیت به عنوان اسپم به سرویس اسپم Akismet گزارش شد</Resource>
-    <Resource tag="SPAM_REPORTED_FAILED">گزارش اسپم با خطا مواجه شد. لطفا کلید API را بررسی کنید!</Resource>
     <Resource tag="TITLE">نظارت</Resource>
     <Resource tag="UNAPPROVED">ارسال های تایید نشده</Resource>
   </page>
@@ -5355,10 +5350,6 @@
 
       [br][size=5][b]BlogSpam.net[/b][/size][br]
       [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
-
-      [br][size=5][b]Akismet[/b][/size][br]
-      [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
-      [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
 
       [br][size=5][b]StopForumSpam[/b][/size][br]
       [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.

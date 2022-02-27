@@ -110,7 +110,7 @@ namespace YAF.Pages.Profile
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -125,7 +125,7 @@ namespace YAF.Pages.Profile
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var displayName = this.PageContext.User.DisplayOrUserName();
+            var displayName = this.PageContext.PageUser.DisplayOrUserName();
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);

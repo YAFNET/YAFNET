@@ -71,7 +71,7 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="contains">The contains.</param>
         /// <returns>
-        /// Returns the Found User
+        /// Returns the Found PageUser
         /// </returns>
         [NotNull]
         public IList<User> FindUserContainsName([NotNull] string contains)

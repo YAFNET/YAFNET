@@ -11834,7 +11834,8 @@
             _Object$assign));
         }
         return Object.assign({}, commonStyles, (_Object$assign2 = {}, _Object$assign2[sideY] = hasY ? y + "px" : "", 
-        _Object$assign2[sideX] = hasX ? x + "px" : "", _Object$assign2.transform = "", _Object$assign2));
+        _Object$assign2[sideX] = hasX ? x + "px" : "", _Object$assign2.transform = "", 
+        _Object$assign2));
     }
     function computeStyles(_ref4) {
         var state = _ref4.state, options = _ref4.options;

@@ -730,13 +730,13 @@ namespace YAF.Controls
                 }
 
                 // Check if the User matches minimal requirements for voting up
-                if (this.PageContext.User.Points >= this.PageContext.BoardSettings.ReputationMinUpVoting)
+                if (this.PageContext.PageUser.Points >= this.PageContext.BoardSettings.ReputationMinUpVoting)
                 {
                     this.AddReputation.Visible = true;
                 }
 
                 // Check if the User matches minimal requirements for voting down
-                if (this.PageContext.User.Points < this.PageContext.BoardSettings.ReputationMinDownVoting)
+                if (this.PageContext.PageUser.Points < this.PageContext.BoardSettings.ReputationMinDownVoting)
                 {
                     return;
                 }

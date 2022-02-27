@@ -171,19 +171,19 @@ namespace YAF.Core.Context
         public ControlSettings Settings => this.Get<ControlSettings>();
 
         /// <summary>
-        /// Gets or sets the Current Membership User
+        /// Gets or sets the Current Membership PageUser
         /// </summary>
         public AspNetUsers MembershipUser => this.membershipUser ??= this.Get<IAspNetUsersHelper>().GetUser();
 
         /// <summary>
-        ///   Gets the current YAF User.
+        ///   Gets the current YAF PageUser.
         /// </summary>
-        public User User => this.PageData.Item2.Item2;
+        public User PageUser => this.PageData.Item2.Item2;
 
         /// <summary>
         /// Returns if user is Host User or an Admin of one or more forums.
         /// </summary>
-        public bool IsAdmin => this.User.UserFlags.IsHostAdmin || Current.IsForumAdmin;
+        public bool IsAdmin => this.PageUser.UserFlags.IsHostAdmin || Current.IsForumAdmin;
 
         /// <summary>
         /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.

@@ -74,17 +74,17 @@ namespace YAF.Controls
             this.DataBind();
 
             // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-            this.AccountEmail.Text = this.PageContext.User.Email;
-            this.Name.Text = this.HtmlEncode(this.PageContext.User.Name);
-            this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageContext.User.Joined);
-            this.NumPosts.Text = $@"{this.PageContext.User.NumPosts:N0}";
+            this.AccountEmail.Text = this.PageContext.PageUser.Email;
+            this.Name.Text = this.HtmlEncode(this.PageContext.PageUser.Name);
+            this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageContext.PageUser.Joined);
+            this.NumPosts.Text = $@"{this.PageContext.PageUser.NumPosts:N0}";
 
             this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
 
             if (this.PageContext.BoardSettings.EnableDisplayName)
             {
                 this.DisplayName.Text =
-                  this.HtmlEncode(this.PageContext.User.DisplayOrUserName());
+                  this.HtmlEncode(this.PageContext.PageUser.DisplayOrUserName());
             }
 
             var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();

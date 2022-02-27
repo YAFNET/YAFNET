@@ -88,13 +88,10 @@ namespace YAF.Types.Interfaces
         /// <param name="message">
         /// The new message.
         /// </param>
-        /// <param name="topic">
-        /// The topic.
-        /// </param>
         /// <param name="newTopic">
         /// Indicates if Post is New Topic or reply
         /// </param>
-        void ToWatchingUsers(Message message, Topic topic, bool newTopic = false);
+        void ToWatchingUsers(Message message, bool newTopic = false);
 
         /// <summary>
         /// Send an Email to the Newly Created User with

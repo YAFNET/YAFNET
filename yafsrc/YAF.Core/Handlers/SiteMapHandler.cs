@@ -29,6 +29,7 @@ namespace YAF.Core.Handlers
     using System;
     using System.Globalization;
     using System.Web;
+    using System.Web.SessionState;
     using System.Xml.Serialization;
 
     using YAF.Core.Context;
@@ -46,7 +47,7 @@ namespace YAF.Core.Handlers
     /// <summary>
     /// The site map handler.
     /// </summary>
-    public class SiteMapHandler : IHttpHandler, IHaveServiceLocator
+    public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceLocator
     {
         #region Properties
 
@@ -89,9 +90,9 @@ namespace YAF.Core.Handlers
                         LastModified =
                             forum.Item1.LastPosted.HasValue
                                 ? forum.Item1.LastPosted.Value.ToString(
-                                    "yyyy-MM-ddTHH:mm:sszzz",
+                                    "yyyy-MM-ddTHH:mm:ss",
                                     CultureInfo.InvariantCulture)
-                                : DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:sszzz", CultureInfo.InvariantCulture),
+                                : DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
                         ChangeFrequency = UrlLocation.ChangeFrequencies.always
                     }));
 

@@ -80,7 +80,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.User.UserFlags.IsHostAdmin)
+            if (!this.PageContext.PageUser.UserFlags.IsHostAdmin)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }

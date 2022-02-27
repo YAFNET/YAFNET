@@ -324,14 +324,14 @@ namespace YAF.Controls
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.User.LanguageFile.IsSet())
+                if (this.PageContext.PageUser.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.User.LanguageFile;
+                    languageFile = this.PageContext.PageUser.LanguageFile;
                 }
 
-                if (this.PageContext.User.Culture.IsSet())
+                if (this.PageContext.PageUser.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.User.Culture;
+                    culture4Tag = this.PageContext.PageUser.Culture;
                 }
             }
             else

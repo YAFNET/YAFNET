@@ -61,7 +61,7 @@ namespace YAF.Types.Models
 
             this.Posted = row.Posted;
 
-            this.Topic = row.Topic;
+            this.TopicName = row.Topic;
 
             this.Flags = row.Flags;
 
@@ -154,7 +154,10 @@ namespace YAF.Types.Models
         /// Gets or sets the topic.
         /// </summary>
         [Ignore]
-        public string Topic { get; set; }
+        public string TopicName { get; set; }
+
+        [Reference]
+        public Topic Topic { get; set; }
 
         /// <summary>
         /// Gets or sets the topic id.
@@ -181,6 +184,9 @@ namespace YAF.Types.Models
         /// </summary>
         [Required]
         public int Indent { get; set; }
+
+        [Reference]
+        public User User { get; set; }
 
         /// <summary>
         /// Gets or sets the user id.

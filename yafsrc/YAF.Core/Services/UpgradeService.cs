@@ -47,6 +47,7 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Interfaces.Events;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
@@ -192,6 +193,25 @@ namespace YAF.Core.Services
             {
                 this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);
 
+            }
+
+            if (prevVersion is 80 or 81)
+            {
+                var users = this.Get<IAspNetUsersHelper>().GetAllUsers();
+
+                users.ForEach(
+                    user =>
+                        {
+                            var roles = this.Get<IAspNetRolesHelper>().GetRolesForUser(user);
+
+                            var yafUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
+
+                            if (roles.NullOrEmpty())
+                            {
+                                // FIX initial roles (if any) for this user
+                                this.Get<IAspNetRolesHelper>().SetupUserRoles(yafUser.BoardID, user);
+                            }
+                        });
             }
 
             this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);

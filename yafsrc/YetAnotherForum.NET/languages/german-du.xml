@@ -1007,9 +1007,7 @@
     <Resource tag="ACTIVE_USERTIME_HELP">Anzahl der Minuten, in denen die Benutzer in der Aktiven Benutzerliste stehen.</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Aktive Themen Feeds-Zugang:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
-    <Resource tag="AKISMET_KEY">Akismet API Schlüssel:</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
-    <Resource tag="AKISMET_KEY_HELP">Um den Akismet SPAM Service benutzen zu können benötigen Sie einen API Schlüssel  &lt;a href="https://akismet.com/signup/"&gt;Hier anmelden&lt;a&gt;.</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
     <Resource tag="ALBUM_IMAGES_PER_PAGE">Album Images Per Page:</Resource>
@@ -1117,7 +1115,6 @@
     <Resource tag="CHECK_FOR_BOTSPAM">Dienst für das automatische Checken von automatischen Spammern:</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">Aktiviert / deaktiviert die automatisch Bot SPAM Kontrolle über die &lt;a href="http://stopforumspam.com/"&gt; StopForumSpam.com API &lt;/a&gt; , die BotScout.com API, oder beides zusammen. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CHECK_FOR_SPAM">SPAM Dienst für das automatische Checken von Beitragspam:</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Aktiviert / deaktiviert die automatisch SPAM Kontrolle über die &lt;a href="http://blogspam.net/"&gt; BlogSpam.net API &lt;/a&gt; oder den Akismet.com Service. Wenn diese Option aktiviert ist, können SPAM Beiträge abgelehnt werden oder als nicht bestätigt markiert werden.</Resource>
     <Resource tag="CLEAR_CACHE">Cache löschen</Resource>
     <Resource tag="COLLAPSED">Zusammengeklappt</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Land Flagge Vorlage:</Resource>
@@ -1509,7 +1506,6 @@
     <Resource tag="SPAM_MESSAGE_HANDLING">Handhabung von als Spam erkannten Nachrichten</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Wählen Sie, was mit einem Beitrag passiert der als SPAM erkannt wurde. Sie können wählen zwischen nichts tun, Beiträge als nicht genehmigt markieren, oder den Beitrag ablehnen.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
-    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
     <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
@@ -1872,6 +1868,7 @@
     <Resource tag="SEARCH">Suche</Resource>
     <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Alle Membership Benutzer synchronisieren</Resource>
+    <Resource tag="SYNC_FINISH">All Users are synchronized now</Resource>
     <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
     <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Benutzer</Resource>
@@ -4408,8 +4405,6 @@ Spoiler Content
     <Resource tag="CATEGORY">Kategorie</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Beleidigende Beiträge</Resource>
-    <Resource tag="SPAM_REPORTED">Beitrag wurde erfolgreich, dem Akismet SPAM Sevice als SPAM gemeldet.</Resource>
-    <Resource tag="SPAM_REPORTED_FAILED">SPAM Melden ist fehlgeschlagen. Bitte überprüfen Sie Ihren API-Key!</Resource>
     <Resource tag="TITLE">Moderieren</Resource>
     <Resource tag="UNAPPROVED">Nicht bestätigte Beiträge</Resource>
   </page>
@@ -5245,10 +5240,6 @@ Spoiler Content
 
       [br][size=5][b]BlogSpam.net[/b][/size][br]
       [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
-
-      [br][size=5][b]Akismet[/b][/size][br]
-      [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
-      [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
 
       [br][size=5][b]StopForumSpam[/b][/size][br]
       [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.

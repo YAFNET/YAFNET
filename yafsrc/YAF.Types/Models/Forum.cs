@@ -47,6 +47,9 @@ namespace YAF.Types.Models
         [Alias("ForumID")]
         public int ID { get; set; }
 
+        [Reference]
+        public Category Category { get; set; }
+
         /// <summary>
         /// Gets or sets the category id.
         /// </summary>

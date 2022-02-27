@@ -150,12 +150,13 @@ namespace YAF.Pages.Admin
                     this.TopicsNumber.Text.ToType<int>(),
                     this.TopicsMessagesNumber.Text.ToType<int>()));
 
+            var topic = this.GetRepository<Topic>().GetById(this.PostsTopic.SelectedValue.ToType<int>());
+
             sb.AppendFormat(
                 "{0} Messages, ",
                 this.CreatePosts(
                     this.PostsForum.Text.ToType<int>(),
-                    this.PostsTopic.SelectedValue.ToType<int>(),
-                    this.PostsTopic.SelectedItem.Text,
+                    topic,
                     this.PostsNumber.Text.ToType<int>()));
 
             sb.AppendFormat("{0} Private Messages, ", this.CreatePMessages());
@@ -255,8 +256,8 @@ namespace YAF.Pages.Admin
 
             this.ForumsCategory.SelectedIndex = -1;
 
-            this.From.Text = this.PageContext.User.Name;
-            this.To.Text = this.PageContext.User.Name;
+            this.From.Text = this.PageContext.PageUser.Name;
+            this.To.Text = this.PageContext.PageUser.Name;
 
             this.TopicsPriorityList.Items.Add(new ListItem("Normal", "0"));
             this.TopicsPriorityList.Items.Add(new ListItem("Sticky", "1"));
@@ -361,10 +362,10 @@ namespace YAF.Pages.Admin
                     this.PageContext.BoardSettings.ForumEmail,
                     "en-US",
                     "english.xml",
-                    this.PageContext.User.Name,
-                    this.PageContext.User.Email,
-                    this.PageContext.User.ProviderUserKey,
-                    this.PageContext.User.UserFlags.IsHostAdmin,
+                    this.PageContext.PageUser.Name,
+                    this.PageContext.PageUser.Email,
+                    this.PageContext.PageUser.ProviderUserKey,
+                    this.PageContext.PageUser.UserFlags.IsHostAdmin,
                     Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
                 this.CreateUsers(newBoardId, usersNumber);
@@ -664,11 +665,8 @@ namespace YAF.Pages.Admin
         /// <param name="forumId">
         /// The forum id.
         /// </param>
-        /// <param name="topicId">
-        /// The topic id.
-        /// </param>
-        /// <param name="topicName">
-        /// The Topic title
+        /// <param name="topic">
+        /// The topic.
         /// </param>
         /// <param name="numMessages">
         /// The num messages.
@@ -676,8 +674,10 @@ namespace YAF.Pages.Admin
         /// <returns>
         /// The number of created posts.
         /// </returns>
-        private int CreatePosts(int forumId, int topicId, string topicName, int numMessages)
+        private int CreatePosts(int forumId, Topic topic, int numMessages)
         {
+            var forum = this.GetRepository<Forum>().GetById(forumId);
+
             if (numMessages <= 0)
             {
                 return 0;
@@ -688,7 +688,7 @@ namespace YAF.Pages.Admin
                 return 0;
             }
 
-            if (topicId <= 0)
+            if (topic.ID <= 0)
             {
                 return 0;
             }
@@ -702,12 +702,11 @@ namespace YAF.Pages.Admin
                 this.randomGuid = Guid.NewGuid().ToString();
 
                 this.GetRepository<Message>().SaveNew(
-                    forumId,
-                    topicId,
-                    topicName,
-                    this.PageContext.PageUserID,
+                    forum,
+                    topic,
+                    this.PageContext.PageUser,
                     $"msgd-{this.randomGuid}  {this.MyMessage.Text.Trim()}",
-                    this.PageContext.User.Name,
+                    this.PageContext.PageUser.Name,
                     this.Request.GetUserRealIPAddress(),
                     DateTime.UtcNow,
                     ReplyTo,
@@ -734,6 +733,8 @@ namespace YAF.Pages.Admin
         /// </returns>
         private int CreateTopics(int forumId, int numTopics, int messagesToCreate)
         {
+            var forum = this.GetRepository<Forum>().GetById(forumId);
+
             var priority = forumId <= 0 ? this.TopicsPriorityList.SelectedValue.ToType<short>() : (short)0;
 
             if (numTopics <= 0)
@@ -749,21 +750,22 @@ namespace YAF.Pages.Admin
             var topicName = this.TopicPrefixTB.Text.Trim() + this.randomGuid;
 
             int topics;
+
             for (topics = 0; topics < numTopics; topics++)
             {
                 this.randomGuid = Guid.NewGuid().ToString();
 
                 var topic = this.GetRepository<Topic>().SaveNew(
-                    forumId,
+                    forum,
                     topicName,
                     string.Empty,
                     string.Empty,
                     $"{this.TopicPrefixTB.Text.Trim()}{this.randomGuid}descr",
                     $"{this.MessageContentPrefixTB.Text.Trim()}{this.randomGuid}",
-                    this.PageContext.PageUserID,
+                    this.PageContext.PageUser,
                     priority,
-                    this.PageContext.User.Name,
-                    this.PageContext.User.DisplayName,
+                    this.PageContext.PageUser.Name,
+                    this.PageContext.PageUser.DisplayName,
                     this.Request.GetUserRealIPAddress(),
                     DateTime.UtcNow,
                     this.GetMessageFlags(),
@@ -790,7 +792,7 @@ namespace YAF.Pages.Admin
 
                 if (messagesToCreate > 0)
                 {
-                    this.CreatePosts(forumId, topic.ID, topicName, messagesToCreate);
+                    this.CreatePosts(forumId, topic, messagesToCreate);
                 }
             }
 

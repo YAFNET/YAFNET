@@ -1008,9 +1008,7 @@
     <Resource tag="ACTIVE_USERTIME_HELP">Aantal minuten dat de gebruikers in de Actieve Gebruikerslijst worden weergegeven.</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Actieve Topics Feed Toegang:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Beperk weergave van actieve topic feeds.</Resource>
-    <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
-    <Resource tag="AKISMET_KEY_HELP">Om de Akismet SPAM Service te gebruiken heb je een API Key nodig &lt;a href="https://akismet.com/signup/"&gt;Scrijf hier in&lt;a&gt;.</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
     <Resource tag="ALBUM_IMAGES_PER_PAGE">Album Images Per Page:</Resource>
@@ -1118,7 +1116,6 @@
     <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Kies een SPAM Service voor Automatische SPAM Controle:</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Zet automatische SPAM Controle aan/uit via de &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; of Akismet.com. Wanneer actief, worden berichten automatisch geblokkeerd als ze herkend worden als SPAM.</Resource>
     <Resource tag="CLEAR_CACHE">Leeg de Cache</Resource>
     <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Land afbeelding sjabloon:</Resource>
@@ -1511,7 +1508,6 @@
     <Resource tag="SPAM_MESSAGE_HANDLING">Verwerking van als SPAM herkende berichten</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Kies hier wat er moet gebeuren als een bericht als SPAM herkend wordt. Je kunt kiezen tussen 'Niets doen', 'Markeer bericht als niet-goedgekeurd', of blokkeer het bericht.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
-    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
     <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS">Allowed Number of URLs before flagged as SPAM:</Resource>
     <Resource tag="SPAMCHECK_ALLOWED_URLS_HELP">If the user posts in one Message more then the allowed URLs the message is flagged as spam. This Check also depends how many user the posts have.</Resource>
@@ -1882,6 +1878,7 @@
     <Resource tag="SEARCH">Zoeken</Resource>
     <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Synchroniseer alle Membership Gebruikers</Resource>
+    <Resource tag="SYNC_FINISH">All Users are synchronized now</Resource>
     <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
     <Resource tag="SYNC_TITLE">Syncing Users</Resource>
     <Resource tag="TITLE">Gebruikers</Resource>
@@ -4434,8 +4431,6 @@ Spoiler Inhoud
     <Resource tag="CATEGORY">Categorie</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Als kwetsend gerapporteerd</Resource>
-    <Resource tag="SPAM_REPORTED">Bericht was met succes opgegeven als SPAM aan de Akismet SPAM Service</Resource>
-    <Resource tag="SPAM_REPORTED_FAILED">Aangeven als SPAM is niet gelukt. Controleer aub je API-Key!</Resource>
     <Resource tag="TITLE">Moderatie</Resource>
     <Resource tag="UNAPPROVED">Niet-goedgekeurde berichten</Resource>
   </page>
@@ -5286,10 +5281,6 @@ Spoiler Inhoud
 
       [br][size=5][b]BlogSpam.net[/b][/size][br]
       [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
-
-      [br][size=5][b]Akismet[/b][/size][br]
-      [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
-      [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
 
       [br][size=5][b]StopForumSpam[/b][/size][br]
       [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.

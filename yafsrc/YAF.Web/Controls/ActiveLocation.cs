@@ -233,7 +233,7 @@ namespace YAF.Web.Controls
                         // We shouldn't show moderators activity to all users but admins
                         outText.Append(this.GetText("ACTIVELOCATION", "MODERATE"));
                     }
-                    else if (!BoardContext.Current.User.UserFlags.IsHostAdmin &&
+                    else if (!BoardContext.Current.PageUser.UserFlags.IsHostAdmin &&
                              this.ForumPage.ToUpper().Contains("ADMIN_"))
                     {
                         // We shouldn't show admin activity to all users

@@ -450,10 +450,6 @@ legend + * {
   padding: 0;
 }
 
-::-webkit-file-upload-button {
-  font: inherit;
-}
-
 ::file-selector-button {
   font: inherit;
 }
@@ -2506,25 +2502,6 @@ progress {
   background-color: transparent;
   opacity: 1;
 }
-.form-control::-webkit-file-upload-button {
-  padding: 1rem 0;
-  margin: -1rem 0;
-  -webkit-margin-end: 0;
-          margin-inline-end: 0;
-  color: #666;
-  background-color: transparent;
-  background-image: var(--bs-gradient);
-  pointer-events: none;
-  border-color: inherit;
-  border-style: solid;
-  border-width: 0;
-  border-inline-end-width: 0;
-  border-radius: 0;
-  -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
-}
 .form-control::file-selector-button {
   padding: 1rem 0;
   margin: -1rem 0;
@@ -2545,17 +2522,10 @@ progress {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-control::-webkit-file-upload-button {
-    -webkit-transition: none;
-    transition: none;
-  }
   .form-control::file-selector-button {
     -webkit-transition: none;
     transition: none;
   }
-}
-.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
-  background-color: rgba(0, 0, 0, 0.05);
 }
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
   background-color: rgba(0, 0, 0, 0.05);
@@ -2611,12 +2581,6 @@ progress {
   font-size: 0.875rem;
   border-radius: 0;
 }
-.form-control-sm::-webkit-file-upload-button {
-  padding: 0 0;
-  margin: 0 0;
-  -webkit-margin-end: 0;
-          margin-inline-end: 0;
-}
 .form-control-sm::file-selector-button {
   padding: 0 0;
   margin: 0 0;
@@ -2635,12 +2599,6 @@ progress {
   padding: 1.25rem 0;
   font-size: 1.25rem;
   border-radius: 0;
-}
-.form-control-lg::-webkit-file-upload-button {
-  padding: 1.25rem 0;
-  margin: -1.25rem 0;
-  -webkit-margin-end: 0;
-          margin-inline-end: 0;
 }
 .form-control-lg::file-selector-button {
   padding: 1.25rem 0;
@@ -8744,6 +8702,7 @@ textarea.form-control-lg {
 .user-select-all {
   -webkit-user-select: all !important;
      -moz-user-select: all !important;
+      -ms-user-select: all !important;
           user-select: all !important;
 }
 

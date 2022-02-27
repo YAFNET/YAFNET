@@ -116,22 +116,22 @@
             <div class="card-title h5">
                 <footer class="blockquote-footer">
                     <YAF:UserLink ID="ProfileLink" runat="server" 
-                                  Suspended="<%# ((Tuple<Message, User>)Container.DataItem).Item2.Suspended %>"
-                                  Style="<%# ((Tuple<Message, User>)Container.DataItem).Item2.UserStyle %>"
-                                  UserID="<%# ((Tuple<Message, User>)Container.DataItem).Item1.UserID %>"
-                                  ReplaceName="<%# ((Tuple<Message, User>)Container.DataItem).Item2.DisplayOrUserName() %>"
+                                  Suspended="<%# ((Message)Container.DataItem).User.Suspended %>"
+                                  Style="<%# ((Message)Container.DataItem).User.UserStyle %>"
+                                  UserID="<%# ((Message)Container.DataItem).UserID %>"
+                                  ReplaceName="<%# ((Message)Container.DataItem).User.DisplayOrUserName() %>"
                                   BlankTarget="true" />
                     <small class="text-muted">
                         <YAF:Icon runat="server" 
                                   IconName="calendar-day"
                                   IconNameBadge="clock"></YAF:Icon>
-                        <%# this.Get<IDateTimeService>().FormatDateTime(((Tuple<Message, User>)Container.DataItem).Item1.Posted)%>
+                        <%# this.Get<IDateTimeService>().FormatDateTime(((Message)Container.DataItem).Posted)%>
                     </small>
                 </footer>
             </div>
             <div class="card-text">
                 <YAF:MessagePostData ID="MessagePost1" runat="server" 
-                                     CurrentMessage="<%# ((Tuple<Message, User>)Container.DataItem).Item1 %>"
+                                     CurrentMessage="<%# ((Message)Container.DataItem) %>"
                                      ShowAttachments="false" 
                                      ShowSignature="false">
                 </YAF:MessagePostData>

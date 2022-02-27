@@ -242,7 +242,7 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var displayName = this.PageContext.User.DisplayOrUserName();
+            var displayName = this.PageContext.PageUser.DisplayOrUserName();
 
             // Add the page links.
             this.PageLinks.AddRoot();

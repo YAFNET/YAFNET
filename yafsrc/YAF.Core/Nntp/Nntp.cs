@@ -34,7 +34,6 @@ namespace YAF.Core.Nntp
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects.Nntp;
@@ -138,7 +137,7 @@ namespace YAF.Core.Nntp
                 return 0;
             }
 
-            var guestUserId = BoardContext.Current.GuestUserID; // Use guests user-id
+            var guestUser = BoardContext.Current.GetRepository<User>().GetGuestUser(boardId); // Use guests user-id
 
             var dateTimeStart = DateTime.UtcNow;
             var articleCount = 0;
@@ -193,10 +192,8 @@ namespace YAF.Core.Nntp
 
                         // update the group lastMessage info...
                         BoardContext.Current.GetRepository<NntpForum>().Update(
-                            nntpForum.Item1.ForumID,
                             nntpForum.Item1.ID,
-                            currentMessage,
-                            guestUserId);
+                            currentMessage);
                     }
 
                     for (; currentMessage <= group.High; currentMessage++)
@@ -251,14 +248,11 @@ namespace YAF.Core.Nntp
 
                             var externalMessageId = article.MessageId;
 
-                            var referenceId = article.Header.ReferenceIds.LastOrDefault();
-
                             if (createUsers)
                             {
-                                guestUserId = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
+                                guestUser = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
                                     boardId,
-                                    fromName,
-                                    string.Empty);
+                                    fromName);
                             }
 
                             var body = ReplaceBody(article.Body.Text.Trim());
@@ -267,12 +261,11 @@ namespace YAF.Core.Nntp
                                 nntpForum.Item1,
                                 subject.Truncate(75),
                                 body,
-                                guestUserId,
+                                guestUser,
                                 fromName.Truncate(100, string.Empty),
                                 "NNTP",
                                 dateTime,
-                                externalMessageId.Truncate(255, string.Empty),
-                                referenceId.Truncate(255, string.Empty));
+                                externalMessageId.Truncate(255, string.Empty));
 
                             lastMessageNo = currentMessage;
 
@@ -292,10 +285,8 @@ namespace YAF.Core.Nntp
 
                             count = 0;
                             BoardContext.Current.GetRepository<NntpForum>().Update(
-                                nntpForum.Item1.ForumID,
                                 nntpForum.Item1.ID,
-                                lastMessageNo,
-                                guestUserId);
+                                lastMessageNo);
                         }
                         catch (NntpException exception)
                         {
@@ -316,10 +307,8 @@ namespace YAF.Core.Nntp
                     }
 
                     BoardContext.Current.GetRepository<NntpForum>().Update(
-                        nntpForum.Item1.ForumID,
                         nntpForum.Item1.ID,
-                        lastMessageNo,
-                        guestUserId);
+                        lastMessageNo);
 
                     // Total time x seconds for all groups
                     if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)

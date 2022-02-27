@@ -93,7 +93,7 @@ namespace YAF.Core.Model
 
             expression.OrderByDescending<Attachment>(item => item.ID).Page(pageIndex + 1, pageSize);
 
-            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User,Attachment>(expression));
+            return repository.DbAccess.Execute(db => db.Connection.SelectMulti<User, Attachment>(expression));
         }
 
         /// <summary>

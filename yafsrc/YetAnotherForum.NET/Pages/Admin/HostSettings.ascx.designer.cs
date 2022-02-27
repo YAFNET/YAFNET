@@ -807,33 +807,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.DropDownList SpamMessageHandling;
 
         /// <summary>
-        /// HelpLabel186-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel186;
-
-        /// <summary>
-        /// AkismetApiKey-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox AkismetApiKey;
-
-        /// <summary>
-        /// GetRemovalKey-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton GetRemovalKey;
-
-        /// <summary>
         /// HelpLabel239-Steuerelement.
         /// </summary>
         /// <remarks>

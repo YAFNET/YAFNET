@@ -25,7 +25,6 @@ namespace YAF.Web.Controls
 {
     #region Using
 
-    using System;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
@@ -141,12 +140,12 @@ namespace YAF.Web.Controls
 
             string associatedControlID;
 
-            try
+            if (this.AssociatedControlID.IsSet())
             {
                 var control = this.FindControl(this.AssociatedControlID);
                 associatedControlID = control.ClientID;
             }
-            catch (Exception)
+            else
             {
                 associatedControlID = string.Empty;
             }
@@ -155,7 +154,7 @@ namespace YAF.Web.Controls
 
             label.Attributes.Add(HtmlTextWriterAttribute.For.ToString(), associatedControlID);
 
-            label.Controls.Add(new Literal { Text = $"{text}" });
+            label.Controls.Add(new Literal { Text = text });
 
             // Append Suffix
             if (this.Suffix.IsSet())

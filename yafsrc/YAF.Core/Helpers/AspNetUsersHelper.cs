@@ -226,7 +226,7 @@ namespace YAF.Core.Helpers
                     if (this.Get<BoardSettings>().LogUserDeleted)
                     {
                         this.Get<ILoggerService>().UserDeleted(
-                            BoardContext.Current.User.ID,
+                            BoardContext.Current.PageUser.ID,
                             $"User {user.UserName} was deleted by user id {BoardContext.Current.PageUserID} as unapproved.");
                     }
                 });
@@ -305,8 +305,8 @@ namespace YAF.Core.Helpers
             if (this.Get<BoardSettings>().LogUserDeleted)
             {
                 this.Get<ILoggerService>().UserDeleted(
-                    BoardContext.Current.User.ID,
-                    $"User {user.DisplayOrUserName()} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.User.DisplayOrUserName())}.");
+                    BoardContext.Current.PageUser.ID,
+                    $"User {user.DisplayOrUserName()} was deleted by {(isBotAutoDelete ? "the automatic spam check system" : BoardContext.Current.PageUser.DisplayOrUserName())}.");
             }
 
             return true;
@@ -346,9 +346,9 @@ namespace YAF.Core.Helpers
 
             messages.ForEach(
                 x => this.GetRepository<Message>().Delete(
-                    x.Item2.ForumID,
-                    x.Item2.ID,
-                    x.Item1.ID,
+                    x.Topic.ForumID,
+                    x.TopicID,
+                    x.ID,
                     true,
                     string.Empty,
                     true,
@@ -360,7 +360,7 @@ namespace YAF.Core.Helpers
             if (this.Get<BoardSettings>().LogUserDeleted)
             {
                 this.Get<ILoggerService>().UserDeleted(
-                    BoardContext.Current.User.ID,
+                    BoardContext.Current.PageUser.ID,
                     $"User {user.UserName} was deleted by the automatic spam check system.");
             }
 
@@ -479,12 +479,15 @@ namespace YAF.Core.Helpers
         /// Get the User from the ProviderUserKey
         /// </summary>
         /// <param name="providerUserKey">The provider user key.</param>
+        /// <param name="currentBoard">
+        /// Get user from Current board, or all boards
+        /// </param>
         /// <returns>
         /// The get user from provider user key.
         /// </returns>
-        public User GetUserFromProviderUserKey(object providerUserKey)
+        public User GetUserFromProviderUserKey(string providerUserKey, bool currentBoard = true)
         {
-            return this.GetRepository<User>().GetUserByProviderKey(BoardContext.Current.PageBoardID, providerUserKey.ToString());
+            return this.GetRepository<User>().GetUserByProviderKey(currentBoard ? BoardContext.Current.PageBoardID : null, providerUserKey.ToString());
         }
 
         /// <summary>

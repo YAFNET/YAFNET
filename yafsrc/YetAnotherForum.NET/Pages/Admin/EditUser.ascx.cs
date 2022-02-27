@@ -119,7 +119,7 @@ namespace YAF.Pages.Admin
             this.KillEdit1.User = this.EditBoardUser;
 
             // do admin permission check...
-            if (!this.PageContext.User.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
+            if (!this.PageContext.PageUser.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
             {
                 // user is not host admin and is attempted to edit host admin account...
                 this.Get<LinkBuilder>().AccessDenied();

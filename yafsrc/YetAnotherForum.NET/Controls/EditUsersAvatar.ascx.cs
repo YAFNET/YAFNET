@@ -287,7 +287,7 @@ namespace YAF.Controls
         {
             var user = this.PageContext.CurrentForumPage.IsAdminPage
                 ? this.GetRepository<User>().GetById(this.currentUserId)
-                : this.PageContext.User;
+                : this.PageContext.PageUser;
 
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;

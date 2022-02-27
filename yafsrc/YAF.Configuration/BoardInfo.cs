@@ -68,7 +68,7 @@ namespace YAF.Configuration
         /// <summary>
         /// Gets the Current YAF Build Date
         /// </summary>
-        public static DateTime AppVersionDate => new(2022, 01,26, 09, 24, 00);
+        public static DateTime AppVersionDate => new(2022, 02,26, 09, 50, 00);
 
         /// <summary>
         /// Creates a string that is the YAF Application Version from a long value
@@ -81,10 +81,10 @@ namespace YAF.Configuration
             var version = new YafVersion
             {
                 Major = 3,
-                Minor = 0,
-                Build = 3,
-                ReleaseType = ReleaseType.BETA,
-                ReleaseNumber = 0
+                Minor = 1,
+                Build = 0,
+                ReleaseType = ReleaseType.RC,
+                ReleaseNumber = 1
             };
 
             var versionString = new StringBuilder();

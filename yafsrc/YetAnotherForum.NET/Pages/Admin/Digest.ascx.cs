@@ -129,7 +129,7 @@ namespace YAF.Pages.Admin
                 {
                     // create and send a test digest to the email provided...
                     var digestHtml = this.Get<IDigest>().GetDigestHtml(
-                        this.PageContext.User,
+                        this.PageContext.PageUser,
                         this.PageContext.BoardSettings,
                         true);
 

@@ -29,7 +29,7 @@ namespace YAF.Types.Interfaces
     public interface ISpamCheck
     {
         /// <summary>
-        /// Check a Post for SPAM against the BlogSpam.NET API or AKISMET Service
+        /// Check a Post for SPAM against the internal Spam Words
         /// </summary>
         /// <param name="userName">Name of the user.</param>
         /// <param name="ipAddress">The IP address.</param>

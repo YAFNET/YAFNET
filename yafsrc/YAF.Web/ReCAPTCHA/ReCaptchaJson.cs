@@ -27,7 +27,7 @@ namespace YAF.Web.ReCAPTCHA
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// The Google User
+    /// The recaptcha json.
     /// </summary>
     [DataContract]
     public class RecaptchaJson

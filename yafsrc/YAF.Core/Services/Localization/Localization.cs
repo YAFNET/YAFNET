@@ -314,7 +314,7 @@ namespace YAF.Core.Services.Localization
 #if !DEBUG
                 string filename;
 
-                if (BoardContext.Current.PageIsNull() || BoardContext.Current.User.LanguageFile.IsNotSet()
+                if (BoardContext.Current.PageIsNull() || BoardContext.Current.PageUser.LanguageFile.IsNotSet()
                     || !BoardContext.Current.BoardSettings.AllowUserLanguage)
                 {
                     filename = BoardContext.Current.IsGuest
@@ -325,7 +325,7 @@ namespace YAF.Core.Services.Localization
                 {
                     filename = BoardContext.Current.IsGuest
                                    ? UserHelper.GetGuestUserLanguageFile()
-                                   : BoardContext.Current.User.LanguageFile;
+                                   : BoardContext.Current.PageUser.LanguageFile;
 
                 }
 
@@ -408,7 +408,7 @@ namespace YAF.Core.Services.Localization
                 }
                 else
                 {
-                    if (BoardContext.Current.PageIsNull() || BoardContext.Current.User.LanguageFile.IsNotSet()
+                    if (BoardContext.Current.PageIsNull() || BoardContext.Current.PageUser.LanguageFile.IsNotSet()
                         || !BoardContext.Current.BoardSettings.AllowUserLanguage)
                     {
                         filename = BoardContext.Current.IsGuest
@@ -419,7 +419,7 @@ namespace YAF.Core.Services.Localization
                     {
                         filename = BoardContext.Current.IsGuest
                                        ? UserHelper.GetGuestUserLanguageFile()
-                                       : BoardContext.Current.User.LanguageFile;
+                                       : BoardContext.Current.PageUser.LanguageFile;
                     }
                 }
 
@@ -585,7 +585,7 @@ namespace YAF.Core.Services.Localization
 
             string filename;
 
-            if (BoardContext.Current.PageIsNull() || BoardContext.Current.User.LanguageFile.IsNotSet()
+            if (BoardContext.Current.PageIsNull() || BoardContext.Current.PageUser.LanguageFile.IsNotSet()
                 || !BoardContext.Current.BoardSettings.AllowUserLanguage)
             {
                 filename = BoardContext.Current.IsGuest
@@ -596,7 +596,7 @@ namespace YAF.Core.Services.Localization
             {
                 filename = BoardContext.Current.IsGuest
                                ? UserHelper.GetGuestUserLanguageFile()
-                               : BoardContext.Current.User.LanguageFile;
+                               : BoardContext.Current.PageUser.LanguageFile;
             }
 
             filename ??= "english.xml";

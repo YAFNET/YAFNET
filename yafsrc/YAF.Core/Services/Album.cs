@@ -241,7 +241,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILoggerService>().Log(
-                    BoardContext.Current.User.ID,
+                    BoardContext.Current.PageUser.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -343,7 +343,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILoggerService>().Log(
-                    BoardContext.Current.User.ID,
+                    BoardContext.Current.PageUser.ID,
                     this,
                     x,
                     EventLogTypes.Information);
@@ -413,7 +413,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILoggerService>().Log(
-                    BoardContext.Current.User.ID,
+                    BoardContext.Current.PageUser.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);
@@ -519,7 +519,7 @@ namespace YAF.Core.Services
             catch (Exception x)
             {
                 this.Get<ILoggerService>().Log(
-                    BoardContext.Current.User.ID,
+                    BoardContext.Current.PageUser.ID,
                     this,
                     $"URL: {context.Request.Url}<br />Referer URL: {(context.Request.UrlReferrer != null ? context.Request.UrlReferrer.AbsoluteUri : string.Empty)}<br />Exception: {x}",
                     EventLogTypes.Information);

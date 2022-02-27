@@ -81,7 +81,7 @@ namespace YAF.Core.Modules
 
             // register filters -- even if they require BoardContext, they MUST BE REGISTERED UNDER GENERAL SCOPE
             // Do the BoardContext check inside the constructor and throw an exception if it's required.
-            //builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
+            // builder.RegisterType<StyleFilter>().As<IDbDataFilter>();
         }
 
         /// <summary>

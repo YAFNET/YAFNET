@@ -31,7 +31,6 @@ namespace YAF.Configuration
     using System.Linq;
     using System.Web;
     using System.Web.Configuration;
-    using System.Web.Security;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -210,7 +209,7 @@ namespace YAF.Configuration
         {
             get
             {
-                if (HttpContext.Current == null)
+                if (HttpContext.Current is null)
                 {
                     return AppDomain.CurrentDomain.GetAssemblies().Any(a => a.FullName.Contains("DotNetNuke"));
                 }
@@ -229,7 +228,7 @@ namespace YAF.Configuration
         {
             get
             {
-                if (HttpContext.Current == null)
+                if (HttpContext.Current is null)
                 {
                     return false;
                 }

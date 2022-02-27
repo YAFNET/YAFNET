@@ -168,7 +168,7 @@ namespace YAF.Pages
                 this.Title.Text = this.GetText("title_exception");
 
                 // exception message
-                this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.PageContext.User.DisplayOrUserName()}</strong>.";
+                this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.PageContext.PageUser.DisplayOrUserName()}</strong>.";
 
                 // redirect to forum main after 2 seconds
                 this.RefreshTime = 2;

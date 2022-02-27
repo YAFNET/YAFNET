@@ -260,14 +260,14 @@ namespace YAF.Pages.Admin
             try
             {
                 this.PageSize.SelectedValue =
-                    this.PageSizeUnverified.SelectedValue = this.PageContext.User.PageSize.ToString();
+                    this.PageSizeUnverified.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
                 this.PageSize.SelectedValue = this.PageSizeUnverified.SelectedValue = "5";
             }
 
-            this.BoardStatsSelect.Visible = this.PageContext.User.UserFlags.IsHostAdmin;
+            this.BoardStatsSelect.Visible = this.PageContext.PageUser.UserFlags.IsHostAdmin;
 
             // bind data
             this.BindBoardsList();
@@ -390,7 +390,7 @@ namespace YAF.Pages.Admin
         private void BindBoardsList()
         {
             // only if user is host admin, otherwise boards' list is hidden
-            if (!this.PageContext.User.UserFlags.IsHostAdmin)
+            if (!this.PageContext.PageUser.UserFlags.IsHostAdmin)
             {
                 return;
             }
@@ -488,7 +488,7 @@ namespace YAF.Pages.Admin
         private int GetSelectedBoardId()
         {
             // check dropdown only if user is host admin
-            return !this.PageContext.User.UserFlags.IsHostAdmin
+            return !this.PageContext.PageUser.UserFlags.IsHostAdmin
                 ? this.PageContext.PageBoardID
                 : this.BoardStatsSelect.SelectedValue.ToType<int>();
         }

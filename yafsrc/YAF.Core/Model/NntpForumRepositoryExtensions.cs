@@ -51,24 +51,16 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="forumId">
-        /// The forum Id.
-        /// </param>
         /// <param name="nntpForumId">
-        /// The nntp forum id.
+        /// The NNTP forum id.
         /// </param>
         /// <param name="lastMessageNo">
         /// The last message no.
         /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
         public static void Update(
             this IRepository<NntpForum> repository,
-            [NotNull] int forumId,
             [NotNull] int nntpForumId,
-            [NotNull] int lastMessageNo,
-            [NotNull] int userId)
+            [NotNull] int lastMessageNo)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -123,15 +115,15 @@ namespace YAF.Core.Model
         /// The repository.
         /// </param>
         /// <param name="nntpForumId">
-        /// The nntp forum id.
+        /// The NNTP forum id.
         /// </param>
         /// <param name="nntpServerId">
-        /// The nntp server id.
+        /// The NNTP server id.
         /// </param>
         /// <param name="groupName">
         /// The group name.
         /// </param>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum id.
         /// </param>
         /// <param name="active">
@@ -145,7 +137,7 @@ namespace YAF.Core.Model
             [NotNull] int? nntpForumId,
             [NotNull] int nntpServerId,
             [NotNull] string groupName,
-            [NotNull] int forumID,
+            [NotNull] int forumId,
             [NotNull] bool active,
             [NotNull] DateTime? dateCutOff)
         {
@@ -156,7 +148,7 @@ namespace YAF.Core.Model
                               {
                                   NntpServerID = nntpServerId,
                                   GroupName = groupName,
-                                  ForumID = forumID,
+                                  ForumID = forumId,
                                   Active = active,
                                   DateCutOff = dateCutOff
                               },
@@ -168,7 +160,7 @@ namespace YAF.Core.Model
                                  {
                                      NntpServerID = nntpServerId,
                                      GroupName = groupName,
-                                     ForumID = forumID,
+                                     ForumID = forumId,
                                      Active = active,
                                      DateCutOff = dateCutOff,
                                      LastUpdate = DateTime.UtcNow,

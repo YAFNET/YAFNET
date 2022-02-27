@@ -75,8 +75,8 @@ namespace YAF.Web.Editors
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
-            var language = BoardContext.Current.User.Culture.IsSet()
-                ? BoardContext.Current.User.Culture.Substring(0, 2)
+            var language = BoardContext.Current.PageUser.Culture.IsSet()
+                ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
                 : this.PageContext.BoardSettings.Culture.Substring(0, 2);
 
             if (ValidationHelper.IsNumeric(language))

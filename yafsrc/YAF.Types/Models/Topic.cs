@@ -46,6 +46,9 @@ namespace YAF.Types.Models
         [Alias("TopicID")]
         public int ID { get; set; }
 
+        [Reference]
+        public Forum Forum { get; set; }
+
         /// <summary>
         /// Gets or sets the forum id.
         /// </summary>

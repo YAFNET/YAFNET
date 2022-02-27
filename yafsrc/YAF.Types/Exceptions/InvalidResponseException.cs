@@ -17,7 +17,7 @@
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.* 
 */
 
-namespace YAF.Core.Services.CheckForSpam
+namespace YAF.Types.Exceptions
 {
     #region Using
 
@@ -40,38 +40,6 @@ namespace YAF.Core.Services.CheckForSpam
     public sealed class InvalidResponseException : Exception
     {
         #region Constructors and Destructors
-
-        /// <summary>
-        ///   Initializes a new instance of the <see cref = "InvalidResponseException" /> class.
-        /// </summary>
-        public InvalidResponseException()
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidResponseException"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        public InvalidResponseException([NotNull] string message)
-            : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="InvalidResponseException"/> class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="innerException">
-        /// The inner exception.
-        /// </param>
-        public InvalidResponseException([NotNull] string message, [NotNull] Exception innerException)
-            : base(message, innerException)
-        {
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InvalidResponseException"/> class.

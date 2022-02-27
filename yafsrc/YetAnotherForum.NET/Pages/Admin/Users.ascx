@@ -315,7 +315,7 @@
                                          TextLocalizedPage="ADMIN_USERS">
                         </YAF:ThemeButton>
                         <YAF:ThemeButton id="SyncUsers" runat="server"
-                                         CssClass="mt-1 me-1"
+                                         CssClass="mt-1 me-1 btn-spinner"
                                          OnClick="SyncUsersClick"
                                          Type="Secondary"
                                          Icon="sync"
@@ -361,27 +361,5 @@
     </div>
 </div>
     </asp:PlaceHolder>
-
-
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
-    <ContentTemplate>
-        <asp:Timer ID="UpdateStatusTimer" runat="server" Enabled="false" Interval="4000"
-            OnTick="UpdateStatusTimerTick" />
-    </ContentTemplate>
-</asp:UpdatePanel>
-
-<div class="modal fade" id="SyncUsersMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="SYNC_TITLE" LocalizedPage="ADMIN_USERS" />
-            </div>
-            <div class="modal-body text-center">
-                <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" LocalizedTag="SYNC_MSG" LocalizedPage="ADMIN_USERS" />
-                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <modal:Import ID="ImportDialog" runat="server" />

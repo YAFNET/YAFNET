@@ -90,8 +90,8 @@ namespace YAF.Modules
                 this.GetRepository<User>().Suspend(this.PageContext.PageUserID);
 
                 this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
-                    this.PageContext.User.Email,
-                    this.PageContext.User.DisplayOrUserName());
+                    this.PageContext.PageUser.Email,
+                    this.PageContext.PageUser.DisplayOrUserName());
 
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
             }

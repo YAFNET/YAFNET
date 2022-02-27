@@ -186,7 +186,7 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
-                    var currentMessage = this.GetRepository<Message>().GetMessage(this.messageID);
+                    var currentMessage = this.GetRepository<Message>().GetMessageAsTuple(this.messageID);
 
                     var edited = e.CommandArgument.ToType<DateTime>();
 
@@ -203,7 +203,7 @@ namespace YAF.Pages
                             null,
                             null,
                             messageToRestore.EditReason,
-                            this.PageContext.PageUserID != currentMessage.Item1.UserID,
+                            this.PageContext.PageUserID != currentMessage.Item2.UserID,
                             this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                             currentMessage,
                             this.PageContext.PageUserID);

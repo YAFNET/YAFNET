@@ -83,7 +83,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.DisplayOrUserName()}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.PageUser.DisplayOrUserName()}");
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
 
@@ -93,7 +93,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.User.DisplayOrUserName()}");
+                $"u={this.PageContext.PageUserID}&name={this.PageContext.PageUser.DisplayOrUserName()}");
 
             if (!Config.IsDotNetNuke)
             {
@@ -261,7 +261,7 @@ namespace YAF.Web.Controls
                     "lock");
             }
 
-            if (!Config.IsDotNetNuke && !this.PageContext.User.UserFlags.IsHostAdmin)
+            if (!Config.IsDotNetNuke && !this.PageContext.PageUser.UserFlags.IsHostAdmin)
             {
                 // Render Delete Account Item
                 this.RenderMenuItem(

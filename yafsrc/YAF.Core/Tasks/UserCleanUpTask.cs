@@ -72,9 +72,6 @@ namespace YAF.Core.Tasks
 
                         // un-suspend these users...
                         users.ForEach(user => this.GetRepository<User>().Suspend(user.ID));
-
-                        // sleep for a second...
-                        // Thread.Sleep(1000);
                     });
             }
             catch (Exception x)

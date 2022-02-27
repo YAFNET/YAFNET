@@ -51,16 +51,16 @@ namespace YAF.Core.Model
         /// The repository.
         /// </param>
         /// <param name="nntpForum">
-        /// The nntp Forum.
+        /// The NNTP Forum.
         /// </param>
-        /// <param name="topic">
-        /// The topic.
+        /// <param name="topicName">
+        /// The topic name.
         /// </param>
         /// <param name="body">
         /// The body.
         /// </param>
-        /// <param name="userId">
-        /// The user id.
+        /// <param name="user">
+        /// The user
         /// </param>
         /// <param name="userName">
         /// The user name.
@@ -71,65 +71,63 @@ namespace YAF.Core.Model
         /// <param name="posted">
         /// The posted.
         /// </param>
-        /// <param name="externalMessageId">
-        /// The external message id.
-        /// </param>
         /// <param name="referenceMessageId">
         /// The reference message id.
         /// </param>
         public static void SaveMessage(
             this IRepository<NntpTopic> repository,
             [NotNull] NntpForum nntpForum,
-            [NotNull] string topic,
+            [NotNull] string topicName,
             [NotNull] string body,
-            [NotNull] int userId,
+            [NotNull] User user,
             [NotNull] string userName,
             [NotNull] string ip,
             [NotNull] DateTime posted,
-            [NotNull] string externalMessageId,
             [NotNull] string referenceMessageId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            int? topicId;
             int? replyTo = null;
 
             var externalMessage = BoardContext.Current.GetRepository<Message>()
                 .GetSingle(m => m.ExternalMessageId == referenceMessageId);
 
+            var forum = BoardContext.Current.GetRepository<Forum>().GetById(nntpForum.ForumID);
+
+            Topic topic;
+
             if (externalMessage != null)
             {
                 // -- referenced message exists
-                topicId = externalMessage.TopicID;
                 replyTo = externalMessage.ID;
+                topic = BoardContext.Current.GetRepository<Topic>().GetById(externalMessage.TopicID);
             }
             else
             {
                 // --thread doesn't exists
-                var newTopic = new Topic
+                topic = new Topic
                 {
                     ForumID = nntpForum.ForumID,
-                    UserID = userId,
+                    UserID = user.ID,
                     UserName = userName,
                     UserDisplayName = userName,
                     Posted = posted,
-                    TopicName = topic,
+                    TopicName = topicName,
                     Views = 0,
                     Priority = 0,
                     NumPosts = 0
                 };
 
-                topicId = BoardContext.Current.GetRepository<Topic>().Insert(newTopic);
+                topic.ID = BoardContext.Current.GetRepository<Topic>().Insert(topic);
 
                 repository.Insert(
-                    new NntpTopic { NntpForumID = nntpForum.ID, Thread = string.Empty, TopicID = topicId.Value });
+                    new NntpTopic { NntpForumID = nntpForum.ID, Thread = string.Empty, TopicID = topic.ID });
             }
 
             BoardContext.Current.GetRepository<Message>().SaveNew(
-                nntpForum.ForumID,
-                topicId.Value,
+                forum,
                 topic,
-                userId,
+                user,
                 body,
                 userName,
                 ip,

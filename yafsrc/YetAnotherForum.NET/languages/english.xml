@@ -930,8 +930,6 @@
     <Resource tag="ACTIVE_USERTIME_HELP">Number of minutes to display users in Active Users list.</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
     <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
-    <Resource tag="AKISMET_KEY">Akismet API Key:</Resource>
-    <Resource tag="AKISMET_KEY_HELP">To Use the Akismet comment SPAM Service you need an API Key</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
@@ -1023,7 +1021,6 @@
     <Resource tag="CHECK_FOR_BOTSPAM">Choose a Service for Automatically User Bot Checking:</Resource>
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
-    <Resource tag="CHECK_FOR_SPAM_HELP">Enables/disables automatically SPAM Checking via the &lt;a href="http://blogspam.net/"&gt;BlogSpam.net API&lt;/a&gt; or Akismet.com. If enabled SPAM Post gets rejected if detected.</Resource>
     <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
     <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
@@ -1432,7 +1429,6 @@
     <Resource tag="SPAM_MESSAGE_HANDLING">Handling of as SPAM Detected Messages</Resource>
     <Resource tag="SPAM_MESSAGE_HANDLING_HELP">Choose what to do when a Message was detected a SPAM, You can choose between Do Nothing, Flag Message as Unapproved, or reject the Message.</Resource>
     <Resource tag="SPAM_SERVICE_TYP_1">BlogSpam.NET API</Resource>
-    <Resource tag="SPAM_SERVICE_TYP_2">Akismet API (Needs Registration)</Resource>
     <Resource tag="SPAM_SERVICE_TYP_3">Internal Spam Check Words</Resource>
     <Resource tag="SQL_FULLTEXT">Use SQL Full Text Search:</Resource>
     <Resource tag="SQL_FULLTEXT_HELP">Toggle use of FULLTEXT SQL Server support on searches.</Resource>
@@ -1821,8 +1817,7 @@
     <Resource tag="SEARCH">Search</Resource>
     <Resource tag="SUSPENDED_ONLY">Show only suspended users?</Resource>
     <Resource tag="SYNC_ALL">Sync All Membership Users</Resource>
-    <Resource tag="SYNC_MSG">Please do not navigate away from this page while the sync is in progress...</Resource>
-    <Resource tag="SYNC_TITLE">Syncing Users</Resource>
+    <Resource tag="SYNC_FINISH">All Users are synchronized now</Resource>
     <Resource tag="TITLE">Users</Resource>
     <Resource tag="TWITTER_USER">Twitter User</Resource>
     <Resource tag="USER_NAME">User Name</Resource>
@@ -4289,8 +4284,6 @@
     <Resource tag="CATEGORY">Category</Resource>
     <Resource tag="FORUM">Forum</Resource>
     <Resource tag="REPORTED">Reported Posts</Resource>
-    <Resource tag="SPAM_REPORTED">Message was successfully reported as SPAM to the Akismet SPAM Service</Resource>
-    <Resource tag="SPAM_REPORTED_FAILED">SPAM Reporting has been failed. Please Check your API Key!</Resource>
     <Resource tag="TITLE">Moderate</Resource>
     <Resource tag="UNAPPROVED">Unapproved Posts</Resource>
   </page>
@@ -5084,10 +5077,6 @@
 
     [br][size=5][b]BlogSpam.net[/b][/size][br]
     [br]This Service if enabled sends the user name and message to the service to determine if the message is spam.
-
-    [br][size=5][b]Akismet[/b][/size][br]
-    [br]This Service, if enabled sends the user name and message to the service to determine if the message is spam.
-    [br][url=https://automattic.com/privacy/]Privacy Policy[/url].
 
     [br][size=5][b]StopForumSpam[/b][/size][br]
     [br]This Service, if enabled passes the user name, email address and IP address of the registering member to the service to determine the likelihood a registering account is a spam source.

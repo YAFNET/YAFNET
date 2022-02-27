@@ -85,7 +85,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.User.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -174,7 +174,7 @@ namespace YAF.Pages.Admin
                                 .Log(
                                     this.PageContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
-                                    $"IP or mask {ipAddress} was deleted by {this.PageContext.User.DisplayOrUserName()}.",
+                                    $"IP or mask {ipAddress} was deleted by {this.PageContext.PageUser.DisplayOrUserName()}.",
                                     EventLogTypes.IpBanLifted);
                         }
                     }

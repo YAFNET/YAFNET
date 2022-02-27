@@ -58,7 +58,7 @@ namespace YAF.Controls
         /// <summary>
         ///   The _all posts by user.
         /// </summary>
-        private IOrderedEnumerable<Tuple<Message, Topic>> allPostsByUser;
+        private IOrderedEnumerable<Message> allPostsByUser;
 
         #endregion
 
@@ -73,7 +73,7 @@ namespace YAF.Controls
         /// <summary>
         ///   Gets AllPostsByUser.
         /// </summary>
-        public IOrderedEnumerable<Tuple<Message, Topic>> AllPostsByUser =>
+        public IOrderedEnumerable<Message> AllPostsByUser =>
             this.allPostsByUser ??= this.GetRepository<Message>().GetAllUserMessages(this.User.Item1.ID);
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace YAF.Controls
         {
             get
             {
-                var list = this.AllPostsByUser.Select(m => m.Item1.IP).OrderBy(x => x).Distinct().ToList();
+                var list = this.AllPostsByUser.Select(m => m.IP).OrderBy(x => x).Distinct().ToList();
 
                 if (list.Count.Equals(0))
                 {
@@ -108,7 +108,7 @@ namespace YAF.Controls
         #region Methods
 
         /// <summary>
-        /// Kills the User
+        /// Kills the PageUser
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
@@ -120,7 +120,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     this.User.Item1.Email,
-                    $"Email was reported by: {this.PageContext.User.DisplayOrUserName()}");
+                    $"Email was reported by: {this.PageContext.PageUser.DisplayOrUserName()}");
             }
 
             // Ban User IP?
@@ -135,7 +135,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     this.User.Item1.Name,
-                    $"Name was reported by: {this.PageContext.User.DisplayOrUserName()}");
+                    $"Name was reported by: {this.PageContext.PageUser.DisplayOrUserName()}");
             }
 
             this.DeleteAllUserMessages();
@@ -154,7 +154,7 @@ namespace YAF.Controls
                         this.Logger.Log(
                             this.PageContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{this.User.Item1.Name}/ID:{this.User.Item1.ID}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageContext.User.DisplayOrUserName()}",
+                            $"User (Name:{this.User.Item1.Name}/ID:{this.User.Item1.ID}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageContext.PageUser.DisplayOrUserName()}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
@@ -342,9 +342,9 @@ namespace YAF.Controls
 
             messages.ForEach(
                 x => this.GetRepository<Message>().Delete(
-                    x.Item2.ForumID,
-                    x.Item2.ID,
-                    x.Item1.ID,
+                    x.Topic.ForumID,
+                    x.Topic.ID,
+                    x.ID,
                     true,
                     string.Empty,
                     true,

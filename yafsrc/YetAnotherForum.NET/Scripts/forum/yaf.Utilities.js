@@ -18,9 +18,18 @@ $(document).on("click",
     function (e) {
         if ($(this).prop("tagName").toLowerCase() === "a") {
             e.preventDefault();
-            var link = $(this).attr("href");
-            var text = $(this).data("title");
-            var title = $(this).html();
+            var button = $(this);
+
+            var link = button.attr("href");
+            var text = button.data("title");
+            var title = button.html();
+            
+
+            // Add spinner
+            $(this).html(
+                "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."
+            );
+
             var blockUI = $(this).data("confirm-event");
             bootbox.confirm({
                     centerVertical: true,
@@ -43,6 +52,9 @@ $(document).on("click",
                             if (typeof blockUI !== "undefined") {
                                 window[blockUI]();
                             }
+                        }
+                        else {
+                            button.html(title);
                         }
                     }
                 }

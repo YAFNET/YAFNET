@@ -785,13 +785,13 @@ namespace YAF.Core.Model
         /// <returns>
         /// Returns the User Id
         /// </returns>
-        public static User GetUserByProviderKey(this IRepository<User> repository, [NotNull] int boardId, [NotNull] string providerUserKey)
+        public static User GetUserByProviderKey(this IRepository<User> repository, [CanBeNull] int? boardId, [NotNull] string providerUserKey)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var user = repository.GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == providerUserKey);
-
-            return user;
+            return boardId == null
+                       ? repository.GetSingle(u => u.ProviderUserKey == providerUserKey)
+                       : repository.GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == providerUserKey);
         }
 
         /// <summary>
@@ -1119,17 +1119,13 @@ namespace YAF.Core.Model
         /// <param name="userName">
         /// The user name.
         /// </param>
-        /// <param name="email">
-        /// The email.
-        /// </param>
         /// <returns>
-        /// Returns the User ID of the updated user.
+        /// Returns the User the updated user.
         /// </returns>
-        public static int UpdateNntpUser(
+        public static User UpdateNntpUser(
             this IRepository<User> repository,
             [NotNull] int boardId,
-            [NotNull] string userName,
-            [CanBeNull] string email)
+            [NotNull] string userName)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -1137,7 +1133,7 @@ namespace YAF.Core.Model
 
             repository.UpdateDisplayName(user, $"{userName} (NNTP)");
 
-            return user.ID;
+            return user;
         }
 
         /// <summary>
@@ -1450,7 +1446,7 @@ namespace YAF.Core.Model
         public static void Suspend(
             this IRepository<User> repository,
             [NotNull] int userId,
-            [NotNull] DateTime? suspend = null,
+            [CanBeNull] DateTime? suspend = null,
             [CanBeNull] string suspendReason = null,
             [NotNull] int suspendBy = 0)
         {
