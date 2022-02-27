@@ -265,7 +265,7 @@ namespace YAF.Lucene.Net.Util
                         // Handle intermediate merges.
                         if (merges.Count == maxTempFiles)
                         {
-                            var intermediate = new FileInfo(Path.GetTempFileName());
+                            var intermediate = new FileInfo(Path.Combine(Path.GetTempPath(), Path.GetRandomFileName()));
                             try
                             {
                                 MergePartitions(merges, intermediate);
