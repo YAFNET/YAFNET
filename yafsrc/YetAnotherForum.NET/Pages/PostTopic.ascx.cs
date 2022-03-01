@@ -361,15 +361,7 @@ namespace YAF.Pages
             }
 
             // Check if Forum is Moderated
-            var isForumModerated = false;
-
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
-
-            if (forumInfo != null)
-            {
-                isForumModerated = this.CheckForumModerateStatus(forumInfo, true);
-            }
+            var isForumModerated = this.CheckForumModerateStatus(this.PageContext.PageForum, true);
 
             // If Forum is Moderated
             if (isForumModerated)

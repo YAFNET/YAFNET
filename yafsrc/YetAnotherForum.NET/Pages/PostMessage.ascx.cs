@@ -379,15 +379,7 @@ namespace YAF.Pages
             }
 
             // Check if Forum is Moderated
-            var isForumModerated = false;
-
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageContext.PageBoardID, this.PageContext.PageForumID).FirstOrDefault();
-
-            if (forumInfo != null)
-            {
-                isForumModerated = this.CheckForumModerateStatus(forumInfo, false);
-            }
+            var isForumModerated = this.CheckForumModerateStatus(this.PageContext.PageForum, false);
 
             // If Forum is Moderated
             if (isForumModerated)
@@ -514,7 +506,7 @@ namespace YAF.Pages
             // Reply to topic
             var newMessage = this.PostReplyHandleReplyToTopic(this.spamApproved);
 
-            var isApproved = this.spamApproved;
+            var isApproved = newMessage.MessageFlags.IsApproved;
 
             // vzrus the poll access controls are enabled and this is a new topic - we add the variables
             var attachPollParameter = string.Empty;
