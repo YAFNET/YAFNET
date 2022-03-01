@@ -76,7 +76,6 @@
 
         var searchTopic = {};
         searchTopic.ForumId = searchForum;
-        searchTopic.UserId = $("#SearchResultsPlaceholder").data("userid");
         searchTopic.PageSize = pageSize;
         searchTopic.Page = pageNumber;
         searchTopic.SearchTerm = searchText;

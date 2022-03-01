@@ -50,8 +50,7 @@
                             autocomplete="off" />
                     </div>
                     <div id="SearchResultsPlaceholder"
-                        data-url="<%=BoardInfo.ForumClientFileRoot %>"
-                        data-userid="<%= this.PageContext.PageUserID %>">
+                        data-url="<%=BoardInfo.ForumClientFileRoot %>">
                     </div>
                 </asp:PlaceHolder>
                 <asp:PlaceHolder ID="DescriptionRow" Visible="false" runat="server">

@@ -60,7 +60,6 @@ namespace YAF.Core.Controllers
         public IHttpActionResult GetSimilarTitles(SearchTopic searchTopic)
         {
             var results = this.Get<ISearch>().SearchSimilar(
-                searchTopic.UserId,
                 string.Empty,
                 searchTopic.SearchTerm,
                 "Topic");
@@ -99,7 +98,6 @@ namespace YAF.Core.Controllers
             var results = this.Get<ISearch>().SearchPaged(
                 out var totalHits,
                 searchTopic.ForumId,
-                searchTopic.UserId,
                 searchTopic.SearchTerm,
                 searchTopic.Page,
                 searchTopic.PageSize);

@@ -33,6 +33,7 @@ namespace YAF.Core.Services
     using System.Web;
 
     using YAF.Configuration;
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Lucene.Net.Analysis;
@@ -392,25 +393,21 @@ namespace YAF.Core.Services
         /// Searches the specified user identifier.
         /// </summary>
         /// <param name="forumId">The forum identifier.</param>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="input">The input.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <returns>
         /// Returns the search results
         /// </returns>
-        public List<SearchMessage> DoSearch(int forumId, int userId, string input, string fieldName = "")
+        public List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "")
         {
             return input.IsNotSet()
                 ? new List<SearchMessage>()
-                : this.SearchIndex(out _, forumId, userId, input, fieldName);
+                : this.SearchIndex(out _, forumId, input, fieldName);
         }
 
         /// <summary>
         /// Searches for similar words
         /// </summary>
-        /// <param name="userId">
-        /// The user identifier.
-        /// </param>
         /// <param name="filter">
         /// The filter.
         /// </param>
@@ -423,11 +420,11 @@ namespace YAF.Core.Services
         /// <returns>
         /// Returns the list of search results.
         /// </returns>
-        public List<SearchMessage> SearchSimilar(int userId, string filter, string input, string fieldName = "")
+        public List<SearchMessage> SearchSimilar(string filter, string input, string fieldName = "")
         {
             return input.IsNotSet()
                 ? new List<SearchMessage>()
-                : this.SearchSimilarIndex(userId, filter, input, fieldName);
+                : this.SearchSimilarIndex(filter, input, fieldName);
         }
 
         /// <summary>
@@ -435,7 +432,6 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="totalHits">The total hits.</param>
         /// <param name="forumId">The forum identifier.</param>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="input">The input.</param>
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="pageSize">Size of the page.</param>
@@ -446,7 +442,6 @@ namespace YAF.Core.Services
         public List<SearchMessage> SearchPaged(
             out int totalHits,
             int forumId,
-            int userId,
             string input,
             int pageIndex,
             int pageSize,
@@ -456,7 +451,7 @@ namespace YAF.Core.Services
             {
                 try
                 {
-                    return this.SearchIndex(out totalHits, forumId, userId, input, fieldName, pageIndex, pageSize);
+                    return this.SearchIndex(out totalHits, forumId, input, fieldName, pageIndex, pageSize);
                 }
                 catch (Exception exception)
                 {
@@ -473,17 +468,16 @@ namespace YAF.Core.Services
         /// Searches the default.
         /// </summary>
         /// <param name="forumId">The forum identifier.</param>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="input">The input.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <returns>
         /// Returns the search results
         /// </returns>
-        public List<SearchMessage> SearchDefault(int forumId, int userId, string input, string fieldName = "")
+        public List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "")
         {
             return input.IsNotSet()
                 ? new List<SearchMessage>()
-                : this.SearchIndex(out _, forumId, userId, input, fieldName);
+                : this.SearchIndex(out _, forumId, input, fieldName);
         }
 
         /// <summary>
@@ -819,7 +813,6 @@ namespace YAF.Core.Services
         /// </summary>
         /// <param name="totalHits">The total hits.</param>
         /// <param name="forumId">The forum identifier.</param>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="searchQuery">The search query.</param>
         /// <param name="searchField">The search field.</param>
         /// <param name="pageIndex">Index of the page.</param>
@@ -830,7 +823,6 @@ namespace YAF.Core.Services
         private List<SearchMessage> SearchIndex(
             out int totalHits,
             int forumId,
-            int userId,
             string searchQuery,
             string searchField = "",
             int pageIndex = 1,
@@ -843,7 +835,7 @@ namespace YAF.Core.Services
             }
 
             // Insert forum access here
-            var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == userId);
+            var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == BoardContext.Current.PageUserID);
 
             // filter forum
             if (forumId > 0)
@@ -957,9 +949,6 @@ namespace YAF.Core.Services
         /// <summary>
         /// Searches for similar words
         /// </summary>
-        /// <param name="userId">
-        /// The user identifier.
-        /// </param>
         /// <param name="filter">
         /// The filter.
         /// </param>
@@ -973,7 +962,6 @@ namespace YAF.Core.Services
         /// Returns the Search results
         /// </returns>
         private List<SearchMessage> SearchSimilarIndex(
-            int userId,
             string filter,
             string searchQuery,
             string searchField)
@@ -984,7 +972,7 @@ namespace YAF.Core.Services
             }
 
             // Insert forum access here
-            var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == userId);
+            var userAccessList = this.GetRepository<vaccess>().Get(v => v.UserID == BoardContext.Current.PageUserID);
 
             var searcher = this.GetSearcher();
 

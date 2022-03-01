@@ -31926,7 +31926,6 @@ function getSearchResultsData(pageNumber) {
         }
         var searchTopic = {};
         searchTopic.ForumId = searchForum;
-        searchTopic.UserId = $("#SearchResultsPlaceholder").data("userid");
         searchTopic.PageSize = pageSize;
         searchTopic.Page = pageNumber;
         searchTopic.SearchTerm = searchText;
@@ -32024,7 +32023,6 @@ jQuery(document).ready(function() {
             if (searchText.length && searchText.length >= 4) {
                 var searchTopic = {};
                 searchTopic.ForumId = 0;
-                searchTopic.UserId = searchPlaceHolder.data("userid");
                 searchTopic.PageSize = 0;
                 searchTopic.Page = 0;
                 searchTopic.SearchTerm = searchText;

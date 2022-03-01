@@ -67,7 +67,6 @@ namespace YAF.Controls
             try
             {
                 var topicsList = this.Get<ISearch>().SearchSimilar(
-                    this.PageContext.PageUserID,
                     this.PageContext.PageTopicID.ToString(),
                     this.PageContext.PageTopic.TopicName,
                     "Topic").Take(5).ToList();

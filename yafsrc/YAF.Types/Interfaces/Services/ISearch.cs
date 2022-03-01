@@ -108,20 +108,16 @@ namespace YAF.Types.Interfaces.Services
         /// Searches the specified user identifier.
         /// </summary>
         /// <param name="forumId">The forum identifier.</param>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="input">The input.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <returns>
         /// Returns the search results
         /// </returns>
-        List<SearchMessage> DoSearch(int forumId, int userId, string input, string fieldName = "");
+        List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "");
 
         /// <summary>
         /// Searches for similar words
         /// </summary>
-        /// <param name="userId">
-        /// The user identifier.
-        /// </param>
         /// <param name="filter">
         /// The filter.
         /// </param>
@@ -134,14 +130,13 @@ namespace YAF.Types.Interfaces.Services
         /// <returns>
         /// Returns the list of search results.
         /// </returns>
-        List<SearchMessage> SearchSimilar(int userId, string filter, string input, string fieldName = "");
+        List<SearchMessage> SearchSimilar(string filter, string input, string fieldName = "");
 
         /// <summary>
         /// Searches the paged.
         /// </summary>
         /// <param name="totalHits">The total hits.</param>
         /// <param name="forumId">The forum identifier.</param>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="input">The input.</param>
         /// <param name="pageIndex">Index of the page.</param>
         /// <param name="pageSize">Size of the page.</param>
@@ -149,19 +144,18 @@ namespace YAF.Types.Interfaces.Services
         /// <returns>
         /// Returns the search results
         /// </returns>
-        List<SearchMessage> SearchPaged(out int totalHits, int forumId, int userId, string input, int pageIndex, int pageSize, string fieldName = "");
+        List<SearchMessage> SearchPaged(out int totalHits, int forumId, string input, int pageIndex, int pageSize, string fieldName = "");
 
         /// <summary>
         /// Searches the default.
         /// </summary>
         /// <param name="forumId">The forum identifier.</param>
-        /// <param name="userId">The user identifier.</param>
         /// <param name="input">The input.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <returns>
         /// Returns the search results
         /// </returns>
-        List<SearchMessage> SearchDefault(int forumId, int userId, string input, string fieldName = "");
+        List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "");
 
         #endregion
     }

@@ -173,7 +173,7 @@ namespace YAF.Pages
             this.Get<ISession>().UnreadTopics = 0;
 
             this.RssFeed.AdditionalParameters =
-                $"f={this.PageContext.PageForumID}&name={this.PageContext.PageForum.Name}";
+                $"f={this.PageContext.PageForumID}&name={UrlRewriteHelper.CleanStringForURL(this.PageContext.PageForum.Name)}";
 
             this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;

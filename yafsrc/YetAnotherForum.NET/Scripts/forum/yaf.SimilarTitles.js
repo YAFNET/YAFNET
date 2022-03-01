@@ -12,7 +12,6 @@ jQuery(document).ready(function () {
 
                 var searchTopic = {};
                 searchTopic.ForumId = 0;
-                searchTopic.UserId = searchPlaceHolder.data("userid");
                 searchTopic.PageSize = 0;
                 searchTopic.Page = 0;
                 searchTopic.SearchTerm = searchText;

@@ -35,11 +35,6 @@ namespace YAF.Types.Objects
         public int ForumId { get; set; }
 
         /// <summary>
-        /// Gets or sets the user id.
-        /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
         /// Gets or sets the page size.
         /// </summary>
         public int PageSize { get; set; }
