@@ -33,6 +33,7 @@ namespace YAF.Core.Context
     using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
@@ -113,21 +114,16 @@ namespace YAF.Core.Context
             var tries = 0;
             Tuple<PageLoad, User, Category, Forum, Topic> pageRow;
 
-            var forumPage = string.Empty;
             var location = this.Get<HttpRequestBase>().QueryString.ToString();
 
-            // resources are not handled by ActiveLocation control so far.
-            if (!this.Get<HttpRequestBase>().Path.Contains("resource.ashx"))
+            if (location.Length > 250)
             {
-                try
-                {
-                    forumPage = BoardContext.Current.CurrentForumPage.PageType.ToString();
-                }
-                catch (Exception)
-                {
-                    forumPage = string.Empty;
-                }
+                location = location.Truncate(250);
             }
+
+            var forumPage = BoardContext.Current.CurrentForumPage != null
+                                ? BoardContext.Current.CurrentForumPage.PageType.ToString()
+                                : string.Empty;
 
             do
             {
@@ -173,7 +169,7 @@ namespace YAF.Core.Context
             while (pageRow is null && userKey != null);
 
             // add all loaded page data into our data dictionary...
-            @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest PageUser!");
+            @event.PageLoadData = pageRow ?? throw new ApplicationException("Unable to find the Guest User!");
 
             // update Query Data
             @event.PageQueryData.CategoryID = pageRow.Item3?.ID ?? 0;
