@@ -40,6 +40,7 @@ namespace YAF.Core.Services
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -285,7 +286,14 @@ namespace YAF.Core.Services
                     return;
                 }
 
-                var abbreviation = user.DisplayOrUserName().GetAbbreviation();
+                var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
+
+                if (name.StartsWith("&"))
+                {
+                    name = name.Replace("&", string.Empty);
+                }
+
+                var abbreviation = name.GetAbbreviation();
 
                 var width = this.Get<BoardSettings>().AvatarWidth;
                 var height = this.Get<BoardSettings>().AvatarHeight;
