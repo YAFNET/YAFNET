@@ -35,7 +35,6 @@ namespace YAF.Core.Context
     using YAF.Core.Context.Start;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Services.Startup;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.EventProxies;
@@ -128,14 +127,6 @@ namespace YAF.Core.Context
         /// </param>
         protected virtual void Application_End([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // make sure the BoardContext is disposed of...
-            BoardContext.Current.Dispose();
-
-            if (!this.Get<StartupInitializeDb>().Initialized)
-            {
-                return;
-            }
-
             if (BoardContext.Current.BoardSettings.AbandonSessionsForDontTrack
                 && (BoardContext.Current.Vars.AsBoolean("DontTrack") ?? false)
                 && this.Get<HttpSessionStateBase>().IsNewSession)
@@ -143,6 +134,9 @@ namespace YAF.Core.Context
                 // remove session
                 this.Get<HttpSessionStateBase>().Abandon();
             }
+
+            // make sure the BoardContext is disposed of...
+            BoardContext.Current.Dispose();
         }
 
         /// <summary>
