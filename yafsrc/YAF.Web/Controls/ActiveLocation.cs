@@ -192,7 +192,7 @@ namespace YAF.Web.Controls
             }
 
             var forumPageName = this.ForumPage.ToEnum<ForumPages>();
-            string forumPageAttributes = this.Location;
+            var forumPageAttributes = this.Location;
             var outText = new StringBuilder();
 
             writer.BeginRender();
@@ -273,15 +273,9 @@ namespace YAF.Web.Controls
         /// </returns>
         private static int? GetUserIdFromQueryString(string queryString)
         {
-            var userID = queryString.Substring(queryString.IndexOf("u=", StringComparison.Ordinal) + 2);
-
-            userID = userID.Contains("&")
-                ? userID.Substring(0, userID.IndexOf("&", StringComparison.Ordinal)).Trim()
-                : userID.Substring(0).Trim();
-
-            if (ValidationHelper.IsValidInt(userID))
+            if (ValidationHelper.IsValidInt(queryString))
             {
-                return userID.ToType<int>();
+                return queryString.ToType<int>();
             }
 
             return null;

@@ -114,11 +114,11 @@ namespace YAF.Core.Context
             var tries = 0;
             Tuple<PageLoad, User, Category, Forum, Topic> pageRow;
 
-            var location = this.Get<HttpRequestBase>().QueryString.ToString();
+            var location = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u");
 
-            if (location.Length > 250)
+            if (location.IsNotSet())
             {
-                location = location.Truncate(250);
+                location = string.Empty;
             }
 
             var forumPage = BoardContext.Current.CurrentForumPage != null
