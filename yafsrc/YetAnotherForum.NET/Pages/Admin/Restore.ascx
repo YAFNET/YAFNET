@@ -41,7 +41,7 @@
                         <div class="px-3 py-1">
                             <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel2" runat="server"
-                                               AssociatedControlID="SearchInput"
+                                               AssociatedControlID="Filter"
                                                LocalizedTag="FILTER" LocalizedPage="ADMIN_RESTORE" />
                                 <asp:TextBox runat="server" ID="Filter"
                                              CssClass="form-control"></asp:TextBox>

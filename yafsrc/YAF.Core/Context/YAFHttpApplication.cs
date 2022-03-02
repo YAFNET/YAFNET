@@ -105,7 +105,8 @@ namespace YAF.Core.Context
             else
             {
                 // ignore illegal path errors or 
-                if (!exception.Message.Contains("A potentially dangerous Request") && !exception.Message.Contains("does not exist"))
+                if (exception.TargetSite.Name != "CheckSuspiciousPhysicalPath"
+                    && exception.TargetSite.Name != "CheckVirtualFileExists")
                 {
                     this.Get<ILoggerService>().Log(
                         exception.Message,

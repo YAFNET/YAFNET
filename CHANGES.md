@@ -1,6 +1,15 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.0
+* [NEW] Auto Upgrader
+* [NEW] New Topics or Replies of Wach Forum/Topic appear in Notifications
+* Upgraded to FontAwesome 6.0.0
+* Attachments are now displayed in Search Results
+* [FIXED] Border on Topic Tags Input
+* [FIXED] Upgrading from old Versions (older then DB Version 30)
+* [BREAKING] switched upload/download access from forum access masks to group access
+
 # YetAnotherForum.NET v3.0.2
 * [FIXED #658] Re-Added CTRL+Enter to submit post
 * [FIXED #656] The UTC time represented when the offset is applied must be between year 0 and 10,000
