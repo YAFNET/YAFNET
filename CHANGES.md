@@ -1,6 +1,11 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.1
+* [FIXED] Wrong Role Name after new Install
+* [FIXED] saving topic tags
+
+
 # YetAnotherForum.NET v3.1.0
 * [NEW] Auto Upgrader
 * [NEW] New Topics or Replies of Wach Forum/Topic appear in Notifications
