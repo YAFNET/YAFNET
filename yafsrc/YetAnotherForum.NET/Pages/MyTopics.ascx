@@ -36,18 +36,6 @@
 
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                             <div class="px-3 py-1">
-                                <asp:PlaceHolder runat="server" ID="FilterHolder">
-                                    <div class="mb-3">
-                                        <asp:Label runat="server" AssociatedControlID="Since">
-                                            <YAF:LocalizedLabel ID="SinceLabel" runat="server"
-                                                                LocalizedTag="SINCE"/>
-                                        </asp:Label>
-                                        <asp:DropDownList ID="Since" runat="server" 
-                                                          AutoPostBack="True" 
-                                                          OnSelectedIndexChanged="Since_SelectedIndexChanged" 
-                                                          CssClass="form-select" />
-                                    </div>
-                                </asp:PlaceHolder>
                                 <div class="mb-3">
                                     <asp:Label runat="server" AssociatedControlID="TopicMode">
                                         <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server"
@@ -58,8 +46,18 @@
                                                       OnSelectedIndexChanged="TopicModeSelectedIndexChanged" 
                                                       CssClass="form-select" />
                                 </div>
+                                <div class="mb-3">
+                                    <asp:Label runat="server" AssociatedControlID="Since">
+                                        <YAF:LocalizedLabel ID="SinceLabel" runat="server"
+                                                            LocalizedTag="SINCE"/>
+                                    </asp:Label>
+                                    <asp:DropDownList ID="Since" runat="server" 
+                                                      AutoPostBack="True" 
+                                                      OnSelectedIndexChanged="Since_SelectedIndexChanged" 
+                                                      CssClass="form-select" />
+                                </div>
                             </div>
-                            </div>
+                        </div>
                         </div>
                         </div>
                     </div>

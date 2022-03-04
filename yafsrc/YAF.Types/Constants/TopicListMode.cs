@@ -39,9 +39,9 @@ namespace YAF.Types.Constants
         Unanswered,
 
         /// <summary>
-        ///   The Unread topics list.
+        ///   The watch topics list.
         /// </summary>
-        Unread,
+        Watch,
 
         /// <summary>
         ///   The User topics list.

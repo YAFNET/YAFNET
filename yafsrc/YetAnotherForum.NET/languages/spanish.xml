@@ -4899,6 +4899,7 @@ public class Hello1
     <Resource tag="UNANSWEREDTOPICS">Temas no respondidos</Resource>
     <Resource tag="UNREADTOPICS">Temas no leídos</Resource>
     <Resource tag="VIEWS">Visualizaciones</Resource>
+    <Resource tag="WATCHTOPICS">Watch Topics</Resource>
   </page>
   <page name="PM">
     <Resource tag="ARCHIVE">Archivo</Resource>

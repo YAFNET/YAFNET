@@ -3993,7 +3993,7 @@ Spoiler Content
     <Resource tag="MAILSETTINGSCONTENT">&lt;p&gt;On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Turn off notifications - &lt;/strong&gt;This Options turns off all Notifications and you won’t receive any emails.&lt;/p&gt;
 &lt;p&gt; &lt;strong&gt;Notification for all posts on all topics&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Notification for topics you've posted to, watched or marked as favorite&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Notification for topics you've posted to, watched&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Notification for topics or forums you've selectively watched (listed below)&lt;/strong&gt; - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive once daily digest/summary of activity?&lt;/strong&gt; - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Receive an email notification when you get a new private message? &lt;/strong&gt; - You can also turn on/off Email Notifications when you receive a private message.&lt;/p&gt;
@@ -4217,7 +4217,7 @@ Spoiler Content
     <Resource tag="SEARCHINGTITLE">Searching Forums and Topics</Resource>
     <Resource tag="SEARCHLONGER">Search Input is to short, must be at least 3 letters.</Resource>
     <Resource tag="SUBSCRIPTIONSCONTENT">&lt;p&gt;Subscriptions are a way to keep track of different topics and/or forums. You can choose how you are notified about updates.&lt;/p&gt;
-&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched or marked as favorite' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
+&lt;p&gt;Or if you don't want to manually subscribe to a topic you want to follow you can turn on the Option 'Notification for topics you've posted to, watched' in the E-mail Notification Preferences Page inside the User CP.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a topic?&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To subscribe to a topic, click the 'Options' link at the top of the list of posts then click 'Watch this topic'.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;How to  watch a forum?&lt;/strong&gt;&lt;/p&gt;
@@ -4547,6 +4547,7 @@ Spoiler Content
     <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
     <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Views</Resource>
+    <Resource tag="WATCHTOPICS">Watch Topics</Resource>
   </page>
   <page name="PM">
     <Resource tag="ARCHIVE">Archive</Resource>
@@ -4880,7 +4881,7 @@ Spoiler Content
   </page>
   <page name="PROFILE">
     <Resource tag="ABOUT">Tietoja</Resource>
-    <Resource tag="ADMIN_USER">Admin User</Resource>
+    <Resource tag="ADMIN_USER">Edit User</Resource>
     <Resource tag="AIM">AIM-nimi:</Resource>
     <Resource tag="ALBUMS">Albums</Resource>
     <Resource tag="AVATAR">Avatar</Resource>

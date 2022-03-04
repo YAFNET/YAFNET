@@ -51,13 +51,22 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.DropDownList PageSize;
 
         /// <summary>
-        /// FilterHolder-Steuerelement.
+        /// LocalizedLabel1-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder FilterHolder;
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
+
+        /// <summary>
+        /// TopicMode-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList TopicMode;
 
         /// <summary>
         /// SinceLabel-Steuerelement.
@@ -76,24 +85,6 @@ namespace YAF.Pages
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList Since;
-
-        /// <summary>
-        /// LocalizedLabel1-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
-
-        /// <summary>
-        /// TopicMode-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList TopicMode;
 
         /// <summary>
         /// TopicList-Steuerelement.

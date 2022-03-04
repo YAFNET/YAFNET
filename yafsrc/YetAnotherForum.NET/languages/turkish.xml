@@ -4559,6 +4559,7 @@ Spoiler Content
     <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
     <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Görüntüle</Resource>
+    <Resource tag="WATCHTOPICS">Watch Topics</Resource>
   </page>
   <page name="PM">
     <Resource tag="ARCHIVE">Arşiv</Resource>

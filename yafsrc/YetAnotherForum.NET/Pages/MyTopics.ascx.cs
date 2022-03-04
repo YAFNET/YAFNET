@@ -246,11 +246,6 @@ namespace YAF.Pages
             if (this.sinceValue == 0)
             {
                 this.sinceDate = this.Get<ISession>().LastVisit ?? DateTime.UtcNow;
-
-                if (this.TopicMode.SelectedValue.ToEnum<TopicListMode>().Equals(TopicListMode.Unread))
-                {
-                    this.sinceDate = this.Get<IReadTrackCurrentUser>().LastRead;
-                }
             }
 
             switch (this.TopicMode.SelectedValue.ToEnum<TopicListMode>())
@@ -277,10 +272,10 @@ namespace YAF.Pages
                         basePageSize,
                         this.PageContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
-                case TopicListMode.Unread:
-                    this.IconHeader.LocalizedTag = "UnreadTopics";
+                case TopicListMode.Watch:
+                    this.IconHeader.LocalizedTag = "WatchTopics";
 
-                    topicList = this.GetRepository<Topic>().ListUnreadPaged(
+                    topicList = this.GetRepository<Topic>().ListWatchedPaged(
                         this.PageContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
@@ -301,7 +296,7 @@ namespace YAF.Pages
                     break;
             }
 
-            if (topicList == null)
+            if (topicList is null)
             {
                 this.PagerTop.Count = 0;
                 return;
@@ -404,8 +399,6 @@ namespace YAF.Pages
             this.Since.Items.Add(new ListItem(this.GetText("last_week"), "7"));
             this.Since.Items.Add(new ListItem(this.GetText("last_two_weeks"), "14"));
             this.Since.Items.Add(new ListItem(this.GetText("last_month"), "31"));
-
-            this.Since.Items.Add(new ListItem(this.GetText("SHOW_UNREAD_ONLY"), "0"));
             
             this.Since.Items.Add(new ListItem(this.GetText("show_all"), "9999"));
         }

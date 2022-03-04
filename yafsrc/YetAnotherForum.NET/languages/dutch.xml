@@ -4508,6 +4508,7 @@ Spoiler Inhoud
     <Resource tag="UNANSWEREDTOPICS">Onbeantwoorde Topics</Resource>
     <Resource tag="UNREADTOPICS">Ongelezen Topics</Resource>
     <Resource tag="VIEWS">Bekeken</Resource>
+    <Resource tag="WATCHTOPICS">Watch Topics</Resource>
   </page>
   <page name="PM">
     <Resource tag="ARCHIVE">Archief</Resource>
