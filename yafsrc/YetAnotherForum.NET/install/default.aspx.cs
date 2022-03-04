@@ -661,9 +661,9 @@ namespace YAF.Install
                     this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Administrators");
                 }
 
-                if (!this.Get<IAspNetRolesHelper>().RoleExists($"{prefix}Registered"))
+                if (!this.Get<IAspNetRolesHelper>().RoleExists($"{prefix}Registered Users"))
                 {
-                    this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Registered");
+                    this.Get<IAspNetRolesHelper>().CreateRole($"{prefix}Registered Users");
                 }
 
                 if (!this.Get<IAspNetRolesHelper>().IsUserInRole(user, $"{prefix}Administrators"))

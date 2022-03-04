@@ -50,6 +50,7 @@ namespace YAF.Core.Services
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
+    using YAF.Types.Models.Identity;
 
     using Constants = YAF.Types.Constants.Constants;
 
@@ -195,6 +196,12 @@ namespace YAF.Core.Services
 
             }
 
+            if (prevVersion < 83)
+            {
+                this.Get<V83_Migration>().MigrateDatabase(this.DbAccess);
+
+            }
+
             if (prevVersion is 80 or 81)
             {
                 var users = this.Get<IAspNetUsersHelper>().GetAllUsers();
@@ -212,6 +219,20 @@ namespace YAF.Core.Services
                                 this.Get<IAspNetRolesHelper>().SetupUserRoles(yafUser.BoardID, user);
                             }
                         });
+            }
+
+            if (prevVersion is 80 or 81 or 82)
+            {
+                var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
+
+                var registeredRole = this.GetRepository<AspNetRoles>().GetSingle(x => x.Name == $"{prefix}Registered");
+
+                if (registeredRole != null)
+                {
+                    registeredRole.Name = $"{prefix}Registered Users";
+
+                    this.GetRepository<AspNetRoles>().Update(registeredRole);
+                }
             }
 
             this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
