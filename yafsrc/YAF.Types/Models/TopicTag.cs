@@ -33,6 +33,7 @@ namespace YAF.Types.Models
     /// A class which represents the TopicTag table.
     /// </summary>
     [Serializable]
+    [CompositePrimaryKey(nameof(TagID), nameof(TopicID))]
     public class TopicTag : IEntity
     {
         #region Properties
