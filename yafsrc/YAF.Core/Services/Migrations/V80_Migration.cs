@@ -262,12 +262,11 @@ namespace YAF.Core.Services.Migrations
             {
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<Active>();
 
-                dbCommand.Connection.DropPrimaryKey<Active>(string.Empty, false);
+                dbCommand.Connection.DropPrimaryKey<Active>(string.Empty);
 
                 dbCommand.Connection.AlterColumn<Active>(x => x.SessionID);
 
-                dbCommand.Connection.ExecuteSql(
-                    $@" alter table {expression.Table<Active>()} with nocheck add constraint [PK_{Config.DatabaseObjectQualifier}Active] primary key clustered (SessionID,BoardID)");
+                dbCommand.Connection.AddCompositePrimaryKey<Active>(x => x.SessionID, x => x.BoardID);
             }
         }
 

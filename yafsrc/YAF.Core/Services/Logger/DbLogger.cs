@@ -151,8 +151,19 @@ namespace YAF.Core.Services.Logger
                 exceptionDescription = exception.ToString();
             }
 
+            string userIp;
+
+            try
+            {
+                userIp = HttpContext.Current.Request.GetUserRealIPAddress();
+            }
+            catch (Exception)
+            {
+                userIp = string.Empty;
+            }
+
             var formattedDescription = HttpContext.Current != null
-                ? $"{message} (URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"
+                ? $"{message} (User-IP: {userIp} | URL:'{HttpContext.Current.Request.Url}')\r\n{exceptionDescription}"
                 : $"{message}\r\n{exceptionDescription}";
 
             if (source.IsNotSet())

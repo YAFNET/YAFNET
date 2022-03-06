@@ -80,7 +80,8 @@ namespace YAF.Core.Context
             this.Application["ExceptionMessage"] = exception.Message;
 
             if ((exception.GetType() == typeof(HttpException) && exception.InnerException is ViewStateException)
-                || exception.Source.Contains("ViewStateException"))
+                || exception.Source.Contains("ViewStateException") ||
+                exception.TargetSite.Name == "LoadViewStateRecursive")
             {
                 bool logViewStateError;
 
@@ -106,10 +107,14 @@ namespace YAF.Core.Context
             {
                 // ignore illegal path errors or 
                 if (exception.TargetSite.Name != "CheckSuspiciousPhysicalPath"
-                    && exception.TargetSite.Name != "CheckVirtualFileExists")
+                    && exception.TargetSite.Name != "CheckVirtualFileExists"
+                    && exception.TargetSite.Name != "ValidateInputIfRequiredByConfig"
+                    && exception.TargetSite.Name != "ValidateString"
+                    && exception.Message != "This is an invalid webresource request"
+                    && exception.Message != "This is an invalid script resource request")
                 {
                     this.Get<ILoggerService>().Log(
-                        exception.Message,
+                        $"{exception.Message}",
                         EventLogTypes.Error,
                         exception: exception,
                         userId: userId);
