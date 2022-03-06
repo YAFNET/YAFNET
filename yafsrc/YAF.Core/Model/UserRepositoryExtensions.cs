@@ -1588,7 +1588,8 @@ namespace YAF.Core.Model
                            });
 
                    return db.Connection.Select<SimpleModerator>(
-                        $"{expression.ToMergedParamsSelectStatement()} union all {expression2.ToMergedParamsSelectStatement()}");
+                                  $"{expression.ToMergedParamsSelectStatement()} union all {expression2.ToMergedParamsSelectStatement()}")
+                              .OrderByDescending(x => x.IsGroup).ThenBy(x => x.Name).ToList();
                 });
         }
     }

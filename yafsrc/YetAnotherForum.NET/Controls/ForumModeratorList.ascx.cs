@@ -65,14 +65,13 @@ namespace YAF.Controls
 
             this.PageContext.PageElements.RegisterJsBlockStartup(
                 "ForumModsPopoverJs",
-                JavaScriptBlocks.ForumModsPopoverJs(
-                    $"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{this.GetText("DEFAULT", "MODERATORS")} ..."));
+                JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{this.GetText("DEFAULT", "MODERATORS")} ..."));
 
             var content = new StringBuilder();
 
             content.Append(@"<ol class=""list-unstyled"">");
 
-            this.DataSource.ForEach(
+            this.DataSource.DistinctBy(x => x.Name).ForEach(
                 row =>
                 {
                     content.Append("<li>");
