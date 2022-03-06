@@ -340,7 +340,7 @@ namespace YAF.Pages
             modAvatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(
                 userid,
                 itemDataItem.Avatar,
-                itemDataItem.AvatarImage);
+                itemDataItem.AvatarImage != null);
 
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;

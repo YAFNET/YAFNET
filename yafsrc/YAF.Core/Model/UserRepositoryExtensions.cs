@@ -1569,8 +1569,8 @@ namespace YAF.Core.Model
                    expression2
                        .Join<vaccess_group>((usr, access) => access.UserID == usr.ID)
                        .Join<vaccess_group, Forum>((access, f) => f.ID == access.ForumID)
-                       .Where<vaccess_group>(x => x.ModeratorAccess > 0)
-                       /*.OrderBy("Name")*/.Select<User, vaccess_group, Forum>(
+                       .Where<vaccess_group, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
+                       .Select<User, vaccess_group, Forum>(
                            (usr, access, f) => new
                            {
                                access.ForumID,

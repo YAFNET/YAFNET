@@ -94,7 +94,7 @@ namespace YAF.Types.Objects
         /// <value>
         ///   <c>true</c> if [avatar image]; otherwise, <c>false</c>.
         /// </value>
-        public bool AvatarImage { get; set; }
+        public byte[] AvatarImage { get; set; }
 
         /// <summary>
         /// Gets or sets Display Name.
