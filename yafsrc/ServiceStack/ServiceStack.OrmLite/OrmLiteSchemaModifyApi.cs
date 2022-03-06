@@ -4,14 +4,15 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite
 {
-    using ServiceStack.Text;
-
     using System;
     using System.Data;
     using System.Linq.Expressions;
     using System.Text;
+
+    using ServiceStack.Text;
 
     /// <summary>
     /// Enum OnFkOption
@@ -22,18 +23,22 @@ namespace ServiceStack.OrmLite
         /// The cascade
         /// </summary>
         Cascade,
+
         /// <summary>
         /// The set null
         /// </summary>
         SetNull,
+
         /// <summary>
         /// The no action
         /// </summary>
         NoAction,
+
         /// <summary>
         /// The set default
         /// </summary>
         SetDefault,
+
         /// <summary>
         /// The restrict
         /// </summary>
@@ -61,7 +66,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Alters the table.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="command">The command.</param>
         public static void AlterTable<T>(this IDbConnection dbConn, string command)
@@ -84,7 +89,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Adds the column with command.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="command">The command.</param>
         public static void AddColumnWithCommand<T>(this IDbConnection dbConn, string command)
@@ -98,7 +103,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Adds the column.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="field">The field.</param>
         public static void AddColumn<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
@@ -125,7 +130,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Alters the column.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="field">The field.</param>
         public static void AlterColumn<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
@@ -152,13 +157,11 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Changes the name of the column.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="field">The field.</param>
         /// <param name="oldColumnName">Old name of the column.</param>
-        public static void ChangeColumnName<T>(this IDbConnection dbConn,
-            Expression<Func<T, object>> field,
-            string oldColumnName)
+        public static void ChangeColumnName<T>(this IDbConnection dbConn, Expression<Func<T, object>> field, string oldColumnName)
         {
             var modelDef = ModelDefinition<T>.Definition;
             var fieldDef = modelDef.GetFieldDefinition<T>(field);
@@ -172,7 +175,8 @@ namespace ServiceStack.OrmLite
         /// <param name="modelType">Type of the model.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <param name="oldColumnName">Old name of the column.</param>
-        public static void ChangeColumnName(this IDbConnection dbConn,
+        public static void ChangeColumnName(
+            this IDbConnection dbConn,
             Type modelType,
             FieldDefinition fieldDef,
             string oldColumnName)
@@ -184,7 +188,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Drops the column.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="field">The field.</param>
         public static void DropColumn<T>(this IDbConnection dbConn, Expression<Func<T, object>> field)
@@ -197,7 +201,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Drops the column.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="columnName">Name of the column.</param>
         public static void DropColumn<T>(this IDbConnection dbConn, string columnName)
@@ -219,7 +223,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Adds the foreign key.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <typeparam name="TForeign">The type of the t foreign.</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="field">The field.</param>
@@ -243,24 +247,110 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Drops the primary key.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dbConn">The database connection.</param>
-        /// <param name="name">The name.</param>
-        /// <param name="online">if set to <c>true</c> [online].</param>
-        public static void DropPrimaryKey<T>(this IDbConnection dbConn, string name, bool online = true)
+        /// <typeparam name="T">
+        /// The Table Model
+        /// </typeparam>
+        /// <param name="dbConn">
+        /// The database connection.
+        /// </param>
+        /// <param name="fieldA">
+        /// The field A.
+        /// </param>
+        /// <param name="fieldB">
+        /// The field B.
+        /// </param>
+        public static void AddCompositePrimaryKey<T>(this IDbConnection dbConn, Expression<Func<T, object>> fieldA, Expression<Func<T, object>> fieldB)
         {
             var provider = dbConn.GetDialectProvider();
             var modelDef = ModelDefinition<T>.Definition;
 
-            var command = provider.GetDropPrimaryKeyConstraint(modelDef, name);
+            var fieldDefA = modelDef.GetFieldDefinition(fieldA);
+            var fieldNameA = provider.NamingStrategy.GetColumnName(fieldDefA.FieldName);
+
+            var fieldDefB = modelDef.GetFieldDefinition(fieldB);
+            var fieldNameB = provider.NamingStrategy.GetColumnName(fieldDefB.FieldName);
+
+            var command = provider.GetAddCompositePrimaryKey(dbConn.Database, modelDef, fieldNameA, fieldNameB);
 
             dbConn.ExecuteSql(command);
         }
 
         /// <summary>
+        /// Gets the Primary Key name
+        /// </summary>
+        /// <typeparam name="T">
+        /// The Model
+        /// </typeparam>
+        /// <param name="dbConn">
+        /// The database connection.
+        /// </param>
+        /// <returns>
+        /// Returns the key name
+        /// </returns>
+        public static string GetPrimaryKey<T>(this IDbConnection dbConn)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            var command = provider.GetPrimaryKeyName(modelDef);
+
+            try
+            {
+                return dbConn.SqlScalar<string>(command);
+            }
+            catch (Exception)
+            {
+                return command;
+            }
+        }
+
+        /// <summary>
+        /// Drops the primary key.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The Table Model
+        /// </typeparam>
+        /// <param name="dbConn">
+        /// The database connection.
+        /// </param>
+        /// <param name="name">
+        /// The name.
+        /// </param>
+        /// <param name="fieldA">
+        /// The field A.
+        /// </param>
+        /// <param name="fieldB">
+        /// The field B.
+        /// </param>
+        public static void DropPrimaryKey<T>(this IDbConnection dbConn, string name, Expression<Func<T, object>> fieldA = null, Expression<Func<T, object>> fieldB = null)
+        {
+            var provider = dbConn.GetDialectProvider();
+            var modelDef = ModelDefinition<T>.Definition;
+
+            if (fieldA != null && fieldB != null)
+            {
+                var fieldDefA = modelDef.GetFieldDefinition(fieldA);
+                var fieldNameA = provider.NamingStrategy.GetColumnName(fieldDefA.FieldName);
+
+                var fieldDefB = modelDef.GetFieldDefinition(fieldB);
+                var fieldNameB = provider.NamingStrategy.GetColumnName(fieldDefB.FieldName);
+
+                var command = provider.GetDropPrimaryKeyConstraint(dbConn.Database, modelDef, name, fieldNameA, fieldNameB);
+
+                dbConn.ExecuteSql(command);
+            }
+            else
+            {
+                var command = provider.GetDropPrimaryKeyConstraint(dbConn.Database, modelDef, name);
+
+                dbConn.ExecuteSql(command);
+            }
+        }
+
+        /// <summary>
         /// Drops the foreign key.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="name">The name.</param>
         public static void DropForeignKey<T>(this IDbConnection dbConn, string name)
@@ -276,7 +366,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Drops the constraint.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="name">The name.</param>
         public static void DropConstraint<T>(this IDbConnection dbConn, string name)
@@ -293,13 +383,16 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Creates the index.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="field">The field.</param>
         /// <param name="indexName">Name of the index.</param>
         /// <param name="unique">if set to <c>true</c> [unique].</param>
-        public static void CreateIndex<T>(this IDbConnection dbConn, Expression<Func<T, object>> field,
-            string indexName = null, bool unique = false)
+        public static void CreateIndex<T>(
+            this IDbConnection dbConn,
+            Expression<Func<T, object>> field,
+            string indexName = null,
+            bool unique = false)
         {
             var command = dbConn.GetDialectProvider().ToCreateIndexStatement(field, indexName, unique);
             dbConn.ExecuteSql(command);
@@ -308,7 +401,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Drop Index of table
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The db conn.</param>
         /// <param name="name">The name.</param>
         public static void DropIndex<T>(this IDbConnection dbConn, string name = null)
@@ -324,7 +417,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Creates the index of the view.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="name">The name.</param>
         /// <param name="selectSql">The select SQL.</param>
@@ -341,7 +434,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Drops the index of the view.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="name">The name.</param>
         public static void DropViewIndex<T>(this IDbConnection dbConn, string name)
@@ -357,7 +450,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Creates the view.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         /// <param name="selectSql">The select SQL.</param>
         public static void CreateView<T>(this IDbConnection dbConn, StringBuilder selectSql)
@@ -373,7 +466,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// Drops the view.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The Table Model</typeparam>
         /// <param name="dbConn">The database connection.</param>
         public static void DropView<T>(this IDbConnection dbConn)
         {

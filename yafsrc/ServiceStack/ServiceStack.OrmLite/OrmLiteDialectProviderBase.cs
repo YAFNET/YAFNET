@@ -390,7 +390,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Froms the database row version.
+        /// From the database row version.
         /// </summary>
         /// <param name="fieldType">Type of the field.</param>
         /// <param name="value">The value.</param>
@@ -2098,11 +2098,18 @@ namespace ServiceStack.OrmLite
                 sbConstraints.Append(",\n" + uniqueConstraints);
             }
 
-            /*var compositePrimaryKey = GetCompositePrimaryKey(modelDef);
-            if (compositePrimaryKey != null)
+            if (modelDef.CompositePrimaryKeys.Any())
             {
-                sbConstraints.Append(",\n" + compositePrimaryKey);
-            }*/
+                sbConstraints.Append(",\n");
+
+                sbConstraints.AppendFormat(" CONSTRAINT {0} PRIMARY KEY (", this.GetPrimaryKeyName(modelDef));
+
+                sbConstraints.Append(
+                    modelDef.CompositePrimaryKeys.FirstOrDefault().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                        .Join(","));
+
+                sbConstraints.Append(") ");
+            }
 
             var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} " +
                       $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
@@ -2680,13 +2687,44 @@ namespace ServiceStack.OrmLite
             return null;
         }
 
+        /// <summary>Gets the add composite primary key sql command.</summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldNameA">The field name a.</param>
+        /// <param name="fieldNameB">The field name b.</param>
+        /// <returns>Returns the SQL Command</returns>
+        public virtual string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB)
+        {
+            return null;
+        }
+
+        /// <summary>Gets the name of the primary key.</summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>Returns the Primary Key Name</returns>
+        public virtual string GetPrimaryKeyName(ModelDefinition modelDef)
+        {
+            return null;
+        }
+
         /// <summary>
         /// Gets the drop primary key constraint.
         /// </summary>
         /// <param name="modelDef">The model definition.</param>
         /// <param name="name">The name.</param>
         /// <returns>System.String.</returns>
-        public virtual string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name)
+        public virtual string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name)
+        {
+            return null;
+        }
+
+        /// <summary>Gets the drop primary key constraint.</summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="fieldNameA">The field name a.</param>
+        /// <param name="fieldNameB">The field name b.</param>
+        /// <returns>System.String.</returns>
+        public virtual string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB)
         {
             return null;
         }
@@ -2724,7 +2762,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Converts to addcolumnstatement.
+        /// Converts to add column statement.
         /// </summary>
         /// <param name="modelType">Type of the model.</param>
         /// <param name="fieldDef">The field definition.</param>
@@ -2736,7 +2774,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Converts to altercolumnstatement.
+        /// Converts to alter column statement.
         /// </summary>
         /// <param name="modelType">Type of the model.</param>
         /// <param name="fieldDef">The field definition.</param>
@@ -2748,7 +2786,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Converts to changecolumnnamestatement.
+        /// Converts to change column name statement.
         /// </summary>
         /// <param name="modelType">Type of the model.</param>
         /// <param name="fieldDef">The field definition.</param>
@@ -2765,7 +2803,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Converts to addforeignkeystatement.
+        /// Converts to add foreign key statement.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <typeparam name="TForeign">The type of the t foreign.</typeparam>
@@ -2802,7 +2840,7 @@ namespace ServiceStack.OrmLite
         }
 
         /// <summary>
-        /// Converts to createindexstatement.
+        /// Converts to create index statement.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="field">The field.</param>

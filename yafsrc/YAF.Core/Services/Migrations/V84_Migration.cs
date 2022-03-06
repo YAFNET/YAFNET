@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services.Migrations
 {
+    using System;
+
     using ServiceStack.OrmLite;
     using System.Data;
 
@@ -33,9 +35,9 @@ namespace YAF.Core.Services.Migrations
     using YAF.Types.Models;
 
     /// <summary>
-    /// Version 83 Migrations
+    /// Version 84 Migrations
     /// </summary>
-    public class V83_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class V84_Migration : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -62,12 +64,45 @@ namespace YAF.Core.Services.Migrations
         /// <param name="dbCommand">The database command.</param>
         private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
-            dbCommand.Connection.DropPrimaryKey<TopicTag>(string.Empty, false);
+            if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
-            dbCommand.Connection.ExecuteSql(
-                $@" alter table {expression.Table<TopicTag>()} with nocheck add constraint [PK_{dbCommand.Connection.GetTableName<TopicTag>()}] primary key clustered (TagID,TopicID)");
+                var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedTableName($"{nameof(TopicTag)}_old");
+                
+                dbCommand.Connection.ExecuteSql(
+                    $@"BEGIN TRANSACTION;
+                           ALTER TABLE {expression.Table<TopicTag>()} RENAME TO {oldTableName}; 
+                       COMMIT;");
+
+                dbCommand.Connection.CreateTable<TopicTag>();
+
+                dbCommand.Connection.ExecuteSql(
+                    $@"BEGIN TRANSACTION;
+                           INSERT INTO {expression.Table<TopicTag>()} SELECT * FROM {oldTableName}; 
+                       COMMIT;");
+
+                dbCommand.Connection.ExecuteSql(
+                    $@"DROP TABLE {oldTableName};");
+            }
+            else
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+
+                var name = dbCommand.Connection.GetPrimaryKey<TopicTag>();
+
+                dbCommand.Connection.DropPrimaryKey<TopicTag>(name, x => x.TagID, x => x.TopicID);
+
+                try
+                {
+                    dbCommand.Connection.AddCompositePrimaryKey<TopicTag>(x => x.TagID, x => x.TopicID);
+                }
+                catch (Exception)
+                {
+                    // Ignore here
+                }
+            }
         }
 
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;

@@ -603,6 +603,7 @@ namespace ServiceStack.OrmLite
         /// The q
         /// </summary>
         private SqlExpression<T> q;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="UntypedSqlExpressionProxy{T}"/> class.
         /// </summary>

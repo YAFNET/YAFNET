@@ -161,7 +161,7 @@ namespace YAF.Core.Modules
             builder.RegisterType<V80_Migration>().AsSelf().PreserveExistingDefaults();
             builder.RegisterType<V81_Migration>().AsSelf().PreserveExistingDefaults();
             builder.RegisterType<V82_Migration>().AsSelf().PreserveExistingDefaults();
-            builder.RegisterType<V83_Migration>().AsSelf().PreserveExistingDefaults();
+            builder.RegisterType<V84_Migration>().AsSelf().PreserveExistingDefaults();
 
             // Caching
             //builder.RegisterType<MemoryCache>().As<IMemoryCache>().SingleInstance();

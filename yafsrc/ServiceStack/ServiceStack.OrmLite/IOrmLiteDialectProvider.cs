@@ -861,13 +861,28 @@ namespace ServiceStack.OrmLite
         /// <returns>System.String.</returns>
         string GetDropIndexConstraint(ModelDefinition modelDef, string name = null);
 
+        /// <summary>Gets the add composite primary key sql command.</summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="fieldNameA">The field name a.</param>
+        /// <param name="fieldNameB">The field name b.</param>
+        /// <returns>Returns the SQL Command</returns>
+        string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB);
+
+        /// <summary>Gets the name of the primary key.</summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>Returns the Primary Key Name</returns>
+        string GetPrimaryKeyName(ModelDefinition modelDef);
+
         /// <summary>
         /// Gets the drop primary key constraint.
         /// </summary>
         /// <param name="modelDef">The model definition.</param>
         /// <param name="name">The name.</param>
         /// <returns>System.String.</returns>
-        string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name);
+        string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name);
+
+        string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB);
 
         /// <summary>
         /// Gets the drop foreign key constraint.

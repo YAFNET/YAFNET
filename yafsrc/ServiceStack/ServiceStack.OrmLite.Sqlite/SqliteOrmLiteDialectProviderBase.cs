@@ -460,6 +460,26 @@ namespace ServiceStack.OrmLite.Sqlite
             return string.Empty; // Not Supported in Sqlite
         }
 
+        /// <summary>Gets the name of the primary key.</summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>Returns the Primary Key Name</returns>
+        public override string GetPrimaryKeyName(ModelDefinition modelDef)
+        {
+            return $"{this.NamingStrategy.GetTableName(modelDef).ToUpper()}_PK";
+        }
+
+        /// <summary>Gets the drop primary key constraint.</summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="fieldNameA">The field name a.</param>
+        /// <param name="fieldNameB">The field name b.</param>
+        /// <returns>System.String.</returns>
+        public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB)
+        {
+            return string.Empty; // Not Supported in Sqlite
+        }
+
         /// <summary>
         /// Gets the create view.
         /// </summary>

@@ -196,14 +196,19 @@ namespace YAF.Core.Services
 
             }
 
-            if (prevVersion < 83)
+            if (prevVersion is 80 or 81 or 82 or 83)
             {
-                this.Get<V83_Migration>().MigrateDatabase(this.DbAccess);
+                var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
 
-            }
+                var registeredRole = this.GetRepository<AspNetRoles>().GetSingle(x => x.Name == $"{prefix}Registered");
 
-            if (prevVersion is 80 or 81)
-            {
+                if (registeredRole != null)
+                {
+                    registeredRole.Name = $"{prefix}Registered Users";
+
+                    this.GetRepository<AspNetRoles>().Update(registeredRole);
+                }
+
                 var users = this.Get<IAspNetUsersHelper>().GetAllUsers();
 
                 users.ForEach(
@@ -221,18 +226,10 @@ namespace YAF.Core.Services
                         });
             }
 
-            if (prevVersion is 80 or 81 or 82)
+            if (prevVersion < 84)
             {
-                var prefix = Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty;
+                this.Get<V84_Migration>().MigrateDatabase(this.DbAccess);
 
-                var registeredRole = this.GetRepository<AspNetRoles>().GetSingle(x => x.Name == $"{prefix}Registered");
-
-                if (registeredRole != null)
-                {
-                    registeredRole.Name = $"{prefix}Registered Users";
-
-                    this.GetRepository<AspNetRoles>().Update(registeredRole);
-                }
             }
 
             this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);

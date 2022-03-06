@@ -1016,6 +1016,71 @@ namespace ServiceStack.OrmLite.MySql
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        public override string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
+
+            sb.AppendFormat("alter table {0}", tableName);
+            sb.AppendFormat(
+                "{0} ADD PRIMARY KEY ({1},{2})",
+                this.NamingStrategy.GetTableName(modelDef),
+                fieldNameA,
+                fieldNameB);
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        /// <summary>Gets the name of the primary key.</summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>Returns the Primary Key Name</returns>
+        public override string GetPrimaryKeyName(ModelDefinition modelDef)
+        {
+            // Return Empty. Doesn't have a name in MySQL
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the drop primary key constraint.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
+
+            sb.AppendFormat("alter table {0} drop primary key;", tableName);
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        /// <summary>Gets the drop primary key constraint.</summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="fieldNameA">The field name a.</param>
+        /// <param name="fieldNameB">The field name b.</param>
+        /// <returns>System.String.</returns>
+        public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
+
+            sb.AppendFormat("alter table {0} drop primary key,", tableName);
+
+            sb.AppendFormat(
+                " ADD PRIMARY KEY ({0},{1});",
+                fieldNameA,
+                fieldNameB);
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
         /// <summary>
         /// Gets the UTC date function.
         /// </summary>

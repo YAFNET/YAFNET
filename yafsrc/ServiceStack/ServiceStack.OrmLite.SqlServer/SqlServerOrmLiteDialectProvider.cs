@@ -594,20 +594,93 @@ namespace ServiceStack.OrmLite.SqlServer
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
-        /// <summary>
-        /// Gets the drop primary key constraint.
-        /// </summary>
+        /// <summary>Gets the add composite primary key sql command.</summary>
+        /// <param name="database">The database.</param>
         /// <param name="modelDef">The model definition.</param>
-        /// <param name="name">The name.</param>
-        /// <returns>System.String.</returns>
-        public override string GetDropPrimaryKeyConstraint(ModelDefinition modelDef, string name)
+        /// <param name="fieldNameA">The field name a.</param>
+        /// <param name="fieldNameB">The field name b.</param>
+        /// <returns>Returns the SQL Command</returns>
+        public override string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB)
         {
             var sb = StringBuilderCache.Allocate();
 
-            var foreignKeyName = name.IsNullOrEmpty()
-                ? $"PK_{this.NamingStrategy.GetTableName(modelDef)}"
-                : $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+            sb.Append("alter table ");
+            sb.AppendFormat(
+                "{0} with nocheck add constraint [PK_{0}] primary key clustered ({1},{2})",
+                this.NamingStrategy.GetTableName(modelDef),
+                fieldNameA,
+                fieldNameB);
 
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        /// <summary>Gets the name of the primary key.</summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <returns>Returns the Primary Key Name</returns>
+        public override string GetPrimaryKeyName(ModelDefinition modelDef)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            sb.Append("SELECT name FROM sys.indexes WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'[{0}].[{1}]')",
+                this.NamingStrategy.GetSchemaName(modelDef),
+                this.NamingStrategy.GetTableName(modelDef));
+            sb.AppendFormat("and is_primary_key = 1");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        /// <summary>
+        /// Gets the drop primary key constraint.
+        /// </summary>
+        /// <param name="database">the database name</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        /// <summary>
+        /// Gets the drop primary key constraint.
+        /// </summary>
+        /// <returns>System.String.</returns>
+        public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var foreignKeyName = name.IsNullOrEmpty() ? $"PK_{this.NamingStrategy.GetTableName(modelDef)}" :
+                                 name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase) ? name :
+                                 $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
+
+            var tableName = this.GetQuotedTableName(modelDef);
+
+            sb.Append("IF EXISTS (");
+            sb.Append("SELECT top 1 1 FROM sys.indexes WHERE ");
+            sb.AppendFormat(
+                "object_id = OBJECT_ID(N'[{0}].[{1}]')",
+                this.NamingStrategy.GetSchemaName(modelDef),
+                this.NamingStrategy.GetTableName(modelDef));
+            sb.AppendFormat("and name = N'{0}')", foreignKeyName);
+            sb.Append(" BEGIN");
+            sb.AppendFormat("  ALTER TABLE {1} DROP constraint {0}", foreignKeyName, tableName);
+            sb.Append(" END");
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+
+        /// <summary>Gets the drop primary key constraint.</summary>
+        /// <param name="database">The database.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="fieldNameA">The field name a.</param>
+        /// <param name="fieldNameB">The field name b.</param>
+        /// <returns>System.String.</returns>
+        public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var foreignKeyName = name.IsNullOrEmpty() ? $"PK_{this.NamingStrategy.GetTableName(modelDef)}" :
+                                 name.StartsWith("PK_", StringComparison.CurrentCultureIgnoreCase) ? name :
+                                 $"PK_{this.NamingStrategy.GetTableName(modelDef)}_{name}";
 
             var tableName = this.GetQuotedTableName(modelDef);
 

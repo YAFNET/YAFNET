@@ -1433,6 +1433,54 @@ namespace ServiceStack.OrmLite.PostgreSQL
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        public override string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = this.GetQuotedTableName(modelDef);
+
+            sb.AppendFormat(
+                "ALTER TABLE {0} ADD PRIMARY KEY ({1},{2})",
+                tableName,
+                this.GetQuotedColumnName(fieldNameA),
+                this.GetQuotedColumnName(fieldNameB));
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetPrimaryKeyName(ModelDefinition modelDef)
+        {
+            return $"{this.NamingStrategy.GetTableName(modelDef)}_pkey";
+        }
+
+        /// <summary>
+        /// Gets the drop primary key constraint.
+        /// </summary>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = this.GetQuotedTableName(modelDef);
+
+            sb.AppendFormat("ALTER TABLE {1} DROP constraint {0}", this.GetQuotedName(name), tableName);
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
+        public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB)
+        {
+            var sb = StringBuilderCache.Allocate();
+
+            var tableName = this.GetQuotedTableName(modelDef);
+
+            sb.AppendFormat("ALTER TABLE {1} DROP constraint {0}", this.GetQuotedName(name), tableName);
+
+            return StringBuilderCache.ReturnAndFree(sb);
+        }
+
         /// <summary>
         /// Gets the UTC date function.
         /// </summary>
