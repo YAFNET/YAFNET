@@ -43,6 +43,7 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
@@ -420,6 +421,15 @@ namespace YAF.Pages
                 this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
                 this.editedMessage,
                 this.PageContext.PageUserID);
+
+            // Update Topic Tags?!
+            if (this.TagsHolder.Visible)
+            {
+                this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageContext.PageTopicID);
+
+                this.GetRepository<TopicTag>().AddTagsToTopic(this.Tags.Text, this.PageContext.PageTopicID);
+            }
+
 
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 

@@ -45,6 +45,7 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Extensions;
 
@@ -557,31 +558,7 @@ namespace YAF.Pages
                     // Add tags
                     if (this.Tags.Text.IsSet())
                     {
-                        var tags = this.Tags.Text.Split(',');
-
-                        var boardTags = this.GetRepository<Tag>().GetByBoardId();
-
-                        tags.ForEach(
-                            tag =>
-                                {
-                                    var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
-
-                                    if (existTag != null)
-                                    {
-                                        // add to topic
-                                        this.GetRepository<TopicTag>().Add(
-                                            existTag.ID,
-                                            newMessage.TopicID);
-                                    }
-                                    else
-                                    {
-                                        // save new Tag
-                                        var newTagId = this.GetRepository<Tag>().Add(tag);
-
-                                        // add to topic
-                                        this.GetRepository<TopicTag>().Add(newTagId, newMessage.TopicID);
-                                    }
-                                });
+                        this.GetRepository<TopicTag>().AddTagsToTopic(this.Tags.Text, newMessage.TopicID);
                     }
                 }
 

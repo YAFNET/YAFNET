@@ -29,6 +29,7 @@ namespace YAF.Core.Model
 
     using ServiceStack.OrmLite;
 
+    using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
@@ -62,6 +63,54 @@ namespace YAF.Core.Model
             var newId = repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
 
             repository.FireNew(newId);
+        }
+
+        /// <summary>
+        /// Add New or existing tags to a topic
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="tagsString">
+        /// The tags as delimited string.
+        /// </param>
+        /// <param name="topicId">
+        /// The topic id.
+        /// </param>
+        public static void AddTagsToTopic(this IRepository<TopicTag> repository, [CanBeNull] string tagsString, int topicId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            if (tagsString.IsNotSet())
+            {
+                return;
+            }
+
+            var tags = tagsString.Split(',');
+
+            var boardTags = BoardContext.Current.GetRepository<Tag>().GetByBoardId();
+
+            tags.ForEach(
+                tag =>
+                    {
+                        var existTag = boardTags.FirstOrDefault(t => t.TagName == tag);
+
+                        if (existTag != null)
+                        {
+                            // add to topic
+                            repository.Add(
+                                existTag.ID,
+                                topicId);
+                        }
+                        else
+                        {
+                            // save new Tag
+                            var newTagId = BoardContext.Current.GetRepository<Tag>().Add(tag);
+
+                            // add to topic
+                            repository.Add(newTagId, topicId);
+                        }
+                    });
         }
 
         /// <summary>
