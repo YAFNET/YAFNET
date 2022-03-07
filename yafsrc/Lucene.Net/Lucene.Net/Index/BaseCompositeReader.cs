@@ -1,7 +1,6 @@
 ﻿using J2N.Collections.Generic.Extensions;
 using System;
 using System.Collections.Generic;
-using JCG = J2N.Collections.Generic;
 
 namespace YAF.Lucene.Net.Index
 {
@@ -73,11 +72,7 @@ namespace YAF.Lucene.Net.Index
         {
             this.subReaders = subReaders;
 
-            // LUCENENET: To eliminate casting, we create the list explicitly
-            var subReadersList = new JCG.List<IndexReader>(subReaders.Length);
-            for (int i = 0; i < subReaders.Length; i++)
-                subReadersList.Add(subReaders[i]);
-            this.subReadersList = subReadersList.AsReadOnly();
+            this.subReadersList = ((IndexReader[])subReaders).AsReadOnly(); // LUCENENET: Work around generic casting from R to IndexWriter
 
             starts = new int[subReaders.Length + 1]; // build starts array
             int maxDoc = 0, numDocs = 0;
