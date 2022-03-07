@@ -4,16 +4,18 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite.Support
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
+    using ServiceStack.Text;
+
     /// <summary>
     /// Class LoadReferences.
     /// </summary>
@@ -24,22 +26,27 @@ namespace ServiceStack.OrmLite.Support
         /// The database command
         /// </summary>
         protected IDbCommand dbCmd;
+
         /// <summary>
         /// The instance
         /// </summary>
         protected T instance;
+
         /// <summary>
         /// The model definition
         /// </summary>
         protected ModelDefinition modelDef;
+
         /// <summary>
         /// The field defs
         /// </summary>
-        protected List<FieldDefinition> fieldDefs;
+        protected FieldDefinition[] fieldDefs;
+
         /// <summary>
         /// The pk value
         /// </summary>
         protected object pkValue;
+
         /// <summary>
         /// The dialect provider
         /// </summary>
@@ -56,7 +63,7 @@ namespace ServiceStack.OrmLite.Support
             this.instance = instance;
 
             modelDef = ModelDefinition<T>.Definition;
-            fieldDefs = modelDef.AllFieldDefinitionsArray.Where(x => x.IsReference).ToList();
+            fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
             pkValue = modelDef.PrimaryKey.GetValue(instance);
             dialectProvider = dbCmd.GetDialectProvider();
         }
@@ -65,7 +72,7 @@ namespace ServiceStack.OrmLite.Support
         /// Gets the field defs.
         /// </summary>
         /// <value>The field defs.</value>
-        public List<FieldDefinition> FieldDefs => fieldDefs;
+        public FieldDefinition[] FieldDefs => fieldDefs;
 
         /// <summary>
         /// Gets the reference list SQL.

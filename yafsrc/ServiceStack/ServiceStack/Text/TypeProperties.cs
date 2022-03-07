@@ -169,8 +169,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The property map
         /// </summary>
-        public Dictionary<string, PropertyAccessor> PropertyMap =
-            new(PclExport.Instance.InvariantComparerIgnoreCase);
+        public readonly Dictionary<string, PropertyAccessor> PropertyMap = new(StringComparer.OrdinalIgnoreCase);
 
         /// <summary>
         /// Gets or sets the public property infos.
@@ -185,7 +184,7 @@ namespace ServiceStack.Text
         /// <returns>PropertyInfo.</returns>
         public PropertyInfo GetPublicProperty(string name)
         {
-            return PublicPropertyInfos.FirstOrDefault(pi => pi.Name == name);
+            return this.PublicPropertyInfos.FirstOrDefault(pi => pi.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>

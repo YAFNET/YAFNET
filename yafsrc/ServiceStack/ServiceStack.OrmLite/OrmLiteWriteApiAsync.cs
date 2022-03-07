@@ -110,7 +110,8 @@ namespace ServiceStack.OrmLite
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int64&gt;.</returns>
-        public static Task<long> InsertAsync<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, Dictionary<string, object> obj, bool selectIdentity = false, CancellationToken token = default)
+        public static Task<long> InsertAsync<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter,
+                                                Dictionary<string, object> obj, bool selectIdentity = false, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.InsertAsync<T>(obj, commandFilter: commandFilter, selectIdentity: selectIdentity, token));
         }
@@ -137,7 +138,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task.</returns>
         public static Task InsertAsync<T>(this IDbConnection dbConn, params T[] objs)
         {
-            return dbConn.Exec(dbCmd => dbCmd.InsertAsync(commandFilter: null, token: default(CancellationToken), objs: objs));
+            return dbConn.Exec(dbCmd => dbCmd.InsertAsync(commandFilter: null, token: default, objs: objs));
         }
 
         /// <summary>
@@ -164,7 +165,7 @@ namespace ServiceStack.OrmLite
         /// <param name="objs">The objs.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public static Task InsertUsingDefaultsAsync<T>(this IDbConnection dbConn, T[] objs, CancellationToken token = default(CancellationToken))
+        public static Task InsertUsingDefaultsAsync<T>(this IDbConnection dbConn, T[] objs, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.InsertUsingDefaultsAsync(objs, token));
         }
@@ -178,7 +179,7 @@ namespace ServiceStack.OrmLite
         /// <param name="query">The query.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int64&gt;.</returns>
-        public static Task<long> InsertIntoSelectAsync<T>(this IDbConnection dbConn, ISqlExpression query, CancellationToken token = default(CancellationToken))
+        public static Task<long> InsertIntoSelectAsync<T>(this IDbConnection dbConn, ISqlExpression query, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.InsertIntoSelectAsync<T>(query, commandFilter: null, token: token));
         }
@@ -598,7 +599,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         public static Task<int> SaveAsync<T>(this IDbConnection dbConn, params T[] objs)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SaveAsync(default(CancellationToken), objs));
+            return dbConn.Exec(dbCmd => dbCmd.SaveAsync(default, objs));
         }
 
         /// <summary>
@@ -624,7 +625,7 @@ namespace ServiceStack.OrmLite
         /// <param name="instance">The instance.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public static Task SaveAllReferencesAsync<T>(this IDbConnection dbConn, T instance, CancellationToken token = default(CancellationToken))
+        public static Task SaveAllReferencesAsync<T>(this IDbConnection dbConn, T instance, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.SaveAllReferencesAsync(instance, token));
         }
@@ -655,7 +656,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task.</returns>
         public static Task SaveReferencesAsync<T, TRef>(this IDbConnection dbConn, T instance, params TRef[] refs)
         {
-            return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(default(CancellationToken), instance, refs));
+            return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(default, instance, refs));
         }
 
         /// <summary>
@@ -669,7 +670,7 @@ namespace ServiceStack.OrmLite
         /// <param name="refs">The refs.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public static Task SaveReferencesAsync<T, TRef>(this IDbConnection dbConn, T instance, List<TRef> refs, CancellationToken token = default(CancellationToken))
+        public static Task SaveReferencesAsync<T, TRef>(this IDbConnection dbConn, T instance, List<TRef> refs, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.SaveReferencesAsync(token, instance, refs.ToArray()));
         }

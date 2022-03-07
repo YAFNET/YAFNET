@@ -109,7 +109,8 @@ namespace ServiceStack.Text.Common
         /// <summary>
         /// The UTC offset information regex
         /// </summary>
-        private static readonly Regex UtcOffsetInfoRegex = new("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", PclExport.Instance.RegexOptions);
+        private static readonly Regex UtcOffsetInfoRegex = new("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", RegexOptions.Compiled);
+
         /// <summary>
         /// Gets or sets the on parse error function.
         /// </summary>
@@ -636,7 +637,7 @@ namespace ServiceStack.Text.Common
         /// <summary>
         /// The time zone chars
         /// </summary>
-        static readonly char[] TimeZoneChars = new[] { '+', '-' };
+        static readonly char[] TimeZoneChars = { '+', '-' };
 
         /// <summary>
         /// The minimum date time offset WCF value

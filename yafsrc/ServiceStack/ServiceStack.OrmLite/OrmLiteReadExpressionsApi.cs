@@ -202,7 +202,7 @@ namespace ServiceStack.OrmLite
             [CallerFilePath] string filePath = null,
             [CallerLineNumber] int lineNumber = 0)
         {
-            expression.AddTag($"File: {filePath}:{lineNumber.ToString()}");
+            expression.AddTag($"File: {filePath}:{lineNumber}");
             return expression;
         }
 
@@ -213,7 +213,7 @@ namespace ServiceStack.OrmLite
         /// <param name="alias">The alias.</param>
         /// <returns>TableOptions.</returns>
         public static TableOptions TableAlias(this IDbConnection db, string alias) =>
-            new TableOptions { Alias = alias };
+            new() { Alias = alias };
 
         /// <summary>
         /// Gets the name of the table.

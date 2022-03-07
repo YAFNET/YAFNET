@@ -173,11 +173,13 @@ namespace ServiceStack.OrmLite
         /// </summary>
         /// <value>All field definitions array.</value>
         public FieldDefinition[] AllFieldDefinitionsArray { get; private set; }
+        public FieldDefinition[] ReferenceFieldDefinitionsArray { get; private set; }
+        public HashSet<string> ReferenceFieldNames { get; private set; }
 
         /// <summary>
         /// The field definition lock
         /// </summary>
-        private readonly object fieldDefLock = new object();
+        private readonly object fieldDefLock = new();
         /// <summary>
         /// The field definition map
         /// </summary>
@@ -436,7 +438,9 @@ namespace ServiceStack.OrmLite
 
             var allItems = new List<FieldDefinition>(FieldDefinitions);
             allItems.AddRange(IgnoredFieldDefinitions);
-            AllFieldDefinitionsArray = allItems.ToArray();
+            AllFieldDefinitionsArray = allItems.ToArray(); 
+            ReferenceFieldDefinitionsArray = allItems.Where(x => x.IsReference).ToArray(); 
+            ReferenceFieldNames = new HashSet<string>(ReferenceFieldDefinitionsArray.Select(x => x.Name), StringComparer.OrdinalIgnoreCase);
 
             AutoIdFields = GetAutoIdFieldDefinitions().ToArray();
 
@@ -469,9 +473,18 @@ namespace ServiceStack.OrmLite
         /// Returns a <see cref="System.String" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString()
+        public override string ToString() => Name;
+
+        public bool IsReference(string fieldName) => ReferenceFieldNames.Contains(fieldName);
+
+        public bool HasAnyReferences(IEnumerable<string> fieldNames)
         {
-            return Name;
+            foreach (var fieldName in fieldNames)
+            {
+                if (ReferenceFieldNames.Contains(fieldName))
+                    return true;
+            }
+            return false;
         }
     }
 

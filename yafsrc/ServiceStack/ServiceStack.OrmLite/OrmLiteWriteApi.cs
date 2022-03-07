@@ -140,7 +140,11 @@ namespace ServiceStack.OrmLite
         /// <param name="obj">The object.</param>
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
         /// <returns>System.Int64.</returns>
-        public static long Insert<T>(this IDbConnection dbConn, Action<IDbCommand> commandFilter, Dictionary<string, object> obj, bool selectIdentity = false)
+        public static long Insert<T>(
+            this IDbConnection dbConn,
+            Action<IDbCommand> commandFilter,
+            Dictionary<string, object> obj,
+            bool selectIdentity = false)
         {
             return dbConn.Exec(dbCmd => dbCmd.Insert<T>(obj, commandFilter: commandFilter, selectIdentity: selectIdentity));
         }

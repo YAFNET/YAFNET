@@ -14,7 +14,7 @@ namespace ServiceStack
     /// Implements the <see cref="ServiceStack.AttributeBase" />
     /// </summary>
     /// <seealso cref="ServiceStack.AttributeBase" />
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false, Inherited = true)]
     public class ApiMemberAttribute : AttributeBase
     {
         /// <summary>
@@ -34,7 +34,7 @@ namespace ServiceStack
         /// </summary>
         /// <value>The name.</value>
         /// <remarks>Other notes on the name field:
-        /// If paramType is body, the name is used only for UI and codegeneration.
+        /// If paramType is body, the name is used only for UI and code generation.
         /// If paramType is path, the name field must correspond to the associated path segment from the path field in the api object.
         /// If paramType is query, the name field corresponds to the query param name.</remarks>
         public string Name { get; set; }

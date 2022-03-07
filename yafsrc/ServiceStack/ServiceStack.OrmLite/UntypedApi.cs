@@ -244,6 +244,11 @@ namespace ServiceStack.OrmLite
             return Exec(dbCmd => dbCmd.Update((T)obj));
         }
 
+        public Task<int> UpdateAsync(object obj, CancellationToken token)
+        {
+            return Exec(dbCmd => dbCmd.UpdateAsync((T)obj, token));
+        }
+
         /// <summary>
         /// Updates the specified object.
         /// </summary>

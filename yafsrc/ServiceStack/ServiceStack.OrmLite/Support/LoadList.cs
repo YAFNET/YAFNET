@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite.Support
 {
     using System;
@@ -27,6 +28,7 @@ namespace ServiceStack.OrmLite.Support
         /// The database command
         /// </summary>
         protected IDbCommand dbCmd;
+
         /// <summary>
         /// The q
         /// </summary>
@@ -36,18 +38,22 @@ namespace ServiceStack.OrmLite.Support
         /// The dialect provider
         /// </summary>
         protected IOrmLiteDialectProvider dialectProvider;
+
         /// <summary>
         /// The parent results
         /// </summary>
         protected List<Into> parentResults;
+
         /// <summary>
         /// The model definition
         /// </summary>
         protected ModelDefinition modelDef;
+
         /// <summary>
         /// The field defs
         /// </summary>
-        protected List<FieldDefinition> fieldDefs;
+        protected FieldDefinition[] fieldDefs;
+
         /// <summary>
         /// The sub SQL
         /// </summary>
@@ -57,7 +63,7 @@ namespace ServiceStack.OrmLite.Support
         /// Gets the field defs.
         /// </summary>
         /// <value>The field defs.</value>
-        public List<FieldDefinition> FieldDefs => fieldDefs;
+        public FieldDefinition[] FieldDefs => fieldDefs;
 
         /// <summary>
         /// Gets the parent results.
@@ -86,7 +92,7 @@ namespace ServiceStack.OrmLite.Support
             parentResults = dbCmd.ExprConvertToList<Into>(sql, parentQ.Params, onlyFields: q.OnlyFields);
 
             modelDef = ModelDefinition<Into>.Definition;
-            fieldDefs = modelDef.AllFieldDefinitionsArray.Where(x => x.IsReference).ToList();
+            fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
 
             var subQ = q.Clone();
             var subQSql = dialectProvider.GetLoadChildrenSubSelect(subQ);

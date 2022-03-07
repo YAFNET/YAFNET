@@ -1103,14 +1103,16 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
         /// <returns>System.Int64.</returns>
-        internal static long Insert<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter, bool selectIdentity = false)
+        internal static long Insert<T>(this IDbCommand dbCmd, Dictionary<string, object> obj,
+                                       Action<IDbCommand> commandFilter, bool selectIdentity = false)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
             OrmLiteConfig.InsertFilter?.Invoke(dbCmd, obj.ToFilterType<T>());
 
             var dialectProvider = dbCmd.GetDialectProvider();
-            var pkField = ModelDefinition<T>.Definition.PrimaryKey;
+            var modelDef = ModelDefinition<T>.Definition;
+            var pkField = modelDef.PrimaryKey;
             object id = null;
             var enableIdentityInsert = pkField?.AutoIncrement == true && obj.TryGetValue(pkField.Name, out id);
 
@@ -1125,7 +1127,16 @@ namespace ServiceStack.OrmLite
 
                 var ret = InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity);
                 if (enableIdentityInsert)
-                    return Convert.ToInt64(id);
+                    ret = Convert.ToInt64(id);
+
+                if (modelDef.HasAnyReferences(obj.Keys))
+                {
+                    if (pkField != null && !obj.ContainsKey(pkField.Name))
+                        obj[pkField.Name] = ret;
+
+                    var instance = obj.FromObjectDictionary<T>();
+                    dbCmd.SaveAllReferences(instance);
+                }
                 return ret;
             }
             finally
@@ -1502,12 +1513,13 @@ namespace ServiceStack.OrmLite
         /// <typeparam name="T"></typeparam>
         /// <param name="dbCmd">The database command.</param>
         /// <param name="instance">The instance.</param>
-        internal static void SaveAllReferences<T>(this IDbCommand dbCmd, T instance)
-        {
-            var modelDef = ModelDefinition<T>.Definition;
-            var pkValue = modelDef.PrimaryKey.GetValue(instance);
+        internal static void SaveAllReferences<T>(this IDbCommand dbCmd, T instance) =>
+            SaveAllReferences(dbCmd, ModelDefinition<T>.Definition, instance);
 
-            var fieldDefs = modelDef.AllFieldDefinitionsArray.Where(x => x.IsReference);
+        internal static void SaveAllReferences(IDbCommand dbCmd, ModelDefinition modelDef, object instance)
+        {
+            var pkValue = modelDef.PrimaryKey.GetValue(instance);
+            var fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
 
             bool updateInstance = false;
             foreach (var fieldDef in fieldDefs)
@@ -1563,7 +1575,7 @@ namespace ServiceStack.OrmLite
 
             if (updateInstance)
             {
-                dbCmd.Update(instance);
+                dbCmd.CreateTypedApi(instance.GetType()).Update(instance);
             }
         }
 
