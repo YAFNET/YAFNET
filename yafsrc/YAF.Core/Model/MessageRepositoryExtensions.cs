@@ -1202,7 +1202,7 @@ namespace YAF.Core.Model
                     {
                         TopicName = subject, Description = description, Status = status, Styles = styles
                     },
-                    t => t.ID == originalMessage.Item2.ID);
+                    t => t.ID == originalMessage.Item2.TopicID);
             }
 
             // Update Search index Item
@@ -1216,7 +1216,7 @@ namespace YAF.Core.Model
                 UserDisplayName = originalMessage.Item3.DisplayName,
                 UserStyle = originalMessage.Item3.UserStyle,
                 UserId = originalMessage.Item2.UserID,
-                TopicId = originalMessage.Item2.ID,
+                TopicId = originalMessage.Item2.TopicID,
                 Topic = originalMessage.Item1.TopicName,
                 ForumId = originalMessage.Item1.ForumID,
                 ForumName = originalMessage.Item4.Name,
@@ -1229,7 +1229,7 @@ namespace YAF.Core.Model
             {
                 // If forum is moderated, make sure last post pointers are correct
                 BoardContext.Current.Get<IRaiseEvent>().Raise(
-                    new UpdateTopicLastPostEvent(originalMessage.Item2.UserID, originalMessage.Item2.TopicID));
+                    new UpdateTopicLastPostEvent(originalMessage.Item4.ID, originalMessage.Item2.TopicID));
             }
         }
 
