@@ -4,6 +4,7 @@
 <%@ Import Namespace="YAF.Types.Interfaces" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="YAF.Types.Objects" %>
+<%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 
 <asp:PlaceHolder id="SimilarTopicsHolder" runat="server" Visible="true">
     <asp:Repeater ID="Topics" runat="server" Visible="true">

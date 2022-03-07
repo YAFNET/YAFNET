@@ -41,6 +41,7 @@ namespace YAF.Controls
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Events;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Web.Controls;
     using YAF.Web.Editors;

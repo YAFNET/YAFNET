@@ -61,7 +61,9 @@ namespace YAF.Core.Helpers
             modes.ForEach(
                 mode => modesList.Add(
                     new ListItem(
-                        localization.GetText("MYTOPICS", mode == TopicListMode.User ? "MYTOPICS" : $"{mode}Topics"),
+                        localization.GetText(
+                            "MYTOPICS",
+                            mode == TopicListMode.User ? "MYTOPICS" : $"{mode}Topics"),
                         mode.ToString())));
 
             return modesList;

@@ -30,7 +30,6 @@ namespace YAF.Pages.Admin
 
     using YAF.Configuration;
     using YAF.Core.BasePages;
-    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;

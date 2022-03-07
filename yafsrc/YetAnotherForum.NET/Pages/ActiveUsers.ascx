@@ -54,7 +54,8 @@
                                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="IP" />:
                                             <span class="badge bg-secondary">
                                                 <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
-                                                   title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
+                                                   title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"
+                                                   class="link-light">
                                                     <%# IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)%></a>
                                             </span>
                                         </small>

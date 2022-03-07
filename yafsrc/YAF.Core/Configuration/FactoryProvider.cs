@@ -29,6 +29,7 @@ namespace YAF.Core.Configuration
     using YAF.Core.Configuration.Pattern;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 

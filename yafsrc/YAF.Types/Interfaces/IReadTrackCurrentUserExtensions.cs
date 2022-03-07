@@ -30,6 +30,7 @@ namespace YAF.Types.Interfaces
     using System.Collections.Generic;
 
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 

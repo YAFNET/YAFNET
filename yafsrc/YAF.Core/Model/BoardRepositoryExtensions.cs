@@ -338,6 +338,28 @@ namespace YAF.Core.Model
 
             repository.FireNew(newBoardId);
 
+            // -- Create Welcome Topic
+            var messageFlags = new MessageFlags
+                                   {
+                                       IsHtml = false, IsBBCode = true, IsPersistent = true, IsApproved = true
+                                   };
+
+            /*var topic = BoardContext.Current.GetRepository<Topic>().SaveNew(
+                forum,
+                "Welcome to YetAnotherForum.NET",
+                string.Empty,
+                string.Empty,
+                "Welcome to the New YAF.NET Installation",
+                "Welcome Message here",
+                adminUser,
+                0,
+                userName,
+                userName,
+                BoardContext.Current.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                DateTime.UtcNow,
+                messageFlags,
+                out _);*/
+
             return newBoardId;
         }
 

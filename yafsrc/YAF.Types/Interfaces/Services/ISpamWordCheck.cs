@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -21,17 +21,33 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Services
 {
-    using System.Web;
+    using System.Collections.Generic;
+
+    using YAF.Types.Objects;
 
     /// <summary>
-    /// The Attachment interface.
+    /// SpamWordCheck Interface
     /// </summary>
-    public interface IAttachment
+    public interface ISpamWordCheck
     {
-        void GetResponseAttachment([NotNull] HttpContext context);
+        /// <summary>
+        /// Gets the spam word items.
+        /// </summary>
+        /// <value>
+        /// The spam word items.
+        /// </value>
+        IEnumerable<SpamWordCheckItem> SpamWordItems { get; }
 
-        void GetResponseImage([NotNull] HttpContext context);
+        /// <summary>
+        /// Checks for spam word.
+        /// </summary>
+        /// <param name="searchText">The search text.</param>
+        /// <param name="spamWord">The spam word.</param>
+        /// <returns>
+        /// Returns if the search Text contains a spam word
+        /// </returns>
+        bool CheckForSpamWord([NotNull] string searchText, out string spamWord);
     }
 }

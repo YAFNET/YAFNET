@@ -32,6 +32,7 @@ namespace YAF.Core.Extensions
     using YAF.Core.Services.Syndication;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// The syndication item extensions.

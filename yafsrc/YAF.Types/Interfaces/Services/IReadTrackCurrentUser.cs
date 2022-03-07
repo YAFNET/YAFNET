@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Services
 {
     #region Using
 

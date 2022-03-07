@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,49 +21,48 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Services
 {
-    using System.Web;
+    using System.Collections.Generic;
+
+    using YAF.Types.Models;
 
     /// <summary>
-    /// The Resources interface.
+    /// User Display Name interface.
     /// </summary>
-    public interface IResources
+    public interface IUserDisplayName
     {
         /// <summary>
-        /// Gets the forum user info as JSON string for the hover cards
+        /// Get the Display Name from a <paramref name="userId"/>
         /// </summary>
-        /// <param name="context">The context.</param>
-        void GetUserInfo([NotNull] HttpContext context);
-
-        /// <summary>
-        /// Gets the list of all Custom BB Codes
-        /// </summary>
-        /// <param name="context">The context.</param>
-        void GetCustomBBCodes([NotNull] HttpContext context);
-
-        /// <summary>
-        /// Get all Mentioned Users
-        /// </summary>
-        /// <param name="context">
-        /// The context.
+        /// <param name="userId">
+        /// The user id.
         /// </param>
-        void GetMentionUsers([NotNull] HttpContext context);
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        string GetNameById(int userId);
 
         /// <summary>
-        /// Gets the Default Text Avatar
+        /// Find user
         /// </summary>
-        /// <param name="context">
-        /// The context.
-        /// </param>
-        void GetTextAvatar([NotNull] HttpContext context);
+        /// <param name="contains">The contains.</param>
+        /// <returns>
+        /// Returns the Found User
+        /// </returns>
+        [NotNull]
+        IList<User> FindUserContainsName(string contains);
 
         /// <summary>
-        /// The get response local avatar.
+        /// Find User By (Display) Name
         /// </summary>
-        /// <param name="context">
-        /// The context.
+        /// <param name="name">
+        /// The name.
         /// </param>
-        void GetResponseLocalAvatar([NotNull] HttpContext context);
+        /// <returns>
+        /// The <see cref="User"/>.
+        /// </returns>
+        [NotNull]
+        User FindUserByName([NotNull] string name);
     }
 }

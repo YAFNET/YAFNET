@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
@@ -11,9 +11,7 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
-
  * https://www.apache.org/licenses/LICENSE-2.0
-
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,20 +19,35 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Services
 {
     /// <summary>
-    /// The Style Transform interface.
+    /// The theme interface
     /// </summary>
-    public interface IStyleTransform
+    public interface ITheme
     {
+        #region Properties
+
         /// <summary>
-        /// Decode style by string.
+        ///   Gets the Theme.
         /// </summary>
-        /// <param name="style">The style string.</param>
+        string ThemeFile { get; }
+
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Gets full path to the given theme file.
+        /// </summary>
+        /// <param name="filename">
+        /// Short name of theme file.
+        /// </param>
         /// <returns>
-        /// The decode style by string.
+        /// The build theme path.
         /// </returns>
-        string Decode(string style);
+        string BuildThemePath([NotNull] string filename);
+
+        #endregion
     }
 }

@@ -43,6 +43,7 @@ namespace YAF.Pages
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Web.Extensions;

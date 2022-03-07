@@ -33,6 +33,7 @@ namespace YAF.Web.Extensions
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Controls;
 
     public static class ForumPageExtensions

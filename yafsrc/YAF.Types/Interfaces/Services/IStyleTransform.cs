@@ -21,43 +21,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Services
 {
     /// <summary>
-    /// The UserIgnored interface.
+    /// The Style Transform interface.
     /// </summary>
-    public interface IUserIgnored
+    public interface IStyleTransform
     {
         /// <summary>
-        /// The is ignored.
+        /// Decode style by string.
         /// </summary>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
+        /// <param name="style">The style string.</param>
         /// <returns>
-        /// The is ignored.
+        /// The decode style by string.
         /// </returns>
-        bool IsIgnored(int ignoredUserId);
-
-        /// <summary>
-        /// The clear ignore cache.
-        /// </summary>
-        void ClearIgnoreCache();
-
-        /// <summary>
-        /// The add ignored.
-        /// </summary>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
-        void AddIgnored(int ignoredUserId);
-
-        /// <summary>
-        /// The remove ignored.
-        /// </summary>
-        /// <param name="ignoredUserId">
-        /// The ignored user id.
-        /// </param>
-        void RemoveIgnored(int ignoredUserId);
+        string Decode(string style);
     }
 }

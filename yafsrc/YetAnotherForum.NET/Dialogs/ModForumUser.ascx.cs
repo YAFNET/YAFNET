@@ -39,6 +39,7 @@ namespace YAF.Dialogs
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion

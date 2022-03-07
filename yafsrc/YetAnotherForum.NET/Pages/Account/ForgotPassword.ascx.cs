@@ -35,6 +35,7 @@ namespace YAF.Pages.Account
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
+    using YAF.Types.Interfaces.Services;
     using YAF.Web.Extensions;
 
     #endregion

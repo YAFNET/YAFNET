@@ -34,6 +34,7 @@ namespace YAF.Core.Services
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
 
     #endregion

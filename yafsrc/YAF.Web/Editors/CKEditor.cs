@@ -32,6 +32,7 @@ namespace YAF.Web.Editors
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 

@@ -37,6 +37,7 @@ namespace YAF.Modules
     using YAF.Types;
     using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 

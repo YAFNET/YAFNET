@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2022 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,48 +21,49 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Types.Interfaces
+namespace YAF.Types.Interfaces.Services
 {
-    using System.Collections.Generic;
-
-    using YAF.Types.Models;
+    using System.Web;
 
     /// <summary>
-    /// User Display Name interface.
+    /// The Resources interface.
     /// </summary>
-    public interface IUserDisplayName
+    public interface IResources
     {
         /// <summary>
-        /// Get the Display Name from a <paramref name="userId"/>
+        /// Gets the forum user info as JSON string for the hover cards
         /// </summary>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="string"/>.
-        /// </returns>
-        string GetNameById(int userId);
+        /// <param name="context">The context.</param>
+        void GetUserInfo([NotNull] HttpContext context);
 
         /// <summary>
-        /// Find user
+        /// Gets the list of all Custom BB Codes
         /// </summary>
-        /// <param name="contains">The contains.</param>
-        /// <returns>
-        /// Returns the Found User
-        /// </returns>
-        [NotNull]
-        IList<User> FindUserContainsName(string contains);
+        /// <param name="context">The context.</param>
+        void GetCustomBBCodes([NotNull] HttpContext context);
 
         /// <summary>
-        /// Find User By (Display) Name
+        /// Get all Mentioned Users
         /// </summary>
-        /// <param name="name">
-        /// The name.
+        /// <param name="context">
+        /// The context.
         /// </param>
-        /// <returns>
-        /// The <see cref="User"/>.
-        /// </returns>
-        [NotNull]
-        User FindUserByName([NotNull] string name);
+        void GetMentionUsers([NotNull] HttpContext context);
+
+        /// <summary>
+        /// Gets the Default Text Avatar
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        void GetTextAvatar([NotNull] HttpContext context);
+
+        /// <summary>
+        /// The get response local avatar.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        void GetResponseLocalAvatar([NotNull] HttpContext context);
     }
 }

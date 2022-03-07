@@ -30,6 +30,7 @@ namespace YAF.Web.Editors
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     /// <summary>
     /// The CKEditor BBCode editor.
