@@ -487,7 +487,7 @@ namespace YAF.Core.Helpers
         /// </returns>
         public User GetUserFromProviderUserKey(string providerUserKey, bool currentBoard = true)
         {
-            return this.GetRepository<User>().GetUserByProviderKey(currentBoard ? BoardContext.Current.PageBoardID : null, providerUserKey.ToString());
+            return this.GetRepository<User>().GetUserByProviderKey(currentBoard ? BoardContext.Current.PageBoardID : null, providerUserKey);
         }
 
         /// <summary>
@@ -943,7 +943,7 @@ namespace YAF.Core.Helpers
         {
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
-            expression.LeftJoin<vaccess>((u, v) => v.UserID == u.ID).Join<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
+            expression.LeftJoin<vaccess>((u, v) => v.UserID == u.ID).LeftJoin<AspNetUsers>((u, a) => a.Id == u.ProviderUserKey)
                 .Join<Rank>((u, r) => r.ID == u.RankID);
 
             if (includeNonApproved)

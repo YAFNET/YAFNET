@@ -150,15 +150,7 @@ namespace YAF.Install
             // set the connection string provider...
             var previousProvider = this.Get<IDbAccess>().Information.ConnectionString;
 
-            string DynamicConnectionString()
-            {
-                if (BoardContext.Current.Vars.ContainsKey("ConnectionString"))
-                {
-                    return BoardContext.Current.Vars["ConnectionString"] as string;
-                }
-
-                return previousProvider();
-            }
+            string DynamicConnectionString() => this.CurrentConnString.IsSet() ? this.CurrentConnString : previousProvider();
 
             this.DbAccess.Information.ConnectionString = DynamicConnectionString;
         }
@@ -215,9 +207,6 @@ namespace YAF.Install
         /// </param>
         protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            // attempt to connect selected DB...
-            BoardContext.Current["ConnectionString"] = this.CurrentConnString;
-
             if (!this.InstallService.TestDatabaseConnection(out var message))
             {
                 UpdateInfoPanel(
@@ -236,9 +225,6 @@ namespace YAF.Install
                     Install.ConnectionSuccess,
                     "success");
             }
-
-            // we're done with it...
-            BoardContext.Current.Vars.Remove("ConnectionString");
         }
 
         /// <summary>

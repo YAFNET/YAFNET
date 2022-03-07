@@ -283,9 +283,12 @@ namespace YAF.Core.Services
 
                 if (user == null)
                 {
+                    context.Response.Write(
+                        "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
                     return;
                 }
-
+                
                 var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
 
                 if (name.StartsWith("&"))
@@ -300,9 +303,18 @@ namespace YAF.Core.Services
 
                 var fontSize = Math.Floor(width * 0.3);
 
-                var backgroundColor = ValidationHelper.IsNumeric(user.ProviderUserKey)
-                    ? $"#{user.ProviderUserKey.ToGuid().ToString().Substring(0, 6)}"
-                    : $"#{user.ProviderUserKey.Substring(0, 6)}";
+                string backgroundColor;
+
+                if (user.UserFlags.IsGuest)
+                {
+                    backgroundColor = "#0c7333";
+                }
+                else
+                {
+                    backgroundColor = ValidationHelper.IsNumeric(user.ProviderUserKey)
+                                          ? $"#{user.ProviderUserKey.ToGuid().ToString().Substring(0, 6)}"
+                                          : $"#{user.ProviderUserKey.Substring(0, 6)}";
+                }
 
                 var svg = $@"<?xml version=""1.0"" encoding=""UTF-8""?><svg xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" 
                                   width=""{width}px"" height=""{height}px"" viewBox=""0 0 {width} {height}"" version=""1.1"">
