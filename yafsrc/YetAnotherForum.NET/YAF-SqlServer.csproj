@@ -116,6 +116,12 @@
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
+  <PropertyGroup>
+    <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-datetimepicker.css;Content\bootstrap-notify.css;Content\bootstrap-tagsinput.css;Content\prism.css;
+  Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\bootstrap-tagsinput.js;Scripts\bootstrap-typeahead.js;Scripts\jquery.bootstrap-touchspin.js;Scripts\hammer.min.js;
+  Scripts\jquery.hovercard.js;Scripts\jquery.netStack.js;Scripts\jsdifflib.js;Scripts\moment-with-locales.js;Scripts\prism.js;Scripts\select2.js;**\Content\**\*.scss</ExcludeFilesFromDeployment>
+    <ExcludeFoldersFromDeployment>Content\select2;Content\flag-icons;Content\fontawesome;Content\forum;Content\bootstrap;Content\jQuery.FileUpload;Scripts\jQuery.FileUpload;Scripts\blueimp-gallery;Scripts\forum</ExcludeFoldersFromDeployment>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
@@ -128,8 +134,6 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <ExcludeFilesFromDeployment>Content\jquery.fileupload.comb.css.bundle;Content\forum.css;Content\InstallWizard.css;Content\jquery.fileupload.comb.css;Content\jquery.hovercard.css;Content\jquery.hovercard.min.css;Content\jsdifflib.css;Content\jsdifflib.min.css;Content\prism.css;Content\select2.css;Content\*.scss;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\InstallWizard.js;Scripts\InstallWizard.comb.js;Scripts\jquery.fileupload.comb.js;Scripts\jquery.ForumExtensions.js;Scripts\jquery.hovercard.js;Scripts\jsdifflib.js;Scripts\jsdifflib.min.js;Scripts\prism.js;Scripts\*.js.bundle</ExcludeFilesFromDeployment>
-    <ExcludeFoldersFromDeployment>Content\bootstrap;Content\jQuery.FileUpload;Scripts\jQuery.FileUpload</ExcludeFoldersFromDeployment>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -1170,9 +1174,6 @@
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap\bootstrap.css">
       <DependentUpon>bootstrap.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\bootstrap\bootstrap.min.css">
-      <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
     <Content Include="Content\favicons\android-chrome-144x144.png" />
     <Content Include="Content\favicons\apple-touch-icon.png" />
@@ -2479,16 +2480,16 @@
     <Content Include="Scripts\ckeditor\plugins\bbcode\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\css\codemirror.min.css" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\autocomplete.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\autoformat.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\commentselectedrange.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\searchcode.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\uncommentselectedrange.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\images\autocomplete.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\images\autoformat.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\images\commentselectedrange.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\images\searchcode.png" />
-    <Content Include="Scripts\ckeditor\plugins\codemirror\images\uncommentselectedrange.png" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\dialogs\codemirrorAbout.js" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\dialogs\logo.png" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\autocomplete.svg" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\autoformat.svg" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\codemirror.svg" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\commentselectedrange.svg" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\find.svg" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\LICENSE-fontawesome.txt" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\replace.svg" />
+    <Content Include="Scripts\ckeditor\plugins\codemirror\icons\uncommentselectedrange.svg" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\beautify.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.addons.min.js" />
     <Content Include="Scripts\ckeditor\plugins\codemirror\js\codemirror.addons.search.min.js" />
@@ -2838,6 +2839,7 @@
     <Content Include="Scripts\ckeditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Scripts\ckeditor\skins\moono-lisa\readme.md" />
     <Content Include="Scripts\ckeditor\styles.js" />
+    <Content Include="Scripts\ckeditor\vendor\promise.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
@@ -3695,7 +3697,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
