@@ -3431,7 +3431,6 @@
     <Content Include="Content\Themes\vapor\bootstrap-forum.scss" />
     <Content Include="Content\Themes\morph\bootstrap-forum.scss" />
     <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
-    <Content Include="package-lock.json" />
     <Content Include="Content\select2\_disabled.scss" />
     <Content Include="Content\select2\_dropdown.scss" />
     <Content Include="Content\select2\_include-all.scss" />
