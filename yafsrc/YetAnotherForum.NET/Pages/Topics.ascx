@@ -172,7 +172,6 @@
                              ID="MarkRead"
                              TextLocalizedTag="MARKREAD"/>
             <YAF:RssFeedLink ID="RssFeed" runat="server" 
-                             FeedType="Topics"
                              Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.TopicsFeedAccess) %>"  
             />
         </div>

@@ -136,7 +136,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // redirect to editing page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditAccessMask, "i={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditAccessMask, new { i = e.CommandArgument });
                     break;
                 case "delete":
 

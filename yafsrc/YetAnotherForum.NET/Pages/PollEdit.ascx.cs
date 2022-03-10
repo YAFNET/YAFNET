@@ -450,7 +450,7 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", this.topicInfo.ID, this.topicInfo.TopicName);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {t = this.topicInfo.ID, name = this.topicInfo.TopicName });
         }
 
         /// <summary>

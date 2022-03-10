@@ -76,13 +76,13 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, "fa={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, new { fa = e.CommandArgument });
                     break;
                 case "copy":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, "copy={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditForum, new { copy = e.CommandArgument });
                     break;
                 case "delete":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_DeleteForum, "fa={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_DeleteForum, new { fa = e.CommandArgument });
                     break;
             }
         }
@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditCategory, "c={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditCategory, new { c = e.CommandArgument });
                     break;
                 case "delete":
                     if (this.GetRepository<Category>().DeleteById(e.CommandArgument.ToType<int>()))

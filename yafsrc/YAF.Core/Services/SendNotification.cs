@@ -129,8 +129,7 @@ namespace YAF.Core.Services
             var adminLink = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Moderate_UnapprovedPosts,
                 true,
-                "f={0}",
-                forumId);
+                new { f = forumId });
 
             var currentContext = HttpContext.Current;
 
@@ -267,8 +266,7 @@ namespace YAF.Core.Services
                                                                            .GetLink(
                                                                                ForumPages.Moderate_ReportedPosts,
                                                                                true,
-                                                                               "f={0}",
-                                                                               pageForumID)
+                                                                               new {f = pageForumID})
                                                                    }
                                                            };
 
@@ -341,7 +339,7 @@ namespace YAF.Core.Services
                                                        {
                                                            ["{fromuser}"] = displayName,
                                                            ["{link}"] =
-                                                               $"{this.Get<LinkBuilder>().GetLink(ForumPages.PrivateMessage, true, "pm={0}", userPMessageId)}\r\n\r\n",
+                                                               $"{this.Get<LinkBuilder>().GetLink(ForumPages.PrivateMessage, true, new {pm = userPMessageId})}\r\n\r\n",
                                                            ["{subject}"] = subject,
                                                            ["{username}"] = toUser.DisplayOrUserName()
                                                        }
@@ -421,9 +419,7 @@ namespace YAF.Core.Services
                                              ["{link}"] = this.Get<LinkBuilder>().GetLink(
                                                  ForumPages.Posts,
                                                  true,
-                                                 "m={0}&name={1}",
-                                                 message.ID,
-                                                 message.Topic.TopicName),
+                                                 new {m = message.ID, name = message.Topic.TopicName}),
                                              ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetLink(
                                                  ForumPages.Profile_Subscriptions,
                                                  true)
@@ -659,8 +655,7 @@ namespace YAF.Core.Services
                                               ["{adminlink}"] = this.Get<LinkBuilder>().GetLink(
                                                   ForumPages.Admin_EditUser,
                                                   true,
-                                                  "u={0}",
-                                                  userId),
+                                                  new {u = userId}),
                                               ["{user}"] = user.UserName,
                                               ["{email}"] = user.Email
                                           }
@@ -712,8 +707,7 @@ namespace YAF.Core.Services
                                                           ["{adminlink}"] = this.Get<LinkBuilder>().GetLink(
                                                               ForumPages.Admin_EditUser,
                                                               true,
-                                                              "u={0}",
-                                                              userId),
+                                                              new {u = userId}),
                                                           ["{user}"] = user.UserName,
                                                           ["{email}"] = user.Email
                                                       }
@@ -813,8 +807,7 @@ namespace YAF.Core.Services
                                               ["{link}"] = this.Get<LinkBuilder>().GetLink(
                                                   ForumPages.Account_Approve,
                                                   true,
-                                                  "code={0}",
-                                                  code),
+                                                  new {code = code}),
                                               ["{key}"] = code,
                                               ["{username}"] = user.UserName
                                           }
@@ -907,8 +900,8 @@ namespace YAF.Core.Services
             verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Account_ResetPassword,
                 true,
-                "code={0}",
-                code);
+                new { code = code }
+                );
             verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
             verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<LinkBuilder>().ForumUrl}";
 

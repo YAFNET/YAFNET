@@ -162,7 +162,7 @@ namespace YAF.Pages.Admin
             return string.Format(
                 "<a href=\"{1}\">{0}</a>",
                 dr.Item3.Name,
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditGroup, "i={0}", dr.Item3.ID));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditGroup, new {i = dr.Item3.ID }));
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace YAF.Pages.Admin
                 "<a href=\"{2}\">{0}&nbsp;({1})</a>",
                 this.HtmlEncode(dr.Item3.DisplayName),
                 this.HtmlEncode(dr.Item3.Name),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", dr.Item3.ID));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new {u = dr.Item3.ID }));
         }
 
         /// <summary>

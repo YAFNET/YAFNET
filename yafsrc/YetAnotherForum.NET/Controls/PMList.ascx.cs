@@ -107,7 +107,7 @@ namespace YAF.Controls
                 this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
                 MessageTypes.success);
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "#View{0}", this.View.ToInt());
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace YAF.Controls
                     : this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
                 MessageTypes.success);
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "#View{0}", this.View.ToInt());
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace YAF.Controls
                 MessageTypes.success);
 
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "#View{0}", this.View.ToInt());
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace YAF.Controls
                 MessageTypes.success);
 
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "#View{0}", this.View.ToInt());
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
         }
 
         /// <summary>
@@ -377,9 +377,7 @@ namespace YAF.Controls
         {
             return this.Get<LinkBuilder>().GetLink(
                 ForumPages.PrivateMessage,
-                "pm={0}&v={1}",
-                messageId,
-                PmViewConverter.ToQueryStringParam(this.View));
+                new { pm = messageId, v = PmViewConverter.ToQueryStringParam(this.View) });
         }
 
         /// <summary>

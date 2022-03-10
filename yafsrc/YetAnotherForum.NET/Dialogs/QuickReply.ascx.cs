@@ -322,9 +322,7 @@ namespace YAF.Dialogs
                     // redirect to newly posted message
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Posts,
-                        "m={0}&name={1}&",
-                        newMessage.ID,
-                        this.PageContext.PageTopic.TopicName);
+                        new {m = newMessage.ID, name = this.PageContext.PageTopic.TopicName });
                 }
                 else
                 {
@@ -339,7 +337,7 @@ namespace YAF.Dialogs
 
                     var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
 
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = 1, url = this.Server.UrlEncode(url) });
                 }
             }
             catch (Exception exception)

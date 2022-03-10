@@ -27,7 +27,6 @@ namespace YAF.Controls
     #region Using
 
     using System;
-    using System.Linq;
     using System.Web.UI.WebControls;
 
     using YAF.Core.BaseControls;
@@ -76,7 +75,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
         protected void Albums_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
         {
-            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a={0}", e.CommandArgument);
+            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, new { a = e.CommandArgument });
         }
 
         /// <summary>

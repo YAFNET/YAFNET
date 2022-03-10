@@ -194,9 +194,7 @@ namespace YAF.Pages.Moderate
                     // go to the message
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Posts,
-                        "m={0}&name={1}",
-                        e.CommandArgument,
-                        this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>()));
+                        new { m = e.CommandArgument, name = this.GetRepository<Topic>().GetNameFromMessage(e.CommandArgument.ToType<int>()) });
                     break;
                 case "copyover":
 
@@ -208,7 +206,7 @@ namespace YAF.Pages.Moderate
                 case "viewhistory":
 
                     // go to history page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.MessageHistory, "f={0}&m={1}", this.PageContext.PageForumID, e.CommandArgument.ToType<int>());
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MessageHistory, new { f = this.PageContext.PageForumID, m = e.CommandArgument });
                     break;
                 case "resolved":
 

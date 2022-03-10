@@ -247,8 +247,7 @@ namespace YAF.Pages
 
             this.SearchUser.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Search,
-                "postedby={0}",
-                userNameOrDisplayName);
+                new { postedby = userNameOrDisplayName });
 
             this.DataBind();
         }
@@ -355,7 +354,7 @@ namespace YAF.Pages
             this.Twitter.ParamTitle0 = userName;
 
             this.XMPP.Visible = user.Item2.Profile_XMPP.IsSet();
-            this.XMPP.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Jabber, "u={0}", user.Item1.ID);
+            this.XMPP.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Jabber, new { u = user.Item1.ID });
             this.XMPP.ParamTitle0 = userName;
 
             this.Skype.Visible = user.Item2.Profile_Skype.IsSet();
@@ -397,7 +396,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.PM.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, "u={0}", user.Item1.ID);
+            this.PM.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = user.Item1.ID });
             this.PM.ParamTitle0 = userName;
 
             // email link
@@ -416,7 +415,7 @@ namespace YAF.Pages
                 }
             }
 
-            this.Email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, "u={0}", user.Item1.ID);
+            this.Email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = user.Item1.ID });
             if (this.PageContext.IsAdmin)
             {
                 this.Email.TitleNonLocalized = user.Item1.Email;

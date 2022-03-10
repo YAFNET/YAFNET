@@ -107,9 +107,7 @@ namespace YAF.Controls
             textMessageLink.TitleNonLocalized = $"{startedByText} {inForumText}";
             textMessageLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Posts,
-                "t={0}&name={1}",
-                item.TopicID,
-                topicSubject);
+                new { t = item.TopicID, name = topicSubject });
 
             forumLink.Text = $"({item.Forum})";
             forumLink.NavigateUrl = this.Get<LinkBuilder>().GetForumLink(item.ForumID, item.Forum);

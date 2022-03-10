@@ -109,11 +109,11 @@ namespace YAF.Web.Controls
             if (this.ForumId < 0)
             {
                 // categories are negative
-                this.Get<LinkBuilder>().Redirect(ForumPages.Board, "c={0}&name={1}", -this.ForumId, name);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Board, new { c = -this.ForumId, name });
                 return;
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Topics, "f={0}&name={1}", this.ForumId, name);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new {f = this.ForumId, name});
         }
 
         #endregion

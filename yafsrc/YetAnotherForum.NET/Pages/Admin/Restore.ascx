@@ -75,7 +75,7 @@
                                                      Type="Link"
                                                      Icon="external-link-alt"
                                                      Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", this.Eval("Item2.ID"), this.Eval("Item2.TopicName")) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = this.Eval("Item2.ID"), name = this.Eval("Item2.TopicName") }) %>'>
                                 </YAF:ThemeButton>
                                 </h5>
                                 <small><%# "{0} {1}".Fmt(this.Eval("Item2.NumPosts"), this.GetText("POSTS")) %></small>
@@ -186,7 +186,7 @@
                                                      Type="Link"
                                                      Icon="external-link-alt"
                                                      Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}", this.Eval("Item3.ID"), this.Eval("Item2.TopicName")) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = this.Eval("Item3.ID"), name = this.Eval("Item2.TopicName") }) %>'>
                                 </YAF:ThemeButton>
                                 </h5>
                             </div>

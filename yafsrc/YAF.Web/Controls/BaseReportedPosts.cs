@@ -135,9 +135,7 @@ namespace YAF.Web.Controls
                             reporterName,
                             this.Get<LinkBuilder>().GetLink(
                                 ForumPages.PostPrivateMessage,
-                                "u={0}&r={1}",
-                                reporter.Item2.ID,
-                                this.MessageID),
+                                new { u = reporter.Item2.ID, r = this.MessageID }),
                             this.GetText("REPLYTO"));
 
                         var reportString = reporter.Item1.ReportText.Trim().Split('|');

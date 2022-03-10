@@ -20,7 +20,7 @@
                     <div class="card-header">
                         <YAF:Icon runat="server" IconName="comment" IconType="text-secondary" />
                         <a id="TopicLink"
-                           href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", (Container.DataItem as ReportedMessage).TopicID, (Container.DataItem as ReportedMessage).TopicName) %>'
+                           href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t =  (Container.DataItem as ReportedMessage).TopicID, name = (Container.DataItem as ReportedMessage).TopicName }) %>'
                            runat="server"><%# (Container.DataItem as ReportedMessage).TopicName %></a>
                         <div class="float-end">
                             <span class="fw-bold">
@@ -44,7 +44,7 @@
                                              Size="Small"
                                              Visible="<%# this.PageContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
-                                             NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,"u={0}", (Container.DataItem as ReportedMessage).UserID ) %>'
+                                             NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,new { u = (Container.DataItem as ReportedMessage).UserID } ) %>'
                                              Icon="users-cog"
                                              Type="Danger">
                             </YAF:ThemeButton>

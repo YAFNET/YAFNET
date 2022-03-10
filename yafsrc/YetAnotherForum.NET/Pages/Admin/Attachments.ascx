@@ -61,8 +61,7 @@
                         <div class="btn-group btn-group-sm">
                             <a href="<%# this.Get<LinkBuilder>().GetLink(
                                              ForumPages.Search,
-                                             "search={0}",
-                                             string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID)) %>"
+                                             new { search = string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID) }) %>"
                                class="btn btn-info"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"

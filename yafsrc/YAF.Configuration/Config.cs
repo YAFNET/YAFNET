@@ -411,17 +411,6 @@ namespace YAF.Configuration
                     select WebConfigurationManager.AppSettings[key]).FirstOrDefault();
         }
 
-        /// <summary>
-        ///     Gets a Provider type string from the config.
-        /// </summary>
-        /// <param name="providerName"> The provider Name. </param>
-        /// <returns> Provider type string or <see langword="null" /> if none exist. </returns>
-        public static string GetProvider([NotNull] string providerName)
-        {
-            var key = $"YAF.Provider.{providerName}";
-            return GetConfigValueAsString(key);
-        }
-
 #endregion
     }
 }

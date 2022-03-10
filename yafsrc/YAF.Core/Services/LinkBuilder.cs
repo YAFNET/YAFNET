@@ -25,14 +25,17 @@ namespace YAF.Core.Services
 {
     #region Using
 
+    using System.Linq;
     using System.Web;
 
+    using ServiceStack.Text;
+
     using YAF.Configuration;
-    using YAF.Core.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Services;
 
     #endregion
 
@@ -132,7 +135,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetUserProfileLink(int userId, string userName)
         {
-            return this.Get<LinkBuilder>().GetLink(ForumPages.UserProfile, "u={0}&name={1}", userId, userName);
+            return this.Get<LinkBuilder>().GetLink(ForumPages.UserProfile, new { u = userId, name = userName });
         }
 
         /// <summary>
@@ -149,7 +152,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetForumLink(int forumId, string forumName)
         {
-            return this.Get<LinkBuilder>().GetLink(ForumPages.Topics, "f={0}&name={1}", forumId, forumName);
+            return this.Get<LinkBuilder>().GetLink(ForumPages.Topics, new { f = forumId, name = forumName });
         }
 
         /// <summary>
@@ -166,7 +169,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetCategoryLink(int categoryId, string categoryName)
         {
-            return this.Get<LinkBuilder>().GetLink(ForumPages.Board, "c={0}&name={1}", categoryId, categoryName)
+            return this.Get<LinkBuilder>().GetLink(ForumPages.Board, new { c = categoryId, name = categoryName })
                 .Replace("&amp;", "&");
         }
 
@@ -184,7 +187,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetTopicLink(int topicId, string topicName)
         {
-            return this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", topicId, topicName)
+            return this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = topicName })
                 .Replace("&amp;", "&");
         }
 
@@ -196,7 +199,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetBasePath()
         {
-            return FactoryProvider.UrlBuilder.BuildUrl(string.Empty).TrimEnd('&');
+            return this.Get<IUrlBuilder>().BuildUrl(string.Empty).TrimEnd('&');
         }
 
         /// <summary>
@@ -208,7 +211,7 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetBasePath(BoardSettings boardSettings)
         {
-            return FactoryProvider.UrlBuilder.BuildUrl(boardSettings, string.Empty).TrimEnd('&');
+            return this.Get<IUrlBuilder>().BuildUrl(boardSettings, string.Empty).TrimEnd('&');
         }
 
         /// <summary>
@@ -230,8 +233,8 @@ namespace YAF.Core.Services
         public string GetLink(ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                ? FactoryProvider.UrlBuilder.BuildUrlFull($"g={page}")
-                : FactoryProvider.UrlBuilder.BuildUrl($"g={page}");
+                ? this.Get<IUrlBuilder>().BuildUrlFull($"g={page}")
+                : this.Get<IUrlBuilder>().BuildUrl($"g={page}");
         }
 
         /// <summary>
@@ -246,8 +249,8 @@ namespace YAF.Core.Services
         public string GetLink(BoardSettings boardSettings, ForumPages page, bool fullUrl = false)
         {
             return fullUrl
-                ? FactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, $"g={page}")
-                : FactoryProvider.UrlBuilder.BuildUrl(boardSettings, $"g={page}");
+                ? this.Get<IUrlBuilder>().BuildUrlFull(boardSettings, $"g={page}")
+                : this.Get<IUrlBuilder>().BuildUrl(boardSettings, $"g={page}");
         }
 
         /// <summary>
@@ -259,44 +262,34 @@ namespace YAF.Core.Services
         /// <param name="fullUrl">
         /// The full Url.
         /// </param>
-        /// <param name="format">
-        /// Format of parameters.
-        /// </param>
-        /// <param name="args">
-        /// Array of page parameters.
+        /// <param name="values">
+        /// The query string values.
         /// </param>
         /// <returns>
         /// URL to the given page with parameters.
         /// </returns>
-        //public string GetLink(ForumPages page, bool fullUrl, object values)
-        public string GetLink(ForumPages page, bool fullUrl, string format, params object[] args)
+        public string GetLink(ForumPages page, bool fullUrl, object values)
         {
-            return fullUrl
-                ? FactoryProvider.UrlBuilder.BuildUrlFull($"g={page}&{string.Format(format, args)}")
-                : FactoryProvider.UrlBuilder.BuildUrl($"g={page}&{string.Format(format, args)}");
-        }
+            var queryString = string.Empty;
 
-        /// <summary>
-        /// Gets link to the page with given parameters.
-        /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="page">Page to which to create a link.</param>
-        /// <param name="fullUrl">The full Url.</param>
-        /// <param name="format">Format of parameters.</param>
-        /// <param name="args">Array of page parameters.</param>
-        /// <returns>
-        /// URL to the given page with parameters.
-        /// </returns>
-        public string GetLink(
-            BoardSettings boardSettings,
-            ForumPages page,
-            bool fullUrl,
-            string format,
-            params object[] args)
-        {
+            if (values is string)
+            {
+                queryString = values.ToString();
+            }
+            else
+            {
+                var parameters = values.ToObjectDictionary();
+
+                queryString = parameters.Aggregate(
+                    queryString,
+                    (current, param) => $"{current}&{param.Key}={param.Value}");
+
+            }
+            
+
             return fullUrl
-                ? FactoryProvider.UrlBuilder.BuildUrlFull(boardSettings, $"g={page}&{string.Format(format, args)}")
-                : FactoryProvider.UrlBuilder.BuildUrl(boardSettings, $"g={page}&{string.Format(format, args)}");
+                       ? this.Get<IUrlBuilder>().BuildUrlFull($"g={page}{queryString}")
+                       : this.Get<IUrlBuilder>().BuildUrl($"g={page}{queryString}");
         }
 
         /// <summary>
@@ -305,18 +298,15 @@ namespace YAF.Core.Services
         /// <param name="page">
         /// Page to which to create a link.
         /// </param>
-        /// <param name="format">
-        /// Format of parameters.
-        /// </param>
-        /// <param name="args">
-        /// Array of page parameters.
+        /// <param name="values">
+        /// The query string values.
         /// </param>
         /// <returns>
         /// URL to the given page with parameters.
         /// </returns>
-        public string GetLink(ForumPages page, string format, params object[] args)
+        public string GetLink(ForumPages page, object values)
         {
-            return this.Get<LinkBuilder>().GetLink(page, false, format, args).Replace("&amp;", "&");
+            return this.Get<LinkBuilder>().GetLink(page, false, values).Replace("&amp;", "&");
         }
 
         /// <summary>
@@ -336,15 +326,12 @@ namespace YAF.Core.Services
         /// <param name="page">
         /// Page to which to redirect response.
         /// </param>
-        /// <param name="format">
-        /// Format of parameters.
+        /// <param name="values">
+        /// The query string values.
         /// </param>
-        /// <param name="args">
-        /// Array of page parameters.
-        /// </param>
-        public void Redirect(ForumPages page, string format, params object[] args)
+        public void Redirect(ForumPages page, object values)
         {
-            this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(page, format, args).Replace("&amp;", "&"));
+            this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(page, values).Replace("&amp;", "&"));
         }
 
         /// <summary>
@@ -354,15 +341,12 @@ namespace YAF.Core.Services
         /// Page to which to redirect response.
         /// </param>
         /// <param name="endResponse">True to end the Response, false otherwise.</param>
-        /// <param name="format">
-        /// Format of parameters.
+        /// <param name="values">
+        /// The query string values.
         /// </param>
-        /// <param name="args">
-        /// Array of page parameters.
-        /// </param>
-        public void Redirect(ForumPages page, bool endResponse, string format, params object[] args)
+        public void Redirect(ForumPages page, bool endResponse, object values)
         {
-            this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(page, format, args), endResponse);
+            this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(page, values), endResponse);
         }
 
         /// <summary>
@@ -373,7 +357,7 @@ namespace YAF.Core.Services
         /// </param>
         public void RedirectInfoPage(InfoMessage infoMessage)
         {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Info, $"i={infoMessage.ToType<int>()}");
+            this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = infoMessage.ToType<int>() });
         }
 
         #endregion

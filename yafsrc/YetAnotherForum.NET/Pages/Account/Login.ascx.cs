@@ -260,8 +260,7 @@ namespace YAF.Pages.Account
             verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Account_Approve,
                 true,
-                "code={0}",
-                checkMail.Hash);
+                new { code = checkMail.Hash });
             verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
             verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
             verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
@@ -283,7 +282,16 @@ namespace YAF.Pages.Account
         {
             this.Get<IAspNetUsersHelper>().SignIn(user, this.RememberMe.Checked);
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+            if (this.Get<HttpRequestBase>().QueryString.Exists("ReturnUrl"))
+            {
+                var returnUrl = this.HtmlEncode(this.Server.UrlDecode(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("ReturnUrl")));
+
+                this.Page.Response.Redirect(returnUrl);
+            }
+            else
+            {
+                this.Get<LinkBuilder>().Redirect(ForumPages.Board);
+            }
         }
 
         /// <summary>

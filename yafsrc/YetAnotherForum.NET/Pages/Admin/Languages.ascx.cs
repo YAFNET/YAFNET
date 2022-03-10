@@ -154,7 +154,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditLanguage, "x={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditLanguage, new { x = e.CommandArgument });
                     break;
             }
         }

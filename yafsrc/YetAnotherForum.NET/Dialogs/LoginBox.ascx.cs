@@ -232,8 +232,7 @@ namespace YAF.Dialogs
             verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Account_Approve,
                 true,
-                "code={0}",
-                checkMail.Hash);
+                new { code = checkMail.Hash });
             verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
             verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
             verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;

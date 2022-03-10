@@ -37,7 +37,6 @@ namespace YAF.Core.Modules
     using YAF.Configuration;
     using YAF.Core.BaseModules;
     using YAF.Core.BBCode;
-    using YAF.Core.Configuration;
     using YAF.Core.Context;
     using YAF.Core.Extensions;
     using YAF.Core.Handlers;
@@ -47,6 +46,7 @@ namespace YAF.Core.Modules
     using YAF.Core.Services.Cache;
     using YAF.Core.Services.Migrations;
     using YAF.Core.Services.Startup;
+    using YAF.Core.URLBuilder;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
@@ -89,8 +89,18 @@ namespace YAF.Core.Modules
             builder.RegisterType<Digest>().As<IDigest>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<DefaultUserDisplayName>().As<IUserDisplayName>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();
-            builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope()
-                .PreserveExistingDefaults();
+
+            if (Config.EnableURLRewriting)
+            {
+                builder.RegisterType<AdvancedUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope()
+                    .PreserveExistingDefaults();
+            }
+            else
+            {
+                builder.RegisterType<DefaultUrlBuilder>().As<IUrlBuilder>().InstancePerLifetimeScope()
+                    .PreserveExistingDefaults();
+            }
+            
             builder.RegisterType<BBCode>().As<IBBCode>().InstancePerLifetimeScope().PreserveExistingDefaults();
             builder.RegisterType<FormatMessage>().As<IFormatMessage>().InstancePerLifetimeScope()
                 .PreserveExistingDefaults();

@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // edit medal
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, "medalid={0}", medalId);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = e.CommandArgument });
                     break;
                 case "delete":
                     // delete medal

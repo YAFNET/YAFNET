@@ -173,7 +173,7 @@
                     </div>
                     <div style="margin-top: 1px">
                         <a id="post<%# this.DataSource.MessageID %>"
-                           href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts,"m={0}&name={1}", this.DataSource.MessageID, this.PageContext.PageTopic.TopicName) %>'>
+                           href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts,new { m = this.DataSource.MessageID, name = this.PageContext.PageTopic.TopicName }) %>">
                             #<%# this.CurrentPage * this.PageContext.BoardSettings.PostsPerPage + this.PostCount + 1%>
                         </a>
                     </div>

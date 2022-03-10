@@ -25,13 +25,11 @@ namespace YAF.Core.Model
 {
     using System;
     using System.Linq;
-    using System.Web;
 
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
-    using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.EventProxies;
     using YAF.Types.Flags;

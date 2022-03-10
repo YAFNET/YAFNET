@@ -288,10 +288,12 @@ namespace YAF.Controls
         {
             this.ViewPostsLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Search,
-                "postedby={0}",
-                !this.User.Item1.UserFlags.IsGuest
-                    ? this.User.Item1.DisplayOrUserName()
-                    : this.Get<IAspNetUsersHelper>().GuestUserName);
+                new
+                    {
+                        postedby = !this.User.Item1.UserFlags.IsGuest
+                                       ? this.User.Item1.DisplayOrUserName()
+                                       : this.Get<IAspNetUsersHelper>().GuestUserName
+                    });
 
             this.ReportUserRow.Visible = this.PageContext.BoardSettings.StopForumSpamApiKey.IsSet();
 

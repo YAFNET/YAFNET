@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
 
@@ -135,9 +136,7 @@ namespace YAF.Pages
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Search,
-                "search={0}&forum={1}",
-                this.forumSearch.Text,
-                this.PageContext.PageForumID);
+                new { search = this.forumSearch.Text, forum = this.PageContext.PageForumID} );
         }
 
         /// <summary>
@@ -173,9 +172,6 @@ namespace YAF.Pages
         {
             this.Get<ISession>().UnreadTopics = 0;
 
-            this.RssFeed.AdditionalParameters =
-                $"f={this.PageContext.PageForumID}&name={UrlRewriteHelper.CleanStringForURL(this.PageContext.PageForum.Name)}";
-
             this.ForumJumpHolder.Visible = this.PageContext.BoardSettings.ShowForumJump
                                            && this.PageContext.Settings.LockedForum == 0;
 
@@ -200,11 +196,11 @@ namespace YAF.Pages
 
                 this.moderate1.NavigateUrl =
                     this.moderate2.NavigateUrl =
-                    this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Forums, "f={0}", this.PageContext.PageForumID);
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Forums, new { f = this.PageContext.PageForumID });
 
                 this.NewTopic1.NavigateUrl =
                     this.NewTopic2.NavigateUrl =
-                    this.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, "f={0}", this.PageContext.PageForumID);
+                    this.Get<LinkBuilder>().GetLink(ForumPages.PostTopic, new { f = this.PageContext.PageForumID });
 
                 this.HandleWatchForum();
             }

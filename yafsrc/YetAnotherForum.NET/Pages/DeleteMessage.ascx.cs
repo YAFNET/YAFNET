@@ -134,9 +134,7 @@ namespace YAF.Pages
             // new topic -- cancel back to forum
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                "f={0}&name={1}",
-                this.PageContext.PageForumID,
-                this.PageContext.PageForum.Name);
+                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
         }
 
         /// <summary>
@@ -362,11 +360,11 @@ namespace YAF.Pages
             // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
             if (topic == null)
             {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Topics, "f={0}&name={1}", this.message.Item3.ID, this.message.Item3.Name);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new { f = this.message.Item4.ID, name = this.message.Item4.Name });
             }
             else
             {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", topic.ID, topic.TopicName);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { f = topic.ID, name = topic.TopicName });
             }
         }
 

@@ -28,6 +28,7 @@ namespace YAF.Web.Controls
     using System.Web.UI;
 
     using YAF.Core.BaseControls;
+    using YAF.Core.Helpers;
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -41,33 +42,6 @@ namespace YAF.Web.Controls
     /// </summary>
     public class RssFeedLink : BaseControl
     {
-        #region Properties
-
-        /// <summary>
-        ///   Gets or sets the additional RSS feed url parameters.
-        /// </summary>
-        public string AdditionalParameters
-        {
-            get => this.ViewState.ToTypeOrDefault("AdditionalParameters", string.Empty);
-
-            set => this.ViewState["AdditionalParameters"] = value;
-        }
-
-        /// <summary>
-        /// Gets or sets the type of the feed. Defaults to "Forum"
-        /// </summary>
-        /// <value>
-        /// The type of the feed.
-        /// </value>
-        public RssFeeds FeedType
-        {
-            get => this.ViewState["FeedType"]?.ToString().ToEnum<RssFeeds>() ?? RssFeeds.LatestPosts;
-
-            set => this.ViewState["FeedType"] = value;
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -88,19 +62,42 @@ namespace YAF.Web.Controls
 
             writer.BeginRender();
 
-            new ThemeButton
+            string url;
+
+            if (this.PageContext.CurrentForumPage.PageType is ForumPages.Topics or ForumPages.Posts)
             {
-                Type = ButtonStyle.Warning,
-                Size = ButtonSize.Small,
-                Icon = "rss-square",
-                DataToggle = "tooltip",
-                TitleNonLocalized = this.GetText("ATOMFEED"),
-                NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                    ForumPages.Feed,
-                    "feed={0}{1}",
-                    this.FeedType.ToInt(),
-                    this.AdditionalParameters.IsNotSet() ? string.Empty : $"&{this.AdditionalParameters}")
-            }.RenderControl(writer);
+                url = this.PageContext.CurrentForumPage.PageType is ForumPages.Topics
+                          ? this.Get<LinkBuilder>().GetLink(
+                              ForumPages.Feed,
+                              new
+                                  {
+                                      feed = RssFeeds.Topics.ToInt(),
+                                      f = this.PageContext.PageForumID,
+                                      name = UrlRewriteHelper.CleanStringForURL(this.PageContext.PageForum.Name)
+                                  })
+                          : this.Get<LinkBuilder>().GetLink(
+                              ForumPages.Feed,
+                              new
+                                  {
+                                      feed = RssFeeds.Posts.ToInt(),
+                                      t = this.PageContext.PageTopicID,
+                                      name = UrlRewriteHelper.CleanStringForURL(this.PageContext.PageTopic.TopicName)
+                                  });
+            }
+            else
+            {
+                url = this.Get<LinkBuilder>().GetLink(ForumPages.Feed, new {feed = RssFeeds.LatestPosts.ToInt()});
+            }
+
+            new ThemeButton
+                {
+                    Type = ButtonStyle.Warning,
+                    Size = ButtonSize.Small,
+                    Icon = "rss-square",
+                    DataToggle = "tooltip",
+                    TitleNonLocalized = this.GetText("ATOMFEED"),
+                    NavigateUrl = url
+                }.RenderControl(writer);
 
             writer.EndRender();
         }

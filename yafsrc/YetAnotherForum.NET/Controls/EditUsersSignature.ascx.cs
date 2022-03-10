@@ -244,9 +244,7 @@ namespace YAF.Controls
             {
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.UserProfile,
-                    "u={0}&name={1}",
-                    this.CurrentUserID,
-                    this.user.DisplayOrUserName());
+                    new { u = this.CurrentUserID, name = this.user.DisplayOrUserName() });
             }
             else
             {

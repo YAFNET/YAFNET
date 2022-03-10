@@ -45,7 +45,7 @@
         <asp:Panel runat="server" ID="Footer"
                    CssClass="card-footer">
             <div class="btn-group float-end" role="group" aria-label="Tools">
-                <YAF:RssFeedLink ID="RssFeed" runat="server" FeedType="LatestPosts" />
+                <YAF:RssFeedLink ID="RssFeed" runat="server" />
             </div>
         </asp:Panel>
     </div>

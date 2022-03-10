@@ -192,7 +192,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank, "r={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank, new { r = e.CommandArgument });
                     break;
                 case "delete":
                     this.GetRepository<Rank>().DeleteById(e.CommandArgument.ToType<int>());

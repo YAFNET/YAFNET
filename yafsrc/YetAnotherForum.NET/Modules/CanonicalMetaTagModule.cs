@@ -58,8 +58,6 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            const string TopicLinkParams = "t={0}&name={1}";
-
             var head = this.ForumControl.Page.Header
                        ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");
 
@@ -82,9 +80,7 @@ namespace YAF.Modules
                     var topicUrl = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
-                        TopicLinkParams,
-                        this.PageContext.PageTopicID,
-                        this.PageContext.PageTopic.TopicName);
+                     new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
 
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }

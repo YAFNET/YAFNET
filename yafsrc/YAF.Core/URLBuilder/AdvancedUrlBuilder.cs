@@ -41,7 +41,7 @@ namespace YAF.Core.URLBuilder
     /// <summary>
     /// The advanced rewrite url builder.
     /// </summary>
-    public class AdvancedUrlRewriter : BaseUrlBuilder
+    public class AdvancedUrlBuilder : BaseUrlBuilder
     {
         #region Public Methods
 

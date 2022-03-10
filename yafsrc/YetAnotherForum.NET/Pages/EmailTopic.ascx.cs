@@ -92,9 +92,7 @@ namespace YAF.Pages
                     ["{link}"] = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
-                        "t={0}&name={1}",
-                        this.PageContext.PageTopicID,
-                        this.PageContext.PageTopic.TopicName),
+                        new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName }),
                     ["{user}"] = this.PageContext.PageUser.DisplayOrUserName()
                 }
             };
@@ -140,9 +138,7 @@ namespace YAF.Pages
 
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Posts,
-                    "t={0}&name={1}",
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageTopic.TopicName);
+                    new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
             }
             catch (Exception x)
             {

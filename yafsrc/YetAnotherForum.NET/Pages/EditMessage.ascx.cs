@@ -27,6 +27,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
 
@@ -113,9 +114,7 @@ namespace YAF.Pages
             // reply to existing topic or editing of existing topic
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                "t={0}&name={1}",
-                this.PageContext.PageTopicID,
-                this.PageContext.PageTopic.TopicName);
+                new {t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
         }
 
         /// <summary>
@@ -430,7 +429,6 @@ namespace YAF.Pages
                 this.GetRepository<TopicTag>().AddTagsToTopic(this.Tags.Text, this.PageContext.PageTopicID);
             }
 
-
             this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
 
             // remove cache if it exists...
@@ -467,7 +465,7 @@ namespace YAF.Pages
                         this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUser.DisplayOrUserName(),
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
-                            HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
+                                HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
                             .RemoveMultipleWhitespace(),
                         this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
                         out var spamResult))
@@ -522,30 +520,20 @@ namespace YAF.Pages
             var messageId = editMessage.Item2.ID;
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
-            var attachPollParameter = string.Empty;
-            var returnForum = string.Empty;
-
-            if (this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible)
-            {
-                // new topic poll token
-                attachPollParameter = $"&t={this.PageContext.PageTopicID}";
-
-                // new return forum poll token
-                returnForum = $"&f={this.PageContext.PageForumID}";
-            }
+            var attachPollParameter = this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible;
 
             // Create notification emails
             if (isApproved)
             {
-                if (attachPollParameter.IsNotSet() || !this.PostOptions1.PollChecked)
+                if (!attachPollParameter || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopic.TopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {m = messageId, name = this.PageContext.PageTopic.TopicName });
                 }
                 else
                 {
                     // poll edit redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, "{0}", attachPollParameter);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, new { t = this.PageContext.PageTopicID });
                 }
             }
             else
@@ -564,7 +552,7 @@ namespace YAF.Pages
                 // 't' variable is required only for poll and this is a attach poll token for attachments page
                 if (!this.PostOptions1.PollChecked)
                 {
-                    attachPollParameter = string.Empty;
+                    attachPollParameter = false;
                 }
 
                 // Tell user that his message will have to be approved by a moderator
@@ -575,13 +563,15 @@ namespace YAF.Pages
                     url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName);
                 }
 
-                if (attachPollParameter.Length <= 0)
+                if (!attachPollParameter)
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1&url={0}", this.Server.UrlEncode(url));
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = 1, url = this.Server.UrlEncode(url) });
                 }
                 else
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, "&ra=1{0}{1}", attachPollParameter, returnForum);
+                    this.Get<LinkBuilder>().Redirect(
+                        ForumPages.PollEdit,
+                        new { ra = 1, t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID });
                 }
             }
         }

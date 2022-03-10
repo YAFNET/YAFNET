@@ -313,9 +313,7 @@ namespace YAF.Web.Controls
                     NavigateUrl =
                        this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
-                            "t={0}&name={1}",
-                            this.TopicItem.TopicID,
-                            this.TopicItem.Subject),
+                            new { t = this.TopicItem.TopicID, name = this.TopicItem.Subject }),
                     Size = ButtonSize.Small,
                     Icon = "share-square",
                     Type = ButtonStyle.OutlineSecondary,
@@ -371,7 +369,7 @@ namespace YAF.Web.Controls
             {
                 this.MakeLink(
                     "1",
-                    this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", topicID, this.TopicItem.Subject),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicID, name = this.TopicItem.Subject }),
                     1).RenderControl(writer);
 
                 // show links from the end
@@ -383,10 +381,7 @@ namespace YAF.Web.Controls
                         post.ToString(),
                         this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
-                            "t={0}&name={2}&p={1}",
-                            topicID,
-                            post,
-                            this.TopicItem.Subject),
+                            new { t = topicID, name = this.TopicItem.Subject, p = post }),
                         post).RenderControl(writer);
                 }
             }
@@ -400,10 +395,7 @@ namespace YAF.Web.Controls
                         post.ToString(),
                         this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
-                            "t={0}&name={2}&p={1}",
-                            topicID,
-                            post,
-                            this.TopicItem.Subject),
+                            new { t = topicID, name = this.TopicItem.Subject, p = post }),
                         post).RenderControl(writer);
                 }
             }

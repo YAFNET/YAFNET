@@ -93,7 +93,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, "u={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = e.CommandArgument });
                     break;
                 case "resendEmail":
                     var commandArgument = e.CommandArgument.ToString().Split(';');
@@ -110,8 +110,7 @@ namespace YAF.Pages.Admin
                         verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
                             ForumPages.Account_Approve,
                             true,
-                            "code={0}",
-                            checkMail.Hash);
+                            new { code = checkMail.Hash });
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
                         verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
                         verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
@@ -223,7 +222,7 @@ namespace YAF.Pages.Admin
             }
 
             return
-                $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "t={0}&name={1}", topicId, topicName)}\">{topicName}</a>";
+                $"<a target=\"_top\" href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {t = topicId, name = topicName})}\">{topicName}</a>";
         }
 
         /// <summary>

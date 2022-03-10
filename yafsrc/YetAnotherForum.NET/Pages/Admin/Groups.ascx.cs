@@ -228,7 +228,7 @@ namespace YAF.Pages.Admin
                         0);
 
                     // redirect to newly created role
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, "i={0}", groupId);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
                     break;
                 case "delete":
 
@@ -258,7 +258,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // go to role editing page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, "i={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = e.CommandArgument });
                     break;
                 case "delete":
 

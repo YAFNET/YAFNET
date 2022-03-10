@@ -417,7 +417,7 @@ namespace YAF.Controls
                     "dropdown-item",
                     this.GetText("TOOLBAR", "MYALBUMS"),
                     this.GetText("TOOLBAR", "MYALBUMS_TITLE"),
-                    this.Get<LinkBuilder>().GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new {u = this.PageContext.PageUserID }),
                     false,
                     false,
                     null,

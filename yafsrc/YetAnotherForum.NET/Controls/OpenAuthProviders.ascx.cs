@@ -66,7 +66,7 @@ namespace YAF.Controls
         {
             var providerName = e.CommandArgument.ToString();
 
-            var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, "auth={0}", providerName);
+            var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, new { auth = providerName });
 
             IdentityHelper.RegisterExternalLogin(this.Context, providerName, redirectUrl);
 

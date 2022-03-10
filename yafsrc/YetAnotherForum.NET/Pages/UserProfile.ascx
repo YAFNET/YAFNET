@@ -34,7 +34,7 @@
         <YAF:ThemeButton ID="AdminUserButton" runat="server"
                          Visible="false"
                          TextLocalizedTag="ADMIN_USER"
-                         NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,"u={0}", this.UserId) %>'
+                         NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,new { u = this.UserId }) %>'
                          CssClass="mb-1"
                          Icon="user-cog"
                          Type="Danger"/>

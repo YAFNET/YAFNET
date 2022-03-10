@@ -93,8 +93,7 @@ namespace YAF.Modules
                                        this.Get<LinkBuilder>().GetLink(
                                            ForumPages.Feed,
                                            true,
-                                           "feed={0}",
-                                           RssFeeds.LatestPosts.ToInt())
+                                           new { feed = RssFeeds.LatestPosts.ToInt() })
             };
 
             // defaults to the "Active" rss.

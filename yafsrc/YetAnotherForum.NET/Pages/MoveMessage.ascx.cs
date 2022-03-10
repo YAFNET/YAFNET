@@ -102,9 +102,7 @@ namespace YAF.Pages
 
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Topics,
-                    "f={0}&name={1}",
-                    this.PageContext.PageForumID,
-                    this.PageContext.PageForum.Name);
+                    new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
             }
             else
             {
@@ -153,9 +151,7 @@ namespace YAF.Pages
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                "f={0}&name={1}",
-                this.PageContext.PageForumID,
-                this.PageContext.PageForum.Name);
+                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
         }
 
         /// <summary>

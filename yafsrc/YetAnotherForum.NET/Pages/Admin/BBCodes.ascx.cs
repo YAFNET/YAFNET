@@ -134,7 +134,7 @@ namespace YAF.Pages.Admin
                     this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCode_Edit);
                     break;
                 case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCode_Edit, "b={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCode_Edit, new { b = e.CommandArgument });
                     break;
                 case "delete":
                     this.GetRepository<BBCode>().DeleteById(e.CommandArgument.ToType<int>());

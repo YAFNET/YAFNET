@@ -90,7 +90,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Search, "search={0}", this.Server.UrlEncode(this.searchInput.Text));
+            this.Get<LinkBuilder>().Redirect(ForumPages.Search, new { search = this.Server.UrlEncode(this.searchInput.Text) });
         }
 
         /// <summary>

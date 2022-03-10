@@ -161,9 +161,7 @@ namespace YAF.Pages
         {
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                "m={0}&name={1}",
-                this.messageID,
-                this.originalMessage.Item1.TopicName);
+                new { m = this.messageID, name = this.originalMessage.Item1.TopicName });
         }
 
         /// <summary>
@@ -173,7 +171,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", this.forumID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new { f = this.forumID });
         }
 
         /// <summary>

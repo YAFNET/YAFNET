@@ -260,11 +260,13 @@ namespace YAF.Controls
         {
             if (this.PageContext.ForumVoteAccess)
             {
+                var parameters = this.ParamsToSend();
+
+                parameters.Add("p", this.poll.ID);
+
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.PollEdit,
-                    "{0}&p={1}",
-                    this.ParamsToSend(),
-                   this.poll.ID);
+                    parameters);
             }
             else
             {
@@ -287,7 +289,7 @@ namespace YAF.Controls
         {
             if (this.PageContext.ForumVoteAccess)
             {
-                this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, "{0}", this.ParamsToSend());
+                this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, this.ParamsToSend());
             }
             else
             {
@@ -340,7 +342,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindCreateNewPollRow()
         {
-            this.CreatePoll.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PollEdit, "{0}", this.ParamsToSend());
+            this.CreatePoll.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PollEdit, this.ParamsToSend());
             this.CreatePoll.DataBind();
 
             this.NewPollRow.Visible = true;
@@ -603,38 +605,28 @@ namespace YAF.Controls
         /// <returns>
         /// The parameters to send.
         /// </returns>
-        private string ParamsToSend()
+        private Dictionary<string, object> ParamsToSend()
         {
-            var sb = new StringBuilder();
+            var parameters = new Dictionary<string, object>();
 
             if (this.TopicId > 0)
             {
-                sb.AppendFormat("t={0}", this.TopicId);
+                parameters.Add("t", this.TopicId);
             }
 
             if (this.EditMessageId > 0)
             {
-                if (sb.Length > 0)
-                {
-                    sb.Append("&");
-                }
-
-                sb.AppendFormat("m={0}", this.EditMessageId);
+                parameters.Add("m", this.EditMessageId);
             }
 
             if (this.ForumId <= 0)
             {
-                return sb.ToString();
+                return parameters;
             }
 
-            if (sb.Length > 0)
-            {
-                sb.Append("&");
-            }
+            parameters.Add("f", this.ForumId);
 
-            sb.AppendFormat("f={0}", this.ForumId);
-
-            return sb.ToString();
+            return parameters;
         }
 
         /// <summary>
@@ -658,7 +650,7 @@ namespace YAF.Controls
             {
                 if (this.TopicId > 0)
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, "t={0}&name={1}", this.TopicId, this.PageContext.PageTopic.TopicName);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.TopicId, name = this.PageContext.PageTopic.TopicName });
                 }
             }
             else

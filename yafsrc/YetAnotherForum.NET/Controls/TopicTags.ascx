@@ -18,8 +18,7 @@
                     <YAF:Icon runat="server" IconName="tag"></YAF:Icon>
                     <a href="<%# this.Get<LinkBuilder>().GetLink(
                                      ForumPages.Search,
-                                     "tag={0}",
-                                     this.Eval("Item2.TagName")) %>"
+                                     new { tag = this.Eval("Item2.TagName")} ) %>"
                        class="link-light"><%# this.Eval("Item2.TagName") %>
                     </a>
                 </span>

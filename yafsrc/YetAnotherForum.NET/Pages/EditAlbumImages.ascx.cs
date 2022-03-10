@@ -86,19 +86,17 @@ namespace YAF.Pages
                 {
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Album,
-                        "u={0}&a={1}",
-                        this.PageContext.PageUserID.ToString(),
-                        albumId);
+                        new { u = this.PageContext.PageUserID, a = albumId });
                 }
                 else
                 {
                     // simply redirect to albums page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageContext.PageUserID });
                 }
             }
             else
             {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
+                this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageContext.PageUserID });
             }
         }
 
@@ -250,7 +248,7 @@ namespace YAF.Pages
             this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Albums, "u={0}", this.PageContext.PageUserID));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.PageContext.PageUserID }));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
@@ -268,7 +266,7 @@ namespace YAF.Pages
                 albumId.Value,
                 this.txtTitle.Text);
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a={0}", albumId.Value);
+            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, new { a = albumId.Value });
         }
 
         /// <summary>
@@ -474,7 +472,7 @@ namespace YAF.Pages
                 // clear the cache for this user to update albums|images stats...
                 this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-                this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a={0}", newAlbumId);
+                this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, new { a = newAlbumId });
             }
             else
             {
@@ -518,7 +516,7 @@ namespace YAF.Pages
             // clear the cache for this user to update albums|images stats...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Albums, "u={0}", this.PageContext.PageUserID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageContext.PageUserID });
         }
 
         #endregion

@@ -198,7 +198,7 @@ namespace YAF.Dialogs
                 this.AccessMaskID.SelectedValue.ToType<int>());
 
             // redirect to forum moderation page
-            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, "f={0}", this.PageContext.PageForumID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageContext.PageForumID });
         }
 
         #endregion

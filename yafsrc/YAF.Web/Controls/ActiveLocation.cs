@@ -388,7 +388,7 @@ namespace YAF.Web.Controls
 
                     outString.AppendFormat(
                         @" <a href=""{0}"">{1}</a> ",
-                        this.Get<LinkBuilder>().GetLink(ForumPages.Album, "a={0}", albumID),
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumID }),
                         HttpUtility.HtmlEncode(albumName));
 
                     outString.Append(this.GetText("ACTIVELOCATION", "ALBUM_OFUSER"));
@@ -405,7 +405,7 @@ namespace YAF.Web.Controls
 
                     outString.AppendFormat(
                         @"<a href=""{0}"">{1}</a>",
-                        this.Get<LinkBuilder>().GetLink(ForumPages.Album, "a={0}", albumID),
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Album, new { a = albumID }),
                         HttpUtility.HtmlEncode(albumName));
                 }
             }

@@ -138,27 +138,23 @@ namespace YAF.Controls
                                     !this.PostData.PostDeleted && this.PostData.CanEditPost && !this.PostData.IsLocked;
             this.Edit.NavigateUrl = this.Edit2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                         ForumPages.EditMessage,
-                                        "m={0}",
-                                        this.PostData.MessageId);
+                                        new { m = this.PostData.MessageId });
             this.MovePost.Visible =
                 this.Move.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
             this.MovePost.NavigateUrl = this.Move.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                             ForumPages.MoveMessage,
-                                            "m={0}",
-                                            this.PostData.MessageId);
+                                            new { m = this.PostData.MessageId });
             this.Delete.Visible = this.Delete2.Visible =
                                       !this.PostData.PostDeleted && this.PostData.CanDeletePost
                                                                  && !this.PostData.IsLocked;
 
             this.Delete.NavigateUrl = this.Delete2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                           ForumPages.DeleteMessage,
-                                          "m={0}&action=delete",
-                                          this.PostData.MessageId);
+                                          new { m = this.PostData.MessageId, action = "delete" });
             this.UnDelete.Visible = this.UnDelete2.Visible = this.PostData.CanUnDeletePost && !this.PostData.IsLocked;
             this.UnDelete.NavigateUrl = this.UnDelete2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                             ForumPages.DeleteMessage,
-                                            "m={0}&action=undelete",
-                                            this.PostData.MessageId);
+                                            new { m = this.PostData.MessageId, action = "undelete" });
 
             this.Quote.Visible = this.Quote2.Visible = this.Reply.Visible = this.ReplyFooter.Visible =
                 this.QuickReplyLink.Visible = this.Separator1.Visible =
@@ -176,9 +172,7 @@ namespace YAF.Controls
                     "data-url",
                     this.Get<LinkBuilder>().GetLink(
                         ForumPages.PostMessage,
-                        "t={0}&f={1}",
-                        this.PageContext.PageTopicID,
-                        this.PageContext.PageForumID));
+                        new { t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID }));
 
                 this.ContextMenu.Attributes.Add(
                     "data-quote",
@@ -199,16 +193,11 @@ namespace YAF.Controls
 
             this.Quote.NavigateUrl = this.Quote2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                          ForumPages.PostMessage,
-                                         "t={0}&f={1}&q={2}",
-                                         this.PageContext.PageTopicID,
-                                         this.PageContext.PageForumID,
-                                         this.PostData.MessageId);
+                                         new { t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID, q = this.PostData.MessageId });
 
             this.Reply.NavigateUrl = this.ReplyFooter.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                          ForumPages.PostMessage,
-                                         "t={0}&f={1}",
-                                         this.PageContext.PageTopicID,
-                                         this.PageContext.PageForumID);
+                                         new { t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID });
 
             if (this.MultiQuote.Visible)
             {
@@ -285,8 +274,7 @@ namespace YAF.Controls
 
                     this.ReportPost.NavigateUrl = this.ReportPost2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                                       ForumPages.ReportPost,
-                                                      "m={0}",
-                                                      this.PostData.MessageId);
+                                                      new { m = this.PostData.MessageId });
                 }
             }
 
@@ -384,9 +372,7 @@ namespace YAF.Controls
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                "m={0}&name={1}",
-                this.PostData.MessageId,
-                this.PageContext.PageTopicID);
+                new {m = this.PostData.MessageId, name = this.PageContext.PageTopicID });
         }
 
         /// <summary>
@@ -544,19 +530,21 @@ namespace YAF.Controls
         {
             this.UserDropHolder.Controls.Add(
                 new ThemeButton
-                {
-                    Type = ButtonStyle.None,
-                    Icon = "th-list",
-                    TextLocalizedPage = "PAGE",
-                    TextLocalizedTag = "SEARCHUSER",
-                    CssClass = "dropdown-item",
-                    NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                        ForumPages.Search,
-                        "postedby={0}",
-                        this.PageContext.BoardSettings.EnableDisplayName
-                            ? this.DataSource.DisplayName
-                            : this.DataSource.UserName)
-                });
+                    {
+                        Type = ButtonStyle.None,
+                        Icon = "th-list",
+                        TextLocalizedPage = "PAGE",
+                        TextLocalizedTag = "SEARCHUSER",
+                        CssClass = "dropdown-item",
+                        NavigateUrl = this.Get<LinkBuilder>().GetLink(
+                            ForumPages.Search,
+                            new
+                                {
+                                    postedby = this.PageContext.BoardSettings.EnableDisplayName
+                                                   ? this.DataSource.DisplayName
+                                                   : this.DataSource.UserName
+                                })
+                    });
             this.UserDropHolder2.Controls.Add(
                 new ThemeButton
                 {
@@ -567,10 +555,12 @@ namespace YAF.Controls
                     CssClass = "dropdown-item",
                     NavigateUrl = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Search,
-                        "postedby={0}",
-                        this.PageContext.BoardSettings.EnableDisplayName
-                            ? this.DataSource.DisplayName
-                            : this.DataSource.UserName)
+                        new
+                            {
+                                postedby = this.PageContext.BoardSettings.EnableDisplayName
+                                               ? this.DataSource.DisplayName
+                                               : this.DataSource.UserName
+                            })
                 });
 
             if (this.PageContext.IsAdmin)
@@ -583,7 +573,7 @@ namespace YAF.Controls
                         TextLocalizedPage = "POSTS",
                         TextLocalizedTag = "EDITUSER",
                         CssClass = "dropdown-item",
-                        NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
+                        NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = this.PostData.UserId })
                     });
                 this.UserDropHolder2.Controls.Add(
                     new ThemeButton
@@ -593,7 +583,7 @@ namespace YAF.Controls
                         TextLocalizedPage = "POSTS",
                         TextLocalizedTag = "EDITUSER",
                         CssClass = "dropdown-item",
-                        NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, "u={0}", this.PostData.UserId)
+                        NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new { u = this.PostData.UserId })
                     });
             }
 

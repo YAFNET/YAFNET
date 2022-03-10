@@ -70,7 +70,7 @@
                                                      Visible="false"
                                                      Icon="user-cog"
                                                      Type="Danger"
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,"u={0}", this.Eval("ID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,new { u = this.Eval("ModeratorID").ToType<int>() } ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
@@ -146,7 +146,7 @@
                                                      TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                                      Icon="user-cog"
                                                      Type="Danger"
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,"u={0}", this.Eval("ModeratorID").ToType<int>() ) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,new { u = this.Eval("ModeratorID").ToType<int>() }) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

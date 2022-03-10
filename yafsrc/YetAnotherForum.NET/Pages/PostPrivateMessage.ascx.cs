@@ -609,7 +609,7 @@ namespace YAF.Pages
                     replyTo);
 
                 // redirect to outbox (sent items), not control panel
-                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v={0}", "out");
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "out" });
             }
             else
             {
@@ -729,7 +729,7 @@ namespace YAF.Pages
                         });
 
                 // redirect to outbox (sent items), not control panel
-                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v={0}", "out");
+                this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "out" });
             }
         }
 

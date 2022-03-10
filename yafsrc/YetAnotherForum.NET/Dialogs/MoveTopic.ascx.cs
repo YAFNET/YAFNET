@@ -135,9 +135,7 @@ namespace YAF.Dialogs
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                "f={0}&name={1}",
-                this.PageContext.PageForumID,
-                this.PageContext.PageForum.Name);
+                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
         }
 
         #endregion

@@ -112,9 +112,7 @@ namespace YAF.Pages
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                "f={0}&name={1}",
-                this.PageContext.PageForumID,
-                this.PageContext.PageForum.Name);
+                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
         }
 
         /// <summary>
@@ -130,7 +128,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.EmailTopic, "t={0}", this.PageContext.PageTopicID);
+            this.Get<LinkBuilder>().Redirect(ForumPages.EmailTopic, new { t = this.PageContext.PageTopicID });
         }
 
         /// <summary>
@@ -208,9 +206,7 @@ namespace YAF.Pages
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                "t={0}&name={1}",
-                nextTopic.ID.ToString(),
-                nextTopic.TopicName);
+                new { t = nextTopic.ID, name = nextTopic.TopicName });
         }
 
         /// <summary>
@@ -242,9 +238,7 @@ namespace YAF.Pages
                 var topicUrl = this.Get<LinkBuilder>().GetLink(
                     ForumPages.Posts,
                     true,
-                    "t={0}&name={1}",
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageTopic.TopicName);
+                    new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
 
                 if (this.PageContext.BoardSettings.AllowEmailTopic)
                 {
@@ -376,14 +370,15 @@ namespace YAF.Pages
 
             this.NewTopic2.NavigateUrl = this.NewTopic1.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.PostTopic,
-                "f={0}",
-                this.PageContext.PageForumID);
+                new { f = this.PageContext.PageForumID });
 
             this.PostReplyLink1.NavigateUrl = this.PostReplyLink2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                ForumPages.PostMessage,
-                "t={0}&f={1}",
-                this.PageContext.PageTopicID,
-                this.PageContext.PageForumID);
+                                                  ForumPages.PostMessage,
+                                                  new
+                                                      {
+                                                          t = this.PageContext.PageTopicID,
+                                                          f = this.PageContext.PageForumID
+                                                      });
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
 
@@ -394,9 +389,7 @@ namespace YAF.Pages
             this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
             this.TopicLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Posts,
-                "t={0}&name={1}",
-                this.PageContext.PageTopicID,
-                this.PageContext.PageTopic.TopicName);
+                new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
 
             this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
             this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
@@ -514,9 +507,7 @@ namespace YAF.Pages
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                "t={0}&name={1}",
-                previousTopic.ID.ToString(),
-                previousTopic.TopicName);
+                new { t = this.PageContext.PageTopicID, name = previousTopic.TopicName });
         }
 
         /// <summary>
@@ -891,9 +882,7 @@ namespace YAF.Pages
             var topicUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Posts,
                 true,
-                "t={0}&name={1}",
-                this.PageContext.PageTopicID,
-                this.PageContext.PageTopic.TopicName);
+                new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
 
             switch (e.Item.ToLower())
             {
@@ -969,7 +958,7 @@ namespace YAF.Pages
             switch (e.Item.ToLower())
             {
                 case "print":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PrintTopic, "t={0}", this.PageContext.PageTopicID);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PrintTopic, new { t = this.PageContext.PageTopicID });
                     break;
                 case "watch":
                     this.TrackTopicClick(sender, e);
@@ -983,9 +972,7 @@ namespace YAF.Pages
                 case "atomfeed":
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Feed,
-                        "feed={0}&t={1}",
-                        RssFeeds.Posts.ToInt(),
-                        this.PageContext.PageTopicID);
+                        new {feed = RssFeeds.Posts.ToInt(), t = this.PageContext.PageTopicID });
                     break;
                 default:
                     throw new ApplicationException(e.Item);

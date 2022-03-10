@@ -99,7 +99,8 @@ namespace YAF.Controls
 
                 // Topic Link
                 this.topicLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
-                    ForumPages.Posts, "t={0}&name={1}", this.DataSource.LastTopicID, this.topicLink.Text);
+                    ForumPages.Posts,
+                    new { t = this.DataSource.LastTopicID, name = this.topicLink.Text });
 
                 var styles = this.PageContext.BoardSettings.UseStyledTopicTitles
                                  ? this.Get<IStyleTransform>().Decode(

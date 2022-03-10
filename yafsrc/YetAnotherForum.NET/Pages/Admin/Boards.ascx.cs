@@ -132,7 +132,7 @@ namespace YAF.Pages.Admin
             switch (e.CommandName)
             {
                 case "edit":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditBoard, "b={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditBoard, new { b = e.CommandArgument });
                     break;
                 case "delete":
                     this.GetRepository<Board>().DeleteBoard(e.CommandArgument.ToType<int>());

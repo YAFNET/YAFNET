@@ -100,9 +100,7 @@ namespace YAF.Core.Controllers
                                                 NavigateUrl =
                                                     this.Get<LinkBuilder>().GetLink(
                                                         ForumPages.Posts,
-                                                        "m={0}&name={1}",
-                                                        activity.MessageID.Value,
-                                                        topic.TopicName),
+                                                        new { m = activity.MessageID.Value, name = topic.TopicName }),
                                                 Text = $@"<i class=""fas fa-comment fa-fw me-1""></i>{topic.TopicName}"
                                             };
 

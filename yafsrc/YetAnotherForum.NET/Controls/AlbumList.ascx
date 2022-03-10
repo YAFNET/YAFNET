@@ -43,7 +43,7 @@
             <ItemTemplate>
                 <div class="col">
                     <div class="card mb-4 shadow-sm">
-                        <a href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("ID")) %>'
+                        <a href='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Album, new { u =  this.Eval("UserID"), a = this.Eval("ID") }) %>'
                            target="_parent" title='<%# this.HtmlEncode(this.Eval("Title"))%>' data-bs-toggle="tooltip">
                             <asp:Image runat="server" ID="coverImage"
                                        ImageUrl='<%# "{0}resource.ashx?album={1}&cover={2}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID"), this.Eval("CoverImageID").ToType<int?>().HasValue ? this.Eval("CoverImageID") : "0") %>'
@@ -59,7 +59,7 @@
                                 <div class="btn-group">
                                     <YAF:ThemeButton ID="ThemeButton1" runat="server"
                                                      TextLocalizedTag="VIEW"
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Album, "u={0}&a={1}", this.Eval("UserID"), this.Eval("ID")) %>'
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Album, new { u =  this.Eval("UserID"), a = this.Eval("ID") }) %>'
                                                      Size="Small"
                                                      Type="OutlineSecondary"/>
                                     <YAF:ThemeButton ID="Edit" runat="server"

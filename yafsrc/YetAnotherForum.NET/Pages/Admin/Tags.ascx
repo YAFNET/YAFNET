@@ -58,8 +58,7 @@
                         <div class="btn-group btn-group-sm">
                             <a href="<%# this.Get<LinkBuilder>().GetLink(
                                              ForumPages.Search,
-                                             "tag={0}",
-                                             this.Eval("TagName")) %>"
+                                             new {tag = this.Eval("TagName")}) %>"
                                class="btn btn-info"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
                             <YAF:ThemeButton runat="server"
                                              Type="Danger"

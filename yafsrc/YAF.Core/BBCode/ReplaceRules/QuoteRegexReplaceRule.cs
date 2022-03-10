@@ -101,9 +101,12 @@ namespace YAF.Core.BBCode.ReplaceRules
 
                         topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
-                            "m={0}&name={1}",
-                            postId,
-                            BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>()));
+                            new
+                                {
+                                    m = postId,
+                                    name = BoardContext.Current.GetRepository<Topic>()
+                                        .GetNameFromMessage(postId.ToType<int>())
+                                });
                     }
                     catch (Exception)
                     {

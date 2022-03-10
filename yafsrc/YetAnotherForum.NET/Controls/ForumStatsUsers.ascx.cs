@@ -96,7 +96,7 @@ namespace YAF.Controls
                 sb.AppendFormat(
                     "<a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
                     this.GetTextFormatted(activeUsers == 1 ? "ACTIVE_USERS_COUNT1" : "ACTIVE_USERS_COUNT2", activeUsers),
-                    this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 0),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }),
                     this.GetText("COMMON", "VIEW_FULLINFO"),
                     this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
             }
@@ -113,7 +113,7 @@ namespace YAF.Controls
             {
                 sb.Append(
                     canViewActive
-                        ? $", <a href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 1)}\" title=\"{this.GetText("COMMON", "VIEW_FULLINFO")}\"{(this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)}>{this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}</a>"
+                        ? $", <a href=\"{this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 1 })}\" title=\"{this.GetText("COMMON", "VIEW_FULLINFO")}\"{(this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty)}>{this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}</a>"
                         : $", {this.GetTextFormatted(activeMembers == 1 ? "ACTIVE_USERS_MEMBERS1" : "ACTIVE_USERS_MEMBERS2", activeMembers)}");
             }
 
@@ -125,7 +125,7 @@ namespace YAF.Controls
                     sb.AppendFormat(
                         ", <a href=\"{1}\" title=\"{2}\"{3}>{0}</a>",
                         this.GetTextFormatted(activeGuests == 1 ? "ACTIVE_USERS_GUESTS1" : "ACTIVE_USERS_GUESTS2", activeGuests),
-                        this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 2),
+                        this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 2 }),
                         this.GetText("COMMON", "VIEW_FULLINFO"),
                         this.PageContext.IsCrawler ? " rel=\"nofolow\"" : string.Empty);
                 }
@@ -141,7 +141,7 @@ namespace YAF.Controls
                 sb.AppendFormat(
                     ", <a href=\"{1}\" title=\"{2}\">{0}</a>",
                     this.GetTextFormatted("ACTIVE_USERS_HIDDEN", activeHidden),
-                    this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, "v={0}", 3),
+                    this.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 3 }),
                     this.GetText("COMMON", "VIEW_FULLINFO"));
             }
 

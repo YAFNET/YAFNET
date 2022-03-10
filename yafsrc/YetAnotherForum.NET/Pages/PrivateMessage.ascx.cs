@@ -98,13 +98,13 @@ namespace YAF.Pages
                     this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
                     break;
                 case "reply":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, "p={0}&q=0", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, new { p = e.CommandArgument, q = 0 });
                     break;
                 case "report":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1&report=1", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, new { p = e.CommandArgument, q = 1, report = 1 });
                     break;
                 case "quote":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, "p={0}&q=1", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PostPrivateMessage, new { p = e.CommandArgument, q = 1 });
                     break;
             }
         }

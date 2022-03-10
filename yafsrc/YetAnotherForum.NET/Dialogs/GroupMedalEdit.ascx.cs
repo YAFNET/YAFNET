@@ -163,7 +163,7 @@ namespace YAF.Dialogs
             }
 
             // re-bind data
-            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, "medalid={0}", this.MedalId.Value);
+            this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal, new { medalid = this.MedalId.Value });
         }
 
         #endregion

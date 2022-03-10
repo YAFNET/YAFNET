@@ -21,7 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Configuration
+namespace YAF.Core.URLBuilder
 {
     using YAF.Configuration;
 

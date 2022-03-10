@@ -246,7 +246,7 @@ namespace YAF.Web.Controls
 
             var messageHistoryButton =
                 $@"<hr />
-                   <p class=""mb-0""><a href=""{this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, "m={0}", messageId.ToType<int>())}"" class=""btn btn-secondary btn-sm me-1"">
+                   <p class=""mb-0""><a href=""{this.Get<LinkBuilder>().GetLink(ForumPages.MessageHistory, new { m = messageId.Value })}"" class=""btn btn-secondary btn-sm me-1"">
                          <i class=""fa fa-history fa-fw""></i>{this.GetText("MESSAGEHISTORY", "TITLE")}
                       </a></p>";
 
@@ -275,7 +275,7 @@ namespace YAF.Web.Controls
                       <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, "m={0}&name={1}", messageId, this.PageContext.PageTopic.TopicName));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = messageId, name = this.PageContext.PageTopic.TopicName }));
         }
 
         /// <summary>

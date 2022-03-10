@@ -280,9 +280,7 @@ namespace YAF.Core.Services
                     var messageLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
-                        "m={0}&name={1}",
-                        topic.Item2.LastMessageID,
-                        topic.Item2.TopicName);
+                        new { m = topic.Item2.LastMessageID, name = topic.Item2.TopicName });
 
                     syndicationItems.AddSyndicationItem(
                         topic.Item2.TopicName,
@@ -296,9 +294,7 @@ namespace YAF.Core.Services
                         this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             true,
-                            "t={0}&name={1}",
-                            topic.Item2.ID,
-                            topic.Item2.TopicName),
+                            new { t = topic.Item2.ID, name = topic.Item2.TopicName }),
                         $"urn:{urlAlphaNum}:ft{feedType}:tid{topic.Item2.ID}:mid{topic.Item2.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         lastPosted,
@@ -384,9 +380,7 @@ namespace YAF.Core.Services
                         this.Get<LinkBuilder>().GetLink(
                             ForumPages.Posts,
                             true,
-                            "m={0}&name={1}&find=lastpost",
-                            row.MessageID,
-                            row.Topic),
+                            new { m = row.MessageID, name = row.Topic, find = "lastpost" }),
                         $"urn:{urlAlphaNum}:ft{feedType}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
                         posted,
@@ -459,9 +453,7 @@ namespace YAF.Core.Services
                     var postLink = this.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,
                         true,
-                        "m={0}&name={1}",
-                        topic.LastMessageID.Value,
-                        topic.Topic);
+                        new { m = topic.LastMessageID.Value, name = topic.Topic });
 
                     var content = this.GetPostLatestContent(
                         postLink,

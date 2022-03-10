@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
                 case "edit":
 
                     // we are going to edit user - redirect to edit page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, "u={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = e.CommandArgument });
                     break;
                 case "delete":
 

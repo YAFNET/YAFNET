@@ -172,9 +172,7 @@ namespace YAF.Controls
                                     NavigateUrl =
                                         this.Get<LinkBuilder>().GetLink(
                                             ForumPages.Posts,
-                                            "m={0}&name={1}",
-                                            activity.Item1.MessageID.Value,
-                                            activity.Item3.TopicName),
+                                            new { m = activity.Item1.MessageID.Value, name = activity.Item3.TopicName }),
                                     Type = ButtonStyle.None,
                                     Text = activity.Item3.TopicName,
                                     Icon = "comment",

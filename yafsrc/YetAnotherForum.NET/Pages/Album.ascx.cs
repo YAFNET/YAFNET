@@ -99,7 +99,7 @@ namespace YAF.Pages
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
             this.PageLinks.AddUser(this.CurrentUserID, displayName);
-            this.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, "u={0}", this.CurrentUserID));
+            this.PageLinks.AddLink(this.GetText("ALBUMS"), this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.CurrentUserID }));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
             // Set the title text.
@@ -130,8 +130,7 @@ namespace YAF.Pages
         {
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Albums,
-                "u={0}",
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
+                new { u = this.CurrentUserID });
         }
 
         /// <summary>
@@ -143,8 +142,7 @@ namespace YAF.Pages
         {
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.EditAlbumImages,
-                "a={0}",
-                this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"));
+                new { a = this.AlbumID });
         }
 
         #endregion

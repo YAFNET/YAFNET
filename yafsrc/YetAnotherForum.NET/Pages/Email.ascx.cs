@@ -150,9 +150,7 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.UserProfile,
                     false,
-                    "u={0}&name={1}",
-                    this.UserId,
-                    this.Get<IUserDisplayName>().GetNameById(this.UserId));
+                    new { u = this.UserId, name = this.Get<IUserDisplayName>().GetNameById(this.UserId)});
             }
             catch (Exception x)
             {

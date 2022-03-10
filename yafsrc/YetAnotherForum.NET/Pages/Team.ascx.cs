@@ -99,9 +99,7 @@ namespace YAF.Pages
             {
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Topics,
-                    "f={0}&name={1}",
-                    modForums.SelectedValue,
-                    modForums.SelectedItem.Text);
+                    new {f = modForums.SelectedValue, name = modForums.SelectedItem.Text });
             }
         }
 
@@ -262,7 +260,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, "u={0}", user.ID);
+            pm.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = user.ID });
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -283,7 +281,7 @@ namespace YAF.Pages
                 email.Visible = true;
             }
 
-            email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, "u={0}", user.ID);
+            email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = user.ID });
             email.ParamTitle0 = displayName;
         }
 
@@ -368,7 +366,7 @@ namespace YAF.Pages
                 }
             }
 
-            pm.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, "u={0}", userid);
+            pm.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PostPrivateMessage, new { u = userid });
             pm.ParamTitle0 = displayName;
 
             // email link
@@ -389,7 +387,7 @@ namespace YAF.Pages
                 email.Visible = true;
             }
 
-            email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, "u={0}", userid);
+            email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = userid });
             email.ParamTitle0 = displayName;
         }
 

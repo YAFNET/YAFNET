@@ -128,12 +128,12 @@ namespace YAF.Pages.Moderate
                 case "viewunapprovedposts":
 
                     // go to unapproved posts for selected forum
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_UnapprovedPosts, "f={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_UnapprovedPosts, new { f = e.CommandArgument });
                     break;
                 case "viewreportedposts":
 
                     // go to spam reports for selected forum
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, "f={0}", e.CommandArgument);
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new { f = e.CommandArgument });
                     break;
             }
         }

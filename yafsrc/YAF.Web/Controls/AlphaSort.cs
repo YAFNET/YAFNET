@@ -126,8 +126,7 @@ namespace YAF.Web.Controls
                                     Text = letter.ToString(),
                                     NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                         ForumPages.Members,
-                                        "letter={0}",
-                                        letter == '#' ? '_' : letter)
+                                        new { letter = letter == '#' ? '_' : letter })
                                 };
 
                                 if (selectedLetter != char.MinValue && selectedLetter == letter)
