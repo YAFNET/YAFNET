@@ -47,6 +47,13 @@
                                     "</a>");
                             }
 
+                            contextMenu.prepend(
+                                '<a href="javascript:copyToClipBoard(\'' +
+                                selectedText +
+                                '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' +
+                                contextMenu.data("copy") +
+                                "</a>");
+
                             contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
 
                             contextMenu.prepend(
@@ -100,6 +107,13 @@
                             contextMenu.data("quote") +
                             "</a>");
                     }
+
+                    contextMenu.prepend(
+                        '<a href="javascript:copyToClipBoard(\'' +
+                        selectedText +
+                        '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' +
+                        contextMenu.data("copy") +
+                        "</a>");
 
                     contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
 
@@ -171,6 +185,11 @@
 
 function goToURL(messageId, input, url) {
     window.location.href = url + "&q=" + messageId + "&text=" + encodeURIComponent(input);
+}
+
+function copyToClipBoard(input)
+{
+    navigator.clipboard.writeText(input);
 }
 
 function searchText(input) {

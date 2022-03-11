@@ -25448,6 +25448,7 @@ jQuery(document).ready(function() {
                         if (contextMenu.data("url").length) {
                             contextMenu.prepend("<a href=\"javascript:goToURL('" + messageID + "','" + selectedText + "','" + contextMenu.data("url") + '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' + contextMenu.data("quote") + "</a>");
                         }
+                        contextMenu.prepend("<a href=\"javascript:copyToClipBoard('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' + contextMenu.data("copy") + "</a>");
                         contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
                         contextMenu.prepend("<a href=\"javascript:searchText('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' + contextMenu.data("search") + ' "' + selectedText + '"</a>');
                     }
@@ -25479,6 +25480,7 @@ jQuery(document).ready(function() {
                     if (contextMenu.data("url").length) {
                         contextMenu.prepend("<a href=\"javascript:goToURL('" + messageID + "','" + selectedText + "','" + contextMenu.data("url") + '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' + contextMenu.data("quote") + "</a>");
                     }
+                    contextMenu.prepend("<a href=\"javascript:copyToClipBoard('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' + contextMenu.data("copy") + "</a>");
                     contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
                     contextMenu.prepend("<a href=\"javascript:searchText('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' + contextMenu.data("search") + ' "' + selectedText + '"</a>');
                 }
@@ -25535,6 +25537,10 @@ jQuery(document).ready(function() {
 
 function goToURL(messageId, input, url) {
     window.location.href = url + "&q=" + messageId + "&text=" + encodeURIComponent(input);
+}
+
+function copyToClipBoard(input) {
+    navigator.clipboard.writeText(input);
 }
 
 function searchText(input) {

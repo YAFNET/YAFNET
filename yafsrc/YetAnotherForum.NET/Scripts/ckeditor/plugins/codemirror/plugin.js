@@ -920,7 +920,9 @@
                             key !== 'Ctrl-I' &&
                             key !== 'Ctrl-U' &&
                             key !== 'Ctrl-Y' &&
-                            key !== 'Ctrl-Z') {
+                            key !== 'Ctrl-Z' &&
+                            key !== 'Ctrl-C' &&
+                            key !== 'Ctrl-V') {
                             (function(command) {
                                 editorExtraKeys[key] = function() {
                                     editor.execCommand(command);

@@ -2290,6 +2290,7 @@
                 }
           }
   </Resource>
+    <Resource tag="SELECTED_COPY">Copy Selected Text</Resource>
     <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
     <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SHOWHIDE">Mostra/nascondi</Resource>
