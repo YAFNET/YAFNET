@@ -70,7 +70,7 @@
                                                      Visible="false"
                                                      Icon="user-cog"
                                                      Type="Danger"
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,new { u = this.Eval("ModeratorID").ToType<int>() } ) %>'>
+                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,new { u = this.Eval("ID").ToType<int>() } ) %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
