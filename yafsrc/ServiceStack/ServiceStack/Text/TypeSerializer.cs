@@ -12,6 +12,7 @@ namespace ServiceStack.Text
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
+    using System.Reflection;
 
     using ServiceStack.Text.Common;
     using ServiceStack.Text.Jsv;
@@ -275,7 +276,7 @@ namespace ServiceStack.Text
         {
             var type = value?.GetType();
 
-            if (type == null || !type.IsClass || value is string || value is Type)
+            if (type is not { IsClass: true } || value is string or Type)
                 return false;
 
             if (parentValues == null)
@@ -333,13 +334,20 @@ namespace ServiceStack.Text
                     if (pi.GetIndexParameters().Length > 0)
                         continue;
 
-                    var mi = pi.GetGetMethod(false);
-                    var pValue = mi != null ? mi.Invoke(value, null) : null;
-                    if (pValue == null)
-                        continue;
+                    try
+                    {
+                        var mi = pi.GetGetMethod(false);
+                        var pValue = mi != null ? mi.Invoke(value, null) : null;
+                        if (pValue == null)
+                            continue;
 
-                    if (CheckValue(pValue))
-                        return true;
+                        if (CheckValue(pValue))
+                            return true;
+                    }
+                    catch (TargetInvocationException e)
+                    {
+                        Tracer.Instance.WriteError($"Failed to access property {type.Name}.{pi.Name}: {e.InnerException?.Message}", e);
+                    }
                 }
             }
 

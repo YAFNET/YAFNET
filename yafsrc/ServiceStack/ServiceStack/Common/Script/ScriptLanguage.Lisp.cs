@@ -2055,9 +2055,7 @@ namespace ServiceStack.Script
                         ? I.invoke(fnclosure, x, y).ConvertTo<bool>()
                         : fnmacro != null
                             ? I.invoke(fnclosure, x, y).ConvertTo<bool>()
-                            : fnCompareEquals != null
-                                ? fnCompareEquals(x, y)
-                                : I.invoke(fndel, x, y).ConvertTo<bool>();
+                            : fnCompareEquals?.Invoke(x, y) ?? this.I.invoke(this.fndel, x, y).ConvertTo<bool>();
 
                 /// <summary>
                 /// Returns a hash code for this instance.

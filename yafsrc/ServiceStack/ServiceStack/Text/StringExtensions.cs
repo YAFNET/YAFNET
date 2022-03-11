@@ -1100,10 +1100,10 @@ namespace ServiceStack.Text
         /// <typeparam name="T"></typeparam>
         /// <param name="value">The value.</param>
         /// <returns>T.</returns>
-        public static T ToEnum<T>(this string value)
+        /*public static T ToEnum<T>(this string value)
         {
             return (T)Enum.Parse(typeof(T), value, true);
-        }
+        }*/
 
         /// <summary>
         /// Converts to enumordefault.
