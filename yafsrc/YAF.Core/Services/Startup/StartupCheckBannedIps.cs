@@ -155,8 +155,10 @@ namespace YAF.Core.Services.Startup
 
                 return false;
             }
-            catch (Exception)
+            catch (Exception exception)
             {
+                this.Logger.Error(exception, "Error during IP Check");
+
                 // Fails if YAF is not installed
                 return true;
             }
