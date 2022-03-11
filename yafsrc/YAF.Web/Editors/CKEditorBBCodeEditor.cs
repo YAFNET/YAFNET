@@ -88,7 +88,7 @@ namespace YAF.Web.Editors
 
             if (ValidationHelper.IsNumeric(language))
             {
-                language = this.PageContext.BoardSettings.Culture; //.Substring(0, 2);
+                language = this.PageContext.BoardSettings.Culture;
             }
 
             BoardContext.Current.PageElements.RegisterJsBlock(
@@ -99,7 +99,8 @@ namespace YAF.Web.Editors
                     this.MaxCharacters,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),
-                    toolbar));
+                    toolbar,
+                    this.PageContext.UploadAccess));
         }
 
         #endregion

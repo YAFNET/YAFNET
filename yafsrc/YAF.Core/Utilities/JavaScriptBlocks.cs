@@ -530,6 +530,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         /// <param name="toolbar">
         /// The toolbar.
         /// </param>
+        /// <param name="uploadAllowed">
+        /// Check if uploads are allowed
+        /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
@@ -540,11 +543,21 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             int maxCharacters,
             [NotNull] string themeCssUrl,
             [NotNull] string forumCssUrl,
-            [NotNull] string toolbar)
+            [NotNull] string toolbar,
+            bool uploadAllowed)
         {
+            var autoUploadJs = $@" CKEDITOR.on('instanceReady', function (ev) {{
+                     ev.editor.document.on('drop', function (event) {{
+                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.$.dataTransfer.files}});
+                     }});
+                     ev.editor.on('paste', function (event) {{
+                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.dataTransfer._.files}});
+                     }});
+                  }});";
+
             return $@"{Config.JQueryAlias}(document).ready(function() {{
                       var yafCKEditor = {Config.JQueryAlias}(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote,codemirror"",
+                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,attachments,quote,codemirror,textselection"",
                           removePlugins: 'bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates',
                           toolbar: [{toolbar}],
                           entities_greek: false,
@@ -556,6 +569,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                           contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
                           autosave:
                           {{
+                              messageType: ""statusbar"",
                               saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']"",
                               delay: 60
                           }},
@@ -605,14 +619,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       }});
                   }});
 
-                  CKEDITOR.on('instanceReady', function (ev) {{
-                     ev.editor.document.on('drop', function (event) {{
-                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.$.dataTransfer.files}});
-                     }});
-                     ev.editor.on('paste', function (event) {{
-                       {Config.JQueryAlias}('.EditorDiv').yafFileUpload(""send"", {{files: event.data.dataTransfer._.files}});
-                     }});
-                  }});";
+                 {(uploadAllowed ? autoUploadJs : string.Empty)}";
         }
 
         /// <summary>
