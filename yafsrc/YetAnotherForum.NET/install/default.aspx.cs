@@ -238,13 +238,7 @@ namespace YAF.Install
         /// </param>
         protected void TestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            UpdateStatusLabel(this.lblPermissionApp, 1);
-            UpdateStatusLabel(this.lblPermissionUpload, 1);
-
-            UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
-            UpdateStatusLabel(
-                this.lblPermissionUpload,
-                DirectoryHasWritePermission(this.Server.MapPath(this.Get<BoardFolders>().Uploads)) ? 2 : 0);
+            this.CheckWritePermission();
         }
 
         /// <summary>
@@ -426,6 +420,8 @@ namespace YAF.Install
                 case "WizWelcome":
 
                     e.Cancel = false;
+
+                    this.CheckWritePermission();
 
                     // move to upgrade..
                     this.CurrentWizardStepID = "WizValidatePermission";
@@ -874,6 +870,17 @@ namespace YAF.Install
             }
 
             return UpdateDBFailureType.None;
+        }
+
+        private void CheckWritePermission()
+        {
+            UpdateStatusLabel(this.lblPermissionApp, 1);
+            UpdateStatusLabel(this.lblPermissionUpload, 1);
+
+            UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
+            UpdateStatusLabel(
+                this.lblPermissionUpload,
+                DirectoryHasWritePermission(this.Server.MapPath(this.Get<BoardFolders>().Uploads)) ? 2 : 0);
         }
 
         #endregion
