@@ -137,6 +137,7 @@ namespace YAF.Pages.Admin
                     AllowDigestEmail = this.AllowDigestEmail.Checked,
                     DefaultSendDigestEmail = this.DefaultSendDigestEmail.Checked,
                     DefaultNotificationSetting = this.DefaultNotificationSetting.SelectedValue.ToEnum<UserNotificationSetting>(),
+                    DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>(),
                     ForumEmail = this.ForumEmail.Text,
                     BaseUrlMask = this.ForumBaseUrlMask.Text,
                     CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim(),
@@ -252,6 +253,11 @@ namespace YAF.Pages.Admin
 
             this.DefaultNotificationSetting.Items.AddRange(notificationItems);
 
+            this.DefaultCollapsiblePanelState.Items.Add(
+                new ListItem {Text = this.GetText("ADMIN_BOARDSETTINGS", "EXPANDED"), Value = "0"});
+            this.DefaultCollapsiblePanelState.Items.Add(
+                new ListItem {Text = this.GetText("ADMIN_BOARDSETTINGS", "COLLAPSED"), Value = "1"});
+
             // Get first default full culture from a language file tag.
             var langFileCulture = StaticDataHelper.CultureDefaultFromFile(boardSettings.Language) ?? "en-US";
 
@@ -284,6 +290,9 @@ namespace YAF.Pages.Admin
             SetSelectedOnList(
                 ref this.DefaultNotificationSetting,
                 boardSettings.DefaultNotificationSetting.ToInt().ToString());
+            SetSelectedOnList(
+                ref this.DefaultCollapsiblePanelState,
+                boardSettings.DefaultCollapsiblePanelState.ToInt().ToString());
 
             this.NotificationOnUserRegisterEmailList.Text = boardSettings.NotificationOnUserRegisterEmailList;
             this.EmailModeratorsOnModeratedPost.Checked = boardSettings.EmailModeratorsOnModeratedPost;
@@ -303,10 +312,6 @@ namespace YAF.Pages.Admin
             this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
 
             this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
-
-            // Copyright Link-back Algorithm
-            // Please keep if you haven't purchased a removal or commercial license.
-            this.CopyrightHolder.Visible = true;
         }
 
         #endregion

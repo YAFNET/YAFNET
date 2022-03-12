@@ -108,13 +108,13 @@ namespace YAF.Web.Controls
                 @"<h6 class=""sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted""><span class=""text-uppercase fw-bold""><a class=""text-secondary text-bold"" href=""{2}"" {3}>{0} / {1}</a></span></h6>",
                 this.GetText("HELP_INDEX", "INDEX"),
                 this.GetText("BTNSEARCH"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=index"),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" }),
                 selectedStyle);
 
             htmlDropDown.AppendFormat(
                 @"<a href=""{1}"" class=""dropdown-item"">{0}</a>",
                 this.GetText("BTNSEARCH"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=index"));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" }));
 
             html.Append("<hr />");
 
@@ -152,7 +152,7 @@ namespace YAF.Web.Controls
                                             @"<li class=""nav-item""><a href=""{0}"" title=""{1}"" class=""nav-link{2}"">{1}</a></li>",
                                             this.Get<LinkBuilder>().GetLink(
                                                 ForumPages.Help,
-                                                $"faq={helpPage.HelpPage.ToLower()}"),
+                                                new { faq = helpPage.HelpPage.ToLower() }),
                                             this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
                                             selectedStyle);
 
@@ -160,7 +160,7 @@ namespace YAF.Web.Controls
                                             @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
                                             this.Get<LinkBuilder>().GetLink(
                                                 ForumPages.Help,
-                                                $"faq={helpPage.HelpPage.ToLower()}"),
+                                                new { faq = helpPage.HelpPage.ToLower() }),
                                             this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
                                     }
                                     else
@@ -169,7 +169,7 @@ namespace YAF.Web.Controls
                                             @"<li class=""nav-item""><a href=""{0}"" title=""{1}"" class=""nav-link{2}"">{1}</a></li>",
                                             this.Get<LinkBuilder>().GetLink(
                                                 ForumPages.Help,
-                                                $"faq={helpPage.HelpPage.ToLower()}"),
+                                                new { faq = helpPage.HelpPage.ToLower() }),
                                             this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"),
                                             selectedStyle);
 
@@ -177,7 +177,7 @@ namespace YAF.Web.Controls
                                             @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
                                             this.Get<LinkBuilder>().GetLink(
                                                 ForumPages.Help,
-                                                $"faq={helpPage.HelpPage.ToLower()}"),
+                                                new { faq = helpPage.HelpPage.ToLower() }),
                                             this.GetText("HELP_INDEX", $"{helpPage.HelpPage}TITLE"));
                                     }
                                 });

@@ -171,11 +171,11 @@ namespace YAF.Pages
                 {
                     this.PageLinks.AddLink(
                         this.GetText("SENTITEMS"),
-                        this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, "v=out"));
+                        this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { v = "out" }));
                 }
                 else if (this.IsArchived)
                 {
-                    this.PageLinks.AddLink(this.GetText("ARCHIVE"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, "v=arch"));
+                    this.PageLinks.AddLink(this.GetText("ARCHIVE"), this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages, new { v = "arch" }));
                 }
                 else
                 {
@@ -236,11 +236,11 @@ namespace YAF.Pages
                 // see if the message got deleted, if so, redirect to their outbox/archive
                 if (this.IsOutbox && !messageIsInOutbox)
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v=out");
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "out" });
                 }
                 else if (this.IsArchived && !messageIsArchived)
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v=arch");
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "arch" });
                 }
             }
             else if (isCurrentUserFrom)
@@ -249,7 +249,7 @@ namespace YAF.Pages
                 if (!messageIsInOutbox)
                 {
                     // deleted for this user, redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, "v=out");
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = "out" });
                 }
                 else
                 {

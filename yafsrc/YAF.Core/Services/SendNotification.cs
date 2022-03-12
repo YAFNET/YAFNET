@@ -790,11 +790,11 @@ namespace YAF.Core.Services
             CodeContracts.VerifyNotNull(email);
             CodeContracts.VerifyNotNull(user);
 
-            var code = HttpUtility.UrlEncode(
+            var token = HttpUtility.UrlEncode(
                 this.Get<IAspNetUsersHelper>().GenerateEmailConfirmationResetToken(user.Id));
 
             // save verification record...
-            this.GetRepository<CheckEmail>().Save(userId, code, user.Email);
+            this.GetRepository<CheckEmail>().Save(userId, token, user.Email);
 
             var subject = this.Get<ILocalization>().GetTextFormatted(
                 "VERIFICATION_EMAIL_SUBJECT",
@@ -807,8 +807,8 @@ namespace YAF.Core.Services
                                               ["{link}"] = this.Get<LinkBuilder>().GetLink(
                                                   ForumPages.Account_Approve,
                                                   true,
-                                                  new {code = code}),
-                                              ["{key}"] = code,
+                                                  new {code = token}),
+                                              ["{key}"] = token,
                                               ["{username}"] = user.UserName
                                           }
                                   };
@@ -886,7 +886,7 @@ namespace YAF.Core.Services
         /// <param name="code">
         /// The code.
         /// </param>
-        public void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string code)
+        public void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token)
         {
             CodeContracts.VerifyNotNull(user);
 
@@ -900,8 +900,7 @@ namespace YAF.Core.Services
             verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Account_ResetPassword,
                 true,
-                new { code = code }
-                );
+                new { code = token });
             verifyEmail.TemplateParams["{forumname}"] = this.Get<BoardSettings>().Name;
             verifyEmail.TemplateParams["{forumlink}"] = $"{this.Get<LinkBuilder>().ForumUrl}";
 

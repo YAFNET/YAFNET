@@ -65,7 +65,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void AddAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, "a=new");
+            this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, new { a = "new" });
         }
 
         /// <summary>

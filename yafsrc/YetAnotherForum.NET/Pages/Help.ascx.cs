@@ -279,7 +279,7 @@ namespace YAF.Pages
                     "BBCODES" => this.GetTextFormatted($"{helpPage.HelpPage}CONTENT", BoardInfo.ForumBaseUrl),
                     "POSTING" => this.GetTextFormatted(
                         $"{helpPage.HelpPage}CONTENT",
-                        this.Get<LinkBuilder>().GetLink(ForumPages.Help, "faq=bbcodes")),
+                        this.Get<LinkBuilder>().GetLink(ForumPages.Help, new {faq = "bbcodes" })),
                     _ => this.GetText($"{helpPage.HelpPage}CONTENT")
                 };
 

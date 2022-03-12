@@ -161,7 +161,7 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
+                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
                 }
             }
 
@@ -190,7 +190,7 @@ namespace YAF.Pages
             }
             else
             {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
             }
 
             this.Report.MaxLength = this.PageContext.BoardSettings.MaxReportPostChars;

@@ -96,15 +96,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox ForumBaseUrlMask;
 
         /// <summary>
-        /// CopyrightHolder-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder CopyrightHolder;
-
-        /// <summary>
         /// HelpLabel2-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -202,6 +193,24 @@ namespace YAF.Pages.Admin
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DefaultNotificationSetting;
+
+        /// <summary>
+        /// HelpLabel8-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel8;
+
+        /// <summary>
+        /// DefaultCollapsiblePanelState-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DefaultCollapsiblePanelState;
 
         /// <summary>
         /// LocalizedLabel13-Steuerelement.

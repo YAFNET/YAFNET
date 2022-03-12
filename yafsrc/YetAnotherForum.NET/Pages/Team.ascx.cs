@@ -99,7 +99,7 @@ namespace YAF.Pages
             {
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Topics,
-                    new {f = modForums.SelectedValue, name = modForums.SelectedItem.Text });
+                    new { f = modForums.SelectedValue, name = modForums.SelectedItem.Text });
             }
         }
 

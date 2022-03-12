@@ -115,7 +115,7 @@ namespace YAF.Pages
                 // We check here if the user have access to the option
                 if (this.PageContext.IsGuest)
                 {
-                    this.Get<HttpResponseBase>().Redirect(this.Get<LinkBuilder>().GetLink(ForumPages.Info, "i=4"));
+                   this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
                 }
 
                 this.forumID =

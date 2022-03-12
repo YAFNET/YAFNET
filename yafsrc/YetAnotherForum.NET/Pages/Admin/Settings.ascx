@@ -46,24 +46,21 @@
 
                 <asp:TextBox ID="ForumBaseUrlMask" runat="server" TextMode="Url" CssClass="form-control"></asp:TextBox>
             </div>
-            <asp:PlaceHolder ID="CopyrightHolder" runat="server">
-                <div class="mb-3">
-                    <YAF:HelpLabel ID="HelpLabel2" runat="server"
-                                   AssociatedControlID="CopyrightHolder"
-                                   LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                    <div class="input-group">
-                        <asp:TextBox ID="CopyrightRemovalKey" runat="server" 
-                                     CssClass="form-control"></asp:TextBox>
-                        <YAF:ThemeButton runat="server" ID="GetRemovalKey"
-                                             NavigateUrl="https://yetanotherforum.net/purchase.aspx"
-                                             Type="Info"
-                                             Icon="key"
-                                             TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">
-                        </YAF:ThemeButton>
-                    </div>
+            <div class="mb-3">
+                <YAF:HelpLabel ID="HelpLabel2" runat="server"
+                               AssociatedControlID="CopyrightRemovalKey"
+                               LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS"/>
+                <div class="input-group">
+                    <asp:TextBox ID="CopyrightRemovalKey" runat="server" 
+                                 CssClass="form-control"></asp:TextBox>
+                    <YAF:ThemeButton runat="server" ID="GetRemovalKey"
+                                     NavigateUrl="https://yetanotherforum.net/purchase.aspx"
+                                     Type="Info"
+                                     Icon="key"
+                                     TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">
+                    </YAF:ThemeButton>
                 </div>
-
-            </asp:PlaceHolder>
+            </div>
             <div class="mb-3">
                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
                                AssociatedControlID="Theme"
@@ -95,6 +92,16 @@
                 <asp:DropDownList ID="DefaultNotificationSetting" runat="server" 
                                   CssClass="select2-select" 
                                   placeholder='<%# this.GetText("BOARD_DEFAULT_NOTIFICATION") %>'>
+                </asp:DropDownList>
+            </div>
+            <div class="mb-3">
+                <YAF:HelpLabel ID="HelpLabel8" runat="server"
+                               AssociatedControlID="DefaultNotificationSetting"
+                               LocalizedTag="BOARD_DEFAULT_PANEL_STATE"
+                               LocalizedPage="ADMIN_BOARDSETTINGS"/>
+                <asp:DropDownList ID="DefaultCollapsiblePanelState" runat="server" 
+                                  CssClass="select2-select" 
+                                  placeholder='<%# this.GetText("BOARD_DEFAULT_PANEL_STATE") %>'>
                 </asp:DropDownList>
             </div>
             <div class="mb-3">

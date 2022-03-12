@@ -447,10 +447,10 @@ namespace YAF.Pages
             if (this.topicUnapproved)
             {
                 // Tell user that his message will have to be approved by a moderator
-                this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=1");
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {t = this.topicInfo.ID, name = this.topicInfo.TopicName });
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.topicInfo.ID, name = this.topicInfo.TopicName });
         }
 
         /// <summary>
