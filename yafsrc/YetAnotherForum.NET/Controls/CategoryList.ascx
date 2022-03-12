@@ -3,6 +3,7 @@
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Core.Extensions" %>
 <%@ Import Namespace="ServiceStack.Text" %>
+<%@ Import Namespace="YAF.Core.Services" %>
 
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 
@@ -17,7 +18,9 @@
                                             <div class="d-none d-md-inline-block icon-category">
                                                 <%#  this.GetCategoryImage((ForumRead)Container.DataItem) %>
                                             </div>
-                                            <%# this.HtmlEncode(((ForumRead)Container.DataItem).Category) %>
+                                            <a href="<%#this.Get<LinkBuilder>().GetCategoryLink(((ForumRead)Container.DataItem).CategoryID, ((ForumRead)Container.DataItem).Category)%>">
+                                                <%# this.HtmlEncode(((ForumRead)Container.DataItem).Category) %>
+                                            </a>
                                         </div>
                                         <div class="col-auto">
                                             <YAF:CollapseButton ID="CollapsibleImage" runat="server"
