@@ -28,6 +28,7 @@ namespace YAF.Web.Controls
     using System.Web.UI.WebControls;
 
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Types;
     using YAF.Types.Constants;
@@ -62,7 +63,7 @@ namespace YAF.Web.Controls
         {
             get
             {
-                var defaultState = CollapsiblePanelState.Expanded;
+                var defaultState = this.PageContext().BoardSettings.DefaultCollapsiblePanelState;
 
                 if (this.ViewState["DefaultState"] != null)
                 {
@@ -71,7 +72,7 @@ namespace YAF.Web.Controls
 
                 if (defaultState == CollapsiblePanelState.None)
                 {
-                    defaultState = CollapsiblePanelState.Expanded;
+                    defaultState = this.PageContext().BoardSettings.DefaultCollapsiblePanelState;
                 }
 
                 return defaultState;

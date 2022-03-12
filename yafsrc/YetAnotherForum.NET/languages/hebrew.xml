@@ -452,6 +452,8 @@
     <Resource tag="BOARD_CULTURE_HELP">The default culture &amp; language for this forum.</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION">Default Notification Setting:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
+    <Resource tag="BOARD_DEFAULT_PANEL_STATE">Default Collapsible Panel State</Resource>
+    <Resource tag="BOARD_DEFAULT_PANEL_STATE_HELP">Show Categories Expanded or Collapsed on the Board Start page</Resource>
     <Resource tag="BOARD_DIGEST_HOURS">Hours Between Digest Sending:</Resource>
     <Resource tag="BOARD_DIGEST_HOURS_HELP">Number of hours before attempting to send another digest. Digest only attempts sending between 12:00 and 6:00am.</Resource>
     <Resource tag="BOARD_DIGEST_NEWUSERS">Default Send Digest "On" for New Users?</Resource>
@@ -479,9 +481,11 @@
     <Resource tag="CDVVERSION">CRM Version</Resource>
     <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
     <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
+    <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available&lt;a href="https://yetanotherforum.net/purchase.aspx"&gt;from YAF.NET site&lt;/a&gt;. </Resource>
+    <Resource tag="EXPANDED">Expanded</Resource>
     <Resource tag="FORUM_DEFAULT_ACCESSMASK">New Forum Default Access mask:</Resource>
     <Resource tag="FORUM_DEFAULT_ACCESSMASK_HELP">The Default Access Mask when creating a new Forum</Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>

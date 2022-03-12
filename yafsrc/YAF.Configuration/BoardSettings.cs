@@ -2340,6 +2340,16 @@ namespace YAF.Configuration
             set => this.RegistryBoard.SetValue("BoardAnnouncementType", value);
         }
 
+        /// <summary>
+        /// Gets or sets the default collapsible panel state.
+        /// </summary>
+        public CollapsiblePanelState DefaultCollapsiblePanelState
+        {
+            get => this.RegistryBoard.GetValue("DefaultCollapsiblePanelState", CollapsiblePanelState.Expanded);
+
+            set => this.RegistryBoard.SetValue("DefaultCollapsiblePanelState", value);
+        }
+
         #endregion
 
         /// <summary>
