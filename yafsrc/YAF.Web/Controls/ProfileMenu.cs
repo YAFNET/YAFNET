@@ -35,7 +35,6 @@ namespace YAF.Web.Controls
     using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
-    using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
 
     #endregion
@@ -83,7 +82,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.PageUser.DisplayOrUserName()}");
+                new { u = this.PageContext.PageUserID, name = this.PageContext.PageUser.DisplayOrUserName() });
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
 
@@ -93,7 +92,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                $"u={this.PageContext.PageUserID}&name={this.PageContext.PageUser.DisplayOrUserName()}");
+                new { u = this.PageContext.PageUserID, name = this.PageContext.PageUser.DisplayOrUserName() });
 
             if (!Config.IsDotNetNuke)
             {
@@ -169,7 +168,7 @@ namespace YAF.Web.Controls
                     ForumPages.Albums,
                     this.GetText("EDIT_ALBUMS"),
                     "images",
-                    $"u={this.PageContext.PageUserID}");
+                    new { u = this.PageContext.PageUserID });
 
                 this.RenderMenuItem(
                     htmlDropDown,
@@ -177,7 +176,7 @@ namespace YAF.Web.Controls
                     ForumPages.Albums,
                     this.GetText("EDIT_ALBUMS"),
                     "images",
-                    $"u={this.PageContext.PageUserID}");
+                    new { u = this.PageContext.PageUserID });
             }
 
             if (!Config.IsDotNetNuke && (this.PageContext.BoardSettings.AvatarUpload
@@ -305,7 +304,7 @@ namespace YAF.Web.Controls
         /// <param name="icon">
         /// The icon.
         /// </param>
-        /// <param name="parameter">
+        /// <param name="parameters">
         /// The URL Parameter
         /// </param>
         private void RenderMenuItem(
@@ -314,13 +313,13 @@ namespace YAF.Web.Controls
             ForumPages page,
             string getText,
             string icon,
-            string parameter = null)
+            object parameters = null)
         {
             stringBuilder.AppendFormat(
                 this.PageContext.CurrentForumPage.PageType == page
                     ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-light""></i>{1}</a>"
                     : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-secondary""></i>{1}</a>",
-                parameter.IsSet() ? this.Get<LinkBuilder>().GetLink(page, parameter) : this.Get<LinkBuilder>().GetLink(page),
+                parameters != null ? this.Get<LinkBuilder>().GetLink(page, parameters) : this.Get<LinkBuilder>().GetLink(page),
                 getText,
                 getText,
                 cssClass,
