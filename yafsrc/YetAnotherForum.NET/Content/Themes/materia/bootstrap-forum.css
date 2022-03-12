@@ -13716,11 +13716,6 @@ select.form-control[multiple] {
   color: inherit;
 }
 
-.forum-logo {
-  height: 125px;
-  display: block;
-}
-
 .blockquote-custom {
   font-size: 1rem;
 }
@@ -14354,4 +14349,29 @@ select + .select2-container--bootstrap-5 {
 }
 .form-select-lg ~ .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
   right: 0;
+}
+
+.stacktrace .st-type {
+  color: #fff;
+  font-weight: bolder;
+}
+.stacktrace .st-method {
+  color: #2196f3;
+  font-weight: bolder;
+}
+.stacktrace .st-frame-params {
+  color: #fff;
+  font-weight: normal;
+}
+.stacktrace .st-param-type {
+  color: #222;
+}
+.stacktrace .st-param-name {
+  color: #4caf50;
+}
+.stacktrace .st-file {
+  color: #ff9800;
+}
+.stacktrace .st-line {
+  color: #9c27b0;
 }

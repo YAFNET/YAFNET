@@ -19,9 +19,7 @@ $outrun: false !default;
   text-shadow: 0 0 1px rgba($color, .3), 0 0 2px rgba($color, .3), 0 0 5px rgba($color, .2);
 }
 
-@mixin box-shadow($color) {
-  box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);
-}
+
 
 @mixin box-shadow-lg($color) {
   box-shadow: 0 0 2rem rgba(tint-color($color, 10%), .4), 0 0 8rem rgba(tint-color($color, 10%), .3);

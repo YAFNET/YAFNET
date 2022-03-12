@@ -26,6 +26,8 @@ namespace YAF.Modules
     #region Using
 
     using System;
+    using System.Runtime.InteropServices;
+    using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
     using YAF.Configuration;
@@ -89,7 +91,15 @@ namespace YAF.Modules
 
             var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageContext.BoardSettings.ForumLogo}";
 
-            bannerLink.Attributes.Add("style", $"background: url('{logoUrl}') no-repeat");
+            var image = new HtmlImage
+            {
+                Alt = "board logo",
+                Src = logoUrl,
+            };
+
+            image.Attributes["class"] = "my-3";
+
+            bannerLink.Controls.Add(image);
 
             if (!this.CurrentForumPage.ShowToolBar)
             {
