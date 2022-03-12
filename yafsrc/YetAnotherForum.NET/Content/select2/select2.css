@@ -49,13 +49,15 @@
       -webkit-appearance: none; }
 
 .select2-dropdown {
-  background-color: white;
-  box-sizing: border-box;
-  display: block;
-  position: absolute;
-  left: -100000px;
-  width: 100%;
-  z-index: 1051; }
+    background-color: white;
+    border: 1px solid #aaa;
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    left: -100000px;
+    width: 100%;
+    z-index: 1051;
+}
 
 .select2-results {
   display: block; }

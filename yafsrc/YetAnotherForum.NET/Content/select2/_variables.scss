@@ -2,6 +2,9 @@
 $s2bs5-height:                   $input-height !default;
 $s2bs5-height-inner:             $input-line-height * 1rem !default;
 
+// Z-Index
+$s2bs5-zindex:                   $zindex-modal + 1 !default;
+
 // Padding
 $s2bs5-padding-y:                $form-select-padding-y !default;
 $s2bs5-padding-x:                $form-select-padding-x !default;
@@ -52,7 +55,7 @@ $s2bs5-disabled-border-color:    $s2bs5-border-color !default;
 $s2bs5-item-padding-y:           $s2bs5-padding-y !default;
 $s2bs5-item-padding-x:           $s2bs5-padding-x !default;
 $s2bs5-item-active-bg:           $primary !default;
-$s2bs5-item-hover-bg:            $gray-100 !default;
+$s2bs5-item-hover-bg:            $gray-200 !default;
 $s2bs5-item-focus-bg:            $gray-200 !default;
 
 // Groups
@@ -78,9 +81,11 @@ $s2bs5-clear-hover-bg:           transparent escape-svg($btn-close-bg) center / 
 
 // Small
 $s2bs5-height-sm:                $input-height-sm !default;
+$s2bs5-height-inner-sm:          $input-line-height * 1em !default;
 $s2bs5-padding-y-sm:             $form-select-padding-y-sm !default;
 $s2bs5-padding-x-sm:             $form-select-padding-x-sm !default;
 $s2bs5-font-size-sm:             $form-select-font-size-sm !default;
+$s2bs5-border-radius-sm:         $form-select-border-radius-sm !default;
 $s2bs5-item-padding-y-sm:        $s2bs5-padding-y-sm !default;
 $s2bs5-item-padding-x-sm:        $s2bs5-padding-x-sm !default;
 $s2bs5-group-padding-y-sm:       $s2bs5-padding-y-sm !default;
@@ -94,9 +99,11 @@ $s2bs5-clear-hover-bg-sm:        transparent escape-svg($btn-close-bg) center / 
 
 $s2bs5-small: (
     "height": $s2bs5-height-sm,
+    "height-inner": $s2bs5-height-inner-sm,
     "padding-y": $s2bs5-padding-y-sm,
     "padding-x": $s2bs5-padding-x-sm,
     "font-size": $s2bs5-font-size-sm,
+    "border-radius": $s2bs5-border-radius-sm,
     "item-padding-y": $s2bs5-item-padding-y-sm,
     "item-padding-x": $s2bs5-item-padding-x-sm,
     "group-padding-y": $s2bs5-group-padding-y-sm,
@@ -111,9 +118,11 @@ $s2bs5-small: (
 
 // Large
 $s2bs5-height-lg:                $input-height-lg !default;
+$s2bs5-height-inner-lg:          $input-line-height * 1em !default;
 $s2bs5-padding-y-lg:             $form-select-padding-y-lg !default;
 $s2bs5-padding-x-lg:             $form-select-padding-x-lg !default;
 $s2bs5-font-size-lg:             $form-select-font-size-lg !default;
+$s2bs5-border-radius-lg:         $form-select-border-radius-lg !default;
 $s2bs5-item-padding-y-lg:        $s2bs5-padding-y-lg !default;
 $s2bs5-item-padding-x-lg:        $s2bs5-padding-x-lg !default;
 $s2bs5-group-padding-y-lg:       $s2bs5-padding-y-lg !default;
@@ -127,9 +136,11 @@ $s2bs5-clear-hover-bg-lg:        transparent escape-svg($btn-close-bg) center / 
 
 $s2bs5-large: (
     "height": $s2bs5-height-lg,
+    "height-inner": $s2bs5-height-inner-lg,
     "padding-y": $s2bs5-padding-y-lg,
     "padding-x": $s2bs5-padding-x-lg,
     "font-size": $s2bs5-font-size-lg,
+    "border-radius": $s2bs5-border-radius-lg,
     "item-padding-y": $s2bs5-item-padding-y-lg,
     "item-padding-x": $s2bs5-item-padding-x-lg,
     "group-padding-y": $s2bs5-group-padding-y-lg,

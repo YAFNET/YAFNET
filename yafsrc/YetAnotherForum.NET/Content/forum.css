@@ -11719,6 +11719,7 @@ readers do not read off random characters that represent icons */
 
 .select2-dropdown {
   background-color: white;
+  border: 1px solid #aaa;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: block;

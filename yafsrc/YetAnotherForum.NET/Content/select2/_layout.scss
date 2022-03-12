@@ -2,6 +2,10 @@
 .select2-container--bootstrap-5 {
     display: block;
 
+    @at-root select + & {
+        z-index: 1;
+    }
+
     *:focus {
         outline: 0;
     }
@@ -35,19 +39,25 @@
 
     // Hide bottom border when open and below
     &.select2-container--open.select2-container--below .select2-selection {
-        border-bottom: $s2bs5-border-width solid transparent;
+        border-bottom: 0 solid transparent;
         @include border-bottom-radius(0);
     }
 
     // Hide top border when open and above
     &.select2-container--open.select2-container--above .select2-selection {
-        border-top: $s2bs5-border-width solid transparent;
+        border-top: 0 solid transparent;
         @include border-top-radius(0);
     }
 
     // Placeholder Width
     .select2-search {
         width: 100%;
+    }
+
+    .select2-search--inline {
+        .select2-search__field {
+            vertical-align: top;
+        }
     }
 
     // Clear Button
