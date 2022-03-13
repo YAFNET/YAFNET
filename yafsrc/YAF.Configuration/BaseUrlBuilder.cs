@@ -34,7 +34,6 @@ namespace YAF.Configuration
     using YAF.Types;
     using YAF.Types.Exceptions;
     using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
 
     #endregion
@@ -196,22 +195,6 @@ namespace YAF.Configuration
         {
             // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
             return $"{BaseUrl}{this.BuildUrl(url)}";
-        }
-
-        /// <summary>
-        /// Builds the Full URL.
-        /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="url">The url.</param>
-        /// <returns>
-        /// Returns the URL.
-        /// </returns>
-        public virtual string BuildUrlFull(object boardSettings, string url)
-        {
-            var currentBoardSettings = boardSettings as BoardSettings;
-
-            // append the full base server url to the beginning of the url (e.g. http://mydomain.com)
-            return $"{currentBoardSettings.BaseUrlMask}{this.BuildUrl(boardSettings, url)}";
         }
 
         #endregion

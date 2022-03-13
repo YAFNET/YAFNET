@@ -40,16 +40,6 @@ namespace YAF.Types.Interfaces.Services
         string BuildUrl(string url);
 
         /// <summary>
-        /// Builds path for calling page with URL argument as the parameter.
-        /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="url">URL to use as a parameter.</param>
-        /// <returns>
-        /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-        /// </returns>
-        string BuildUrl(object boardSettings, string url);
-
-        /// <summary>
         /// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
         /// </summary>
         /// <param name="url">
@@ -59,15 +49,5 @@ namespace YAF.Types.Interfaces.Services
         /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
         /// </returns>
         string BuildUrlFull(string url);
-
-        /// <summary>
-        /// Builds a "Full URL" (server + path) for calling page with URL argument as parameter.
-        /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="url">URL to use as a parameter.</param>
-        /// <returns>
-        /// URL to calling page with URL argument as page's parameter with escaped characters to make it valid parameter.
-        /// </returns>
-        string BuildUrlFull(object boardSettings, string url);
     }
 }

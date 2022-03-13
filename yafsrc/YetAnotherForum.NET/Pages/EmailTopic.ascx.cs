@@ -89,9 +89,8 @@ namespace YAF.Pages
             {
                 TemplateParams =
                 {
-                    ["{link}"] = this.Get<LinkBuilder>().GetLink(
+                    ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                         ForumPages.Posts,
-                        true,
                         new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName }),
                     ["{user}"] = this.PageContext.PageUser.DisplayOrUserName()
                 }

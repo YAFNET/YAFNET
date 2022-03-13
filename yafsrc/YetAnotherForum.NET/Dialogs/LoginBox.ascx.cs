@@ -229,9 +229,8 @@ namespace YAF.Dialogs
             var subject = this.Get<ILocalization>()
                 .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
 
-            verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetLink(
+            verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                 ForumPages.Account_Approve,
-                true,
                 new { code = checkMail.Hash });
             verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
             verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;

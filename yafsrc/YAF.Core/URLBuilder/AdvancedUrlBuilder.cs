@@ -36,6 +36,8 @@ namespace YAF.Core.URLBuilder
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
 
+    using Config = YAF.Configuration.Config;
+
     #endregion
 
     /// <summary>

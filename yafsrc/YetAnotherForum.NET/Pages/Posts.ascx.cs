@@ -235,9 +235,8 @@ namespace YAF.Pages
 
             if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowShareTopicTo))
             {
-                var topicUrl = this.Get<LinkBuilder>().GetLink(
+                var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
-                    true,
                     new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
 
                 if (this.PageContext.BoardSettings.AllowEmailTopic)
@@ -879,9 +878,8 @@ namespace YAF.Pages
         /// <param name="e">The Pop Event Arguments.</param>
         private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
         {
-            var topicUrl = this.Get<LinkBuilder>().GetLink(
+            var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
                 ForumPages.Posts,
-                true,
                 new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
 
             switch (e.Item.ToLower())

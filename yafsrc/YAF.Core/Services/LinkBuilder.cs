@@ -30,7 +30,6 @@ namespace YAF.Core.Services
 
     using ServiceStack.Text;
 
-    using YAF.Configuration;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -69,7 +68,7 @@ namespace YAF.Core.Services
         /// <summary>
         /// Gets full URL to the Root of the Forum
         /// </summary>
-        public string ForumUrl => this.Get<LinkBuilder>().GetLink(ForumPages.Board, true);
+        public string ForumUrl => this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Board);
 
         /// <summary>
         /// Gets the safe raw URL.
@@ -203,93 +202,23 @@ namespace YAF.Core.Services
         }
 
         /// <summary>
-        /// Gets base path to the page without ampersand.
-        /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <returns>
-        /// Base URL to the given page.
-        /// </returns>
-        public string GetBasePath(BoardSettings boardSettings)
-        {
-            return this.Get<IUrlBuilder>().BuildUrl(boardSettings, string.Empty).TrimEnd('&');
-        }
-
-        /// <summary>
         /// Redirects response to the access denied page.
         /// </summary>
         public void AccessDenied()
         {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Info, "i=4");
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
         /// <summary>
         /// Gets link to the page.
         /// </summary>
         /// <param name="page">Page to which to create a link.</param>
-        /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
         /// <returns>
         /// URL to the given page.
         /// </returns>
-        public string GetLink(ForumPages page, bool fullUrl = false)
+        public string GetLink(ForumPages page)
         {
-            return fullUrl
-                ? this.Get<IUrlBuilder>().BuildUrlFull($"g={page}")
-                : this.Get<IUrlBuilder>().BuildUrl($"g={page}");
-        }
-
-        /// <summary>
-        /// Gets link to the page.
-        /// </summary>
-        /// <param name="boardSettings">The board settings.</param>
-        /// <param name="page">Page to which to create a link.</param>
-        /// <param name="fullUrl">if set to <c>true</c> [full URL].</param>
-        /// <returns>
-        /// URL to the given page.
-        /// </returns>
-        public string GetLink(BoardSettings boardSettings, ForumPages page, bool fullUrl = false)
-        {
-            return fullUrl
-                ? this.Get<IUrlBuilder>().BuildUrlFull(boardSettings, $"g={page}")
-                : this.Get<IUrlBuilder>().BuildUrl(boardSettings, $"g={page}");
-        }
-
-        /// <summary>
-        /// Gets link to the page with given parameters.
-        /// </summary>
-        /// <param name="page">
-        /// Page to which to create a link.
-        /// </param>
-        /// <param name="fullUrl">
-        /// The full Url.
-        /// </param>
-        /// <param name="values">
-        /// The query string values.
-        /// </param>
-        /// <returns>
-        /// URL to the given page with parameters.
-        /// </returns>
-        public string GetLink(ForumPages page, bool fullUrl, object values)
-        {
-            var queryString = string.Empty;
-
-            if (values is string)
-            {
-                queryString = values.ToString();
-            }
-            else
-            {
-                var parameters = values.ToObjectDictionary();
-
-                queryString = parameters.Aggregate(
-                    queryString,
-                    (current, param) => $"{current}&{param.Key}={param.Value}");
-
-            }
-            
-
-            return fullUrl
-                       ? this.Get<IUrlBuilder>().BuildUrlFull($"g={page}{queryString}")
-                       : this.Get<IUrlBuilder>().BuildUrl($"g={page}{queryString}");
+            return this.Get<IUrlBuilder>().BuildUrl($"g={page}");
         }
 
         /// <summary>
@@ -306,7 +235,42 @@ namespace YAF.Core.Services
         /// </returns>
         public string GetLink(ForumPages page, object values)
         {
-            return this.Get<LinkBuilder>().GetLink(page, false, values).Replace("&amp;", "&");
+            var queryString = this.BuildQueryString(values);
+
+            return this.Get<IUrlBuilder>().BuildUrl($"g={page}{queryString}").Replace("&amp;", "&");
+        }
+
+        /// <summary>
+        /// Gets Absolute link to the page with given parameters.
+        /// </summary>
+        /// <param name="page">
+        /// Page to which to create a link.
+        /// </param>
+        /// <returns>
+        /// URL to the given page with parameters.
+        /// </returns>
+        public string GetAbsoluteLink(ForumPages page)
+        {
+            return this.Get<IUrlBuilder>().BuildUrlFull($"g={page}");
+        }
+
+        /// <summary>
+        /// Gets link to the page with given parameters.
+        /// </summary>
+        /// <param name="page">
+        /// Page to which to create a link.
+        /// </param>
+        /// <param name="values">
+        /// The values.
+        /// </param>
+        /// <returns>
+        /// URL to the given page with parameters.
+        /// </returns>
+        public string GetAbsoluteLink(ForumPages page, object values)
+        {
+            var queryString = this.BuildQueryString(values);
+
+            return this.Get<IUrlBuilder>().BuildUrlFull($"g={page}{queryString}");
         }
 
         /// <summary>
@@ -358,6 +322,35 @@ namespace YAF.Core.Services
         public void RedirectInfoPage(InfoMessage infoMessage)
         {
             this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = infoMessage.ToType<int>() });
+        }
+
+        /// <summary>
+        /// Build the Query String
+        /// </summary>
+        /// <param name="values">
+        /// The values.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string BuildQueryString(object values)
+        {
+            var queryString = string.Empty;
+
+            if (values is string)
+            {
+                queryString = values.ToString();
+            }
+            else
+            {
+                var parameters = values.ToObjectDictionary();
+
+                queryString = parameters.Aggregate(
+                    queryString,
+                    (current, param) => $"{current}&{param.Key}={param.Value}");
+            }
+
+            return queryString;
         }
 
         #endregion

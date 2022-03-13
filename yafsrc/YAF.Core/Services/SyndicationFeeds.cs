@@ -277,9 +277,8 @@ namespace YAF.Core.Services
                             topic.Item2.LastUserName,
                             topic.Item2.LastUserDisplayName));
 
-                    var messageLink = this.Get<LinkBuilder>().GetLink(
+                    var messageLink = this.Get<LinkBuilder>().GetAbsoluteLink(
                         ForumPages.Posts,
-                        true,
                         new { m = topic.Item2.LastMessageID, name = topic.Item2.TopicName });
 
                     syndicationItems.AddSyndicationItem(
@@ -291,9 +290,8 @@ namespace YAF.Core.Services
                             topic.Item2.LastMessageFlags ?? 22,
                             altItem),
                         null,
-                        this.Get<LinkBuilder>().GetLink(
+                        this.Get<LinkBuilder>().GetAbsoluteLink(
                             ForumPages.Posts,
-                            true,
                             new { t = topic.Item2.ID, name = topic.Item2.TopicName }),
                         $"urn:{urlAlphaNum}:ft{feedType}:tid{topic.Item2.ID}:mid{topic.Item2.LastMessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
@@ -377,9 +375,8 @@ namespace YAF.Core.Services
                             altItem,
                             4000),
                         null,
-                        this.Get<LinkBuilder>().GetLink(
+                        this.Get<LinkBuilder>().GetAbsoluteLink(
                             ForumPages.Posts,
-                            true,
                             new { m = row.MessageID, name = row.Topic, find = "lastpost" }),
                         $"urn:{urlAlphaNum}:ft{feedType}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
                             .Unidecode(),
@@ -450,9 +447,8 @@ namespace YAF.Core.Services
                             null,
                             null));
 
-                    var postLink = this.Get<LinkBuilder>().GetLink(
+                    var postLink = this.Get<LinkBuilder>().GetAbsoluteLink(
                         ForumPages.Posts,
-                        true,
                         new { m = topic.LastMessageID.Value, name = topic.Topic });
 
                     var content = this.GetPostLatestContent(

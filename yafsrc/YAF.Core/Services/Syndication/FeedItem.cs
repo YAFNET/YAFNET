@@ -81,7 +81,7 @@ namespace YAF.Core.Services.Syndication
 
             // Self Link
             var slink = new Uri(
-                BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Feed, true, new { feed = feedType.ToInt() }));
+                BoardContext.Current.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Feed, new { feed = feedType.ToInt() }));
             this.Links.Add(SyndicationLink.CreateSelfLink(slink));
 
             this.Generator = "YetAnotherForum.NET";
