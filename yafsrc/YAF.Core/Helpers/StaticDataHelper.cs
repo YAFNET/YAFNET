@@ -340,11 +340,12 @@ namespace YAF.Core.Helpers
 
             var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-            return cultures.FirstOrDefault(
-                    ci => !ci.IsNeutralCulture
-                          && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
-                          && ci.IetfLanguageTag.Length == 5)
-                ?.IetfLanguageTag;
+            var tag = cultures.FirstOrDefault(
+                ci => !ci.IsNeutralCulture
+                      && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
+                      && ci.IetfLanguageTag.Length == 5)?.IetfLanguageTag;
+
+            return tag != null ? tag.Replace("_", "-") : "en-US";
         }
 
         /// <summary>
