@@ -90,9 +90,8 @@ namespace YAF.Modules
             var atomLink = new HtmlLink
             {
                 Href =
-                                       this.Get<LinkBuilder>().GetLink(
+                                       this.Get<LinkBuilder>().GetAbsoluteLink(
                                            ForumPages.Feed,
-                                           true,
                                            new { feed = RssFeeds.LatestPosts.ToInt() })
             };
 
