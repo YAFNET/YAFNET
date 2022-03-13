@@ -471,8 +471,8 @@ namespace YAF.Core.Model
                         });
 
                     return db.Connection
-                        .Select<(int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden)>(expression);
-                }).FirstOrDefault();
+                        .Single<(int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden)>(expression);
+                });
         }
 
         /// <summary>

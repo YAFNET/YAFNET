@@ -29,7 +29,6 @@ namespace YAF.Web.BBCodes
     using YAF.Core.BBCode;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
-    using YAF.Core.Model;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
@@ -52,7 +51,7 @@ namespace YAF.Web.BBCodes
                 return;
             }
 
-            var attachment = this.GetRepository<Attachment>().GetSingleById(attachId.ToType<int>());
+            var attachment = this.GetRepository<Attachment>().GetById(attachId.ToType<int>());
 
             if (attachment == null)
             {

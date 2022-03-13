@@ -812,7 +812,7 @@ namespace YAF.Core.Model
 
                         expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
-                        return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
+                        return db.Connection.Single<(int MessagePosition, int MessageID)>(expression);
                     });
 
                 if (message.MessageID > 0)
@@ -848,7 +848,7 @@ namespace YAF.Core.Model
 
                         expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
-                        return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
+                        return db.Connection.Single<(int MessagePosition, int MessageID)>(expression);
 
                     });
 
@@ -880,7 +880,7 @@ namespace YAF.Core.Model
 
                     expression.Select(m => new { MessagePosition = m.Position, MessageID = m.ID });
 
-                    return db.Connection.Select<(int MessagePosition, int MessageID)>(expression).FirstOrDefault();
+                    return db.Connection.Single<(int MessagePosition, int MessageID)>(expression);
 
                 });
 

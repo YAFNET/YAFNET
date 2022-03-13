@@ -91,7 +91,7 @@ namespace YAF.Core.Model
                 u => new { ThankesPosts = Sql.CountDistinct(u.MessageID), ThankesReceived = Sql.Count("*") });
 
             return repository.DbAccess
-                .Execute(db => db.Connection.Select<(int Posts, string ThanksReceived)>(expression)).FirstOrDefault();
+                .Execute(db => db.Connection.Single<(int Posts, string ThanksReceived)>(expression));
         }
 
         /// <summary>

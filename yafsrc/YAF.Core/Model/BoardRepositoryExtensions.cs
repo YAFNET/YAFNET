@@ -443,10 +443,10 @@ namespace YAF.Core.Model
                             LastUserSuspended = e.Suspended
                         });
 
-                    return db.Connection.Select<BoardStat>(expression);
+                    return db.Connection.Single<BoardStat>(expression);
                 });
 
-            return !data.NullOrEmpty() ? data.FirstOrDefault() : repository.Stats(boardId);
+            return data ?? repository.Stats(boardId);
         }
 
         /// <summary>
@@ -544,8 +544,8 @@ namespace YAF.Core.Model
                             BoardStart = Sql.Min(x.Joined)
                         });
 
-                    return db.Connection.Select<BoardStat>(expression);
-                }).FirstOrDefault();
+                    return db.Connection.Single<BoardStat>(expression);
+                });
         }
 
         /// <summary>

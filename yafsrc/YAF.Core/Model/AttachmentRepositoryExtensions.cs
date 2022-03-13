@@ -117,37 +117,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the Attachment by ID (without the FileData)
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="attachId">
-        /// The attach id.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Attachment"/>.
-        /// </returns>
-        public static Attachment GetSingleById(this IRepository<Attachment> repository, [NotNull] int attachId)
-        {
-            var expression = OrmLiteConfig.DialectProvider.SqlExpression<Attachment>();
-
-            expression.Where(attach => attach.ID == attachId).Select(
-                attach => new
-                {
-                    attach.ID,
-                    attach.Bytes,
-                    attach.ContentType,
-                    attach.Downloads,
-                    attach.FileName,
-                    attach.MessageID,
-                    attach.UserID
-                });
-
-            return repository.DbAccess.Execute(db => db.Connection.Select(expression)).FirstOrDefault();
-        }
-
-        /// <summary>
         /// The delete.
         /// </summary>
         /// <param name="repository">

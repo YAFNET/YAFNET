@@ -400,7 +400,7 @@ namespace YAF.Core.Services
                         .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId);
 
                     category = this.GetRepository<ActiveAccess>().DbAccess
-                        .Execute(db => db.Connection.Select<Category>(expression)).FirstOrDefault();
+                        .Execute(db => db.Connection.Single<Category>(expression));
                 }
 
                 var accessList = this.GetRepository<vaccess>().Get(x => x.UserID == userId);
@@ -607,8 +607,8 @@ namespace YAF.Core.Services
                                              $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(downloadAccessSql, 0)})")
                                      });
 
-                        return db.Connection.Select<PageLoad>(expression);
-                    }).FirstOrDefault();
+                        return db.Connection.Single<PageLoad>(expression);
+                    });
 
                 return Tuple.Create(pageLoad, currentUser, category, forum, topic);
             }

@@ -107,7 +107,7 @@
                 .Select<Group, Rank>((c, d) => new { GroupLimit = c.PMLimit, RankLimit = d.PMLimit });
 
             var limit = repository.DbAccess
-                .Execute(db => db.Connection.Select<(int GroupLimit, int? RankLimit)>(expression)).FirstOrDefault();
+                .Execute(db => db.Connection.Single<(int GroupLimit, int? RankLimit)>(expression));
 
             var numberAllowed = limit.RankLimit ?? 0;
 

@@ -186,8 +186,8 @@ namespace YAF.Core.Model
 
                     expression.OrderByDescending<User>(u => u.Joined).Take(1);
 
-                    return db.Connection.Select(expression);
-                }).FirstOrDefault();
+                    return db.Connection.Single(expression);
+                });
         }
 
         /// <summary>
@@ -1102,8 +1102,8 @@ namespace YAF.Core.Model
                                     $"sign({OrmLiteConfig.DialectProvider.IsNullFunction(hasBuddiesSql, 0)})")
                             });
 
-                        return db.Connection.Select<UserLazyData>(expression);
-                    }).FirstOrDefault();
+                        return db.Connection.Single<UserLazyData>(expression);
+                    });
             }
         }
 

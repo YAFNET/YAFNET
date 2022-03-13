@@ -232,7 +232,7 @@ namespace YAF.Core.Model
                 .Where<UserGroup, Group>((userGroup, group) => group.Style != null && userGroup.UserID == userId)
                 .OrderBy<Group>(group => group.SortOrder);
 
-            var groups = repository.DbAccess.Execute(db => db.Connection.Select<Group>(expression)).FirstOrDefault();
+            var groups = repository.DbAccess.Execute(db => db.Connection.Single<Group>(expression));
 
             return groups?.Style;
         }

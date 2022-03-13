@@ -75,7 +75,7 @@ namespace YAF.Core.Model
 
             expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId);
 
-            return repository.DbAccess.Execute(db => db.Connection.Select<Topic>(expression)).FirstOrDefault();
+            return repository.DbAccess.Execute(db => db.Connection.Single<Topic>(expression));
         }
 
         /// <summary>
@@ -1600,7 +1600,7 @@ namespace YAF.Core.Model
             expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16 && m.TopicID == topicId)
                 .OrderByDescending<Message>(m => m.Posted);
 
-            var message = repository.DbAccess.Execute(db => db.Connection.Select(expression)).FirstOrDefault();
+            var message = repository.DbAccess.Execute(db => db.Connection.Single(expression));
 
             if (message == null)
             {

@@ -207,9 +207,9 @@ namespace YAF.Core.Model
             expression.Join<User>((rank, user) => rank.ID == user.RankID)
                 .Where<Rank, User>((rank, user) => rank.Style != null && user.ID == userId);
 
-            var results = repository.DbAccess.Execute(db => db.Connection.Select(expression));
+            var results = repository.DbAccess.Execute(db => db.Connection.Single(expression));
 
-            return results.Any() ? results.FirstOrDefault().Style : null;
+            return results?.Style;
         }
     }
 }
