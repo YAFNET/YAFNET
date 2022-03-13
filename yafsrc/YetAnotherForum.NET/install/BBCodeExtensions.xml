@@ -242,4 +242,19 @@
     <ModuleClass></ModuleClass>
     <ExecOrder>33</ExecOrder>
   </YafBBCode>
+	<YafBBCode>
+		<Name>AUDIO</Name>
+		<Description>[AUDIO][localization=AUDIOMOD_DESCRIPTION]Enter an URL to an Audio File[/localization][/AUDIO]</Description>
+		<OnClickJS></OnClickJS>
+		<DisplayJS></DisplayJS>
+		<EditJS></EditJS>
+		<DisplayCSS></DisplayCSS>
+		<SearchRegex>\[audio\](?&lt;inner&gt;.+?)\[/audio\]</SearchRegex>
+		<ReplaceRegex>&lt;div&gt;&lt;audio controls autoplay&gt;&lt;source src="${inner}" type="audio/mpeg"&gt;&lt;/audio&gt;&lt;/div&gt;</ReplaceRegex>
+		<Variables></Variables>
+		<UseModule>false</UseModule>
+		<UseToolbar>false</UseToolbar>
+		<ModuleClass></ModuleClass>
+		<ExecOrder>1</ExecOrder>
+	</YafBBCode>
 </YafBBCodeList>
