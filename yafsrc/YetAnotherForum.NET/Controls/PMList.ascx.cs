@@ -107,7 +107,7 @@ namespace YAF.Controls
                 this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
                 MessageTypes.success);
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
+            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, new { v = PmViewConverter.ToQueryStringParam(this.View) });
         }
 
         /// <summary>
@@ -122,15 +122,15 @@ namespace YAF.Controls
             this.Messages.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
                 .ForEach(
                     item =>
-                    {
-                        var messageId = item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>();
+                        {
+                            var messageId = item.FindControlAs<HiddenField>("MessageID").Value.ToType<int>();
 
-                        var message = this.GetRepository<UserPMessage>().GetById(messageId);
+                            var message = this.GetRepository<UserPMessage>().GetById(messageId);
 
-                        this.GetRepository<UserPMessage>().Archive(message.ID, new PMessageFlags(message.Flags));
+                            this.GetRepository<UserPMessage>().Archive(message.ID, new PMessageFlags(message.Flags));
 
-                        archivedCount++;
-                    });
+                            archivedCount++;
+                        });
 
             this.ClearCache();
 
@@ -140,7 +140,9 @@ namespace YAF.Controls
                     : this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
                 MessageTypes.success);
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.MyMessages,
+                new { v = PmViewConverter.ToQueryStringParam(this.View) });
         }
 
         /// <summary>
@@ -229,7 +231,9 @@ namespace YAF.Controls
                 MessageTypes.success);
 
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.MyMessages,
+                new {v = PmViewConverter.ToQueryStringParam(this.View)});
         }
 
         /// <summary>
@@ -265,7 +269,9 @@ namespace YAF.Controls
                 MessageTypes.success);
 
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages, $"#View{this.View.ToInt()}");
+            this.Get<LinkBuilder>().Redirect(
+                ForumPages.MyMessages,
+                new {v = PmViewConverter.ToQueryStringParam(this.View)});
         }
 
         /// <summary>

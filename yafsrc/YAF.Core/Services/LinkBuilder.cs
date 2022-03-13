@@ -337,18 +337,11 @@ namespace YAF.Core.Services
         {
             var queryString = string.Empty;
 
-            if (values is string)
-            {
-                queryString = values.ToString();
-            }
-            else
-            {
-                var parameters = values.ToObjectDictionary();
+            var parameters = values.ToObjectDictionary();
 
-                queryString = parameters.Aggregate(
-                    queryString,
-                    (current, param) => $"{current}&{param.Key}={param.Value}");
-            }
+            queryString = parameters.Aggregate(
+                queryString,
+                (current, param) => $"{current}&{param.Key}={param.Value}");
 
             return queryString;
         }
