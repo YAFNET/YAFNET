@@ -32,6 +32,7 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.EventProxies;
+    using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -429,11 +430,11 @@ namespace YAF.Core.Model
                     var countForumsSql = countForumsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
                     expression.Select<Message, User>(
-                        (a, e) => new
+                        (a, e) => new 
                         {
-                            Posts = Sql.Custom($"({countPostsSql})"),
-                            Topics = Sql.Custom($"({countTopicsSql})"),
-                            Forums = Sql.Custom($"({countForumsSql})"),
+                            Posts = Sql.Custom<int>($"({countPostsSql})"),
+                            Topics = Sql.Custom<int>($"({countTopicsSql})"),
+                            Forums = Sql.Custom<int>($"({countForumsSql})"),
                             LastPost = a.Posted,
                             LastUserID = a.UserID,
                             LastUser = e.Name,
@@ -445,33 +446,7 @@ namespace YAF.Core.Model
                     return db.Connection.Select<BoardStat>(expression);
                 });
 
-            if (data != null && data.Any())
-            {
-                return data.FirstOrDefault();
-            }
-
-            var linkDate = DateTime.UtcNow;
-
-            var topics  = BoardContext.Current.GetRepository<Topic>().Get(
-                x => x.TopicMovedID != null && x.LinkDate != null && x.LinkDate < linkDate);
-
-            topics.ForEach(t => BoardContext.Current.GetRepository<Topic>().Delete(t.ForumID, t.ID, true));
-
-            // Get defaults
-            var stats = new BoardStat
-            {
-                Posts = 0,
-                Topics = 0,
-                Forums = 1,
-                LastPost = null,
-                LastUserID = null,
-                LastUser = null,
-                LastUserDisplayName = null,
-                LastUserStyle = string.Empty,
-                LastUserSuspended = null
-            };
-
-            return stats;
+            return !data.NullOrEmpty() ? data.FirstOrDefault() : repository.Stats(boardId);
         }
 
         /// <summary>
@@ -543,6 +518,15 @@ namespace YAF.Core.Model
 
                     var countTopicsSql = countTopicsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
+                    // -- count Forums
+                    var countForumsExpression = db.Connection.From<Forum>();
+
+                    countForumsExpression.Join<Category>((a, b) => b.ID == a.CategoryID);
+
+                    countForumsExpression.Where<Category>(x => x.BoardID == boardId);
+
+                    var countForumsSql = countForumsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+
                     // -- count Users
                     var countUsersExpression = expression;
 
@@ -553,9 +537,10 @@ namespace YAF.Core.Model
                     expression.Select<User>(
                         x => new
                         {
-                            Posts = Sql.Custom($"({countPostsSql})"),
-                            Topics = Sql.Custom($"({countTopicsSql})"),
-                            Users = Sql.Custom($"({countUsersSql})"),
+                            Posts = Sql.Custom<int>($"({countPostsSql})"),
+                            Forums = Sql.Custom<int>($"({countForumsSql})"),
+                            Topics = Sql.Custom<int>($"({countTopicsSql})"),
+                            Users = Sql.Custom<int>($"({countUsersSql})"),
                             BoardStart = Sql.Min(x.Joined)
                         });
 
