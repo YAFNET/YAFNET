@@ -97,7 +97,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.IsGuest)
+            if (this.PageBoardContext.IsGuest)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -113,7 +113,7 @@ namespace YAF.Pages
             if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
                 // We check here if the user have access to the option
-                if (this.PageContext.IsGuest)
+                if (this.PageBoardContext.IsGuest)
                 {
                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
                 }
@@ -124,7 +124,7 @@ namespace YAF.Pages
                 this.ReturnModBtn.Visible = true;
             }
 
-            this.originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.messageID, this.PageContext.PageUserID);
+            this.originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.messageID, this.PageBoardContext.PageUserID);
 
             if (this.originalMessage == null)
             {
@@ -201,12 +201,12 @@ namespace YAF.Pages
                             null,
                             null,
                             messageToRestore.EditReason,
-                            this.PageContext.PageUserID != currentMessage.Item2.UserID,
-                            this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
+                            this.PageBoardContext.PageUserID != currentMessage.Item2.UserID,
+                            this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
                             currentMessage,
-                            this.PageContext.PageUserID);
+                            this.PageBoardContext.PageUserID);
 
-                        this.PageContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -239,7 +239,7 @@ namespace YAF.Pages
             // Fill revisions list repeater.
             var revisionsTable = this.GetRepository<Types.Models.MessageHistory>().List(
                 this.messageID,
-                this.PageContext.BoardSettings.MessageHistoryDaysToLog);
+                this.PageBoardContext.BoardSettings.MessageHistoryDaysToLog);
 
             this.RevisionsCount = revisionsTable.Count;
 

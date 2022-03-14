@@ -94,7 +94,7 @@ namespace YAF.Pages.Admin
         {
             this.GroupEditDialog.BindData(null, this.CurrentMedalId);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("GroupEditDialog"));
         }
@@ -111,7 +111,7 @@ namespace YAF.Pages.Admin
         {
             this.UserEditDialog.BindData(null, this.CurrentMedalId);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
@@ -197,7 +197,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.GroupEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("GroupEditDialog"));
                     break;
@@ -221,7 +221,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -251,7 +251,7 @@ namespace YAF.Pages.Admin
         {
             if (this.MedalImage.SelectedIndex <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
                 return;
             }
 
@@ -287,7 +287,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.UserEditDialog.BindData(e.CommandArgument.ToType<int>(), this.CurrentMedalId);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("UserEditDialog"));
                     break;

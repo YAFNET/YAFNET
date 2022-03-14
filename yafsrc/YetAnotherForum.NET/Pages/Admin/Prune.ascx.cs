@@ -102,12 +102,12 @@ namespace YAF.Pages.Admin
         protected void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             PruneTopicTask.Start(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.forumlist.SelectedValue.ToType<int>(),
                 this.days.Text.ToType<int>(),
                 this.permDeleteChkBox.Checked);
 
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
+            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
         }
 
         /// <summary>
@@ -116,8 +116,8 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID);
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID);
 
             this.forumlist.AddForumAndCategoryIcons(forumList);
 

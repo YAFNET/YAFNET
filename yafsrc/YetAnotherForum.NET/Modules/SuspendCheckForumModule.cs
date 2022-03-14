@@ -74,26 +74,26 @@ namespace YAF.Modules
             [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
         {
             // check for suspension if enabled...
-            if (!this.PageContext.Globals.IsSuspendCheckEnabled)
+            if (!this.PageBoardContext.Globals.IsSuspendCheckEnabled)
             {
                 return;
             }
 
-            if (!this.PageContext.IsSuspended)
+            if (!this.PageBoardContext.IsSuspended)
             {
                 return;
             }
 
-            if (this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil)
+            if (this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil)
                 <= this.Get<IDateTimeService>().GetUserDateTime(DateTime.UtcNow))
             {
-                this.GetRepository<User>().Suspend(this.PageContext.PageUserID);
+                this.GetRepository<User>().Suspend(this.PageBoardContext.PageUserID);
 
                 this.Get<ISendNotification>().SendUserSuspensionEndedNotification(
-                    this.PageContext.PageUser.Email,
-                    this.PageContext.PageUser.DisplayOrUserName());
+                    this.PageBoardContext.PageUser.Email,
+                    this.PageBoardContext.PageUser.DisplayOrUserName());
 
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
             }
             else
             {

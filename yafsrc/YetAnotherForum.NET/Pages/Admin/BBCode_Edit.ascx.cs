@@ -83,7 +83,7 @@ namespace YAF.Pages.Admin
         {
             if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_BBCODE_EDIT", "MSG_POSITIVE_VALUE"),
                     MessageTypes.warning);
                 return;
@@ -158,7 +158,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 

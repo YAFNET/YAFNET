@@ -57,7 +57,7 @@ namespace YAF.Web.Controls
         public string LocalizedTag { get; set; }
 
         /// <summary>
-        /// Gets PageContext.
+        /// Gets PageBoardContext.
         /// </summary>
         public BoardContext PageContext
         {

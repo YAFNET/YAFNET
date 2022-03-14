@@ -43,17 +43,17 @@
                                     <h5 class="mb-1">
                                         <YAF:UserLink ID="NameLink" runat="server"
                                                       Suspended="<%# (Container.DataItem as ActiveUser).Suspended %>"
-                                                      ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
+                                                      ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
                                                       CrawlerName="<%# (Container.DataItem as ActiveUser).IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
                                                       UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
                                                       Style="<%# (Container.DataItem as ActiveUser).UserStyle %>"
                                                       PostfixText='<%# (Container.DataItem as ActiveUser).IsActiveExcluded ? new Icon{IconName = "user-secret"}.RenderToString() : "" %>'/>
                                     </h5>
-                                    <asp:PlaceHolder runat="server" ID="IPContent" Visible="<%# this.PageContext.IsAdmin %>">
+                                    <asp:PlaceHolder runat="server" ID="IPContent" Visible="<%# this.PageBoardContext.IsAdmin %>">
                                         <small class="d-none d-md-block">
                                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="IP" />:
                                             <span class="badge bg-secondary">
-                                                <a id="Iplink1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL,IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
+                                                <a id="Iplink1" href="<%# string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL,IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
                                                    title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server"
                                                    class="link-light">
                                                     <%# IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)%></a>

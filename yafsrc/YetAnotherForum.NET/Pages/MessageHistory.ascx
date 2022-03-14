@@ -57,15 +57,15 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                                         LocalizedPage="POSTMESSAGE"
                                                         LocalizedTag="EDITEDBY" />: <YAF:UserLink ID="UserLink3" runat="server"
-                                                                                                  ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as MessageHistoryTopic).DisplayName : (Container.DataItem as MessageHistoryTopic).Name %>"
+                                                                                                  ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as MessageHistoryTopic).DisplayName : (Container.DataItem as MessageHistoryTopic).Name %>"
                                                                                                   Suspended="<%# (Container.DataItem as MessageHistoryTopic).Suspended %>"
                                                                                                   Style="<%# (Container.DataItem as MessageHistoryTopic).UserStyle %>"
                                                                                                   UserID="<%# (Container.DataItem as MessageHistoryTopic).EditedBy %>" />
-                                    <asp:PlaceHolder runat="server" Visible="<%# this.PageContext.IsAdmin || this.PageContext.BoardSettings.AllowModeratorsViewIPs && this.PageContext.ForumModeratorAccess%>">
+                                    <asp:PlaceHolder runat="server" Visible="<%# this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.AllowModeratorsViewIPs && this.PageBoardContext.ForumModeratorAccess%>">
                                         <span class="fw-bold me-2">
                                             <%# this.GetText("IP") %>:
                                         </span><a id="IPLink1" 
-                                                  href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, this.GetIpAddress(Container.DataItem as MessageHistoryTopic)) %>"
+                                                  href="<%# string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, this.GetIpAddress(Container.DataItem as MessageHistoryTopic)) %>"
                                                   title='<%# this.GetText("COMMON","TT_IPDETAILS") %>'
                                                   target="_blank" runat="server"><%# this.GetIpAddress(Container.DataItem as MessageHistoryTopic) %></a>
                                     </asp:PlaceHolder>
@@ -79,7 +79,7 @@
                                                      CommandArgument='<%# (Container.DataItem as MessageHistoryTopic).Edited.ToString("yyyy-MM-dd HH:mm:ss.fff", CultureInfo.InvariantCulture) %>'
                                                      TitleLocalizedTag="RESTORE_MESSAGE" 
                                                      TextLocalizedTag="RESTORE_MESSAGE"
-                                                     Visible="<%# (this.PageContext.IsAdmin || this.PageContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>"
+                                                     Visible="<%# (this.PageBoardContext.IsAdmin || this.PageBoardContext.IsModeratorInAnyForum) && !Container.ItemIndex.Equals(this.RevisionsCount-1) %>"
                                                      ReturnConfirmText='<%# this.GetText("MESSAGEHISTORY", "CONFIRM_RESTORE") %>'
                                                      Type="Secondary" 
                                                      Size="Small" 

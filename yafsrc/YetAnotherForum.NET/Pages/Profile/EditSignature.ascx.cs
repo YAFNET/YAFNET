@@ -64,8 +64,8 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.BoardSettings.AllowSignatures
-                && !(this.PageContext.IsAdmin || this.PageContext.IsForumModerator))
+            if (!this.PageBoardContext.BoardSettings.AllowSignatures
+                && !(this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator))
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -78,7 +78,7 @@ namespace YAF.Pages.Profile
         {
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
-                this.PageContext.PageUser.DisplayOrUserName(),
+                this.PageBoardContext.PageUser.DisplayOrUserName(),
                 this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }

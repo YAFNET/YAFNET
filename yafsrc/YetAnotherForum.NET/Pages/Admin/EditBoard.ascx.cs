@@ -130,7 +130,7 @@ namespace YAF.Pages.Admin
                 var user = new AspNetUsers
                 {
                     Id = Guid.NewGuid().ToString(),
-                    ApplicationId = this.PageContext.BoardSettings.ApplicationId,
+                    ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
                     UserName = adminName,
                     LoweredUserName = adminName,
                     Email = adminEmail,
@@ -142,7 +142,7 @@ namespace YAF.Pages.Admin
 
                 if (!result.Succeeded)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         $"Create User Failed: {result.Errors.FirstOrDefault()}",
                         MessageTypes.danger);
 
@@ -210,7 +210,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -227,7 +227,7 @@ namespace YAF.Pages.Admin
 
             if (this.Culture.Items.Count > 0)
             {
-                this.Culture.Items.FindByValue(this.PageContext.BoardSettings.Culture).Selected = true;
+                this.Culture.Items.FindByValue(this.PageBoardContext.BoardSettings.Culture).Selected = true;
             }
 
             if (this.BoardId != null)
@@ -279,7 +279,7 @@ namespace YAF.Pages.Admin
             {
                 if (this.UserPass1.Text != this.UserPass2.Text)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
                         MessageTypes.warning);
                     return;
@@ -327,7 +327,7 @@ namespace YAF.Pages.Admin
             }
 
             // Done
-            this.PageContext.BoardSettings = null;
+            this.PageBoardContext.BoardSettings = null;
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Boards);
         }
@@ -363,13 +363,13 @@ namespace YAF.Pages.Admin
             var newBoardId = this.GetRepository<Board>()
                 .Create(
                     boardName,
-                    this.PageContext.BoardSettings.ForumEmail,
+                    this.PageBoardContext.BoardSettings.ForumEmail,
                     this.Culture.SelectedItem.Value,
                     langFile,
                     newAdmin.UserName,
                     newAdmin.Email,
                     newAdmin.Id,
-                    this.PageContext().PageUser.UserFlags.IsHostAdmin,
+                    this.PageBoardContext().PageUser.UserFlags.IsHostAdmin,
                     Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
             var loadWrapper = new Action<string, Action<Stream>>(

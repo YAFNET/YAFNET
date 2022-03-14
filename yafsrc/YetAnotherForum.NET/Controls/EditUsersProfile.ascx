@@ -74,7 +74,7 @@
 
     <div class="mb-3">
         <YAF:ThemeButton runat="server" ID="GetLocation"
-            Visible="<%# this.PageContext.BoardSettings.EnableIPInfoService %>"
+            Visible="<%# this.PageBoardContext.BoardSettings.EnableIPInfoService %>"
             Icon="location-arrow"
             Type="Secondary"
             TextLocalizedTag="GET_LOCATION"

@@ -103,10 +103,10 @@ namespace YAF.Web.Controls
         /// </returns>
         public bool IsPopularTopic(DateTime lastPosted, PagedTopic item)
         {
-            if (lastPosted > DateTime.Now.AddDays(-this.PageContext.BoardSettings.PopularTopicDays))
+            if (lastPosted > DateTime.Now.AddDays(-this.PageBoardContext.BoardSettings.PopularTopicDays))
             {
-                return item.Replies >= this.PageContext.BoardSettings.PopularTopicReplys ||
-                       item.Views >= this.PageContext.BoardSettings.PopularTopicViews;
+                return item.Replies >= this.PageBoardContext.BoardSettings.PopularTopicReplys ||
+                       item.Views >= this.PageBoardContext.BoardSettings.PopularTopicViews;
             }
 
             return false;
@@ -172,7 +172,7 @@ namespace YAF.Web.Controls
 
             var topicStartedDateTime = this.TopicItem.Posted;
 
-            var formattedStartedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
+            var formattedStartedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
                 ? topicStartedDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                 : this.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, topicStartedDateTime);
 
@@ -181,11 +181,11 @@ namespace YAF.Web.Controls
                 IsGuest = true,
                 Suspended = this.TopicItem.StarterSuspended,
                 UserID = this.TopicItem.UserID,
-                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? this.TopicItem.StarterDisplay : this.TopicItem.Starter,
+                ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? this.TopicItem.StarterDisplay : this.TopicItem.Starter,
                 Style = this.TopicItem.StarterStyle
             };
 
-            var span = this.PageContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+            var span = this.PageBoardContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
             var dateTimeIcon = new Icon
             {
@@ -240,7 +240,7 @@ namespace YAF.Web.Controls
             // Render Pager
             var actualPostCount = this.TopicItem.Replies + 1;
 
-            if (this.PageContext.BoardSettings.ShowDeletedMessages)
+            if (this.PageBoardContext.BoardSettings.ShowDeletedMessages)
             {
                 // add deleted posts not included in replies...
                 actualPostCount += this.TopicItem.NumPostsDeleted;
@@ -249,7 +249,7 @@ namespace YAF.Web.Controls
             this.CreatePostPager(
                 writer,
                 actualPostCount,
-                this.PageContext.BoardSettings.PostsPerPage,
+                this.PageBoardContext.BoardSettings.PostsPerPage,
                 this.TopicItem.LinkTopicID);
 
             writer.WriteEndTag(HtmlTextWriterTag.H5.ToString());
@@ -282,7 +282,7 @@ namespace YAF.Web.Controls
 
                 var lastPostedDateTime = this.TopicItem.LastPosted;
 
-                var formattedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
+                var formattedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
                     ? lastPostedDateTime.Value.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
                     : this.Get<IDateTimeService>().Format(DateTimeFormat.BothTopic, lastPostedDateTime);
 
@@ -291,7 +291,7 @@ namespace YAF.Web.Controls
                     IsGuest = true,
                     Suspended = this.TopicItem.LastUserSuspended,
                     UserID = this.TopicItem.LastUserID.Value,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                    ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
                             ? this.TopicItem.LastUserDisplayName
                             : this.TopicItem.LastUserName,
                     Style = this.TopicItem.LastUserStyle
@@ -302,7 +302,7 @@ namespace YAF.Web.Controls
 
                 infoLastPost.TextLocalizedTag = "by";
                 infoLastPost.TextLocalizedPage = "DEFAULT";
-                infoLastPost.ParamText0 = this.PageContext.BoardSettings.EnableDisplayName
+                infoLastPost.ParamText0 = this.PageBoardContext.BoardSettings.EnableDisplayName
                     ? this.TopicItem.LastUserDisplayName
                     : this.TopicItem.LastUserName;
 
@@ -421,7 +421,7 @@ namespace YAF.Web.Controls
                 return repStr;
             }
 
-            if (this.PageContext.BoardSettings.ShowDeletedMessages && numDeleted > 0)
+            if (this.PageBoardContext.BoardSettings.ShowDeletedMessages && numDeleted > 0)
             {
                 repStr = $"{replies + numDeleted:N0}";
             }
@@ -456,7 +456,7 @@ namespace YAF.Web.Controls
         {
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.TopicItem.Subject));
 
-            var styles = this.PageContext.BoardSettings.UseStyledTopicTitles
+            var styles = this.PageBoardContext.BoardSettings.UseStyledTopicTitles
                 ? this.Get<IStyleTransform>().Decode(this.TopicItem.Styles)
                 : string.Empty;
 

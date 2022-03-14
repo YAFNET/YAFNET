@@ -53,7 +53,7 @@ namespace YAF.Pages.Account
         public Logout()
             : base("LOGOUT", ForumPages.Account_Logout)
         {
-            this.PageContext.Globals.IsSuspendCheckEnabled = false;
+            this.PageBoardContext.Globals.IsSuspendCheckEnabled = false;
         }
 
         #endregion
@@ -72,7 +72,7 @@ namespace YAF.Pages.Account
             // Handle legacy ASP.NET Membership logout
             FormsAuthentication.SignOut();
 
-            this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageContext.PageUserID));
+            this.Get<IRaiseEvent>().Raise(new UserLogoutEvent(this.PageBoardContext.PageUserID));
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Board);
         }

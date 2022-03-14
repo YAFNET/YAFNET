@@ -46,7 +46,7 @@
                                           UserID="<%# ((Tuple<Topic, Message, User>)Container.DataItem).Item2.UserID %>" />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server" 
                                              Size="Small"
-                                             Visible="<%# this.PageContext.IsAdmin %>"
+                                             Visible="<%# this.PageBoardContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              Icon="users-cog" 
                                              Type="Danger"

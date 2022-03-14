@@ -85,7 +85,7 @@ namespace YAF.Pages
             this.DoSearch.Click += this.DoSearch_Click;
             base.OnInit(e);
 
-            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
+            if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -208,7 +208,7 @@ namespace YAF.Pages
 
             if (this.search.Text.Length <= 3)
             {
-                this.PageContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.danger);
 
                 return;
             }
@@ -232,7 +232,7 @@ namespace YAF.Pages
 
             if (searchList.Count.Equals(0))
             {
-                this.PageContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
 
                 return;
             }

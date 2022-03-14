@@ -192,7 +192,7 @@ namespace YAF.Core.BasePages
         /// <summary>
         ///   Gets the current forum Context (helper reference)
         /// </summary>
-        public BoardContext PageContext => this.PageContext();
+        public BoardContext PageBoardContext => this.PageBoardContext();
 
         /// <summary>
         ///   Gets PageName.
@@ -218,7 +218,7 @@ namespace YAF.Core.BasePages
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => this.PageContext().ServiceLocator;
+        public IServiceLocator ServiceLocator => this.PageBoardContext().ServiceLocator;
 
         /// <summary>
         ///   Gets or sets a value indicating whether ShowFooter.
@@ -260,7 +260,7 @@ namespace YAF.Core.BasePages
         /// <summary>
         ///   Gets the current user.
         /// </summary>
-        public AspNetUsers User => this.PageContext.MembershipUser;
+        public AspNetUsers User => this.PageBoardContext.MembershipUser;
 
         /// <summary>
         /// Gets or sets a value indicating whether no data base, Should only be set by the page that initialized the database.

@@ -81,13 +81,13 @@ namespace YAF.Web.Editors
                 BoardContext.Current.PageElements.RegisterJsBlock(
                     "autoUpload",
                     JavaScriptBlocks.FileAutoUploadLoadJs(
-                        this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
-                        this.PageContext.BoardSettings.MaxFileSize,
+                        this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                        this.PageBoardContext.BoardSettings.MaxFileSize,
                         $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
-                        this.PageContext.PageForumID,
-                        this.PageContext.PageBoardID,
-                        this.PageContext.BoardSettings.ImageAttachmentResizeWidth,
-                        this.PageContext.BoardSettings.ImageAttachmentResizeHeight,
+                        this.PageBoardContext.PageForumID,
+                        this.PageBoardContext.PageBoardID,
+                        this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
+                        this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight,
                         this.TextAreaControl.ClientID));
             }
 

@@ -45,15 +45,15 @@ namespace YAF.Modules
         /// </summary>
         public override void InitAfterPage()
         {
-            switch (this.PageContext.CurrentForumPage.PageType)
+            switch (this.PageBoardContext.CurrentForumPage.PageType)
             {
                 case ForumPages.PrivateMessage:
                 case ForumPages.Search:
                 case ForumPages.Posts:
                 case ForumPages.UserProfile:
                     this.Get<IBBCode>().RegisterCustomBBCodePageElements(
-                        this.PageContext.CurrentForumPage.Page,
-                        this.PageContext.CurrentForumPage.GetType());
+                        this.PageBoardContext.CurrentForumPage.Page,
+                        this.PageBoardContext.CurrentForumPage.GetType());
                     break;
             }
         }

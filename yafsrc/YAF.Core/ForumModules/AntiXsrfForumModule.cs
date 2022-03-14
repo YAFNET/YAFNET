@@ -66,7 +66,7 @@ namespace YAF.Core.ForumModules
         public override void Init()
         {
             // hook the page init for mail sending...
-            this.PageContext.Init += this.CurrentPageInit;
+            this.PageBoardContext.Init += this.CurrentPageInit;
         }
 
         #endregion
@@ -86,7 +86,7 @@ namespace YAF.Core.ForumModules
             {
                 this.antiXsrfTokenValue = requestCookie.Value;
 
-                this.PageContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+                this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
             }
             else
             {
@@ -94,7 +94,7 @@ namespace YAF.Core.ForumModules
                 // Generate a new Anti-XSRF token
                 this.antiXsrfTokenValue = Guid.NewGuid().ToString("N");
 
-                this.PageContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+                this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
 
                 // Create the non-persistent CSRF cookie
                 var responseCookie = new HttpCookie(AntiXsrfTokenKey)
@@ -112,7 +112,7 @@ namespace YAF.Core.ForumModules
                 HttpContext.Current.Response.Cookies.Set(responseCookie);
             }
 
-            this.PageContext.CurrentForumPage.Page.PreLoad += this.Page_OnPreLoad;
+            this.PageBoardContext.CurrentForumPage.Page.PreLoad += this.Page_OnPreLoad;
         }
 
         /// <summary>
@@ -128,9 +128,9 @@ namespace YAF.Core.ForumModules
         /// </exception>
         private void Page_OnPreLoad(object sender, EventArgs e)
         {
-            if (!this.PageContext.CurrentForumPage.Page.IsPostBack)
+            if (!this.PageBoardContext.CurrentForumPage.Page.IsPostBack)
             {
-                HttpContext.Current.Items[AntiXsrfTokenKey] = this.PageContext.CurrentForumPage.Page.ViewStateUserKey;
+                HttpContext.Current.Items[AntiXsrfTokenKey] = this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey;
                 HttpContext.Current.Items[AntiXsrfUserNameKey] = HttpContext.Current.User.Identity.Name ?? string.Empty;
             }
             else

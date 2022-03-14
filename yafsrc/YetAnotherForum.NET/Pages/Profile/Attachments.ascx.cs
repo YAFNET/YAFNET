@@ -99,7 +99,7 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.UploadAccess)
+            if (!this.PageBoardContext.UploadAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
@@ -116,7 +116,7 @@ namespace YAF.Pages.Profile
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -131,10 +131,10 @@ namespace YAF.Pages.Profile
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var displayName = this.PageContext.PageUser.DisplayOrUserName();
+            var displayName = this.PageBoardContext.PageUser.DisplayOrUserName();
             this.PageLinks.Clear();
             this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);
+            this.PageLinks.AddUser(this.PageBoardContext.PageUserID, displayName);
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
@@ -179,7 +179,7 @@ namespace YAF.Pages.Profile
                     item => this.GetRepository<Attachment>().DeleteById(
                         item.FindControlAs<HiddenField>("FileID").Value.ToType<int>()));
 
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+                this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
             }
 
             this.BindData();
@@ -193,13 +193,13 @@ namespace YAF.Pages.Profile
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             var dt = this.GetRepository<Attachment>().GetPaged(
-                a => a.UserID == this.PageContext.PageUserID,
+                a => a.UserID == this.PageBoardContext.PageUserID,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
 
             this.List.DataSource = dt;
             this.PagerTop.Count = !dt.NullOrEmpty()
-                                      ? this.GetRepository<Attachment>().Count(a => a.UserID == this.PageContext.PageUserID).ToType<int>()
+                                      ? this.GetRepository<Attachment>().Count(a => a.UserID == this.PageBoardContext.PageUserID).ToType<int>()
                                       : 0;
 
             this.DataBind();

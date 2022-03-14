@@ -93,7 +93,7 @@ namespace YAF.Dialogs
             // set controls visibility and availability
             this.AvailableGroupList.Enabled = true;
 
-            var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+            var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
 
             this.AvailableGroupList.DataSource = groups;
 

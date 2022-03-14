@@ -118,7 +118,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -156,7 +156,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"),
                     MessageTypes.danger);
                 return;
@@ -165,16 +165,16 @@ namespace YAF.Pages.Admin
             var category = this.GetRepository<Category>().GetSingle(c => c.Name == this.Name.Text);
 
             // Check Name duplicate only if new Category
-            if (category != null && this.PageContext.PageCategoryID == 0)
+            if (category != null && this.PageBoardContext.PageCategoryID == 0)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
                     MessageTypes.warning);
                 return;
             }
 
             // save category
-            this.GetRepository<Category>().Save(this.PageContext.PageCategoryID, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
+            this.GetRepository<Category>().Save(this.PageBoardContext.PageCategoryID, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
 
             // redirect
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
@@ -216,7 +216,7 @@ namespace YAF.Pages.Admin
 
         private void BindExisting()
         {
-            var category = this.PageContext.PageCategory;
+            var category = this.PageBoardContext.PageCategory;
 
             if (category == null)
             {

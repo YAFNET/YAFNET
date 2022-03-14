@@ -70,7 +70,7 @@ namespace YAF.Pages.Admin
         {
             this.EditDialog.BindData(null);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
         }
@@ -111,7 +111,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("NntpForumEditDialog"));
                     break;
@@ -132,7 +132,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             this.RankList.DataSource = this.GetRepository<NntpForum>()
-                .NntpForumList(this.PageContext.PageBoardID, null);
+                .NntpForumList(this.PageBoardContext.PageBoardID, null);
             this.DataBind();
         }
 

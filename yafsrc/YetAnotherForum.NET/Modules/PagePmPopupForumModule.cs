@@ -65,8 +65,8 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayPmPopup()
         {
-            return this.PageContext.UnreadPrivate > 0
-                   && this.PageContext.LastUnreadPm > this.Get<ISession>().LastPm;
+            return this.PageBoardContext.UnreadPrivate > 0
+                   && this.PageBoardContext.LastUnreadPm > this.Get<ISession>().LastPm;
         }
 
         /// <summary>
@@ -77,8 +77,8 @@ namespace YAF.Modules
         /// </returns>
         protected bool DisplayPendingBuddies()
         {
-            return this.PageContext.PendingBuddies > 0
-                   && this.PageContext.LastPendingBuddies > this.Get<ISession>().LastPendingBuddies;
+            return this.PageBoardContext.PendingBuddies > 0
+                   && this.PageBoardContext.LastPendingBuddies > this.Get<ISession>().LastPendingBuddies;
         }
 
         /// <summary>
@@ -97,38 +97,38 @@ namespace YAF.Modules
         private void GeneratePopUp()
         {
             // This happens when user logs in
-            if (this.DisplayPmPopup() && this.PageContext.CurrentForumPage.PageType != ForumPages.MyMessages)
+            if (this.DisplayPmPopup() && this.PageBoardContext.CurrentForumPage.PageType != ForumPages.MyMessages)
             {
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "ModalConfirmJs",
                     JavaScriptBlocks.BootBoxConfirmJs(
                         this.GetText("COMMON", "UNREAD_MSG_TITLE"),
-                        this.GetTextFormatted("UNREAD_MSG2", this.PageContext.UnreadPrivate),
+                        this.GetTextFormatted("UNREAD_MSG2", this.PageBoardContext.UnreadPrivate),
                         this.GetText("COMMON", "YES"),
                         this.GetText("COMMON", "NO"),
                         this.Get<LinkBuilder>().GetLink(ForumPages.MyMessages)));
 
-                this.Get<ISession>().LastPm = this.PageContext.LastUnreadPm;
+                this.Get<ISession>().LastPm = this.PageBoardContext.LastUnreadPm;
 
                 // Avoid Showing Both Popups
                 return;
             }
 
-            if (!this.DisplayPendingBuddies() || this.PageContext.CurrentForumPage.PageType == ForumPages.MyMessages)
+            if (!this.DisplayPendingBuddies() || this.PageBoardContext.CurrentForumPage.PageType == ForumPages.MyMessages)
             {
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "ModalConfirmJs",
                 JavaScriptBlocks.BootBoxConfirmJs(
                     this.GetText("BUDDY", "PENDINGBUDDIES_TITLE"),
-                    this.GetTextFormatted("PENDINGBUDDIES2", this.PageContext.PendingBuddies),
+                    this.GetTextFormatted("PENDINGBUDDIES2", this.PageBoardContext.PendingBuddies),
                     this.GetText("COMMON", "YES"),
                     this.GetText("COMMON", "NO"),
                     this.Get<LinkBuilder>().GetLink(ForumPages.Friends)));
 
-            this.Get<ISession>().LastPendingBuddies = this.PageContext.LastPendingBuddies;
+            this.Get<ISession>().LastPendingBuddies = this.PageBoardContext.LastPendingBuddies;
         }
     }
 

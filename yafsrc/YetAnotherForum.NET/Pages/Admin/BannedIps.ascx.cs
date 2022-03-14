@@ -85,7 +85,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -118,14 +118,14 @@ namespace YAF.Pages.Admin
                 case "add":
                     this.EditDialog.BindData(null);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
@@ -163,18 +163,18 @@ namespace YAF.Pages.Admin
 
                         this.GetRepository<BannedIP>().DeleteById(id);
 
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetTextFormatted("MSG_REMOVEBAN_IP", ipAddress), MessageTypes.success);
 
                         this.BindData();
 
-                        if (this.PageContext.BoardSettings.LogBannedIP)
+                        if (this.PageBoardContext.BoardSettings.LogBannedIP)
                         {
                             this.Get<ILoggerService>()
                                 .Log(
-                                    this.PageContext.PageUserID,
+                                    this.PageBoardContext.PageUserID,
                                     " YAF.Pages.Admin.bannedip",
-                                    $"IP or mask {ipAddress} was deleted by {this.PageContext.PageUser.DisplayOrUserName()}.",
+                                    $"IP or mask {ipAddress} was deleted by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
                                     EventLogTypes.IpBanLifted);
                         }
                     }
@@ -244,14 +244,14 @@ namespace YAF.Pages.Admin
             if (searchText.IsSet())
             {
                 bannedList = this.GetRepository<BannedIP>().GetPaged(
-                    x => x.BoardID == this.PageContext.PageBoardID && x.Mask == searchText,
+                    x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask == searchText,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
             else
             {
                 bannedList = this.GetRepository<BannedIP>().GetPaged(
-                    x => x.BoardID == this.PageContext.PageBoardID,
+                    x => x.BoardID == this.PageBoardContext.PageBoardID,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
@@ -260,7 +260,7 @@ namespace YAF.Pages.Admin
 
             this.PagerTop.Count = !bannedList.NullOrEmpty()
                                       ? this.GetRepository<BannedIP>()
-                                          .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
+                                          .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
                                       : 0;
 
             this.DataBind();

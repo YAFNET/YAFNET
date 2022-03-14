@@ -161,7 +161,7 @@ namespace YAF.Pages.Moderate
         private void BindData()
         {
             this.forumsList = this.GetRepository<Forum>()
-                .ModerateList(this.PageContext.PageUserID, this.PageContext.PageBoardID);
+                .ModerateList(this.PageBoardContext.PageUserID, this.PageBoardContext.PageBoardID);
 
             this.CategoryList.DataSource = this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder);
 

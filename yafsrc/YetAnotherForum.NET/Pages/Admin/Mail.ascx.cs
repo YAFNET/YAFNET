@@ -75,7 +75,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
 
@@ -113,8 +113,8 @@ namespace YAF.Pages.Admin
                 email =>
                 {
                     var from = new MailAddress(
-                        this.PageContext.BoardSettings.ForumEmail,
-                        this.PageContext.BoardSettings.Name);
+                        this.PageBoardContext.BoardSettings.ForumEmail,
+                        this.PageBoardContext.BoardSettings.Name);
 
                     var to = new MailAddress(email);
 
@@ -129,7 +129,7 @@ namespace YAF.Pages.Admin
 
             this.Subject.Text = string.Empty;
             this.Body.Text = string.Empty;
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
         }
 
         /// <summary>
@@ -152,11 +152,11 @@ namespace YAF.Pages.Admin
                     this.TestSubject.Text,
                     this.TestBody.Text);
 
-                this.PageContext.AddLoadMessage(this.GetText("TEST_SUCCESS"), MessageTypes.success);
+                this.PageBoardContext.AddLoadMessage(this.GetText("TEST_SUCCESS"), MessageTypes.success);
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage(x.Message, MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(x.Message, MessageTypes.danger);
             }
         }
 
@@ -165,7 +165,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.ToList.DataSource = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+            this.ToList.DataSource = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
             this.DataBind();
 
             var item = new ListItem(this.GetText("ADMIN_MAIL", "ALL_USERS"), "0");
@@ -173,7 +173,7 @@ namespace YAF.Pages.Admin
 
             this.TestSubject.Text = this.GetText("TEST_SUBJECT");
             this.TestBody.Text = this.GetText("TEST_BODY");
-            this.TestFromEmail.Text = this.PageContext.BoardSettings.ForumEmail;
+            this.TestFromEmail.Text = this.PageBoardContext.BoardSettings.ForumEmail;
         }
 
         #endregion

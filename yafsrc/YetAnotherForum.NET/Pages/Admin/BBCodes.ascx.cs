@@ -101,7 +101,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -231,7 +231,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"),
                     MessageTypes.warning);
             }
@@ -245,7 +245,7 @@ namespace YAF.Pages.Admin
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             var list = this.GetRepository<BBCode>().ListPaged(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
 
@@ -253,7 +253,7 @@ namespace YAF.Pages.Admin
 
             this.PagerTop.Count = !list.NullOrEmpty()
                 ? this.GetRepository<BBCode>()
-                    .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
+                    .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
                 : 0;
 
             this.DataBind();

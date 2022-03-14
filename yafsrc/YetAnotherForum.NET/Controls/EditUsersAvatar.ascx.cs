@@ -74,7 +74,7 @@ namespace YAF.Controls
         protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<LinkBuilder>().Redirect(
-                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
+                this.PageBoardContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
         /// <summary>
@@ -98,14 +98,14 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
+            if (this.PageBoardContext.CurrentForumPage.IsAdminPage && this.PageBoardContext.IsAdmin
                                                               && this.Get<HttpRequestBase>().QueryString.Exists("u"))
             {
                 this.currentUserId = this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
             }
             else
             {
-                this.currentUserId = this.PageContext.PageUserID;
+                this.currentUserId = this.PageBoardContext.PageUserID;
             }
 
             if (this.IsPostBack)
@@ -117,9 +117,9 @@ namespace YAF.Controls
 
             this.noteLocal.Text = this.GetTextFormatted(
                 "NOTE_LOCAL",
-                this.PageContext.BoardSettings.AvatarWidth.ToString(),
-                this.PageContext.BoardSettings.AvatarHeight,
-                (this.PageContext.BoardSettings.AvatarSize / 1024).ToString());
+                this.PageBoardContext.BoardSettings.AvatarWidth.ToString(),
+                this.PageBoardContext.BoardSettings.AvatarHeight,
+                (this.PageBoardContext.BoardSettings.AvatarSize / 1024).ToString());
 
             this.BindData();
         }
@@ -164,9 +164,9 @@ namespace YAF.Controls
 
             
 
-            long x = this.PageContext.BoardSettings.AvatarWidth;
-            long y = this.PageContext.BoardSettings.AvatarHeight;
-            var avatarSize = this.PageContext.BoardSettings.AvatarSize;
+            long x = this.PageBoardContext.BoardSettings.AvatarWidth;
+            long y = this.PageBoardContext.BoardSettings.AvatarHeight;
+            var avatarSize = this.PageBoardContext.BoardSettings.AvatarSize;
 
             Stream resized = null;
 
@@ -176,7 +176,7 @@ namespace YAF.Controls
                 {
                     if (img.Width > x || img.Height > y)
                     {
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
                             MessageTypes.warning);
 
@@ -187,7 +187,7 @@ namespace YAF.Controls
                 // Delete old first...
                 this.GetRepository<User>().DeleteAvatar(this.currentUserId);
 
-                if (this.PageContext.BoardSettings.UseFileTable)
+                if (this.PageBoardContext.BoardSettings.UseFileTable)
                 {
                     var image = Image.FromStream(resized ?? this.File.PostedFile.InputStream);
 
@@ -259,7 +259,7 @@ namespace YAF.Controls
 
                 if (avatarSize > 0 && this.File.PostedFile.ContentLength >= avatarSize && resized == null)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)}",
                         MessageTypes.warning);
                 }
@@ -271,12 +271,12 @@ namespace YAF.Controls
                 this.Logger.Log(
                     exception.Message,
                     EventLogTypes.Error,
-                    this.PageContext.PageUserID,
+                    this.PageBoardContext.PageUserID,
                     string.Empty,
                     exception);
 
                 // image is probably invalid...
-                this.PageContext.AddLoadMessage(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
             }
         }
 
@@ -285,17 +285,17 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var user = this.PageContext.CurrentForumPage.IsAdminPage
+            var user = this.PageBoardContext.CurrentForumPage.IsAdminPage
                 ? this.GetRepository<User>().GetById(this.currentUserId)
-                : this.PageContext.PageUser;
+                : this.PageBoardContext.PageUser;
 
             this.DeleteAvatar.Visible = false;
             this.NoAvatar.Visible = false;
 
-            this.AvatarUploadRow.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                           || this.PageContext.BoardSettings.AvatarUpload;
-            this.AvatarOurs.Visible = this.PageContext.CurrentForumPage.IsAdminPage
-                                      || this.PageContext.BoardSettings.AvatarGallery;
+            this.AvatarUploadRow.Visible = this.PageBoardContext.CurrentForumPage.IsAdminPage
+                                           || this.PageBoardContext.BoardSettings.AvatarUpload;
+            this.AvatarOurs.Visible = this.PageBoardContext.CurrentForumPage.IsAdminPage
+                                      || this.PageBoardContext.BoardSettings.AvatarGallery;
 
             if (this.AvatarOurs.Visible)
             {
@@ -372,8 +372,8 @@ namespace YAF.Controls
                 this.NoAvatar.Visible = true;
             }
 
-            this.AvatarImg.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
-            this.AvatarImg.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
+            this.AvatarImg.Attributes.CssStyle.Add("max-width", this.PageBoardContext.BoardSettings.AvatarWidth.ToString());
+            this.AvatarImg.Attributes.CssStyle.Add("max-height", this.PageBoardContext.BoardSettings.AvatarHeight.ToString());
         }
 
         #endregion

@@ -143,7 +143,7 @@ namespace YAF.Web.Controls
 
                                     if (helpPage.HelpPage.Equals("REGISTRATION"))
                                     {
-                                        if (this.PageContext.BoardSettings.DisableRegistrations || Config.IsAnyPortal)
+                                        if (this.PageBoardContext.BoardSettings.DisableRegistrations || Config.IsAnyPortal)
                                         {
                                             return;
                                         }

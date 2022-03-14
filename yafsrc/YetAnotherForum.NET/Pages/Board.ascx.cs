@@ -62,21 +62,21 @@ namespace YAF.Pages
         {
             // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on post-back.
             // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.
-            this.ForumStats.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
-            this.ForumStatistics.Visible = this.PageContext.BoardSettings.ShowForumStatistics;
-            this.ActiveDiscussions.Visible = this.PageContext.BoardSettings.ShowActiveDiscussions;
+            this.ForumStats.Visible = this.PageBoardContext.BoardSettings.ShowForumStatistics;
+            this.ForumStatistics.Visible = this.PageBoardContext.BoardSettings.ShowForumStatistics;
+            this.ActiveDiscussions.Visible = this.PageBoardContext.BoardSettings.ShowActiveDiscussions;
 
             if (this.IsPostBack)
             {
                 return;
             }
 
-            if (this.PageContext.Settings.LockedForum != 0)
+            if (this.PageBoardContext.Settings.LockedForum != 0)
             {
                 return;
             }
 
-            if (this.PageContext.PageCategoryID == 0)
+            if (this.PageBoardContext.PageCategoryID == 0)
             {
                 return;
             }
@@ -91,12 +91,12 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
 
-            if (this.PageContext.PageCategoryID == 0)
+            if (this.PageBoardContext.PageCategoryID == 0)
             {
                 return;
             }
 
-            this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
         }
 
         #endregion

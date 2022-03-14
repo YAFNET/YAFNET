@@ -89,7 +89,7 @@ namespace YAF.Modules
             bannerLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Board);
             bannerLink.ToolTip = this.GetText("TOOLBAR", "FORUM_TITLE");
 
-            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageContext.BoardSettings.ForumLogo}";
+            var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageBoardContext.BoardSettings.ForumLogo}";
 
             var image = new HtmlImage
             {

@@ -55,7 +55,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            if (!this.PageContext.BoardSettings.ShowAtomLink)
+            if (!this.PageBoardContext.BoardSettings.ShowAtomLink)
             {
                 return;
             }
@@ -64,24 +64,24 @@ namespace YAF.Web.Controls
 
             string url;
 
-            if (this.PageContext.CurrentForumPage.PageType is ForumPages.Topics or ForumPages.Posts)
+            if (this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics or ForumPages.Posts)
             {
-                url = this.PageContext.CurrentForumPage.PageType is ForumPages.Topics
+                url = this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics
                           ? this.Get<LinkBuilder>().GetLink(
                               ForumPages.Feed,
                               new
                                   {
                                       feed = RssFeeds.Topics.ToInt(),
-                                      f = this.PageContext.PageForumID,
-                                      name = UrlRewriteHelper.CleanStringForURL(this.PageContext.PageForum.Name)
+                                      f = this.PageBoardContext.PageForumID,
+                                      name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageForum.Name)
                                   })
                           : this.Get<LinkBuilder>().GetLink(
                               ForumPages.Feed,
                               new
                                   {
                                       feed = RssFeeds.Posts.ToInt(),
-                                      t = this.PageContext.PageTopicID,
-                                      name = UrlRewriteHelper.CleanStringForURL(this.PageContext.PageTopic.TopicName)
+                                      t = this.PageBoardContext.PageTopicID,
+                                      name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageTopic.TopicName)
                                   });
             }
             else

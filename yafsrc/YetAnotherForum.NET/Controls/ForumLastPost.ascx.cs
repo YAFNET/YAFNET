@@ -71,7 +71,7 @@ namespace YAF.Controls
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
@@ -102,7 +102,7 @@ namespace YAF.Controls
                     ForumPages.Posts,
                     new { t = this.DataSource.LastTopicID, name = this.topicLink.Text });
 
-                var styles = this.PageContext.BoardSettings.UseStyledTopicTitles
+                var styles = this.PageBoardContext.BoardSettings.UseStyledTopicTitles
                                  ? this.Get<IStyleTransform>().Decode(
                                      this.DataSource.LastTopicStyles)
                                  : string.Empty;
@@ -118,11 +118,11 @@ namespace YAF.Controls
                     Suspended = this.DataSource.LastUserSuspended,
                     UserID = this.DataSource.LastUserID.Value,
                     IsGuest = true,
-                    Style = this.PageContext.BoardSettings.UseStyledNicks && this.DataSource.Style.IsSet()
+                    Style = this.PageBoardContext.BoardSettings.UseStyledNicks && this.DataSource.Style.IsSet()
                                                        ? this.Get<IStyleTransform>().Decode(
                                                            this.DataSource.Style)
                                                        : string.Empty,
-                    ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                    ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
                                                             ? this.DataSource.LastUserDisplayName
                                                             : this.DataSource.LastUser
                 };
@@ -133,7 +133,7 @@ namespace YAF.Controls
                     this.DataSource.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
                     this.DataSource.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-                var formattedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
+                var formattedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
                                             ? lastPostedDateTime.ToString(
                                                 "yyyy-MM-ddTHH:mm:ssZ",
                                                 CultureInfo.InvariantCulture)
@@ -141,7 +141,7 @@ namespace YAF.Controls
                                                 DateTimeFormat.BothTopic,
                                                 lastPostedDateTime);
 
-                var span = this.PageContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+                var span = this.PageBoardContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
                 this.Info.DataContent = $@"
                           {lastUserLink.RenderToString()}
@@ -154,7 +154,7 @@ namespace YAF.Controls
 
                 this.Info.Text = string.Format(
                     this.GetText("Default", "BY"),
-                    this.PageContext.BoardSettings.EnableDisplayName ? this.DataSource.LastUserDisplayName : this.DataSource.LastUser);
+                    this.PageBoardContext.BoardSettings.EnableDisplayName ? this.DataSource.LastUserDisplayName : this.DataSource.LastUser);
 
                 if (this.DataSource.LastPosted.Value > lastRead)
                 {

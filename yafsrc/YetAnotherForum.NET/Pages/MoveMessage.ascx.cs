@@ -76,7 +76,7 @@ namespace YAF.Pages
         {
             base.OnPreRender(e);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.SelectTopicsLoadJs),
                 JavaScriptBlocks.SelectTopicsLoadJs(this.TopicsList.ClientID, this.ForumList.ClientID));
         }
@@ -102,11 +102,11 @@ namespace YAF.Pages
 
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Topics,
-                    new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
+                    new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("Empty_Topic"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("Empty_Topic"), MessageTypes.warning);
             }
         }
 
@@ -119,7 +119,7 @@ namespace YAF.Pages
         {
             this.TopicsList.DataSource = this.GetRepository<Topic>().ListPaged(
                 this.ForumList.SelectedValue.ToType<int>(),
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 0,
                 100,
@@ -141,7 +141,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.TopicsList.SelectedValue.ToType<int>() != this.PageContext.PageTopicID)
+            if (this.TopicsList.SelectedValue.ToType<int>() != this.PageBoardContext.PageTopicID)
             {
                 this.GetRepository<Message>().Move(
                     this.MoveMessageId,
@@ -151,7 +151,7 @@ namespace YAF.Pages
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
+                new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageContext.ForumModeratorAccess)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageBoardContext.ForumModeratorAccess)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -172,8 +172,8 @@ namespace YAF.Pages
             }
 
             var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID);
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID);
 
             this.ForumList.AddForumAndCategoryIcons(forumList);
 
@@ -181,7 +181,7 @@ namespace YAF.Pages
             this.ForumList.DataValueField = "ForumID";
             this.DataBind();
 
-            this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString()).Selected = true;
+            this.ForumList.Items.FindByValue(this.PageBoardContext.PageForumID.ToString()).Selected = true;
             this.ForumList_SelectedIndexChanged(this.ForumList, e);
         }
 
@@ -191,9 +191,9 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddTopic(this.PageContext.PageTopic.TopicName, this.PageContext.PageTopicID);
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
+            this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));
         }

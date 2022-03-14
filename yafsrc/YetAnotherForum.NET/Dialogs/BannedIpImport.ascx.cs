@@ -54,11 +54,11 @@ namespace YAF.Dialogs
             // import selected file (if it's the proper format)...
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("IMPORT_FAILED", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
 
@@ -68,11 +68,11 @@ namespace YAF.Dialogs
             try
             {
                 var importedCount = DataImport.BannedIpAddressesImport(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID,
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.PageUserID,
                     this.importFile.PostedFile.InputStream);
 
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     importedCount > 0
                         ? string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS"), importedCount)
                         : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
@@ -80,10 +80,10 @@ namespace YAF.Dialogs
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }

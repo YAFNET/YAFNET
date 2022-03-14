@@ -105,18 +105,18 @@ namespace YAF.Pages.Admin
                         var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
                         var subject = this.Get<ILocalization>()
-                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
+                            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
 
                         verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                             ForumPages.Account_Approve,
                             new { code = checkMail.Hash });
                         verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-                        verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+                        verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
                         verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
                             MessageTypes.success);
                     }
@@ -146,10 +146,10 @@ namespace YAF.Pages.Admin
 
                     // vzrus: Should not delete the whole providers portal data? Under investigation.
                     var daysValueAll =
-                        this.PageContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
+                        this.PageBoardContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValueAll))
                     {
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
                             MessageTypes.warning);
                         return;
@@ -161,7 +161,7 @@ namespace YAF.Pages.Admin
                     }
                     else
                     {
-                        this.GetRepository<User>().DeleteOld(this.PageContext.PageBoardID, daysValueAll.ToType<int>());
+                        this.GetRepository<User>().DeleteOld(this.PageBoardContext.PageBoardID, daysValueAll.ToType<int>());
                     }
 
                     this.BindData();
@@ -258,14 +258,14 @@ namespace YAF.Pages.Admin
             try
             {
                 this.PageSize.SelectedValue =
-                    this.PageSizeUnverified.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                    this.PageSizeUnverified.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
                 this.PageSize.SelectedValue = this.PageSizeUnverified.SelectedValue = "5";
             }
 
-            this.BoardStatsSelect.Visible = this.PageContext.PageUser.UserFlags.IsHostAdmin;
+            this.BoardStatsSelect.Visible = this.PageBoardContext.PageUser.UserFlags.IsHostAdmin;
 
             // bind data
             this.BindBoardsList();
@@ -371,10 +371,10 @@ namespace YAF.Pages.Admin
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
             var activeUsers = this.GetRepository<Active>().ListUsersPaged(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 true,
                 true,
-                this.PageContext.BoardSettings.ActiveListTime,
+                this.PageBoardContext.BoardSettings.ActiveListTime,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize);
 
@@ -388,7 +388,7 @@ namespace YAF.Pages.Admin
         private void BindBoardsList()
         {
             // only if user is host admin, otherwise boards' list is hidden
-            if (!this.PageContext.PageUser.UserFlags.IsHostAdmin)
+            if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
             {
                 return;
             }
@@ -402,7 +402,7 @@ namespace YAF.Pages.Admin
             // select current board as default
             this.BoardStatsSelect.SelectedIndex =
                 this.BoardStatsSelect.Items.IndexOf(
-                    this.BoardStatsSelect.Items.FindByValue(this.PageContext.PageBoardID.ToString()));
+                    this.BoardStatsSelect.Items.FindByValue(this.PageBoardContext.PageBoardID.ToString()));
         }
 
         /// <summary>
@@ -423,7 +423,7 @@ namespace YAF.Pages.Admin
             double days = span.Days;
 
             this.BoardStart.Text = this.Get<IDateTimeService>().FormatDateTimeTopic(
-                this.PageContext.BoardSettings.UseFarsiCalender
+                this.PageBoardContext.BoardSettings.UseFarsiCalender
                     ? PersianDateConverter.ToPersianDate(data.BoardStart)
                     : data.BoardStart);
 
@@ -469,7 +469,7 @@ namespace YAF.Pages.Admin
 
             this.PagerUnverified.PageSize = this.PageSizeUnverified.SelectedValue.ToType<int>();
 
-            var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageContext.PageBoardID)
+            var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID)
                 .GetPaged(this.PagerUnverified);
 
             // bind list
@@ -486,8 +486,8 @@ namespace YAF.Pages.Admin
         private int GetSelectedBoardId()
         {
             // check dropdown only if user is host admin
-            return !this.PageContext.PageUser.UserFlags.IsHostAdmin
-                ? this.PageContext.PageBoardID
+            return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin
+                ? this.PageBoardContext.PageBoardID
                 : this.BoardStatsSelect.SelectedValue.ToType<int>();
         }
 

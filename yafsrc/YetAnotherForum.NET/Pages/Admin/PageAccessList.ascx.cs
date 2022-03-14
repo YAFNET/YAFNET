@@ -113,7 +113,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list admins but not host admins
-            this.List.DataSource = this.GetRepository<User>().ListAdmins(this.PageContext.PageBoardID)
+            this.List.DataSource = this.GetRepository<User>().ListAdmins(this.PageBoardContext.PageBoardID)
                 .Where(u => !u.UserFlags.IsHostAdmin);
             this.DataBind();
         }

@@ -120,9 +120,9 @@ namespace YAF.Pages
         {
             this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
                                         ? Config.GDPRControllerAddress
-                                        : this.PageContext.BoardSettings.ForumEmail;
+                                        : this.PageBoardContext.BoardSettings.ForumEmail;
 
-            this.Footer.Visible = this.PageContext.IsGuest;
+            this.Footer.Visible = this.PageBoardContext.IsGuest;
         }
 
         #endregion

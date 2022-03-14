@@ -120,7 +120,7 @@ namespace YAF.Web.Controls
         {
             get
             {
-                if (this.ShowSignature && this.PageContext.BoardSettings.AllowSignatures
+                if (this.ShowSignature && this.PageBoardContext.BoardSettings.AllowSignatures
                                        && this.CurrentMessage.Signature.IsSet()
                                        && this.CurrentMessage.Signature.ToLower() != "<p>&nbsp;</p>")
                 {
@@ -226,7 +226,7 @@ namespace YAF.Web.Controls
 
                 // Render Edit Message
                 if (this.ShowEditMessage
-                    && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.PageContext.BoardSettings.EditTimeOut))
+                    && this.Edited > this.CurrentMessage.Posted.AddSeconds(this.PageBoardContext.BoardSettings.EditTimeOut))
                 {
                     this.RenderEditedMessage(writer, this.Edited, this.CurrentMessage.EditReason, this.MessageID);
                 }

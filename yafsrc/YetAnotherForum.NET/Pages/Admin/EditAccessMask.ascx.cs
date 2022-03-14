@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -131,7 +131,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITACCESSMASKS", "MSG_POSITIVE_SORT"),
                     MessageTypes.warning);
                 return;
@@ -139,7 +139,7 @@ namespace YAF.Pages.Admin
 
             if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITACCESSMASKS", "MSG_NUMBER_SORT"),
                     MessageTypes.warning);
                 return;
@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
             else
             {
                 this.SortOrder.Text =
-                    (this.GetRepository<AccessMask>().Count(x => x.BoardID == this.PageContext.PageBoardID) + 1)
+                    (this.GetRepository<AccessMask>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID) + 1)
                     .ToString();
             }
 

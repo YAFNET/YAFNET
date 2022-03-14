@@ -70,7 +70,7 @@ namespace YAF.Dialogs
         {
             // Quick Reply Modification Begin
             this.quickReplyEditor =
-                new CKEditorBBCodeEditorBasic { MaxCharacters = this.PageContext.BoardSettings.MaxPostSize };
+                new CKEditorBBCodeEditorBasic { MaxCharacters = this.PageBoardContext.BoardSettings.MaxPostSize };
 
             base.OnInit(e);
         }
@@ -93,15 +93,15 @@ namespace YAF.Dialogs
                 this.CaptchaDiv.Visible = true;
             }
 
-            this.QuickReplyWatchTopic.Visible = !this.PageContext.IsGuest;
+            this.QuickReplyWatchTopic.Visible = !this.PageBoardContext.IsGuest;
 
-            if (!this.PageContext.IsGuest)
+            if (!this.PageBoardContext.IsGuest)
             {
-                this.TopicWatch.Checked = this.PageContext.PageTopicID > 0
+                this.TopicWatch.Checked = this.PageBoardContext.PageTopicID > 0
                                               ? this.GetRepository<WatchTopic>().Check(
-                                                  this.PageContext.PageUserID,
-                                                  this.PageContext.PageTopicID).HasValue
-                                              : this.PageContext.PageUser.AutoWatchTopics;
+                                                  this.PageBoardContext.PageUserID,
+                                                  this.PageBoardContext.PageTopicID).HasValue
+                                              : this.PageBoardContext.PageUser.AutoWatchTopics;
             }
 
             this.QuickReplyLine.Controls.Add(this.quickReplyEditor);
@@ -118,61 +118,61 @@ namespace YAF.Dialogs
             {
                 if (this.quickReplyEditor.Text.Length <= 0)
                 {
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                    this.PageContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"), MessageTypes.warning);
 
                     return;
                 }
 
                 // No need to check whitespace if they are actually posting something
-                if (this.PageContext.BoardSettings.MaxPostSize > 0
-                    && this.quickReplyEditor.Text.Length >= this.PageContext.BoardSettings.MaxPostSize)
+                if (this.PageBoardContext.BoardSettings.MaxPostSize > 0
+                    && this.quickReplyEditor.Text.Length >= this.PageBoardContext.BoardSettings.MaxPostSize)
                 {
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                    this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
 
                     return;
                 }
 
                 if (this.EnableCaptcha() && !CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
                 {
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                    this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.warning);
 
                     return;
                 }
 
-                if (!(this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
-                    && this.PageContext.BoardSettings.PostFloodDelay > 0)
+                if (!(this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
+                    && this.PageBoardContext.BoardSettings.PostFloodDelay > 0)
                 {
-                    if (this.PageContext.Get<ISession>().LastPost
-                        > DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay))
+                    if (this.PageBoardContext.Get<ISession>().LastPost
+                        > DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay))
                     {
-                        this.PageContext.PageElements.RegisterJsBlockStartup(
+                        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                             "openModalJs",
                             JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetTextFormatted(
                                 "wait",
-                                (this.PageContext.Get<ISession>().LastPost
-                                 - DateTime.UtcNow.AddSeconds(-this.PageContext.BoardSettings.PostFloodDelay)).Seconds),
+                                (this.PageBoardContext.Get<ISession>().LastPost
+                                 - DateTime.UtcNow.AddSeconds(-this.PageBoardContext.BoardSettings.PostFloodDelay)).Seconds),
                             MessageTypes.warning);
 
                         return;
                     }
                 }
 
-                this.PageContext.Get<ISession>().LastPost = DateTime.UtcNow;
+                this.PageBoardContext.Get<ISession>().LastPost = DateTime.UtcNow;
 
                 // post message...
                 var message = this.quickReplyEditor.Text;
@@ -183,8 +183,8 @@ namespace YAF.Dialogs
                 var isForumModerated = false;
 
                 var dt = this.GetRepository<Forum>().List(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageForumID);
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.PageForumID);
 
                 var forumInfo = dt.FirstOrDefault();
 
@@ -197,63 +197,63 @@ namespace YAF.Dialogs
                 var isPossibleSpamMessage = false;
 
                 // Check for SPAM
-                if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
+                if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
                 {
                     // Check content for spam
                     if (this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName(),
-                        this.PageContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
+                        this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName(),
+                        this.PageBoardContext.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         this.quickReplyEditor.Text,
-                        this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
+                        this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
                         out var spamResult))
                     {
                         var description =
                             $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.quickReplyEditor.Text}]
-                               posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName())}";
+                               posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
 
-                        switch (this.PageContext.BoardSettings.SpamPostHandling)
+                        switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
                         {
                             case SpamPostHandling.DoNothing:
                                 this.Logger.SpamMessageDetected(
-                                    this.PageContext.PageUserID,
+                                    this.PageBoardContext.PageUserID,
                                     description);
                                 break;
                             case SpamPostHandling.FlagMessageUnapproved:
                                 spamApproved = false;
                                 isPossibleSpamMessage = true;
                                 this.Logger.SpamMessageDetected(
-                                    this.PageContext.PageUserID,
+                                    this.PageBoardContext.PageUserID,
                                     $"{description}, it was flagged as unapproved post");
                                 break;
                             case SpamPostHandling.RejectMessage:
                                 this.Logger.SpamMessageDetected(
-                                    this.PageContext.PageUserID,
+                                    this.PageBoardContext.PageUserID,
                                     $"{description}, post was rejected");
 
-                                this.PageContext.PageElements.RegisterJsBlockStartup(
+                                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                                     "openModalJs",
                                     JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                                this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                                this.PageBoardContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
                                 return;
                             case SpamPostHandling.DeleteBanUser:
                                 this.Logger.SpamMessageDetected(
-                                    this.PageContext.PageUserID,
+                                    this.PageBoardContext.PageUserID,
                                     $"{description}, user was deleted and banned");
 
                                 this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                    this.PageContext.PageUserID,
-                                    this.PageContext.MembershipUser,
-                                    this.PageContext.PageUser.IP);
+                                    this.PageBoardContext.PageUserID,
+                                    this.PageBoardContext.MembershipUser,
+                                    this.PageBoardContext.PageUser.IP);
 
                                 return;
                         }
                     }
 
-                    if (!this.PageContext.IsGuest)
+                    if (!this.PageBoardContext.IsGuest)
                     {
-                        this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+                        this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
                     }
                 }
 
@@ -264,7 +264,7 @@ namespace YAF.Dialogs
                 }
 
                 // Bypass Approval if Admin or Moderator
-                if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
+                if (this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
                 {
                     spamApproved = true;
                 }
@@ -278,9 +278,9 @@ namespace YAF.Dialogs
 
                 // Bypass Approval if Admin or Moderator.
                 var newMessage = this.GetRepository<Message>().SaveNew(
-                    this.PageContext.PageForum,
-                    this.PageContext.PageTopic,
-                    this.PageContext.PageUser,
+                    this.PageBoardContext.PageForum,
+                    this.PageBoardContext.PageTopic,
+                    this.PageBoardContext.PageUser,
                     message,
                     null,
                     this.Get<HttpRequestBase>().GetUserRealIPAddress(),
@@ -288,19 +288,19 @@ namespace YAF.Dialogs
                     null,
                     messageFlags);
 
-                newMessage.Topic = this.PageContext.PageTopic;
+                newMessage.Topic = this.PageBoardContext.PageTopic;
 
                 // Check to see if the user has enabled "auto watch topic" option in his/her profile.
-                if (this.PageContext.PageUser.AutoWatchTopics)
+                if (this.PageBoardContext.PageUser.AutoWatchTopics)
                 {
                     var watchTopicId = this.GetRepository<WatchTopic>().Check(
-                        this.PageContext.PageUserID,
-                        this.PageContext.PageTopicID);
+                        this.PageBoardContext.PageUserID,
+                        this.PageBoardContext.PageTopicID);
 
                     if (!watchTopicId.HasValue)
                     {
                         // subscribe to this topic
-                        this.GetRepository<WatchTopic>().Add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+                        this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
                     }
                 }
 
@@ -309,33 +309,33 @@ namespace YAF.Dialogs
                     // send new post notification to users watching this topic/forum
                     this.Get<ISendNotification>().ToWatchingUsers(newMessage);
 
-                    if (!this.PageContext.IsGuest && this.PageContext.PageUser.Activity)
+                    if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
                     {
                         this.Get<IActivityStream>().AddReplyToStream(
-                            Config.IsDotNetNuke ? this.PageContext.PageForumID : this.PageContext.PageUserID,
-                            this.PageContext.PageTopicID,
+                            Config.IsDotNetNuke ? this.PageBoardContext.PageForumID : this.PageBoardContext.PageUserID,
+                            this.PageBoardContext.PageTopicID,
                             newMessage.ID,
-                            this.PageContext.PageTopic.TopicName,
+                            this.PageBoardContext.PageTopic.TopicName,
                             message);
                     }
 
                     // redirect to newly posted message
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Posts,
-                        new {m = newMessage.ID, name = this.PageContext.PageTopic.TopicName });
+                        new {m = newMessage.ID, name = this.PageBoardContext.PageTopic.TopicName });
                 }
                 else
                 {
-                    if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
+                    if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)
                     {
                         // not approved, notify moderators
                         this.Get<ISendNotification>().ToModeratorsThatMessageNeedsApproval(
-                            this.PageContext.PageForumID,
+                            this.PageBoardContext.PageForumID,
                             newMessage.ID,
                             isPossibleSpamMessage);
                     }
 
-                    var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
+                    var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForumID, this.PageBoardContext.PageForum.Name);
 
                     this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = 1, url = this.Server.UrlEncode(url) });
                 }
@@ -344,7 +344,7 @@ namespace YAF.Dialogs
             {
                 if (exception.GetType() != typeof(ThreadAbortException))
                 {
-                    this.Logger.Log(this.PageContext.PageUserID, this, exception);
+                    this.Logger.Log(this.PageBoardContext.PageUserID, this, exception);
                 }
             }
         }
@@ -382,7 +382,7 @@ namespace YAF.Dialogs
         private bool CheckForumModerateStatus(Forum forumInfo)
         {
             // User Moderate override
-            if (this.PageContext.PageUser.UserFlags.Moderated)
+            if (this.PageBoardContext.PageUser.UserFlags.Moderated)
             {
                 return true;
             }
@@ -399,14 +399,14 @@ namespace YAF.Dialogs
                 return false;
             }
 
-            if (!forumInfo.ModeratedPostCount.HasValue || this.PageContext.IsGuest)
+            if (!forumInfo.ModeratedPostCount.HasValue || this.PageBoardContext.IsGuest)
             {
                 return true;
             }
 
             var moderatedPostCount = forumInfo.ModeratedPostCount.Value;
 
-            return !(this.PageContext.PageUser.NumPosts >= moderatedPostCount);
+            return !(this.PageBoardContext.PageUser.NumPosts >= moderatedPostCount);
         }
 
         /// <summary>
@@ -415,12 +415,12 @@ namespace YAF.Dialogs
         /// <returns>Returns if Captcha is enabled or not</returns>
         private bool EnableCaptcha()
         {
-            if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests)
+            if (this.PageBoardContext.IsGuest && this.PageBoardContext.BoardSettings.EnableCaptchaForGuests)
             {
                 return true;
             }
 
-            return this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.PageUser.UserFlags.IsCaptchaExcluded;
+            return this.PageBoardContext.BoardSettings.EnableCaptchaForPost && !this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded;
         }
 
         #endregion

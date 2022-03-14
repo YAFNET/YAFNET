@@ -95,14 +95,14 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // admin or moderator, set edit control to moderator mode...
-            if (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
+            if (this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator)
             {
                 this.SignatureEditControl.InModeratorMode = true;
             }
 
             if (!this.IsPostBack)
             {
-                this.userGroupsRow.Visible = this.PageContext.BoardSettings.ShowGroupsProfile || this.PageContext.IsAdmin;
+                this.userGroupsRow.Visible = this.PageBoardContext.BoardSettings.ShowGroupsProfile || this.PageBoardContext.IsAdmin;
             }
 
             if (this.UserId == 0)
@@ -135,7 +135,7 @@ namespace YAF.Pages
 
                 thisButton.NavigateUrl = link;
                 thisButton.Attributes.Add("target", "_blank");
-                if (this.PageContext.BoardSettings.UseNoFollowLinks)
+                if (this.PageBoardContext.BoardSettings.UseNoFollowLinks)
                 {
                     thisButton.Attributes.Add("rel", "nofollow");
                 }
@@ -155,7 +155,7 @@ namespace YAF.Pages
         {
             if (e.CommandArgument.ToString() == "addbuddy")
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.Get<IFriends>().AddRequest(this.UserId)
                         ? this.GetTextFormatted(
                             "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -165,7 +165,7 @@ namespace YAF.Pages
             }
             else
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IFriends>().Remove(this.UserId)),
                     MessageTypes.success);
             }
@@ -185,7 +185,7 @@ namespace YAF.Pages
             this.PageLinks.AddRoot();
             this.PageLinks.AddLink(
                 this.GetText("MEMBERS"),
-                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions)
+                this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.MembersListViewPermissions)
                     ? this.Get<LinkBuilder>().GetLink(ForumPages.Members)
                     : null);
             this.PageLinks.AddLink(userDisplayName, string.Empty);
@@ -206,7 +206,7 @@ namespace YAF.Pages
 
             // populate user information controls...
             // Is BuddyList feature enabled?
-            if (this.PageContext.BoardSettings.EnableBuddyList)
+            if (this.PageBoardContext.BoardSettings.EnableBuddyList)
             {
                 this.SetupBuddyList(this.UserId, user);
             }
@@ -233,16 +233,16 @@ namespace YAF.Pages
 
             this.Groups.DataSource = groups;
 
-            this.ModerateTab.Visible = this.PageContext.IsAdmin || this.PageContext.IsForumModerator;
+            this.ModerateTab.Visible = this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator;
 
             this.SignatureEditControl.Visible = this.ModerateTab.Visible;
 
-            this.AdminUserButton.Visible = this.PageContext.IsAdmin;
+            this.AdminUserButton.Visible = this.PageBoardContext.IsAdmin;
 
             this.LastPosts.DataSource = this.GetRepository<Message>().GetAllUserMessagesWithAccess(
-                    this.PageContext.PageBoardID,
+                    this.PageBoardContext.PageBoardID,
                     this.UserId,
-                    this.PageContext.PageUserID,
+                    this.PageBoardContext.PageUserID,
                     10);
 
             this.SearchUser.NavigateUrl = this.Get<LinkBuilder>().GetLink(
@@ -261,8 +261,8 @@ namespace YAF.Pages
         private void SetupAvatar(User user)
         {
             this.Avatar.ImageUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user);
-            this.Avatar.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
-            this.Avatar.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
+            this.Avatar.Attributes.CssStyle.Add("max-width", this.PageBoardContext.BoardSettings.AvatarWidth.ToString());
+            this.Avatar.Attributes.CssStyle.Add("max-height", this.PageBoardContext.BoardSettings.AvatarHeight.ToString());
         }
 
         /// <summary>
@@ -276,11 +276,11 @@ namespace YAF.Pages
         /// </param>
         private void SetupBuddyList(int userID, [NotNull] Tuple<User, AspNetUsers, Rank, vaccess> user)
         {
-            if (userID == this.PageContext.PageUserID)
+            if (userID == this.PageBoardContext.PageUserID)
             {
                 this.lnkBuddy.Visible = false;
             }
-            else if (this.Get<IFriends>().IsBuddy(user.Item1.ID, true) && !this.PageContext.IsGuest)
+            else if (this.Get<IFriends>().IsBuddy(user.Item1.ID, true) && !this.PageBoardContext.IsGuest)
             {
                 this.lnkBuddy.Visible = true;
                 this.lnkBuddy.Icon = "user-minus";
@@ -296,7 +296,7 @@ namespace YAF.Pages
             }
             else
             {
-                if (!this.PageContext.IsGuest && !user.Item1.Block.BlockFriendRequests)
+                if (!this.PageBoardContext.IsGuest && !user.Item1.Block.BlockFriendRequests)
                 {
                     this.lnkBuddy.Visible = true;
                     this.lnkBuddy.Icon = "user-plus";
@@ -374,14 +374,14 @@ namespace YAF.Pages
             this.CustomProfile.DataSource = customProfile;
             this.CustomProfile.DataBind();
 
-            if (user.Item1.ID == this.PageContext.PageUserID)
+            if (user.Item1.ID == this.PageBoardContext.PageUserID)
             {
                 return;
             }
 
             var isFriend = this.Get<IFriends>().IsBuddy(user.Item1.ID, true);
 
-            this.PM.Visible = !user.Item1.UserFlags.IsGuest && this.PageContext.BoardSettings.AllowPrivateMessages;
+            this.PM.Visible = !user.Item1.UserFlags.IsGuest && this.PageBoardContext.BoardSettings.AllowPrivateMessages;
 
             if (this.PM.Visible)
             {
@@ -390,7 +390,7 @@ namespace YAF.Pages
                     this.PM.Visible = false;
                 }
 
-                if (this.PageContext.IsAdmin || isFriend)
+                if (this.PageBoardContext.IsAdmin || isFriend)
                 {
                     this.PM.Visible = true;
                 }
@@ -400,23 +400,23 @@ namespace YAF.Pages
             this.PM.ParamTitle0 = userName;
 
             // email link
-            this.Email.Visible = !user.Item1.UserFlags.IsGuest && this.PageContext.BoardSettings.AllowEmailSending;
+            this.Email.Visible = !user.Item1.UserFlags.IsGuest && this.PageBoardContext.BoardSettings.AllowEmailSending;
 
             if (this.Email.Visible)
             {
-                if (user.Item1.Block.BlockEmails && !this.PageContext.IsAdmin)
+                if (user.Item1.Block.BlockEmails && !this.PageBoardContext.IsAdmin)
                 {
                     this.Email.Visible = false;
                 }
 
-                if (this.PageContext.IsAdmin || isFriend)
+                if (this.PageBoardContext.IsAdmin || isFriend)
                 {
                     this.Email.Visible = true;
                 }
             }
 
             this.Email.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Email, new { u = user.Item1.ID });
-            if (this.PageContext.IsAdmin)
+            if (this.PageBoardContext.IsAdmin)
             {
                 this.Email.TitleNonLocalized = user.Item1.Email;
             }
@@ -439,7 +439,7 @@ namespace YAF.Pages
             this.Joined.Text = this.Get<IDateTimeService>().FormatDateLong(user.Item1.Joined);
 
             // vzrus: Show last visit only to admins if user is hidden
-            if (!this.PageContext.IsAdmin && user.Item1.UserFlags.IsActiveExcluded)
+            if (!this.PageBoardContext.IsAdmin && user.Item1.UserFlags.IsActiveExcluded)
             {
                 this.LastVisit.Text = this.GetText("COMMON", "HIDDEN");
                 this.LastVisit.Visible = true;
@@ -548,7 +548,7 @@ namespace YAF.Pages
             }
 
             // Show User Medals
-            if (this.PageContext.BoardSettings.ShowMedals)
+            if (this.PageBoardContext.BoardSettings.ShowMedals)
             {
                 this.ShowUserMedals();
             }

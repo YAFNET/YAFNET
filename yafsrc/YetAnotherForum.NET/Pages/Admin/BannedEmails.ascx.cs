@@ -83,7 +83,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -116,14 +116,14 @@ namespace YAF.Pages.Admin
                 case "add":
                     this.EditDialog.BindData(null);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
@@ -157,7 +157,7 @@ namespace YAF.Pages.Admin
                     {
                         this.GetRepository<Types.Models.BannedEmail>().DeleteById(e.CommandArgument.ToType<int>());
 
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetText("ADMIN_BANNEDEMAIL", "MSG_REMOVEBAN_EMAIL"),
                             MessageTypes.success);
 
@@ -217,14 +217,14 @@ namespace YAF.Pages.Admin
             if (searchText.IsSet())
             {
                 bannedList = this.GetRepository<Types.Models.BannedEmail>().GetPaged(
-                    x => x.BoardID == this.PageContext.PageBoardID && x.Mask == searchText,
+                    x => x.BoardID == this.PageBoardContext.PageBoardID && x.Mask == searchText,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
             else
             {
                 bannedList = this.GetRepository<Types.Models.BannedEmail>().GetPaged(
-                    x => x.BoardID == this.PageContext.PageBoardID,
+                    x => x.BoardID == this.PageBoardContext.PageBoardID,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
@@ -233,7 +233,7 @@ namespace YAF.Pages.Admin
 
             this.PagerTop.Count = !bannedList.NullOrEmpty()
                                       ? this.GetRepository<Types.Models.BannedEmail>()
-                                          .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
+                                          .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
                                       : 0;
 
             this.DataBind();

@@ -50,7 +50,7 @@ namespace YAF.Web.Extensions
             CodeContracts.VerifyNotNull(pageLinks);
 
             pageLinks.AddLink(
-                pageLinks.PageContext.BoardSettings.Name,
+                pageLinks.PageBoardContext.BoardSettings.Name,
                 BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Board));
 
             return pageLinks;

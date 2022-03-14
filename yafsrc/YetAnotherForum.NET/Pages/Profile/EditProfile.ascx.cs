@@ -81,7 +81,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
@@ -92,7 +92,7 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.EditBoardUser = this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageContext.PageUserID);
+            this.EditBoardUser = this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageBoardContext.PageUserID);
 
             if (this.EditBoardUser == null)
             {

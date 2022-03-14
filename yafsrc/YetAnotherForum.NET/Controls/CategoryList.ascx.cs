@@ -109,25 +109,25 @@ namespace YAF.Controls
             var categoryId = markAll.CommandArgument.ToType<int?>();
 
             var forums = this.GetRepository<Forum>().ListRead(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
                 categoryId,
                 null,
                 false);
 
-            var watchForums = this.GetRepository<WatchForum>().List(this.PageContext.PageUserID);
+            var watchForums = this.GetRepository<WatchForum>().List(this.PageBoardContext.PageUserID);
 
             forums.ForEach(
                 forum =>
                 {
                     if (!watchForums.Any(
-                        w => w.Item1.ForumID == forum.ForumID && w.Item1.UserID == this.PageContext.PageUserID))
+                        w => w.Item1.ForumID == forum.ForumID && w.Item1.UserID == this.PageBoardContext.PageUserID))
                     {
-                        this.GetRepository<WatchForum>().Add(this.PageContext.PageUserID, forum.ForumID);
+                        this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, forum.ForumID);
                     }
                 });
 
-            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
             this.BindData();
         }
@@ -148,15 +148,15 @@ namespace YAF.Controls
             var categoryId = markAll.CommandArgument.ToType<int?>();
 
             var forums = this.GetRepository<Forum>().ListRead(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
                 categoryId,
                 null,
                 false);
 
             this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
 
-            this.PageContext.AddLoadMessage(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
             this.BindData();
         }
@@ -199,9 +199,9 @@ namespace YAF.Controls
         private void BindData()
         {
             this.Data = this.Get<DataBroker>().BoardLayout(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID,
-                this.PageContext.PageCategoryID,
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageCategoryID,
                 null);
 
             // Filter Categories

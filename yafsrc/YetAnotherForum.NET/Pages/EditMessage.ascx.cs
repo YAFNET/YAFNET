@@ -114,7 +114,7 @@ namespace YAF.Pages
             // reply to existing topic or editing of existing topic
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                new {t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
+                new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
         }
 
         /// <summary>
@@ -130,22 +130,22 @@ namespace YAF.Pages
 
             if (postedMessage.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("ISEMPTY"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ISEMPTY"), MessageTypes.warning);
                 return false;
             }
 
             // No need to check whitespace if they are actually posting something
-            if (this.PageContext.BoardSettings.MaxPostSize > 0
-                && this.forumEditor.Text.Length >= this.PageContext.BoardSettings.MaxPostSize)
+            if (this.PageBoardContext.BoardSettings.MaxPostSize > 0
+                && this.forumEditor.Text.Length >= this.PageBoardContext.BoardSettings.MaxPostSize)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
                 return false;
             }
 
             // Check if the Entered Guest Username is not too long
             if (this.FromRow.Visible && this.From.Text.Trim().Length > 100)
             {
-                this.PageContext.AddLoadMessage(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
                 this.From.Text = this.From.Text.Substring(100);
                 return false;
@@ -153,26 +153,26 @@ namespace YAF.Pages
 
             if (this.SubjectRow.Visible && this.TopicSubjectTextBox.Text.IsNotSet())
             {
-                this.PageContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
                 return false;
             }
 
-            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.AllowCreateTopicsSameName)
+            if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
                 && this.GetRepository<Topic>().CheckForDuplicate(this.TopicSubjectTextBox.Text.Trim())
                 && !this.EditMessageId.HasValue)
             {
-                this.PageContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;
             }
 
-            if ((!this.PageContext.IsGuest || !this.PageContext.BoardSettings.EnableCaptchaForGuests)
-                && (!this.PageContext.BoardSettings.EnableCaptchaForPost || this.PageContext.PageUser.UserFlags.IsCaptchaExcluded)
+            if ((!this.PageBoardContext.IsGuest || !this.PageBoardContext.BoardSettings.EnableCaptchaForGuests)
+                && (!this.PageBoardContext.BoardSettings.EnableCaptchaForPost || this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
                 || CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
             {
                 return true;
             }
 
-            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
+            this.PageBoardContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
             return false;
         }
 
@@ -182,19 +182,19 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            if (this.PageContext.UploadAccess)
+            if (this.PageBoardContext.UploadAccess)
             {
-                this.PageContext.PageElements.AddScriptReference("FileUploadScript");
+                this.PageBoardContext.PageElements.AddScriptReference("FileUploadScript");
 
 #if DEBUG
-                this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");
+                this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.css");
 #else
-                this.PageContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
+                this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
 #endif
             }
 
             this.forumEditor = ForumEditorHelper.GetCurrentForumEditor();
-            this.forumEditor.MaxCharacters = this.PageContext.BoardSettings.MaxPostSize;
+            this.forumEditor.MaxCharacters = this.PageBoardContext.BoardSettings.MaxPostSize;
 
             this.EditorLine.Controls.Add(this.forumEditor);
 
@@ -208,7 +208,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "GetBoardTagsJs",
                 JavaScriptBlocks.GetBoardTagsJs(this.Tags.ClientID));
 
@@ -222,18 +222,18 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.PageContext.PageForumID == 0)
+            if (this.PageBoardContext.PageForumID == 0)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
             if (this.Get<HttpRequestBase>()["t"] == null && this.Get<HttpRequestBase>()["m"] == null
-                                                         && !this.PageContext.ForumPostAccess)
+                                                         && !this.PageBoardContext.ForumPostAccess)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>()["t"] != null && !this.PageContext.ForumReplyAccess)
+            if (this.Get<HttpRequestBase>()["t"] != null && !this.PageBoardContext.ForumReplyAccess)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -246,7 +246,7 @@ namespace YAF.Pages
                 {
                     this.ownerUserId = editMessage.Item2.UserID;
 
-                    if (!this.CanEditPostCheck(editMessage.Item2, this.PageContext.PageTopic))
+                    if (!this.CanEditPostCheck(editMessage.Item2, this.PageBoardContext.PageTopic))
                     {
                         this.Get<LinkBuilder>().AccessDenied();
                     }
@@ -289,8 +289,8 @@ namespace YAF.Pages
                 this.Priority.SelectedIndex = 0;
 
                 // Allow the Styling of Topic Titles only for Mods or Admins
-                if (this.PageContext.BoardSettings.UseStyledTopicTitles
-                    && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+                if (this.PageBoardContext.BoardSettings.UseStyledTopicTitles
+                    && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
                 {
                     this.StyleRow.Visible = true;
                 }
@@ -301,53 +301,53 @@ namespace YAF.Pages
 
                 this.EditReasonRow.Visible = false;
 
-                this.PriorityRow.Visible = this.PageContext.ForumPriorityAccess;
+                this.PriorityRow.Visible = this.PageBoardContext.ForumPriorityAccess;
 
                 // update options...
-                this.PostOptions1.Visible = !this.PageContext.IsGuest;
+                this.PostOptions1.Visible = !this.PageBoardContext.IsGuest;
                 this.PostOptions1.PersistentOptionVisible =
-                    this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
-                this.PostOptions1.WatchOptionVisible = !this.PageContext.IsGuest;
+                    this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
+                this.PostOptions1.WatchOptionVisible = !this.PageBoardContext.IsGuest;
                 this.PostOptions1.PollOptionVisible = false;
 
-                if (!this.PageContext.IsGuest)
+                if (!this.PageBoardContext.IsGuest)
                 {
-                    this.PostOptions1.WatchChecked = this.PageContext.PageTopicID > 0
-                        ? this.GetRepository<WatchTopic>().Check(this.PageContext.PageUserID, this.PageContext.PageTopicID).HasValue
-                        : this.PageContext.PageUser.AutoWatchTopics;
+                    this.PostOptions1.WatchChecked = this.PageBoardContext.PageTopicID > 0
+                        ? this.GetRepository<WatchTopic>().Check(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID).HasValue
+                        : this.PageBoardContext.PageUser.AutoWatchTopics;
                 }
 
-                if (this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableCaptchaForGuests
-                    || this.PageContext.BoardSettings.EnableCaptchaForPost && !this.PageContext.PageUser.UserFlags.IsCaptchaExcluded)
+                if (this.PageBoardContext.IsGuest && this.PageBoardContext.BoardSettings.EnableCaptchaForGuests
+                    || this.PageBoardContext.BoardSettings.EnableCaptchaForPost && !this.PageBoardContext.PageUser.UserFlags.IsCaptchaExcluded)
                 {
                     this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
                     this.tr_captcha1.Visible = true;
                     this.tr_captcha2.Visible = true;
                 }
 
-                if (this.PageContext.Settings.LockedForum == 0)
+                if (this.PageBoardContext.Settings.LockedForum == 0)
                 {
                     this.PageLinks.AddRoot();
-                    this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+                    this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
                 }
 
-                this.PageLinks.AddForum(this.PageContext.PageForumID);
+                this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
 
                 // editing a message...
                 this.InitEditedPost(this.editedMessage);
                 this.PollList.EditMessageId = this.EditMessageId.Value;
 
                 // form user is only for "Guest"
-                if (this.PageContext.IsGuest)
+                if (this.PageBoardContext.IsGuest)
                 {
-                    this.From.Text = this.PageContext.PageUser.DisplayOrUserName();
+                    this.From.Text = this.PageBoardContext.PageUser.DisplayOrUserName();
                     this.FromRow.Visible = false;
                 }
             }
 
             // Set Poll
-            this.PollId = this.PageContext.PageTopic.PollID;
-            this.PollList.TopicId = this.PageContext.PageTopicID;
+            this.PollId = this.PageBoardContext.PageTopic.PollID;
+            this.PollList.TopicId = this.PageBoardContext.PageTopicID;
             this.PollList.PollId = this.PollId;
         }
 
@@ -359,7 +359,7 @@ namespace YAF.Pages
         /// </returns>
         protected Tuple<Topic, Message, User, Forum> PostReplyHandleEditPost()
         {
-            if (!this.PageContext.ForumEditAccess)
+            if (!this.PageBoardContext.ForumEditAccess)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -406,7 +406,7 @@ namespace YAF.Pages
 
             this.editedMessage.Item2.Flags = messageFlags.BitValue;
 
-            var isModeratorChanged = this.PageContext.PageUserID != this.ownerUserId;
+            var isModeratorChanged = this.PageBoardContext.PageUserID != this.ownerUserId;
 
             this.GetRepository<Message>().Update(
                 this.Priority.SelectedValue.ToType<short>(),
@@ -417,23 +417,23 @@ namespace YAF.Pages
                 subjectSave.Trim(),
                 this.HtmlEncode(this.ReasonEditor.Text),
                 isModeratorChanged,
-                this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess,
+                this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess,
                 this.editedMessage,
-                this.PageContext.PageUserID);
+                this.PageBoardContext.PageUserID);
 
             // Update Topic Tags?!
             if (this.TagsHolder.Visible)
             {
-                this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageContext.PageTopicID);
+                this.GetRepository<TopicTag>().Delete(x => x.TopicID == this.PageBoardContext.PageTopicID);
 
-                this.GetRepository<TopicTag>().AddTagsToTopic(this.Tags.Text, this.PageContext.PageTopicID);
+                this.GetRepository<TopicTag>().AddTagsToTopic(this.Tags.Text, this.PageBoardContext.PageTopicID);
             }
 
-            this.UpdateWatchTopic(this.PageContext.PageUserID, this.PageContext.PageTopicID);
+            this.UpdateWatchTopic(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
 
             // remove cache if it exists...
             this.Get<IDataCache>()
-                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageContext.PageBoardID, this.PageContext.PageTopicID));
+                .Remove(string.Format(Constants.Cache.FirstPostCleaned, this.PageBoardContext.PageBoardID, this.PageBoardContext.PageTopicID));
 
             return this.editedMessage;
         }
@@ -457,51 +457,51 @@ namespace YAF.Pages
             var isPossibleSpamMessage = false;
 
             // Check for SPAM
-            if (!this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
             {
                 // Check content for spam
                 if (
                     this.Get<ISpamCheck>().CheckPostForSpam(
-                        this.PageContext.IsGuest ? this.From.Text : this.PageContext.PageUser.DisplayOrUserName(),
+                        this.PageBoardContext.IsGuest ? this.From.Text : this.PageBoardContext.PageUser.DisplayOrUserName(),
                         this.Get<HttpRequestBase>().GetUserRealIPAddress(),
                         BBCodeHelper.StripBBCode(
                                 HtmlHelper.StripHtml(HtmlHelper.CleanHtmlString(this.forumEditor.Text)))
                             .RemoveMultipleWhitespace(),
-                        this.PageContext.IsGuest ? null : this.PageContext.MembershipUser.Email,
+                        this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
                         out var spamResult))
                 {
                     var description =
                         $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
-                           posted by User: {(this.PageContext.IsGuest ? "Guest" : this.PageContext.PageUser.DisplayOrUserName())}";
+                           posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
 
-                    switch (this.PageContext.BoardSettings.SpamPostHandling)
+                    switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
                     {
                         case SpamPostHandling.DoNothing:
                             this.Logger.SpamMessageDetected(
-                                this.PageContext.PageUserID,
+                                this.PageBoardContext.PageUserID,
                                 description);
                             break;
                         case SpamPostHandling.FlagMessageUnapproved:
                             isPossibleSpamMessage = true;
                             this.Logger.SpamMessageDetected(
-                                this.PageContext.PageUserID,
+                                this.PageBoardContext.PageUserID,
                                 $"{description}, it was flagged as unapproved post.");
                             break;
                         case SpamPostHandling.RejectMessage:
                             this.Logger.SpamMessageDetected(
-                                this.PageContext.PageUserID,
+                                this.PageBoardContext.PageUserID,
                                 $"{description}, post was rejected");
-                            this.PageContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                            this.PageBoardContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
                         case SpamPostHandling.DeleteBanUser:
                             this.Logger.SpamMessageDetected(
-                                this.PageContext.PageUserID,
+                                this.PageBoardContext.PageUserID,
                                 $"{description}, user was deleted and banned");
 
                             this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
-                                this.PageContext.PageUserID,
-                                this.PageContext.MembershipUser,
-                                this.PageContext.PageUser.IP);
+                                this.PageBoardContext.PageUserID,
+                                this.PageBoardContext.MembershipUser,
+                                this.PageBoardContext.PageUser.IP);
 
                             return;
                     }
@@ -520,7 +520,7 @@ namespace YAF.Pages
             var messageId = editMessage.Item2.ID;
 
             // vzrus^ the poll access controls are enabled and this is a new topic - we add the variables
-            var attachPollParameter = this.PageContext.ForumPollAccess && this.PostOptions1.PollOptionVisible;
+            var attachPollParameter = this.PageBoardContext.ForumPollAccess && this.PostOptions1.PollOptionVisible;
 
             // Create notification emails
             if (isApproved)
@@ -528,23 +528,23 @@ namespace YAF.Pages
                 if (!attachPollParameter || !this.PostOptions1.PollChecked)
                 {
                     // regular redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {m = messageId, name = this.PageContext.PageTopic.TopicName });
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new {m = messageId, name = this.PageBoardContext.PageTopic.TopicName });
                 }
                 else
                 {
                     // poll edit redirect...
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, new { t = this.PageContext.PageTopicID });
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, new { t = this.PageBoardContext.PageTopicID });
                 }
             }
             else
             {
                 // Not Approved
-                if (this.PageContext.BoardSettings.EmailModeratorsOnModeratedPost)
+                if (this.PageBoardContext.BoardSettings.EmailModeratorsOnModeratedPost)
                 {
                     // not approved, notify moderators
                     this.Get<ISendNotification>()
                         .ToModeratorsThatMessageNeedsApproval(
-                            this.PageContext.PageForumID,
+                            this.PageBoardContext.PageForumID,
                             messageId.ToType<int>(),
                             isPossibleSpamMessage);
                 }
@@ -556,11 +556,11 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = this.Get<LinkBuilder>().GetForumLink(this.PageContext.PageForumID, this.PageContext.PageForum.Name);
+                var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForumID, this.PageBoardContext.PageForum.Name);
 
-                if (this.PageContext.PageTopicID > 0 && this.PageContext.PageTopic.NumPosts > 1)
+                if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
                 {
-                    url = this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName);
+                    url = this.Get<LinkBuilder>().GetTopicLink(this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName);
                 }
 
                 if (!attachPollParameter)
@@ -571,7 +571,7 @@ namespace YAF.Pages
                 {
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.PollEdit,
-                        new { ra = 1, t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID });
+                        new { ra = 1, t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID });
                 }
             }
         }
@@ -616,24 +616,24 @@ namespace YAF.Pages
         {
             var postLocked = false;
 
-            if (!this.PageContext.IsAdmin && this.PageContext.BoardSettings.LockPosts > 0)
+            if (!this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.LockPosts > 0)
             {
                 var edited = message.Edited.Value;
 
-                if (edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow)
+                if (edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow)
                 {
                     postLocked = true;
                 }
             }
 
             // get  forum information
-            var forumInfo = this.PageContext.PageForum;
+            var forumInfo = this.PageBoardContext.PageForum;
 
             // Ederon : 9/9/2007 - moderator can edit in locked topics
             return !postLocked && !forumInfo.ForumFlags.IsLocked
                                && !topicInfo.TopicFlags.IsLocked
-                               && message.UserID == this.PageContext.PageUserID
-                    || this.PageContext.ForumModeratorAccess && this.PageContext.ForumEditAccess;
+                               && message.UserID == this.PageBoardContext.PageUserID
+                    || this.PageBoardContext.ForumModeratorAccess && this.PageBoardContext.ForumEditAccess;
         }
 
         /// <summary>
@@ -672,16 +672,16 @@ namespace YAF.Pages
             this.PostReply.TextLocalizedPage = "COMMON";
 
             // add topic link...
-            this.PageLinks.AddTopic(this.PageContext.PageTopic.TopicName, this.PageContext.PageTopicID);
+            this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
 
             // editing..
             this.PageLinks.AddLink(this.GetText("EDIT"));
 
-            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopic.TopicName);
-            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.PageContext.PageTopic.Description);
+            this.TopicSubjectTextBox.Text = this.Server.HtmlDecode(this.PageBoardContext.PageTopic.TopicName);
+            this.TopicDescriptionTextBox.Text = this.Server.HtmlDecode(this.PageBoardContext.PageTopic.Description);
 
-            if (this.PageContext.PageTopic.UserID == currentMessage.Item2.UserID
-                || this.PageContext.ForumModeratorAccess)
+            if (this.PageBoardContext.PageTopic.UserID == currentMessage.Item2.UserID
+                || this.PageBoardContext.ForumModeratorAccess)
             {
                 // allow editing of the topic subject
                 this.TopicSubjectTextBox.Enabled = true;
@@ -693,8 +693,8 @@ namespace YAF.Pages
             }
 
             // Allow the Styling of Topic Titles only for Mods or Admins
-            if (this.PageContext.BoardSettings.UseStyledTopicTitles
-                && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+            if (this.PageBoardContext.BoardSettings.UseStyledTopicTitles
+                && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
             {
                 this.StyleRow.Visible = true;
             }
@@ -704,16 +704,16 @@ namespace YAF.Pages
                 this.TopicStylesTextBox.Enabled = false;
             }
 
-            this.TopicStylesTextBox.Text = this.PageContext.PageTopic.Styles;
+            this.TopicStylesTextBox.Text = this.PageBoardContext.PageTopic.Styles;
 
             this.Priority.SelectedItem.Selected = false;
-            this.Priority.Items.FindByValue(this.PageContext.PageTopic.Priority.ToString()).Selected = true;
+            this.Priority.Items.FindByValue(this.PageBoardContext.PageTopic.Priority.ToString()).Selected = true;
 
             this.EditReasonRow.Visible = true;
             this.ReasonEditor.Text = this.Server.HtmlDecode(currentMessage.Item2.EditReason);
             this.PostOptions1.PersistentChecked = currentMessage.Item2.MessageFlags.IsPersistent;
 
-            var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
+            var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
 
             if (topicsList.Any())
             {
@@ -721,7 +721,7 @@ namespace YAF.Pages
             }
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
-            if (this.PageContext.PageTopic.TopicFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+            if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
             {
                 var urlReferrer = this.Get<HttpRequestBase>().UrlReferrer;
 
@@ -764,8 +764,8 @@ namespace YAF.Pages
         /// </summary>
         private void HandleUploadControls()
         {
-            this.forumEditor.UserCanUpload = this.PageContext.UploadAccess;
-            this.UploadDialog.Visible = this.PageContext.UploadAccess;
+            this.forumEditor.UserCanUpload = this.PageBoardContext.UploadAccess;
+            this.UploadDialog.Visible = this.PageBoardContext.UploadAccess;
         }
 
         #endregion

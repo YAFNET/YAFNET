@@ -103,13 +103,13 @@ namespace YAF.Web.Controls
         /// <value>
         /// <c>true</c> if the user can view profiles; otherwise, <c>false</c>.
         /// </value>
-        private bool CanViewProfile => this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ProfileViewPermissions);
+        private bool CanViewProfile => this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ProfileViewPermissions);
 
         /// <summary>
         /// Gets a value indicating whether is hover card enabled.
         /// </summary>
         private bool IsHoverCardEnabled =>
-            this.PageContext.BoardSettings.EnableUserInfoHoverCards && this.EnableHoverCard
+            this.PageBoardContext.BoardSettings.EnableUserInfoHoverCards && this.EnableHoverCard
                                                                   && BoardContext.Current.CurrentForumPage != null;
 
         #endregion
@@ -186,7 +186,7 @@ namespace YAF.Web.Controls
 
                 this.CssClass = cssClass.ToString();
 
-                if (this.PageContext.BoardSettings.UseNoFollowLinks)
+                if (this.PageBoardContext.BoardSettings.UseNoFollowLinks)
                 {
                     output.WriteAttribute("rel", "nofollow");
                 }
@@ -206,7 +206,7 @@ namespace YAF.Web.Controls
             output.Write(HtmlTextWriter.TagRightChar);
 
             // show online icon
-            if (this.PageContext.BoardSettings.ShowUserOnlineStatus && !isCrawler)
+            if (this.PageBoardContext.BoardSettings.ShowUserOnlineStatus && !isCrawler)
             {
                 var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = userSuspended };
 

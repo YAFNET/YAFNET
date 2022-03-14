@@ -106,7 +106,7 @@ namespace YAF.Pages
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
         }
@@ -147,7 +147,7 @@ namespace YAF.Pages
         protected List<PagedUser> GetUserList(char startLetter, string userName, out int totalCount)
         {
             this.userList = this.Get<IAspNetUsersHelper>().ListMembersPaged(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.Group.SelectedIndex <= 0 ? null : this.Group.SelectedValue.ToType<int?>(),
                 this.Ranks.SelectedIndex <= 0 ? null : this.Ranks.SelectedValue.ToType<int?>(),
                 startLetter,
@@ -188,7 +188,7 @@ namespace YAF.Pages
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -489,7 +489,7 @@ namespace YAF.Pages
 
                 if (numberOfPosts < 0)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
                     return;
                 }
             }

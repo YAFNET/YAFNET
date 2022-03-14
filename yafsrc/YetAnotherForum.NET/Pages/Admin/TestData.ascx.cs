@@ -163,9 +163,9 @@ namespace YAF.Pages.Admin
 
             var mesRetStr = sb.ToString();
 
-            this.Logger.Log(this.PageContext.PageUserID, this, mesRetStr, EventLogTypes.Information);
+            this.Logger.Log(this.PageBoardContext.PageUserID, this, mesRetStr, EventLogTypes.Information);
 
-            this.PageContext.AddLoadMessage(mesRetStr, MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(mesRetStr, MessageTypes.success);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "yafPmTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.TestDataTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -236,13 +236,13 @@ namespace YAF.Pages.Admin
 
             // Board lists
             this.UsersBoardsList.DataSource = this.GetRepository<Board>().GetAll();
-            this.UsersBoardsList.SelectedValue = this.PageContext.PageBoardID.ToString();
+            this.UsersBoardsList.SelectedValue = this.PageBoardContext.PageBoardID.ToString();
 
             this.CategoriesBoardsList.DataSource = this.UsersBoardsList.DataSource;
-            this.CategoriesBoardsList.SelectedValue = this.PageContext.PageBoardID.ToString();
+            this.CategoriesBoardsList.SelectedValue = this.PageBoardContext.PageBoardID.ToString();
 
             this.PMessagesBoardsList.DataSource = this.UsersBoardsList.DataSource;
-            this.PMessagesBoardsList.SelectedValue = this.PageContext.PageBoardID.ToString();
+            this.PMessagesBoardsList.SelectedValue = this.PageBoardContext.PageBoardID.ToString();
 
             this.DataBind();
 
@@ -256,8 +256,8 @@ namespace YAF.Pages.Admin
 
             this.ForumsCategory.SelectedIndex = -1;
 
-            this.From.Text = this.PageContext.PageUser.Name;
-            this.To.Text = this.PageContext.PageUser.Name;
+            this.From.Text = this.PageBoardContext.PageUser.Name;
+            this.To.Text = this.PageBoardContext.PageUser.Name;
 
             this.TopicsPriorityList.Items.Add(new ListItem("Normal", "0"));
             this.TopicsPriorityList.Items.Add(new ListItem("Sticky", "1"));
@@ -297,7 +297,7 @@ namespace YAF.Pages.Admin
         {
             var topics = this.GetRepository<Topic>().ListPaged(
                 this.PostsForum.SelectedValue.ToType<int>(),
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 0,
                 100,
@@ -359,13 +359,13 @@ namespace YAF.Pages.Admin
 
                 var newBoardId = this.GetRepository<Board>().Create(
                     boardName,
-                    this.PageContext.BoardSettings.ForumEmail,
+                    this.PageBoardContext.BoardSettings.ForumEmail,
                     "en-US",
                     "english.xml",
-                    this.PageContext.PageUser.Name,
-                    this.PageContext.PageUser.Email,
-                    this.PageContext.PageUser.ProviderUserKey,
-                    this.PageContext.PageUser.UserFlags.IsHostAdmin,
+                    this.PageBoardContext.PageUser.Name,
+                    this.PageBoardContext.PageUser.Email,
+                    this.PageBoardContext.PageUser.ProviderUserKey,
+                    this.PageBoardContext.PageUser.UserFlags.IsHostAdmin,
                     Config.CreateDistinctRoles && Config.IsAnyPortal ? "YAF " : string.Empty);
 
                 this.CreateUsers(newBoardId, usersNumber);
@@ -504,7 +504,7 @@ namespace YAF.Pages.Admin
             }
 
             return this.CreateForums(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 categoryId,
                 parentId,
                 numForums,
@@ -613,13 +613,13 @@ namespace YAF.Pages.Admin
 
             if (fromUser == null)
             {
-                this.PageContext.AddLoadMessage("You should enter valid 'from' user name.", MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage("You should enter valid 'from' user name.", MessageTypes.warning);
                 return 0;
             }
 
             if (toUser == null)
             {
-                this.PageContext.AddLoadMessage("You should enter valid 'to' user name.", MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage("You should enter valid 'to' user name.", MessageTypes.warning);
 
                 return 0;
             }
@@ -704,9 +704,9 @@ namespace YAF.Pages.Admin
                 this.GetRepository<Message>().SaveNew(
                     forum,
                     topic,
-                    this.PageContext.PageUser,
+                    this.PageBoardContext.PageUser,
                     $"msgd-{this.randomGuid}  {this.MyMessage.Text.Trim()}",
-                    this.PageContext.PageUser.Name,
+                    this.PageBoardContext.PageUser.Name,
                     this.Request.GetUserRealIPAddress(),
                     DateTime.UtcNow,
                     ReplyTo,
@@ -762,10 +762,10 @@ namespace YAF.Pages.Admin
                     string.Empty,
                     $"{this.TopicPrefixTB.Text.Trim()}{this.randomGuid}descr",
                     $"{this.MessageContentPrefixTB.Text.Trim()}{this.randomGuid}",
-                    this.PageContext.PageUser,
+                    this.PageBoardContext.PageUser,
                     priority,
-                    this.PageContext.PageUser.Name,
-                    this.PageContext.PageUser.DisplayName,
+                    this.PageBoardContext.PageUser.Name,
+                    this.PageBoardContext.PageUser.DisplayName,
                     this.Request.GetUserRealIPAddress(),
                     DateTime.UtcNow,
                     this.GetMessageFlags(),
@@ -774,7 +774,7 @@ namespace YAF.Pages.Admin
                 if (this.PollCreate.Checked)
                 {
                     var pollId = this.GetRepository<Poll>().Create(
-                        this.PageContext.PageUserID,
+                        this.PageBoardContext.PageUserID,
                         $"quest-{this.randomGuid}",
                         null,
                         false,
@@ -856,7 +856,7 @@ namespace YAF.Pages.Admin
 
                 if (!result.Succeeded)
                 {
-                    this.PageContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.warning);
 
                     continue;
                 }
@@ -886,7 +886,7 @@ namespace YAF.Pages.Admin
         {
             var messageFlags = new MessageFlags
             {
-                IsHtml = false, IsBBCode = true, IsPersistent = false, IsApproved = this.PageContext.IsAdmin
+                IsHtml = false, IsBBCode = true, IsPersistent = false, IsApproved = this.PageBoardContext.IsAdmin
             };
 
             // Bypass Approval if Admin or Moderator.

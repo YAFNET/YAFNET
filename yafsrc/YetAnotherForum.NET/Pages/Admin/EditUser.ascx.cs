@@ -85,7 +85,7 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "EditUserTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -119,7 +119,7 @@ namespace YAF.Pages.Admin
             this.KillEdit1.User = this.EditBoardUser;
 
             // do admin permission check...
-            if (!this.PageContext.PageUser.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
+            if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)
             {
                 // user is not host admin and is attempted to edit host admin account...
                 this.Get<LinkBuilder>().AccessDenied();
@@ -142,7 +142,7 @@ namespace YAF.Pages.Admin
             // update if the user is not Guest
             if (!this.EditBoardUser.Item1.UserFlags.IsGuest)
             {
-                this.Get<IAspNetRolesHelper>().UpdateForumUser(this.EditBoardUser.Item2, this.PageContext.PageBoardID);
+                this.Get<IAspNetRolesHelper>().UpdateForumUser(this.EditBoardUser.Item2, this.PageBoardContext.PageBoardID);
             }
 
             this.EditUserTabs.DataBind();

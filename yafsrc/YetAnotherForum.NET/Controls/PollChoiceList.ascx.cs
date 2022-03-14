@@ -163,19 +163,19 @@ namespace YAF.Controls
 
             if (!this.CanVote)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
                 return;
             }
 
             if (this.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
                 return;
             }
 
             if (this.IsClosed)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_POLL_CLOSED"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_POLL_CLOSED"), MessageTypes.warning);
                 return;
             }
 
@@ -183,14 +183,14 @@ namespace YAF.Controls
 
             this.GetRepository<Choice>().Vote(choiceId);
 
-            this.GetRepository<PollVote>().Vote(choiceId, this.PageContext.PageUserID, this.PollId);
+            this.GetRepository<PollVote>().Vote(choiceId, this.PageBoardContext.PageUserID, this.PollId);
 
             this.BindData();
 
             // Initialize bubble event to update parent control.
             this.ChoiceVoted?.Invoke(source, e);
 
-            this.PageContext.AddLoadMessage(this.GetText("INFO_VOTED"), MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_VOTED"), MessageTypes.success);
         }
 
         /// <summary>

@@ -94,18 +94,18 @@ namespace YAF.Modules
             switch (this.CurrentForumPage.PageType)
             {
                 case ForumPages.ActiveUsers:
-                    this.permissions.HandleRequest(this.PageContext.BoardSettings.ActiveUsersViewPermissions);
+                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.ActiveUsersViewPermissions);
                     break;
                 case ForumPages.Members:
-                    this.permissions.HandleRequest(this.PageContext.BoardSettings.MembersListViewPermissions);
+                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.MembersListViewPermissions);
                     break;
                 case ForumPages.UserProfile:
                 case ForumPages.Albums:
                 case ForumPages.Album:
-                    this.permissions.HandleRequest(this.PageContext.BoardSettings.ProfileViewPermissions);
+                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.ProfileViewPermissions);
                     break;
                 case ForumPages.Search:
-                    this.permissions.HandleRequest(this.PageContext.BoardSettings.SearchPermissions);
+                    this.permissions.HandleRequest(this.PageBoardContext.BoardSettings.SearchPermissions);
                     break;
             }
         }

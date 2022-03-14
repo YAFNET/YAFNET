@@ -75,7 +75,7 @@ namespace YAF.Controls
             {
                 this.dataSource = value;
 
-                this.ForumList1.DataSource = this.PageContext.PageForumID > 0
+                this.ForumList1.DataSource = this.PageBoardContext.PageForumID > 0
                     ? this.dataSource.Item2
                     : this.dataSource.Item2.Where(x => !x.ParentID.HasValue);
             }
@@ -243,7 +243,7 @@ namespace YAF.Controls
                 }
             }
 
-            if (!this.PageContext.BoardSettings.ShowModeratorList)
+            if (!this.PageBoardContext.BoardSettings.ShowModeratorList)
             {
                 return;
             }
@@ -300,7 +300,7 @@ namespace YAF.Controls
             var subForums = this.DataSource;
 
             return subForums.Item2.Where(forum => forum.ParentID == item.ForumID)
-                .Take(this.PageContext.BoardSettings.SubForumsInForumList);
+                .Take(this.PageBoardContext.BoardSettings.SubForumsInForumList);
         }
 
         /// <summary>
@@ -347,7 +347,7 @@ namespace YAF.Controls
                 .RenderToString();
 
             // setup jQuery and DatePicker JS...
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "ForumIconLegendPopoverJs",
                 JavaScriptBlocks.ForumIconLegendPopoverJs(
                     iconLegend.ToJsString(),

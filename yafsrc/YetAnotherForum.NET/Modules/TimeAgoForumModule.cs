@@ -61,14 +61,14 @@ namespace YAF.Modules
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.BoardSettings.ShowRelativeTime
-                || this.PageContext.Vars.ContainsKey("RegisteredTimeago"))
+            if (!this.PageBoardContext.BoardSettings.ShowRelativeTime
+                || this.PageBoardContext.Vars.ContainsKey("RegisteredTimeago"))
             {
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
-            this.PageContext.Vars["RegisteredTimeago"] = true;
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup("timeagoloadjs", JavaScriptBlocks.MomentLoadJs);
+            this.PageBoardContext.Vars["RegisteredTimeago"] = true;
         }
 
         #endregion

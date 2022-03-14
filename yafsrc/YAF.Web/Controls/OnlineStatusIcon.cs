@@ -84,8 +84,8 @@ namespace YAF.Web.Controls
                 Constants.Cache.UsersOnlineStatus,
                 () => this.GetRepository<Active>().List(
                     false,
-                    this.PageContext.BoardSettings.ShowCrawlersInActiveList,
-                    this.PageContext.BoardSettings.ActiveListTime),
+                    this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList,
+                    this.PageBoardContext.BoardSettings.ActiveListTime),
                 TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
             writer.BeginRender();

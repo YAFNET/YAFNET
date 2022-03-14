@@ -43,7 +43,7 @@ namespace YAF.Modules
         /// <summary>
         ///   Gets CurrentForumPage.
         /// </summary>
-        public ForumPage CurrentForumPage => this.PageContext.CurrentForumPage;
+        public ForumPage CurrentForumPage => this.PageBoardContext.CurrentForumPage;
 
         /// <summary>
         ///   Gets ForumControl.
@@ -53,7 +53,7 @@ namespace YAF.Modules
         /// <summary>
         ///   Gets ForumPageType.
         /// </summary>
-        public ForumPages ForumPageType => this.PageContext.CurrentForumPage.PageType;
+        public ForumPages ForumPageType => this.PageBoardContext.CurrentForumPage.PageType;
 
         #endregion
 

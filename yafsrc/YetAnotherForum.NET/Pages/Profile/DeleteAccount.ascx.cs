@@ -68,10 +68,10 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
 
             this.PageLinks.AddLink(
-                string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.PageContext.BoardSettings.Name),
+                string.Format(this.GetText("DELETE_ACCOUNT", "TITLE"), this.PageBoardContext.BoardSettings.Name),
                 string.Empty);
         }
 
@@ -82,7 +82,7 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (Config.IsDotNetNuke || this.PageContext.PageUser.UserFlags.IsHostAdmin)
+            if (Config.IsDotNetNuke || this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -127,43 +127,43 @@ namespace YAF.Pages.Profile
                         // time until when user is suspended
                         var suspend = this.Get<IDateTimeService>().GetUserDateTime(
                             DateTime.UtcNow,
-                            this.PageContext.TimeZoneInfoUser).AddDays(30);
+                            this.PageBoardContext.TimeZoneInfoUser).AddDays(30);
 
                         // suspend user by calling appropriate method
                         this.GetRepository<User>().Suspend(
-                            this.PageContext.PageUserID,
+                            this.PageBoardContext.PageUserID,
                             suspend,
                             "User Suspended his own account",
-                            this.PageContext.PageUserID);
+                            this.PageBoardContext.PageUserID);
 
                         this.Get<ILoggerService>().Log(
-                            this.PageContext.PageUserID,
+                            this.PageBoardContext.PageUserID,
                             this,
-                            $"User {this.PageContext.PageUser.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
+                            $"User {this.PageBoardContext.PageUser.DisplayOrUserName()} Suspended his own account until: {suspend} (UTC)",
                             EventLogTypes.UserSuspended);
 
-                        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+                        this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
                     }
 
                     break;
                 case "delete":
                     {
                         // (Soft) Delete User
-                        var yafUser = this.PageContext.PageUser;
+                        var yafUser = this.PageBoardContext.PageUser;
 
                         yafUser.UserFlags.IsDeleted = true;
                         yafUser.UserFlags.IsApproved = false;
 
                         this.GetRepository<User>().UpdateOnly(
                             () => new User { Flags = yafUser.UserFlags.BitValue },
-                            u => u.ID == this.PageContext.PageUserID);
+                            u => u.ID == this.PageBoardContext.PageUserID);
 
                         this.GetRepository<AspNetUsers>().UpdateOnly(
                             () => new AspNetUsers { IsApproved = false },
                             u => u.Id == yafUser.ProviderUserKey);
 
                         // delete posts...
-                        var messages = this.GetRepository<Message>().GetAllUserMessages(this.PageContext.PageUserID);
+                        var messages = this.GetRepository<Message>().GetAllUserMessages(this.PageBoardContext.PageUserID);
 
                         messages.ForEach(
                             x => this.GetRepository<Message>().Delete(
@@ -177,8 +177,8 @@ namespace YAF.Pages.Profile
                                 false));
 
                         this.Get<ILoggerService>().UserDeleted(
-                            this.PageContext.PageUserID,
-                            $"User {this.PageContext.PageUser.DisplayOrUserName()} Deleted his own account");
+                            this.PageBoardContext.PageUserID,
+                            $"User {this.PageBoardContext.PageUser.DisplayOrUserName()} Deleted his own account");
                     }
 
                     break;

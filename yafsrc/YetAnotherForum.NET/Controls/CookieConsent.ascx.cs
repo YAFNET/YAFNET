@@ -49,7 +49,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Label1.Param0 = this.PageContext.BoardSettings.Name;
+            this.Label1.Param0 = this.PageBoardContext.BoardSettings.Name;
 
             this.MoreDetails.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Cookies);
         }
@@ -65,7 +65,7 @@ namespace YAF.Controls
         /// </param>
         protected void AcceptClick(object sender, EventArgs e)
         {
-            this.PageContext.Get<HttpResponseBase>().SetCookie(
+            this.PageBoardContext.Get<HttpResponseBase>().SetCookie(
                 new HttpCookie("YAF-AcceptCookies", "true")
                 {
                     Expires = DateTime.UtcNow.AddYears(1), HttpOnly = true,

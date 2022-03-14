@@ -37,7 +37,7 @@
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="AdminLink" runat="server"
                                                    IsGuest="False"
-                                                   ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>'
+                                                   ReplaceName='<%#  this.Eval(this.PageBoardContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>'
                                                    Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
                                                    UserID='<%# this.Eval("ID").ToType<int>() %>'
                                                    Style='<%# this.Eval("UserStyle") %>'  />
@@ -108,7 +108,7 @@
                                                 CssClass="rounded img-fluid"/>
                                      <YAF:UserLink ID="ModLink" runat="server"
                                                    Suspended='<%# this.Eval("Suspended").ToType<DateTime?>() %>'
-                                                   ReplaceName='<%#  this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>'
+                                                   ReplaceName='<%#  this.Eval(this.PageBoardContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name").ToString() %>'
                                                    UserID='<%# this.Eval("ModeratorID").ToType<int>() %>'
                                                    IsGuest="False"
                                                    Style='<%# this.Eval("Style") %>'  />

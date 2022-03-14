@@ -84,7 +84,7 @@ namespace YAF.Pages
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -92,7 +92,7 @@ namespace YAF.Pages
             }
 
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("v").IsSet() && this.Get<IPermissions>()
-                .Check(this.PageContext.BoardSettings.ActiveUsersViewPermissions))
+                .Check(this.PageBoardContext.BoardSettings.ActiveUsersViewPermissions))
             {
                 this.BindData();
             }
@@ -172,7 +172,7 @@ namespace YAF.Pages
                     // Show all users
                     activeUsers = this.GetActiveUsersData(
                         true,
-                        this.PageContext.BoardSettings.ShowGuestsInDetailedActiveList);
+                        this.PageBoardContext.BoardSettings.ShowGuestsInDetailedActiveList);
 
                     if (activeUsers != null)
                     {
@@ -196,7 +196,7 @@ namespace YAF.Pages
                     // Show guests
                     activeUsers = this.GetActiveUsersData(
                         true,
-                        this.PageContext.BoardSettings.ShowCrawlersInActiveList);
+                        this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList);
 
                     if (activeUsers != null)
                     {
@@ -207,7 +207,7 @@ namespace YAF.Pages
                 case 3:
 
                     // Show hidden
-                    if (this.PageContext.IsAdmin)
+                    if (this.PageBoardContext.IsAdmin)
                     {
                         activeUsers = this.GetActiveUsersData(false, false);
                         if (activeUsers != null)
@@ -250,10 +250,10 @@ namespace YAF.Pages
         private List<ActiveUser> GetActiveUsersData(bool showGuests, bool showCrawlers)
         {
             var activeUsers = this.GetRepository<Active>().ListUsersPaged(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 showGuests,
                 showCrawlers,
-                this.PageContext.BoardSettings.ActiveListTime,
+                this.PageBoardContext.BoardSettings.ActiveListTime,
                 0,
                 5000);
 
@@ -275,7 +275,7 @@ namespace YAF.Pages
 
             // remove hidden users...
             activeUsers.RemoveAll(
-                row => row.IsActiveExcluded == false && this.PageContext.PageUserID != row.UserID);
+                row => row.IsActiveExcluded == false && this.PageBoardContext.PageUserID != row.UserID);
         }
 
         /// <summary>
@@ -293,8 +293,8 @@ namespace YAF.Pages
 
             // remove hidden users...
             activeUsers.RemoveAll(
-                row => row.IsActiveExcluded && !this.PageContext.IsAdmin &&
-                       this.PageContext.PageUserID != row.UserID);
+                row => row.IsActiveExcluded && !this.PageBoardContext.IsAdmin &&
+                       this.PageBoardContext.PageUserID != row.UserID);
         }
 
         #endregion

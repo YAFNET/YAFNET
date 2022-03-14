@@ -64,7 +64,7 @@ namespace YAF.Dialogs
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and YAF JS...
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "yafmodaldialogJs",
                 JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "#LoginBox"));
 
@@ -83,7 +83,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadLoginValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.LoginButton.ClientID));
 
@@ -93,7 +93,7 @@ namespace YAF.Dialogs
                 "onkeydown",
                 JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
 
-            if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
+            if (this.PageBoardContext.IsGuest && !this.PageBoardContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
             {
                 this.RegisterLink.Visible = true;
             }
@@ -123,7 +123,7 @@ namespace YAF.Dialogs
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
             this.Get<LinkBuilder>().Redirect(
-                this.PageContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
+                this.PageBoardContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace YAF.Dialogs
 
             if (user == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                 return;
             }
 
@@ -189,7 +189,7 @@ namespace YAF.Dialogs
                             this.Logger.Info(
                                 $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
 
-                            this.PageContext.LoadMessage.AddSession(
+                            this.PageBoardContext.LoadMessage.AddSession(
                                 this.GetText("LOGIN", "ERROR_LOCKEDOUT"),
                                 MessageTypes.danger);
                         }
@@ -202,7 +202,7 @@ namespace YAF.Dialogs
                             null,
                             $"Login Failure: {this.UserName.Text.Trim()}");
 
-                        this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                         break;
                     }
             }
@@ -227,18 +227,18 @@ namespace YAF.Dialogs
             var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
             var subject = this.Get<ILocalization>()
-                .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
+                .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
 
             verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                 ForumPages.Account_Approve,
                 new { code = checkMail.Hash });
             verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-            verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+            verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
             verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
 
             verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
-            this.PageContext.AddLoadMessage(
+            this.PageBoardContext.AddLoadMessage(
                 this.GetText("LOGIN", "MSG_MESSAGE_SEND"),
                 MessageTypes.success);
         }

@@ -102,10 +102,10 @@ namespace YAF.Pages.Admin
                 case "delete":
 
                     // we are deleting user
-                    if (this.PageContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
+                    if (this.PageBoardContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
                     {
                         // deleting yourself isn't an option
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
                             MessageTypes.danger);
                         return;
@@ -114,12 +114,12 @@ namespace YAF.Pages.Admin
                     // get user(s) we are about to delete
                     var userToDelete = this.Get<IAspNetUsersHelper>().GetBoardUser(
                         e.CommandArgument.ToType<int>(),
-                        this.PageContext.PageBoardID);
+                        this.PageBoardContext.PageBoardID);
 
                     if (userToDelete.Item1.UserFlags.IsGuest)
                     {
                         // we cannot delete guest
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                             MessageTypes.danger);
                         return;
@@ -128,7 +128,7 @@ namespace YAF.Pages.Admin
                     if (userToDelete.Item4.IsAdmin > 0 || userToDelete.Item1.UserFlags.IsHostAdmin)
                     {
                         // admin are not deletable either
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                             MessageTypes.danger);
                         return;
@@ -238,7 +238,7 @@ namespace YAF.Pages.Admin
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
         }
@@ -316,7 +316,7 @@ namespace YAF.Pages.Admin
             this.Since.SelectedIndex = this.Since.Items.Count - 1;
 
             // get list of user groups for filtering
-            var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+            var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
 
             groups.Insert(0, new Group { Name = this.GetText("FILTER_NO"), ID = 0 });
 
@@ -344,7 +344,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -391,9 +391,9 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void SyncUsersClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<IAspNetRolesHelper>().SyncAllMembershipUsers(this.PageContext.PageBoardID);
+            this.Get<IAspNetRolesHelper>().SyncAllMembershipUsers(this.PageBoardContext.PageBoardID);
 
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_USERS", "SYNC_FINISH"), MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_USERS", "SYNC_FINISH"), MessageTypes.success);
         }
 
         /// <summary>
@@ -451,7 +451,7 @@ namespace YAF.Pages.Admin
 
             // get users, eventually filter by groups or ranks
             var users = this.Get<IAspNetUsersHelper>().GetUsersPaged(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.PagerTop.CurrentPageIndex,
                 this.PagerTop.PageSize,
                 this.name.Text.Trim(),
@@ -481,7 +481,7 @@ namespace YAF.Pages.Admin
         /// </param>
         private void ExportAllUsers(string type)
         {
-            var usersList = this.GetRepository<User>().GetByBoardId(this.PageContext.PageBoardID);
+            var usersList = this.GetRepository<User>().GetByBoardId(this.PageBoardContext.PageBoardID);
 
             switch (type)
             {

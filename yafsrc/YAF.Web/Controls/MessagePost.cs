@@ -227,7 +227,7 @@ namespace YAF.Web.Controls
         protected virtual void RenderEditedMessage(
             [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
         {
-            if (!this.PageContext.BoardSettings.ShowEditedMessage)
+            if (!this.PageBoardContext.BoardSettings.ShowEditedMessage)
             {
                 return;
             }
@@ -258,7 +258,7 @@ namespace YAF.Web.Controls
                 whoChanged,
                 editedDateTime,
                 editReasonText,
-                this.PageContext.IsGuest ? string.Empty : messageHistoryButton);
+                this.PageBoardContext.IsGuest ? string.Empty : messageHistoryButton);
         }
 
         /// <summary>
@@ -275,7 +275,7 @@ namespace YAF.Web.Controls
                       <button type=""button"" class=""btn-close"" data-bs-dismiss=""alert"" aria-label=""Close"">
                       </button></div>",
                 this.GetText("GO_TO_ANSWER"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = messageId, name = this.PageContext.PageTopic.TopicName }));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = messageId, name = this.PageBoardContext.PageTopic.TopicName }));
         }
 
         /// <summary>

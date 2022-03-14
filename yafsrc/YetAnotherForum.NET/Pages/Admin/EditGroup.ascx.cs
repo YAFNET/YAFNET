@@ -137,7 +137,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -230,7 +230,7 @@ namespace YAF.Pages.Admin
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"),
                     MessageTypes.warning);
                 return;
@@ -238,13 +238,13 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"), MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"),
                     MessageTypes.warning);
                 return;
@@ -252,7 +252,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"),
                     MessageTypes.warning);
                 return;
@@ -260,7 +260,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"),
                     MessageTypes.warning);
                 return;
@@ -283,7 +283,7 @@ namespace YAF.Pages.Admin
             if (roleId.HasValue)
             {
                 // get the current role name in the DB
-                var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+                var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
 
                 groups.ForEach(group => oldRoleName = group.Name);
             }
@@ -300,7 +300,7 @@ namespace YAF.Pages.Admin
             // save role and get its ID if it's new (if it's old role, we get it anyway)
             roleId = this.GetRepository<Group>().Save(
                 roleId,
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 roleName,
                 groupFlags,
                 this.AccessMaskID.SelectedValue.ToType<int>(),

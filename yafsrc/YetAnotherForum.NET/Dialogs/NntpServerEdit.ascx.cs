@@ -116,7 +116,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
@@ -135,7 +135,7 @@ namespace YAF.Dialogs
 
             this.GetRepository<NntpServer>().Save(
                 this.ServerId,
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.Name.Text,
                 this.Address.Text,
                 this.Port.Text.Length > 0 ? this.Port.Text.ToType<int?>() : null,

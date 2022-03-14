@@ -92,7 +92,7 @@ namespace YAF.Controls
         {
             long archivedCount = 0;
             var messages = this.GetRepository<UserPMessage>().Get(
-                p => p.UserID == this.PageContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
+                p => p.UserID == this.PageBoardContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
 
             messages.ForEach(
                 item =>
@@ -103,7 +103,7 @@ namespace YAF.Controls
 
             this.ClearCache();
 
-            this.PageContext.LoadMessage.AddSession(
+            this.PageBoardContext.LoadMessage.AddSession(
                 this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
                 MessageTypes.success);
 
@@ -134,7 +134,7 @@ namespace YAF.Controls
 
             this.ClearCache();
 
-            this.PageContext.LoadMessage.AddSession(
+            this.PageBoardContext.LoadMessage.AddSession(
                 archivedCount == 1
                     ? this.GetText("MSG_ARCHIVED")
                     : this.GetTextFormatted("MSG_ARCHIVED+", archivedCount),
@@ -183,7 +183,7 @@ namespace YAF.Controls
                 case PmView.Inbox:
                     {
                         var messages = this.GetRepository<UserPMessage>().Get(
-                            p => p.UserID == this.PageContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
+                            p => p.UserID == this.PageBoardContext.PageUserID && (p.Flags & 8) != 8 && (p.Flags & 4) != 4);
 
                         messages.ForEach(
                             item =>
@@ -197,7 +197,7 @@ namespace YAF.Controls
                 case PmView.Outbox:
                     {
                         var messages = this.GetRepository<PMessage>().Get(
-                            p => p.FromUserID == this.PageContext.PageUserID && p.PMessageFlags.IsInOutbox && p.PMessageFlags.IsArchived == false);
+                            p => p.FromUserID == this.PageBoardContext.PageUserID && p.PMessageFlags.IsInOutbox && p.PMessageFlags.IsArchived == false);
 
                         messages.ForEach(
                             item =>
@@ -211,7 +211,7 @@ namespace YAF.Controls
                 case PmView.Archive:
                     {
                         var messages = this.GetRepository<UserPMessage>().Get(
-                            p => p.UserID == this.PageContext.PageUserID && (p.Flags & 4) == 4);
+                            p => p.UserID == this.PageBoardContext.PageUserID && (p.Flags & 4) == 4);
 
                         messages.ForEach(
                             item =>
@@ -226,7 +226,7 @@ namespace YAF.Controls
 
             this.ClearCache();
 
-            this.PageContext.LoadMessage.AddSession(
+            this.PageBoardContext.LoadMessage.AddSession(
                 this.GetTextFormatted("msgdeleted2", itemCount),
                 MessageTypes.success);
 
@@ -264,7 +264,7 @@ namespace YAF.Controls
 
             this.ClearCache();
 
-            this.PageContext.LoadMessage.AddSession(
+            this.PageBoardContext.LoadMessage.AddSession(
                 itemCount == 1 ? this.GetText("msgdeleted1") : this.GetTextFormatted("msgdeleted2", itemCount),
                 MessageTypes.success);
 
@@ -288,7 +288,7 @@ namespace YAF.Controls
             //Return if No Messages are Available to Export
             if (!messageList.Any())
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_MESSAGES"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("NO_MESSAGES"), MessageTypes.warning);
                 return;
             }
 
@@ -319,7 +319,7 @@ namespace YAF.Controls
             //Return if No Message Selected
             if (!exportPmIds.Any())
             {
-                this.PageContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"), MessageTypes.warning);
 
                 this.BindData();
 
@@ -395,7 +395,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void MarkAsRead_Click([NotNull] object source, [NotNull] EventArgs e)
         {
-            var messages = this.GetRepository<UserPMessage>().List(this.PageContext.PageUserID, this.View);
+            var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, this.View);
 
             messages.ForEach(
                     item =>
@@ -427,7 +427,7 @@ namespace YAF.Controls
             if (this.IsPostBack)
             {
                 // make sure addLoadMessage is empty...
-                this.PageContext.LoadMessage.Clear();
+                this.PageBoardContext.LoadMessage.Clear();
             }
 
             this.lblExportType.Text = this.GetText("EXPORTFORMAT");
@@ -439,7 +439,7 @@ namespace YAF.Controls
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -582,7 +582,7 @@ namespace YAF.Controls
             this.SortFromDesc.Text = this.GetText(this.View == PmView.Outbox ? "TO_DESC" : "FROM_DESC");
 
             var messages = this.GetRepository<PMessage>().List(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 this.View,
                 this.ViewState["SortField"].ToString(),
                 this.ViewState["SortAsc"].ToType<bool>());
@@ -624,7 +624,7 @@ namespace YAF.Controls
         private void ClearCache()
         {
             this.Get<IDataCache>()
-                .Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageContext.PageUserID));
+                .Remove(string.Format(Constants.Cache.ActiveUserLazyData, this.PageBoardContext.PageUserID));
         }
 
         /// <summary>
@@ -642,7 +642,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "application/vnd.csv";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageContext.PageUser.DisplayOrUserName()}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
+                $"attachment; filename={HttpUtility.UrlEncode($"Privatemessages-{this.PageBoardContext.PageUser.DisplayOrUserName()}-{DateTime.Now:yyyy'-'MM'-'dd'-'HHmm}.csv")}");
 
             var sw = new StreamWriter(this.Get<HttpResponseBase>().OutputStream);
 
@@ -678,7 +678,7 @@ namespace YAF.Controls
             this.Get<HttpResponseBase>().ContentType = "text/xml";
             this.Get<HttpResponseBase>().AppendHeader(
                 "content-disposition",
-                $"attachment; filename=PrivateMessages-{this.PageContext.PageUser.DisplayOrUserName()}-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
+                $"attachment; filename=PrivateMessages-{this.PageBoardContext.PageUser.DisplayOrUserName()}-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml");
 
             var element = new XElement(
                 "PrivateMessages",

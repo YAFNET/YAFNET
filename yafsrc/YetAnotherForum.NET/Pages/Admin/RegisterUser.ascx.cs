@@ -83,21 +83,21 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidEmail(newEmail))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"), MessageTypes.danger);
 
                 return;
             }
 
             if (this.Get<IAspNetUsersHelper>().UserExists(this.UserName.Text.Trim(), newEmail))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);
                 return;
             }
 
             var user = new AspNetUsers
             {
                 Id = Guid.NewGuid().ToString(),
-                ApplicationId = this.PageContext.BoardSettings.ApplicationId,
+                ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
                 UserName = newUsername,
                 LoweredUserName = newUsername,
                 Email = newEmail,
@@ -110,17 +110,17 @@ namespace YAF.Pages.Admin
             if (!result.Succeeded)
             {
                 // error of some kind
-                this.PageContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
                 return;
             }
 
             // setup initial roles (if any) for this user
-            this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageContext.PageBoardID, user);
+            this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageBoardContext.PageBoardID, user);
 
             // create the user in the YAF DB as well as sync roles...
-            var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageContext.PageBoardID);
+            var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageBoardContext.PageBoardID);
 
-            var autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
                 .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
             this.Get<ISendNotification>().SendVerificationEmail(user, newEmail, userId, newUsername);
@@ -129,11 +129,11 @@ namespace YAF.Pages.Admin
                 this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID,
                 true,
                 autoWatchTopicsEnabled,
-                this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt(),
-                this.PageContext.BoardSettings.DefaultSendDigestEmail);
+                this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
+                this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
 
             // success
-            this.PageContext.LoadMessage.AddSession(
+            this.PageBoardContext.LoadMessage.AddSession(
                 this.GetTextFormatted("MSG_CREATED", this.UserName.Text.Trim()),
                 MessageTypes.success);
 

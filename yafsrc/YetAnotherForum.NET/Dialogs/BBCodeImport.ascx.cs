@@ -54,11 +54,11 @@ namespace YAF.Dialogs
             // import selected file (if it's the proper format)...
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("IMPORT_FAILED", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
 
@@ -68,9 +68,9 @@ namespace YAF.Dialogs
             try
             {
                 var importedCount = DataImport.BBCodeExtensionImport(
-                    this.PageContext.PageBoardID, this.importFile.PostedFile.InputStream);
+                    this.PageBoardContext.PageBoardID, this.importFile.PostedFile.InputStream);
 
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     importedCount > 0
                         ? this.GetTextFormatted("IMPORT_SUCESS", importedCount)
                         : this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_NOTHING"),
@@ -78,10 +78,10 @@ namespace YAF.Dialogs
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     string.Format(this.GetText("ADMIN_BBCODE_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }

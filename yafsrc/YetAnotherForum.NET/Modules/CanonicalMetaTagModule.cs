@@ -79,7 +79,7 @@ namespace YAF.Modules
                 {
                     var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
                         ForumPages.Posts,
-                        new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
+                        new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
 
                     head.Controls.Add(new LiteralControl($"<link rel=\"canonical\" href=\"{topicUrl}\" />"));
                 }

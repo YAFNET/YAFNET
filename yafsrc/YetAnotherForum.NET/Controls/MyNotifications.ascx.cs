@@ -64,7 +64,7 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
         }
@@ -98,7 +98,7 @@ namespace YAF.Controls
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -307,9 +307,9 @@ namespace YAF.Controls
         /// </param>
         protected void MarkAll_Click(object sender, EventArgs e)
         {
-            this.GetRepository<Activity>().MarkAllAsRead(this.PageContext.PageUserID);
+            this.GetRepository<Activity>().MarkAllAsRead(this.PageBoardContext.PageUserID);
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
             this.BindData();
         }
@@ -331,7 +331,7 @@ namespace YAF.Controls
             }
 
             this.GetRepository<Activity>().UpdateNotification(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 e.CommandArgument.ToType<int>());
 
             this.BindData();
@@ -392,7 +392,7 @@ namespace YAF.Controls
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-            var stream = this.GetRepository<Activity>().Notifications(this.PageContext.PageUserID);
+            var stream = this.GetRepository<Activity>().Notifications(this.PageBoardContext.PageUserID);
 
             if (!this.WasMentioned.Checked)
             {

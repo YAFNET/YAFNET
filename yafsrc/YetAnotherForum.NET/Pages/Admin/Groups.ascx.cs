@@ -185,7 +185,7 @@ namespace YAF.Pages.Admin
             }
 
             // sync roles just in case...
-            this.Get<IAspNetRolesHelper>().SyncRoles(this.PageContext.PageBoardID);
+            this.Get<IAspNetRolesHelper>().SyncRoles(this.PageBoardContext.PageBoardID);
 
             // bind data
             this.BindData();
@@ -214,7 +214,7 @@ namespace YAF.Pages.Admin
 
                     var groupId = this.GetRepository<Group>().Save(
                         null,
-                        this.PageContext.PageBoardID,
+                        this.PageBoardContext.PageBoardID,
                         e.CommandArgument.ToString(),
                         groupFlags,
                         1,
@@ -282,7 +282,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list roles of this board
-            var groups = this.GetRepository<Group>().List(boardId: this.PageContext.PageBoardID);
+            var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID);
 
             // set repeater data-source
             this.RoleListYaf.DataSource = groups;

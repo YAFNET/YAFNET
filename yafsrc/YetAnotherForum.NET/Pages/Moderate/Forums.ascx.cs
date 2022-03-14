@@ -75,14 +75,14 @@ namespace YAF.Pages.Moderate
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "TopicStarterPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
                     ".topic-starter-popover",
                     "hover"));
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
@@ -99,9 +99,9 @@ namespace YAF.Pages.Moderate
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.ModForumUserDialog.BindData(this.PageContext.PageForumID, null);
+            this.ModForumUserDialog.BindData(this.PageBoardContext.PageForumID, null);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("ModForumUserDialog"));
         }
@@ -117,15 +117,15 @@ namespace YAF.Pages.Moderate
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
 
             var topicList = this.GetRepository<Topic>().ListPaged(
-                this.PageContext.PageForumID,
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageForumID,
+                this.PageBoardContext.PageUserID,
                 DateTimeHelper.SqlDbMinTime(),
                 currentPageIndex,
                 baseSize,
-                this.PageContext.BoardSettings.UseReadTrackingByDatabase);
+                this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
 
             this.topiclist.DataSource = topicList;
-            this.UserList.DataSource = this.GetRepository<UserForum>().List(null, this.PageContext.PageForumID);
+            this.UserList.DataSource = this.GetRepository<UserForum>().List(null, this.PageBoardContext.PageForumID);
 
             if (!topicList.NullOrEmpty())
             {
@@ -133,14 +133,14 @@ namespace YAF.Pages.Moderate
             }
 
             var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID);
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID);
 
             this.ForumList.AddForumAndCategoryIcons(forumList);
 
             this.DataBind();
 
-            var pageItem = this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString());
+            var pageItem = this.ForumList.Items.FindByValue(this.PageBoardContext.PageForumID.ToString());
 
             if (pageItem != null)
             {
@@ -163,13 +163,13 @@ namespace YAF.Pages.Moderate
 
             if (!list.Any())
             {
-                this.PageContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
             }
             else
             {
-                list.ForEach(x => this.GetRepository<Topic>().Delete(this.PageContext.PageForumID, x.TopicRowID.Value));
+                list.ForEach(x => this.GetRepository<Topic>().Delete(this.PageBoardContext.PageForumID, x.TopicRowID.Value));
 
-                this.PageContext.AddLoadMessage(this.GetText("moderate", "deleted"), MessageTypes.success);
+                this.PageBoardContext.AddLoadMessage(this.GetText("moderate", "deleted"), MessageTypes.success);
 
                 this.BindData();
             }
@@ -187,18 +187,18 @@ namespace YAF.Pages.Moderate
 
             if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet() && !int.TryParse(this.LinkDays.Text, out ld))
             {
-                this.PageContext.AddLoadMessage(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
                 return;
             }
 
             if (this.ForumList.SelectedValue.ToType<int>() <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
                 return;
             }
 
             // only move if it's a destination is a different forum.
-            if (this.ForumList.SelectedValue.ToType<int>() != this.PageContext.PageForumID)
+            if (this.ForumList.SelectedValue.ToType<int>() != this.PageBoardContext.PageForumID)
             {
                 if (ld >= -2)
                 {
@@ -209,26 +209,26 @@ namespace YAF.Pages.Moderate
 
                 if (!list.Any())
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
                 }
                 else
                 {
                     list.ForEach(
                         x => this.GetRepository<Topic>().Move(
                             x.TopicRowID.Value,
-                            this.PageContext.PageForumID,
+                            this.PageBoardContext.PageForumID,
                             this.ForumList.SelectedValue.ToType<int>(),
                             this.LeavePointer.Checked,
                             linkDays.Value));
 
-                    this.PageContext.AddLoadMessage(this.GetText("MODERATE", "MOVED"), MessageTypes.success);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "MOVED"), MessageTypes.success);
 
                     this.BindData();
                 }
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("MODERATE", "MOVE_TO_DIFFERENT"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "MOVE_TO_DIFFERENT"), MessageTypes.danger);
             }
         }
 
@@ -239,19 +239,19 @@ namespace YAF.Pages.Moderate
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumModeratorAccess)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (!this.PageContext.IsForumModerator && !this.PageContext.IsAdmin)
+            if (!this.PageBoardContext.IsForumModerator && !this.PageBoardContext.IsAdmin)
             {
                 this.ModerateUsersHolder.Visible = false;
             }
 
             if (!this.IsPostBack)
             {
-                var showMoved = this.PageContext.BoardSettings.ShowMoved;
+                var showMoved = this.PageBoardContext.BoardSettings.ShowMoved;
 
                 // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
                 this.LeavePointer.Checked = showMoved;
@@ -272,7 +272,7 @@ namespace YAF.Pages.Moderate
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -301,13 +301,13 @@ namespace YAF.Pages.Moderate
         /// </summary>
         protected override void CreatePageLinks()
         {
-            if (this.PageContext.Settings.LockedForum == 0)
+            if (this.PageBoardContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
             }
 
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
             this.PageLinks.AddLink(this.GetText("MODERATE", "TITLE"), string.Empty);
         }
 
@@ -332,14 +332,14 @@ namespace YAF.Pages.Moderate
             switch (e.CommandName)
             {
                 case "edit":
-                    this.ModForumUserDialog.BindData(this.PageContext.PageForumID, e.CommandArgument.ToType<int>());
+                    this.ModForumUserDialog.BindData(this.PageBoardContext.PageForumID, e.CommandArgument.ToType<int>());
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("ModForumUserDialog"));
                     break;
                 case "remove":
-                    this.GetRepository<UserForum>().Delete(e.CommandArgument.ToType<int>(), this.PageContext.PageForumID);
+                    this.GetRepository<UserForum>().Delete(e.CommandArgument.ToType<int>(), this.PageBoardContext.PageForumID);
 
                     this.BindData();
 

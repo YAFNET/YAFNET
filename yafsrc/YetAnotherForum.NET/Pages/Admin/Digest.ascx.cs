@@ -63,10 +63,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.BoardSettings.ForceDigestSend = true;
-            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
+            this.PageBoardContext.BoardSettings.ForceDigestSend = true;
+            ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
 
-            this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace YAF.Pages.Admin
         {
             this.DigestHtmlPlaceHolder.Visible = true;
             this.DigestFrame.Attributes["src"] = this.Get<IDigest>()
-                .GetDigestUrl(this.PageContext.PageUserID, this.PageContext.BoardSettings, true);
+                .GetDigestUrl(this.PageBoardContext.PageUserID, this.PageBoardContext.BoardSettings, true);
         }
 
         /// <summary>
@@ -93,13 +93,13 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.LastDigestSendLabel.Text = this.PageContext.BoardSettings.LastDigestSend.IsNotSet()
+            this.LastDigestSendLabel.Text = this.PageBoardContext.BoardSettings.LastDigestSend.IsNotSet()
                                                 ? this.GetText("ADMIN_DIGEST", "DIGEST_NEVER")
                                                 : Convert.ToDateTime(
-                                                    this.PageContext.BoardSettings.LastDigestSend,
+                                                    this.PageBoardContext.BoardSettings.LastDigestSend,
                                                     CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture);
 
-            this.DigestEnabled.Text = this.PageContext.BoardSettings.AllowDigestEmail
+            this.DigestEnabled.Text = this.PageBoardContext.BoardSettings.AllowDigestEmail
                                           ? this.GetText("COMMON", "YES")
                                           : this.GetText("COMMON", "NO");
         }
@@ -129,34 +129,34 @@ namespace YAF.Pages.Admin
                 {
                     // create and send a test digest to the email provided...
                     var digestHtml = this.Get<IDigest>().GetDigestHtml(
-                        this.PageContext.PageUser,
-                        this.PageContext.BoardSettings,
+                        this.PageBoardContext.PageUser,
+                        this.PageBoardContext.BoardSettings,
                         true);
 
                     // send....
                     var message = this.Get<IDigest>().CreateDigestMessage(
-                        string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageContext.BoardSettings.Name),
+                        string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageBoardContext.BoardSettings.Name),
                         digestHtml,
-                        new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),
+                        new MailAddress(this.PageBoardContext.BoardSettings.ForumEmail, this.PageBoardContext.BoardSettings.Name),
                         this.TextSendEmail.Text.Trim(),
                         "Digest Send Test");
 
                     this.Get<IMailService>().SendAll(new List<MailMessage> { message });
 
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
                         MessageTypes.success);
                 }
                 catch (Exception ex)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
                         MessageTypes.danger);
                 }
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
             }
         }
 

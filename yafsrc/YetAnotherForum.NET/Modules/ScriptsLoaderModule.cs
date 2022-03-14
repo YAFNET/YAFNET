@@ -67,7 +67,7 @@ namespace YAF.Modules
         /// </summary>
         private void RegisterJQuery()
         {
-            if (this.PageContext.PageElements.PageElementExists("jquery"))
+            if (this.PageBoardContext.PageElements.PageElementExists("jquery"))
             {
                 return;
             }
@@ -92,10 +92,10 @@ namespace YAF.Modules
 
             if (registerJQuery)
             {
-                this.PageContext.PageElements.AddScriptReference("jquery");
+                this.PageBoardContext.PageElements.AddScriptReference("jquery");
             }
 
-            this.PageContext.PageElements.AddPageElement("jquery");
+            this.PageBoardContext.PageElements.AddPageElement("jquery");
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace YAF.Modules
         private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Load CSS First
-            this.RegisterCssFiles(this.PageContext.BoardSettings.CdvVersion);
+            this.RegisterCssFiles(this.PageBoardContext.BoardSettings.CdvVersion);
         }
 
         /// <summary>
@@ -118,12 +118,12 @@ namespace YAF.Modules
         {
             this.RegisterJQuery();
 
-            if (this.PageContext.Vars.ContainsKey("yafForumExtensions"))
+            if (this.PageBoardContext.Vars.ContainsKey("yafForumExtensions"))
             {
                 return;
             }
 
-            var version = this.PageContext.BoardSettings.CdvVersion;
+            var version = this.PageBoardContext.BoardSettings.CdvVersion;
 
             var forumJsName = Config.IsDotNetNuke ? "ForumExtensionsDnn" : "ForumExtensions";
             var adminForumJsName = Config.IsDotNetNuke ? "ForumAdminExtensionsDnn" : "ForumAdminExtensions";
@@ -152,10 +152,10 @@ namespace YAF.Modules
                     DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
                 });
 
-            this.PageContext.PageElements.AddScriptReference(
-                this.PageContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
+            this.PageBoardContext.PageElements.AddScriptReference(
+                this.PageBoardContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
 
-            this.PageContext.Vars["yafForumExtensions"] = true;
+            this.PageBoardContext.Vars["yafForumExtensions"] = true;
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace YAF.Modules
         /// </param>
         private void RegisterCssFiles(int version)
         {
-            var element = this.PageContext.CurrentForumPage.TopPageControl;
+            var element = this.PageBoardContext.CurrentForumPage.TopPageControl;
 
             element.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
@@ -176,7 +176,7 @@ namespace YAF.Modules
             element.Controls.Add(
                 ControlHelper.MakeCssIncludeControl(
                     BoardInfo.GetURLToContent(
-                        this.PageContext.CurrentForumPage.IsAdminPage
+                        this.PageBoardContext.CurrentForumPage.IsAdminPage
                             ? $"forum-admin.min.css?v={version}"
                             : $"forum.min.css?v={version}")));
         }

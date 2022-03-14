@@ -80,7 +80,7 @@ namespace YAF.Controls
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<LinkBuilder>().Redirect(
-                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
+                this.PageBoardContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
         /// <summary>
@@ -108,9 +108,9 @@ namespace YAF.Controls
             this.LoginInfo.Visible = true;
 
             // End Modifications for enhanced profile
-            this.UserThemeRow.Visible = this.PageContext.BoardSettings.AllowUserTheme;
-            this.UserLanguageRow.Visible = this.PageContext.BoardSettings.AllowUserLanguage;
-            this.LoginInfo.Visible = this.PageContext.BoardSettings.AllowEmailChange;
+            this.UserThemeRow.Visible = this.PageBoardContext.BoardSettings.AllowUserTheme;
+            this.UserLanguageRow.Visible = this.PageBoardContext.BoardSettings.AllowUserLanguage;
+            this.LoginInfo.Visible = this.PageBoardContext.BoardSettings.AllowEmailChange;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -134,7 +134,7 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -142,7 +142,7 @@ namespace YAF.Controls
 
                 if (userFromEmail != null && userFromEmail.Email != this.User.Name)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -152,7 +152,7 @@ namespace YAF.Controls
                 }
                 catch (ApplicationException)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("PROFILE", "DUPLICATED_EMAIL"),
                         MessageTypes.warning);
 
@@ -199,7 +199,7 @@ namespace YAF.Controls
                 this.GetRepository<Registry>().Save(
                     "timezone",
                     this.TimeZones.SelectedValue,
-                    this.PageContext.PageBoardID);
+                    this.PageBoardContext.PageBoardID);
             }
 
             // clear the cache for this user...)
@@ -207,7 +207,7 @@ namespace YAF.Controls
 
             this.Get<IDataCache>().Clear();
 
-            if (!this.PageContext.CurrentForumPage.IsAdminPage)
+            if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
             {
                 this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
             }
@@ -224,12 +224,12 @@ namespace YAF.Controls
         {
             this.TimeZones.DataSource = StaticDataHelper.TimeZones();
 
-            if (this.PageContext.BoardSettings.AllowUserTheme)
+            if (this.PageBoardContext.BoardSettings.AllowUserTheme)
             {
                 this.Theme.DataSource = StaticDataHelper.Themes();
             }
 
-            if (this.PageContext.BoardSettings.AllowUserLanguage)
+            if (this.PageBoardContext.BoardSettings.AllowUserLanguage)
             {
                 this.Culture.DataSource = StaticDataHelper.Cultures();
                 this.Culture.DataValueField = "CultureTag";
@@ -260,11 +260,11 @@ namespace YAF.Controls
                 timeZoneItem.Selected = true;
             }
 
-            if (this.PageContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
+            if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Theme.Items.Count > 0)
             {
                 // Allows to use different per-forum themes,
                 // While "Allow User Change Theme" option in the host settings is true
-                var themeFile = this.PageContext.BoardSettings.Theme;
+                var themeFile = this.PageBoardContext.BoardSettings.Theme;
 
                 if (this.User.ThemeFile.IsSet())
                 {
@@ -289,11 +289,11 @@ namespace YAF.Controls
             }
 
             this.HideMe.Checked = this.User.UserFlags.IsActiveExcluded
-                                  && (this.PageContext.BoardSettings.AllowUserHideHimself || this.PageContext.IsAdmin);
+                                  && (this.PageBoardContext.BoardSettings.AllowUserHideHimself || this.PageBoardContext.IsAdmin);
 
             this.Activity.Checked = this.User.Activity;
 
-            if (!this.PageContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
+            if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || this.Culture.Items.Count <= 0)
             {
                 return;
             }
@@ -319,19 +319,19 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.PageContext.BoardSettings.Language;
-            var culture4Tag = this.PageContext.BoardSettings.Culture;
+            var languageFile = this.PageBoardContext.BoardSettings.Language;
+            var culture4Tag = this.PageBoardContext.BoardSettings.Culture;
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.PageUser.LanguageFile.IsSet())
+                if (this.PageBoardContext.PageUser.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.PageUser.LanguageFile;
+                    languageFile = this.PageBoardContext.PageUser.LanguageFile;
                 }
 
-                if (this.PageContext.PageUser.Culture.IsSet())
+                if (this.PageBoardContext.PageUser.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.PageUser.Culture;
+                    culture4Tag = this.PageBoardContext.PageUser.Culture;
                 }
             }
             else

@@ -185,7 +185,7 @@ namespace YAF.Controls
         {
             // get user roles
             this.UserGroups.DataSource = this.GetRepository<Group>().Member(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.User.Item1.ID);
 
             // bind data to controls

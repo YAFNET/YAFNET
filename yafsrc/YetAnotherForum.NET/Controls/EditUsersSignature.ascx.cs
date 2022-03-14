@@ -91,21 +91,21 @@ namespace YAF.Controls
         {
             get
             {
-                if (this.PageContext.CurrentForumPage.IsAdminPage && this.PageContext.IsAdmin
+                if (this.PageBoardContext.CurrentForumPage.IsAdminPage && this.PageBoardContext.IsAdmin
                                                                   && this.Get<HttpRequestBase>().QueryString.Exists("u"))
                 {
                     return this.Get<LinkBuilder>().StringToIntOrRedirect(
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 }
 
-                if (this.InModeratorMode && (this.PageContext.IsAdmin || this.PageContext.IsForumModerator)
+                if (this.InModeratorMode && (this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator)
                                          && this.Get<HttpRequestBase>().QueryString.Exists("u"))
                 {
                     return this.Get<LinkBuilder>().StringToIntOrRedirect(
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u"));
                 }
 
-                return this.PageContext.PageUserID;
+                return this.PageBoardContext.PageUserID;
             }
         }
 
@@ -158,17 +158,17 @@ namespace YAF.Controls
             }
 
             this.user =
-                this.PageContext.CurrentForumPage.IsAdminPage ||
-                this.PageContext.CurrentForumPage.PageType == ForumPages.UserProfile
+                this.PageBoardContext.CurrentForumPage.IsAdminPage ||
+                this.PageBoardContext.CurrentForumPage.PageType == ForumPages.UserProfile
                     ? this.GetRepository<User>().GetById(this.CurrentUserID)
-                    : this.PageContext.PageUser;
+                    : this.PageBoardContext.PageUser;
 
             this.signatureEditor.Text = this.user.Signature;
 
             this.signaturePreview.Signature = this.signatureEditor.Text;
             this.signaturePreview.DisplayUserID = this.CurrentUserID;
 
-            var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageContext.PageBoardID);
+            var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageBoardContext.PageBoardID);
 
             if (data == null)
             {
@@ -272,7 +272,7 @@ namespace YAF.Controls
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
                         MessageTypes.warning);
                     return;
@@ -280,7 +280,7 @@ namespace YAF.Controls
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -289,12 +289,12 @@ namespace YAF.Controls
             {
                 if (this.signatureEditor.Text.Length <= this.AllowedNumberOfCharacters)
                 {
-                    if (this.user.NumPosts < this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+                    if (this.user.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
                     {
                         // Check for spam
                         if (this.Get<ISpamWordCheck>().CheckForSpamWord(body, out var result))
                         {
-                            switch (this.PageContext.BoardSettings.BotHandlingOnRegister)
+                            switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                             {
                                 // Log and Send Message to Admins
                                 case 1:
@@ -315,7 +315,7 @@ namespace YAF.Controls
                                                  after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.");
 
                                         // Kill user
-                                        if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                                        if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
                                         {
                                             var membershipUser = this.Get<IAspNetUsersHelper>()
                                                 .GetMembershipUserById(this.user.ID);
@@ -337,7 +337,7 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
                         MessageTypes.warning);
 
@@ -352,7 +352,7 @@ namespace YAF.Controls
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));
 
-            if (this.PageContext.CurrentForumPage.IsAdminPage)
+            if (this.PageBoardContext.CurrentForumPage.IsAdminPage)
             {
                 this.BindData();
             }
@@ -382,7 +382,7 @@ namespace YAF.Controls
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
                         MessageTypes.warning);
                     return;
@@ -390,7 +390,7 @@ namespace YAF.Controls
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -402,7 +402,7 @@ namespace YAF.Controls
             }
             else
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
                     MessageTypes.warning);
             }

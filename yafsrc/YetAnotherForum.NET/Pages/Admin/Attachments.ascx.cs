@@ -82,7 +82,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -205,7 +205,7 @@ namespace YAF.Pages.Admin
             // list event for this board
             var list = this.GetRepository<Attachment>().GetByBoardPaged(
                 out var count,
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 currentPageIndex,
                 baseSize);
 

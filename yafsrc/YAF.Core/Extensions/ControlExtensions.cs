@@ -78,7 +78,7 @@ namespace YAF.Core.Extensions
         }
 
         /// <summary>
-        /// Gets PageContext.
+        /// Gets PageBoardContext.
         /// </summary>
         /// <param name="currentControl">
         /// The current Control.
@@ -86,7 +86,7 @@ namespace YAF.Core.Extensions
         /// <returns>
         /// The <see cref="BoardContext"/>.
         /// </returns>
-        public static BoardContext PageContext(this Control currentControl)
+        public static BoardContext PageBoardContext(this Control currentControl)
         {
             return currentControl.Site is { DesignMode: true } ? null : BoardContext.Current;
         }

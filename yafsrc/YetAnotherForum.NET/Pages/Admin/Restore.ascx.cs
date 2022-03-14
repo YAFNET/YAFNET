@@ -88,7 +88,7 @@ namespace YAF.Pages.Admin
             try
             {
                 this.PageSize.SelectedValue =
-                    this.PageSizeMessages.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                    this.PageSizeMessages.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -144,7 +144,7 @@ namespace YAF.Pages.Admin
                     {
                         this.GetRepository<Topic>().Delete(forumId, topicId, true);
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -178,7 +178,7 @@ namespace YAF.Pages.Admin
                             () => new Topic { Flags = flags.BitValue },
                             t => t.ID == topicId);
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
                         topicIds.ForEach(
                             x => this.GetRepository<Topic>().Delete(x.forumId, x.topicId, true));
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.PagerTop.CurrentPageIndex--;
 
@@ -211,12 +211,12 @@ namespace YAF.Pages.Admin
 
                 case "delete_complete":
                     {
-                        var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);
+                        var deletedTopics = this.GetRepository<Topic>().GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
 
                         deletedTopics.ForEach(
                             topic => this.GetRepository<Topic>().Delete(topic.Item2.ForumID, topic.Item2.ID, true));
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -229,7 +229,7 @@ namespace YAF.Pages.Admin
                         deletedTopics.ForEach(
                             topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -270,7 +270,7 @@ namespace YAF.Pages.Admin
                             true,
                             true);
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -288,7 +288,7 @@ namespace YAF.Pages.Admin
                             true,
                             false);
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -318,7 +318,7 @@ namespace YAF.Pages.Admin
                                 true,
                                 true));
 
-                        this.PageContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.PagerTop.CurrentPageIndex--;
 
@@ -363,7 +363,7 @@ namespace YAF.Pages.Admin
             this.PagerMessages.PageSize = this.PageSizeMessages.SelectedValue.ToType<int>();
 
             var deletedTopics = this.GetRepository<Topic>()
-                .GetDeletedTopics(this.PageContext.PageBoardID, this.Filter.Text);
+                .GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
 
             var count = deletedTopics.Count;
 
@@ -377,7 +377,7 @@ namespace YAF.Pages.Admin
                                       : 0;
 
             var deletedMessages = this.GetRepository<Message>()
-                .GetDeletedMessages(this.PageContext.PageBoardID);
+                .GetDeletedMessages(this.PageBoardContext.PageBoardID);
 
             count = deletedMessages.Count;
 

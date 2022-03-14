@@ -91,8 +91,8 @@ namespace YAF.Pages.Profile
 
             this.BindData();
 
-            this.DailyDigestRow.Visible = this.PageContext.BoardSettings.AllowDigestEmail;
-            this.PMNotificationRow.Visible = this.PageContext.BoardSettings.AllowPMEmailNotification;
+            this.DailyDigestRow.Visible = this.PageBoardContext.BoardSettings.AllowDigestEmail;
+            this.PMNotificationRow.Visible = this.PageBoardContext.BoardSettings.AllowPMEmailNotification;
 
             var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
@@ -101,7 +101,7 @@ namespace YAF.Pages.Profile
 
             var setting =
                 this.rblNotificationType.Items.FindByValue(
-                    this.PageContext.PageUser.NotificationSetting.ToInt().ToString())
+                    this.PageBoardContext.PageUser.NotificationSetting.ToInt().ToString())
                 ?? this.rblNotificationType.Items.FindByValue(0.ToString());
 
             if (setting != null)
@@ -110,7 +110,7 @@ namespace YAF.Pages.Profile
             }
 
             // update the ui...
-            this.UpdateSubscribeUi(this.PageContext.PageUser.NotificationSetting);
+            this.UpdateSubscribeUi(this.PageBoardContext.PageUser.NotificationSetting);
         }
 
         /// <summary>
@@ -119,7 +119,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
@@ -163,15 +163,15 @@ namespace YAF.Pages.Profile
 
             // save the settings...
             this.GetRepository<User>().SaveNotification(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 this.PMNotificationEnabled.Checked,
                 autoWatchTopicsEnabled,
                 this.rblNotificationType.SelectedValue.ToType<int>(),
                 this.DailyDigestEnabled.Checked);
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-            this.PageContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
+            this.PageBoardContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace YAF.Pages.Profile
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.warning);
             }
         }
 
@@ -210,7 +210,7 @@ namespace YAF.Pages.Profile
             }
             else
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.warning);
             }
         }
 
@@ -290,8 +290,8 @@ namespace YAF.Pages.Profile
 
             this.BindDataTopics();
 
-            this.PMNotificationEnabled.Checked = this.PageContext.PageUser.PMNotification;
-            this.DailyDigestEnabled.Checked = this.PageContext.PageUser.DailyDigest;
+            this.PMNotificationEnabled.Checked = this.PageBoardContext.PageUser.PMNotification;
+            this.DailyDigestEnabled.Checked = this.PageBoardContext.PageUser.DailyDigest;
 
             this.DataBind();
         }
@@ -304,7 +304,7 @@ namespace YAF.Pages.Profile
             this.PagerForums.PageSize = this.PageSizeForums.SelectedValue.ToType<int>();
 
             var list = this.GetRepository<WatchForum>().List(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 this.PagerForums.CurrentPageIndex,
                 this.PagerForums.PageSize);
 
@@ -321,7 +321,7 @@ namespace YAF.Pages.Profile
 
             this.PagerForums.Count = list.Any()
                 ? this.GetRepository<WatchForum>()
-                    .Count(x => x.UserID == this.PageContext.PageUserID).ToType<int>()
+                    .Count(x => x.UserID == this.PageBoardContext.PageUserID).ToType<int>()
                 : 0;
 
             this.ForumList.DataBind();
@@ -346,7 +346,7 @@ namespace YAF.Pages.Profile
             this.PagerTopics.PageSize = this.PageSizeTopics.SelectedValue.ToType<int>();
 
             var list = this.GetRepository<WatchTopic>().List(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 this.PagerTopics.CurrentPageIndex,
                 this.PagerTopics.PageSize);
 
@@ -363,7 +363,7 @@ namespace YAF.Pages.Profile
 
             this.PagerTopics.Count = list.Any()
                 ? this.GetRepository<WatchTopic>()
-                    .Count(x => x.UserID == this.PageContext.PageUserID).ToType<int>()
+                    .Count(x => x.UserID == this.PageBoardContext.PageUserID).ToType<int>()
                 : 0;
 
             this.TopicList.DataBind();

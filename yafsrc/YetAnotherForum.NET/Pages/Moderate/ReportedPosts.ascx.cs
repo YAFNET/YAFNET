@@ -79,7 +79,7 @@ namespace YAF.Pages.Moderate
             this.PageLinks.AddLink(this.GetText("MODERATE_DEFAULT", "TITLE"), this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
             // current page
-            this.PageLinks.AddLink(this.PageContext.PageForum.Name);
+            this.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace YAF.Pages.Moderate
         private void BindData()
         {
             // get reported posts for this forum
-            var dt = this.GetRepository<MessageReported>().ListReported(this.PageContext.PageForumID);
+            var dt = this.GetRepository<MessageReported>().ListReported(this.PageBoardContext.PageForumID);
 
             if (!dt.Any())
             {
@@ -178,7 +178,7 @@ namespace YAF.Pages.Moderate
 
                     // delete message
                     this.GetRepository<Message>().Delete(
-                        this.PageContext.PageForumID,
+                        this.PageBoardContext.PageForumID,
                         topicId,
                         messageId,
                         true,
@@ -187,7 +187,7 @@ namespace YAF.Pages.Moderate
                         true);
 
                     // tell user message was deleted
-                    this.PageContext.LoadMessage.AddSession(this.GetText("DELETED"), MessageTypes.info);
+                    this.PageBoardContext.LoadMessage.AddSession(this.GetText("DELETED"), MessageTypes.info);
                     break;
                 case "view":
 
@@ -206,15 +206,15 @@ namespace YAF.Pages.Moderate
                 case "viewhistory":
 
                     // go to history page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.MessageHistory, new { f = this.PageContext.PageForumID, m = e.CommandArgument });
+                    this.Get<LinkBuilder>().Redirect(ForumPages.MessageHistory, new { f = this.PageBoardContext.PageForumID, m = e.CommandArgument });
                     break;
                 case "resolved":
 
                     // mark message as resolved
-                    this.GetRepository<Message>().ReportResolve(e.CommandArgument.ToType<int>(), this.PageContext.PageUserID);
+                    this.GetRepository<Message>().ReportResolve(e.CommandArgument.ToType<int>(), this.PageBoardContext.PageUserID);
 
                     // tell user message was flagged as resolved
-                    this.PageContext.LoadMessage.AddSession(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
+                    this.PageBoardContext.LoadMessage.AddSession(this.GetText("RESOLVEDFEEDBACK"), MessageTypes.success);
                     break;
             }
 

@@ -62,7 +62,7 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
             base.OnPreRender(e);
         }
@@ -94,7 +94,7 @@ namespace YAF.Controls
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -265,7 +265,7 @@ namespace YAF.Controls
         {
             this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
 
-            var stream = this.GetRepository<Activity>().Timeline(this.PageContext.PageUserID);
+            var stream = this.GetRepository<Activity>().Timeline(this.PageBoardContext.PageUserID);
 
             if (!this.CreatedTopic.Checked)
             {

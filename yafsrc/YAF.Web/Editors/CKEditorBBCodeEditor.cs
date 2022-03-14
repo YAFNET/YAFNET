@@ -74,9 +74,9 @@ namespace YAF.Web.Editors
         /// </summary>
         protected override void RegisterCKEditorCustomJS()
         {
-            var toolbar = this.PageContext.BoardSettings.EditorToolbarFull;
+            var toolbar = this.PageBoardContext.BoardSettings.EditorToolbarFull;
 
-            if (!(this.PageContext.BoardSettings.EnableAlbum && this.PageContext.NumAlbums > 0))
+            if (!(this.PageBoardContext.BoardSettings.EnableAlbum && this.PageBoardContext.NumAlbums > 0))
             {
                 // remove albums
                 toolbar = toolbar.Replace(", \"albumsbrowser\"", string.Empty);
@@ -84,11 +84,11 @@ namespace YAF.Web.Editors
 
             var language = BoardContext.Current.PageUser.Culture.IsSet()
                 ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
-                : this.PageContext.BoardSettings.Culture.Substring(0, 2);
+                : this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
 
             if (ValidationHelper.IsNumeric(language))
             {
-                language = this.PageContext.BoardSettings.Culture;
+                language = this.PageBoardContext.BoardSettings.Culture;
             }
 
             BoardContext.Current.PageElements.RegisterJsBlock(
@@ -100,7 +100,7 @@ namespace YAF.Web.Editors
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),
                     toolbar,
-                    this.PageContext.UploadAccess));
+                    this.PageBoardContext.UploadAccess));
         }
 
         #endregion

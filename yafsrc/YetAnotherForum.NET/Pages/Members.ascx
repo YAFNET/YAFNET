@@ -180,14 +180,14 @@
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1 text-break">
                                         <img src="<%# this.GetAvatarUrlFileName(((PagedUser)Container.DataItem).UserID, ((PagedUser)Container.DataItem).Avatar, ((PagedUser)Container.DataItem).AvatarImage != null) %>" 
-                                             alt="<%# this.HtmlEncode(this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name) %>"
-                                             title="<%# this.HtmlEncode(this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name) %>"
+                                             alt="<%# this.HtmlEncode(this.PageBoardContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name) %>"
+                                             title="<%# this.HtmlEncode(this.PageBoardContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name) %>"
                                              class="rounded img-fluid"
                                              style="max-height: 50px; max-width:50px"/>
                                         <YAF:UserLink ID="UserProfileLink" runat="server"
                                                       Suspended="<%# ((PagedUser)Container.DataItem).Suspended %>"
                                                       IsGuest="False"
-                                                      ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name %>"
+                                                      ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? ((PagedUser)Container.DataItem).DisplayName : ((PagedUser)Container.DataItem).Name %>"
                                                       UserID="<%# ((PagedUser)Container.DataItem).UserID %>"
                                                       Style="<%# ((PagedUser)Container.DataItem).UserStyle %>" />
                                     </h5>

@@ -68,8 +68,8 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess
-                || !this.PageContext.BoardSettings.AllowEmailTopic)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess
+                || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -79,11 +79,11 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.SendEmail.ClientID));
 
-            this.Subject.Text = this.PageContext.PageTopic.TopicName;
+            this.Subject.Text = this.PageBoardContext.PageTopic.TopicName;
 
             var emailTopic = new TemplateEmail("EMAILTOPIC")
             {
@@ -91,8 +91,8 @@ namespace YAF.Pages
                 {
                     ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                         ForumPages.Posts,
-                        new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName }),
-                    ["{user}"] = this.PageContext.PageUser.DisplayOrUserName()
+                        new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName }),
+                    ["{user}"] = this.PageBoardContext.PageUser.DisplayOrUserName()
                 }
             };
 
@@ -104,18 +104,18 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            if (this.PageContext.Settings.LockedForum == 0)
+            if (this.PageBoardContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
 
-                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
             }
 
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
 
             this.PageLinks.AddLink(
-                this.PageContext.PageTopic.TopicName,
-                this.Get<LinkBuilder>().GetTopicLink(this.PageContext.PageTopicID, this.PageContext.PageTopic.TopicName));
+                this.PageBoardContext.PageTopic.TopicName,
+                this.Get<LinkBuilder>().GetTopicLink(this.PageBoardContext.PageTopicID, this.PageBoardContext.PageTopic.TopicName));
         }
 
         /// <summary>
@@ -137,12 +137,12 @@ namespace YAF.Pages
 
                 this.Get<LinkBuilder>().Redirect(
                     ForumPages.Posts,
-                    new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
+                    new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
             }
             catch (Exception x)
             {
-                this.Logger.Log(this.PageContext.PageUserID, this, x);
-                this.PageContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+                this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
+                this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
             }
         }
 

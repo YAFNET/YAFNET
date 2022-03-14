@@ -159,7 +159,7 @@ namespace YAF.Web.Controls
                             Suspended = user.Suspended,
                             UserID = user.UserID,
                             Style = user.UserStyle,
-                            ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                            ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
                                 ? user.UserDisplayName
                                 : user.UserName
                         };
@@ -168,20 +168,20 @@ namespace YAF.Web.Controls
 
                     // how many users of this type is present (valid for guests, others have it 1)
                     var userCount = user.UserCount;
-                    if (userCount > 1 && (!isCrawler || !this.PageContext.BoardSettings.ShowCrawlersInActiveList))
+                    if (userCount > 1 && (!isCrawler || !this.PageBoardContext.BoardSettings.ShowCrawlersInActiveList))
                     {
                         // add postfix if there is more the one user of this name
                         userLink.PostfixText = $" ({userCount})";
                     }
 
                     // if user is guest and guest should be hidden
-                    var addControl = !(!user.IsGuest && !this.PageContext.IsAdmin);
+                    var addControl = !(!user.IsGuest && !this.PageBoardContext.IsAdmin);
 
                     // we might not want to add this user link if user is marked as hidden
                     if (user.IsActiveExcluded)
                     {
                         // hidden user are always visible to admin and himself)
-                        if (this.PageContext.IsAdmin || userLink.UserID == this.PageContext.PageUserID)
+                        if (this.PageBoardContext.IsAdmin || userLink.UserID == this.PageBoardContext.PageUserID)
                         {
                             userLink.PostfixText = "  <i class=\"fas fa-user-secret\"></i>";
                         }

@@ -79,7 +79,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -96,7 +96,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
+            this.PageLinks.AddLink(this.PageBoardContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "TITLE"), string.Empty);
         }
@@ -119,13 +119,13 @@ namespace YAF.Pages.Admin
             }
 
             this.GetRepository<Board>().Save(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.Name.Text,
                 languageFile,
                 this.Culture.SelectedValue);
 
             // save poll group
-            var boardSettings = new LoadBoardSettings(this.PageContext.PageBoardID)
+            var boardSettings = new LoadBoardSettings(this.PageBoardContext.PageBoardID)
                 {
                     Language = languageFile, Culture = this.Culture.SelectedValue,
                     Theme = this.Theme.SelectedValue,
@@ -165,10 +165,10 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void IncreaseVersionOnClick(object sender, EventArgs e)
         {
-            this.PageContext.BoardSettings.CdvVersion++;
-            ((LoadBoardSettings)this.PageContext.BoardSettings).SaveRegistry();
+            this.PageBoardContext.BoardSettings.CdvVersion++;
+            ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
 
-            this.CdvVersion.Text = this.PageContext.BoardSettings.CdvVersion.ToString();
+            this.CdvVersion.Text = this.PageBoardContext.BoardSettings.CdvVersion.ToString();
         }
 
         /// <summary>
@@ -198,7 +198,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var board = this.GetRepository<Board>().GetById(this.PageContext.PageBoardID);
+            var board = this.GetRepository<Board>().GetById(this.PageBoardContext.PageBoardID);
 
             var logos = new List<NamedParameter> {
                 new(this.GetText("BOARD_LOGO_SELECT"), string.Empty)
@@ -220,7 +220,7 @@ namespace YAF.Pages.Admin
 
             this.Name.Text = board.Name;
 
-            var boardSettings = this.PageContext.BoardSettings;
+            var boardSettings = this.PageBoardContext.BoardSettings;
 
             this.CdvVersion.Text = boardSettings.CdvVersion.ToString();
 

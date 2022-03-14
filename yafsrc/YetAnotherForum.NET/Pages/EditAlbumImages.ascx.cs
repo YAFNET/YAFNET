@@ -86,17 +86,17 @@ namespace YAF.Pages
                 {
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Album,
-                        new { u = this.PageContext.PageUserID, a = albumId });
+                        new { u = this.PageBoardContext.PageUserID, a = albumId });
                 }
                 else
                 {
                     // simply redirect to albums page
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageContext.PageUserID });
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
                 }
             }
             else
             {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageContext.PageUserID });
+                this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
             }
         }
 
@@ -126,7 +126,7 @@ namespace YAF.Pages
                     this.Get<IAlbum>().AlbumImageDelete(
                         path,
                         null,
-                        this.PageContext.PageUserID,
+                        this.PageBoardContext.PageUserID,
                         e.CommandArgument.ToType<int>());
 
                     // If the user is trying to edit an existing album, initialize the repeater.
@@ -134,8 +134,8 @@ namespace YAF.Pages
                         this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a").Equals("new"));
 
                     var data = this.GetRepository<User>().MaxAlbumData(
-                        this.PageContext.PageUserID,
-                        this.PageContext.PageBoardID);
+                        this.PageBoardContext.PageUserID,
+                        this.PageBoardContext.PageBoardID);
 
                     var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
@@ -155,7 +155,7 @@ namespace YAF.Pages
                             "IMAGES_INFO",
                             this.List.Items.Count,
                             usrAlbumImagesAllowed,
-                            this.PageContext.BoardSettings.AlbumImagesSizeMax / 1024);
+                            this.PageBoardContext.BoardSettings.AlbumImagesSizeMax / 1024);
                     }
                     else
                     {
@@ -173,12 +173,12 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.BoardSettings.EnableAlbum)
+            if (!this.PageBoardContext.BoardSettings.EnableAlbum)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Upload.ClientID));
 
@@ -188,12 +188,12 @@ namespace YAF.Pages
             }
 
             var data = this.GetRepository<User>().MaxAlbumData(
-                this.PageContext.PageUserID,
-                this.PageContext.PageBoardID);
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageBoardID);
 
             var usrAlbumsAllowed = (int)data.UserAlbumImages;
 
-            var albumSize = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageContext.PageUserID);
+            var albumSize = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageBoardContext.PageUserID);
 
             switch (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a"))
             {
@@ -228,7 +228,7 @@ namespace YAF.Pages
                     "IMAGES_INFO",
                     this.List.Items.Count,
                     usrAlbumImagesAllowed,
-                    this.PageContext.BoardSettings.AlbumImagesSizeMax / 1024);
+                    this.PageBoardContext.BoardSettings.AlbumImagesSizeMax / 1024);
             }
             else
             {
@@ -241,14 +241,14 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            var displayName = this.PageContext.PageUser.DisplayOrUserName();
+            var displayName = this.PageBoardContext.PageUser.DisplayOrUserName();
 
             // Add the page links.
             this.PageLinks.AddRoot();
-            this.PageLinks.AddUser(this.PageContext.PageUserID, displayName);
+            this.PageLinks.AddUser(this.PageBoardContext.PageUserID, displayName);
             this.PageLinks.AddLink(
                 this.GetText("ALBUMS"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.PageContext.PageUserID }));
+                this.Get<LinkBuilder>().GetLink(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID }));
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
         }
 
@@ -286,8 +286,8 @@ namespace YAF.Pages
                 this.BindData();
 
                 var data = this.GetRepository<User>().MaxAlbumData(
-                    this.PageContext.PageUserID,
-                    this.PageContext.PageBoardID);
+                    this.PageBoardContext.PageUserID,
+                    this.PageBoardContext.PageBoardID);
 
                 var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
 
@@ -301,7 +301,7 @@ namespace YAF.Pages
                         "IMAGES_INFO",
                         this.List.Items.Count,
                         usrAlbumImagesAllowed,
-                        this.PageContext.BoardSettings.AlbumImagesSizeMax / 1024);
+                        this.PageBoardContext.BoardSettings.AlbumImagesSizeMax / 1024);
                 }
                 else
                 {
@@ -312,8 +312,8 @@ namespace YAF.Pages
             {
                 if (x.GetType() != typeof(ThreadAbortException))
                 {
-                    this.Logger.Log(this.PageContext.PageUserID, this, x);
-                    this.PageContext.AddLoadMessage(x.Message, MessageTypes.danger);
+                    this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
+                    this.PageBoardContext.AddLoadMessage(x.Message, MessageTypes.danger);
                 }
             }
         }
@@ -385,7 +385,7 @@ namespace YAF.Pages
                 return true;
             }
 
-            this.PageContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
+            this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
             return false;
         }
 
@@ -426,17 +426,17 @@ namespace YAF.Pages
             }
 
             // verify the size of the attachment
-            if (this.PageContext.BoardSettings.AlbumImagesSizeMax > 0
-                && file.PostedFile.ContentLength > this.PageContext.BoardSettings.AlbumImagesSizeMax)
+            if (this.PageBoardContext.BoardSettings.AlbumImagesSizeMax > 0
+                && file.PostedFile.ContentLength > this.PageBoardContext.BoardSettings.AlbumImagesSizeMax)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ERROR_TOOBIG"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ERROR_TOOBIG"), MessageTypes.danger);
                 return;
             }
 
             // vzrus: the checks here are useless but in a case...
             var data = this.GetRepository<User>().MaxAlbumData(
-                this.PageContext.PageUserID,
-                this.PageContext.PageBoardID);
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageBoardID);
 
             var usrAlbumsAllowed = (int)data.UserAlbum;
             var usrAlbumImagesAllowed = (int)data.UserAlbumImages;
@@ -444,22 +444,22 @@ namespace YAF.Pages
             // if (!usrAlbums.HasValue || usrAlbums <= 0) return;
             if (this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a") == "new")
             {
-                var allStats = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageContext.PageUserID);
+                var allStats = this.GetRepository<UserAlbum>().CountUserAlbum(this.PageBoardContext.PageUserID);
 
                 // Albums count. If we reached limit then we exit.
                 if (allStats >= usrAlbumsAllowed)
                 {
-                    this.PageContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
                     return;
                 }
 
                 var newAlbumId = this.GetRepository<UserAlbum>().Save(
-                    this.PageContext.PageUserID,
+                    this.PageBoardContext.PageUserID,
                     this.txtTitle.Text,
                     null);
 
                 file.PostedFile.SaveAs(
-                    $"{path}/{this.PageContext.PageUserID}.{newAlbumId.ToString()}.{filename}.yafalbum");
+                    $"{path}/{this.PageBoardContext.PageUserID}.{newAlbumId.ToString()}.{filename}.yafalbum");
 
                 this.GetRepository<UserAlbumImage>().Save(
                     null,
@@ -470,7 +470,7 @@ namespace YAF.Pages
                     file.PostedFile.ContentType);
 
                 // clear the cache for this user to update albums|images stats...
-                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+                this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
                 this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, new { a = newAlbumId });
             }
@@ -483,12 +483,12 @@ namespace YAF.Pages
                 // Images count. If we reached limit then we exit.
                 if (allStats >= usrAlbumImagesAllowed)
                 {
-                    this.PageContext.AddLoadMessage(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
                     return;
                 }
 
                 file.PostedFile.SaveAs(
-                    $"{path}/{this.PageContext.PageUserID}.{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a")}.{filename}.yafalbum");
+                    $"{path}/{this.PageBoardContext.PageUserID}.{this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("a")}.{filename}.yafalbum");
                 this.GetRepository<UserAlbumImage>().Save(
                     null,
                     this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAs<int>("a"),
@@ -510,13 +510,13 @@ namespace YAF.Pages
             this.Get<IAlbum>().AlbumImageDelete(
                 path,
                 this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("a"),
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 null);
 
             // clear the cache for this user to update albums|images stats...
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageContext.PageUserID });
+            this.Get<LinkBuilder>().Redirect(ForumPages.Albums, new { u = this.PageBoardContext.PageUserID });
         }
 
         #endregion

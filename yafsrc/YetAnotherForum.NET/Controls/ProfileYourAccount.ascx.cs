@@ -67,24 +67,24 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var groups = this.GetRepository<UserGroup>().List(this.PageContext.PageUserID);
+            var groups = this.GetRepository<UserGroup>().List(this.PageBoardContext.PageUserID);
 
             this.Groups.DataSource = groups;
 
             this.DataBind();
 
             // TitleUserName.Text = HtmlEncode( userData.Membership.UserName );
-            this.AccountEmail.Text = this.PageContext.PageUser.Email;
-            this.Name.Text = this.HtmlEncode(this.PageContext.PageUser.Name);
-            this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageContext.PageUser.Joined);
-            this.NumPosts.Text = $@"{this.PageContext.PageUser.NumPosts:N0}";
+            this.AccountEmail.Text = this.PageBoardContext.PageUser.Email;
+            this.Name.Text = this.HtmlEncode(this.PageBoardContext.PageUser.Name);
+            this.Joined.Text = this.Get<IDateTimeService>().FormatDateTime(this.PageBoardContext.PageUser.Joined);
+            this.NumPosts.Text = $@"{this.PageBoardContext.PageUser.NumPosts:N0}";
 
-            this.DisplayNameHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
+            this.DisplayNameHolder.Visible = this.PageBoardContext.BoardSettings.EnableDisplayName;
 
-            if (this.PageContext.BoardSettings.EnableDisplayName)
+            if (this.PageBoardContext.BoardSettings.EnableDisplayName)
             {
                 this.DisplayName.Text =
-                  this.HtmlEncode(this.PageContext.PageUser.DisplayOrUserName());
+                  this.HtmlEncode(this.PageBoardContext.PageUser.DisplayOrUserName());
             }
 
             var avatarImg = this.Get<IAvatars>().GetAvatarUrlForCurrentUser();
@@ -92,8 +92,8 @@ namespace YAF.Controls
             if (avatarImg.IsSet())
             {
                 this.AvatarImage.ImageUrl = avatarImg;
-                this.AvatarImage.Attributes.CssStyle.Add("max-width", this.PageContext.BoardSettings.AvatarWidth.ToString());
-                this.AvatarImage.Attributes.CssStyle.Add("max-height", this.PageContext.BoardSettings.AvatarHeight.ToString());
+                this.AvatarImage.Attributes.CssStyle.Add("max-width", this.PageBoardContext.BoardSettings.AvatarWidth.ToString());
+                this.AvatarImage.Attributes.CssStyle.Add("max-height", this.PageBoardContext.BoardSettings.AvatarHeight.ToString());
             }
             else
             {

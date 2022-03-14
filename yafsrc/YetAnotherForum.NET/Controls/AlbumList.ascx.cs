@@ -84,15 +84,15 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.User.ID == this.PageContext.PageUserID)
+            if (this.User.ID == this.PageBoardContext.PageUserID)
             {
                 // Register Js Blocks.
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "AlbumEventsJs",
                     JavaScriptBlocks.AlbumEventsJs(
                         this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
                         this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
             }
 
@@ -116,22 +116,22 @@ namespace YAF.Controls
             this.BindData();
 
             var userAlbum = (int)this.GetRepository<User>().MaxAlbumData(
-                this.PageContext.PageUserID,
-                this.PageContext.PageBoardID).UserAlbum;
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageBoardID).UserAlbum;
 
             // Show Albums Max Info
-            if (this.User.ID == this.PageContext.PageUserID)
+            if (this.User.ID == this.PageBoardContext.PageUserID)
             {
                 this.albumsInfo.Text = this.Get<ILocalization>().GetTextFormatted(
-                    "ALBUMS_INFO", this.PageContext.NumAlbums, userAlbum);
-                if (userAlbum > this.PageContext.NumAlbums)
+                    "ALBUMS_INFO", this.PageBoardContext.NumAlbums, userAlbum);
+                if (userAlbum > this.PageBoardContext.NumAlbums)
                 {
                     this.AddAlbum.Visible = true;
                 }
 
                 this.albumsInfo.Text = userAlbum > 0
                                            ? this.Get<ILocalization>().GetTextFormatted(
-                                               "ALBUMS_INFO", this.PageContext.NumAlbums, userAlbum)
+                                               "ALBUMS_INFO", this.PageBoardContext.NumAlbums, userAlbum)
                                            : this.Get<ILocalization>().GetText("ALBUMS_NOTALLOWED");
 
                 this.albumsInfo.Visible = true;
@@ -161,7 +161,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.PageContext.BoardSettings.AlbumsPerPage;
+            this.PagerTop.PageSize = this.PageBoardContext.BoardSettings.AlbumsPerPage;
 
             // set the Data table
             var albums = this.GetRepository<UserAlbum>().ListByUserPaged(this.User.ID, this.PagerTop.CurrentPageIndex, this.PagerTop.PageSize);

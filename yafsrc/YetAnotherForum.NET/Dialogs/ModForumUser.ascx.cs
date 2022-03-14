@@ -89,11 +89,11 @@ namespace YAF.Dialogs
             IList<AccessMask> masks;
 
             // only admin can assign all access masks
-            if (!this.PageContext.IsAdmin)
+            if (!this.PageBoardContext.IsAdmin)
             {
                 // non-admins cannot assign moderation access masks
                 masks = this.GetRepository<AccessMask>()
-                    .Get(a => a.BoardID == this.PageContext.PageBoardID && a.AccessFlags.ModeratorAccess);
+                    .Get(a => a.BoardID == this.PageBoardContext.PageBoardID && a.AccessFlags.ModeratorAccess);
             }
             else
             {
@@ -144,12 +144,12 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumModeratorAccess)
             {
                 this.Visible = false;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.SelectUsersLoadJs),
                 JavaScriptBlocks.SelectUsersLoadJs(
                     this.ToList.ClientID,
@@ -171,7 +171,7 @@ namespace YAF.Dialogs
             // no user was specified
             if (this.UserName.Text.Length <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
@@ -181,24 +181,24 @@ namespace YAF.Dialogs
             // there is no such user or reference is ambiguous
             if (user == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
             if (user.UserFlags.IsGuest)
             {
-                this.PageContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
                 return;
             }
 
             // save permission
             this.GetRepository<UserForum>().Save(
                 user.ID,
-                this.PageContext.PageForumID,
+                this.PageBoardContext.PageForumID,
                 this.AccessMaskID.SelectedValue.ToType<int>());
 
             // redirect to forum moderation page
-            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageContext.PageForumID });
+            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Forums, new { f = this.PageBoardContext.PageForumID });
         }
 
         #endregion

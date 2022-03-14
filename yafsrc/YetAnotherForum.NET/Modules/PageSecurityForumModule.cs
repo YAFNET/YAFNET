@@ -78,7 +78,7 @@ namespace YAF.Modules
             }
 
             // check if login is required
-            if (this.PageContext.BoardSettings.RequireLogin && this.PageContext.IsGuest
+            if (this.PageBoardContext.BoardSettings.RequireLogin && this.PageBoardContext.IsGuest
                                                             && this.CurrentForumPage.IsProtected)
             {
                 // redirect to login page if login is required
@@ -92,14 +92,14 @@ namespace YAF.Modules
             }
 
             // not totally necessary... but provides another layer of protection...
-            if (this.CurrentForumPage.IsAdminPage && !this.PageContext.IsAdmin)
+            if (this.CurrentForumPage.IsAdminPage && !this.PageBoardContext.IsAdmin)
             {
                 this.Get<LinkBuilder>().AccessDenied();
                 return;
             }
 
             // handle security features...
-            if (this.CurrentForumPage.PageType == ForumPages.Account_Register && this.PageContext.BoardSettings.DisableRegistrations)
+            if (this.CurrentForumPage.PageType == ForumPages.Account_Register && this.PageBoardContext.BoardSettings.DisableRegistrations)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }

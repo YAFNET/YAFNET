@@ -19,7 +19,7 @@
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">
                             <i class="fa fa-user-secret fa-fw"></i>&nbsp;
-                            <%# this.HtmlEncode(this.PageContext.BoardSettings.EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
+                            <%# this.HtmlEncode(this.PageBoardContext.BoardSettings.EnableDisplayName ? this.Eval("DisplayName") : this.Eval("Name"))%>
                         </h5>
                     </div>
                     <small>

@@ -15,7 +15,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
         <a class="navbar-brand mb-1" href="<%=this.Get<LinkBuilder>().GetLink(ForumPages.Board) %>">
-            <%= this.PageContext.BoardSettings.Name %>
+            <%= this.PageBoardContext.BoardSettings.Name %>
         </a>
         
         <button class="navbar-toggler" type="button" 
@@ -50,7 +50,7 @@
                             <ul class="dropdown-menu" aria-labelledby="hostDropdown">
                                 <li>
                                     <a href="<%= this.Get<LinkBuilder>().GetLink(ForumPages.Admin_HostSettings) %>"
-                                       class="<%= this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_HostSettings ? "dropdown-item active" : "dropdown-item" %>">
+                                       class="<%= this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_HostSettings ? "dropdown-item active" : "dropdown-item" %>">
                                         <YAF:Icon runat="server" IconName="cog" />
                                         <YAF:LocalizedLabel runat="server" 
                                                             LocalizedTag="admin_hostsettings" />
@@ -58,7 +58,7 @@
                                 </li>
                                 <li>
                                     <a href="<%= this.Get<LinkBuilder>().GetLink(ForumPages.Admin_Boards) %>"
-                                       class="<%= this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_Boards || this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_EditBoard ? "dropdown-item active" : "dropdown-item" %>">
+                                       class="<%= this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_Boards || this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_EditBoard ? "dropdown-item active" : "dropdown-item" %>">
                                         <YAF:Icon runat="server" IconName="globe" />
                                         <YAF:LocalizedLabel runat="server" 
                                                             LocalizedTag="admin_boards" LocalizedPage="adminmenu"></YAF:LocalizedLabel>
@@ -66,7 +66,7 @@
                                 </li>
                                 <li>
                                     <a href="<%= this.Get<LinkBuilder>().GetLink(ForumPages.Admin_PageAccessList) %>"
-                                       class="<%= this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_PageAccessList || this.PageContext.CurrentForumPage.PageType == ForumPages.Admin_PageAccessEdit ? "dropdown-item active" : "dropdown-item" %>">
+                                       class="<%= this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_PageAccessList || this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_PageAccessEdit ? "dropdown-item active" : "dropdown-item" %>">
                                         <YAF:Icon runat="server" IconName="building" />
                                         <YAF:LocalizedLabel runat="server" 
                                                             LocalizedTag="admin_pageaccesslist"/>

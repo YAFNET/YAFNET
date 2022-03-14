@@ -66,7 +66,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.BoardSettings.ShowAtomLink)
+            if (!this.PageBoardContext.BoardSettings.ShowAtomLink)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }

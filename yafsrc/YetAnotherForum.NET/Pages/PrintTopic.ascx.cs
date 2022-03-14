@@ -99,7 +99,7 @@ namespace YAF.Pages
         {
             var row = (PagedMessage)o;
             return
-                $"<strong>{this.GetText("postedby")}: {(this.PageContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTimeService>().FormatDateTime(row.Posted)}";
+                $"<strong>{this.GetText("postedby")}: {(this.PageBoardContext.BoardSettings.EnableDisplayName ? row.DisplayName : row.UserName)}</strong> - {this.Get<IDateTimeService>().FormatDateTime(row.Posted)}";
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageContext.ForumReadAccess)
+            if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -125,12 +125,12 @@ namespace YAF.Pages
                 return;
             }
 
-            var showDeleted = this.PageContext.BoardSettings.ShowDeletedMessagesToAll;
+            var showDeleted = this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
 
             var posts = this.GetRepository<Message>().PostListPaged(
-                this.PageContext.PageTopicID,
-                this.PageContext.PageUserID,
-                !this.PageContext.IsCrawler,
+                this.PageBoardContext.PageTopicID,
+                this.PageBoardContext.PageUserID,
+                !this.PageBoardContext.IsCrawler,
                 showDeleted,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
@@ -148,14 +148,14 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            if (this.PageContext.Settings.LockedForum == 0)
+            if (this.PageBoardContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
             }
 
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
-            this.PageLinks.AddTopic(this.PageContext.PageTopic.TopicName, this.PageContext.PageTopicID);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
+            this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
         }
 
         #endregion

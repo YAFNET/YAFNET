@@ -133,18 +133,18 @@ namespace YAF.Web.Controls
         /// </returns>
         protected string GetPageUrl(int page)
         {
-            var url = this.PageContext.CurrentForumPage.PageType switch
+            var url = this.PageBoardContext.CurrentForumPage.PageType switch
             {
                 ForumPages.Topics => page > 1
                     ? this.Get<LinkBuilder>().GetLink(
                         ForumPages.Topics,
-                        new { f = this.PageContext.PageForumID, p = page, name = this.PageContext.PageForum.Name })
+                        new { f = this.PageBoardContext.PageForumID, p = page, name = this.PageBoardContext.PageForum.Name })
                     : this.Get<LinkBuilder>().GetLink(
                         ForumPages.Topics,
-                        new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name }),
+                        new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name }),
                 ForumPages.Posts => this.Get<LinkBuilder>().GetLink(
                     ForumPages.Posts,
-                    new { t = this.PageContext.PageTopicID, p = page, name = this.PageContext.PageTopic.TopicName }),
+                    new { t = this.PageBoardContext.PageTopicID, p = page, name = this.PageBoardContext.PageTopic.TopicName }),
                 _ => string.Empty
             };
 

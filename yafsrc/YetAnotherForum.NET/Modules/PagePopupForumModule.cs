@@ -80,7 +80,7 @@ namespace YAF.Modules
         /// </summary>
         protected void RegisterLoadString()
         {
-            var message = this.PageContext.LoadMessage.GetMessage();
+            var message = this.PageBoardContext.LoadMessage.GetMessage();
 
             if (message == null)
             {
@@ -95,7 +95,7 @@ namespace YAF.Modules
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 this.ForumControl.Page,
                 "modalNotification",
                 string

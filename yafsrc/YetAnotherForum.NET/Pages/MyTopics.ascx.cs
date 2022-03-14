@@ -87,14 +87,14 @@ namespace YAF.Pages
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "TopicStarterPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("TOPIC_STARTER")}&nbsp;...",
                     ".topic-starter-popover",
                     "hover"));
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
@@ -103,7 +103,7 @@ namespace YAF.Pages
 
             var iconLegend = new IconLegend().RenderToString();
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "TopicIconLegendPopoverJs",
                 JavaScriptBlocks.ForumIconLegendPopoverJs(
                     iconLegend.ToJsString(),
@@ -254,45 +254,45 @@ namespace YAF.Pages
                     this.IconHeader.LocalizedTag = "ActiveTopics";
 
                     topicList = this.GetRepository<Topic>().ListActivePaged(
-                        this.PageContext.PageUserID,
+                        this.PageBoardContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
+                        this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Unanswered:
                     this.IconHeader.LocalizedTag = "UnansweredTopics";
 
                     topicList = this.GetRepository<Topic>().ListUnansweredPaged(
-                        this.PageContext.PageUserID,
+                        this.PageBoardContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
+                        this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.Watch:
                     this.IconHeader.LocalizedTag = "WatchTopics";
 
                     topicList = this.GetRepository<Topic>().ListWatchedPaged(
-                        this.PageContext.PageUserID,
+                        this.PageBoardContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
+                        this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
                 case TopicListMode.User:
                     this.IconHeader.LocalizedTag = "MyTopics";
 
                     topicList = this.GetRepository<Topic>().ListByUserPaged(
-                        this.PageContext.PageUserID,
+                        this.PageBoardContext.PageUserID,
                         this.sinceDate,
                         DateTime.UtcNow,
                         currentPageIndex,
                         basePageSize,
-                        this.PageContext.BoardSettings.UseReadTrackingByDatabase);
+                        this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
                     break;
             }
 
@@ -354,7 +354,7 @@ namespace YAF.Pages
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {

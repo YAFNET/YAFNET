@@ -174,12 +174,12 @@ namespace YAF.Controls
             // un-suspend user
             this.GetRepository<User>().Suspend(this.CurrentUserID);
 
-            if (this.PageContext.BoardSettings.LogUserSuspendedUnsuspended)
+            if (this.PageBoardContext.BoardSettings.LogUserSuspendedUnsuspended)
             {
                 this.Get<ILoggerService>().Log(
-                    this.PageContext.PageUserID,
+                    this.PageBoardContext.PageUserID,
                     "YAF.Controls.EditUsersSuspend",
-                    $"User {this.User.DisplayOrUserName()} was un-suspended by {this.PageContext.PageUser.DisplayOrUserName()}.",
+                    $"User {this.User.DisplayOrUserName()} was un-suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
                     EventLogTypes.UserUnsuspended);
             }
 
@@ -210,22 +210,22 @@ namespace YAF.Controls
             if (access.IsAdmin > 0)
             {
                 // tell user he can't suspend admin
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
                 return;
             }
 
             // is user to be suspended forum moderator, while user suspending him is not admin?
-            if (!this.PageContext.IsAdmin && access.IsForumModerator > 0)
+            if (!this.PageBoardContext.IsAdmin && access.IsForumModerator > 0)
             {
                 // tell user he can't suspend forum moderator when he's not admin
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
                 return;
             }
 
             // verify the user isn't guest...
             if (this.User.UserFlags.IsGuest)
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
             }
 
             // time until when user is suspended
@@ -257,12 +257,12 @@ namespace YAF.Controls
                 this.CurrentUserID,
                 suspend,
                 this.SuspendedReason.Text.Trim(),
-                this.PageContext.PageUserID);
+                this.PageBoardContext.PageUserID);
 
             this.Get<ILoggerService>().Log(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 "YAF.Controls.EditUsersSuspend",
-                $"User {this.User.DisplayOrUserName()} was suspended by {this.PageContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
+                $"User {this.User.DisplayOrUserName()} was suspended by {this.PageBoardContext.PageUser.DisplayOrUserName()} until: {suspend} (UTC)",
                 EventLogTypes.UserSuspended);
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.CurrentUserID));

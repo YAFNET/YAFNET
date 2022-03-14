@@ -59,7 +59,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            var topicsList = this.GetRepository<TopicTag>().List(this.PageContext.PageTopicID);
+            var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
 
             if (!topicsList.Any())
             {

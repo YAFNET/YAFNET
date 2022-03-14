@@ -87,7 +87,7 @@ namespace YAF.Controls
 
             var topicStyle = item.Styles;
 
-            var styles = this.PageContext.BoardSettings.UseStyledTopicTitles && topicStyle.IsSet()
+            var styles = this.PageBoardContext.BoardSettings.UseStyledTopicTitles && topicStyle.IsSet()
                 ? this.Get<IStyleTransform>().Decode(item.Styles)
                 : string.Empty;
 
@@ -100,7 +100,7 @@ namespace YAF.Controls
 
             var startedByText = this.GetTextFormatted(
                 "VIEW_TOPIC_STARTED_BY",
-                this.PageContext.BoardSettings.EnableDisplayName ? item.UserDisplayName : item.UserName);
+                this.PageBoardContext.BoardSettings.EnableDisplayName ? item.UserDisplayName : item.UserName);
 
             var inForumText = this.GetTextFormatted("IN_FORUM", this.HtmlEncode(item.Forum));
 
@@ -115,7 +115,7 @@ namespace YAF.Controls
             lastUserLink.UserID = item.LastUserID.Value;
             lastUserLink.Style = item.LastUserStyle;
             lastUserLink.Suspended = item.LastUserSuspended;
-            lastUserLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+            lastUserLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
                 ? item.LastUserDisplayName
                 : item.LastUserName;
 
@@ -137,7 +137,7 @@ namespace YAF.Controls
 
             var lastPostedDateTime = (DateTime)item.LastPosted;
 
-            var formattedDatetime = this.PageContext.BoardSettings.ShowRelativeTime
+            var formattedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
                                         ? lastPostedDateTime.ToString(
                                             "yyyy-MM-ddTHH:mm:ssZ",
                                             CultureInfo.InvariantCulture)
@@ -145,11 +145,11 @@ namespace YAF.Controls
                                             DateTimeFormat.BothTopic,
                                             lastPostedDateTime);
 
-            var span = this.PageContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
+            var span = this.PageBoardContext.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
             info.TextLocalizedTag = "by";
             info.TextLocalizedPage = "DEFAULT";
-            info.ParamText0 = this.PageContext.BoardSettings.EnableDisplayName
+            info.ParamText0 = this.PageBoardContext.BoardSettings.EnableDisplayName
                                   ? item.LastUserDisplayName
                                   : item.LastUserName;
 
@@ -171,7 +171,7 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "TopicLinkPopoverJs",
                 JavaScriptBlocks.TopicLinkPopoverJs(
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
@@ -198,7 +198,7 @@ namespace YAF.Controls
 
             List<LatestTopic> activeTopics = null;
 
-            if (this.PageContext.IsGuest)
+            if (this.PageBoardContext.IsGuest)
             {
                 // allow caching since this is a guest...
                 activeTopics = this.Get<IDataCache>()[CacheKey] as List<LatestTopic>;
@@ -209,27 +209,27 @@ namespace YAF.Controls
                 this.Get<ISession>().UnreadTopics = 0;
 
                 activeTopics = this.GetRepository<Topic>().Latest(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageCategoryID,
-                    this.PageContext.BoardSettings.ActiveDiscussionsCount,
-                    this.PageContext.PageUserID,
-                    this.PageContext.BoardSettings.NoCountForumsInActiveDiscussions,
-                    this.PageContext.BoardSettings.UseReadTrackingByDatabase);
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.PageCategoryID,
+                    this.PageBoardContext.BoardSettings.ActiveDiscussionsCount,
+                    this.PageBoardContext.PageUserID,
+                    this.PageBoardContext.BoardSettings.NoCountForumsInActiveDiscussions,
+                    this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
 
-                if (this.PageContext.IsGuest)
+                if (this.PageBoardContext.IsGuest)
                 {
                     this.Get<IDataCache>().Set(
                         CacheKey,
                         activeTopics,
-                        TimeSpan.FromMinutes(this.PageContext.BoardSettings.ActiveDiscussionsCacheTimeout));
+                        TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.ActiveDiscussionsCacheTimeout));
                 }
             }
 
             this.RssFeed.Visible = this.Footer.Visible =
                                        this.Get<IPermissions>()
-                                           .Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+                                           .Check(this.PageBoardContext.BoardSettings.PostLatestFeedAccess);
 
-            if (!this.PageContext.BoardSettings.ShowAtomLink)
+            if (!this.PageBoardContext.BoardSettings.ShowAtomLink)
             {
                 this.Footer.Visible = false;
             }

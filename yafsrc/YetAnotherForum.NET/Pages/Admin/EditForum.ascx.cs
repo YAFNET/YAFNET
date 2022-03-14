@@ -178,7 +178,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -212,7 +212,7 @@ namespace YAF.Pages.Admin
                 try
                 {
                     // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
-                    var forumCheck = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null)
+                    var forumCheck = this.GetRepository<Forum>().List(this.PageBoardContext.PageBoardID, null)
                         .OrderByDescending(a => a.SortOrder).FirstOrDefault();
 
                     sortOrder = forumCheck.SortOrder + sortOrder;
@@ -321,7 +321,7 @@ namespace YAF.Pages.Admin
             catch (Exception)
             {
                 // Load default from board settings
-                var item = list.Items.FindByValue(this.PageContext.BoardSettings.ForumDefaultAccessMask.ToString());
+                var item = list.Items.FindByValue(this.PageBoardContext.BoardSettings.ForumDefaultAccessMask.ToString());
 
                 if (item != null)
                 {
@@ -402,7 +402,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.AccessList.DataSource = this.PageContext.GetRepository<Group>().GetByBoardId()
+                this.AccessList.DataSource = this.PageBoardContext.GetRepository<Group>().GetByBoardId()
                     .Select(i => new { GroupID = i.ID, GroupName = i.Name, AccessMaskID = 0 });
                 this.AccessList.DataBind();
             }
@@ -448,13 +448,13 @@ namespace YAF.Pages.Admin
         {
             if (this.CategoryList.SelectedValue.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"),
                     MessageTypes.warning);
                 return;
@@ -478,7 +478,7 @@ namespace YAF.Pages.Admin
                 // check if parent and forum is the same
                 if (parentId.Value == forumId.Value)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"),
                         MessageTypes.warning);
                     return;
@@ -487,7 +487,7 @@ namespace YAF.Pages.Admin
                 if (this.GetRepository<Forum>()
                     .IsParentsChecker(forumId.Value, parentId.Value))
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"),
                         MessageTypes.warning);
                     return;
@@ -499,9 +499,9 @@ namespace YAF.Pages.Admin
             {
                 var forumList = this.GetRepository<Forum>().Get(f => f.Name == this.Name.Text.Trim());
 
-                if (forumList.Any() && !this.PageContext.BoardSettings.AllowForumsWithSameName)
+                if (forumList.Any() && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
                         MessageTypes.warning);
                     return;

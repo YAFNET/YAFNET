@@ -71,7 +71,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "dropDownToggleJs",
                 JavaScriptBlocks.DropDownToggleJs());
 
@@ -96,7 +96,7 @@ namespace YAF.Pages
 
             var doSearch = false;
 
-            this.txtSearchStringFromWho.Attributes.Add("data-display", this.PageContext.BoardSettings.EnableDisplayName.ToString());
+            this.txtSearchStringFromWho.Attributes.Add("data-display", this.PageBoardContext.BoardSettings.EnableDisplayName.ToString());
 
             // Load result dropdown
             this.listResInPage.Items.Add(new ListItem(this.GetText("result5"), "5"));
@@ -117,8 +117,8 @@ namespace YAF.Pages
 
             // Load forum's combo
             var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID);
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID);
 
             this.listForum.AddForumAndCategoryIcons(forumList);
 
@@ -170,7 +170,7 @@ namespace YAF.Pages
 
             if (doSearch)
             {
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.DoSearchJs());
             }

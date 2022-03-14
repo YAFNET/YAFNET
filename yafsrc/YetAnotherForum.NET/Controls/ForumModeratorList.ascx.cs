@@ -63,7 +63,7 @@ namespace YAF.Controls
         {
             base.OnPreRender(e);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "ForumModsPopoverJs",
                 JavaScriptBlocks.ForumModsPopoverJs($"<i class=\"fa fa-user-secret fa-fw text-secondary\"></i>&nbsp;{this.GetText("DEFAULT", "MODERATORS")} ..."));
 
@@ -80,7 +80,7 @@ namespace YAF.Controls
                     {
                         // render mod group
                         content.Append(
-                            this.PageContext.BoardSettings.EnableDisplayName
+                            this.PageBoardContext.BoardSettings.EnableDisplayName
                                     ? row.DisplayName
                                     : row.Name);
                     }
@@ -91,7 +91,7 @@ namespace YAF.Controls
                         {
                             Style = row.Style,
                             UserID = row.ModeratorID,
-                            ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+                            ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
                                                                      ? row.DisplayName
                                                                      : row.Name
                         };

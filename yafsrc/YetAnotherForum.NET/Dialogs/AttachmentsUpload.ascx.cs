@@ -51,16 +51,16 @@ namespace YAF.Dialogs
             base.OnPreRender(e);
 
             // Setup Hover Card JS
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "fileUploadjs",
                 JavaScriptBlocks.FileUploadLoadJs(
-                    this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
-                    this.PageContext.BoardSettings.MaxFileSize,
+                    this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
+                    this.PageBoardContext.BoardSettings.MaxFileSize,
                     $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
-                    this.PageContext.PageForumID,
-                    this.PageContext.PageBoardID,
-                    this.PageContext.BoardSettings.ImageAttachmentResizeWidth,
-                    this.PageContext.BoardSettings.ImageAttachmentResizeHeight));
+                    this.PageBoardContext.PageForumID,
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
+                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight));
         }
 
         /// <summary>
@@ -73,14 +73,14 @@ namespace YAF.Dialogs
             // show disallowed or allowed localized text depending on the Board Setting
             this.ExtensionTitle.LocalizedTag = "ALLOWED_EXTENSIONS";
 
-            this.ExtensionsList.Text = this.PageContext.BoardSettings.AllowedFileExtensions.Replace(",", ", ");
+            this.ExtensionsList.Text = this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", ", ");
 
-            if (this.PageContext.BoardSettings.MaxFileSize > 0)
+            if (this.PageBoardContext.BoardSettings.MaxFileSize > 0)
             {
                 this.UploadNodePlaceHold.Visible = true;
                 this.UploadNote.Text = this.GetTextFormatted(
                     "UPLOAD_NOTE",
-                    (this.PageContext.BoardSettings.MaxFileSize / 1024).ToString());
+                    (this.PageBoardContext.BoardSettings.MaxFileSize / 1024).ToString());
             }
             else
             {

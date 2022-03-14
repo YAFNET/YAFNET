@@ -63,7 +63,7 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder runat="server" ID="UserReputation"
-                                                 Visible="<%#this.PageContext.BoardSettings.DisplayPoints && !this.DataSource.IsGuest %>">
+                                                 Visible="<%#this.PageBoardContext.BoardSettings.DisplayPoints && !this.DataSource.IsGuest %>">
                                     <li class="list-inline-item d-none d-md-inline-block" style="width:150px">
                                         <%# this.Get<IReputation>().GenerateReputationBar(this.DataSource.Points, this.PostData.UserId) %>
                                     </li>
@@ -173,8 +173,8 @@
                     </div>
                     <div style="margin-top: 1px">
                         <a id="post<%# this.DataSource.MessageID %>"
-                           href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts,new { m = this.DataSource.MessageID, name = this.PageContext.PageTopic.TopicName }) %>">
-                            #<%# this.CurrentPage * this.PageContext.BoardSettings.PostsPerPage + this.PostCount + 1%>
+                           href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts,new { m = this.DataSource.MessageID, name = this.PageBoardContext.PageTopic.TopicName }) %>">
+                            #<%# this.CurrentPage * this.PageBoardContext.BoardSettings.PostsPerPage + this.PostCount + 1%>
                         </a>
                     </div>
                 </div>

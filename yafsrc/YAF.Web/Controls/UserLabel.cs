@@ -170,7 +170,7 @@ namespace YAF.Web.Controls
                 output.WriteAttribute(HtmlTextWriterAttribute.Id.ToString(), this.ClientID);
             }
 
-            if (this.Style.IsSet() && this.PageContext.BoardSettings.UseStyledNicks)
+            if (this.Style.IsSet() && this.PageBoardContext.BoardSettings.UseStyledNicks)
             {
                 var style = this.Get<IStyleTransform>().Decode(this.Style);
 

@@ -71,22 +71,22 @@ namespace YAF.Core.BaseControls
         /// <summary>
         ///   Gets Localization.
         /// </summary>
-        public ILocalization Localization => this._localization ?? (this._localization = this.Get<ILocalization>());
+        public ILocalization Localization => this._localization ??= this.Get<ILocalization>();
 
         /// <summary>
         ///   Gets or sets Logger.
         /// </summary>
-        public ILoggerService Logger => this._logger ?? (this._logger = this.Get<ILoggerProvider>().Create(this.GetType()));
+        public ILoggerService Logger => this._logger ??= this.Get<ILoggerProvider>().Create(this.GetType());
 
         /// <summary>
-        ///   Gets PageContext.
+        ///   Gets PageBoardContext.
         /// </summary>
-        public BoardContext PageContext => BoardContext.Current;
+        public BoardContext PageBoardContext => BoardContext.Current;
 
         /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
-        public IServiceLocator ServiceLocator => this.PageContext.ServiceLocator;
+        public IServiceLocator ServiceLocator => this.PageBoardContext.ServiceLocator;
 
         #endregion
 

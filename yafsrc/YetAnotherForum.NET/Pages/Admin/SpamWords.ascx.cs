@@ -115,7 +115,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -172,7 +172,7 @@ namespace YAF.Pages.Admin
         {
             this.EditDialog.BindData(null);
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
         }
@@ -205,14 +205,14 @@ namespace YAF.Pages.Admin
             if (searchText.IsSet())
             {
                 bannedList = this.GetRepository<Spam_Words>().GetPaged(
-                    x => x.BoardID == this.PageContext.PageBoardID && x.SpamWord == searchText,
+                    x => x.BoardID == this.PageBoardContext.PageBoardID && x.SpamWord == searchText,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
             else
             {
                 bannedList = this.GetRepository<Spam_Words>().GetPaged(
-                    x => x.BoardID == this.PageContext.PageBoardID,
+                    x => x.BoardID == this.PageBoardContext.PageBoardID,
                     this.PagerTop.CurrentPageIndex,
                     this.PagerTop.PageSize);
             }
@@ -221,7 +221,7 @@ namespace YAF.Pages.Admin
 
             this.PagerTop.Count = !bannedList.NullOrEmpty()
                                       ? this.GetRepository<Spam_Words>()
-                                          .Count(x => x.BoardID == this.PageContext.PageBoardID).ToType<int>()
+                                          .Count(x => x.BoardID == this.PageBoardContext.PageBoardID).ToType<int>()
                                       : 0;
             this.DataBind();
         }
@@ -266,7 +266,7 @@ namespace YAF.Pages.Admin
                 case "edit":
                     this.EditDialog.BindData(e.CommandArgument.ToType<int>());
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("SpamWordsEditDialog"));
 

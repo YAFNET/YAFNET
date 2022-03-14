@@ -76,12 +76,12 @@ namespace YAF.Web.Controls
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
             // Ederon : 07/14/2007
-            if (!this.PageContext.BoardSettings.ShowBrowsingUsers)
+            if (!this.PageBoardContext.BoardSettings.ShowBrowsingUsers)
             {
                 return;
             }
 
-            var topicId = this.PageContext.PageTopicID > 0;
+            var topicId = this.PageBoardContext.PageTopicID > 0;
 
             writer.WriteLine(@"<div class=""card"">");
 
@@ -109,11 +109,11 @@ namespace YAF.Web.Controls
         /// </param>
         private void ForumUsersLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            var inTopic = this.PageContext.PageTopicID > 0;
+            var inTopic = this.PageBoardContext.PageTopicID > 0;
 
             this.activeUsers.ActiveUsersList ??= inTopic
-                ? this.GetRepository<Active>().ListTopic(this.PageContext.PageTopicID)
-                : this.GetRepository<Active>().ListForum(this.PageContext.PageForumID);
+                ? this.GetRepository<Active>().ListTopic(this.PageBoardContext.PageTopicID)
+                : this.GetRepository<Active>().ListForum(this.PageBoardContext.PageForumID);
 
             // add it...
             this.Controls.Add(this.activeUsers);

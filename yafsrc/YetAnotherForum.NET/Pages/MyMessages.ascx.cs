@@ -81,7 +81,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "yafPmTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -96,7 +96,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // check if this feature is disabled
-            if (!this.PageContext.BoardSettings.AllowPrivateMessages)
+            if (!this.PageBoardContext.BoardSettings.AllowPrivateMessages)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Disabled);
             }
@@ -117,7 +117,7 @@ namespace YAF.Pages
             this.NewPM2.NavigateUrl = this.NewPM.NavigateUrl;
 
             // Renew PM Statistics
-            var count = this.GetRepository<PMessage>().UserMessageCount(this.PageContext.PageUserID);
+            var count = this.GetRepository<PMessage>().UserMessageCount(this.PageBoardContext.PageUserID);
 
             if (count != null)
             {
@@ -156,7 +156,7 @@ namespace YAF.Pages
                 percentage = decimal.Round(total / limit * 100, 2);
             }
 
-            if (!this.PageContext.IsAdmin)
+            if (!this.PageBoardContext.IsAdmin)
             {
                 return this.HtmlEncode(this.GetTextFormatted(text, total, inbox, outbox, archive, limit, percentage));
             }
@@ -172,7 +172,7 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 

@@ -28,7 +28,7 @@
                    </YAF:LocalizedLabel> 
                     <YAF:UserLink ID="UserName" runat="server" 
                                   UserID="<%#((SearchMessage)Container.DataItem).UserId %>" 
-                                  ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? ((SearchMessage)Container.DataItem).UserDisplayName : ((SearchMessage)Container.DataItem).UserName %>" 
+                                  ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? ((SearchMessage)Container.DataItem).UserDisplayName : ((SearchMessage)Container.DataItem).UserName %>" 
                                   Suspended="<%# ((SearchMessage)Container.DataItem).Suspended %>"
 
                        Style="<%# ((SearchMessage)Container.DataItem).UserStyle %>">

@@ -59,11 +59,11 @@ namespace YAF.Dialogs
             // import selected file (if it's the proper format)...
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
 
@@ -96,7 +96,7 @@ namespace YAF.Dialogs
                         importedCount++;
                     });
 
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         importedCount > 0
                             ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
                             : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
@@ -104,22 +104,22 @@ namespace YAF.Dialogs
                 }
                 else
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"),
                         MessageTypes.warning);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("ImportDialog"));
                 }
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message),
                     MessageTypes.danger);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }

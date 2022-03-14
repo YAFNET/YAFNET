@@ -94,7 +94,7 @@
 
     <div id="SearchResultsPlaceholder"
          data-url="<%= BoardInfo.ForumClientFileRoot %>"
-         data-minimum="<%= this.PageContext.BoardSettings.SearchStringMinLength %>"
+         data-minimum="<%= this.PageBoardContext.BoardSettings.SearchStringMinLength %>"
          data-notext='<%= this.Get<ILocalization>().GetAttributeText("NO_SEARCH_RESULTS") %>'
          data-posted='<%= this.Get<ILocalization>().GetAttributeText("POSTED") %>'
          data-by='<%= this.Get<ILocalization>().GetAttributeText("By") %>'

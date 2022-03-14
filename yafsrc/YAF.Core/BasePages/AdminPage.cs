@@ -90,22 +90,22 @@ namespace YAF.Core.BasePages
         private void AdminPageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
             // not admins are forbidden
-            if (!this.PageContext.IsAdmin)
+            if (!this.PageBoardContext.IsAdmin)
             { 
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
             // host admins are not checked
-            if (this.PageContext.PageUser.UserFlags.IsHostAdmin)
+            if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
             {
                 return;
             }
 
             // Load the page access list.
-            var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageContext.PageUserID, this.PageContext.CurrentForumPage.PageName);
+            var hasAccess = this.GetRepository<AdminPageUserAccess>().HasAccess(this.PageBoardContext.PageUserID, this.PageBoardContext.CurrentForumPage.PageName);
 
             // Check access rights to the page.
-            if (!this.PageContext.CurrentForumPage.PageName.IsSet() || !hasAccess)
+            if (!this.PageBoardContext.CurrentForumPage.PageName.IsSet() || !hasAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.HostAdminPermissionsAreRequired);
             }

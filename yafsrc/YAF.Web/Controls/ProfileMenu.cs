@@ -83,7 +83,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                new { u = this.PageContext.PageUserID, name = this.PageContext.PageUser.DisplayOrUserName() });
+                new { u = this.PageBoardContext.PageUserID, name = this.PageBoardContext.PageUser.DisplayOrUserName() });
 
             htmlDropDown.AppendFormat(@"<h6 class=""dropdown-header"">{0}</h6>", this.GetText("PERSONAL_PROFILE"));
 
@@ -93,7 +93,7 @@ namespace YAF.Web.Controls
                 ForumPages.UserProfile,
                 this.GetText("VIEW_PROFILE"),
                 "user",
-                new { u = this.PageContext.PageUserID, name = this.PageContext.PageUser.DisplayOrUserName() });
+                new { u = this.PageBoardContext.PageUserID, name = this.PageBoardContext.PageUser.DisplayOrUserName() });
 
             if (!Config.IsDotNetNuke)
             {
@@ -126,8 +126,8 @@ namespace YAF.Web.Controls
                     "user-cog");
             }
 
-            if (!this.PageContext.IsGuest && this.PageContext.UploadAccess && this.GetRepository<Attachment>()
-                    .Exists(x => x.UserID == this.PageContext.PageUserID))
+            if (!this.PageBoardContext.IsGuest && this.PageBoardContext.UploadAccess && this.GetRepository<Attachment>()
+                    .Exists(x => x.UserID == this.PageBoardContext.PageUserID))
             {
                 this.RenderMenuItem(
                     html,
@@ -144,8 +144,8 @@ namespace YAF.Web.Controls
                     "paperclip");
             }
 
-            if (!this.PageContext.IsGuest
-                && this.PageContext.BoardSettings.EnableBuddyList && this.PageContext.UserHasBuddies)
+            if (!this.PageBoardContext.IsGuest
+                && this.PageBoardContext.BoardSettings.EnableBuddyList && this.PageBoardContext.UserHasBuddies)
             {
                 this.RenderMenuItem(
                     html,
@@ -162,7 +162,7 @@ namespace YAF.Web.Controls
                     "users");
             }
 
-            if (!this.PageContext.IsGuest && this.PageContext.BoardSettings.EnableAlbum)
+            if (!this.PageBoardContext.IsGuest && this.PageBoardContext.BoardSettings.EnableAlbum)
             {
                 this.RenderMenuItem(
                     html,
@@ -170,7 +170,7 @@ namespace YAF.Web.Controls
                     ForumPages.Albums,
                     this.GetText("EDIT_ALBUMS"),
                     "images",
-                    new { u = this.PageContext.PageUserID });
+                    new { u = this.PageBoardContext.PageUserID });
 
                 this.RenderMenuItem(
                     htmlDropDown,
@@ -178,11 +178,11 @@ namespace YAF.Web.Controls
                     ForumPages.Albums,
                     this.GetText("EDIT_ALBUMS"),
                     "images",
-                    new { u = this.PageContext.PageUserID });
+                    new { u = this.PageBoardContext.PageUserID });
             }
 
-            if (!Config.IsDotNetNuke && (this.PageContext.BoardSettings.AvatarUpload
-                                         || this.PageContext.BoardSettings.AvatarGallery))
+            if (!Config.IsDotNetNuke && (this.PageBoardContext.BoardSettings.AvatarUpload
+                                         || this.PageBoardContext.BoardSettings.AvatarGallery))
             {
                 this.RenderMenuItem(
                     html,
@@ -199,7 +199,7 @@ namespace YAF.Web.Controls
                     "user-tie");
             }
 
-            if (this.PageContext.BoardSettings.AllowSignatures)
+            if (this.PageBoardContext.BoardSettings.AllowSignatures)
             {
                 this.RenderMenuItem(
                     html,
@@ -262,7 +262,7 @@ namespace YAF.Web.Controls
                     "lock");
             }
 
-            if (!Config.IsDotNetNuke && !this.PageContext.PageUser.UserFlags.IsHostAdmin)
+            if (!Config.IsDotNetNuke && !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
             {
                 // Render Delete Account Item
                 this.RenderMenuItem(
@@ -318,7 +318,7 @@ namespace YAF.Web.Controls
             object parameters = null)
         {
             stringBuilder.AppendFormat(
-                this.PageContext.CurrentForumPage.PageType == page
+                this.PageBoardContext.CurrentForumPage.PageType == page
                     ? @"<a class=""{3} active"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-light""></i>{1}</a>"
                     : @"<a class=""{3}"" href=""{0}"" title=""{2}"" data-bs-toggle=""tooltip""><i class=""fas fa-{4} me-1 text-secondary""></i>{1}</a>",
                 parameters != null ? this.Get<LinkBuilder>().GetLink(page, parameters) : this.Get<LinkBuilder>().GetLink(page),

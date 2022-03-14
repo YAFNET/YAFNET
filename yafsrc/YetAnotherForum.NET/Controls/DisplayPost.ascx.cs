@@ -119,7 +119,7 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender(EventArgs e)
         {
-            if (this.PageContext.IsGuest)
+            if (this.PageBoardContext.IsGuest)
             {
                 this.ShowHideIgnoredUserPost.Visible = false;
                 this.MessageRow.CssClass = "collapse show";
@@ -140,7 +140,7 @@ namespace YAF.Controls
                                         ForumPages.EditMessage,
                                         new { m = this.PostData.MessageId });
             this.MovePost.Visible =
-                this.Move.Visible = this.PageContext.ForumModeratorAccess && !this.PostData.IsLocked;
+                this.Move.Visible = this.PageBoardContext.ForumModeratorAccess && !this.PostData.IsLocked;
             this.MovePost.NavigateUrl = this.Move.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                             ForumPages.MoveMessage,
                                             new { m = this.PostData.MessageId });
@@ -172,7 +172,7 @@ namespace YAF.Controls
                     "data-url",
                     this.Get<LinkBuilder>().GetLink(
                         ForumPages.PostMessage,
-                        new { t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID }));
+                        new { t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID }));
 
                 this.ContextMenu.Attributes.Add(
                     "data-quote",
@@ -197,11 +197,11 @@ namespace YAF.Controls
 
             this.Quote.NavigateUrl = this.Quote2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                          ForumPages.PostMessage,
-                                         new { t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID, q = this.PostData.MessageId });
+                                         new { t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID, q = this.PostData.MessageId });
 
             this.Reply.NavigateUrl = this.ReplyFooter.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                          ForumPages.PostMessage,
-                                         new { t = this.PageContext.PageTopicID, f = this.PageContext.PageForumID });
+                                         new { t = this.PageBoardContext.PageTopicID, f = this.PageBoardContext.PageForumID });
 
             if (this.MultiQuote.Visible)
             {
@@ -209,10 +209,10 @@ namespace YAF.Controls
                     "onclick",
                     $"handleMultiQuoteButton(this, '{this.PostData.MessageId}', '{this.PostData.TopicId}')");
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteButtonJs",
                     JavaScriptBlocks.MultiQuoteButtonJs);
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "MultiQuoteCallbackSuccessJS",
                     JavaScriptBlocks.MultiQuoteCallbackSuccessJs);
 
@@ -223,7 +223,7 @@ namespace YAF.Controls
                 this.MultiQuote.ToolTip = this.GetText("BUTTON_MULTI_QUOTE_TT");
             }
 
-            if (this.PageContext.BoardSettings.EnableUserReputation)
+            if (this.PageBoardContext.BoardSettings.EnableUserReputation)
             {
                 this.AddReputationControls();
             }
@@ -237,7 +237,7 @@ namespace YAF.Controls
                 this.ManageDropPlaceHolder.Visible = false;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "asynchCallFailedJs",
                 "function CallFailed(res){console.log(res);  }");
 
@@ -252,7 +252,7 @@ namespace YAF.Controls
                 this.DataSource.Avatar,
                 this.DataSource.HasAvatarImage);
 
-            var displayName = this.PageContext.BoardSettings.EnableDisplayName
+            var displayName = this.PageBoardContext.BoardSettings.EnableDisplayName
                 ? this.DataSource.DisplayName
                 : this.DataSource.UserName;
 
@@ -269,10 +269,10 @@ namespace YAF.Controls
             }
 
             // report post
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions)
+            if (this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ReportPostPermissions)
                 && !this.PostData.PostDeleted)
             {
-                if (!this.PageContext.IsGuest && this.PageContext.MembershipUser != null)
+                if (!this.PageBoardContext.IsGuest && this.PageBoardContext.MembershipUser != null)
                 {
                     this.ReportPost.Visible = this.ReportPost2.Visible = true;
 
@@ -283,9 +283,9 @@ namespace YAF.Controls
             }
 
             // mark post as answer
-            if (!this.PostData.PostDeleted && !this.PageContext.IsGuest && this.PageContext.MembershipUser != null
-                && this.PageContext.PageUserID.Equals(this.DataSource.TopicOwnerID)
-                && !this.PostData.UserId.Equals(this.PageContext.PageUserID))
+            if (!this.PostData.PostDeleted && !this.PageBoardContext.IsGuest && this.PageBoardContext.MembershipUser != null
+                && this.PageBoardContext.PageUserID.Equals(this.DataSource.TopicOwnerID)
+                && !this.PostData.UserId.Equals(this.PageBoardContext.PageUserID))
             {
                 this.MarkAsAnswer.Visible = true;
 
@@ -351,12 +351,12 @@ namespace YAF.Controls
 
                 this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
 
-                this.GetRepository<Topic>().RemoveAnswerMessage(this.PageContext.PageTopicID);
+                this.GetRepository<Topic>().RemoveAnswerMessage(this.PageBoardContext.PageTopicID);
             }
             else
             {
                 // Check for duplicates
-                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageContext.PageTopicID);
+                var answerMessageId = this.GetRepository<Topic>().GetAnswerMessage(this.PageBoardContext.PageTopicID);
 
                 if (answerMessageId != null)
                 {
@@ -369,14 +369,14 @@ namespace YAF.Controls
 
                 messageFlags.IsAnswer = true;
 
-                this.GetRepository<Topic>().SetAnswerMessage(this.PageContext.PageTopicID, this.PostData.MessageId);
+                this.GetRepository<Topic>().SetAnswerMessage(this.PageBoardContext.PageTopicID, this.PostData.MessageId);
 
                 this.GetRepository<Message>().UpdateFlags(this.PostData.MessageId, messageFlags.BitValue);
             }
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                new {m = this.PostData.MessageId, name = this.PageContext.PageTopicID });
+                new {m = this.PostData.MessageId, name = this.PageBoardContext.PageTopicID });
         }
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace YAF.Controls
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.UserProfileLink.UserID = this.PostData.UserId;
-            this.UserProfileLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName
+            this.UserProfileLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
                 ? this.DataSource.DisplayName
                 : this.DataSource.UserName;
             this.UserProfileLink.PostfixText = this.DataSource.IP == "NNTP"
@@ -455,17 +455,17 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            this.GetRepository<User>().AddPoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
+            this.GetRepository<User>().AddPoints(this.PostData.UserId, this.PageBoardContext.PageUserID, 1);
 
             this.DataSource.ReputationVoteDate = DateTime.UtcNow;
 
             this.DataSource.Points = this.DataSource.Points + 1;
 
-            this.PageContext.AddLoadMessage(
+            this.PageBoardContext.AddLoadMessage(
                 this.GetTextFormatted(
                     "REP_VOTE_UP_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.PageContext.BoardSettings.EnableDisplayName
+                        this.PageBoardContext.BoardSettings.EnableDisplayName
                             ? this.DataSource.DisplayName
                             : this.DataSource.UserName)),
                 MessageTypes.success);
@@ -490,17 +490,17 @@ namespace YAF.Controls
             this.AddReputation.Visible = false;
             this.RemoveReputation.Visible = false;
 
-            this.GetRepository<User>().RemovePoints(this.PostData.UserId, this.PageContext.PageUserID, 1);
+            this.GetRepository<User>().RemovePoints(this.PostData.UserId, this.PageBoardContext.PageUserID, 1);
 
             this.DataSource.ReputationVoteDate = DateTime.UtcNow;
 
             this.DataSource.Points = this.DataSource.Points - 1;
 
-            this.PageContext.AddLoadMessage(
+            this.PageBoardContext.AddLoadMessage(
                 this.GetTextFormatted(
                     "REP_VOTE_DOWN_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
-                        this.PageContext.BoardSettings.EnableDisplayName
+                        this.PageBoardContext.BoardSettings.EnableDisplayName
                             ? this.DataSource.DisplayName
                             : this.DataSource.UserName)),
                 MessageTypes.success);
@@ -512,8 +512,8 @@ namespace YAF.Controls
         private void ShowIpInfo()
         {
             // Display admin/moderator only info
-            if (!this.PageContext.IsAdmin && (!this.PageContext.BoardSettings.AllowModeratorsViewIPs
-                                              || !this.PageContext.ForumModeratorAccess))
+            if (!this.PageBoardContext.IsAdmin && (!this.PageBoardContext.BoardSettings.AllowModeratorsViewIPs
+                                              || !this.PageBoardContext.ForumModeratorAccess))
             {
                 return;
             }
@@ -522,7 +522,7 @@ namespace YAF.Controls
             this.IPInfo.Visible = true;
             this.IPHolder.Visible = true;
             var ip = IPHelper.GetIpAddressAsString(this.PostData.DataRow.IP);
-            this.IPLink1.HRef = string.Format(this.PageContext.BoardSettings.IPInfoPageURL, ip);
+            this.IPLink1.HRef = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, ip);
             this.IPLink1.Title = this.GetText("COMMON", "TT_IPDETAILS");
             this.IPLink1.InnerText = this.HtmlEncode(ip);
         }
@@ -544,7 +544,7 @@ namespace YAF.Controls
                             ForumPages.Search,
                             new
                                 {
-                                    postedby = this.PageContext.BoardSettings.EnableDisplayName
+                                    postedby = this.PageBoardContext.BoardSettings.EnableDisplayName
                                                    ? this.DataSource.DisplayName
                                                    : this.DataSource.UserName
                                 })
@@ -561,13 +561,13 @@ namespace YAF.Controls
                         ForumPages.Search,
                         new
                             {
-                                postedby = this.PageContext.BoardSettings.EnableDisplayName
+                                postedby = this.PageBoardContext.BoardSettings.EnableDisplayName
                                                ? this.DataSource.DisplayName
                                                : this.DataSource.UserName
                             })
                 });
 
-            if (this.PageContext.IsAdmin)
+            if (this.PageBoardContext.IsAdmin)
             {
                 this.UserDropHolder.Controls.Add(
                     new ThemeButton
@@ -591,7 +591,7 @@ namespace YAF.Controls
                     });
             }
 
-            if (this.PageContext.PageUserID != this.PostData.UserId)
+            if (this.PageBoardContext.PageUserID != this.PostData.UserId)
             {
                 if (this.Get<IUserIgnored>().IsIgnored(this.PostData.UserId))
                 {
@@ -633,12 +633,12 @@ namespace YAF.Controls
                 }
             }
 
-            if (this.PageContext.BoardSettings.EnableBuddyList && this.PageContext.PageUserID != this.PostData.UserId)
+            if (this.PageBoardContext.BoardSettings.EnableBuddyList && this.PageBoardContext.PageUserID != this.PostData.UserId)
             {
                 var userBlockFlags = new UserBlockFlags(this.DataSource.BlockFlags);
 
                 // Should we add the "Add Buddy" item?
-                if (!this.Get<IFriends>().IsBuddy(this.PostData.UserId, false) && !this.PageContext.IsGuest
+                if (!this.Get<IFriends>().IsBuddy(this.PostData.UserId, false) && !this.PageBoardContext.IsGuest
                                                                              && !userBlockFlags
                                                                                  .BlockFriendRequests)
                 {
@@ -651,7 +651,7 @@ namespace YAF.Controls
                         CssClass = "dropdown-item"
                     };
 
-                    var userName = this.PageContext.BoardSettings.EnableDisplayName
+                    var userName = this.PageBoardContext.BoardSettings.EnableDisplayName
                         ? this.DataSource.DisplayName
                         : this.DataSource.UserName;
 
@@ -659,7 +659,7 @@ namespace YAF.Controls
                         {
                             if (this.Get<IFriends>().AddRequest(this.PostData.UserId))
                             {
-                                this.PageContext.AddLoadMessage(
+                                this.PageBoardContext.AddLoadMessage(
                                     this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userName),
                                     MessageTypes.success);
 
@@ -667,7 +667,7 @@ namespace YAF.Controls
                             }
                             else
                             {
-                                this.PageContext.AddLoadMessage(
+                                this.PageBoardContext.AddLoadMessage(
                                     this.GetText("NOTIFICATION_BUDDYREQUEST"),
                                     MessageTypes.success);
                             }
@@ -675,7 +675,7 @@ namespace YAF.Controls
 
                     this.UserDropHolder.Controls.Add(addFriendButton);
                 }
-                else if (this.Get<IFriends>().IsBuddy(this.PostData.UserId, true) && !this.PageContext.IsGuest)
+                else if (this.Get<IFriends>().IsBuddy(this.PostData.UserId, true) && !this.PageBoardContext.IsGuest)
                 {
                     // Are the users approved buddies? Add the "Remove buddy" item.
                     var removeFriendButton = new ThemeButton
@@ -696,7 +696,7 @@ namespace YAF.Controls
 
                             this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
 
-                            this.PageContext.AddLoadMessage(
+                            this.PageBoardContext.AddLoadMessage(
                                 this.GetTextFormatted(
                                     "REMOVEBUDDY_NOTIFICATION",
                                     this.Get<IFriends>().Remove(this.PostData.UserId)),
@@ -716,8 +716,8 @@ namespace YAF.Controls
         /// </summary>
         private void AddReputationControls()
         {
-            if (this.PageContext.PageUserID != this.PostData.UserId && this.PageContext.BoardSettings.EnableUserReputation
-                                                                    && !this.IsGuest && !this.PageContext.IsGuest)
+            if (this.PageBoardContext.PageUserID != this.PostData.UserId && this.PageBoardContext.BoardSettings.EnableUserReputation
+                                                                    && !this.IsGuest && !this.PageBoardContext.IsGuest)
             {
                 if (!this.Get<IReputation>().CheckIfAllowReputationVoting(this.DataSource.ReputationVoteDate))
                 {
@@ -725,19 +725,19 @@ namespace YAF.Controls
                 }
 
                 // Check if the User matches minimal requirements for voting up
-                if (this.PageContext.PageUser.Points >= this.PageContext.BoardSettings.ReputationMinUpVoting)
+                if (this.PageBoardContext.PageUser.Points >= this.PageBoardContext.BoardSettings.ReputationMinUpVoting)
                 {
                     this.AddReputation.Visible = true;
                 }
 
                 // Check if the User matches minimal requirements for voting down
-                if (this.PageContext.PageUser.Points < this.PageContext.BoardSettings.ReputationMinDownVoting)
+                if (this.PageBoardContext.PageUser.Points < this.PageBoardContext.BoardSettings.ReputationMinDownVoting)
                 {
                     return;
                 }
 
                 // Check if the Value is 0 or Bellow
-                if (this.DataSource.Points > 0 && this.PageContext.BoardSettings.ReputationAllowNegative)
+                if (this.DataSource.Points > 0 && this.PageBoardContext.BoardSettings.ReputationAllowNegative)
                 {
                     this.RemoveReputation.Visible = true;
                 }
@@ -769,9 +769,9 @@ namespace YAF.Controls
             var thanksJs =
                 $"{JavaScriptBlocks.AddThanksJs(removeThankBoxHTML)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(addThankBoxHTML)}";
 
-            this.PageContext.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup("ThanksJs", thanksJs);
 
-            this.Thank.Visible = this.PostData.CanThankPost && !this.PageContext.IsGuest;
+            this.Thank.Visible = this.PostData.CanThankPost && !this.PageBoardContext.IsGuest;
             this.Thank.IconMobileOnly = true;
 
             if (this.DataSource.IsThankedByUser)
@@ -802,7 +802,7 @@ namespace YAF.Controls
             }
 
             var username = this.HtmlEncode(
-                this.PageContext.BoardSettings.EnableDisplayName ? this.DataSource.DisplayName : this.DataSource.UserName);
+                this.PageBoardContext.BoardSettings.EnableDisplayName ? this.DataSource.DisplayName : this.DataSource.UserName);
 
             var thanksLabelText = thanksNumber == 1
                                       ? this.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username)

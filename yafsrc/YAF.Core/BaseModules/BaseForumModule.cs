@@ -62,9 +62,9 @@ namespace YAF.Core.BaseModules
     public virtual string ModuleId => this.Description.GetHashCode().ToString();
 
     /// <summary>
-    /// Gets PageContext.
+    /// Gets PageBoardContext.
     /// </summary>
-    public BoardContext PageContext => BoardContext.Current;
+    public BoardContext PageBoardContext => BoardContext.Current;
 
     /// <summary>
     ///   Gets ServiceLocator.

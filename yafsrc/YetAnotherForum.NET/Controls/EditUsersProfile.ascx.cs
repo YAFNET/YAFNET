@@ -123,7 +123,7 @@ namespace YAF.Controls
         protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.Get<LinkBuilder>().Redirect(
-                this.PageContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
+                this.PageBoardContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
         }
 
         protected void CustomProfile_OnItemDataBound(object sender, RepeaterItemEventArgs e)
@@ -243,7 +243,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.UpdateProfile.ClientID));
 
@@ -252,8 +252,8 @@ namespace YAF.Controls
             this.Gender.DataTextField = "Name";
 
             // End Modifications for enhanced profile
-            this.DisplayNamePlaceholder.Visible = this.PageContext.BoardSettings.EnableDisplayName &&
-                                                  this.PageContext.BoardSettings.AllowDisplayNameModification;
+            this.DisplayNamePlaceholder.Visible = this.PageBoardContext.BoardSettings.EnableDisplayName &&
+                                                  this.PageBoardContext.BoardSettings.AllowDisplayNameModification;
 
             // override Place Holders for DNN, dnn users should only see the forum settings but not the profile page
             if (Config.IsDotNetNuke)
@@ -285,16 +285,16 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
                     return;
                 }
 
-                if (this.User.Item1.NumPosts < this.PageContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+                if (this.User.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
                 {
                     // Check for spam
                     if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.HomePage.Text, out _))
                     {
-                        switch (this.PageContext.BoardSettings.BotHandlingOnRegister)
+                        switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                         {
                             // Log and Send Message to Admins
                             case 1:
@@ -313,7 +313,7 @@ namespace YAF.Controls
                                     EventLogTypes.SpamBotDetected);
 
                                 // Kill user
-                                if (!this.PageContext.CurrentForumPage.IsAdminPage)
+                                if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
                                 {
                                     this.Get<IAspNetUsersHelper>().DeleteAndBanUser(
                                         this.User.Item1.ID,
@@ -330,41 +330,41 @@ namespace YAF.Controls
 
             if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
                 return;
             }
 
             if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
                 return;
             }
 
             if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidURL(this.Facebook.Text))
             {
-                this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
                 return;
             }
 
             string displayName = null;
 
-            if (this.PageContext.BoardSettings.EnableDisplayName && this.PageContext.BoardSettings.AllowDisplayNameModification)
+            if (this.PageBoardContext.BoardSettings.EnableDisplayName && this.PageBoardContext.BoardSettings.AllowDisplayNameModification)
             {
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Trim().Length < this.PageContext.BoardSettings.DisplayNameMinLength)
+                if (this.DisplayName.Text.Trim().Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
                 {
-                    this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.DisplayNameMinLength),
+                    this.PageBoardContext.AddLoadMessage(
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                         MessageTypes.warning);
 
                     return;
                 }
 
                 // Check if name matches the required minimum length
-                if (this.DisplayName.Text.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+                if (this.DisplayName.Text.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
                 {
-                    this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength),
+                    this.PageBoardContext.AddLoadMessage(
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                         MessageTypes.warning);
 
                     return;
@@ -374,7 +374,7 @@ namespace YAF.Controls
                 {
                     if (this.Get<IUserDisplayName>().FindUserByName(this.DisplayName.Text.Trim()) != null)
                     {
-                        this.PageContext.AddLoadMessage(
+                        this.PageBoardContext.AddLoadMessage(
                             this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
                             MessageTypes.warning);
 
@@ -387,7 +387,7 @@ namespace YAF.Controls
 
             if (this.Interests.Text.Trim().Length > 400)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
                     MessageTypes.warning);
 
@@ -396,7 +396,7 @@ namespace YAF.Controls
 
             if (this.Occupation.Text.Trim().Length > 400)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
                     MessageTypes.warning);
 
@@ -477,7 +477,7 @@ namespace YAF.Controls
 
             this.Get<IDataCache>().Clear();
 
-            if (!this.PageContext.CurrentForumPage.IsAdminPage)
+            if (!this.PageBoardContext.CurrentForumPage.IsAdminPage)
             {
                 this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
             }
@@ -523,7 +523,7 @@ namespace YAF.Controls
         protected void GetLocationOnClick(object sender, EventArgs e)
         {
             var userIpLocator = this.Get<IIpInfoService>().GetUserIpLocator(
-                this.PageContext.CurrentForumPage.IsAdminPage
+                this.PageBoardContext.CurrentForumPage.IsAdminPage
                     ? this.User.Item1.IP
                     : this.Get<HttpRequestBase>().GetUserRealIPAddress());
 
@@ -560,7 +560,7 @@ namespace YAF.Controls
 
             this.DataBind();
 
-            if (this.PageContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.PageBoardContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 this.Birthday.Text =
                     this.User.Item2.Profile_Birthday.HasValue &&
@@ -660,7 +660,7 @@ namespace YAF.Controls
 
             DateTime userBirthdate;
 
-            if (this.PageContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
+            if (this.PageBoardContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
             {
                 try
                 {
@@ -748,19 +748,19 @@ namespace YAF.Controls
         private string GetCulture(bool overrideByPageUserCulture)
         {
             // Language and culture
-            var languageFile = this.PageContext.BoardSettings.Language;
-            var culture4Tag = this.PageContext.BoardSettings.Culture;
+            var languageFile = this.PageBoardContext.BoardSettings.Language;
+            var culture4Tag = this.PageBoardContext.BoardSettings.Culture;
 
             if (overrideByPageUserCulture)
             {
-                if (this.PageContext.PageUser.LanguageFile.IsSet())
+                if (this.PageBoardContext.PageUser.LanguageFile.IsSet())
                 {
-                    languageFile = this.PageContext.PageUser.LanguageFile;
+                    languageFile = this.PageBoardContext.PageUser.LanguageFile;
                 }
 
-                if (this.PageContext.PageUser.Culture.IsSet())
+                if (this.PageBoardContext.PageUser.Culture.IsSet())
                 {
-                    culture4Tag = this.PageContext.PageUser.Culture;
+                    culture4Tag = this.PageBoardContext.PageUser.Culture;
                 }
             }
             else

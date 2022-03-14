@@ -208,7 +208,7 @@
                 </span>
                 <span class="ms-1"><asp:Label ID="ThanksToPosts" runat="server" /></span>
             </li>
-            <asp:PlaceHolder ID="divRR" runat="server" Visible="<%# this.PageContext.BoardSettings.EnableUserReputation %>">
+            <asp:PlaceHolder ID="divRR" runat="server" Visible="<%# this.PageBoardContext.BoardSettings.EnableUserReputation %>">
                 <li class="list-group-item">
                     <span class="fw-bold">
                         <YAF:LocalizedLabel ID="LocalizedLabel29" runat="server" LocalizedTag="REPUTATION_RECEIVED" />
@@ -346,7 +346,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:LocalizedLabel ID="LocalizedLabel44" runat="server"
-                        LocalizedTag='<%# this.UserId == this.PageContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
+                        LocalizedTag='<%# this.UserId == this.PageBoardContext.PageUserID ? "BUDDIES" : "BUDDIESTITLE"%>' />
                 </div>
                 <div class="card-body">
                     <asp:Repeater ID="Friends" runat="server">
@@ -356,7 +356,7 @@
                         <ItemTemplate>
                             <li class="list-group-item">
                                 <YAF:UserLink ID="UserProfileLink" runat="server"
-                                              ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).DisplayName : (Container.DataItem as dynamic).Name %>"
+                                              ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as dynamic).DisplayName : (Container.DataItem as dynamic).Name %>"
                                               Suspended="<%# (Container.DataItem as dynamic).Suspended %>"
                                               Style="<%# (Container.DataItem as dynamic).UserStyle %>"
                                               UserID="<%#  this.UserId == (int)(Container.DataItem as dynamic).UserID ? (Container.DataItem as dynamic).FromUserID: (Container.DataItem as dynamic).UserID %>" />

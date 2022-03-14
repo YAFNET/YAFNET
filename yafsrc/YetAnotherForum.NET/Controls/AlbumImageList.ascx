@@ -32,12 +32,12 @@
                           </a>
                           <div class="card-body">
                               <asp:Label runat="server"
-                                         Visible="<%# this.UserID != this.PageContext.PageUserID %>"
+                                         Visible="<%# this.UserID != this.PageBoardContext.PageUserID %>"
                                          CssClass="card-text">
                                   <%# this.HtmlEncode(this.Eval("Caption"))%>
                               </asp:Label>
                               <asp:Label runat="server"
-                                         Visible="<%# this.UserID == this.PageContext.PageUserID %>"
+                                         Visible="<%# this.UserID == this.PageBoardContext.PageUserID %>"
                                          CssClass="card-text mb-3">
                                   <span id='<%# "spnTitle{0}".Fmt(this.Eval("ID")) %>'
                                         onclick="showTexBox(this.id)"
@@ -57,7 +57,7 @@
                                                        CommandArgument='<%# this.Eval("ID") %>'
                                                        Size="Small"
                                                        Type="OutlineSecondary"
-                                                       Visible="<%# this.UserID == this.PageContext.PageUserID %>"/>
+                                                       Visible="<%# this.UserID == this.PageBoardContext.PageUserID %>"/>
                                   </div>
                               </div>
                           </div>

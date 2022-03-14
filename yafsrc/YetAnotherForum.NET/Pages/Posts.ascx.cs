@@ -102,17 +102,17 @@ namespace YAF.Pages
         /// </param>
         protected void DeleteTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumModeratorAccess)
             {
                 /*"You don't have access to delete topics."*/
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.GetRepository<Topic>().Delete(this.PageContext.PageForumID, this.PageContext.PageTopicID, true);
+            this.GetRepository<Topic>().Delete(this.PageBoardContext.PageForumID, this.PageBoardContext.PageTopicID, true);
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
+                new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
         }
 
         /// <summary>
@@ -124,11 +124,11 @@ namespace YAF.Pages
         {
             if (this.User == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning);
                 return;
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.EmailTopic, new { t = this.PageContext.PageTopicID });
+            this.Get<LinkBuilder>().Redirect(ForumPages.EmailTopic, new { t = this.PageBoardContext.PageTopicID });
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void LockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumModeratorAccess)
             {
                 // "You are not a forum moderator.
                 this.Get<LinkBuilder>().AccessDenied();
@@ -148,9 +148,9 @@ namespace YAF.Pages
 
             flags.IsLocked = true;
 
-            this.GetRepository<Topic>().Lock(this.PageContext.PageTopicID, flags.BitValue);
+            this.GetRepository<Topic>().Lock(this.PageBoardContext.PageTopicID, flags.BitValue);
 
-            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
+            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
 
             this.LockTopic1.Visible = false;
             this.LockTopic2.Visible = false;
@@ -173,8 +173,8 @@ namespace YAF.Pages
 
             var connectControl = e.Item.FindControlAs<DisplayConnect>("DisplayConnect");
 
-            if (connectControl != null && this.PageContext.IsGuest &&
-                this.PageContext.BoardSettings.ShowConnectMessageInTopic)
+            if (connectControl != null && this.PageBoardContext.IsGuest &&
+                this.PageBoardContext.BoardSettings.ShowConnectMessageInTopic)
             {
                 connectControl.Visible = true;
             }
@@ -183,9 +183,9 @@ namespace YAF.Pages
             var displayAd = e.Item.FindControlAs<DisplayAd>("DisplayAd");
 
             // check if need to display the ad...
-            if (this.PageContext.BoardSettings.AdPost.IsSet() && displayAd != null)
+            if (this.PageBoardContext.BoardSettings.AdPost.IsSet() && displayAd != null)
             {
-                displayAd.Visible = this.PageContext.IsGuest || this.PageContext.BoardSettings.ShowAdsToSignedInUsers;
+                displayAd.Visible = this.PageBoardContext.IsGuest || this.PageBoardContext.BoardSettings.ShowAdsToSignedInUsers;
             }
         }
 
@@ -200,7 +200,7 @@ namespace YAF.Pages
 
             if (nextTopic == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
+                this.PageBoardContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
                 return;
             }
 
@@ -231,15 +231,15 @@ namespace YAF.Pages
 
             // share menu...
             this.ShareMenu.Visible = this.ShareLink.Visible =
-                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowShareTopicTo);
+                this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowShareTopicTo);
 
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowShareTopicTo))
+            if (this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowShareTopicTo))
             {
                 var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
                     ForumPages.Posts,
-                    new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
+                    new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
 
-                if (this.PageContext.BoardSettings.AllowEmailTopic)
+                if (this.PageBoardContext.BoardSettings.AllowEmailTopic)
                 {
                     this.ShareMenu.AddPostBackItem("email", this.GetText("EMAILTOPIC"), "fa fa-paper-plane");
                 }
@@ -275,13 +275,13 @@ namespace YAF.Pages
             }
             else
             {
-                if (this.PageContext.BoardSettings.AllowEmailTopic)
+                if (this.PageBoardContext.BoardSettings.AllowEmailTopic)
                 {
                     this.OptionsMenu.AddPostBackItem("email", this.GetText("EMAILTOPIC"), "fa fa-email");
                 }
             }
 
-            if (!this.PageContext.IsGuest)
+            if (!this.PageBoardContext.IsGuest)
             {
                 this.OptionsMenu.AddPostBackItem(
                     isWatched ? "unwatch" : "watch",
@@ -291,8 +291,8 @@ namespace YAF.Pages
 
             this.OptionsMenu.AddPostBackItem("print", this.GetText("PRINTTOPIC"), "fa fa-print");
 
-            if (this.PageContext.BoardSettings.ShowAtomLink &&
-                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostsFeedAccess))
+            if (this.PageBoardContext.BoardSettings.ShowAtomLink &&
+                this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.PostsFeedAccess))
             {
                 this.OptionsMenu.AddPostBackItem("atomfeed", this.GetText("ATOMTOPIC"), "fa fa-rss");
             }
@@ -316,21 +316,21 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.IsGuest)
+            if (!this.PageBoardContext.IsGuest)
             {
-                if (this.PageContext.PageUser.Activity)
+                if (this.PageBoardContext.PageUser.Activity)
                 {
                     this.GetRepository<Activity>().UpdateTopicNotification(
-                        this.PageContext.PageUserID,
-                        this.PageContext.PageTopicID);
+                        this.PageBoardContext.PageUserID,
+                        this.PageBoardContext.PageTopicID);
                 }
             }
 
-            this.topic = this.PageContext.PageTopic;
+            this.topic = this.PageBoardContext.PageTopic;
 
             if (this.topic.PollID.HasValue)
             {
-                this.PollList.TopicId = this.PageContext.PageTopicID;
+                this.PollList.TopicId = this.PageBoardContext.PageTopicID;
                 this.PollList.Visible = true;
                 this.PollList.PollId = this.topic.PollID.Value;
             }
@@ -341,17 +341,17 @@ namespace YAF.Pages
 
             this.forumFlags = new ForumFlags(firstPost.ForumFlags);
 
-            if (this.PageContext.IsGuest && !this.PageContext.ForumReadAccess)
+            if (this.PageBoardContext.IsGuest && !this.PageBoardContext.ForumReadAccess)
             {
                 // attempt to get permission by redirecting to login...
                 this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
             }
-            else if (!this.PageContext.ForumReadAccess)
+            else if (!this.PageBoardContext.ForumReadAccess)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            var yafBoardSettings = this.PageContext.BoardSettings;
+            var yafBoardSettings = this.PageBoardContext.BoardSettings;
 
             if (this.IsPostBack)
             {
@@ -361,7 +361,7 @@ namespace YAF.Pages
             // Clear Multi-quotes if topic is different
             if (this.Get<ISession>().MultiQuoteIds != null)
             {
-                if (!this.Get<ISession>().MultiQuoteIds.Any(m => m.TopicID.Equals(this.PageContext.PageTopicID)))
+                if (!this.Get<ISession>().MultiQuoteIds.Any(m => m.TopicID.Equals(this.PageBoardContext.PageTopicID)))
                 {
                     this.Get<ISession>().MultiQuoteIds = null;
                 }
@@ -369,14 +369,14 @@ namespace YAF.Pages
 
             this.NewTopic2.NavigateUrl = this.NewTopic1.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.PostTopic,
-                new { f = this.PageContext.PageForumID });
+                new { f = this.PageBoardContext.PageForumID });
 
             this.PostReplyLink1.NavigateUrl = this.PostReplyLink2.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                                                   ForumPages.PostMessage,
                                                   new
                                                       {
-                                                          t = this.PageContext.PageTopicID,
-                                                          f = this.PageContext.PageForumID
+                                                          t = this.PageBoardContext.PageTopicID,
+                                                          f = this.PageBoardContext.PageForumID
                                                       });
 
             var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.TopicName));
@@ -388,21 +388,21 @@ namespace YAF.Pages
             this.TopicLink.ToolTip = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.topic.Description));
             this.TopicLink.NavigateUrl = this.Get<LinkBuilder>().GetLink(
                 ForumPages.Posts,
-                new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
+                new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
 
             this.QuickReplyDialog.Visible = yafBoardSettings.ShowQuickAnswer;
             this.QuickReplyLink1.Visible = yafBoardSettings.ShowQuickAnswer;
             this.QuickReplyLink2.Visible = yafBoardSettings.ShowQuickAnswer;
 
-            if (!this.PageContext.ForumPostAccess || this.forumFlags.IsLocked && !this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumPostAccess || this.forumFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)
             {
                 this.NewTopic1.Visible = false;
                 this.NewTopic2.Visible = false;
             }
 
             // Ederon : 9/9/2007 - moderators can reply in locked topics
-            if (!this.PageContext.ForumReplyAccess || (this.topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) &&
-                !this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumReplyAccess || (this.topic.TopicFlags.IsLocked || this.forumFlags.IsLocked) &&
+                !this.PageBoardContext.ForumModeratorAccess)
             {
                 this.PostReplyLink1.Visible = this.PostReplyLink2.Visible = false;
                 this.QuickReplyDialog.Visible = false;
@@ -410,7 +410,7 @@ namespace YAF.Pages
                 this.QuickReplyLink2.Visible = false;
             }
 
-            if (this.PageContext.ForumModeratorAccess)
+            if (this.PageBoardContext.ForumModeratorAccess)
             {
                 this.MoveTopic1.Visible = true;
                 this.MoveTopic2.Visible = true;
@@ -427,7 +427,7 @@ namespace YAF.Pages
                 this.Tools2.Visible = false;
             }
 
-            if (!this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumModeratorAccess)
             {
                 this.LockTopic1.Visible = false;
                 this.UnlockTopic1.Visible = false;
@@ -450,15 +450,15 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            if (this.PageContext.Settings.LockedForum == 0)
+            if (this.PageBoardContext.Settings.LockedForum == 0)
             {
                 this.PageLinks.AddRoot();
-                this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
+                this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
             }
 
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
             this.PageLinks.AddLink(
-                this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageContext.PageTopic.TopicName)),
+                this.Get<IBadWordReplace>().Replace(this.Server.HtmlDecode(this.PageBoardContext.PageTopic.TopicName)),
                 string.Empty);
         }
 
@@ -470,14 +470,14 @@ namespace YAF.Pages
         protected void PostReplyLink_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Ederon : 9/9/2007 - moderator can reply in locked posts
-            if (this.PageContext.ForumModeratorAccess)
+            if (this.PageBoardContext.ForumModeratorAccess)
             {
                 return;
             }
 
             if (this.topic.TopicFlags.IsLocked)
             {
-                this.PageContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
                 return;
             }
 
@@ -486,7 +486,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
+            this.PageBoardContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
         }
 
         /// <summary>
@@ -500,13 +500,13 @@ namespace YAF.Pages
 
             if (previousTopic == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
+                this.PageBoardContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
                 return;
             }
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                new { t = this.PageContext.PageTopicID, name = previousTopic.TopicName });
+                new { t = this.PageBoardContext.PageTopicID, name = previousTopic.TopicName });
         }
 
         /// <summary>
@@ -520,8 +520,8 @@ namespace YAF.Pages
         /// </param>
         protected void TrackTopicClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.GetRepository<WatchTopic>().Add(this.PageContext.PageUserID, this.PageContext.PageTopicID);
-            this.PageContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
+            this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
+            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
 
             this.HandleWatchTopic();
         }
@@ -538,9 +538,9 @@ namespace YAF.Pages
         protected void UnTrackTopicClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.GetRepository<WatchTopic>().Delete(
-                w => w.TopicID == this.PageContext.PageTopicID && w.UserID == this.PageContext.PageUserID);
+                w => w.TopicID == this.PageBoardContext.PageTopicID && w.UserID == this.PageBoardContext.PageUserID);
 
-            this.PageContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
+            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
 
             this.HandleWatchTopic();
         }
@@ -552,7 +552,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void UnlockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumModeratorAccess)
             {
                 // "You are not a forum moderator.
                 this.Get<LinkBuilder>().AccessDenied();
@@ -562,9 +562,9 @@ namespace YAF.Pages
 
             flags.IsLocked = false;
 
-            this.GetRepository<Topic>().Lock(this.PageContext.PageTopicID, flags.BitValue);
+            this.GetRepository<Topic>().Lock(this.PageBoardContext.PageTopicID, flags.BitValue);
 
-            this.PageContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
+            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
 
             this.LockTopic1.Visible = true;
             this.LockTopic2.Visible = true;
@@ -593,12 +593,12 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.Page.Header == null || !this.PageContext.BoardSettings.AddDynamicPageMetaTags)
+            if (this.Page.Header == null || !this.PageBoardContext.BoardSettings.AddDynamicPageMetaTags)
             {
                 return;
             }
 
-            var message = this.Get<IFormatMessage>().GetCleanedTopicMessage(firstMessage, this.PageContext.PageTopicID);
+            var message = this.Get<IFormatMessage>().GetCleanedTopicMessage(firstMessage, this.PageBoardContext.PageTopicID);
             var meta = this.Page.Header.FindControlType<HtmlMeta>();
 
             var htmlMetas = meta as IList<HtmlMeta> ?? meta.ToList();
@@ -684,19 +684,19 @@ namespace YAF.Pages
         {
             this.dataBound = true;
 
-            var showDeleted = this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                          this.PageContext.BoardSettings.ShowDeletedMessagesToAll;
+            var showDeleted = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
+                          this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
 
             var findMessageId = this.GetFindMessageId(showDeleted, out var messagePosition);
 
             // Mark topic read
-            this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageContext.PageTopicID);
-            this.Pager.PageSize = this.PageContext.BoardSettings.PostsPerPage;
+            this.Get<IReadTrackCurrentUser>().SetTopicRead(this.PageBoardContext.PageTopicID);
+            this.Pager.PageSize = this.PageBoardContext.BoardSettings.PostsPerPage;
 
             var postList = this.GetRepository<Message>().PostListPaged(
-                this.PageContext.PageTopicID,
-                this.PageContext.PageUserID,
-                !this.IsPostBack && !this.PageContext.IsCrawler,
+                this.PageBoardContext.PageTopicID,
+                this.PageBoardContext.PageUserID,
+                !this.IsPostBack && !this.PageBoardContext.IsCrawler,
                 showDeleted,
                 DateTimeHelper.SqlDbMinTime(),
                 DateTime.UtcNow,
@@ -707,9 +707,9 @@ namespace YAF.Pages
             if (!postList.Any())
             {
                 var topicException = new NoPostsFoundForTopicException(
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageUserID,
-                    !this.IsPostBack && !this.PageContext.IsCrawler,
+                    this.PageBoardContext.PageTopicID,
+                    this.PageBoardContext.PageUserID,
+                    !this.IsPostBack && !this.PageBoardContext.IsCrawler,
                     showDeleted,
                     DateTimeHelper.SqlDbMinTime(),
                     DateTime.UtcNow,
@@ -731,9 +731,9 @@ namespace YAF.Pages
                 this.Pager.CurrentPageIndex = firstPost.PageIndex;
 
                 // move to this message on load...
-                if (!this.PageContext.IsCrawler)
+                if (!this.PageBoardContext.IsCrawler)
                 {
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         this,
                         "GotoAnchorJs",
                         JavaScriptBlocks.LoadGotoAnchor($"post{findMessageId}"));
@@ -742,9 +742,9 @@ namespace YAF.Pages
             else
             {
                 // move to this message on load...
-                if (!this.PageContext.IsCrawler)
+                if (!this.PageBoardContext.IsCrawler)
                 {
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         this,
                         "GotoAnchorJs",
                         JavaScriptBlocks.LoadGotoAnchor($"post{firstPost.MessageID}"));
@@ -792,7 +792,7 @@ namespace YAF.Pages
                     out var messageId))
                 {
                     var unreadFirst = this.GetRepository<Message>().FindUnread(
-                        this.PageContext.PageTopicID,
+                        this.PageBoardContext.PageTopicID,
                         messageId,
                         DateTimeHelper.SqlDbMinTime(),
                         showDeleted);
@@ -803,16 +803,16 @@ namespace YAF.Pages
                 else
                 {
                     // find first unread message
-                    var lastRead = !this.PageContext.IsCrawler
+                    var lastRead = !this.PageBoardContext.IsCrawler
                         ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                            this.PageContext.PageForumID,
-                            this.PageContext.PageTopicID,
+                            this.PageBoardContext.PageForumID,
+                            this.PageBoardContext.PageTopicID,
                             null,
                             null)
                         : DateTime.UtcNow;
 
                     var unreadFirst = this.GetRepository<Message>().FindUnread(
-                        this.PageContext.PageTopicID,
+                        this.PageBoardContext.PageTopicID,
                         null,
                         lastRead,
                         showDeleted);
@@ -820,15 +820,15 @@ namespace YAF.Pages
                     findMessageId = unreadFirst.MessageID;
                     messagePosition = unreadFirst.MessagePosition;
 
-                    if (this.PageContext.PageUser.Activity)
+                    if (this.PageBoardContext.PageUser.Activity)
                     {
-                        this.GetRepository<Activity>().UpdateNotification(this.PageContext.PageUserID, findMessageId);
+                        this.GetRepository<Activity>().UpdateNotification(this.PageBoardContext.PageUserID, findMessageId);
                     }
                 }
             }
             catch (Exception x)
             {
-                this.Logger.Log(this.PageContext.PageUserID, this, x);
+                this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
             }
 
             return findMessageId;
@@ -842,14 +842,14 @@ namespace YAF.Pages
         /// </returns>
         private bool HandleWatchTopic()
         {
-            if (this.PageContext.IsGuest)
+            if (this.PageBoardContext.IsGuest)
             {
                 return false;
             }
 
             var watchTopicId = this.GetRepository<WatchTopic>().Check(
-                this.PageContext.PageUserID,
-                this.PageContext.PageTopicID);
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageTopicID);
 
             // check if this forum is being watched by this user
             return watchTopicId.HasValue;
@@ -862,7 +862,7 @@ namespace YAF.Pages
         private void InitializeComponent()
         {
             // in case topic is deleted or not existent
-            if (this.PageContext.PageTopic == null)
+            if (this.PageBoardContext.PageTopic == null)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }
@@ -880,7 +880,7 @@ namespace YAF.Pages
         {
             var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
                 ForumPages.Posts,
-                new { t = this.PageContext.PageTopicID, name = this.PageContext.PageTopic.TopicName });
+                new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
 
             switch (e.Item.ToLower())
             {
@@ -916,8 +916,8 @@ namespace YAF.Pages
                     break;
                 case "retweet":
                     {
-                        var twitterName = this.PageContext.BoardSettings.TwitterUserName.IsSet()
-                            ? $"@{this.PageContext.BoardSettings.TwitterUserName} "
+                        var twitterName = this.PageBoardContext.BoardSettings.TwitterUserName.IsSet()
+                            ? $"@{this.PageBoardContext.BoardSettings.TwitterUserName} "
                             : string.Empty;
 
                         // process message... clean html, strip html, remove bbcode, etc...
@@ -956,7 +956,7 @@ namespace YAF.Pages
             switch (e.Item.ToLower())
             {
                 case "print":
-                    this.Get<LinkBuilder>().Redirect(ForumPages.PrintTopic, new { t = this.PageContext.PageTopicID });
+                    this.Get<LinkBuilder>().Redirect(ForumPages.PrintTopic, new { t = this.PageBoardContext.PageTopicID });
                     break;
                 case "watch":
                     this.TrackTopicClick(sender, e);
@@ -970,7 +970,7 @@ namespace YAF.Pages
                 case "atomfeed":
                     this.Get<LinkBuilder>().Redirect(
                         ForumPages.Feed,
-                        new {feed = RssFeeds.Posts.ToInt(), t = this.PageContext.PageTopicID });
+                        new {feed = RssFeeds.Posts.ToInt(), t = this.PageBoardContext.PageTopicID });
                     break;
                 default:
                     throw new ApplicationException(e.Item);

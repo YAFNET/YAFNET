@@ -233,8 +233,8 @@ namespace YAF.Controls
 
             if (HttpContext.Current != null)
             {
-                this.BoardSettings = this.PageContext.BoardSettings.BoardID.Equals(this.BoardID)
-                    ? this.PageContext.BoardSettings
+                this.BoardSettings = this.PageBoardContext.BoardSettings.BoardID.Equals(this.BoardID)
+                    ? this.PageBoardContext.BoardSettings
                     : new LoadBoardSettings(this.BoardID);
             }
             else
@@ -281,7 +281,7 @@ namespace YAF.Controls
             this.topicHours = -this.Get<BoardSettings>().DigestSendEveryXHours;
 
             this.forumData = this.Get<DataBroker>().GetSimpleForumTopic(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.CurrentUser.ID,
                 DateTime.Now.AddHours(this.topicHours),
                 9999);

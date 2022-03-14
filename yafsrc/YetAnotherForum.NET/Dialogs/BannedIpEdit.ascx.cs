@@ -114,7 +114,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
@@ -173,7 +173,7 @@ namespace YAF.Dialogs
             // show error(s) if not valid...
             if (ipError.Length > 0)
             {
-                this.PageContext.AddLoadMessage(ipError.ToString(), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(ipError.ToString(), MessageTypes.warning);
                 return;
             }
 
@@ -181,18 +181,18 @@ namespace YAF.Dialogs
                 this.BannedId,
                 this.mask.Text.Trim(),
                 this.BanReason.Text.Trim(),
-                this.PageContext.PageUserID))
+                this.PageBoardContext.PageUserID))
             {
-                this.PageContext.LoadMessage.AddSession(
+                this.PageBoardContext.LoadMessage.AddSession(
                     this.GetText("ADMIN_BANNEDIP", "MSG_EXIST"),
                     MessageTypes.warning);
             }
             else
             {
-                if (this.PageContext.BoardSettings.LogBannedIP)
+                if (this.PageBoardContext.BoardSettings.LogBannedIP)
                 {
                     this.Logger.Log(
-                        $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageContext.PageUser.DisplayOrUserName()}.",
+                        $"IP or mask {this.mask.Text.Trim()} was saved by {this.PageBoardContext.PageUser.DisplayOrUserName()}.",
                         EventLogTypes.IpBanSet);
                 }
             }

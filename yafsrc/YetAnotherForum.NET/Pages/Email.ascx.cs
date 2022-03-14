@@ -81,7 +81,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (this.User == null || !this.PageContext.BoardSettings.AllowEmailSending)
+            if (this.User == null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -91,7 +91,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Send.ClientID));
 
@@ -140,9 +140,9 @@ namespace YAF.Pages
 
                 // send it...
                 this.Get<IMailService>().Send(
-                    new MailAddress(this.PageContext.MembershipUser.Email, this.PageContext.MembershipUser.UserName),
+                    new MailAddress(this.PageBoardContext.MembershipUser.Email, this.PageBoardContext.MembershipUser.UserName),
                     new MailAddress(toUser.Email.Trim(), toUser.UserName.Trim()),
-                    new MailAddress(this.PageContext.BoardSettings.ForumEmail, this.PageContext.BoardSettings.Name),
+                    new MailAddress(this.PageBoardContext.BoardSettings.ForumEmail, this.PageBoardContext.BoardSettings.Name),
                     this.Subject.Text.Trim(),
                     this.Body.Text.Trim());
 
@@ -154,10 +154,10 @@ namespace YAF.Pages
             }
             catch (Exception x)
             {
-                this.Logger.Log(this.PageContext.PageUserID, this, x);
+                this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
 
-                this.PageContext.AddLoadMessage(
-                    this.PageContext.IsAdmin ? x.Message : this.GetText("ERROR"),
+                this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.IsAdmin ? x.Message : this.GetText("ERROR"),
                     MessageTypes.danger);
             }
         }

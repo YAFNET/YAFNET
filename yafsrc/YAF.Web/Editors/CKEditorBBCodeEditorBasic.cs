@@ -76,11 +76,11 @@ namespace YAF.Web.Editors
         {
             var language = BoardContext.Current.PageUser.Culture.IsSet()
                 ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
-                : this.PageContext.BoardSettings.Culture.Substring(0, 2);
+                : this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
 
             if (ValidationHelper.IsNumeric(language))
             {
-                language = this.PageContext.BoardSettings.Culture.Substring(0, 2);
+                language = this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
             }
 
             BoardContext.Current.PageElements.RegisterJsBlock(
@@ -91,7 +91,7 @@ namespace YAF.Web.Editors
                     this.MaxCharacters,
                     this.Get<ITheme>().BuildThemePath("bootstrap-forum.min.css"),
                     BoardInfo.GetURLToContent("forum.min.css"),
-                    this.PageContext.BoardSettings.EditorToolbarBasic));
+                    this.PageBoardContext.BoardSettings.EditorToolbarBasic));
         }
 
         #endregion

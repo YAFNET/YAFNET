@@ -78,11 +78,11 @@ namespace YAF.Web.Editors
         {
             var language = BoardContext.Current.PageUser.Culture.IsSet()
                 ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
-                : this.PageContext.BoardSettings.Culture.Substring(0, 2);
+                : this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
 
             if (ValidationHelper.IsNumeric(language))
             {
-                language = this.PageContext.BoardSettings.Culture.Substring(0, 2);
+                language = this.PageBoardContext.BoardSettings.Culture.Substring(0, 2);
             }
 
             var serverName = OrmLiteConfig.DialectProvider.SQLServerName();

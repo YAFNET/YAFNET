@@ -45,7 +45,7 @@
                                          MaxLength="50" />
                         </div>
                         <asp:PlaceHolder id="ChoiceRow1"
-                                         visible="<%# (this.PageContext.IsAdmin || this.PageContext.BoardSettings.AllowUsersImagedPoll) && this.PageContext.ForumPollAccess %>" runat="server">
+                                         visible="<%# (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.AllowUsersImagedPoll) && this.PageBoardContext.ForumPollAccess %>" runat="server">
                             <div class="mb-3 col-md-6">
                                 <asp:Label runat="server" AssociatedControlID="ObjectPath">
                                     <YAF:LocalizedLabel ID="PollChoiceObjectLabel"  runat="server" LocalizedTag="POLLIMAGE_TEXT" />

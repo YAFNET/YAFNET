@@ -150,7 +150,7 @@
 </asp:Repeater>
 
 <asp:PlaceHolder runat="server"
-                 Visible="<%# this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostsFeedAccess) %>">
+                 Visible="<%# this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.PostsFeedAccess) %>">
     <div class="row mb-3">
         <div class="col">
             <YAF:RssFeedLink ID="RssFeed" runat="server" />

@@ -100,7 +100,7 @@ namespace YAF.Pages.Account
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadLoginValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.LoginButton.ClientID));
 
@@ -112,7 +112,7 @@ namespace YAF.Pages.Account
                 "onkeydown",
                 JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
 
-            if (this.PageContext.IsGuest && !this.PageContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
+            if (this.PageBoardContext.IsGuest && !this.PageBoardContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
             {
                 this.RegisterLink.Visible = true;
             }
@@ -151,7 +151,7 @@ namespace YAF.Pages.Account
         protected void RegisterLinkClick(object sender, EventArgs e)
         {
             this.Get<LinkBuilder>().Redirect(
-                this.PageContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
+                this.PageBoardContext.BoardSettings.ShowRulesForRegistration ? ForumPages.RulesAndPrivacy : ForumPages.Account_Register);
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace YAF.Pages.Account
 
             if (user == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                 return;
             }
 
@@ -217,7 +217,7 @@ namespace YAF.Pages.Account
                             this.Logger.Info(
                                 $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
 
-                            this.PageContext.LoadMessage.AddSession(
+                            this.PageBoardContext.LoadMessage.AddSession(
                                 this.GetText("LOGIN", "ERROR_LOCKEDOUT"),
                                 MessageTypes.danger);
                         }
@@ -230,7 +230,7 @@ namespace YAF.Pages.Account
                             null,
                             $"Login Failure: {this.UserName.Text.Trim()}");
 
-                        this.PageContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                        this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                         break;
                     }
             }
@@ -255,18 +255,18 @@ namespace YAF.Pages.Account
             var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
             var subject = this.Get<ILocalization>()
-                .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageContext.BoardSettings.Name);
+                .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
 
             verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                 ForumPages.Account_Approve,
                 new { code = checkMail.Hash });
             verifyEmail.TemplateParams["{key}"] = checkMail.Hash;
-            verifyEmail.TemplateParams["{forumname}"] = this.PageContext.BoardSettings.Name;
+            verifyEmail.TemplateParams["{forumname}"] = this.PageBoardContext.BoardSettings.Name;
             verifyEmail.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
 
             verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
-            this.PageContext.AddLoadMessage(
+            this.PageBoardContext.AddLoadMessage(
                 this.GetText("LOGIN", "MSG_MESSAGE_SEND"),
                 MessageTypes.success);
         }
@@ -338,7 +338,7 @@ namespace YAF.Pages.Account
 
             if (message.IsSet())
             {
-                this.PageContext.AddLoadMessage(message, MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(message, MessageTypes.warning);
             }
             else
             {

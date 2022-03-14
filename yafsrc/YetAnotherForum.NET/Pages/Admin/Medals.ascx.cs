@@ -169,7 +169,7 @@ namespace YAF.Pages.Admin
         private void BindData()
         {
             // list medals for this board
-            this.MedalList.DataSource = this.GetRepository<Medal>().Get(m => m.BoardID == this.PageContext.PageBoardID)
+            this.MedalList.DataSource = this.GetRepository<Medal>().Get(m => m.BoardID == this.PageBoardContext.PageBoardID)
                 .OrderBy(m => m.Category);
 
             // bind data to controls

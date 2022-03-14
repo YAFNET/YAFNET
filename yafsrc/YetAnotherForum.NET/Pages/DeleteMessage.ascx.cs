@@ -83,8 +83,8 @@ namespace YAF.Pages
         /// </summary>
         public bool CanDeletePost =>
             (!this.PostLocked && !this.message.Item4.ForumFlags.IsLocked && !this.message.Item1.TopicFlags.IsLocked
-             && this.message.Item1.UserID == this.PageContext.PageUserID
-             || this.PageContext.ForumModeratorAccess) && this.PageContext.ForumDeleteAccess;
+             && this.message.Item1.UserID == this.PageBoardContext.PageUserID
+             || this.PageBoardContext.ForumModeratorAccess) && this.PageBoardContext.ForumDeleteAccess;
 
         /// <summary>
         ///   Gets a value indicating whether CanUnDeletePost.
@@ -103,14 +103,14 @@ namespace YAF.Pages
         {
             get
             {
-                if (this.PageContext.IsAdmin || this.PageContext.BoardSettings.LockPosts <= 0)
+                if (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.LockPosts <= 0)
                 {
                     return false;
                 }
 
                 var edited = this.message.Item2.Edited.Value;
 
-                return edited.AddDays(this.PageContext.BoardSettings.LockPosts) < DateTime.UtcNow;
+                return edited.AddDays(this.PageBoardContext.BoardSettings.LockPosts) < DateTime.UtcNow;
             }
         }
 
@@ -134,7 +134,7 @@ namespace YAF.Pages
             // new topic -- cancel back to forum
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
+                new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
         }
 
         /// <summary>
@@ -183,21 +183,21 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Delete.ClientID));
 
             this.message = this.GetRepository<Message>().GetMessageAsTuple(this.MessageId);
 
-            this.isModeratorChanged = this.PageContext.PageUserID != this.message.Item1.UserID;
+            this.isModeratorChanged = this.PageBoardContext.PageUserID != this.message.Item1.UserID;
 
-            if (!this.PageContext.ForumModeratorAccess
+            if (!this.PageBoardContext.ForumModeratorAccess
                 && this.isModeratorChanged)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (this.PageContext.PageForumID == 0)
+            if (this.PageBoardContext.PageForumID == 0)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -219,7 +219,7 @@ namespace YAF.Pages
             var replies = this.GetRepository<Message>().Replies(
                 this.MessageId);
 
-            if (replies.Any() && (this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin))
+            if (replies.Any() && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
             {
                 this.LinkedPosts.Visible = true;
                 this.LinkedPosts.DataSource = replies;
@@ -232,7 +232,7 @@ namespace YAF.Pages
                 this.Delete.TextLocalizedTag = "DELETE";
                 this.Delete.TitleLocalizedTag = "DELETE_TT";
 
-                if (this.PageContext.IsAdmin)
+                if (this.PageBoardContext.IsAdmin)
                 {
                     this.EraseRow.Visible = true;
                 }
@@ -250,7 +250,7 @@ namespace YAF.Pages
                 this.DeleteUndelete.TextLocalizedTag = "BUTTON_DELETE_UNDELETE";
                 this.DeleteUndelete.TitleLocalizedTag = "BUTTON_DELETE_UNDELETE_TT";
 
-                if (this.PageContext.IsAdmin)
+                if (this.PageBoardContext.IsAdmin)
                 {
                     this.DeleteUndelete.Visible = true;
                 }
@@ -282,8 +282,8 @@ namespace YAF.Pages
         {
             // setup page links
             this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageContext.PageCategory.Name, this.PageContext.PageCategoryID);
-            this.PageLinks.AddForum(this.PageContext.PageForumID);
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
         }
 
         /// <summary>
@@ -382,7 +382,7 @@ namespace YAF.Pages
 
             var deleteAllPosts = e.Item.FindControlAs<CheckBox>("DeleteAllPosts");
             deleteAllPosts.Checked =
-                deleteAllPosts.Enabled = this.PageContext.ForumModeratorAccess || this.PageContext.IsAdmin;
+                deleteAllPosts.Enabled = this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin;
         }
 
         #endregion

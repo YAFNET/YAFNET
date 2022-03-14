@@ -102,7 +102,7 @@ namespace YAF.Controls
             userLink.UserID = item.ID;
             userLink.Suspended = item.Suspended;
             userLink.Style = item.UserStyle;
-            userLink.ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name;
+            userLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name;
         }
 
         /// <summary>
@@ -113,8 +113,8 @@ namespace YAF.Controls
             var users = this.Get<IDataCache>().GetOrSet(
                  Constants.Cache.MostActiveUsers,
                  () => this.GetRepository<User>().LastActive(
-                     this.PageContext.PageBoardID,
-                     this.PageContext.GuestUserID,
+                     this.PageBoardContext.PageBoardID,
+                     this.PageBoardContext.GuestUserID,
                      DateTime.UtcNow.AddDays(-this.LastNumOfDays),
                      this.DisplayNumber),
                  TimeSpan.FromMinutes(5));

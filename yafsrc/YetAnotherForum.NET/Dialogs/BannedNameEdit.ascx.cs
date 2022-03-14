@@ -113,7 +113,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
@@ -132,7 +132,7 @@ namespace YAF.Dialogs
 
             if (!this.GetRepository<BannedName>().Save(this.BannedId, this.mask.Text.Trim(), this.BanReason.Text.Trim()))
             {
-                this.PageContext.LoadMessage.AddSession(
+                this.PageBoardContext.LoadMessage.AddSession(
                     this.GetText("ADMIN_BANNEDNAME", "MSG_EXIST"),
                     MessageTypes.warning);
             }

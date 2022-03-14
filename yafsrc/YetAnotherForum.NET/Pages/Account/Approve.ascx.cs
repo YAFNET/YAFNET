@@ -121,7 +121,7 @@ namespace YAF.Pages.Account
                 this.Get<IAspNetUsersHelper>().SignIn(user);
 
                 // now redirect to main site...
-                this.PageContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
 
                 // default redirect -- because if may not want to redirect to login.
                 this.Get<LinkBuilder>().Redirect(ForumPages.Board);

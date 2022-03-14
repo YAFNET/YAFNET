@@ -54,7 +54,7 @@ namespace YAF.Dialogs
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.ForumModeratorAccess)
+            if (!this.PageBoardContext.ForumModeratorAccess)
             {
                 this.Visible = false;
                 return;
@@ -65,7 +65,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            var showMoved = this.PageContext.BoardSettings.ShowMoved;
+            var showMoved = this.PageBoardContext.BoardSettings.ShowMoved;
 
             // Ederon : 7/14/2007 - by default, leave pointer is set on value defined on host level
             this.LeavePointer.Checked = showMoved;
@@ -79,14 +79,14 @@ namespace YAF.Dialogs
             }
 
             var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageContext.PageBoardID,
-                this.PageContext.PageUserID);
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.PageUserID);
 
             this.ForumList.AddForumAndCategoryIcons(forumList);
 
             this.DataBind();
 
-            var pageItem = this.ForumList.Items.FindByValue(this.PageContext.PageForumID.ToString());
+            var pageItem = this.ForumList.Items.FindByValue(this.PageBoardContext.PageForumID.ToString());
 
             if (pageItem != null)
             {
@@ -106,18 +106,18 @@ namespace YAF.Dialogs
 
             if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet() && !int.TryParse(this.LinkDays.Text, out ld))
             {
-                this.PageContext.AddLoadMessage(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
                 return;
             }
 
             if (this.ForumList.SelectedValue.ToType<int>() <= 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
                 return;
             }
 
             // only move if it's a destination is a different forum.
-            if (this.ForumList.SelectedValue.ToType<int>() != this.PageContext.PageForumID)
+            if (this.ForumList.SelectedValue.ToType<int>() != this.PageBoardContext.PageForumID)
             {
                 if (ld >= -2)
                 {
@@ -126,8 +126,8 @@ namespace YAF.Dialogs
 
                 // Ederon : 7/14/2007
                 this.GetRepository<Topic>().Move(
-                    this.PageContext.PageTopicID,
-                    this.PageContext.PageForumID,
+                    this.PageBoardContext.PageTopicID,
+                    this.PageBoardContext.PageForumID,
                     this.ForumList.SelectedValue.ToType<int>(),
                     this.LeavePointer.Checked,
                     linkDays.Value);
@@ -135,7 +135,7 @@ namespace YAF.Dialogs
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,
-                new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name });
+                new { f = this.PageBoardContext.PageForumID, name = this.PageBoardContext.PageForum.Name });
         }
 
         #endregion

@@ -99,9 +99,9 @@ namespace YAF.Pages.Admin
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
+            this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "collapseToggleJs",
                 JavaScriptBlocks.CollapseToggleJs(
                     this.GetText("ADMIN_EVENTLOG", "HIDE"),
@@ -130,7 +130,7 @@ namespace YAF.Pages.Admin
 
             try
             {
-                this.PageSize.SelectedValue = this.PageContext.PageUser.PageSize.ToString();
+                this.PageSize.SelectedValue = this.PageBoardContext.PageUser.PageSize.ToString();
             }
             catch (Exception)
             {
@@ -139,14 +139,14 @@ namespace YAF.Pages.Admin
 
             var ci = this.Get<ILocalization>().Culture;
 
-            if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
+            if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
             {
                 this.SinceDate.Text = PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
                 this.ToDate.Text = PersianDateConverter.ToPersianDate(PersianDate.Now).ToString("d");
             }
             else
             {
-                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
+                this.SinceDate.Text = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
                 this.SinceDate.TextMode = TextBoxMode.Date;
 
                 this.ToDate.Text = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
@@ -216,7 +216,7 @@ namespace YAF.Pages.Admin
         /// </returns>
         protected string UserLink([NotNull] PagedEventLog item)
         {
-            if (item.UserID == 0 || item.UserID == this.PageContext.GuestUserID)
+            if (item.UserID == 0 || item.UserID == this.PageBoardContext.GuestUserID)
             {
                 return string.Empty;
             }
@@ -226,7 +226,7 @@ namespace YAF.Pages.Admin
                 UserID = item.UserID,
                 Suspended = item.Suspended,
                 Style = item.UserStyle,
-                ReplaceName = this.PageContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
+                ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
             };
 
             return userLink.RenderToString();
@@ -241,14 +241,14 @@ namespace YAF.Pages.Admin
             var currentPageIndex = this.PagerTop.CurrentPageIndex;
             this.PagerTop.PageSize = baseSize;
 
-            var sinceDate = DateTime.UtcNow.AddDays(-this.PageContext.BoardSettings.EventLogMaxDays);
+            var sinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays);
             var toDate = DateTime.UtcNow;
 
             var ci = this.Get<ILocalization>().Culture;
 
             if (this.SinceDate.Text.IsSet())
             {
-                if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.SinceDate.Text.PersianNumberToEnglish());
 
@@ -262,7 +262,7 @@ namespace YAF.Pages.Admin
 
             if (this.ToDate.Text.IsSet())
             {
-                if (this.PageContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
+                if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
                 {
                     var persianDate = new PersianDate(this.ToDate.Text.PersianNumberToEnglish());
 
@@ -277,9 +277,9 @@ namespace YAF.Pages.Admin
             // list event for this board
             var list = this.GetRepository<Types.Models.EventLog>()
                                .ListPaged(
-                                   this.PageContext.PageBoardID,
-                                   this.PageContext.BoardSettings.EventLogMaxMessages,
-                                   this.PageContext.BoardSettings.EventLogMaxDays,
+                                   this.PageBoardContext.PageBoardID,
+                                   this.PageBoardContext.BoardSettings.EventLogMaxMessages,
+                                   this.PageBoardContext.BoardSettings.EventLogMaxDays,
                                    currentPageIndex,
                                    baseSize,
                                    sinceDate,

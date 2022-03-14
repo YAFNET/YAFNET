@@ -120,7 +120,7 @@ namespace YAF.Controls
                 this.GetRepository<BannedEmail>().Save(
                     null,
                     this.User.Item1.Email,
-                    $"Email was reported by: {this.PageContext.PageUser.DisplayOrUserName()}");
+                    $"Email was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
             }
 
             // Ban User IP?
@@ -135,12 +135,12 @@ namespace YAF.Controls
                 this.GetRepository<BannedName>().Save(
                     null,
                     this.User.Item1.Name,
-                    $"Name was reported by: {this.PageContext.PageUser.DisplayOrUserName()}");
+                    $"Name was reported by: {this.PageBoardContext.PageUser.DisplayOrUserName()}");
             }
 
             this.DeleteAllUserMessages();
 
-            if (this.ReportUser.Checked && this.PageContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
+            if (this.ReportUser.Checked && this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
                 this.IPAddresses.Any())
             {
                 try
@@ -152,20 +152,20 @@ namespace YAF.Controls
                         this.GetRepository<Registry>().IncrementReportedSpammers();
 
                         this.Logger.Log(
-                            this.PageContext.PageUserID,
+                            this.PageBoardContext.PageUserID,
                             "User Reported to StopForumSpam.com",
-                            $"User (Name:{this.User.Item1.Name}/ID:{this.User.Item1.ID}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageContext.PageUser.DisplayOrUserName()}",
+                            $"User (Name:{this.User.Item1.Name}/ID:{this.User.Item1.ID}/IP:{this.IPAddresses.FirstOrDefault()}/Email:{this.User.Item1.Email}) Reported to StopForumSpam.com by {this.PageBoardContext.PageUser.DisplayOrUserName()}",
                             EventLogTypes.SpamBotReported);
                     }
                 }
                 catch (Exception exception)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
                         MessageTypes.danger);
 
                     this.Logger.Log(
-                        this.PageContext.PageUserID,
+                        this.PageBoardContext.PageUserID,
                         $"User (Name{this.User.Item1.Name}/ID:{this.User.Item1.ID}) Report to StopForumSpam.com Failed",
                         exception);
                 }
@@ -177,10 +177,10 @@ namespace YAF.Controls
                     if (this.User.Item1.ID > 0)
                     {
                         // we are deleting user
-                        if (this.PageContext.PageUserID == this.User.Item1.ID)
+                        if (this.PageBoardContext.PageUserID == this.User.Item1.ID)
                         {
                             // deleting yourself isn't an option
-                            this.PageContext.AddLoadMessage(
+                            this.PageBoardContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
                                 MessageTypes.danger);
                             return;
@@ -190,7 +190,7 @@ namespace YAF.Controls
                         if (this.User.Item1.UserFlags.IsGuest)
                         {
                             // we cannot delete guest
-                            this.PageContext.AddLoadMessage(
+                            this.PageBoardContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                                 MessageTypes.danger);
                             return;
@@ -200,7 +200,7 @@ namespace YAF.Controls
                             this.User.Item1.UserFlags.IsHostAdmin)
                         {
                             // admin are not deletable either
-                            this.PageContext.AddLoadMessage(
+                            this.PageBoardContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                                 MessageTypes.danger);
 
@@ -210,7 +210,7 @@ namespace YAF.Controls
                         // all is good, user can be deleted
                         this.Get<IAspNetUsersHelper>().DeleteUser(this.User.Item1.ID);
 
-                        this.PageContext.LoadMessage.AddSession(
+                        this.PageBoardContext.LoadMessage.AddSession(
                             this.GetTextFormatted("MSG_USER_KILLED", this.User.Item1.Name),
                             MessageTypes.success);
 
@@ -261,7 +261,7 @@ namespace YAF.Controls
         /// </summary>
         private void BanUserIps()
         {
-            var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageContext.PageBoardID)
+            var allIps = this.GetRepository<BannedIP>().Get(x => x.BoardID == this.PageBoardContext.PageBoardID)
                 .Select(x => x.Mask).ToList();
 
             // ban user ips...
@@ -277,7 +277,7 @@ namespace YAF.Controls
                         this.Get<LinkBuilder>().GetUserProfileLink(this.User.Item1.ID, name),
                         this.HtmlEncode(name));
 
-                    this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageContext.PageUserID);
+                    this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageBoardContext.PageUserID);
                 });
         }
 
@@ -295,12 +295,12 @@ namespace YAF.Controls
                                        : this.Get<IAspNetUsersHelper>().GuestUserName
                     });
 
-            this.ReportUserRow.Visible = this.PageContext.BoardSettings.StopForumSpamApiKey.IsSet();
+            this.ReportUserRow.Visible = this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet();
 
             // load ip address history for user...
             this.IPAddresses.Take(5).ForEach(
                 ipAddress => this.IpAddresses.Text +=
-                                 $@"<a href=""{string.Format(this.PageContext.BoardSettings.IPInfoPageURL, ipAddress)}""
+                                 $@"<a href=""{string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, ipAddress)}""
                                        target=""_blank""
                                        title=""{this.GetText("COMMON", "TT_IPDETAILS")}"">
                                        {ipAddress}

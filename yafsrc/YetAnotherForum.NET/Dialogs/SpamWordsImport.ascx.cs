@@ -56,11 +56,11 @@ namespace YAF.Dialogs
                 // import selected file (if it's the proper format)...
                 if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
                         MessageTypes.danger);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("ImportDialog"));
 
@@ -68,10 +68,10 @@ namespace YAF.Dialogs
                 }
 
                 var importedCount = DataImport.SpamWordsImport(
-                    this.PageContext.PageBoardID,
+                    this.PageBoardContext.PageBoardID,
                     this.importFile.PostedFile.InputStream);
 
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     importedCount > 0
                         ? string.Format(this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
                         : this.GetText("ADMIN_SPAMWORDS_IMPORT", "MSG_NOTHING"),
@@ -79,11 +79,11 @@ namespace YAF.Dialogs
             }
             catch (Exception x)
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetTextFormatted("MSG_IMPORTED_FAILEDX", x.Message),
                     MessageTypes.danger);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ImportDialog"));
             }

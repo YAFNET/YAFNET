@@ -111,7 +111,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
@@ -130,11 +130,11 @@ namespace YAF.Dialogs
 
             if (!ValidationHelper.IsValidRegex(this.badword.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
                     MessageTypes.warning);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("ReplaceWordsEditDialog"));
 

@@ -50,7 +50,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.BoardSettings.ShowSimilarTopics)
+            if (!this.PageBoardContext.BoardSettings.ShowSimilarTopics)
             {
                 this.SimilarTopicsHolder.Visible = false;
                 return;
@@ -67,8 +67,8 @@ namespace YAF.Controls
             try
             {
                 var topicsList = this.Get<ISearch>().SearchSimilar(
-                    this.PageContext.PageTopicID.ToString(),
-                    this.PageContext.PageTopic.TopicName,
+                    this.PageBoardContext.PageTopicID.ToString(),
+                    this.PageBoardContext.PageTopic.TopicName,
                     "Topic").Take(5).ToList();
 
                 if (!topicsList.Any())

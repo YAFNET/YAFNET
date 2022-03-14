@@ -88,7 +88,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("BLOCK_OPTIONS", "TITLE"), string.Empty);
         }
 
@@ -107,13 +107,13 @@ namespace YAF.Pages.Profile
             this.BindData();
 
             this.BlockPMs.Text = this.GetText("BLOCK_PMS");
-            this.BlockPMs.Visible = this.PageContext.BoardSettings.AllowPrivateMessages;
+            this.BlockPMs.Visible = this.PageBoardContext.BoardSettings.AllowPrivateMessages;
 
             this.BlockFriendRequests.Text = this.GetText("BLOCK_BUDDYS");
-            this.BlockFriendRequests.Visible = this.PageContext.BoardSettings.EnableBuddyList;
+            this.BlockFriendRequests.Visible = this.PageBoardContext.BoardSettings.EnableBuddyList;
 
             this.BlockEmails.Text = this.GetText("BLOCK_EMAILS");
-            this.BlockEmails.Visible = this.PageContext.BoardSettings.AllowEmailSending;
+            this.BlockEmails.Visible = this.PageBoardContext.BoardSettings.AllowEmailSending;
         }
 
         /// <summary>
@@ -134,9 +134,9 @@ namespace YAF.Pages.Profile
                 BlockPMs = this.BlockPMs.Checked
             };
 
-            this.GetRepository<User>().UpdateBlockFlags(this.PageContext.PageUserID, blockFlags.BitValue);
+            this.GetRepository<User>().UpdateBlockFlags(this.PageBoardContext.PageUserID, blockFlags.BitValue);
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageContext.PageUserID));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
         }
 
         /// <summary>
@@ -144,11 +144,11 @@ namespace YAF.Pages.Profile
         /// </summary>
         private void BindData()
         {
-            this.BlockPMs.Checked = this.PageContext.PageUser.Block.BlockPMs;
-            this.BlockFriendRequests.Checked = this.PageContext.PageUser.Block.BlockFriendRequests;
-            this.BlockEmails.Checked = this.PageContext.PageUser.Block.BlockEmails;
+            this.BlockPMs.Checked = this.PageBoardContext.PageUser.Block.BlockPMs;
+            this.BlockFriendRequests.Checked = this.PageBoardContext.PageUser.Block.BlockFriendRequests;
+            this.BlockEmails.Checked = this.PageBoardContext.PageUser.Block.BlockEmails;
 
-            var ignoreUsers = this.GetRepository<IgnoreUser>().IgnoredUsers(this.PageContext.PageUserID);
+            var ignoreUsers = this.GetRepository<IgnoreUser>().IgnoredUsers(this.PageBoardContext.PageUserID);
 
             this.UserIgnoredList.DataSource = ignoreUsers;
 

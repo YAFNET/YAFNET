@@ -101,14 +101,14 @@ namespace YAF.Pages.Account
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "passwordStrengthCheckJs",
                 JavaScriptBlocks.PasswordStrengthCheckerJs(
                     this.Password.ClientID,
                     this.ConfirmPassword.ClientID,
-                    this.PageContext.BoardSettings.MinRequiredPasswordLength,
+                    this.PageBoardContext.BoardSettings.MinRequiredPasswordLength,
                     this.GetText("PASSWORD_NOTMATCH"),
-                    this.GetTextFormatted("PASSWORD_MIN", this.PageContext.BoardSettings.MinRequiredPasswordLength),
+                    this.GetTextFormatted("PASSWORD_MIN", this.PageBoardContext.BoardSettings.MinRequiredPasswordLength),
                     this.GetText("PASSWORD_GOOD"),
                     this.GetText("PASSWORD_STRONGER"),
                     this.GetText("PASSWORD_WEAK")));
@@ -136,7 +136,7 @@ namespace YAF.Pages.Account
             // handle the CreateUser Step localization
             this.SetupCreateUserStep();
 
-            if (this.PageContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
+            if (this.PageBoardContext.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff)
             {
                 this.LoginButton.Visible = true;
                 this.LoginButton.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
@@ -146,7 +146,7 @@ namespace YAF.Pages.Account
 
             this.EmailValid.ErrorMessage = this.GetText("PROFILE", "BAD_EMAIL");
 
-            if (this.PageContext.BoardSettings.CaptchaTypeRegister == 2)
+            if (this.PageBoardContext.BoardSettings.CaptchaTypeRegister == 2)
             {
                 this.SetupRecaptchaControl();
             }
@@ -189,7 +189,7 @@ namespace YAF.Pages.Account
             var user = new AspNetUsers
             {
                 Id = Guid.NewGuid().ToString(),
-                ApplicationId = this.PageContext.BoardSettings.ApplicationId,
+                ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
                 UserName = this.UserName.Text,
                 LoweredUserName = this.UserName.Text,
                 Email = this.Email.Text,
@@ -203,17 +203,17 @@ namespace YAF.Pages.Account
             if (!result.Succeeded)
             {
                 // error of some kind
-                this.PageContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
             }
             else
             {
                 // setup initial roles (if any) for this user
-                this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageContext.PageBoardID, user);
+                this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageBoardContext.PageBoardID, user);
 
                 var displayName = this.DisplayName.Text;
 
                 // create the user in the YAF DB as well as sync roles...
-                var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, this.PageContext.PageBoardID);
+                var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, displayName, this.PageBoardContext.PageBoardID);
 
                 if (userID == null)
                 {
@@ -225,7 +225,7 @@ namespace YAF.Pages.Account
 
                 if (this.IsPossibleSpamBot)
                 {
-                    if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(1))
+                    if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(1))
                     {
                         this.Get<ISendNotification>().SendSpamBotNotificationToAdmins(user, userID.Value);
                     }
@@ -237,7 +237,7 @@ namespace YAF.Pages.Account
 
                     this.Get<ISendNotification>().SendVerificationEmail(user, email, userID);
 
-                    if (this.PageContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
+                    if (this.PageBoardContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
                     {
                         // send user register notification to the following admin users...
                         this.Get<ISendNotification>().SendRegistrationNotificationEmail(user, userID.Value);
@@ -357,7 +357,7 @@ namespace YAF.Pages.Account
             var captchaPlaceHolder = this.YafCaptchaHolder;
             var recaptchaPlaceHolder = this.RecaptchaPlaceHolder;
 
-            if (this.PageContext.BoardSettings.CaptchaTypeRegister == 1)
+            if (this.PageBoardContext.BoardSettings.CaptchaTypeRegister == 1)
             {
                 this.imgCaptcha.ImageUrl = CaptchaHelper.GetCaptcha();
 
@@ -368,9 +368,9 @@ namespace YAF.Pages.Account
                 captchaPlaceHolder.Visible = false;
             }
 
-            recaptchaPlaceHolder.Visible = this.PageContext.BoardSettings.CaptchaTypeRegister == 2;
+            recaptchaPlaceHolder.Visible = this.PageBoardContext.BoardSettings.CaptchaTypeRegister == 2;
 
-            this.DisplayNamePlaceHolder.Visible = this.PageContext.BoardSettings.EnableDisplayName;
+            this.DisplayNamePlaceHolder.Visible = this.PageBoardContext.BoardSettings.EnableDisplayName;
         }
 
         /// <summary>
@@ -380,13 +380,13 @@ namespace YAF.Pages.Account
         {
             this.RecaptchaPlaceHolder.Visible = true;
 
-            if (this.PageContext.BoardSettings.RecaptchaPrivateKey.IsSet() &&
-                this.PageContext.BoardSettings.RecaptchaPublicKey.IsSet())
+            if (this.PageBoardContext.BoardSettings.RecaptchaPrivateKey.IsSet() &&
+                this.PageBoardContext.BoardSettings.RecaptchaPublicKey.IsSet())
             {
                 return;
             }
 
-            this.Logger.Log(this.PageContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
+            this.Logger.Log(this.PageBoardContext.PageUserID, this, "secret or site key is required for reCAPTCHA!");
             this.Get<LinkBuilder>().AccessDenied();
         }
 
@@ -410,48 +410,48 @@ namespace YAF.Pages.Account
 
             if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
             {
-                this.PageContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.warning);
 
                 return false;
             }
 
-            if (userName.Length < this.PageContext.BoardSettings.DisplayNameMinLength)
+            if (userName.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("USERNAME_TOOSMALL", this.PageContext.BoardSettings.DisplayNameMinLength),
+                this.PageBoardContext.AddLoadMessage(
+                    this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                     MessageTypes.danger);
 
                 return false;
             }
 
-            if (userName.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+            if (userName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength),
+                this.PageBoardContext.AddLoadMessage(
+                    this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                     MessageTypes.danger);
 
                 return false;
             }
 
-            if (this.PageContext.BoardSettings.EnableDisplayName && this.DisplayName.Text.Trim().IsSet())
+            if (this.PageBoardContext.BoardSettings.EnableDisplayName && this.DisplayName.Text.Trim().IsSet())
             {
                 var displayName = this.DisplayName.Text.Trim();
 
                 // Check if name matches the required minimum length
-                if (displayName.Length < this.PageContext.BoardSettings.DisplayNameMinLength)
+                if (displayName.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
                 {
-                    this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOSMALL", this.PageContext.BoardSettings.DisplayNameMinLength),
+                    this.PageBoardContext.AddLoadMessage(
+                        this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                         MessageTypes.warning);
 
                     return false;
                 }
 
                 // Check if name matches the required minimum length
-                if (displayName.Length > this.PageContext.BoardSettings.UserNameMaxLength)
+                if (displayName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
                 {
-                    this.PageContext.AddLoadMessage(
-                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageContext.BoardSettings.UserNameMaxLength),
+                    this.PageBoardContext.AddLoadMessage(
+                        this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                         MessageTypes.warning);
 
                     return false;
@@ -459,7 +459,7 @@ namespace YAF.Pages.Account
 
                 if (this.Get<IUserDisplayName>().FindUserByName(displayName) != null)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ALREADY_REGISTERED_DISPLAYNAME"),
                         MessageTypes.warning);
                 }
@@ -489,13 +489,13 @@ namespace YAF.Pages.Account
                     $"Bot Check detected a possible SPAM BOT: (user name : '{userName}', email : '{this.Email.Text}', ip: '{userIpAddress}', reason : {result}), user was rejected.",
                     EventLogTypes.SpamBotDetected);
 
-                if (this.PageContext.BoardSettings.BanBotIpOnDetection)
+                if (this.PageBoardContext.BoardSettings.BanBotIpOnDetection)
                 {
                     this.Get<IRaiseEvent>().Raise(
-                        new BanUserEvent(this.PageContext.PageUserID, userName, this.Email.Text, userIpAddress));
+                        new BanUserEvent(this.PageBoardContext.PageUserID, userName, this.Email.Text, userIpAddress));
                 }
 
-                if (this.PageContext.BoardSettings.BotHandlingOnRegister.Equals(2))
+                if (this.PageBoardContext.BoardSettings.BotHandlingOnRegister.Equals(2))
                 {
                     this.GetRepository<Registry>().IncrementBannedUsers();
 
@@ -503,14 +503,14 @@ namespace YAF.Pages.Account
                 }
             }
 
-            switch (this.PageContext.BoardSettings.CaptchaTypeRegister)
+            switch (this.PageBoardContext.BoardSettings.CaptchaTypeRegister)
             {
                 case 1:
                     {
                         // Check YAF Captcha
                         if (!CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
                         {
-                            this.PageContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
+                            this.PageBoardContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
 
                             return false;
                         }
@@ -522,7 +522,7 @@ namespace YAF.Pages.Account
                         // Check reCAPTCHA
                         if (!this.Recaptcha1.IsValid)
                         {
-                            this.PageContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
+                            this.PageBoardContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
 
                             return false;
                         }
@@ -555,7 +555,7 @@ namespace YAF.Pages.Account
                 return true;
             }
 
-            this.PageContext.AddLoadMessage(this.GetText("NEED_CUSTOM"), MessageTypes.warning);
+            this.PageBoardContext.AddLoadMessage(this.GetText("NEED_CUSTOM"), MessageTypes.warning);
             return false;
         }
 

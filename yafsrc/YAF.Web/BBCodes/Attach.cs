@@ -63,14 +63,14 @@ namespace YAF.Web.BBCodes
 
             // verify it's not too large to display
             // Ederon : 02/17/2009 - made it board setting
-            if (attachment.Bytes.ToType<int>() <= this.PageContext.BoardSettings.PictureAttachmentDisplayTreshold)
+            if (attachment.Bytes.ToType<int>() <= this.PageBoardContext.BoardSettings.PictureAttachmentDisplayTreshold)
             {
                 // is it an image file?
                 showImage = filename.IsImageName();
             }
 
             // user doesn't have rights to download, don't show the image
-            if (!this.PageContext.DownloadAccess)
+            if (!this.PageBoardContext.DownloadAccess)
             {
                 writer.Write(
                     @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge bg-warning text-dark"" role=""alert"">{1}</span>",
@@ -83,18 +83,18 @@ namespace YAF.Web.BBCodes
             if (showImage)
             {
                 // user has rights to download, show him image
-                if (this.PageContext.BoardSettings.EnableImageAttachmentResize)
+                if (this.PageBoardContext.BoardSettings.EnableImageAttachmentResize)
                 {
                     writer.Write(
                         @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-                        this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
+                        this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
                     writer.Write(
                         @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-gallery=""#blueimp-gallery-{4}"">",
                         BoardInfo.ForumClientFileRoot,
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),
-                        this.PageContext.PageBoardID,
+                        this.PageBoardContext.PageBoardID,
                         this.MessageID.Value);
 
                     writer.Write(
@@ -102,8 +102,8 @@ namespace YAF.Web.BBCodes
                         BoardInfo.ForumClientFileRoot,
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),
-                        this.PageContext.PageBoardID,
-                        this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
+                        this.PageBoardContext.PageBoardID,
+                        this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
 
                     writer.Write(@"</a>");
 
@@ -124,8 +124,8 @@ namespace YAF.Web.BBCodes
                         BoardInfo.ForumClientFileRoot,
                         attachment.ID,
                         this.HtmlEncode(attachment.FileName),
-                        this.PageContext.PageBoardID,
-                        this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
+                        this.PageBoardContext.PageBoardID,
+                        this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
                 }
             }
             else
@@ -141,7 +141,7 @@ namespace YAF.Web.BBCodes
                     attachment.ID,
                     attachment.FileName,
                     this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads),
-                    this.PageContext.PageBoardID);
+                    this.PageBoardContext.PageBoardID);
             }
         }
     }

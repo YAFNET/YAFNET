@@ -99,7 +99,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
         protected void AlbumImages_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
         {
-            if (this.UserID != this.PageContext.PageUserID)
+            if (this.UserID != this.PageBoardContext.PageUserID)
             {
                 return;
             }
@@ -130,17 +130,17 @@ namespace YAF.Controls
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.UserID == this.PageContext.PageUserID)
+            if (this.UserID == this.PageBoardContext.PageUserID)
             {
                 // Register Js Blocks.
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "AlbumEventsJs",
                     JavaScriptBlocks.AlbumEventsJs(
                         this.GetText("ALBUM_CHANGE_TITLE").ToJsString(), this.GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
             }
 
@@ -172,7 +172,7 @@ namespace YAF.Controls
         /// </summary>
         private void BindData()
         {
-            this.PagerTop.PageSize = this.PageContext.BoardSettings.AlbumImagesPerPage;
+            this.PagerTop.PageSize = this.PageBoardContext.BoardSettings.AlbumImagesPerPage;
 
             // set the Data table
             var albumImageList = this.GetRepository<UserAlbumImage>().ListPaged(

@@ -73,7 +73,7 @@ namespace YAF.Controls
                 {
                     TextLocalizedTag = "LOGIN_CONNECT",
                     TextLocalizedPage = "TOOLBAR",
-                    ParamText0 = this.PageContext.BoardSettings.Name,
+                    ParamText0 = this.PageBoardContext.BoardSettings.Name,
                     TitleLocalizedTag = "LOGIN",
                     TitleLocalizedPage = "TOOLBAR",
                     Type = ButtonStyle.Link,
@@ -87,7 +87,7 @@ namespace YAF.Controls
                 isLoginAllowed = true;
             }
 
-            if (!this.PageContext.BoardSettings.DisableRegistrations)
+            if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
             {
                 // show register link
                 var registerLink = new ThemeButton
@@ -98,7 +98,7 @@ namespace YAF.Controls
                     TitleLocalizedPage = "TOOLBAR",
                     Type = ButtonStyle.Link,
                     Icon = "user-plus",
-                    NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
+                    NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                         ?
                         this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
                         : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)

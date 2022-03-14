@@ -112,7 +112,7 @@ namespace YAF.Pages
                 userHe.DisplayOrUserName());
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
 
-            if (this.UserID == this.PageContext.PageUserID)
+            if (this.UserID == this.PageBoardContext.PageUserID)
             {
                 this.NotifyLabel.Text = this.GetText("SERVERYOU");
                 this.Alert.Type = MessageTypes.warning;
@@ -125,8 +125,8 @@ namespace YAF.Pages
                 var serverHe = userDataHe.Profile_XMPP
                     .Substring(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
 
-                var serverMe = this.PageContext.MembershipUser.Profile_XMPP
-                    .Substring(this.PageContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
+                var serverMe = this.PageBoardContext.MembershipUser.Profile_XMPP
+                    .Substring(this.PageBoardContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1).Trim();
 
                 this.NotifyLabel.Text = serverMe == serverHe
                                             ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile_XMPP)

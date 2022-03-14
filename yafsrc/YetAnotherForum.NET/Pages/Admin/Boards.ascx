@@ -19,7 +19,7 @@
             </HeaderTemplate>
             <ItemTemplate>
                 <li
-                    class='list-group-item list-group-item-action list-group-item-menu <%# this.Eval("ID").ToType<int>() != this.PageContext.PageBoardID ? "" : "active" %>'>
+                    class='list-group-item list-group-item-action list-group-item-menu <%# this.Eval("ID").ToType<int>() != this.PageBoardContext.PageBoardID ? "" : "active" %>'>
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">
                         <%# this.HtmlEncode(this.Eval( "Name")) %>

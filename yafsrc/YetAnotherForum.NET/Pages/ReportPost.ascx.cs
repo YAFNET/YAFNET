@@ -67,7 +67,7 @@ namespace YAF.Pages
         ///   Gets AllPostsByUser.
         /// </summary>
         public Tuple<Topic, Message, User, Forum> Message =>
-            this.message ??= this.GetRepository<Message>().GetMessageWithAccess(this.MessageId, this.PageContext.PageUserID);
+            this.message ??= this.GetRepository<Message>().GetMessageWithAccess(this.MessageId, this.PageBoardContext.PageUserID);
 
         protected int MessageId => this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
 
@@ -116,10 +116,10 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.Report.Text.Length > this.PageContext.BoardSettings.MaxReportPostChars)
+            if (this.Report.Text.Length > this.PageBoardContext.BoardSettings.MaxReportPostChars)
             {
-                this.PageContext.AddLoadMessage(
-                    this.GetTextFormatted("REPORTTEXT_TOOLONG", this.PageContext.BoardSettings.MaxReportPostChars),
+                this.PageBoardContext.AddLoadMessage(
+                    this.GetTextFormatted("REPORTTEXT_TOOLONG", this.PageBoardContext.BoardSettings.MaxReportPostChars),
                     MessageTypes.danger);
 
                 return;
@@ -128,22 +128,22 @@ namespace YAF.Pages
             // Save the reported message
             this.GetRepository<MessageReported>().Report(
                 this.Message,
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 DateTime.UtcNow,
                 this.Report.Text);
 
             // Send Notification to Mods about the Reported Post.
-            if (this.PageContext.BoardSettings.EmailModeratorsOnReportedPost)
+            if (this.PageBoardContext.BoardSettings.EmailModeratorsOnReportedPost)
             {
                 // not approved, notify moderators
                 this.Get<ISendNotification>().ToModeratorsThatMessageWasReported(
-                    this.PageContext.PageForumID,
+                    this.PageBoardContext.PageForumID,
                     this.MessageId,
-                    this.PageContext.PageUserID,
+                    this.PageBoardContext.PageUserID,
                     this.Report.Text);
             }
 
-            this.PageContext.LoadMessage.AddSession(this.GetText("MSG_REPORTED"), MessageTypes.success);
+            this.PageBoardContext.LoadMessage.AddSession(this.GetText("MSG_REPORTED"), MessageTypes.success);
 
             // Redirect to reported post
             this.RedirectToPost();
@@ -159,13 +159,13 @@ namespace YAF.Pages
             if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
             {
                 // We check here if the user have access to the option
-                if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ReportPostPermissions))
+                if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ReportPostPermissions))
                 {
                     this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
                 }
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.btnReport.ClientID));
 
@@ -193,9 +193,9 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
             }
 
-            this.Report.MaxLength = this.PageContext.BoardSettings.MaxReportPostChars;
+            this.Report.MaxLength = this.PageBoardContext.BoardSettings.MaxReportPostChars;
 
-            this.LocalizedLblMaxNumberOfPost.Param0 = this.PageContext.BoardSettings.MaxReportPostChars.ToString();
+            this.LocalizedLblMaxNumberOfPost.Param0 = this.PageBoardContext.BoardSettings.MaxReportPostChars.ToString();
         }
 
         /// <summary>

@@ -255,7 +255,7 @@
                         <div class="align-items-baseline">
                             <div class="me-2">
                                 <YAF:UserLabel ID="ActiveUserLink"
-                                               ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
+                                               ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ActiveUser).UserDisplayName : (Container.DataItem as ActiveUser).UserName %>"
                                                UserID="<%# (Container.DataItem as ActiveUser).UserID %>"
                                                CrawlerName="<%# (Container.DataItem as ActiveUser).IsCrawler ? (Container.DataItem as ActiveUser).Browser : string.Empty %>"
                                                Style="<%# (Container.DataItem as ActiveUser).UserStyle %>" runat="server" />
@@ -265,7 +265,7 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server"
                                                         LocalizedTag="ADMIN_IPADRESS" LocalizedPage="ADMIN_ADMIN" />
                                 </span>
-                                <a id="A1" href="<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
+                                <a id="A1" href="<%# string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)) %>"
                                    title='<%# this.GetText("COMMON","TT_IPDETAILS") %>' target="_blank" runat="server">
                                     <%# IPHelper.GetIpAddressAsString((Container.DataItem as ActiveUser).IP)%></a>
                             </div>
@@ -339,7 +339,7 @@
                                     <div class="align-items-baseline">
                                         <div class="me-2">
                                             <span class="fw-bold">
-                                                <%# this.Eval(this.PageContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>
+                                                <%# this.Eval(this.PageBoardContext.BoardSettings.EnableDisplayName ? "DisplayName" : "Name") %>
                                             </span>
                                         </div>
                                         <div class="me-2">

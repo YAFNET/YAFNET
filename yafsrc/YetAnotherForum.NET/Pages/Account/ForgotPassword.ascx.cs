@@ -80,7 +80,7 @@ namespace YAF.Pages.Account
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Forgot.ClientID));
 
@@ -117,7 +117,7 @@ namespace YAF.Pages.Account
 
             if (user == null)
             {
-                this.PageContext.AddLoadMessage(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
                 return;
             }
 
@@ -125,7 +125,7 @@ namespace YAF.Pages.Account
             if (!user.IsApproved)
             {
                 // explain they are not approved yet...
-                this.PageContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED_VERIFICATION"), MessageTypes.warning);
+                this.PageBoardContext.LoadMessage.AddSession(this.GetText("ACCOUNT_NOT_APPROVED_VERIFICATION"), MessageTypes.warning);
 
                 return;
             }
@@ -134,7 +134,7 @@ namespace YAF.Pages.Account
 
             this.Get<ISendNotification>().SendPasswordReset(user, code);
 
-            this.PageContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
+            this.PageBoardContext.LoadMessage.AddSession(this.GetText("SUCCESS"), MessageTypes.success);
 
             this.Get<LinkBuilder>().Redirect(ForumPages.Board);
         }

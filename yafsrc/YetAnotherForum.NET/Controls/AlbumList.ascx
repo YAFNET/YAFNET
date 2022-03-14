@@ -65,7 +65,7 @@
                                     <YAF:ThemeButton ID="Edit" runat="server"
                                                      TextLocalizedTag="EDIT"
                                                      TextLocalizedPage="BUTTON"
-                                                     Visible="<%# this.User.ID == this.PageContext.PageUserID %>" runat="server"
+                                                     Visible="<%# this.User.ID == this.PageBoardContext.PageUserID %>" runat="server"
                                                      CommandName="edit"
                                                      CommandArgument='<%# this.Eval("ID") %>'
                                                      Size="Small"

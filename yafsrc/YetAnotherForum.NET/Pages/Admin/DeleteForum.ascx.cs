@@ -71,7 +71,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "BlockUiFunctionJs",
                 JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
 
@@ -188,7 +188,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ForumList.DataSource = this.GetRepository<Forum>().List(this.PageContext.PageBoardID, null);
+            this.ForumList.DataSource = this.GetRepository<Forum>().List(this.PageBoardContext.PageBoardID, null);
 
             this.ForumList.DataValueField = "ID";
             this.ForumList.DataTextField = "Name";
@@ -228,7 +228,7 @@ namespace YAF.Pages.Admin
 
                 // schedule...
                 ForumDeleteTask.Start(
-                    this.PageContext.PageBoardID,
+                    this.PageBoardContext.PageBoardID,
                     forumId.Value,
                     this.ForumList.SelectedValue.ToType<int>(),
                     out errorMessage);
@@ -244,7 +244,7 @@ namespace YAF.Pages.Admin
                 var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
                 // schedule...
-                ForumDeleteTask.Start(this.PageContext.PageBoardID, forumId.Value, out errorMessage);
+                ForumDeleteTask.Start(this.PageBoardContext.PageBoardID, forumId.Value, out errorMessage);
 
                 // enable timer...
                 this.UpdateStatusTimer.Enabled = true;
@@ -254,7 +254,7 @@ namespace YAF.Pages.Admin
 
             if (errorMessage.IsSet())
             {
-                this.PageContext.AddLoadMessage(errorMessage, MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(errorMessage, MessageTypes.danger);
             }
         }
 

@@ -89,7 +89,7 @@ namespace YAF.Pages.Admin
                 case "new":
                     this.EditDialog.BindData(null);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;
@@ -97,7 +97,7 @@ namespace YAF.Pages.Admin
 
                     this.EditDialog.BindData(defId);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("EditDialog"));
                     break;

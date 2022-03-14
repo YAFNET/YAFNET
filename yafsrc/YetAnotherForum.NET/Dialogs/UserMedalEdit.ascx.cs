@@ -155,7 +155,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.AddUserSave.ClientID));
         }
@@ -182,7 +182,7 @@ namespace YAF.Dialogs
             // clear button is not necessary now
             this.Clear.Visible = false;
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
@@ -196,7 +196,7 @@ namespace YAF.Dialogs
         {
             // try to find users by user name
             var users = this.GetRepository<User>().Get(
-                u => u.BoardID == this.PageContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
+                u => u.BoardID == this.PageBoardContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
                     u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
             if (!users.Any())
@@ -220,7 +220,7 @@ namespace YAF.Dialogs
             // we need clear button displayed now
             this.Clear.Visible = true;
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",
                 JavaScriptBlocks.OpenModalJs("UserEditDialog"));
         }
@@ -242,11 +242,11 @@ namespace YAF.Dialogs
                                             && this.UserName.Text.IsNotSet())
             {
                 // no username, nor userID specified
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
                     MessageTypes.warning);
 
-                this.PageContext.PageElements.RegisterJsBlockStartup(
+                this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",
                     JavaScriptBlocks.OpenModalJs("UserEditDialog"));
 
@@ -257,17 +257,17 @@ namespace YAF.Dialogs
             {
                 // only username is specified, we must find id for it
                 var users = this.GetRepository<User>().Get(
-                    u => u.BoardID == this.PageContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
+                    u => u.BoardID == this.PageBoardContext.PageBoardID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4 &&
                         u.Name.Contains(this.UserName.Text) || u.DisplayName.Contains(this.UserName.Text));
 
                 if (users.Count > 1)
                 {
                     // more than one user is available for this username
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"),
                         MessageTypes.warning);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("UserEditDialog"));
                     return;
@@ -276,11 +276,11 @@ namespace YAF.Dialogs
                 if (!users.Any())
                 {
                     // no user found
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
                         MessageTypes.warning);
 
-                    this.PageContext.PageElements.RegisterJsBlockStartup(
+                    this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("UserEditDialog"));
                     return;
@@ -315,7 +315,7 @@ namespace YAF.Dialogs
                     this.UserSortOrder.Text.ToType<byte>());
             }
 
-            if (this.PageContext.BoardSettings.EmailUserOnMedalAward)
+            if (this.PageBoardContext.BoardSettings.EmailUserOnMedalAward)
             {
                 this.Get<ISendNotification>().ToUserWithNewMedal(this.UserID.Text.ToType<int>(), this.Name);
             }

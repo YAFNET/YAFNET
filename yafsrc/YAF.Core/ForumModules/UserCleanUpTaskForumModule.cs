@@ -49,7 +49,7 @@ namespace YAF.Core.ForumModules
     public override void Init()
     {
       // hook the page init for mail sending...
-      this.PageContext.AfterInit += this.Current_AfterInit;
+      this.PageBoardContext.AfterInit += this.Current_AfterInit;
     }
 
     #endregion

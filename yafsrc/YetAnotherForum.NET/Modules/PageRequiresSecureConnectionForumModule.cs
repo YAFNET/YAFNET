@@ -65,7 +65,7 @@ namespace YAF.Modules
         private void ForumControl_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             if (HttpContext.Current.Request.IsLocal || HttpContext.Current.Request.IsSecureConnection ||
-                !this.PageContext.BoardSettings.RequireSSL)
+                !this.PageBoardContext.BoardSettings.RequireSSL)
             {
                 return;
             }

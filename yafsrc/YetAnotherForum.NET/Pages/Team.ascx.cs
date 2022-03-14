@@ -120,7 +120,7 @@ namespace YAF.Pages
             var adminList = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.BoardAdmins,
                 () => this.GetRepository<User>().ListAdmins(),
-                TimeSpan.FromMinutes(this.PageContext.BoardSettings.BoardModeratorsCacheTimeout));
+                TimeSpan.FromMinutes(this.PageBoardContext.BoardSettings.BoardModeratorsCacheTimeout));
 
             return adminList;
         }
@@ -183,7 +183,7 @@ namespace YAF.Pages
         /// </param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowTeamTo))
+            if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowTeamTo))
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
@@ -236,16 +236,16 @@ namespace YAF.Pages
             var pm = e.Item.FindControlAs<ThemeButton>("PM");
             var email = e.Item.FindControlAs<ThemeButton>("Email");
 
-            adminUserButton.Visible = this.PageContext.IsAdmin;
+            adminUserButton.Visible = this.PageBoardContext.IsAdmin;
 
-            if (user.ID == this.PageContext.PageUserID)
+            if (user.ID == this.PageBoardContext.PageUserID)
             {
                 return;
             }
 
             var isFriend = this.Get<IFriends>().IsBuddy(user.ID, true);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
+            pm.Visible = !this.PageBoardContext.IsGuest && this.User != null && this.PageBoardContext.BoardSettings.AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -254,7 +254,7 @@ namespace YAF.Pages
                     pm.Visible = false;
                 }
 
-                if (this.PageContext.IsAdmin || isFriend)
+                if (this.PageBoardContext.IsAdmin || isFriend)
                 {
                     pm.Visible = true;
                 }
@@ -264,7 +264,7 @@ namespace YAF.Pages
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
+            email.Visible = !this.PageBoardContext.IsGuest && this.User != null && this.PageBoardContext.BoardSettings.AllowEmailSending;
 
             if (!email.Visible)
             {
@@ -276,7 +276,7 @@ namespace YAF.Pages
                 email.Visible = false;
             }
 
-            if (this.PageContext.IsAdmin && isFriend)
+            if (this.PageBoardContext.IsAdmin && isFriend)
             {
                 email.Visible = true;
             }
@@ -328,11 +328,11 @@ namespace YAF.Pages
             var pm = e.Item.FindControlAs<ThemeButton>("PM");
             var email = e.Item.FindControlAs<ThemeButton>("Email");
 
-            adminUserButton.Visible = this.PageContext.IsAdmin;
+            adminUserButton.Visible = this.PageBoardContext.IsAdmin;
 
             var itemDataItem = (SimpleModerator)e.Item.DataItem;
             var userid = itemDataItem.ModeratorID.ToType<int>();
-            var displayName = this.PageContext.BoardSettings.EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
+            var displayName = this.PageBoardContext.BoardSettings.EnableDisplayName ? itemDataItem.DisplayName : itemDataItem.Name;
 
             var modAvatar = e.Item.FindControlAs<Image>("ModAvatar");
 
@@ -344,14 +344,14 @@ namespace YAF.Pages
             modAvatar.AlternateText = displayName;
             modAvatar.ToolTip = displayName;
 
-            if (userid == this.PageContext.PageUserID)
+            if (userid == this.PageBoardContext.PageUserID)
             {
                 return;
             }
 
             var isFriend = this.Get<IFriends>().IsBuddy(userid, true);
 
-            pm.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowPrivateMessages;
+            pm.Visible = !this.PageBoardContext.IsGuest && this.User != null && this.PageBoardContext.BoardSettings.AllowPrivateMessages;
 
             if (pm.Visible)
             {
@@ -360,7 +360,7 @@ namespace YAF.Pages
                     pm.Visible = false;
                 }
 
-                if (this.PageContext.IsAdmin || isFriend)
+                if (this.PageBoardContext.IsAdmin || isFriend)
                 {
                     pm.Visible = true;
                 }
@@ -370,19 +370,19 @@ namespace YAF.Pages
             pm.ParamTitle0 = displayName;
 
             // email link
-            email.Visible = !this.PageContext.IsGuest && this.User != null && this.PageContext.BoardSettings.AllowEmailSending;
+            email.Visible = !this.PageBoardContext.IsGuest && this.User != null && this.PageBoardContext.BoardSettings.AllowEmailSending;
 
             if (!email.Visible)
             {
                 return;
             }
 
-            if (mod.UserBlockFlags.BlockEmails && !this.PageContext.IsAdmin)
+            if (mod.UserBlockFlags.BlockEmails && !this.PageBoardContext.IsAdmin)
             {
                 email.Visible = false;
             }
 
-            if (this.PageContext.IsAdmin || isFriend)
+            if (this.PageBoardContext.IsAdmin || isFriend)
             {
                 email.Visible = true;
             }

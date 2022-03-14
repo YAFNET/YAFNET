@@ -86,7 +86,7 @@ namespace YAF.Core.BasePages
         protected void ModeratePage_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // Only moderators are allowed here
-            if (!this.PageContext.IsModeratorInAnyForum)
+            if (!this.PageBoardContext.IsModeratorInAnyForum)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }

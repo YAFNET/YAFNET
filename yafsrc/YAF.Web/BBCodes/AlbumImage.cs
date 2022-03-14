@@ -45,7 +45,7 @@ namespace YAF.Web.BBCodes
         {
             writer.Write(
                 @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
-                this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
+                this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
             writer.Write(
                 @"<a href=""{0}resource.ashx?image={1}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
@@ -57,7 +57,7 @@ namespace YAF.Web.BBCodes
                 @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px"" alt=""{1}"">",
                 BoardInfo.ForumClientFileRoot,
                 this.Parameters["inner"],
-                this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
+                this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
 
             writer.Write("</a>");
 

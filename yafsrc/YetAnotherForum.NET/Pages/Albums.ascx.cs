@@ -73,7 +73,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.PageContext.BoardSettings.EnableAlbum)
+            if (!this.PageBoardContext.BoardSettings.EnableAlbum)
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }

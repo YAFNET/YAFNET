@@ -122,7 +122,7 @@ namespace YAF.Controls
         /// </returns>
         protected bool CanCreatePoll()
         {
-            return this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess() &&
+            return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess() &&
                    this.PollId >= 0;
         }
 
@@ -135,17 +135,17 @@ namespace YAF.Controls
         protected bool CanEditPoll()
         {
             // The host admin can forbid a user to change poll after first vote to avoid fakes.
-            if (!this.PageContext.BoardSettings.AllowPollChangesAfterFirstVote)
+            if (!this.PageBoardContext.BoardSettings.AllowPollChangesAfterFirstVote)
             {
                 // Only if show buttons are enabled user can edit poll
-                return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                       this.PageContext.PageUserID == this.poll.UserID && this.PollHasNoVotes() &&
+                return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
+                       this.PageBoardContext.PageUserID == this.poll.UserID && this.PollHasNoVotes() &&
                        !this.IsPollClosed();
             }
 
             // we don't call PollHasNoVotes method here
-            return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                   this.PageContext.PageUserID == this.poll.UserID && !this.IsPollClosed();
+            return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
+                   this.PageBoardContext.PageUserID == this.poll.UserID && !this.IsPollClosed();
         }
 
         /// <summary>
@@ -156,8 +156,8 @@ namespace YAF.Controls
         /// </returns>
         protected bool CanRemovePoll()
         {
-            return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess ||
-                                        this.PageContext.PageUserID == this.poll.UserID;
+            return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
+                                        this.PageBoardContext.PageUserID == this.poll.UserID;
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace YAF.Controls
         /// </param>
         protected void EditClick(object sender, EventArgs e)
         {
-            if (this.PageContext.ForumVoteAccess)
+            if (this.PageBoardContext.ForumVoteAccess)
             {
                 var parameters = this.ParamsToSend();
 
@@ -287,7 +287,7 @@ namespace YAF.Controls
         /// </param>
         protected void NewClick(object sender, EventArgs e)
         {
-            if (this.PageContext.ForumVoteAccess)
+            if (this.PageBoardContext.ForumVoteAccess)
             {
                 this.Get<LinkBuilder>().Redirect(ForumPages.PollEdit, this.ParamsToSend());
             }
@@ -310,7 +310,7 @@ namespace YAF.Controls
         /// </param>
         protected void RemoveClick(object sender, EventArgs e)
         {
-            if (this.PageContext.ForumVoteAccess)
+            if (this.PageBoardContext.ForumVoteAccess)
             {
                 this.GetRepository<Poll>().Remove(this.poll.ID);
             }
@@ -366,13 +366,13 @@ namespace YAF.Controls
             this.poll = this.pollAndChoices.FirstOrDefault().Item1;
 
             // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.   );
-            this.canChange = this.poll.UserID == this.PageContext.PageUserID || this.PageContext.IsAdmin ||
-                              this.PageContext.ForumModeratorAccess;
+            this.canChange = this.poll.UserID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin ||
+                              this.PageBoardContext.ForumModeratorAccess;
 
             if (this.pollAndChoices.Any())
             {
                 // Check if the user is already voted in polls in the group
-                this.userPollVotes = this.GetRepository<PollVote>().VoteCheck(this.poll.ID, this.PageContext.PageUserID);
+                this.userPollVotes = this.GetRepository<PollVote>().VoteCheck(this.poll.ID, this.PageBoardContext.PageUserID);
 
                 // We don't display poll command row to everyone
                 this.PollCommandRow.Visible = this.HasOwnerExistingGroupAccess();
@@ -395,7 +395,7 @@ namespace YAF.Controls
 
                 // If guest are not allowed to view options we don't render them
                 pollChoiceList.Visible = !(!this.HasVoteAccess() && isNotVoted &&
-                                           this.PageContext.IsGuest);
+                                           this.PageBoardContext.IsGuest);
 
                 // This is not a guest w/o poll option view permissions, we bind the control.
                 if (pollChoiceList.Visible)
@@ -446,7 +446,7 @@ namespace YAF.Controls
                 // *************************
                 var notificationString = new StringBuilder();
 
-                if (this.PageContext.IsGuest)
+                if (this.PageBoardContext.IsGuest)
                 {
                     notificationString.Append(this.GetText("POLLEDIT", "POLLOPTIONSHIDDEN_GUEST"));
                 }
@@ -459,7 +459,7 @@ namespace YAF.Controls
                     }
                 }
 
-                if (!isNotVoted && this.PageContext.ForumVoteAccess)
+                if (!isNotVoted && this.PageBoardContext.ForumVoteAccess)
                 {
                     notificationString.AppendFormat(" {0}", this.GetText("POLLEDIT", "POLL_VOTED"));
                 }
@@ -541,7 +541,7 @@ namespace YAF.Controls
         /// </returns>
         private bool HasOwnerExistingGroupAccess()
         {
-            if (this.PageContext.BoardSettings.AllowedPollChoiceNumber <= 0)
+            if (this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber <= 0)
             {
                 return false;
             }
@@ -549,12 +549,12 @@ namespace YAF.Controls
             // if topic id > 0 it can be every member
             if (this.TopicId > 0)
             {
-                return this.TopicCreator == this.PageContext.PageUserID || this.PageContext.IsAdmin ||
-                       this.PageContext.ForumModeratorAccess;
+                return this.TopicCreator == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin ||
+                       this.PageBoardContext.ForumModeratorAccess;
             }
 
             // in other places only admins and forum moderators can have access
-            return this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
+            return this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
         }
 
         /// <summary>
@@ -567,7 +567,7 @@ namespace YAF.Controls
         {
             // rule out users without voting rights
             // If you come here from topics or edit TopicId should be > 0
-            if (!this.PageContext.ForumVoteAccess && this.TopicId > 0)
+            if (!this.PageBoardContext.ForumVoteAccess && this.TopicId > 0)
             {
                 return false;
             }
@@ -585,7 +585,7 @@ namespace YAF.Controls
             {
                 this.BindData();
 
-                if (!this.canChange && this.PageContext.CurrentForumPage.PageType is ForumPages.PostMessage or ForumPages.EditMessage)
+                if (!this.canChange && this.PageBoardContext.CurrentForumPage.PageType is ForumPages.PostMessage or ForumPages.EditMessage)
                 {
                     this.PollListHolder.Visible = false;
                 }
@@ -646,11 +646,11 @@ namespace YAF.Controls
         private void ReturnToPage()
         {
             // We simply return here to the page where the control is put. It can be made other way.
-            if (this.PageContext.CurrentForumPage.PageType == ForumPages.Posts)
+            if (this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Posts)
             {
                 if (this.TopicId > 0)
                 {
-                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.TopicId, name = this.PageContext.PageTopic.TopicName });
+                    this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.TopicId, name = this.PageBoardContext.PageTopic.TopicName });
                 }
             }
             else

@@ -94,7 +94,7 @@ namespace YAF.Pages
                     this.GetRepository<UserPMessage>().Delete(e.CommandArgument.ToType<int>(), this.IsOutbox);
 
                     this.BindData();
-                    this.PageContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
                     this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
                     break;
                 case "reply":
@@ -117,7 +117,7 @@ namespace YAF.Pages
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
             // check if this feature is disabled
-            if (!this.PageContext.BoardSettings.AllowPrivateMessages)
+            if (!this.PageBoardContext.BoardSettings.AllowPrivateMessages)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Disabled);
             }
@@ -144,7 +144,7 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.Get<IRaiseEvent>().Raise(new UpdateUserPrivateMessageEvent(this.PageContext.PageUserID, messageId));
+            this.Get<IRaiseEvent>().Raise(new UpdateUserPrivateMessageEvent(this.PageBoardContext.PageUserID, messageId));
         }
 
         /// <summary>
@@ -223,8 +223,8 @@ namespace YAF.Pages
             bool messageIsInOutbox,
             bool messageIsArchived)
         {
-            var isCurrentUserFrom = fromUserId.Equals(this.PageContext.PageUserID);
-            var isCurrentUserTo = toUserId.Equals(this.PageContext.PageUserID);
+            var isCurrentUserFrom = fromUserId.Equals(this.PageBoardContext.PageUserID);
+            var isCurrentUserTo = toUserId.Equals(this.PageBoardContext.PageUserID);
 
             // check if it's the same user...
             if (isCurrentUserFrom && isCurrentUserTo)

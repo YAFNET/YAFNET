@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <h1><%# this.PageContext.PageForum.Name %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
+        <h1><%# this.PageBoardContext.PageForum.Name %> - <YAF:LocalizedLabel ID="LocalizedLabel1" runat="server" LocalizedTag="REPORTED" /></h1>
     </div>
 </div>
 <asp:Repeater ID="List" runat="server" OnItemDataBound="List_OnItemDataBound">
@@ -36,13 +36,13 @@
                                                     LocalizedTag="POSTEDBY" LocalizedPage="REPORTPOST" />
                             </span>
                             <YAF:UserLink ID="UserLink1" runat="server"
-                                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ReportedMessage).UserDisplayName : (Container.DataItem as ReportedMessage).UserName %>"
+                                          ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as ReportedMessage).UserDisplayName : (Container.DataItem as ReportedMessage).UserName %>"
                                           Suspended="<%# (Container.DataItem as ReportedMessage).Suspended %>"
                                           Style="<%# (Container.DataItem as ReportedMessage).UserStyle %>"
                                           UserID="<%# (Container.DataItem as ReportedMessage).UserID %>" />
                             <YAF:ThemeButton ID="AdminUserButton" runat="server"
                                              Size="Small"
-                                             Visible="<%# this.PageContext.IsAdmin %>"
+                                             Visible="<%# this.PageBoardContext.IsAdmin %>"
                                              TextLocalizedTag="ADMIN_USER" TextLocalizedPage="PROFILE"
                                              NavigateUrl='<%# this.Get<LinkBuilder>().GetLink( ForumPages.Admin_EditUser,new { u = (Container.DataItem as ReportedMessage).UserID } ) %>'
                                              Icon="users-cog"

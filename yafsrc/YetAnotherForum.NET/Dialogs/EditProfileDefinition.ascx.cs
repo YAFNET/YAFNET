@@ -121,7 +121,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "loadValidatorFormJs",
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
@@ -141,7 +141,7 @@ namespace YAF.Dialogs
             this.GetRepository<ProfileDefinition>().Upsert(
                 new ProfileDefinition
                 {
-                    BoardID = this.PageContext.PageBoardID,
+                    BoardID = this.PageBoardContext.PageBoardID,
                     ID = this.DefinitionId ?? 0,
                     Name = this.Name.Text,
                     DataType = this.DataTypes.SelectedValue,

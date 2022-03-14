@@ -64,7 +64,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.SaveAnnouncement.ClientID));
 
@@ -81,7 +81,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         protected override void CreatePageLinks()
         {
-            this.PageLinks.AddLink(this.PageContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
+            this.PageLinks.AddLink(this.PageBoardContext.BoardSettings.Name, this.Get<LinkBuilder>().GetLink(ForumPages.Board));
             this.PageLinks.AddAdminIndex();
             this.PageLinks.AddLink(this.GetText("ADMIN_BOARDSETTINGS", "ANNOUNCEMENT_TITLE"), string.Empty);
         }
@@ -114,7 +114,7 @@ namespace YAF.Pages.Admin
                 _ => boardAnnouncementUntil
             };
 
-            var boardSettings = this.PageContext.BoardSettings;
+            var boardSettings = this.PageBoardContext.BoardSettings;
 
             boardSettings.BoardAnnouncementUntil = boardAnnouncementUntil.ToString(CultureInfo.InvariantCulture);
             boardSettings.BoardAnnouncement = this.Message.Text;
@@ -137,7 +137,7 @@ namespace YAF.Pages.Admin
         /// </param>
         protected void DeleteClick(object sender, EventArgs e)
         {
-            var boardSettings = this.PageContext.BoardSettings;
+            var boardSettings = this.PageBoardContext.BoardSettings;
 
             boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
             boardSettings.BoardAnnouncement = this.Message.Text;
@@ -154,7 +154,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            var boardSettings = this.PageContext.BoardSettings;
+            var boardSettings = this.PageBoardContext.BoardSettings;
 
             // add items to the dropdown
             this.BoardAnnouncementUntilUnit.Items.Add(new ListItem(this.GetText("PROFILE", "MONTH"), "3"));

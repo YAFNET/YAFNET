@@ -81,7 +81,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
 
@@ -142,7 +142,7 @@ namespace YAF.Pages.Admin
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"),
                     MessageTypes.danger);
                 return;
@@ -150,7 +150,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.RankPriority.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITRANK", "MSG_RANK_INTEGER"),
                     MessageTypes.danger);
                 return;
@@ -158,7 +158,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"),
                     MessageTypes.danger);
                 return;
@@ -166,13 +166,13 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"), MessageTypes.danger);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
             {
-                this.PageContext.AddLoadMessage(
+                this.PageBoardContext.AddLoadMessage(
                     this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"),
                     MessageTypes.danger);
                 return;
@@ -187,7 +187,7 @@ namespace YAF.Pages.Admin
 
             this.GetRepository<Rank>().Save(
                 rankId,
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.Name.Text,
                 new RankFlags { IsStart = this.IsStart.Checked, IsLadder = this.IsLadder.Checked },
                 this.MinPosts.Text.ToType<int>(),

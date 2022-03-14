@@ -99,7 +99,7 @@ namespace YAF.Controls
             }
 
             if (this.SubforumList.Items.Count >=
-                this.PageContext.BoardSettings.SubForumsInForumList)
+                this.PageBoardContext.BoardSettings.SubForumsInForumList)
             {
                 e.Item.FindControl("CutOff").Visible = true;
             }

@@ -77,7 +77,7 @@
                     <asp:HiddenField ID="fID" Value='<%# this.Eval("ID") %>' runat="server"/>
                     <h5 class="mb-1 text-break">
                         <asp:HyperLink runat="server" ID="Mask"
-                                       Href='<%# string.Format(this.PageContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString(this.Eval("Mask").ToString())) %>'
+                                       Href='<%# string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, IPHelper.GetIpAddressAsString(this.Eval("Mask").ToString())) %>'
                                        ToolTip='<%#this.GetText("COMMON", "TT_IPDETAILS") %>'
                                        Target="_blank">
                             <%# this.HtmlEncode(IPHelper.GetIpAddressAsString(this.Eval("Mask").ToString())) %>

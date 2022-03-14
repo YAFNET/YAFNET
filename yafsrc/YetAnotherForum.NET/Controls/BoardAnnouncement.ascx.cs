@@ -50,19 +50,19 @@ namespace YAF.Controls
         /// </param>
         protected override void OnPreRender([NotNull] EventArgs e)
         {
-            if (this.PageContext.BoardSettings.BoardAnnouncement.IsNotSet())
+            if (this.PageBoardContext.BoardSettings.BoardAnnouncement.IsNotSet())
             {
                 this.Visible = false;
                 return;
             }
 
             var dateTime = Convert.ToDateTime(
-                this.PageContext.BoardSettings.BoardAnnouncementUntil,
+                this.PageBoardContext.BoardSettings.BoardAnnouncementUntil,
                 CultureInfo.InvariantCulture);
 
             if (dateTime <= DateTime.Now)
             {
-                var boardSettings = this.PageContext.BoardSettings;
+                var boardSettings = this.PageBoardContext.BoardSettings;
 
                 boardSettings.BoardAnnouncementUntil = DateTime.MinValue.ToString(CultureInfo.InvariantCulture);
                 boardSettings.BoardAnnouncement = string.Empty;
@@ -75,10 +75,10 @@ namespace YAF.Controls
                 return;
             }
 
-            this.Badge.CssClass = $"badge bg-{this.PageContext.BoardSettings.BoardAnnouncementType} me-1";
+            this.Badge.CssClass = $"badge bg-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} me-1";
 
-            this.Announcement.CssClass = $"alert alert-{this.PageContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
-            this.Message.Text = this.PageContext.BoardSettings.BoardAnnouncement;
+            this.Announcement.CssClass = $"alert alert-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
+            this.Message.Text = this.PageBoardContext.BoardSettings.BoardAnnouncement;
 
             this.DataBind();
 

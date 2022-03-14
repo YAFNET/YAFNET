@@ -98,10 +98,10 @@ namespace YAF.Web.Controls
             var forumJump = this.Get<IDataCache>().GetOrSet(
                 string.Format(
                     Constants.Cache.ForumJump,
-                    this.PageContext.MembershipUser != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+                    this.PageBoardContext.MembershipUser != null ? this.PageBoardContext.PageUserID.ToString() : "Guest"),
                 () => this.GetRepository<Types.Models.Forum>().ListAllSorted(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID),
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.PageUserID),
                 TimeSpan.FromMinutes(5));
 
             var name = forumJump.First(r => r.ForumID == this.ForumId).Forum;
@@ -139,10 +139,10 @@ namespace YAF.Web.Controls
             var forumJump = this.Get<IDataCache>().GetOrSet(
                 string.Format(
                     Constants.Cache.ForumJump,
-                    this.PageContext.MembershipUser != null ? this.PageContext.PageUserID.ToString() : "Guest"),
+                    this.PageBoardContext.MembershipUser != null ? this.PageBoardContext.PageUserID.ToString() : "Guest"),
                 () => this.GetRepository<Types.Models.Forum>().ListAllSorted(
-                    this.PageContext.PageBoardID,
-                    this.PageContext.PageUserID),
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.PageUserID),
                 TimeSpan.FromMinutes(5));
 
             writer.WriteLine(
@@ -151,7 +151,7 @@ namespace YAF.Web.Controls
                              id=""{this.ClientID}"" 
                              class=""select2-image-select"">");
 
-            var forumId = this.PageContext.PageForumID;
+            var forumId = this.PageBoardContext.PageForumID;
             if (forumId <= 0)
             {
                 writer.WriteLine("<option/>");
@@ -193,7 +193,7 @@ namespace YAF.Web.Controls
         {
             if (!this.Page.IsPostBack)
             {
-                this.ForumId = this.PageContext.PageForumID;
+                this.ForumId = this.PageBoardContext.PageForumID;
             }
         }
 

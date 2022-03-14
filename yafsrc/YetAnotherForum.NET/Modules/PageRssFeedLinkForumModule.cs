@@ -79,9 +79,9 @@ namespace YAF.Modules
             }
 
             var groupAccess =
-                this.Get<IPermissions>().Check(this.PageContext.BoardSettings.PostLatestFeedAccess);
+                this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.PostLatestFeedAccess);
 
-            if (!this.PageContext.BoardSettings.ShowAtomLink || !groupAccess)
+            if (!this.PageBoardContext.BoardSettings.ShowAtomLink || !groupAccess)
             {
                 return;
             }
@@ -100,7 +100,7 @@ namespace YAF.Modules
             atomLink.Attributes.Add("type", "application/atom+xml");
             atomLink.Attributes.Add(
                 "title",
-                $"{this.GetText("ATOMFEED")} - {this.PageContext.BoardSettings.Name}");
+                $"{this.GetText("ATOMFEED")} - {this.PageBoardContext.BoardSettings.Name}");
 
             head.Controls.Add(atomLink);
         }

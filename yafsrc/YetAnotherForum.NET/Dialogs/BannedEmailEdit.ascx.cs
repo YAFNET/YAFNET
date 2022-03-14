@@ -113,7 +113,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            this.PageContext.PageElements.RegisterJsBlockStartup(
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.FormValidatorJs),
                 JavaScriptBlocks.FormValidatorJs(this.Save.ClientID));
         }
@@ -135,7 +135,7 @@ namespace YAF.Dialogs
                 this.mask.Text.Trim(),
                 this.BanReason.Text.Trim()))
             {
-                this.PageContext.LoadMessage.AddSession(
+                this.PageBoardContext.LoadMessage.AddSession(
                     this.GetText("ADMIN_BANNEDEMAIL", "MSG_EXIST"),
                     MessageTypes.warning);
             }

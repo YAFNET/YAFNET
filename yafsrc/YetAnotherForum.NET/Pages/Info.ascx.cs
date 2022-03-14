@@ -54,7 +54,7 @@ namespace YAF.Pages
         public Info()
             : base("INFO", ForumPages.Info)
         {
-            this.PageContext.Globals.IsSuspendCheckEnabled = false;
+            this.PageBoardContext.Globals.IsSuspendCheckEnabled = false;
         }
 
         #endregion
@@ -111,16 +111,16 @@ namespace YAF.Pages
                     case InfoMessage.Suspended: // Suspended
                         this.Title.Text = this.GetText("title_suspended");
 
-                        if (this.PageContext.SuspendedReason.IsSet())
+                        if (this.PageBoardContext.SuspendedReason.IsSet())
                         {
                             this.InfoLabel.Text =
-                                $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageContext.SuspendedReason)}";
+                                $"{this.GetTextFormatted("SUSPENDED", this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil))}{this.GetTextFormatted("SUSPENDED_REASON", this.PageBoardContext.SuspendedReason)}";
                         }
                         else
                         {
                             this.InfoLabel.Text = this.GetTextFormatted(
                                 "SUSPENDED",
-                                this.Get<IDateTimeService>().GetUserDateTime(this.PageContext.SuspendedUntil));
+                                this.Get<IDateTimeService>().GetUserDateTime(this.PageBoardContext.SuspendedUntil));
                         }
 
                         break;
@@ -168,7 +168,7 @@ namespace YAF.Pages
                 this.Title.Text = this.GetText("title_exception");
 
                 // exception message
-                this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.PageContext.PageUser.DisplayOrUserName()}</strong>.";
+                this.InfoLabel.Text = $"{this.GetText("exception")} <strong>{this.PageBoardContext.PageUser.DisplayOrUserName()}</strong>.";
 
                 // redirect to forum main after 2 seconds
                 this.RefreshTime = 2;

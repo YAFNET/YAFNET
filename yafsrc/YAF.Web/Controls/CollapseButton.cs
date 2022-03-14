@@ -63,7 +63,7 @@ namespace YAF.Web.Controls
         {
             get
             {
-                var defaultState = this.PageContext().BoardSettings.DefaultCollapsiblePanelState;
+                var defaultState = this.PageBoardContext().BoardSettings.DefaultCollapsiblePanelState;
 
                 if (this.ViewState["DefaultState"] != null)
                 {
@@ -72,7 +72,7 @@ namespace YAF.Web.Controls
 
                 if (defaultState == CollapsiblePanelState.None)
                 {
-                    defaultState = this.PageContext().BoardSettings.DefaultCollapsiblePanelState;
+                    defaultState = this.PageBoardContext().BoardSettings.DefaultCollapsiblePanelState;
                 }
 
                 return defaultState;

@@ -87,14 +87,14 @@ namespace YAF.Dialogs
 
                     default:
                         {
-                            this.PageContext.AddLoadMessage(
+                            this.PageBoardContext.AddLoadMessage(
                                 this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"),
                                 MessageTypes.danger);
                             return;
                         }
                 }
 
-                this.PageContext.LoadMessage.AddSession(
+                this.PageBoardContext.LoadMessage.AddSession(
                     importedCount > 0
                         ? string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_SUCESS"), importedCount)
                         : this.GetText("ADMIN_USERS_IMPORT", "IMPORT_NOTHING"),
@@ -102,7 +102,7 @@ namespace YAF.Dialogs
             }
             catch (Exception x)
             {
-                this.PageContext.LoadMessage.AddSession(
+                this.PageBoardContext.LoadMessage.AddSession(
                     string.Format(this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED"), x.Message),
                     MessageTypes.danger);
             }
@@ -303,7 +303,7 @@ namespace YAF.Dialogs
             var user = new AspNetUsers
             {
                 Id = Guid.NewGuid().ToString(),
-                ApplicationId = this.PageContext.BoardSettings.ApplicationId,
+                ApplicationId = this.PageBoardContext.BoardSettings.ApplicationId,
                 UserName = (string)row["Name"],
                 LoweredUserName = (string)row["Name"],
                 Email = (string)row["Email"],
@@ -332,10 +332,10 @@ namespace YAF.Dialogs
             this.Get<IAspNetUsersHelper>().Create(user, pass);
 
             // setup initial roles (if any) for this user
-            this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageContext.PageBoardID, user);
+            this.Get<IAspNetRolesHelper>().SetupUserRoles(this.PageBoardContext.PageBoardID, user);
 
             // create the user in the YAF DB as well as sync roles...
-            var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageContext.PageBoardID);
+            var userId = this.Get<IAspNetRolesHelper>().CreateForumUser(user, this.PageBoardContext.PageBoardID);
 
             if (userId == null)
             {
@@ -354,7 +354,7 @@ namespace YAF.Dialogs
                 int.TryParse((string)row["Timezone"], out timeZone);
             }
 
-            var autoWatchTopicsEnabled = this.PageContext.BoardSettings.DefaultNotificationSetting
+            var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
                                          == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
 
             this.GetRepository<User>().Save(
@@ -372,8 +372,8 @@ namespace YAF.Dialogs
                 userId.Value,
                 true,
                 autoWatchTopicsEnabled,
-                this.PageContext.BoardSettings.DefaultNotificationSetting.ToInt(),
-                this.PageContext.BoardSettings.DefaultSendDigestEmail);
+                this.PageBoardContext.BoardSettings.DefaultNotificationSetting.ToInt(),
+                this.PageBoardContext.BoardSettings.DefaultSendDigestEmail);
 
             importCount++;
 

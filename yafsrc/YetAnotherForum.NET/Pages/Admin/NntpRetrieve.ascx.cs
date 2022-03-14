@@ -113,12 +113,12 @@ namespace YAF.Pages.Admin
 
             var articleCount = this.Get<INewsreader>()
                 .ReadArticles(
-                    this.PageContext.PageBoardID,
+                    this.PageBoardContext.PageBoardID,
                     10,
                     seconds,
-                    this.PageContext.BoardSettings.CreateNntpUsers);
+                    this.PageBoardContext.BoardSettings.CreateNntpUsers);
 
-            this.PageContext.AddLoadMessage(
+            this.PageBoardContext.AddLoadMessage(
                 string
                     .Format(this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved"), articleCount, (double)articleCount / seconds),
                 MessageTypes.success);
@@ -131,7 +131,7 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindData()
         {
-            this.List.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageContext.PageBoardID, true)
+            this.List.DataSource = this.GetRepository<NntpForum>().NntpForumList(this.PageBoardContext.PageBoardID, true)
                 .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > 10);
 
             this.DataBind();

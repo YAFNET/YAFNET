@@ -43,12 +43,12 @@
                                                                                   (Container.DataItem as BuddyUser).UserID,
                                                                                   (Container.DataItem as BuddyUser).Avatar,
                                                                                   (Container.DataItem as BuddyUser).AvatarImage != null) %>"
-                                       AlternateText="<%# this.PageContext.BoardSettings.EnableDisplayName ? 
+                                       AlternateText="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? 
                                                               (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name  %>"/>
                         </div>
                         <div>
                             <YAF:UserLink ID="UserProfileLink" runat="server"
-                          ReplaceName="<%# this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name %>"
+                          ReplaceName="<%# this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as BuddyUser).DisplayName : (Container.DataItem as BuddyUser).Name %>"
                           Suspended="<%# (Container.DataItem as BuddyUser).Suspended %>"
                           Style="<%# (Container.DataItem as BuddyUser).UserStyle %>"
                           UserID="<%#  this.CurrentUserID == (Container.DataItem as BuddyUser).UserID ? (Container.DataItem as BuddyUser).FromUserID: (Container.DataItem as BuddyUser).UserID %>" />

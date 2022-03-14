@@ -70,7 +70,7 @@ namespace YAF.Pages
         protected override void OnPreRender([NotNull] EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 "yafBuddiesTabsJs",
                 JavaScriptBlocks.BootstrapTabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID));
 
@@ -93,7 +93,7 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("BUDDYLIST_TT"), string.Empty);
         }
 
@@ -102,7 +102,7 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
-            var buddyList = this.Get<IFriends>().GetForUser(this.PageContext.PageUserID);
+            var buddyList = this.Get<IFriends>().GetForUser(this.PageBoardContext.PageUserID);
 
             this.InitializeBuddyList(this.BuddyList1, 2, buddyList);
             this.InitializeBuddyList(this.PendingBuddyList, 3, buddyList);
@@ -124,7 +124,7 @@ namespace YAF.Pages
         private void InitializeBuddyList([NotNull] BuddyList customBuddyList, int mode, List<BuddyUser> buddyList)
         {
             customBuddyList.FriendsList = buddyList;
-            customBuddyList.CurrentUserID = this.PageContext.PageUserID;
+            customBuddyList.CurrentUserID = this.PageBoardContext.PageUserID;
             customBuddyList.Mode = mode;
             customBuddyList.Container = this;
         }

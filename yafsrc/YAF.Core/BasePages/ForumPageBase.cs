@@ -58,7 +58,7 @@ namespace YAF.Core.BasePages
         /// <value>
         /// The page context.
         /// </value>
-        public BoardContext PageContext => BoardContext.Current;
+        public BoardContext PageBoardContext => BoardContext.Current;
 
         #endregion
 
@@ -106,7 +106,7 @@ namespace YAF.Core.BasePages
             if (error.GetType() == typeof(HttpException) && error.InnerException is ViewStateException
                 || error.Source.Contains("ViewStateException"))
             {
-                if (this.PageContext.BoardSettings.LogViewStateError)
+                if (this.PageBoardContext.BoardSettings.LogViewStateError)
                 {
                     this.Get<ILoggerService>()
                         .Log(BoardContext.Current.PageUser.ID, error.Source, error, EventLogTypes.Information);

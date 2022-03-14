@@ -117,7 +117,7 @@ namespace YAF.Pages
         {
             if (this.Question.Text.Trim().Length == 0)
             {
-                this.PageContext.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
                 return false;
             }
 
@@ -129,7 +129,7 @@ namespace YAF.Pages
 
             if (count < 2)
             {
-                this.PageContext.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
+                this.PageBoardContext.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
                 return false;
             }
 
@@ -156,8 +156,8 @@ namespace YAF.Pages
             this.InitializeVariables();
 
             this.PollObjectRow1.Visible =
-                (this.PageContext.IsAdmin || this.PageContext.BoardSettings.AllowUsersImagedPoll) &&
-                this.PageContext.ForumPollAccess;
+                (this.PageBoardContext.IsAdmin || this.PageBoardContext.BoardSettings.AllowUsersImagedPoll) &&
+                this.PageBoardContext.ForumPollAccess;
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace YAF.Pages
         /// </param>
         protected void SavePoll_Click(object sender, EventArgs eventArgs)
         {
-            if (!this.PageContext.ForumPollAccess || !this.IsInputVerified())
+            if (!this.PageBoardContext.ForumPollAccess || !this.IsInputVerified())
             {
                 return;
             }
@@ -195,7 +195,7 @@ namespace YAF.Pages
         /// </summary>
         private void CheckAccess()
         {
-            if (this.forumId > 0 && !this.PageContext.ForumPollAccess)
+            if (this.forumId > 0 && !this.PageBoardContext.ForumPollAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
@@ -258,7 +258,7 @@ namespace YAF.Pages
 
             // Create New Poll
             var newPollId = this.GetRepository<Poll>().Create(
-                this.PageContext.PageUserID,
+                this.PageBoardContext.PageUserID,
                 this.Question.Text,
                 datePollExpire,
                 this.IsClosedBoundCheckBox.Checked,
@@ -306,8 +306,8 @@ namespace YAF.Pages
 
                 var poll = pollAndChoices.FirstOrDefault().Item1;
 
-                if (poll.UserID != this.PageContext.PageUserID &&
-                    !this.PageContext.IsAdmin && !this.PageContext.ForumModeratorAccess)
+                if (poll.UserID != this.PageBoardContext.PageUserID &&
+                    !this.PageBoardContext.IsAdmin && !this.PageBoardContext.ForumModeratorAccess)
                 {
                     this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
                 }
@@ -331,7 +331,7 @@ namespace YAF.Pages
 
                 choices = pollAndChoices.Select(c => c.Item2).ToList();
 
-                var count = this.PageContext.BoardSettings.AllowedPollChoiceNumber - 1 - choices.Count;
+                var count = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1 - choices.Count;
 
                 if (count > 0)
                 {
@@ -358,7 +358,7 @@ namespace YAF.Pages
                 choices = new List<Choice>();
 
                 // we add dummy rows to data table to fill in repeater empty fields
-                var dummyRowsCount = this.PageContext.BoardSettings.AllowedPollChoiceNumber - 1;
+                var dummyRowsCount = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1;
                 for (var i = 0; i <= dummyRowsCount; i++)
                 {
                     var choice = new Choice { ID = i };
@@ -376,10 +376,10 @@ namespace YAF.Pages
             this.Cancel.Visible = true;
             this.PollRowExpire.Visible = true;
             this.IsClosedBound.Visible =
-                this.PageContext.BoardSettings.AllowUsersHidePollResults || this.PageContext.IsAdmin ||
-                this.PageContext.IsForumModerator;
-            this.tr_AllowMultipleChoices.Visible = this.PageContext.BoardSettings.AllowMultipleChoices ||
-                                                   this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess;
+                this.PageBoardContext.BoardSettings.AllowUsersHidePollResults || this.PageBoardContext.IsAdmin ||
+                this.PageBoardContext.IsForumModerator;
+            this.tr_AllowMultipleChoices.Visible = this.PageBoardContext.BoardSettings.AllowMultipleChoices ||
+                                                   this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess;
         }
 
         /// <summary>
@@ -467,22 +467,22 @@ namespace YAF.Pages
             }
 
             // admins can add any number of polls
-            if (this.PageContext.IsAdmin || this.PageContext.ForumModeratorAccess)
+            if (this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess)
             {
                 return true;
             }
 
-            if (!this.PageContext.ForumPollAccess)
+            if (!this.PageBoardContext.ForumPollAccess)
             {
                 return false;
             }
 
-            if (this.PageContext.ForumPollAccess)
+            if (this.PageBoardContext.ForumPollAccess)
             {
                 return true;
             }
 
-            return this.PageContext.BoardSettings.AllowedPollChoiceNumber > 0;
+            return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0;
         }
 
         #endregion

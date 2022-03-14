@@ -211,8 +211,8 @@ namespace YAF.Controls
         /// </summary>
         private void RenderQuickSearch()
         {
-            if (!this.PageContext.BoardSettings.ShowQuickSearch
-                || !this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+            if (!this.PageBoardContext.BoardSettings.ShowQuickSearch
+                || !this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.SearchPermissions))
             {
                 return;
             }
@@ -237,7 +237,7 @@ namespace YAF.Controls
         private void RenderAdminModMenu()
         {
             // Admin
-            if (this.PageContext.IsAdmin)
+            if (this.PageBoardContext.IsAdmin)
             {
                 this.AdminModHolder.Visible = true;
 
@@ -245,14 +245,14 @@ namespace YAF.Controls
             }
 
             // Host
-            if (this.PageContext.PageUser.UserFlags.IsHostAdmin)
+            if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
             {
                 this.AdminModHolder.Visible = true;
                 this.HostMenuHolder.Visible = true;
             }
 
             // Moderate
-            if (!this.PageContext.IsModeratorInAnyForum)
+            if (!this.PageBoardContext.IsModeratorInAnyForum)
             {
                 return;
             }
@@ -267,13 +267,13 @@ namespace YAF.Controls
                 "MODERATE_TITLE",
                 this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index),
                 false,
-                this.PageContext.ModeratePosts > 0,
-                this.PageContext.ModeratePosts.ToString(),
-                this.GetTextFormatted("MODERATE_NEW", this.PageContext.ModeratePosts),
-                this.PageContext.CurrentForumPage.PageType == ForumPages.Moderate_Index);
+                this.PageBoardContext.ModeratePosts > 0,
+                this.PageBoardContext.ModeratePosts.ToString(),
+                this.GetTextFormatted("MODERATE_NEW", this.PageBoardContext.ModeratePosts),
+                this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Moderate_Index);
 
             this.hostDropdown.CssClass =
-                this.PageContext.CurrentForumPage.PageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
+                this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or
                     ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList
                     ? "nav-link dropdown-toggle active"
                     : "nav-link dropdown-toggle";
@@ -285,7 +285,7 @@ namespace YAF.Controls
         private void RenderMainHeaderMenu()
         {
             // Search
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.SearchPermissions))
+            if (this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.SearchPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -297,12 +297,12 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.CurrentForumPage.PageType == ForumPages.Search,
+                    this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Search,
                     string.Empty);
             }
 
             // Members
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.MembersListViewPermissions))
+            if (this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.MembersListViewPermissions))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -314,12 +314,12 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.CurrentForumPage.PageType == ForumPages.Members,
+                    this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Members,
                     string.Empty);
             }
 
             // Team
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowTeamTo))
+            if (this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowTeamTo))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -331,12 +331,12 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.CurrentForumPage.PageType == ForumPages.Team,
+                    this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Team,
                     string.Empty);
             }
 
             // Help
-            if (this.Get<IPermissions>().Check(this.PageContext.BoardSettings.ShowHelpTo))
+            if (this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -348,11 +348,11 @@ namespace YAF.Controls
                     false,
                     null,
                     null,
-                    this.PageContext.CurrentForumPage.PageType == ForumPages.Help,
+                    this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Help,
                     string.Empty);
             }
 
-            if (!this.PageContext.IsGuest || Config.IsAnyPortal)
+            if (!this.PageBoardContext.IsGuest || Config.IsAnyPortal)
             {
                 return;
             }
@@ -362,7 +362,7 @@ namespace YAF.Controls
             {
                 var navigateUrl = "javascript:void(0);";
 
-                if (this.PageContext.CurrentForumPage.IsAccountPage)
+                if (this.PageBoardContext.CurrentForumPage.IsAccountPage)
                 {
                     navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
                 }
@@ -382,7 +382,7 @@ namespace YAF.Controls
             }
 
             // Register
-            if (!this.PageContext.BoardSettings.DisableRegistrations)
+            if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
             {
                 RenderMenuItem(
                     this.menuListItems,
@@ -390,14 +390,14 @@ namespace YAF.Controls
                     this.GetText("TOOLBAR", "REGISTER"),
                     "REGISTER_TITLE",
                     this.Get<LinkBuilder>().GetLink(
-                        this.PageContext.BoardSettings.ShowRulesForRegistration
+                        this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                             ? ForumPages.RulesAndPrivacy
                             : ForumPages.Account_Register),
                     true,
                     false,
                     null,
                     null,
-                    this.PageContext.CurrentForumPage.PageType == ForumPages.Account_Register,
+                    this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Account_Register,
                     string.Empty);
             }
         }
@@ -407,7 +407,7 @@ namespace YAF.Controls
         /// </summary>
         private void RenderGuestControls()
         {
-            if (!this.PageContext.IsGuest)
+            if (!this.PageBoardContext.IsGuest)
             {
                 // Logged in as : username
                 this.LoggedInUserPanel.Visible = true;
@@ -433,7 +433,7 @@ namespace YAF.Controls
                 {
                     var navigateUrl = "javascript:void(0);";
 
-                    if (this.PageContext.CurrentForumPage.IsAccountPage)
+                    if (this.PageBoardContext.CurrentForumPage.IsAccountPage)
                     {
                         navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
                     }
@@ -452,7 +452,7 @@ namespace YAF.Controls
                     isLoginAllowed = true;
                 }
 
-                if (!this.PageContext.BoardSettings.DisableRegistrations)
+                if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
                 {
                     if (isLoginAllowed)
                     {
@@ -463,7 +463,7 @@ namespace YAF.Controls
                     // show register link
                     var registerLink = new HyperLink {
                         Text = this.GetText("TOOLBAR", "REGISTER"),
-                        NavigateUrl = this.PageContext.BoardSettings.ShowRulesForRegistration
+                        NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                             ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
                             : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
                         CssClass = "alert-link"

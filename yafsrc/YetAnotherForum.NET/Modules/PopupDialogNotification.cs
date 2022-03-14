@@ -82,17 +82,17 @@ namespace YAF.Modules
                       }}
 
                       $.notify({{
-                                   title: ""{this.PageContext.BoardSettings.Name}"",
+                                   title: ""{this.PageBoardContext.BoardSettings.Name}"",
                                    message: newErrorStr,
                                    icon: iconFA
                             }},
                             {{
                                   type: newErrorType,
                                   element: 'body', position: null, placement: {{ from: 'top', align: 'center' }},
-                                  delay: {this.PageContext.BoardSettings.MessageNotifcationDuration} * 1000
+                                  delay: {this.PageBoardContext.BoardSettings.MessageNotifcationDuration} * 1000
                         }});}} }}";
 
-            this.PageContext.PageElements.RegisterJsBlock(
+            this.PageBoardContext.PageElements.RegisterJsBlock(
                 this,
                 this.ShowModalFunction,
                 javaScriptFunction);

@@ -107,7 +107,7 @@
                                             LocalizedTag='<%# this.View == PmView.Outbox ? "TO" : "FROM" %>' />:
                     </span>
                     <YAF:UserLink ID="UserLink1" runat="server"
-                                  ReplaceName="<%# this.View == PmView.Outbox ? this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as PagedPm).ToUserDisplayName : (Container.DataItem as PagedPm).ToUser : this.PageContext.BoardSettings.EnableDisplayName ? (Container.DataItem as PagedPm).FromUserDisplayName : (Container.DataItem as PagedPm).FromUser %>"
+                                  ReplaceName="<%# this.View == PmView.Outbox ? this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as PagedPm).ToUserDisplayName : (Container.DataItem as PagedPm).ToUser : this.PageBoardContext.BoardSettings.EnableDisplayName ? (Container.DataItem as PagedPm).FromUserDisplayName : (Container.DataItem as PagedPm).FromUser %>"
                                   Suspended="<%# this.View == PmView.Outbox ? (Container.DataItem as PagedPm).ToSuspended : (Container.DataItem as PagedPm).FromSuspended  %>"
                                   Style="<%# this.View == PmView.Outbox ? (Container.DataItem as PagedPm).ToStyle : (Container.DataItem as PagedPm).FromStyle %>"
                                   UserID="<%# this.View == PmView.Outbox ? (Container.DataItem as PagedPm).ToUserID : (Container.DataItem as PagedPm).FromUserID %>" />

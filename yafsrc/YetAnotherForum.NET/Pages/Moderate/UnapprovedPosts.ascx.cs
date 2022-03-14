@@ -78,7 +78,7 @@ namespace YAF.Pages.Moderate
                 this.Get<LinkBuilder>().GetLink(ForumPages.Moderate_Index));
 
             // current page
-            this.PageLinks.AddLink(this.PageContext.PageForum.Name);
+            this.PageLinks.AddLink(this.PageBoardContext.PageForum.Name);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace YAF.Pages.Moderate
         /// </summary>
         private void BindData()
         {
-            var messageList = this.GetRepository<Message>().Unapproved(this.PageContext.PageForumID);
+            var messageList = this.GetRepository<Message>().Unapproved(this.PageBoardContext.PageForumID);
 
             if (!messageList.Any())
             {
@@ -181,13 +181,13 @@ namespace YAF.Pages.Moderate
                     // approve post
                     this.GetRepository<Message>().Approve(
                         e.CommandArgument.ToType<int>(),
-                        this.PageContext.PageForumID);
+                        this.PageBoardContext.PageForumID);
 
                     // re-bind data
                     this.BindData();
 
                     // tell user message was approved
-                    this.PageContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.success);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.success);
 
                     // send notification to watching users...
                     this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
@@ -201,7 +201,7 @@ namespace YAF.Pages.Moderate
 
                     // delete message
                     this.GetRepository<Message>().Delete(
-                        this.PageContext.PageForumID,
+                        this.PageBoardContext.PageForumID,
                         topicId,
                         messageId,
                         true,
@@ -213,7 +213,7 @@ namespace YAF.Pages.Moderate
                     this.BindData();
 
                     // tell user message was deleted
-                    this.PageContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
                     break;
             }
 

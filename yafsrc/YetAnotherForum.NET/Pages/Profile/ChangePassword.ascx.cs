@@ -87,17 +87,17 @@ namespace YAF.Pages.Profile
             }
 
             var result = this.Get<IAspNetUsersHelper>().ChangePassword(
-                this.PageContext.MembershipUser.Id,
+                this.PageBoardContext.MembershipUser.Id,
                 this.CurrentPassword.Text,
                 this.NewPassword.Text);
 
             if (result.Succeeded)
             {
-                this.PageContext.AddLoadMessage(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
+                this.PageBoardContext.AddLoadMessage(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
             }
             else
             {
-                this.PageContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
+                this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
             }
         }
 
@@ -132,7 +132,7 @@ namespace YAF.Pages.Profile
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddLink(this.PageContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+            this.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
             this.PageLinks.AddLink(this.GetText("TITLE"));
         }
 

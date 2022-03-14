@@ -65,7 +65,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.IsHostAdminRow.Visible = this.PageContext.PageUser.UserFlags.IsHostAdmin;
+            this.IsHostAdminRow.Visible = this.PageBoardContext.PageUser.UserFlags.IsHostAdmin;
 
             if (this.IsPostBack)
             {
@@ -90,7 +90,7 @@ namespace YAF.Controls
                 var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim()).UserName;
                 if (userName.IsSet() && userName != aspNetUser.UserName)
                 {
-                    this.PageContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -109,7 +109,7 @@ namespace YAF.Controls
             {
                 if (!this.IsApproved.Checked)
                 {
-                    this.PageContext.AddLoadMessage(
+                    this.PageBoardContext.AddLoadMessage(
                         this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"),
                         MessageTypes.success);
                     return;
@@ -127,7 +127,7 @@ namespace YAF.Controls
             };
 
             this.GetRepository<User>().AdminSave(
-                this.PageContext.PageBoardID,
+                this.PageBoardContext.PageBoardID,
                 this.User.Item1.ID,
                 this.Name.Text.Trim(),
                 this.DisplayName.Text.Trim(),

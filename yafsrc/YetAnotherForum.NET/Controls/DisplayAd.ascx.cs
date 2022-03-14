@@ -48,7 +48,7 @@ namespace YAF.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.AdMessage.Message = this.PageContext.BoardSettings.AdPost;
+            this.AdMessage.Message = this.PageBoardContext.BoardSettings.AdPost;
             this.AdMessage.Signature = this.GetText("AD_SIGNATURE");
 
             this.AdMessage.MessageFlags = new MessageFlags { IsLocked = true, NotFormatted = true };
