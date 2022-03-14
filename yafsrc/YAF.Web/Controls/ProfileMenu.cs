@@ -36,6 +36,7 @@ namespace YAF.Web.Controls
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -125,7 +126,8 @@ namespace YAF.Web.Controls
                     "user-cog");
             }
 
-            if (!this.PageContext.IsGuest)
+            if (!this.PageContext.IsGuest && this.PageContext.UploadAccess && this.GetRepository<Attachment>()
+                    .Exists(x => x.UserID == this.PageContext.PageUserID))
             {
                 this.RenderMenuItem(
                     html,

@@ -34,6 +34,7 @@ namespace YAF.Pages.Profile
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -98,6 +99,11 @@ namespace YAF.Pages.Profile
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
         {
+            if (!this.PageContext.UploadAccess)
+            {
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+            }
+
             if (this.IsPostBack)
             {
                 return;
