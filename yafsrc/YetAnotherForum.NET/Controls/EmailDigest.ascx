@@ -39,7 +39,7 @@
                     <asp:Repeater runat="server" ID="NewTopicsRepeater">
                         <ItemTemplate>
                             <h6 class="card-subtitle">
-                                <a href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
+                                <a href="<%# this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
                                    target="_blank">
                                     <i class="fas fa-comment"></i> <%# ((SimpleTopic)Container.DataItem).Subject %></a>
                                 <span class="badge bg-secondary">
@@ -54,7 +54,7 @@
                             </p>
 
                             <a class="btn btn-primary btn-sm mx-auto mt-2"
-                               href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
+                               href="<%# this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
                                target="_blank">
                                 <%# this.GetText("LINK") %></a>
                         </ItemTemplate>
@@ -73,7 +73,7 @@
                     <asp:Repeater runat="server" ID="ActiveTopicsRepeater">
                         <ItemTemplate>
                             <h6 class="card-subtitle">
-                                <a href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
+                                <a href="<%# this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
                                    target="_blank">
                                     <i class="fas fa-comment"></i> <%# ((SimpleTopic)Container.DataItem).Subject %></a>
                                 <span class="badge bg-secondary">
@@ -88,7 +88,7 @@
                             </p>
 
                             <a class="btn btn-primary btn-sm mx-auto mt-2"
-                               href="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, true, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
+                               href="<%# this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
                                target="_blank">
                                 <%# this.GetText("LINK") %></a>
                         </ItemTemplate>
