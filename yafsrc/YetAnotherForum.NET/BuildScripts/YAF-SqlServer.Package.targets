@@ -250,12 +250,6 @@
     <Move SourceFiles="$(MSBuildProjectDirectory)\$(PackageName).$(SQLPackageName)-v$(YAFVersion)-Install.$(Extension)"
           DestinationFolder="$(MSBuildProjectDirectory)\..\deploy" />
 
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\app.config"
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\app.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\db.config"
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\db.config"/>
-    <Move SourceFiles="$(MSBuildProjectDirectory)\Package\mail.config"
-          DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\mail.config"/>
     <Move SourceFiles="$(MSBuildProjectDirectory)\Package\recommended.web.config"
           DestinationFiles="$(MSBuildProjectDirectory)\Package\configs\recommended.web.config"/>
 

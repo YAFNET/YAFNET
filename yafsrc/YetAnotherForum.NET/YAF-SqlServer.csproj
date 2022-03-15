@@ -118,6 +118,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-datetimepicker.css;Content\bootstrap-notify.css;Content\bootstrap-tagsinput.css;Content\prism.css;
+  web.config;app.config;db.config;mail.config;
   Scripts\jquery.ForumAdminExtensionsDnn.js;Scripts\jquery.ForumAdminExtensionsDnn.min.js;
   Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\bootstrap-tagsinput.js;Scripts\bootstrap-typeahead.js;Scripts\jquery.bootstrap-touchspin.js;Scripts\hammer.min.js;
   Scripts\jquery.hovercard.js;Scripts\jquery.netStack.js;Scripts\jsdifflib.js;Scripts\moment-with-locales.js;Scripts\prism.js;Scripts\select2.js;**\Content\**\*.scss</ExcludeFilesFromDeployment>
@@ -1924,7 +1925,6 @@
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
     <Content Include="Content\favicons\site.webmanifest" />
     <Content Include="Content\blueimp-gallery.scss" />
-    <Content Include="app.config" />
     <Content Include="Content\bootstrap\mixins\_deprecate.scss" />
     <Content Include="Content\bootstrap\_spinners.scss" />
     <Content Include="Content\bootstrap\_toasts.scss" />
@@ -3308,6 +3308,7 @@
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
+    <Content Include="Content\forum\logo.scss" />
     <Content Include="Content\forum\quotes.scss" />
     <Content Include="Content\forum\sidebar-help.scss" />
     <Content Include="Content\forum\editor.scss" />
@@ -3391,12 +3392,6 @@
     </Content>
     <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
-    <Content Include="db.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="mail.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="UrlRewriter.config" />
     <None Include="Content\select2\select2-bootstrap.scss" />
     <Content Include="Content\Themes\cerulean\LICENSE.md" />
