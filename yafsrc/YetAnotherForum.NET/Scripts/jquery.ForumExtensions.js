@@ -24069,7 +24069,7 @@
                     if (options.placeholder != null) {
                         options.selectionAdapter = Utils.Decorate(options.selectionAdapter, Placeholder);
                     }
-                    if (options.allowClear) {
+                    if (options.allowClearing) {
                         options.selectionAdapter = Utils.Decorate(options.selectionAdapter, AllowClear);
                     }
                     if (options.multiple) {
@@ -32169,7 +32169,7 @@ $(document).ready(function() {
         $(this).select2({
             width: "100%",
             theme: "bootstrap-5",
-            allowClear: true,
+            allowClearing: $(this).data("allow-clear") == "True",
             dropdownAutoWidth: true,
             templateResult: formatState,
             templateSelection: formatState,

@@ -69,10 +69,10 @@ $(document).ready(function () {
     }
 
     $(".yafnet .select2-image-select").each(function () {
-		$(this).select2({
+        $(this).select2({
             width: "100%",
             theme: "bootstrap-5",
-            allowClear: true,
+            allowClearing: $(this).data("allow-clear") == "True",
             dropdownAutoWidth: true,
             templateResult: formatState,
             templateSelection: formatState,

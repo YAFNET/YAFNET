@@ -362,6 +362,7 @@ namespace YAF.Pages.Admin
 
             // medal image
             this.MedalImage.PlaceHolder = this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE");
+            this.MedalImage.AllowClear = true;
 
             this.MedalImage.DataSource = medals;
             this.MedalImage.DataValueField = "Value";

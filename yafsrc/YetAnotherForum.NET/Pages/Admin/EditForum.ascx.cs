@@ -135,6 +135,7 @@ namespace YAF.Pages.Admin
             }
 
             this.ForumImages.PlaceHolder = this.GetText("COMMON", "NONE");
+            this.ForumImages.AllowClear = true;
 
             this.ForumImages.DataSource = list;
             this.ForumImages.DataValueField = "Value";

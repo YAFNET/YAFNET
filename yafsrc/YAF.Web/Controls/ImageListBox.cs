@@ -43,6 +43,9 @@ namespace YAF.Web.Controls
         [DefaultValue("")]
         public string PlaceHolder { get; set; }
 
+        [DefaultValue(false)]
+        public bool AllowClear { get; set; }
+
         #region Methods
 
         /// <summary>
@@ -57,6 +60,8 @@ namespace YAF.Web.Controls
             {
                 this.Attributes.Add("placeholder", this.PlaceHolder);
             }
+
+            this.Attributes.Add("data-allow-clear", this.AllowClear.ToString());
 
             this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
                 item => item.Attributes.Add(

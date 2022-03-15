@@ -99,6 +99,7 @@ namespace YAF.Pages.Admin
             }
 
             this.CategoryImages.PlaceHolder = this.GetText("COMMON", "NONE");
+            this.CategoryImages.AllowClear = true;
 
             this.CategoryImages.DataSource = list;
             this.CategoryImages.DataValueField = "Value";

@@ -317,6 +317,7 @@ namespace YAF.Controls
                 if (avatars.Any())
                 {
                     this.AvatarGallery.PlaceHolder = this.GetText("OURAVATAR");
+                    this.AvatarGallery.AllowClear = true;
 
                     this.AvatarGallery.DataSource = avatars;
                     this.AvatarGallery.DataValueField = "Value";

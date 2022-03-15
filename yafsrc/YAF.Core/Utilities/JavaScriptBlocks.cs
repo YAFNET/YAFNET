@@ -960,7 +960,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 type: 'POST',
                 dataType: 'json',
                 minimumInputLength: 0,
-                allowClear: false,
+                allowClearing: false,
                 data: function(params) {{
                       var query = {{
                           ForumId : {Config.JQueryAlias}('#{forumDropDownId}').val(),
@@ -1385,7 +1385,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/User/GetUsers',
                 type: 'POST',
                 dataType: 'json',
-                allowClear: false,
+                allowClearing: false,
                 minimumInputLength: 3,
                 data: function(params) {{
                       var query = {{
@@ -1408,7 +1408,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             }},
             width: '100%',
             theme: 'bootstrap-5',
-            allowClear: true,
+            allowClearing: true,
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});
