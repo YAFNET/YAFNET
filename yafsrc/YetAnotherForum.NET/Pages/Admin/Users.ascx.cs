@@ -305,8 +305,7 @@ namespace YAF.Pages.Admin
 
             if (Config.IsAnyPortal)
             {
-                this.ImportUsers.Visible = false;
-                this.SyncUsers.Visible = false;
+                this.ImportAndSyncHolder.Visible = false;
             }
 
             // initialize since filter items
