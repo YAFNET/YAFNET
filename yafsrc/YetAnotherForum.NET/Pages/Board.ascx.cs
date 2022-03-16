@@ -26,10 +26,14 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Web.UI.WebControls;
 
+    using YAF.Configuration;
     using YAF.Core.BasePages;
+    using YAF.Core.Services;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Interfaces;
     using YAF.Web.Extensions;
 
     #endregion
@@ -66,6 +70,8 @@ namespace YAF.Pages
             this.ForumStatistics.Visible = this.PageBoardContext.BoardSettings.ShowForumStatistics;
             this.ActiveDiscussions.Visible = this.PageBoardContext.BoardSettings.ShowActiveDiscussions;
 
+            this.RenderGuestControls();
+
             if (this.IsPostBack)
             {
                 return;
@@ -97,6 +103,102 @@ namespace YAF.Pages
             }
 
             this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
+        }
+
+        /// <summary>
+        /// Render The GuestBar
+        /// </summary>
+        private void RenderGuestControls()
+        {
+            if (!this.PageBoardContext.IsGuest)
+            {
+                return;
+            }
+
+            if (!this.PageBoardContext.BoardSettings.ShowConnectMessageInTopic)
+            {
+                return;
+            }
+
+            this.GuestUserMessage.Visible = true;
+
+            this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST_FULL");
+
+            var endPoint = new Label { Text = "." };
+
+            var isLoginAllowed = false;
+            var isRegisterAllowed = false;
+
+            if (Config.IsAnyPortal)
+            {
+                this.GuestMessage.Text = this.GetText("TOOLBAR", "WELCOME_GUEST");
+            }
+            else
+            {
+                if (Config.AllowLoginAndLogoff)
+                {
+                    var navigateUrl = "javascript:void(0);";
+
+                    if (this.PageBoardContext.CurrentForumPage.IsAccountPage)
+                    {
+                        navigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login);
+                    }
+
+                    // show login
+                    var loginLink = new HyperLink
+                    {
+                        Text = this.GetText("TOOLBAR", "LOGIN"),
+                        ToolTip = this.GetText("TOOLBAR", "LOGIN"),
+                        NavigateUrl = navigateUrl,
+                        CssClass = "alert-link LoginLink"
+                    };
+
+                    this.GuestUserMessage.Controls.Add(loginLink);
+
+                    isLoginAllowed = true;
+                }
+
+                if (!this.PageBoardContext.BoardSettings.DisableRegistrations)
+                {
+                    if (isLoginAllowed)
+                    {
+                        this.GuestUserMessage.Controls.Add(
+                            new Label { Text = $"&nbsp;{this.GetText("COMMON", "OR")}&nbsp;" });
+                    }
+
+                    // show register link
+                    var registerLink = new HyperLink
+                    {
+                        Text = this.GetText("TOOLBAR", "REGISTER"),
+                        NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
+                            ? this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
+                            : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
+                        CssClass = "alert-link"
+                    };
+
+                    this.GuestUserMessage.Controls.Add(registerLink);
+
+                    this.GuestUserMessage.Controls.Add(endPoint);
+
+                    isRegisterAllowed = true;
+                }
+                else
+                {
+                    this.GuestUserMessage.Controls.Add(endPoint);
+
+                    this.GuestUserMessage.Controls.Add(
+                        new Label { Text = this.GetText("TOOLBAR", "DISABLED_REGISTER") });
+                }
+
+                // If both disallowed
+                if (isLoginAllowed || isRegisterAllowed)
+                {
+                    return;
+                }
+
+                this.GuestUserMessage.Controls.Clear();
+                this.GuestUserMessage.Controls.Add(new Label { Text = this.GetText("TOOLBAR", "WELCOME_GUEST_NO") });
+            }
         }
 
         #endregion

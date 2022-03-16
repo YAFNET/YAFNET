@@ -5,12 +5,6 @@
 <%@ Register TagPrefix="YAF" TagName="AdminMenu" Src="AdminMenu.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="UserMenu" Src="UserMenu.ascx" %>
 
-<YAF:Alert runat="server" Visible="False" ID="GuestUserMessage" 
-           Type="info" 
-           Dismissing="True">
-    <asp:Label id="GuestMessage" runat="server"></asp:Label>
-</YAF:Alert>
-    
 <header class="mb-2">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">

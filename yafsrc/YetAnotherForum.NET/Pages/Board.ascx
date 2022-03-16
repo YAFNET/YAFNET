@@ -7,6 +7,12 @@
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
+<YAF:Alert runat="server" Visible="False" ID="GuestUserMessage" 
+           Type="info" 
+           Dismissing="True">
+    <asp:Label id="GuestMessage" runat="server"></asp:Label>
+</YAF:Alert>
+
 <div class="row">
     <div class="col">
         <YAF:ForumWelcome runat="server" ID="Welcome" />
