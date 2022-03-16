@@ -155,7 +155,7 @@ namespace YAF.Pages
         {
             if (e.CommandArgument.ToString() == "addbuddy")
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.Get<IFriends>().AddRequest(this.UserId)
                         ? this.GetTextFormatted(
                             "NOTIFICATION_BUDDYAPPROVED_MUTUAL",
@@ -165,7 +165,7 @@ namespace YAF.Pages
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("REMOVEBUDDY_NOTIFICATION", this.Get<IFriends>().Remove(this.UserId)),
                     MessageTypes.success);
             }

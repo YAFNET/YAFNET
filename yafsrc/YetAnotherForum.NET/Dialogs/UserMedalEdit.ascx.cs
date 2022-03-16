@@ -242,7 +242,7 @@ namespace YAF.Dialogs
                                             && this.UserName.Text.IsNotSet())
             {
                 // no username, nor userID specified
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
                     MessageTypes.warning);
 
@@ -263,7 +263,7 @@ namespace YAF.Dialogs
                 if (users.Count > 1)
                 {
                     // more than one user is available for this username
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_EDITMEDAL", "MSG_AMBIGOUS_USER"),
                         MessageTypes.warning);
 
@@ -276,7 +276,7 @@ namespace YAF.Dialogs
                 if (!users.Any())
                 {
                     // no user found
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_EDITMEDAL", "MSG_VALID_USER"),
                         MessageTypes.warning);
 

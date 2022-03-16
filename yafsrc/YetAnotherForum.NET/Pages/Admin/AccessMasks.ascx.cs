@@ -147,7 +147,7 @@ namespace YAF.Pages.Admin
                     if (isInUse)
                     {
                         // used masks cannot be deleted
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_ACCESSMASKS", "MSG_NOT_DELETE"),
                             MessageTypes.warning);
                     }

@@ -105,7 +105,7 @@ namespace YAF.Pages.Admin
                     if (this.PageBoardContext.PageUserID == int.Parse(e.CommandArgument.ToString()))
                     {
                         // deleting yourself isn't an option
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
                             MessageTypes.danger);
                         return;
@@ -119,7 +119,7 @@ namespace YAF.Pages.Admin
                     if (userToDelete.Item1.UserFlags.IsGuest)
                     {
                         // we cannot delete guest
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                             MessageTypes.danger);
                         return;
@@ -128,7 +128,7 @@ namespace YAF.Pages.Admin
                     if (userToDelete.Item4.IsAdmin > 0 || userToDelete.Item1.UserFlags.IsHostAdmin)
                     {
                         // admin are not deletable either
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                             MessageTypes.danger);
                         return;

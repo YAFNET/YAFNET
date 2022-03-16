@@ -285,7 +285,7 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidURL(this.HomePage.Text))
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
                     return;
                 }
 
@@ -330,19 +330,19 @@ namespace YAF.Controls
 
             if (this.Weblog.Text.IsSet() && !ValidationHelper.IsValidURL(this.Weblog.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_WEBLOG"), MessageTypes.warning);
                 return;
             }
 
             if (this.Xmpp.Text.IsSet() && !ValidationHelper.IsValidXmpp(this.Xmpp.Text))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
                 return;
             }
 
             if (this.Facebook.Text.IsSet() && !ValidationHelper.IsValidURL(this.Facebook.Text))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_FACEBOOK"), MessageTypes.warning);
                 return;
             }
 
@@ -353,7 +353,7 @@ namespace YAF.Controls
                 // Check if name matches the required minimum length
                 if (this.DisplayName.Text.Trim().Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                         MessageTypes.warning);
 
@@ -363,7 +363,7 @@ namespace YAF.Controls
                 // Check if name matches the required minimum length
                 if (this.DisplayName.Text.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                         MessageTypes.warning);
 
@@ -374,7 +374,7 @@ namespace YAF.Controls
                 {
                     if (this.Get<IUserDisplayName>().FindUserByName(this.DisplayName.Text.Trim()) != null)
                     {
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("REGISTER", "ALREADY_REGISTERED_DISPLAYNAME"),
                             MessageTypes.warning);
 
@@ -387,7 +387,7 @@ namespace YAF.Controls
 
             if (this.Interests.Text.Trim().Length > 400)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "INTERESTS"), 400),
                     MessageTypes.warning);
 
@@ -396,7 +396,7 @@ namespace YAF.Controls
 
             if (this.Occupation.Text.Trim().Length > 400)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
                     MessageTypes.warning);
 

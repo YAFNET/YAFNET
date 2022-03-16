@@ -163,13 +163,13 @@ namespace YAF.Pages.Moderate
 
             if (!list.Any())
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
             }
             else
             {
                 list.ForEach(x => this.GetRepository<Topic>().Delete(this.PageBoardContext.PageForumID, x.TopicRowID.Value));
 
-                this.PageBoardContext.AddLoadMessage(this.GetText("moderate", "deleted"), MessageTypes.success);
+                this.PageBoardContext.Notify(this.GetText("moderate", "deleted"), MessageTypes.success);
 
                 this.BindData();
             }
@@ -187,13 +187,13 @@ namespace YAF.Pages.Moderate
 
             if (this.LeavePointer.Checked && this.LinkDays.Text.IsSet() && !int.TryParse(this.LinkDays.Text, out ld))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("POINTER_DAYS_INVALID"), MessageTypes.warning);
                 return;
             }
 
             if (this.ForumList.SelectedValue.ToType<int>() <= 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
                 return;
             }
 
@@ -209,7 +209,7 @@ namespace YAF.Pages.Moderate
 
                 if (!list.Any())
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
                 }
                 else
                 {
@@ -221,14 +221,14 @@ namespace YAF.Pages.Moderate
                             this.LeavePointer.Checked,
                             linkDays.Value));
 
-                    this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "MOVED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("MODERATE", "MOVED"), MessageTypes.success);
 
                     this.BindData();
                 }
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("MODERATE", "MOVE_TO_DIFFERENT"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("MODERATE", "MOVE_TO_DIFFERENT"), MessageTypes.danger);
             }
         }
 

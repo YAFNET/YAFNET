@@ -206,7 +206,7 @@ namespace YAF.Pages
                             currentMessage,
                             this.PageBoardContext.PageUserID);
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MESSAGE_RESTORED"), MessageTypes.success);
 
                         this.BindData();
                     }

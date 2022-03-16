@@ -69,7 +69,7 @@ namespace YAF.Core.Services
         ///   Gets LoadStringList.
         /// </summary>
         [NotNull]
-        public List<MessageNotification> LoadStringList { get; } = new();
+        public List<MessageNotification> LoadStringList { get; } = new ();
 
         /// <summary>
         /// Gets the session load string.
@@ -95,30 +95,13 @@ namespace YAF.Core.Services
         #region Public Methods
 
         /// <summary>
-        /// AddLoadMessage creates a message that will be returned on the next page load.
+        /// Creates a message that will be returned on the next page load.
         /// </summary>
         /// <param name="message">The message you wish to display.</param>
         /// <param name="messageType">Type of the message.</param>
         public void Add([NotNull] string message, MessageTypes messageType)
         {
             this.LoadStringList.Add(new MessageNotification(message, messageType));
-        }
-
-        /// <summary>
-        /// AddLoadMessage creates a message that will be returned on the next page load.
-        /// </summary>
-        /// <param name="message">
-        /// The message you wish to display.
-        /// </param>
-        /// <param name="messageType">
-        /// Type of the message.
-        /// </param>
-        /// <param name="script">
-        /// The script.
-        /// </param>
-        public void Add([NotNull] string message, MessageTypes messageType, string script)
-        {
-            this.LoadStringList.Add(new MessageNotification(message, messageType, script));
         }
 
         /// <summary>

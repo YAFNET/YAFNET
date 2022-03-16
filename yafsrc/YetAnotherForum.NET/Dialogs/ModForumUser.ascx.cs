@@ -171,7 +171,7 @@ namespace YAF.Dialogs
             // no user was specified
             if (this.UserName.Text.Length <= 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
@@ -181,13 +181,13 @@ namespace YAF.Dialogs
             // there is no such user or reference is ambiguous
             if (user == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("NO_SUCH_USER"), MessageTypes.warning);
                 return;
             }
 
             if (user.UserFlags.IsGuest)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("NOT_GUEST"), MessageTypes.warning);
                 return;
             }
 

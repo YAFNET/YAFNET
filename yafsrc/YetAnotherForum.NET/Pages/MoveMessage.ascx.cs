@@ -106,7 +106,7 @@ namespace YAF.Pages
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("Empty_Topic"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("Empty_Topic"), MessageTypes.warning);
             }
         }
 

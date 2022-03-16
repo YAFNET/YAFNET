@@ -171,7 +171,7 @@ namespace YAF.Pages.Profile
 
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
+            this.PageBoardContext.Notify(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace YAF.Pages.Profile
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_SELECTFORUMS"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_SELECTFORUMS"), MessageTypes.warning);
             }
         }
 
@@ -210,7 +210,7 @@ namespace YAF.Pages.Profile
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_SELECTTOPICS"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_SELECTTOPICS"), MessageTypes.warning);
             }
         }
 

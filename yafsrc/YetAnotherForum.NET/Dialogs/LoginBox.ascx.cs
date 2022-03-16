@@ -146,7 +146,7 @@ namespace YAF.Dialogs
 
             if (user == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                 return;
             }
 
@@ -202,7 +202,7 @@ namespace YAF.Dialogs
                             null,
                             $"Login Failure: {this.UserName.Text.Trim()}");
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                        this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                         break;
                     }
             }
@@ -238,7 +238,7 @@ namespace YAF.Dialogs
 
             verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
-            this.PageBoardContext.AddLoadMessage(
+            this.PageBoardContext.Notify(
                 this.GetText("LOGIN", "MSG_MESSAGE_SEND"),
                 MessageTypes.success);
         }

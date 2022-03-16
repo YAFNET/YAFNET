@@ -129,7 +129,7 @@ namespace YAF.Pages.Admin
 
             this.Subject.Text = string.Empty;
             this.Body.Text = string.Empty;
-            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
+            this.PageBoardContext.Notify(this.GetText("ADMIN_MAIL", "MSG_QUEUED"), MessageTypes.success);
         }
 
         /// <summary>
@@ -152,11 +152,11 @@ namespace YAF.Pages.Admin
                     this.TestSubject.Text,
                     this.TestBody.Text);
 
-                this.PageBoardContext.AddLoadMessage(this.GetText("TEST_SUCCESS"), MessageTypes.success);
+                this.PageBoardContext.Notify(this.GetText("TEST_SUCCESS"), MessageTypes.success);
             }
             catch (Exception x)
             {
-                this.PageBoardContext.AddLoadMessage(x.Message, MessageTypes.danger);
+                this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
             }
         }
 

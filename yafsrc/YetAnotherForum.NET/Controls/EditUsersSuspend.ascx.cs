@@ -210,7 +210,7 @@ namespace YAF.Controls
             if (access.IsAdmin > 0)
             {
                 // tell user he can't suspend admin
-                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_ADMINISTRATORS"), MessageTypes.danger);
                 return;
             }
 
@@ -218,14 +218,14 @@ namespace YAF.Controls
             if (!this.PageBoardContext.IsAdmin && access.IsForumModerator > 0)
             {
                 // tell user he can't suspend forum moderator when he's not admin
-                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_FORUMMODERATORS"), MessageTypes.danger);
                 return;
             }
 
             // verify the user isn't guest...
             if (this.User.UserFlags.IsGuest)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "ERROR_GUESTACCOUNT"), MessageTypes.danger);
             }
 
             // time until when user is suspended

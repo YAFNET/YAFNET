@@ -90,7 +90,7 @@ namespace YAF.Controls
                 var userName = this.Get<IAspNetUsersHelper>().GetUserByEmail(this.Email.Text.Trim()).UserName;
                 if (userName.IsSet() && userName != aspNetUser.UserName)
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -109,7 +109,7 @@ namespace YAF.Controls
             {
                 if (!this.IsApproved.Checked)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "MSG_GUEST_APPROVED"),
                         MessageTypes.success);
                     return;

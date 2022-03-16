@@ -230,7 +230,7 @@ namespace YAF.Pages.Admin
         {
             if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITGROUP", "MSG_VALID_NUMBER"),
                     MessageTypes.warning);
                 return;
@@ -238,13 +238,13 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.Priority.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("ADMIN_EDITGROUP", "MSG_INTEGER"), MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbums.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITGROUP", "MSG_ALBUM_NUMBER"),
                     MessageTypes.warning);
                 return;
@@ -252,7 +252,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.UsrSigChars.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITGROUP", "MSG_SIG_NUMBER"),
                     MessageTypes.warning);
                 return;
@@ -260,7 +260,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidInt(this.UsrAlbumImages.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITGROUP", "MSG_TOTAL_NUMBER"),
                     MessageTypes.warning);
                 return;

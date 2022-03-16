@@ -203,7 +203,7 @@ namespace YAF.Pages.Account
             if (!result.Succeeded)
             {
                 // error of some kind
-                this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
+                this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
             }
             else
             {
@@ -410,14 +410,14 @@ namespace YAF.Pages.Account
 
             if (userName.Contains(";") || badWord || userName.ToLower().Equals(guestUserName))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("BAD_USERNAME"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("BAD_USERNAME"), MessageTypes.warning);
 
                 return false;
             }
 
             if (userName.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                     MessageTypes.danger);
 
@@ -426,7 +426,7 @@ namespace YAF.Pages.Account
 
             if (userName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                     MessageTypes.danger);
 
@@ -440,7 +440,7 @@ namespace YAF.Pages.Account
                 // Check if name matches the required minimum length
                 if (displayName.Length < this.PageBoardContext.BoardSettings.DisplayNameMinLength)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("USERNAME_TOOSMALL", this.PageBoardContext.BoardSettings.DisplayNameMinLength),
                         MessageTypes.warning);
 
@@ -450,7 +450,7 @@ namespace YAF.Pages.Account
                 // Check if name matches the required minimum length
                 if (displayName.Length > this.PageBoardContext.BoardSettings.UserNameMaxLength)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("USERNAME_TOOLONG", this.PageBoardContext.BoardSettings.UserNameMaxLength),
                         MessageTypes.warning);
 
@@ -459,7 +459,7 @@ namespace YAF.Pages.Account
 
                 if (this.Get<IUserDisplayName>().FindUserByName(displayName) != null)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ALREADY_REGISTERED_DISPLAYNAME"),
                         MessageTypes.warning);
                 }
@@ -510,7 +510,7 @@ namespace YAF.Pages.Account
                         // Check YAF Captcha
                         if (!CaptchaHelper.IsValid(this.tbCaptcha.Text.Trim()))
                         {
-                            this.PageBoardContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
+                            this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
 
                             return false;
                         }
@@ -522,7 +522,7 @@ namespace YAF.Pages.Account
                         // Check reCAPTCHA
                         if (!this.Recaptcha1.IsValid)
                         {
-                            this.PageBoardContext.AddLoadMessage(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
+                            this.PageBoardContext.Notify(this.GetText("BAD_RECAPTCHA"), MessageTypes.danger);
 
                             return false;
                         }
@@ -555,7 +555,7 @@ namespace YAF.Pages.Account
                 return true;
             }
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("NEED_CUSTOM"), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetText("NEED_CUSTOM"), MessageTypes.warning);
             return false;
         }
 

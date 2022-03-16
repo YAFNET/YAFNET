@@ -134,7 +134,7 @@ namespace YAF.Controls
 
                 if (!ValidationHelper.IsValidEmail(newEmail))
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -142,7 +142,7 @@ namespace YAF.Controls
 
                 if (userFromEmail != null && userFromEmail.Email != this.User.Name)
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                     return;
                 }
 
@@ -152,7 +152,7 @@ namespace YAF.Controls
                 }
                 catch (ApplicationException)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("PROFILE", "DUPLICATED_EMAIL"),
                         MessageTypes.warning);
 

@@ -235,7 +235,7 @@ namespace YAF.Pages
             if (this.To.Text.Length < 2)
             {
                 // need at least 2 letters of user's name
-                this.PageBoardContext.AddLoadMessage(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("NEED_MORE_LETTERS"), MessageTypes.warning);
                 return;
             }
 
@@ -265,7 +265,7 @@ namespace YAF.Pages
             else
             {
                 // user not found
-                this.PageBoardContext.AddLoadMessage(this.GetText("USER_NOTFOUND"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("USER_NOTFOUND"), MessageTypes.danger);
                 return;
             }
 
@@ -566,21 +566,21 @@ namespace YAF.Pages
             if (this.To.Text.Length <= 0)
             {
                 // recipient is required field
-                this.PageBoardContext.AddLoadMessage(this.GetText("need_to"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("need_to"), MessageTypes.warning);
                 return;
             }
 
             // subject is required
             if (this.PmSubjectTextBox.Text.Trim().Length <= 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("need_subject"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("need_subject"), MessageTypes.warning);
                 return;
             }
 
             // message is required
             if (this.editor.Text.Trim().Length <= 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("need_message"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("need_message"), MessageTypes.warning);
                 return;
             }
 
@@ -637,7 +637,7 @@ namespace YAF.Pages
                     && !this.PageBoardContext.IsAdmin && this.PageBoardContext.BoardSettings.PrivateMessageMaxRecipients != 0)
                 {
                     // to many recipients
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted(
                             "TOO_MANY_RECIPIENTS",
                             this.PageBoardContext.BoardSettings.PrivateMessageMaxRecipients),
@@ -661,7 +661,7 @@ namespace YAF.Pages
 
                     if (user == null)
                     {
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetTextFormatted("NO_SUCH_USER", recipient),
                             MessageTypes.warning);
                         return;
@@ -669,7 +669,7 @@ namespace YAF.Pages
 
                     if (user.UserFlags.IsGuest)
                     {
-                        this.PageBoardContext.AddLoadMessage(this.GetText("NOT_GUEST"), MessageTypes.danger);
+                        this.PageBoardContext.Notify(this.GetText("NOT_GUEST"), MessageTypes.danger);
                         return;
                     }
 
@@ -690,7 +690,7 @@ namespace YAF.Pages
                     }
 
                     // recipient has full PM box
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("RECIPIENTS_PMBOX_FULL", recipient),
                         MessageTypes.danger);
                     return;
@@ -775,7 +775,7 @@ namespace YAF.Pages
                                 this.PageBoardContext.PageUserID,
                                 $"{description}, post was rejected");
 
-                            this.PageBoardContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                            this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
                             break;
                         case SpamPostHandling.DeleteBanUser:
@@ -808,7 +808,7 @@ namespace YAF.Pages
             }
 
             // user has full PM box
-            this.PageBoardContext.AddLoadMessage(
+            this.PageBoardContext.Notify(
                 this.GetTextFormatted("OWN_PMBOX_FULL", countInfo.Allowed),
                 MessageTypes.danger);
 

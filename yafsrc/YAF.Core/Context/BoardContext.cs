@@ -220,26 +220,9 @@ namespace YAF.Core.Context
         /// <param name="messageType">
         /// The message type.
         /// </param>
-        public void AddLoadMessage([NotNull] string message, MessageTypes messageType)
+        public void Notify([NotNull] string message, MessageTypes messageType)
         {
             this.LoadMessage.Add(message, messageType);
-        }
-
-        /// <summary>
-        /// Helper Function that adds a "load message" to the load message class.
-        /// </summary>
-        /// <param name="message">
-        /// The message.
-        /// </param>
-        /// <param name="script">
-        /// The script.
-        /// </param>
-        /// <param name="messageType">
-        /// The message type.
-        /// </param>
-        public void AddLoadMessage([NotNull] string message, string script, MessageTypes messageType)
-        {
-            this.LoadMessage.Add(message, messageType, script);
         }
 
         /// <summary>

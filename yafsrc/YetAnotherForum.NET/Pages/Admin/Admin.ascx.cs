@@ -116,7 +116,7 @@ namespace YAF.Pages.Admin
 
                         verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_ADMIN", "MSG_MESSAGE_SEND"),
                             MessageTypes.success);
                     }
@@ -149,7 +149,7 @@ namespace YAF.Pages.Admin
                         this.PageBoardContext.CurrentForumPage.FindControlRecursiveAs<TextBox>("DaysOld").Text.Trim();
                     if (!ValidationHelper.IsValidInt(daysValueAll))
                     {
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_ADMIN", "MSG_VALID_DAYS"),
                             MessageTypes.warning);
                         return;

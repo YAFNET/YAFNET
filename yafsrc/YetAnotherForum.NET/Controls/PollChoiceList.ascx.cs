@@ -163,19 +163,19 @@ namespace YAF.Controls
 
             if (!this.CanVote)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_ALREADY_VOTED"), MessageTypes.warning);
                 return;
             }
 
             if (this.IsLocked)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
                 return;
             }
 
             if (this.IsClosed)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_POLL_CLOSED"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_POLL_CLOSED"), MessageTypes.warning);
                 return;
             }
 
@@ -190,7 +190,7 @@ namespace YAF.Controls
             // Initialize bubble event to update parent control.
             this.ChoiceVoted?.Invoke(source, e);
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_VOTED"), MessageTypes.success);
+            this.PageBoardContext.Notify(this.GetText("INFO_VOTED"), MessageTypes.success);
         }
 
         /// <summary>

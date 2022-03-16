@@ -449,13 +449,13 @@ namespace YAF.Pages.Admin
         {
             if (this.CategoryList.SelectedValue.Trim().Length == 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("ADMIN_EDITFORUM", "MSG_CATEGORY"), MessageTypes.warning);
                 return;
             }
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITFORUM", "MSG_POSITIVE_VALUE"),
                     MessageTypes.warning);
                 return;
@@ -479,7 +479,7 @@ namespace YAF.Pages.Admin
                 // check if parent and forum is the same
                 if (parentId.Value == forumId.Value)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_EDITFORUM", "MSG_PARENT_SELF"),
                         MessageTypes.warning);
                     return;
@@ -488,7 +488,7 @@ namespace YAF.Pages.Admin
                 if (this.GetRepository<Forum>()
                     .IsParentsChecker(forumId.Value, parentId.Value))
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_EDITFORUM", "MSG_CHILD_PARENT"),
                         MessageTypes.warning);
                     return;
@@ -502,7 +502,7 @@ namespace YAF.Pages.Admin
 
                 if (forumList.Any() && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),
                         MessageTypes.warning);
                     return;

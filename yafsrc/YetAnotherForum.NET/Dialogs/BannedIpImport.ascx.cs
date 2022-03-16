@@ -54,7 +54,7 @@ namespace YAF.Dialogs
             // import selected file (if it's the proper format)...
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("IMPORT_FAILED", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
 
@@ -72,7 +72,7 @@ namespace YAF.Dialogs
                     this.PageBoardContext.PageUserID,
                     this.importFile.PostedFile.InputStream);
 
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     importedCount > 0
                         ? string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_SUCESS"), importedCount)
                         : this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_NOTHING"),
@@ -80,7 +80,7 @@ namespace YAF.Dialogs
             }
             catch (Exception x)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     string.Format(this.GetText("ADMIN_BANNEDIP_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(

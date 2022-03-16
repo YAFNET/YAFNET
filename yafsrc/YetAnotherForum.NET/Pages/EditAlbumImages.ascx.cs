@@ -313,7 +313,7 @@ namespace YAF.Pages
                 if (x.GetType() != typeof(ThreadAbortException))
                 {
                     this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
-                    this.PageBoardContext.AddLoadMessage(x.Message, MessageTypes.danger);
+                    this.PageBoardContext.Notify(x.Message, MessageTypes.danger);
                 }
             }
         }
@@ -385,7 +385,7 @@ namespace YAF.Pages
                 return true;
             }
 
-            this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetTextFormatted("FILEERROR", extension), MessageTypes.warning);
             return false;
         }
 
@@ -429,7 +429,7 @@ namespace YAF.Pages
             if (this.PageBoardContext.BoardSettings.AlbumImagesSizeMax > 0
                 && file.PostedFile.ContentLength > this.PageBoardContext.BoardSettings.AlbumImagesSizeMax)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ERROR_TOOBIG"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("ERROR_TOOBIG"), MessageTypes.danger);
                 return;
             }
 
@@ -449,7 +449,7 @@ namespace YAF.Pages
                 // Albums count. If we reached limit then we exit.
                 if (allStats >= usrAlbumsAllowed)
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetTextFormatted("ALBUMS_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
                     return;
                 }
 
@@ -483,7 +483,7 @@ namespace YAF.Pages
                 // Images count. If we reached limit then we exit.
                 if (allStats >= usrAlbumImagesAllowed)
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetTextFormatted("IMAGES_COUNT_LIMIT", usrAlbumImagesAllowed), MessageTypes.warning);
                     return;
                 }
 

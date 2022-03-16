@@ -312,7 +312,7 @@ namespace YAF.Pages
 
             if (this.PageBoardContext.IsGuest)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_LOGIN_FORUMWATCH"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_LOGIN_FORUMWATCH"), MessageTypes.warning);
                 return;
             }
 
@@ -320,14 +320,14 @@ namespace YAF.Pages
             {
                 this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageForumID);
 
-                this.PageBoardContext.AddLoadMessage(this.GetText("INFO_WATCH_FORUM"), MessageTypes.success);
+                this.PageBoardContext.Notify(this.GetText("INFO_WATCH_FORUM"), MessageTypes.success);
             }
             else
             {
                 this.GetRepository<WatchForum>().Delete(
                     w => w.ForumID == this.PageBoardContext.PageForumID && w.UserID == this.PageBoardContext.PageUserID);
 
-                this.PageBoardContext.AddLoadMessage(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
+                this.PageBoardContext.Notify(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
             }
 
             this.HandleWatchForum();

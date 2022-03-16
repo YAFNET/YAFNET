@@ -461,7 +461,7 @@ namespace YAF.Controls
 
             this.DataSource.Points = this.DataSource.Points + 1;
 
-            this.PageBoardContext.AddLoadMessage(
+            this.PageBoardContext.Notify(
                 this.GetTextFormatted(
                     "REP_VOTE_UP_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
@@ -496,7 +496,7 @@ namespace YAF.Controls
 
             this.DataSource.Points = this.DataSource.Points - 1;
 
-            this.PageBoardContext.AddLoadMessage(
+            this.PageBoardContext.Notify(
                 this.GetTextFormatted(
                     "REP_VOTE_DOWN_MSG",
                     this.Get<HttpServerUtilityBase>().HtmlEncode(
@@ -659,7 +659,7 @@ namespace YAF.Controls
                         {
                             if (this.Get<IFriends>().AddRequest(this.PostData.UserId))
                             {
-                                this.PageBoardContext.AddLoadMessage(
+                                this.PageBoardContext.Notify(
                                     this.GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userName),
                                     MessageTypes.success);
 
@@ -667,7 +667,7 @@ namespace YAF.Controls
                             }
                             else
                             {
-                                this.PageBoardContext.AddLoadMessage(
+                                this.PageBoardContext.Notify(
                                     this.GetText("NOTIFICATION_BUDDYREQUEST"),
                                     MessageTypes.success);
                             }
@@ -696,7 +696,7 @@ namespace YAF.Controls
 
                             this.Get<HttpResponseBase>().Redirect(this.Get<HttpRequestBase>().RawUrl);
 
-                            this.PageBoardContext.AddLoadMessage(
+                            this.PageBoardContext.Notify(
                                 this.GetTextFormatted(
                                     "REMOVEBUDDY_NOTIFICATION",
                                     this.Get<IFriends>().Remove(this.PostData.UserId)),

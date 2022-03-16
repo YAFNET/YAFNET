@@ -272,7 +272,7 @@ namespace YAF.Controls
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
                         MessageTypes.warning);
                     return;
@@ -280,7 +280,7 @@ namespace YAF.Controls
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -337,7 +337,7 @@ namespace YAF.Controls
                 }
                 else
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
                         MessageTypes.warning);
 
@@ -382,7 +382,7 @@ namespace YAF.Controls
             {
                 if (detectedBbCode.IsSet() && detectedBbCode != "ALL")
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("SIGNATURE_BBCODE_WRONG", detectedBbCode),
                         MessageTypes.warning);
                     return;
@@ -390,7 +390,7 @@ namespace YAF.Controls
 
                 if (detectedBbCode.IsSet() && detectedBbCode == "ALL")
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("BBCODE_FORBIDDEN"), MessageTypes.warning);
                     return;
                 }
             }
@@ -402,7 +402,7 @@ namespace YAF.Controls
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("SIGNATURE_MAX", this.AllowedNumberOfCharacters),
                     MessageTypes.warning);
             }

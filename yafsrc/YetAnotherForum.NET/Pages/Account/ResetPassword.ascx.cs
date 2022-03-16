@@ -119,7 +119,7 @@ namespace YAF.Pages.Account
 
             if (user == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
                 return;
             }
 
@@ -139,7 +139,7 @@ namespace YAF.Pages.Account
                 return;
             }
 
-            this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
+            this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
         }
 
         #endregion

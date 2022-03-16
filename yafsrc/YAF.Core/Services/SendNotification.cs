@@ -361,7 +361,7 @@ namespace YAF.Core.Services
                     $"Send PM Notification Error for UserID {BoardContext.Current.PageUserID}");
 
                 // tell user about failure
-                BoardContext.Current.AddLoadMessage(
+                BoardContext.Current.Notify(
                     this.Get<ILocalization>().GetTextFormatted("Failed", x.Message),
                     MessageTypes.danger);
             }

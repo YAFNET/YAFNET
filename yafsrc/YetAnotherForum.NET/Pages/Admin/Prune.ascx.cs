@@ -107,7 +107,7 @@ namespace YAF.Pages.Admin
                 this.days.Text.ToType<int>(),
                 this.permDeleteChkBox.Checked);
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
+            this.PageBoardContext.Notify(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
         }
 
         /// <summary>

@@ -153,7 +153,7 @@ namespace YAF.Dialogs
 
             if (this.ForumID.SelectedValue.ToType<int>() <= 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"), MessageTypes.warning);
 
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     "openModalJs",

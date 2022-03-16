@@ -163,7 +163,7 @@ namespace YAF.Pages.Admin
 
                         this.GetRepository<BannedIP>().DeleteById(id);
 
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetTextFormatted("MSG_REMOVEBAN_IP", ipAddress), MessageTypes.success);
 
                         this.BindData();

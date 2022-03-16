@@ -157,7 +157,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITCATEGORY", "MSG_POSITIVE_VALUE"),
                     MessageTypes.danger);
                 return;
@@ -168,7 +168,7 @@ namespace YAF.Pages.Admin
             // Check Name duplicate only if new Category
             if (category != null && this.PageBoardContext.PageCategoryID == 0)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITCATEGORY", "MSG_CATEGORY_EXISTS"),
                     MessageTypes.warning);
                 return;

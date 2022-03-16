@@ -106,7 +106,7 @@ namespace YAF.Pages.Admin
                     }
                     else
                     {
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"),
                             MessageTypes.warning);
                     }

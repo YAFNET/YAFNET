@@ -142,7 +142,7 @@ namespace YAF.Pages.Admin
 
                 if (!result.Succeeded)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         $"Create User Failed: {result.Errors.FirstOrDefault()}",
                         MessageTypes.danger);
 
@@ -279,7 +279,7 @@ namespace YAF.Pages.Admin
             {
                 if (this.UserPass1.Text != this.UserPass2.Text)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
                         MessageTypes.warning);
                     return;

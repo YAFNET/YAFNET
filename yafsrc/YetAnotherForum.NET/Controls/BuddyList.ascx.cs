@@ -152,7 +152,7 @@ namespace YAF.Controls
             switch (e.CommandName)
             {
                 case "remove":
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         string.Format(
                             this.GetText("REMOVEBUDDY_NOTIFICATION"),
                             this.Get<IFriends>().Remove(e.CommandArgument.ToType<int>())),
@@ -160,14 +160,14 @@ namespace YAF.Controls
                     this.CurrentUserID = this.PageBoardContext.PageUserID;
                     break;
                 case "approve":
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         string.Format(
                             this.GetText("NOTIFICATION_BUDDYAPPROVED"),
                             this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
                         MessageTypes.success);
                     break;
                 case "approveadd":
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         string.Format(
                             this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
                             this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
@@ -175,19 +175,19 @@ namespace YAF.Controls
                     break;
                 case "approveall":
                     this.Get<IFriends>().ApproveAllRequests(false);
-                    this.PageBoardContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
                     break;
                 case "approveaddall":
                     this.Get<IFriends>().ApproveAllRequests(true);
-                    this.PageBoardContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
                     break;
                 case "deny":
                     this.Get<IFriends>().DenyRequest(e.CommandArgument.ToType<int>());
-                    this.PageBoardContext.AddLoadMessage(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
+                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_BUDDYDENIED"), MessageTypes.info);
                     break;
                 case "denyall":
                     this.Get<IFriends>().DenyAllRequests();
-                    this.PageBoardContext.AddLoadMessage(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
+                    this.PageBoardContext.Notify(this.GetText("NOTIFICATION_ALL_DENIED"), MessageTypes.info);
                     break;
             }
 

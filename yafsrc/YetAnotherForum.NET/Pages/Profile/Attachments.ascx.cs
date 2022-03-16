@@ -179,7 +179,7 @@ namespace YAF.Pages.Profile
                     item => this.GetRepository<Attachment>().DeleteById(
                         item.FindControlAs<HiddenField>("FileID").Value.ToType<int>()));
 
-                this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
+                this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
             }
 
             this.BindData();

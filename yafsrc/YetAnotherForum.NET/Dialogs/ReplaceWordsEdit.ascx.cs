@@ -130,7 +130,7 @@ namespace YAF.Dialogs
 
             if (!ValidationHelper.IsValidRegex(this.badword.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_REPLACEWORDS_EDIT", "MSG_REGEX_BAD"),
                     MessageTypes.warning);
 

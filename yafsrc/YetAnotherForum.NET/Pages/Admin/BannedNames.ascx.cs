@@ -158,7 +158,7 @@ namespace YAF.Pages.Admin
                     {
                         this.GetRepository<Types.Models.BannedName>().DeleteById(e.CommandArgument.ToType<int>());
 
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_BANNEDNAME", "MSG_REMOVEBAN_NAME"),
                             MessageTypes.success);
 

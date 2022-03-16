@@ -173,7 +173,7 @@ namespace YAF.Dialogs
             // show error(s) if not valid...
             if (ipError.Length > 0)
             {
-                this.PageBoardContext.AddLoadMessage(ipError.ToString(), MessageTypes.warning);
+                this.PageBoardContext.Notify(ipError.ToString(), MessageTypes.warning);
                 return;
             }
 

@@ -117,7 +117,7 @@ namespace YAF.Pages
         {
             if (this.Question.Text.Trim().Length == 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_QUESTION"), MessageTypes.warning);
                 return false;
             }
 
@@ -129,7 +129,7 @@ namespace YAF.Pages
 
             if (count < 2)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("POLLEDIT", "NEED_CHOICES"), MessageTypes.warning);
                 return false;
             }
 

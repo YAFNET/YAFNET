@@ -231,7 +231,7 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"),
                     MessageTypes.warning);
             }

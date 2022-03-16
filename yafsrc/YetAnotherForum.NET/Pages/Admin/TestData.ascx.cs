@@ -165,7 +165,7 @@ namespace YAF.Pages.Admin
 
             this.Logger.Log(this.PageBoardContext.PageUserID, this, mesRetStr, EventLogTypes.Information);
 
-            this.PageBoardContext.AddLoadMessage(mesRetStr, MessageTypes.success);
+            this.PageBoardContext.Notify(mesRetStr, MessageTypes.success);
         }
 
         /// <summary>
@@ -613,13 +613,13 @@ namespace YAF.Pages.Admin
 
             if (fromUser == null)
             {
-                this.PageBoardContext.AddLoadMessage("You should enter valid 'from' user name.", MessageTypes.warning);
+                this.PageBoardContext.Notify("You should enter valid 'from' user name.", MessageTypes.warning);
                 return 0;
             }
 
             if (toUser == null)
             {
-                this.PageBoardContext.AddLoadMessage("You should enter valid 'to' user name.", MessageTypes.warning);
+                this.PageBoardContext.Notify("You should enter valid 'to' user name.", MessageTypes.warning);
 
                 return 0;
             }
@@ -856,7 +856,7 @@ namespace YAF.Pages.Admin
 
                 if (!result.Succeeded)
                 {
-                    this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.warning);
+                    this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.warning);
 
                     continue;
                 }

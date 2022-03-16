@@ -117,7 +117,7 @@ namespace YAF.Pages.Account
 
             if (user == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
                 return;
             }
 

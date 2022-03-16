@@ -144,7 +144,7 @@ namespace YAF.Pages.Admin
                     {
                         this.GetRepository<Topic>().Delete(forumId, topicId, true);
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -178,7 +178,7 @@ namespace YAF.Pages.Admin
                             () => new Topic { Flags = flags.BitValue },
                             t => t.ID == topicId);
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -200,7 +200,7 @@ namespace YAF.Pages.Admin
                         topicIds.ForEach(
                             x => this.GetRepository<Topic>().Delete(x.forumId, x.topicId, true));
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.PagerTop.CurrentPageIndex--;
 
@@ -216,7 +216,7 @@ namespace YAF.Pages.Admin
                         deletedTopics.ForEach(
                             topic => this.GetRepository<Topic>().Delete(topic.Item2.ForumID, topic.Item2.ID, true));
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -229,7 +229,7 @@ namespace YAF.Pages.Admin
                         deletedTopics.ForEach(
                             topic => this.GetRepository<Topic>().Delete(topic.ForumID, topic.ID, true));
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -270,7 +270,7 @@ namespace YAF.Pages.Admin
                             true,
                             true);
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -288,7 +288,7 @@ namespace YAF.Pages.Admin
                             true,
                             false);
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_RESTORED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_RESTORED"), MessageTypes.success);
 
                         this.BindData();
                     }
@@ -318,7 +318,7 @@ namespace YAF.Pages.Admin
                                 true,
                                 true));
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("MSG_DELETED"), MessageTypes.success);
+                        this.PageBoardContext.Notify(this.GetText("MSG_DELETED"), MessageTypes.success);
 
                         this.PagerTop.CurrentPageIndex--;
 

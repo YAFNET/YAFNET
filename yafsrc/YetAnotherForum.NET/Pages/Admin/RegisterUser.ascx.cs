@@ -83,14 +83,14 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidEmail(newEmail))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("ADMIN_REGUSER", "MSG_INVALID_MAIL"), MessageTypes.danger);
 
                 return;
             }
 
             if (this.Get<IAspNetUsersHelper>().UserExists(this.UserName.Text.Trim(), newEmail))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("ADMIN_REGUSER", "MSG_NAME_EXISTS"), MessageTypes.danger);
                 return;
             }
 
@@ -110,7 +110,7 @@ namespace YAF.Pages.Admin
             if (!result.Succeeded)
             {
                 // error of some kind
-                this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
+                this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
                 return;
             }
 

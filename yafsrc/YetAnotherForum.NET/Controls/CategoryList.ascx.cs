@@ -127,7 +127,7 @@ namespace YAF.Controls
                     }
                 });
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
+            this.PageBoardContext.Notify(this.GetText("SAVED_NOTIFICATION_SETTING"), MessageTypes.success);
 
             this.BindData();
         }
@@ -156,7 +156,7 @@ namespace YAF.Controls
 
             this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
+            this.PageBoardContext.Notify(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
             this.BindData();
         }

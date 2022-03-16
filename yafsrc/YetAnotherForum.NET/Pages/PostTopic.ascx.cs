@@ -119,7 +119,7 @@ namespace YAF.Pages
                 return false;
             }
 
-            this.PageBoardContext.AddLoadMessage(
+            this.PageBoardContext.Notify(
                 this.GetTextFormatted(
                     "wait",
                     (this.Get<ISession>().LastPost
@@ -141,7 +141,7 @@ namespace YAF.Pages
 
             if (postedMessage.IsNotSet())
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ISEMPTY"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("ISEMPTY"), MessageTypes.warning);
                 return false;
             }
 
@@ -149,14 +149,14 @@ namespace YAF.Pages
             if (this.PageBoardContext.BoardSettings.MaxPostSize > 0
                 && this.forumEditor.Text.Length >= this.PageBoardContext.BoardSettings.MaxPostSize)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("ISEXCEEDED"), MessageTypes.warning);
                 return false;
             }
 
             // Check if the Entered Guest Username is not too long
             if (this.FromRow.Visible && this.From.Text.Trim().Length > 100)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("GUEST_NAME_TOOLONG"), MessageTypes.warning);
 
                 this.From.Text = this.From.Text.Substring(100);
                 return false;
@@ -164,14 +164,14 @@ namespace YAF.Pages
 
             if (this.SubjectRow.Visible && HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).IsNotSet())
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("NEED_SUBJECT"), MessageTypes.warning);
                 return false;
             }
 
             if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
                 && this.GetRepository<Topic>().CheckForDuplicate(HtmlHelper.StripHtml(this.TopicSubjectTextBox.Text).Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
                 return false;
             }
 
@@ -182,7 +182,7 @@ namespace YAF.Pages
                 return true;
             }
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
+            this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.danger);
             return false;
         }
 
@@ -468,7 +468,7 @@ namespace YAF.Pages
                             this.Logger.SpamMessageDetected(
                                 this.PageBoardContext.PageUserID,
                                 $"S{description}, post was rejected");
-                            this.PageBoardContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                            this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
                             return;
                         case SpamPostHandling.DeleteBanUser:
                             this.Logger.SpamMessageDetected(

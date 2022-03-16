@@ -288,7 +288,7 @@ namespace YAF.Controls
             //Return if No Messages are Available to Export
             if (!messageList.Any())
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("NO_MESSAGES"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("NO_MESSAGES"), MessageTypes.warning);
                 return;
             }
 
@@ -319,7 +319,7 @@ namespace YAF.Controls
             //Return if No Message Selected
             if (!exportPmIds.Any())
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("MSG_NOSELECTED"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("MSG_NOSELECTED"), MessageTypes.warning);
 
                 this.BindData();
 

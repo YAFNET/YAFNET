@@ -87,7 +87,7 @@ namespace YAF.Dialogs
 
                     default:
                         {
-                            this.PageBoardContext.AddLoadMessage(
+                            this.PageBoardContext.Notify(
                                 this.GetText("ADMIN_USERS_IMPORT", "IMPORT_FAILED_FORMAT"),
                                 MessageTypes.danger);
                             return;

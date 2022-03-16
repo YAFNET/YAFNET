@@ -94,7 +94,7 @@ namespace YAF.Pages
                     this.GetRepository<UserPMessage>().Delete(e.CommandArgument.ToType<int>(), this.IsOutbox);
 
                     this.BindData();
-                    this.PageBoardContext.AddLoadMessage(this.GetText("msg_deleted"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("msg_deleted"), MessageTypes.success);
                     this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
                     break;
                 case "reply":

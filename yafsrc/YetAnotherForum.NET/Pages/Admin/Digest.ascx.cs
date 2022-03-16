@@ -66,7 +66,7 @@ namespace YAF.Pages.Admin
             this.PageBoardContext.BoardSettings.ForceDigestSend = true;
             ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
+            this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_FORCE_SEND"), MessageTypes.success);
         }
 
         /// <summary>
@@ -143,20 +143,20 @@ namespace YAF.Pages.Admin
 
                     this.Get<IMailService>().SendAll(new List<MailMessage> { message });
 
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetTextFormatted("MSG_SEND_SUC", "Direct"),
                         MessageTypes.success);
                 }
                 catch (Exception ex)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         string.Format(this.GetText("ADMIN_DIGEST", "MSG_SEND_ERR"), ex),
                         MessageTypes.danger);
                 }
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("ADMIN_DIGEST", "MSG_VALID_MAIL"), MessageTypes.danger);
             }
         }
 

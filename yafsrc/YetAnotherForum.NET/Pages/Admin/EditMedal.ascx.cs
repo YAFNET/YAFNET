@@ -251,7 +251,7 @@ namespace YAF.Pages.Admin
         {
             if (this.MedalImage.SelectedIndex <= 0)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
                 return;
             }
 

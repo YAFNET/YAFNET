@@ -59,7 +59,7 @@ namespace YAF.Dialogs
             // import selected file (if it's the proper format)...
             if (!this.importFile.PostedFile.ContentType.StartsWith("text"))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("MSG_IMPORTED_FAILEDX", this.importFile.PostedFile.ContentType),
                     MessageTypes.danger);
 
@@ -96,7 +96,7 @@ namespace YAF.Dialogs
                         importedCount++;
                     });
 
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         importedCount > 0
                             ? string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED"), importedCount)
                             : this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_NOTHING"),
@@ -104,7 +104,7 @@ namespace YAF.Dialogs
                 }
                 else
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILED"),
                         MessageTypes.warning);
 
@@ -115,7 +115,7 @@ namespace YAF.Dialogs
             }
             catch (Exception x)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     string.Format(this.GetText("ADMIN_REPLACEWORDS_IMPORT", "MSG_IMPORTED_FAILEDX"), x.Message),
                     MessageTypes.danger);
 

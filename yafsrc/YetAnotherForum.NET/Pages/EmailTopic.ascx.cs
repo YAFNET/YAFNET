@@ -142,7 +142,7 @@ namespace YAF.Pages
             catch (Exception x)
             {
                 this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
-                this.PageBoardContext.AddLoadMessage(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
             }
         }
 

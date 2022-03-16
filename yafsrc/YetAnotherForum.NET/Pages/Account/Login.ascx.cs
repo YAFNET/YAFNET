@@ -174,7 +174,7 @@ namespace YAF.Pages.Account
 
             if (user == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                 return;
             }
 
@@ -230,7 +230,7 @@ namespace YAF.Pages.Account
                             null,
                             $"Login Failure: {this.UserName.Text.Trim()}");
 
-                        this.PageBoardContext.AddLoadMessage(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
+                        this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
                         break;
                     }
             }
@@ -266,7 +266,7 @@ namespace YAF.Pages.Account
 
             verifyEmail.SendEmail(new MailAddress(checkMail.Email, commandArgument[1]), subject);
 
-            this.PageBoardContext.AddLoadMessage(
+            this.PageBoardContext.Notify(
                 this.GetText("LOGIN", "MSG_MESSAGE_SEND"),
                 MessageTypes.success);
         }
@@ -338,7 +338,7 @@ namespace YAF.Pages.Account
 
             if (message.IsSet())
             {
-                this.PageBoardContext.AddLoadMessage(message, MessageTypes.warning);
+                this.PageBoardContext.Notify(message, MessageTypes.warning);
             }
             else
             {

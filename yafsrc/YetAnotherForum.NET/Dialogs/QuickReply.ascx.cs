@@ -122,7 +122,7 @@ namespace YAF.Dialogs
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                    this.PageBoardContext.AddLoadMessage(this.GetText("EMPTY_MESSAGE"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("EMPTY_MESSAGE"), MessageTypes.warning);
 
                     return;
                 }
@@ -135,7 +135,7 @@ namespace YAF.Dialogs
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                    this.PageBoardContext.AddLoadMessage(this.GetText("ISEXCEEDED"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("ISEXCEEDED"), MessageTypes.warning);
 
                     return;
                 }
@@ -146,7 +146,7 @@ namespace YAF.Dialogs
                         "openModalJs",
                         JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                    this.PageBoardContext.AddLoadMessage(this.GetText("BAD_CAPTCHA"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("BAD_CAPTCHA"), MessageTypes.warning);
 
                     return;
                 }
@@ -161,7 +161,7 @@ namespace YAF.Dialogs
                             "openModalJs",
                             JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetTextFormatted(
                                 "wait",
                                 (this.PageBoardContext.Get<ISession>().LastPost
@@ -234,7 +234,7 @@ namespace YAF.Dialogs
                                     "openModalJs",
                                     JavaScriptBlocks.OpenModalJs("QuickReplyDialog"));
 
-                                this.PageBoardContext.AddLoadMessage(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
+                                this.PageBoardContext.Notify(this.GetText("SPAM_MESSAGE"), MessageTypes.danger);
 
                                 return;
                             case SpamPostHandling.DeleteBanUser:

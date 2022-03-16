@@ -131,7 +131,7 @@ namespace YAF.Pages.Admin
 
             if (!ValidationHelper.IsValidPosShort(this.SortOrder.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITACCESSMASKS", "MSG_POSITIVE_SORT"),
                     MessageTypes.warning);
                 return;
@@ -139,7 +139,7 @@ namespace YAF.Pages.Admin
 
             if (!short.TryParse(this.SortOrder.Text.Trim(), out var sortOrder))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITACCESSMASKS", "MSG_NUMBER_SORT"),
                     MessageTypes.warning);
                 return;

@@ -131,7 +131,7 @@ namespace YAF.Dialogs
 
             if (!ValidationHelper.IsValidRegex(this.spamword.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_SPAMWORDS_EDIT", "MSG_REGEX_SPAM"),
                     MessageTypes.danger);
 

@@ -156,7 +156,7 @@ namespace YAF.Pages
             {
                 this.Logger.Log(this.PageBoardContext.PageUserID, this, x);
 
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.PageBoardContext.IsAdmin ? x.Message : this.GetText("ERROR"),
                     MessageTypes.danger);
             }

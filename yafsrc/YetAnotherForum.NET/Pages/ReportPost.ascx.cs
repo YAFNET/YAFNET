@@ -118,7 +118,7 @@ namespace YAF.Pages
 
             if (this.Report.Text.Length > this.PageBoardContext.BoardSettings.MaxReportPostChars)
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetTextFormatted("REPORTTEXT_TOOLONG", this.PageBoardContext.BoardSettings.MaxReportPostChars),
                     MessageTypes.danger);
 

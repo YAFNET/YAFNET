@@ -157,7 +157,7 @@ namespace YAF.Pages.Admin
                     {
                         this.GetRepository<Types.Models.BannedEmail>().DeleteById(e.CommandArgument.ToType<int>());
 
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             this.GetText("ADMIN_BANNEDEMAIL", "MSG_REMOVEBAN_EMAIL"),
                             MessageTypes.success);
 

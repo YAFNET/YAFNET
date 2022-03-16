@@ -93,11 +93,11 @@ namespace YAF.Pages.Profile
 
             if (result.Succeeded)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
+                this.PageBoardContext.Notify(this.GetText("CHANGE_SUCCESS"), MessageTypes.success);
             }
             else
             {
-                this.PageBoardContext.AddLoadMessage(result.Errors.FirstOrDefault(), MessageTypes.danger);
+                this.PageBoardContext.Notify(result.Errors.FirstOrDefault(), MessageTypes.danger);
             }
         }
 

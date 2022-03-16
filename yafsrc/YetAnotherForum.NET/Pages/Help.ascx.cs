@@ -208,7 +208,7 @@ namespace YAF.Pages
 
             if (this.search.Text.Length <= 3)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("SEARCHLONGER"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("SEARCHLONGER"), MessageTypes.danger);
 
                 return;
             }
@@ -232,7 +232,7 @@ namespace YAF.Pages
 
             if (searchList.Count.Equals(0))
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("NORESULTS"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("NORESULTS"), MessageTypes.warning);
 
                 return;
             }

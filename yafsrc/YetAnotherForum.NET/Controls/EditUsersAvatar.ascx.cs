@@ -176,7 +176,7 @@ namespace YAF.Controls
                 {
                     if (img.Width > x || img.Height > y)
                     {
-                        this.PageBoardContext.AddLoadMessage(
+                        this.PageBoardContext.Notify(
                             $"{this.GetTextFormatted("WARN_TOOBIG", x, y)} {this.GetTextFormatted("WARN_SIZE", img.Width, img.Height)} {this.GetText("EDIT_AVATAR", "WARN_RESIZED")}",
                             MessageTypes.warning);
 
@@ -259,7 +259,7 @@ namespace YAF.Controls
 
                 if (avatarSize > 0 && this.File.PostedFile.ContentLength >= avatarSize && resized == null)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.File.PostedFile.ContentLength)}",
                         MessageTypes.warning);
                 }
@@ -276,7 +276,7 @@ namespace YAF.Controls
                     exception);
 
                 // image is probably invalid...
-                this.PageBoardContext.AddLoadMessage(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
+                this.PageBoardContext.Notify(this.GetText("EDIT_AVATAR", "INVALID_FILE"), MessageTypes.danger);
             }
         }
 

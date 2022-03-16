@@ -254,7 +254,7 @@ namespace YAF.Pages.Admin
 
             if (errorMessage.IsSet())
             {
-                this.PageBoardContext.AddLoadMessage(errorMessage, MessageTypes.danger);
+                this.PageBoardContext.Notify(errorMessage, MessageTypes.danger);
             }
         }
 

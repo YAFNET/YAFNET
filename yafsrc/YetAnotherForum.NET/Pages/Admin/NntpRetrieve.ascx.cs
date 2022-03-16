@@ -118,7 +118,7 @@ namespace YAF.Pages.Admin
                     seconds,
                     this.PageBoardContext.BoardSettings.CreateNntpUsers);
 
-            this.PageBoardContext.AddLoadMessage(
+            this.PageBoardContext.Notify(
                 string
                     .Format(this.GetText("ADMIN_NNTPRETRIEVE", "Retrieved"), articleCount, (double)articleCount / seconds),
                 MessageTypes.success);

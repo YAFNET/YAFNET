@@ -187,7 +187,7 @@ namespace YAF.Pages.Moderate
                     this.BindData();
 
                     // tell user message was approved
-                    this.PageBoardContext.AddLoadMessage(this.GetText("APPROVED"), MessageTypes.success);
+                    this.PageBoardContext.Notify(this.GetText("APPROVED"), MessageTypes.success);
 
                     // send notification to watching users...
                     this.Get<ISendNotification>().ToWatchingUsers(e.CommandArgument.ToType<int>());
@@ -213,7 +213,7 @@ namespace YAF.Pages.Moderate
                     this.BindData();
 
                     // tell user message was deleted
-                    this.PageBoardContext.AddLoadMessage(this.GetText("DELETED"), MessageTypes.info);
+                    this.PageBoardContext.Notify(this.GetText("DELETED"), MessageTypes.info);
                     break;
             }
 

@@ -124,7 +124,7 @@ namespace YAF.Pages
         {
             if (this.User == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_EMAILLOGIN"), MessageTypes.warning);
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace YAF.Pages
 
             this.GetRepository<Topic>().Lock(this.PageBoardContext.PageTopicID, flags.BitValue);
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
+            this.PageBoardContext.Notify(this.GetText("INFO_TOPIC_LOCKED"), MessageTypes.info);
 
             this.LockTopic1.Visible = false;
             this.LockTopic2.Visible = false;
@@ -200,7 +200,7 @@ namespace YAF.Pages
 
             if (nextTopic == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
+                this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
                 return;
             }
 
@@ -477,7 +477,7 @@ namespace YAF.Pages
 
             if (this.topic.TopicFlags.IsLocked)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("WARN_TOPIC_LOCKED"), MessageTypes.warning);
                 return;
             }
 
@@ -486,7 +486,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetText("WARN_FORUM_LOCKED"), MessageTypes.warning);
         }
 
         /// <summary>
@@ -500,7 +500,7 @@ namespace YAF.Pages
 
             if (previousTopic == null)
             {
-                this.PageBoardContext.AddLoadMessage(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
+                this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
                 return;
             }
 
@@ -521,7 +521,7 @@ namespace YAF.Pages
         protected void TrackTopicClick([NotNull] object sender, [NotNull] EventArgs e)
         {
             this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
-            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
+            this.PageBoardContext.Notify(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
 
             this.HandleWatchTopic();
         }
@@ -540,7 +540,7 @@ namespace YAF.Pages
             this.GetRepository<WatchTopic>().Delete(
                 w => w.TopicID == this.PageBoardContext.PageTopicID && w.UserID == this.PageBoardContext.PageUserID);
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
+            this.PageBoardContext.Notify(this.GetText("INFO_UNWATCH_TOPIC"), MessageTypes.info);
 
             this.HandleWatchTopic();
         }
@@ -564,7 +564,7 @@ namespace YAF.Pages
 
             this.GetRepository<Topic>().Lock(this.PageBoardContext.PageTopicID, flags.BitValue);
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
+            this.PageBoardContext.Notify(this.GetText("INFO_TOPIC_UNLOCKED"), MessageTypes.info);
 
             this.LockTopic1.Visible = true;
             this.LockTopic2.Visible = true;

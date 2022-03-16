@@ -489,7 +489,7 @@ namespace YAF.Pages
 
                 if (numberOfPosts < 0)
                 {
-                    this.PageBoardContext.AddLoadMessage(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
+                    this.PageBoardContext.Notify(this.GetText("MEMBERS", "INVALIDPOSTSVALUE"), MessageTypes.warning);
                     return;
                 }
             }

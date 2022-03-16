@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
             this.PageBoardContext.BoardSettings.ForceUpdateSearchIndex = true;
             ((LoadBoardSettings)this.PageBoardContext.BoardSettings).SaveRegistry();
 
-            this.PageBoardContext.AddLoadMessage(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
+            this.PageBoardContext.Notify(this.GetText("FORCE_SEARCHINDED"), MessageTypes.info);
         }
 
         /// <summary>

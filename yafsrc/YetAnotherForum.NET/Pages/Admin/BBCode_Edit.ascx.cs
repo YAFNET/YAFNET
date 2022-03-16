@@ -83,7 +83,7 @@ namespace YAF.Pages.Admin
         {
             if (!ValidationHelper.IsValidPosShort(this.txtExecOrder.Text.Trim()))
             {
-                this.PageBoardContext.AddLoadMessage(
+                this.PageBoardContext.Notify(
                     this.GetText("ADMIN_BBCODE_EDIT", "MSG_POSITIVE_VALUE"),
                     MessageTypes.warning);
                 return;

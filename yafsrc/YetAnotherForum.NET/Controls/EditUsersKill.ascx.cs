@@ -160,7 +160,7 @@ namespace YAF.Controls
                 }
                 catch (Exception exception)
                 {
-                    this.PageBoardContext.AddLoadMessage(
+                    this.PageBoardContext.Notify(
                         this.GetText("ADMIN_EDITUSER", "BOT_REPORTED_FAILED"),
                         MessageTypes.danger);
 
@@ -180,7 +180,7 @@ namespace YAF.Controls
                         if (this.PageBoardContext.PageUserID == this.User.Item1.ID)
                         {
                             // deleting yourself isn't an option
-                            this.PageBoardContext.AddLoadMessage(
+                            this.PageBoardContext.Notify(
                                 this.GetText("ADMIN_USERS", "MSG_SELF_DELETE"),
                                 MessageTypes.danger);
                             return;
@@ -190,7 +190,7 @@ namespace YAF.Controls
                         if (this.User.Item1.UserFlags.IsGuest)
                         {
                             // we cannot delete guest
-                            this.PageBoardContext.AddLoadMessage(
+                            this.PageBoardContext.Notify(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_GUEST"),
                                 MessageTypes.danger);
                             return;
@@ -200,7 +200,7 @@ namespace YAF.Controls
                             this.User.Item1.UserFlags.IsHostAdmin)
                         {
                             // admin are not deletable either
-                            this.PageBoardContext.AddLoadMessage(
+                            this.PageBoardContext.Notify(
                                 this.GetText("ADMIN_USERS", "MSG_DELETE_ADMIN"),
                                 MessageTypes.danger);
 
