@@ -314,15 +314,6 @@
                                          TextLocalizedTag="NEW_USER"
                                          TextLocalizedPage="ADMIN_USERS">
                         </YAF:ThemeButton>
-                        <YAF:ThemeButton id="SyncUsers" runat="server"
-                                         CssClass="mt-1 me-1 btn-spinner"
-                                         OnClick="SyncUsersClick"
-                                         Type="Secondary"
-                                         Icon="sync"
-                                         TextLocalizedTag="SYNC_ALL"
-                                         TextLocalizedPage="ADMIN_USERS"
-                                         ReturnConfirmText='<%# this.GetText("ADMIN_USERS", "CONFIRM_SYNC") %>'>
-                        </YAF:ThemeButton>
                         <YAF:ThemeButton id="ImportUsers" runat="server"
                                          CssClass="mt-1 me-1"
                                          Icon="upload"

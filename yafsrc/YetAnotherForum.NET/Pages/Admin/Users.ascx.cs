@@ -385,18 +385,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// The sync users_ click.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        protected void SyncUsersClick([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.Get<IAspNetRolesHelper>().SyncAllMembershipUsers(this.PageBoardContext.PageBoardID);
-
-            this.PageBoardContext.AddLoadMessage(this.GetText("ADMIN_USERS", "SYNC_FINISH"), MessageTypes.success);
-        }
-
-        /// <summary>
         /// The lock accounts click.
         /// </summary>
         /// <param name="sender">

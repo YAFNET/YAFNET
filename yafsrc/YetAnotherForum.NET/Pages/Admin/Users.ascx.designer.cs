@@ -222,15 +222,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton NewUser;
 
         /// <summary>
-        /// SyncUsers-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton SyncUsers;
-
-        /// <summary>
         /// ImportUsers-Steuerelement.
         /// </summary>
         /// <remarks>
