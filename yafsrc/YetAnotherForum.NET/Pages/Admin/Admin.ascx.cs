@@ -415,9 +415,11 @@ namespace YAF.Pages.Admin
             // get stats for current board, selected board or all boards (see function)
             var data = this.GetRepository<Board>().Stats(this.GetSelectedBoardId());
 
-            this.NumPosts.Text = $"{data.Posts:N0}";
-            this.NumTopics.Text = $"{data.Topics:N0}";
-            this.NumUsers.Text = $"{data.Users:N0}";
+            this.NumCategories.Text = data.Categories.ToString();
+            this.NumForums.Text = data.Forums.ToString();
+            this.NumTopics.Text = $@"{data.Topics:N0}";
+            this.NumPosts.Text = $@"{data.Posts:N0}";
+            this.NumUsers.Text = $@"{data.Users:N0}";
 
             var span = DateTime.UtcNow - data.BoardStart;
             double days = span.Days;

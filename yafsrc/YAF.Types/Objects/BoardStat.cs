@@ -28,6 +28,7 @@ namespace YAF.Types.Objects
 
     public class BoardStat
     {
+        public int Categories { get;set; }
         public int Posts { get; set; }
         public int Topics { get; set; }
         public int Forums { get; set; }

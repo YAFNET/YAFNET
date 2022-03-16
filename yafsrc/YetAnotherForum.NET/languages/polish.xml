@@ -244,6 +244,8 @@
     <Resource tag="MSG_VALID_DAYS">Powinieneś wpisać poprawną ilość dni.</Resource>
     <Resource tag="NEW_VERSION">A New Version is available!</Resource>
     <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
+    <Resource tag="NUM_CATEGORIES">Number of categories:</Resource>
+    <Resource tag="NUM_FORUMS">Number of forums:</Resource>
     <Resource tag="NUM_POSTS">Liczba postów:</Resource>
     <Resource tag="NUM_TOPICS">Liczba wątków:</Resource>
     <Resource tag="NUM_USERS">Liczba użytkowników:</Resource>

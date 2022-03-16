@@ -534,9 +534,17 @@ namespace YAF.Core.Model
 
                     var countUsersSql = countUsersExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
+                    // -- count Categories
+                    var countCategoriesExpression = db.Connection.From<Category>();
+
+                    countCategoriesExpression.Where<Category>(x => x.BoardID == boardId);
+
+                    var countCategoriesSql = countCategoriesExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
+
                     expression.Select<User>(
                         x => new
                         {
+                            Categories = Sql.Custom<int>($"({countCategoriesSql})"),
                             Posts = Sql.Custom<int>($"({countPostsSql})"),
                             Forums = Sql.Custom<int>($"({countForumsSql})"),
                             Topics = Sql.Custom<int>($"({countTopicsSql})"),

@@ -244,6 +244,8 @@
     <Resource tag="MSG_VALID_DAYS">You should enter a valid integer value for days.</Resource>
     <Resource tag="NEW_VERSION">A New Version is available!</Resource>
     <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
+    <Resource tag="NUM_CATEGORIES">Number of categories:</Resource>
+    <Resource tag="NUM_FORUMS">Number of forums:</Resource>
     <Resource tag="NUM_POSTS">Number of posts:</Resource>
     <Resource tag="NUM_TOPICS">Number of topics:</Resource>
     <Resource tag="NUM_USERS">Number of users:</Resource>

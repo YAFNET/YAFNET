@@ -244,6 +244,8 @@
     <Resource tag="MSG_VALID_DAYS">شما می بایست یک مقدار صحیح برای شمار روز وارد کنید</Resource>
     <Resource tag="NEW_VERSION">A New Version is available!</Resource>
     <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
+    <Resource tag="NUM_CATEGORIES">Number of categories:</Resource>
+    <Resource tag="NUM_FORUMS">Number of forums:</Resource>
     <Resource tag="NUM_POSTS">تعداد ارسال ها:</Resource>
     <Resource tag="NUM_TOPICS">تعداد موضوعات:</Resource>
     <Resource tag="NUM_USERS">تعداد کاربران:</Resource>
