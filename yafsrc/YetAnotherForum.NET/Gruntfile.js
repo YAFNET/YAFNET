@@ -338,7 +338,7 @@ module.exports = function(grunt) {
 
     // PLUGINS
     grunt.loadNpmTasks("grunt-contrib-sass");
-    grunt.loadNpmTasks("grunt-postcss");
+    grunt.loadNpmTasks("@lodder/grunt-postcss");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-watch");
