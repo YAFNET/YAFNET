@@ -2808,6 +2808,7 @@
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\lang\fr.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\textselection\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\widget\images\handle.png" />
     <Content Include="Scripts\ckeditor\plugins\wordcount\css\wordcount.css" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />

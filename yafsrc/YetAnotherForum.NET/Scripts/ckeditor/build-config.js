@@ -1,6 +1,6 @@
 ﻿/**
- * @license Copyright (c) 2003-2021, CKSource - Frederico Knabben. All rights reserved.
- * For licensing, see LICENSE.md or https://ckeditor.com/license
+ * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license/
  */
 
 /**
@@ -13,10 +13,10 @@
  * (1) https://ckeditor.com/cke4/builder
  *     Visit online builder to build CKEditor from scratch.
  *
- * (2) https://ckeditor.com/cke4/builder/cf8a87c8474eca4854668957ff6abe45
+ * (2) https://ckeditor.com/cke4/builder/3c5f46c7fbede7dd0b7ef560691ee153
  *     Visit online builder to build CKEditor, starting with the same setup as before.
  *
- * (3) https://ckeditor.com/cke4/builder/download/cf8a87c8474eca4854668957ff6abe45
+ * (3) https://ckeditor.com/cke4/builder/download/3c5f46c7fbede7dd0b7ef560691ee153
  *     Straight download link to the latest version of CKEditor (Optimized) with the same setup as before.
  *
  * NOTE:
@@ -56,7 +56,6 @@ var CKBUILDER_CONFIG = {
 	plugins : {
 		'a11yhelp' : 1,
 		'about' : 1,
-		'autosave' : 1,
 		'basicstyles' : 1,
 		'bidi' : 1,
 		'blockquote' : 1,
@@ -94,7 +93,6 @@ var CKBUILDER_CONFIG = {
 		'pastefromgdocs' : 1,
 		'pastefromword' : 1,
 		'pastetext' : 1,
-		'pastetools' : 1,
 		'preview' : 1,
 		'print' : 1,
 		'removeformat' : 1,
@@ -110,8 +108,6 @@ var CKBUILDER_CONFIG = {
 		'tab' : 1,
 		'toolbar' : 1,
 		'undo' : 1,
-		'wordcount' : 1,
-		'wsc' : 1,
 		'wysiwygarea' : 1
 	},
 	languages : {
