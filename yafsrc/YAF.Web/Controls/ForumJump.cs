@@ -27,6 +27,7 @@ namespace YAF.Web.Controls
     #region Using
 
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Linq;
     using System.Web.UI;
@@ -39,6 +40,7 @@ namespace YAF.Web.Controls
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects.Model;
 
     #endregion
 
@@ -50,6 +52,26 @@ namespace YAF.Web.Controls
     public class ForumJump : BaseControl, IPostBackDataHandler
     {
         #region Properties
+
+        /// <summary>
+        /// Gets or sets the place holder.
+        /// </summary>
+        public string PlaceHolder
+        {
+            get => this.ViewState["PlaceHolder"] != null ? this.ViewState["PlaceHolder"].ToString() : string.Empty;
+
+            set => this.ViewState["PlaceHolder"] = value;
+        }
+
+        /// <summary>
+        /// Gets or sets the forums.
+        /// </summary>
+        public List<ForumSorted> Forums
+        {
+            get => this.ViewState["Forums"]?.ToType<List<ForumSorted>>();
+
+            set => this.ViewState["Forums"] = value;
+        }
 
         /// <summary>
         ///     Gets or sets ForumID.
@@ -113,7 +135,7 @@ namespace YAF.Web.Controls
                 return;
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new {f = this.ForumId, name});
+            this.Get<LinkBuilder>().Redirect(ForumPages.Topics, new { f = this.ForumId, name });
         }
 
         #endregion
@@ -136,20 +158,30 @@ namespace YAF.Web.Controls
         /// </param>
         protected override void Render([NotNull] HtmlTextWriter writer)
         {
-            var forumJump = this.Get<IDataCache>().GetOrSet(
-                string.Format(
-                    Constants.Cache.ForumJump,
-                    this.PageBoardContext.MembershipUser != null ? this.PageBoardContext.PageUserID.ToString() : "Guest"),
-                () => this.GetRepository<Types.Models.Forum>().ListAllSorted(
-                    this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.PageUserID),
-                TimeSpan.FromMinutes(5));
+            if (this.Forums.NullOrEmpty())
+            {
+                this.Forums = this.Get<IDataCache>().GetOrSet(
+                    string.Format(
+                        Constants.Cache.ForumJump,
+                        this.PageBoardContext.MembershipUser != null
+                            ? this.PageBoardContext.PageUserID.ToString()
+                            : "Guest"),
+                    () => this.GetRepository<Types.Models.Forum>().ListAllSorted(
+                        this.PageBoardContext.PageBoardID,
+                        this.PageBoardContext.PageUserID),
+                    TimeSpan.FromMinutes(5));
+            }
+
+            if (this.PlaceHolder.IsNotSet())
+            {
+                this.PlaceHolder = this.GetText("FORUM_JUMP_PLACEHOLDER");
+            }
 
             writer.WriteLine(
                 $@"<select name=""{this.UniqueID}"" 
                              onchange=""{this.Page.ClientScript.GetPostBackClientHyperlink(this, this.ID)}"" 
                              id=""{this.ClientID}"" 
-                             class=""select2-image-select"">");
+                             class=""select2-image-select"" placeholder=""{this.PlaceHolder}"">");
 
             var forumId = this.PageBoardContext.PageForumID;
             if (forumId <= 0)
@@ -157,7 +189,7 @@ namespace YAF.Web.Controls
                 writer.WriteLine("<option/>");
             }
 
-            forumJump.ForEach(
+            this.Forums.ForEach(
                 row =>
                     {
                         var title = this.HtmlEncode(row.Forum);
@@ -191,7 +223,7 @@ namespace YAF.Web.Controls
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         private void PageLoad([NotNull] object sender, [NotNull] EventArgs e)
         {
-            if (!this.Page.IsPostBack)
+            if (!this.Page.IsPostBack && this.PlaceHolder.IsNotSet())
             {
                 this.ForumId = this.PageBoardContext.PageForumID;
             }

@@ -30,6 +30,7 @@ namespace YAF.Core.Model
 
     using YAF.Core.Extensions;
     using YAF.Types;
+    using YAF.Types.Extensions;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -127,6 +128,58 @@ namespace YAF.Core.Model
                     SortOrder = sortOrder,
                     CategoryImage = categoryImage
                 });
+        }
+
+        /// <summary>
+        /// Re-Order all Categories  By Name Ascending
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="categories">
+        /// The categories to be sorted.
+        /// </param>
+        public static void ReOrderAllAscending(this IRepository<Category> repository, List<Category> categories)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            short sortOrder = 0;
+
+            categories.OrderBy(x => x.Name).ForEach(
+                category =>
+                    {
+                        category.SortOrder = sortOrder;
+
+                        repository.Update(category);
+
+                        sortOrder++;
+                    });
+        }
+
+        /// <summary>
+        /// Re-Order all Categories By Name Descending
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="categories">
+        /// The categories to be sorted.
+        /// </param>
+        public static void ReOrderAllDescending(this IRepository<Category> repository, List<Category> categories)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            short sortOrder = 0;
+
+            categories.OrderBy(x => x.Name).ForEach(
+                category =>
+                    {
+                        category.SortOrder = sortOrder;
+
+                        repository.Update(category);
+
+                        sortOrder++;
+                    });
         }
 
         #endregion

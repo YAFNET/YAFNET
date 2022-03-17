@@ -979,9 +979,16 @@
     <Resource tag="CONFIRM_DELETE">Dieses Forum permanent löschen inkl. ALLER Themen, Umfragen, Anhänge und Beiträge die darin enthalten sind?</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">Dieser Kategorie löschen?</Resource>
     <Resource tag="CONFIRM_DELETE_POSITIVE">Sie sind SICHER?</Resource>
+    <Resource tag="CONFIRM_SORTING">Are you sure? this step is irreversible!</Resource>
     <Resource tag="MSG_NOT_DELETE">Sie können diese Kategorie nicht löschen da Sie mindestens ein Forum enthält.\nUm das Forum zu verschieben klicken Sie auf  \"Bearbeiten\" und ändern Sie die Kategorie.</Resource>
+    <Resource tag="MSG_SORTING_CATEGORIES">All Categories have been re-ordered.</Resource>
+    <Resource tag="MSG_SORTING_FORUMS">All Forums have been re-ordered.</Resource>
     <Resource tag="NEW_CATEGORY">Neue Kategorie</Resource>
     <Resource tag="NEW_FORUM">Neues Forum</Resource>
+    <Resource tag="SORT_CATEGORIES_ASC">Re-Order all Categories ASC</Resource>
+    <Resource tag="SORT_CATEGORIES_DESC">Re-Order all Categories DESC</Resource>
+    <Resource tag="SORT_FORUMS_ASC">Re-Order all Forums ASC</Resource>
+    <Resource tag="SORT_FORUMS_DESC">Re-Order all Forums DESC</Resource>
   </page>
   <page name="ADMIN_GROUPS">
     <Resource tag="ADD_ROLETOYAF">Zu YAF hinzufügen</Resource>
@@ -2204,6 +2211,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Gehe zu:</Resource>
+    <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
     <Resource tag="GENERATED">Diese Seite wurde in {0:N3} Sekunden generiert.</Resource>
     <Resource tag="GO">Los</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">Erste Seite</Resource>

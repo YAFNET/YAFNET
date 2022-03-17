@@ -34,7 +34,9 @@ namespace YAF.Types.Objects
         /// <summary>
         ///   Gets or sets The Forum ID.
         /// </summary>
-        public long ForumID { get; set; }
+        public int ForumID { get; set; }
+
+        public int? ParentID { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the forum.
@@ -43,6 +45,10 @@ namespace YAF.Types.Objects
         /// The name of the forum.
         /// </value>
         public string ForumName { get; set; }
+
+        public int CategoryID { get; set; }
+
+        public int CategoryName { get; set; }
 
         #endregion
     }

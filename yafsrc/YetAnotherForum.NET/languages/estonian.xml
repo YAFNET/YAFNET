@@ -982,11 +982,18 @@
     <Resource tag="CONFIRM_DELETE">Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>
     <Resource tag="CONFIRM_DELETE_POSITIVE">Are you POSITIVE?</Resource>
+    <Resource tag="CONFIRM_SORTING">Are you sure? this step is irreversible!</Resource>
     <Resource tag="DELETE_MSG">Please do not navigate away from this page while the deletion is in progress...</Resource>
     <Resource tag="DELETE_TITLE">Deleting Forum</Resource>
     <Resource tag="MSG_NOT_DELETE">You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on \"Edit\" and change the category the forum is assigned to.</Resource>
+    <Resource tag="MSG_SORTING_CATEGORIES">All Categories have been re-ordered.</Resource>
+    <Resource tag="MSG_SORTING_FORUMS">All Forums have been re-ordered.</Resource>
     <Resource tag="NEW_CATEGORY">New Category</Resource>
     <Resource tag="NEW_FORUM">New Forum</Resource>
+    <Resource tag="SORT_CATEGORIES_ASC">Re-Order all Categories ASC</Resource>
+    <Resource tag="SORT_CATEGORIES_DESC">Re-Order all Categories DESC</Resource>
+    <Resource tag="SORT_FORUMS_ASC">Re-Order all Forums ASC</Resource>
+    <Resource tag="SORT_FORUMS_DESC">Re-Order all Forums DESC</Resource>
   </page>
   <page name="ADMIN_GROUPS">
     <Resource tag="ADD_ROLETOYAF">Add to YAF</Resource>
@@ -2220,6 +2227,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Forumi hüpe</Resource>
+    <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
     <Resource tag="GENERATED">Lehe genereerimisele kulus {0:N3} sekundit.</Resource>
     <Resource tag="GO">Mine</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>

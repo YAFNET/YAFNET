@@ -119,13 +119,7 @@
                                                                 LocalizedTag="FORUMS" />:
                                         </span>
                                     <div class="input-group">
-                                        <YAF:ThemeButton ID="GoToForumButton" runat="server"
-                                                         Icon="external-link-alt"
-                                                         Type="Secondary"
-                                                         TextLocalizedTag="GO"
-                                                         OnClick="GoToForum"></YAF:ThemeButton>
-                                        <asp:DropDownList ID="ModForums" runat="server" CssClass="form-control">
-                                        </asp:DropDownList>
+                                        <YAF:ForumJump ID="Forums" runat="server" />
                                     </div>
                             <small>
                                 <div class="btn-group mt-2" role="group">

@@ -980,9 +980,16 @@
     <Resource tag="CONFIRM_DELETE">Удалить этот форум навсегда, включая темы, сообщения, вложения и другую связанную с ним информацию?</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">Удалить категорию?</Resource>
     <Resource tag="CONFIRM_DELETE_POSITIVE">Вы уверены, что вменяемы сегодня?</Resource>
+    <Resource tag="CONFIRM_SORTING">Are you sure? this step is irreversible!</Resource>
     <Resource tag="MSG_NOT_DELETE">Вы не можете удалить категорию, до тех пор пока в ней есть хотя бы один форум. Чтобы переместит форум нажмите \"Изменить\" и переместите форум в другую категорию.</Resource>
+    <Resource tag="MSG_SORTING_CATEGORIES">All Categories have been re-ordered.</Resource>
+    <Resource tag="MSG_SORTING_FORUMS">All Forums have been re-ordered.</Resource>
     <Resource tag="NEW_CATEGORY">Добавить категорию</Resource>
     <Resource tag="NEW_FORUM">Добавить форум</Resource>
+    <Resource tag="SORT_CATEGORIES_ASC">Re-Order all Categories ASC</Resource>
+    <Resource tag="SORT_CATEGORIES_DESC">Re-Order all Categories DESC</Resource>
+    <Resource tag="SORT_FORUMS_ASC">Re-Order all Forums ASC</Resource>
+    <Resource tag="SORT_FORUMS_DESC">Re-Order all Forums DESC</Resource>
   </page>
   <page name="ADMIN_GROUPS">
     <Resource tag="ADD_ROLETOYAF">Добавить к YAF</Resource>
@@ -2202,6 +2209,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Перейти</Resource>
+    <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
     <Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>
     <Resource tag="GO">Перейти</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">Первая страница</Resource>

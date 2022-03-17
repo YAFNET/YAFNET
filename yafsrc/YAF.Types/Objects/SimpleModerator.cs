@@ -53,10 +53,16 @@ namespace YAF.Types.Objects
         /// </summary>
         public int ForumID { get; set; }
 
+        public int? ParentID { get; set; }
+
         /// <summary>
         /// Gets or sets Forum Name.
         /// </summary>
         public string ForumName { get; set; }
+
+        public int CategoryID { get; set; }
+
+        public int CategoryName { get; set; }
 
         /// <summary>
         /// Gets or sets ModeratorID.

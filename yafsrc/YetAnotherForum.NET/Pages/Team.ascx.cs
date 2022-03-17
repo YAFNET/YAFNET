@@ -46,8 +46,6 @@ namespace YAF.Pages
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
-    using ListItem = System.Web.UI.WebControls.ListItem;
-
     #endregion
 
     /// <summary>
@@ -72,35 +70,6 @@ namespace YAF.Pages
         public Team()
             : base("TEAM", ForumPages.Team)
         {
-        }
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// Go to Selected Forum, if one is Selected
-        /// </summary>
-        /// <param name="sender">
-        /// The sender.
-        /// </param>
-        /// <param name="e">
-        /// The e.
-        /// </param>
-        public void GoToForum([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            var forumButton = sender as ThemeButton;
-
-            var gridItem = (RepeaterItem)forumButton.NamingContainer;
-
-            var modForums = gridItem.FindControlAs<DropDownList>("ModForums");
-
-            if (modForums.SelectedValue != "intro" && modForums.SelectedValue != "break")
-            {
-                this.Get<LinkBuilder>().Redirect(
-                    ForumPages.Topics,
-                    new { f = modForums.SelectedValue, name = modForums.SelectedItem.Text });
-            }
         }
 
         #endregion
@@ -160,7 +129,11 @@ namespace YAF.Pages
                     {
                         var forumsId = new ModeratorsForums
                         {
-                            ForumID = modList[i].ForumID, ForumName = modList[i].ForumName
+                            CategoryID = modList[i].CategoryID,
+                            CategoryName = modList[i].CategoryName,
+                            ParentID = modList[i].ParentID,
+                            ForumID = modList[i].ForumID, 
+                            ForumName = modList[i].ForumName
                         };
 
                         sortedMod.ForumIDs[i] = forumsId;
@@ -301,26 +274,28 @@ namespace YAF.Pages
                 return;
             }
 
-            var modForums = e.Item.FindControlAs<DropDownList>("ModForums");
+            var forumsJump  = e.Item.FindControlAs<ForumJump>("Forums");
 
             var modLink = e.Item.FindControlAs<UserLink>("ModLink");
 
             var mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
-            (from forumsItem in mod.ForumIDs
-             let forumListItem = new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName }
-             select forumsItem).ForEach(
-                forumsItem => modForums.Items.Add(
-                    new ListItem { Value = forumsItem.ForumID.ToString(), Text = forumsItem.ForumName }));
+            var forums = mod.ForumIDs.Select(forumsItem => forumsItem);
 
-            if (modForums.Items.Count > 0)
+            forumsJump.Forums = this.GetRepository<Types.Models.Forum>().SortModeratorList(
+                forums,
+                0,
+                0,
+                0,
+                false);
+
+            if (forums.Any())
             {
-                modForums.Items.Insert(0, new ListItem(this.GetTextFormatted("VIEW_FORUMS", modForums.Items.Count), "intro"));
-                modForums.Items.Insert(1, new ListItem("--------------------------", "break"));
+                forumsJump.PlaceHolder = this.GetTextFormatted("VIEW_FORUMS", forums.Count());
             }
             else
             {
-                modForums.Visible = false;
+                forumsJump.Visible = false;
             }
 
             // User Buttons

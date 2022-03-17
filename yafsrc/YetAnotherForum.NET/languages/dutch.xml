@@ -980,9 +980,16 @@
     <Resource tag="CONFIRM_DELETE">Verwijder dit forum definitief, inclusief ALLE topics, polls, bijlagen en berichten?</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">Verwijder deze categorie?</Resource>
     <Resource tag="CONFIRM_DELETE_POSITIVE">Weet je het ZEKER?</Resource>
+    <Resource tag="CONFIRM_SORTING">Are you sure? this step is irreversible!</Resource>
     <Resource tag="MSG_NOT_DELETE">n forum aan hangt.\nOm forums te verplaatsen, klik op \"Bewerk\" en wijzig de categorie van het forum.</Resource>
+    <Resource tag="MSG_SORTING_CATEGORIES">All Categories have been re-ordered.</Resource>
+    <Resource tag="MSG_SORTING_FORUMS">All Forums have been re-ordered.</Resource>
     <Resource tag="NEW_CATEGORY">Nieuwe Categorie</Resource>
     <Resource tag="NEW_FORUM">Nieuw Forum</Resource>
+    <Resource tag="SORT_CATEGORIES_ASC">Re-Order all Categories ASC</Resource>
+    <Resource tag="SORT_CATEGORIES_DESC">Re-Order all Categories DESC</Resource>
+    <Resource tag="SORT_FORUMS_ASC">Re-Order all Forums ASC</Resource>
+    <Resource tag="SORT_FORUMS_DESC">Re-Order all Forums DESC</Resource>
   </page>
   <page name="ADMIN_GROUPS">
     <Resource tag="ADD_ROLETOYAF">Rol Toevoegen aan Forum</Resource>
@@ -2214,6 +2221,7 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Ga naar:</Resource>
+    <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
     <Resource tag="GENERATED">Deze pagina is gegenereerd in {0:N3} seconden.</Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">Eerste pagina</Resource>

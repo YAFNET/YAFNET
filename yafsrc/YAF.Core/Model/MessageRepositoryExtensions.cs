@@ -972,8 +972,6 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            //var user = BoardContext.Current.GetRepository<PageUser>().GetById(userId);
-
             int position;
 
             var maxPosition = repository.DbAccess.Execute(

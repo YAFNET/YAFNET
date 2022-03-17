@@ -1550,8 +1550,11 @@ namespace YAF.Core.Model
                         .Select<Forum, ForumAccess, Group>(
                             (f, a, b) => new
                             {
+                                CategoryID = Sql.Custom("NULL"),
+                                CategoryName = Sql.Custom("NULL"),
                                 a.ForumID,
                                 ForumName = f.Name,
+                                f.ParentID,
                                 ModeratorID = a.GroupID,
                                 b.Name,
                                 Email = b.Name,
@@ -1569,12 +1572,16 @@ namespace YAF.Core.Model
                    expression2
                        .Join<vaccess_group>((usr, access) => access.UserID == usr.ID)
                        .Join<vaccess_group, Forum>((access, f) => f.ID == access.ForumID)
+                       .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                        .Where<vaccess_group, User>((x, u) => x.ModeratorAccess > 0 && u.BoardID == repository.BoardID)
-                       .Select<User, vaccess_group, Forum>(
-                           (usr, access, f) => new
+                       .Select<User, vaccess_group, Forum, Category>(
+                           (usr, access, f, c) => new
                            {
+                               CategoryID = c.ID,
+                               CategoryName = c.Name,
                                access.ForumID,
                                ForumName = f.Name,
+                               f.ParentID,
                                ModeratorID = usr.ID,
                                usr.Name,
                                usr.Email,
