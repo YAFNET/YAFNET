@@ -48,7 +48,7 @@ namespace YAF.Types.Objects
 
         public int CategoryID { get; set; }
 
-        public int CategoryName { get; set; }
+        public string CategoryName { get; set; }
 
         #endregion
     }
