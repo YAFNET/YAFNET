@@ -27,6 +27,7 @@ namespace YAF.Types.Models
 
     using ServiceStack.DataAnnotations;
 
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
 
@@ -74,6 +75,24 @@ namespace YAF.Types.Models
         /// </summary>
         [StringLength(255)]
         public string CategoryImage { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the flags.
+        /// </summary>
+        [Required]
+        [Default(1)]
+        public int Flags { get; set; }
+
+        /// <summary>
+        /// Gets or sets the category flags.
+        /// </summary>
+        [Ignore]
+        public CategoryFlags CategoryFlags
+        {
+            get => new(this.Flags);
+
+            set => this.Flags = value.BitValue;
+        }
 
         #endregion
     }

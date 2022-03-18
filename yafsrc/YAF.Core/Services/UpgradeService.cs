@@ -232,6 +232,12 @@ namespace YAF.Core.Services
 
             }
 
+            if (prevVersion < 85)
+            {
+                this.Get<V85_Migration>().MigrateDatabase(this.DbAccess);
+
+            }
+
             this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
 
             this.Get<IDataCache>().Remove(Constants.Cache.Version);
