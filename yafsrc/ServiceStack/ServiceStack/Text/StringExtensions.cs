@@ -37,19 +37,19 @@ namespace ServiceStack.Text
             var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
             var len = source.Length;
             if (len == 0)
-                throw new Exception($"Parameter: '{source}' is not valid integer (in base {@from}).");
+                throw new Exception($"Parameter: '{source}' is not valid integer (in base {from}).");
             var minus = source[0] == '-' ? "-" : "";
             var src = minus == "" ? source : source.Substring(1);
             len = src.Length;
             if (len == 0)
-                throw new Exception($"Parameter: '{source}' is not valid integer (in base {@from}).");
+                throw new Exception($"Parameter: '{source}' is not valid integer (in base {from}).");
 
             var d = 0;
             for (int i = 0; i < len; i++) // Convert to decimal
             {
                 int c = chars.IndexOf(src[i]);
                 if (c >= from)
-                    throw new Exception($"Parameter: '{source}' is not valid integer (in base {@from}).");
+                    throw new Exception($"Parameter: '{source}' is not valid integer (in base {from}).");
                 d = d * from + c;
             }
             if (to == 10 || d == 0)
@@ -220,11 +220,6 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// The URL path delims
-        /// </summary>
-        private static char[] UrlPathDelims = new[] { '?', '#' };
-
-        /// <summary>
         /// Withes the trailing slash.
         /// </summary>
         /// <param name="path">The path.</param>
@@ -232,12 +227,12 @@ namespace ServiceStack.Text
         /// <exception cref="ArgumentNullException">nameof(path)</exception>
         public static string WithTrailingSlash(this string path)
         {
-            if (path == null)
-                throw new ArgumentNullException(nameof(path));
-            if (path == "")
-                return "/";
-
-            return path[path.Length - 1] != '/' ? path + "/" : path;
+            return path switch
+                {
+                    null => throw new ArgumentNullException(nameof(path)),
+                    "" => "/",
+                    _ => path[path.Length - 1] != '/' ? path + "/" : path
+                };
         }
 
         /// <summary>
@@ -620,10 +615,7 @@ namespace ServiceStack.Text
         /// <typeparam name="T"></typeparam>
         /// <param name="csv">The CSV.</param>
         /// <returns>T.</returns>
-        public static T FromCsv<T>(this string csv)
-        {
-            return CsvSerializer.DeserializeFromString<T>(csv);
-        }
+        public static T FromCsv<T>(this string csv) => CsvSerializer.DeserializeFromString<T>(csv);
 
         /// <summary>
         /// Formats the with.
@@ -631,10 +623,7 @@ namespace ServiceStack.Text
         /// <param name="text">The text.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>string.</returns>
-        public static string FormatWith(this string text, params object[] args)
-        {
-            return string.Format(text, args);
-        }
+        public static string FormatWith(this string text, params object[] args) => string.Format(text, args);
 
         /// <summary>
         /// FMTs the specified text.
@@ -642,10 +631,8 @@ namespace ServiceStack.Text
         /// <param name="text">The text.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>string.</returns>
-        public static string Fmt(this string text, params object[] args)
-        {
-            return string.Format(text, args);
-        }
+        public static string Fmt(this string text, params object[] args) => string.Format(text, args);
+
         /// <summary>
         /// FMTs the specified text.
         /// </summary>
@@ -653,10 +640,7 @@ namespace ServiceStack.Text
         /// <param name="provider">The provider.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>string.</returns>
-        public static string Fmt(this string text, IFormatProvider provider, params object[] args)
-        {
-            return string.Format(provider, text, args);
-        }
+        public static string Fmt(this string text, IFormatProvider provider, params object[] args) => string.Format(provider, text, args);
 
         /// <summary>
         /// FMTs the specified text.
@@ -664,10 +648,7 @@ namespace ServiceStack.Text
         /// <param name="text">The text.</param>
         /// <param name="arg1">The arg1.</param>
         /// <returns>string.</returns>
-        public static string Fmt(this string text, object arg1)
-        {
-            return string.Format(text, arg1);
-        }
+        public static string Fmt(this string text, object arg1) => string.Format(text, arg1);
 
         /// <summary>
         /// FMTs the specified text.
@@ -676,10 +657,7 @@ namespace ServiceStack.Text
         /// <param name="arg1">The arg1.</param>
         /// <param name="arg2">The arg2.</param>
         /// <returns>string.</returns>
-        public static string Fmt(this string text, object arg1, object arg2)
-        {
-            return string.Format(text, arg1, arg2);
-        }
+        public static string Fmt(this string text, object arg1, object arg2) => string.Format(text, arg1, arg2);
 
         /// <summary>
         /// FMTs the specified text.
@@ -689,10 +667,7 @@ namespace ServiceStack.Text
         /// <param name="arg2">The arg2.</param>
         /// <param name="arg3">The arg3.</param>
         /// <returns>string.</returns>
-        public static string Fmt(this string text, object arg1, object arg2, object arg3)
-        {
-            return string.Format(text, arg1, arg2, arg3);
-        }
+        public static string Fmt(this string text, object arg1, object arg2, object arg3) => string.Format(text, arg1, arg2, arg3);
 
         /// <summary>
         /// Startses the with ignore case.
@@ -700,11 +675,9 @@ namespace ServiceStack.Text
         /// <param name="text">The text.</param>
         /// <param name="startsWith">The starts with.</param>
         /// <returns>bool.</returns>
-        public static bool StartsWithIgnoreCase(this string text, string startsWith)
-        {
-            return text != null
-                   && text.StartsWith(startsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
-        }
+        public static bool StartsWithIgnoreCase(this string text, string startsWith) =>
+            text != null
+            && text.StartsWith(startsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
 
         /// <summary>
         /// Endses the with ignore case.
@@ -712,11 +685,9 @@ namespace ServiceStack.Text
         /// <param name="text">The text.</param>
         /// <param name="endsWith">The ends with.</param>
         /// <returns>bool.</returns>
-        public static bool EndsWithIgnoreCase(this string text, string endsWith)
-        {
-            return text != null
-                   && text.EndsWith(endsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
-        }
+        public static bool EndsWithIgnoreCase(this string text, string endsWith) =>
+            text != null
+            && text.EndsWith(endsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
 
         /// <summary>
         /// Reads all text.
@@ -725,7 +696,8 @@ namespace ServiceStack.Text
         /// <returns>string.</returns>
         public static string ReadAllText(this string filePath)
         {
-            return PclExport.Instance.ReadAllText(filePath);
+            using var reader = File.OpenText(filePath);
+            return reader.ReadToEnd();
         }
 
         /// <summary>
@@ -733,29 +705,20 @@ namespace ServiceStack.Text
         /// </summary>
         /// <param name="filePath">The file path.</param>
         /// <returns>bool.</returns>
-        public static bool FileExists(this string filePath)
-        {
-            return PclExport.Instance.FileExists(filePath);
-        }
+        public static bool FileExists(this string filePath) => PclExport.Instance.FileExists(filePath);
 
         /// <summary>
         /// Directories the exists.
         /// </summary>
         /// <param name="dirPath">The dir path.</param>
         /// <returns>bool.</returns>
-        public static bool DirectoryExists(this string dirPath)
-        {
-            return PclExport.Instance.DirectoryExists(dirPath);
-        }
+        public static bool DirectoryExists(this string dirPath) => PclExport.Instance.DirectoryExists(dirPath);
 
         /// <summary>
         /// Creates the directory.
         /// </summary>
         /// <param name="dirPath">The dir path.</param>
-        public static void CreateDirectory(this string dirPath)
-        {
-            PclExport.Instance.CreateDirectory(dirPath);
-        }
+        public static void CreateDirectory(this string dirPath) => PclExport.Instance.CreateDirectory(dirPath);
 
         /// <summary>
         /// Indexes the of any.
@@ -763,10 +726,7 @@ namespace ServiceStack.Text
         /// <param name="text">The text.</param>
         /// <param name="needles">The needles.</param>
         /// <returns>int.</returns>
-        public static int IndexOfAny(this string text, params string[] needles)
-        {
-            return IndexOfAny(text, 0, needles);
-        }
+        public static int IndexOfAny(this string text, params string[] needles) => IndexOfAny(text, 0, needles);
 
         /// <summary>
         /// Indexes the of any.
@@ -798,10 +758,7 @@ namespace ServiceStack.Text
         /// <param name="startAfter">The start after.</param>
         /// <param name="endAt">The end at.</param>
         /// <returns>string.</returns>
-        public static string ExtractContents(this string fromText, string startAfter, string endAt)
-        {
-            return ExtractContents(fromText, startAfter, startAfter, endAt);
-        }
+        public static string ExtractContents(this string fromText, string startAfter, string endAt) => ExtractContents(fromText, startAfter, startAfter, endAt);
 
         /// <summary>
         /// Extracts the contents.
@@ -839,11 +796,6 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// The strip HTML reg ex
-        /// </summary>
-        static readonly Regex StripHtmlRegEx = new(@"<(.|\n)*?>", PclExport.Instance.RegexOptions);
-
-        /// <summary>
         /// Strips the quotes.
         /// </summary>
         /// <param name="text">The text.</param>
@@ -858,15 +810,6 @@ namespace ServiceStack.Text
                     ? text.Substring(1, text.Length - 2)
                     : text;
         }
-
-        /// <summary>
-        /// The strip brackets reg ex
-        /// </summary>
-        static readonly Regex StripBracketsRegEx = new(@"\[(.|\n)*?\]", PclExport.Instance.RegexOptions);
-        /// <summary>
-        /// The strip braces reg ex
-        /// </summary>
-        static readonly Regex StripBracesRegEx = new(@"\((.|\n)*?\)", PclExport.Instance.RegexOptions);
 
         /// <summary>
         /// The lower case offset
@@ -1051,10 +994,7 @@ namespace ServiceStack.Text
         /// <param name="strA">The string a.</param>
         /// <param name="strB">The string b.</param>
         /// <returns>int.</returns>
-        public static int CompareIgnoreCase(this string strA, string strB)
-        {
-            return string.Compare(strA, strB, PclExport.Instance.InvariantComparisonIgnoreCase);
-        }
+        public static int CompareIgnoreCase(this string strA, string strB) => string.Compare(strA, strB, PclExport.Instance.InvariantComparisonIgnoreCase);
 
         /// <summary>
         /// Endses the with invariant.
@@ -1062,10 +1002,7 @@ namespace ServiceStack.Text
         /// <param name="str">The string.</param>
         /// <param name="endsWith">The ends with.</param>
         /// <returns>bool.</returns>
-        public static bool EndsWithInvariant(this string str, string endsWith)
-        {
-            return str.EndsWith(endsWith, PclExport.Instance.InvariantComparison);
-        }
+        public static bool EndsWithInvariant(this string str, string endsWith) => str.EndsWith(endsWith, PclExport.Instance.InvariantComparison);
 
         /// <summary>
         /// The invalid variable chars regex
@@ -1088,22 +1025,6 @@ namespace ServiceStack.Text
         /// The split camel case regex
         /// </summary>
         private static readonly Regex SplitCamelCaseRegex = new("([A-Z]|[0-9]+)", RegexOptions.Compiled);
-        /// <summary>
-        /// The HTTP regex
-        /// </summary>
-        private static readonly Regex HttpRegex = new(@"^http://",
-            PclExport.Instance.RegexOptions | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
-
-        /// <summary>
-        /// Converts to enum.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="value">The value.</param>
-        /// <returns>T.</returns>
-        /*public static T ToEnum<T>(this string value)
-        {
-            return (T)Enum.Parse(typeof(T), value, true);
-        }*/
 
         /// <summary>
         /// Converts to enumordefault.
@@ -1123,10 +1044,7 @@ namespace ServiceStack.Text
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>string.</returns>
-        public static string SplitCamelCase(this string value)
-        {
-            return SplitCamelCaseRegex.Replace(value, " $1").TrimStart();
-        }
+        public static string SplitCamelCase(this string value) => SplitCamelCaseRegex.Replace(value, " $1").TrimStart();
 
         /// <summary>
         /// Converts to invariantupper.
@@ -1139,50 +1057,18 @@ namespace ServiceStack.Text
         }
 
         /// <summary>
-        /// Converts to english.
-        /// </summary>
-        /// <param name="camelCase">The camel case.</param>
-        /// <returns>string.</returns>
-        public static string ToEnglish(this string camelCase)
-        {
-            var ucWords = camelCase.SplitCamelCase().ToLower();
-            return ucWords[0].ToInvariantUpper() + ucWords.Substring(1);
-        }
-
-        /// <summary>
-        /// Converts to https.
-        /// </summary>
-        /// <param name="url">The URL.</param>
-        /// <returns>string.</returns>
-        /// <exception cref="ArgumentNullException">nameof(url)</exception>
-        public static string ToHttps(this string url)
-        {
-            if (url == null)
-            {
-                throw new ArgumentNullException(nameof(url));
-            }
-            return HttpRegex.Replace(url.Trim(), "https://");
-        }
-
-        /// <summary>
         /// Determines whether the specified value is empty.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>bool.</returns>
-        public static bool IsEmpty(this string value)
-        {
-            return string.IsNullOrEmpty(value);
-        }
+        public static bool IsEmpty(this string value) => string.IsNullOrEmpty(value);
 
         /// <summary>
         /// Determines whether [is null or empty] [the specified value].
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>bool.</returns>
-        public static bool IsNullOrEmpty(this string value)
-        {
-            return string.IsNullOrEmpty(value);
-        }
+        public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
 
         /// <summary>
         /// Equalses the ignore case.
@@ -1190,10 +1076,7 @@ namespace ServiceStack.Text
         /// <param name="value">The value.</param>
         /// <param name="other">The other.</param>
         /// <returns>bool.</returns>
-        public static bool EqualsIgnoreCase(this string value, string other)
-        {
-            return string.Equals(value, other, StringComparison.OrdinalIgnoreCase);
-        }
+        public static bool EqualsIgnoreCase(this string value, string other) => string.Equals(value, other, StringComparison.OrdinalIgnoreCase);
 
         /// <summary>
         /// Replaces the first.
@@ -1267,10 +1150,7 @@ namespace ServiceStack.Text
         /// </summary>
         /// <param name="items">The items.</param>
         /// <returns>string.</returns>
-        public static string Join(this List<string> items)
-        {
-            return string.Join(JsWriter.ItemSeperatorString, items.ToArray());
-        }
+        public static string Join(this List<string> items) => string.Join(JsWriter.ItemSeperatorString, items.ToArray());
 
         /// <summary>
         /// Joins the specified items.
@@ -1278,10 +1158,7 @@ namespace ServiceStack.Text
         /// <param name="items">The items.</param>
         /// <param name="delimeter">The delimeter.</param>
         /// <returns>string.</returns>
-        public static string Join(this List<string> items, string delimeter)
-        {
-            return string.Join(delimeter, items.ToArray());
-        }
+        public static string Join(this List<string> items, string delimeter) => string.Join(delimeter, items.ToArray());
 
         /// <summary>
         /// Converts to parentpath.
@@ -1771,9 +1648,8 @@ namespace ServiceStack.Text
         {
             var len = hashBytes.Length * 2;
             var chars = new char[len];
-            var i = 0;
             var index = 0;
-            for (i = 0; i < len; i += 2)
+            for (var i = 0; i < len; i += 2)
             {
                 var b = hashBytes[index++];
                 chars[i] = GetHexValue(b / 16, upper);
