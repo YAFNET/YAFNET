@@ -1,6 +1,23 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.3
+* Added new Audio BBCode (thanks to User daprose-dotcom)
+* Upgraded to FontAwesome 6.1.0
+* Upgraded to CKEditor 4.18.0
+* [FIXED] Show user attachments page only if user has attachments and upload access
+* [FIXED] wrong forums count in stats (When the board has no posts)
+* Category names now have links to the Category
+* [NEW] Default PanelState for the Category Collapse Button can be defined in the Board Settings
+* [NEW] Added Forums & Categories to Board Stats on the admin index page
+* [NEW] Added options to re-order Categories and/or Forums by Name ASC or DESC
+* [FIXED] Wrong Background Color and missing border for select2 dropdowns
+* [FIXED] Moderator Avatar on the team page
+* [FIXED] Duplicates in Moderator List on the team page
+* [FIXED] On the team page moderator forums are grouped by category
+* Moved "Autosave" Notification in the Editor to the status bar
+* bug fixes
+
 # YetAnotherForum.NET v3.1.2
 * bug fixes
 

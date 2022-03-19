@@ -345,7 +345,7 @@ namespace YAF.Core.Helpers
                       && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
                       && ci.IetfLanguageTag.Length == 5)?.IetfLanguageTag;
 
-            return tag != null ? tag.Replace("_", "-") : "en-US";
+            return tag ?? "en-US";
         }
 
         /// <summary>
