@@ -171,7 +171,7 @@ namespace YAF.Core.Model
 
             short sortOrder = 0;
 
-            categories.OrderBy(x => x.Name).ForEach(
+            categories.OrderByDescending(x => x.Name).ForEach(
                 category =>
                     {
                         category.SortOrder = sortOrder;

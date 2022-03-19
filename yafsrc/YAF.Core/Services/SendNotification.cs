@@ -877,8 +877,8 @@ namespace YAF.Core.Services
         /// <param name="user">
         /// The user.
         /// </param>
-        /// <param name="code">
-        /// The code.
+        /// <param name="token">
+        /// The token.
         /// </param>
         public void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token)
         {

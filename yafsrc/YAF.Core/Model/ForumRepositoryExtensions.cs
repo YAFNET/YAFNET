@@ -54,13 +54,13 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="forumID">
+        /// <param name="forumId">
         /// The forum id.
         /// </param>
-        /// <param name="categoryID">
+        /// <param name="categoryId">
         /// The category id.
         /// </param>
-        /// <param name="parentID">
+        /// <param name="parentId">
         /// The parent id.
         /// </param>
         /// <param name="name">
@@ -90,13 +90,13 @@ namespace YAF.Core.Model
         /// <param name="isModeratedNewTopicOnly">
         /// The is moderated new topic only.
         /// </param>
-        /// <param name="remoteURL">
+        /// <param name="remoteUrl">
         /// The remote url.
         /// </param>
-        /// <param name="themeURL">
+        /// <param name="themeUrl">
         /// The theme url.
         /// </param>
-        /// <param name="imageURL">
+        /// <param name="imageUrl">
         /// The image url.
         /// </param>
         /// <param name="styles">
@@ -107,9 +107,9 @@ namespace YAF.Core.Model
         /// </returns>
         public static int Save(
             [NotNull] this IRepository<Forum> repository,
-            [CanBeNull] int? forumID,
-            [NotNull] int categoryID,
-            [CanBeNull] int? parentID,
+            [CanBeNull] int? forumId,
+            [NotNull] int categoryId,
+            [CanBeNull] int? parentId,
             [NotNull] string name,
             [NotNull] string description,
             [NotNull] int sortOrder,
@@ -119,16 +119,16 @@ namespace YAF.Core.Model
             [NotNull] bool moderated,
             [CanBeNull] int? moderatedPostCount,
             [NotNull] bool isModeratedNewTopicOnly,
-            [CanBeNull] string remoteURL,
-            [CanBeNull] string themeURL,
-            [CanBeNull] string imageURL,
+            [CanBeNull] string remoteUrl,
+            [CanBeNull] string themeUrl,
+            [CanBeNull] string imageUrl,
             [CanBeNull] string styles)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            if (parentID is 0)
+            if (parentId is 0)
             {
-                parentID = null;
+                parentId = null;
             }
 
             var flags = new ForumFlags
@@ -136,19 +136,19 @@ namespace YAF.Core.Model
                 IsLocked = locked, IsHidden = hidden, IsTest = isTest, IsModerated = moderated
             };
 
-            if (!forumID.HasValue)
+            if (!forumId.HasValue)
             {
                 var newForumId = repository.Insert(
                     new Forum
                     {
-                        ParentID = parentID,
+                        ParentID = parentId,
                         Name = name,
                         Description = description,
                         SortOrder = sortOrder,
-                        CategoryID = categoryID,
-                        RemoteURL = remoteURL,
-                        ThemeURL = themeURL,
-                        ImageURL = imageURL,
+                        CategoryID = categoryId,
+                        RemoteURL = remoteUrl,
+                        ThemeURL = themeUrl,
+                        ImageURL = imageUrl,
                         Styles = styles,
                         Flags = flags.BitValue,
                         ModeratedPostCount = moderatedPostCount,
@@ -163,28 +163,28 @@ namespace YAF.Core.Model
             repository.UpdateOnly(
                 () => new Forum
                 {
-                    ParentID = parentID,
+                    ParentID = parentId,
                     Name = name,
                     Description = description,
                     SortOrder = sortOrder,
-                    CategoryID = categoryID,
-                    RemoteURL = remoteURL,
-                    ThemeURL = themeURL,
-                    ImageURL = imageURL,
+                    CategoryID = categoryId,
+                    RemoteURL = remoteUrl,
+                    ThemeURL = themeUrl,
+                    ImageURL = imageUrl,
                     Styles = styles,
                     Flags = flags.BitValue,
                     ModeratedPostCount = moderatedPostCount,
                     IsModeratedNewTopicOnly = isModeratedNewTopicOnly
                 },
-                f => f.ID == forumID);
+                f => f.ID == forumId);
 
-            repository.FireUpdated(forumID.Value);
+            repository.FireUpdated(forumId.Value);
 
             // empty out access table(s)
             BoardContext.Current.GetRepository<Active>().DeleteAll();
             BoardContext.Current.GetRepository<ActiveAccess>().DeleteAll();
 
-            return forumID.Value;
+            return forumId.Value;
         }
 
         /// <summary>
@@ -337,20 +337,20 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         public static List<ForumSorted> ListAllSorted(
             [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardID,
-            [NotNull] int userID)
+            [NotNull] int boardId,
+            [NotNull] int userId)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.ListAllSorted(boardID, userID, false);
+            return repository.ListAllSorted(boardId, userId, false);
         }
 
         /// <summary>
@@ -359,10 +359,10 @@ namespace YAF.Core.Model
         /// <param name="repository">
         /// The repository.
         /// </param>
-        /// <param name="boardID">
+        /// <param name="boardId">
         /// The board id.
         /// </param>
-        /// <param name="userID">
+        /// <param name="userId">
         /// The user id.
         /// </param>
         /// <param name="emptyFirstRow">
@@ -371,13 +371,13 @@ namespace YAF.Core.Model
         [NotNull]
         public static List<ForumSorted> ListAllSorted(
             [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardID,
-            [NotNull] int userID,
+            [NotNull] int boardId,
+            [NotNull] int userId,
             bool emptyFirstRow)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var list = repository.ListAllWithAccess(boardID, userID);
+            var list = repository.ListAllWithAccess(boardId, userId);
 
             return repository.SortList(list, 0, 0, 0, emptyFirstRow);
         }
@@ -889,7 +889,7 @@ namespace YAF.Core.Model
 
             short sortOrder = 0;
 
-            forums.OrderBy(x => x.Name).ForEach(
+            forums.OrderByDescending(x => x.Name).ForEach(
                 forum =>
                     {
                         repository.UpdateOnly(
