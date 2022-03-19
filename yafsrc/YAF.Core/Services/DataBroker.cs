@@ -317,7 +317,7 @@ namespace YAF.Core.Services
                 }
 
                 // -- Check valid ForumID
-                var forum = this.GetRepository<Forum>().GetById(forumId.Value);
+                var forum = forumId is > 0 ? this.GetRepository<Forum>().GetById(forumId.Value) : null;
 
                 if (forum == null)
                 {
@@ -325,7 +325,7 @@ namespace YAF.Core.Services
                 }
 
                 // -- Check valid CategoryID
-                var category = this.GetRepository<Category>().GetById(categoryId.Value);
+                var category = categoryId is > 0 ? this.GetRepository<Category>().GetById(categoryId.Value) : null;
 
                 if (category == null)
                 {
@@ -333,7 +333,7 @@ namespace YAF.Core.Services
                 }
 
                 // -- Check valid MessageID
-                var message = this.GetRepository<Message>().GetById(messageId.Value);
+                var message = messageId is > 0 ? this.GetRepository<Message>().GetById(messageId.Value) : null;
 
                 if (message == null)
                 {
@@ -341,7 +341,7 @@ namespace YAF.Core.Services
                 }
 
                 // -- Check valid TopicID
-                var topic = this.GetRepository<Topic>().GetById(topicId.Value);
+                var topic = topicId is > 0 ? this.GetRepository<Topic>().GetById(topicId.Value) : null;
 
                 if (topic == null)
                 {
