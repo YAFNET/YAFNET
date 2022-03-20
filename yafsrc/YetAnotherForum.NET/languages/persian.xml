@@ -4480,6 +4480,7 @@
     <Resource tag="EDITEDBY">ویرایش شده بوسیله :</Resource>
     <Resource tag="EDITEDBY_MOD">ویرایش توسط یک ناظر</Resource>
     <Resource tag="EDITEREASON">دلیل ویرایش :</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
     <Resource tag="MESSAGE_EDITEDAT">پیام ویرایش شده در </Resource>
     <Resource tag="MESSAGE_RESTORED">متن با موفقیت بازیابی شد!</Resource>
     <Resource tag="NEW">جدید</Resource>

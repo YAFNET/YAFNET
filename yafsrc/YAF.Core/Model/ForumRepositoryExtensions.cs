@@ -1115,7 +1115,7 @@ namespace YAF.Core.Model
 
                 for (var j = 0; j < currentIndent; j++)
                 {
-                    indent += "-";
+                    indent = "-";
                 }
 
                 // import the row into the destination
@@ -1199,7 +1199,7 @@ namespace YAF.Core.Model
 
                 for (var j = 0; j < currentIndent; j++)
                 {
-                    indent += "-";
+                    indent = "-";
                 }
 
                 // import the row into the destination

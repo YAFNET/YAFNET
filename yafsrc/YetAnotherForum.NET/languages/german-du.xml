@@ -4367,6 +4367,7 @@ Spoiler Content
     <Resource tag="EDITEDBY">Bearbeitet von:</Resource>
     <Resource tag="EDITEDBY_MOD">Bearbeited durch einen Moderator</Resource>
     <Resource tag="EDITEREASON">Bearbeitungsgrund:</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
     <Resource tag="MESSAGE_EDITEDAT">Beitrag editiert am</Resource>
     <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
     <Resource tag="NEW">Neu</Resource>

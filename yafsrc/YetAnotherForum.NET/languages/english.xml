@@ -4246,6 +4246,7 @@
     <Resource tag="EDITEDBY">Edited by</Resource>
     <Resource tag="EDITEREASON">Edit reason</Resource>
     <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
+	  <Resource tag="GOMODERATE">Continue moderate</Resource>
     <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">Original message</Resource>
     <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
