@@ -52,16 +52,6 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   To save Forum ID value.
-        /// </summary>
-        private int forumID;
-
-        /// <summary>
-        ///   To save Message ID value.
-        /// </summary>
-        private int messageID;
-
-        /// <summary>
         ///   To save originalRow value.
         /// </summary>
         private Tuple<Topic, Message, User, Forum> originalMessage;
@@ -102,11 +92,8 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().AccessDenied();
             }
 
-            if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
+            if (this.PageBoardContext.PageMessage != null)
             {
-                this.messageID =
-                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("m"));
-
                 this.ReturnBtn.Visible = true;
             }
 
@@ -118,13 +105,10 @@ namespace YAF.Pages
                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
                 }
 
-                this.forumID =
-                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
-
                 this.ReturnModBtn.Visible = true;
             }
 
-            this.originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.messageID, this.PageBoardContext.PageUserID);
+            this.originalMessage = this.GetRepository<Message>().GetMessageWithAccess(this.PageBoardContext.PageMessage.ID, this.PageBoardContext.PageUserID);
 
             if (this.originalMessage == null)
             {
@@ -136,7 +120,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddForum(this.originalMessage.Item4.ID);
+            this.PageLinks.AddForum(this.originalMessage.Item4);
             this.PageLinks.AddTopic(this.originalMessage.Item1.TopicName, this.originalMessage.Item1.ID);
 
             this.PageLinks.AddLink(this.GetText("TITLE"), string.Empty);
@@ -161,7 +145,7 @@ namespace YAF.Pages
         {
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                new { m = this.messageID, name = this.originalMessage.Item1.TopicName });
+                new { m = this.originalMessage.Item2.ID, name = this.originalMessage.Item1.TopicName });
         }
 
         /// <summary>
@@ -171,7 +155,7 @@ namespace YAF.Pages
         /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
         protected void ReturnModBtn_OnClick([NotNull] object sender, [NotNull] EventArgs e)
         {
-            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new { f = this.forumID });
+            this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_ReportedPosts, new { f = this.originalMessage.Item4.ID });
         }
 
         /// <summary>
@@ -184,12 +168,12 @@ namespace YAF.Pages
             switch (e.CommandName)
             {
                 case "restore":
-                    var currentMessage = this.GetRepository<Message>().GetMessageAsTuple(this.messageID);
+                    var currentMessage = this.GetRepository<Message>().GetMessageAsTuple(this.originalMessage.Item2.ID);
 
                     var edited = e.CommandArgument.ToType<DateTime>();
 
                     var messageToRestore = this.GetRepository<Types.Models.MessageHistory>().GetSingle(
-                        m => m.MessageID == this.messageID && m.Edited == edited);
+                        m => m.MessageID == this.originalMessage.Item2.ID && m.Edited == edited);
 
                     if (messageToRestore != null)
                     {
@@ -238,7 +222,7 @@ namespace YAF.Pages
         {
             // Fill revisions list repeater.
             var revisionsTable = this.GetRepository<Types.Models.MessageHistory>().List(
-                this.messageID,
+                this.PageBoardContext.PageMessage.ID,
                 this.PageBoardContext.BoardSettings.MessageHistoryDaysToLog);
 
             this.RevisionsCount = revisionsTable.Count;

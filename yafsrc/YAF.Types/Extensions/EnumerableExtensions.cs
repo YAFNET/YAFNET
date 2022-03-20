@@ -44,7 +44,7 @@ namespace YAF.Types.Extensions
         /// <summary>
         ///     Iterates through a generic list type
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
+        /// <typeparam name="T">The typed generic list</typeparam>
         /// <param name="list"> </param>
         /// <param name="action"> </param>
         public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
@@ -58,7 +58,9 @@ namespace YAF.Types.Extensions
         /// <summary>
         ///     Iterates through a list with a isFirst flag.
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
+        /// <typeparam name="T">
+        /// The typed generic list
+        /// </typeparam>
         /// <param name="list"> </param>
         /// <param name="action"> </param>
         public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
@@ -79,7 +81,9 @@ namespace YAF.Types.Extensions
         /// <summary>
         ///     Iterates through a list with a index.
         /// </summary>
-        /// <typeparam name="T"> </typeparam>
+        /// <typeparam name="T">
+        /// The typed generic list
+        /// </typeparam>
         /// <param name="list"> </param>
         /// <param name="action"> </param>
         public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
@@ -97,7 +101,9 @@ namespace YAF.Types.Extensions
         ///      name="T" /> is returned, else <paramref name="currentEnumerable" /> is returned.
         /// </summary>
         /// <param name="currentEnumerable"> The current enumerable. </param>
-        /// <typeparam name="T"> </typeparam>
+        /// <typeparam name="T">
+        /// The typed generic list
+        /// </typeparam>
         /// <returns> </returns>
         public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
         {
@@ -134,7 +140,7 @@ namespace YAF.Types.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="source">The source.</param>
         /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
-        static public bool NullOrEmpty<T>(this IEnumerable<T> source)
+        public static bool NullOrEmpty<T>(this IEnumerable<T> source)
         {
             if (source == null)
             {

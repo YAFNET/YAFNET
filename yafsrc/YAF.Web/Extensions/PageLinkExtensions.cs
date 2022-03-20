@@ -30,6 +30,7 @@ namespace YAF.Web.Extensions
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Interfaces;
+    using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Web.Controls;
 
@@ -128,21 +129,25 @@ namespace YAF.Web.Extensions
         /// <summary>
         /// Adds the category.
         /// </summary>
-        /// <param name="pageLinks">The page links.</param>
-        /// <param name="categoryName">Name of the category.</param>
-        /// <param name="categoryId">The category identifier.</param>
-        /// <returns>Returns the Page links including the Category</returns>
+        /// <param name="pageLinks">
+        /// The page links.
+        /// </param>
+        /// <param name="category">
+        /// The category.
+        /// </param>
+        /// <returns>
+        /// Returns the Page links including the Category
+        /// </returns>
         public static PageLinks AddCategory(
             this PageLinks pageLinks,
-            [NotNull] string categoryName,
-            [NotNull] int categoryId)
+            [NotNull] Category category)
         {
             CodeContracts.VerifyNotNull(pageLinks);
-            CodeContracts.VerifyNotNull(categoryName);
+            CodeContracts.VerifyNotNull(category);
 
             pageLinks.AddLink(
-                categoryName,
-                BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(categoryId, categoryName));
+                category.Name,
+                BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(category.ID, category.Name));
 
             return pageLinks;
         }
@@ -150,18 +155,26 @@ namespace YAF.Web.Extensions
         /// <summary>
         /// Adds the forum links.
         /// </summary>
-        /// <param name="pageLinks">The page links.</param>
-        /// <param name="forumId">The forum id.</param>
-        /// <param name="noForumLink">The no forum link.</param>
-        /// <returns>Returns the page links</returns>
-        public static PageLinks AddForum(this PageLinks pageLinks, int forumId, bool noForumLink = false)
+        /// <param name="pageLinks">
+        /// The page links.
+        /// </param>
+        /// <param name="forum">
+        /// The forum.
+        /// </param>
+        /// <param name="noForumLink">
+        /// The no forum link.
+        /// </param>
+        /// <returns>
+        /// Returns the page links
+        /// </returns>
+        public static PageLinks AddForum(this PageLinks pageLinks, Forum forum, bool noForumLink = false)
         {
             CodeContracts.VerifyNotNull(pageLinks);
 
-            if (BoardContext.Current.PageParentForumID.HasValue)
+            if (forum.ParentID.HasValue)
             {
                 var parent = BoardContext.Current.GetRepository<Forum>()
-                    .GetById(BoardContext.Current.PageParentForumID.Value);
+                    .GetById(forum.ParentID.Value);
 
                 if (parent != null)
                 {
@@ -171,14 +184,14 @@ namespace YAF.Web.Extensions
                 }
             }
 
-            if (BoardContext.Current.PageForumID == forumId)
+            if (BoardContext.Current.PageForumID == forum.ID)
             {
                 pageLinks.AddLink(
                     BoardContext.Current.PageForum.Name,
                     noForumLink
                         ? string.Empty
                         : BoardContext.Current.Get<LinkBuilder>().GetForumLink(
-                            forumId,
+                            forum.ID,
                             BoardContext.Current.PageForum.Name));
             }
 

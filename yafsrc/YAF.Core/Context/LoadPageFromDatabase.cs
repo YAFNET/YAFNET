@@ -112,7 +112,7 @@ namespace YAF.Core.Context
             }
 
             var tries = 0;
-            Tuple<PageLoad, User, Category, Forum, Topic> pageRow;
+            Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
 
             var location = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("u");
 

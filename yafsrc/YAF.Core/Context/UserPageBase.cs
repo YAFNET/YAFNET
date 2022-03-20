@@ -48,7 +48,7 @@ namespace YAF.Core.Context
         /// <summary>
         /// The page
         /// </summary>
-        private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic>, UserLazyData, PageQueryData> page;
+        private Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> page;
 
         #endregion
 
@@ -163,7 +163,7 @@ namespace YAF.Core.Context
         /// <summary>
         ///   Gets or sets Page.
         /// </summary>
-        public virtual Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic>, UserLazyData, PageQueryData> PageData
+        public virtual Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> PageData
         {
             get
             {
@@ -217,30 +217,9 @@ namespace YAF.Core.Context
         public Category PageCategory => this.PageData.Item2.Item3;
 
         /// <summary>
-        ///   Gets the Parent ForumID for the current page, or 0 if not in any forum
-        /// </summary>
-        public int? PageParentForumID
-        {
-            get
-            {
-                var isLockedForum = BoardContext.Current.Settings.LockedForum;
-
-                return isLockedForum != 0 ? isLockedForum : this.PageData.Item2.Item4.ParentID;
-            }
-        }
-
-        /// <summary>
         ///   Gets the ForumID for the current page, or 0 if not in any forum
         /// </summary>
-        public int PageForumID
-        {
-            get
-            {
-                var isLockedForum = BoardContext.Current.Settings.LockedForum;
-
-                return isLockedForum != 0 ? isLockedForum : this.PageData.Item4.ForumID;
-            }
-        }
+        public int PageForumID => this.PageData.Item4.ForumID;
 
         /// <summary>
         ///   Gets the Name of forum for the current page, or an empty string if not in any forum
@@ -256,6 +235,11 @@ namespace YAF.Core.Context
         ///   Gets the Name of topic for the current page, or an empty string if not in any topic
         /// </summary>
         public Topic PageTopic => this.PageData.Item2.Item5;
+
+        /// <summary>
+        /// The page message if exist and in the page query
+        /// </summary>
+        public Message PageMessage => this.PageData.Item2.Item6;
 
         /// <summary>
         ///   Gets the UserID of the current user.

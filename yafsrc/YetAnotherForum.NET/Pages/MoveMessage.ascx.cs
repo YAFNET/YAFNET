@@ -191,8 +191,8 @@ namespace YAF.Pages
         protected override void CreatePageLinks()
         {
             this.PageLinks.AddRoot();
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
-            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
             this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopicID);
 
             this.PageLinks.AddLink(this.GetText("MOVE_MESSAGE"));

@@ -172,8 +172,7 @@ namespace YAF.Pages
         {
             this.Get<ISession>().UnreadTopics = 0;
 
-            this.ForumJumpHolder.Visible = this.PageBoardContext.BoardSettings.ShowForumJump
-                                           && this.PageBoardContext.Settings.LockedForum == 0;
+            this.ForumJumpHolder.Visible = this.PageBoardContext.BoardSettings.ShowForumJump;
 
             this.ForumSearchHolder.Visible =
                 this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.SearchPermissions);
@@ -273,13 +272,10 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            if (this.PageBoardContext.Settings.LockedForum == 0)
-            {
-                this.PageLinks.AddRoot();
-                this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
-            }
+            this.PageLinks.AddRoot();
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-            this.PageLinks.AddForum(this.PageBoardContext.PageForumID, true);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForum, true);
         }
 
         /// <summary>

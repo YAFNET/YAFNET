@@ -62,7 +62,7 @@ namespace YAF.Types.EventProxies
         /// Gets or sets the page load data.
         /// </summary>
         /// <value>The page load data.</value>
-        public Tuple<PageLoad, User, Category, Forum, Topic> PageLoadData { get; set; }
+        public Tuple<PageLoad, User, Category, Forum, Topic, Message> PageLoadData { get; set; }
 
         public PageQueryData PageQueryData { get; set; }
 
@@ -75,7 +75,7 @@ namespace YAF.Types.EventProxies
         /// <summary>
         /// The page data.
         /// </summary>
-        public Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic>, UserLazyData, PageQueryData> PageData =>
+        public Tuple<UserRequestData, Tuple<PageLoad, User, Category, Forum, Topic, Message>, UserLazyData, PageQueryData> PageData =>
             new(
                 this.UserRequestData,
                 this.PageLoadData,

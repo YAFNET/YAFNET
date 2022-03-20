@@ -64,7 +64,6 @@ namespace YAF.Core.Services.Migrations
         /// <param name="dbCommand">The database command.</param>
         private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-
             if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
             {
                 var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();

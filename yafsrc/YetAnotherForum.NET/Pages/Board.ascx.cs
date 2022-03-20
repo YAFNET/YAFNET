@@ -77,11 +77,6 @@ namespace YAF.Pages
                 return;
             }
 
-            if (this.PageBoardContext.Settings.LockedForum != 0)
-            {
-                return;
-            }
-
             if (this.PageBoardContext.PageCategoryID == 0)
             {
                 return;
@@ -102,7 +97,7 @@ namespace YAF.Pages
                 return;
             }
 
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
         }
 
         /// <summary>

@@ -36,8 +36,6 @@ namespace YAF.Configuration
         /// </summary>
         public ControlSettings()
         {
-            this.LockedForum = 0;
-
             this.CategoryID = Config.CategoryID;
 
             this.BoardID = Config.BoardID;
@@ -52,10 +50,5 @@ namespace YAF.Configuration
         /// Gets or sets CategoryID.
         /// </summary>
         public int CategoryID { get; set; }
-
-        /// <summary>
-        /// Gets or sets LockedForum.
-        /// </summary>
-        public int LockedForum { get; set; }
     }
 }

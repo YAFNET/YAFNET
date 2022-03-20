@@ -390,18 +390,22 @@ namespace YAF.Core.Extensions
         /// <param name="id">
         /// The id.
         /// </param>
+        /// <param name="includeReference">
+        /// Load References.
+        /// </param>
         /// <typeparam name="T">
         /// The type parameter.
         /// </typeparam>
         /// <returns>
         /// The <see cref="T"/> .
         /// </returns>
-        public static T GetById<T>([NotNull] this IRepository<T> repository, int id)
+        public static T GetById<T>([NotNull] this IRepository<T> repository, int id, bool includeReference = false)
             where T : IEntity, IHaveID, new()
         {
             CodeContracts.VerifyNotNull(repository);
 
-            return repository.DbAccess.Execute(db => db.Connection.SingleById<T>(id));
+            return repository.DbAccess.Execute(
+                db => includeReference ? db.Connection.LoadSingleById<T>(id) : db.Connection.SingleById<T>(id));
         }
 
         /// <summary>

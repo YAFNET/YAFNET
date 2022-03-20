@@ -104,14 +104,11 @@ namespace YAF.Pages
         /// </summary>
         protected override void CreatePageLinks()
         {
-            if (this.PageBoardContext.Settings.LockedForum == 0)
-            {
-                this.PageLinks.AddRoot();
+            this.PageLinks.AddRoot();
 
-                this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
-            }
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name);
 
-            this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
+            this.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
             this.PageLinks.AddLink(
                 this.PageBoardContext.PageTopic.TopicName,

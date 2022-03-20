@@ -53,19 +53,9 @@ namespace YAF.Pages
         #region Constants and Fields
 
         /// <summary>
-        ///   Table with choices
-        /// </summary>
-        private Topic topicInfo;
-
-        /// <summary>
         /// The topic unapproved.
         /// </summary>
         private bool topicUnapproved;
-
-        /// <summary>
-        /// The forum id.
-        /// </summary>
-        private int forumId;
 
         #endregion
 
@@ -195,7 +185,7 @@ namespace YAF.Pages
         /// </summary>
         private void CheckAccess()
         {
-            if (this.forumId > 0 && !this.PageBoardContext.ForumPollAccess)
+            if (this.PageBoardContext.PageForumID > 0 && !this.PageBoardContext.ForumPollAccess)
             {
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
@@ -280,7 +270,7 @@ namespace YAF.Pages
                 });
 
             // Attach Poll to topic
-            this.GetRepository<Topic>().AttachPoll(this.topicInfo.ID, newPollId);
+            this.GetRepository<Topic>().AttachPoll(this.PageBoardContext.PageTopicID, newPollId);
 
             return true;
         }
@@ -391,26 +381,13 @@ namespace YAF.Pages
             if (this.Get<HttpRequestBase>().QueryString.Exists("f"))
             {
                 this.topicUnapproved = true;
-
-                this.forumId =
-                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("f"));
             }
 
             if (this.Get<HttpRequestBase>().QueryString.Exists("t"))
             {
-                var topicId =
-                    this.Get<LinkBuilder>().StringToIntOrRedirect(this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("t"));
-                this.topicInfo = this.GetRepository<Topic>().GetById(topicId);
+                this.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
-                if (this.forumId > 0)
-                {
-                    this.PageLinks.AddForum(this.forumId);
-                }
-
-                if (this.topicInfo != null)
-                {
-                    this.PageLinks.AddTopic(this.topicInfo.TopicName, this.topicInfo.ID);
-                }
+                this.PageLinks.AddTopic(this.PageBoardContext.PageTopic.TopicName, this.PageBoardContext.PageTopic.ID);
             }
 
             // Check if the user has the page access and variables are correct.
@@ -450,7 +427,7 @@ namespace YAF.Pages
                 this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Moderated);
             }
 
-            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.topicInfo.ID, name = this.topicInfo.TopicName });
+            this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = this.PageBoardContext.PageTopic.ID, name = this.PageBoardContext.PageTopic.TopicName });
         }
 
         /// <summary>
@@ -461,7 +438,7 @@ namespace YAF.Pages
         /// </returns>
         private bool CanCreatePoll()
         {
-            if (this.topicInfo != null)
+            if (this.PageBoardContext.PageTopic != null)
             {
                 return true;
             }

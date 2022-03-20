@@ -216,7 +216,7 @@ namespace YAF.Core.Services
         /// <returns>
         /// The <see cref="PageLoad"/>.
         /// </returns>
-        public Tuple<PageLoad, User, Category, Forum, Topic> GetPageLoad(
+        public Tuple<PageLoad, User, Category, Forum, Topic, Message> GetPageLoad(
             [NotNull] string sessionId,
             [NotNull] int boardId,
             [CanBeNull] string userKey,
@@ -333,20 +333,19 @@ namespace YAF.Core.Services
                 }
 
                 // -- Check valid MessageID
-                var message = messageId is > 0 ? this.GetRepository<Message>().GetById(messageId.Value) : null;
-
-                if (message == null)
+                if (messageId is 0)
                 {
                     messageId = null;
                 }
 
                 // -- Check valid TopicID
-                var topic = topicId is > 0 ? this.GetRepository<Topic>().GetById(topicId.Value) : null;
-
-                if (topic == null)
+                if (topicId is 0)
                 {
                     topicId = null;
                 }
+
+                Topic topic = null;
+                Message message = null;
 
                 // -- find missing ForumID/TopicID
                 if (messageId.HasValue && (!forumId.HasValue || !categoryId.HasValue || !topicId.HasValue))
@@ -360,6 +359,8 @@ namespace YAF.Core.Services
 
                     var result = this.GetRepository<ActiveAccess>().DbAccess.Execute(
                         db => db.Connection.SelectMulti<Message, Topic, Forum, Category>(expression)).FirstOrDefault();
+
+                    message = result.Item1;
 
                     categoryId = result.Item3.CategoryID;
                     category = result.Item4;
@@ -389,6 +390,8 @@ namespace YAF.Core.Services
 
                     forumId = result.Item1.ForumID;
                     forum = result.Item2;
+
+                    topic = result.Item1;
                 }
 
                 if (forumId.HasValue && !categoryId.HasValue)
@@ -610,7 +613,7 @@ namespace YAF.Core.Services
                         return db.Connection.Single<PageLoad>(expression);
                     });
 
-                return Tuple.Create(pageLoad, currentUser, category, forum, topic);
+                return Tuple.Create(pageLoad, currentUser, category, forum, topic, message);
             }
         }
 

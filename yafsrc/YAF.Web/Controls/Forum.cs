@@ -138,16 +138,6 @@ namespace YAF.Web.Controls
         public Control Header { get; set; }
 
         /// <summary>
-        ///   Gets or sets LockedForum.
-        /// </summary>
-        public int LockedForum
-        {
-            get => this.Get<ControlSettings>().LockedForum;
-
-            set => this.Get<ControlSettings>().LockedForum = value;
-        }
-
-        /// <summary>
         ///   Gets ServiceLocator.
         /// </summary>
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
@@ -286,10 +276,7 @@ namespace YAF.Web.Controls
             BoardContext.Current.CurrentForumPage = this.currentForumPage;
 
             // add the header control before the page rendering...
-            if (BoardContext.Current.Settings.LockedForum == 0)
-            {
-                this.Controls.AddAt(1, this.Header);
-            }
+            this.Controls.AddAt(1, this.Header);
 
             // Add the LoginBox to Control, if used and User is Guest
             if (BoardContext.Current.IsGuest && !Config.IsAnyPortal && Config.AllowLoginAndLogoff && !this.page.IsAccountPage)
@@ -300,10 +287,7 @@ namespace YAF.Web.Controls
             this.Controls.Add(this.currentForumPage);
 
             // add the footer control after the page...
-            if (BoardContext.Current.Settings.LockedForum == 0)
-            {
-                this.Controls.Add(this.Footer);
-            }
+            this.Controls.Add(this.Footer);
 
             // Add image gallery dialog
             this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/ImageGallery.ascx"));

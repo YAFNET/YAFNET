@@ -325,13 +325,10 @@ namespace YAF.Pages
                     this.tr_captcha2.Visible = true;
                 }
 
-                if (this.PageBoardContext.Settings.LockedForum == 0)
-                {
-                    this.PageLinks.AddRoot();
-                    this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name, this.PageBoardContext.PageCategoryID);
-                }
+                this.PageLinks.AddRoot();
+                this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
-                this.PageLinks.AddForum(this.PageBoardContext.PageForumID);
+                this.PageLinks.AddForum(this.PageBoardContext.PageForum);
 
                 // editing a message...
                 this.InitEditedPost(this.editedMessage);
