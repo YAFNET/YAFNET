@@ -403,10 +403,10 @@ namespace YAF.Core.Services
                         .Execute(db => db.Connection.Single<Category>(expression));
                 }
 
-                var accessList = this.GetRepository<vaccess>().Get(x => x.UserID == userId);
-
                 if (!this.GetRepository<ActiveAccess>().Exists(a => a.UserID == userId))
                 {
+                    var accessList = this.GetRepository<vaccess>().Get(x => x.UserID == userId);
+
                     accessList.ForEach(
                         access => this.GetRepository<ActiveAccess>().Insert(
                             new ActiveAccess
