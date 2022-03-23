@@ -896,21 +896,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets the Guest User
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The board Id.
-        /// </param>
-        /// <returns>
-        /// Returns the Guest User Id
-        /// </returns>
-        public static User GetGuestUser(this IRepository<User> repository, [NotNull] int boardId) =>
-            repository.GetSingle(u => u.BoardID == boardId && (u.Flags & 4) == 4);
-
-        /// <summary>
         /// To return a rather rarely updated active user data
         /// </summary>
         /// <param name="repository">

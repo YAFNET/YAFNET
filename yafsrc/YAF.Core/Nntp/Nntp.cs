@@ -34,6 +34,7 @@ namespace YAF.Core.Nntp
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Interfaces.Services;
     using YAF.Types.Models;
     using YAF.Types.Objects.Nntp;
@@ -137,7 +138,7 @@ namespace YAF.Core.Nntp
                 return 0;
             }
 
-            var guestUser = BoardContext.Current.GetRepository<User>().GetGuestUser(boardId); // Use guests user-id
+            var guestUser = BoardContext.Current.Get<IAspNetUsersHelper>().GuestUser(boardId); // Use guests user-id
 
             var dateTimeStart = DateTime.UtcNow;
             var articleCount = 0;

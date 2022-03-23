@@ -38,7 +38,9 @@ namespace YAF.Core.Services
     using YAF.Core.Model;
     using YAF.Types;
     using YAF.Types.Constants;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
+    using YAF.Types.Interfaces.Identity;
     using YAF.Types.Models;
     using YAF.Types.Objects;
     using YAF.Types.Objects.Model;
@@ -241,24 +243,11 @@ namespace YAF.Core.Services
                 var activeUpdate = false;
 
                 // -- set IsActiveNow ActiveFlag - it's a default
-                var activeFlags = 1;
+                var activeFlags = new ActiveFlags {IsActiveNow = true};
 
                 // -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
-                var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
-
-                var guestUser = guest.FirstOrDefault();
-
-                if (guest == null)
-                {
-                    throw new ApplicationException($"No candidates for a guest were found for the board {boardId}.");
-                }
-
-                if (guest.Count > 1)
-                {
-                    throw new ApplicationException(
-                        $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
-                }
-
+                var guestUser = this.Get<IAspNetUsersHelper>().GuestUser(boardId);
+                
                 if (userKey == null)
                 {
                     currentUser = guestUser;
@@ -269,13 +258,13 @@ namespace YAF.Core.Services
                     isGuest = true;
 
                     // -- set IsGuest ActiveFlag  1 | 2
-                    activeFlags = 3;
+                    activeFlags.IsGuest = true;
 
                     // -- crawlers are always guests
                     if (isCrawler)
                     {
                         // -- set IsCrawler ActiveFlag
-                        activeFlags |= 8;
+                        activeFlags.IsCrawler = true;
                     }
                 }
                 else
@@ -293,7 +282,7 @@ namespace YAF.Core.Services
                         isCrawler = false;
 
                         // -- set IsRegistered ActiveFlag
-                        activeFlags |= 4;
+                        activeFlags.IsRegistered = true;
                     }
                     else
                     {
@@ -311,7 +300,7 @@ namespace YAF.Core.Services
                         if (isCrawler)
                         {
                             // -- set IsCrawler ActiveFlag
-                            activeFlags |= 8;
+                            activeFlags.IsCrawler = true;
                         }
                     }
                 }
@@ -406,48 +395,35 @@ namespace YAF.Core.Services
                         .Execute(db => db.Connection.Single<Category>(expression));
                 }
 
-                if (!this.GetRepository<ActiveAccess>().Exists(a => a.UserID == userId))
-                {
-                    var accessList = this.GetRepository<vaccess>().Get(x => x.UserID == userId);
-
-                    accessList.ForEach(
-                        access => this.GetRepository<ActiveAccess>().Insert(
-                            new ActiveAccess
-                            {
-                                UserID = userId,
-                                BoardID = boardId,
-                                ForumID = access.ForumID,
-                                IsAdmin = access.IsAdmin > 0,
-                                IsForumModerator = access.IsForumModerator > 0,
-                                IsModerator = access.IsModerator > 0,
-                                IsGuestX = isGuest,
-                                LastActive = DateTime.UtcNow,
-                                ReadAccess = access.ReadAccess > 0,
-                                PostAccess = access.PostAccess > 0,
-                                ReplyAccess = access.ReplyAccess > 0,
-                                PriorityAccess = access.PriorityAccess > 0,
-                                PollAccess = access.PollAccess > 0,
-                                VoteAccess = access.VoteAccess > 0,
-                                ModeratorAccess = access.ModeratorAccess > 0,
-                                EditAccess = access.EditAccess > 0,
-                                DeleteAccess = access.DeleteAccess > 0
-                            }));
-                }
-
-                var idForum2 = forumId ?? 0;
-
-                if (this.GetRepository<ActiveAccess>().Exists(
-                    x => x.UserID == userId && x.ForumID == idForum2 && idForum2 == 0 || x.ReadAccess))
-                {
-                    // -- verify that there's not the sane session for other board and drop it if required. Test code for portals with many boards
-                    this.GetRepository<Active>().Delete(
-                        x => x.SessionID == sessionId && (x.BoardID != boardId || x.UserID != userId));
-
-                    // -- get previous visit
-                    if (!isGuest)
+                this.GetRepository<ActiveAccess>().DbAccess.Execute(db =>
                     {
-                        previousVisit = currentUser.LastVisit;
+                        var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
+                        var test = expression.DialectProvider.Variables["{SYSTEM_UTC}"];
+
+                        // -- update active access
+                        // -- ensure that access right are in place
+                        return db.Connection.ExecuteSql(
+                            $@" if not exists (select top 1 UserID from {expression.Table<ActiveAccess>()} where UserID = {userId} )
+                                  begin
+                                    insert into {expression.Table<ActiveAccess>()} (
+                                           UserID,BoardID,ForumID,IsAdmin,IsForumModerator,IsModerator,IsGuestX,LastActive,
+                                           ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess 
+                                     )
+                                    select
+                                           UserID,{boardId},ForumID,IsAdmin,IsForumModerator,IsModerator,{expression.DialectProvider.GetQuotedValue(isGuest, typeof(bool))},{test},
+                                           ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess
+                                    from {expression.Table<vaccess>()} where UserID = {userId}
+                                  end");
+                    });
+
+                // -- get previous visit
+                if (!isGuest)
+                {
+                    previousVisit = currentUser.LastVisit;
+
+                    if (forumId is null or 0)
+                    {
                         // -- update last visit
                         this.GetRepository<User>().UpdateOnly(
                             () => new User { LastVisit = DateTime.UtcNow, IP = ip },
@@ -476,7 +452,7 @@ namespace YAF.Core.Services
                                     Browser = browser,
                                     Platform = platform,
                                     ForumPage = forumPage,
-                                    Flags = activeFlags
+                                    Flags = activeFlags.BitValue
                                 },
                                 a => a.SessionID == sessionId && a.BoardID == boardId);
                         }
@@ -495,7 +471,7 @@ namespace YAF.Core.Services
                                     Browser = browser,
                                     Platform = platform,
                                     ForumPage = forumPage,
-                                    Flags = activeFlags
+                                    Flags = activeFlags.BitValue
                                 },
                                 a => a.Browser == browser && a.IP == ip && a.BoardID == boardId);
                         }
@@ -517,7 +493,7 @@ namespace YAF.Core.Services
                                 TopicID = topicId,
                                 Browser = browser,
                                 Platform = platform,
-                                Flags = activeFlags
+                                Flags = activeFlags.BitValue
                             });
 
                         // -- update max user stats

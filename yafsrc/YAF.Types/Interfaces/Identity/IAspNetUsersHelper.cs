@@ -42,23 +42,26 @@ namespace YAF.Types.Interfaces.Identity
     public interface IAspNetUsersHelper
     {
         /// <summary>
-        /// Gets the guest user id for the current board.
-        /// </summary>
-        /// <exception cref="NoValidGuestUserForBoardException">No Valid Guest User Exception</exception>
-        int GuestUserId { get; }
-
-        /// <summary>
-        /// Gets the Username of the Guest user for the current board.
-        /// </summary>
-        string GuestUserName { get; }
-
-        /// <summary>
         /// Gets the users.
         /// </summary>
         IQueryable<AspNetUsers> Users { get; }
 
         /// <summary>Gets the hash/verify passwords</summary>
         IPasswordHasher IPasswordHasher { get; }
+
+        /// <summary>
+        /// Gets the guest user for the current board.
+        /// </summary>
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <exception cref="NoValidGuestUserForBoardException">
+        /// No Valid Guest User Exception
+        /// </exception>
+        /// <returns>
+        /// The <see cref="User"/>.
+        /// </returns>
+        User GuestUser(int boardId);
 
         /// <summary>
         /// For the admin function: approve all users. Approves all

@@ -92,40 +92,45 @@ namespace YAF.Core.Helpers
         public IPasswordHasher IPasswordHasher => this.Get<AspNetUsersManager>().PasswordHasher;
 
         /// <summary>
-        /// Gets the guest user id for the current board.
+        /// Gets the guest user for the current board.
         /// </summary>
-        /// <exception cref="NoValidGuestUserForBoardException">No Valid Guest User Exception</exception>
-        public int GuestUserId
+        /// <param name="boardId">
+        /// The board Id.
+        /// </param>
+        /// <exception cref="NoValidGuestUserForBoardException">
+        /// No Valid Guest User Exception
+        /// </exception>
+        /// <returns>
+        /// The <see cref="User"/>.
+        /// </returns>
+        public User GuestUser (int boardId)
         {
-            get
-            {
-                var guestUserID = this.Get<IDataCache>().GetOrSet(
-                    Constants.Cache.GuestUserID,
+            
+                var guestUser = this.Get<IDataCache>().GetOrSet(
+                    Constants.Cache.GuestUser,
                     () =>
                     {
-                        // get the guest user for this board...
-                        var guestUser = this.GetRepository<User>().GetGuestUser(BoardContext.Current.PageBoardID);
+                        var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
 
-                        if (guestUser == null)
+                        var guestUser = guest.FirstOrDefault();
+
+                        if (guest == null)
                         {
-                            // failure...
-                            throw new NoValidGuestUserForBoardException(
-                                $@"Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}. 
-                                          You might have deleted the guest group or removed the guest user.");
+                            throw new ApplicationException($"No candidates for a guest were found for the board {boardId}.");
                         }
 
-                        return guestUser.ID;
+                        if (guest.Count > 1)
+                        {
+                            throw new ApplicationException(
+                                $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
+                        }
+
+                        return guestUser;
                     });
 
-                return guestUserID;
-            }
+                return guestUser;
+            //}
         }
-
-        /// <summary>
-        /// Gets the Username of the Guest user for the current board.
-        /// </summary>
-        public string GuestUserName =>
-            this.GetRepository<User>().GetById(BoardContext.Current.GuestUserID).Name;
 
         #endregion
 

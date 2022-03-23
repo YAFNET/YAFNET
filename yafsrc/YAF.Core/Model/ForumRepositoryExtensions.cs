@@ -180,10 +180,6 @@ namespace YAF.Core.Model
 
             repository.FireUpdated(forumId.Value);
 
-            // empty out access table(s)
-            BoardContext.Current.GetRepository<Active>().DeleteAll();
-            BoardContext.Current.GetRepository<ActiveAccess>().DeleteAll();
-
             return forumId.Value;
         }
 
@@ -324,7 +320,8 @@ namespace YAF.Core.Model
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Where<Forum, Category>(
-                    (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId);
+                    (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId
+                                         && forum.ParentID == null);
 
             var list = repository.DbAccess.Execute(db => db.Connection.Select(expression));
 
@@ -457,6 +454,13 @@ namespace YAF.Core.Model
                         .Where<Forum, Category, ActiveAccess>(
                             (forum, category, x) => category.BoardID == boardId && x.UserID == userId && x.ReadAccess);
 
+                    // -- count sub-forums
+                    var countSubForumsExpression = db.Connection.From<Forum>(db.Connection.TableAlias("sub"));
+
+                    countSubForumsExpression.Where(
+                        $@"sub.{countSubForumsExpression.Column<Forum>(x => x.ParentID)}={expression.Column<Forum>(x => x.ID, true)}");
+                    var countSubForumsSql = countSubForumsExpression.Select(Sql.Count("1")).ToSelectStatement();
+
                     if (categoryId.HasValue)
                     {
                         expression.And<Category>(a => a.ID == categoryId.Value);
@@ -501,6 +505,7 @@ namespace YAF.Core.Model
                             Style = lastUser.UserStyle,
                             LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
                             LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
+                            SubForums = Sql.Custom($"({countSubForumsSql})"),
                         });
 
                     return db.Connection.Select<ForumRead>(expression);
@@ -662,30 +667,6 @@ namespace YAF.Core.Model
             BoardContext.Current.GetRepository<Forum>().Delete(x => x.ID == oldForumId);
 
             return true;
-        }
-
-        /// <summary>
-        /// Gets all Forums sorted by category
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="forums">
-        /// List of Forums to be Sorted
-        /// </param>
-        /// <returns>
-        /// The <see cref="List"/>.
-        /// </returns>
-        public static List<Forum> GetByCategorySorted(this IRepository<Forum> repository, [NotNull] List<Forum> forums)
-        {
-            CodeContracts.VerifyNotNull(repository);
-            CodeContracts.VerifyNotNull(forums);
-
-            var forumsSorted = new List<Forum>();
-
-            ForumListSortBasic(forums, forumsSorted, 0, 0);
-
-            return forumsSorted;
         }
 
         /// <summary>
@@ -1272,51 +1253,6 @@ namespace YAF.Core.Model
 
                     // recurse through the list...
                     repository.SortListRecursive(listSource, listDestination, forum.ID, currentIndent + 1);
-                });
-        }
-
-        /// <summary>
-        /// Basic Sorting for the Forum List
-        /// </summary>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="list">
-        /// The list.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent Id.
-        /// </param>
-        /// <param name="currentLevel">
-        /// The current level.
-        /// </param>
-        private static void ForumListSortBasic(
-            [NotNull] List<Forum> listSource,
-            [NotNull] ICollection<Forum> list,
-            [NotNull] int parentId,
-            [NotNull] int currentLevel)
-        {
-            listSource.ForEach(
-                row =>
-                {
-                    row.ParentID ??= 0;
-
-                    if (row.ParentID != parentId)
-                    {
-                        return;
-                    }
-
-                    var indent = string.Empty;
-                    var intentIndex = currentLevel.ToType<int>();
-
-                    for (var j = 0; j < intentIndex; j++)
-                    {
-                        indent += "--";
-                    }
-
-                    row.Name = $" -{indent} {row.Name}";
-                    list.Add(row);
-                    ForumListSortBasic(listSource, list, row.ID, currentLevel + 1);
                 });
         }
     }

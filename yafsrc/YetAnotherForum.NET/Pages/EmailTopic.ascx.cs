@@ -106,7 +106,7 @@ namespace YAF.Pages
         {
             this.PageLinks.AddRoot();
 
-            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory.Name);
+            this.PageLinks.AddCategory(this.PageBoardContext.PageCategory);
 
             this.PageLinks.AddForum(this.PageBoardContext.PageForum);
 

@@ -195,31 +195,9 @@ namespace YAF.Types.Interfaces.Identity
         void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user);
 
         /// <summary>
-        /// Goes through every membership user and manually "syncs" them to the forum.
-        ///   Best for an existing membership structure -- will migrate all users at once
-        ///   rather then one at a time...
-        /// </summary>
-        /// <param name="pageBoardId">
-        /// The page Board Id.
-        /// </param>
-        void SyncAllMembershipUsers(int pageBoardId);
-
-        /// <summary>
         /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
         /// </summary>
         /// <param name="pageBoardID">The page board ID.</param>
         void SyncRoles(int pageBoardID);
-
-        /// <summary>
-        /// Updates the information in the YAF DB from the ASP.NET Membership user information.
-        /// Called once per session for a user to sync up the data
-        /// </summary>
-        /// <param name="user">Current Membership User</param>
-        /// <param name="pageBoardID">Current BoardID</param>
-        /// <param name="roles">The DNN user roles.</param>
-        /// <returns>
-        /// The update forum user.
-        /// </returns>
-        int? UpdateForumUser([NotNull] AspNetUsers user, int pageBoardID, string[] roles = null);
     }
 }

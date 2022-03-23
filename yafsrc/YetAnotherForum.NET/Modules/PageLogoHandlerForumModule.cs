@@ -27,6 +27,7 @@ namespace YAF.Modules
 
     using System;
     using System.Runtime.InteropServices;
+    using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
 
@@ -94,7 +95,7 @@ namespace YAF.Modules
             var image = new HtmlImage
             {
                 Alt = "board logo",
-                Src = logoUrl,
+                Src = logoUrl
             };
 
             image.Attributes["class"] = "my-3";

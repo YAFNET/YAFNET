@@ -184,17 +184,15 @@ namespace YAF.Pages.Admin
             var themeButtonDelete = e.Item.FindControlAs<ThemeButton>("ThemeButtonDelete");
             var themeButton2 = e.Item.FindControlAs<ThemeButton>("ThemeButton2");
 
-            var forumsSorted = this.GetRepository<Forum>().GetByCategorySorted(forums);
+            themeButtonDelete.Visible = themeButton2.Visible = !forums.Any();
 
-            themeButtonDelete.Visible = themeButton2.Visible = !forumsSorted.Any();
-
-            if (!forumsSorted.Any())
+            if (!forums.Any())
             {
                 return;
             }
 
             var forumRepeater = e.Item.FindControlAs<Repeater>("ForumList");
-            forumRepeater.DataSource = forumsSorted;
+            forumRepeater.DataSource = forums;
             forumRepeater.DataBind();
         }
 

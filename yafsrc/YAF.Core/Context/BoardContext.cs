@@ -27,7 +27,6 @@ namespace YAF.Core.Context
     #region Using
 
     using System;
-    using System.Web;
 
     using Autofac;
 
@@ -247,14 +246,6 @@ namespace YAF.Core.Context
             }
 
             this.BeforeInit?.Invoke(this, EventArgs.Empty);
-
-            if (this.MembershipUser != null && (this.Get<HttpSessionStateBase>()["UserUpdated"] is null
-                                      || this.Get<HttpSessionStateBase>()["UserUpdated"].ToString()
-                                      != this.MembershipUser.UserName))
-            {
-                this.Get<IAspNetRolesHelper>().UpdateForumUser(this.MembershipUser, this.PageBoardID);
-                this.Get<HttpSessionStateBase>()["UserUpdated"] = this.MembershipUser.UserName;
-            }
 
             var pageLoadEvent = new InitPageLoadEvent();
 

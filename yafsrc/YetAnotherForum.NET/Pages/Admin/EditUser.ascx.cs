@@ -139,12 +139,6 @@ namespace YAF.Pages.Admin
             // current page label (no link)
             this.PageLinks.AddLink(header, string.Empty);
 
-            // update if the user is not Guest
-            if (!this.EditBoardUser.Item1.UserFlags.IsGuest)
-            {
-                this.Get<IAspNetRolesHelper>().UpdateForumUser(this.EditBoardUser.Item2, this.PageBoardContext.PageBoardID);
-            }
-
             this.EditUserTabs.DataBind();
         }
 

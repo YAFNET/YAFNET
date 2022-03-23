@@ -57,7 +57,7 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            repository.Upsert(
+            var newId = repository.Upsert(
                 new AccessMask
                     {
                         BoardID = boardId ?? repository.BoardID,
@@ -67,9 +67,14 @@ namespace YAF.Core.Model
                         SortOrder = sortOrder
                     });
 
-            // empty out access table(s)
-            BoardContext.Current.GetRepository<Active>().DeleteAll();
-            BoardContext.Current.GetRepository<ActiveAccess>().DeleteAll();
+            if (accessMaskId.HasValue)
+            {
+                repository.FireUpdated(accessMaskId.Value);
+            }
+            else
+            {
+                repository.FireNew(newId);
+            }
         }
 
         #endregion

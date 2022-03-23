@@ -29,13 +29,11 @@ namespace YAF.Core.Helpers
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
 
     using YAF.Configuration;
     using YAF.Core.Extensions;
     using YAF.Core.Model;
     using YAF.Types;
-    using YAF.Types.Constants;
     using YAF.Types.EventProxies;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -331,23 +329,6 @@ namespace YAF.Core.Helpers
         }
 
         /// <summary>
-        /// Goes through every membership user and manually "syncs" them to the forum.
-        ///   Best for an existing membership structure -- will migrate all users at once
-        ///   rather then one at a time...
-        /// </summary>
-        /// <param name="pageBoardId">
-        /// The page Board Id.
-        /// </param>
-        public void SyncAllMembershipUsers(int pageBoardId)
-        {
-            // get all users in membership...
-            var users = this.Get<IAspNetUsersHelper>().Users.Where(u => u != null && u.Email.IsSet());
-
-            // create/update users...
-            Parallel.ForEach(users, user => this.Get<IAspNetRolesHelper>().UpdateForumUser(user, pageBoardId));
-        }
-
-        /// <summary>
         /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)
         /// </summary>
         /// <param name="pageBoardID">The page board ID.</param>
@@ -361,116 +342,6 @@ namespace YAF.Core.Helpers
              let name = @group
                 where !this.Get<IAspNetRolesHelper>().RoleExists(name)
                 select name).ForEach(this.Get<IAspNetRolesHelper>().CreateRole);
-        }
-
-        /// <summary>
-        /// Updates the information in the YAF DB from the ASP.NET Membership user information.
-        /// Called once per session for a user to sync up the data
-        /// </summary>
-        /// <param name="user">Current Membership User</param>
-        /// <param name="pageBoardID">Current BoardID</param>
-        /// <param name="roles">The DNN user roles.</param>
-        /// <returns>
-        /// The update forum user.
-        /// </returns>
-        public int? UpdateForumUser([NotNull] AspNetUsers user, int pageBoardID, [CanBeNull] string[] roles = null)
-        {
-            if (user is null)
-            {
-                // Check to make sure its not a guest
-                return null;
-            }
-
-            var boardUser = this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id);
-
-            var userId = boardUser?.ID ?? 0;
-
-            if (userId == this.Get<IAspNetUsersHelper>().GuestUserId)
-            {
-                return userId;
-            }
-
-            if (user.Id is null)
-            {
-                // problem -- log and move on...
-                this.Get<ILoggerService>().Log(
-                    userId,
-                    "UpdateForumUser",
-                    $"Null User Provider Key for UserName {user.UserName}. Please check your provider key settings for your ASP.NET membership provider.");
-
-                return userId;
-            }
-
-            // is this a new user?
-            var isNewUser = userId <= 0;
-
-            userId = this.GetRepository<User>().AspNet(
-                pageBoardID,
-                user.UserName,
-                null,
-                user.Email,
-                user.Id,
-                user.IsApproved,
-                boardUser);
-
-            // get user groups...
-            var groupsMember = this.GetRepository<Group>().Member(pageBoardID, userId);
-
-            var userRoles = this.Get<IAspNetRolesHelper>().GetRolesForUser(user);
-
-            if (Config.IsDotNetNuke && roles != null)
-            {
-                userRoles = roles;
-            }
-
-            if (Config.IsMojoPortal)
-            {
-                var roles1 = userRoles.Where(t => t.IsSet()).Aggregate(
-                    string.Empty,
-                    (current, t) => $"{current.Trim()},{t.Trim()}");
-                userRoles = roles1.Trim(',').Split(',');
-            }
-
-            // add groups...
-            userRoles.Where(role => !this.Get<IAspNetRolesHelper>().IsMemberOfGroup(role, groupsMember)).ForEach(
-                role => this.GetRepository<UserGroup>().SetRole(pageBoardID, userId, role));
-
-            // remove groups...remove since there is no longer an association in the membership...
-            groupsMember.Where(row => !userRoles.Contains(row.Name)).ForEach(
-                row => this.GetRepository<UserGroup>().Remove(userId, row.GroupID));
-
-            if (!isNewUser || userId <= 0)
-            {
-                return userId;
-            }
-
-            try
-            {
-                var defaultNotificationSetting = this.Get<BoardSettings>().DefaultNotificationSetting;
-
-                var defaultSendDigestEmail = this.Get<BoardSettings>().DefaultSendDigestEmail;
-
-                // setup default notifications...
-                var autoWatchTopicsEnabled =
-                    defaultNotificationSetting == UserNotificationSetting.TopicsIPostToOrSubscribeTo;
-
-                // save the settings...
-                this.GetRepository<User>().SaveNotification(
-                    userId,
-                    true,
-                    autoWatchTopicsEnabled,
-                    defaultNotificationSetting.ToInt(),
-                    defaultSendDigestEmail);
-            }
-            catch (Exception ex)
-            {
-                this.Get<ILoggerService>().Log(
-                    userId,
-                    "UpdateForumUser",
-                    $"Failed to save default notifications for new user: {ex}");
-            }
-
-            return userId;
         }
 
         #endregion

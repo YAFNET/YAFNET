@@ -107,9 +107,9 @@ namespace YAF.Types.Constants
             public const string ForumModerators = "ForumModerators";
 
             /// <summary>
-            ///   The guest user id.
+            ///   The guest user.
             /// </summary>
-            public const string GuestUserID = "GuestUserID";
+            public const string GuestUser = "GuestUser";
 
             /// <summary>
             ///   The most active users.

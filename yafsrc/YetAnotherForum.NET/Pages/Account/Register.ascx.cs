@@ -404,7 +404,7 @@ namespace YAF.Pages.Account
             var badWord = this.Get<IBadWordReplace>().ReplaceItems.Any(
                 i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
 
-            var guestUserName = this.Get<IAspNetUsersHelper>().GuestUserName;
+            var guestUserName = this.Get<IAspNetUsersHelper>().GuestUser(this.PageBoardContext.PageBoardID).Name;
 
             guestUserName = guestUserName.IsSet() ? guestUserName.ToLower() : string.Empty;
 

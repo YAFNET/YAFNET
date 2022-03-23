@@ -232,6 +232,7 @@ namespace YAF.Core.Events.Cache
         public void Handle(RepositoryEvent<AccessMask> @event)
         {
             this.ClearModeratorsCache();
+            this.ClearAccess();
         }
 
         /// <summary>
@@ -315,15 +316,11 @@ namespace YAF.Core.Events.Cache
         /// </param>
         public void Handle(RepositoryEvent<Forum> @event)
         {
-            /*if (!@event.RepositoryEventType.IsIn(RepositoryEventType.Delete, RepositoryEventType.Update))
-            {
-                return;
-            }*/
-
             // clear active discussions cache..
             this.DataCache.Remove(Constants.Cache.ActiveDiscussions);
 
             this.ClearModeratorsCache();
+            this.ClearAccess();
         }
 
         /// <summary>

@@ -200,5 +200,7 @@ namespace YAF.Types.Objects.Model
         /// Gets or sets the first message.
         /// </summary>
         public string FirstMessage { get; set; }
+
+        public int SubForums { get; set; }
     }
 }
