@@ -64,37 +64,27 @@ namespace YAF.Core.Model
         {
             CodeContracts.VerifyNotNull(repository);
 
-            if (repository.Exists(x => x.UserID == userId))
-            {
-                return;
-            }
+            repository.DbAccess.Execute(db =>
+                {
+                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
-            var access = BoardContext.Current.GetRepository<vaccess>().GetSingle(x => x.UserID == userId);
+                    var dateTimeUtc = expression.DialectProvider.Variables["{SYSTEM_UTC}"];
 
-            if (access != null)
-            {
-                repository.Insert(
-                    new ActiveAccess
-                    {
-                        UserID = userId,
-                        BoardID = boardId ?? repository.BoardID,
-                        ForumID = access.ForumID,
-                        IsAdmin = access.IsAdmin > 0,
-                        IsForumModerator = access.IsForumModerator > 0,
-                        IsModerator = access.IsModerator > 0,
-                        IsGuestX = isGuest,
-                        LastActive = DateTime.UtcNow,
-                        ReadAccess = access.ReadAccess > 0,
-                        PostAccess = access.PostAccess > 0,
-                        ReplyAccess = access.ReplyAccess > 0,
-                        PriorityAccess = access.PriorityAccess > 0,
-                        PollAccess = access.PollAccess > 0,
-                        VoteAccess = access.VoteAccess > 0,
-                        ModeratorAccess = access.ModeratorAccess > 0,
-                        EditAccess = access.EditAccess > 0,
-                        DeleteAccess = access.DeleteAccess > 0
-                    });
-            }
+                    // -- update active access
+                    // -- ensure that access right are in place
+                    return db.Connection.ExecuteSql(
+                        $@" if not exists (select top 1 UserID from {expression.Table<ActiveAccess>()} where UserID = {userId} )
+                                  begin
+                                    insert into {expression.Table<ActiveAccess>()} (
+                                           UserID,BoardID,ForumID,IsAdmin,IsForumModerator,IsModerator,IsGuestX,LastActive,
+                                           ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess 
+                                     )
+                                    select
+                                           UserID,{boardId},ForumID,IsAdmin,IsForumModerator,IsModerator,{expression.DialectProvider.GetQuotedValue(isGuest, typeof(bool))},{dateTimeUtc},
+                                           ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess
+                                    from {expression.Table<vaccess>()} where UserID = {userId}
+                                  end");
+                });
         }
 
         /// <summary>

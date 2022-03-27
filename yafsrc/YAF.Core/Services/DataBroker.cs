@@ -372,6 +372,10 @@ namespace YAF.Core.Services
                         topicId = result.Item1.TopicID;
                         topic = result.Item2;
                     }
+                    else
+                    {
+                        messageId = null;
+                    }
                 }
 
                 if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
@@ -397,6 +401,10 @@ namespace YAF.Core.Services
 
                         topic = result.Item1;
                     }
+                    else
+                    {
+                        topicId = null;
+                    }
                 }
 
                 if (forumId.HasValue && !categoryId.HasValue)
@@ -413,6 +421,10 @@ namespace YAF.Core.Services
                     if (result != null)
                     {
                         category = result;
+                    }
+                    else
+                    {
+                        forumId = null;
                     }
                 }
 
@@ -624,17 +636,11 @@ namespace YAF.Core.Services
         /// <returns> The get simple forum topic. </returns>
         public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount)
         {
+            // If the user is not logged in (Active Access Table is empty), we need to make sure the Active Access Tables are set
+            this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, userId, false);
+
             var forumData = this.GetRepository<Forum>().ListAllWithAccess(boardId, userId)
                 .Select(x => new SimpleForum { ForumID = x.Item1.ID, Name = x.Item1.Name }).ToList();
-
-            if (forumData.Any())
-            {
-                // If the user is not logged in (Active Access Table is empty), we need to make sure the Active Access Tables are set
-                this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, userId, false);
-
-                forumData = this.GetRepository<Forum>().ListAllWithAccess(boardId, userId)
-                    .Select(x => new SimpleForum { ForumID = x.Item1.ID, Name = x.Item1.Name }).ToList();
-            }
 
             // get topics for all forums...
             forumData.ForEach(forum =>
