@@ -3,7 +3,7 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v3.1.3
 * Added new Audio BBCode (thanks to User daprose-dotcom)
-* Upgraded to FontAwesome 6.1.0
+* Upgraded to FontAwesome 6.1.1
 * Upgraded to CKEditor 4.18.0
 * [FIXED] Show user attachments page only if user has attachments and upload access
 * [FIXED] wrong forums count in stats (When the board has no posts)
