@@ -332,7 +332,7 @@ namespace YAF.Controls
         /// </returns>
         protected bool HasSubForums([NotNull] ForumRead item)
         {
-            return this.DataSource.Item2.Any(forum => forum.ParentID == item.ForumID);
+            return item.SubForums > 0;
         }
 
         /// <summary>

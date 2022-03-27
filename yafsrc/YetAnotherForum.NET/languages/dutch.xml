@@ -2171,8 +2171,6 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Ga naar gequote bericht</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} schreef:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
-    <Resource tag="CAL_JQ_CULTURE">nl</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Klik hier om een datum te kiezen</Resource>
     <Resource tag="CAN_DELETE">Je [b]kunt[/b] hier je eigen berichten verwijderen.</Resource>
     <Resource tag="CAN_EDIT">Je [b]kunt[/b] hier je eigen berichten bewerken.</Resource>
@@ -2234,6 +2232,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Je tekst mag geen HTML tags bevatten.</Resource>
     <Resource tag="HTMLTAG_WRONG">Je tekst bevat een verboden {0} HTML tag.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">Bezig met laden...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Grootste aantal gebruikers ooit online was {0:N0} on {1}.</Resource>

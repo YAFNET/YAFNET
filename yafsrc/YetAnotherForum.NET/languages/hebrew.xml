@@ -2200,8 +2200,6 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Go to Quoted Post</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} כתב/ה:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
-    <Resource tag="CAL_JQ_CULTURE">he</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Click here to choose date</Resource>
     <Resource tag="CAN_DELETE">את/ה [b]יכול/ה[/b] למחוק את הודעותיך בפורום זה.</Resource>
     <Resource tag="CAN_EDIT">את/ה [b]יכול/ה[/b] לערוך את הודעותיך.</Resource>
@@ -2263,6 +2261,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">טוען...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">מספר המשתמשים המחוברים הגבוה ביותר אי פעם היה {0:N0} on {1}.</Resource>

@@ -2178,8 +2178,6 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Go to Quoted Post</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} كتب:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
-    <Resource tag="CAL_JQ_CULTURE" />
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">انقر هنا لاختيار التاريخ</Resource>
     <Resource tag="CAN_DELETE">[b]يمكنك[/b] حذف مواضيعك في  المنتدى .</Resource>
     <Resource tag="CAN_EDIT">[b]يمكنك[/b] تعديل مواضيعك في   المنتدى  .</Resource>
@@ -2241,6 +2239,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">البيانات المدخلة  يجب  ان لا تحتوي على( HTML tags). </Resource>
     <Resource tag="HTMLTAG_WRONG">لقد ادخلت   بيانات  خاطئا يرجى التاكد من  (html code) {0} .</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">... تحميل   </Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">أكبر عدد تواجد كان {0:N0} on {1}.</Resource>

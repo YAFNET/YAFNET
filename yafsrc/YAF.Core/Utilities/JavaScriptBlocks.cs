@@ -1472,5 +1472,30 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             }}
         );}}";
         }
+
+        /// <summary>
+        /// Renders the Load More on Scrolling JS.
+        /// </summary>
+        /// <param name="buttonUniqueId">
+        /// The button Unique Id.
+        /// </param>
+        /// <param name="buttonClientId">
+        /// The button Client Id.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string LoadMoreOnScrolling([NotNull] string buttonUniqueId, [NotNull] string buttonClientId)
+        {
+            return $@"{Config.JQueryAlias}(window).scroll(function () {{
+                           if ({Config.JQueryAlias}(window).scrollTop() == $(document).height() - {Config.JQueryAlias}(window).height()) {{
+                                 var btn = document.getElementById(""{buttonClientId}"");
+                                 if (btn != null) {{
+                                     __doPostBack('{buttonUniqueId}', '');
+                                  }}
+                              }}
+                         }});";
+        }
     }
 }

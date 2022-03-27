@@ -2244,6 +2244,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Your input data should not contain HTML tags.</Resource>
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">Yükleniyor...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Şimdiye kadar en fazla {0} ( Üye ) {1} tarihinde aktif oldu. </Resource>

@@ -33,6 +33,7 @@ namespace YAF.Types.Objects.Model
     /// <summary>
     /// The forum read.
     /// </summary>
+    [Serializable]
     public class ForumRead
     {
         /// <summary>
@@ -202,5 +203,7 @@ namespace YAF.Types.Objects.Model
         public string FirstMessage { get; set; }
 
         public int SubForums { get; set; }
+
+        public int Total { get; set; }
     }
 }

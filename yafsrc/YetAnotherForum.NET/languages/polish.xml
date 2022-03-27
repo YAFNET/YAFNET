@@ -2171,8 +2171,6 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Idź do zacytatowanego postu</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} napisał:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
-    <Resource tag="CAL_JQ_CULTURE">pl</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd.MM.YY</Resource>
     <Resource tag="CAL_JQ_TT">Kliknij tutaj, aby wybrać datę</Resource>
     <Resource tag="CAN_DELETE">[b]Możesz[/b] usuwać swoje posty w tym forum.</Resource>
     <Resource tag="CAN_EDIT">[b]Możesz[/b] edytować swoje posty w tym forum.</Resource>
@@ -2234,6 +2232,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Twoja wiadomość nie może zawierać tagów html.</Resource>
     <Resource tag="HTMLTAG_WRONG">Twoja wiadomość zawiera zabronione {0} tagi html.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">Wczytywanie...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Najwięcej użytkowników było {0:N0} on {1}.</Resource>

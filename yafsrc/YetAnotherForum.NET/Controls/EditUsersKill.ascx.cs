@@ -292,7 +292,7 @@ namespace YAF.Controls
                     {
                         postedby = !this.User.Item1.UserFlags.IsGuest
                                        ? this.User.Item1.DisplayOrUserName()
-                                       : this.Get<IAspNetUsersHelper>().GuestUserName
+                                       : this.Get<IAspNetUsersHelper>().GuestUser(this.PageBoardContext.PageBoardID).Name
                     });
 
             this.ReportUserRow.Visible = this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet();

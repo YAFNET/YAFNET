@@ -70,13 +70,11 @@ namespace YAF.Controls
         /// </returns>
         public string GetForumLink([NotNull] ForumRead forum)
         {
-            var forumID = forum.ForumID;
-
             // get the Forum Description
             var output = forum.Forum;
 
             output = forum.ReadAccess
-                ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
+                ? $"<a class=\"card-link small\" href=\"{this.Get<LinkBuilder>().GetForumLink(forum.ForumID, output)}\" title=\"{this.GetText("COMMON", "VIEW_FORUM")}\" >{output}</a>"
                 : $"{output} {this.GetText("NO_FORUM_ACCESS")}";
 
             return output;
@@ -104,8 +102,6 @@ namespace YAF.Controls
                 e.Item.FindControl("CutOff").Visible = true;
             }
         }
-
-
 
         /// <summary>
         /// Gets the Posts string

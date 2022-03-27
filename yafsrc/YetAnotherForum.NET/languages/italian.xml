@@ -2174,8 +2174,6 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">Vai al messaggio citato</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">Messaggio originale di [b]{0}[/b]:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
-    <Resource tag="CAL_JQ_CULTURE">it</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">dd/MM/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">Click per selezionare la data</Resource>
     <Resource tag="CAN_DELETE">Tu [b]puoi[/b] cancellare messaggi in questo forum.</Resource>
     <Resource tag="CAN_EDIT">Tu [b]puoi[/b] modificare messaggi in questo forum.</Resource>
@@ -2237,6 +2235,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Il testo inserito non può contenere tag HTML.</Resource>
     <Resource tag="HTMLTAG_WRONG">Il testo inserito contiene il tag HTML proibito {0}.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">In caricamento...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Il numero massimo di utenti registrati contemporaneamente in linea è stato {0} il {1}.</Resource>

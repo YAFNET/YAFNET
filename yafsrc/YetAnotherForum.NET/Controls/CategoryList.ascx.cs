@@ -46,8 +46,6 @@ namespace YAF.Controls
     using YAF.Types.Objects.Model;
     using YAF.Web.Controls;
 
-    using Forum = YAF.Types.Models.Forum;
-
     #endregion
 
     /// <summary>
@@ -58,9 +56,24 @@ namespace YAF.Controls
         #region Properties
 
         /// <summary>
+        /// Gets or sets the page index.
+        /// </summary>
+        public int PageIndex
+        {
+            get => this.ViewState["PageIndex"]?.ToType<int>() ?? 0;
+
+            set => this.ViewState["PageIndex"] = value;
+        }
+
+        /// <summary>
         /// Gets or sets the data.
         /// </summary>
-        private Tuple<List<SimpleModerator>, List<ForumRead>> Data { get; set; }
+        private Tuple<List<SimpleModerator>, List<ForumRead>> Data
+        {
+            get => this.ViewState["Data"]?.ToType<Tuple<List<SimpleModerator>, List<ForumRead>>>();
+
+            set => this.ViewState["Data"] = value;
+        }
 
         #endregion
 
@@ -108,12 +121,7 @@ namespace YAF.Controls
 
             var categoryId = markAll.CommandArgument.ToType<int?>();
 
-            var forums = this.GetRepository<Forum>().ListRead(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID,
-                categoryId,
-                null,
-                false);
+            var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
 
             var watchForums = this.GetRepository<WatchForum>().List(this.PageBoardContext.PageUserID);
 
@@ -147,18 +155,44 @@ namespace YAF.Controls
 
             var categoryId = markAll.CommandArgument.ToType<int?>();
 
-            var forums = this.GetRepository<Forum>().ListRead(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID,
-                categoryId,
-                null,
-                false);
+            var forums = this.Data.Item2.Where(x => x.CategoryID == categoryId);
 
             this.Get<IReadTrackCurrentUser>().SetForumRead(forums.Select(f => f.ForumID));
 
             this.PageBoardContext.Notify(this.GetText("MARKALL_MESSAGE"), MessageTypes.success);
 
             this.BindData();
+        }
+
+        /// <summary>
+        /// Load more categories and forums.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ShowMoreClick([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            this.PageIndex++;
+
+            this.BindData(true);
+        }
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.LoadMoreOnScrolling),
+                JavaScriptBlocks.LoadMoreOnScrolling(this.ShowMore.UniqueID, this.ShowMore.ClientID));
+
+            base.OnPreRender(e);
         }
 
         /// <summary>
@@ -196,13 +230,43 @@ namespace YAF.Controls
         /// <summary>
         /// Bind Data
         /// </summary>
-        private void BindData()
+        /// <param name="appendData">
+        /// Append data or re-load data
+        /// </param>
+        private void BindData(bool appendData = false)
         {
-            this.Data = this.Get<DataBroker>().BoardLayout(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID,
-                this.PageBoardContext.PageCategoryID,
-                null);
+            if (appendData)
+            {
+                var newData = this.Get<DataBroker>().BoardLayout(
+                    this.PageBoardContext.PageBoardID,
+                    this.PageBoardContext.PageUserID,
+                    this.PageIndex,
+                    20,
+                    this.PageBoardContext.PageCategoryID,
+                    null);
+
+                this.Data.Item1.AddRange(newData.Item1);
+
+                this.Data.Item2.AddRange(newData.Item2);
+            }
+            else
+            {
+                if (!this.IsPostBack)
+                {
+                    this.Data = this.Get<DataBroker>().BoardLayout(
+                        this.PageBoardContext.PageBoardID,
+                        this.PageBoardContext.PageUserID,
+                        this.PageIndex,
+                        20,
+                        this.PageBoardContext.PageCategoryID,
+                        null);
+                }
+            }
+            
+            if (this.Data.Item2.First().Total > this.Data.Item2.Count)
+            {
+                this.ShowMore.Visible = true;
+            }
 
             // Filter Categories
             var categories = this.Data.Item2.DistinctBy(x => x.CategoryID).ToList();

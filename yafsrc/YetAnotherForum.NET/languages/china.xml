@@ -2177,8 +2177,6 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">转到引用帖子</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} wrote:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
-    <Resource tag="CAL_JQ_CULTURE">zh-CN</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">MM/dd/YYYY</Resource>
     <Resource tag="CAL_JQ_TT">点击选择日期</Resource>
     <Resource tag="CAN_DELETE">您 [b]可以[/b] 删除自己的发言.</Resource>
     <Resource tag="CAN_EDIT">您 [b]可以[/b] 编辑自己的发言.</Resource>
@@ -2240,6 +2238,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">不允许包含 HTML 标签.</Resource>
     <Resource tag="HTMLTAG_WRONG">包含有禁止的 {0} HTML 标签.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">Loading...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">最高在线记录 {0:N0} on {1}.</Resource>

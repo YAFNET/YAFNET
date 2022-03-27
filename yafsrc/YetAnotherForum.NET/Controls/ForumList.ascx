@@ -56,7 +56,7 @@
             </div>
             <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() %>">
                 <div class="col-md-4 text-secondary">
-                    <div class="card bg-light card-post-last">
+                    <div class="card bg-light text-dark card-post-last">
                         <div class="card-body py-1 ps-2">
                             <YAF:ForumLastPost ID="lastPost" runat="server"
                                                DataSource="<%# (ForumRead)Container.DataItem %>"/>

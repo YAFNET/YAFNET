@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
 
@@ -136,7 +135,7 @@ namespace YAF.Pages
 
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Search,
-                new { search = this.forumSearch.Text, forum = this.PageBoardContext.PageForumID} );
+                new { search = this.forumSearch.Text, forum = this.PageBoardContext.PageForumID });
         }
 
         /// <summary>
@@ -350,9 +349,13 @@ namespace YAF.Pages
         /// </summary>
         private void BindData()
         {
+            this.PagerSubForums.PageSize = 20;
+
             var forums = this.Get<DataBroker>().BoardLayout(
                 this.PageBoardContext.PageBoardID,
                 this.PageBoardContext.PageUserID,
+                this.PagerSubForums.CurrentPageIndex,
+                this.PagerSubForums.PageSize,
                 this.PageBoardContext.PageCategoryID,
                 this.PageBoardContext.PageForumID);
 

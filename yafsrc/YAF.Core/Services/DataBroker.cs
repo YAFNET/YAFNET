@@ -132,6 +132,12 @@ namespace YAF.Core.Services
         /// <param name="userId">
         /// The user Id.
         /// </param>
+        /// <param name="pageIndex">
+        /// The Current Page Index
+        /// </param>
+        /// <param name="pageSize">
+        /// The Number of items to retrieve.
+        /// </param>
         /// <param name="categoryId">
         /// The category Id.
         /// </param>
@@ -144,6 +150,8 @@ namespace YAF.Core.Services
         public Tuple<List<SimpleModerator>, List<ForumRead>> BoardLayout(
             [NotNull] int boardId,
             [NotNull] int userId,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
             [CanBeNull] int? categoryId,
             [CanBeNull] int? parentId)
         {
@@ -165,7 +173,9 @@ namespace YAF.Core.Services
                 userId,
                 categoryId,
                 parentId,
-                this.BoardSettings.UseReadTrackingByDatabase);
+                this.BoardSettings.UseReadTrackingByDatabase,
+                pageIndex,
+                pageSize);
 
             return new Tuple<List<SimpleModerator>, List<ForumRead>>(moderators, forums);
         }
@@ -349,16 +359,19 @@ namespace YAF.Core.Services
                     var result = this.GetRepository<ActiveAccess>().DbAccess.Execute(
                         db => db.Connection.SelectMulti<Message, Topic, Forum, Category>(expression)).FirstOrDefault();
 
-                    message = result.Item1;
+                    if (result != null)
+                    {
+                        message = result.Item1;
 
-                    categoryId = result.Item3.CategoryID;
-                    category = result.Item4;
+                        categoryId = result.Item3.CategoryID;
+                        category = result.Item4;
 
-                    forumId = result.Item3.ID;
-                    forum = result.Item3;
+                        forumId = result.Item3.ID;
+                        forum = result.Item3;
 
-                    topicId = result.Item1.TopicID;
-                    topic = result.Item2;
+                        topicId = result.Item1.TopicID;
+                        topic = result.Item2;
+                    }
                 }
 
                 if (topicId.HasValue && (!categoryId.HasValue || !forumId.HasValue))
@@ -374,13 +387,16 @@ namespace YAF.Core.Services
                     var result = this.GetRepository<ActiveAccess>().DbAccess
                         .Execute(db => db.Connection.SelectMulti<Topic, Forum, Category>(expression)).FirstOrDefault();
 
-                    categoryId = result.Item2.CategoryID;
-                    category = result.Item3;
+                    if (result != null)
+                    {
+                        categoryId = result.Item2.CategoryID;
+                        category = result.Item3;
 
-                    forumId = result.Item1.ForumID;
-                    forum = result.Item2;
+                        forumId = result.Item1.ForumID;
+                        forum = result.Item2;
 
-                    topic = result.Item1;
+                        topic = result.Item1;
+                    }
                 }
 
                 if (forumId.HasValue && !categoryId.HasValue)
@@ -391,15 +407,20 @@ namespace YAF.Core.Services
                     expression.Join<Category>((f, c) => c.ID == f.CategoryID)
                         .Where<Forum, Category>((f, c) => f.ID == id.Value && c.BoardID == boardId);
 
-                    category = this.GetRepository<ActiveAccess>().DbAccess
+                    var result = this.GetRepository<ActiveAccess>().DbAccess
                         .Execute(db => db.Connection.Single<Category>(expression));
+
+                    if (result != null)
+                    {
+                        category = result;
+                    }
                 }
 
                 this.GetRepository<ActiveAccess>().DbAccess.Execute(db =>
                     {
                         var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
-                        var test = expression.DialectProvider.Variables["{SYSTEM_UTC}"];
+                        var dateTimeUtc = expression.DialectProvider.Variables["{SYSTEM_UTC}"];
 
                         // -- update active access
                         // -- ensure that access right are in place
@@ -411,7 +432,7 @@ namespace YAF.Core.Services
                                            ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess 
                                      )
                                     select
-                                           UserID,{boardId},ForumID,IsAdmin,IsForumModerator,IsModerator,{expression.DialectProvider.GetQuotedValue(isGuest, typeof(bool))},{test},
+                                           UserID,{boardId},ForumID,IsAdmin,IsForumModerator,IsModerator,{expression.DialectProvider.GetQuotedValue(isGuest, typeof(bool))},{dateTimeUtc},
                                            ReadAccess,PostAccess,ReplyAccess,PriorityAccess,PollAccess,VoteAccess,ModeratorAccess,EditAccess,DeleteAccess
                                     from {expression.Table<vaccess>()} where UserID = {userId}
                                   end");

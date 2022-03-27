@@ -60,6 +60,15 @@ namespace YAF.Pages
         protected global::YAF.Controls.ForumList ForumList;
 
         /// <summary>
+        /// PagerSubForums-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Pager PagerSubForums;
+
+        /// <summary>
         /// moderate1-Steuerelement.
         /// </summary>
         /// <remarks>

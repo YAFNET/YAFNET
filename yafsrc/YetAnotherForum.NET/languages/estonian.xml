@@ -2178,7 +2178,6 @@
     <Resource tag="BBCODE_QUOTEWROTE">{0} kirjutas:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
     <Resource tag="CAL_JQ_CULTURE" />
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">KK/pp/AA</Resource>
     <Resource tag="CAL_JQ_TT">Klikkige kuupäeva muutmiseks</Resource>
     <Resource tag="CAN_DELETE">Te [b]saate[/b] kustutada postitusi selles foorumis.</Resource>
     <Resource tag="CAN_EDIT">Te [b]saate[/b] muuta postitusi selles foorumis.</Resource>
@@ -2240,6 +2239,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">Sisestatud andmed ei tohi sisaldada HTML tage.</Resource>
     <Resource tag="HTMLTAG_WRONG">Sisestatud andmetes on keelatud HTML tag {0}.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">Laadimine...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">Kõige rohkem kasutajaid  oli korraga foorumil {1}, kui neid oli {0}.</Resource>

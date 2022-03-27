@@ -29,6 +29,8 @@
                 </div>
                 <div class="card-body" id="body" runat="server">
                     <YAF:ForumList runat="server" ID="ForumList" />
+                    <YAF:Pager ID="PagerSubForums" runat="server"
+                               UsePostBack="False" />
                 </div>
             </div>
         </div>

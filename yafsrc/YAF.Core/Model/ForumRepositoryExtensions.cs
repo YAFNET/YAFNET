@@ -397,6 +397,12 @@ namespace YAF.Core.Model
         /// <param name="parentId">
         /// The Parent ID.
         /// </param>
+        /// <param name="pageIndex">
+        /// The Current Page Index
+        /// </param>
+        /// <param name="pageSize">
+        /// The Number of items to retrieve.
+        /// </param>
         /// <param name="findLastRead">
         /// Indicates if the Table should Contain the last Access Date
         /// </param>
@@ -406,7 +412,9 @@ namespace YAF.Core.Model
             [NotNull] int userId,
             [CanBeNull] int? categoryId,
             [CanBeNull] int? parentId,
-            [NotNull] bool findLastRead)
+            [NotNull] bool findLastRead, 
+            [NotNull] int pageIndex, 
+            [NotNull] int pageSize)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -471,7 +479,13 @@ namespace YAF.Core.Model
                         expression.And<Forum>(f => f.ParentID == parentId.Value);
                     }
 
-                    expression.OrderBy<Category>(a => a.SortOrder).ThenBy<Forum>(b => b.SortOrder);
+                    // -- count total
+                    var countTotalExpression = expression;
+
+                    var countTotalSql = countTotalExpression
+                        .Select(Sql.Count($"{countTotalExpression.Column<Forum>(x => x.ID, true)}")).ToSelectStatement();
+
+                    expression.OrderBy<Category>(a => a.SortOrder).ThenBy<Forum>(b => b.SortOrder).Page(pageIndex + 1, pageSize); 
 
                     expression.Select<Category, Forum, ActiveAccess, Topic, User>(
                         (a, b, x, t, lastUser) => new
@@ -506,6 +520,7 @@ namespace YAF.Core.Model
                             LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
                             LastTopicAccess = Sql.Custom($"({lastTopicAccessSql})"),
                             SubForums = Sql.Custom($"({countSubForumsSql})"),
+                            Total = Sql.Custom($"({countTotalSql})")
                         });
 
                     return db.Connection.Select<ForumRead>(expression);

@@ -2195,8 +2195,6 @@
     <Resource tag="BBCODE_QUOTEPOSTED_TT">رفتن به نقل قول</Resource>
     <Resource tag="BBCODE_QUOTEWROTE">{0} نوشته است:</Resource>
     <Resource tag="BROWSE">Browse</Resource>
-    <Resource tag="CAL_JQ_CULTURE">fa</Resource>
-    <Resource tag="CAL_JQ_CULTURE_DFORMAT">YYYY/mm/dd</Resource>
     <Resource tag="CAL_JQ_TT">برای انتخاب تاریخ کلیک کنید.</Resource>
     <Resource tag="CAN_DELETE">شما [b]می توانید[/b] مطلب ارسالی خود را حذف کنید</Resource>
     <Resource tag="CAN_EDIT">شما [b]می توانید[/b] مطلب ارسالی خود را ویرایش کنید</Resource>
@@ -2258,6 +2256,7 @@
     <Resource tag="HTMLTAG_FORBIDDEN">شما مجاز به استفاده از HTML نمی باشید</Resource>
     <Resource tag="HTMLTAG_WRONG">داده های ورودی شما شامل تگ های {0} غیر مجاز HTML  میباشد.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="LOADING">در حال بارگذاری...</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MAX_ONLINE">بیشترین تعداد کاربرانی که بطور همزمان آنلاین بوده اند {0} کاربر بوده اند که در تاریخ {1} آنلاین بوده اند</Resource>

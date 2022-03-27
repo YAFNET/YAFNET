@@ -7,7 +7,9 @@
 
 <%@ Register TagPrefix="YAF" TagName="ForumList" Src="ForumList.ascx" %>
 
-<asp:Repeater ID="Categories" runat="server">
+<asp:UpdatePanel runat="server" UpdateMode="Conditional">
+    <ContentTemplate>
+        <asp:Repeater ID="Categories" runat="server">
     <ItemTemplate>
                     <div class="row">
                         <div class="col">
@@ -65,3 +67,16 @@
                     </div>
             </FooterTemplate>
 </asp:Repeater>
+        <div class="text-center">
+            <YAF:ThemeButton runat="server" ID="ShowMore"
+                             OnClick="ShowMoreClick"
+                             CssClass="mb-3"
+                             Type="OutlineSecondary"
+                             Size="Small"
+                             Visible="False"
+                             Icon="spinner"
+                             TextLocalizedTag="LOAD_MORE"/>
+        </div>
+    </ContentTemplate>
+
+</asp:UpdatePanel>

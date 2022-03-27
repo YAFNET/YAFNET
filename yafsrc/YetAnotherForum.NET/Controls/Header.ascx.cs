@@ -195,7 +195,7 @@ namespace YAF.Controls
                 link.Controls.Add(unreadLabelText);
             }
 
-            if (cssClass.Equals("nav-link"))
+            if (cssClass.StartsWith("nav-link"))
             {
                 element.Controls.Add(link);
                 holder.Controls.Add(element);
