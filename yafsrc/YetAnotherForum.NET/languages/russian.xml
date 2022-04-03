@@ -2208,6 +2208,7 @@
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Перейти</Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">Страница сгенерирована за {0:N3} секунды.</Resource>
     <Resource tag="GO">Перейти</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">Первая страница</Resource>

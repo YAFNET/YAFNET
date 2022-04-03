@@ -2232,6 +2232,7 @@
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Foruma git</Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">Sayfa {0:N3} saniyede oluşturulmuştur.</Resource>
     <Resource tag="GO">Git</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>

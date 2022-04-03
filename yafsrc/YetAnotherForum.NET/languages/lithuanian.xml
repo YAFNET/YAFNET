@@ -2258,6 +2258,7 @@
     <Resource tag="FORMAT_TIME">T </Resource>
     <Resource tag="FORUM_JUMP">Forumas Peršokti </Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">Šis puslapis buvo sugeneruotas per {0:N3} sekundes. </Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>

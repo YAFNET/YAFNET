@@ -2226,6 +2226,7 @@
     <Resource tag="FORMAT_TIME">HH:mm:ss</Resource>
     <Resource tag="FORUM_JUMP">Siirry alueelle </Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">Tämä sivu luotiin {0:N3} sekunnissa.</Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>

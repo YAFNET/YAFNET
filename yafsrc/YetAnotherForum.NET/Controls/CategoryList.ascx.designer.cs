@@ -24,6 +24,24 @@ namespace YAF.Controls
         protected global::System.Web.UI.WebControls.Repeater Categories;
 
         /// <summary>
+        /// ForumsShown-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.Alert ForumsShown;
+
+        /// <summary>
+        /// ForumsShownLabel-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ForumsShownLabel;
+
+        /// <summary>
         /// ShowMore-Steuerelement.
         /// </summary>
         /// <remarks>

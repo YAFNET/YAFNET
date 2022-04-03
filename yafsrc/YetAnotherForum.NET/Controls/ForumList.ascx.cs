@@ -168,9 +168,9 @@ namespace YAF.Controls
                 var icon = new Literal
                 {
                     Text =
-                                       $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
+                                       $@"<span tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"" aria-label=""icon-legend"">
                                                       {forumIconNew.RenderToString()}
-                                                  </a>"
+                                                  </span>"
                 };
 
                 try
@@ -178,21 +178,21 @@ namespace YAF.Controls
                     if (flags.IsLocked)
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"" aria-label=""icon-legend"">
                                    {forumIconLocked}
                                </a>";
                     }
                     else if (lastPosted > lastRead && item.ReadAccess)
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"" aria-label=""icon-legend"">
                                     {forumIconNew.RenderToString()}
                                </a>";
                     }
                     else
                     {
                         icon.Text =
-                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"">
+                            $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"" aria-label=""icon-legend"">
                                   <span class=""fa-stack"">
                                        {forumIconNormal.RenderToString()}
                                   </span>

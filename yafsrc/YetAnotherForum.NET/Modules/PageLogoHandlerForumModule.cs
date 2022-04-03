@@ -26,7 +26,9 @@ namespace YAF.Modules
     #region Using
 
     using System;
+    using System.IO;
     using System.Runtime.InteropServices;
+    using System.Web;
     using System.Web.UI;
     using System.Web.UI.HtmlControls;
     using System.Web.UI.WebControls;
@@ -81,8 +83,9 @@ namespace YAF.Modules
         private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
         {
             var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
+            var image = this.CurrentForumPage.FindControlRecursiveBothAs<HtmlImage>("ForumLogo");
 
-            if (bannerLink == null)
+            if (image == null)
             {
                 return;
             }
@@ -92,15 +95,10 @@ namespace YAF.Modules
 
             var logoUrl = $"{BoardInfo.ForumClientFileRoot}{this.Get<BoardFolders>().Logos}/{this.PageBoardContext.BoardSettings.ForumLogo}";
 
-            var image = new HtmlImage
-            {
-                Alt = "board logo",
-                Src = logoUrl
-            };
+            image.Alt = "logo";
+            image.Src = logoUrl;
 
             image.Attributes["class"] = "my-3";
-
-            bannerLink.Controls.Add(image);
 
             if (!this.CurrentForumPage.ShowToolBar)
             {

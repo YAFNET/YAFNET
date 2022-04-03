@@ -185,9 +185,8 @@ namespace YAF.Core.Extensions
         /// <param name="entity">
         /// The entity.
         /// </param>
-        /// <param name="selectIdentity"></param>
-        /// <param name="transaction">
-        /// The transaction.
+        /// <param name="selectIdentity">
+        /// if set to <c>true</c> [select identity].
         /// </param>
         /// <typeparam name="T">
         /// The type parameter.
@@ -198,14 +197,42 @@ namespace YAF.Core.Extensions
         public static int Insert<T>(
             [NotNull] this IRepository<T> repository,
             [NotNull] T entity,
-            bool selectIdentity = true,
-            IDbTransaction transaction = null)
+            bool selectIdentity = true)
             where T : class, IEntity, new()
         {
             CodeContracts.VerifyNotNull(entity);
             CodeContracts.VerifyNotNull(repository);
 
             return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
+        }
+
+        /// <summary>
+        /// Insert a collection of POCOs in a transaction. E.g:
+        /// <para>
+        /// db.InsertAll(new[] { new Person { Id = 9, FirstName = "Biggie", LastName = "Smalls", Age = 24 } })
+        /// </para>
+        /// </summary>
+        /// <typeparam name="T">
+        /// The Model 
+        /// </typeparam>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="inserts">
+        /// The List to add.
+        /// </param>
+        public static void InsertAll<T>([NotNull] this IRepository<T> repository, [NotNull] IEnumerable<T> inserts)
+            where T : IEntity
+        {
+            CodeContracts.VerifyNotNull(inserts);
+            CodeContracts.VerifyNotNull(repository);
+
+            repository.DbAccess.Execute(
+                db =>
+                    {
+                        db.Connection.InsertAll(inserts);
+                        return inserts.Count();
+                    });
         }
 
         /// <summary>
@@ -285,10 +312,8 @@ namespace YAF.Core.Extensions
         /// Update record, updating only fields specified in updateOnly that matches the where condition (if any), E.g:
         /// Numeric fields generates an increment sql which is useful to increment counters, etc...
         /// avoiding concurrency conflicts
-        ///
         ///   db.UpdateAdd(() =&gt; new Person { Age = 5 }, where: p =&gt; p.LastName == "Hendrix");
         ///   UPDATE "Person" SET "Age" = "Age" + 5 WHERE ("LastName" = 'Hendrix')
-        ///
         ///   db.UpdateAdd(() =&gt; new Person { Age = 5 });
         ///   UPDATE "Person" SET "Age" = "Age" + 5
         /// </summary>
@@ -353,8 +378,21 @@ namespace YAF.Core.Extensions
 
         /// <summary>
         /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
-        /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
+        /// <para>
+        /// db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))
+        /// </para>
         /// </summary>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="where">
+        /// The where.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool Exists<T>(
             [NotNull] this IRepository<T> repository,
             Expression<Func<T, bool>> where = null)

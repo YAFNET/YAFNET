@@ -68,7 +68,7 @@ namespace YAF.Pages.Admin
         /// <summary>
         /// Gets or sets the user album.
         /// </summary>
-        public List<Tuple<Forum, Category>> ListAll
+        public IList<Tuple<Forum, Category>> ListAll
         {
             get => this.ViewState["ListAll"].ToType<List<Tuple<Forum, Category>>>();
 
@@ -315,11 +315,24 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
+        /// The pager top_ page change.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+        protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+        {
+            // rebind
+            this.BindData();
+        }
+
+        /// <summary>
         /// Binds the data.
         /// </summary>
         private void BindData()
         {
-            this.ListAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID);
+            this.PagerTop.PageSize = 20;
+
+            this.ListAll = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID).GetPaged(this.PagerTop);
 
             this.CategoryList.DataSource = this.ListAll.Select(x => x.Item2).DistinctBy(x => x.Name);
 

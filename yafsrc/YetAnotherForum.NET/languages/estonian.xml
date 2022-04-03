@@ -2227,6 +2227,7 @@
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Forumi hüpe</Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">Lehe genereerimisele kulus {0:N3} sekundit.</Resource>
     <Resource tag="GO">Mine</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>

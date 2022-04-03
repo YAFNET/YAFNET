@@ -2244,6 +2244,7 @@
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">رفتن به انجمن</Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">این صفحه در مدت زمان {0:N3} ثانیه ایجاد شد.</Resource>
     <Resource tag="GO">برو</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">صفحه اول</Resource>

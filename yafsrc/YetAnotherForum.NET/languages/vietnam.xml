@@ -2226,6 +2226,7 @@
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Chuyển nhanh đến</Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">Thời gian xử lý trang này hết {0:N3} giây.</Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>

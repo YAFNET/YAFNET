@@ -2226,6 +2226,7 @@
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Sari la forum </Resource>
     <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">Acesta pagina a fost generata in {0:N3} secunde.</Resource>
     <Resource tag="GO">Mergi</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>

@@ -228,3 +228,10 @@
             </div>
         </div>
     </div>
+<div class="row justify-content-end">
+    <div class="col-auto">
+        <YAF:Pager ID="PagerTop" runat="server"
+                   OnPageChange="PagerTopPageChange"
+                   UsePostBack="True" />
+    </div>
+</div>

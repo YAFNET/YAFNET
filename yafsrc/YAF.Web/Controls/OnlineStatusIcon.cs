@@ -97,7 +97,7 @@ namespace YAF.Web.Controls
                 // suspended
                 writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-warning user-suspended me-1");
                 writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetTextFormatted("USERSUSPENDED", this.Suspended.Value));
-                writer.WriteAttribute("data-bs-toggle", "tooltip");
+             
             }
             else
             {
@@ -106,14 +106,12 @@ namespace YAF.Web.Controls
                     // online
                     writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-success user-online me-1");
                     writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USERONLINESTATUS"));
-                    writer.WriteAttribute("data-bs-toggle", "tooltip");
                 }
                 else
                 {
                     // offline
                     writer.WriteAttribute(HtmlTextWriterAttribute.Class.ToString(), "align-middle text-danger user-offline me-1");
                     writer.WriteAttribute(HtmlTextWriterAttribute.Title.ToString(), this.GetText("USEROFFLINESTATUS"));
-                    writer.WriteAttribute("data-bs-toggle", "tooltip");
                 }
             }
 

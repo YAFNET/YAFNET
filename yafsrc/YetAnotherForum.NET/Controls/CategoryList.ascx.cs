@@ -268,6 +268,13 @@ namespace YAF.Controls
                 this.ShowMore.Visible = true;
             }
 
+            if (this.Data.Item2.First().Total > 20)
+            {
+                this.ForumsShown.Visible = true;
+                this.ForumsShownLabel.Text = this.GetTextFormatted("FORUMS_SHOWN", this.Data.Item2.Count, this.Data.Item2.First().Total);
+            }
+            
+
             // Filter Categories
             var categories = this.Data.Item2.DistinctBy(x => x.CategoryID).ToList();
 

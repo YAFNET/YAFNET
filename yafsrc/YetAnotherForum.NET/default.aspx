@@ -15,11 +15,12 @@
 </head>
 <body id="YafBody" runat="server">
 <asp:HyperLink runat="server" id="BannerLink">
-    </asp:HyperLink>
-    <YAF:Form id="form1" runat="server" enctype="multipart/form-data">
-        <YAF:Forum runat="server" ID="forum" BoardID="1">
-        </YAF:Forum>
-    </YAF:Form>
-
+    <asp:HtmlImage runat="server" ID="ForumLogo" Width="276" Height="128">
+    </asp:HtmlImage>
+</asp:HyperLink>
+<YAF:Form id="form1" runat="server" enctype="multipart/form-data">
+    <YAF:Forum runat="server" ID="forum" BoardID="1">
+    </YAF:Forum>
+</YAF:Form>
 </body>
 </html>
