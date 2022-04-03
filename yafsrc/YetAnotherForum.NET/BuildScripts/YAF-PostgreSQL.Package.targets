@@ -5,6 +5,8 @@
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\ServiceStack.OrmLite.MySql.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\ServiceStack.OrmLite.PostgreSQL.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\ServiceStack.OrmLite.SqlServer.dll" />
+	  <Delete Files="$(MSBuildProjectDirectory)\bin\SQLite.Interop.dll" />
+	  
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\YAF.Data.MySql.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\YAF.Data.PostgreSQL.dll" />
 	  <Delete Files="$(MSBuildProjectDirectory)\bin\YAF.Data.SqlServer.dll" />
