@@ -68,14 +68,17 @@
             </FooterTemplate>
 </asp:Repeater>
         <div class="text-center">
-            <YAF:ThemeButton runat="server" ID="ShowMore"
-                             OnClick="ShowMoreClick"
-                             CssClass="mb-3"
-                             Type="OutlineSecondary"
-                             Size="Small"
-                             Visible="False"
-                             Icon="spinner"
-                             TextLocalizedTag="LOAD_MORE"/>
+            <YAF:Alert runat="server" id="ForumsShown" Type="light" Visible="False">
+                <asp:Label runat="server" id="ForumsShownLabel" CssClass="me-3 align-top"></asp:Label>
+                <YAF:ThemeButton runat="server" ID="ShowMore"
+                                 OnClick="ShowMoreClick"
+                                 CssClass="mb-3"
+                                 Type="OutlineSecondary"
+                                 Size="Small"
+                                 Icon="spinner"
+                                 TextLocalizedTag="LOAD_MORE"/>
+            </YAF:Alert>
+            
         </div>
     </ContentTemplate>
 
