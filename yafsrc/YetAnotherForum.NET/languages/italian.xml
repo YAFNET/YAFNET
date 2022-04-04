@@ -5820,7 +5820,7 @@ Visita il forum {forumname} su {forumlink}
     <Resource tag="RSSFEED">Feed Rss</Resource>
     <Resource tag="SEARCH_FORUM">Cerca in questo forum</Resource>
     <Resource tag="SHOWTOPICS">Mostra discussioni</Resource>
-    <Resource tag="SUBFORUMS">{0} Sottoforum</Resource>
+    <Resource tag="SUBFORUMS">Sottoforum</Resource>
     <Resource tag="TODAYAT">[b]Oggi[/b] alle {0:t}</Resource>
     <Resource tag="TOPIC_STARTER">Creatore della discussione</Resource>
     <Resource tag="TOPICS">Discussioni</Resource>

@@ -5847,7 +5847,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="RSSFEED">Rss Feed</Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Vis emner</Resource>
-    <Resource tag="SUBFORUMS">{0} Underkategorier</Resource>
+    <Resource tag="SUBFORUMS">Underkategorier</Resource>
     <Resource tag="TODAYAT">[b]Idag[/b] kl {0:T}</Resource>
     <Resource tag="TOPIC_STARTER">Startet av</Resource>
     <Resource tag="TOPICS">Emner</Resource>

@@ -5852,7 +5852,7 @@ Password: {password}
     <Resource tag="RSSFEED">RSS</Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Xem chủ đề</Resource>
-    <Resource tag="SUBFORUMS">Diễn đàn con ({0}) </Resource>
+    <Resource tag="SUBFORUMS">Diễn đàn con</Resource>
     <Resource tag="TODAYAT">[b]Hôm nay[/b] lúc {0:T}</Resource>
     <Resource tag="TOPIC_STARTER">Tác giả</Resource>
     <Resource tag="TOPICS">Chủ đề</Resource>

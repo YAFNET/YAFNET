@@ -5846,7 +5846,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="RSSFEED">RSS -syöte</Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Näytä aiheet </Resource>
-    <Resource tag="SUBFORUMS">{0} alialuetta</Resource>
+    <Resource tag="SUBFORUMS">alialuetta</Resource>
     <Resource tag="TODAYAT">[b]Tänään[/b] kello {0:HH:mm:ss}</Resource>
     <Resource tag="TOPIC_STARTER">Aloittaja</Resource>
     <Resource tag="TOPICS">Aiheet</Resource>

@@ -6009,7 +6009,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="RSSFEED">Rss feed </Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Rodyti Temos </Resource>
-    <Resource tag="SUBFORUMS">{0} Subforums </Resource>
+    <Resource tag="SUBFORUMS">Subforums </Resource>
     <Resource tag="TODAYAT">[b] Šiandien [/b] į {0:T} </Resource>
     <Resource tag="TOPIC_STARTER">Tema Pradedančiųjų </Resource>
     <Resource tag="TOPICS">Temos </Resource>

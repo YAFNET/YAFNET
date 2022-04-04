@@ -5754,7 +5754,7 @@ The Message was posted in the {forumname} forum.
     <Resource tag="RSSFEED">הזנת RSS</Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">הצג דיונים</Resource>
-    <Resource tag="SUBFORUMS">{0} תת-פורומים</Resource>
+    <Resource tag="SUBFORUMS">תת-פורומים</Resource>
     <Resource tag="TODAYAT">[b]היום[/b] ב- {0:T}</Resource>
     <Resource tag="TOPIC_STARTER">מחבר הדיון</Resource>
     <Resource tag="TOPICS">דיונים</Resource>

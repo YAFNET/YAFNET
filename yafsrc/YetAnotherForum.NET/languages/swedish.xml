@@ -5852,7 +5852,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="RSSFEED">Rsskanal</Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Visa konversationer</Resource>
-    <Resource tag="SUBFORUMS">{0} Underforum</Resource>
+    <Resource tag="SUBFORUMS">Underforum</Resource>
     <Resource tag="TODAYAT">[b]idag[/b] kl {0:T}</Resource>
     <Resource tag="TOPIC_STARTER">Konversationen startades av</Resource>
     <Resource tag="TOPICS">Konversationer</Resource>

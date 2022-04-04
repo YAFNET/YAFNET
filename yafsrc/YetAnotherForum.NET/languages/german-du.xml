@@ -5771,7 +5771,7 @@ Der Bestätigungscode lautet
     <Resource tag="RSSFEED">RSS-Feed</Resource>
     <Resource tag="SEARCH_FORUM">Forum durchsuchen</Resource>
     <Resource tag="SHOWTOPICS">Zeige Themen</Resource>
-    <Resource tag="SUBFORUMS">{0} Unterforen</Resource>
+    <Resource tag="SUBFORUMS">Unterforen</Resource>
     <Resource tag="TODAYAT">[b]Heute[/b], um {0:T}</Resource>
     <Resource tag="TOPIC_STARTER">Begonnen von</Resource>
     <Resource tag="TOPICS">Themen</Resource>

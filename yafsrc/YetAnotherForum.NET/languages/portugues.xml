@@ -5852,7 +5852,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="RSSFEED">Notícias RSS</Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Mostrar Tópicos</Resource>
-    <Resource tag="SUBFORUMS">{0} Subforuns</Resource>
+    <Resource tag="SUBFORUMS">Subforuns</Resource>
     <Resource tag="TODAYAT">[b]Hoje[/b] às {0:T}</Resource>
     <Resource tag="TOPIC_STARTER">Tópico Inicial</Resource>
     <Resource tag="TOPICS">Tópicos</Resource>

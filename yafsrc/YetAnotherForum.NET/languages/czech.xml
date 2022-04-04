@@ -5853,7 +5853,7 @@ Visit {forumname} at {forumlink}
     <Resource tag="RSSFEED">RSS</Resource>
     <Resource tag="SEARCH_FORUM">Search Forum</Resource>
     <Resource tag="SHOWTOPICS">Ukázat témata</Resource>
-    <Resource tag="SUBFORUMS">{0} fór druhé úrovně</Resource>
+    <Resource tag="SUBFORUMS">fór druhé úrovně</Resource>
     <Resource tag="TODAYAT">[b]Dnes[/b] v {0:T}</Resource>
     <Resource tag="TOPIC_STARTER">Téma zahájil</Resource>
     <Resource tag="TOPICS">Témata</Resource>
