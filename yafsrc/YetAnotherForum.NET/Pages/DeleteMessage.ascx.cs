@@ -364,7 +364,7 @@ namespace YAF.Pages
             }
             else
             {
-                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { f = topic.ID, name = topic.TopicName });
+                this.Get<LinkBuilder>().Redirect(ForumPages.Posts, new { t = topic.ID, name = topic.TopicName });
             }
         }
 
