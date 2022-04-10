@@ -9457,7 +9457,7 @@
                     if (options.placeholder != null) {
                         options.selectionAdapter = Utils.Decorate(options.selectionAdapter, Placeholder);
                     }
-                    if (options.allowClear) {
+                    if (options.allowClearing) {
                         options.selectionAdapter = Utils.Decorate(options.selectionAdapter, AllowClear);
                     }
                     if (options.multiple) {

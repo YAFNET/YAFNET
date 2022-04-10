@@ -41,8 +41,8 @@
         return input instanceof Date || Object.prototype.toString.call(input) === "[object Date]";
     }
     function map(arr, fn) {
-        var res = [], i;
-        for (i = 0; i < arr.length; ++i) {
+        var res = [], i, arrLen = arr.length;
+        for (i = 0; i < arrLen; ++i) {
             res.push(fn(arr[i], i));
         }
         return res;
@@ -131,7 +131,7 @@
     }
     var momentProperties = hooks.momentProperties = [], updateInProgress = false;
     function copyConfig(to, from) {
-        var i, prop, val;
+        var i, prop, val, momentPropertiesLen = momentProperties.length;
         if (!isUndefined(from._isAMomentObject)) {
             to._isAMomentObject = from._isAMomentObject;
         }
@@ -162,8 +162,8 @@
         if (!isUndefined(from._locale)) {
             to._locale = from._locale;
         }
-        if (momentProperties.length > 0) {
-            for (i = 0; i < momentProperties.length; i++) {
+        if (momentPropertiesLen > 0) {
+            for (i = 0; i < momentPropertiesLen; i++) {
                 prop = momentProperties[i];
                 val = from[prop];
                 if (!isUndefined(val)) {
@@ -200,8 +200,8 @@
                 hooks.deprecationHandler(null, msg);
             }
             if (firstTime) {
-                var args = [], arg, i, key;
-                for (i = 0; i < arguments.length; i++) {
+                var args = [], arg, i, key, argLen = arguments.length;
+                for (i = 0; i < argLen; i++) {
                     arg = "";
                     if (typeof arguments[i] === "object") {
                         arg += "\n[" + i + "] ";
@@ -520,8 +520,8 @@
     function stringSet(units, value) {
         if (typeof units === "object") {
             units = normalizeObjectUnits(units);
-            var prioritized = getPrioritizedUnits(units), i;
-            for (i = 0; i < prioritized.length; i++) {
+            var prioritized = getPrioritizedUnits(units), i, prioritizedLen = prioritized.length;
+            for (i = 0; i < prioritizedLen; i++) {
                 this[prioritized[i].unit](units[prioritized[i].unit]);
             }
         } else {
@@ -555,7 +555,7 @@
     }
     var tokens = {};
     function addParseToken(token, callback) {
-        var i, func = callback;
+        var i, func = callback, tokenLen;
         if (typeof token === "string") {
             token = [ token ];
         }
@@ -564,7 +564,8 @@
                 array[callback] = toInt(input);
             };
         }
-        for (i = 0; i < token.length; i++) {
+        tokenLen = token.length;
+        for (i = 0; i < tokenLen; i++) {
             tokens[token[i]] = func;
         }
     }
@@ -1365,9 +1366,12 @@
         }
         return globalLocale;
     }
+    function isLocaleNameSane(name) {
+        return name.match("^[^/\\\\]*$") != null;
+    }
     function loadLocale(name) {
         var oldLocale = null, aliasedRequire;
-        if (locales[name] === undefined && typeof module !== "undefined" && module && module.exports) {
+        if (locales[name] === undefined && typeof module !== "undefined" && module && module.exports && isLocaleNameSane(name)) {
             try {
                 oldLocale = globalLocale._abbr;
                 aliasedRequire = require;
@@ -1519,10 +1523,10 @@
         PST: -8 * 60
     };
     function configFromISO(config) {
-        var i, l, string = config._i, match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string), allowTime, dateFormat, timeFormat, tzFormat;
+        var i, l, string = config._i, match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string), allowTime, dateFormat, timeFormat, tzFormat, isoDatesLen = isoDates.length, isoTimesLen = isoTimes.length;
         if (match) {
             getParsingFlags(config).iso = true;
-            for (i = 0, l = isoDates.length; i < l; i++) {
+            for (i = 0, l = isoDatesLen; i < l; i++) {
                 if (isoDates[i][1].exec(match[1])) {
                     dateFormat = isoDates[i][0];
                     allowTime = isoDates[i][2] !== false;
@@ -1534,7 +1538,7 @@
                 return;
             }
             if (match[3]) {
-                for (i = 0, l = isoTimes.length; i < l; i++) {
+                for (i = 0, l = isoTimesLen; i < l; i++) {
                     if (isoTimes[i][1].exec(match[3])) {
                         timeFormat = (match[2] || " ") + isoTimes[i][0];
                         break;
@@ -1757,9 +1761,10 @@
         }
         config._a = [];
         getParsingFlags(config).empty = true;
-        var string = "" + config._i, i, parsedInput, tokens, token, skipped, stringLength = string.length, totalParsedInputLength = 0, era;
+        var string = "" + config._i, i, parsedInput, tokens, token, skipped, stringLength = string.length, totalParsedInputLength = 0, era, tokenLen;
         tokens = expandFormat(config._f, config._locale).match(formattingTokens) || [];
-        for (i = 0; i < tokens.length; i++) {
+        tokenLen = tokens.length;
+        for (i = 0; i < tokenLen; i++) {
             token = tokens[i];
             parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
             if (parsedInput) {
@@ -1819,13 +1824,13 @@
         }
     }
     function configFromStringAndArray(config) {
-        var tempConfig, bestMoment, scoreToBeat, i, currentScore, validFormatFound, bestFormatIsValid = false;
-        if (config._f.length === 0) {
+        var tempConfig, bestMoment, scoreToBeat, i, currentScore, validFormatFound, bestFormatIsValid = false, configfLen = config._f.length;
+        if (configfLen === 0) {
             getParsingFlags(config).invalidFormat = true;
             config._d = new Date(NaN);
             return;
         }
-        for (i = 0; i < config._f.length; i++) {
+        for (i = 0; i < configfLen; i++) {
             currentScore = 0;
             validFormatFound = false;
             tempConfig = copyConfig({}, config);
@@ -1991,13 +1996,13 @@
     };
     var ordering = [ "year", "quarter", "month", "week", "day", "hour", "minute", "second", "millisecond" ];
     function isDurationValid(m) {
-        var key, unitHasDecimal = false, i;
+        var key, unitHasDecimal = false, i, orderLen = ordering.length;
         for (key in m) {
             if (hasOwnProp(m, key) && !(indexOf.call(ordering, key) !== -1 && (m[key] == null || !isNaN(m[key])))) {
                 return false;
             }
         }
-        for (i = 0; i < ordering.length; ++i) {
+        for (i = 0; i < orderLen; ++i) {
             if (m[ordering[i]]) {
                 if (unitHasDecimal) {
                     return false;
@@ -2324,8 +2329,8 @@
         return isMoment(input) || isDate(input) || isString(input) || isNumber(input) || isNumberOrStringArray(input) || isMomentInputObject(input) || input === null || input === undefined;
     }
     function isMomentInputObject(input) {
-        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [ "years", "year", "y", "months", "month", "M", "days", "day", "d", "dates", "date", "D", "hours", "hour", "h", "minutes", "minute", "m", "seconds", "second", "s", "milliseconds", "millisecond", "ms" ], i, property;
-        for (i = 0; i < properties.length; i += 1) {
+        var objectTest = isObject(input) && !isObjectEmpty(input), propertyTest = false, properties = [ "years", "year", "y", "months", "month", "M", "days", "day", "d", "dates", "date", "D", "hours", "hour", "h", "minutes", "minute", "m", "seconds", "second", "s", "milliseconds", "millisecond", "ms" ], i, property, propertyLen = properties.length;
+        for (i = 0; i < propertyLen; i += 1) {
             property = properties[i];
             propertyTest = propertyTest || hasOwnProp(input, property);
         }
@@ -3603,7 +3608,7 @@
     addParseToken("x", function(input, array, config) {
         config._d = new Date(toInt(input));
     });
-    hooks.version = "2.29.1";
+    hooks.version = "2.29.2";
     setHookCallback(createLocal);
     hooks.fn = proto;
     hooks.min = min;
@@ -5160,7 +5165,10 @@
             doy: 4
         }
     });
-    var months$4 = "leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec".split("_"), monthsShort = "led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro".split("_"), monthsParse$1 = [ /^led/i, /^úno/i, /^bře/i, /^dub/i, /^kvě/i, /^(čvn|červen$|června)/i, /^(čvc|červenec|července)/i, /^srp/i, /^zář/i, /^říj/i, /^lis/i, /^pro/i ], monthsRegex$2 = /^(leden|únor|březen|duben|květen|červenec|července|červen|června|srpen|září|říjen|listopad|prosinec|led|úno|bře|dub|kvě|čvn|čvc|srp|zář|říj|lis|pro)/i;
+    var months$4 = {
+        format: "leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec".split("_"),
+        standalone: "ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince".split("_")
+    }, monthsShort = "led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro".split("_"), monthsParse$1 = [ /^led/i, /^úno/i, /^bře/i, /^dub/i, /^kvě/i, /^(čvn|červen$|června)/i, /^(čvc|červenec|července)/i, /^srp/i, /^zář/i, /^říj/i, /^lis/i, /^pro/i ], monthsRegex$2 = /^(leden|únor|březen|duben|květen|červenec|července|červen|června|srpen|září|říjen|listopad|prosinec|led|úno|bře|dub|kvě|čvn|čvc|srp|zář|říj|lis|pro)/i;
     function plural$1(n) {
         return n > 1 && n < 5 && ~~(n / 10) !== 1;
     }
@@ -11943,24 +11951,34 @@
     var translator$1 = {
         words: {
             ss: [ "секунда", "секунде", "секунди" ],
-            m: [ "један минут", "једне минуте" ],
-            mm: [ "минут", "минуте", "минута" ],
+            m: [ "један минут", "једног минута" ],
+            mm: [ "минут", "минута", "минута" ],
             h: [ "један сат", "једног сата" ],
             hh: [ "сат", "сата", "сати" ],
+            d: [ "један дан", "једног дана" ],
             dd: [ "дан", "дана", "дана" ],
+            M: [ "један месец", "једног месеца" ],
             MM: [ "месец", "месеца", "месеци" ],
-            yy: [ "година", "године", "година" ]
+            y: [ "једну годину", "једне године" ],
+            yy: [ "годину", "године", "година" ]
         },
         correctGrammaticalCase: function(number, wordKey) {
-            return number === 1 ? wordKey[0] : number >= 2 && number <= 4 ? wordKey[1] : wordKey[2];
+            if (number % 10 >= 1 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {
+                return number % 10 === 1 ? wordKey[0] : wordKey[1];
+            }
+            return wordKey[2];
         },
-        translate: function(number, withoutSuffix, key) {
+        translate: function(number, withoutSuffix, key, isFuture) {
             var wordKey = translator$1.words[key];
             if (key.length === 1) {
-                return withoutSuffix ? wordKey[0] : wordKey[1];
-            } else {
-                return number + " " + translator$1.correctGrammaticalCase(number, wordKey);
+                if (key === "y" && withoutSuffix) return "једна година";
+                return isFuture || withoutSuffix ? wordKey[0] : wordKey[1];
             }
+            const word = translator$1.correctGrammaticalCase(number, wordKey);
+            if (key === "yy" && withoutSuffix && word === "годину") {
+                return number + " година";
+            }
+            return number + " " + word;
         }
     };
     hooks.defineLocale("sr-cyrl", {
@@ -12016,11 +12034,11 @@
             mm: translator$1.translate,
             h: translator$1.translate,
             hh: translator$1.translate,
-            d: "дан",
+            d: translator$1.translate,
             dd: translator$1.translate,
-            M: "месец",
+            M: translator$1.translate,
             MM: translator$1.translate,
-            y: "годину",
+            y: translator$1.translate,
             yy: translator$1.translate
         },
         dayOfMonthOrdinalParse: /\d{1,2}\./,
@@ -12033,24 +12051,34 @@
     var translator$2 = {
         words: {
             ss: [ "sekunda", "sekunde", "sekundi" ],
-            m: [ "jedan minut", "jedne minute" ],
-            mm: [ "minut", "minute", "minuta" ],
+            m: [ "jedan minut", "jednog minuta" ],
+            mm: [ "minut", "minuta", "minuta" ],
             h: [ "jedan sat", "jednog sata" ],
             hh: [ "sat", "sata", "sati" ],
+            d: [ "jedan dan", "jednog dana" ],
             dd: [ "dan", "dana", "dana" ],
+            M: [ "jedan mesec", "jednog meseca" ],
             MM: [ "mesec", "meseca", "meseci" ],
-            yy: [ "godina", "godine", "godina" ]
+            y: [ "jednu godinu", "jedne godine" ],
+            yy: [ "godinu", "godine", "godina" ]
         },
         correctGrammaticalCase: function(number, wordKey) {
-            return number === 1 ? wordKey[0] : number >= 2 && number <= 4 ? wordKey[1] : wordKey[2];
+            if (number % 10 >= 1 && number % 10 <= 4 && (number % 100 < 10 || number % 100 >= 20)) {
+                return number % 10 === 1 ? wordKey[0] : wordKey[1];
+            }
+            return wordKey[2];
         },
-        translate: function(number, withoutSuffix, key) {
+        translate: function(number, withoutSuffix, key, isFuture) {
             var wordKey = translator$2.words[key];
             if (key.length === 1) {
-                return withoutSuffix ? wordKey[0] : wordKey[1];
-            } else {
-                return number + " " + translator$2.correctGrammaticalCase(number, wordKey);
+                if (key === "y" && withoutSuffix) return "jedna godina";
+                return isFuture || withoutSuffix ? wordKey[0] : wordKey[1];
             }
+            const word = translator$2.correctGrammaticalCase(number, wordKey);
+            if (key === "yy" && withoutSuffix && word === "godinu") {
+                return number + " godina";
+            }
+            return number + " " + word;
         }
     };
     hooks.defineLocale("sr", {
@@ -12106,11 +12134,11 @@
             mm: translator$2.translate,
             h: translator$2.translate,
             hh: translator$2.translate,
-            d: "dan",
+            d: translator$2.translate,
             dd: translator$2.translate,
-            M: "mesec",
+            M: translator$2.translate,
             MM: translator$2.translate,
-            y: "godinu",
+            y: translator$2.translate,
             yy: translator$2.translate
         },
         dayOfMonthOrdinalParse: /\d{1,2}\./,
@@ -12918,7 +12946,7 @@
         months: "Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık".split("_"),
         monthsShort: "Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara".split("_"),
         weekdays: "Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi".split("_"),
-        weekdaysShort: "Paz_Pts_Sal_Çar_Per_Cum_Cts".split("_"),
+        weekdaysShort: "Paz_Pzt_Sal_Çar_Per_Cum_Cmt".split("_"),
         weekdaysMin: "Pz_Pt_Sa_Ça_Pe_Cu_Ct".split("_"),
         meridiem: function(hours, minutes, isLower) {
             if (hours < 12) {
@@ -27401,6 +27429,10 @@ $(document).ready(function() {
             templateResult: formatState,
             templateSelection: formatState,
             placeholder: $(this).attr("placeholder")
+        }).on("select2:select", function(e) {
+            if (e.params.data.element.dataset.url) {
+                window.location = e.params.data.element.dataset.url;
+            }
         });
     });
     if ($("#PostAttachmentListPlaceholder").length) {

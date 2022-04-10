@@ -5129,7 +5129,7 @@ S2.define("select2/defaults",[
         );
       }
 
-      if (options.allowClear) {
+      if (options.allowClearing) {
         options.selectionAdapter = Utils.Decorate(
           options.selectionAdapter,
           AllowClear
