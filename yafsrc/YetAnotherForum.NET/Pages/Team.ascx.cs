@@ -274,7 +274,7 @@ namespace YAF.Pages
                 return;
             }
 
-            var forumsJump  = e.Item.FindControlAs<ForumJump>("Forums");
+            var forumsJump  = e.Item.FindControlAs<DropDownList>("Forums");
 
             var modLink = e.Item.FindControlAs<UserLink>("ModLink");
 
@@ -282,16 +282,13 @@ namespace YAF.Pages
 
             var forums = mod.ForumIDs.Select(forumsItem => forumsItem);
 
-            forumsJump.Forums = this.GetRepository<Types.Models.Forum>().SortModeratorList(
-                forums,
-                0,
-                0,
-                0,
-                false);
+            var forumList = this.GetRepository<Types.Models.Forum>().SortModeratorList(forums);
 
             if (forums.Any())
             {
-                forumsJump.PlaceHolder = this.GetTextFormatted("VIEW_FORUMS", forums.Count());
+                forumsJump.AddForumAndCategoryIcons(forumList);
+
+                forumsJump.Attributes["PlaceHolder"] = this.GetTextFormatted("VIEW_FORUMS", forums.Count());
             }
             else
             {

@@ -27,16 +27,14 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Model;
     using YAF.Core.Tasks;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Web.Extensions;
 
     #endregion
@@ -61,6 +59,26 @@ namespace YAF.Pages.Admin
         #region Methods
 
         /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumList",
+                    this.GetText("PRUNE_FORUM"),
+                    false,
+                    true,
+                    this.ForumListSelected.ClientID));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Handles the Load event of the Page control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -70,7 +88,6 @@ namespace YAF.Pages.Admin
             if (!this.IsPostBack)
             {
                 this.days.Text = "60";
-                this.BindData();
             }
 
             this.lblPruneInfo.Text = string.Empty;
@@ -103,30 +120,11 @@ namespace YAF.Pages.Admin
         {
             PruneTopicTask.Start(
                 this.PageBoardContext.PageBoardID,
-                this.forumlist.SelectedValue.ToType<int>(),
+                this.ForumListSelected.Value.ToType<int>(),
                 this.days.Text.ToType<int>(),
                 this.permDeleteChkBox.Checked);
 
             this.PageBoardContext.Notify(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
-        }
-
-        /// <summary>
-        /// The bind data.
-        /// </summary>
-        private void BindData()
-        {
-            var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID);
-
-            this.forumlist.AddForumAndCategoryIcons(forumList);
-
-            this.forumlist.DataTextField = "Forum";
-            this.forumlist.DataValueField = "ForumID";
-
-            this.DataBind();
-
-            this.forumlist.Items.Insert(0, new ListItem(this.GetText("ADMIN_PRUNE", "ALL_FORUMS"), "0"));
         }
 
         #endregion

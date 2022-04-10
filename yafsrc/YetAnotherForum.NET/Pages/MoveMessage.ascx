@@ -19,14 +19,13 @@
             </div>
             <div class="card-body text-center">
                 <div class="mb-3">
-                    <asp:Label runat="server" AssociatedControlID="ForumList">
+                    <label for="ForumList">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                                             LocalizedTag="select_forum_moveto" />
-                    </asp:Label>
-                    <asp:DropDownList ID="ForumList" runat="server" 
-                                      CssClass="select2-image-select" 
-                                      AutoPostBack="True" 
-                                      OnSelectedIndexChanged="ForumList_SelectedIndexChanged" />
+                    </label>
+                    <select id="ForumList" name="forumList"></select>
+                    <asp:HiddenField runat="server" ID="ForumListSelected" Value="0" />
+
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TopicsList">

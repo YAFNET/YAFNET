@@ -31,12 +31,12 @@ namespace YAF.Dialogs
     using YAF.Core.BaseControls;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
-    using YAF.Web.Extensions;
 
     #endregion
 
@@ -46,6 +46,26 @@ namespace YAF.Dialogs
     public partial class MoveTopic : BaseUserControl
     {
         #region Methods
+
+        /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumList",
+                    this.GetText("SELECT_FORUM"),
+                    false,
+                    false,
+                    this.ForumListSelected.ClientID));
+
+            base.OnPreRender(e);
+        }
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -78,20 +98,9 @@ namespace YAF.Dialogs
                 this.LinkDays.Text = "1";
             }
 
-            var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID);
-
-            this.ForumList.AddForumAndCategoryIcons(forumList);
-
             this.DataBind();
 
-            var pageItem = this.ForumList.Items.FindByValue(this.PageBoardContext.PageForumID.ToString());
-
-            if (pageItem != null)
-            {
-                pageItem.Selected = true;
-            }
+            this.ForumListSelected.Value = this.PageBoardContext.PageForumID.ToString();
         }
 
         /// <summary>
@@ -110,14 +119,14 @@ namespace YAF.Dialogs
                 return;
             }
 
-            if (this.ForumList.SelectedValue.ToType<int>() <= 0)
+            if (this.ForumListSelected.Value.ToType<int>() <= 0)
             {
                 this.PageBoardContext.Notify(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
                 return;
             }
 
             // only move if it's a destination is a different forum.
-            if (this.ForumList.SelectedValue.ToType<int>() != this.PageBoardContext.PageForumID)
+            if (this.ForumListSelected.Value.ToType<int>() != this.PageBoardContext.PageForumID)
             {
                 if (ld >= -2)
                 {
@@ -128,7 +137,7 @@ namespace YAF.Dialogs
                 this.GetRepository<Topic>().Move(
                     this.PageBoardContext.PageTopicID,
                     this.PageBoardContext.PageForumID,
-                    this.ForumList.SelectedValue.ToType<int>(),
+                    this.ForumListSelected.Value.ToType<int>(),
                     this.LeavePointer.Checked,
                     linkDays.Value);
             }

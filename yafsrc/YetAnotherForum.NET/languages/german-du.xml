@@ -1692,6 +1692,7 @@
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
   <page name="ADMIN_PRUNE">
+    <Resource tag="ALL_CATEGORIES">All Categories</Resource>
     <Resource tag="ALL_FORUMS">Alle Foren</Resource>
     <Resource tag="CONFIRM_PRUNE">Möchten Sie wirklich die Themen reduzieren?</Resource>
     <Resource tag="MSG_TASK">Prune Task geplant</Resource>

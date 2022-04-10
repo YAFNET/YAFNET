@@ -119,7 +119,7 @@
                                                                 LocalizedTag="FORUMS" />:
                                         </span>
                                     <div class="input-group">
-                                        <YAF:ForumJump ID="Forums" runat="server" />
+                                        <asp:DropDownList ID="Forums" runat="server" CssClass="select2-image-select" />
                                     </div>
                             <small>
                                 <div class="btn-group mt-2" role="group">

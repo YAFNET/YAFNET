@@ -109,6 +109,14 @@ namespace YAF.Pages
 
             this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
 
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    this.ForumJump.ClientID,
+                    this.GetText("FORUM_JUMP_PLACEHOLDER"),
+                    false,
+                    false));
+
             base.OnPreRender(e);
         }
 

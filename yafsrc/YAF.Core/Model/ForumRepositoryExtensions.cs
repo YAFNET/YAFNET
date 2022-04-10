@@ -27,12 +27,15 @@ namespace YAF.Core.Model
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Web;
 
     using ServiceStack.OrmLite;
 
     using YAF.Core.Context;
     using YAF.Core.Extensions;
+    using YAF.Core.Services;
     using YAF.Types;
+    using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Flags;
     using YAF.Types.Interfaces;
@@ -197,6 +200,9 @@ namespace YAF.Core.Model
         /// <param name="parentId">
         /// The parent Id.
         /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
         public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId, [NotNull] int parentId)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -221,6 +227,9 @@ namespace YAF.Core.Model
         /// <param name="boardId">
         /// The board Id.
         /// </param>
+        /// <returns>
+        /// Returns all Forums for the selected Board Id
+        /// </returns>
         public static List<Tuple<Forum, Category>> ListAll(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardId)
@@ -249,6 +258,9 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user Id.
         /// </param>
+        /// <returns>
+        /// Returns all forums accessible to a user
+        /// </returns>
         public static List<Tuple<Forum, Category, ActiveAccess>> ListAllWithAccess(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardId,
@@ -262,25 +274,25 @@ namespace YAF.Core.Model
                 .Join<ActiveAccess>((forum, active) => active.ForumID == forum.ID)
                 .Where<Forum, Category, ActiveAccess>(
                     (forum, category, active) =>
-                        active.UserID == userId && category.BoardID == boardId && active.ReadAccess)
+                        active.UserID == userId && category.BoardID == boardId && active.ReadAccess && forum.RemoteURL == null)
                 .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
-                .ThenBy<Forum>(f => f.ID).Select<Forum, Category, Active>(
-                    (forum, category, active) => new
-                    {
-                        CategoryID = category.ID,
-                        Category = category.Name,
-                        ForumID = forum.ID,
-                        Forum = forum.Name,
-                        Indent = 0,
-                        forum.ParentID
-                    });
+                .ThenBy<Forum>(f => f.ID).Select<Forum, Category>(
+                    (forum, category) => new
+                                             {
+                                                 CategoryID = category.ID,
+                                                 Category = category.Name,
+                                                 ForumID = forum.ID,
+                                                 Forum = forum.Name,
+                                                 Indent = 0,
+                                                 forum.ParentID
+                                             });
 
             return repository.DbAccess.Execute(
                 db => db.Connection.SelectMulti<Forum, Category, ActiveAccess>(expression));
         }
 
         /// <summary>
-        /// Lists all forums within a given subcategory
+        /// Lists all forums within a given category
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -288,31 +300,12 @@ namespace YAF.Core.Model
         /// <param name="categoryId">
         /// The category ID.
         /// </param>
+        /// <returns>
+        /// Returns Sorted Forums 
+        /// </returns>
         public static List<ForumSorted> ListAllFromCategory(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int categoryId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.ListAllFromCategory(categoryId, true);
-        }
-
-        /// <summary>
-        /// Lists all forums within a given subcategory
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category ID.
-        /// </param>
-        /// <param name="emptyFirstRow">
-        /// The empty First Row.
-        /// </param>
-        public static List<ForumSorted> ListAllFromCategory(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int categoryId,
-            bool emptyFirstRow)
         {
             CodeContracts.VerifyNotNull(repository);
 
@@ -321,15 +314,27 @@ namespace YAF.Core.Model
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Where<Forum, Category>(
                     (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId
-                                         && forum.ParentID == null);
+                                         && forum.ParentID == null).OrderBy<Forum>(f => f.SortOrder)
+                .ThenBy<Forum>(f => f.ID);
 
             var list = repository.DbAccess.Execute(db => db.Connection.Select(expression));
 
-            return repository.SortList(list, 0, 0, emptyFirstRow);
+            var sortedList = new List<ForumSorted>();
+
+            list.ForEach(
+                forum =>
+                    {
+                        // import the row into the destination
+                        var item = new ForumSorted { ForumID = forum.ID, Forum = forum.Name, Icon = "comments" };
+
+                        sortedList.Add(item);
+                    });
+
+            return sortedList;
         }
 
         /// <summary>
-        /// Gets the forum list all sorted.
+        /// Gets the forum list all sorted, with Access and paged, by search term
         /// </summary>
         /// <param name="repository">
         /// The repository.
@@ -340,43 +345,106 @@ namespace YAF.Core.Model
         /// <param name="userId">
         /// The user id.
         /// </param>
-        public static List<ForumSorted> ListAllSorted(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId,
-            [NotNull] int userId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            return repository.ListAllSorted(boardId, userId, false);
-        }
-
-        /// <summary>
-        /// Gets the forum list all sorted.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
+        /// <param name="searchTerm">
+        /// Filter Forums by Search Term
         /// </param>
-        /// <param name="boardId">
-        /// The board id.
-        /// </param>
-        /// <param name="userId">
-        /// The user id.
-        /// </param>
-        /// <param name="emptyFirstRow">
-        /// The empty first row.
-        /// </param>
-        [NotNull]
-        public static List<ForumSorted> ListAllSorted(
+        /// <returns>
+        /// Returns all Sorted Forums
+        /// </returns>
+        public static List<SelectGroup> ListAllSorted(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardId,
             [NotNull] int userId,
-            bool emptyFirstRow)
+            [NotNull] string searchTerm)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var list = repository.ListAllWithAccess(boardId, userId);
+            var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
+                string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
+                () => repository.ListAllWithAccess(boardId, userId),
+                TimeSpan.FromMinutes(5));
 
-            return repository.SortList(list, 0, 0, 0, emptyFirstRow);
+            return repository.SortList(list.Where(x => x.Item1.Name.ToLower().Contains(searchTerm)));
+        }
+
+        /// <summary>
+        /// Gets the forum list all sorted, with Access and paged, by search term
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="forumId">
+        /// Filter Forums by forum Id
+        /// </param>
+        /// <returns>
+        /// Return the selected forum as Select Group
+        /// </returns>
+        public static List<SelectGroup> ListAllSorted(
+            [NotNull] this IRepository<Forum> repository,
+            [NotNull] int boardId,
+            [NotNull] int userId,
+            [NotNull] int forumId)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
+                string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
+                () => repository.ListAllWithAccess(boardId, userId),
+                TimeSpan.FromMinutes(5));
+
+            return repository.SortList(list.Where(x => x.Item1.ID == forumId));
+        }
+
+        /// <summary>
+        /// Gets the forum list all sorted, with Access and paged.
+        /// </summary>
+        /// <param name="repository">
+        /// The repository.
+        /// </param>
+        /// <param name="boardId">
+        /// The board id.
+        /// </param>
+        /// <param name="userId">
+        /// The user id.
+        /// </param>
+        /// <param name="pageIndex">
+        /// The page index
+        /// </param>
+        /// <param name="pageSize">
+        /// The page size
+        /// </param>
+        /// <param name="pager">
+        /// the pager
+        /// </param>
+        /// <returns>
+        /// Returns Paged list of forums
+        /// </returns>
+        public static List<SelectGroup> ListAllSorted(
+            [NotNull] this IRepository<Forum> repository,
+            [NotNull] int boardId,
+            [NotNull] int userId,
+            [NotNull] int pageIndex,
+            [NotNull] int pageSize,
+                out Paging pager)
+        {
+            CodeContracts.VerifyNotNull(repository);
+
+            pager = new Paging { CurrentPageIndex = pageIndex, PageSize = pageSize };
+
+            var forums = BoardContext.Current.Get<IDataCache>().GetOrSet(
+                string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
+                () => repository.ListAllWithAccess(boardId, userId),
+                TimeSpan.FromMinutes(5));
+
+           var list = forums.GetPaged(pager);
+
+           return repository.SortList(list);
         }
 
         /// <summary>
@@ -397,15 +465,18 @@ namespace YAF.Core.Model
         /// <param name="parentId">
         /// The Parent ID.
         /// </param>
+        /// <param name="findLastRead">
+        /// Indicates if the Table should Contain the last Access Date
+        /// </param>
         /// <param name="pageIndex">
         /// The Current Page Index
         /// </param>
         /// <param name="pageSize">
         /// The Number of items to retrieve.
         /// </param>
-        /// <param name="findLastRead">
-        /// Indicates if the Table should Contain the last Access Date
-        /// </param>
+        /// <returns>
+        /// Returns List of Forum Read
+        /// </returns>
         public static List<ForumRead> ListRead(
             [NotNull] this IRepository<Forum> repository,
             [NotNull] int boardId,
@@ -528,51 +599,6 @@ namespace YAF.Core.Model
         }
 
         /// <summary>
-        /// Gets a list of topics in a forum
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="boardId">
-        /// The Board ID
-        /// </param>
-        /// <param name="forumId">
-        /// The forum ID.
-        /// </param>
-        public static List<Forum> List(
-            [NotNull] this IRepository<Forum> repository,
-            [NotNull] int boardId,
-            [CanBeNull] int? forumId)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            if (forumId is 0)
-            {
-                forumId = null;
-            }
-
-            if (forumId.HasValue)
-            {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                    .Where<Forum, Category>(
-                        (forum, category) => category.BoardID == boardId && forum.ID == forumId.Value);
-
-                return repository.DbAccess.Execute(db => db.Connection.Select(expression));
-            }
-            else
-            {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
-
-                expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
-                    .Where<Forum, Category>((forum, category) => category.BoardID == boardId).OrderBy(f => f.SortOrder);
-
-                return repository.DbAccess.Execute(db => db.Connection.Select(expression));
-            }
-        }
-
-        /// <summary>
         /// Deletes a forum
         /// </summary>
         /// <param name="repository">
@@ -603,7 +629,6 @@ namespace YAF.Core.Model
 
             BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == forumId);
             BoardContext.Current.GetRepository<ForumReadTracking>().Delete(x => x.ForumID == forumId);
-
 
             // --- Delete topics, messages and attachments
             var topics = BoardContext.Current.GetRepository<Topic>().Get(g => g.ForumID == forumId);
@@ -691,11 +716,14 @@ namespace YAF.Core.Model
         /// The repository.
         /// </param>
         /// <param name="userId">
-        ///  The User ID
+        /// The User ID
         /// </param>
         /// <param name="boardId">
-        ///  The Board ID
+        /// The Board ID
         /// </param>
+        /// <returns>
+        /// Returns thee Moderator List for the Board
+        /// </returns>
         [NotNull]
         public static List<ModerateForum> ModerateList(
             this IRepository<Forum> repository,
@@ -839,8 +867,6 @@ namespace YAF.Core.Model
             }
         }
 
-
-
         /// <summary>
         /// Re-Order all Forums By Name Ascending
         /// </summary>
@@ -908,47 +934,27 @@ namespace YAF.Core.Model
         /// <param name="listSource">
         /// The list source.
         /// </param>
-        /// <param name="parentId">
-        /// The parent id.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category id.
-        /// </param>
-        /// <param name="startingIndent">
-        /// The starting indent.
-        /// </param>
-        /// <param name="emptyFirstRow">
-        /// The empty first row.
-        /// </param>
+        /// <returns>
+        /// Returns the Sorted Moderator List
+        /// </returns>
         [NotNull]
         public static List<ForumSorted> SortModeratorList(
             this IRepository<Forum> repository,
-            [NotNull] IEnumerable<ModeratorsForums> listSource,
-            [NotNull] int parentId,
-            [NotNull] int categoryId,
-            [NotNull] int startingIndent,
-            [NotNull] bool emptyFirstRow)
+            [NotNull] IEnumerable<ModeratorsForums> listSource)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var listDestination = new List<ForumSorted>();
-
-            if (emptyFirstRow)
-            {
-                var blankRow = new ForumSorted
-                                   {
-                                       ForumID = 0,
-                                       Forum = BoardContext.Current.Get<ILocalization>().GetText("NONE"),
-                                       Category = string.Empty,
-                                       Icon = string.Empty
-                                   };
-
-                listDestination.Add(blankRow);
-            }
-
-            repository.SortListRecursive(listSource, listDestination, parentId, categoryId, startingIndent);
-
-            return listDestination;
+            return listSource.Select(
+                forum => new ForumSorted
+                             {
+                                 Category = forum.CategoryName,
+                                 Forum = forum.ParentID.HasValue
+                                             ? $" - {HttpUtility.HtmlEncode(forum.ForumName)}"
+                                             : HttpUtility.HtmlEncode(forum.ForumName),
+                                 ForumID = forum.ForumID,
+                                 Icon = "comments",
+                                 ForumLink = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum.ForumID, forum.ForumName)
+                }).ToList();
         }
 
         #endregion
@@ -962,313 +968,43 @@ namespace YAF.Core.Model
         /// <param name="listSource">
         /// The list source.
         /// </param>
-        /// <param name="parentId">
-        /// The parent Id.
-        /// </param>
-        /// <param name="startingIndent">
-        /// The starting indent.
-        /// </param>
-        /// <param name="emptyFirstRow">
-        /// The empty first row.
-        /// </param>
+        /// <returns>
+        /// Returns the Sorted List
+        /// </returns>
         [NotNull]
-        private static List<ForumSorted> SortList(
+        private static List<SelectGroup> SortList(
             this IRepository<Forum> repository,
-            [NotNull] List<Forum> listSource,
-            [NotNull] int parentId,
-            [NotNull] int startingIndent,
-            [NotNull] bool emptyFirstRow)
+            [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
         {
             CodeContracts.VerifyNotNull(repository);
 
-            var listDestination = new List<ForumSorted>();
+            var categories = listSource.Select(x => x.Item2).DistinctBy(x => x.ID);
 
-            if (emptyFirstRow)
-            {
-                var blankRow = new ForumSorted
-                {
-                    ForumID = 0,
-                    Forum = BoardContext.Current.Get<ILocalization>().GetText("NONE"),
-                    Icon = string.Empty
-                };
+            var listDestination = new List<SelectGroup>();
 
-                listDestination.Add(blankRow);
-            }
+            categories.ForEach(
+                category =>
+                    {
+                        var forumsByCategory = listSource.Select(x => x.Item1).Where(x => x.CategoryID == category.ID);
 
-            repository.SortListRecursive(listSource, listDestination, parentId, startingIndent);
+                        var selectGroup = new SelectGroup
+                                              {
+                                                  text = category.Name,
+                                                  children = forumsByCategory.Select(
+                                                      forum => new SelectOptions
+                                                                   {
+
+                                                                       id = forum.ID.ToString(),
+                                                                       text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
+                                                                                  : HttpUtility.HtmlEncode(forum.Name),
+                                                                       url = BoardContext.Current.Get<LinkBuilder>().GetForumLink(forum)
+                        }).ToList()
+                                              };
+
+                        listDestination.Add(selectGroup);
+                    });
 
             return listDestination;
-        }
-
-        /// <summary>
-        /// The SortList.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent id.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category id.
-        /// </param>
-        /// <param name="startingIndent">
-        /// The starting indent.
-        /// </param>
-        /// <param name="emptyFirstRow">
-        /// The empty first row.
-        /// </param>
-        [NotNull]
-        private static List<ForumSorted> SortList(
-            this IRepository<Forum> repository,
-            [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource,
-            [NotNull] int parentId,
-            [NotNull] int categoryId,
-            [NotNull] int startingIndent,
-            [NotNull] bool emptyFirstRow)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            var listDestination = new List<ForumSorted>();
-
-            if (emptyFirstRow)
-            {
-                var blankRow = new ForumSorted
-                {
-                    ForumID = 0,
-                    Forum = BoardContext.Current.Get<ILocalization>().GetText("NONE"),
-                    Category = string.Empty,
-                    Icon = string.Empty
-                };
-
-                listDestination.Add(blankRow);
-            }
-
-            repository.SortListRecursive(listSource, listDestination, parentId, categoryId, startingIndent);
-
-            return listDestination;
-        }
-
-        /// <summary>
-        /// The SortListRecursive.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="listDestination">
-        /// The list destination.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent id.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category id.
-        /// </param>
-        /// <param name="currentIndent">
-        /// The current indent.
-        /// </param>
-        private static void SortListRecursive(
-            this IRepository<Forum> repository,
-            [NotNull] IEnumerable<ModeratorsForums> listSource,
-            [NotNull] ICollection<ForumSorted> listDestination,
-            [NotNull] int parentId,
-            [NotNull] int categoryId,
-            [NotNull] int currentIndent)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            foreach (var forum in listSource)
-            {
-                // see if this is a root-forum
-                forum.ParentID ??= 0;
-
-                if (forum.ParentID != parentId)
-                {
-                    continue;
-                }
-
-                if (forum.CategoryID != categoryId)
-                {
-                    categoryId = forum.CategoryID;
-
-                    listDestination.Add(
-                        new ForumSorted
-                        {
-                            ForumID = -categoryId,
-                            Forum = $"{forum.ForumName}",
-                            Category = $"{forum.CategoryName}",
-                            Icon = "folder"
-                        });
-                }
-
-                var indent = string.Empty;
-
-                for (var j = 0; j < currentIndent; j++)
-                {
-                    indent = "-";
-                }
-
-                // import the row into the destination
-                var newRow = new ForumSorted
-                {
-                    ForumID = forum.ForumID,
-                    Forum = $" {indent} {forum.ForumName}",
-                    Category = $"{forum.CategoryName}",
-                    Icon = "comments"
-                };
-
-
-                listDestination.Add(newRow);
-
-                // recurse through the list...
-                repository.SortListRecursive(
-                    listSource,
-                    listDestination,
-                    forum.ForumID,
-                    categoryId,
-                    currentIndent + 1);
-            }
-        }
-
-        /// <summary>
-        /// The SortListRecursive.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="listDestination">
-        /// The list destination.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent id.
-        /// </param>
-        /// <param name="categoryId">
-        /// The category id.
-        /// </param>
-        /// <param name="currentIndent">
-        /// The current indent.
-        /// </param>
-        private static void SortListRecursive(
-            this IRepository<Forum> repository,
-            [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource,
-            [NotNull] ICollection<ForumSorted> listDestination,
-            [NotNull] int parentId,
-            [NotNull] int categoryId,
-            [NotNull] int currentIndent)
-        {
-            CodeContracts.VerifyNotNull(repository);
-
-            foreach (var (item1, item2, _) in listSource)
-            {
-                // see if this is a root-forum
-                item1.ParentID ??= 0;
-
-                if (item1.ParentID != parentId)
-                {
-                    continue;
-                }
-
-                if (item2.ID != categoryId)
-                {
-                    categoryId = item2.ID;
-
-                    listDestination.Add(
-                        new ForumSorted
-                        {
-                            ForumID = -categoryId,
-                            Forum = $"{item2.Name}",
-                            Category = $"{item2.Name}",
-                            Icon = "folder"
-                        });
-                }
-
-                var indent = string.Empty;
-
-                for (var j = 0; j < currentIndent; j++)
-                {
-                    indent = "-";
-                }
-
-                // import the row into the destination
-                var newRow = new ForumSorted
-                {
-                    ForumID = item1.ID,
-                    Forum = $" {indent} {item1.Name}",
-                    Category = $"{item2.Name}",
-                    Icon = "comments"
-                };
-
-
-                listDestination.Add(newRow);
-
-                // recurse through the list...
-                repository.SortListRecursive(listSource, listDestination, item1.ID, categoryId, currentIndent + 1);
-            }
-        }
-
-        /// <summary>
-        /// The SortListRecursive.
-        /// </summary>
-        /// <param name="repository">
-        /// The repository.
-        /// </param>
-        /// <param name="listSource">
-        /// The list source.
-        /// </param>
-        /// <param name="listDestination">
-        /// The list destination.
-        /// </param>
-        /// <param name="parentId">
-        /// The parent id.
-        /// </param>
-        /// <param name="currentIndent">
-        /// The current indent.
-        /// </param>
-        private static void SortListRecursive(
-            this IRepository<Forum> repository,
-            [NotNull] List<Forum> listSource,
-            [NotNull] ICollection<ForumSorted> listDestination,
-            [NotNull] int parentId,
-            [NotNull] int currentIndent)
-        {
-            listSource.ForEach(
-                forum =>
-                {
-                    // see if this is a root-forum
-                    forum.ParentID ??= 0;
-
-                    if (forum.ParentID != parentId)
-                    {
-                        return;
-                    }
-
-                    var indent = string.Empty;
-
-                    for (var j = 0; j < currentIndent; j++)
-                    {
-                        indent += "--";
-                    }
-
-                    // import the row into the destination
-                    var newRow = new ForumSorted
-                    {
-                        ForumID = forum.ID, Forum = $" -{indent} {forum.Name}", Icon = "comments"
-                    };
-
-                    listDestination.Add(newRow);
-
-                    // recurse through the list...
-                    repository.SortListRecursive(listSource, listDestination, forum.ID, currentIndent + 1);
-                });
         }
     }
 }

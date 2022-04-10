@@ -51,5 +51,10 @@ namespace YAF.Types.Objects.Model
         /// Gets or sets the icon.
         /// </summary>
         public string Icon { get; set; }
+
+        /// <summary>
+        /// Gets or sets the forum link.
+        /// </summary>
+        public string ForumLink { get; set; }
     }
 }

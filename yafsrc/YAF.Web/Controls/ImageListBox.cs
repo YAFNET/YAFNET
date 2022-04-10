@@ -40,9 +40,15 @@ namespace YAF.Web.Controls
     /// </summary>
     public class ImageListBox : DropDownList
     {
+        /// <summary>
+        /// Gets or sets the place holder.
+        /// </summary>
         [DefaultValue("")]
         public string PlaceHolder { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether allow clear.
+        /// </summary>
         [DefaultValue(false)]
         public bool AllowClear { get; set; }
 
@@ -66,7 +72,7 @@ namespace YAF.Web.Controls
             this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
                 item => item.Attributes.Add(
                     "data-content",
-                    $"<span class=\"select2-image-select-icon\"><img src=\"{item.Value.ToLower()}\" />&nbsp;{item.Text}</span>"));
+                    $"<span class=\"select2-image-select-icon\"><img src=\"{item.Value.ToLower()} me-1\" />{item.Text}</span>"));
 
             base.Render(writer);
         }

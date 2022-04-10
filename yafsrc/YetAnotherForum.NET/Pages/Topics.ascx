@@ -89,7 +89,7 @@
                                     <div class="mb-3">
                                         <YAF:LocalizedLabel ID="ForumJumpLabel" runat="server" 
                                             LocalizedTag="FORUM_JUMP" />:
-                                        <YAF:ForumJump ID="ForumJump1" runat="server" />
+                                        <asp:DropDownList runat="server" ID="ForumJump"/>
                                     </div>
                                 </asp:PlaceHolder>
                                 <asp:PlaceHolder ID="ForumSearchHolder" runat="server">

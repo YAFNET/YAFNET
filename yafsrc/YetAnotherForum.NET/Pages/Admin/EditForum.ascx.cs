@@ -45,6 +45,7 @@ namespace YAF.Pages.Admin
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
+    using YAF.Types.Objects.Model;
     using YAF.Web.Extensions;
 
     using ListItem = System.Web.UI.WebControls.ListItem;
@@ -213,10 +214,10 @@ namespace YAF.Pages.Admin
                 try
                 {
                     // Currently creating a New Forum, and auto fill the Forum Sort Order + 1
-                    var forumCheck = this.GetRepository<Forum>().List(this.PageBoardContext.PageBoardID, null)
-                        .OrderByDescending(a => a.SortOrder).FirstOrDefault();
+                    var forumCheck = this.GetRepository<Forum>().ListAll(this.PageBoardContext.PageBoardID)
+                        .OrderByDescending(a => a.Item1.SortOrder).FirstOrDefault();
 
-                    sortOrder = forumCheck.SortOrder + sortOrder;
+                    sortOrder = forumCheck.Item1.SortOrder + sortOrder;
                 }
                 catch
                 {
@@ -427,13 +428,21 @@ namespace YAF.Pages.Admin
         /// </summary>
         private void BindParentList()
         {
-            this.ParentList.DataSource = this.GetRepository<Forum>().ListAllFromCategory(
-                this.CategoryList.SelectedValue.ToType<int>());
+            var forums = this.GetRepository<Forum>().ListAllFromCategory(this.CategoryList.SelectedValue.ToType<int>());
+
+            forums.Insert(0, new ForumSorted {ForumID = 0, Forum = this.GetText("NONE")});
+
+            this.ParentList.DataSource = forums;
 
             this.ParentList.DataValueField = "ForumID";
             this.ParentList.DataTextField = "Forum";
 
             this.ParentList.DataBind();
+
+            this.ParentList.Items.Cast<ListItem>().ForEach(
+                item => item.Attributes.Add(
+                    "data-content",
+                    $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-comments fa-fw text-secondary me-1\"></i><span><span>{item.Text}</span>"));
         }
 
         /// <summary>

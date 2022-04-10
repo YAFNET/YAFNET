@@ -126,14 +126,12 @@
                 <div class="dropdown-menu">
                     <div class="px-4 py-3 dropdown-sm">
                         <div class="mb-3">
-                            <asp:Label AssociatedControlID="ForumList" runat="server">
+                            <label for="ForumList">
                                 <YAF:LocalizedLabel ID="LocalizedLabel7" runat="server" 
                                                     LocalizedTag="select_forum" />
-                            </asp:Label>
-                            <asp:DropDownList ID="ForumList" runat="server" 
-                                              DataValueField="ForumID" 
-                                              DataTextField="Title" 
-                                              CssClass="select2-image-select" />
+                            </label>
+                            <select id="ForumList" name="forumList"></select>
+                            <asp:HiddenField runat="server" ID="ForumListSelected" Value="0" />
                         </div>
                         <div id="trLeaveLink" runat="server" 
                              class="form-check">

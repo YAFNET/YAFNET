@@ -263,7 +263,7 @@ namespace YAF.Pages.Admin
 
             allItem.Attributes.Add(
                 "data-content",
-                $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-filter fa-fw text-secondary\"></i>&nbsp;{this.GetText("ALL")}</span>");
+                $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-filter fa-fw text-secondary me-1\"></i>{this.GetText("ALL")}</span>");
 
             this.Types.Items.Add(allItem);
 
@@ -296,7 +296,7 @@ namespace YAF.Pages.Admin
 
                         item.Attributes.Add(
                             "data-content",
-                            $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{icon} fa-fw text-secondary\"></i>&nbsp;{type}</span>");
+                            $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{icon} fa-fw text-secondary me-1\"></i>&nbsp;{type}</span>");
 
                         this.Types.Items.Add(item);
                     });

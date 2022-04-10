@@ -9,7 +9,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server" ID="IconHeader"
-                                    IconName="comments"></YAF:IconHeader>
+                                    IconName="comments" LocalizedTag="TITLE" LocalizedPage="ADMIN_DELETEFORUM"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
@@ -18,18 +18,14 @@
                                        LocalizedTag="MOVE_TOPICS" LocalizedPage="ADMIN_DELETEFORUM" />
                         <div class="form-check form-switch">
                             <asp:CheckBox ID="MoveTopics" runat="server"
-                                          AutoPostBack="True"
                                           Text="&nbsp;"></asp:CheckBox>
                         </div>
                     </div>
                     <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel2" runat="server"
-                                       AssociatedControlID="ForumList"
                                        LocalizedTag="NEW_FORUM" LocalizedPage="ADMIN_DELETEFORUM" />
-                        <asp:DropDownList ID="ForumList" runat="server"
-                                          Enabled="false"
-                                          CssClass="select2-image-select">
-                        </asp:DropDownList>
+                        <select id="ForumList" name="forumList"></select>
+                        <asp:HiddenField runat="server" ID="ForumListSelected" Value="-1" />
                     </div>
                 </div>
                 <div class="card-footer text-center">

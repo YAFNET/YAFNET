@@ -44,8 +44,6 @@ namespace YAF.Pages.Moderate
     using YAF.Web.Controls;
     using YAF.Web.Extensions;
 
-    using Forum = YAF.Types.Models.Forum;
-
     #endregion
 
     /// <summary>
@@ -88,6 +86,15 @@ namespace YAF.Pages.Moderate
                     $"{this.GetText("LASTPOST")}&nbsp;{this.GetText("SEARCH", "BY")} ...",
                     ".topic-link-popover",
                     "focus hover"));
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumList",
+                    this.GetText("SELECT_FORUM"),
+                    false,
+                    false,
+                    this.ForumListSelected.ClientID));
 
             base.OnPreRender(e);
         }
@@ -132,20 +139,9 @@ namespace YAF.Pages.Moderate
                 this.PagerTop.Count = topicList.FirstOrDefault().TotalRows;
             }
 
-            var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID);
-
-            this.ForumList.AddForumAndCategoryIcons(forumList);
-
             this.DataBind();
 
-            var pageItem = this.ForumList.Items.FindByValue(this.PageBoardContext.PageForumID.ToString());
-
-            if (pageItem != null)
-            {
-                pageItem.Selected = true;
-            }
+            this.ForumListSelected.Value = this.PageBoardContext.PageForumID.ToString();
         }
 
         /// <summary>
@@ -191,14 +187,14 @@ namespace YAF.Pages.Moderate
                 return;
             }
 
-            if (this.ForumList.SelectedValue.ToType<int>() <= 0)
+            if (this.ForumListSelected.Value.ToType<int>() <= 0)
             {
                 this.PageBoardContext.Notify(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
                 return;
             }
 
             // only move if it's a destination is a different forum.
-            if (this.ForumList.SelectedValue.ToType<int>() != this.PageBoardContext.PageForumID)
+            if (this.ForumListSelected.Value.ToType<int>() != this.PageBoardContext.PageForumID)
             {
                 if (ld >= -2)
                 {
@@ -217,7 +213,7 @@ namespace YAF.Pages.Moderate
                         x => this.GetRepository<Topic>().Move(
                             x.TopicRowID.Value,
                             this.PageBoardContext.PageForumID,
-                            this.ForumList.SelectedValue.ToType<int>(),
+                            this.ForumListSelected.Value.ToType<int>(),
                             this.LeavePointer.Checked,
                             linkDays.Value));
 

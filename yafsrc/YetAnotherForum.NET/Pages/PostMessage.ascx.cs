@@ -585,7 +585,7 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForumID, this.PageBoardContext.PageForum.Name);
+                var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
                 if (this.PageBoardContext.PageTopicID > 0 && this.topic.NumPosts > 1)
                 {
@@ -641,8 +641,7 @@ namespace YAF.Pages
         private bool CanQuotePostCheck(Topic topicInfo)
         {
             // get topic and forum information
-            var forumInfo = this.GetRepository<Forum>()
-                .List(this.PageBoardContext.PageBoardID, this.PageBoardContext.PageForumID).FirstOrDefault();
+            var forumInfo = this.PageBoardContext.PageForum;
 
             if (topicInfo == null || forumInfo == null)
             {

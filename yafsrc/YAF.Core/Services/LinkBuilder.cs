@@ -35,6 +35,7 @@ namespace YAF.Core.Services
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Services;
+    using YAF.Types.Models;
 
     #endregion
 
@@ -135,6 +136,20 @@ namespace YAF.Core.Services
         public string GetUserProfileLink(int userId, string userName)
         {
             return this.Get<LinkBuilder>().GetLink(ForumPages.UserProfile, new { u = userId, name = userName });
+        }
+
+        /// <summary>
+        /// The get forum link.
+        /// </summary>
+        /// <param name="forum">
+        /// The forum.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        public string GetForumLink(Forum forum)
+        {
+            return this.Get<LinkBuilder>().GetLink(ForumPages.Topics, new { f = forum.ID, name = forum.Name });
         }
 
         /// <summary>

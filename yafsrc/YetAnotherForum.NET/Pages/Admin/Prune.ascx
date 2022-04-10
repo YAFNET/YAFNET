@@ -16,10 +16,11 @@
                 <div class="mb-3">
                     <YAF:HelpLabel ID="LocalizedLabel4" runat="server"
                                    LocalizedTag="PRUNE_FORUM" LocalizedPage="ADMIN_PRUNE"
-                                   AssociatedControlID="forumlist"/>
-                    <asp:DropDownList ID="forumlist" runat="server"
-                                      CssClass="select2-image-select">
-                    </asp:DropDownList>
+                                   AssociatedControlID="ForumListSelected"/>
+                    <select id="ForumList" name="forumList">
+                        <option value="0"><YAF:LocalizedLabel runat="server" LocalizedTag="ALLFORUMS"></YAF:LocalizedLabel></option>
+                    </select>
+                    <asp:HiddenField runat="server" ID="ForumListSelected" Value="0" />
                 </div>
                 <div class="row">
                     <div class="mb-3 col-md-4">

@@ -1707,6 +1707,7 @@
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
   <page name="ADMIN_PRUNE">
+    <Resource tag="ALL_CATEGORIES">All Categories</Resource>
     <Resource tag="ALL_FORUMS">All Forums</Resource>
     <Resource tag="CONFIRM_PRUNE">Do you really want to prune topics? This process is irreversible.</Resource>
     <Resource tag="MSG_TASK">Prune Task Scheduled</Resource>

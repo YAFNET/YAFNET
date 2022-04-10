@@ -27,7 +27,6 @@ namespace YAF.Pages
     #region Using
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web;
 
@@ -114,7 +113,7 @@ namespace YAF.Pages
             // reply to existing topic or editing of existing topic
             this.Get<LinkBuilder>().Redirect(
                 ForumPages.Posts,
-                new {t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
+                new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
         }
 
         /// <summary>
@@ -266,7 +265,7 @@ namespace YAF.Pages
 
                 normal.Attributes.Add(
                     "data-content",
-                    $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw text-secondary'></i>&nbsp;{this.GetText("normal")}</span>");
+                    $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw text-secondary me-1'></i>{this.GetText("normal")}</span>");
 
                 this.Priority.Items.Add(normal);
 
@@ -274,7 +273,7 @@ namespace YAF.Pages
 
                 sticky.Attributes.Add(
                     "data-content",
-                    $"<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw text-secondary'></i>&nbsp;{this.GetText("sticky")}</span>");
+                    $"<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw text-secondary me-1'></i>{this.GetText("sticky")}</span>");
 
                 this.Priority.Items.Add(sticky);
 
@@ -282,7 +281,7 @@ namespace YAF.Pages
 
                 announcement.Attributes.Add(
                     "data-content",
-                    $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary'></i>&nbsp;{this.GetText("announcement")}</span>");
+                    $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary me-1'></i>;{this.GetText("announcement")}</span>");
 
                 this.Priority.Items.Add(announcement);
 
@@ -553,7 +552,7 @@ namespace YAF.Pages
                 }
 
                 // Tell user that his message will have to be approved by a moderator
-                var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForumID, this.PageBoardContext.PageForum.Name);
+                var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
                 if (this.PageBoardContext.PageTopicID > 0 && this.PageBoardContext.PageTopic.NumPosts > 1)
                 {

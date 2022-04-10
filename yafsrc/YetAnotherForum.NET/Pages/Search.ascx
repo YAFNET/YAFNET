@@ -45,10 +45,11 @@
                     <asp:DropDownList ID="listSearchWhat" runat="server" CssClass="form-select searchWhat" />
                 </div>
                 <div class="mb-3">
-                    <asp:Label runat="server" AssociatedControlID="listForum">
+                    <label for="ForumList">
                         <YAF:LocalizedLabel runat="server" LocalizedTag="SEARCH_IN" />
-                    </asp:Label>
-                    <asp:DropDownList ID="listForum" runat="server" CssClass="select2-image-select searchForum" />
+                    </label>
+                    <select id="ForumList" name="forumList" class="searchForum"></select>
+                    <asp:HiddenField runat="server" ID="ForumListSelected" Value="0" />
                 </div>
                 <div class="mb-3">
                     <asp:Label runat="server" AssociatedControlID="TitleOnly">

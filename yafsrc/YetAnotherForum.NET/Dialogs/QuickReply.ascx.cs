@@ -180,18 +180,7 @@ namespace YAF.Dialogs
                 // SPAM Check
 
                 // Check if Forum is Moderated
-                var isForumModerated = false;
-
-                var dt = this.GetRepository<Forum>().List(
-                    this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.PageForumID);
-
-                var forumInfo = dt.FirstOrDefault();
-
-                if (forumInfo != null)
-                {
-                    isForumModerated = this.CheckForumModerateStatus(forumInfo);
-                }
+                var isForumModerated = this.CheckForumModerateStatus(this.PageBoardContext.PageForum);
 
                 var spamApproved = true;
                 var isPossibleSpamMessage = false;
@@ -335,7 +324,7 @@ namespace YAF.Dialogs
                             isPossibleSpamMessage);
                     }
 
-                    var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForumID, this.PageBoardContext.PageForum.Name);
+                    var url = this.Get<LinkBuilder>().GetForumLink(this.PageBoardContext.PageForum);
 
                     this.Get<LinkBuilder>().Redirect(ForumPages.Info, new { i = 1, url = this.Server.UrlEncode(url) });
                 }

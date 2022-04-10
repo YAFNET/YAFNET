@@ -27,13 +27,10 @@ namespace YAF.Pages.Admin
     #region Using
 
     using System;
-    using System.Linq;
     using System.Web;
-    using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
     using YAF.Core.Extensions;
-    using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Tasks;
     using YAF.Core.Utilities;
@@ -74,6 +71,15 @@ namespace YAF.Pages.Admin
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "BlockUiFunctionJs",
                 JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
+            
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumList",
+                    this.GetText("ADMIN_DELETEFORUM", "NEW_FORUM"),
+                    false,
+                    false,
+                    this.ForumListSelected.ClientID));
 
             base.OnPreRender(e);
         }
@@ -84,7 +90,6 @@ namespace YAF.Pages.Admin
         /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
         protected override void OnInit([NotNull] EventArgs e)
         {
-            this.MoveTopics.CheckedChanged += this.MoveTopicsCheckedChanged;
             this.Delete.Click += this.SaveClick;
             this.Cancel.Click += this.Cancel_Click;
 
@@ -106,8 +111,6 @@ namespace YAF.Pages.Admin
                 return;
             }
 
-            this.BindData();
-
             if (!this.Get<HttpRequestBase>().QueryString.Exists("fa"))
             {
                 this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
@@ -124,9 +127,6 @@ namespace YAF.Pages.Admin
             else
             {
                 this.IconHeader.Text = $"{this.GetText("HEADER1")}: <strong>{forum.Name}</strong>";
-
-                // populate parent forums list with forums according to selected category
-                this.BindParentList();
             }
         }
 
@@ -158,9 +158,6 @@ namespace YAF.Pages.Admin
 
             this.UpdateStatusTimer.Enabled = false;
 
-            // rebind...
-            this.BindData();
-
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }
 
@@ -175,44 +172,6 @@ namespace YAF.Pages.Admin
         }
 
         /// <summary>
-        /// Binds the data.
-        /// </summary>
-        private void BindData()
-        {
-            // Load forum's combo
-            this.BindParentList();
-        }
-
-        /// <summary>
-        /// Binds the parent list.
-        /// </summary>
-        private void BindParentList()
-        {
-            this.ForumList.DataSource = this.GetRepository<Forum>().List(this.PageBoardContext.PageBoardID, null);
-
-            this.ForumList.DataValueField = "ID";
-            this.ForumList.DataTextField = "Name";
-            this.ForumList.DataBind();
-
-            this.ForumList.Items.Cast<ListItem>().ForEach(
-                item => item.Attributes.Add(
-                    "data-content",
-                    $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-comments fa-fw text-secondary\"></i><span><span>&nbsp;{item.Text}</span>"));
-        }
-
-        /// <summary>
-        /// Handles the CheckedChanged event of the MoveTopics control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void MoveTopicsCheckedChanged(object sender, EventArgs e)
-        {
-            this.ForumList.Enabled = this.MoveTopics.Checked;
-
-            this.BindParentList();
-        }
-
-        /// <summary>
         /// Delete The Forum
         /// </summary>
         /// <param name="sender">The source of the event.</param>
@@ -221,16 +180,17 @@ namespace YAF.Pages.Admin
         {
             string errorMessage;
 
-            if (this.MoveTopics.Checked)
-            {
-                // Simply Delete the Forum with all of its Content
-                var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
+            var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
 
+            var newForumId = this.ForumListSelected.Value.ToType<int>();
+
+            if (this.MoveTopics.Checked && newForumId != forumId.Value)
+            {
                 // schedule...
                 ForumDeleteTask.Start(
                     this.PageBoardContext.PageBoardID,
                     forumId.Value,
-                    this.ForumList.SelectedValue.ToType<int>(),
+                    newForumId,
                     out errorMessage);
 
                 // enable timer...
@@ -240,9 +200,6 @@ namespace YAF.Pages.Admin
             }
             else
             {
-                // Simply Delete the Forum with all of its Content
-                var forumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("fa");
-
                 // schedule...
                 ForumDeleteTask.Start(this.PageBoardContext.PageBoardID, forumId.Value, out errorMessage);
 

@@ -24,34 +24,26 @@
 
 namespace YAF.Types.Objects
 {
+    using YAF.Types.Interfaces;
+
     /// <summary>
-    /// The search topic.
+    /// The paging.
     /// </summary>
-    public class SearchTopic
+    public class Paging : IPager
     {
         /// <summary>
-        /// Gets or sets the forum id.
+        /// Gets or sets the count.
         /// </summary>
-        public int ForumId { get; set; }
+        public int Count { get; set; }
+
+        /// <summary>
+        /// Gets or sets the current page index.
+        /// </summary>
+        public int CurrentPageIndex { get; set; }
 
         /// <summary>
         /// Gets or sets the page size.
         /// </summary>
         public int PageSize { get; set; }
-
-        /// <summary>
-        /// Gets or sets the page.
-        /// </summary>
-        public int Page { get; set; }
-
-        /// <summary>
-        /// Gets or sets the search term.
-        /// </summary>
-        public string SearchTerm { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether all forums option.
-        /// </summary>
-        public bool AllForumsOption { get; set; }
     }
 }

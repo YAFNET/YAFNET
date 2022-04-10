@@ -31,13 +31,11 @@ namespace YAF.Pages
     using System.Web.UI.WebControls;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Model;
     using YAF.Core.Utilities;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
-    using YAF.Types.Models;
     using YAF.Web.Extensions;
 
     #endregion
@@ -74,6 +72,15 @@ namespace YAF.Pages
             this.PageBoardContext.PageElements.RegisterJsBlock(
                 "dropDownToggleJs",
                 JavaScriptBlocks.DropDownToggleJs());
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumList",
+                    this.GetText("PRUNE_FORUM"),
+                    false,
+                    true,
+                    this.ForumListSelected.ClientID));
 
             base.OnPreRender(e);
         }
@@ -115,20 +122,6 @@ namespace YAF.Pages
 
             this.listSearchWhat.SelectedIndex = 2;
 
-            // Load forum's combo
-            var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID);
-
-            this.listForum.AddForumAndCategoryIcons(forumList);
-
-            this.listForum.DataValueField = "ForumID";
-            this.listForum.DataTextField = "Forum";
-
-            this.listForum.DataBind();
-
-            this.listForum.Items.Insert(0, new ListItem(this.GetText("allforums"), "0"));
-
             // Handle search by url
             var searchString = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("search");
 
@@ -138,17 +131,15 @@ namespace YAF.Pages
                 doSearch = true;
             }
 
-            var forumString = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("forum");
-
-            if (searchString.IsSet() && this.listForum.Enabled)
+            if (searchString.IsSet())
             {
                 try
                 {
-                    this.listForum.SelectedValue = this.Server.UrlDecode(forumString);
+                    this.ForumListSelected.Value = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefault("forum");
                 }
                 catch (Exception)
                 {
-                    this.listForum.SelectedValue = "0";
+                    this.ForumListSelected.Value = "0";
                 }
             }
 

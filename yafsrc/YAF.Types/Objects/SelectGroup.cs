@@ -24,23 +24,15 @@
 
 namespace YAF.Types.Objects
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// The Select Options Class
+    /// The Select Group Class
     /// </summary>
     [DataContract]
-    public class SelectOptions
+    public class SelectGroup
     {
-        /// <summary>
-        /// Gets or sets the identifier.
-        /// </summary>
-        /// <value>
-        /// The identifier.
-        /// </value>
-        [DataMember]
-        public string id { get; set; }
-
         /// <summary>
         /// Gets or sets the text.
         /// </summary>
@@ -50,7 +42,13 @@ namespace YAF.Types.Objects
         [DataMember]
         public string text { get; set; }
 
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
         [DataMember]
-        public string url { get; set; }
+        public List<SelectOptions> children { get; set; }
     }
 }

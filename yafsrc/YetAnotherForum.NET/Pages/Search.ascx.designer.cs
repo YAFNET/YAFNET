@@ -69,13 +69,13 @@ namespace YAF.Pages
         protected global::System.Web.UI.WebControls.DropDownList listSearchWhat;
 
         /// <summary>
-        /// listForum-Steuerelement.
+        /// ForumListSelected-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList listForum;
+        protected global::System.Web.UI.WebControls.HiddenField ForumListSelected;
 
         /// <summary>
         /// TitleOnly-Steuerelement.

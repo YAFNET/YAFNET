@@ -38,10 +38,10 @@
                         </div>
                         <div class="mb-3">
                             <YAF:HelpLabel ID="LocalizedLabel4" runat="server"
-                                           AssociatedControlID="ForumID"
+                                           AssociatedControlID="ForumListSelected"
                                            LocalizedTag="FORUM" LocalizedPage="ADMIN_EDITNNTPFORUM" />
-                            <asp:DropDownList ID="ForumID" runat="server"
-                                              CssClass="select2-image-select" />
+                            <select id="ForumList" name="forumList"></select>
+                            <asp:HiddenField runat="server" ID="ForumListSelected" Value="0" />
                         </div>
                         <div class="row">
                             <div class="mb-3 col-auto">

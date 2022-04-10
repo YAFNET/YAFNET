@@ -1707,6 +1707,7 @@
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
   <page name="ADMIN_PRUNE">
+    <Resource tag="ALL_CATEGORIES">All Categories</Resource>
     <Resource tag="ALL_FORUMS">همه انجمن ها</Resource>
     <Resource tag="CONFIRM_PRUNE">آیا واقعا مایل به اصلاح موضوعات هستید؟ این فرآیند غیر قابل بازگشت است.</Resource>
     <Resource tag="MSG_TASK">زمانبندی فرمان اصلاح</Resource>

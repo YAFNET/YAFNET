@@ -64,6 +64,26 @@ namespace YAF.Dialogs
         }
 
         /// <summary>
+        /// The On PreRender event.
+        /// </summary>
+        /// <param name="e">
+        /// the Event Arguments
+        /// </param>
+        protected override void OnPreRender([NotNull] EventArgs e)
+        {
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumList",
+                    this.GetText("ADMIN_EDITNNTPFORUM", "FORUM"),
+                    false,
+                    false,
+                    this.ForumListSelected.ClientID));
+
+            base.OnPreRender(e);
+        }
+
+        /// <summary>
         /// Binds the data.
         /// </summary>
         /// <param name="forumId">The forum identifier.</param>
@@ -73,16 +93,6 @@ namespace YAF.Dialogs
             this.NntpServerID.DataValueField = "ID";
             this.NntpServerID.DataTextField = "Name";
             this.NntpServerID.DataBind();
-
-            var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID);
-
-            this.ForumID.AddForumAndCategoryIcons(forumList);
-
-            this.ForumID.DataValueField = "ForumID";
-            this.ForumID.DataTextField = "Forum";
-            this.ForumID.DataBind();
 
             this.ForumId = forumId;
 
@@ -98,7 +108,7 @@ namespace YAF.Dialogs
                 {
                     this.NntpServerID.Items.FindByValue(forum.NntpServerID.ToString()).Selected = true;
                     this.GroupName.Text = forum.GroupName;
-                    this.ForumID.Items.FindByValue(forum.ForumID.ToString()).Selected = true;
+                    this.ForumListSelected.Value = forum.ForumID.ToString();
                     this.Active.Checked = forum.Active;
                     this.DateCutOff.Text = forum.DateCutOff.ToString();
                 }
@@ -151,7 +161,7 @@ namespace YAF.Dialogs
                 return;
             }
 
-            if (this.ForumID.SelectedValue.ToType<int>() <= 0)
+            if (this.ForumListSelected.Value.ToType<int>() <= 0)
             {
                 this.PageBoardContext.Notify(this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"), MessageTypes.warning);
 
@@ -171,7 +181,7 @@ namespace YAF.Dialogs
                 this.ForumId,
                 this.NntpServerID.SelectedValue.ToType<int>(),
                 this.GroupName.Text,
-                this.ForumID.SelectedValue.ToType<int>(),
+                this.ForumListSelected.Value.ToType<int>(),
                 this.Active.Checked,
                 dateCutOff == DateTime.MinValue ? null : (DateTime?)dateCutOff);
 

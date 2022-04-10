@@ -32,6 +32,7 @@ namespace YAF.Core.Utilities
     using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
+    using YAF.Types.Objects;
 
     #endregion
 
@@ -58,7 +59,7 @@ namespace YAF.Core.Utilities
                     dataType: 'json',
                     success: changeTitleSuccess,
                     error: function(x, e)  {{
-                             console.log('An Error has occured!');
+                             console.log('An Error has occurred!');
                              console.log(x.responseText);
                              console.log(x.status);
                     }}
@@ -133,7 +134,7 @@ namespace YAF.Core.Utilities
                     dataType: 'json',
                     success: multiQuoteSuccess,
                     error: function(x, e)  {{
-                             console.log('An Error has occured!');
+                             console.log('An Error has occurred!');
                              console.log(x.responseText);
                              console.log(x.status);
                     }}
@@ -468,7 +469,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                                      template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
                     }},
                     error: function(x, e)  {{
-                             console.log('An Error has occured!');
+                             console.log('An Error has occurred!');
                              console.log(x.responseText);
                              console.log(x.status);
                     }}
@@ -498,7 +499,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               $('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
                     }},
                     error: function(x, e)  {{
-                             console.log('An Error has occured!');
+                             console.log('An Error has occurred!');
                              console.log(x.responseText);
                              console.log(x.status);
                     }}
@@ -972,16 +973,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       return query;
                 }},
                 error: function(x, e)  {{
-                       console.log('An Error has occured!');
+                       console.log('An Error has occurred!');
                        console.log(x.responseText);
                        console.log(x.status);
                 }},
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 
-                    var resultsperPage = 15 * 2;
+                    var resultsPerPage = 15 * 2;
 
-                    var total = params.page == 0 ? data.Results.length : resultsperPage;
+                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
 
                     return {{
                         results: data.Results,
@@ -997,6 +998,133 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             cache: true,
             {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
         }});";
+        }
+
+        /// <summary>
+        /// select2 forum load JS.
+        /// </summary>
+        /// <param name="forumDropDownId">
+        /// The forum drop down identifier.
+        /// </param>
+        /// <param name="placeHolder">
+        /// The place Holder.
+        /// </param>
+        /// <param name="forumLink">
+        /// Go to Forum on select
+        /// </param>
+        /// <param name="allForumsOption">
+        /// Add All Forums option
+        /// </param>
+        /// <param name="selectedHiddenId">
+        /// The selected Hidden Id.
+        /// </param>
+        /// <returns>
+        /// Returns the select2 topics load JS.
+        /// </returns>
+        [NotNull]
+        public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
+        {
+            var selectHiddenValue = selectedHiddenId.IsSet()
+                                        ? $@"if (e.params.data.Total) {{ 
+                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.Results[0].children[0].id);
+                                             }} else {{
+                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.id);
+                                             }}"
+                                        : string.Empty;
+
+            var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = {Config.JQueryAlias}('#{forumDropDownId}');
+            var forumId = {Config.JQueryAlias}('#{selectedHiddenId}').val();
+
+            {Config.JQueryAlias}.ajax({{
+                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Forum/GetForum/' + forumId,
+                type: 'POST',
+                dataType: 'json'
+            }}).then(function (data) {{
+                                if (data.Total > 0) {{
+                                var result = data.Results[0].children[0];
+                                       
+                                var option = new Option(result.text, result.id, true, true);
+                                forumsListSelect.append(option).trigger('change');
+
+                                forumsListSelect.trigger({{
+                                    type: 'select2:select',
+                                    params: {{
+                                        data: data
+                                    }}
+                                }});}}
+            }});" : string.Empty;
+
+            var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
+
+            return $@"{Config.JQueryAlias}('#{forumDropDownId}').select2({{
+            ajax: {{
+                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Forum/GetForums',
+                type: 'POST',
+                dataType: 'json',
+                data: function(params) {{
+                      var query = {{
+                          PageSize: 0,
+                          {allForumsOptionJs}
+                          Page : params.page || 0,
+                          SearchTerm : params.term || ''
+                      }}
+                      return query;
+                }},
+                error: function(x, e)  {{
+                       console.log('An Error has occurred!');
+                       console.log(x.responseText);
+                       console.log(x.status);
+                }},
+                processResults: function(data, params) {{
+                    params.page = params.page || 0;
+
+                    var resultsPerPage = 15 * 2;
+
+                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
+
+                        return {{
+                        results: data.Results,
+                        pagination: {{
+                            more: total < data.Total
+                        }}
+                    }}
+                }}
+            }},
+            placeholder: '{placeHolder}',
+            minimumInputLength: 0,
+            allowClearing: false,
+            dropdownAutoWidth: true,
+            templateResult: function (option) {{
+                                if (option.loading) {{
+                                    return option.text;
+                                }}
+	                            if (option.id) {{
+	                                var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
+                                    return $container;
+	                            }} else {{
+                                    var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>"" + option.text + ""</span>"");
+                                    return $container;
+	                            }}
+	        }},
+            templateSelection: function (option) {{
+	                               if (option.id) {{
+	                               var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
+                                       return $container;
+	                               }} else {{
+	                                   return option.text;
+	                               }}
+	        }},
+            width: '100%',
+            theme: 'bootstrap-5',
+            cache: true,
+            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
+            }}).on('select2:select', function(e){{
+                   {(forumLink ? "window.location = e.params.data.url;" : "")} 
+                   {selectHiddenValue}
+            }});
+
+            {forumSelect}
+            ";
         }
 
         /// <summary>
@@ -1396,7 +1524,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       return query;
                 }},
                 error: function(x, e)  {{
-                       console.log('An Error has occured!');
+                       console.log('An Error has occurred!');
                        console.log(x.responseText);
                        console.log(x.status);
                 }},

@@ -24,9 +24,12 @@
 
 namespace YAF.Types.Objects
 {
+    using System;
+
     /// <summary>
     /// Moderator Forums
     /// </summary>
+    [Serializable]
     public class ModeratorsForums
     {
         #region Properties

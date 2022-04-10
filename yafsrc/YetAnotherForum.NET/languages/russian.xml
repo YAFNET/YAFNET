@@ -1690,6 +1690,7 @@
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
   <page name="ADMIN_PRUNE">
+    <Resource tag="ALL_CATEGORIES">All Categories</Resource>
     <Resource tag="ALL_FORUMS">Все форумы</Resource>
     <Resource tag="CONFIRM_PRUNE">Вы действительно желаете почистить темы? Этот процесс необратим.</Resource>
     <Resource tag="MSG_TASK">Задача очистки в очереди</Resource>

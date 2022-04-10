@@ -1715,6 +1715,7 @@
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
   <page name="ADMIN_PRUNE">
+    <Resource tag="ALL_CATEGORIES">All Categories</Resource>
     <Resource tag="ALL_FORUMS">Todos los foros</Resource>
     <Resource tag="CONFIRM_PRUNE">¿Estás seguro que quieres podar los temas? Este proceso es irreversible.</Resource>
     <Resource tag="MSG_TASK">Tarea de podado ejecutada.</Resource>

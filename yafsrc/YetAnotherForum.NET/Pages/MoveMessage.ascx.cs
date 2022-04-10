@@ -30,7 +30,6 @@ namespace YAF.Pages
     using System.Web;
 
     using YAF.Core.BasePages;
-    using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
     using YAF.Core.Utilities;
@@ -76,9 +75,20 @@ namespace YAF.Pages
         {
             base.OnPreRender(e);
 
+            this.ForumListSelected.Value = this.PageBoardContext.PageForumID.ToString();
+
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                nameof(JavaScriptBlocks.SelectForumsLoadJs),
+                JavaScriptBlocks.SelectForumsLoadJs(
+                    "ForumList",
+                    this.GetText("SELECT_FORUM"),
+                    false,
+                    false,
+                    this.ForumListSelected.ClientID));
+
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 nameof(JavaScriptBlocks.SelectTopicsLoadJs),
-                JavaScriptBlocks.SelectTopicsLoadJs(this.TopicsList.ClientID, this.ForumList.ClientID));
+                JavaScriptBlocks.SelectTopicsLoadJs(this.TopicsList.ClientID, this.ForumListSelected.ClientID));
         }
 
         /// <summary>
@@ -92,7 +102,7 @@ namespace YAF.Pages
             {
                 var topicId = this.GetRepository<Topic>().CreateByMessage(
                     this.MoveMessageId,
-                    this.ForumList.SelectedValue.ToType<int>(),
+                    this.ForumListSelected.Value.ToType<int>(),
                     this.TopicSubject.Text);
 
                 this.GetRepository<Message>().Move(
@@ -108,30 +118,6 @@ namespace YAF.Pages
             {
                 this.PageBoardContext.Notify(this.GetText("Empty_Topic"), MessageTypes.warning);
             }
-        }
-
-        /// <summary>
-        /// Handles the SelectedIndexChanged event of the ForumList control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-        protected void ForumList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
-        {
-            this.TopicsList.DataSource = this.GetRepository<Topic>().ListPaged(
-                this.ForumList.SelectedValue.ToType<int>(),
-                this.PageBoardContext.PageUserID,
-                DateTimeHelper.SqlDbMinTime(),
-                0,
-                100,
-                false);
-
-            this.TopicsList.DataTextField = "Subject";
-            this.TopicsList.DataValueField = "TopicID";
-
-            this.TopicsList.DataBind();
-
-            this.TopicsList_SelectedIndexChanged(this.ForumList, e);
-            this.CreateAndMove.Visible = this.ForumList.SelectedValue.ToType<int>() > 0;
         }
 
         /// <summary>
@@ -165,24 +151,6 @@ namespace YAF.Pages
             {
                 this.Get<LinkBuilder>().AccessDenied();
             }
-
-            if (this.IsPostBack)
-            {
-                return;
-            }
-
-            var forumList = this.GetRepository<Forum>().ListAllSorted(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID);
-
-            this.ForumList.AddForumAndCategoryIcons(forumList);
-
-            this.ForumList.DataTextField = "Forum";
-            this.ForumList.DataValueField = "ForumID";
-            this.DataBind();
-
-            this.ForumList.Items.FindByValue(this.PageBoardContext.PageForumID.ToString()).Selected = true;
-            this.ForumList_SelectedIndexChanged(this.ForumList, e);
         }
 
         /// <summary>

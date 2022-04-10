@@ -50,6 +50,8 @@ namespace YAF.Web.Extensions
 
             CodeContracts.VerifyNotNull(forumList);
 
+            dropDownList.Items.Add(new ListItem());
+
             forumList.ForEach(
                 row =>
                 {
@@ -63,9 +65,11 @@ namespace YAF.Web.Extensions
 
                     item.Attributes.Add("data-category", row.Category);
 
+                    item.Attributes.Add("data-url", row.ForumLink);
+
                     item.Attributes.Add(
                         "data-content",
-                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row.Icon} fa-fw text-secondary me-2\"></i>{row.Forum}</span>");
+                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row.Icon} fa-fw text-secondary me-1\"></i>{row.Forum}</span>");
 
                     dropDownList.Items.Add(item);
                 });

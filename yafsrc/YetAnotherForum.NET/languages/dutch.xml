@@ -1702,6 +1702,7 @@
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
   <page name="ADMIN_PRUNE">
+    <Resource tag="ALL_CATEGORIES">All Categories</Resource>
     <Resource tag="ALL_FORUMS">Alle Forums</Resource>
     <Resource tag="CONFIRM_PRUNE">Weet je zeker dat je topics wilt schonen? Deze aktie kan niet ongedaan gemaakt worden.</Resource>
     <Resource tag="MSG_TASK">Opschoontaak ingepland.</Resource>

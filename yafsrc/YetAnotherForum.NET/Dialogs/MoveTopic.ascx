@@ -14,14 +14,12 @@
             <div class="modal-body">
              <!-- Modal Content START !-->
                         <div class="mb-3">
-                            <asp:Label runat="server" AssociatedControlID="ForumList">
+                            <label for="ForumList">
                                 <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
-                                                    LocalizedTag="select_forum" />
-                            </asp:Label>
-                            <asp:DropDownList ID="ForumList" runat="server"
-                                              DataValueField="ForumID" 
-                                              DataTextField="Title" 
-                                              CssClass="select2-image-select" />
+                                                    LocalizedTag="SELECT_FORUM" />
+                            </label>
+                            <select id="ForumList" name="forumList"></select>
+                            <asp:HiddenField runat="server" ID="ForumListSelected" Value="0" />
                         </div>
                         <asp:PlaceHolder id="trLeaveLink" runat="server">
                             <div class="mb-3">

@@ -24,33 +24,27 @@
 
 namespace YAF.Types.Objects
 {
-    using System.Runtime.Serialization;
+    using System.Collections.Generic;
 
     /// <summary>
-    /// The Select Options Class
+    /// The Select Paged Group Options Class
     /// </summary>
-    [DataContract]
-    public class SelectOptions
+    public class SelectPagedGroupOptions
     {
         /// <summary>
-        /// Gets or sets the identifier.
+        /// Gets or sets the total.
         /// </summary>
         /// <value>
-        /// The identifier.
+        /// The total.
         /// </value>
-        [DataMember]
-        public string id { get; set; }
+        public int Total { get; set; }
 
         /// <summary>
-        /// Gets or sets the text.
+        /// Gets or sets the results.
         /// </summary>
         /// <value>
-        /// The text.
+        /// The results.
         /// </value>
-        [DataMember]
-        public string text { get; set; }
-
-        [DataMember]
-        public string url { get; set; }
+        public List<SelectGroup> Results { get; set; }
     }
 }

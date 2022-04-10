@@ -180,7 +180,7 @@ namespace YAF.Web.Extensions
                 {
                     pageLinks.AddLink(
                         parent.Name,
-                        BoardContext.Current.Get<LinkBuilder>().GetForumLink(parent.ID, parent.Name));
+                        BoardContext.Current.Get<LinkBuilder>().GetForumLink(parent));
                 }
             }
 
@@ -191,8 +191,7 @@ namespace YAF.Web.Extensions
                     noForumLink
                         ? string.Empty
                         : BoardContext.Current.Get<LinkBuilder>().GetForumLink(
-                            forum.ID,
-                            BoardContext.Current.PageForum.Name));
+                            BoardContext.Current.PageForum));
             }
 
             return pageLinks;
