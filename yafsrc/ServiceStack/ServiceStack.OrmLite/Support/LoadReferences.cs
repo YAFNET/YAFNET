@@ -133,7 +133,28 @@ namespace ServiceStack.OrmLite.Support
 
             return sql;
         }
+        protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef)
+        {
+            var refPkValue = fieldRef.RefIdFieldDef.GetValue(instance);
+            if (refPkValue == null)
+                return null;
+
+            var refModelDef = fieldRef.RefModelDef;
+
+            var pk = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey);
+            var sqlRef = dialectProvider.ToSelectStatement(fieldRef.RefModel,
+                $"SELECT {pk}, {dialectProvider.GetQuotedColumnName(fieldRef.RefFieldDef)} " +
+                $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
+                $"WHERE {pk}" + "={0}", refPkValue);
+
+            if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+                sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(fieldRef.RefModel, sqlRef);
+
+            return sqlRef;
+        }
     }
+
+
 
     /// <summary>
     /// Class LoadReferencesSync.
@@ -193,6 +214,14 @@ namespace ServiceStack.OrmLite.Support
                 var result = dbCmd.ConvertTo(refType, sql);
                 fieldDef.SetValue(instance, result);
             }
+        }
+
+        public void SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef)
+        {
+            var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
+            var result = dbCmd.ConvertTo(fieldRef.RefModel, sqlRef);
+            var refFieldValue = fieldRef.RefFieldDef.GetValue(result);
+            fieldDef.SetValue(instance, refFieldValue);
         }
     }
 
@@ -257,6 +286,14 @@ namespace ServiceStack.OrmLite.Support
                 var result = await dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
                 fieldDef.SetValue(instance, result);
             }
+        }
+
+        public async Task SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef, CancellationToken token)
+        {
+            var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
+            var result = await dbCmd.ConvertToAsync(fieldRef.RefModel, sqlRef, token).ConfigAwait();
+            var refFieldValue = fieldRef.RefFieldDef.GetValue(result);
+            fieldDef.SetValue(instance, refFieldValue);
         }
     }
 #endif

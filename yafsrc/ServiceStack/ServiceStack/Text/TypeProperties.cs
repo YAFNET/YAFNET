@@ -95,9 +95,9 @@ namespace ServiceStack.Text
         /// </summary>
         /// <param name="propertyName">Name of the property.</param>
         /// <returns>PropertyAccessor.</returns>
-        public new static PropertyAccessor GetAccessor(string propertyName)
+        public static new PropertyAccessor GetAccessor(string propertyName)
         {
-            return Instance.PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
+            return Instance.PropertyMap.TryGetValue(propertyName, out var info)
                 ? info
                 : null;
         }
@@ -155,9 +155,9 @@ namespace ServiceStack.Text
         /// <returns>PropertyAccessor.</returns>
         public PropertyAccessor GetAccessor(string propertyName)
         {
-            return PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
-                ? info
-                : null;
+            return this.PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
+                       ? info
+                       : null;
         }
 
         /// <summary>

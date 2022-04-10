@@ -4,10 +4,11 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
-using System;
 
 namespace ServiceStack.DataAnnotations
 {
+    using System;
+
     /// <summary>
     /// Class ReferencesAttribute.
     /// Implements the <see cref="ServiceStack.AttributeBase" />

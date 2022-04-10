@@ -7,10 +7,10 @@
 
 namespace ServiceStack.Text
 {
-    using ServiceStack.Text.Common;
-
     using System;
     using System.Collections.Generic;
+
+    using ServiceStack.Text.Common;
 
     /// <summary>
     /// Class ListExtensions.

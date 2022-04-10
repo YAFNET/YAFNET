@@ -143,6 +143,7 @@ namespace ServiceStack.OrmLite
                 var decimalAttribute = propertyInfo.FirstAttribute<DecimalLengthAttribute>();
                 var belongToAttribute = propertyInfo.FirstAttribute<BelongToAttribute>();
                 var referenceAttr = propertyInfo.FirstAttribute<ReferenceAttribute>();
+                var referenceFieldAttr = propertyInfo.FirstAttribute<ReferenceFieldAttribute>();
 
                 var isRowVersion = propertyInfo.Name == ModelDefinition.RowVersionName &&
                                    (propertyInfo.PropertyType == typeof(ulong) ||
@@ -174,7 +175,7 @@ namespace ServiceStack.OrmLite
                     }
                 }
 
-                var isReference = referenceAttr != null && propertyType.IsClass;
+                var isReference = referenceAttr != null || referenceFieldAttr != null;
                 var isIgnored = propertyInfo.HasAttributeCached<IgnoreAttribute>() || isReference;
 
                 var isFirst = !isIgnored && i++ == 0;
@@ -222,6 +223,7 @@ namespace ServiceStack.OrmLite
 
                 var fieldDefinition = new FieldDefinition
                 {
+                    ModelDef = modelDef,
                     Name = propertyInfo.Name,
                     Alias = aliasAttr?.Name,
                     FieldType = propertyType,
@@ -269,6 +271,16 @@ namespace ServiceStack.OrmLite
                     IsRefType = propertyType.IsRefType(),
                     Order = order
                 };
+
+                if (referenceFieldAttr != null)
+                {
+                    fieldDefinition.FieldReference = new FieldReference(fieldDefinition)
+                                                         {
+                                                             RefModel = referenceFieldAttr.Model,
+                                                             RefId = referenceFieldAttr.Id,
+                                                             RefField = referenceFieldAttr.Field ?? propertyInfo.Name,
+                                                         };
+                }
 
                 if (isIgnored)
                 {

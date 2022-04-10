@@ -1607,6 +1607,10 @@ namespace ServiceStack.OrmLite
                 {
                     loadRef.SetRefFieldList(fieldDef, listInterface.GetGenericArguments()[0]);
                 }
+                else if (fieldDef.FieldReference != null)
+                {
+                    loadRef.SetFieldReference(fieldDef, fieldDef.FieldReference);
+                }
                 else
                 {
                     loadRef.SetRefField(fieldDef, fieldDef.FieldType);
@@ -1642,6 +1646,10 @@ namespace ServiceStack.OrmLite
                 if (listInterface != null)
                 {
                     loadList.SetRefFieldList(fieldDef, listInterface.GetGenericArguments()[0]);
+                }
+                else if (fieldDef.FieldReference != null)
+                {
+                    loadList.SetFieldReference(fieldDef, fieldDef.FieldReference);
                 }
                 else
                 {

@@ -5,12 +5,12 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-using System;
-using System.Collections;
-using System.Reflection;
-
 namespace ServiceStack.OrmLite
 {
+    using System;
+    using System.Collections;
+    using System.Reflection;
+
     using ServiceStack.Text;
 
     /// <summary>
@@ -18,6 +18,11 @@ namespace ServiceStack.OrmLite
     /// </summary>
     public class FieldDefinition
     {
+        /// <summary>
+        /// Gets or sets the model def.
+        /// </summary>
+        public ModelDefinition ModelDef { get; set; }
+
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
@@ -297,6 +302,8 @@ namespace ServiceStack.OrmLite
         /// <value><c>true</c> if this instance is reference; otherwise, <c>false</c>.</value>
         public bool IsReference { get; set; }
 
+        public FieldReference FieldReference { get; set; }
+
         /// <summary>
         /// Gets or sets the custom field definition.
         /// </summary>
@@ -412,80 +419,13 @@ namespace ServiceStack.OrmLite
                 CustomSelect = CustomSelect,
                 BelongToModelName = BelongToModelName,
                 IsReference = IsReference,
+                FieldReference = FieldReference,
                 CustomFieldDefinition = CustomFieldDefinition,
                 IsRefType = IsRefType,
             };
 
             modifier?.Invoke(fieldDef);
             return fieldDef;
-        }
-    }
-
-    /// <summary>
-    /// Class ForeignKeyConstraint.
-    /// </summary>
-    public class ForeignKeyConstraint
-    {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ForeignKeyConstraint"/> class.
-        /// </summary>
-        /// <param name="type">The type.</param>
-        /// <param name="onDelete">The on delete.</param>
-        /// <param name="onUpdate">The on update.</param>
-        /// <param name="foreignKeyName">Name of the foreign key.</param>
-        public ForeignKeyConstraint(Type type, string onDelete = null, string onUpdate = null, string foreignKeyName = null)
-        {
-            ReferenceType = type;
-            OnDelete = onDelete;
-            OnUpdate = onUpdate;
-            ForeignKeyName = foreignKeyName;
-        }
-
-        /// <summary>
-        /// Gets the type of the reference.
-        /// </summary>
-        /// <value>The type of the reference.</value>
-        public Type ReferenceType { get; private set; }
-        /// <summary>
-        /// Gets the on delete.
-        /// </summary>
-        /// <value>The on delete.</value>
-        public string OnDelete { get; private set; }
-        /// <summary>
-        /// Gets the on update.
-        /// </summary>
-        /// <value>The on update.</value>
-        public string OnUpdate { get; private set; }
-        /// <summary>
-        /// Gets the name of the foreign key.
-        /// </summary>
-        /// <value>The name of the foreign key.</value>
-        public string ForeignKeyName { get; private set; }
-
-        /// <summary>
-        /// Gets the name of the foreign key.
-        /// </summary>
-        /// <param name="modelDef">The model definition.</param>
-        /// <param name="refModelDef">The reference model definition.</param>
-        /// <param name="namingStrategy">The naming strategy.</param>
-        /// <param name="fieldDef">The field definition.</param>
-        /// <returns>System.String.</returns>
-        public string GetForeignKeyName(ModelDefinition modelDef, ModelDefinition refModelDef, INamingStrategy namingStrategy, FieldDefinition fieldDef)
-        {
-            if (ForeignKeyName.IsNullOrEmpty())
-            {
-                var modelName = modelDef.IsInSchema
-                    ? $"{modelDef.Schema}_{namingStrategy.GetTableName(modelDef.ModelName)}"
-                    : namingStrategy.GetTableName(modelDef.ModelName);
-
-                var refModelName = refModelDef.IsInSchema
-                    ? $"{refModelDef.Schema}_{namingStrategy.GetTableName(refModelDef.ModelName)}"
-                    : namingStrategy.GetTableName(refModelDef.ModelName);
-
-                var fkName = $"FK_{modelName}_{refModelName}_{fieldDef.FieldName}";
-                return namingStrategy.ApplyNameRestrictions(fkName);
-            }
-            return ForeignKeyName;
         }
     }
 }
