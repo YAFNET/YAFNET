@@ -288,7 +288,7 @@ namespace YAF.Core.Model
                                     LastVisit = DateTime.Now,
                                     NumPosts = 0,
                                     TimeZone = TimeZoneInfo.Local.Id,
-                                    Email = boardEmail,
+                                    Email = userEmail,
                                     Flags = userFlags,
                                     PageSize = 5
                                 };

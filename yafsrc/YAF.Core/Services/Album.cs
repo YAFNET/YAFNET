@@ -222,10 +222,9 @@ namespace YAF.Core.Services
 
                 var ms = new MemoryStream();
 
-                using (var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read))
-                {
-                    input.CopyTo(ms);
-                }
+                using var input = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+                input.CopyTo(ms);
 
                 context.Response.ContentType = "image/png";
 

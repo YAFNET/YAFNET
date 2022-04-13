@@ -83,7 +83,7 @@ namespace YAF.Core.Tasks
                     return;
                 }
 
-                var forums = this.GetRepository<Forum>().List(BoardContext.Current.PageBoardID, null);
+                var forums = this.GetRepository<Forum>().ListAll(BoardContext.Current.PageBoardID);
 
                 if (!IsTimeToUpdateSearchIndex())
                 {
@@ -94,7 +94,7 @@ namespace YAF.Core.Tasks
                     forum =>
                         {
                             var messages =
-                                this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.ID);
+                                this.GetRepository<Message>().GetAllSearchMessagesByForum(forum.Item1.ID);
 
                             this.Get<ISearch>().AddSearchIndexAsync(messages).Wait();
                         });
