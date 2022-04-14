@@ -26,6 +26,7 @@ namespace YAF.Pages
     #region Using
 
     using System;
+    using System.Linq;
     using System.Web;
     using System.Web.UI.WebControls;
 
@@ -34,6 +35,8 @@ namespace YAF.Pages
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Services;
+    using YAF.Core.Utilities;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -79,6 +82,20 @@ namespace YAF.Pages
         protected int RevisionsCount { get; set; }
 
         #region Methods
+
+        /// <summary>
+        /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+        /// </summary>
+        /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+        protected override void OnInit([NotNull] EventArgs e)
+        {
+            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+                this,
+                nameof(JavaScriptBlocks.ToggleDiffSelectionJs),
+                JavaScriptBlocks.ToggleDiffSelectionJs(this.GetText("SELECT_TWO")));
+
+            base.OnInit(e);
+        }
 
         /// <summary>
         /// Handles the Load event of the Page control.
@@ -213,6 +230,43 @@ namespace YAF.Pages
             var ip = IPHelper.GetIpAddressAsString(dataItem.IP);
 
             return ip.IsSet() ? ip : IPHelper.GetIpAddressAsString(dataItem.MessageIP);
+        }
+
+        /// <summary>
+        /// Render Diff Message
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="e">
+        /// The e.
+        /// </param>
+        protected void ShowDiffClick(object sender, EventArgs e)
+        {
+            var dmp = new DiffMatchPatch();
+
+            var messages = this.RevisionsList.Items.Cast<RepeaterItem>().Where(item => item.FindControlAs<CheckBox>("Compare").Checked).Select(item => item.FindControlAs<HiddenField>("MessageField").Value);
+
+            if (!messages.Any())
+            {
+                this.PageBoardContext.Notify(this.GetText("MESSAGEHISTORY", "NOTHING_SELECTED"), MessageTypes.warning);
+                return;
+            }
+
+            if (messages.Count() == 1)
+            {
+                this.PageBoardContext.Notify(this.GetText("MESSAGEHISTORY", "SELECT_BOTH"), MessageTypes.warning);
+                return;
+            }
+
+            var text1 = messages.ElementAt(0);
+            var text2 = messages.ElementAt(1);
+
+            var diff = dmp.DiffMain(text1, text2, true);
+
+            this.DiffView.Text = dmp.PrettyHtml(diff);
+
+            this.InfoSelect.Visible = false;
         }
 
         /// <summary>

@@ -4492,6 +4492,7 @@
     <Resource tag="RESTORE_MESSAGE">بازگرداندن نسخه</Resource>
     <Resource tag="SELECT_BOTH">لطفا یک پیام قدیمی و یک پیام جدید انتخاب کنید</Resource>
     <Resource tag="SELECT_DIFFERENT">شما برای انجام یک مقایسه صحیح باید دو نسخه متفاوت انتخاب کنید</Resource>
+    <Resource tag="SELECT_TWO">Only 2 Versions can be selected vor comparing!</Resource>
     <Resource tag="TEXT_CHANGES">تغییرات متن</Resource>
     <Resource tag="TITLE">تاریخچه پیام</Resource>
     <Resource tag="TOMESSAGE">برو به پیام</Resource>

@@ -4795,6 +4795,7 @@ public class Hello1
     <Resource tag="RESTORE_MESSAGE">Restore Version</Resource>
     <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
     <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+    <Resource tag="SELECT_TWO">Only 2 Versions can be selected vor comparing!</Resource>
     <Resource tag="TEXT_CHANGES">Text Changes</Resource>
     <Resource tag="TITLE">Historial de mensajes</Resource>
     <Resource tag="TOMESSAGE">Ir a mensaje</Resource>

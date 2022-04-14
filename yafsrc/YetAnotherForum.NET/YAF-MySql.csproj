@@ -118,7 +118,7 @@
 	web.config;app.config;db.config;mail.config;
   Scripts\jquery.ForumAdminExtensionsDnn.js;Scripts\jquery.ForumAdminExtensionsDnn.min.js;
   Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\bootstrap-tagsinput.js;Scripts\bootstrap-typeahead.js;Scripts\jquery.bootstrap-touchspin.js;Scripts\hammer.min.js;
-  Scripts\jquery.hovercard.js;Scripts\jquery.netStack.js;Scripts\jsdifflib.js;Scripts\moment-with-locales.js;Scripts\prism.js;Scripts\select2.js;**\Content\**\*.scss</ExcludeFilesFromDeployment>
+  Scripts\jquery.hovercard.js;Scripts\jquery.netStack.js;Scripts\moment-with-locales.js;Scripts\prism.js;Scripts\select2.js;**\Content\**\*.scss</ExcludeFilesFromDeployment>
     <ExcludeFoldersFromDeployment>Content\select2;Content\flag-icons;Content\fontawesome;Content\forum;Content\bootstrap;Content\jQuery.FileUpload;Scripts\jQuery.FileUpload;Scripts\blueimp-gallery;Scripts\forum</ExcludeFoldersFromDeployment>
   </PropertyGroup>
   <PropertyGroup>
@@ -2891,7 +2891,6 @@
     <Content Include="Scripts\jquery.ForumExtensionsDnn.min.js">
       <DependentUpon>jquery.ForumExtensionsDnn.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jsdifflib.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\jquery.netStack.js" />
     <Content Include="Scripts\prism.js" />
@@ -3315,7 +3314,6 @@
     <Content Include="Content\forum\editor.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <None Include="Content\InstallWizard.scss" />
-    <None Include="Content\jsdifflib.scss" />
     <Content Include="Content\Themes\cerulean\_bootswatch.scss" />
     <Content Include="Content\Themes\cerulean\_variables.scss" />
     <Content Include="Content\Themes\cosmo\_bootswatch.scss" />
@@ -3391,7 +3389,6 @@
     <Content Include="recommended.web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\forum\yaf.MessageHistory.js" />
     <Content Include="Scripts\forum\yaf.Attachments.js" />
     <Content Include="UrlRewriter.config" />
     <None Include="Content\select2\select2-bootstrap.scss" />

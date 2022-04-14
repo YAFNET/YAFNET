@@ -4427,6 +4427,7 @@ Spoiler Content
     <Resource tag="RESTORE_MESSAGE">Ripristina versione</Resource>
     <Resource tag="SELECT_BOTH">Seleziona un vecchio ed un nuovo messaggio</Resource>
     <Resource tag="SELECT_DIFFERENT">Devi selezionare due diverse versioni per compararle.</Resource>
+    <Resource tag="SELECT_TWO">Only 2 Versions can be selected vor comparing!</Resource>
     <Resource tag="TEXT_CHANGES">Modifiche testo</Resource>
     <Resource tag="TITLE">Storico messaggio</Resource>
     <Resource tag="TOMESSAGE">Vai al messaggio</Resource>

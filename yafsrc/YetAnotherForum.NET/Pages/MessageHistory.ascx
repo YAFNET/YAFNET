@@ -6,7 +6,6 @@
 <%@ Import Namespace="YAF.Types.Objects.Model" %>
 <%@ Import Namespace="YAF.Types.Interfaces.Services" %>
 <%@ Import Namespace="ServiceStack.Text" %>
-<%@ Import Namespace="YAF.Core.Helpers" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -94,28 +93,30 @@
                 </asp:Repeater>
             </div>
             <div class="card-footer text-center">
-                        <a onclick="RenderMessageDiff('<%# this.GetText("MESSAGEHISTORY","NOTHING_SELECTED") %>','<%# this.GetText("MESSAGEHISTORY","SELECT_BOTH") %>');" 
-                           class="btn btn-primary mb-1" role="button" href="#diffContent">
-                            <i class="fas fa-equals"></i>&nbsp;<%# this.GetText("MESSAGEHISTORY","COMPARE_VERSIONS") %>
-                        </a>            
-                        <YAF:ThemeButton ID="ReturnBtn" 
-                                         CssClass="mb-1"
-                                         OnClick="ReturnBtn_OnClick"
-                                         TextLocalizedTag="TOMESSAGE" 
-                                         Visible="false" 
-                                         Type="Secondary"
-                                         Icon="external-link-square-alt"
-                                         runat="server">
-                        </YAF:ThemeButton>
-                        <YAF:ThemeButton ID="ReturnModBtn"  
-                                         CssClass="mb-1"
-                                         OnClick="ReturnModBtn_OnClick"
-                                         TextLocalizedTag="GOMODERATE" 
-                                         Visible="false" 
-                                         Type="Secondary"
-                                         Icon="external-link-square-alt"
-                                         runat="server">
-                        </YAF:ThemeButton>
+                <YAF:ThemeButton runat="server" ID="ShowDif" 
+                                 CssClass="mb-1"
+                                 TextLocalizedTag="COMPARE_VERSIONS"
+                                 Icon="equals"
+                                 OnClick="ShowDiffClick"></YAF:ThemeButton>
+                <YAF:ThemeButton ID="ReturnBtn" 
+                                 CssClass="mb-1"
+                                 OnClick="ReturnBtn_OnClick"
+                                 TextLocalizedTag="TOMESSAGE" 
+                                 Visible="false" 
+                                 Type="Secondary"
+                                 Icon="external-link-square-alt"
+                                 runat="server">
+                </YAF:ThemeButton>
+                <YAF:ThemeButton ID="ReturnModBtn"  
+                                 CssClass="mb-1"
+                                 OnClick="ReturnModBtn_OnClick"
+                                 TextLocalizedTag="GOMODERATE" 
+                                 Visible="false" 
+                                 Type="Secondary"
+                                 Icon="external-link-square-alt"
+                                 runat="server">
+
+                </YAF:ThemeButton>
             </div>
         </div>
     </div>
@@ -135,10 +136,11 @@
                                         LocalizedTag="TEXT_CHANGES" />
                 </h6>
                 <div id="diffContent">
-                    <YAF:Alert runat="server" Type="info">
+                    <YAF:Alert runat="server" Type="info" ID="InfoSelect">
                         <YAF:Icon runat="server" IconName="info-circle" />
                         <%# this.GetText("MESSAGEHISTORY","SELECT_DIFFERENT") %>
                     </YAF:Alert>
+                    <asp:Literal runat="server" ID="DiffView"></asp:Literal>
                 </div>
             </div>
         </div>

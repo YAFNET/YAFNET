@@ -4260,6 +4260,7 @@
     <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
     <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
     <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
+	  <Resource tag="SELECT_TWO">Only 2 Versions can be selected vor comparing!</Resource>
   </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">Access Mask:</Resource>

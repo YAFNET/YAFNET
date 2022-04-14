@@ -4379,6 +4379,7 @@ Spoiler Content
     <Resource tag="RESTORE_MESSAGE">Version wiederherstellen</Resource>
     <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
     <Resource tag="SELECT_DIFFERENT">Sie müssen zwei verschiedene Versionen auswählen um vergleichen zu können</Resource>
+    <Resource tag="SELECT_TWO">Only 2 Versions can be selected vor comparing!</Resource>
     <Resource tag="TEXT_CHANGES">Text änderungen</Resource>
     <Resource tag="TITLE">Nachrichten Verlauf</Resource>
     <Resource tag="TOMESSAGE">Gehe zu Nachricht</Resource>

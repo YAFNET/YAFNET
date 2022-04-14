@@ -1625,5 +1625,25 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               }}
                          }});";
         }
+
+        /// <summary>
+        /// Renders toggleSelection Function JS.
+        /// </summary>
+        /// <param name="message">
+        /// The message.
+        /// </param>
+        /// <returns>
+        /// Returns the JS String
+        /// </returns>
+        [NotNull]
+        public static string ToggleDiffSelectionJs([NotNull] string message)
+        {
+            return $@"function toggleSelection(source) {{
+                                              if ({Config.JQueryAlias}(""input[id*='Compare']:checked"").length > 2) {{
+                                                  source.checked = false;
+                                                  bootbox.alert({message});
+                                              }}
+                                          }}";
+        }
     }
 }

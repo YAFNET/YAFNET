@@ -130,7 +130,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.intellisense.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jsdifflib.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
