@@ -47,7 +47,7 @@ namespace YAF.Core.Utilities.StringUtils
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// Returns spliced list
         /// </returns>
         public static List<T> Splice<T>(this List<T> input, int start, int count, params T[] objects)
         {
@@ -102,9 +102,8 @@ namespace YAF.Core.Utilities.StringUtils
     {
         public Operation Operation;
 
-        // One of: INSERT, DELETE or EQUAL.
-        public string Text;
         // The text associated with this diff operation.
+        public string Text;
 
         /**
          * Constructor.  Initializes the diff with the provided values.
@@ -116,115 +115,6 @@ namespace YAF.Core.Utilities.StringUtils
             // Construct a diff with the specified operation and text.
             this.Operation = operation;
             this.Text = text;
-        }
-
-        /**
-         * Display a human-readable version of this Diff.
-         * @return text version.
-         */
-        public override string ToString()
-        {
-            var prettyText = this.Text.Replace('\n', '\u00b6');
-            return $"Diff({this.Operation},\"{prettyText}\")";
-        }
-
-        /**
-         * Is this Diff equivalent to another Diff?
-         * @param d Another Diff to compare against.
-         * @return true or false.
-         */
-        public override bool Equals(object obj)
-        {
-            // If parameter is null return false.
-
-            // If parameter cannot be cast to Diff return false.
-            if (obj is not Diff p)
-            {
-                return false;
-            }
-
-            // Return true if the fields match.
-            return p.Operation == this.Operation && p.Text == this.Text;
-        }
-
-        public bool Equals(Diff obj)
-        {
-            // If parameter is null return false.
-            if (obj == null)
-            {
-                return false;
-            }
-
-            // Return true if the fields match.
-            return obj.Operation == this.Operation && obj.Text == this.Text;
-        }
-
-        public override int GetHashCode()
-        {
-            return this.Text.GetHashCode() ^ this.Operation.GetHashCode();
-        }
-    }
-
-
-    /**
-     * Class representing one patch operation.
-     */
-    public class Patch
-    {
-        public List<Diff> Diffs = new ();
-
-        public int Start1;
-
-        public int Start2;
-
-        public int Length1;
-
-        public int Length2;
-
-        /**
-         * Emulate GNU Diff format.
-         * Header: @@ -382,8 +481,9 @@
-         * Indices are printed as 1-based, not 0-based.
-         * @return The GNU diff string.
-         */
-        public override string ToString()
-        {
-            var coords1 = this.Length1 switch
-                {
-                    0 => $"{this.Start1},0",
-                    1 => Convert.ToString(this.Start1 + 1),
-                    _ => $"{(this.Start1 + 1)},{this.Length1}"
-                };
-
-            var coords2 = this.Length2 switch
-                {
-                    0 => $"{this.Start2},0",
-                    1 => Convert.ToString(this.Start2 + 1),
-                    _ => $"{(this.Start2 + 1)},{this.Length2}"
-                };
-
-            var text = new StringBuilder();
-            text.Append("@@ -").Append(coords1).Append(" +").Append(coords2).Append(" @@\n");
-            // Escape the body of the patch with %xx notation.
-            foreach (var aDiff in this.Diffs)
-            {
-                switch (aDiff.Operation)
-                {
-                    case Operation.Insert:
-                        text.Append('+');
-                        break;
-                    case Operation.Delete:
-                        text.Append('-');
-                        break;
-                    case Operation.Equal:
-                        text.Append(' ');
-                        break;
-                }
-
-                text.Append(DiffMatchPatch.EncodeUri(aDiff.Text)).Append("\n");
-            }
-
-            return text.ToString();
         }
     }
 
@@ -371,7 +261,7 @@ namespace YAF.Core.Utilities.StringUtils
             if (i != -1)
             {
                 // Shorter text is inside the longer text (speedup).
-                var op = (text1.Length > text2.Length) ? Operation.Delete : Operation.Insert;
+                var op = text1.Length > text2.Length ? Operation.Delete : Operation.Insert;
                 diffs.Add(new Diff(op, longtext.Substring(0, i)));
                 diffs.Add(new Diff(Operation.Equal, shortText));
                 diffs.Add(new Diff(op, longtext.Substring(i + shortText.Length)));
@@ -900,7 +790,8 @@ namespace YAF.Core.Utilities.StringUtils
             {
                 return null;
             }
-            else if (hm2 == null)
+
+            if (hm2 == null)
             {
                 hm = hm1;
             }
@@ -1200,8 +1091,8 @@ namespace YAF.Core.Utilities.StringUtils
             var whitespace2 = nonAlphaNumeric2 && char.IsWhiteSpace(char2);
             var lineBreak1 = whitespace1 && char.IsControl(char1);
             var lineBreak2 = whitespace2 && char.IsControl(char2);
-            var blankLine1 = lineBreak1 && this.BLANKLINEEND.IsMatch(one);
-            var blankLine2 = lineBreak2 && this.BLANKLINESTART.IsMatch(two);
+            var blankLine1 = lineBreak1 && this.blankLineEnd.IsMatch(one);
+            var blankLine2 = lineBreak2 && this.blankLineStart.IsMatch(two);
 
             if (blankLine1 || blankLine2)
             {
@@ -1237,9 +1128,9 @@ namespace YAF.Core.Utilities.StringUtils
         }
 
         // Define some regex patterns for matching boundaries.
-        private readonly Regex BLANKLINEEND = new("\\n\\r?\\n\\Z");
+        private readonly Regex blankLineEnd = new("\\n\\r?\\n\\Z");
 
-        private readonly Regex BLANKLINESTART = new("\\A\\r?\\n\\r?\\n");
+        private readonly Regex blankLineStart = new("\\A\\r?\\n\\r?\\n");
 
         /**
          * Reorder and merge like edit sections.  Merge equalities.
@@ -1257,7 +1148,6 @@ namespace YAF.Core.Utilities.StringUtils
                 var countInsert = 0;
                 var textDelete = string.Empty;
                 var textInsert = string.Empty;
-                int commonLength;
                 while (pointer < diffs.Count)
                 {
                     switch (diffs[pointer].Operation)
@@ -1278,8 +1168,8 @@ namespace YAF.Core.Utilities.StringUtils
                             {
                                 if (countDelete != 0 && countInsert != 0)
                                 {
-                                    // Factor out any common prefixies.
-                                    commonLength = this.CommonPrefix(textInsert, textDelete);
+                                    // Factor out any common prefixes.
+                                    var commonLength = this.CommonPrefix(textInsert, textDelete);
                                     if (commonLength != 0)
                                     {
                                         if ((pointer - countDelete - countInsert) > 0 && diffs[pointer - countDelete - countInsert - 1].Operation == Operation.Equal)
@@ -1296,7 +1186,7 @@ namespace YAF.Core.Utilities.StringUtils
                                         textDelete = textDelete.Substring(commonLength);
                                     }
 
-                                    // Factor out any common suffixies.
+                                    // Factor out any common suffixes.
                                     commonLength = this.CommonSuffix(textInsert, textDelete);
                                     if (commonLength != 0)
                                     {
