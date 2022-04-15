@@ -276,16 +276,7 @@ namespace YAF.Core.Model
                     (forum, category, active) =>
                         active.UserID == userId && category.BoardID == boardId && active.ReadAccess && forum.RemoteURL == null)
                 .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
-                .ThenBy<Forum>(f => f.ID).Select<Forum, Category>(
-                    (forum, category) => new
-                                             {
-                                                 CategoryID = category.ID,
-                                                 Category = category.Name,
-                                                 ForumID = forum.ID,
-                                                 Forum = forum.Name,
-                                                 Indent = 0,
-                                                 forum.ParentID
-                                             });
+                .ThenBy<Forum>(f => f.ID);
 
             return repository.DbAccess.Execute(
                 db => db.Connection.SelectMulti<Forum, Category, ActiveAccess>(expression));
