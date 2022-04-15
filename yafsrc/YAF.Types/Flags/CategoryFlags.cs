@@ -43,6 +43,13 @@ namespace YAF.Types.Flags
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CategoryFlags"/> class.
+        /// </summary>
+        public CategoryFlags()
+        {
+        }
+
         #endregion
 
         #region Flags Enumeration
