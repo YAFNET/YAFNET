@@ -37,6 +37,7 @@ namespace YAF.Pages.Admin
     using YAF.Core.Helpers;
     using YAF.Core.Model;
     using YAF.Core.Utilities;
+    using YAF.Core.Utilities.StringUtils;
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
@@ -52,6 +53,8 @@ namespace YAF.Pages.Admin
     /// </summary>
     public partial class EventLog : AdminPage
     {
+        private readonly StackTraceBeautify beautify;
+
         #region Constructors and Destructors
 
         /// <summary>
@@ -60,6 +63,7 @@ namespace YAF.Pages.Admin
         public EventLog()
             : base("ADMIN_EVENTLOG", ForumPages.Admin_EventLog)
         {
+            this.beautify = new StackTraceBeautify();
         }
 
         #endregion
@@ -179,6 +183,11 @@ namespace YAF.Pages.Admin
             }
 
             return $@"<i class=""fas fa-{icon} text-{cssClass}""></i>";
+        }
+
+        protected string FormatStackTrace(string input)
+        {
+            return this.beautify.Beautify(this.HtmlEncode(input));
         }
 
         /// <summary>
@@ -462,5 +471,10 @@ namespace YAF.Pages.Admin
         }
 
         #endregion
+
+        private string Test(string htmlEncode)
+        {
+            return htmlEncode;
+        }
     }
 }

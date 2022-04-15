@@ -65,7 +65,6 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/jquery.netStack.js",
                     "Scripts/hammer.min.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
@@ -98,7 +97,6 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/jquery.netStack.js",
                     "Scripts/hammer.min.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
@@ -130,7 +128,6 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/jquery.netStack.js",
                     "Scripts/hammer.min.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
@@ -158,7 +155,6 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/jquery.netStack.js",
                     "Scripts/hammer.min.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
@@ -337,12 +333,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("@lodder/grunt-postcss");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
-    grunt.loadNpmTasks("grunt-contrib-watch");
+    //grunt.loadNpmTasks("grunt-contrib-watch");
 
-    grunt.registerTask("watch",
+    /*grunt.registerTask("watch",
         [
             "uglify", "sass", "postcss", "cssmin"
-        ]);
+        ]);*/
 
     grunt.registerTask("default",
         [

@@ -120,8 +120,6 @@ $(document).ready(function () {
         function() {
             $(this).parent().parent().hide();
         });
-
-    $(".stacktrace").netStack({ prettyprint: true });
 });
 
 document.addEventListener("DOMContentLoaded", function () {
