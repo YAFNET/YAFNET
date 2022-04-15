@@ -100,7 +100,7 @@
 
 <div class="text-center text-muted small">
     <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALTEXT"></YAF:LocalizedLabel>&nbsp;
-    <a href="<%= this.Get<LinkBuilder>().GetLink(ForumPages.Profile_Subscriptions, true) %>">
+    <a href="<%= this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions) %>">
         <YAF:LocalizedLabel runat="server" LocalizedTag="REMOVALLINK"></YAF:LocalizedLabel>
     </a>
 </div>

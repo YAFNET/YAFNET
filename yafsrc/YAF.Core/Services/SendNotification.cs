@@ -417,9 +417,8 @@ namespace YAF.Core.Services
                                              ["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
                                                  ForumPages.Posts,
                                                  new {m = message.ID, name = message.Topic.TopicName}),
-                                             ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetLink(
-                                                 ForumPages.Profile_Subscriptions,
-                                                 true)
+                                             ["{subscriptionlink}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                                 ForumPages.Profile_Subscriptions)
                                          }
                                  };
 
