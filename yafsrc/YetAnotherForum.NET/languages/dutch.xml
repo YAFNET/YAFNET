@@ -612,6 +612,8 @@
     <Resource tag="VERIFY_PASS_HELP">Controleer het wachtwoord.</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
+    <Resource tag="Active">Active</Resource>
+    <Resource tag="ACTIVE_HELP">If enabled show Category (incl. Forums) in Board</Resource>
     <Resource tag="CATEGORY_IMAGE">Categorie Afbeelding:</Resource>
     <Resource tag="CATEGORY_IMAGE_HELP">Deze afbeelding wordt naast deze categorie getoond.</Resource>
     <Resource tag="CATEGORY_NAME">Categorie Naam:</Resource>

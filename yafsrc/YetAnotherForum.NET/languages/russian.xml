@@ -612,6 +612,8 @@
     <Resource tag="VERIFY_PASS_HELP">Проверить пароль.</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
+    <Resource tag="Active">Active</Resource>
+    <Resource tag="ACTIVE_HELP">If enabled show Category (incl. Forums) in Board</Resource>
     <Resource tag="CATEGORY_IMAGE">Иконка категории:</Resource>
     <Resource tag="CATEGORY_IMAGE_HELP">Это изображение будет отображаться рядом с названием категории</Resource>
     <Resource tag="CATEGORY_NAME">Категория:</Resource>

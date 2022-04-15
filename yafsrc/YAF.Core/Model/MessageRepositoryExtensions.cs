@@ -180,7 +180,7 @@ namespace YAF.Core.Model
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Join<Topic>((f, t) => t.ForumID == f.ID).Join<Topic, Message>((t, m) => m.TopicID == t.ID)
-                .Where<Message, Category>((m, category) => category.BoardID == boardId && (m.Flags & 8) == 8);
+                .Where<Message, Category>((m, category) => category.BoardID == boardId && (m.Flags & 8) == 8 && (category.Flags & 1) == 1);
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message>(expression));
         }
@@ -456,7 +456,7 @@ namespace YAF.Core.Model
                 .Join<Forum, ActiveAccess>((forum, access) => access.ForumID == forum.ID)
                 .Where<Topic, Message, ActiveAccess, Category>(
                     (topic, message, x, e) => message.UserID == userId && x.UserID == pageUserId && x.ReadAccess &&
-                                              e.BoardID == boardId && (topic.Flags & 8) != 8 &&
+                                              e.BoardID == boardId && (e.Flags & 1) == 1 && (topic.Flags & 8) != 8 &&
                                               (message.Flags & 8) != 8 && (message.Flags & 16) == 16).OrderByDescending<Message>(x => x.Posted)
                 .Take(count);
 

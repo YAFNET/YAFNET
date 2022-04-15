@@ -114,7 +114,7 @@ namespace YAF.Pages
                 JavaScriptBlocks.SelectForumsLoadJs(
                     this.ForumJump.ClientID,
                     this.GetText("FORUM_JUMP_PLACEHOLDER"),
-                    false,
+                    true,
                     false));
 
             base.OnPreRender(e);

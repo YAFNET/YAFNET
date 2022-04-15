@@ -274,7 +274,7 @@ namespace YAF.Core.Model
                 .Join<ActiveAccess>((forum, active) => active.ForumID == forum.ID)
                 .Where<Forum, Category, ActiveAccess>(
                     (forum, category, active) =>
-                        active.UserID == userId && category.BoardID == boardId && active.ReadAccess && forum.RemoteURL == null)
+                        active.UserID == userId && category.BoardID == boardId && active.ReadAccess && forum.RemoteURL == null && (category.Flags & 1) == 1)
                 .OrderBy<Category>(c => c.SortOrder).ThenBy<Forum>(f => f.SortOrder).ThenBy<Category>(c => c.ID)
                 .ThenBy<Forum>(f => f.ID);
 
@@ -304,7 +304,7 @@ namespace YAF.Core.Model
 
             expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Where<Forum, Category>(
-                    (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId
+                    (forum, category) => category.BoardID == repository.BoardID && category.ID == categoryId && (category.Flags & 1) == 1
                                          && forum.ParentID == null).OrderBy<Forum>(f => f.SortOrder)
                 .ThenBy<Forum>(f => f.ID);
 
@@ -522,7 +522,7 @@ namespace YAF.Core.Model
                         .CustomJoin(
                             $@" left outer join {expression.Table<User>()} on {expression.Column<User>(x => x.ID, true)} = {expression.Column<Topic>(t => t.LastUserID, true)} ")
                         .Where<Forum, Category, ActiveAccess>(
-                            (forum, category, x) => category.BoardID == boardId && x.UserID == userId && x.ReadAccess);
+                            (forum, category, x) => category.BoardID == boardId && (category.Flags & 1) == 1 && x.UserID == userId && x.ReadAccess);
 
                     // -- count sub-forums
                     var countSubForumsExpression = db.Connection.From<Forum>(db.Connection.TableAlias("sub"));

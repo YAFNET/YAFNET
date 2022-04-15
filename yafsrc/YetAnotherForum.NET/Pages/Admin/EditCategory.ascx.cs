@@ -42,6 +42,7 @@ namespace YAF.Pages.Admin
     using YAF.Types;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces;
     using YAF.Types.Models;
     using YAF.Types.Objects;
@@ -174,8 +175,15 @@ namespace YAF.Pages.Admin
                 return;
             }
 
+            var categoryFlags = new CategoryFlags {IsActive = this.Active.Checked};
+
             // save category
-            this.GetRepository<Category>().Save(this.PageBoardContext.PageCategoryID, this.Name.Text, categoryImage, this.SortOrder.Text.ToType<short>());
+            this.GetRepository<Category>().Save(
+                this.PageBoardContext.PageCategoryID,
+                this.Name.Text,
+                categoryImage,
+                this.SortOrder.Text.ToType<short>(),
+                categoryFlags);
 
             // redirect
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
@@ -228,6 +236,8 @@ namespace YAF.Pages.Admin
             this.SortOrder.Text = category.SortOrder.ToString();
 
             this.IconHeader.Text = $"{this.GetText("ADMIN_EDITCATEGORY", "HEADER")} <strong>{this.Name.Text}</strong>";
+
+            this.Active.Checked = category.CategoryFlags.IsActive;
 
             var item = this.CategoryImages.Items.FindByText(category.CategoryImage);
 

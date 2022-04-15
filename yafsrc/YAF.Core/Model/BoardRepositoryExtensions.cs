@@ -388,7 +388,7 @@ namespace YAF.Core.Model
                         .Join<Forum, Category>((c, d) => d.ID == c.CategoryID).Join<User>((a, e) => e.ID == a.UserID);
 
                     expression.Where<Message, Topic, Forum, Category>(
-                        (a, b, c, d) => (a.Flags & 24) == 16 && (b.Flags & 8) != 8 && d.BoardID == boardId);
+                        (a, b, c, d) => (a.Flags & 15) == 16 && (b.Flags & 8) != 8 && d.BoardID == boardId && (d.Flags & 1) == 1);
 
                     if (!showNoCountPosts)
                     {
@@ -404,7 +404,7 @@ namespace YAF.Core.Model
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countPostsExpression.Where<Category>(c => c.BoardID == boardId);
+                    countPostsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
 
                     var countPostsSql = countPostsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -414,7 +414,7 @@ namespace YAF.Core.Model
                     countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countTopicsExpression.Where<Category>(c => c.BoardID == boardId);
+                    countTopicsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
 
                     var countTopicsSql = countTopicsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -502,7 +502,7 @@ namespace YAF.Core.Model
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
-                    countPostsExpression.Where<Category>(c => c.BoardID == boardId);
+                    countPostsExpression.Where<Category>(c => c.BoardID == boardId && (c.Flags & 1) == 1);
 
                     var countPostsSql = countPostsExpression.Select(Sql.Count("1")).ToMergedParamsSelectStatement();
 
@@ -510,7 +510,7 @@ namespace YAF.Core.Model
                     var countTopicsExpression = db.Connection.From<Topic>();
 
                     countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID)
-                        .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
+                        .Join<Forum, Category>((b, c) => c.ID == b.CategoryID && (c.Flags & 1) == 1);
 
                     countTopicsExpression.Where<Category>(c => c.BoardID == boardId);
 

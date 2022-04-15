@@ -100,7 +100,7 @@ namespace YAF.Core.Model
             expression.Join<Forum>((access, forum) => forum.ID == access.ForumID)
                 .Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                 .Join<Category, Board>((category, board) => board.ID == category.BoardID)
-                .Where<ForumAccess>(access => access.GroupID == groupId).OrderBy<Board>(board => board.Name)
+                .Where<ForumAccess, Category>((access, category) => access.GroupID == groupId &&  (category.Flags & 1) == 1).OrderBy<Board>(board => board.Name)
                 .OrderBy<Category>(category => category.SortOrder).OrderBy<Forum>(forum => forum.SortOrder)
                 .Select<Forum, ForumAccess>(
                     (f, a) => new

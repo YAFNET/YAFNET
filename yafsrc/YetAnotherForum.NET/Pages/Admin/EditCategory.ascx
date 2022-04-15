@@ -41,6 +41,14 @@
                                                     LocalizedTag="MSG_VALUE" />
                             </div>
                         </div>
+                        <div class="mb-3 col-md-6">
+                            <YAF:HelpLabel ID="HelpLabel4" runat="server"
+                                           AssociatedControlID="Active"
+                                           LocalizedTag="Active" LocalizedPage="ADMIN_EDITCATEGORY" />
+                            <div class="form-check form-switch">
+                                <asp:CheckBox runat="server" ID="Active" Text="&nbsp;" />
+                            </div>
+                        </div>
                     </div>
                     <div class="mb-3">
                         <YAF:HelpLabel ID="HelpLabel2" runat="server"

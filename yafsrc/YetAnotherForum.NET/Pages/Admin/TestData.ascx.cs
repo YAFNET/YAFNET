@@ -456,7 +456,9 @@ namespace YAF.Pages.Admin
             {
                 var catName = this.CategoryPrefixTB.Text.Trim() + Guid.NewGuid();
 
-                var newCategoryId = this.GetRepository<Category>().Save(null, catName, null, 100, boardId);
+                var categoryFlags = new CategoryFlags { IsActive = true };
+
+                var newCategoryId = this.GetRepository<Category>().Save(null, catName, null, 100, categoryFlags, boardId);
 
                 this.CreateForums(boardId, newCategoryId, null, numForums, numTopics, numMessages);
             }

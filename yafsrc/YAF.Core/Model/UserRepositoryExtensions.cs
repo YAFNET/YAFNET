@@ -949,7 +949,7 @@ namespace YAF.Core.Model
                                 (a.Flags & 128) == 128 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
                                 d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId ||
                                 (a.Flags & 16) != 16 && (a.Flags & 8) != 8 && (b.Flags & 8) != 8 &&
-                                d.BoardID == boardId && access.ModeratorAccess && access.UserID == userId);
+                                d.BoardID == boardId && (d.Flags & 1) == 1 && access.ModeratorAccess && access.UserID == userId);
 
                         var moderatePostsSql = moderatePostsExpression.Select(Sql.Count("1"))
                             .ToMergedParamsSelectStatement();

@@ -570,7 +570,7 @@ namespace YAF.Core.Model
                 .Join<Topic, Forum>((c, d) => d.ID == c.ForumID).Join<Forum, Category>((d, e) => e.ID == d.CategoryID)
                 .Join<Forum, ActiveAccess>((d, x) => x.ForumID == d.ID)
                 .Where<Topic, Message, ActiveAccess, Category>(
-                    (topic, message, x, e) => e.BoardID == boardId && topic.TopicMovedID == null &&
+                    (topic, message, x, e) => e.BoardID == boardId && (e.Flags & 1) == 1 && topic.TopicMovedID == null &&
                                               x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
                                               (message.Flags & 8) != 8 && topic.LastPosted != null)
                 .OrderByDescending<Message>(x => x.Posted).Take(numOfPostsToRetrieve);
@@ -614,7 +614,7 @@ namespace YAF.Core.Model
                         .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID);
 
                     expression.Where<Topic, Forum, ActiveAccess, Category>(
-                        (topic, f, x, c) => c.BoardID == repository.BoardID && topic.TopicMovedID == null &&
+                        (topic, f, x, c) => c.BoardID == repository.BoardID && (c.Flags & 1) == 1 && topic.TopicMovedID == null &&
                                             x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
                                             topic.LastPosted != null && topic.NumPosts > 0 && f.ID == forumId);
 
@@ -694,14 +694,14 @@ namespace YAF.Core.Model
                     if (showNoCountPosts)
                     {
                         expression.Where<Topic, Forum, ActiveAccess, Category>(
-                            (topic, f, x, c) => c.BoardID == boardId && topic.TopicMovedID == null &&
+                            (topic, f, x, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && topic.TopicMovedID == null &&
                                                 x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null);
                     }
                     else
                     {
                         expression.Where<Topic, Forum, ActiveAccess, Category>(
-                            (topic, f, x, c) => c.BoardID == boardId && topic.TopicMovedID == null &&
+                            (topic, f, x, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && topic.TopicMovedID == null &&
                                                 x.UserID == pageUserId && x.ReadAccess && (topic.Flags & 8) != 8 &&
                                                 topic.LastPosted != null && (f.Flags & 4) != 4);
                     }
@@ -1271,7 +1271,7 @@ namespace YAF.Core.Model
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>()
                         .Join<Forum>((t, f) => f.ID == t.ForumID).Join<Forum, Category>((f, c) => c.ID == f.CategoryID)
                         .Where<Topic, Forum, Category>(
-                            (t, f, c) => c.BoardID == boardId && f.ID == forumId && t.Priority == 0);
+                            (t, f, c) => c.BoardID == boardId && (c.Flags & 1) == 1 && f.ID == forumId && t.Priority == 0);
 
                     expression.And(
                         $@"({expression.Column<Topic>(x => x.Flags, true)} & 512) = 0
@@ -1568,13 +1568,13 @@ namespace YAF.Core.Model
                 expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
                         (t, category) =>
-                            category.BoardID == boardId && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
+                            category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
             }
             else
             {
                 expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
                     .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
-                        (t, category) => category.BoardID == boardId && (t.Flags & 8) == 8);
+                        (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
             }
 
             return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic>(expression));

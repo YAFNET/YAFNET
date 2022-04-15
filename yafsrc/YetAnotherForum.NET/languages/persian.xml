@@ -612,6 +612,8 @@
     <Resource tag="VERIFY_PASS_HELP">کلمه عبور را مجددا وارد نمایید</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
+    <Resource tag="Active">Active</Resource>
+    <Resource tag="ACTIVE_HELP">If enabled show Category (incl. Forums) in Board</Resource>
     <Resource tag="CATEGORY_IMAGE">تصویر دسته:</Resource>
     <Resource tag="CATEGORY_IMAGE_HELP">این تصویر کنار دسته نمایش داده می شود.</Resource>
     <Resource tag="CATEGORY_NAME">نام دسته:</Resource>

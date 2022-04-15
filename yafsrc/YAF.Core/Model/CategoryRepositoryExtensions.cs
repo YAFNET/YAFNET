@@ -31,6 +31,7 @@ namespace YAF.Core.Model
     using YAF.Core.Extensions;
     using YAF.Types;
     using YAF.Types.Extensions;
+    using YAF.Types.Flags;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
@@ -52,8 +53,11 @@ namespace YAF.Core.Model
 
             var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
+            expression.Where(x => x.BoardID == repository.BoardID)
+                .Select(c => Sql.Max(c.SortOrder));
+
             return repository.DbAccess.Execute(
-                db => db.Connection.Scalar<int>(expression.Select(c => Sql.Max(c.SortOrder))));
+                db => db.Connection.Scalar<int>(expression));
         }
 
         /// <summary>
@@ -103,6 +107,9 @@ namespace YAF.Core.Model
         /// <param name="sortOrder">
         /// The sort order.
         /// </param>
+        /// <param name="flags">
+        /// The Category Flags
+        /// </param>
         /// <param name="boardId">
         /// The board id.
         /// </param>
@@ -114,7 +121,8 @@ namespace YAF.Core.Model
             [CanBeNull] int? categoryId,
             [NotNull] string name,
             [CanBeNull] string categoryImage,
-            [NotNull] short sortOrder,
+            [NotNull] short sortOrder, 
+            [NotNull] CategoryFlags flags,
             [CanBeNull] int? boardId = null)
         {
             CodeContracts.VerifyNotNull(repository);
@@ -126,7 +134,8 @@ namespace YAF.Core.Model
                     ID = categoryId ?? 0,
                     Name = name,
                     SortOrder = sortOrder,
-                    CategoryImage = categoryImage
+                    CategoryImage = categoryImage,
+                    Flags = flags.BitValue
                 });
         }
 

@@ -613,6 +613,8 @@
     <Resource tag="VERIFY_PASS_HELP">Verify the password.</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
+    <Resource tag="Active">Active</Resource>
+    <Resource tag="ACTIVE_HELP">If enabled show Category (incl. Forums) in Board</Resource>
     <Resource tag="CATEGORY_IMAGE">Category Image:</Resource>
     <Resource tag="CATEGORY_IMAGE_HELP">This image will be shown next to this category.</Resource>
     <Resource tag="CATEGORY_NAME">Category Name:</Resource>
