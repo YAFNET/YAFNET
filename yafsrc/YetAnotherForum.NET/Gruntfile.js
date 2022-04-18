@@ -333,12 +333,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("@lodder/grunt-postcss");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
-    //grunt.loadNpmTasks("grunt-contrib-watch");
-
-    /*grunt.registerTask("watch",
-        [
-            "uglify", "sass", "postcss", "cssmin"
-        ]);*/
 
     grunt.registerTask("default",
         [

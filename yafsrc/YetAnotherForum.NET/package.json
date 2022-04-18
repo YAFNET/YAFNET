@@ -9,8 +9,10 @@
     "grunt-contrib-cssmin": "*",
     "grunt-contrib-sass": "*",
     "grunt-contrib-uglify": "^5.0.1",
-    //"grunt-contrib-watch": "~1.1.0",
     "postcss": "^8.4.5",
     "sass": "*"
+  },
+  "dependencies": {
+    "prismjs": "^1.28.0"
   }
 }
