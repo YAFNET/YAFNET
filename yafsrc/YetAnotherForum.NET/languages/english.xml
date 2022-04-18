@@ -191,8 +191,8 @@
     <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to the User.</Resource>
     <Resource tag="NEW_VERSION">A New Version is available!</Resource>
     <Resource tag="NEW_VERSION_DOWNLOAD">Go to Downloads page</Resource>
-	  <Resource tag="NUM_CATEGORIES">Number of categories:</Resource>
-	  <Resource tag="NUM_FORUMS">Number of forums:</Resource>
+    <Resource tag="NUM_CATEGORIES">Number of categories:</Resource>
+    <Resource tag="NUM_FORUMS">Number of forums:</Resource>
     <Resource tag="NUM_POSTS">Number of posts:</Resource>
     <Resource tag="NUM_TOPICS">Number of topics:</Resource>
     <Resource tag="NUM_USERS">Number of users:</Resource>
@@ -377,8 +377,8 @@
     <Resource tag="BOARD_CDN_HOSTED_HELP">You can use the Google Hosted CSS Files, or instead use internal.</Resource>
     <Resource tag="BOARD_CULTURE">Culture:</Resource>
     <Resource tag="BOARD_CULTURE_HELP">The default culture &amp; language for this forum.</Resource>
-	  <Resource tag="BOARD_DEFAULT_PANEL_STATE">Default Collapsible Panel State</Resource>
-	  <Resource tag="BOARD_DEFAULT_PANEL_STATE_HELP">Show Categories Expanded or Collapsed on the Board Start page</Resource>
+    <Resource tag="BOARD_DEFAULT_PANEL_STATE">Default Collapsible Panel State</Resource>
+    <Resource tag="BOARD_DEFAULT_PANEL_STATE_HELP">Show Categories Expanded or Collapsed on the Board Start page</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION">Default Notification Setting:</Resource>
     <Resource tag="BOARD_DEFAULT_NOTIFICATION_HELP">When a new user account is created, what notification setting does it default to?</Resource>
     <Resource tag="BOARD_DIGEST_HOURS">Hours Between Digest Sending:</Resource>
@@ -408,11 +408,11 @@
     <Resource tag="CDVVERSION">CRM Version</Resource>
     <Resource tag="CDVVERSION_HELP">CRM Version, increase number to Force a Browser reload of all Java Script and CSS Files</Resource>
     <Resource tag="CDVVERSION_BUTTON">Increase CRM Version</Resource>
-	  <Resource tag="COLLAPSED">Collapsed</Resource>
+    <Resource tag="COLLAPSED">Collapsed</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY">Copyright Removal Key:</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_HELP">Remove the copyright information and link back to YAF from the footer of your entire forum domain.</Resource>
     <Resource tag="COPYRIGHT_REMOVAL_KEY_DOWN">Purchase Removal Key</Resource>
-	  <Resource tag="EXPANDED">Expanded</Resource>
+    <Resource tag="EXPANDED">Expanded</Resource>
     <Resource tag="FORUM_DEFAULT_ACCESSMASK">New Forum Default Access mask:</Resource>
     <Resource tag="FORUM_DEFAULT_ACCESSMASK_HELP">The Default Access Mask when creating a new Forum</Resource>
     <Resource tag="HEADER">Current Board Settings</Resource>
@@ -563,9 +563,9 @@
     <Resource tag="VERIFY_PASS_HELP">Verify the password.</Resource>
   </page>
   <page name="ADMIN_EDITCATEGORY">
-	  <Resource tag="Active">Active</Resource>
-	  <Resource tag="ACTIVE_HELP">If enabled show Category (incl. Forums) in Board</Resource>
-	  <Resource tag="CATEGORY_IMAGE">Category Image:</Resource>
+    <Resource tag="Active">Active</Resource>
+    <Resource tag="ACTIVE_HELP">If enabled show Category (incl. Forums) in Board</Resource>
+    <Resource tag="CATEGORY_IMAGE">Category Image:</Resource>
     <Resource tag="CATEGORY_IMAGE_HELP">This image will be shown next to this category.</Resource>
     <Resource tag="CATEGORY_NAME">Category Name:</Resource>
     <Resource tag="CATEGORY_NAME_HELP">Name of this category.</Resource>
@@ -830,8 +830,8 @@
     <Resource tag="KILL_USER_CONFIRM">Delete all posts by and (optionally) ban IP addresses used by this user?</Resource>
     <Resource tag="SUSPEND_ACCOUNT_USER">Suspend this account for 5 years</Resource>
     <Resource tag="DELETE_ACCOUNT">Delete Account</Resource>
-      <Resource tag="DISABLED">User Disabled</Resource>
-	  <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
+    <Resource tag="DISABLED">User Disabled</Resource>
+    <Resource tag="DISABLED_HELP">User is Soft-Deleted.</Resource>
     <Resource tag="SUSPEND_OR_DELETE_ACCOUNT">Suspend or Delete this Account?</Resource>
     <Resource tag="LINK_USER_BAN">User &lt;a id="usr{0}" href="{1}"&gt;{2}&lt;/a&gt;  is banned by IP</Resource>
     <Resource tag="MEMBER">Member</Resource>
@@ -904,16 +904,16 @@
     <Resource tag="CONFIRM_DELETE">Permanently delete this Forum including ALL topics, polls, attachments and messages associated with it?</Resource>
     <Resource tag="CONFIRM_DELETE_CAT">Delete this category?</Resource>
     <Resource tag="CONFIRM_DELETE_POSITIVE">Are you POSITIVE?</Resource>
-	  <Resource tag="CONFIRM_SORTING">Are you sure? this step is irreversible!</Resource>
-	  <Resource tag="MSG_NOT_DELETE">You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on "Edit" and change the category the forum is assigned to.</Resource>
-	  <Resource tag="MSG_SORTING_CATEGORIES">All Categories have been re-ordered.</Resource>
-	  <Resource tag="MSG_SORTING_FORUMS">All Forums have been re-ordered.</Resource>
+    <Resource tag="CONFIRM_SORTING">Are you sure? this step is irreversible!</Resource>
+    <Resource tag="MSG_NOT_DELETE">You cannot delete this Category as it has at least one forum assigned to it.\nTo move forums click on "Edit" and change the category the forum is assigned to.</Resource>
+    <Resource tag="MSG_SORTING_CATEGORIES">All Categories have been re-ordered.</Resource>
+    <Resource tag="MSG_SORTING_FORUMS">All Forums have been re-ordered.</Resource>
     <Resource tag="NEW_CATEGORY">New Category</Resource>
     <Resource tag="NEW_FORUM">New Forum</Resource>
-	  <Resource tag="SORT_CATEGORIES_ASC">Re-Order all Categories ASC</Resource>
-	  <Resource tag="SORT_CATEGORIES_DESC">Re-Order all Categories DESC</Resource>
-	  <Resource tag="SORT_FORUMS_ASC">Re-Order all Forums ASC</Resource>
-	  <Resource tag="SORT_FORUMS_DESC">Re-Order all Forums DESC</Resource>
+    <Resource tag="SORT_CATEGORIES_ASC">Re-Order all Categories ASC</Resource>
+    <Resource tag="SORT_CATEGORIES_DESC">Re-Order all Categories DESC</Resource>
+    <Resource tag="SORT_FORUMS_ASC">Re-Order all Forums ASC</Resource>
+    <Resource tag="SORT_FORUMS_DESC">Re-Order all Forums DESC</Resource>
   </page>
   <page name="ADMIN_GROUPS">
     <Resource tag="ADD_ROLETOYAF">Add to YAF</Resource>
@@ -943,8 +943,6 @@
     <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
     <Resource tag="ACTIVE_USERTIME">Active Users Time:</Resource>
     <Resource tag="ACTIVE_USERTIME_HELP">Number of minutes to display users in Active Users list.</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Active Topics Feeds Access:</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
@@ -993,8 +991,6 @@
     <Resource tag="ALLOW_SHARE_TOPIC_HELP">Enables/disables the share Menu, where a user can Email, Tweet, Buzz, Like on Facebook, Digg, Reddit or Tumblr a Topic.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Allow Signatures:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Allow users to create signatures. You should set allowed number of characters and BBCodes for each group and/or rank to really enable the feature.</Resource>
-    <Resource tag="ALLOW_THANKS">Allow Users to Thank Posts:</Resource>
-    <Resource tag="ALLOW_THANKS_HELP">If checked users can thank posts they consider useful.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Allow Topics With Same Name:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Duplicate topic names are allowed to:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Allow User To Hide Himself:</Resource>
@@ -1009,8 +1005,6 @@
     <Resource tag="AVATAR_HEIGHT_HELP">Maximum height for avatars.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Size:</Resource>
     <Resource tag="AVATAR_SIZE_HELP">Maximum size for avatars in bytes.</Resource>
-    <Resource tag="AVATAR_TEMPLATE">Avatar template:</Resource>
-    <Resource tag="AVATAR_TEMPLATE_HELP">Template for rendering avatar.</Resource>
     <Resource tag="AVATAR_UPLOAD">Allow User Avatar uploading:</Resource>
     <Resource tag="AVATAR_UPLOAD_HELP">Can users upload avatars to their profile.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Width:</Resource>
@@ -1027,8 +1021,6 @@
     <Resource tag="CAPTCHA_GUEST_POSTING_HELP">Require guest users to enter the CAPTCHA when they post or reply to a forum message (including Quick Reply).</Resource>
     <Resource tag="CAPTCHA_SIZE">CAPTCHA Size:</Resource>
     <Resource tag="CAPTCHA_SIZE_HELP">Size (length) of the CAPTCHA random alphanumeric string.</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT">Board Categories Cache Timeout:</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
     <Resource tag="CDN_SCRIPTMANAGER_HELP">You can use the CDN Hosted Script Files, or instead use internal.</Resource>
     <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
@@ -1037,8 +1029,6 @@
     <Resource tag="CHECK_FOR_BOTSPAM_HELP">Enables/disables automatically Bot SPAM Checking via the &lt;a href="http://stopforumspam.com/"&gt;StopForumSpam.com API&lt;/a&gt; , BotScout.com API, or both together.</Resource>
     <Resource tag="CHECK_FOR_SPAM">Choose a SPAM Service for Automatically SPAM Checking:</Resource>
     <Resource tag="CLEAR_CACHE">Clear Cache</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE">Country image template:</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Template for rendering country image.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Create NNTP user names:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Check to allow users to automatically be created when downloading usenet messages. Only enable this in a test environment, and &lt;em&gt;NEVER&lt;/em&gt; in a production environment. The main purpose of this option is for performance testing.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Crop Image Attachment Preview:</Resource>
@@ -1053,8 +1043,6 @@
     <Resource tag="DISPLAYNAME_MIN_LENGTH_HELP">Minimum Length for Display and User Names.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Active Discussions Cache Timeout:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In minutes</Resource>
-    <Resource tag="DISPLAY_POINTS">Display Reputation Bar:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">If checked, the Reputation of the User will be displayed for each user.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Image Attachment Display Threshold:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximum size of picture attachment to display as picture. Pictures over this size will be displayed as links.</Resource>
     <Resource tag="DYNAMIC_METATAGS">Add Dynamic Page Meta Tags:</Resource>
@@ -1078,8 +1066,6 @@
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.
      </Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Enable Active Location Error Log:</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">If checked, all active location path errors are logged.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Enable Retweet Message Button:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Enables/disables the Retweet Button, where the User can retweet a topic message.</Resource>
     <Resource tag="ENABLE_SSO">Enable Single Sign On:</Resource>
@@ -1094,8 +1080,6 @@
     <Resource tag="EXTERN_NEWWINDOW_HELP">Show External Search Results In A New Window.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">External Search Permissions:</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS_HELP">Allow external search to:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS">Favorite Topics Feeds Access:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS_HELP">Restrict display of active topics feeds.</Resource>
     <Resource tag="FORCE_SEARCHINDED">Search Index Task started.</Resource>
     <Resource tag="FILE_TABLE">Use File Table:</Resource>
     <Resource tag="FILE_TABLE_HELP">Uploaded files will be saved in the database instead of the file system.</Resource>
@@ -1106,14 +1090,8 @@
     <Resource tag="FORUM_EDITOR_HELP">Select global editor type for your forum. To use the HTML editors (FCK and FreeTextBox) the .bin file must be in the \bin directory and the proper support files must be put in \editors.</Resource>
     <Resource tag="FORUM_EMAIL">Forum Email:</Resource>
     <Resource tag="FORUM_EMAIL_HELP">The from address when sending emails to users.</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS">Forum Feeds Access:</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS_HELP">Restrict display of forum feeds.</Resource>
     <Resource tag="FORUM_BASEURLMASK">Forum Base URL Mask:</Resource>
     <Resource tag="FORUM_BASEURLMASK_HELP">The full forward-facing url to this forum.</Resource>
-    <Resource tag="GENDER_TEMPLATE">Gender:</Resource>
-    <Resource tag="GENDER_TEMPLATE_HELP">Template for rendering user's gender.</Resource>
-    <Resource tag="GROUPS_TEMPLATE">Groups template:</Resource>
-    <Resource tag="GROUPS_TEMPLATE_HELP">Template for rendering user's groups.</Resource>
     <Resource tag="HEADER_ADVERTS">Advert Settings</Resource>
     <Resource tag="HEADER_ALBUM">Album Settings</Resource>
     <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
@@ -1143,7 +1121,6 @@
     <Resource tag="HEADER_SETUP">Host Setup</Resource>
     <Resource tag="HEADER_SPAM">Spam Settings (Content Checking)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication Feed Settings</Resource>
-    <Resource tag="HEADER_TEMPLATES">Template Settings</Resource>
     <Resource tag="HOST_ADVERTS">Adverts</Resource>
     <Resource tag="HOST_AVATARS">Avatars</Resource>
     <Resource tag="HOST_CACHE">Cache</Resource>
@@ -1153,7 +1130,6 @@
     <Resource tag="HOST_LOG">Logs</Resource>
     <Resource tag="HOST_PERMISSION">Permission</Resource>
     <Resource tag="HOST_SEARCH">Search</Resource>
-    <Resource tag="HOST_TEMPLATES">Templates</Resource>
     <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
     <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
@@ -1180,16 +1156,12 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Set it to get details about user IPs as XML data.</Resource>
     <Resource tag="IPINFO_ULRL">IP Info Page URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Set it to get details about IPs whereabouts as web page.</Resource>
-    <Resource tag="JOINDATE_TEMPLATE">Join date template:</Resource>
-    <Resource tag="JOINDATE_TEMPLATE_HELP">Template for rendering user's join date.</Resource>
     <Resource tag="LASTPOST_COUNT">Active Discussions Count:</Resource>
     <Resource tag="LASTPOST_COUNT_HELP">Number of records to display in Active Discussions list on forum index.</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS">Post Latest Feeds Access:</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS_HELP">Restrict display of posts feeds for latest posts.</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT">User Lazy Data Cache Timeout:</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">In minutes</Resource>
-    <Resource tag="LOCATION_TEMPLATE">Location template:</Resource>
-    <Resource tag="LOCATION_TEMPLATE_HELP">Template for rendering user's location.</Resource>
     <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
     <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
     <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
@@ -1210,8 +1182,6 @@
     <Resource tag="LOGIN_REDIR_URL_HELP">If login is disabled in the AppSettings (AllowLoginAndLogoff needs to be set to "false"), this is the URL users will be redirected to when they need to access the forum. Optionally add "{0}" to the URL to pass the return URL to the custom Url. E.g. "http://mydomain.com/login.aspx?PreviousUrl={{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">Max. Allowed Number of Poll Choices:</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES_HELP">Number of a question choices, max value no more than 99.</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS">Max. Allowed Number of Polls:</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS_HELP">Number of polls, max value no more than 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Maximum Number of Attachments per Post:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Maximum Number of uploaded files per Post. Set to 0 for unlimited.</Resource>
     <Resource tag="MAX_FILESIZE">Max File Size:</Resource>
@@ -1226,10 +1196,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">Maximum size of a post in bytes. Set to 0 for unlimited (not recommended).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Max Search Results:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Maximum number of search results that can be returned. Enter "0" for unlimited (not recommended).</Resource>
-    <Resource tag="MEDALS_TEMPLATE">Medals template:</Resource>
-    <Resource tag="MEDALS_TEMPLATE_HELP">Template for rendering user's medals.</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE">Member List Page Size:</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">Number entries on a page in the members list. </Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY">Message history archive time</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Number of days to keep message change history.</Resource>
     <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
@@ -1239,8 +1205,6 @@
     <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">Use Login Box (Modal PopUp Dialog):</Resource>
     <Resource tag="MODAL_LOGIN_HELP">If checked, the Login Control is displayed as Login Box. Otherwise Login Control will be Displayed on a Single Page.</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Number entries on a page on the My Topics page. </Resource>
     <Resource tag="NAME_LENGTH">User/Display Name Max Length:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Max Allowed User Name or User Display Name Max Length.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Use "NoFollow" Tag in Links:</Resource>
@@ -1266,8 +1230,6 @@
     <Resource tag="PM_ATTACHMENTS_HELP">Allows the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Max. File Size for User Poll Images:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Define the Max. File Size in Kilo Bytes for an User Poll Image.</Resource>
-    <Resource tag="POLLVOTING_PERIP">Poll Votes Dependent on IP:</Resource>
-    <Resource tag="POLLVOTING_PERIP_HELP">By default, poll voting is tracked via username and client-side cookie. (One vote per username. Cookies are used if guest voting is allowed.) &lt;br /&gt;If this option is enabled, votes also use IP as a reference providing the most security against voter fraud.</Resource>
     <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
     <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
     <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
@@ -1284,23 +1246,13 @@
     <Resource tag="POSTS_FEEDS_ACCESS_HELP">Restrict display of posts feeds for a topic.</Resource>
     <Resource tag="POSTS_PER_PAGE">Posts Per Page:</Resource>
     <Resource tag="POSTS_PER_PAGE_HELP">Number of posts to show per page.</Resource>
-    <Resource tag="POSTS_TEMPLATE">Posts template:</Resource>
-    <Resource tag="POSTS_TEMPLATE_HELP">Template for rendering user's posts.</Resource>
     <Resource tag="QUICK_SEARCH">Show Quick Search:</Resource>
     <Resource tag="QUICK_SEARCH_HELP">Show Quick Search field and button in toolbar.</Resource>
-    <Resource tag="RANK_TEMPLATE">Rank template:</Resource>
-    <Resource tag="RANK_TEMPLATE_HELP">Template for rendering user's rank.</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE">Rank image template:</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE_HELP">Template for rendering rank image.</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Secret Key:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Enter a reCAPTCHA Secret Key</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Site Key:</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Enter a reCAPTCHA Site Key.</Resource>
-    <Resource tag="REFERRER_CHECK">Enable Url Referrer Security Check:</Resource>
-    <Resource tag="REFERRER_CHECK_HELP">Validates all POSTs are from the same domain as the referring domain (No cross domain POSTs).</Resource>
     <Resource tag="REG_USERS">Registered Users</Resource>
-    <Resource tag="REMOTE_AVATARS">Allow remote avatars:</Resource>
-    <Resource tag="REMOTE_AVATARS_HELP">Can users use avatars from other websites.</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES">Remove Nested Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatically remove nested [quote] tags from replies.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Replace Rules Cache Timeout:</Resource>
@@ -1317,8 +1269,6 @@
     <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
     <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
     <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
-    <Resource tag="REPUTATION_TEMPLATE">Reputation template:</Resource>
-    <Resource tag="REPUTATION_TEMPLATE_HELP">Template for rendering user's reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">Require User Login:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">If checked, users will be required to log in before they can see any content. They'll be redirected straight to login page.</Resource>
     <Resource tag="RULES_ONREGISTER">Show "Rules" Before Registration:</Resource>
@@ -1459,17 +1409,11 @@
     <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE">Thanks From template:</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE_HELP">Template for rendering user's thanks from.</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE">Thanks To template:</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE_HELP">Template for rendering user's thanks to.</Resource>
     <Resource tag="TITLE">Host Settings</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feeds Access:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Restrict display of topics feeds.</Resource>
     <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
     <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
-    <Resource tag="TOPICS_PER_PAGE">Topics Per Page:</Resource>
-    <Resource tag="TOPICS_PER_PAGE_HELP">Number of topics to show per page.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
     <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
@@ -1484,8 +1428,6 @@
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Should users be able to choose what language they want to use?</Resource>
     <Resource tag="USER_CHANGE_THEME">Allow User Change Theme:</Resource>
     <Resource tag="USER_CHANGE_THEME_HELP">Should users be able to choose what theme they want to use?</Resource>
-    <Resource tag="USERBOX_TEMPLATE">User box template:</Resource>
-    <Resource tag="USERBOX_TEMPLATE_HELP">Template for rendering user box by user's posts.</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT">Board User Statistics Cache Timeout:</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT_HELP">In minutes</Resource>
     <Resource tag="VIEWACTIVE_PERMISSION">Active Users Viewing Permissions:</Resource>
@@ -1617,8 +1559,8 @@
     <Resource tag="TITLE">Web Profiler</Resource>
   </page>
   <page name="ADMIN_PRUNE">
-	  <Resource tag="ALL_CATEGORIES">All Categories</Resource>
-	  <Resource tag="ALL_FORUMS">All Forums</Resource>
+    <Resource tag="ALL_CATEGORIES">All Categories</Resource>
+    <Resource tag="ALL_FORUMS">All Forums</Resource>
     <Resource tag="CONFIRM_PRUNE">Do you really want to prune topics? This process is irreversible.</Resource>
     <Resource tag="MSG_TASK">Prune Task Scheduled</Resource>
     <Resource tag="PRUNE_DAYS">Enter minimum age in days:</Resource>
@@ -1651,8 +1593,8 @@
     <Resource tag="NEED_LENGTH">Maximum Length Value with Minimum 1 is required</Resource>
     <Resource tag="REQUIRED">Required</Resource>
     <Resource tag="REQUIRED_HELP">Define if the field should be required or not</Resource>
-	  <Resource tag="SHOW_REGISTER">Show on Register Page</Resource>
-	  <Resource tag="SHOW_REGISTER_HELP">Show on User Register Page</Resource>
+    <Resource tag="SHOW_REGISTER">Show on Register Page</Resource>
+    <Resource tag="SHOW_REGISTER_HELP">Show on User Register Page</Resource>
     <Resource tag="SHOW_USERINFO">Show in User Info</Resource>
     <Resource tag="SHOW_USERINFO_HELP">Show in User Info inside Post Header</Resource>
     <Resource tag="TITLE">Add New Profile Definition</Resource>
@@ -1826,7 +1768,7 @@
     <Resource tag="MSG_SELF_DELETE">You can't delete yourself.</Resource>
     <Resource tag="NAME_CONTAINS">User Name Contains:</Resource>
     <Resource tag="NEW_USER">New User</Resource>
-	  <Resource tag="NOT_APPROVED">Not Approved</Resource>
+    <Resource tag="NOT_APPROVED">Not Approved</Resource>
     <Resource tag="POSTS">Posts</Resource>
     <Resource tag="RANK">Rank:</Resource>
     <Resource tag="ROLE">Role:</Resource>
@@ -2121,8 +2063,8 @@
     <Resource tag="FORMAT_DATE_TIME_SHORT">G</Resource>
     <Resource tag="FORMAT_TIME">T</Resource>
     <Resource tag="FORUM_JUMP">Forum Jump</Resource>
-	  <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
-	  <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
+    <Resource tag="FORUM_JUMP_PLACEHOLDER">Select a Forum to Go to...</Resource>
+    <Resource tag="FORUMS_SHOWN">{0} of {1} Forums shown</Resource>
     <Resource tag="GENERATED">This page was generated in {0:N3} seconds.</Resource>
     <Resource tag="GO">GO</Resource>
     <Resource tag="GOTOFIRSTPAGE_TT">First page</Resource>
@@ -2136,7 +2078,7 @@
     <Resource tag="HTMLTAG_WRONG">Your input data contains forbidden {0} HTML tag.</Resource>
     <Resource tag="IN_FORUM">in Forum: {0}</Resource>
     <Resource tag="LOADING">Loading...</Resource>
-	  <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
+    <Resource tag="LOAD_MORE">Show More Categories &amp; Forums...</Resource>
     <Resource tag="MAX_ONLINE">Most users ever online was {0:N0} on {1}.</Resource>
     <Resource tag="MANAGE">Manage</Resource>
     <Resource tag="MENU">Menu</Resource>
@@ -2203,8 +2145,8 @@
                 }
           }
   </Resource>
-	  <Resource tag="SELECTED_COPY">Copy Selected Text</Resource>
-	  <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
+    <Resource tag="SELECTED_COPY">Copy Selected Text</Resource>
+    <Resource tag="SELECTED_SEARCH">Search Google for ...</Resource>
     <Resource tag="SELECTED_QUOTE">Quote Selected Text</Resource>
     <Resource tag="SHOWHIDE">Show/Hide</Resource>
     <Resource tag="SUBMIT">Submit</Resource>
@@ -2658,7 +2600,7 @@
     <Resource tag="METAWEBLOG_API_USERNAME">MetaWeblog API Username:</Resource>
     <Resource tag="METAWEBLOG_TITLE">Post to MetaWeblog (API Settings)</Resource>
     <Resource tag="MSN">Your Windows Live-ID (MSN) Name:</Resource>
-	  <Resource tag="NEED_CUSTOM">{0} is required</Resource>
+    <Resource tag="NEED_CUSTOM">{0} is required</Resource>
     <Resource tag="OTHER">Other</Resource>
     <Resource tag="OVERRIDE_DEFAULT_THEMES">Select different forum theme:</Resource>
     <Resource tag="PM_EMAIL_NOTIFICATION">Receive an email notification when you get a new private message?</Resource>
@@ -2735,16 +2677,16 @@
     <Resource tag="RECEIVED_THANKS">Received a Thanks to a Post</Resource>
     <Resource tag="WAS_MENTIONED">Was Mentioned</Resource>
     <Resource tag="WAS_QUOTED">Was Quoted</Resource>
-	  <Resource tag="WATCH_FORUM_REPLY">New Topic in a Watch Forum</Resource>
-	  <Resource tag="WATCH_Topic_REPLY">New Reply in a Watch Topic</Resource>
+    <Resource tag="WATCH_FORUM_REPLY">New Topic in a Watch Forum</Resource>
+    <Resource tag="WATCH_Topic_REPLY">New Reply in a Watch Topic</Resource>
     <Resource tag="CREATED_TOPIC_MSG">Created a new Topic {0}</Resource>
     <Resource tag="CREATED_REPLY_MSG">Added an Reply to the Topic {0}</Resource>
     <Resource tag="GIVEN_THANKS_MSG">Given Thanks to {0} in the Topic {1}</Resource>
     <Resource tag="RECEIVED_THANKS_MSG">Has Received a Thanks from {0} in the Topic {1}</Resource>
     <Resource tag="WAS_MENTIONED_MSG">Was Mentioned by {0} in the Topic {1}</Resource>
     <Resource tag="WAS_QUOTED_MSG">Was Quoted by {0} in the Topic {1}</Resource>
-	  <Resource tag="WATCH_FORUM_MSG">{0} Created the new topic {1}</Resource>
-	  <Resource tag="WATCH_TOPIC_MSG">{0} replied to the topic {1}</Resource>
+    <Resource tag="WATCH_FORUM_MSG">{0} Created the new topic {1}</Resource>
+    <Resource tag="WATCH_TOPIC_MSG">{0} replied to the topic {1}</Resource>
     <Resource tag="ARCHIVE">Archive</Resource>
     <Resource tag="CHANGE_PASSWORD">Change Password</Resource>
     <Resource tag="CONTROL_PANEL">Control Panel</Resource>
@@ -2808,7 +2750,7 @@
     <Resource tag="WARN_SELECTFORUMS">Please select forums to unwatch first.</Resource>
     <Resource tag="WARN_SELECTTOPICS">Please select topics to unwatch first.</Resource>
   </page>
-	<page name="DEFAULT">
+  <page name="DEFAULT">
     <Resource tag="ACTIVE_DISCUSSIONS">Active Discussions</Resource>
     <Resource tag="ACTIVE_USERS">Active Users</Resource>
     <Resource tag="ACTIVE_USERS_COUNT1">{0:N0} active user</Resource>
@@ -4168,8 +4110,8 @@
     <Resource tag="CHARSET">#ABCDEFGHIJKLMNOPQRSTUVWXYZ</Resource>
   </page>
   <page name="LOGIN">
-	  <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
-	  <Resource tag="AUTO">Remember me</Resource>
+    <Resource tag="ACCOUNT_NOT_APPROVED">Your account is not approved yet because you have not validated your email. Please verify so you can login.</Resource>
+    <Resource tag="AUTO">Remember me</Resource>
     <Resource tag="AUTH_CONNECT">Login or Register with {0}</Resource>
     <Resource tag="AUTH_CONNECT_HELP">Login or Register with {0} or connect an existing User Account with {0}.</Resource>
     <Resource tag="AUTH_CONNECT_ACCOUNT">Connect an Existing forums account with your {0} account You need to login thru the forums first. {1}</Resource>
@@ -4186,7 +4128,7 @@
     <Resource tag="ERROR_LOCKEDOUT">You have been locked out because of to many failed log in attempts.</Resource>
     <Resource tag="FORUM_LOGIN">Forum Login</Resource>
     <Resource tag="LOSTPASSWORD">Lost Password</Resource>
-	  <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
+    <Resource tag="MSG_MESSAGE_SEND">Verification Mail was send again to you.</Resource>
     <Resource tag="PASSWORD">Password:</Resource>
     <Resource tag="PASSWORD_ERROR">The user name or password entered is incorrect. Please try again.</Resource>
     <Resource tag="RECOVER">Recover Password</Resource>
@@ -4248,7 +4190,7 @@
     <Resource tag="EDITEDBY">Edited by</Resource>
     <Resource tag="EDITEREASON">Edit reason</Resource>
     <Resource tag="EDITEDBY_MOD">Edited By an Moderator</Resource>
-	  <Resource tag="GOMODERATE">Continue moderate</Resource>
+    <Resource tag="GOMODERATE">Continue moderate</Resource>
     <Resource tag="OLD">Old</Resource>
     <Resource tag="ORIGINALMESSAGE">Original message</Resource>
     <Resource tag="MESSAGE_RESTORED">Message was successfully restored!</Resource>
@@ -4262,7 +4204,7 @@
     <Resource tag="NOTHING_SELECTED">Nothing selected</Resource>
     <Resource tag="SELECT_BOTH">Please select one old and one new Message</Resource>
     <Resource tag="SELECT_DIFFERENT">You must select two different versions to make a valid comparison.</Resource>
-	  <Resource tag="SELECT_TWO">Only 2 Versions can be selected vor comparing!</Resource>
+    <Resource tag="SELECT_TWO">Only 2 Versions can be selected vor comparing!</Resource>
   </page>
   <page name="MOD_FORUMUSER">
     <Resource tag="ACCESSMASK">Access Mask:</Resource>
@@ -4380,7 +4322,7 @@
     <Resource tag="UNANSWEREDTOPICS">Unanswered Topics</Resource>
     <Resource tag="UNREADTOPICS">Unread Topics</Resource>
     <Resource tag="VIEWS">Views</Resource>
-	  <Resource tag="WATCHTOPICS">Watch Topics</Resource>
+    <Resource tag="WATCHTOPICS">Watch Topics</Resource>
   </page>
   <page name="PMESSAGE">
     <Resource tag="ALLBUDDIES">All Friends</Resource>

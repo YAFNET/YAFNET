@@ -1022,8 +1022,6 @@
     <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
     <Resource tag="ACTIVE_USERTIME">زمان کاربران فعال :</Resource>
     <Resource tag="ACTIVE_USERTIME_HELP">تعداد دقایق لازم برای نمایش کاربر در لیست کاربران فعال</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">دسترسی به فید موضوعات فعال:</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">محدود کردن نمایش فید موضوعات فعال.</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
@@ -1070,8 +1068,6 @@
     <Resource tag="ALLOW_SHARE_TOPIC_HELP">فعال کردن/ غیرفعال کردن منوی اشتراک، که کاربر می تواند از راه های زیر، مطلبی را به اشتراک بگذارد Email، Tweet, Buzz, Like on Facebook,, Digg, Reddit ,Tumblr</Resource>
     <Resource tag="ALLOW_SIGNATURE">مجوز امضا:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">مجوز اینکه کاربران بتوانند برای خود امضا ایجاد نمایند. شما می توانید تعداد کاراکترها و BBCode های مجاز را نیز برای هر گروه / رتبه برای فعال کردن ویژگی امضا تنظیم نمایید.</Resource>
-    <Resource tag="ALLOW_THANKS">مجوز تشکر از ارسال‌ها:</Resource>
-    <Resource tag="ALLOW_THANKS_HELP">در صورت انتخاب به کاربران اجازه می دهید بتوانند از ارسال ها تشکر کنند.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">مجوز وجود موضوعاتی با نام های مشابه:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">نام های تکراری موضوعات مجاز است برای :</Resource>
     <Resource tag="ALLOW_USER_HIDE">مجوز مخفی سازی کاربر:</Resource>
@@ -1098,8 +1094,6 @@
     <Resource tag="AVATAR_HEIGHT_HELP">حداکثر ارتفاع برای تصویر پروفایل</Resource>
     <Resource tag="AVATAR_SIZE">حجم تصویر پروفایل:</Resource>
     <Resource tag="AVATAR_SIZE_HELP">حداکثر اندازه بر اساس بایت.</Resource>
-    <Resource tag="AVATAR_TEMPLATE">قالب تصویر پروفایل:</Resource>
-    <Resource tag="AVATAR_TEMPLATE_HELP">قالب جهت تولید تصویر پروفایل:</Resource>
     <Resource tag="AVATAR_UPLOAD">مجوز بارگذاری تصویر پروفایل:</Resource>
     <Resource tag="AVATAR_UPLOAD_HELP">کاربران می توانند تصویر پروفایل بارگذاری کنند؟</Resource>
     <Resource tag="AVATAR_WIDTH">عرض تصویر پروفایل:</Resource>
@@ -1123,8 +1117,6 @@
     <Resource tag="CAPTCHA_GUEST_POSTING_HELP">الزام کاربر میهمان به وارد کردن CAPTCHA برای ارسال یا پاسخ.</Resource>
     <Resource tag="CAPTCHA_SIZE">اندازه CAPTCHA :</Resource>
     <Resource tag="CAPTCHA_SIZE_HELP">اندازه (طول) CAPTCHA متنی با الفبای تصادفی</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT">زمان timeout حافظه موقت دسته‌های انجمن :</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
     <Resource tag="CDN_JQUERY">استفاه از فایل اسکریپت Jquery موجود در سایت گوگل؟</Resource>
     <Resource tag="CDN_JQUERY_HELP">شما می توانید از فایل های اسکریپت موجود در سرورهای گوگل استفاده کنید. و یا می توانید از فایل های موجود در سرور سایت استفاده کنید</Resource>
     <Resource tag="CDN_SCRIPTMANAGER">استفاده از فایل های JS موجود در CDN؟</Resource>
@@ -1134,8 +1126,6 @@
     <Resource tag="CHECK_FOR_SPAM">سرویس اسپم را برای بررسی خودکار اسپم انتخاب کنید</Resource>
     <Resource tag="CLEAR_CACHE">پاکسازی حافظه موقت</Resource>
     <Resource tag="COLLAPSED">Collapsed</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE">قالب تصویر کشور</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">قالب برای نمایش تصویر کشور</Resource>
     <Resource tag="CREATE_NNTPNAMES">ساخت نام های کاربری NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">در صورت انتخاب کاربران بصورت خود کار هنگام
 دانلود پیام های یوزنت ایجاد خواهند شد. این ویژگی را فقط در محیط تست فعال کنید و  &lt;em&gt;هیچ‌گاه&lt;/em&gt; در روی سایت فعال و اصلی فعال نکنید. هدف اصلی این گزینه برای تست پرفورمنس و سرعت است</Resource>
@@ -1149,8 +1139,6 @@
     <Resource tag="DISABLE_REGISTER_HELP">کاربران جدید قادر به ثبت نام نخواهند بود.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">زمان timeout حافظه موقت بحث های فعال :</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
-    <Resource tag="DISPLAY_POINTS">نمایش نوار اعتبار:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">در صورت فعال شدن اعتبار هر کاربر نمایش داده خواهد شد</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">حداکثر اندازه نمایش تصویر ضمیمه:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">حداکثر اندازه تصویر ضمیمه برای نمایش به عنوان عکس. تصاویر بزرگتر از این به عنوان لینک نمایش داده می شوند.</Resource>
     <Resource tag="DISPLAYNAME_MIN_LENGTH">حداقل طول برای نام نمایشی</Resource>
@@ -1177,8 +1165,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">با انتخاب این گزینه به جای نام کاربری از نام نمایشی در انجمن استفاده خواهد شد.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">فعال کردن کارت اطلاعات کاربری:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">در صورت فعال شدن کاربران دارای یک کارت مشخصات یا اطلاعات هستند(که اطلاعات سریعی درباره کاربر مورد نظر ارایه می دهد زمانی این اتفاق می افتد که با ماوس روی نام کاربری رفته و ماوس را ثابت نگهدارید. این گزینه همچنین یک کارت مشخصات در دکمه ی توئیتر، فیسبوک و ... را نیز دارا می باشد</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS">فعال کردن مکان فعال برای لاگ های خطا</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">در صورت انتخاب، تمام مکان های خطا لاگ خواهند شد.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">فعال کردن دکمه‌ی توئیت مجدد پیام</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">فعال/غیرفعال کردن دکمه توئیت مجدد، برای این‌که کاربران بتوانند پیام ها را توئیت مجدد نمایند.</Resource>
     <Resource tag="ENABLE_SSO">فعال کردن ورود یکپارچه:</Resource>
@@ -1194,8 +1180,6 @@
     <Resource tag="EXTERN_NEWWINDOW_HELP">نتایج جستجوی خارجی در را پنجره ای جدید نمایش می دهد.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">دسترسی‌های جستجوی خارجی:</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS_HELP">مجوز جستجوی خارجی به:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS">دسترسی به فید موضوعات مورد علاقه:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS_HELP">محدود کردن نمایش فید موضوعات مورد علاقه.</Resource>
     <Resource tag="FILE_TABLE">استفاده از جدول دیتابیس برای فایل:</Resource>
     <Resource tag="FILE_TABLE_HELP">فایل های بارگذاری شده به جای ذخیره در بخش فایل های سایت در دیتابیس ذخیره می گردند.</Resource>
     <Resource tag="FLOOT_DELAY">تاخیر میان ارسال:</Resource>
@@ -1208,12 +1192,6 @@
     <Resource tag="FORUM_EDITOR_HELP">یک ویرایشگر متن اصلی برای انجمن خود انتخاب کنید. برای استفاده از ویرایشگر های HTML (FCK و FreeTextBox) می بایست فایل های DLL را در فولدر bin و سایر فایل های مورد نیاز را در فولدر editors قرار دهید.</Resource>
     <Resource tag="FORUM_EMAIL">ایمیل انجمن:</Resource>
     <Resource tag="FORUM_EMAIL_HELP">آدرس "از" در هنگام ارسال نامه به کاربران</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS">دسترسی به فید انجمن:</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS_HELP">محدود کردن فید انجمن.</Resource>
-    <Resource tag="GENDER_TEMPLATE">جنسیت :</Resource>
-    <Resource tag="GENDER_TEMPLATE_HELP">قالب نمایش جنسیت کاربران</Resource>
-    <Resource tag="GROUPS_TEMPLATE">قالب گروه ها:</Resource>
-    <Resource tag="GROUPS_TEMPLATE_HELP">قالب نمایش گروه‌های کاربری</Resource>
     <Resource tag="HEADER_ADVERTS">تنظیمات تبلیغات</Resource>
     <Resource tag="HEADER_ALBUM">تنظیمات آلبوم</Resource>
     <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
@@ -1244,7 +1222,6 @@
     <Resource tag="HEADER_SHOUT">تنظیمات کادر گفتگو</Resource>
     <Resource tag="HEADER_SPAM">تنظیمات اسپم (بررسی محتوا)</Resource>
     <Resource tag="HEADER_SYNDICATION">تنظیمات فید اجتماعی</Resource>
-    <Resource tag="HEADER_TEMPLATES">تنظیمات قالب</Resource>
     <Resource tag="HOST_ADVERTS">تبلیغات</Resource>
     <Resource tag="HOST_AVATARS">تصاویر پروفایل</Resource>
     <Resource tag="HOST_CACHE">حافظه موقت</Resource>
@@ -1254,7 +1231,6 @@
     <Resource tag="HOST_LOG">لاگ ها</Resource>
     <Resource tag="HOST_PERMISSION">دسترسی‌ها</Resource>
     <Resource tag="HOST_SEARCH">جستجو</Resource>
-    <Resource tag="HOST_TEMPLATES">قالب‌ها</Resource>
     <Resource tag="HOVERCARD_DELAY">مدت زمان برای نمایش اطلاعات کاربر (میلی ثانیه):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">مدت زمان تاخیر برای نمایش اطلاعات کاربر در کارت اطلاعات و زمانی که روی نام کاربری یک کاربر با ماوس می ایستیم</Resource>
     <Resource tag="IGNORE_SPAMCHECK_COUNT">نادیده گرفته شدن تعداد پست‌های ارسالی کاربر توسط بررسی کننده اسپم</Resource>
@@ -1281,16 +1257,12 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">برای دریافت جزئیات آی پی کاربران به عنوان فایل XML استفاده می شود.</Resource>
     <Resource tag="IPINFO_ULRL">آدرس صفحه اطلاعات آی پی :</Resource>
     <Resource tag="IPINFO_ULRL_HELP">دریافت اطلاعات آی پی در قابل صفحه وب.</Resource>
-    <Resource tag="JOINDATE_TEMPLATE">قالب تاریخ پیوستن :</Resource>
-    <Resource tag="JOINDATE_TEMPLATE_HELP">قالبی که تاریخ پیوستن کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="LASTPOST_COUNT">تعداد بحث های فعال:</Resource>
     <Resource tag="LASTPOST_COUNT_HELP">تعداد سطر هایی که در فهرست بحث های فعال در شاخص انجمن وجود دارد.</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS">آخرین دسترسی فید به ارسال:</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS_HELP">محدود کردن فید ارسال برای آخرین ارسال ها.</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT">زمان timeout حافظه موقت داده های تنبل کاربر:</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
-    <Resource tag="LOCATION_TEMPLATE">قالب مکان:</Resource>
-    <Resource tag="LOCATION_TEMPLATE_HELP">قالبی که مکان کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
     <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
     <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
@@ -1311,8 +1283,6 @@
     <Resource tag="LOGIN_REDIR_URL_HELP">اگر ورود در AppSettings غیر فعال بود، این آدرسی که کاربران برای دسترسی به انجمن به آن هدایت می شوند. {0} را آدرس بازگشت اضافه کنید. مثال : http://mydomain.com/login.aspx?PreviousUrl={{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">حداکثر تعداد گزینه های هر نظر سنجی :</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES_HELP">بیش از 99 مجاز نیست.</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS">حداکثر تعداد نظر سنجی ها :</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS_HELP">تعداد نظر سنجی ها، بیش از 99 مجاز نیست.</Resource>
     <Resource tag="MAX_ATTACHMENTS">حداکثر تعداد ضمائم یک ارسال:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">حداکثر تعداد فایل های مجاز برای بارگذاری در ارسال ها. 0 برای نا محدود.</Resource>
     <Resource tag="MAX_FILESIZE">حداکثر اندازه فایل:</Resource>
@@ -1327,10 +1297,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">حداکثر اندازه یک اراسل بر حسب بایت. 0 نشان دهنده نا محدود است(که پیشنهاد نمی شود).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">حداکثر نتایج جستجو:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">حداکثر تعداد نتایج جستجو که می تواند برگردانده شود. 0 را برای نامحدود وارد کنید(البته توصیه نمی شود)</Resource>
-    <Resource tag="MEDALS_TEMPLATE">قالب نشان ها :</Resource>
-    <Resource tag="MEDALS_TEMPLATE_HELP">قالبی که در آن نشان های کاربر بار می شود.</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE">اندازه صفحه فهرست اعضاء:</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">تعداد مدخل های یک صفحه در فهرست اعضاء.</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY">تاریخچه بایگانی پیام ها</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">تعداد روزهای پیگرد تغییرات پیام.</Resource>
     <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
@@ -1340,8 +1306,6 @@
     <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">از جعبه ورود استفاده کن:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">در صورت علامت گذاری، کنترل ورود مانند جعبه نمایش داده می شود.</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE">My Topics List Page Size:</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Number entries on a page on the My Topics page. </Resource>
     <Resource tag="NAME_LENGTH">حداکثر طول نام کاربری:</Resource>
     <Resource tag="NAME_LENGTH_HELP">حداکثر طول نام کاربری یا نام نمایشی.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">استفاده از برچسب "دنبال نکنید" در پیوند ها:</Resource>
@@ -1367,11 +1331,6 @@
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">اندازه تصویر نظر سنجی :</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">حداکثر اندازه فایل تصویر نظر سنجی به کیلو بایت.</Resource>
-    <Resource tag="POLLVOTING_PERIP">نظر سنجی های مبتی بر آی پی :</Resource>
-    <Resource tag="POLLVOTING_PERIP_HELP">
-      به صورت پیش فرض نظر سنجی ها بر اساس نام کاربری و کوکی اداره می شود.&lt;br /&gt;
-      با انتخاب این گزینه آی پی نیز برای امنیت بیشتر استفاده می شود.
-    </Resource>
     <Resource tag="POPULAR_DAYS">Active Days to stay Hot:</Resource>
     <Resource tag="POPULAR_DAYS_HELP">Define the Number of days the topics last post must have been posted. By Default it is set to 7 (One Week), that means a topic stays popular for one week.</Resource>
     <Resource tag="POPULAR_REPLYS">Min. Replies to became Hot:</Resource>
@@ -1388,23 +1347,13 @@
     <Resource tag="POSTS_FEEDS_ACCESS_HELP">محدود کردن خوراک ارسال ها برای یک موضوع.</Resource>
     <Resource tag="POSTS_PER_PAGE">تعداد ارسال بر صفحه :</Resource>
     <Resource tag="POSTS_PER_PAGE_HELP">تعداد ارسال ها برای نمایش در یک صفحه</Resource>
-    <Resource tag="POSTS_TEMPLATE">قالب ارسال ها :</Resource>
-    <Resource tag="POSTS_TEMPLATE_HELP">قالبی که ارسال های کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="QUICK_SEARCH">نمایش جستجوی سریع:</Resource>
     <Resource tag="QUICK_SEARCH_HELP">نمایش فیلد و دکمه جستجوی سریع در نوار ابزار.</Resource>
-    <Resource tag="RANK_TEMPLATE">قالب رتبه :</Resource>
-    <Resource tag="RANK_TEMPLATE_HELP">قالبی برای تولید رتبه کاربر در آن.</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE">قالب تصاویر رتبه :</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE_HELP">قالبی برای تصاویر رتبه کاربر.</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">کلید خصوصی reCAPTCHA :</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">کلید خصوصی reCAPTCHA را وارد کنید.</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">کلید سراسری reCAPTCHA :</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">کلید سراسری reCAPTCHA را وراد کنید.</Resource>
-    <Resource tag="REFERRER_CHECK">فعال سازی کنترل امنیتی ارجاع URL :</Resource>
-    <Resource tag="REFERRER_CHECK_HELP">بررسی یکسان بودن دامنه های ارسال را کنترل و از تداخل دامنه جلوگیری می کند.</Resource>
     <Resource tag="REG_USERS">کاربران ثبت نام شده</Resource>
-    <Resource tag="REMOTE_AVATARS">مجوز آواتار خارجی:</Resource>
-    <Resource tag="REMOTE_AVATARS_HELP">کاربران می توانند آواتارهایی از سایت های دیگر داشته باشند؟</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES">حذف نقل قول تودرتو:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">در پاسخ ها نقل قول تو در تو را حذف می کند.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">انقضای حافظه موقت قوانین جایگزینی:</Resource>
@@ -1421,8 +1370,6 @@
     <Resource tag="REPUTATION_MINDOWN_HELP">Check if the User matches minimal requirements for voting down.</Resource>
     <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
     <Resource tag="REPUTATION_MINUP_HELP">Check if the User matches minimal requirements for voting up.</Resource>
-    <Resource tag="REPUTATION_TEMPLATE">Reputation template:</Resource>
-    <Resource tag="REPUTATION_TEMPLATE_HELP">Template for rendering user's reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">ورود کاربر الزامی است:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">اگر علامت زده شود، کاربران قبل از دیدن هرگونه محتوائی مجبور به ورود هستند. و مستقیما به صفحه ورود رهنمون می شوند.</Resource>
     <Resource tag="RULES_ONREGISTER">نمایش "قوانین" قبل از ثبت نام :</Resource>
@@ -1550,17 +1497,11 @@
     <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE">قالب قدردانی ها از :</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE_HELP">قالبی که قدردانی های شده از کاربر بر اساس آن تولید می شود.</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE">قالب قدردانی ها:</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE_HELP">قالبی که قدردانی های کاربر بر اساس آن تولید می شود.</Resource>
     <Resource tag="TITLE">تنظیمات میزبان</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">دسترسی خوراک موضوعات:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">محدود کردن خوراک موضوعات.</Resource>
     <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
     <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
-    <Resource tag="TOPICS_PER_PAGE">عنوان بر صفحه :</Resource>
-    <Resource tag="TOPICS_PER_PAGE_HELP">تعداد عناوین برای نمایش در یک صفحه.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Username for Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Username that is mentioned when Retweeting a Topic or Message.</Resource>
     <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
@@ -1575,8 +1516,6 @@
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">آیا کاربران بتوانند زبان دلخواه خود را استفاده نمایند.</Resource>
     <Resource tag="USER_CHANGE_THEME">مجوز تغییر شما به کاربر:</Resource>
     <Resource tag="USER_CHANGE_THEME_HELP">آیا کاربر می تواند شمای دلخواه خود را استفاده کند؟</Resource>
-    <Resource tag="USERBOX_TEMPLATE">قالب کادر کاربر.</Resource>
-    <Resource tag="USERBOX_TEMPLATE_HELP">قالب کادر کاربری برای نمایش در ارسال ها.</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT">انقضای حافظه موقت کاربران تابلو :</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT_HELP">به دقیقه</Resource>
     <Resource tag="VIEWACTIVE_PERMISSION">مجوز های دیدن کاربران فعال:</Resource>

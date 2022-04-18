@@ -1021,8 +1021,6 @@
     <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
     <Resource tag="ACTIVE_USERTIME">Время списка активных пользователей:</Resource>
     <Resource tag="ACTIVE_USERTIME_HELP">Число минут для отображения пользователей в списке активных.</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Доступ к ленте Активных тем:</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Ограничить/запретить показ лент активных тем.</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
@@ -1069,8 +1067,6 @@
     <Resource tag="ALLOW_SHARE_TOPIC_HELP">Включить меню при помощи которого пользователь сможет отправить по почте, использовать Твиттер, Google+, Like on Facebook, Digg или Reddit для темы.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Разрешить подписи:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Разрешить пользователям добавлять подписи к сообщениям. Вы должны также установить параметры подписи(кол-во символов, разрешённые BBCode...) для каждой роли и/или статуса, чтобы действительно включить эту опцию.</Resource>
-    <Resource tag="ALLOW_THANKS">Разрешить «Спасибо»</Resource>
-    <Resource tag="ALLOW_THANKS_HELP">Пользователи могут благодарить других пользователей за понравившиеся сообщения.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Разрешить темы с совпадающим именем для:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Темы с совпадающим именем разрешены для пользователей из списка.</Resource>
     <Resource tag="ALLOW_USER_HIDE">Разрешить пользователю скрывать себя:</Resource>
@@ -1097,8 +1093,6 @@
     <Resource tag="AVATAR_HEIGHT_HELP">Максимальная высота аватара(пикс.).</Resource>
     <Resource tag="AVATAR_SIZE">Размер аватара:</Resource>
     <Resource tag="AVATAR_SIZE_HELP">Максимальный размер аватара в байтах.</Resource>
-    <Resource tag="AVATAR_TEMPLATE">Шаблон аватара:</Resource>
-    <Resource tag="AVATAR_TEMPLATE_HELP">Шаблон для отображения аватара.</Resource>
     <Resource tag="AVATAR_UPLOAD">Разрешить загрузку аватара:</Resource>
     <Resource tag="AVATAR_UPLOAD_HELP">Разрешить пользователям загружать аватары в профиле.</Resource>
     <Resource tag="AVATAR_WIDTH">Ширина аватара:</Resource>
@@ -1122,8 +1116,6 @@
     <Resource tag="CAPTCHA_GUEST_POSTING_HELP">Требовать от гостей ввести CAPTCHA, когда они оставляют сообщение на форуме, включая быстрый ответ.</Resource>
     <Resource tag="CAPTCHA_SIZE">Размер CAPTCHA:</Resource>
     <Resource tag="CAPTCHA_SIZE_HELP">Длина(символы) генерируемой случайной строки CAPTCHA.</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT">Таймаут кэша для категорий конференции:</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
     <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
     <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
@@ -1133,8 +1125,6 @@
     <Resource tag="CHECK_FOR_SPAM">Служба анти-СПАМА.</Resource>
     <Resource tag="CLEAR_CACHE">Очистить кэш</Resource>
     <Resource tag="COLLAPSED">Collapsed</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE">Шаблон иконки страны:</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Шаблон для отображения иконки страны.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Создавать имена пользователей NNTP:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Включите, чтобы пользователи добавлялись из сообщений usenet. Включайте это только в тестовых случаях и &lt;em&gt;НИКОГДА&lt;/em&gt; на работающем сервере. Главная цель этой опции - тестирование производительности.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Обрезать изображение при предпросмотре:</Resource>
@@ -1147,8 +1137,6 @@
     <Resource tag="DISABLE_REGISTER_HELP">Новые пользователи не смогут регистрироваться.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Таймаут кэша активных обсуждений:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">В минутах</Resource>
-    <Resource tag="DISPLAY_POINTS">Отображать репутацию:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">Если включено, то будет отображаться общая репутация каждого пользователя.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Вложения изображений - максимальный порог отображения:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Максимальный размер изображения, до тех пор пока она будет отображаться как изображение в боксе вложений, в противном случае это будет ссылка.</Resource>
     <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
@@ -1175,8 +1163,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">YAF будет использовать при отображении альтернативные ники.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Включить журналирование ошибок списка нахождения активных пользователей:</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Журналирование ошибок списка нахождения активных пользователей. Используется при отладке.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Включить кнопку ретвиттера:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Делает доступной кнопку ретвита и пользователь может проретвитить сообщение.</Resource>
     <Resource tag="ENABLE_SSO">Включить единую регистрацию в Facebook:</Resource>
@@ -1192,8 +1178,6 @@
     <Resource tag="EXTERN_NEWWINDOW_HELP">Показывать результаты внешнего поиска в новом окне.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Разрешения для внешнего поиска:</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS_HELP">Разрешения для использования внешнего поиска:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS">Доступ к лентам любимых тем:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS_HELP">Доступ к лентам любимых тем.</Resource>
     <Resource tag="FILE_TABLE">Хранить загрузки в БД:</Resource>
     <Resource tag="FILE_TABLE_HELP">Загруженные файлы будут храниться в базе данных, а не в виде файлов.</Resource>
     <Resource tag="FLOOT_DELAY">Задержка следующего поста:</Resource>
@@ -1206,12 +1190,6 @@
     <Resource tag="FORUM_EDITOR_HELP">Выберите глобальный редактор для вашего форума. Чтобы использовать редакторы HTML (FCK , FreeTextBox) файл .bin должен быть в папке \bin файлы поддержки в \editors.</Resource>
     <Resource tag="FORUM_EMAIL">Email форума:</Resource>
     <Resource tag="FORUM_EMAIL_HELP">Этот адрес используется в поле "От" при отправке сообщений пользователям.</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS">Доступ к лентам форума:</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS_HELP">Ограничить доступ к лентам форума.</Resource>
-    <Resource tag="GENDER_TEMPLATE">Пол:</Resource>
-    <Resource tag="GENDER_TEMPLATE_HELP">Шаблон отображения пола пользователя.</Resource>
-    <Resource tag="GROUPS_TEMPLATE">Шаблон ролей:</Resource>
-    <Resource tag="GROUPS_TEMPLATE_HELP">Шаблон для отображения ролей.</Resource>
     <Resource tag="HEADER_ADVERTS">Настройки рекламы</Resource>
     <Resource tag="HEADER_ALBUM">Настройки альбомов</Resource>
     <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
@@ -1241,7 +1219,6 @@
     <Resource tag="HEADER_SETUP">Настройки хоста</Resource>
     <Resource tag="HEADER_SPAM">Настройки анти-спама</Resource>
     <Resource tag="HEADER_SYNDICATION">Настройки синдикации</Resource>
-    <Resource tag="HEADER_TEMPLATES">Настройки шаблонов</Resource>
     <Resource tag="HOST_ADVERTS">Реклама</Resource>
     <Resource tag="HOST_AVATARS">Аватары</Resource>
     <Resource tag="HOST_CACHE">Кэш</Resource>
@@ -1251,7 +1228,6 @@
     <Resource tag="HOST_LOG">Журналы</Resource>
     <Resource tag="HOST_PERMISSION">Разрешения</Resource>
     <Resource tag="HOST_SEARCH">Поиск</Resource>
-    <Resource tag="HOST_TEMPLATES">Шаблоны</Resource>
     <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
     <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
@@ -1278,16 +1254,12 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Не изменяйте это поле на другую службу.</Resource>
     <Resource tag="IPINFO_ULRL">URL службы с информацией об IP:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">По этому адресу находится веб-страница, которая сообщает детали о данном IP. Вы можете выбирать любую аналогичную службу.</Resource>
-    <Resource tag="JOINDATE_TEMPLATE">Шаблон даты регистрации:</Resource>
-    <Resource tag="JOINDATE_TEMPLATE_HELP">Шаблон даты регистрации в данных пользователя в сообщениях.</Resource>
     <Resource tag="LASTPOST_COUNT">Кол-во тем в активных обсуждениях:</Resource>
     <Resource tag="LASTPOST_COUNT_HELP">Число тем для отображения в активных темах.</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS">Доступ к ленте последних сообщений:</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS_HELP">Ограничить доступ к ленте последних сообщений.</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT">Таймаут редко обновляющихся данных активного пользователя:</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">В минутах</Resource>
-    <Resource tag="LOCATION_TEMPLATE">Шаблон местонахождения:</Resource>
-    <Resource tag="LOCATION_TEMPLATE_HELP">Шаблон для отображения местонахождения пользователя в его данных в сообщениях.</Resource>
     <Resource tag="LOG_BANNEDIP">Записывать баны и амнистии по IP:</Resource>
     <Resource tag="LOG_BANNEDIP_HELP">Добавление или удаление IP адересов и диапазонов будет записываться.</Resource>
     <Resource tag="LOG_ERROR">Записывать ошибки приложения:</Resource>
@@ -1308,8 +1280,6 @@
     <Resource tag="LOGIN_REDIR_URL_HELP">Если логин выключен в AppSettings (AllowLoginAndLogoff должна быть установлена как "false"), это адрес URL куда перенаправляются пользователи, когда они хотят получить доступ к форуму. Добавьте по выбору "{0}" к URL, чтобы добавить URL возврата к вашему особому URL, например "http://mydomain.com/login.aspx?PreviousUrl={{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">Число вариантов ответа:</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES_HELP">Максимальное число вариантов ответа на вопрос. Искусственно ограничено до 99.</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS">Число вопросов:</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS_HELP">Максимальное число вопросов в группе. Искусственно ограничено до 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Число вложений к сообщению:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Максимальное число вложение к одному сообщению. Установите 0 для неограниченного.</Resource>
     <Resource tag="MAX_FILESIZE">Размер файла:</Resource>
@@ -1324,10 +1294,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">Максимальный размер сообщения в байтах. Установите 0 для неограниченного (не рекомендуется).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Максимальное число результатов поиска:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Максимальное число возвращаемых результатов поиска. Установите 0 для неограниченного (не рекомендуется).</Resource>
-    <Resource tag="MEDALS_TEMPLATE">Шаблон медали:</Resource>
-    <Resource tag="MEDALS_TEMPLATE_HELP">Шаблон для отображения медалей пользователя в его данных в сообщениях.</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE">Размер страницы списка участников:</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">Количество ников на странице списка участников. </Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY">Время хранения сообщений в архиве</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Число дней, пока модифицированные варианты сообщений хранятся в архиве.</Resource>
     <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
@@ -1337,8 +1303,6 @@
     <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">Использовать модальное всплывающее окно для входа:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Если отключено, то для входа будет использоваться отдельная страница.</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE">Размер страницы Мои Темы:</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Количество тем на одной странице на странице Мои Темы. </Resource>
     <Resource tag="NAME_LENGTH">Максимальное количество символов в нике пользователя:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Максимально разрешённая длина имени пользователя и отображаемого имени пользователя.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Использовать тег "NoFollow" в ссылках:</Resource>
@@ -1364,8 +1328,6 @@
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Размер файла изображения в опросах:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Максимальный размер файла в опросах в КБ.</Resource>
-    <Resource tag="POLLVOTING_PERIP">Голосование зависит от IP:</Resource>
-    <Resource tag="POLLVOTING_PERIP_HELP">По умолчанию, голосование отслеживается по имени пользователя и куки. (Один голос на ник. куки используются если включено гостевое голосование.) &lt;br /&gt;Если эта опция включена, то YAF также использует IP как ссылку обеспечивающую максимальную защиту от фальсификаций.</Resource>
     <Resource tag="POPULAR_DAYS">Количество дней пока тема «горячая»:</Resource>
     <Resource tag="POPULAR_DAYS_HELP">Количество дней когда последнее сообщение было размещено. По-умолчанию - 7 дней.</Resource>
     <Resource tag="POPULAR_REPLYS">Минимальное число ответов чтобы тем оставалась популярной:</Resource>
@@ -1382,23 +1344,13 @@
     <Resource tag="POSTS_FEEDS_ACCESS_HELP">Ограничить доступ к лентам сообщений темы.</Resource>
     <Resource tag="POSTS_PER_PAGE">Кол-во сообщений на странице:</Resource>
     <Resource tag="POSTS_PER_PAGE_HELP">Кол-во сообщений для отображения на странице.</Resource>
-    <Resource tag="POSTS_TEMPLATE">Шаблон сообщения:</Resource>
-    <Resource tag="POSTS_TEMPLATE_HELP">Шаблон для отображения сообщений пользователя.</Resource>
     <Resource tag="QUICK_SEARCH">Показывать быстрый поиск:</Resource>
     <Resource tag="QUICK_SEARCH_HELP">Показывать поле и кнопку быстрого пользователя в меню форума.</Resource>
-    <Resource tag="RANK_TEMPLATE">Шаблон статуса:</Resource>
-    <Resource tag="RANK_TEMPLATE_HELP">Шаблон для отображения статуса пользователя в сообщениях.</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE">Шаблон изображения статуса:</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE_HELP">Шаблон для отображения изображения статуса(если есть).</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">Частный ключ reCAPTCHA:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Введите частный ключ reCAPTCHA</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">Публичный ключ reCAPTCHA:</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Введите публичный ключ reCAPTCHA.</Resource>
-    <Resource tag="REFERRER_CHECK">Включить проверку безопасности Url Referrer:</Resource>
-    <Resource tag="REFERRER_CHECK_HELP">Проверяет, что все POST происходят из того же домена как и домен ссылки (Отсутствие кроссдоменных POST).</Resource>
     <Resource tag="REG_USERS">Зарегистрированные пользователи</Resource>
-    <Resource tag="REMOTE_AVATARS">Разрешить удалённые аватары:</Resource>
-    <Resource tag="REMOTE_AVATARS_HELP">Пользователя могут использовать аватары с других сайтов.</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES">Удалять вложенные цитаты:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Автоматически удаляет вложенные коды [quote] из ответов.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Таймаут кэша правил замены:</Resource>
@@ -1415,8 +1367,6 @@
     <Resource tag="REPUTATION_MINDOWN_HELP">Минимальное значение для понижения репутации другого пользователя.</Resource>
     <Resource tag="REPUTATION_MINUP">Минимальное значение для добавления репутации:</Resource>
     <Resource tag="REPUTATION_MINUP_HELP">Минимальное значение для добавления репутации другому пользователю.</Resource>
-    <Resource tag="REPUTATION_TEMPLATE">Шаблон репутации:</Resource>
-    <Resource tag="REPUTATION_TEMPLATE_HELP">Шаблон для отображения репутации пользователя.</Resource>
     <Resource tag="REQUIRE_LOGIN">Требовать входа на сайт:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">Требовать входа на сайт, чтобы увидеть контент. Пользователи будут перенаправляться прямо к странице логина.</Resource>
     <Resource tag="RULES_ONREGISTER">Показывать правила форума перед регистрацией:</Resource>
@@ -1544,17 +1494,11 @@
     <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE">Шаблон для отображения «Спасибо» пользователю:</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователю.</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE">Шаблон для отображения «Спасибо»:</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE_HELP">Шаблон для отображения Спасибо пользователя.</Resource>
     <Resource tag="TITLE">Настройки хоста</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Доступ к лентам тем:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Ограничить доступ к лентам тем.</Resource>
     <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
     <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
-    <Resource tag="TOPICS_PER_PAGE">Темы на странице:</Resource>
-    <Resource tag="TOPICS_PER_PAGE_HELP">Количество тем для отображения на одной странице.</Resource>
     <Resource tag="TWITTER_USERNAME">Имя пользователя твитера для ретвитов:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">Упомянутое имя пользователя при ретвите темы или сообщения.</Resource>
     <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
@@ -1569,8 +1513,6 @@
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Пользователи могут выбирать язык конференции(интерфейс).</Resource>
     <Resource tag="USER_CHANGE_THEME">Разрешить пользователям менять тему:</Resource>
     <Resource tag="USER_CHANGE_THEME_HELP">Пользователи могут выбирать тему.</Resource>
-    <Resource tag="USERBOX_TEMPLATE">Шаблон пользовательских данных:</Resource>
-    <Resource tag="USERBOX_TEMPLATE_HELP">Шаблон пользовательских данных в постах.</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT">Таймаут кэша пользователя текущей конференции:</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT_HELP">В минутах</Resource>
     <Resource tag="VIEWACTIVE_PERMISSION">Разрешить просмотр списка активных пользователей:</Resource>

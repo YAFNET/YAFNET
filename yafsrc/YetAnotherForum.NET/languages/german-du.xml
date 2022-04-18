@@ -1020,8 +1020,6 @@
     <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
     <Resource tag="ACTIVE_USERTIME">Aktive Benutzer Zeit:</Resource>
     <Resource tag="ACTIVE_USERTIME_HELP">Anzahl der Minuten, in denen die Benutzer in der Aktiven Benutzerliste stehen.</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Aktive Themen Feeds-Zugang:</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
@@ -1068,8 +1066,6 @@
     <Resource tag="ALLOW_SHARE_TOPIC_HELP">Aktiviert / deaktiviert die soziale Menü, wo ein Benutzer ein Thema als E-Mail, Tweet, Google+, Like on Facebook, Digg, Reddit oder Tumblr teilen kann.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Signaturen erlauben:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Benutzern erlauben, Signaturen zu erstellen. Sie sollten die zulässige Anzahl von Zeichen und BBCodes für jede Gruppe und / oder Rang gesetzt haben, um wirklich die Funktion zu aktivieren.</Resource>
-    <Resource tag="ALLOW_THANKS">Benutzer Ermöglichen Beiträge zu danken:</Resource>
-    <Resource tag="ALLOW_THANKS_HELP">Wenn diese Option aktiviert ist, können sich für Beiträge bedanken die sie für nützlich halten.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Themen mit gleichem Namen zulassen:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Gleiche Themen Namen sind erlaubt für:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Benutzer erlauben sich zu verstecken:</Resource>
@@ -1096,8 +1092,6 @@
     <Resource tag="AVATAR_HEIGHT_HELP">Maximale Höhe für Avatare.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Dateigröße:</Resource>
     <Resource tag="AVATAR_SIZE_HELP">Maximale Dateigröße für Avatare in Bytes.</Resource>
-    <Resource tag="AVATAR_TEMPLATE">Avatar-Vorlage:</Resource>
-    <Resource tag="AVATAR_TEMPLATE_HELP">Vorlage für die Darstellung des Avatar.</Resource>
     <Resource tag="AVATAR_UPLOAD">Benutzer erlauben Avatare hochzuladen:</Resource>
     <Resource tag="AVATAR_UPLOAD_HELP">Wenn aktiviert können Benutzer Avatare Hochladen.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Breite:</Resource>
@@ -1121,8 +1115,6 @@
     <Resource tag="CAPTCHA_GUEST_POSTING_HELP">Erfordert das eingeben eines CAPTCHA wenn ein Gast ein Beitrag schreiben will (Auch Schnellantwort)</Resource>
     <Resource tag="CAPTCHA_SIZE">CAPTCHA Größe:</Resource>
     <Resource tag="CAPTCHA_SIZE_HELP">Größe (Länge) des CAPTCHA zufällige alphanumerische Zeichenfolge.</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT">Board Kategorien Speicher Ablaufzeit:</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
     <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
     <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
@@ -1132,8 +1124,6 @@
     <Resource tag="CHECK_FOR_SPAM">SPAM Dienst für das automatische Checken von Beitragspam:</Resource>
     <Resource tag="CLEAR_CACHE">Cache löschen</Resource>
     <Resource tag="COLLAPSED">Zusammengeklappt</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE">Land Flagge Vorlage:</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Vorlage für die Darstellung der Landesflagge.</Resource>
     <Resource tag="CREATE_NNTPNAMES">NNTP Benutzernamen erstellen:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Aktivieren damit Benutzer automatisch erstellt werden Usenet-Nachrichten heruntergeladen werden.  Aktivieren Sie das nur in einer Testumgebung, und &lt;em&gt;NIE&lt;/ em&gt; in einer Produktionsumgebung. Der Hauptzweck dieser Option ist für Performance-Tests.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Anhangs Bild Vorschau Beschneiden</Resource>
@@ -1146,8 +1136,6 @@
     <Resource tag="DISABLE_REGISTER_HELP">Neue Benutzer können sich nicht registrieren</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Aktive Diskussionen Speicher Ablaufzeit:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
-    <Resource tag="DISPLAY_POINTS">Reputationbar Anzeigen:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">Wenn aktiviert, wird die Reputation von jedem Benutzer angezeigt.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Bildanhangs Maximale Anzeige Größe</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">Maximale Größe des Angehangen Bildes das Angezeigt wird. Bilder über dieser Größe werden als Links angezeigt.</Resource>
     <Resource tag="DISPLAYNAME_MIN_LENGTH">Anzeigename Min. Länge</Resource>
@@ -1174,8 +1162,6 @@
     <Resource tag="ENABLE_DISPLAY_NAME_HELP">Wenn diese Option aktiviert, verwendet YAF den alternativen "Anzeigenamen" anstelle des Benutzernamens.</Resource>
     <Resource tag="ENABLE_HOVERCARDS">Benutzer Info Hover Karte aktivieren:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">Wenn aktiviert wird eine Hover Karte (Die eine Kurzübersicht über den Benutzer zeigt) angezeigt, wenn man mit der Maus über einen Benutzernamen im Forum fährt. Es wird auch eine Karte angezeigt für den Twitter &amp; Facebook Button.</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Aktivieren von Aktiver Ort Fehlerprotokollierung</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Wenn aktiviert, Alle Aktive Fehler werden Protokolliert</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Beitrag Retweeten Button aktivieren:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Aktiviert / deaktiviert den Retweet Button, wo der Benutzer ein Beitrag retweeten kann.</Resource>
     <Resource tag="ENABLE_SSO">Single Sign On Aktivieren:</Resource>
@@ -1191,8 +1177,6 @@
     <Resource tag="EXTERN_NEWWINDOW_HELP">Externe Suchergebnisse in einem neuen Fenster öffnen.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Externe Suchberechtigungen:</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS_HELP">Externe Suche für Folgende Erlauben</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS">Favorisierte Themen-Feeds Zugang:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed</Resource>
     <Resource tag="FILE_TABLE">Datei Tabelle verwenden:</Resource>
     <Resource tag="FILE_TABLE_HELP">Hochgeladene Dateien werden in der Datenbank, anstatt im Dateisystem gespeichert.</Resource>
     <Resource tag="FLOOT_DELAY">Beitrags Überschwemmungs Verzögerung</Resource>
@@ -1205,12 +1189,6 @@
     <Resource tag="FORUM_EDITOR_HELP">Wählen Sie den Standard Editor für das Forum.</Resource>
     <Resource tag="FORUM_EMAIL">Forum E-Mail Adresse:</Resource>
     <Resource tag="FORUM_EMAIL_HELP">Die Absender Adresse die beim Verschicken von Forum E-Mails verwendet wird.</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS">Forum-Feeds Zugang:</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
-    <Resource tag="GENDER_TEMPLATE">Geschlechter Vorlage:</Resource>
-    <Resource tag="GENDER_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Geschlechts.</Resource>
-    <Resource tag="GROUPS_TEMPLATE">Gruppen Vorlage:</Resource>
-    <Resource tag="GROUPS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Gruppen.</Resource>
     <Resource tag="HEADER_ADVERTS">Werbeeinstellungen</Resource>
     <Resource tag="HEADER_ALBUM">Albumeinstellungen</Resource>
     <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
@@ -1240,7 +1218,6 @@
     <Resource tag="HEADER_SETUP">Host Konfiguration</Resource>
     <Resource tag="HEADER_SPAM">Spam Einstellungen (Beitragsüberprüfung)</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndication-Feed Einstellungen</Resource>
-    <Resource tag="HEADER_TEMPLATES">Vorlageneinstellungen</Resource>
     <Resource tag="HOST_ADVERTS">Werbung</Resource>
     <Resource tag="HOST_AVATARS">Avatare</Resource>
     <Resource tag="HOST_CACHE">Speicher</Resource>
@@ -1250,7 +1227,6 @@
     <Resource tag="HOST_LOG">Ereignisprotokoll</Resource>
     <Resource tag="HOST_PERMISSION">Berechtigungen</Resource>
     <Resource tag="HOST_SEARCH">Suche</Resource>
-    <Resource tag="HOST_TEMPLATES">Vorlagen</Resource>
     <Resource tag="HOVERCARD_DELAY">Hover Karte Verzögerungs Öffnungszeit (Millisekunden):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">Die Verzögerungszeit vor dem Öffnen der Hoverkarte, whenn der Benutzer über einen Benutzer Namen mit der Maus fährt.</Resource>
     <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
@@ -1277,16 +1253,12 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Aktivieren um Informationen über die Benutzer IPs als XML-Daten zu erhalten.</Resource>
     <Resource tag="IPINFO_ULRL">IP-Infoseite URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Aktivieren um Informationen über den IPs Verbleib als Web-Seite zu erhalten.</Resource>
-    <Resource tag="JOINDATE_TEMPLATE">Anmeldedatum Vorlage:</Resource>
-    <Resource tag="JOINDATE_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Anmeldedatums.</Resource>
     <Resource tag="LASTPOST_COUNT">Aktive Diskussionen Anzahl:</Resource>
     <Resource tag="LASTPOST_COUNT_HELP">Anzahl der Einträge, die in der Aktive Diskussionen Liste angezeigt werden soll.</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS">Letzte Beiträge-Feed Zugang:</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT">Benutzer Lazy Daten Speicher Ablaufzeit</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">In Minuten</Resource>
-    <Resource tag="LOCATION_TEMPLATE">Lage Vorlage:</Resource>
-    <Resource tag="LOCATION_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Orts.</Resource>
     <Resource tag="LOG_BANNEDIP">Gesperrte IP Adress Aktionen protokollieren:</Resource>
     <Resource tag="LOG_BANNEDIP_HELP">IP AddressSperren und Entsperrungen werden protokolliert.</Resource>
     <Resource tag="LOG_ERROR">Anwendungsfehler protokollieren:</Resource>
@@ -1307,8 +1279,6 @@
     <Resource tag="LOGIN_REDIR_URL_HELP">Wenn die Anmeldung in der AppSettings deaktiviert ist (AllowLoginAndLogoff muss auf "false" gesetzt werden), ist dies die URL Anwender, wenn sie auf das Forum zugreifen wollen müssen umgeleitet werden. Optional können Sie "{0}" hinzufügen, um die URL zu der Rückgabe-URL, um die benutzerdefinierte URL übergeben. Z.B. "http://mydomain.com/login.aspx?PreviousUrl = {{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">Max. Erlaubt Anzahl der Umfrage Optionen:</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES_HELP">Anzahl der Umfrage Optionen, Max.-Wert nicht mehr als 99.</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS">Max. Anzahl von Erlaubten Umfragen</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS_HELP">Anzahl der Umfragen, Max.-Wert nicht mehr als 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Maximale Anzahl an Dateianhängen pro Beitrag:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Maximale Anzahl an Dateianhängen pro Beitrag. Auf 0 setzen für unbegrenzt.</Resource>
     <Resource tag="MAX_FILESIZE">Max. Dateigröße:</Resource>
@@ -1323,10 +1293,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">Maximale Größe eines Beitrages in Bytes. Auf 0 setzen für unbegrenzt (nicht empfohlen).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Max. Suchergebnisse:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Maximale Anzahl der Suchergebnisse, die zurückgegeben werden können. Geben Sie "0" für unbegrenzt ein (nicht empfohlen).</Resource>
-    <Resource tag="MEDALS_TEMPLATE">Medaillen Vorlage:</Resource>
-    <Resource tag="MEDALS_TEMPLATE_HELP">Vorlage für die Darstellung von Benutzer-Medaillen.</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE">Mitgliederliste Seitengröße:</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">Anzahl Einträge pro Seite in der Mitgliederliste </Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY"> Beitragsverlauf Archivzeit</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Anzahl der Tage um den Beitragsänderungsverlauf zu speichern.</Resource>
     <Resource tag="MESSAGE_SYSTEM">Benachrichtigungssystem für System Nachrichten:</Resource>
@@ -1336,8 +1302,6 @@
     <Resource tag="MODAL_DIALOG">Modaler Dialog</Resource>
     <Resource tag="MODAL_LOGIN">Login Box (Modal PopUp Dialog) verwenden:</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Wenn aktiviert, wird das Login-Control als Login-Box angezeigt. Ansonsten wird das Login Control auf einer einzelnen Seite angezeigt.</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE">Meine Themen Themen pro Seite:</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Anzal an Themen pro Seite die in der Meine Themen Seite angezeigt werden. </Resource>
     <Resource tag="NAME_LENGTH">Benutzername Max Länge:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Max erlaubt Benutzernamelänge oder Benutzer Anzeigenamenlänge.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">"nofollow" Tags in Links verwenden:</Resource>
@@ -1363,8 +1327,6 @@
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Max. Dateigröße für Benutzer definierte Umfrage Bilder:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Definieren Sie die Maximale Dateigröße in Kilo Bytes.</Resource>
-    <Resource tag="POLLVOTING_PERIP">Umfragestimmen Abhängig von IP:</Resource>
-    <Resource tag="POLLVOTING_PERIP_HELP">Standardmäßig werden die Umfrage Abstimmungen verfolgt mit dem Benutzernamen und einem Cookie (Eine Stimme pro Benutzername. Cookies werden verwendet falls Gäste abstimmen dürfen &lt;br /&gt;Wenn diese Option aktiviert ist werden auch die IP Adressen als Referenz verwendet, und ist die Sicherste Methode gegen Wahlbetrug.</Resource>
     <Resource tag="POPULAR_DAYS">Tage Aktiv um beliebt zu bleiben:</Resource>
     <Resource tag="POPULAR_DAYS_HELP">Definieren Sie die Anzahl an Tagen, innerhalb vom Tag des Letzten Beitrags bis Heute. Standardmäßig ist der Wert auf 7 (Eine Woche) gesetzt, das bedeuted das ein Thema eine Woche Beliebt bleibt.</Resource>
     <Resource tag="POPULAR_REPLYS">Min. Antworten um Beliebt zu werden:</Resource>
@@ -1381,23 +1343,13 @@
     <Resource tag="POSTS_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
     <Resource tag="POSTS_PER_PAGE">Beiträge pro Seite:</Resource>
     <Resource tag="POSTS_PER_PAGE_HELP">Anzahl an Beiträge die pro Seite angezeigt werden.</Resource>
-    <Resource tag="POSTS_TEMPLATE">Beiträge Vorlage:</Resource>
-    <Resource tag="POSTS_TEMPLATE_HELP">Vorlage für die Darstellung Beiträge des Benutzers.</Resource>
     <Resource tag="QUICK_SEARCH">Zeige Schnell Suche:</Resource>
     <Resource tag="QUICK_SEARCH_HELP">Schnellsuche im Seiten Kopf anzeigen.</Resource>
-    <Resource tag="RANK_TEMPLATE">Rang Vorlage:</Resource>
-    <Resource tag="RANK_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzer Ranges</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE">Rang Bild Vorlage:</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE_HELP">Vorlage für die Darstellung des Rang Bildes.</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY">reCAPTCHA Privater Schlüssel:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP">Geben Sie einen reCAPTCHA Privaten Schlüssel ein</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Öffentlicher Schlüssel:</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Geben Sie einen reCAPTCHA Öffentlicher Schlüssel.</Resource>
-    <Resource tag="REFERRER_CHECK">Url Referrer Sicherheits-Check aktivieren:</Resource>
-    <Resource tag="REFERRER_CHECK_HELP">Überprüft alle Beiträge ob sie aus der gleichen Referring Domäne kommen (Keine Cross-Domain-Beiträge).</Resource>
     <Resource tag="REG_USERS">Registrierte Benutzer</Resource>
-    <Resource tag="REMOTE_AVATARS">Remote Avatare erlauben:</Resource>
-    <Resource tag="REMOTE_AVATARS_HELP">Wenn aktiviert können Benutzer Avatare von anderen Webseiten benutzen.</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES">Verschachtelte Zitate entfernen:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Automatisch verschachtelte [quote] Zitat Tags von Antworten entfernen.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Ersetzen Regeln Speicherablaufzeit:</Resource>
@@ -1414,8 +1366,6 @@
     <Resource tag="REPUTATION_MINDOWN_HELP">Minimale Anforderung für den Benutzer bevor er negative Bewertungen abgeben kann.</Resource>
     <Resource tag="REPUTATION_MINUP">Min. Value to allow Add Reputation:</Resource>
     <Resource tag="REPUTATION_MINUP_HELP">Minimale Anforderung für den Benutzer bevor er Positive Bewertungen abgeben kann.</Resource>
-    <Resource tag="REPUTATION_TEMPLATE">Reputations Vorlage:</Resource>
-    <Resource tag="REPUTATION_TEMPLATE_HELP">Vorlage für die Darstellung der Benutzer Reputation.</Resource>
     <Resource tag="REQUIRE_LOGIN">Benutzer anmelden erfordern:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">Wenn aktiviert, werden die Benutzer aufgefordert sich anzumelden, bevor sie den Inahalt sehen können. Sie werden direkt weitergeleitet zur Anmeldeseite.</Resource>
     <Resource tag="RULES_ONREGISTER">Zeige "Regeln" Vor der Registrierung:</Resource>
@@ -1543,17 +1493,11 @@
     <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE">Danke von Vorlage:</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke von.</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE">Danke an Vorlage:</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE_HELP">Vorlage für die Darstellung des Benutzers Danke an.</Resource>
     <Resource tag="TITLE">Host Einstellungen</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Themen-Feeds Zugang:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Anzeige Beschränken für den Feed.</Resource>
     <Resource tag="TOPICFEED_COUNT">Max. Themen im  Forum Feed:</Resource>
     <Resource tag="TOPICFEED_COUNT_HELP">Die Maximale Anzahl an Themen die im Atom/Rss Feed gelisted werden sollen.</Resource>
-    <Resource tag="TOPICS_PER_PAGE">Themen pro Seite:</Resource>
-    <Resource tag="TOPICS_PER_PAGE_HELP">Anzahl an Themen die pro Seite angezeigt werden.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Benutzername für die Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">Twitter Benutzername, der erwähnt wird, wenn ein Thema oder Beitrag geretweetet wird.</Resource>
     <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
@@ -1568,8 +1512,6 @@
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Sollen die Benutzer wählen können, welche Sprache sie verwenden möchten?</Resource>
     <Resource tag="USER_CHANGE_THEME">Benutzer erlauben das Skin zu ändern:</Resource>
     <Resource tag="USER_CHANGE_THEME_HELP">Sollen die Benutzer in der Lage entscheiden zu können welches Skin sie verwenden möchten?</Resource>
-    <Resource tag="USERBOX_TEMPLATE">Benutzerbox Vorlage:</Resource>
-    <Resource tag="USERBOX_TEMPLATE_HELP">Vorlage für die Darstellung der Benutzerbox durch Beiträge des Benutzers.</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT">Board Benutzer Statistiken Speicher Ablaufzeit:</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT_HELP">In Minuten</Resource>
     <Resource tag="VIEWACTIVE_PERMISSION">Aktive Benutzer Anzeigeberechtigungen:</Resource>

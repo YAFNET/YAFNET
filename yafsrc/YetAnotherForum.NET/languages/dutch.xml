@@ -1021,8 +1021,6 @@
     <Resource tag="ACCEPT_HTML_HELP">Comma separated list (no spaces) of HTML tags that are allowed in posts using HTML editors.</Resource>
     <Resource tag="ACTIVE_USERTIME">Actieve Gebruikers Timeout:</Resource>
     <Resource tag="ACTIVE_USERTIME_HELP">Aantal minuten dat de gebruikers in de Actieve Gebruikerslijst worden weergegeven.</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS">Actieve Topics Feed Toegang:</Resource>
-    <Resource tag="ACTIVETOPIC_FEEDS_ACCESS_HELP">Beperk weergave van actieve topic feeds.</Resource>
     <Resource tag="AKISMET_KEY_DOWN">Sign Up here</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE">Max Album Image File Size</Resource>
     <Resource tag="ALBUM_IMAGE_SIZE_HELP">Maximum size of uploaded album image files. Leave empty for no limit.</Resource>
@@ -1069,8 +1067,6 @@
     <Resource tag="ALLOW_SHARE_TOPIC_HELP">Zet het 'Deel-Menu' aan of uit, zodat een gebruiker een topic kan delen via Email, Tweet, Buzz, Liken op Facebook, +Google, Digg, Reddit of Tumblr.</Resource>
     <Resource tag="ALLOW_SIGNATURE">Handtekeningen toestaan:</Resource>
     <Resource tag="ALLOW_SIGNATURE_HELP">Gebruikers mogen handtekeningen maken. Je moet wel het aantal karakters/toestaan van BBCodes instellen voor elke groep en/of Rang om het te activeren.</Resource>
-    <Resource tag="ALLOW_THANKS">Sta Bedankjes toe:</Resource>
-    <Resource tag="ALLOW_THANKS_HELP">Als deze is aangevinkt, kunnen Gebruikers elkaar bedanken voor nuttige posts.</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME">Sta meerdere Topics met dezelfde naam toe:</Resource>
     <Resource tag="ALLOW_TOPICS_DUPLICATENAME_HELP">Dubbele Topicnamen toegestaan voor:</Resource>
     <Resource tag="ALLOW_USER_HIDE">Gebruikers mogen zich onzichtbaar maken:</Resource>
@@ -1097,8 +1093,6 @@
     <Resource tag="AVATAR_HEIGHT_HELP">Maximale hoogte voor avatars.</Resource>
     <Resource tag="AVATAR_SIZE">Avatar Grootte:</Resource>
     <Resource tag="AVATAR_SIZE_HELP">Maximale grootte voor avatars in bytes.</Resource>
-    <Resource tag="AVATAR_TEMPLATE">Avatar sjabloon:</Resource>
-    <Resource tag="AVATAR_TEMPLATE_HELP">Sjabloon om de avatar op te bouwen.</Resource>
     <Resource tag="AVATAR_UPLOAD">Sta het uploaden van Avatars toe:</Resource>
     <Resource tag="AVATAR_UPLOAD_HELP">Gebruikers mogen avatars uploaden naar hun profiel.</Resource>
     <Resource tag="AVATAR_WIDTH">Avatar Breedte:</Resource>
@@ -1122,8 +1116,6 @@
     <Resource tag="CAPTCHA_GUEST_POSTING_HELP">Eis dat Gastgebruikers de CAPTCHA invullen als ze berichten plaatsen of antwoorden. (ook bij Snel Antwoorden).</Resource>
     <Resource tag="CAPTCHA_SIZE">CAPTCHA grootte:</Resource>
     <Resource tag="CAPTCHA_SIZE_HELP">Grootte (lengte) van de CAPTCHA willekeurige tekenreeks.</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT">s Cache Timeout:</Resource>
-    <Resource tag="CAT_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="CDN_JQUERY">Use Google Hosted CDN jQuery Script File?</Resource>
     <Resource tag="CDN_JQUERY_HELP">You can use the Google Hosted Script File, or instead use internal.</Resource>
     <Resource tag="CDN_SCRIPTMANAGER">Use CDN Hosted Script Manager JS Files?</Resource>
@@ -1133,8 +1125,6 @@
     <Resource tag="CHECK_FOR_SPAM">Kies een SPAM Service voor Automatische SPAM Controle:</Resource>
     <Resource tag="CLEAR_CACHE">Leeg de Cache</Resource>
     <Resource tag="COLLAPSED">Collapsed</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE">Land afbeelding sjabloon:</Resource>
-    <Resource tag="COUNTRYIMAGE_TEMPLATE_HELP">Sjabloon om het Landenplaatje op te maken.</Resource>
     <Resource tag="CREATE_NNTPNAMES">Maak NNTP Gebruikersnamen:</Resource>
     <Resource tag="CREATE_NNTPNAMES_HELP">Aanvinken om automatisch gebruikers aan te maken bij het downloaden van usenet berichten. Alleen aanzetten in een testomgeving, en &lt;em&gt;NOOIT&lt;/em&gt; in een productieomgeving. De belangrijkste functie hiervan is het testen van de performance.</Resource>
     <Resource tag="CROP_IMAGE_ATTACH">Crop Foto-bijlage Voorbeeld:</Resource>
@@ -1147,8 +1137,6 @@
     <Resource tag="DISABLE_REGISTER_HELP">Nieuwe gebruikers mogen zich niet aanmelden.</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT">Actieve Discussies Cache Timeout:</Resource>
     <Resource tag="DISCUSSIONS_CACHE_TIMEOUT_HELP">In minuten</Resource>
-    <Resource tag="DISPLAY_POINTS">Laat reputatiestaaf zien:</Resource>
-    <Resource tag="DISPLAY_POINTS_HELP">Als deze is aangevinkt, wordt de reputatie als een staaf weergegeven.</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH">Maximale grootte van de Foto-bijlage voor verkleinen:</Resource>
     <Resource tag="DISPLAY_TRESHOLD_IMGATTACH_HELP">De maximale grootte die een foto-bijlage mag hebben. Wanneer deze groter zijn, worden ze weergegeven als een link.</Resource>
     <Resource tag="DISPLAYNAME_MIN_LENGTH">Display Name Min. Length</Resource>
@@ -1176,8 +1164,6 @@
     <Resource tag="ENABLE_HOVERCARDS">Enable User Info Hover Cards:</Resource>
     <Resource tag="ENABLE_HOVERCARDS_HELP">If enabled it shows an Hover Card (Which shows some quick info about the user) when you hover an user name. This will also show an Hover Card on the Twitter &amp; Facebook Profile Button.
      </Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS">Zet Actieve locatie error log aan:</Resource>
-    <Resource tag="ENABLE_LOCATIONPATH_ERRORS_HELP">Als deze aangevinkt is, worden alle fouten van actieve locatiepaden gelogd.</Resource>
     <Resource tag="ENABLE_RETWEET_MSG">Zet Retweet Bericht Knop aan:</Resource>
     <Resource tag="ENABLE_RETWEET_MSG_HELP">Zet de Retweet Knop aan of uit, waarmee de gebruiker een bericht kan retweeten.</Resource>
     <Resource tag="ENABLE_SSO">Zet Single Sign On aan:</Resource>
@@ -1193,8 +1179,6 @@
     <Resource tag="EXTERN_NEWWINDOW_HELP">Geef de resultaten van een externe zoekopdracht weer in een nieuw venster.</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS">Machtingingen om Extern te mogen zoeken:</Resource>
     <Resource tag="EXTERN_SEARCH_PERMISS_HELP">Sta externe zoekopdrachten toe voor:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS">Favoriete Topics Feed Toegang:</Resource>
-    <Resource tag="FAVTOPIC_FEEDS_ACCESS_HELP">Beperk weergave van actieve topic feeds.</Resource>
     <Resource tag="FILE_TABLE">Gebruik Bestandstabel:</Resource>
     <Resource tag="FILE_TABLE_HELP">Geuploade bestanden worden opgeslagen in de database in plaats van het bestandssysteem.</Resource>
     <Resource tag="FLOOT_DELAY">Post interval timeout:</Resource>
@@ -1207,12 +1191,6 @@
     <Resource tag="FORUM_EDITOR_HELP">Selecteer de globale tekstverwerker voor je forum. OM HTML tekstverwerkers (FCK and FreeTextBox) te gebruiken, moet het .bin bestand in de \bin directory staan en de support bestanden moeten in in \editors staan.</Resource>
     <Resource tag="FORUM_EMAIL">Forum E-mail:</Resource>
     <Resource tag="FORUM_EMAIL_HELP">Het Afzender e-mail adres bij het versturen van e-mail.</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS">Forum Feed Toegang:</Resource>
-    <Resource tag="FORUM_FEEDS_ACCESS_HELP">Beperkt weergave van forum feeds.</Resource>
-    <Resource tag="GENDER_TEMPLATE">Geslacht:</Resource>
-    <Resource tag="GENDER_TEMPLATE_HELP">Sjabloon om het geslacht van de gebruiker op te bouwen.</Resource>
-    <Resource tag="GROUPS_TEMPLATE">Groep sjabloon:</Resource>
-    <Resource tag="GROUPS_TEMPLATE_HELP">Sjabloon om de groepen van de gebruiker op te bouwen.</Resource>
     <Resource tag="HEADER_ADVERTS">Advertentie instellingen</Resource>
     <Resource tag="HEADER_ALBUM">Album instellingen</Resource>
     <Resource tag="HEADER_ATTACHMENTS">Attachments Settings</Resource>
@@ -1242,7 +1220,6 @@
     <Resource tag="HEADER_SETUP">Host Installatie</Resource>
     <Resource tag="HEADER_SPAM">Spam Instellingen</Resource>
     <Resource tag="HEADER_SYNDICATION">Syndicatie Feed instellingen</Resource>
-    <Resource tag="HEADER_TEMPLATES">Template instellingen</Resource>
     <Resource tag="HOST_ADVERTS">Advertenties</Resource>
     <Resource tag="HOST_AVATARS">Avatars</Resource>
     <Resource tag="HOST_CACHE">Cache</Resource>
@@ -1252,7 +1229,6 @@
     <Resource tag="HOST_LOG">Logs</Resource>
     <Resource tag="HOST_PERMISSION">Goedkeuring</Resource>
     <Resource tag="HOST_SEARCH">Zoeken</Resource>
-    <Resource tag="HOST_TEMPLATES">Sjablonen</Resource>
     <Resource tag="HOVERCARD_DELAY">Hover Card opening Delay (Milliseconds):</Resource>
     <Resource tag="HOVERCARD_DELAY_HELP">The Delay before opening the Hover Card when a user hovers over a user name.</Resource>
     <Resource tag="IGNORE_SPAMCHECK_COUNT">User Post Count to be ignored from Spam Check:</Resource>
@@ -1279,16 +1255,12 @@
     <Resource tag="IP_INFOSERVICE_XMLURL_HELP">Zet deze om informatie te krijgen over de gebruiker als XML data.</Resource>
     <Resource tag="IPINFO_ULRL">IP Info Pagina URL:</Resource>
     <Resource tag="IPINFO_ULRL_HELP">Zet deze om informatie te krijgen over IP lokatie als webpagina.</Resource>
-    <Resource tag="JOINDATE_TEMPLATE">Lid sinds sjabloon:</Resource>
-    <Resource tag="JOINDATE_TEMPLATE_HELP">Sjabloon om de aanmeldingsdatum van een gebruiker op te bouwen.</Resource>
     <Resource tag="LASTPOST_COUNT">Aantal Actieve Topics:</Resource>
     <Resource tag="LASTPOST_COUNT_HELP">Aantal Records zichtbaar in Actieve Topics op de indexpagina.</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS">Laatste Bericht Feed Toegang:</Resource>
     <Resource tag="LASTPOSTS_FEEDS_ACCESS_HELP">Beperk de weergave van berichtenfeeds van laatste berichten.</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT">Gebruiker Lazy Data Cache Timeout:</Resource>
     <Resource tag="LAZY_CACHE_TIMEOUT_HELP">In minuten</Resource>
-    <Resource tag="LOCATION_TEMPLATE">Locatie sjabloon:</Resource>
-    <Resource tag="LOCATION_TEMPLATE_HELP">Sjabloon om de locatie van de gebruiker op te maken.</Resource>
     <Resource tag="LOG_BANNEDIP">Allow log Banned IP actions:</Resource>
     <Resource tag="LOG_BANNEDIP_HELP">Log banned IP set and lift.</Resource>
     <Resource tag="LOG_ERROR">Allow log Application Errors:</Resource>
@@ -1309,8 +1281,6 @@
     <Resource tag="LOGIN_REDIR_URL_HELP">Als login is uitgeschakeld in de instellingen (AllowLoginAndLogoff moet uitstaan), dan is dit de url waar gebruikers naartoe worden geleid als ze op het forum komen. Wanneer "{0}" wordt toegevoegd aan de URL dan wordt op deze plaats de retour-URL gezet. Bijv. "http://mydomain.com/login.aspx?PreviousUrl={{0}}"</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES">Max. Aantal Poll Keuzes:</Resource>
     <Resource tag="MAX_ALLOWED_CHOICES_HELP">Aantal keuzes per vraag, de maximum waarde mag niet meer zijn dan 99.</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS">Max. Aantal Polls:</Resource>
-    <Resource tag="MAX_ALLOWED_POLLS_HELP">Aantal polls, de maximum waarde mag niet meer zijn dan 99.</Resource>
     <Resource tag="MAX_ATTACHMENTS">Maximum Aantal bijlagen per Post:</Resource>
     <Resource tag="MAX_ATTACHMENTS_HELP">Maximum aantal bijlagen per Post. Zet deze waarde op 0 voor een onbeperkt aantal bijlagen.</Resource>
     <Resource tag="MAX_FILESIZE">Maximum Bestandsgrootte:</Resource>
@@ -1325,10 +1295,6 @@
     <Resource tag="MAX_POST_SIZE_HELP">De maximale grootte van een bericht in bytes. Op 0 zetten voor ongelimiteerde grootte (niet aanbevolen).</Resource>
     <Resource tag="MAX_SEARCH_RESULTS">Maximaal aantal Zoekresultaten:</Resource>
     <Resource tag="MAX_SEARCH_RESULTS_HELP">Maximum aantal zoekresultaten wat weergegeven wordt. Bij "0" worden alle zoekresultaten weergegeven (niet aanbevolen).</Resource>
-    <Resource tag="MEDALS_TEMPLATE">Medailles template:</Resource>
-    <Resource tag="MEDALS_TEMPLATE_HELP">Sjabloon om de medailles op te bouwen.</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE">Gebruikerslijst Pagina grootte:</Resource>
-    <Resource tag="MEMBERLIST_PAGE_SIZE_HELP">n pagina in de Gebruikerslijst. </Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY">Archiveringstijd bericht</Resource>
     <Resource tag="MESSAGE_CHANGE_HISTORY_HELP">Aantal dagen dat de wijzigingen van de berichten bewaarde worden.</Resource>
     <Resource tag="MESSAGE_SYSTEM">Notification System for System Messages:</Resource>
@@ -1338,8 +1304,6 @@
     <Resource tag="MODAL_DIALOG">Modal Dialog</Resource>
     <Resource tag="MODAL_LOGIN">Gebruik Login scherm(Modaal PopUp Dialoogvenster):</Resource>
     <Resource tag="MODAL_LOGIN_HELP">Wanneer aangevinkt, wordt het loginscherm als een popup-venster getoond. Anders wordt het scherm op een eigen pagina getoond.</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE">Mijn topics lijstgrootte:</Resource>
-    <Resource tag="MYTOPICSLIST_PAGE_SIZE_HELP">Aanta items op de 'Mijn Topics' pagina. </Resource>
     <Resource tag="NAME_LENGTH">Maximale lengte van de gebruikersnaam:</Resource>
     <Resource tag="NAME_LENGTH_HELP">Maximale lengte van de gebruikersnaam of de weergave naam.</Resource>
     <Resource tag="NOFOLLOW_LINKTAGS">Gebruik "NoFollow" Tag in Links:</Resource>
@@ -1365,8 +1329,6 @@
     <Resource tag="PM_ATTACHMENTS_HELP">Allowes the upload and use of attachments in Private messages.</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE">Poll Afbeelding Bestandsgrootte:</Resource>
     <Resource tag="POLL_IMAGE_FILESIZE_HELP">Max. bestandsgrootte voor plaatjes die bij Polls worden gebruikt in KB.</Resource>
-    <Resource tag="POLLVOTING_PERIP">Poll Stemmen op basis van IP:</Resource>
-    <Resource tag="POLLVOTING_PERIP_HELP">Standaard wordt bij het stemmen gekeken naar de Gebruikersnaam en een Cookie. (Een stem per Gebruiker. Cookies worden gebruiker als Gast-stemmen is toegestaan.) &lt;br /&gt;Als deze is aangevinkt, wordt bij het stemmen ook het IP als referentie gebruikt, als een bescherming tegen kiesfraude.</Resource>
     <Resource tag="POPULAR_DAYS">Aantal Days om Hot te blijven:</Resource>
     <Resource tag="POPULAR_DAYS_HELP">Aantal dagen sinds het laatste bericht in het topic op Hot te blijven. Standaard is de waarde 7 (Een Week).</Resource>
     <Resource tag="POPULAR_REPLYS">Min. Aantal antwoorden om Hot te worden:</Resource>
@@ -1383,23 +1345,13 @@
     <Resource tag="POSTS_FEEDS_ACCESS_HELP">Beperk de weergave van berichtenfeeds voor een topic.</Resource>
     <Resource tag="POSTS_PER_PAGE">Berichten per Pagina:</Resource>
     <Resource tag="POSTS_PER_PAGE_HELP">Aantal berichten per pagina.</Resource>
-    <Resource tag="POSTS_TEMPLATE">Berichten sjabloon:</Resource>
-    <Resource tag="POSTS_TEMPLATE_HELP">Sjabloon om de berichten van de gebruiker op te bouwen.</Resource>
     <Resource tag="QUICK_SEARCH">Laat Snelzoeken zien:</Resource>
     <Resource tag="QUICK_SEARCH_HELP">Laat het Snelzoeken tekstvak en -knop zien in de werkbalk.</Resource>
-    <Resource tag="RANK_TEMPLATE">Rang sjabloon::</Resource>
-    <Resource tag="RANK_TEMPLATE_HELP">Sjabloon om de rang van de gebruiker op te bouwen.</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE">Rang afbeelding sjabloon :</Resource>
-    <Resource tag="RANKIMAGE_TEMPLATE_HELP">Sjabloon om de rang afbeelding op te bouwen.</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY"> Sleutel:</Resource>
     <Resource tag="RECAPTCHA_PRIVATE_KEY_HELP"> Sleutel in.</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY">reCAPTCHA Publieke Sleutel:</Resource>
     <Resource tag="RECAPTCHA_PUBLIC_KEY_HELP">Vul een reCAPTCHA Publieke Sleutel in.</Resource>
-    <Resource tag="REFERRER_CHECK">Zet Url Referrer Security Check aan:</Resource>
-    <Resource tag="REFERRER_CHECK_HELP">Controleert of alle POSTs van hetzelfde domein komen als het verwijzende domein (Geen cross-domain POSTs).</Resource>
     <Resource tag="REG_USERS">Geregistreerde Gebruikers</Resource>
-    <Resource tag="REMOTE_AVATARS">Sta externe avatars toe:</Resource>
-    <Resource tag="REMOTE_AVATARS_HELP">Gebruikers mogen avatars gebruiken die elders gehost zijn.</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES">Verwijder Geneste Quotes:</Resource>
     <Resource tag="REMOVE_NESTED_QUOTES_HELP">Verwijder geneste [quote] tags van antwoorden automatisch.</Resource>
     <Resource tag="REPLACE_CACHE_TIMEOUT">Vervangregels Cache Timeout:</Resource>
@@ -1416,8 +1368,6 @@
     <Resource tag="REPUTATION_MINDOWN_HELP">De minimale eisen voor een gebruiker om negatieve reputatiepunten te kunnen geven.</Resource>
     <Resource tag="REPUTATION_MINUP">Min. waarde om reputatiepunten te geven:</Resource>
     <Resource tag="REPUTATION_MINUP_HELP">De minimale eisen voor een gebruiker om reputatiepunten te kunnen geven.</Resource>
-    <Resource tag="REPUTATION_TEMPLATE">Reputatie sjabloon:</Resource>
-    <Resource tag="REPUTATION_TEMPLATE_HELP">Sjabloon om de reputatie van de gebruiker op te maken.</Resource>
     <Resource tag="REQUIRE_LOGIN">Verplicht inloggen:</Resource>
     <Resource tag="REQUIRE_LOGIN_HELP">Wanneer aangevinkt, moeten gebruikers verplicht inloggen voordat ze het forum kunnen bekijken. Ze zullen direct worden doorgestuurd naar de login pagina.</Resource>
     <Resource tag="RULES_ONREGISTER">Laat "Reglementen" zien voor de Registratie:</Resource>
@@ -1545,17 +1495,11 @@
     <Resource tag="TEMPLATE_TITLE_HELP">Template for the title meta tag.</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER">Pager page title template:</Resource>
     <Resource tag="TEMPLATE_TITLE_PAGER_HELP">Template for the page title inside the page title.</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE">Bedankt door sjabloon:</Resource>
-    <Resource tag="THANKS_FROM_TEMPLATE_HELP">Sjabloon om 'Bedankt van' op te bouwen.</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE">Bedankt aan sjabloon:</Resource>
-    <Resource tag="THANKS_TO_TEMPLATE_HELP">Sjabloon om 'Bedankt Aan' op te bouwen.</Resource>
     <Resource tag="TITLE">Host Instellingen</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS">Topics Feed Toegang:</Resource>
     <Resource tag="TOPIC_FEEDS_ACCESS_HELP">Beperk weergave van topic feeds.</Resource>
     <Resource tag="TOPICFEED_COUNT">Max. Topics on the Forum Feed:</Resource>
     <Resource tag="TOPICFEED_COUNT_HELP">The maximum Amount of Topics to show on the Atom/Rss Feed.</Resource>
-    <Resource tag="TOPICS_PER_PAGE">Topics Per Pagina:</Resource>
-    <Resource tag="TOPICS_PER_PAGE_HELP">Aantal Topics per Pagina.</Resource>
     <Resource tag="TWITTER_USERNAME">Twitter Gebruikersnaam voor Retweets:</Resource>
     <Resource tag="TWITTER_USERNAME_HELP">De Twitter Gebruikersnaam die wordt gebruikt als een topic of een bericht wordt geretweet.</Resource>
     <Resource tag="TWOCOLUMN_BOARD">Use 2 Column Board layout</Resource>
@@ -1570,8 +1514,6 @@
     <Resource tag="USER_CHANGE_LANGUAGE_HELP">Mogen gebruikers de taal van het forum wijzigen?</Resource>
     <Resource tag="USER_CHANGE_THEME">Gebruikers mogen thema wijzigen:</Resource>
     <Resource tag="USER_CHANGE_THEME_HELP">Mogen gebruikers het thema kiezen wat ze willen gebruiken?</Resource>
-    <Resource tag="USERBOX_TEMPLATE">Gebruikersvak template:</Resource>
-    <Resource tag="USERBOX_TEMPLATE_HELP">Template om het gebruikersvak op te bouwen bij de berichten.</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT">Board Gebruiker Statistieken Cache Timeout:</Resource>
     <Resource tag="USRSTATS_CACHE_TIMEOUT_HELP">In minuten</Resource>
     <Resource tag="VIEWACTIVE_PERMISSION">Machtigingen voor het bekijken van de Actieve Gebruikers:</Resource>
