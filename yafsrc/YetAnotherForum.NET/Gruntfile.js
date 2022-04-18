@@ -52,7 +52,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/moment-with-locales.js",
+                    "node_modules/node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/moment-with-locales.js",
+                    "node_modules/node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-datetimepicker.js",
                     "Scripts/bootstrap-notify.js",

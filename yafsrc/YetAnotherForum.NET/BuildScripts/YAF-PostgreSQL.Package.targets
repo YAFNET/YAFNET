@@ -118,7 +118,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\moment-with-locales.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery-3.6.0.intellisense.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />

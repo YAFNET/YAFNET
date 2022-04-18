@@ -13,6 +13,7 @@
     "sass": "*"
   },
   "dependencies": {
+    "moment": "^2.29.3",
     "prismjs": "^1.28.0"
   }
 }
