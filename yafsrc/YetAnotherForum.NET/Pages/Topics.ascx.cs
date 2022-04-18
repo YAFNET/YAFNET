@@ -232,10 +232,6 @@ namespace YAF.Pages
                 this.Get<HttpResponseBase>().Redirect(this.PageBoardContext.PageForum.RemoteURL);
             }
 
-            this.PageTitle.Text = this.PageBoardContext.PageForum.Description.IsSet()
-                ? $"{this.HtmlEncode(this.PageBoardContext.PageForum.Name)} - <em>{this.HtmlEncode(this.PageBoardContext.PageForum.Description)}</em>"
-                : this.HtmlEncode(this.PageBoardContext.PageForum.Name);
-
             this.PageSize.DataSource = StaticDataHelper.PageEntries();
             this.PageSize.DataTextField = "Name";
             this.PageSize.DataValueField = "Value";

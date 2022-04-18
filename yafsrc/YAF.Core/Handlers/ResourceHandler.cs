@@ -71,7 +71,7 @@ namespace YAF.Core.Handlers
         /// </param>
         public void ProcessRequest([NotNull] HttpContext context)
         {
-            if (this.Get<ISession>().LastVisit.HasValue && context.Request.CheckRequestValidity())
+            if (this.Get<ISession>().LastVisit.HasValue)
             {
                 // defaults
                 var previewCropped = false;

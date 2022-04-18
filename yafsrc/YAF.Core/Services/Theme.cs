@@ -79,7 +79,8 @@ namespace YAF.Core.Services
         {
             CodeContracts.VerifyNotNull(theme);
 
-            return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme));
+            return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme))
+                                 && File.Exists(Path.Combine(GetMappedThemeFile(theme), "bootstrap-forum.min.css"));
         }
 
         /// <summary>

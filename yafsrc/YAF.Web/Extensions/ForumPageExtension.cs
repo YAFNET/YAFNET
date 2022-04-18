@@ -44,7 +44,7 @@ namespace YAF.Web.Extensions
 
             var pageString = string.Empty;
 
-            if (BoardContext.Current.CurrentForumPage.PageType is ForumPages.Posts or ForumPages.Topics)
+            if (page.PageType is ForumPages.Posts or ForumPages.Topics)
             {
                 // get current page...
                 var currentPager = page.FindControlAs<Pager>("Pager");
@@ -57,9 +57,9 @@ namespace YAF.Web.Extensions
                 }
             }
 
-            if (!BoardContext.Current.CurrentForumPage.IsAdminPage)
+            if (!page.IsAdminPage)
             {
-                switch (BoardContext.Current.CurrentForumPage.PageType)
+                switch (page.PageType)
                 {
                     case ForumPages.Posts:
                         if (BoardContext.Current.PageTopicID != 0)

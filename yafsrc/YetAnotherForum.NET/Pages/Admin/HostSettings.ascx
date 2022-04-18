@@ -279,22 +279,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel6" runat="server"
-                                                   AssociatedControlID="AbandonSessionsForDontTrack"
-                                                   LocalizedTag="ABANDON_TRACKUSR" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="form-check form-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="AbandonSessionsForDontTrack" runat="server"></asp:CheckBox>
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-md-6">
-                                    <YAF:HelpLabel ID="HelpLabel15" runat="server"
-                                                   AssociatedControlID="DoUrlReferrerSecurityCheck"
-                                                   LocalizedTag="REFERRER_CHECK" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                    <div class="form-check form-switch">
-                                        <asp:CheckBox Text="&nbsp;" ID="DoUrlReferrerSecurityCheck" runat="server"></asp:CheckBox>
-                                    </div>
+                            <div class="mb-3">
+                                <YAF:HelpLabel ID="HelpLabel6" runat="server"
+                                               AssociatedControlID="AbandonSessionsForDontTrack"
+                                               LocalizedTag="ABANDON_TRACKUSR" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                                <div class="form-check form-switch">
+                                    <asp:CheckBox Text="&nbsp;" ID="AbandonSessionsForDontTrack" runat="server"></asp:CheckBox>
                                 </div>
                             </div>
                             <div class="mb-3">

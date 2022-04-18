@@ -188,7 +188,7 @@ namespace YAF.Web.Controls
             htmlDropDown.Append(@"</div></div>");
 
             writer.BeginRender();
-            writer.WriteLine(@"<div id=""container-fluid""><div class=""row no-gutters"">");
+            writer.WriteLine(@"<div id=""container-fluid""><div class=""row g-0"">");
 
             // render the contents of the help menu....
             writer.WriteLine(

@@ -1658,16 +1658,6 @@ namespace YAF.Configuration
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether DoUrlReferrerSecurityCheck.
-        /// </summary>
-        public bool DoUrlReferrerSecurityCheck
-        {
-            get => this.Registry.GetValue("DoUrlReferrerSecurityCheck", false);
-
-            set => this.Registry.SetValue("DoUrlReferrerSecurityCheck", value);
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether EnableImageAttachmentResize.
         /// </summary>
         public bool EnableImageAttachmentResize
