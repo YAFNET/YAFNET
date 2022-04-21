@@ -117,7 +117,7 @@
     <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-datetimepicker.css;Content\bootstrap-notify.css;Content\bootstrap-tagsinput.css;Content\prism.css;
 	web.config;app.config;db.config;mail.config;
   Scripts\jquery.ForumAdminExtensionsDnn.js;Scripts\jquery.ForumAdminExtensionsDnn.min.js;
-  Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\bootstrap-tagsinput.js;Scripts\bootstrap-typeahead.js;Scripts\jquery.bootstrap-touchspin.js;Scripts\hammer.min.js;
+  Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\bootstrap-tagsinput.js;Scripts\bootstrap-typeahead.js;Scripts\jquery.bootstrap-touchspin.js;
   Scripts\jquery.hovercard.js;Scripts\prism.js;Scripts\select2.js;**\Content\**\*.scss</ExcludeFilesFromDeployment>
     <ExcludeFoldersFromDeployment>Content\select2;Content\flag-icons;Content\fontawesome;Content\forum;Content\bootstrap;Content\jQuery.FileUpload;Scripts\jQuery.FileUpload;Scripts\blueimp-gallery;Scripts\forum</ExcludeFoldersFromDeployment>
   </PropertyGroup>
@@ -2847,7 +2847,6 @@
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />
-    <Content Include="Scripts\hammer.min.js" />
     <Content Include="Scripts\InstallWizard.comb.js" />
     <Content Include="Scripts\InstallWizard.comb.min.js">
       <DependentUpon>InstallWizard.comb.js</DependentUpon>

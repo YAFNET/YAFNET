@@ -109,7 +109,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-typeahead.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-datetimepicker.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap-notify.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\hammer.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.bootstrap-touchspin.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.js" />

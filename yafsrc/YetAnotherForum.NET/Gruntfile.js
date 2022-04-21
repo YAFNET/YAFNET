@@ -52,7 +52,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "node_modules/node_modules/moment/min/moment-with-locales.js",
+                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
@@ -65,7 +65,7 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/hammer.min.js",
+                    "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
                     "Scripts/forum/yaf.Attachments.js",
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/moment-with-locales.js",
+                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/jquery.bootstrap-touchspin.js",
@@ -97,7 +97,7 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/hammer.min.js",
+                    "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
                     "Scripts/forum/yaf.Attachments.js",
@@ -117,7 +117,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/moment-with-locales.js",
+                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-datetimepicker.js",
@@ -128,7 +128,7 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/hammer.min.js",
+                    "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
                     "Scripts/forum/yaf.Notify.js",
@@ -145,7 +145,7 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "node_modules/node_modules/moment/min/moment-with-locales.js",
+                    "node_modules/moment/min/moment-with-locales.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-datetimepicker.js",
                     "Scripts/bootstrap-notify.js",
@@ -155,7 +155,7 @@ module.exports = function(grunt) {
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
                     "Scripts/jquery.hovercard.js",
                     "Scripts/prism.js",
-                    "Scripts/hammer.min.js",
+                    "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
                     "Scripts/forum/yaf.Notify.js",
