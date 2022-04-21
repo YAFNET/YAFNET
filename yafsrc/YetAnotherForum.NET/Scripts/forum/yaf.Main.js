@@ -123,6 +123,8 @@ $(document).ready(function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+    Prism.highlightAll();
+
     var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
     popoverTriggerList.map(function (popoverTriggerEl) {
         return new bootstrap.Popover(popoverTriggerEl,

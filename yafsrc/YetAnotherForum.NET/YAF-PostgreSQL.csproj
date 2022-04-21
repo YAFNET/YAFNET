@@ -681,7 +681,6 @@
     <Compile Include="Modules\ScriptsLoaderModule.cs" />
     <Compile Include="Modules\SimpleBaseForumModule.cs" />
     <Compile Include="Modules\SuspendCheckForumModule.cs" />
-    <Compile Include="Modules\TimeAgoForumModule.cs" />
     <Compile Include="Pages\Account\ResetPassword.ascx.cs">
       <DependentUpon>ResetPassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

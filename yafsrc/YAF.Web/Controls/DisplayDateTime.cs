@@ -123,7 +123,7 @@ namespace YAF.Web.Controls
             writer.Write(
                 ControlHtml,
                 this.PageBoardContext.BoardSettings.ShowRelativeTime
-                    ? this.AsDateTime.ToString("yyyy-MM-ddTHH:mm:ssZ", CultureInfo.InvariantCulture)
+                    ? this.AsDateTime.ToRelativeTime()
                     : formattedDatetime,
                 formattedDatetime);
 

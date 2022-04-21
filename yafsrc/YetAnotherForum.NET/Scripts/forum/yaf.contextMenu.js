@@ -8,69 +8,73 @@
         var messageID = $(this).find(".selectionQuoteable").attr("id");
 
         if (window.matchMedia("only screen and (max-width: 760px)").matches) {
-            delete Hammer.defaults.cssProps.userSelect;
 
-            Hammer($(this)[0], { prevent_default: false, stop_browser_behavior: false }).on("press",
-                function(e) {
+            var el = $(this)[0];
 
-                    if (isMessageContext) {
-                        var selectedText = getSelectedMessageText();
+            // listen for the long-press event
+            el.addEventListener('long-press', function (e) {
 
-                        if (selectedText.length) {
-                            var searchItem = contextMenu.find(".item-search");
+                // stop the event from bubbling up
+                e.preventDefault();
 
-                            if (searchItem.length) {
-                                searchItem.remove();
-                            }
+                if (isMessageContext) {
+                    var selectedText = getSelectedMessageText();
 
-                            var selectedItem = contextMenu.find(".item-selected-quoting");
+                    if (selectedText.length) {
+                        var searchItem = contextMenu.find(".item-search");
 
-                            if (selectedItem.length) {
-                                selectedItem.remove();
-                            }
-
-                            var selectedDivider = contextMenu.find(".selected-divider");
-
-                            if (selectedDivider.length) {
-                                selectedDivider.remove();
-                            }
-
-                            if (contextMenu.data("url").length) {
-                                contextMenu.prepend('<a href="javascript:goToURL(\'' +
-                                    messageID +
-                                    "','" +
-                                    selectedText +
-                                    "','" +
-                                    contextMenu.data("url") +
-                                    '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
-                                    contextMenu.data("quote") +
-                                    "</a>");
-                            }
-
-                            contextMenu.prepend(
-                                '<a href="javascript:copyToClipBoard(\'' +
-                                selectedText +
-                                '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' +
-                                contextMenu.data("copy") +
-                                "</a>");
-
-                            contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
-
-                            contextMenu.prepend(
-                                '<a href="javascript:searchText(\'' +
-                                selectedText +
-                                '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' +
-                                contextMenu.data("search") +
-                                ' "' +
-                                selectedText +
-                                '"</a>');
+                        if (searchItem.length) {
+                            searchItem.remove();
                         }
-                    }
 
-                    contextMenu.css({
-                        display: "block"
-                    }).addClass("show").offset({ left: e.srcEvent.pageX, top: e.srcEvent.pageY });
-                });
+                        var selectedItem = contextMenu.find(".item-selected-quoting");
+
+                        if (selectedItem.length) {
+                            selectedItem.remove();
+                        }
+
+                        var selectedDivider = contextMenu.find(".selected-divider");
+
+                        if (selectedDivider.length) {
+                            selectedDivider.remove();
+                        }
+
+                        if (contextMenu.data("url")) {
+                            contextMenu.prepend('<a href="javascript:goToURL(\'' +
+                                messageID +
+                                "','" +
+                                selectedText +
+                                "','" +
+                                contextMenu.data("url") +
+                                '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' +
+                                contextMenu.data("quote") +
+                                "</a>");
+                        }
+
+                        contextMenu.prepend(
+                            '<a href="javascript:copyToClipBoard(\'' +
+                            selectedText +
+                            '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' +
+                            contextMenu.data("copy") +
+                            "</a>");
+
+                        contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
+
+                        contextMenu.prepend(
+                            '<a href="javascript:searchText(\'' +
+                            selectedText +
+                            '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' +
+                            contextMenu.data("search") +
+                            ' "' +
+                            selectedText +
+                            '"</a>');
+                    }
+                }
+
+                contextMenu.css({
+                    display: "block"
+                }).addClass("show").offset({ left: e.detail.clientX, top: e.detail.clientY });
+            });
         }
 
         $(this).on("contextmenu", function (e) {
@@ -96,7 +100,7 @@
                         selectedDivider.remove();
                     }
 
-                    if (contextMenu.data("url").length) {
+                    if (contextMenu.data("url")) {
                         contextMenu.prepend('<a href="javascript:goToURL(\'' +
                             messageID +
                             "','" +

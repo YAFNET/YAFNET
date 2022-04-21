@@ -15,7 +15,6 @@
   "dependencies": {
     "jquery": "^3.6.0",
     "long-press-event": "^2.4.4",
-    "moment": "^2.29.3",
     "prismjs": "^1.28.0"
   }
 }

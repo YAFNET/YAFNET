@@ -388,7 +388,7 @@ namespace YAF.Core.Model
                         .Join<Forum, Category>((c, d) => d.ID == c.CategoryID).Join<User>((a, e) => e.ID == a.UserID);
 
                     expression.Where<Message, Topic, Forum, Category>(
-                        (a, b, c, d) => (a.Flags & 15) == 16 && (b.Flags & 8) != 8 && d.BoardID == boardId && (d.Flags & 1) == 1);
+                        (a, b, c, d) => (a.Flags & 16) == 16 && (b.Flags & 8) != 8 && d.BoardID == boardId && (d.Flags & 1) == 1);
 
                     if (!showNoCountPosts)
                     {

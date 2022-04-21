@@ -27,13 +27,40 @@ namespace YAF.Core.Helpers
     using System;
     using System.Text.RegularExpressions;
 
+    using YAF.Core.Context;
     using YAF.Types.Extensions;
+    using YAF.Types.Interfaces;
 
     /// <summary>
     /// DateTime Helper
     /// </summary>
     public static class DateTimeHelper
-    { 
+    {
+        /// <summary>
+        /// The second.
+        /// </summary>
+        private const int Second = 1;
+
+        /// <summary>
+        /// The minute.
+        /// </summary>
+        private const int Minute = 60 * Second;
+
+        /// <summary>
+        /// The hour.
+        /// </summary>
+        private const int Hour = 60 * Minute;
+
+        /// <summary>
+        /// The day.
+        /// </summary>
+        private const int Day = 24 * Hour;
+
+        /// <summary>
+        /// The month.
+        /// </summary>
+        private const int Month = 30 * Day;
+
         /// <summary>
         /// the SQL compatible DateTime Min Value
         /// </summary>
@@ -118,5 +145,98 @@ namespace YAF.Core.Helpers
         /// The <see cref="int"/>.
         /// </returns>
         public static int DateDiffDay(DateTime startDate, DateTime endDate) => (endDate.Date - startDate.Date).Days;
+
+        /// <summary>
+        /// Returns the relative version of the provided DateTime, relative to now. E.g.: "2 days ago", or "in 6 months".
+        /// References: https://stackoverflow.com/a/5427203
+        /// </summary>
+        /// <param name="dateTime">The DateTime to compare to Now</param>
+        /// <returns>A friendly string</returns>
+        public static string ToRelativeTime(this DateTime dateTime)
+        {
+            var localizer = BoardContext.Current.Get<ILocalization>();
+
+            if (DateTime.UtcNow.Ticks == dateTime.Ticks)
+            {
+                return localizer.GetText("RELATIVE_TIME", "NOW");
+            }
+
+            var isFuture = DateTime.UtcNow.Ticks < dateTime.Ticks;
+            var ts = DateTime.UtcNow.Ticks < dateTime.Ticks
+                         ? new TimeSpan(dateTime.Ticks - DateTime.UtcNow.Ticks)
+                         : new TimeSpan(DateTime.UtcNow.Ticks - dateTime.Ticks);
+
+            var delta = ts.TotalSeconds;
+
+            switch (delta)
+            {
+                case < 1 * Minute:
+                    return isFuture
+                               ? localizer.GetTextFormatted(
+                                   "FUTURE",
+                                   ts.Seconds == 1
+                                       ? localizer.GetText("RELATIVE_TIME", "S")
+                                       : localizer.GetTextFormatted("SS", ts.Seconds))
+                               : localizer.GetTextFormatted(
+                                   "PAST",
+                                   ts.Seconds == 1
+                                       ? localizer.GetText("RELATIVE_TIME", "S")
+                                       : localizer.GetTextFormatted("SS", ts.Seconds));
+                case < 2 * Minute:
+                    return isFuture
+                               ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "M"))
+                               : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "M"));
+                case < 45 * Minute:
+                    return isFuture
+                               ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("MM", ts.Minutes))
+                               : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("MM", ts.Minutes));
+                case < 90 * Minute:
+                    return isFuture
+                               ? localizer.GetTextFormatted("FUTURE", localizer.GetText("RELATIVE_TIME", "H"))
+                               : localizer.GetTextFormatted("PAST", localizer.GetText("RELATIVE_TIME", "H"));
+                case < 24 * Hour:
+                    return isFuture
+                               ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("HH", ts.Minutes))
+                               : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("HH", ts.Minutes));
+                case < 48 * Hour:
+                    return isFuture
+                               ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("D", ts.Minutes))
+                               : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("D", ts.Minutes));
+                case < 30 * Day:
+                    return isFuture
+                               ? localizer.GetTextFormatted("FUTURE", localizer.GetTextFormatted("DD", ts.Minutes))
+                               : localizer.GetTextFormatted("PAST", localizer.GetTextFormatted("DD", ts.Minutes));
+                case < 12 * Month:
+                    {
+                        var months = Convert.ToInt32(Math.Floor((double) ts.Days / 30));
+                        return isFuture
+                                   ? localizer.GetTextFormatted(
+                                       "FUTURE",
+                                       months <= 1
+                                           ? localizer.GetText("RELATIVE_TIME", "MO")
+                                           : localizer.GetTextFormatted("MOMO", months))
+                                   : localizer.GetTextFormatted(
+                                       "PAST",
+                                       months <= 1
+                                           ? localizer.GetText("RELATIVE_TIME", "MO")
+                                           : localizer.GetTextFormatted("MOMO", months));
+                    }
+                default:
+                    {
+                        var years = Convert.ToInt32(Math.Floor((double) ts.Days / 365));
+                        return isFuture
+                                   ? localizer.GetTextFormatted(
+                                       "FUTURE",
+                                       years <= 1
+                                           ? localizer.GetText("RELATIVE_TIME", "Y")
+                                           : localizer.GetTextFormatted("YY", years))
+                                   : localizer.GetTextFormatted(
+                                       "PAST",
+                                       years <= 1
+                                           ? localizer.GetText("RELATIVE_TIME", "Y")
+                                           : localizer.GetTextFormatted("YY", years));
+                    }
+            }
+        }
     }
 }

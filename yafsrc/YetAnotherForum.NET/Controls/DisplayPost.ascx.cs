@@ -177,11 +177,11 @@ namespace YAF.Controls
                 this.ContextMenu.Attributes.Add(
                     "data-quote",
                     this.GetText("COMMON", "SELECTED_QUOTE"));
-
-                this.ContextMenu.Attributes.Add(
-                    "data-copy",
-                    this.GetText("COMMON", "SELECTED_COPY"));
             }
+
+            this.ContextMenu.Attributes.Add(
+                "data-copy",
+                this.GetText("COMMON", "SELECTED_COPY"));
 
             this.ContextMenu.Attributes.Add(
                 "data-search",

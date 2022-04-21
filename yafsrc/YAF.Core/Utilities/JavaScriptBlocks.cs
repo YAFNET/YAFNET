@@ -67,26 +67,6 @@ namespace YAF.Core.Utilities
                }}";
 
         /// <summary>
-        ///   Gets the MomentJS Load JS.
-        /// </summary>
-        public static string MomentLoadJs =>
-            $@"function loadTimeAgo() {{
-            
-             moment.locale('{(BoardContext.Current.PageUser.Culture.IsSet()
-                                  ? BoardContext.Current.PageUser.Culture.Substring(0, 2)
-                                  : BoardContext.Current.BoardSettings.Culture.Substring(0, 2))}');
-             {Config.JQueryAlias}('abbr.timeago').each(function() {{
-                  {Config.JQueryAlias}(this).html(function(index, value) {{
-                                          return moment(value).fromNow();
-                  }});
-                  {Config.JQueryAlias}(this).removeClass('timeago');
-            }});
-
-            Prism.highlightAll();
-                  }}
-                   Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadTimeAgo);";
-
-        /// <summary>
         ///   Gets the script for album/image title/image callback.
         /// </summary>
         /// <returns>
